@@ -5,6 +5,7 @@ import {
   sourceTextNamesCatalogueBrandField,
   type CatalogueRetainedRecord,
 } from './retained-record';
+import { reviewedBrowserCaptureSurfaces } from './intake-readiness';
 
 export const catalogueExactOfferEvidenceSchemaVersion = 1 as const;
 export const catalogueExactOfferManufacturerSkuEvidenceSchemaVersion = 3 as const;
@@ -628,14 +629,14 @@ export function reviewedExactOfferEvidenceValid(
   const browserResponseEvidence = evidence.method === 'reviewed-browser-dom-exact-offer-field-extraction'
     && evidence.responseDigestScope === 'rendered-dom-outerhtml'
     && evidence.responseMimeType === 'text/html'
-    && evidence.browserCapture?.surface === 'Codex in-app browser'
+    && (reviewedBrowserCaptureSurfaces as readonly string[]).includes(evidence.browserCapture?.surface ?? '')
     && evidence.browserCapture.documentReadyState === 'complete'
     && evidence.browserCapture.pageTitle.trim().length >= 3;
   const accessibleBrowserResponseEvidence = (
     evidence.method === 'reviewed-browser-accessibility-exact-offer-field-extraction'
     && evidence.responseDigestScope === 'rendered-accessibility-tree'
     && evidence.responseMimeType === 'text/html'
-    && evidence.browserCapture?.surface === 'Codex in-app browser'
+    && (reviewedBrowserCaptureSurfaces as readonly string[]).includes(evidence.browserCapture?.surface ?? '')
     && evidence.browserCapture.documentReadyState === 'complete'
     && evidence.browserCapture.pageTitle.trim().length >= 3
   );

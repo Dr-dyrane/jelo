@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
-    "candidateFingerprint": "96cd437a5027f0d4054a8ef2dd6746494bb23cc31ca1cad4f7957fd80b1c62f6",
+    "candidateFingerprint": "a21c03c745d9efbf2c1350f62ae84a91ce14b4f80550529ed770b13a0f8f9b67",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -188,7 +188,7 @@
           "retailer": "Beauty by Daz",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
-          "observedAt": "2026-07-23T10:19:30Z",
+          "observedAt": "2026-08-08T02:01:59Z",
           "observedTitle": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml",
           "observedSize": "400 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -201,13 +201,13 @@
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
             "responseUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
-            "responseSha256": "4150b48dd96fa4f0d3b9cc05e73ed18464a9ff732b6a648bdd6a7dc0d857ff25",
+            "responseSha256": "c37db3280b5194fb6cf1b721b0e8fbf0f7f7286a52d521a67dc9fc02e4a460f7",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 200066,
-            "retrievedAt": "2026-07-23T10:19:30Z",
+            "responseByteSize": 295370,
+            "retrievedAt": "2026-08-08T02:01:59Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
               "pageTitle": "Facefacts Ceramide Hydrating Gentle Cleanser - 400ml"
             },
@@ -247,14 +247,14 @@
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T10:30:00Z"
+            "reviewedAt": "2026-08-08T02:02:38Z"
           }
         },
         {
           "retailer": "Teeka4",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
-          "observedAt": "2026-07-23T10:21:30Z",
+          "observedAt": "2026-08-08T02:02:11Z",
           "observedTitle": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
           "observedSize": "400 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -267,13 +267,13 @@
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
             "responseUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
-            "responseSha256": "43aafbb86434052e18c5b64ffc0268f151bcac09768a495b3876baa77e0098ca",
+            "responseSha256": "843b2b98276ce934699e59008d49dee0335a50b718f48eb94572be943bf53bf3",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 200024,
-            "retrievedAt": "2026-07-23T10:21:30Z",
+            "responseByteSize": 390416,
+            "retrievedAt": "2026-08-08T02:02:11Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
               "pageTitle": "Shop for original Facefacts Ceramide Hydrating Gentle Cleanser 400ml in Lagos Nigeria"
             },
@@ -313,14 +313,14 @@
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T10:30:00Z"
+            "reviewedAt": "2026-08-08T02:02:38Z"
           }
         },
         {
           "retailer": "24Eleven",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
-          "observedAt": "2026-07-23T10:20:30Z",
+          "observedAt": "2026-08-08T02:02:38Z",
           "observedTitle": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml",
           "observedSize": "400 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -333,13 +333,13 @@
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
             "responseUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
-            "responseSha256": "8cd9c4fc24e3a921ac3b3bad090240f15983aa2598a6c0b1ebed5361cf5ed5b8",
+            "responseSha256": "11a5726ed880a51932c6a37c58f69afe4d83f59ded535b896be217754f9b0933",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 93437,
-            "retrievedAt": "2026-07-23T10:20:30Z",
+            "responseByteSize": 82822,
+            "retrievedAt": "2026-08-08T02:02:38Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
               "pageTitle": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml | 24eleven.ng - Best price in Nigeria"
             },
@@ -379,7 +379,7 @@
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T10:30:00Z"
+            "reviewedAt": "2026-08-08T02:02:38Z"
           }
         }
       ],
@@ -433,14 +433,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-23T10:42:15Z"
+      "approvedAt": "2026-08-08T02:03:00Z"
     },
-    "dossierFingerprint": "3238ddae88c3d6a5b91b3cdf38654f89d545c2a55aab59d1f02ec52c621f2a0a"
+    "dossierFingerprint": "251062e741a1b9d4cf2827e5c4f027c1ca262b2389ba45ace7867bd60320bb16"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
-    "dossierFingerprint": "3238ddae88c3d6a5b91b3cdf38654f89d545c2a55aab59d1f02ec52c621f2a0a",
+    "dossierFingerprint": "251062e741a1b9d4cf2827e5c4f027c1ca262b2389ba45ace7867bd60320bb16",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -452,13 +452,13 @@
       "usage": "Apply 2-3 pumps onto damp skin, massage gently, then rinse with warm water.",
       "manufacturerDirectionsUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-07-23T10:42:30Z"
+      "reviewedAt": "2026-08-08T02:03:15Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-07-23T10:42:45Z"
+      "publishedAt": "2026-08-08T02:03:30Z"
     },
-    "releaseFingerprint": "107a9ed3af1c913fa69f91a903dae1dedd3713ae4a66d624e1f77740ec2fe806"
+    "releaseFingerprint": "af7b8ea29575ad2e39a4b6d2e1d6fbbeb505282c7da90a66de1736f28090d69f"
   }
 }

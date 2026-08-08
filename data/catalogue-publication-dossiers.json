@@ -4588,442 +4588,6 @@
     },
     {
       "schemaVersion": 8,
-      "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
-      "candidateFingerprint": "96cd437a5027f0d4054a8ef2dd6746494bb23cc31ca1cad4f7957fd80b1c62f6",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "5031413928662",
-        "brand": "FACE FACTS",
-        "name": "Ceramide Hydrating Gentle Cleanser",
-        "variant": "Ceramide Hydrating Gentle Cleanser",
-        "size": "400 ml",
-        "packageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
-        "category": "Face care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
-        "officialIdentity": {
-          "url": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
-          "observedGtin": "5031413928662",
-          "observedVariant": "Ceramide Hydrating Gentle Cleanser",
-          "observedSize": "400 ml",
-          "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/facefacts-ceramide-hydrating-gentle-cleanser-400ml.json",
-          "canonicalExtraction": {
-            "schemaVersion": 6,
-            "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
-            "sourceUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
-            "responseUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
-            "retrievedAt": "2026-07-23T10:17:30Z",
-            "fields": {
-              "gtin": {
-                "value": "5031413928662",
-                "locator": "identifierCorroborations[*].fields.gtin",
-                "sourceText": "EAN 5031413928662 is independently corroborated by Lami Fragrance and eBay UK; the visible manufacturer page does not publish an identifier."
-              },
-              "variant": {
-                "value": "Ceramide Hydrating Gentle Cleanser",
-                "locator": "Rendered accessibility tree product heading",
-                "sourceText": "Ceramide Hydrating Gentle Cleanser 400ml"
-              },
-              "size": {
-                "value": "400 ml",
-                "locator": "Rendered accessibility tree product heading and product details",
-                "sourceText": "Ceramide Hydrating Gentle Cleanser 400ml; 400ml"
-              },
-              "packageVersion": {
-                "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
-                "locator": "Official manufacturer product image",
-                "sourceText": "The current official image shows a white 400 ml pump bottle with the green Ceramide Hydrating Gentle Cleanser label.",
-                "evidenceUrl": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080"
-              }
-            },
-            "sourceResponseSha256": "8ce7248da490f625845b7ea9c2de4ae867606614698ae458c1fec6efabf05aa8",
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseByteSize": 4388,
-            "supplementalResponses": [
-              {
-                "role": "official-pack-image",
-                "sourceUrl": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
-                "responseUrl": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
-                "retrievedAt": "2026-07-23T10:25:00Z",
-                "responseSha256": "a4eb706c6babe76899fb871432115751d40a3be9a4bf936eded63bf020f3fa61",
-                "responseMimeType": "image/jpeg",
-                "responseByteSize": 32103
-              }
-            ],
-            "responseDigestScope": "rendered-accessibility-tree",
-            "method": "reviewed-browser-accessibility-identity-with-independent-ean-corroboration",
-            "browserCapture": {
-              "surface": "Codex in-app browser",
-              "documentReadyState": "complete",
-              "pageTitle": "Ceramide Hydrating Gentle Cleanser | Ideal for Dry & Sensitive Skin – FaceFacts"
-            },
-            "identifierCorroborations": [
-              {
-                "sourceUrl": "https://lamifragrance.com/product/face-facts-ceramide-hydrating-gentle/",
-                "responseUrl": "https://lamifragrance.com/product/face-facts-ceramide-hydrating-gentle/",
-                "retrievedAt": "2026-07-23T10:28:00Z",
-                "fields": {
-                  "gtin": {
-                    "value": "5031413928662",
-                    "locator": "Rendered accessibility product metadata field labelled GTIN",
-                    "sourceText": "GTIN: 5031413928662"
-                  },
-                  "variant": {
-                    "value": "Face Facts Ceramide Hydrating Gentle Cleanser 400ml",
-                    "locator": "Rendered accessibility product heading",
-                    "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser 400ml"
-                  },
-                  "size": {
-                    "value": "400 ml",
-                    "locator": "Rendered accessibility product heading size",
-                    "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser 400ml"
-                  }
-                },
-                "sourceResponseSha256": "7bd49dfb526343299e5dbcc92718b49942a0e72f96091536d6e20bb3ed4a09b1",
-                "sourceResponseMimeType": "text/html",
-                "sourceResponseByteSize": 12120,
-                "responseDigestScope": "rendered-accessibility-tree",
-                "method": "reviewed-browser-accessibility-independent-ean-corroboration",
-                "browserCapture": {
-                  "surface": "Codex in-app browser",
-                  "documentReadyState": "complete",
-                  "pageTitle": "Buy Face Facts Ceramide Hydrating Gentle Cleanser 400ml"
-                },
-                "reviewer": "JeloCare catalogue evidence review",
-                "reviewedAt": "2026-07-23T10:29:00Z"
-              },
-              {
-                "sourceUrl": "https://www.ebay.co.uk/itm/277901941087",
-                "responseUrl": "https://www.ebay.co.uk/itm/277901941087",
-                "retrievedAt": "2026-07-23T10:22:30Z",
-                "fields": {
-                  "gtin": {
-                    "value": "5031413928662",
-                    "locator": "Rendered accessibility item-specific definition labelled EAN",
-                    "sourceText": "EAN 5031413928662"
-                  },
-                  "variant": {
-                    "value": "Face Facts Ceramide Hydrating Gentle Cleanser Dry & Sensitive Skin 400ml",
-                    "locator": "Rendered accessibility page title",
-                    "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser Dry & Sensitive Skin 400ml | eBay UK"
-                  },
-                  "size": {
-                    "value": "400 ml",
-                    "locator": "Rendered accessibility item-specific Volume definition",
-                    "sourceText": "Volume 400 ml"
-                  }
-                },
-                "sourceResponseSha256": "6fb45e713ac214f320e689b10f8c217b522baf1aca13e000317c5ad43683a72f",
-                "sourceResponseMimeType": "text/html",
-                "sourceResponseByteSize": 28574,
-                "responseDigestScope": "rendered-accessibility-tree",
-                "method": "reviewed-browser-accessibility-independent-ean-corroboration",
-                "browserCapture": {
-                  "surface": "Codex in-app browser",
-                  "documentReadyState": "complete",
-                  "pageTitle": "Face Facts Ceramide Hydrating Gentle Cleanser Dry & Sensitive Skin 400ml | eBay UK"
-                },
-                "reviewer": "JeloCare catalogue evidence review",
-                "reviewedAt": "2026-07-23T10:26:00Z"
-              }
-            ],
-            "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T10:29:00Z"
-          },
-          "snapshotSha256": "0ff17549a4a6c24dfaebab4c726d2c28395f61fd1f47194993b381cd2aa0024d",
-          "snapshotMimeType": "application/json",
-          "snapshotByteSize": 4818,
-          "retrievedAt": "2026-07-23T10:17:30Z"
-        },
-        "checkedAt": "2026-07-23T10:29:00Z",
-        "demandEvidenceUrls": [
-          "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
-          "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
-          "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Fragrance-free rinse-off gel cleanser with five ceramides, hyaluronic acid, glycerin and oat amino acids for dry or sensitive skin",
-        "careTier": "daily-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "This is a rinse-off cosmetic cleanser, not a treatment for eczema, dermatitis or another condition. Apply to damp skin, massage gently and rinse; reduce use if tightness or persistent irritation develops. Fragrance-free labelling and ceramide ingredients do not guarantee tolerance for every person. Cracked, painful, infected, widespread or persistent symptoms need clinical review.",
-        "manufacturerEvidenceUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
-        "evidenceUrls": [
-          "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
-          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
-        ],
-        "reviewedAt": "2026-07-23T10:30:00Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "tier-a",
-        "regulatoryStatus": "pending",
-        "tierAIdentityEvidenceUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
-        "exactOffers": [
-          {
-            "retailer": "Beauty by Daz",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
-            "observedAt": "2026-07-23T10:19:30Z",
-            "observedTitle": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml",
-            "observedSize": "400 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
-            "retailerSku": "363-1-byd",
-            "priceNgn": 6950,
-            "stock": "in-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-dom-exact-offer-field-extraction",
-              "listingUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
-              "responseUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
-              "responseSha256": "4150b48dd96fa4f0d3b9cc05e73ed18464a9ff732b6a648bdd6a7dc0d857ff25",
-              "responseDigestScope": "rendered-dom-outerhtml",
-              "responseMimeType": "text/html",
-              "responseByteSize": 200066,
-              "retrievedAt": "2026-07-23T10:19:30Z",
-              "browserCapture": {
-                "surface": "Codex in-app browser",
-                "documentReadyState": "complete",
-                "pageTitle": "Facefacts Ceramide Hydrating Gentle Cleanser - 400ml"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "5031413928662",
-                  "locator": "Bound composite catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 5031413928662",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml",
-                  "locator": "Rendered h1 product heading",
-                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml"
-                },
-                "size": {
-                  "value": "400 ml",
-                  "locator": "Rendered h1 product heading size token",
-                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml"
-                },
-                "packageVersion": {
-                  "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
-                  "locator": "Rendered primary product gallery image",
-                  "sourceText": "Current 400 ml white pump bottle with green Ceramide Hydrating label"
-                },
-                "price": {
-                  "value": 6950,
-                  "currency": "NGN",
-                  "locator": "Rendered product price",
-                  "sourceText": "₦6,950.00"
-                },
-                "stock": {
-                  "value": "in-stock",
-                  "locator": "Rendered stock status",
-                  "sourceText": "In stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T10:30:00Z"
-            }
-          },
-          {
-            "retailer": "Teeka4",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
-            "observedAt": "2026-07-23T10:21:30Z",
-            "observedTitle": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
-            "observedSize": "400 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
-            "retailerSku": "TK-0454",
-            "priceNgn": 7200,
-            "stock": "in-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-dom-exact-offer-field-extraction",
-              "listingUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
-              "responseUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
-              "responseSha256": "43aafbb86434052e18c5b64ffc0268f151bcac09768a495b3876baa77e0098ca",
-              "responseDigestScope": "rendered-dom-outerhtml",
-              "responseMimeType": "text/html",
-              "responseByteSize": 200024,
-              "retrievedAt": "2026-07-23T10:21:30Z",
-              "browserCapture": {
-                "surface": "Codex in-app browser",
-                "documentReadyState": "complete",
-                "pageTitle": "Shop for original Facefacts Ceramide Hydrating Gentle Cleanser 400ml in Lagos Nigeria"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "5031413928662",
-                  "locator": "Bound composite catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 5031413928662",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
-                  "locator": "Rendered h1 product heading",
-                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml"
-                },
-                "size": {
-                  "value": "400 ml",
-                  "locator": "Rendered h1 product heading size token",
-                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml"
-                },
-                "packageVersion": {
-                  "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
-                  "locator": "Rendered primary product gallery image",
-                  "sourceText": "Current 400 ml white pump bottle with green Ceramide Hydrating label"
-                },
-                "price": {
-                  "value": 7200,
-                  "currency": "NGN",
-                  "locator": "Rendered product price",
-                  "sourceText": "₦7,200.00"
-                },
-                "stock": {
-                  "value": "in-stock",
-                  "locator": "Rendered stock status",
-                  "sourceText": "In stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T10:30:00Z"
-            }
-          },
-          {
-            "retailer": "24Eleven",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
-            "observedAt": "2026-07-23T10:20:30Z",
-            "observedTitle": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml",
-            "observedSize": "400 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
-            "retailerSku": "102232",
-            "priceNgn": 7300,
-            "stock": "in-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-dom-exact-offer-field-extraction",
-              "listingUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
-              "responseUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
-              "responseSha256": "8cd9c4fc24e3a921ac3b3bad090240f15983aa2598a6c0b1ebed5361cf5ed5b8",
-              "responseDigestScope": "rendered-dom-outerhtml",
-              "responseMimeType": "text/html",
-              "responseByteSize": 93437,
-              "retrievedAt": "2026-07-23T10:20:30Z",
-              "browserCapture": {
-                "surface": "Codex in-app browser",
-                "documentReadyState": "complete",
-                "pageTitle": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml | 24eleven.ng - Best price in Nigeria"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "5031413928662",
-                  "locator": "Bound composite catalogue identity snapshot",
-                  "sourceText": "Official catalogue identity GTIN 5031413928662",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml",
-                  "locator": "Rendered h1 product heading",
-                  "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml"
-                },
-                "size": {
-                  "value": "400 ml",
-                  "locator": "Rendered h1 product heading size token",
-                  "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml"
-                },
-                "packageVersion": {
-                  "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
-                  "locator": "Rendered primary product image",
-                  "sourceText": "Current 400 ml white pump bottle with green Ceramide Hydrating label"
-                },
-                "price": {
-                  "value": 7300,
-                  "currency": "NGN",
-                  "locator": "Rendered product price",
-                  "sourceText": "₦7,300"
-                },
-                "stock": {
-                  "value": "in-stock",
-                  "locator": "Rendered Availability field",
-                  "sourceText": "Available"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T10:30:00Z"
-            }
-          }
-        ],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "owned-identity-verified-render",
-        "sourceAsset": {
-          "url": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
-          "sha256": "a4eb706c6babe76899fb871432115751d40a3be9a4bf936eded63bf020f3fa61",
-          "mimeType": "image/jpeg",
-          "byteSize": 32103,
-          "width": 1080,
-          "height": 1080,
-          "retrievedAt": "2026-07-23T10:25:00Z"
-        },
-        "generationRecord": {
-          "schemaVersion": 1,
-          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and Lanczos resize",
-          "model": "gpt-image-2",
-          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background removal\nInput image: Image 1 is the official Face Facts front-pack photograph and the exact product-identity reference.\nPrimary request: preserve and recreate the exact FACE FACTS Ceramide Skin Barrier Complex Hydrating Gentle Cleanser 400 ml pump bottle shown in Image 1, while replacing only the white background and floor/shadow with a perfectly flat solid chroma-magenta #ff00ff background.\nSubject: one complete opaque white rectangular pump bottle with rounded shoulders, fully visible white pump, and exact original proportions. Keep it perfectly front-facing, centered, upright, crisp, photorealistic, and catalogue-ready.\nText (verbatim, where visible): “facefacts.”; “CERAMIDE”; “SKIN BARRIER COMPLEX”; “Hydrating”; “Gentle Cleanser”; “5 CERAMIDES + HYALURONIC ACID + OATS”; “Dermatologically Tested”; “Fragrance Free”; “Deeply cleanses dry, sensitive skin and helps strengthen your protective moisture barrier”; “VEGAN”; “400 ml e / 13.53 fl.oz”.\nComposition/framing: square 2000 x 2000; full pump and full bottle base visible; generous even clear margin; product must not touch or approach any edge.\nLighting/mood: premium soft frontal studio light contained on the product only; enough edge definition to distinguish the white bottle.\nScene/backdrop: perfectly flat uniform #ff00ff only, no gradient, texture, vignette, floor plane, spill, lighting variation, reflection, cast shadow, or contact shadow.\nConstraints: preserve exact product identity, bottle geometry, green accent colour, typography layout, spelling, claims, and 400 ml size. Use no #ff00ff anywhere on the bottle. No carton, duplicate, props, hands, people, pedestal, watermark, detached text, clipping, altered label, invented badge, or new wording. Do not substitute the 200 ml bottle or the Ceramide Foaming/Oil Control variant.",
-          "inputs": [
-            {
-              "url": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
-              "sha256": "a4eb706c6babe76899fb871432115751d40a3be9a4bf936eded63bf020f3fa61"
-            }
-          ],
-          "outputSha256": "aa9674bb9e17155a2d89b6258b8d750b6599b8aa42d0f389b6be0ca1702eaa5d",
-          "generatedAt": "2026-07-23T10:25:30Z",
-          "recordSha256": "4c365f6874c7a60770da27f18f9ea2a3af7f49928cadcce650f5ab37c7780e80"
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-ceramide-hydrating-gentle-cleanser-400ml/packshot-v1-aa9674bb9e17155a.png",
-        "sha256": "aa9674bb9e17155a2d89b6258b8d750b6599b8aa42d0f389b6be0ca1702eaa5d",
-        "mimeType": "image/png",
-        "byteSize": 714474,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "identity-verified-render",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-07-23T10:30:00Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-retail-rights-and-final-image",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-07-23T10:42:15Z"
-      },
-      "dossierFingerprint": "3238ddae88c3d6a5b91b3cdf38654f89d545c2a55aab59d1f02ec52c621f2a0a"
-    },
-    {
-      "schemaVersion": 8,
       "candidateId": "facefacts-ceramide-foaming-cleanser-400ml",
       "candidateFingerprint": "3f915bd470515f50f9bb2a3e0e6020d0629a7ac4a9313bead1fff182094870bc",
       "exposure": "private-only",
@@ -16183,246 +15747,6 @@
         "approvedAt": "2026-08-06T12:11:00Z"
       },
       "dossierFingerprint": "04c56eb112c9db7f8bb9699ea37bd280596bd340d9edaaa342fa6059cf13535b"
-    },
-    {
-      "schemaVersion": 8,
-      "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
-      "candidateFingerprint": "5df1f83a939e7d75038e37e15018b3f0234b2a7bee68c4c9bb033863cd5c1aab",
-      "exposure": "private-only",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "not-published",
-      "recommendationEligible": false,
-      "identity": {
-        "gtin": "8809875270189",
-        "brand": "NINELESS",
-        "name": "A-Control Azelaic Acid Cream",
-        "variant": "A-Control Azelaic Acid Cream",
-        "size": "50 ml",
-        "packageVersion": "NINELESS A-Control Azelaic Acid Cream 50ml",
-        "category": "Face care"
-      },
-      "sourceEvidence": {
-        "basis": "official-brand",
-        "officialProductUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
-        "officialIdentity": {
-          "url": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
-          "observedGtin": "8809875270189",
-          "observedVariant": "A-Control Azelaic Acid Cream",
-          "observedSize": "50 ml",
-          "observedPackageVersion": "NINELESS A-Control Azelaic Acid Cream 50ml",
-          "snapshotKind": "canonical-extraction",
-          "snapshotPath": "data/catalogue-identity-evidence/nineless-a-control-azelaic-acid-cream-50ml.json",
-          "canonicalExtraction": {
-            "browserCapture": {
-              "documentReadyState": "complete",
-              "pageTitle": "[A-CONTROL] Azelaic Acid Cream 50ml – NINELESS",
-              "surface": "Playwright MCP browser"
-            },
-            "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
-            "fields": {
-              "gtin": {
-                "locator": "identifierCorroborations[*].fields.gtin",
-                "sourceText": "EAN 8809875270189 is independently corroborated by Qudo Beauty and TSMPK; the official NINELESS product variant publishes no barcode.",
-                "value": "8809875270189"
-              },
-              "variant": {
-                "locator": "Rendered official HTML product title",
-                "sourceText": "[A-CONTROL] Azelaic Acid Cream 50ml – NINELESS",
-                "value": "A-Control Azelaic Acid Cream"
-              },
-              "size": {
-                "locator": "Rendered official HTML product title size",
-                "sourceText": "[A-CONTROL] Azelaic Acid Cream 50ml",
-                "value": "50 ml"
-              },
-              "manufacturerIdentifierStatus": {
-                "locator": "Rendered official Shopify product variant object",
-                "sourceText": "Official Shopify product variant: \"sku\":\"\",\"barcode\":null",
-                "value": "not-published"
-              },
-              "packageVersion": {
-                "evidenceUrl": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/2_f2126e7c-4b8a-42e8-b83e-90c55db8d27a.png?v=1782283483",
-                "locator": "Official manufacturer product heading and main pack image",
-                "sourceText": "[A-CONTROL] Azelaic Acid Cream 50ml",
-                "value": "NINELESS A-Control Azelaic Acid Cream 50ml"
-              }
-            },
-            "identifierCorroborations": [
-              {
-                "browserCapture": {
-                  "documentReadyState": "complete",
-                  "pageTitle": "NINE LESS - A-Control Azelaic Acid Cream - 50ml - Qudo Beauty",
-                  "surface": "Playwright MCP browser"
-                },
-                "fields": {
-                  "gtin": {
-                    "locator": "Rendered HTML h2.qudo-ean",
-                    "sourceText": "EAN: 8809875270189",
-                    "value": "8809875270189"
-                  },
-                  "variant": {
-                    "locator": "Rendered HTML h1.product_title",
-                    "sourceText": "NINE LESS – A-Control Azelaic Acid Cream – 50ml",
-                    "value": "NINE LESS A-Control Azelaic Acid Cream 50ml"
-                  },
-                  "size": {
-                    "locator": "Rendered HTML product title size suffix",
-                    "sourceText": "NINE LESS – A-Control Azelaic Acid Cream – 50ml",
-                    "value": "50 ml"
-                  }
-                },
-                "method": "reviewed-browser-dom-independent-ean-corroboration",
-                "responseDigestScope": "rendered-dom-outerhtml",
-                "responseUrl": "https://qudobeauty.com/product/nine-less-a-control-azelaic-acid-cream-50ml/",
-                "retrievedAt": "2026-08-06T23:25:17Z",
-                "reviewedAt": "2026-08-06T23:25:53Z",
-                "reviewer": "JeloCare catalogue evidence review",
-                "sourceResponseByteSize": 243454,
-                "sourceResponseMimeType": "text/html",
-                "sourceResponseSha256": "3091ba75f9e0a6117d65e3f73e03561d900cd90de8f8a38b04edf6d4e1e8d424",
-                "sourceUrl": "https://qudobeauty.com/product/nine-less-a-control-azelaic-acid-cream-50ml/"
-              },
-              {
-                "browserCapture": {
-                  "documentReadyState": "complete",
-                  "pageTitle": "Nineless - A-Control Azelaic Acid Cream 50ml 8809875270189 ...",
-                  "surface": "Playwright MCP browser"
-                },
-                "fields": {
-                  "gtin": {
-                    "locator": "Rendered product specification row labelled UPC",
-                    "sourceText": "UPC: 8809875270189",
-                    "value": "8809875270189"
-                  },
-                  "variant": {
-                    "locator": "Rendered product title",
-                    "sourceText": "Nineless - A-Control Azelaic Acid Cream 50ml",
-                    "value": "Nineless A-Control Azelaic Acid Cream 50ml"
-                  },
-                  "size": {
-                    "locator": "Rendered product title size suffix",
-                    "sourceText": "Nineless - A-Control Azelaic Acid Cream 50ml",
-                    "value": "50 ml"
-                  }
-                },
-                "method": "reviewed-browser-dom-independent-ean-corroboration",
-                "responseDigestScope": "rendered-dom-outerhtml",
-                "responseUrl": "https://tsmpk.com/nineless-a-control-azelaic-acid-cream-50ml",
-                "retrievedAt": "2026-08-06T23:25:26Z",
-                "reviewedAt": "2026-08-06T23:25:53Z",
-                "reviewer": "JeloCare catalogue evidence review",
-                "sourceResponseByteSize": 924642,
-                "sourceResponseMimeType": "text/html",
-                "sourceResponseSha256": "acd091008981fe2e82a68dcff5f3b57326ea601fbcd01509e47f03ed2dc39d61",
-                "sourceUrl": "https://tsmpk.com/nineless-a-control-azelaic-acid-cream-50ml"
-              }
-            ],
-            "method": "reviewed-browser-dom-identity-with-independent-ean-corroboration",
-            "responseDigestScope": "rendered-dom-outerhtml",
-            "responseUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
-            "retrievedAt": "2026-08-06T23:25:05Z",
-            "reviewedAt": "2026-08-06T23:25:53Z",
-            "reviewer": "JeloCare catalogue evidence review",
-            "schemaVersion": 5,
-            "sourceResponseByteSize": 159245,
-            "sourceResponseMimeType": "text/html",
-            "sourceResponseSha256": "0d7fbea366ebc84cc9497a4856d6a2d33be4052e753cbf200a4ad523f28e08a5",
-            "sourceUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
-            "supplementalResponses": [
-              {
-                "responseByteSize": 167110,
-                "responseMimeType": "image/png",
-                "responseSha256": "502ccf00c30909237973af84ffa2c3037d33bff49ed7dd60439cff70f199b430",
-                "responseUrl": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/2_f2126e7c-4b8a-42e8-b83e-90c55db8d27a.png?v=1782283483",
-                "retrievedAt": "2026-08-06T23:25:05Z",
-                "role": "official-pack-image",
-                "sourceUrl": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/2_f2126e7c-4b8a-42e8-b83e-90c55db8d27a.png?v=1782283483"
-              }
-            ]
-          },
-          "snapshotByteSize": 4666,
-          "snapshotSha256": "9c56eb641427f1fe33dc9ba3cbc07b9b2f1ab557558ee8d007a34c81148616fc",
-          "retrievedAt": "2026-08-06T23:25:05Z",
-          "snapshotMimeType": "application/json"
-        },
-        "checkedAt": "2026-08-06T23:36:00Z",
-        "demandEvidenceUrls": [
-          "https://bismidcosmeticsabuja.com/product/nineless-a-control-azelaic-acid-cream/",
-          "https://sonavinebeauty.com/product/nineless-a-control-azelaic-acid-cream-50ml/"
-        ]
-      },
-      "care": {
-        "status": "reviewed",
-        "formulaArchetype": "Leave-on azelaic-acid facial cream with panthenol, snail secretion filtrate, lactic acid, green tea and pine leaf extracts.",
-        "careTier": "targeted-care",
-        "reviewScope": "catalogue-supportive-care",
-        "advisoryBoundary": "A cosmetic moisturiser, not treatment for acne, dermatitis, or another skin condition. Azelaic acid and blemish-safe language does not guarantee tolerance for every person. Patch test, introduce slowly, avoid already-irritated skin, and stop if burning or a persistent rash develops. Deep, painful, scarring, widespread, sudden, or persistent breakouts need a pharmacist or clinician.",
-        "manufacturerEvidenceUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
-        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment",
-        "evidenceUrls": [
-          "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
-          "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment"
-        ],
-        "reviewedAt": "2026-08-06T23:36:00Z",
-        "reviewer": "JeloCare catalogue evidence review"
-      },
-      "nigeria": {
-        "marketRoute": "reference-only",
-        "regulatoryStatus": "pending",
-        "exactOffers": [],
-        "brandSellerAuthorizationEvidence": []
-      },
-      "rights": {
-        "status": "documented",
-        "origin": "owned-identity-verified-render",
-        "sourceAsset": {
-          "url": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/1.MainBanner.png?v=1781858601",
-          "sha256": "ad3ddcd096bb9bf995edd84914b192addd7f0431d3665897b570fae59d961c2e",
-          "mimeType": "image/png",
-          "byteSize": 1549697,
-          "width": 1500,
-          "height": 1500,
-          "retrievedAt": "2026-08-06T23:25:05Z"
-        },
-        "generationRecord": {
-          "schemaVersion": 1,
-          "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
-          "model": "isnet-general-use",
-          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current NINELESS A-Control Azelaic Acid Cream 50ml tube/pump pack and the sole authority for product identity, package geometry, label layout, wording, colours, variant and size.\nPrimary request: Remove the background from Image 1 and place the exact product on a transparent 2000x2000 canvas, centered, upright, with generous even padding on all sides. Preserve the exact package shape, label text, colours, proportions, and all visible identity details including the NINELESS brand, A-Control Azelaic Acid Cream title, and 50ml size.\nComposition: square; complete package visible; generous even clear margin on all sides; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: Image 1 overrides every assumption. Preserve the exact current package label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN.",
-          "inputs": [
-            {
-              "url": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/1.MainBanner.png?v=1781858601",
-              "sha256": "ad3ddcd096bb9bf995edd84914b192addd7f0431d3665897b570fae59d961c2e"
-            }
-          ],
-          "outputSha256": "8f5981be456a00c07a6ad8e30939cf0c1811fe4a1cdeb7eace364d7d228db3d6",
-          "generatedAt": "2026-08-06T23:45:31Z",
-          "recordSha256": "c8fe1ee9dd51fa35cce0f22d68e8738f1adf99bd4b4ab5aa0672a6e4d2db4f8b"
-        }
-      },
-      "finalImage": {
-        "role": "packshot",
-        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-a-control-azelaic-acid-cream-50ml/packshot-v1-8f5981be456a00c0.png",
-        "sha256": "8f5981be456a00c07a6ad8e30939cf0c1811fe4a1cdeb7eace364d7d228db3d6",
-        "mimeType": "image/png",
-        "byteSize": 1080167,
-        "width": 2000,
-        "height": 2000,
-        "packaging": "intact",
-        "backgroundTreatment": "identity-verified-render",
-        "labelVariantSizeUnchanged": true,
-        "packagingInvented": false,
-        "manualSourceOutputQa": true,
-        "presentationQuality": "magazine-ready",
-        "reviewedAt": "2026-08-06T23:46:15Z",
-        "reviewer": "Codex visual audit"
-      },
-      "approval": {
-        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
-        "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-06T23:48:00Z"
-      },
-      "dossierFingerprint": "08a0e983a106169c437aa14676735dc328376599307754e06fd2a52f7723f1e4"
     },
     {
       "schemaVersion": 8,
@@ -30153,6 +29477,816 @@
         "approvedAt": "2026-08-08T01:20:57Z"
       },
       "dossierFingerprint": "d03326bc176eaf8acc6642ae5f8cf369784708da5fdf6fad20fa9171ab9da2fb"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+      "candidateFingerprint": "a21c03c745d9efbf2c1350f62ae84a91ce14b4f80550529ed770b13a0f8f9b67",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "5031413928662",
+        "brand": "FACE FACTS",
+        "name": "Ceramide Hydrating Gentle Cleanser",
+        "variant": "Ceramide Hydrating Gentle Cleanser",
+        "size": "400 ml",
+        "packageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+        "officialIdentity": {
+          "url": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+          "observedGtin": "5031413928662",
+          "observedVariant": "Ceramide Hydrating Gentle Cleanser",
+          "observedSize": "400 ml",
+          "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/facefacts-ceramide-hydrating-gentle-cleanser-400ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 6,
+            "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+            "sourceUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+            "responseUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+            "retrievedAt": "2026-07-23T10:17:30Z",
+            "fields": {
+              "gtin": {
+                "value": "5031413928662",
+                "locator": "identifierCorroborations[*].fields.gtin",
+                "sourceText": "EAN 5031413928662 is independently corroborated by Lami Fragrance and eBay UK; the visible manufacturer page does not publish an identifier."
+              },
+              "variant": {
+                "value": "Ceramide Hydrating Gentle Cleanser",
+                "locator": "Rendered accessibility tree product heading",
+                "sourceText": "Ceramide Hydrating Gentle Cleanser 400ml"
+              },
+              "size": {
+                "value": "400 ml",
+                "locator": "Rendered accessibility tree product heading and product details",
+                "sourceText": "Ceramide Hydrating Gentle Cleanser 400ml; 400ml"
+              },
+              "packageVersion": {
+                "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+                "locator": "Official manufacturer product image",
+                "sourceText": "The current official image shows a white 400 ml pump bottle with the green Ceramide Hydrating Gentle Cleanser label.",
+                "evidenceUrl": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080"
+              }
+            },
+            "sourceResponseSha256": "8ce7248da490f625845b7ea9c2de4ae867606614698ae458c1fec6efabf05aa8",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 4388,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
+                "responseUrl": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
+                "retrievedAt": "2026-07-23T10:25:00Z",
+                "responseSha256": "a4eb706c6babe76899fb871432115751d40a3be9a4bf936eded63bf020f3fa61",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 32103
+              }
+            ],
+            "responseDigestScope": "rendered-accessibility-tree",
+            "method": "reviewed-browser-accessibility-identity-with-independent-ean-corroboration",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Ceramide Hydrating Gentle Cleanser | Ideal for Dry & Sensitive Skin – FaceFacts"
+            },
+            "identifierCorroborations": [
+              {
+                "sourceUrl": "https://lamifragrance.com/product/face-facts-ceramide-hydrating-gentle/",
+                "responseUrl": "https://lamifragrance.com/product/face-facts-ceramide-hydrating-gentle/",
+                "retrievedAt": "2026-07-23T10:28:00Z",
+                "fields": {
+                  "gtin": {
+                    "value": "5031413928662",
+                    "locator": "Rendered accessibility product metadata field labelled GTIN",
+                    "sourceText": "GTIN: 5031413928662"
+                  },
+                  "variant": {
+                    "value": "Face Facts Ceramide Hydrating Gentle Cleanser 400ml",
+                    "locator": "Rendered accessibility product heading",
+                    "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser 400ml"
+                  },
+                  "size": {
+                    "value": "400 ml",
+                    "locator": "Rendered accessibility product heading size",
+                    "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser 400ml"
+                  }
+                },
+                "sourceResponseSha256": "7bd49dfb526343299e5dbcc92718b49942a0e72f96091536d6e20bb3ed4a09b1",
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseByteSize": 12120,
+                "responseDigestScope": "rendered-accessibility-tree",
+                "method": "reviewed-browser-accessibility-independent-ean-corroboration",
+                "browserCapture": {
+                  "surface": "Codex in-app browser",
+                  "documentReadyState": "complete",
+                  "pageTitle": "Buy Face Facts Ceramide Hydrating Gentle Cleanser 400ml"
+                },
+                "reviewer": "JeloCare catalogue evidence review",
+                "reviewedAt": "2026-07-23T10:29:00Z"
+              },
+              {
+                "sourceUrl": "https://www.ebay.co.uk/itm/277901941087",
+                "responseUrl": "https://www.ebay.co.uk/itm/277901941087",
+                "retrievedAt": "2026-07-23T10:22:30Z",
+                "fields": {
+                  "gtin": {
+                    "value": "5031413928662",
+                    "locator": "Rendered accessibility item-specific definition labelled EAN",
+                    "sourceText": "EAN 5031413928662"
+                  },
+                  "variant": {
+                    "value": "Face Facts Ceramide Hydrating Gentle Cleanser Dry & Sensitive Skin 400ml",
+                    "locator": "Rendered accessibility page title",
+                    "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser Dry & Sensitive Skin 400ml | eBay UK"
+                  },
+                  "size": {
+                    "value": "400 ml",
+                    "locator": "Rendered accessibility item-specific Volume definition",
+                    "sourceText": "Volume 400 ml"
+                  }
+                },
+                "sourceResponseSha256": "6fb45e713ac214f320e689b10f8c217b522baf1aca13e000317c5ad43683a72f",
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseByteSize": 28574,
+                "responseDigestScope": "rendered-accessibility-tree",
+                "method": "reviewed-browser-accessibility-independent-ean-corroboration",
+                "browserCapture": {
+                  "surface": "Codex in-app browser",
+                  "documentReadyState": "complete",
+                  "pageTitle": "Face Facts Ceramide Hydrating Gentle Cleanser Dry & Sensitive Skin 400ml | eBay UK"
+                },
+                "reviewer": "JeloCare catalogue evidence review",
+                "reviewedAt": "2026-07-23T10:26:00Z"
+              }
+            ],
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-07-23T10:29:00Z"
+          },
+          "snapshotSha256": "0ff17549a4a6c24dfaebab4c726d2c28395f61fd1f47194993b381cd2aa0024d",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 4818,
+          "retrievedAt": "2026-07-23T10:17:30Z"
+        },
+        "checkedAt": "2026-07-23T10:29:00Z",
+        "demandEvidenceUrls": [
+          "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
+          "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
+          "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Fragrance-free rinse-off gel cleanser with five ceramides, hyaluronic acid, glycerin and oat amino acids for dry or sensitive skin",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "This is a rinse-off cosmetic cleanser, not a treatment for eczema, dermatitis or another condition. Apply to damp skin, massage gently and rinse; reduce use if tightness or persistent irritation develops. Fragrance-free labelling and ceramide ingredients do not guarantee tolerance for every person. Cracked, painful, infected, widespread or persistent symptoms need clinical review.",
+        "manufacturerEvidenceUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-07-23T10:30:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "tier-a",
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+        "exactOffers": [
+          {
+            "retailer": "Beauty by Daz",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
+            "observedAt": "2026-08-08T02:01:59Z",
+            "observedTitle": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml",
+            "observedSize": "400 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+            "retailerSku": "363-1-byd",
+            "priceNgn": 6950,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
+              "responseUrl": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
+              "responseSha256": "c37db3280b5194fb6cf1b721b0e8fbf0f7f7286a52d521a67dc9fc02e4a460f7",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 295370,
+              "retrievedAt": "2026-08-08T02:01:59Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Facefacts Ceramide Hydrating Gentle Cleanser - 400ml"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "5031413928662",
+                  "locator": "Bound composite catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 5031413928662",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml",
+                  "locator": "Rendered h1 product heading",
+                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml"
+                },
+                "size": {
+                  "value": "400 ml",
+                  "locator": "Rendered h1 product heading size token",
+                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser – 400ml"
+                },
+                "packageVersion": {
+                  "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+                  "locator": "Rendered primary product gallery image",
+                  "sourceText": "Current 400 ml white pump bottle with green Ceramide Hydrating label"
+                },
+                "price": {
+                  "value": 6950,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦6,950.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered stock status",
+                  "sourceText": "In stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T02:02:38Z"
+            }
+          },
+          {
+            "retailer": "Teeka4",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
+            "observedAt": "2026-08-08T02:02:11Z",
+            "observedTitle": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
+            "observedSize": "400 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+            "retailerSku": "TK-0454",
+            "priceNgn": 7200,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
+              "responseUrl": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
+              "responseSha256": "843b2b98276ce934699e59008d49dee0335a50b718f48eb94572be943bf53bf3",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 390416,
+              "retrievedAt": "2026-08-08T02:02:11Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Shop for original Facefacts Ceramide Hydrating Gentle Cleanser 400ml in Lagos Nigeria"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "5031413928662",
+                  "locator": "Bound composite catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 5031413928662",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
+                  "locator": "Rendered h1 product heading",
+                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml"
+                },
+                "size": {
+                  "value": "400 ml",
+                  "locator": "Rendered h1 product heading size token",
+                  "sourceText": "Facefacts Ceramide Hydrating Gentle Cleanser 400ml"
+                },
+                "packageVersion": {
+                  "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+                  "locator": "Rendered primary product gallery image",
+                  "sourceText": "Current 400 ml white pump bottle with green Ceramide Hydrating label"
+                },
+                "price": {
+                  "value": 7200,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦7,200.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered stock status",
+                  "sourceText": "In stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T02:02:38Z"
+            }
+          },
+          {
+            "retailer": "24Eleven",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
+            "observedAt": "2026-08-08T02:02:38Z",
+            "observedTitle": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml",
+            "observedSize": "400 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+            "retailerSku": "102232",
+            "priceNgn": 7300,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
+              "responseUrl": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml",
+              "responseSha256": "11a5726ed880a51932c6a37c58f69afe4d83f59ded535b896be217754f9b0933",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 82822,
+              "retrievedAt": "2026-08-08T02:02:38Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml | 24eleven.ng - Best price in Nigeria"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "5031413928662",
+                  "locator": "Bound composite catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 5031413928662",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml",
+                  "locator": "Rendered h1 product heading",
+                  "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml"
+                },
+                "size": {
+                  "value": "400 ml",
+                  "locator": "Rendered h1 product heading size token",
+                  "sourceText": "Face Facts Ceramide Hydrating Gentle Cleanser - 400ml"
+                },
+                "packageVersion": {
+                  "value": "Current 400 ml white pump bottle with green Ceramide Hydrating label",
+                  "locator": "Rendered primary product image",
+                  "sourceText": "Current 400 ml white pump bottle with green Ceramide Hydrating label"
+                },
+                "price": {
+                  "value": 7300,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦7,300"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered Availability field",
+                  "sourceText": "Available"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T02:02:38Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
+          "sha256": "a4eb706c6babe76899fb871432115751d40a3be9a4bf936eded63bf020f3fa61",
+          "mimeType": "image/jpeg",
+          "byteSize": 32103,
+          "width": 1080,
+          "height": 1080,
+          "retrievedAt": "2026-07-23T10:25:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and Lanczos resize",
+          "model": "gpt-image-2",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background removal\nInput image: Image 1 is the official Face Facts front-pack photograph and the exact product-identity reference.\nPrimary request: preserve and recreate the exact FACE FACTS Ceramide Skin Barrier Complex Hydrating Gentle Cleanser 400 ml pump bottle shown in Image 1, while replacing only the white background and floor/shadow with a perfectly flat solid chroma-magenta #ff00ff background.\nSubject: one complete opaque white rectangular pump bottle with rounded shoulders, fully visible white pump, and exact original proportions. Keep it perfectly front-facing, centered, upright, crisp, photorealistic, and catalogue-ready.\nText (verbatim, where visible): “facefacts.”; “CERAMIDE”; “SKIN BARRIER COMPLEX”; “Hydrating”; “Gentle Cleanser”; “5 CERAMIDES + HYALURONIC ACID + OATS”; “Dermatologically Tested”; “Fragrance Free”; “Deeply cleanses dry, sensitive skin and helps strengthen your protective moisture barrier”; “VEGAN”; “400 ml e / 13.53 fl.oz”.\nComposition/framing: square 2000 x 2000; full pump and full bottle base visible; generous even clear margin; product must not touch or approach any edge.\nLighting/mood: premium soft frontal studio light contained on the product only; enough edge definition to distinguish the white bottle.\nScene/backdrop: perfectly flat uniform #ff00ff only, no gradient, texture, vignette, floor plane, spill, lighting variation, reflection, cast shadow, or contact shadow.\nConstraints: preserve exact product identity, bottle geometry, green accent colour, typography layout, spelling, claims, and 400 ml size. Use no #ff00ff anywhere on the bottle. No carton, duplicate, props, hands, people, pedestal, watermark, detached text, clipping, altered label, invented badge, or new wording. Do not substitute the 200 ml bottle or the Ceramide Foaming/Oil Control variant.",
+          "inputs": [
+            {
+              "url": "https://facefacts.me/cdn/shop/files/28662-150-face-facts-ceramide-hydrating-cleanser-400ml.jpg?v=1775041011&width=1080",
+              "sha256": "a4eb706c6babe76899fb871432115751d40a3be9a4bf936eded63bf020f3fa61"
+            }
+          ],
+          "outputSha256": "aa9674bb9e17155a2d89b6258b8d750b6599b8aa42d0f389b6be0ca1702eaa5d",
+          "generatedAt": "2026-07-23T10:25:30Z",
+          "recordSha256": "4c365f6874c7a60770da27f18f9ea2a3af7f49928cadcce650f5ab37c7780e80"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-ceramide-hydrating-gentle-cleanser-400ml/packshot-v1-aa9674bb9e17155a.png",
+        "sha256": "aa9674bb9e17155a2d89b6258b8d750b6599b8aa42d0f389b6be0ca1702eaa5d",
+        "mimeType": "image/png",
+        "byteSize": 714474,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-07-23T10:30:00Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T02:03:00Z"
+      },
+      "dossierFingerprint": "251062e741a1b9d4cf2827e5c4f027c1ca262b2389ba45ace7867bd60320bb16"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+      "candidateFingerprint": "5df1f83a939e7d75038e37e15018b3f0234b2a7bee68c4c9bb033863cd5c1aab",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "8809875270189",
+        "brand": "NINELESS",
+        "name": "A-Control Azelaic Acid Cream",
+        "variant": "A-Control Azelaic Acid Cream",
+        "size": "50 ml",
+        "packageVersion": "NINELESS A-Control Azelaic Acid Cream 50ml",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+        "officialIdentity": {
+          "url": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+          "observedGtin": "8809875270189",
+          "observedVariant": "A-Control Azelaic Acid Cream",
+          "observedSize": "50 ml",
+          "observedPackageVersion": "NINELESS A-Control Azelaic Acid Cream 50ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/nineless-a-control-azelaic-acid-cream-50ml.json",
+          "canonicalExtraction": {
+            "browserCapture": {
+              "documentReadyState": "complete",
+              "pageTitle": "[A-CONTROL] Azelaic Acid Cream 50ml – NINELESS",
+              "surface": "Playwright MCP browser"
+            },
+            "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+            "fields": {
+              "gtin": {
+                "locator": "identifierCorroborations[*].fields.gtin",
+                "sourceText": "EAN 8809875270189 is independently corroborated by Qudo Beauty and TSMPK; the official NINELESS product variant publishes no barcode.",
+                "value": "8809875270189"
+              },
+              "variant": {
+                "locator": "Rendered official HTML product title",
+                "sourceText": "[A-CONTROL] Azelaic Acid Cream 50ml – NINELESS",
+                "value": "A-Control Azelaic Acid Cream"
+              },
+              "size": {
+                "locator": "Rendered official HTML product title size",
+                "sourceText": "[A-CONTROL] Azelaic Acid Cream 50ml",
+                "value": "50 ml"
+              },
+              "manufacturerIdentifierStatus": {
+                "locator": "Rendered official Shopify product variant object",
+                "sourceText": "Official Shopify product variant: \"sku\":\"\",\"barcode\":null",
+                "value": "not-published"
+              },
+              "packageVersion": {
+                "evidenceUrl": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/2_f2126e7c-4b8a-42e8-b83e-90c55db8d27a.png?v=1782283483",
+                "locator": "Official manufacturer product heading and main pack image",
+                "sourceText": "[A-CONTROL] Azelaic Acid Cream 50ml",
+                "value": "NINELESS A-Control Azelaic Acid Cream 50ml"
+              }
+            },
+            "identifierCorroborations": [
+              {
+                "browserCapture": {
+                  "documentReadyState": "complete",
+                  "pageTitle": "NINE LESS - A-Control Azelaic Acid Cream - 50ml - Qudo Beauty",
+                  "surface": "Playwright MCP browser"
+                },
+                "fields": {
+                  "gtin": {
+                    "locator": "Rendered HTML h2.qudo-ean",
+                    "sourceText": "EAN: 8809875270189",
+                    "value": "8809875270189"
+                  },
+                  "variant": {
+                    "locator": "Rendered HTML h1.product_title",
+                    "sourceText": "NINE LESS – A-Control Azelaic Acid Cream – 50ml",
+                    "value": "NINE LESS A-Control Azelaic Acid Cream 50ml"
+                  },
+                  "size": {
+                    "locator": "Rendered HTML product title size suffix",
+                    "sourceText": "NINE LESS – A-Control Azelaic Acid Cream – 50ml",
+                    "value": "50 ml"
+                  }
+                },
+                "method": "reviewed-browser-dom-independent-ean-corroboration",
+                "responseDigestScope": "rendered-dom-outerhtml",
+                "responseUrl": "https://qudobeauty.com/product/nine-less-a-control-azelaic-acid-cream-50ml/",
+                "retrievedAt": "2026-08-06T23:25:17Z",
+                "reviewedAt": "2026-08-06T23:25:53Z",
+                "reviewer": "JeloCare catalogue evidence review",
+                "sourceResponseByteSize": 243454,
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseSha256": "3091ba75f9e0a6117d65e3f73e03561d900cd90de8f8a38b04edf6d4e1e8d424",
+                "sourceUrl": "https://qudobeauty.com/product/nine-less-a-control-azelaic-acid-cream-50ml/"
+              },
+              {
+                "browserCapture": {
+                  "documentReadyState": "complete",
+                  "pageTitle": "Nineless - A-Control Azelaic Acid Cream 50ml 8809875270189 ...",
+                  "surface": "Playwright MCP browser"
+                },
+                "fields": {
+                  "gtin": {
+                    "locator": "Rendered product specification row labelled UPC",
+                    "sourceText": "UPC: 8809875270189",
+                    "value": "8809875270189"
+                  },
+                  "variant": {
+                    "locator": "Rendered product title",
+                    "sourceText": "Nineless - A-Control Azelaic Acid Cream 50ml",
+                    "value": "Nineless A-Control Azelaic Acid Cream 50ml"
+                  },
+                  "size": {
+                    "locator": "Rendered product title size suffix",
+                    "sourceText": "Nineless - A-Control Azelaic Acid Cream 50ml",
+                    "value": "50 ml"
+                  }
+                },
+                "method": "reviewed-browser-dom-independent-ean-corroboration",
+                "responseDigestScope": "rendered-dom-outerhtml",
+                "responseUrl": "https://tsmpk.com/nineless-a-control-azelaic-acid-cream-50ml",
+                "retrievedAt": "2026-08-06T23:25:26Z",
+                "reviewedAt": "2026-08-06T23:25:53Z",
+                "reviewer": "JeloCare catalogue evidence review",
+                "sourceResponseByteSize": 924642,
+                "sourceResponseMimeType": "text/html",
+                "sourceResponseSha256": "acd091008981fe2e82a68dcff5f3b57326ea601fbcd01509e47f03ed2dc39d61",
+                "sourceUrl": "https://tsmpk.com/nineless-a-control-azelaic-acid-cream-50ml"
+              }
+            ],
+            "method": "reviewed-browser-dom-identity-with-independent-ean-corroboration",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+            "retrievedAt": "2026-08-06T23:25:05Z",
+            "reviewedAt": "2026-08-06T23:25:53Z",
+            "reviewer": "JeloCare catalogue evidence review",
+            "schemaVersion": 5,
+            "sourceResponseByteSize": 159245,
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseSha256": "0d7fbea366ebc84cc9497a4856d6a2d33be4052e753cbf200a4ad523f28e08a5",
+            "sourceUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+            "supplementalResponses": [
+              {
+                "responseByteSize": 167110,
+                "responseMimeType": "image/png",
+                "responseSha256": "502ccf00c30909237973af84ffa2c3037d33bff49ed7dd60439cff70f199b430",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/2_f2126e7c-4b8a-42e8-b83e-90c55db8d27a.png?v=1782283483",
+                "retrievedAt": "2026-08-06T23:25:05Z",
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/2_f2126e7c-4b8a-42e8-b83e-90c55db8d27a.png?v=1782283483"
+              }
+            ]
+          },
+          "snapshotByteSize": 4666,
+          "snapshotSha256": "9c56eb641427f1fe33dc9ba3cbc07b9b2f1ab557558ee8d007a34c81148616fc",
+          "retrievedAt": "2026-08-06T23:25:05Z",
+          "snapshotMimeType": "application/json"
+        },
+        "checkedAt": "2026-08-06T23:36:00Z",
+        "demandEvidenceUrls": [
+          "https://bismidcosmeticsabuja.com/product/nineless-a-control-azelaic-acid-cream/",
+          "https://sonavinebeauty.com/product/nineless-a-control-azelaic-acid-cream-50ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on azelaic-acid facial cream with panthenol, snail secretion filtrate, lactic acid, green tea and pine leaf extracts.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "A cosmetic moisturiser, not treatment for acne, dermatitis, or another skin condition. Azelaic acid and blemish-safe language does not guarantee tolerance for every person. Patch test, introduce slowly, avoid already-irritated skin, and stop if burning or a persistent rash develops. Deep, painful, scarring, widespread, sudden, or persistent breakouts need a pharmacist or clinician.",
+        "manufacturerEvidenceUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment",
+        "evidenceUrls": [
+          "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+          "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment"
+        ],
+        "reviewedAt": "2026-08-06T23:36:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "marketRoute": "tier-a",
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+        "exactOffers": [
+          {
+            "retailer": "Bismid Cosmetics Abuja",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://bismidcosmeticsabuja.com/product/nineless-a-control-azelaic-acid-cream/",
+            "observedAt": "2026-08-06T23:35:22Z",
+            "observedTitle": "Nineless A-Control Azelaic Acid Cream",
+            "observedSize": "50 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "NINELESS A-Control Azelaic Acid Cream 50ml",
+            "retailerSku": "",
+            "priceNgn": 17000,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://bismidcosmeticsabuja.com/product/nineless-a-control-azelaic-acid-cream/",
+              "responseUrl": "https://bismidcosmeticsabuja.com/product/nineless-a-control-azelaic-acid-cream/",
+              "responseSha256": "8b6e792e44e1362b74486fdba79168f8fb4ba09ea7dfc032d69707bd7c1375ba",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 365301,
+              "retrievedAt": "2026-08-06T23:35:22Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Nineless A-Control Azelaic Acid Cream |"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "8809875270189",
+                  "locator": "Bound composite catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 8809875270189",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Nineless A-Control Azelaic Acid Cream",
+                  "locator": "Rendered DOM h1 product heading",
+                  "sourceText": "Nineless A-Control Azelaic Acid Cream"
+                },
+                "size": {
+                  "value": "50 ml",
+                  "locator": "Rendered DOM page title size suffix",
+                  "sourceText": "Nineless A-Control Azelaic Acid Cream 50ml"
+                },
+                "packageVersion": {
+                  "value": "NINELESS A-Control Azelaic Acid Cream 50ml",
+                  "locator": "Rendered product gallery primary image",
+                  "sourceText": "NINELESS A-Control Azelaic Acid Cream 50ml tube/pump package"
+                },
+                "price": {
+                  "value": 17000,
+                  "currency": "NGN",
+                  "locator": "Rendered DOM product price",
+                  "sourceText": "₦17,000.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered DOM availability status",
+                  "sourceText": "15 in stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-06T23:36:00Z"
+            }
+          },
+          {
+            "retailer": "Sonavine Beauty",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://sonavinebeauty.com/product/nineless-a-control-azelaic-acid-cream-50ml/",
+            "observedAt": "2026-08-06T23:35:46Z",
+            "observedTitle": "Nineless A-Control Azelaic Acid Cream 50ml",
+            "observedSize": "50 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "NINELESS A-Control Azelaic Acid Cream 50ml",
+            "retailerSku": "Item-1-815",
+            "priceNgn": 17500,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://sonavinebeauty.com/product/nineless-a-control-azelaic-acid-cream-50ml/",
+              "responseUrl": "https://sonavinebeauty.com/product/nineless-a-control-azelaic-acid-cream-50ml/",
+              "responseSha256": "9530ef9838a90ca48a19bed4083c654d612527129233ac0dce0456c219802a5c",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 294968,
+              "retrievedAt": "2026-08-06T23:35:46Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Nineless A-Control Azelaic Acid Cream 50ml - Sonavine Beauty"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "8809875270189",
+                  "locator": "Bound composite catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 8809875270189",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Nineless A-Control Azelaic Acid Cream 50ml",
+                  "locator": "Rendered DOM page title",
+                  "sourceText": "Nineless A-Control Azelaic Acid Cream 50ml"
+                },
+                "size": {
+                  "value": "50 ml",
+                  "locator": "Rendered DOM page title size suffix",
+                  "sourceText": "Nineless A-Control Azelaic Acid Cream 50ml"
+                },
+                "packageVersion": {
+                  "value": "NINELESS A-Control Azelaic Acid Cream 50ml",
+                  "locator": "Rendered product gallery primary image",
+                  "sourceText": "NINELESS A-Control Azelaic Acid Cream 50ml tube/pump package"
+                },
+                "price": {
+                  "value": 17500,
+                  "currency": "NGN",
+                  "locator": "Rendered DOM product price",
+                  "sourceText": "₦17,500.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered DOM availability status",
+                  "sourceText": "In stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-06T23:36:00Z"
+            }
+          }
+        ],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/1.MainBanner.png?v=1781858601",
+          "sha256": "ad3ddcd096bb9bf995edd84914b192addd7f0431d3665897b570fae59d961c2e",
+          "mimeType": "image/png",
+          "byteSize": 1549697,
+          "width": 1500,
+          "height": 1500,
+          "retrievedAt": "2026-08-06T23:25:05Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+          "model": "isnet-general-use",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current NINELESS A-Control Azelaic Acid Cream 50ml tube/pump pack and the sole authority for product identity, package geometry, label layout, wording, colours, variant and size.\nPrimary request: Remove the background from Image 1 and place the exact product on a transparent 2000x2000 canvas, centered, upright, with generous even padding on all sides. Preserve the exact package shape, label text, colours, proportions, and all visible identity details including the NINELESS brand, A-Control Azelaic Acid Cream title, and 50ml size.\nComposition: square; complete package visible; generous even clear margin on all sides; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: Image 1 overrides every assumption. Preserve the exact current package label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/1.MainBanner.png?v=1781858601",
+              "sha256": "ad3ddcd096bb9bf995edd84914b192addd7f0431d3665897b570fae59d961c2e"
+            }
+          ],
+          "outputSha256": "8f5981be456a00c07a6ad8e30939cf0c1811fe4a1cdeb7eace364d7d228db3d6",
+          "generatedAt": "2026-08-06T23:45:31Z",
+          "recordSha256": "c8fe1ee9dd51fa35cce0f22d68e8738f1adf99bd4b4ab5aa0672a6e4d2db4f8b"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-a-control-azelaic-acid-cream-50ml/packshot-v1-8f5981be456a00c0.png",
+        "sha256": "8f5981be456a00c07a6ad8e30939cf0c1811fe4a1cdeb7eace364d7d228db3d6",
+        "mimeType": "image/png",
+        "byteSize": 1080167,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-06T23:46:15Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-retail-rights-and-final-image",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-08T02:05:00Z"
+      },
+      "dossierFingerprint": "ce8698f39014649d1ea63bbb6b43c7b26dd942aa3483605335310366950ca15d"
     }
   ]
 }

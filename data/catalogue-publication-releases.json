@@ -388,30 +388,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
-      "dossierFingerprint": "3238ddae88c3d6a5b91b3cdf38654f89d545c2a55aab59d1f02ec52c621f2a0a",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Cleanse",
-        "displayLine": "Fragrance-free cleanser for dry skin.",
-        "usage": "Apply 2-3 pumps onto damp skin, massage gently, then rinse with warm water.",
-        "manufacturerDirectionsUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T10:42:30Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T10:42:45Z"
-      },
-      "releaseFingerprint": "107a9ed3af1c913fa69f91a903dae1dedd3713ae4a66d624e1f77740ec2fe806"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "facefacts-ceramide-foaming-cleanser-400ml",
       "dossierFingerprint": "75ec376cf2be44c4e8bcd5e0040a54d5ceb5e7fd36041db07de40c1457190eff",
       "exposure": "public-catalogue",
@@ -1441,30 +1417,6 @@
         "publishedAt": "2026-08-06T12:13:00Z"
       },
       "releaseFingerprint": "d8648afccbea7b989252f2a983b89e660abace97488555c0120f33bb31f092b1"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
-      "dossierFingerprint": "08a0e983a106169c437aa14676735dc328376599307754e06fd2a52f7723f1e4",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Azelaic acid cream · 50 ml",
-        "usage": "Apply a thin layer to clean, dry skin in the evening. Start two nights a week and build as tolerated. Follow with moisturiser. Use SPF 30+ in the daytime. Avoid the eye area and stop if burning or a persistent rash develops.",
-        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-06T23:49:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-06T23:50:00Z"
-      },
-      "releaseFingerprint": "05169e093cf80613b2f309e74d73c3f0f8ab764877b67cdce1286fe47251f457"
     },
     {
       "schemaVersion": 2,
@@ -3097,6 +3049,54 @@
         "publishedAt": "2026-08-08T01:21:00Z"
       },
       "releaseFingerprint": "fab1796d0e8f87abf843d182e944b4bed395ea598515d655f37cd63b508048be"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+      "dossierFingerprint": "251062e741a1b9d4cf2827e5c4f027c1ca262b2389ba45ace7867bd60320bb16",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Fragrance-free cleanser for dry skin.",
+        "usage": "Apply 2-3 pumps onto damp skin, massage gently, then rinse with warm water.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/en-la/products/ceramide-hydrating-gentle-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T02:03:15Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T02:03:30Z"
+      },
+      "releaseFingerprint": "af7b8ea29575ad2e39a4b6d2e1d6fbbeb505282c7da90a66de1736f28090d69f"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+      "dossierFingerprint": "ce8698f39014649d1ea63bbb6b43c7b26dd942aa3483605335310366950ca15d",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Azelaic acid cream · 50 ml",
+        "usage": "Apply a thin layer to clean, dry skin in the evening. Start two nights a week and build as tolerated. Follow with moisturiser. Use SPF 30+ in the daytime. Avoid the eye area and stop if burning or a persistent rash develops.",
+        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T02:05:15Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T02:05:30Z"
+      },
+      "releaseFingerprint": "afd6e5ebdab120bbb9f94eed3ebe97e3d7ea46cfe529df25d7307d05fc36f340"
     }
   ]
 }

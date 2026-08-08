@@ -890,7 +890,8 @@ test('the Face Facts hydrating cleanser binds two independent EAN sources, three
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const freshOfferAsOf = Date.parse('2026-08-08T02:05:00Z');
+  const decision = evaluateCatalogueIntakeCandidate(candidate, freshOfferAsOf);
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.nigeriaMarketRoute, 'tier-a');
