@@ -1,6 +1,6 @@
 # Catalogue troubleshooting — errors and fixes
 
-Updated: 2026-08-06
+Updated: 2026-08-08
 
 A running log of errors encountered during catalogue intake, release, offer
 binding, and market trends work. Each entry documents the symptom, root cause,
@@ -312,3 +312,105 @@ results.
 **Workaround:** Use the Playwright MCP browser for Care to Beauty search
 pages. Direct product URLs (not search pages) do return server-rendered HTML
 with product data.
+
+## Re-verification evidence errors (2026-08-08 batch)
+
+### `nigeria-offer-identity-unbound` despite valid GTIN correlation
+
+**Symptom:** `evaluateCatalogueIntakeCandidate` returns
+`nigeria-offer-identity-unbound` even though the offer's `evidence.fields.gtin`
+has the correct GTIN value and `responseRole: 'official-identity-correlation'`.
+
+**Root cause:** The `reviewedExactOfferEvidenceValid` function in
+`lib/catalogue/market-evidence.ts` checks every field shape. A `packageVersion`
+field with `value: null` fails `fieldShape` because the value is not a string.
+This silently rejects the entire evidence record.
+
+**Fix:** If the candidate's identity has no `packageVersion`, remove the
+`packageVersion` field from both the offer's top level (`observedPackageVersion`)
+and its `evidence.fields.packageVersion`. Do not set it to null — omit it
+entirely. The validator checks `offer.observedPackageVersion == null ?
+fields.packageVersion == null : ...`, so both must be absent together.
+
+### BuyBetter price regex fails on custom naira symbol
+
+**Symptom:** `reviewedExactOfferEvidenceValid` returns false for a BuyBetter
+offer even though the price is correct. The `priceSourceMatches` check fails.
+
+**Root cause:** BuyBetter uses a custom `<span class="custom-naira"></span>`
+element instead of the Unicode `₦` character. The rendered text shows
+`13,223 NG` without a `₦` prefix, so the price regex
+`(?:\bNGN(?=\s*\d)|₦)\s*(?:<plain>|<grouped>)` does not match.
+
+**Fix:** Use the JSON-LD `offers.price` field as the price sourceText instead
+of the rendered DOM text. BuyBetter's JSON-LD contains
+`"price": "13223.00", "priceCurrency": "NGN"`, so sourceText `NGN 13223.00`
+matches the regex via the `\bNGN(?=\s*\d)` branch.
+
+### Stock sourceText `ADD TO CART` fails `stockSourceMatches`
+
+**Symptom:** Ediths Essentials and Perfect Trust Beauty offers fail evidence
+validation because `stockSourceMatches('ADD TO CART', 'in-stock')` returns
+false.
+
+**Root cause:** The `stockSourceMatches` function expects sourceText that
+matches `in stock`, `available`, `only N left`, etc. `ADD TO CART` is a button
+label, not an availability indicator.
+
+**Fix:** Use the schema.org availability link element instead:
+`<link itemprop="availability" href="http://schema.org/InStock">`. Set the
+stock field's `sourceText` to `In Stock` and `locator` to
+`Schema.org availability itemprop link href`. This is present on Shopify-based
+stores (Ediths Essentials, Perfect Trust Beauty) even when no visible stock
+text is rendered.
+
+### `reviewedTitleAlias` rejected by token matching
+
+**Symptom:** An offer with `reviewedTitleAlias: 'Skin Replenish 2% Body Wash'`
+is rejected because `reviewedOfferTitleAlias` returns undefined.
+
+**Root cause:** The alias validator requires every alias token (≥3 chars) to
+be present in both the candidate's `name + variant` tokens AND the observed
+title tokens. "Replenish" is in the candidate variant but "Replenishing" is
+in the observed title — these are different tokens after normalization.
+
+**Fix:** Choose an alias whose tokens are all present in both. For example,
+`Skin Body Wash` works because "skin", "body", and "wash" appear in both the
+candidate variant and the observed title. Avoid words that differ by suffix
+(replenish/replenishing, moisturizing/moisturising).
+
+### Size token mismatch between `observedSize` and `fields.size.value`
+
+**Symptom:** `reviewedExactOfferEvidenceValid` returns false because
+`measurementTokens(fields.size.value)` does not equal
+`measurementTokens(offer.observedSize)`.
+
+**Root cause:** `measurementTokens` extracts all measurement pairs from a
+string. `"13 oz / 384 ml"` produces `['13oz', '384ml']` while `"384 ml"`
+produces `['384ml']`. The arrays do not match even though 384 ml is correct.
+
+**Fix:** Use the same size string in both `observedSize` and
+`fields.size.value`. When the retailer listing only shows one unit (e.g.
+"384ml"), use `"384 ml"` in both fields. Do not use the full identity size
+("13 fl oz / 384 ml") as the `observedSize` unless the retailer listing also
+shows both units.
+
+### Dossier index shift after re-verification release
+
+**Symptom:** `publication-dossier.test.ts` fails with
+`assert.equal(result.dossiers[N].candidateId, '...')` after re-releasing a
+candidate.
+
+**Root cause:** Re-releasing a candidate moves it from its current dossier
+index to index 128 (the end). Every candidate between the old index and 128
+shifts down by 1. The test file has hard-coded indices for every candidate.
+
+**Fix:** Use a Python script to shift all affected indices in
+`publication-dossier.test.ts`:
+1. Replace `dossiers[N]` and `products[N]` with temporary placeholders for
+   indices old+1 through 128.
+2. Replace the placeholders with the shifted values (N-1).
+3. Add a new assertion block for `dossiers[128]` and `products[128]` with the
+   re-verified candidate's details.
+4. Update `catalogue-intake-manifest.test.ts` with the new retailer names,
+   prices, stocks, and `researchAsOf` timestamp.

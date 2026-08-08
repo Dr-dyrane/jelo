@@ -1,6 +1,6 @@
 # JeloCare handbook
 
-Updated: 2026-08-04
+Updated: 2026-08-08
 
 This is the entry point for product, engineering, data, and operations.
 

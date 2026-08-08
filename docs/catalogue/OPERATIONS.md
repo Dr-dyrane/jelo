@@ -1,6 +1,6 @@
 # Catalogue operations
 
-Updated: 2026-08-06
+Updated: 2026-08-08
 
 Release one exact product at a time. Discovery can run in parallel; evidence and publication cannot be assumed.
 
@@ -332,6 +332,18 @@ explicit same-record brand field. Foreign and dual-brand listings fail.
 with the canonical identifier.
 
 Use the rendered browser for stores such as Beauty by Daz when automation is blocked. Search pages, sibling redirects, stale observations, package conflicts, and ambiguous sizes remain excluded evidence.
+
+The Playwright MCP browser is the primary offer capture tool for re-verification
+and new offer binding. It is an accepted `browserCapture.surface` in
+`reviewedBrowserCaptureSurfaces` (since commit `d8e720e`, 2026-08-07). Use
+`browser_navigate` to open the listing URL, then `browser_evaluate` to extract:
+SHA-256 of `document.documentElement.outerHTML`, byte size, `h1` text, price
+(from rendered text or JSON-LD `offers.price`), stock state (from rendered
+text or schema.org `<link itemprop="availability">`), and page title. The
+evidence method is `reviewed-browser-dom-exact-offer-field-extraction` with
+`evidence.schemaVersion: 1`. See the
+[fast lane re-verification section](./FAST_LANE.md#re-verification-of-stale-offers)
+for the full workflow and common evidence patterns.
 
 Slique Beauty is provisional and link-only under the current policy. Do not reuse its images or descriptions.
 

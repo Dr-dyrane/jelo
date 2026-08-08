@@ -159,6 +159,16 @@ before concluding that anything is structurally blocked.
   and one `research:offers --shard N --write`. Retained capture bytes are
   immutable: if a shard's recapture reports a differing retained file, bind a
   different shard rather than forcing an overwrite.
+- **Re-verification is a fastlane within the fastlane.** When a released
+  product's offers exceed the 7-day freshness window, replace them with fresh
+  Playwright MCP browser captures in a single commit. The workflow is:
+  `browser_navigate` + `browser_evaluate` to capture DOM hash, price, and
+  stock; edit `data/catalogue-intake.json` and the per-candidate source JSON;
+  run `npx tsx scripts/release-catalogue-candidate.ts --write`; shift test
+  fixture indices; `npm test`; commit and push. 39 products were re-verified
+  in one session on 2026-08-08. See the
+  [fast lane re-verification section](./docs/catalogue/FAST_LANE.md#re-verification-of-stale-offers)
+  for the full workflow and common evidence patterns.
 
 ## Standing authority for routine product releases
 

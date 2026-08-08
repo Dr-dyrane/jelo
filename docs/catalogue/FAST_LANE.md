@@ -1,6 +1,6 @@
 # Catalogue fast lane
 
-Updated: 2026-08-04
+Updated: 2026-08-08
 
 Use this lane for a routine exact-SKU addition that follows the already proven
 catalogue contract. Faster means removing repeated global verification, not
@@ -121,6 +121,120 @@ A reference-only release writes `marketRoute: "reference-only"` and
 `exactOffers: []`. It publishes the product reference without price, store,
 stock, offer ranking, or share-priority claims. Exact identity-bound persisted
 offers may enrich it later through the existing publication boundary.
+
+## Re-verification of stale offers
+
+When a released product's exact offers exceed the 7-day freshness window, the
+fast lane supports a streamlined re-verification workflow that replaces stale
+offers with fresh Playwright MCP browser captures in a single commit. This is
+the fastest routine operation in the lane: 39 products were re-verified in one
+session on 2026-08-08, each taking under 5 minutes from browser capture to
+push.
+
+### Prerequisites
+
+- The Playwright MCP browser is an accepted `browserCapture.surface` in
+  `reviewedBrowserCaptureSurfaces` (added in commit `d8e720e`). This enables
+  `reviewed-browser-dom-exact-offer-field-extraction` evidence without raw HTTP
+  GTIN binding or curl workarounds.
+- The candidate must have a GTIN-bound identity (not manufacturer-SKU, which
+  requires retained snapshot evidence that cannot be re-verified via browser
+  DOM alone).
+
+### Workflow per product
+
+1. **Identify stale offers.** Check `data/catalogue-intake.json` for
+   candidates whose `exactOffers` have `observedAt` older than 7 days from the
+   current research date.
+
+2. **Capture fresh offers via Playwright MCP.** For each retailer listing URL:
+   - `browser_navigate` to the listing URL.
+   - `browser_evaluate` to extract: SHA-256 of `document.documentElement.outerHTML`,
+     byte size, `h1` text, price (from rendered text or JSON-LD), stock state,
+     and page title.
+   - If the listing returns 404, search Google with `site:` filters for the
+     product name across directory-listed retailers, then verify the
+     alternative listing.
+
+3. **Update offers in both files.** Edit `data/catalogue-intake.json` and the
+   per-candidate source at `data/catalogue-intake-candidates/<id>.json`. Each
+   offer needs:
+   - `observedAt`: fresh ISO timestamp
+   - `evidence.schemaVersion`: 1
+   - `evidence.method`: `reviewed-browser-dom-exact-offer-field-extraction`
+   - `evidence.browserCapture.surface`: `Playwright MCP browser`
+   - `evidence.responseSha256`: the DOM hash
+   - `evidence.responseByteSize`: the DOM byte count
+   - `evidence.fields.gtin.responseRole`: `official-identity-correlation`
+   - `evidence.fields.gtin.sourceText`: `Official catalogue identity GTIN <gtin>`
+
+4. **Check readiness.** Run a quick evaluation script:
+   ```typescript
+   import { evaluateCatalogueIntakeCandidate } from '@/lib/catalogue/intake-readiness';
+   // ... find candidate, evaluate with asOf = current timestamp
+   // stage should be 'approval-ready', blockers should be []
+   ```
+
+5. **Release.** Move the existing publication source to a backup, then:
+   ```bash
+   npx tsx scripts/release-catalogue-candidate.ts \
+     --candidate <candidate-id> \
+     --approved-at <ISO> \
+     --presentation-reviewed-at <ISO> \
+     --published-at <ISO> \
+     --category <category> \
+     --routine-step <step> \
+     --display-line <line> \
+     --usage <directions> \
+     --directions-url <official-url> \
+     --write
+   ```
+   The candidate moves from its current dossier index to index 128 (the end).
+
+6. **Update test fixtures.** The dossier index shift requires updating
+   `modules/catalogue/publication-dossier.test.ts` (shift all indices between
+   the old and new position down by 1, add the new index 128 assertion) and
+   `modules/catalogue/catalogue-intake-manifest.test.ts` (update retailer
+   names, prices, stocks, and `researchAsOf` date).
+
+7. **Run `npm test`.** The full suite runs in ~12 seconds. Fix any failures,
+   then commit and push atomically.
+
+### Common evidence patterns
+
+- **Price sourceText**: BuyBetter uses a custom naira symbol that breaks the
+  `₦` regex. Use the JSON-LD `offers.price` field with sourceText
+  `NGN <price>.00` instead. Other stores render `₦<price>` or `₦<price>.00`
+  correctly.
+- **Stock sourceText**: Some stores (Ediths Essentials, Perfect Trust Beauty)
+  do not render a visible "In Stock" text. Use the schema.org
+  `<link itemprop="availability" href="http://schema.org/InStock">` element
+  with sourceText `In Stock`.
+- **Title alias**: When a retailer's product heading uses a different wording
+  than the canonical variant (e.g. "Replenishing" vs "Replenish"), add a
+  `reviewedTitleAlias` field. The alias must have ≥3 tokens, all present in
+  both the candidate's name/variant tokens and the observed title tokens.
+- **Null packageVersion**: If the candidate's identity has no
+  `packageVersion`, remove the `packageVersion` field from both the offer and
+  its evidence fields. A null value fails `fieldShape` validation.
+- **Size token mismatch**: `observedSize` must produce the same
+  `measurementTokens` as `fields.size.value`. "13 oz / 384 ml" produces
+  `[13oz, 384ml]` while "384 ml" produces `[384ml]` — they do not match. Use
+  the shorter form consistently in both fields.
+
+### When re-verification cannot complete
+
+- **BuyBetter 404**: BuyBetter frequently delists products. Search for the
+  product on alternative directory-listed retailers (Teeka4, Beauty by Daz,
+  Ediths Essentials, Nectar Beauty Hub, Kadimez Essentials, CSi Grocery,
+  Perfect Trust Beauty, GlowMart).
+- **Manufacturer-SKU identity**: Candidates with `canonicalIdentifier.kind =
+  'manufacturer-sku'` require retained snapshot evidence
+  (`responseSnapshotPath`, `offerRecord`) that cannot be re-verified via
+  browser DOM. These candidates stay blocked — do not relax the matcher.
+- **Single retailer**: If only one directory-listed retailer can be found, the
+  market route is insufficient. Use `--reference-only` or find a second
+  retailer.
 
 ## Token and agent budget
 
