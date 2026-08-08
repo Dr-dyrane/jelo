@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T02:55:58Z",
+  "updatedAt": "2026-08-08T03:02:02Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -7762,7 +7762,7 @@
             "retailer": "Dunes Center",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://dunescenter.com/product/cerave-facial-moisturising-lotion-pm-52ml/",
-            "observedAt": "2026-07-23T18:18:00Z",
+            "observedAt": "2026-08-08T03:01:49Z",
             "observedTitle": "CERAVE FACIAL MOISTURISING LOTION PM 52ML",
             "observedSize": "52 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -7772,16 +7772,16 @@
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://dunescenter.com/product/cerave-facial-moisturising-lotion-pm-52ml/",
               "responseUrl": "https://dunescenter.com/product/cerave-facial-moisturising-lotion-pm-52ml/",
-              "responseSha256": "5326dfa0cff7f163d65f83611ab0cbc871e5551addb9b1e6932d50766ec5bad2",
-              "responseDigestScope": "rendered-accessibility-tree",
+              "responseSha256": "0fac94d30b85804c4d1921464c34d1685f3481284137d9bd67686b6201bbcf10",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 60999,
-              "retrievedAt": "2026-07-23T18:18:00Z",
+              "responseByteSize": 370030,
+              "retrievedAt": "2026-08-08T03:01:49Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
                 "pageTitle": "CERAVE FACIAL MOISTURISING LOTION PM 52ML – Dunes Center| Abuja"
               },
@@ -7817,36 +7817,36 @@
                 "stock": {
                   "value": "in-stock",
                   "locator": "Rendered accessibility availability",
-                  "sourceText": "Availability: 1 in stock"
+                  "sourceText": "1 in stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T18:24:00Z"
+              "reviewedAt": "2026-08-08T03:02:02Z"
             }
           },
           {
             "retailer": "Care to Beauty",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://www.caretobeauty.com/ng/cerave-facial-moisturising-lotion-52ml/",
-            "observedAt": "2026-07-23T18:19:00Z",
+            "observedAt": "2026-08-08T03:02:02Z",
             "observedTitle": "CeraVe PM Facial Moisturizing Lotion 52ml Nigeria Delivery",
             "observedSize": "52 ml",
             "observedGtinBasis": "exact-variant-and-size",
             "observedPackageVersion": "UK/EU 52 ml pump tube with matching blue-and-white carton",
-            "priceNgn": 32698.94,
+            "priceNgn": 29996.55,
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://www.caretobeauty.com/ng/cerave-facial-moisturising-lotion-52ml/",
               "responseUrl": "https://www.caretobeauty.com/ng/cerave-facial-moisturising-lotion-52ml/",
-              "responseSha256": "79277f1d14f1ae2d68ae0bd496fffbe622649eba5400eb3ccc7072b8d5b796df",
-              "responseDigestScope": "rendered-accessibility-tree",
+              "responseSha256": "c57905bc78f01382b783b00a990e48d17dbaf3b3c565b54e2497efe5e623d49f",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 17871,
-              "retrievedAt": "2026-07-23T18:19:00Z",
+              "responseByteSize": 390142,
+              "retrievedAt": "2026-08-08T03:02:02Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
                 "pageTitle": "CeraVe PM Facial Moisturizing Lotion 52ml Nigeria"
               },
@@ -7874,19 +7874,19 @@
                   "sourceText": "UK/EU 52 ml pump tube with matching blue-and-white carton"
                 },
                 "price": {
-                  "value": 32698.94,
+                  "value": 29996.55,
                   "currency": "NGN",
                   "locator": "Rendered accessibility product price",
-                  "sourceText": "₦32,698.94"
+                  "sourceText": "₦29,996.55"
                 },
                 "stock": {
                   "value": "in-stock",
                   "locator": "Rendered accessibility availability",
-                  "sourceText": "In stock & Ready to ship"
+                  "sourceText": "in stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T18:24:00Z"
+              "reviewedAt": "2026-08-08T03:02:02Z"
             }
           }
         ],

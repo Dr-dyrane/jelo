@@ -508,30 +508,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "cerave-pm-facial-moisturising-lotion-52ml",
-      "dossierFingerprint": "e155531b3b2b6c2c69361c742df2c474817538102ba5263d4c2638c394a4d818",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Moisturize",
-        "displayLine": "Ceramides, niacinamide and hyaluronic acid · 52 ml",
-        "usage": "Apply to the face and neck in the evening.",
-        "manufacturerDirectionsUrl": "https://www.cerave.co.uk/skincare/moisturisers/pm-facial-moisturising-lotion",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T18:28:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T18:29:00Z"
-      },
-      "releaseFingerprint": "21c17e2a61523313da2b8a38e907ec982d4ba8acecf88c38446572fc495b5529"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "cecred-moisturizing-deep-conditioner-300ml",
       "dossierFingerprint": "6a63728f48b310c5c8475f8014db85a6df2788f6edc9a5333e35cad05804ead0",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T02:57:20Z"
       },
       "releaseFingerprint": "0cfd946a8dd04594f3e82c579a2d82dce0a8a136e2159fd7f53d4da14280f600"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-pm-facial-moisturising-lotion-52ml",
+      "dossierFingerprint": "764b3e566350bbe4ad50a729e2f783744d10ac60123c878e39a87e4771a95d74",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Ceramides, niacinamide and hyaluronic acid · 52 ml",
+        "usage": "Apply to the face and neck in the evening.",
+        "manufacturerDirectionsUrl": "https://www.cerave.co.uk/skincare/moisturisers/pm-facial-moisturising-lotion",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T03:03:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T03:03:20Z"
+      },
+      "releaseFingerprint": "23a3a3731a3dced2e73d64a9df2607b082791fad4e24e84a1151806da56ae09c"
     }
   ]
 }
