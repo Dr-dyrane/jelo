@@ -339,13 +339,13 @@ test('the Cécred deep conditioner binds its exact full-size identity, two Niger
   assert.equal(candidate.identity.gtin, '850044935406');
   assert.equal(candidate.identity.officialEvidence?.observedSize, '300 ml / 10 fl oz');
   assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.schemaVersion, 4);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'GlowMart']);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [139750, 149000]);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['GlowMart', 'Ediths Essentials']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [149000, 144750]);
   assert.equal(candidate.nigeria.exactOffers.every(offer => offer.stock === 'in-stock'), true);
   assert.equal(candidate.asset.publicImageSha256, 'a2f62a459b075b708ba07184321409ff3a56ae96e7a2fc3d1c3d29f941088ec8');
   assert.equal(candidate.asset.backgroundTreatment, 'identity-verified-render');
   assert.equal(candidate.asset.presentationQuality, 'magazine-ready');
-  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-23T19:06:00Z'));
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T05:24:00Z'));
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 2);
 });

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T05:21:00Z",
+  "updatedAt": "2026-08-08T05:23:30Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -8172,76 +8172,10 @@
         "tierAIdentityEvidenceUrl": "https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058",
         "exactOffers": [
           {
-            "retailer": "BuyBetter",
-            "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/cecred-moisturising-deep-conditioner-300ml/",
-            "observedAt": "2026-07-23T18:57:15Z",
-            "observedTitle": "CECRED Moisturizing Deep Conditioner 300ml",
-            "observedSize": "300 ml",
-            "observedGtinBasis": "exact-variant-and-size",
-            "observedPackageVersion": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid",
-            "retailerSku": "850044935406",
-            "priceNgn": 139750,
-            "stock": "in-stock",
-            "evidence": {
-              "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
-              "listingUrl": "https://buybetter.ng/product/cecred-moisturising-deep-conditioner-300ml/",
-              "responseUrl": "https://buybetter.ng/product/cecred-moisturising-deep-conditioner-300ml/",
-              "responseSha256": "a853d3485fcce49bc315e556c61f82d16e733c5ae5a8ebe50e00db0b93ef090a",
-              "responseDigestScope": "rendered-accessibility-tree",
-              "responseMimeType": "text/html",
-              "responseByteSize": 8810,
-              "retrievedAt": "2026-07-23T18:57:15Z",
-              "browserCapture": {
-                "surface": "Codex in-app browser",
-                "documentReadyState": "complete",
-                "pageTitle": "CECRED Moisturizing Deep Conditioner 300ml – Buybetter"
-              },
-              "fields": {
-                "gtin": {
-                  "label": "GTIN",
-                  "value": "850044935406",
-                  "locator": "Bound official full-size product identity",
-                  "sourceText": "Official catalogue identity GTIN 850044935406",
-                  "responseRole": "official-identity-correlation"
-                },
-                "title": {
-                  "value": "CECRED Moisturizing Deep Conditioner 300ml",
-                  "locator": "Rendered accessibility product heading",
-                  "sourceText": "CECRED Moisturizing Deep Conditioner 300ml"
-                },
-                "size": {
-                  "value": "300 ml",
-                  "locator": "Rendered accessibility product heading",
-                  "sourceText": "CECRED Moisturizing Deep Conditioner 300ml"
-                },
-                "packageVersion": {
-                  "value": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid",
-                  "locator": "Rendered listing image matched to the official current full-size package",
-                  "sourceText": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid"
-                },
-                "price": {
-                  "value": 139750,
-                  "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
-                  "sourceText": "₦139,750.00"
-                },
-                "stock": {
-                  "value": "in-stock",
-                  "locator": "Rendered accessibility availability",
-                  "sourceText": "1 in stock"
-                }
-              },
-              "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T19:01:30Z"
-            }
-          },
-          {
             "retailer": "GlowMart",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://glowmartng.com/shop/cecred-moisturizing-deep-conditioner-300ml/",
-            "observedAt": "2026-07-23T18:57:50Z",
+            "observedAt": "2026-08-08T05:22:42Z",
             "observedTitle": "Cécred Moisturizing Deep Conditioner 300ml",
             "observedSize": "300 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -8250,16 +8184,16 @@
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://glowmartng.com/shop/cecred-moisturizing-deep-conditioner-300ml/",
               "responseUrl": "https://glowmartng.com/shop/cecred-moisturizing-deep-conditioner-300ml/",
-              "responseSha256": "2359696c0be2cf602c22b1df4c537439cbf505b10f7cf43260d72c2160a1b37f",
-              "responseDigestScope": "rendered-accessibility-tree",
+              "responseSha256": "cf1bd762e8082999b5696cc7eda6ef9e0d8af5ee079f93662405a66cae68f2fa",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 7796,
-              "retrievedAt": "2026-07-23T18:57:50Z",
+              "responseByteSize": 267968,
+              "retrievedAt": "2026-08-08T05:22:42Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
                 "pageTitle": "Cécred Moisturizing Deep Conditioner 300ml"
               },
@@ -8267,39 +8201,104 @@
                 "gtin": {
                   "label": "GTIN",
                   "value": "850044935406",
-                  "locator": "Bound official full-size product identity",
+                  "locator": "Bound official Cécred catalogue identity snapshot",
                   "sourceText": "Official catalogue identity GTIN 850044935406",
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
                   "value": "Cécred Moisturizing Deep Conditioner 300ml",
-                  "locator": "Rendered accessibility product heading",
+                  "locator": "HTML product heading",
                   "sourceText": "Cécred Moisturizing Deep Conditioner 300ml"
                 },
                 "size": {
                   "value": "300 ml",
-                  "locator": "Rendered accessibility product heading",
-                  "sourceText": "Cécred Moisturizing Deep Conditioner 300ml"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "300ml"
                 },
                 "packageVersion": {
                   "value": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid",
-                  "locator": "Rendered listing image matched to the official current full-size package",
+                  "locator": "Bound official Cécred catalogue identity snapshot",
                   "sourceText": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid"
                 },
                 "price": {
                   "value": 149000,
                   "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
+                  "locator": "Rendered product price",
                   "sourceText": "₦149,000.00"
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "Rendered accessibility availability",
-                  "sourceText": "In stock"
+                  "locator": "Rendered availability status",
+                  "sourceText": "IN STOCK"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T19:01:30Z"
+              "reviewedAt": "2026-08-08T05:23:30Z"
+            }
+          },
+          {
+            "retailer": "Ediths Essentials",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://edithsessentials.com/products/cecred-moisturizing-deep-conditioner-300ml",
+            "observedAt": "2026-08-08T05:22:56Z",
+            "observedTitle": "CECRED Moisturizing Deep Conditioner 300ml",
+            "observedSize": "300 ml",
+            "observedGtinBasis": "exact-variant-and-size",
+            "observedPackageVersion": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid",
+            "priceNgn": 144750,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://edithsessentials.com/products/cecred-moisturizing-deep-conditioner-300ml",
+              "responseUrl": "https://edithsessentials.com/products/cecred-moisturizing-deep-conditioner-300ml",
+              "responseSha256": "b5a5e84fb6ef59fd5cac1928361bc2e49f166726e1691423f962c11a072b9ca2",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 155409,
+              "retrievedAt": "2026-08-08T05:22:56Z",
+              "browserCapture": {
+                "surface": "Playwright MCP browser",
+                "documentReadyState": "complete",
+                "pageTitle": "CECRED Moisturizing Deep Conditioner 300ml – Ediths Essentials"
+              },
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "850044935406",
+                  "locator": "Bound official Cécred catalogue identity snapshot",
+                  "sourceText": "Official catalogue identity GTIN 850044935406",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "CECRED Moisturizing Deep Conditioner 300ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "CECRED Moisturizing Deep Conditioner 300ml"
+                },
+                "size": {
+                  "value": "300 ml",
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "300ml"
+                },
+                "packageVersion": {
+                  "value": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid",
+                  "locator": "Bound official Cécred catalogue identity snapshot",
+                  "sourceText": "Full Size 300 ml / 10 fl oz sculpted white jar with grey label and closed lid"
+                },
+                "price": {
+                  "value": 144750,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦144,750.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Schema.org availability itemprop link href",
+                  "sourceText": "In Stock"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-08T05:23:30Z"
             }
           }
         ],

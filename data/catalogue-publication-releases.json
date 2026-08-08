@@ -52,30 +52,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "cecred-moisturizing-deep-conditioner-300ml",
-      "dossierFingerprint": "6a63728f48b310c5c8475f8014db85a6df2788f6edc9a5333e35cad05804ead0",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Hair",
-        "routineStep": "Condition",
-        "displayLine": "Deep moisture for textured hair · 300 ml",
-        "usage": "Apply evenly from root to tip on clean, sectioned hair, then rinse thoroughly.",
-        "manufacturerDirectionsUrl": "https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T19:05:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T19:06:00Z"
-      },
-      "releaseFingerprint": "caed0b8be32d582ae03d0d0952dceefd3f3a9d1bf5532f10f32847632a164275"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
       "dossierFingerprint": "afc8fc9cd1e12eab1af86aec91f9e429f3ee040e366a4310e4f0d83bdba16ef8",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T05:21:50Z"
       },
       "releaseFingerprint": "052ab56294757d19c587bbecd761e6054cddf65f6d420f487101048f056a98dc"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cecred-moisturizing-deep-conditioner-300ml",
+      "dossierFingerprint": "6711a514bcc6a65f2a7492d908d78412675ac75c5f93ad1ad67dbc2664c4ab07",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Hair",
+        "routineStep": "Condition",
+        "displayLine": "Deep moisture for textured hair · 300 ml",
+        "usage": "Apply evenly from root to tip on clean, sectioned hair, then rinse thoroughly.",
+        "manufacturerDirectionsUrl": "https://cecred.com/products/moisturizing-deep-conditioner?variant=48950659318058",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T05:24:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T05:24:20Z"
+      },
+      "releaseFingerprint": "0d81b467071ba774721080026ecdff20a52cd7819a129ac6419aa617e8ffcb6b"
     }
   ]
 }
