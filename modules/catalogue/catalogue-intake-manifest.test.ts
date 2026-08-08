@@ -540,7 +540,7 @@ test('the Balance toner keeps retailer SKUs local while exact Nigerian offers bi
   assert.equal(candidate.asset.publicImageSha256, 'cec4c66e637ebf9cc9c4e2792f5ba3125fe3fd264ae7cbf6c47659088748744f');
   assert.equal(candidate.asset.generationRecord?.recordSha256, 'c89980ff8d1b672eed59b904ce1697d97e202bf22ab857b512d4caaf3cd2d4b3');
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T03:29:00Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 2);
