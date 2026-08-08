@@ -108,9 +108,21 @@ class ReviewedPackshotTests(unittest.TestCase):
             output_root=self.output_root,
             model="locked-model",
             provider="cpu",
+            keep_all_components=False,
+            pad_source=0,
         )
 
-    def fake_process(self, source: Image.Image, _model: str, _provider: str):
+    def fake_process(
+        self,
+        source: Image.Image,
+        _model: str,
+        _provider: str,
+        *,
+        keep_all_components: bool = False,
+        pad_source: int = 0,
+    ):
+        self.assertFalse(keep_all_components)
+        self.assertEqual(pad_source, 0)
         output = Image.new("RGBA", (2_000, 2_000), (0, 0, 0, 0))
         draw = ImageDraw.Draw(output)
         source_rgb = source.convert("RGB").getpixel((0, 0))
@@ -305,9 +317,14 @@ class ReviewedPackshotTests(unittest.TestCase):
     def test_source_is_read_once_and_identity_master_uses_the_validated_bytes(self) -> None:
         original = self.source.read_bytes()
 
-        def mutate_path_after_read(source: Image.Image, model: str, provider: str):
+        def mutate_path_after_read(
+            source: Image.Image,
+            model: str,
+            provider: str,
+            **options: object,
+        ):
             self.source.write_bytes(b"replacement-after-validated-read")
-            return self.fake_process(source, model, provider)
+            return self.fake_process(source, model, provider, **options)
 
         self.run_main(processor=mutate_path_after_read)
         pointer = json.loads((self.output_root / self.candidate_id / "latest.json").read_text())
@@ -550,8 +567,13 @@ class ReviewedPackshotTests(unittest.TestCase):
             PACKSHOT.deterministic_session_options()
 
     def test_main_rejects_session_contract_drift_before_writing_output(self) -> None:
-        def drifted_process(source: Image.Image, model: str, provider: str):
-            result = list(self.fake_process(source, model, provider))
+        def drifted_process(
+            source: Image.Image,
+            model: str,
+            provider: str,
+            **options: object,
+        ):
+            result = list(self.fake_process(source, model, provider, **options))
             result[4] = {
                 **PACKSHOT.expected_session_options_contract(),
                 "intraOpNumThreads": 8,
