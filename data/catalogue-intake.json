@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T04:15:00Z",
+  "updatedAt": "2026-08-08T04:20:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -1317,25 +1317,25 @@
             "retailer": "Beauty by Daz",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
-            "observedAt": "2026-07-23T02:50:09.999Z",
+            "observedAt": "2026-08-08T04:18:45Z",
             "observedTitle": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
             "observedSize": "50 ml",
             "observedGtinBasis": "exact-variant-and-size",
             "retailerSku": "328-1-byd",
-            "priceNgn": 18850,
+            "priceNgn": 19100,
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
               "responseUrl": "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
-              "responseSha256": "a4029e2d9f26e239a3b18604efd92eadb928cefd9916b5fae993007cb19dbe6d",
+              "responseSha256": "9f446482e12620d7f8f6eadd6c0393096169835f42e2b6b67a4d18ccf6d52652",
               "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 200069,
-              "retrievedAt": "2026-07-23T02:50:09.999Z",
+              "responseByteSize": 255728,
+              "retrievedAt": "2026-08-08T04:18:45Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
                 "pageTitle": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml"
               },
@@ -1343,41 +1343,41 @@
                 "gtin": {
                   "label": "GTIN",
                   "value": "8850029013671",
-                  "locator": "Bound official catalogue identity snapshot",
+                  "locator": "Bound official Eucerin catalogue identity snapshot",
                   "sourceText": "Official catalogue identity GTIN 8850029013671",
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
                   "value": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
-                  "locator": "Rendered DOM h1 product heading",
+                  "locator": "HTML product heading",
                   "sourceText": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml"
                 },
                 "size": {
                   "value": "50 ml",
-                  "locator": "Rendered DOM h1 size suffix",
-                  "sourceText": "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "50ml"
                 },
                 "price": {
-                  "value": 18850,
+                  "value": 19100,
                   "currency": "NGN",
-                  "locator": "Rendered DOM product price",
-                  "sourceText": "₦18,850.00"
+                  "locator": "Rendered product price",
+                  "sourceText": "₦19,100.00"
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "Rendered DOM stock status",
-                  "sourceText": "In stock"
+                  "locator": "Rendered availability status",
+                  "sourceText": "IN STOCK"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T02:51:00Z"
+              "reviewedAt": "2026-08-08T04:20:00Z"
             }
           },
           {
             "retailer": "Nectar Beauty Hub",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://nectarbeautyhub.com/products/eucerin-face-sunscreen-oil-control-gel-cream-dry-touch-spf-50-50ml",
-            "observedAt": "2026-07-23T02:52:25.450Z",
+            "observedAt": "2026-08-08T04:18:58Z",
             "observedTitle": "Eucerin Oil Control Blemish Prone Skin Sun Gel Cream SPF 50+ 50ml",
             "observedSize": "50 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -1389,13 +1389,13 @@
               "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://nectarbeautyhub.com/products/eucerin-face-sunscreen-oil-control-gel-cream-dry-touch-spf-50-50ml",
               "responseUrl": "https://nectarbeautyhub.com/products/eucerin-face-sunscreen-oil-control-gel-cream-dry-touch-spf-50-50ml",
-              "responseSha256": "4a176a3a5deb8d7c86414914351323ff77ca4c16356e37a4782965a0cb730a8f",
+              "responseSha256": "5179a89f516d9830e7cc062385289a8ef0bfcffce549708f45ae238f4fbe4049",
               "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 200439,
-              "retrievedAt": "2026-07-23T02:52:25.450Z",
+              "responseByteSize": 1009280,
+              "retrievedAt": "2026-08-08T04:18:58Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
                 "pageTitle": "Buy Original Eucerin Face Sunscreen Oil Control Gel-Cream Dry Touch, SPF 50+, 50ml – Nectar Beauty Hub"
               },
@@ -1403,34 +1403,34 @@
                 "gtin": {
                   "label": "GTIN",
                   "value": "8850029013671",
-                  "locator": "Bound official catalogue identity snapshot",
+                  "locator": "Bound official Eucerin catalogue identity snapshot",
                   "sourceText": "Official catalogue identity GTIN 8850029013671",
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
                   "value": "Eucerin Oil Control Blemish Prone Skin Sun Gel Cream SPF 50+ 50ml",
-                  "locator": "Rendered DOM h1 product heading",
+                  "locator": "HTML product heading",
                   "sourceText": "Eucerin Oil Control Blemish Prone Skin Sun Gel Cream SPF 50+ 50ml"
                 },
                 "size": {
                   "value": "50 ml",
-                  "locator": "Rendered DOM h1 size suffix",
-                  "sourceText": "Eucerin Oil Control Blemish Prone Skin Sun Gel Cream SPF 50+ 50ml"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "50ml"
                 },
                 "price": {
                   "value": 17363,
                   "currency": "NGN",
-                  "locator": "Rendered DOM sale price",
+                  "locator": "Rendered product price",
                   "sourceText": "₦17,363.00"
                 },
                 "stock": {
                   "value": "out-of-stock",
-                  "locator": "Rendered DOM availability status",
+                  "locator": "Rendered availability status",
                   "sourceText": "Out Of Stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T02:53:00Z"
+              "reviewedAt": "2026-08-08T04:20:00Z"
             }
           }
         ],
