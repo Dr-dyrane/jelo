@@ -404,10 +404,10 @@ test('the Dove Skin Replenish wash binds its exact package, two Nigerian prices 
   assert.equal(candidate.identity.officialEvidence?.canonicalExtraction.schemaVersion, 4);
   assert.deepEqual(
     candidate.nigeria.exactOffers.map(offer => offer.retailer),
-    ['BuyBetter', 'Kadimez Essentials'],
+    ['Teeka4', 'Kadimez Essentials'],
   );
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [22600, 24500]);
-  assert.equal(candidate.nigeria.exactOffers[0].stock, 'low-stock');
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [17800, 24500]);
+  assert.equal(candidate.nigeria.exactOffers[0].stock, 'out-of-stock');
   assert.equal(candidate.nigeria.exactOffers[1].stock, 'in-stock');
   assert.equal(candidate.asset.origin, 'owned-identity-verified-render');
   assert.equal(candidate.asset.publicImageSha256, '9ffc53c3bf65ed9d5006fc7e50446ca9de1f816da7fec45ed4555305954ea2c9');
@@ -417,7 +417,7 @@ test('the Dove Skin Replenish wash binds its exact package, two Nigerian prices 
   assert.ok(generation);
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
-  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-07-23T20:25:00Z'));
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T05:39:30Z'));
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 2);
 });

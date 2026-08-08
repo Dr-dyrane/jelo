@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T05:36:00Z",
+  "updatedAt": "2026-08-08T05:39:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -9053,31 +9053,31 @@
         "tierAIdentityEvidenceUrl": "https://www.dove.com/us/en/p/skin-replenish-body-wash.html/00011111055230",
         "exactOffers": [
           {
-            "retailer": "BuyBetter",
+            "retailer": "Teeka4",
             "retailerStatus": "directory-listed",
-            "listingUrl": "https://buybetter.ng/product/dove-skin-replenish-2-body-wash-547ml/",
-            "observedAt": "2026-07-23T20:08:00Z",
-            "observedTitle": "DOVE SKIN REPLENISH 2% Body Wash 547ml",
+            "listingUrl": "https://teeka4.com/shop/dove-skin-replenishing-2-body-wash-547ml/",
+            "observedAt": "2026-08-08T05:38:20Z",
+            "observedTitle": "Dove Skin Replenishing 2% Body Wash 547ml",
+            "reviewedTitleAlias": "Skin Body Wash",
             "observedSize": "547 ml",
             "observedGtinBasis": "exact-variant-and-size",
             "observedPackageVersion": "Current 18.5 fl oz / 547 ml white rounded pump bottle with white pump, metallic gold collar, gold Dove bird and hot-pink Skin Replenish label",
-            "retailerSku": "011111055230",
-            "priceNgn": 22600,
-            "stock": "low-stock",
+            "priceNgn": 17800,
+            "stock": "out-of-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
-              "listingUrl": "https://buybetter.ng/product/dove-skin-replenish-2-body-wash-547ml/",
-              "responseUrl": "https://buybetter.ng/product/dove-skin-replenish-2-body-wash-547ml/",
-              "responseSha256": "94ff45af099d52f61ed745557c8f2a10c025be9f5006a5dd9bcef73704874c1d",
-              "responseDigestScope": "rendered-accessibility-tree",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://teeka4.com/shop/dove-skin-replenishing-2-body-wash-547ml/",
+              "responseUrl": "https://teeka4.com/shop/dove-skin-replenishing-2-body-wash-547ml/",
+              "responseSha256": "85503a0f4a2365ea363ca90ac1d53631176e782afb745d8eced8416f54176ce4",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 11377,
-              "retrievedAt": "2026-07-23T20:08:00Z",
+              "responseByteSize": 364831,
+              "retrievedAt": "2026-08-08T05:38:20Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
-                "pageTitle": "DOVE SKIN REPLENISH 2% Body Wash 547ml – Buybetter"
+                "pageTitle": "Buy Original Dove Skin Replenishing 2% Body Wash 547ml in Nigeria | Teeka4"
               },
               "fields": {
                 "gtin": {
@@ -9088,41 +9088,41 @@
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
-                  "value": "DOVE SKIN REPLENISH 2% Body Wash 547ml",
-                  "locator": "Rendered accessibility product heading",
-                  "sourceText": "DOVE SKIN REPLENISH 2% Body Wash 547ml"
+                  "value": "Dove Skin Replenishing 2% Body Wash 547ml",
+                  "locator": "HTML product heading",
+                  "sourceText": "Dove Skin Replenishing 2% Body Wash 547ml"
                 },
                 "size": {
                   "value": "547 ml",
-                  "locator": "Rendered accessibility product title size",
-                  "sourceText": "DOVE SKIN REPLENISH 2% Body Wash 547ml"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "547ml"
                 },
                 "packageVersion": {
                   "value": "Current 18.5 fl oz / 547 ml white rounded pump bottle with white pump, metallic gold collar, gold Dove bird and hot-pink Skin Replenish label",
-                  "locator": "Rendered listing image matched to the current official product package",
+                  "locator": "Bound official Dove catalogue identity snapshot",
                   "sourceText": "Current 18.5 fl oz / 547 ml white rounded pump bottle with white pump, metallic gold collar, gold Dove bird and hot-pink Skin Replenish label"
                 },
                 "price": {
-                  "value": 22600,
+                  "value": 17800,
                   "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
-                  "sourceText": "₦22,600.00"
+                  "locator": "Rendered product price",
+                  "sourceText": "₦17,800.00"
                 },
                 "stock": {
-                  "value": "low-stock",
-                  "locator": "Rendered accessibility stock status",
-                  "sourceText": "3 in stock"
+                  "value": "out-of-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Out of Stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T20:09:00Z"
+              "reviewedAt": "2026-08-08T05:39:00Z"
             }
           },
           {
             "retailer": "Kadimez Essentials",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://kadimezessentials.com/product/dove-skin-replenish-pink-lily-body-wash-with-2-niacinamide-bha-refining-serum-547ml/",
-            "observedAt": "2026-07-23T20:08:00Z",
+            "observedAt": "2026-08-08T05:38:02Z",
             "observedTitle": "Dove Skin Replenish Pink Lily Body Wash With 2% Niacinamide & BHA Refining Serum 547ml",
             "observedSize": "547 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -9131,16 +9131,16 @@
             "stock": "in-stock",
             "evidence": {
               "schemaVersion": 1,
-              "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://kadimezessentials.com/product/dove-skin-replenish-pink-lily-body-wash-with-2-niacinamide-bha-refining-serum-547ml/",
               "responseUrl": "https://kadimezessentials.com/product/dove-skin-replenish-pink-lily-body-wash-with-2-niacinamide-bha-refining-serum-547ml/",
-              "responseSha256": "b00d5b9f4d57aee9525c46e435119d7ec1bb2b6cf371335ff1c5b8b23e51535d",
-              "responseDigestScope": "rendered-accessibility-tree",
+              "responseSha256": "372f848c83e12164700c0d7d48b4173c93231eedac9143634fcebde3cb992477",
+              "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 12117,
-              "retrievedAt": "2026-07-23T20:08:00Z",
+              "responseByteSize": 230863,
+              "retrievedAt": "2026-08-08T05:38:02Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
                 "pageTitle": "Dove Skin Replenish Pink Lily Body Wash With 2% Niacinamide & BHA Refining Serum 547ml - Kadimez Essentials"
               },
@@ -9154,33 +9154,33 @@
                 },
                 "title": {
                   "value": "Dove Skin Replenish Pink Lily Body Wash With 2% Niacinamide & BHA Refining Serum 547ml",
-                  "locator": "Rendered accessibility product heading",
+                  "locator": "HTML product heading",
                   "sourceText": "Dove Skin Replenish Pink Lily Body Wash With 2% Niacinamide & BHA Refining Serum 547ml"
                 },
                 "size": {
                   "value": "547 ml",
-                  "locator": "Rendered accessibility product title size",
-                  "sourceText": "Dove Skin Replenish Pink Lily Body Wash With 2% Niacinamide & BHA Refining Serum 547ml"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "547ml"
                 },
                 "packageVersion": {
                   "value": "Current 18.5 fl oz / 547 ml white rounded pump bottle with white pump, metallic gold collar, gold Dove bird and hot-pink Skin Replenish label",
-                  "locator": "Rendered listing image matched to the current official product package",
+                  "locator": "Bound official Dove catalogue identity snapshot",
                   "sourceText": "Current 18.5 fl oz / 547 ml white rounded pump bottle with white pump, metallic gold collar, gold Dove bird and hot-pink Skin Replenish label"
                 },
                 "price": {
                   "value": 24500,
                   "currency": "NGN",
-                  "locator": "Rendered accessibility product price",
+                  "locator": "Rendered product price",
                   "sourceText": "₦24,500.00"
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "Rendered accessibility stock status",
+                  "locator": "Rendered availability status",
                   "sourceText": "In stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T20:09:00Z"
+              "reviewedAt": "2026-08-08T05:39:00Z"
             }
           }
         ],
