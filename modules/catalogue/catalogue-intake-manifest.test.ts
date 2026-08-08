@@ -1282,10 +1282,9 @@ test('the Calming Moisture body wash binds the exact Dove identity, current Nige
   assert.equal(candidate.identity.gtin, '00011111049437');
   assert.equal(candidate.identity.officialEvidence?.observedSize, '18.5 fl oz / 547 ml');
   assert.equal(candidate.identity.officialEvidence?.canonicalExtraction?.method, 'reviewed-browser-dom-identity-field-extraction');
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'Teeka4']);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [22_600, 17_800]);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['low-stock', 'out-of-stock']);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailerSku), ['011111049437', 'TK-1689']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['Teeka4', 'Ediths Essentials']);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.priceNgn), [17_800, 27_600]);
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.stock), ['out-of-stock', 'in-stock']);
   assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtin === undefined), true);
   assert.equal(candidate.asset.origin, 'owned-identity-verified-render');
   assert.equal(candidate.asset.publicImageSha256, 'b6a102a269cec6f344bee5bb868c83f3204addf63f350e673e16f495d9133cf4');
@@ -1297,7 +1296,7 @@ test('the Calming Moisture body wash binds the exact Dove identity, current Nige
   const { recordSha256, ...content } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(content));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T05:36:30Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.deepEqual(decision.blockers, []);

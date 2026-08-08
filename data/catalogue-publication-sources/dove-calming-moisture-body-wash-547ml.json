@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "dove-calming-moisture-body-wash-547ml",
-    "candidateFingerprint": "44a85e6cca68ed82d17ec92b3fac1aadb1e6c3d3f0e6a5d79f78909922c573ed",
+    "candidateFingerprint": "083fbd9f0045b222f195c74e4d4afd4e829feaca95c8d7998cf7298369522751",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -106,74 +106,13 @@
       "tierAIdentityEvidenceUrl": "https://www.dove.com/us/en/p/calming-moisture-body-wash.html/00011111049437",
       "exactOffers": [
         {
-          "retailer": "BuyBetter",
-          "retailerStatus": "directory-listed",
-          "listingUrl": "https://buybetter.ng/product/dove-calming-moisture-3-body-wash-547ml/",
-          "observedAt": "2026-07-23T15:18:00Z",
-          "observedTitle": "DOVE CALMING MOISTURE 3% Body Wash 547ml",
-          "observedSize": "547 ml",
-          "observedGtinBasis": "exact-variant-and-size",
-          "retailerSku": "011111049437",
-          "priceNgn": 22600,
-          "stock": "low-stock",
-          "evidence": {
-            "schemaVersion": 1,
-            "method": "reviewed-browser-dom-exact-offer-field-extraction",
-            "listingUrl": "https://buybetter.ng/product/dove-calming-moisture-3-body-wash-547ml/",
-            "responseUrl": "https://buybetter.ng/product/dove-calming-moisture-3-body-wash-547ml/",
-            "responseSha256": "93964a2dadafbe90523febfad73efd27fa15bdf4fd99f2759ad55c3cbbd56e77",
-            "responseDigestScope": "rendered-dom-outerhtml",
-            "responseMimeType": "text/html",
-            "responseByteSize": 200092,
-            "retrievedAt": "2026-07-23T15:18:00Z",
-            "browserCapture": {
-              "surface": "Codex in-app browser",
-              "documentReadyState": "complete",
-              "pageTitle": "DOVE CALMING MOISTURE 3% Body Wash 547ml – Buybetter"
-            },
-            "fields": {
-              "gtin": {
-                "label": "GTIN",
-                "value": "00011111049437",
-                "locator": "Bound official Dove catalogue identity snapshot",
-                "sourceText": "Official catalogue identity GTIN 00011111049437",
-                "responseRole": "official-identity-correlation"
-              },
-              "title": {
-                "value": "DOVE CALMING MOISTURE 3% Body Wash 547ml",
-                "locator": "Rendered DOM h1 product heading",
-                "sourceText": "DOVE CALMING MOISTURE 3% Body Wash 547ml"
-              },
-              "size": {
-                "value": "547 ml",
-                "locator": "Rendered DOM h1 size suffix",
-                "sourceText": "DOVE CALMING MOISTURE 3% Body Wash 547ml"
-              },
-              "price": {
-                "value": 22600,
-                "currency": "NGN",
-                "locator": "Rendered DOM product price",
-                "sourceText": "₦22,600.00 NG"
-              },
-              "stock": {
-                "value": "low-stock",
-                "locator": "Rendered DOM product stock count",
-                "sourceText": "2 in stock"
-              }
-            },
-            "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T15:27:00Z"
-          }
-        },
-        {
           "retailer": "Teeka4",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://teeka4.com/shop/dove-calming-moisture-3-body-wash-54ml/",
-          "observedAt": "2026-07-23T15:19:00Z",
+          "observedAt": "2026-08-08T05:35:14Z",
           "observedTitle": "Dove Calming Moisture 3% Body Wash 547ml",
           "observedSize": "547 ml",
           "observedGtinBasis": "exact-variant-and-size",
-          "retailerSku": "TK-1689",
           "priceNgn": 17800,
           "stock": "out-of-stock",
           "evidence": {
@@ -181,13 +120,13 @@
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://teeka4.com/shop/dove-calming-moisture-3-body-wash-54ml/",
             "responseUrl": "https://teeka4.com/shop/dove-calming-moisture-3-body-wash-54ml/",
-            "responseSha256": "f729e74293cdf54554c5d39308f20b69d47d7ce600df09dfcc9dbf854104ed84",
+            "responseSha256": "76027ed84da57b378bd1073ee29d2128ef9ecca1ff651aa64435f9740c5f4241",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 200036,
-            "retrievedAt": "2026-07-23T15:19:00Z",
+            "responseByteSize": 364544,
+            "retrievedAt": "2026-08-08T05:35:14Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
               "pageTitle": "Buy Original Dove Calming Moisture 3% Body Wash 547ml in Nigeria | Teeka4"
             },
@@ -201,28 +140,87 @@
               },
               "title": {
                 "value": "Dove Calming Moisture 3% Body Wash 547ml",
-                "locator": "Rendered DOM h1 product heading",
+                "locator": "HTML product heading",
                 "sourceText": "Dove Calming Moisture 3% Body Wash 547ml"
               },
               "size": {
                 "value": "547 ml",
-                "locator": "Rendered DOM h1 size suffix",
-                "sourceText": "Dove Calming Moisture 3% Body Wash 547ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "547ml"
               },
               "price": {
                 "value": 17800,
                 "currency": "NGN",
-                "locator": "Rendered DOM product price",
+                "locator": "Rendered product price",
                 "sourceText": "₦17,800.00"
               },
               "stock": {
                 "value": "out-of-stock",
-                "locator": "Rendered DOM availability label",
+                "locator": "Rendered availability status",
                 "sourceText": "Out of Stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T15:27:00Z"
+            "reviewedAt": "2026-08-08T05:36:00Z"
+          }
+        },
+        {
+          "retailer": "Ediths Essentials",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://edithsessentials.com/products/dove-calming-moisture-3-body-wash-547ml",
+          "observedAt": "2026-08-08T05:35:44Z",
+          "observedTitle": "DOVE CALMING MOISTURE 3% Body Wash 547ml",
+          "observedSize": "547 ml",
+          "observedGtinBasis": "exact-variant-and-size",
+          "priceNgn": 27600,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://edithsessentials.com/products/dove-calming-moisture-3-body-wash-547ml",
+            "responseUrl": "https://edithsessentials.com/products/dove-calming-moisture-3-body-wash-547ml",
+            "responseSha256": "ce7a56266df7a250af3bea18fc3f0cdc8d89619be57408564d048d09dfc8f74a",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 155116,
+            "retrievedAt": "2026-08-08T05:35:44Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "DOVE CALMING MOISTURE 3% Body Wash 547ml – Ediths Essentials"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "00011111049437",
+                "locator": "Bound official Dove catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 00011111049437",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "DOVE CALMING MOISTURE 3% Body Wash 547ml",
+                "locator": "HTML product heading",
+                "sourceText": "DOVE CALMING MOISTURE 3% Body Wash 547ml"
+              },
+              "size": {
+                "value": "547 ml",
+                "locator": "HTML product heading size suffix",
+                "sourceText": "547ml"
+              },
+              "price": {
+                "value": 27600,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦27,600.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Schema.org availability itemprop link href",
+                "sourceText": "In Stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-08T05:36:00Z"
           }
         }
       ],
@@ -276,14 +274,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-23T15:32:00Z"
+      "approvedAt": "2026-08-08T05:36:30Z"
     },
-    "dossierFingerprint": "d9f86bce70041cb996b867616f5375bc37831ae407989c5f2f3b560173f73c6c"
+    "dossierFingerprint": "28a2219b42363465db8a2330c906d1055a62e7ac449744c17c1efdb07ee913d4"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "dove-calming-moisture-body-wash-547ml",
-    "dossierFingerprint": "d9f86bce70041cb996b867616f5375bc37831ae407989c5f2f3b560173f73c6c",
+    "dossierFingerprint": "28a2219b42363465db8a2330c906d1055a62e7ac449744c17c1efdb07ee913d4",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -295,13 +293,13 @@
       "usage": "Lather over damp skin, rinse, then pat dry.",
       "manufacturerDirectionsUrl": "https://www.dove.com/us/en/p/calming-moisture-body-wash.html/00011111049437",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-07-23T15:33:00Z"
+      "reviewedAt": "2026-08-08T05:36:40Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-07-23T15:34:00Z"
+      "publishedAt": "2026-08-08T05:36:50Z"
     },
-    "releaseFingerprint": "bbf00d11be4120d4991e63931ff672a5a3910e00d99c01e66bfc4c0ab184768c"
+    "releaseFingerprint": "72ba8e51fec9a4bb4e65f90da058b83339b7d47bafadd29baaa6e6597a8423f5"
   }
 }
