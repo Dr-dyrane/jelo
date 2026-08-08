@@ -53,19 +53,19 @@
 
 /* Dark theme */
 :global(html[data-theme="dark"]) .button {
-  color: var(--cream);
+  color: var(--ink);
 }
 
 :global(html[data-theme="dark"]) .button:hover {
-  background: color-mix(in srgb, var(--cream) 10%, transparent);
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
 }
 
 @media (prefers-color-scheme: dark) {
   :global(html:not([data-theme="light"])) .button {
-    color: var(--cream);
+    color: var(--ink);
   }
   :global(html:not([data-theme="light"])) .button:hover {
-    background: color-mix(in srgb, var(--cream) 10%, transparent);
+    background: color-mix(in srgb, var(--ink) 10%, transparent);
   }
 }
 
