@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-07-26T15:18:00Z",
+  "updatedAt": "2026-08-08T04:11:00Z",
   "order": 1,
   "origin": {
     "kind": "legacy-deliberate-intake",
@@ -103,8 +103,8 @@
           "retailer": "BuyBetter",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://buybetter.ng/product/dove-melanin-even-tone-5-body-wash-547ml/",
-          "observedAt": "2026-07-23T01:07:30Z",
-          "observedTitle": "DOVE MELANIN EVEN TONE 5% Body Wash 547ml",
+          "observedAt": "2026-08-08T04:07:06Z",
+          "observedTitle": "DOVE -MELANIN EVEN TONE 5% Body Wash 547ml",
           "observedSize": "547 ml",
           "observedGtinBasis": "exact-variant-and-size",
           "retailerSku": "011111040090",
@@ -112,102 +112,112 @@
           "stock": "low-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://buybetter.ng/product/dove-melanin-even-tone-5-body-wash-547ml/",
             "responseUrl": "https://buybetter.ng/product/dove-melanin-even-tone-5-body-wash-547ml/",
-            "responseSha256": "47ec61bdd319bcad85eddfc8f25dd75094dedb5344e5b227d89bd65ddaa84972",
-            "responseDigestScope": "decoded-response-body",
+            "responseSha256": "534631aef3600370475453481ec675096e4cd3e9c2e29409cd687aafc8aa853c",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 800649,
-            "retrievedAt": "2026-07-23T01:07:30Z",
+            "responseByteSize": 534078,
+            "retrievedAt": "2026-08-08T04:07:06Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Dove Melanin Body Wash | Body Wash | BuyBetter"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "00011111040090",
-                "locator": "Bound official catalogue identity snapshot",
+                "locator": "Bound official Dove catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 00011111040090",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
-                "value": "DOVE MELANIN EVEN TONE 5% Body Wash 547ml",
-                "locator": "HTML h1.product_title",
-                "sourceText": "DOVE MELANIN EVEN TONE 5% Body Wash 547ml"
+                "value": "DOVE -MELANIN EVEN TONE 5% Body Wash 547ml",
+                "locator": "HTML product heading",
+                "sourceText": "DOVE -MELANIN EVEN TONE 5% Body Wash 547ml"
               },
               "size": {
                 "value": "547 ml",
-                "locator": "HTML h1.product_title size suffix",
-                "sourceText": "DOVE MELANIN EVEN TONE 5% Body Wash 547ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "547ml"
               },
               "price": {
                 "value": 22600,
                 "currency": "NGN",
-                "locator": "HTML p.price",
-                "sourceText": "₦22,600.00 NG"
+                "locator": "Rendered product price",
+                "sourceText": "₦22,600"
               },
               "stock": {
                 "value": "low-stock",
-                "locator": "HTML p.stock",
-                "sourceText": "4 in stock"
+                "locator": "Rendered availability status",
+                "sourceText": "Only 4 left"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T03:52:00Z"
+            "reviewedAt": "2026-08-08T04:11:00Z"
           }
         },
         {
-          "retailer": "Teeka4",
+          "retailer": "Perona Beauty",
           "retailerStatus": "directory-listed",
-          "listingUrl": "https://teeka4.com/shop/etude-house-sunprise-mild-watery-light-spf50-pa/",
-          "observedAt": "2026-07-23T03:58:07Z",
-          "observedTitle": "Dove Melanin Even Tone Body Wash 5% Pro Ceramide With BHA 547ml",
+          "listingUrl": "https://peronabeauty.com/product/dove-melanin-even-tone-body-wash-547ml/",
+          "observedAt": "2026-08-08T04:10:31Z",
+          "observedTitle": "Dove Melanin Even Tone Body Wash 547ml",
           "observedSize": "547 ml",
           "observedGtinBasis": "exact-variant-and-size",
-          "retailerSku": "TK-0411",
-          "priceNgn": 17800,
-          "stock": "out-of-stock",
+          "priceNgn": 20000,
+          "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-exact-offer-field-extraction",
-            "listingUrl": "https://teeka4.com/shop/etude-house-sunprise-mild-watery-light-spf50-pa/",
-            "responseUrl": "https://teeka4.com/shop/etude-house-sunprise-mild-watery-light-spf50-pa/",
-            "responseSha256": "b5e867904a3062bf9415b07ae6a5ccad013210bc8282a7de17cc78799ad62c92",
-            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://peronabeauty.com/product/dove-melanin-even-tone-body-wash-547ml/",
+            "responseUrl": "https://peronabeauty.com/product/dove-melanin-even-tone-body-wash-547ml/",
+            "responseSha256": "fc14a7fb9ee64683898cacfe254bd8daea0b4b7fd87c0e9b53e3f8d6e17e1a01",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 372116,
-            "retrievedAt": "2026-07-23T03:58:07Z",
+            "responseByteSize": 426547,
+            "retrievedAt": "2026-08-08T04:10:31Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy Dove Melanin Even Tone Body Wash 547ml | Best Price"
+            },
             "fields": {
               "gtin": {
                 "label": "GTIN",
                 "value": "00011111040090",
-                "locator": "Bound official catalogue identity snapshot",
+                "locator": "Bound official Dove catalogue identity snapshot",
                 "sourceText": "Official catalogue identity GTIN 00011111040090",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
-                "value": "Dove Melanin Even Tone Body Wash 5% Pro Ceramide With BHA 547ml",
-                "locator": "HTML h1.product_title",
-                "sourceText": "Dove Melanin Even Tone Body Wash 5% Pro Ceramide With BHA 547ml"
+                "value": "Dove Melanin Even Tone Body Wash 547ml",
+                "locator": "HTML product heading",
+                "sourceText": "Dove Melanin Even Tone Body Wash 547ml"
               },
               "size": {
                 "value": "547 ml",
-                "locator": "HTML h1.product_title size suffix",
-                "sourceText": "Dove Melanin Even Tone Body Wash 5% Pro Ceramide With BHA 547ml"
+                "locator": "HTML product heading size suffix",
+                "sourceText": "547ml"
               },
               "price": {
-                "value": 17800,
+                "value": 20000,
                 "currency": "NGN",
-                "locator": "HTML p.price",
-                "sourceText": "₦17,800.00"
+                "locator": "Rendered product price",
+                "sourceText": "NGN20,000"
               },
               "stock": {
-                "value": "out-of-stock",
-                "locator": "HTML p.stock",
-                "sourceText": "Out of stock"
+                "value": "in-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "IN STOCK"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-07-23T03:58:07Z"
-          }
+            "reviewedAt": "2026-08-08T04:11:00Z"
+          },
+          "reviewedTitleAlias": "Melanin Even Tone Body Wash"
         }
       ],
       "excludedObservations": [

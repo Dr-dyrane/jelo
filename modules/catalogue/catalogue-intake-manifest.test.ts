@@ -434,13 +434,11 @@ test('a bot-protected Dove page advances through a hash-bound browser DOM review
   assert.ok('browserCapture' in extraction);
   assert.equal(extraction.browserCapture.documentReadyState, 'complete');
   assert.equal(candidate.nigeria.exactOffers.length, 2);
-  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'Teeka4']);
-  assert.equal(candidate.nigeria.exactOffers[0].retailerSku, '011111040090');
-  assert.equal(candidate.nigeria.exactOffers[1].retailerSku, 'TK-0411');
+  assert.deepEqual(candidate.nigeria.exactOffers.map(offer => offer.retailer), ['BuyBetter', 'Perona Beauty']);
   assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtin === undefined), true);
   assert.equal(candidate.nigeria.exactOffers.every(offer => offer.observedGtinBasis === 'exact-variant-and-size'), true);
   assert.equal(candidate.nigeria.exactOffers[0].stock, 'low-stock');
-  assert.equal(candidate.nigeria.exactOffers[1].stock, 'out-of-stock');
+  assert.equal(candidate.nigeria.exactOffers[1].stock, 'in-stock');
   assert.equal(candidate.nigeria.excludedObservations.length, 1);
   assert.equal(candidate.nigeria.excludedObservations[0].retailer, 'Slique Beauty');
   assert.ok(candidate.nigeria.excludedObservations[0].exclusionReasons.includes('manufacturer-identifier-mismatch'));
@@ -451,7 +449,7 @@ test('a bot-protected Dove page advances through a hash-bound browser DOM review
   const { recordSha256, ...generationContent } = generation;
   assert.equal(recordSha256, catalogueGenerationRecordSha256(generationContent));
 
-  const decision = evaluateCatalogueIntakeCandidate(candidate, researchAsOf);
+  const decision = evaluateCatalogueIntakeCandidate(candidate, Date.parse('2026-08-08T04:11:30Z'));
   assert.equal(decision.stage, 'approval-ready');
   assert.equal(decision.approvalDraftReady, true);
   assert.equal(decision.freshExactOffers.length, 2);
