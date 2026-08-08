@@ -7,7 +7,7 @@ import { products as staticProducts } from "@/data/catalogue";
 import { concerns } from "@/data/knowledge";
 import { getReviewedProductCare } from "@/data/product-care-review";
 import { isPublishedIntakeProduct } from "@/data/published-intake-products";
-import { MarketPrice } from "@/components/products/market-price";
+import { ProductHeroMotion } from "@/components/products/product-hero-motion";
 import { ProductGrid } from "@/components/products/product-grid";
 import { ProductQuickPanel } from "@/components/products/product-quick-panel";
 import { ProductSizeSelector } from "@/components/products/product-size-selector";
@@ -24,6 +24,10 @@ import {
   serializeJsonLd,
 } from "@/modules/commerce/product-structured-data";
 import { productMatchesConcern } from "@/modules/concerns/product-matching";
+import {
+  buildMarketReading,
+  isPriced,
+} from "@/modules/commerce/market-reading";
 
 export const revalidate = 3600;
 
@@ -109,6 +113,9 @@ export default async function ProductPage({
   );
   const structuredData = productStructuredData(product);
 
+  const marketReading = buildMarketReading(product.offers, "NG");
+  const priced = isPriced(marketReading);
+
   return (
     <>
       {structuredData ? (
@@ -118,31 +125,24 @@ export default async function ProductPage({
         />
       ) : null}
       <main className="product-page">
-        <section className="product-hero">
-          <div className="product-visual-large">
-            <SafeProductImage
-              src={product.image}
-              alt={`${product.brand} ${product.name}`}
-              priority
-            />
-          </div>
-          <div className="product-story">
-            <p className="eyebrow">{product.brand}</p>
-            <h1>{product.name}</h1>
-            <div className="product-title-meta">
-              {productFamily ? null : <span>{product.size}</span>}
-              <span>{product.category}</span>
-              <span>{product.step}</span>
-            </div>
-            {productFamily ? (
+        <ProductHeroMotion
+          brand={product.brand}
+          name={product.name}
+          size={productFamily ? null : product.size}
+          category={product.category}
+          step={product.step}
+          careStatus={careStatus}
+          priceLabel={priced ? marketReading.priceLabel : null}
+          lowestPrice={priced ? marketReading.lowestPrice : null}
+          storeCount={priced ? marketReading.storeCount : 0}
+          sizeSelector={
+            productFamily ? (
               <ProductSizeSelector family={productFamily} />
-            ) : null}
-            {careStatus ? <p className="product-line">{careStatus}</p> : null}
-            <p className="product-page-price">
-              <MarketPrice offers={product.offers} market="NG" />
-            </p>
-            <ProductQuickPanel {...panelData} />
-            {matchedConcerns.length ? (
+            ) : null
+          }
+          quickPanel={<ProductQuickPanel {...panelData} />}
+          concernLinks={
+            matchedConcerns.length ? (
               <div className="product-concern-links">
                 {matchedConcerns.map((concern) => (
                   <Link key={concern.slug} href={`/concerns/${concern.slug}`}>
@@ -150,9 +150,16 @@ export default async function ProductPage({
                   </Link>
                 ))}
               </div>
-            ) : null}
-          </div>
-        </section>
+            ) : null
+          }
+          image={
+            <SafeProductImage
+              src={product.image}
+              alt={`${product.brand} ${product.name}`}
+              priority
+            />
+          }
+        />
 
         <Suspense fallback={null}>
           <RelatedProducts product={product} />

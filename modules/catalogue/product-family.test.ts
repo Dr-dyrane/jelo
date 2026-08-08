@@ -157,7 +157,11 @@ test("the selector routes to each exact public member and selects only the curre
     /resolveCatalogueProductFamily\(\s*product\.slug,\s*staticProducts,?\s*\)/,
   );
   assert.match(page, /<ProductSizeSelector family=\{productFamily\}/);
-  assert.match(page, /productFamily \? null : <span>\{product\.size\}<\/span>/);
+  const hero = readFileSync(
+    `${process.cwd()}/components/products/product-hero-motion.tsx`,
+    "utf8",
+  );
+  assert.match(hero, /size \? <span>\{size\}<\/span> : null/);
 });
 
 test("a one-member public family renders the required selected 250 mL control only", () => {
