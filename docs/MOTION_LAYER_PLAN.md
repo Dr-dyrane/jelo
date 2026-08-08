@@ -430,6 +430,11 @@ Every primitive checks `useReducedMotion()`. When reduced motion is preferred:
 | 8        | 6     | Products listing — grid stagger, filter transition, hero parallax              | Browse           |
 | 9        | 7     | Shared — header, theme sunset, page transitions, quick panel, screenshot       | Polish           |
 | 10       | 8     | Magnetic hover on all CTAs                                                     | Desktop polish   |
+| 11       | 9     | Mobile full-screen search overlay with live results                            | Mobile core      |
+| 12       | 10    | Mobile swipeable rails (related products, share alternatives)                  | Mobile polish    |
+| 13       | 10    | Mobile filter bottom sheet with live preview                                   | Mobile polish    |
+| 14       | 10    | Mobile full-screen menu with staggered links                                   | Mobile polish    |
+| 15       | 11    | Mobile consult full-screen guided flow                                         | Mobile app feel  |
 
 ---
 
@@ -456,4 +461,215 @@ Every primitive checks `useReducedMotion()`. When reduced motion is preferred:
 | WebGL shaders            | Manual: Chrome, Safari, Firefox. Verify fallback on mobile.     |
 | Reduced motion           | Playwright: set prefers-reduced-motion, verify no transforms    |
 | Performance              | Lighthouse: verify LCP, CLS, TBT don't regress                  |
-| Bundle size              | `next build` output — Framer Motion ~15KB expected              |
+
+---
+
+## Immersive mobile functional experiences
+
+Mobile is not a smaller desktop. The interaction model is different: no
+hover, no keyboard, smaller viewport, touch-first. This section defines
+mobile-specific experiences that go beyond responsive CSS — they change
+the interaction pattern itself.
+
+### Mobile full-screen search
+
+**Current state:** The search component
+(`components/products/catalogue-search.tsx`) uses the same component on
+desktop and mobile. On mobile, the suggestions dropdown becomes a
+fixed bottom sheet (`position: fixed, inset: auto .6rem .6rem`). To see
+full search results, the user must tap the "Go" submit button, which
+reloads the page to `/products?q=...`. The dropdown shows up to 7
+suggestions, but the full product grid only appears after form
+submission.
+
+**Problem:** The bottom-sheet dropdown is cramped on mobile. The
+"press Enter to get results" pattern feels like a 2010 web form. Users
+expect instant results as they type — the way Instagram, Spotify, or
+Apple's App Store work. The page reload on submit breaks the flow.
+
+**Solution: A full-screen search overlay for mobile.**
+
+When the user taps the search input on mobile (viewport < 640px), a
+full-screen search experience slides up from the bottom. It is not a
+dropdown — it takes over the entire viewport. The experience is:
+
+1. **Open:** User taps search input. The full-screen overlay slides up
+   with a spring animation (y: 100% → 0, stiffness 320, damping 34).
+   The search input is auto-focused and the keyboard opens. The
+   background dims (opacity 0 → 1, 0.2s).
+
+2. **Search as you type:** As the user types, results appear instantly
+   below the input — no page reload, no "Go" button required. The
+   existing 140ms debounce is kept. Results are fetched from
+   `/api/products/suggestions` and rendered as a scrollable list.
+
+3. **Result sections:** Results are grouped into sections:
+   - **Products** (top 8) — product image, name, brand, price, tap to
+     navigate to product page
+   - **Companies** (top 3) — brand name, tap to filter products page
+   - **Categories** (top 3) — category name, tap to filter products page
+   - **Guides** (top 3) — concern name, tap to navigate to concern page
+
+   Each section header is sticky within the scroll container. Sections
+   appear with a subtle stagger as they populate (0.04s interval).
+
+4. **Live product grid:** Below the grouped suggestions, a "See all
+   products" section shows a 2-column grid of matching products that
+   loads lazily (Suspense). This gives the user a visual sense of the
+   full result set without leaving the search screen.
+
+5. **Empty state:** When the query has no matches, show a warm empty
+   state: "We couldn't find that. Try a brand name, ingredient, or
+   concern." Plus a "Ask us to find it" link to the consult flow.
+
+6. **Recent searches:** When the input is empty and focused, show
+   recent searches (stored in localStorage, max 5). Each is tappable
+   to re-run. A "Clear recent" button appears below.
+
+7. **Close:** User taps the back arrow or presses the hardware back
+   button. The overlay slides down (y: 0 → 100%, 0.3s) and the
+   background undims. The previous page state is preserved — no reload.
+
+8. **Navigation:** Tapping any result navigates to the destination.
+   The overlay closes with a fade-out (opacity 1 → 0, 0.15s) before
+   navigation, so the transition feels seamless.
+
+**Component:** `components/search/mobile-search-overlay.tsx` (client
+component, lazy-loaded on mobile only)
+
+**Detection:** Use `matchMedia("(max-width: 640px)")` to determine
+whether to show the overlay vs the existing dropdown. The existing
+`CatalogueSearch` component renders the overlay trigger on mobile and
+the dropdown on desktop. No separate route — the overlay is a
+client-side layer.
+
+**Motion:**
+
+| Element                  | Animation                                                            |
+| ------------------------ | -------------------------------------------------------------------- |
+| Overlay entrance         | Slide up from bottom (y: 100% → 0, spring stiffness 320, damping 34) |
+| Background dim           | Fade in (opacity 0 → 1, 0.2s)                                        |
+| Search input             | Auto-focus on open, cursor blinks                                    |
+| Result sections          | Stagger in as they populate (0.04s interval, slide up + fade)        |
+| Product grid items       | Stagger in (0.03s interval, 2-column)                                |
+| Empty state              | Fade in with slight scale (0.96 → 1, 0.4s)                           |
+| Overlay close (back)     | Slide down (y: 0 → 100%, 0.3s, ease-in)                              |
+| Overlay close (navigate) | Fade out (opacity 1 → 0, 0.15s)                                      |
+| Recent searches          | Slide in from left (0.05s interval)                                  |
+
+**Accessibility:**
+
+- The overlay traps focus while open (focus returns to the search
+  input). Escape key closes the overlay. `aria-modal="true"` on the
+  overlay container. `role="dialog"` with `aria-label="Search"`.
+- The hardware back button (Android) closes the overlay using the
+  History API (`history.pushState` on open, `popstate` listener to
+  close).
+- Reduced motion: overlay appears instantly (no slide), results render
+  without stagger.
+
+**Performance:**
+
+- The overlay component is lazy-loaded (`next/dynamic` with
+  `ssr: false`) so it doesn't affect initial page weight on mobile.
+- The existing `/api/products/suggestions` endpoint is reused — no new
+  API route needed.
+- The live product grid uses `Suspense` with a skeleton loader.
+- The overlay is unmounted when closed (not hidden) to free memory.
+
+**What this replaces on mobile:**
+
+- The bottom-sheet dropdown (`@media (max-width: 640px)` in
+  `catalogue-search.module.css`) is no longer rendered on mobile.
+- The "Go" submit button is removed on mobile — search is live.
+- The form submission to `/products?q=...` is replaced by client-side
+  navigation from the overlay.
+
+**What stays the same on desktop:**
+
+- The existing dropdown with keyboard navigation (Arrow keys, Enter,
+  Escape, Tab) remains unchanged. Desktop has a keyboard, so the
+  "type → arrow → enter" pattern is natural and fast.
+
+### Mobile product page: swipeable related products
+
+**Current state:** Related products render as a 3-column grid below the
+product story. On mobile, this becomes a vertical stack of 3 cards.
+
+**Improvement:** On mobile, related products become a horizontal
+swipeable rail with scroll-snap. Each card is 80% viewport width, so
+the next card peeks from the right edge — signaling that there's more
+to explore. A subtle haptic feedback (navigator.vibrate, 10ms) fires
+when a card snaps into place.
+
+This is not a new component — it reuses the existing `ProductRail`
+pattern but applies it to related products on mobile only.
+
+### Mobile share page: swipeable alternatives
+
+**Current state:** Share alternatives render as a 3-column grid.
+
+**Improvement:** On mobile, alternatives become a swipeable rail (same
+pattern as related products above). The first card is the primary
+share card, and alternatives slide in from the right.
+
+### Mobile consult: full-screen guided flow
+
+**Current state:** The consult experience is a page with a product
+carousel and chat input.
+
+**Improvement:** On mobile, the consult becomes a full-screen guided
+flow — each step takes the full viewport, with smooth horizontal slide
+transitions between steps. The product carousel becomes a swipeable
+horizontal rail. The chat input is fixed at the bottom with a safe-area
+inset. This makes the consult feel like a native app experience, not a
+web page with a chat box.
+
+**Motion:**
+
+| Element                 | Animation                                                           |
+| ----------------------- | ------------------------------------------------------------------- |
+| Step transition         | Horizontal slide (x: ±100% → 0, spring stiffness 300, damping 30)   |
+| Product carousel        | Swipeable rail with scroll-snap (existing pattern)                  |
+| Chat input              | Fixed bottom with safe-area inset, subtle slide up on keyboard open |
+| Step progress indicator | Animated dots at top, current dot scales (1 → 1.3 → 1)              |
+
+### Mobile filter sheet: bottom sheet with live preview
+
+**Current state:** The inventory filter sheet opens as a dialog.
+
+**Improvement:** On mobile, the filter sheet becomes a bottom sheet
+that slides up from the bottom (spring animation). As the user toggles
+filters, the product grid behind the sheet updates live (dimmed). When
+the sheet is dismissed, the grid is already filtered — no reload.
+
+**Motion:**
+
+| Element          | Animation                                                |
+| ---------------- | -------------------------------------------------------- |
+| Sheet open       | Slide up (y: 100% → 0, spring stiffness 320, damping 34) |
+| Backdrop         | Fade in + blur (backdrop-filter 0 → 4px, 0.2s)           |
+| Filter toggles   | Spring scale on tap (1 → 0.95 → 1)                       |
+| Live grid update | Items fade out + fade in behind the sheet (0.2s)         |
+| Sheet close      | Slide down (y: 0 → 100%, 0.3s)                           |
+| Haptic feedback  | navigator.vibrate(10ms) on filter toggle                 |
+
+### Mobile navigation: full-screen menu with staggered links
+
+**Current state:** The site header menu opens as a dialog with
+`backdrop-filter: blur(12px)`.
+
+**Improvement:** On mobile, the menu becomes a full-screen overlay
+that slides in from the right. Links stagger in from right to left
+(0.04s interval). The close button is a large touch target in the top
+right. The footer (theme toggle, social links) is pinned at the bottom.
+
+**Motion:**
+
+| Element     | Animation                                                        |
+| ----------- | ---------------------------------------------------------------- |
+| Menu open   | Slide from right (x: 100% → 0, spring stiffness 320, damping 34) |
+| Links       | Stagger in from right (0.04s interval, slide left + fade)        |
+| Footer      | Fade in after links (0.2s delay)                                 |
+| Menu close  | Slide right (x: 0 → 100%, 0.3s, ease-in)                         |
+| Bundle size | `next build` output — Framer Motion ~15KB expected               |
