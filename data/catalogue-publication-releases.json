@@ -292,30 +292,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "dr-teals-nourish-protect-coconut-oil-body-wash-710ml",
-      "dossierFingerprint": "84459ac512b058a7a759880c88c7aca24bfd41cc2cd431d4a3d46709d5b1053d",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Cleanse",
-        "displayLine": "Coconut-oil body wash · 24 fl oz / 710 mL",
-        "usage": "Apply a generous amount to hands, wash cloth, or pouf, gently massage over the body, then rinse thoroughly.",
-        "manufacturerDirectionsUrl": "https://www.drteals.com/product/dr-teals-nourish-protect-coconut-oil-body-wash/",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-02T23:04:50Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-02T23:05:00Z"
-      },
-      "releaseFingerprint": "d2f5c7ccf3ac4230a00f606c5d5f84adcda881997b83d3ad2fb7d989fc94e51c"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
       "dossierFingerprint": "38b55d1a088adc5c31aaf91f14b694b731d228de25ed5b41d1f3a89d629fdb7e",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T05:16:10Z"
       },
       "releaseFingerprint": "bff252339151af9fc7b7a7d97ab9c71492c6159d23bad6684a4c3bd83f008895"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dr-teals-nourish-protect-coconut-oil-body-wash-710ml",
+      "dossierFingerprint": "38c97bb5ba1f9827108fd65eb5c9a1ac83bf08e2dc595d2d29c4203e6123c0db",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Coconut-oil body wash · 24 fl oz / 710 mL",
+        "usage": "Apply a generous amount to hands, wash cloth, or pouf, gently massage over the body, then rinse thoroughly.",
+        "manufacturerDirectionsUrl": "https://www.drteals.com/product/dr-teals-nourish-protect-coconut-oil-body-wash/",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T05:21:40Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T05:21:50Z"
+      },
+      "releaseFingerprint": "052ab56294757d19c587bbecd761e6054cddf65f6d420f487101048f056a98dc"
     }
   ]
 }

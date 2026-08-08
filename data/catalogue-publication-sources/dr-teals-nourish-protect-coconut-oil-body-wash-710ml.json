@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "dr-teals-nourish-protect-coconut-oil-body-wash-710ml",
-    "candidateFingerprint": "507eeb2debc6df76cc2a48b770b736db2e5ed96d4ed2636e400846c1753b2705",
+    "candidateFingerprint": "b9059fa23892e6d63aa1ab691ef4046fce57545ac37f6e3d9cbc2654ffca1d33",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -103,9 +103,143 @@
       "reviewer": "JeloCare catalogue evidence review"
     },
     "nigeria": {
-      "marketRoute": "reference-only",
+      "marketRoute": "tier-a",
       "regulatoryStatus": "pending",
-      "exactOffers": [],
+      "tierAIdentityEvidenceUrl": "https://www.drteals.com/product/dr-teals-nourish-protect-coconut-oil-body-wash/",
+      "exactOffers": [
+        {
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/dr-teals-body-wash-nourish-and-protect-coconut-oil-710ml/",
+          "observedAt": "2026-08-08T05:19:10Z",
+          "observedTitle": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml",
+          "observedSize": "710 mL",
+          "observedGtinBasis": "exact-variant-and-size",
+          "observedPackageVersion": "Dr Teal's Nourish & Protect with Coconut Oil Body Wash 24 fl oz / 710 mL (blue pump bottle)",
+          "retailerSku": "811068015857",
+          "priceNgn": 7150,
+          "stock": "out-of-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://buybetter.ng/product/dr-teals-body-wash-nourish-and-protect-coconut-oil-710ml/",
+            "responseUrl": "https://buybetter.ng/product/dr-teals-body-wash-nourish-and-protect-coconut-oil-710ml/",
+            "responseSha256": "f5642f7490bff763a0a7373aca200a21d4666083269634516aa0aacea19ec4ad",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 525654,
+            "retrievedAt": "2026-08-08T05:19:10Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml - Buybetter"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "811068015857",
+                "locator": "Bound official Dr Teal's catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 811068015857",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml",
+                "locator": "HTML product heading",
+                "sourceText": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml"
+              },
+              "size": {
+                "value": "710 mL",
+                "locator": "HTML product heading size suffix",
+                "sourceText": "710ml"
+              },
+              "packageVersion": {
+                "value": "Dr Teal's Nourish & Protect with Coconut Oil Body Wash 24 fl oz / 710 mL (blue pump bottle)",
+                "locator": "Bound official Dr Teal's catalogue identity snapshot",
+                "sourceText": "Dr Teal's Nourish & Protect with Coconut Oil Body Wash 24 fl oz / 710 mL (blue pump bottle)"
+              },
+              "price": {
+                "value": 7150,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦7,150"
+              },
+              "stock": {
+                "value": "out-of-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "Out of stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-08T05:20:00Z"
+          }
+        },
+        {
+          "retailer": "Nectar Beauty Hub",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://nectarbeautyhub.com/products/coconut-oil-body-wash-710ml",
+          "observedAt": "2026-08-08T05:20:23Z",
+          "observedTitle": "Dr Teal's Coconut Oil Body Wash 710ml",
+          "observedSize": "710 mL",
+          "observedGtinBasis": "exact-variant-and-size",
+          "observedPackageVersion": "Dr Teal's Nourish & Protect with Coconut Oil Body Wash 24 fl oz / 710 mL (blue pump bottle)",
+          "priceNgn": 6750,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://nectarbeautyhub.com/products/coconut-oil-body-wash-710ml",
+            "responseUrl": "https://nectarbeautyhub.com/products/coconut-oil-body-wash-710ml",
+            "responseSha256": "e93ffd3ccba54ed993d759568796f7ce5213f83c7b2f6c5f3a94d6b640fa3fff",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 982309,
+            "retrievedAt": "2026-08-08T05:20:23Z",
+            "browserCapture": {
+              "surface": "Playwright MCP browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy Original Dr. Teals Coconut Oil Body Wash 710ml – Nectar Beauty Hub"
+            },
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "811068015857",
+                "locator": "Bound official Dr Teal's catalogue identity snapshot",
+                "sourceText": "Official catalogue identity GTIN 811068015857",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Dr Teal's Coconut Oil Body Wash 710ml",
+                "locator": "HTML product heading",
+                "sourceText": "Dr Teal's Coconut Oil Body Wash 710ml"
+              },
+              "size": {
+                "value": "710 mL",
+                "locator": "HTML product heading size suffix",
+                "sourceText": "710ml"
+              },
+              "packageVersion": {
+                "value": "Dr Teal's Nourish & Protect with Coconut Oil Body Wash 24 fl oz / 710 mL (blue pump bottle)",
+                "locator": "Bound official Dr Teal's catalogue identity snapshot",
+                "sourceText": "Dr Teal's Nourish & Protect with Coconut Oil Body Wash 24 fl oz / 710 mL (blue pump bottle)"
+              },
+              "price": {
+                "value": 6750,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦6,750.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered availability status",
+                "sourceText": "In Stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-08T05:21:00Z"
+          },
+          "reviewedTitleAlias": "Coconut Oil Body Wash"
+        }
+      ],
       "brandSellerAuthorizationEvidence": []
     },
     "rights": {
@@ -203,16 +337,16 @@
       "reviewer": "Codex visual audit"
     },
     "approval": {
-      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-02T23:04:40Z"
+      "approvedAt": "2026-08-08T05:21:30Z"
     },
-    "dossierFingerprint": "84459ac512b058a7a759880c88c7aca24bfd41cc2cd431d4a3d46709d5b1053d"
+    "dossierFingerprint": "38c97bb5ba1f9827108fd65eb5c9a1ac83bf08e2dc595d2d29c4203e6123c0db"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "dr-teals-nourish-protect-coconut-oil-body-wash-710ml",
-    "dossierFingerprint": "84459ac512b058a7a759880c88c7aca24bfd41cc2cd431d4a3d46709d5b1053d",
+    "dossierFingerprint": "38c97bb5ba1f9827108fd65eb5c9a1ac83bf08e2dc595d2d29c4203e6123c0db",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -224,13 +358,13 @@
       "usage": "Apply a generous amount to hands, wash cloth, or pouf, gently massage over the body, then rinse thoroughly.",
       "manufacturerDirectionsUrl": "https://www.drteals.com/product/dr-teals-nourish-protect-coconut-oil-body-wash/",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-02T23:04:50Z"
+      "reviewedAt": "2026-08-08T05:21:40Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-02T23:05:00Z"
+      "publishedAt": "2026-08-08T05:21:50Z"
     },
-    "releaseFingerprint": "d2f5c7ccf3ac4230a00f606c5d5f84adcda881997b83d3ad2fb7d989fc94e51c"
+    "releaseFingerprint": "052ab56294757d19c587bbecd761e6054cddf65f6d420f487101048f056a98dc"
   }
 }
