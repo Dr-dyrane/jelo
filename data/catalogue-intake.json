@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T04:24:00Z",
+  "updatedAt": "2026-08-08T04:26:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -3739,7 +3739,7 @@
             "retailer": "BuyBetter",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://buybetter.ng/product/balance-niacinamide-blemish-recovery-serum-clear-30ml/",
-            "observedAt": "2026-07-23T07:47:36.663Z",
+            "observedAt": "2026-08-08T04:25:15Z",
             "observedTitle": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
             "observedSize": "30 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -3751,55 +3751,55 @@
               "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://buybetter.ng/product/balance-niacinamide-blemish-recovery-serum-clear-30ml/",
               "responseUrl": "https://buybetter.ng/product/balance-niacinamide-blemish-recovery-serum-clear-30ml/",
-              "responseSha256": "04de9d3a9e1d04839cdcff9c02e2c0ab5390540fa1aea4f6f911e8b89fafdf7c",
+              "responseSha256": "2eb8809a1f3cf79bc681cde92a86fc601bbdde35826e3b6b7284270ab19672bd",
               "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 804498,
-              "retrievedAt": "2026-07-23T07:47:36.663Z",
+              "responseByteSize": 534525,
+              "retrievedAt": "2026-08-08T04:25:15Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
-                "pageTitle": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml – Buybetter"
+                "pageTitle": "Balance Active Formula Niacinamide | Face Serum | BuyBetter"
               },
               "fields": {
                 "gtin": {
                   "label": "GTIN",
                   "value": "5015833328165",
-                  "locator": "Bound official Balance Active Formula 30 ml identity snapshot",
+                  "locator": "Bound official Balance catalogue identity snapshot",
                   "sourceText": "Official catalogue identity GTIN 5015833328165",
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
                   "value": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
-                  "locator": "Rendered DOM h1 product heading",
+                  "locator": "HTML product heading",
                   "sourceText": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml"
                 },
                 "size": {
                   "value": "30 ml",
-                  "locator": "Rendered DOM h1 size suffix",
-                  "sourceText": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "30ml"
                 },
                 "price": {
                   "value": 8400,
                   "currency": "NGN",
-                  "locator": "Rendered DOM product price",
-                  "sourceText": "₦8,400.00 NG"
+                  "locator": "Rendered product price",
+                  "sourceText": "₦8,400"
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "Rendered DOM stock count",
-                  "sourceText": "12 IN STOCK"
+                  "locator": "Rendered availability status",
+                  "sourceText": "available"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T07:50:00Z"
+              "reviewedAt": "2026-08-08T04:26:00Z"
             }
           },
           {
             "retailer": "CSi Grocery",
             "retailerStatus": "directory-listed",
             "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/balance-active-formula/",
-            "observedAt": "2026-07-23T07:47:36.663Z",
+            "observedAt": "2026-08-08T04:25:42Z",
             "observedTitle": "Balance Niacinamide Calm & Clear Blemish Recovery Serum – 30ml/ 1FL.0Z",
             "observedSize": "30 ml",
             "observedGtinBasis": "exact-variant-and-size",
@@ -3810,48 +3810,48 @@
               "method": "reviewed-browser-dom-exact-offer-field-extraction",
               "listingUrl": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/balance-active-formula/",
               "responseUrl": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/balance-active-formula/",
-              "responseSha256": "fba917a58e2fd337a9abf01f4344c0e1efecaeda6e92a822f20068a201b9da48",
+              "responseSha256": "71b4fa8d1a91904eccacc96a8abe9fa39a07390228676fbc94650f609619768a",
               "responseDigestScope": "rendered-dom-outerhtml",
               "responseMimeType": "text/html",
-              "responseByteSize": 476030,
-              "retrievedAt": "2026-07-23T07:47:36.663Z",
+              "responseByteSize": 482872,
+              "retrievedAt": "2026-08-08T04:25:42Z",
               "browserCapture": {
-                "surface": "Codex in-app browser",
+                "surface": "Playwright MCP browser",
                 "documentReadyState": "complete",
-                "pageTitle": "Balance Niacinamide Calm & Clear Blemish Recovery Serum - 30ml/ 1FL.0Z @ Best Price | CSi Grocery"
+                "pageTitle": "Balance Niacinamide Calm & Clear Blemish Recovery Serum - 30ml/ 1FL.0Z | CSi Grocery"
               },
               "fields": {
                 "gtin": {
                   "label": "GTIN",
                   "value": "5015833328165",
-                  "locator": "Bound official Balance Active Formula 30 ml identity snapshot",
+                  "locator": "Bound official Balance catalogue identity snapshot",
                   "sourceText": "Official catalogue identity GTIN 5015833328165",
                   "responseRole": "official-identity-correlation"
                 },
                 "title": {
                   "value": "Balance Niacinamide Calm & Clear Blemish Recovery Serum – 30ml/ 1FL.0Z",
-                  "locator": "Rendered DOM h1 product heading",
+                  "locator": "HTML product heading",
                   "sourceText": "Balance Niacinamide Calm & Clear Blemish Recovery Serum – 30ml/ 1FL.0Z"
                 },
                 "size": {
                   "value": "30 ml",
-                  "locator": "Rendered DOM h1 size suffix",
-                  "sourceText": "Balance Niacinamide Calm & Clear Blemish Recovery Serum – 30ml/ 1FL.0Z"
+                  "locator": "HTML product heading size suffix",
+                  "sourceText": "30ml"
                 },
                 "price": {
                   "value": 10700,
                   "currency": "NGN",
-                  "locator": "Rendered DOM product price",
-                  "sourceText": "₦10,700"
+                  "locator": "Rendered product price",
+                  "sourceText": "₦10,700.00"
                 },
                 "stock": {
                   "value": "in-stock",
-                  "locator": "Rendered DOM availability status",
+                  "locator": "Rendered availability status",
                   "sourceText": "In stock"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",
-              "reviewedAt": "2026-07-23T07:50:00Z"
+              "reviewedAt": "2026-08-08T04:26:00Z"
             }
           }
         ],

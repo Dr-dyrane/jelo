@@ -4,30 +4,6 @@
   "releases": [
     {
       "schemaVersion": 2,
-      "candidateId": "balance-niacinamide-blemish-recovery-serum-30ml",
-      "dossierFingerprint": "9f7261c4cd5b4c6d828de3a326403cd5f0247cca35903d88185fa0f2cd2cbd57",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "15% niacinamide for blemish-prone skin.",
-        "usage": "Smooth over face and neck, morning and night. Start slowly if sensitive.",
-        "manufacturerDirectionsUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-15-niacinamide-high-strength-blemish-recovery-serum",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-23T08:00:15Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-23T08:00:30Z"
-      },
-      "releaseFingerprint": "7849bf1481bf553ff035b8aa1aa21a161f4814c7158a514ed9977e187485785f"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "nineless-a-control-10-azelaic-acid-serum-30ml",
       "dossierFingerprint": "317b2a03397b46a312dac6b1c5612d04a677b433b01cabdf2b9383853a5c93b5",
       "exposure": "public-catalogue",
@@ -3097,6 +3073,30 @@
         "publishedAt": "2026-08-08T04:24:40Z"
       },
       "releaseFingerprint": "6d784167b4257a8267d586f9dd45d605ba2008e0a3279b205d8354b890009a0b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "balance-niacinamide-blemish-recovery-serum-30ml",
+      "dossierFingerprint": "6cf3c8d7091bae16252e0169e9736dc3562255b6659cfaff679948587a9b57d2",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "15% niacinamide for blemish-prone skin.",
+        "usage": "Smooth over face and neck, morning and night. Start slowly if sensitive.",
+        "manufacturerDirectionsUrl": "https://www.balanceactiveformula.com/products/balance-active-formula-15-niacinamide-high-strength-blemish-recovery-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-08T04:26:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-08T04:26:40Z"
+      },
+      "releaseFingerprint": "69caedbe008011cae490647a66a6a1144800f2d760032d96e69480c07d6ace09"
     }
   ]
 }
