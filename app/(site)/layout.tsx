@@ -17,6 +17,7 @@ export default function SiteLayout({ children }: Readonly<{ children: React.Reac
         <div className="footer-group">
           <strong>Explore</strong>
           <Link href="/products">All products</Link>
+          <Link href="/brands">Brands</Link>
           <Link href="/concerns">Browse concerns</Link>
           <Link href="/contribute">Share skincare</Link>
           <Link href="/consult">Ask JeloCare</Link>

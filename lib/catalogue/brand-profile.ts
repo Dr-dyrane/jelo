@@ -21,6 +21,18 @@ export function brandProfileHref(brand: string) {
   return `/brands/${brandSlug(brand)}`;
 }
 
+export function buildBrandDirectory(
+  catalogue: readonly Product[],
+  now: number | Date = Date.now(),
+) {
+  return [...new Set(catalogue.map((product) => brandSlug(product.brand)))]
+    .map((slug) => buildBrandProfile(slug, catalogue, now))
+    .filter((profile): profile is NonNullable<typeof profile> =>
+      Boolean(profile),
+    )
+    .sort((left, right) => left.name.localeCompare(right.name));
+}
+
 export function buildBrandProfile(
   requestedSlug: string,
   catalogue: readonly Product[],

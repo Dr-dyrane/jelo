@@ -1,0 +1,326 @@
+.main {
+  padding-top: 4.75rem;
+  background: var(--cream);
+}
+
+.hero {
+  min-height: min(50rem, calc(100svh - 4.75rem));
+  padding: clamp(4rem, 8vw, 7rem) 4vw clamp(3rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(24rem, 0.72fr);
+  grid-template-areas:
+    "copy search"
+    "copy metrics";
+  gap: 2rem clamp(3rem, 8vw, 8rem);
+  align-items: end;
+  background:
+    radial-gradient(
+      circle at 79% 18%,
+      color-mix(in srgb, var(--paper) 72%, transparent),
+      transparent 28rem
+    ),
+    linear-gradient(
+      140deg,
+      var(--product-pink),
+      var(--peach) 58%,
+      var(--product-blush)
+    );
+}
+
+.heroCopy {
+  grid-area: copy;
+  align-self: center;
+}
+
+.heroCopy h1 {
+  max-width: 10ch;
+  margin: 1rem 0 1.5rem;
+  font-family: var(--font-display), serif;
+  font-size: clamp(5rem, 10vw, 10rem);
+  font-weight: 400;
+  line-height: 0.76;
+  letter-spacing: -0.055em;
+}
+
+.heroCopy > p:last-child {
+  max-width: 35rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.searchForm {
+  grid-area: search;
+  align-self: end;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.searchForm > label {
+  color: var(--wine);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.searchForm > div {
+  min-height: 4.25rem;
+  padding: 0.55rem 0.55rem 0.55rem 1rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.7rem;
+  align-items: center;
+  border-radius: 1.4rem;
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  box-shadow: var(--shadow);
+}
+
+.searchForm input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+}
+
+.searchForm input::placeholder {
+  color: var(--muted);
+}
+
+.searchForm button {
+  width: 3.1rem;
+  height: 3.1rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 1rem;
+  background: var(--accent-solid);
+  color: var(--on-accent);
+}
+
+.searchForm button:focus-visible,
+.letterGroup a:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 3px;
+}
+
+.metrics {
+  grid-area: metrics;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.metrics span {
+  min-height: 7.4rem;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 1.35rem;
+  background: color-mix(in srgb, var(--paper) 62%, transparent);
+}
+
+.metrics strong {
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.25rem, 4vw, 4rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.metrics small {
+  margin-top: 0.3rem;
+  color: var(--muted);
+  font-size: 0.61rem;
+}
+
+.directory {
+  padding: clamp(5rem, 9vw, 9rem) 4vw;
+  background: var(--paper);
+}
+
+.directoryHeading {
+  margin-bottom: clamp(3rem, 6vw, 6rem);
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.directoryHeading h2 {
+  max-width: 10ch;
+  margin: 0.8rem 0 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(4rem, 8vw, 8rem);
+  font-weight: 400;
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+}
+
+.directoryHeading > p {
+  max-width: 31rem;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.letterGroups {
+  display: grid;
+  gap: 1rem;
+}
+
+.letterGroup {
+  padding: clamp(1.2rem, 2vw, 1.8rem);
+  display: grid;
+  grid-template-columns: minmax(4rem, 0.22fr) minmax(0, 1fr);
+  gap: clamp(1rem, 4vw, 4rem);
+  border-radius: 1.8rem;
+  background: var(--surface-2);
+}
+
+.letterGroup:nth-child(3n + 2) {
+  background: var(--card-3);
+}
+
+.letterGroup:nth-child(3n + 3) {
+  background: color-mix(in srgb, var(--peach) 46%, var(--paper));
+}
+
+.letterGroup h3 {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 400;
+  line-height: 0.82;
+}
+
+.letterGroup > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.letterGroup a {
+  min-height: 5.2rem;
+  padding: 0.9rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 1.2rem;
+  background: color-mix(in srgb, var(--paper) 68%, transparent);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.letterGroup a:hover {
+  background: var(--paper);
+  transform: translateY(-2px);
+}
+
+.letterGroup a > span {
+  min-width: 0;
+  display: grid;
+  gap: 0.28rem;
+}
+
+.letterGroup strong {
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.35rem, 2.3vw, 2.15rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.letterGroup small {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+
+.letterGroup svg {
+  flex: 0 0 auto;
+  color: var(--wine);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas: "copy" "search" "metrics";
+  }
+
+  .heroCopy h1 {
+    max-width: 12ch;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: auto;
+    padding: 6rem 1rem 3rem;
+  }
+
+  .heroCopy h1 {
+    font-size: clamp(4.5rem, 20vw, 7rem);
+  }
+
+  .searchForm > div {
+    min-height: 4rem;
+  }
+
+  .metrics {
+    gap: 0.4rem;
+  }
+
+  .metrics span {
+    min-height: 6.4rem;
+    padding: 0.7rem;
+  }
+
+  .metrics strong {
+    font-size: 2.45rem;
+  }
+
+  .metrics small {
+    font-size: 0.55rem;
+  }
+
+  .directory {
+    padding: 5rem 1rem;
+  }
+
+  .directoryHeading {
+    display: block;
+  }
+
+  .directoryHeading > p {
+    margin-top: 1.25rem;
+  }
+
+  .letterGroup {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    border-radius: 1.5rem;
+  }
+
+  .letterGroup > div {
+    grid-template-columns: 1fr;
+  }
+
+  .letterGroup a {
+    min-height: 4.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letterGroup a {
+    transition: none;
+  }
+
+  .letterGroup a:hover {
+    transform: none;
+  }
+}

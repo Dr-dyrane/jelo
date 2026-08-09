@@ -75,11 +75,13 @@ export default async function BrandProfilePage({
             <ArrowLeft size={16} aria-hidden="true" />
             All products
           </Link>
-          <p className="eyebrow">JeloCare brand profile</p>
+          <p className="eyebrow">
+            Brand catalogue · {profile.productCount} live
+          </p>
           <h1>{profile.name}</h1>
           <p className={styles.intro}>
-            Every exact {profile.name} product currently in the JeloCare
-            catalogue—together, with Nigerian price context where available.
+            Exact {profile.name} products published on JeloCare, with Nigerian
+            price context where available.
           </p>
           <div className={styles.heroActions}>
             <a className={styles.primaryAction} href="#brand-products">
@@ -87,13 +89,10 @@ export default async function BrandProfilePage({
             </a>
             <Link href={catalogueHref}>Open catalogue filter</Link>
           </div>
-          {profile.ownRetailer ? (
-            <Link className={styles.roleLink} href={profile.ownRetailer.href}>
-              <Store size={16} aria-hidden="true" />
-              {profile.ownRetailer.name} also has a retailer profile
-              <ArrowRight size={15} aria-hidden="true" />
-            </Link>
-          ) : null}
+          <p className={styles.coverageNote}>
+            <span>Coverage</span>
+            This page grows as more exact profiles clear review.
+          </p>
         </div>
 
         <div
@@ -101,8 +100,8 @@ export default async function BrandProfilePage({
           aria-label={`${profile.name} products in the JeloCare catalogue`}
         >
           <div className={styles.stageCopy}>
-            <span>One brand</span>
-            <strong>{profile.productCount} exact profiles</strong>
+            <span>Published now</span>
+            <strong>The public JeloCare range</strong>
           </div>
           <div className={styles.productPortraits}>
             {featured.map((product, index) => (
@@ -137,17 +136,41 @@ export default async function BrandProfilePage({
             </span>
           </div>
         </div>
+
+        {profile.ownRetailer ? (
+          <div className={styles.roleSwitch}>
+            <div>
+              <span>Brand page</span>
+              <strong>Products by {profile.name}</strong>
+            </div>
+            <Link href={profile.ownRetailer.href}>
+              <Store size={17} aria-hidden="true" />
+              <span className={styles.roleText}>
+                <span className={styles.roleLabel}>Retailer page</span>
+                <small>Listings sold by {profile.ownRetailer.name}</small>
+              </span>
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+        ) : null}
       </section>
 
       <section className={styles.rangeSection} aria-labelledby="range-heading">
         <div className={styles.sectionHeading}>
           <div>
-            <p className="eyebrow">Across the range</p>
-            <h2 id="range-heading">See the shape.</h2>
+            <p className="eyebrow">Public coverage</p>
+            <h2 id="range-heading">The published range.</h2>
           </div>
-          <p>Grouped by the care area recorded for each exact product.</p>
+          <p>
+            Grouped by care area. This reflects JeloCare&apos;s reviewed public
+            catalogue, not the brand&apos;s entire commercial range.
+          </p>
         </div>
-        <div className={styles.categoryRail}>
+        <div
+          className={`${styles.categoryRail} ${
+            profile.categoryCount === 1 ? styles.categoryRailSingle : ""
+          }`}
+        >
           {profile.categoryCounts.map(({ category, count }, index) => (
             <article key={category}>
               <span>0{index + 1}</span>
@@ -168,12 +191,12 @@ export default async function BrandProfilePage({
         <div className={styles.sectionHeading}>
           <div>
             <p className="eyebrow">The catalogue</p>
-            <h2 id="brand-products-heading">Every profile.</h2>
+            <h2 id="brand-products-heading">All live profiles.</h2>
           </div>
           <p>
             {profile.productCount} exact {profile.name} product
-            {profile.productCount === 1 ? "" : "s"}. Prices remain
-            store-specific.
+            {profile.productCount === 1 ? "" : "s"} cleared for the public
+            catalogue. Prices remain store-specific.
           </p>
         </div>
         <ProductGrid products={profile.products} />
@@ -183,7 +206,7 @@ export default async function BrandProfilePage({
         <div>
           <p className="eyebrow">Observed in Nigeria</p>
           <h2>
-            Brand here.
+            Products here.
             <br />
             Stores there.
           </h2>

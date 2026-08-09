@@ -4,11 +4,12 @@
 }
 
 .hero {
-  min-height: calc(100svh - 4.75rem);
-  padding: clamp(4.5rem, 8vw, 8rem) 4vw 4vw;
+  min-height: min(54rem, calc(100svh - 4.75rem));
+  padding: clamp(3rem, 5vw, 5.25rem) 4vw 3vw;
   display: grid;
-  grid-template-columns: minmax(0, 0.86fr) minmax(30rem, 1.14fr);
-  gap: clamp(2rem, 5vw, 6rem);
+  grid-template-columns: minmax(0, 0.82fr) minmax(30rem, 1.18fr);
+  grid-template-rows: 1fr auto;
+  gap: clamp(1.5rem, 3vw, 3.5rem) clamp(2rem, 5vw, 6rem);
   align-items: center;
   background:
     radial-gradient(
@@ -33,7 +34,7 @@
 .backLink {
   width: max-content;
   min-height: 2.75rem;
-  margin-bottom: clamp(2rem, 5vw, 4rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.75rem);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -44,9 +45,9 @@
 
 .hero h1 {
   max-width: 9ch;
-  margin: 1rem 0 1.6rem;
+  margin: 0.8rem 0 1.25rem;
   font-family: var(--font-display), serif;
-  font-size: clamp(4.5rem, 8.7vw, 9.4rem);
+  font-size: clamp(4.5rem, 8vw, 8.8rem);
   font-weight: 400;
   line-height: 0.79;
   letter-spacing: -0.055em;
@@ -62,7 +63,7 @@
 }
 
 .heroActions {
-  margin-top: 2rem;
+  margin-top: 1.6rem;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -88,21 +89,28 @@
   color: var(--cream);
 }
 
-.roleLink {
-  width: fit-content;
-  min-height: 2.75rem;
-  margin-top: 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
+.coverageNote {
+  max-width: 31rem;
+  margin: 1.15rem 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.coverageNote span {
   color: var(--wine);
-  font-size: 0.71rem;
-  font-weight: 600;
+  font-size: 0.61rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .heroStage {
   position: relative;
-  min-height: clamp(32rem, 48vw, 40rem);
+  min-height: clamp(29rem, 39vw, 35rem);
   overflow: hidden;
   border-radius: clamp(2rem, 4vw, 3.5rem);
   background:
@@ -157,7 +165,7 @@
 .productPortraits {
   position: absolute;
   z-index: 2;
-  inset: 4.2rem 1rem 8.4rem;
+  inset: 3.8rem 1rem 7.2rem;
 }
 
 .productPortraits > span {
@@ -214,7 +222,7 @@
 }
 
 .metrics > span {
-  min-height: 4.6rem;
+  min-height: 3.8rem;
   padding: 0.35rem 0.5rem;
   display: flex;
   flex-direction: column;
@@ -223,7 +231,7 @@
 
 .metrics strong {
   font-family: var(--font-display), serif;
-  font-size: clamp(2rem, 3vw, 3rem);
+  font-size: clamp(1.8rem, 2.5vw, 2.5rem);
   font-weight: 400;
   line-height: 1;
 }
@@ -232,6 +240,68 @@
   margin-top: 0.3rem;
   color: var(--muted);
   font-size: 0.62rem;
+}
+
+.roleSwitch {
+  grid-column: 1 / -1;
+  min-height: 5.4rem;
+  padding: 0.85rem 0.9rem 0.85rem 1.2rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.72fr);
+  gap: 1rem;
+  align-items: center;
+  border-radius: 1.6rem;
+  background: color-mix(in srgb, var(--paper) 68%, transparent);
+  box-shadow: 0 1.2rem 3.5rem color-mix(in srgb, var(--wine) 8%, transparent);
+}
+
+.roleSwitch > div,
+.roleText {
+  display: grid;
+  gap: 0.22rem;
+}
+
+.roleSwitch > div > span {
+  color: var(--muted);
+}
+
+.roleSwitch > div > span,
+.roleLabel {
+  font-size: 0.61rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.roleSwitch strong {
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 400;
+}
+
+.roleSwitch > a {
+  min-height: 3.7rem;
+  padding: 0.7rem 0.85rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+  border-radius: 1.15rem;
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.roleText {
+  color: var(--cream);
+  font-size: 0.64rem;
+}
+
+.roleSwitch small {
+  color: var(--band-muted);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .rangeSection,
@@ -291,6 +361,27 @@
 
 .categoryRail article:nth-child(3) {
   background: var(--product-blush);
+}
+
+.categoryRailSingle article {
+  grid-column: 1 / -1;
+  min-height: 11.5rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: clamp(1rem, 4vw, 4rem);
+  align-items: end;
+}
+
+.categoryRailSingle article > span {
+  align-self: start;
+}
+
+.categoryRailSingle strong {
+  margin: 0;
+}
+
+.categoryRailSingle small {
+  margin: 0 0 0.35rem;
 }
 
 .categoryRail article > span,
@@ -368,6 +459,7 @@
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
   }
 
   .hero h1 {
@@ -375,7 +467,11 @@
   }
 
   .heroStage {
-    min-height: 36rem;
+    min-height: 32rem;
+  }
+
+  .roleSwitch {
+    grid-column: auto;
   }
 
   .observedSection {
@@ -386,16 +482,17 @@
 @media (max-width: 640px) {
   .hero {
     min-height: auto;
-    padding: 6rem 1rem 1rem;
-    gap: 3rem;
+    padding: 5.5rem 1rem 1rem;
+    gap: 1.5rem;
   }
 
   .hero h1 {
-    font-size: clamp(4.2rem, 20vw, 7rem);
+    max-width: 8ch;
+    font-size: clamp(4rem, 19vw, 6.6rem);
   }
 
   .heroStage {
-    min-height: 31rem;
+    min-height: 25rem;
     border-radius: 1.8rem;
   }
 
@@ -408,11 +505,15 @@
     width: 100%;
   }
 
-  .roleLink {
+  .coverageNote {
     align-items: flex-start;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
   .productPortraits {
+    top: 3.3rem;
+    bottom: 6.6rem;
     right: 0.25rem;
     left: 0.25rem;
   }
@@ -431,6 +532,17 @@
 
   .metrics small {
     font-size: 0.56rem;
+  }
+
+  .roleSwitch {
+    padding: 1rem;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    border-radius: 1.4rem;
+  }
+
+  .roleSwitch > a {
+    min-height: 4rem;
   }
 
   .rangeSection,
@@ -453,6 +565,10 @@
 
   .categoryRail article {
     min-height: 11rem;
+  }
+
+  .categoryRailSingle article {
+    display: flex;
   }
 
   .retailerList > a,

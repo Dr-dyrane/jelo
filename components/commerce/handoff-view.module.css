@@ -3,6 +3,7 @@
   display: grid;
   place-items: center;
   padding: clamp(1.5rem, 4vw, 3rem) 1rem;
+  padding-top: calc(4.75rem + clamp(1.5rem, 4vw, 3rem));
   padding-bottom: calc(clamp(1.5rem, 4vw, 3rem) + env(safe-area-inset-bottom));
   background:
     radial-gradient(circle at 20% 80%, var(--wash-c), transparent 42%),

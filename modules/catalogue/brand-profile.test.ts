@@ -6,6 +6,7 @@ import { products } from "@/data/catalogue";
 import {
   brandProfileHref,
   brandSlug,
+  buildBrandDirectory,
   buildBrandProfile,
 } from "@/lib/catalogue/brand-profile";
 import { buildGlobalSearchRepository } from "@/lib/search/global-search-repository";
@@ -28,6 +29,25 @@ test("brand profiles group canonical aliases into one stable public route", () =
     ["DANG! Lifestyle", "DANG! Lifestyle", "DANG! Lifestyle"],
   );
   assert.equal(profile.ownRetailer?.href, "/retailers/dang-lifestyle");
+});
+
+test("brand directory covers every public product once after alias normalization", () => {
+  const directory = buildBrandDirectory(
+    products,
+    new Date("2026-08-09T12:00:00Z"),
+  );
+  assert.equal(
+    new Set(directory.map((profile) => profile.slug)).size,
+    directory.length,
+  );
+  assert.equal(
+    directory.reduce((total, profile) => total + profile.productCount, 0),
+    products.length,
+  );
+  assert.equal(
+    directory.find((profile) => profile.slug === "dang-lifestyle")?.name,
+    "DANG! Lifestyle",
+  );
 });
 
 test("company search results and product pages expose canonical brand entry points", () => {

@@ -18,6 +18,7 @@ export type SocialCardKind =
   | 'concern'
   | 'ingredients'
   | 'ingredient'
+  | 'brands'
   | 'retailers'
   | 'retailer'
   | 'brand'
@@ -108,6 +109,17 @@ const staticCards = {
     alt: 'The JeloCare source-checked ingredient library',
     theme: 'dark',
   },
+  brands: {
+    request: { kind: 'brands' },
+    eyebrow: 'Brand directory · JeloCare',
+    title: 'Find the name first.',
+    description: 'Every public JeloCare product, grouped under one canonical brand name.',
+    detail: 'Exact products · Nigerian price context',
+    metaTitle: 'Brands',
+    metaDescription: 'Browse every brand represented in the JeloCare public product catalogue.',
+    alt: 'The JeloCare public brand directory',
+    theme: 'dark',
+  },
   retailers: {
     request: { kind: 'retailers' },
     eyebrow: 'Retailer guide · JeloCare',
@@ -162,6 +174,7 @@ export const PUBLIC_SOCIAL_ROUTE_COVERAGE = [
   { family: '/concerns', source: 'app/(site)/concerns/page.tsx', context: 'concern guide index' },
   { family: '/concerns/[slug]', source: 'app/(site)/concerns/[slug]/page.tsx', context: 'exact concern guide' },
   { family: '/ingredients', source: 'app/(site)/ingredients/page.tsx', context: 'ingredient library index' },
+  { family: '/brands', source: 'app/(site)/brands/page.tsx', context: 'public brand directory' },
   { family: '/retailers', source: 'app/(site)/retailers/page.tsx', context: 'retailer guide' },
   { family: '/retailers/[slug]', source: 'app/(site)/retailers/[slug]/page.tsx', context: 'exact retailer profile and observed products' },
   { family: '/brands/[slug]', source: 'app/(site)/brands/[slug]/page.tsx', context: 'exact brand profile and public catalogue products' },
