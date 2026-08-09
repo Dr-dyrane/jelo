@@ -153,9 +153,25 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
     /display:\s*none;/,
   );
   assert.match(
-    ruleDeclarations(mobileSearchStyles, ".suggestionSheet"),
+    ruleDeclarations(searchStyles, ".suggestionSheet"),
+    /display:\s*none;/,
+  );
+  assert.match(
+    mobileSearchStyles,
+    /\.suggestionSheet\[open\]\s*\{[^}]*display:\s*block;/,
+  );
+  assert.match(
+    ruleDeclarations(mobileSearchStyles, ".sheetBackdrop"),
+    /position:\s*fixed;/,
+  );
+  assert.match(
+    ruleDeclarations(mobileSearchStyles, ".sheetBackdrop"),
     /display:\s*block;/,
   );
+  assert.doesNotMatch(search, /useControlledDialog/);
+  assert.match(search, /open=\{isMobile && expanded\}/);
+  assert.match(search, /showSuggestions && !isMobile/);
+  assert.match(search, /suppressNextOpenRef/);
   assert.match(
     ruleDeclarations(mobileSearchStyles, ".shell"),
     /position:\s*sticky;/,

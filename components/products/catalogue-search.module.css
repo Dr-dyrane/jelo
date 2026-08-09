@@ -111,6 +111,10 @@
   display: none;
 }
 
+.sheetBackdrop {
+  display: none;
+}
+
 .suggestionHeading {
   min-height: 2.25rem;
   padding: 0.1rem 0.35rem 0.5rem 0.65rem;
@@ -278,6 +282,8 @@
     top: 0.5rem;
   }
   .searchBar {
+    position: relative;
+    z-index: 3;
     grid-template-columns: auto minmax(0, 1fr) auto auto;
     /* Solid background on mobile — no backdrop-filter blur over hero */
     background: var(--card-2, #fffdf9);
@@ -311,8 +317,21 @@
   .suggestions {
     display: none;
   }
-  /* Bottom sheet dialog for suggestions — uses browser top layer */
-  .suggestionSheet {
+  .sheetBackdrop {
+    position: fixed;
+    z-index: 1;
+    inset: 0;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: rgba(45, 33, 31, 0.34);
+    backdrop-filter: blur(8px) saturate(115%);
+  }
+  /* Non-modal bottom sheet: the sticky search remains focused and typable. */
+  .suggestionSheet[open] {
+    position: fixed;
+    z-index: 2;
+    inset: auto 0 0;
     display: block;
     width: 100%;
     max-width: none;
@@ -325,15 +344,6 @@
     border-radius: 1.8rem 1.8rem 0 0;
     background: var(--card-2, #fff9f5);
     box-shadow: 0 -28px 90px rgba(67, 39, 34, 0.2);
-  }
-  .suggestionSheet::backdrop {
-    background: rgba(45, 33, 31, 0.34);
-    backdrop-filter: blur(8px) saturate(115%);
-  }
-  .suggestionSheet[data-fallback-modal="true"] {
-    width: 100vw;
-    height: 100dvh;
-    background: rgba(45, 33, 31, 0.34);
   }
   .suggestionSheetInner {
     height: 100%;
@@ -424,6 +434,9 @@
   background: var(--rose);
 }
 :global(html[data-theme="dark"]) .suggestions {
+  background: var(--paper);
+}
+:global(html[data-theme="dark"]) .suggestionSheet {
   background: var(--paper);
 }
 :global(html[data-theme="dark"]) .suggestionHeading button {

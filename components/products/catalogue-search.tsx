@@ -14,7 +14,6 @@ import {
   type KeyboardEvent,
 } from "react";
 import { catalogueSuggestionMinimumQueryLength } from "@/lib/catalogue/catalogue-search-request";
-import { useControlledDialog } from "@/components/ui/use-controlled-dialog";
 import { recordCatalogueTransition } from "./catalogue-transition-tracker";
 import {
   matchingCatalogueSearchSuggestions,
@@ -101,6 +100,7 @@ export function CatalogueSearch({
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const suppressNextOpenRef = useRef(false);
   const [value, setValue] = useState(defaultValue);
   const [expanded, setExpanded] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -153,25 +153,8 @@ export function CatalogueSearch({
   const showSuggestions =
     expanded && (matches.length > 0 || isLoading || Boolean(remoteFeedback));
 
-  // Mobile bottom sheet dialog for suggestions — uses the browser's top
-  // layer via <dialog>, so no z-index fighting with hero/page content.
-  // Only opens on mobile; desktop uses the absolute dropdown.
-  const {
-    dialogRef: sheetDialogRef,
-    handleCancel: handleSheetCancel,
-    handleBackdropClick: handleSheetBackdropClick,
-  } = useControlledDialog({
-    open: showSuggestions && isMobile,
-    onClose: closeSuggestions,
-    restoreFocusRef: inputRef,
-    initialFocusRef: inputRef,
-  });
-
   useEffect(() => {
     function closeOnOutsidePointer(event: PointerEvent) {
-      // On mobile, the bottom sheet dialog handles its own closing.
-      // Skip this handler so clicks inside the dialog don't double-close.
-      if (isMobile && sheetDialogRef.current?.hasAttribute("open")) return;
       if (!rootRef.current?.contains(event.target as Node)) {
         setExpanded(false);
         setActiveIndex(-1);
@@ -180,7 +163,7 @@ export function CatalogueSearch({
     document.addEventListener("pointerdown", closeOnOutsidePointer);
     return () =>
       document.removeEventListener("pointerdown", closeOnOutsidePointer);
-  }, [isMobile, sheetDialogRef]);
+  }, []);
 
   // Hide the fixed site header when search is focused on mobile so the
   // search bar can move to top: 0, creating room for suggestions.
@@ -249,12 +232,29 @@ export function CatalogueSearch({
   }, [market, requestQuery]);
 
   function openSuggestions() {
+    if (suppressNextOpenRef.current) {
+      suppressNextOpenRef.current = false;
+      return;
+    }
     setExpanded(true);
   }
 
   function closeSuggestions() {
     setExpanded(false);
     setActiveIndex(-1);
+  }
+
+  function closeMobileSuggestions() {
+    suppressNextOpenRef.current = true;
+    closeSuggestions();
+    queueMicrotask(() => {
+      const input = inputRef.current;
+      if (!input?.isConnected || document.activeElement === input) {
+        suppressNextOpenRef.current = false;
+        return;
+      }
+      input.focus({ preventScroll: true });
+    });
   }
 
   function followSuggestion(suggestion: CatalogueSearchSuggestion) {
@@ -283,7 +283,8 @@ export function CatalogueSearch({
     if (event.key === "Escape") {
       if (expanded) {
         event.preventDefault();
-        closeSuggestions();
+        if (isMobile) closeMobileSuggestions();
+        else closeSuggestions();
       }
       return;
     }
@@ -315,67 +316,69 @@ export function CatalogueSearch({
     inputRef.current?.focus();
   }
 
-  const suggestionContent = (
-    <>
-      <div className={styles.suggestionHeading}>
-        <span>{value.trim() ? "Suggestions" : "Start here"}</span>
-        <button
-          type="button"
-          onClick={closeSuggestions}
-          aria-label="Close suggestions"
-        >
-          <X size={17} aria-hidden="true" />
-        </button>
-      </div>
-      <div className={styles.suggestionList} id={listboxId} role="listbox">
-        {isLoading && matches.length === 0 ? (
-          <div
-            className={styles.loadingSuggestion}
-            role="option"
-            aria-disabled="true"
-            aria-selected="false"
+  function renderSuggestionContent(mobile: boolean) {
+    return (
+      <>
+        <div className={styles.suggestionHeading}>
+          <span>{value.trim() ? "Suggestions" : "Start here"}</span>
+          <button
+            type="button"
+            onClick={mobile ? closeMobileSuggestions : closeSuggestions}
+            aria-label="Close suggestions"
           >
-            <span aria-hidden="true" />
-            <strong>Finding matches</strong>
+            <X size={17} aria-hidden="true" />
+          </button>
+        </div>
+        <div className={styles.suggestionList} id={listboxId} role="listbox">
+          {isLoading && matches.length === 0 ? (
+            <div
+              className={styles.loadingSuggestion}
+              role="option"
+              aria-disabled="true"
+              aria-selected="false"
+            >
+              <span aria-hidden="true" />
+              <strong>Finding matches</strong>
+            </div>
+          ) : null}
+          {matches.map((suggestion, index) => (
+            <Link
+              id={`${listboxId}-${index}`}
+              role="option"
+              aria-selected={currentActiveIndex === index}
+              tabIndex={-1}
+              href={suggestion.href}
+              onPointerMove={() => setActiveIndex(index)}
+              onClick={closeSuggestions}
+              key={`${suggestion.kind}-${suggestion.href}`}
+            >
+              <span>
+                <small>{kindLabels[suggestion.kind]}</small>
+                <strong>{suggestion.label}</strong>
+                <em>{suggestion.detail}</em>
+              </span>
+              <ChevronRight size={17} strokeWidth={1.8} aria-hidden="true" />
+            </Link>
+          ))}
+        </div>
+        {remoteFeedback ? (
+          <div className={styles.searchFallback}>
+            <p>{remoteFeedback}</p>
+            <Link
+              href={searchAllHref}
+              onClick={() => {
+                closeSuggestions();
+                recordCatalogueTransition(searchAllHref);
+              }}
+            >
+              <span>Search all products</span>
+              <ChevronRight size={17} strokeWidth={1.8} aria-hidden="true" />
+            </Link>
           </div>
         ) : null}
-        {matches.map((suggestion, index) => (
-          <Link
-            id={`${listboxId}-${index}`}
-            role="option"
-            aria-selected={currentActiveIndex === index}
-            tabIndex={-1}
-            href={suggestion.href}
-            onPointerMove={() => setActiveIndex(index)}
-            onClick={closeSuggestions}
-            key={`${suggestion.kind}-${suggestion.href}`}
-          >
-            <span>
-              <small>{kindLabels[suggestion.kind]}</small>
-              <strong>{suggestion.label}</strong>
-              <em>{suggestion.detail}</em>
-            </span>
-            <ChevronRight size={17} strokeWidth={1.8} aria-hidden="true" />
-          </Link>
-        ))}
-      </div>
-      {remoteFeedback ? (
-        <div className={styles.searchFallback}>
-          <p>{remoteFeedback}</p>
-          <Link
-            href={searchAllHref}
-            onClick={() => {
-              closeSuggestions();
-              recordCatalogueTransition(searchAllHref);
-            }}
-          >
-            <span>Search all products</span>
-            <ChevronRight size={17} strokeWidth={1.8} aria-hidden="true" />
-          </Link>
-        </div>
-      ) : null}
-    </>
-  );
+      </>
+    );
+  }
 
   return (
     <div className={styles.shell} ref={rootRef}>
@@ -401,16 +404,17 @@ export function CatalogueSearch({
             setExpanded(true);
           }}
           onFocus={openSuggestions}
+          onClick={openSuggestions}
           onKeyDown={handleKeyDown}
           placeholder="Product, company or barcode"
           autoComplete="off"
           spellCheck="false"
           role="combobox"
           aria-autocomplete="list"
-          aria-expanded={showSuggestions}
+          aria-expanded={isMobile ? expanded : showSuggestions}
           aria-controls={listboxId}
           aria-activedescendant={
-            showSuggestions && currentActiveIndex >= 0
+            expanded && currentActiveIndex >= 0
               ? `${listboxId}-${currentActiveIndex}`
               : undefined
           }
@@ -453,28 +457,39 @@ export function CatalogueSearch({
           : ""}
       </p>
       {/* Desktop: absolute-positioned dropdown inside the shell */}
-      {showSuggestions ? (
+      {showSuggestions && !isMobile ? (
         <section
           className={styles.suggestions}
           aria-label="Search suggestions"
           aria-busy={isLoading}
         >
-          {suggestionContent}
+          {renderSuggestionContent(false)}
         </section>
       ) : null}
 
-      {/* Mobile: bottom sheet dialog — uses browser top layer, no z-index fighting */}
+      {/* Mobile: the fixed sheet stays non-modal so the sticky input remains usable. */}
+      {isMobile && expanded ? (
+        <button
+          className={styles.sheetBackdrop}
+          type="button"
+          tabIndex={-1}
+          aria-label="Close search suggestions"
+          onClick={closeMobileSuggestions}
+        />
+      ) : null}
       <dialog
         className={styles.suggestionSheet}
-        ref={sheetDialogRef}
-        aria-modal="true"
+        open={isMobile && expanded}
         aria-label="Search suggestions"
-        onCancel={handleSheetCancel}
-        onClick={handleSheetBackdropClick}
+        onKeyDown={(event) => {
+          if (event.key !== "Escape") return;
+          event.preventDefault();
+          closeMobileSuggestions();
+        }}
       >
         <div className={styles.suggestionSheetInner}>
           <div className={styles.suggestionGrip} aria-hidden="true" />
-          {showSuggestions ? suggestionContent : null}
+          {isMobile && expanded ? renderSuggestionContent(true) : null}
         </div>
       </dialog>
     </div>
