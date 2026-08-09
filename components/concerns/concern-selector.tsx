@@ -26,6 +26,7 @@ import { ProductCard } from "@/components/products/product-card";
 import {
   isProductMatchConcern,
   rankProductsForConcerns,
+  rankReviewedContextForConcerns,
 } from "@/modules/concerns/product-matching";
 import styles from "./concern-selector.module.css";
 import feedbackStyles from "./concern-feedback.module.css";
@@ -85,8 +86,12 @@ export function ConcernSelector({
     });
   }, [area, concerns, query]);
 
-  const ranked = useMemo(
+  const careCleared = useMemo(
     () => rankProductsForConcerns(products, concerns, selected),
+    [products, concerns, selected],
+  );
+  const reviewedContext = useMemo(
+    () => rankReviewedContextForConcerns(products, concerns, selected),
     [products, concerns, selected],
   );
 
@@ -290,13 +295,14 @@ export function ConcernSelector({
             <div>
               <strong>{feedback.message}</strong>
               <span>
-                {selected.length} selected · {ranked.length} matches
+                {selected.length} selected · {careCleared.length} care-cleared ·{" "}
+                {reviewedContext.length} pharmacist-reviewed
               </span>
             </div>
             <div className={feedbackStyles.actions}>
               {selected.length ? (
                 <button type="button" onClick={viewMatches}>
-                  View matches <ArrowDown size={14} aria-hidden="true" />
+                  View products <ArrowDown size={14} aria-hidden="true" />
                 </button>
               ) : null}
               <button type="button" onClick={undo}>
@@ -324,7 +330,7 @@ export function ConcernSelector({
           <div className={styles.resultsHeading}>
             <div>
               <p className="eyebrow">Products</p>
-              <h2>Your matches.</h2>
+              <h2>Your products.</h2>
             </div>
             <button
               type="button"
@@ -335,27 +341,67 @@ export function ConcernSelector({
           </div>
 
           <p className={styles.resultCount}>
-            {ranked.length} {ranked.length === 1 ? "product" : "products"} ·{" "}
-            {selected.length} selected
+            {careCleared.length} care-cleared · {reviewedContext.length}{" "}
+            pharmacist-reviewed · {selected.length} selected
           </p>
-          {ranked.length ? (
-            <div className={styles.productGrid}>
-              {ranked.map((result) => (
-                <div className={styles.productMatch} key={result.product.slug}>
-                  <span>
-                    Matches{" "}
-                    {matchedConcernNames(
-                      result.matchedConcernSlugs,
-                      concerns,
-                    ).join(" · ")}
-                  </span>
-                  <ProductCard product={result.product} />
-                </div>
-              ))}
+          <div className={styles.resultTier}>
+            <div className={styles.tierHeading}>
+              <p className="eyebrow">Care-cleared</p>
+              <h3>Direct catalogue matches.</h3>
             </div>
-          ) : (
-            <p className={styles.empty}>No care-cleared product yet.</p>
-          )}
+            {careCleared.length ? (
+              <div className={styles.productGrid}>
+                {careCleared.map((result) => (
+                  <div
+                    className={styles.productMatch}
+                    key={result.product.slug}
+                  >
+                    <span>
+                      Matches{" "}
+                      {matchedConcernNames(
+                        result.matchedConcernSlugs,
+                        concerns,
+                      ).join(" · ")}
+                    </span>
+                    <ProductCard product={result.product} />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className={styles.empty}>No care-cleared product yet.</p>
+            )}
+          </div>
+
+          {reviewedContext.length ? (
+            <div className={styles.reviewedContext}>
+              <div className={styles.tierHeading}>
+                <p className="eyebrow">Pharmacist review</p>
+                <h3>Products connected by reviewed evidence.</h3>
+                <p className={styles.tierDescription}>
+                  These products are linked to your selected concerns, but they
+                  are not direct recommendations. Check suitability with a
+                  pharmacist or clinician first.
+                </p>
+              </div>
+              <div className={styles.productGrid}>
+                {reviewedContext.map((result) => (
+                  <div
+                    className={styles.productMatch}
+                    key={result.product.slug}
+                  >
+                    <span>
+                      Reviewed for{" "}
+                      {matchedConcernNames(
+                        result.matchedConcernSlugs,
+                        concerns,
+                      ).join(" · ")}
+                    </span>
+                    <ProductCard product={result.product} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </section>
       ) : null}
     </>

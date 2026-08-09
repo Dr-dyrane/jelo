@@ -58,10 +58,23 @@ export function productsLinkedToConcern<T extends ConcernProduct>(
   return { supportive, reviewedContext };
 }
 
-export function rankProductsForConcerns<T extends ConcernProduct>(
-  products: T[],
+export function productsWithReviewedConcernLinks<T extends ConcernProduct>(
+  products: readonly T[],
+  allConcerns: Concern[],
+) {
+  const ordinaryConcerns = allConcerns.filter(isProductMatchConcern);
+  return products.filter((product) =>
+    ordinaryConcerns.some((concern) =>
+      productReferencesConcern(product, concern),
+    ),
+  );
+}
+
+function rankProductsByConcern<T extends ConcernProduct>(
+  products: readonly T[],
   allConcerns: Concern[],
   selectedSlugs: string[],
+  matches: (product: T, concern: Concern) => boolean,
 ) {
   const selected = allConcerns.filter(
     (concern) =>
@@ -72,7 +85,7 @@ export function rankProductsForConcerns<T extends ConcernProduct>(
       product,
       index,
       matchedConcernSlugs: selected
-        .filter((concern) => productMatchesConcern(product, concern))
+        .filter((concern) => matches(product, concern))
         .map((concern) => concern.slug),
     }))
     .filter((result) => result.matchedConcernSlugs.length > 0)
@@ -81,4 +94,32 @@ export function rankProductsForConcerns<T extends ConcernProduct>(
         right.matchedConcernSlugs.length - left.matchedConcernSlugs.length ||
         left.index - right.index,
     );
+}
+
+export function rankProductsForConcerns<T extends ConcernProduct>(
+  products: readonly T[],
+  allConcerns: Concern[],
+  selectedSlugs: string[],
+) {
+  return rankProductsByConcern(
+    products,
+    allConcerns,
+    selectedSlugs,
+    productMatchesConcern,
+  );
+}
+
+export function rankReviewedContextForConcerns<T extends ConcernProduct>(
+  products: readonly T[],
+  allConcerns: Concern[],
+  selectedSlugs: string[],
+) {
+  return rankProductsByConcern(
+    products,
+    allConcerns,
+    selectedSlugs,
+    (product, concern) =>
+      !productMatchesConcern(product, concern) &&
+      productReferencesConcern(product, concern),
+  );
 }

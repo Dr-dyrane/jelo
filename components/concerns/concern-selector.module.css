@@ -265,6 +265,34 @@
   font-size: 0.75rem;
 }
 
+.resultTier,
+.reviewedContext {
+  margin-top: 3rem;
+}
+
+.tierHeading {
+  max-width: 44rem;
+}
+
+.tierHeading h3 {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 400;
+  line-height: 0.95;
+}
+
+.tierDescription {
+  margin: 0.8rem 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.reviewedContext {
+  padding-top: 3rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
 .productGrid {
   margin-top: 2rem;
   display: grid;
