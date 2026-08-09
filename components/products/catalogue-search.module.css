@@ -262,7 +262,7 @@
 @media (max-width: 640px) {
   .shell {
     position: sticky;
-    z-index: 60;
+    z-index: 100;
     top: 5rem;
     width: calc(100% - 1.2rem);
     margin-top: -1.5rem;
