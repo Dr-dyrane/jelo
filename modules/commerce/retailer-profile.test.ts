@@ -2,6 +2,10 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import {
+  filterRetailerDirectory,
+  type RetailerDirectoryItem,
+} from "./retailer-directory-search";
 import { products } from "@/data/catalogue";
 import {
   nigeriaRetailers,
@@ -39,9 +43,13 @@ test("retailer profiles expose only that store current exact Nigerian offers", (
 
 test("public retailer routes reuse product cards and keep store links evidence-scoped", async () => {
   const root = process.cwd();
-  const [profilePage, directoryPage] = await Promise.all([
+  const [profilePage, directoryPage, directoryComponent] = await Promise.all([
     readFile(path.join(root, "app/(site)/retailers/[slug]/page.tsx"), "utf8"),
     readFile(path.join(root, "app/(site)/retailers/page.tsx"), "utf8"),
+    readFile(
+      path.join(root, "components/retailers/retailer-directory.tsx"),
+      "utf8",
+    ),
   ]);
 
   assert.match(profilePage, /ProductCardGrid/);
@@ -53,6 +61,34 @@ test("public retailer routes reuse product cards and keep store links evidence-s
   assert.match(profilePage, /Listing ≠ genuine/);
   assert.match(
     directoryPage,
-    /href=\{`\/retailers\/\$\{retailerSlug\(store\.name\)\}`\}/,
+    /<RetailerDirectory items=\{directoryItems\} \/>/,
   );
+  assert.match(directoryComponent, /href=\{`\/retailers\/\$\{item\.slug\}`\}/);
+});
+
+test("retailer search preserves source positions while narrowing by name and kind", () => {
+  const items: RetailerDirectoryItem[] = [
+    {
+      rank: 2,
+      slug: "beauty-hut-africa",
+      name: "Beauty Hut Africa",
+      kind: "Direct retailer",
+      productCount: 15,
+      evidenceNote: "Reference source",
+    },
+    {
+      rank: 11,
+      slug: "jumia-nigeria",
+      name: "Jumia Nigeria",
+      kind: "Marketplace",
+      productCount: 3,
+      evidenceNote: "Seller identity checked per offer",
+    },
+  ];
+
+  assert.deepEqual(filterRetailerDirectory(items, "beauty hut"), [items[0]]);
+  assert.deepEqual(filterRetailerDirectory(items, "marketplace"), [items[1]]);
+  assert.deepEqual(filterRetailerDirectory(items, ""), items);
+  assert.equal(filterRetailerDirectory(items, "missing").length, 0);
+  assert.equal(filterRetailerDirectory(items, "beauty")[0]?.rank, 2);
 });

@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  BadgeCheck,
-  Clock3,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Clock3, ShieldCheck } from "lucide-react";
+import { RetailerDirectory } from "@/components/retailers/retailer-directory";
 import { RetailerPartnershipExperience } from "@/components/retailers/retailer-partnership-experience";
 import { nigeriaRetailers, retailerSlug } from "@/data/retailers";
 import { listCatalogueProducts } from "@/lib/catalogue/repository";
@@ -49,6 +44,35 @@ export default async function RetailersPage() {
   const brands = [...new Set(catalogue.map((product) => product.brand))]
     .sort((left, right) => left.localeCompare(right))
     .map((label) => ({ id: brandId(label), label }));
+  const directoryItems = nigeriaRetailers.map((store, index) => {
+    const profile = buildRetailerProfile(store, catalogue);
+    const evidenceNote = hasRegulatorMatch({
+      reviewStatus: store.reviewStatus,
+      contentUse: store.contentUse,
+      identity: store.identityEvidence,
+      regulatorMatch: store.regulatorMatchEvidence,
+    })
+      ? "Regulator number matched to an independent register."
+      : store.identityEvidence
+        ? "Self-published contact details observed. No regulator match."
+        : store.kind === "marketplace"
+          ? "Seller identity is checked per offer when evidence exists."
+          : "No identity or regulator match recorded.";
+
+    return {
+      rank: index + 1,
+      slug: retailerSlug(store.name),
+      name: store.name,
+      kind:
+        store.reviewStatus === "provisional"
+          ? "Provisional source"
+          : store.kind === "marketplace"
+            ? "Marketplace"
+            : "Direct retailer",
+      productCount: profile.productCount,
+      evidenceNote,
+    };
+  });
 
   return (
     <main className={styles.main}>
@@ -134,48 +158,7 @@ export default async function RetailersPage() {
             sources.
           </h2>
         </div>
-        <div className={styles.storeGrid}>
-          {nigeriaRetailers.map((store, index) => {
-            const profile = buildRetailerProfile(store, catalogue);
-            return (
-              <Link
-                href={`/retailers/${retailerSlug(store.name)}`}
-                key={store.name}
-              >
-                <span className={styles.storeNumber}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className={styles.storeKind}>
-                  {store.reviewStatus === "provisional"
-                    ? "Provisional source"
-                    : store.kind === "marketplace"
-                      ? "Marketplace"
-                      : "Direct retailer"}
-                </span>
-                <strong>{store.name}</strong>
-                <small>
-                  {profile.productCount}{" "}
-                  {profile.productCount === 1 ? "product" : "products"} observed
-                </small>
-                <small>
-                  {hasRegulatorMatch({
-                    reviewStatus: store.reviewStatus,
-                    contentUse: store.contentUse,
-                    identity: store.identityEvidence,
-                    regulatorMatch: store.regulatorMatchEvidence,
-                  })
-                    ? "Regulator number matched to an independent register."
-                    : store.identityEvidence
-                      ? "Self-published contact details observed. No regulator match."
-                      : store.kind === "marketplace"
-                        ? "Seller identity is checked per offer when evidence exists."
-                        : "No identity or regulator match recorded."}
-                </small>
-                <ArrowRight size={18} />
-              </Link>
-            );
-          })}
-        </div>
+        <RetailerDirectory items={directoryItems} />
       </section>
 
       <section className={styles.disclosure}>
