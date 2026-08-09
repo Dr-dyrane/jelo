@@ -2,10 +2,9 @@
 
 import { ChevronRight, Equal, Search, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useModalDialog } from "@/components/ui/use-modal-dialog";
-import { MobileSearchOverlay } from "@/components/navigation/mobile-search-overlay";
 import styles from "./site-header.module.css";
 
 const mobileLinks = [
@@ -26,20 +25,24 @@ const mobileLinks = [
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const isHome = pathname === "/";
-  const [openPathname, setOpenPathname] = useState<string | null>(null);
-  const open = openPathname === pathname;
   const [scrolled, setScrolled] = useState(false);
-  const [query, setQuery] = useState("");
-  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const searchRef = useRef<HTMLFormElement>(null);
   const {
     dialogRef: menuDialogRef,
     triggerRef: menuTriggerRef,
     open: openMenu,
     close: closeMenu,
   } = useModalDialog();
+
+  function openSearch() {
+    if (pathname === "/search") {
+      window.dispatchEvent(new Event("jelocare:focus-global-search"));
+      document.getElementById("global-search-input")?.focus();
+      return;
+    }
+    router.push("/search");
+  }
 
   useEffect(() => {
     let frame = 0;
@@ -65,62 +68,35 @@ export function SiteHeader() {
         target?.tagName === "TEXTAREA" ||
         target?.isContentEditable;
 
-      if (event.key === "Escape") {
-        setOpenPathname(null);
-        setMobileSearchOpen(false);
-        return;
-      }
-
       if (
         (!isTyping && event.key === "/") ||
         ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k")
       ) {
         event.preventDefault();
-        // On mobile, open the full-screen overlay instead
-        if (window.matchMedia("(max-width: 700px)").matches) {
-          setMobileSearchOpen(true);
+        if (pathname === "/search") {
+          window.dispatchEvent(new Event("jelocare:focus-global-search"));
+          document.getElementById("global-search-input")?.focus();
         } else {
-          setOpenPathname(pathname);
+          router.push("/search");
         }
       }
     };
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (!open) return;
-
-    inputRef.current?.focus();
-
-    const onPointerDown = (event: PointerEvent) => {
-      if (!searchRef.current?.contains(event.target as Node))
-        setOpenPathname(null);
-    };
-
-    window.addEventListener("pointerdown", onPointerDown);
-    return () => window.removeEventListener("pointerdown", onPointerDown);
-  }, [open]);
-
-  function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const value = query.trim();
-    if (!value) return;
-    window.location.assign(`/products?q=${encodeURIComponent(value)}`);
-  }
+  }, [pathname, router]);
 
   return (
     <>
       <header
-        className={`${styles.header} ${isHome && !scrolled ? styles.homeHeader : ""} ${scrolled ? styles.scrolled : ""} ${open ? styles.searchOpen : ""}`}
+        className={`${styles.header} ${isHome && !scrolled ? styles.homeHeader : ""} ${scrolled ? styles.scrolled : ""}`}
       >
         <Link className={styles.logo} href="/">
           JELOCARE
         </Link>
 
         <nav className={styles.nav} aria-label="Primary navigation">
-          <div className={styles.links} aria-hidden={open}>
+          <div className={styles.links}>
             <Link href="/concerns">Concerns</Link>
             <Link href="/products">Products</Link>
             <Link href="/contribute">Share skincare</Link>
@@ -130,54 +106,15 @@ export function SiteHeader() {
             </Link>
           </div>
 
-          <form
-            ref={searchRef}
-            className={styles.inlineSearch}
-            onSubmit={submit}
-            role="search"
+          <button
+            className={styles.searchTrigger}
+            type="button"
+            onClick={openSearch}
+            aria-label="Open search"
           >
-            {open ? (
-              <>
-                <Search
-                  className={styles.searchIcon}
-                  size={18}
-                  aria-hidden="true"
-                />
-                <input
-                  ref={inputRef}
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search products, companies or concerns"
-                  aria-label="Search products, companies or concerns"
-                />
-                <button
-                  className={styles.closeSearch}
-                  type="button"
-                  onClick={() => setOpenPathname(null)}
-                  aria-label="Close search"
-                >
-                  <X size={17} />
-                </button>
-              </>
-            ) : (
-              <button
-                className={styles.searchTrigger}
-                type="button"
-                onClick={() => {
-                  if (window.matchMedia("(max-width: 700px)").matches) {
-                    setMobileSearchOpen(true);
-                  } else {
-                    setOpenPathname(pathname);
-                  }
-                }}
-                aria-label="Open search"
-                aria-expanded="false"
-              >
-                <Search size={18} />
-                <span>Search</span>
-              </button>
-            )}
-          </form>
+            <Search size={18} aria-hidden="true" />
+            <span>Search</span>
+          </button>
 
           <button
             className={styles.menuTrigger}
@@ -244,11 +181,6 @@ export function SiteHeader() {
           </div>
         </div>
       </dialog>
-
-      <MobileSearchOverlay
-        open={mobileSearchOpen}
-        onClose={() => setMobileSearchOpen(false)}
-      />
     </>
   );
 }
