@@ -124,6 +124,29 @@ test("trend story becomes an honest snapshot without two dated observations", ()
   });
 });
 
+test("trend story uses the selected 3M download window", () => {
+  const data = trendData([
+    {
+      retailer: "Exact store",
+      priceNaira: 15_000,
+      observedAt: "2026-07-08T12:00:00Z",
+    },
+    {
+      retailer: "Exact store",
+      priceNaira: 12_000,
+      observedAt: "2026-08-08T10:00:00Z",
+    },
+  ]);
+
+  assert.equal(buildCampaignTrendStory(data, now).mode, "snapshot");
+  const story = buildCampaignTrendStory(data, now, "3m");
+  assert.equal(story.mode, "history");
+  if (story.mode !== "history") return;
+  assert.equal(story.percent, -20);
+  assert.equal(story.startObservedAt, "2026-07-08T12:00:00Z");
+  assert.equal(story.endObservedAt, "2026-08-08T10:00:00Z");
+});
+
 test("monotone story path is curved, finite and retains both endpoints", () => {
   const path = buildMonotoneCampaignPath([
     { x: 20, y: 220 },

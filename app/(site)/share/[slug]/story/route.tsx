@@ -13,6 +13,12 @@ import {
   type ProductTrendData,
   type TrendPricePoint,
 } from "@/lib/share/product-trends";
+import {
+  DEFAULT_TREND_WINDOW,
+  isTrendWindowKey,
+  trendWindowDefinition,
+  type TrendWindowKey,
+} from "@/lib/share/trend-window";
 
 export const runtime = "nodejs";
 
@@ -543,14 +549,17 @@ function TrendStory({
   data,
   packshotSrc,
   referenceNow,
+  windowKey,
 }: {
   data: ProductTrendData;
   packshotSrc: string;
   referenceNow: number;
+  windowKey: TrendWindowKey;
 }) {
-  const story = buildCampaignTrendStory(data, referenceNow);
+  const story = buildCampaignTrendStory(data, referenceNow, windowKey);
   const isHistory = story.mode === "history";
   const observedAt = isHistory ? story.endObservedAt : story.observedAt;
+  const windowLabel = trendWindowDefinition(windowKey).label;
 
   return (
     <div
@@ -587,7 +596,7 @@ function TrendStory({
             color: "rgba(255,250,244,.64)",
           }}
         >
-          Price movement
+          {windowLabel} price movement
         </span>
       </div>
 
@@ -763,12 +772,22 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
-  const kind = new URL(request.url).searchParams.get(
-    "kind",
-  ) as StoryKind | null;
+  const searchParams = new URL(request.url).searchParams;
+  const kind = searchParams.get("kind") as StoryKind | null;
   if (kind !== "price" && kind !== "trend") {
     return errorResponse("Choose a price or trend story.", 400);
   }
+  const requestedWindow = searchParams.get("window");
+  if (
+    kind === "trend" &&
+    requestedWindow &&
+    !isTrendWindowKey(requestedWindow)
+  ) {
+    return errorResponse("Choose a valid trend window.", 400);
+  }
+  const windowKey = isTrendWindowKey(requestedWindow)
+    ? requestedWindow
+    : DEFAULT_TREND_WINDOW;
 
   const [shareData, trendData, fonts] = await Promise.all([
     buildShareData(slug),
@@ -800,6 +819,7 @@ export async function GET(
             ? Date.parse(trendData!.summary.observedAt)
             : Date.now()
         }
+        windowKey={windowKey}
       />
     );
   const fileName = `${slug}-${kind}-story.png`.replace(/[^a-z0-9._-]+/gi, "-");

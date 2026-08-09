@@ -1,4 +1,9 @@
 import type { ProductTrendData, TrendPricePoint } from "./product-trends";
+import {
+  DEFAULT_TREND_WINDOW,
+  filterTrendPointsByWindow,
+  type TrendWindowKey,
+} from "./trend-window";
 
 const DAY_MS = 86_400_000;
 
@@ -46,7 +51,7 @@ export function formatCampaignProductSize(slug: string, size: string) {
 const retailerKey = (value: string) => value.trim().toLocaleLowerCase("en-NG");
 
 /**
- * Select one real retailer series for the 30-day story. We never merge prices
+ * Select one real retailer series for the requested story window. We never merge prices
  * from different stores into an invented market line. When no exact retailer
  * has two time-distinct observations, the story intentionally becomes a
  * current-market snapshot instead of drawing a curve.
@@ -54,20 +59,19 @@ const retailerKey = (value: string) => value.trim().toLocaleLowerCase("en-NG");
 export function buildCampaignTrendStory(
   data: ProductTrendData,
   now = Date.now(),
+  windowKey: TrendWindowKey = DEFAULT_TREND_WINDOW,
 ): CampaignTrendStory {
-  const cutoff = now - 30 * DAY_MS;
   const currentRetailers = new Set(
     data.stores.map((store) => retailerKey(store.retailer)),
   );
   const grouped = new Map<string, TrendPricePoint[]>();
 
-  for (const point of data.points) {
+  for (const point of filterTrendPointsByWindow(data.points, windowKey, now)) {
     const observedAt = Date.parse(point.observedAt);
     const key = retailerKey(point.retailer);
     if (
       !currentRetailers.has(key) ||
       !Number.isFinite(observedAt) ||
-      observedAt < cutoff ||
       observedAt > now + DAY_MS ||
       !Number.isFinite(point.priceNaira) ||
       point.priceNaira <= 0

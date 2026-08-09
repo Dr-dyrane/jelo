@@ -13,6 +13,15 @@ import type {
   ProductTrendData,
   TrendPricePoint,
 } from "@/lib/share/product-trends";
+import {
+  filterTrendPointsByWindow,
+  hasRenderableTrendSeries,
+  selectInitialTrendWindow,
+  TREND_WINDOWS,
+  trendStoryHref,
+  trendWindowDefinition,
+  type TrendWindowKey,
+} from "@/lib/share/trend-window";
 import { ScreenshotButton } from "@/components/share/screenshot-button";
 import styles from "./product-trends.module.css";
 
@@ -25,15 +34,6 @@ const shortDate = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",
   month: "short",
 });
-
-type TimeWindow = "7d" | "14d" | "1m" | "3m";
-
-const WINDOWS: { key: TimeWindow; label: string; days: number }[] = [
-  { key: "7d", label: "7D", days: 7 },
-  { key: "14d", label: "14D", days: 14 },
-  { key: "1m", label: "1M", days: 30 },
-  { key: "3m", label: "3M", days: 90 },
-];
 
 const RETAILER_COLORS = [
   "#8b3a52", // wine
@@ -48,14 +48,7 @@ const CHART_W = 800;
 const CHART_H = 240;
 const PAD = 12;
 
-function filterPointsByWindow(
-  points: TrendPricePoint[],
-  days: number,
-  now: number,
-) {
-  const cutoff = now - days * 86_400_000;
-  return points.filter((p) => Date.parse(p.observedAt) >= cutoff);
-}
+const retailerKey = (value: string) => value.trim().toLocaleLowerCase("en-NG");
 
 type FlatPoint = {
   x: number;
@@ -110,16 +103,34 @@ export function ProductTrendsChart({
   data: ProductTrendData;
   storyHref: string;
 }) {
-  const [windowKey, setWindowKey] = useState<TimeWindow>("1m");
+  const [now] = useState(() => {
+    const observedAt = Date.parse(data.summary.observedAt ?? "");
+    return Number.isFinite(observedAt) ? observedAt : Date.now();
+  });
+  const [windowKey, setWindowKey] = useState<TrendWindowKey>(() =>
+    selectInitialTrendWindow(data.points, now),
+  );
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
-  const [now] = useState(() => Date.now());
   const reduce = useReducedMotion();
   const svgRef = useRef<SVGSVGElement>(null);
-  const days = WINDOWS.find((w) => w.key === windowKey)?.days ?? 30;
+  const selectedWindow = trendWindowDefinition(windowKey);
+  const retailerVisuals = useMemo(
+    () =>
+      new Map(
+        data.stores.map((store, index) => [
+          retailerKey(store.retailer),
+          {
+            color: RETAILER_COLORS[index % RETAILER_COLORS.length],
+            order: index,
+          },
+        ]),
+      ),
+    [data.stores],
+  );
 
   const filtered = useMemo(
-    () => filterPointsByWindow(data.points, days, now),
-    [data.points, days, now],
+    () => filterTrendPointsByWindow(data.points, windowKey, now),
+    [data.points, windowKey, now],
   );
 
   // Compute global min/max across all series for shared axes
@@ -156,7 +167,14 @@ export function ProductTrendsChart({
       if (!byRetailer.has(p.retailer)) byRetailer.set(p.retailer, []);
       byRetailer.get(p.retailer)!.push(p);
     }
-    const retailers = [...byRetailer.keys()].sort();
+    const retailers = [...byRetailer.keys()].sort((left, right) => {
+      const leftOrder = retailerVisuals.get(retailerKey(left))?.order;
+      const rightOrder = retailerVisuals.get(retailerKey(right))?.order;
+      return (
+        (leftOrder ?? Number.MAX_SAFE_INTEGER) -
+          (rightOrder ?? Number.MAX_SAFE_INTEGER) || left.localeCompare(right)
+      );
+    });
     const xRange = xMax - xMin || 1;
     const yRange = yMax - yMin || 1;
     const w = CHART_W - PAD * 2;
@@ -172,33 +190,38 @@ export function ProductTrendsChart({
         .sort((a, b) => a.x - b.x);
       return {
         retailer,
-        color: RETAILER_COLORS[i % RETAILER_COLORS.length],
+        color:
+          retailerVisuals.get(retailerKey(retailer))?.color ??
+          RETAILER_COLORS[i % RETAILER_COLORS.length],
         points: pts,
         globalX: 0,
         globalY: 0,
       };
     });
-  }, [allPoints, xMin, xMax, yMin, yMax]);
+  }, [allPoints, retailerVisuals, xMin, xMax, yMin, yMax]);
 
-  const hasChart = series.some((s) => s.points.length >= 2);
+  const hasChart = hasRenderableTrendSeries(filtered);
   const { summary } = data;
+  const selectedStoryHref = trendStoryHref(storyHref, windowKey);
 
   function handleWindowKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
       return;
     }
     event.preventDefault();
-    const current = WINDOWS.findIndex((window) => window.key === windowKey);
+    const current = TREND_WINDOWS.findIndex(
+      (window) => window.key === windowKey,
+    );
     const next =
       event.key === "Home"
         ? 0
         : event.key === "End"
-          ? WINDOWS.length - 1
+          ? TREND_WINDOWS.length - 1
           : event.key === "ArrowLeft"
-            ? (current - 1 + WINDOWS.length) % WINDOWS.length
-            : (current + 1) % WINDOWS.length;
-    setWindowKey(WINDOWS[next].key);
-    document.getElementById(`trend-window-${WINDOWS[next].key}`)?.focus();
+            ? (current - 1 + TREND_WINDOWS.length) % TREND_WINDOWS.length
+            : (current + 1) % TREND_WINDOWS.length;
+    setWindowKey(TREND_WINDOWS[next].key);
+    document.getElementById(`trend-window-${TREND_WINDOWS[next].key}`)?.focus();
   }
 
   // Hover interaction — find nearest point across all series
@@ -241,7 +264,7 @@ export function ProductTrendsChart({
             role="tablist"
             aria-label="Time window"
           >
-            {WINDOWS.map((w) => (
+            {TREND_WINDOWS.map((w) => (
               <button
                 key={w.key}
                 id={`trend-window-${w.key}`}
@@ -259,8 +282,8 @@ export function ProductTrendsChart({
             ))}
           </div>
           <ScreenshotButton
-            href={storyHref}
-            fileName={`${data.slug}-trend-story`}
+            href={selectedStoryHref}
+            fileName={`${data.slug}-${windowKey}-trend-story`}
             label="Save trend story"
           />
         </div>
@@ -414,8 +437,8 @@ export function ProductTrendsChart({
           <div className={styles.noChart}>
             <Minus size={20} strokeWidth={1.5} aria-hidden="true" />
             <span>
-              Current market snapshot. A curve appears after two dated
-              observations.
+              No two dated observations fall within the selected{" "}
+              {selectedWindow.label} window.
             </span>
           </div>
         )}
@@ -466,6 +489,10 @@ export function ProductTrendsChart({
             <span className={styles.storeName}>
               <span
                 className={`${styles.storeDot} ${store.isLowest ? styles.lowDot : ""}`}
+                style={{
+                  background: retailerVisuals.get(retailerKey(store.retailer))
+                    ?.color,
+                }}
                 aria-label={store.isLowest ? "Lowest" : undefined}
               />
               {store.retailer}

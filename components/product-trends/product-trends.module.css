@@ -290,19 +290,16 @@
 }
 
 .storeDot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: color-mix(in srgb, var(--muted) 30%, transparent);
   flex-shrink: 0;
 }
 
 .lowDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--state-success, #2a8e5c);
-  flex-shrink: 0;
+  outline: 2px solid var(--state-success, #2a8e5c);
+  outline-offset: 2px;
 }
 
 .storeTrend {
