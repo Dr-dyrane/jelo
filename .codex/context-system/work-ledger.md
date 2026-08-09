@@ -1,8 +1,8 @@
 # JeloCare work ledger
 
-Updated: 2026-08-04
-Base: `944178e` on `origin/main`
-Production checkpoint before the exact-size UI: Vercel deployment `dpl_CsBHLCe5EiHpBnuDCBKVJG3y5vYA` READY on `www.jelocare.com`
+Updated: 2026-08-09
+Base: `ba7e6ff` on `origin/main`
+Production checkpoint before this enrichment release: Vercel deployment `dpl_BLGBfofetUuzPBvFFTtMTovFiXVw` READY on `www.jelocare.com`
 
 ## Release authority
 
@@ -10,26 +10,34 @@ Production checkpoint before the exact-size UI: Vercel deployment `dpl_CsBHLCe5E
 - Never mix exact SKU identity across size, package form, image, or offer. A visual family may link independently published SKUs; it never merges them.
 - Release passing catalogue cells independently. Do not hold an admitted product for a blocked sibling.
 
+## 2026-08-09 enrichment checkpoint
+
+- The public catalogue contains exactly 150 products. The latest checked-in offer wave added Beauty Hut coverage and two current DANG sale prices in `ba7e6ff`.
+- The 2026-08-09 zero-depth offer cell adds seven exact Nigerian listings across four products: both Aqua Rich 1000 ml washes, Naturium Dew-Glow Moisturizer SPF 50 50 ml, and Naturium Multi-Peptide Eye Cream 15 ml.
+- Price history is owned by Neon (`offers` + append-only `offer_price_history`) and refreshed through the twice-daily inventory cron. Static `data/price-history.ts` is fallback only and must not invent prior observations for newly discovered offers.
+- Product news has no released persistence contract. The smallest safe next foundation is an identity-version-bound private news table plus a published-only runtime view. Applying it is blocked until the protected non-Vercel `MIGRATION_DATABASE_URL` is available.
+- The strongest current news signal is an Argentina-specific ANMAT registration/traceability action naming three exact catalogue products. It must never be presented as a Nigerian recall or as evidence that every global unit is unsafe or counterfeit.
+
 ## Lane checkpoint
 
-| Lane | State | Durable revision / location | Resume action |
-| --- | --- | --- | --- |
-| Production catalogue + verified offers | Released | `2dd9a9d`; 3 admitted / 3 rejected / 4 pending | Recheck only when fresh exact evidence arrives. |
-| Naturium Perfector 500 mL | Released reference; Rhema offer admitted | product and share routes in `2dd9a9d` | Add further exact current stores independently. |
-| Lipikar AP+MAX 400 mL | Released reference; Perona offer admitted | product and share routes in `2dd9a9d` | Keep 200/400 mL identities separate. Teeka 200 mL remains excluded. |
-| Medik8 Advanced Night Restore 50 mL | Released; Teeka4 offer admitted | product and share routes in `2dd9a9d` | Add further exact current stores independently. |
-| Fenty Butta Drop Fenty Fresh Standard 200 mL | Released reference | `25b238e`, contained in `2dd9a9d` | No share-price claim until a retailer proves exact Standard 200 mL identity. |
-| L'Occitane Almond Shower Oil 250 mL | Released reference; required SKU confirmed | product `55d829b` + selector `944178e`; GTIN `3253581785706` | Keep its image, metadata, and offers exact; future sizes join only through their own released SKU rows. |
-| L'Occitane size-family UI | Released | `944178e`; exact 250 mL selected control, additive family sidecar | Add a sibling option only after that exact SKU has its own public release, image, offers, and identity row. |
-| L'Occitane Almond Shower Oil 500 mL bottle | Active separate exact-SKU cell | visible catalogue-media task `019fcd3f-5310-7c60-9569-9857d2767898` | Prove the 500 mL bottle's own identifier, current image, media QA, care, and offers; never substitute the 500 mL refill. |
-| Crystal Retinal 3 media | Rejected/private; profile in preparation | `/Users/dyrane/.codex/worktrees/5144/jelo`, branch `codex/catalogue-media-history`; GTIN `818625024529` | Remove cyan/green fringe around the right tube, crimp/shoulder, pump/nozzle and smaller magenta edge pixels; recheck peach/pink/dark surfaces before any commit. |
-| Crystal Retinal 3 / 6 offers | Pending | no admitted offer | Require exact size, stock, package, and direct-listing evidence. |
-| Worth Sharing signals | Released | `5f896ac`, contained in `2dd9a9d` | Preserve signal-derived recommendations and fail closed for unsupported price shares. |
-| Contextual OG cards | Released | `c6cf82f`, contained in `2dd9a9d` | Product/share/concern/ingredient routes own contextual social cards. |
-| Black + expressive dark theme | Released | `6f57075`, `1855983`, `1d77735`, `fbbfd03`; all contained in `2dd9a9d` | Continue only with visual regressions found on a named route/state. |
-| `/me` routine persistence | Released | `50e91d0`, contained in `2dd9a9d` | Production users own CRUD state; keep preview fixtures isolated. |
-| `/me` intake/routine UI draft | Preserved, not release-ready | `/Users/dyrane/.codex/worktrees/fd3e/jelo` on stale base `e7e56e` | Rebase only the `components/me/**` delta into a clean production worktree; never commit its apparent catalogue deletions. |
-| Campaign assets | User-owned, not part of this release | `public/campaigns/` in the older main checkout | Do not stage or publish without a bounded campaign task and explicit external-publish confirmation. |
+| Lane                                         | State                                      | Durable revision / location                                                                             | Resume action                                                                                                                                                    |
+| -------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Production catalogue + verified offers       | Released                                   | `2dd9a9d`; 3 admitted / 3 rejected / 4 pending                                                          | Recheck only when fresh exact evidence arrives.                                                                                                                  |
+| Naturium Perfector 500 mL                    | Released reference; Rhema offer admitted   | product and share routes in `2dd9a9d`                                                                   | Add further exact current stores independently.                                                                                                                  |
+| Lipikar AP+MAX 400 mL                        | Released reference; Perona offer admitted  | product and share routes in `2dd9a9d`                                                                   | Keep 200/400 mL identities separate. Teeka 200 mL remains excluded.                                                                                              |
+| Medik8 Advanced Night Restore 50 mL          | Released; Teeka4 offer admitted            | product and share routes in `2dd9a9d`                                                                   | Add further exact current stores independently.                                                                                                                  |
+| Fenty Butta Drop Fenty Fresh Standard 200 mL | Released reference                         | `25b238e`, contained in `2dd9a9d`                                                                       | No share-price claim until a retailer proves exact Standard 200 mL identity.                                                                                     |
+| L'Occitane Almond Shower Oil 250 mL          | Released reference; required SKU confirmed | product `55d829b` + selector `944178e`; GTIN `3253581785706`                                            | Keep its image, metadata, and offers exact; future sizes join only through their own released SKU rows.                                                          |
+| L'Occitane size-family UI                    | Released                                   | `944178e`; exact 250 mL selected control, additive family sidecar                                       | Add a sibling option only after that exact SKU has its own public release, image, offers, and identity row.                                                      |
+| L'Occitane Almond Shower Oil 500 mL bottle   | Active separate exact-SKU cell             | visible catalogue-media task `019fcd3f-5310-7c60-9569-9857d2767898`                                     | Prove the 500 mL bottle's own identifier, current image, media QA, care, and offers; never substitute the 500 mL refill.                                         |
+| Crystal Retinal 3 media                      | Rejected/private; profile in preparation   | `/Users/dyrane/.codex/worktrees/5144/jelo`, branch `codex/catalogue-media-history`; GTIN `818625024529` | Remove cyan/green fringe around the right tube, crimp/shoulder, pump/nozzle and smaller magenta edge pixels; recheck peach/pink/dark surfaces before any commit. |
+| Crystal Retinal 3 / 6 offers                 | Pending                                    | no admitted offer                                                                                       | Require exact size, stock, package, and direct-listing evidence.                                                                                                 |
+| Worth Sharing signals                        | Released                                   | `5f896ac`, contained in `2dd9a9d`                                                                       | Preserve signal-derived recommendations and fail closed for unsupported price shares.                                                                            |
+| Contextual OG cards                          | Released                                   | `c6cf82f`, contained in `2dd9a9d`                                                                       | Product/share/concern/ingredient routes own contextual social cards.                                                                                             |
+| Black + expressive dark theme                | Released                                   | `6f57075`, `1855983`, `1d77735`, `fbbfd03`; all contained in `2dd9a9d`                                  | Continue only with visual regressions found on a named route/state.                                                                                              |
+| `/me` routine persistence                    | Released                                   | `50e91d0`, contained in `2dd9a9d`                                                                       | Production users own CRUD state; keep preview fixtures isolated.                                                                                                 |
+| `/me` intake/routine UI draft                | Preserved, not release-ready               | `/Users/dyrane/.codex/worktrees/fd3e/jelo` on stale base `e7e56e`                                       | Rebase only the `components/me/**` delta into a clean production worktree; never commit its apparent catalogue deletions.                                        |
+| Campaign assets                              | User-owned, not part of this release       | `public/campaigns/` in the older main checkout                                                          | Do not stage or publish without a bounded campaign task and explicit external-publish confirmation.                                                              |
 
 ## Accepted catalogue media
 

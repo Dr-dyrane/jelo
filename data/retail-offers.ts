@@ -59,6 +59,98 @@ const exactNg = (
 };
 
 export const verifiedRetailOffers: Record<string, Offer[]> = {
+  "aqua-rich-licorice-mulberry-body-wash-1000ml": [
+    exactNg(
+      "BuyBetter",
+      "https://buybetter.ng/product/aqua-rich-bright-glow-body-gel-wash-licorice-mulberry-root-extract-1000ml/",
+      97,
+      11288,
+      "Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract)",
+      "1000 ml",
+      {
+        observedAt: "2026-08-09T12:27:59Z",
+        expiresAt: "2026-08-16T12:27:59Z",
+      },
+    ),
+    exactNg(
+      "Perona Beauty",
+      "https://peronabeauty.com/product/aqua-rich-bright-glow-body-gel-wash-licorice-mulberry-root-extract-1000ml/",
+      86,
+      10850,
+      "Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract)",
+      "1000 ml",
+      {
+        observedAt: "2026-08-09T12:27:59Z",
+        expiresAt: "2026-08-16T12:27:59Z",
+      },
+    ),
+  ],
+  "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml": [
+    exactNg(
+      "CSi Grocery",
+      "https://www.csigrocery.com/shop/skincare/face/body-face-wash/aqua-rich-bright-balance-body-gel-wash/",
+      90,
+      12000,
+      "Bright + Balance Body Gel Wash",
+      "1000 ml",
+      {
+        observedAt: "2026-08-09T12:28:24Z",
+        expiresAt: "2026-08-16T12:28:24Z",
+      },
+    ),
+    exactNg(
+      "Nihet Beauty",
+      "https://nihetbeauty.com/product/aqua-rich-bright-and-balance-body-gel-wash-1000ml/",
+      86,
+      21000,
+      "Bright + Balance Body Gel Wash",
+      "1000 ml",
+      {
+        observedAt: "2026-08-09T12:28:24Z",
+        expiresAt: "2026-08-16T12:28:24Z",
+      },
+    ),
+    exactNg(
+      "TOS Nigeria",
+      "https://tosnigeria.com/shop/aqua-rich-bright-balance-body-gel-wash-1000ml/",
+      78,
+      10800,
+      "Bright + Balance Body Gel Wash",
+      "1000 ml",
+      {
+        observedAt: "2026-08-09T12:27:59Z",
+        expiresAt: "2026-08-16T12:27:59Z",
+      },
+    ),
+  ],
+  "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz": [
+    exactNg(
+      "Nihet Beauty",
+      "https://nihetbeauty.com/product/dew-glow-moisturizer-spf/",
+      86,
+      75850,
+      "Dew-Glow Moisturizer SPF 50",
+      "1.7 fl oz / 50 ml",
+      {
+        observedAt: "2026-08-09T12:27:59Z",
+        expiresAt: "2026-08-16T12:27:59Z",
+      },
+    ),
+  ],
+  "naturium-multi-peptide-eye-cream-0-5oz": [
+    exactNg(
+      "Nihet Beauty",
+      "https://nihetbeauty.com/product/naturium-multi-peptide-eye-cream/",
+      86,
+      69800,
+      "Multi-Peptide Eye Cream",
+      "0.5 fl oz / 15 ml",
+      {
+        observedAt: "2026-08-09T12:27:59Z",
+        expiresAt: "2026-08-16T12:27:59Z",
+      },
+    ),
+  ],
   "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml": [
     exactNg(
       "BuyBetter",

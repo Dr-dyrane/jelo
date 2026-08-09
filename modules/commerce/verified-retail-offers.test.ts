@@ -130,6 +130,51 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
   }
 });
 
+test("the zero-depth enrichment wave publishes seven exact offers across four products", () => {
+  const expected = {
+    "aqua-rich-licorice-mulberry-body-wash-1000ml": [
+      ["BuyBetter", 11288, "1000 ml"],
+      ["Perona Beauty", 10850, "1000 ml"],
+    ],
+    "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml": [
+      ["CSi Grocery", 12000, "1000 ml"],
+      ["Nihet Beauty", 21000, "1000 ml"],
+      ["TOS Nigeria", 10800, "1000 ml"],
+    ],
+    "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz": [
+      ["Nihet Beauty", 75850, "1.7 fl oz / 50 ml"],
+    ],
+    "naturium-multi-peptide-eye-cream-0-5oz": [
+      ["Nihet Beauty", 69800, "0.5 fl oz / 15 ml"],
+    ],
+  } as const;
+
+  for (const [slug, rows] of Object.entries(expected)) {
+    const offers = verifiedRetailOffers[slug];
+    assert.ok(offers, `missing offers for ${slug}`);
+    assert.deepEqual(
+      offers.map((offer) => [
+        offer.retailer,
+        offer.priceNgn,
+        offer.priceObservation?.size,
+      ]),
+      rows,
+      slug,
+    );
+    assert.equal(
+      offers.every(
+        (offer) =>
+          offer.available &&
+          offer.match === "exact" &&
+          offer.priceObservation?.stock === "in-stock" &&
+          Date.parse(offer.expiresAt ?? "") > Date.parse(offer.checkedAt ?? ""),
+      ),
+      true,
+      `${slug}: exact fresh in-stock evidence`,
+    );
+  }
+});
+
 test("browser-verified Beauty by Daz prices serve exact original catalogue products", () => {
   const expected = [
     ["cosrx-salicylic-acid-daily-gentle-cleanser", 8_500, "150 ml", false],
