@@ -4,12 +4,12 @@ import { ChevronRight, Search, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  useCallback,
   useEffect,
   useId,
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
   type FormEvent,
   type KeyboardEvent,
 } from "react";
@@ -63,6 +63,21 @@ function validRemoteSuggestions(value: unknown): CatalogueSearchSuggestion[] {
   );
 }
 
+// Mobile viewport detection via useSyncExternalStore — avoids the
+// setState-in-effect lint error and is SSR-safe (returns false on server).
+const MOBILE_QUERY = "(max-width: 640px)";
+function subscribeToMobileQuery(callback: () => void) {
+  const mql = window.matchMedia(MOBILE_QUERY);
+  mql.addEventListener("change", callback);
+  return () => mql.removeEventListener("change", callback);
+}
+function getMobileSnapshot() {
+  return window.matchMedia(MOBILE_QUERY).matches;
+}
+function getServerSnapshot() {
+  return false;
+}
+
 type Props = {
   defaultValue: string;
   clearHref: string;
@@ -96,6 +111,11 @@ export function CatalogueSearch({
   const [remoteOutcome, setRemoteOutcome] =
     useState<RemoteSuggestionOutcome | null>(null);
   const [loading, setLoading] = useState(false);
+  const isMobile = useSyncExternalStore(
+    subscribeToMobileQuery,
+    getMobileSnapshot,
+    getServerSnapshot,
+  );
   const listboxId = `${useId().replace(/:/g, "")}-catalogue-suggestions`;
   const requestQuery = value.trim().replace(/\s+/g, " ");
   const matches = useMemo(
@@ -133,8 +153,25 @@ export function CatalogueSearch({
   const showSuggestions =
     expanded && (matches.length > 0 || isLoading || Boolean(remoteFeedback));
 
+  // Mobile bottom sheet dialog for suggestions — uses the browser's top
+  // layer via <dialog>, so no z-index fighting with hero/page content.
+  // Only opens on mobile; desktop uses the absolute dropdown.
+  const {
+    dialogRef: sheetDialogRef,
+    handleCancel: handleSheetCancel,
+    handleBackdropClick: handleSheetBackdropClick,
+  } = useControlledDialog({
+    open: showSuggestions && isMobile,
+    onClose: closeSuggestions,
+    restoreFocusRef: inputRef,
+    initialFocusRef: inputRef,
+  });
+
   useEffect(() => {
     function closeOnOutsidePointer(event: PointerEvent) {
+      // On mobile, the bottom sheet dialog handles its own closing.
+      // Skip this handler so clicks inside the dialog don't double-close.
+      if (isMobile && sheetDialogRef.current?.hasAttribute("open")) return;
       if (!rootRef.current?.contains(event.target as Node)) {
         setExpanded(false);
         setActiveIndex(-1);
@@ -143,7 +180,7 @@ export function CatalogueSearch({
     document.addEventListener("pointerdown", closeOnOutsidePointer);
     return () =>
       document.removeEventListener("pointerdown", closeOnOutsidePointer);
-  }, []);
+  }, [isMobile, sheetDialogRef]);
 
   // Hide the fixed site header when search is focused on mobile so the
   // search bar can move to top: 0, creating room for suggestions.
@@ -157,19 +194,6 @@ export function CatalogueSearch({
       delete document.body.dataset.searchActive;
     };
   }, [expanded]);
-
-  // Mobile bottom sheet dialog for suggestions — uses the browser's top
-  // layer via <dialog>, so no z-index fighting with hero/page content.
-  const {
-    dialogRef: sheetDialogRef,
-    handleCancel: handleSheetCancel,
-    handleBackdropClick: handleSheetBackdropClick,
-  } = useControlledDialog({
-    open: showSuggestions,
-    onClose: closeSuggestions,
-    restoreFocusRef: inputRef,
-    initialFocusRef: inputRef,
-  });
 
   useEffect(() => {
     if (requestQuery.length < catalogueSuggestionMinimumQueryLength) return;
@@ -448,7 +472,10 @@ export function CatalogueSearch({
         onCancel={handleSheetCancel}
         onClick={handleSheetBackdropClick}
       >
-        {showSuggestions ? suggestionContent : null}
+        <div className={styles.suggestionSheetInner}>
+          <div className={styles.suggestionGrip} aria-hidden="true" />
+          {showSuggestions ? suggestionContent : null}
+        </div>
       </dialog>
     </div>
   );

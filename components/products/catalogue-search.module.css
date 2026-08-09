@@ -335,19 +335,37 @@
     height: 100dvh;
     background: rgba(45, 33, 31, 0.34);
   }
+  .suggestionSheetInner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 1.8rem 1.8rem 0 0;
+  }
+  .suggestionGrip {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 0.25rem;
+    margin: 0.6rem auto 0.2rem;
+    border-radius: 999px;
+    background: rgba(67, 39, 34, 0.18);
+  }
   /* Suggestions content inside the bottom sheet */
   .suggestionSheet .suggestionHeading {
-    padding: 0.8rem 0.8rem 0.5rem;
+    padding: 0.5rem 0.8rem 0.5rem;
   }
   .suggestionSheet .suggestionList {
     min-height: 0;
+    flex: 1;
     max-height: none;
     padding: 0 0.8rem;
+    overflow-y: auto;
   }
   .suggestionSheet .suggestionList a {
     min-height: 4.25rem;
   }
   .suggestionSheet .searchFallback {
+    flex-shrink: 0;
     padding: 0.35rem 0.8rem 0.8rem;
     align-items: stretch;
     flex-direction: column;
