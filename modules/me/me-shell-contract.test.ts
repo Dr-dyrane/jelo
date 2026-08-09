@@ -557,11 +557,11 @@ test("member routes are guarded, stack-owned, and never replace public product r
   assert.match(home, /restoreFocusRef=\{productPanelRestoreFocusRef\}/);
   assert.match(
     productView,
-    /onClick=\{\(event\) => onOpenPanel\('buy', event\.currentTarget\)\}/,
+    /onClick=\{\(event\) => onOpenPanel\(["']buy["'], event\.currentTarget\)\}/,
   );
   assert.match(
     productView,
-    /onClick=\{\(event\) => onOpenPanel\('details', event\.currentTarget\)\}/,
+    /onClick=\{\(event\) => onOpenPanel\(["']details["'], event\.currentTarget\)\}/,
   );
   assert.doesNotMatch(
     home,
