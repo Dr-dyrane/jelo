@@ -274,6 +274,10 @@
   }
   .searchBar {
     grid-template-columns: auto minmax(0, 1fr) auto auto;
+    /* Solid background on mobile — no backdrop-filter blur over hero */
+    background: var(--card-2, #fffdf9);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
   /* Prevent iOS auto-zoom: inputs must be >= 16px on focus */
   .searchBar input[type="text"],
@@ -298,14 +302,16 @@
     flex: 1;
     text-align: center;
   }
+  /* Suggestions anchor below the search bar (absolute relative to sticky shell)
+     so they follow the search bar when it moves to top on focus */
   .suggestions {
-    position: fixed;
+    position: absolute;
     z-index: 80;
-    inset: auto 0.6rem 0.6rem;
+    inset: calc(100% + 0.5rem) 0 0;
     max-height: min(66svh, 34rem);
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
-    border-radius: 1.8rem;
+    border-radius: 1.4rem;
   }
   .suggestionList {
     min-height: 0;

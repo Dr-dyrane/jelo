@@ -150,7 +150,7 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
   );
   assert.match(
     ruleDeclarations(mobileSearchStyles, ".suggestions"),
-    /position:\s*fixed;/,
+    /position:\s*absolute;/,
   );
   assert.match(
     ruleDeclarations(mobileSearchStyles, ".shell"),
