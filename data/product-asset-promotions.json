@@ -77,19 +77,34 @@
     "contentHash": "73122802ca451c6cedb4c5ac3e1d184be9098bc9819abf3307c07fec682d4d8f"
   },
   {
-    "id": "mediana-leave-in-conditioning-milk-v1",
+    "id": "dove-moroccan-argan-oil-beauty-bar-v2",
     "active": true,
-    "productSlug": "mediana-leave-in-conditioning-milk",
-    "sourceUrl": "https://www.cocci.com.ng/cdn/shop/files/Mediana_Leave-In_Conditioner_Milk.gif?v=1760002469",
-    "localPath": "/products/mediana/mediana-leave-in-conditioning-milk/packshot-v1.png",
-    "blobPath": "products/mediana/mediana-leave-in-conditioning-milk/packshot-v1.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/mediana/mediana-leave-in-conditioning-milk/packshot-v1.png",
+    "productSlug": "dove-moroccan-argan-oil-beauty-bar",
+    "sourceUrl": "https://assets.unileversolutions.com/v1/946691.png",
+    "localPath": "/products/dove/dove-moroccan-argan-oil-beauty-bar/packshot-v2.png",
+    "blobPath": "products/dove/dove-moroccan-argan-oil-beauty-bar/packshot-v2.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-moroccan-argan-oil-beauty-bar/packshot-v2.png",
     "contentType": "image/png",
-    "byteSize": 2229212,
+    "byteSize": 869266,
     "width": 2000,
     "height": 2000,
     "hasAlpha": true,
-    "contentHash": "c226c46a93527b6187eed245ba151d6e7a0f437421ef936e1bceea1527f05512"
+    "contentHash": "09e243e922141f31fedb31283ffd5b72e7ef1dcdcac7d5bcadd350251e1655e7"
+  },
+  {
+    "id": "mediana-leave-in-conditioning-milk-v2",
+    "active": true,
+    "productSlug": "mediana-leave-in-conditioning-milk",
+    "sourceUrl": "https://www.cocci.com.ng/cdn/shop/files/Mediana_Leave-In_Conditioner_Milk.gif?v=1760002469",
+    "localPath": "/products/mediana/mediana-leave-in-conditioning-milk/packshot-v2.png",
+    "blobPath": "products/mediana/mediana-leave-in-conditioning-milk/packshot-v2.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/mediana/mediana-leave-in-conditioning-milk/packshot-v2.png",
+    "contentType": "image/png",
+    "byteSize": 1957470,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "b839501c0f871080d4199955912e8a82ce4877100fd8df2f87da9576564ca1ed"
   },
   {
     "id": "face-facts-bright-clear-face-cream-v1",
