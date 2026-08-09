@@ -45,6 +45,7 @@ export type TrendSummary = {
   marketTrendLabel: string | null;
   marketTrendDirection: "down" | "up" | "flat" | null;
   observedDate: string;
+  observedAt: string | null;
 };
 
 export type ProductTrendData = {
@@ -78,7 +79,7 @@ async function fetchRawObservations(
   snapshot: readonly PriceTrendOfferSnapshot[],
 ): Promise<PriceObservation[]> {
   // Try the database first — this is where live price history lives
-  const dbObservations = await getProductPriceHistory(slug);
+  const dbObservations = await getProductPriceHistory(slug, snapshot);
   if (dbObservations.length > 0) return dbObservations;
 
   // Fall back to static price history when no DB or no rows
@@ -190,27 +191,44 @@ export async function getProductTrendData(
   // The current snapshot ensures every retailer with a live offer has at
   // least one point, even if the DB has no history yet. Combined with
   // historical observations, this gives us 2+ points for the chart line.
-  const points: TrendPricePoint[] = rawObservations.map((obs) => ({
-    retailer: obs.retailer,
-    priceNaira: obs.priceMinor,
-    observedAt: obs.observedAt,
-  }));
+  const snapshotRetailers = new Set(
+    snapshots.map((snapshot) =>
+      snapshot.retailer.trim().toLocaleLowerCase("en-NG"),
+    ),
+  );
+  const points: TrendPricePoint[] = rawObservations
+    .filter((observation) =>
+      snapshotRetailers.has(
+        observation.retailer.trim().toLocaleLowerCase("en-NG"),
+      ),
+    )
+    .map((obs) => ({
+      retailer: obs.retailer,
+      priceNaira: obs.priceMinor,
+      observedAt: obs.observedAt,
+    }));
 
   // Add current snapshot prices as the latest data point for each retailer
-  const knownRetailers = new Set(
-    points.map((p) => p.retailer.trim().toLocaleLowerCase("en-NG")),
+  const knownSnapshots = new Set(
+    points.map(
+      (point) =>
+        `${point.retailer.trim().toLocaleLowerCase("en-NG")}|${point.observedAt}|${point.priceNaira}`,
+    ),
   );
   for (const snap of snapshots) {
     if (snap.market !== "NG") continue;
-    const key = snap.retailer.trim().toLocaleLowerCase("en-NG");
-    if (knownRetailers.has(key)) continue;
+    const key = `${snap.retailer.trim().toLocaleLowerCase("en-NG")}|${snap.observedAt}|${snap.priceMinor}`;
+    if (knownSnapshots.has(key)) continue;
     points.push({
       retailer: snap.retailer,
       priceNaira: snap.priceMinor,
       observedAt: snap.observedAt,
     });
-    knownRetailers.add(key);
+    knownSnapshots.add(key);
   }
+  points.sort(
+    (left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt),
+  );
 
   const observedIso =
     summary.lastCheckedAt ??
@@ -242,6 +260,7 @@ export async function getProductTrendData(
       marketTrendLabel,
       marketTrendDirection: marketMovement?.direction ?? null,
       observedDate,
+      observedAt: observedIso ?? null,
     },
   };
 }

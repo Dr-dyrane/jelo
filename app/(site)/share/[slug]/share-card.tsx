@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { ScreenshotButton } from "@/components/share/screenshot-button";
 import type { ShareSignal } from "@/modules/commerce/share-insights";
 import styles from "./share-card.module.css";
 
@@ -34,6 +35,7 @@ export type ShareView = {
   microtag: string;
   image: string;
   observedDate: string;
+  observedAt: string | null;
   spreadLabel: string | null;
   storeCount: number;
   marketTrend: SharePriceTrend | null;
@@ -60,13 +62,26 @@ function PriceTrend({
   );
 }
 
-export function ShareCard({ view }: { view: ShareView }) {
+export function ShareCard({
+  view,
+  storyHref,
+}: {
+  view: ShareView;
+  storyHref: string;
+}) {
   const productHref = `/products/${view.productSlug}`;
   return (
     <div className={styles.card}>
-      <span className={styles.tag}>
-        Observed in Nigeria · {view.observedDate}
-      </span>
+      <div className={styles.cardTopline}>
+        <span className={styles.tag}>
+          Observed in Nigeria · {view.observedDate}
+        </span>
+        <ScreenshotButton
+          href={storyHref}
+          fileName={`${view.productSlug}-price-story`}
+          label="Save price story"
+        />
+      </div>
       <Link
         href={productHref}
         className={styles.shot}

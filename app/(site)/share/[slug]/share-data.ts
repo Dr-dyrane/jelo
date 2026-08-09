@@ -1,6 +1,6 @@
-import { findCatalogueProduct } from '@/lib/catalogue/repository';
-import { getProductPriceTrends } from '@/lib/inventory/price-trends';
-import { summarizeMarket } from '@/modules/commerce/market-summary';
+import { findCatalogueProduct } from "@/lib/catalogue/repository";
+import { getProductPriceTrends } from "@/lib/inventory/price-trends";
+import { summarizeMarket } from "@/modules/commerce/market-summary";
 import {
   compactPriceMovementLabel,
   describePriceMovement,
@@ -8,12 +8,20 @@ import {
   preferredPriceMovement,
   selectRetailerPriceMovement,
   type PriceMovement,
-} from '@/modules/commerce/price-trends';
-import { isShareableNgOffer } from '@/modules/commerce/shareable-offer';
-import type { ShareOffer, SharePriceTrend, ShareView } from './share-card';
+} from "@/modules/commerce/price-trends";
+import { isShareableNgOffer } from "@/modules/commerce/shareable-offer";
+import { formatCampaignProductSize } from "@/lib/share/campaign-story";
+import type { ShareOffer, SharePriceTrend, ShareView } from "./share-card";
 
-const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
-const shortDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' });
+const naira = new Intl.NumberFormat("en-NG", {
+  style: "currency",
+  currency: "NGN",
+  maximumFractionDigits: 0,
+});
+const shortDate = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "short",
+});
 
 export type ShareData = {
   view: ShareView;
@@ -29,11 +37,12 @@ function sharePriceTrend(
 ): SharePriceTrend | null {
   const label = compactPriceMovementLabel(movement);
   if (
-    !movement
-    || !label
-    || movement.direction === 'flat'
-    || (movement.comparableRetailerCount ?? 0) < minimumComparableRetailers
-  ) return null;
+    !movement ||
+    !label ||
+    movement.direction === "flat" ||
+    (movement.comparableRetailerCount ?? 0) < minimumComparableRetailers
+  )
+    return null;
   return {
     label,
     description: describePriceMovement(movement, subject),
@@ -52,64 +61,77 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
 
   const now = Date.now();
   const offers = product.offers
-    .filter(offer => isShareableNgOffer(offer, now))
+    .filter((offer) => isShareableNgOffer(offer, now))
     .sort((a, b) => (a.priceNgn as number) - (b.priceNgn as number));
   if (offers.length === 0) return null;
 
-  const summary = summarizeMarket(product.offers, 'NG', now);
+  const summary = summarizeMarket(product.offers, "NG", now);
   const priceTrends = await getProductPriceTrends(
     product.slug,
-    offers.flatMap(offer => {
-      const snapshot = priceTrendOfferSnapshot(offer, 'NG', now);
+    offers.flatMap((offer) => {
+      const snapshot = priceTrendOfferSnapshot(offer, "NG", now);
       return snapshot ? [snapshot] : [];
     }),
   );
   const marketTrend = sharePriceTrend(
     preferredPriceMovement(
       priceTrends.NG,
-      movement => (
-        movement.direction !== 'flat'
-        && (movement.comparableRetailerCount ?? 0) >= 2
-      ),
+      (movement) =>
+        movement.direction !== "flat" &&
+        (movement.comparableRetailerCount ?? 0) >= 2,
     ),
-    'Market price',
+    "Market price",
     2,
   );
   const lowest = offers[0].priceNgn as number;
   const highest = offers[offers.length - 1].priceNgn as number;
   const spread = offers.length >= 2 ? highest - lowest : null;
-  const observedIso = summary.lastCheckedAt ?? offers[0].checkedAt ?? offers[0].priceObservation?.observedAt;
-  const observedDate = observedIso ? shortDate.format(new Date(observedIso)) : 'recently';
+  const observedIso =
+    summary.lastCheckedAt ??
+    offers[0].checkedAt ??
+    offers[0].priceObservation?.observedAt;
+  const observedDate = observedIso
+    ? shortDate.format(new Date(observedIso))
+    : "recently";
 
   const shareOffers: ShareOffer[] = offers.map((offer, index) => {
     const stock = offer.priceObservation?.stock;
-    const stockLabel = stock === 'low-stock' ? 'Low stock'
-      : stock === 'out-of-stock' ? 'Out of stock'
-        : stock === 'in-stock' ? 'In stock' : null;
-    const dateLabel = offer.checkedAt ? shortDate.format(new Date(offer.checkedAt)) : observedDate;
+    const stockLabel =
+      stock === "low-stock"
+        ? "Low stock"
+        : stock === "out-of-stock"
+          ? "Out of stock"
+          : stock === "in-stock"
+            ? "In stock"
+            : null;
+    const dateLabel = offer.checkedAt
+      ? shortDate.format(new Date(offer.checkedAt))
+      : observedDate;
     return {
       retailer: offer.retailer,
       priceLabel: naira.format(offer.priceNgn as number),
       goHref: `/go?product=${encodeURIComponent(product.slug)}&retailer=${encodeURIComponent(offer.retailer)}`,
       when: stockLabel ? `${stockLabel} · ${dateLabel}` : dateLabel,
       isLowest: index === 0,
-      isMarketplace: Boolean(offer.orderChannels?.includes('marketplace')),
+      isMarketplace: Boolean(offer.orderChannels?.includes("marketplace")),
       trend: sharePriceTrend(
-        selectRetailerPriceMovement(priceTrends, 'NG', offer.retailer),
+        selectRetailerPriceMovement(priceTrends, "NG", offer.retailer),
         `${offer.retailer} price`,
       ),
     };
   });
 
+  const displaySize = formatCampaignProductSize(product.slug, product.size);
   const view: ShareView = {
     productSlug: product.slug,
     brand: product.brand,
     name: product.name,
-    size: product.size,
+    size: displaySize,
     category: product.category,
-    microtag: `${product.size} · ${product.category}`,
+    microtag: `${displaySize} · ${product.category}`,
     image: product.image,
     observedDate,
+    observedAt: observedIso ?? null,
     spreadLabel: spread != null ? naira.format(spread) : null,
     storeCount: offers.length,
     marketTrend,
@@ -118,7 +140,8 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
 
   return {
     view,
-    headlineLead: spread != null ? 'Same product.' : `${product.brand} ${product.name}`,
+    headlineLead:
+      spread != null ? "Same product." : `${product.brand} ${product.name}`,
     headlineEmph: spread != null ? `${naira.format(spread)} apart.` : null,
     storeCount: offers.length,
   };

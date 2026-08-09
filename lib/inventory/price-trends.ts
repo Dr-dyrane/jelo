@@ -164,15 +164,27 @@ export async function getProductPriceTrends(
  */
 export async function getProductPriceHistory(
   slug: string,
+  snapshot: readonly PriceTrendOfferSnapshot[],
 ): Promise<PriceObservation[]> {
-  if (!hasPostgresConfig()) return [];
+  if (!hasPostgresConfig() || snapshot.length === 0) return [];
   try {
     const sql = getPostgresClient();
-    const rows = await sql<PriceObservation[]>`
+    const rows = await sql<CurrentPriceObservation[]>`
       select
         h.id::text as "historyId",
         o.id::text as "offerId",
         r.name as retailer,
+        o.url,
+        o.market_code as market,
+        o.available,
+        o.inventory_status as "inventoryStatus",
+        o.verification_method as "verificationMethod",
+        o.last_verified_at::text as "lastVerifiedAt",
+        o.verification_expires_at::text as "verificationExpiresAt",
+        o.observed_title as "observedTitle",
+        o.observed_size as "observedSize",
+        o.price_minor::double precision as "currentPriceMinor",
+        o.currency_code::text as "currentCurrencyCode",
         h.price_minor::double precision as "priceMinor",
         h.observed_at::text as "observedAt",
         h.created_at::text as "recordedAt"
@@ -187,7 +199,7 @@ export async function getProductPriceHistory(
         and h.observed_at >= now() - interval '46 days'
       order by h.observed_at asc, h.created_at asc, h.id asc
     `;
-    return rows as unknown as PriceObservation[];
+    return selectCurrentPriceObservations(rows, snapshot);
   } catch (error) {
     console.error(
       `Price history query failed for ${slug}; returning empty.`,

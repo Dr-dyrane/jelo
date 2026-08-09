@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   TrendingDown,
@@ -13,6 +13,7 @@ import type {
   ProductTrendData,
   TrendPricePoint,
 } from "@/lib/share/product-trends";
+import { ScreenshotButton } from "@/components/share/screenshot-button";
 import styles from "./product-trends.module.css";
 
 const naira = new Intl.NumberFormat("en-NG", {
@@ -102,7 +103,13 @@ type SeriesGroup = {
   globalY: number;
 };
 
-export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
+export function ProductTrendsChart({
+  data,
+  storyHref,
+}: {
+  data: ProductTrendData;
+  storyHref: string;
+}) {
   const [windowKey, setWindowKey] = useState<TimeWindow>("1m");
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
   const [now] = useState(() => Date.now());
@@ -176,6 +183,24 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
   const hasChart = series.some((s) => s.points.length >= 2);
   const { summary } = data;
 
+  function handleWindowKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+      return;
+    }
+    event.preventDefault();
+    const current = WINDOWS.findIndex((window) => window.key === windowKey);
+    const next =
+      event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? WINDOWS.length - 1
+          : event.key === "ArrowLeft"
+            ? (current - 1 + WINDOWS.length) % WINDOWS.length
+            : (current + 1) % WINDOWS.length;
+    setWindowKey(WINDOWS[next].key);
+    document.getElementById(`trend-window-${WINDOWS[next].key}`)?.focus();
+  }
+
   // Hover interaction — find nearest point across all series
   function handleMove(e: React.MouseEvent<SVGSVGElement>) {
     if (!hasChart || !svgRef.current) return;
@@ -210,18 +235,34 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
           <p className={styles.kicker}>Trends</p>
           <h2 className={styles.title}>Price history.</h2>
         </div>
-        <div className={styles.filters} role="tablist" aria-label="Time window">
-          {WINDOWS.map((w) => (
-            <button
-              key={w.key}
-              className={`${styles.filter} ${windowKey === w.key ? styles.filterActive : ""}`}
-              onClick={() => setWindowKey(w.key)}
-              role="tab"
-              aria-selected={windowKey === w.key}
-            >
-              {w.label}
-            </button>
-          ))}
+        <div className={styles.headActions}>
+          <div
+            className={styles.filters}
+            role="tablist"
+            aria-label="Time window"
+          >
+            {WINDOWS.map((w) => (
+              <button
+                key={w.key}
+                id={`trend-window-${w.key}`}
+                type="button"
+                className={`${styles.filter} ${windowKey === w.key ? styles.filterActive : ""}`}
+                onClick={() => setWindowKey(w.key)}
+                onKeyDown={handleWindowKeyDown}
+                role="tab"
+                aria-selected={windowKey === w.key}
+                aria-controls="price-trend-panel"
+                tabIndex={windowKey === w.key ? 0 : -1}
+              >
+                {w.label}
+              </button>
+            ))}
+          </div>
+          <ScreenshotButton
+            href={storyHref}
+            fileName={`${data.slug}-trend-story`}
+            label="Save trend story"
+          />
         </div>
       </div>
 
@@ -268,7 +309,12 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
       </div>
 
       {/* Chart */}
-      <div className={styles.chartWrap}>
+      <div
+        id="price-trend-panel"
+        className={styles.chartWrap}
+        role="tabpanel"
+        aria-labelledby={`trend-window-${windowKey}`}
+      >
         {hasChart ? (
           <svg
             ref={svgRef}
@@ -294,28 +340,6 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
                 </linearGradient>
               ))}
             </defs>
-            {/* Grid lines */}
-            <line
-              x1="0"
-              y1={CHART_H * 0.25}
-              x2={CHART_W}
-              y2={CHART_H * 0.25}
-              className={styles.gridLine}
-            />
-            <line
-              x1="0"
-              y1={CHART_H * 0.5}
-              x2={CHART_W}
-              y2={CHART_H * 0.5}
-              className={styles.gridLine}
-            />
-            <line
-              x1="0"
-              y1={CHART_H * 0.75}
-              x2={CHART_W}
-              y2={CHART_H * 0.75}
-              className={styles.gridLine}
-            />
             {/* Series with gradient fill + curved line */}
             {series.map((s) => {
               const linePath = buildCurvedPath(s.points);
@@ -328,6 +352,16 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
                     d={areaPath}
                     fill={`url(#${gradId})`}
                     opacity={isHovered ? 0.3 : 1}
+                  />
+                  <path
+                    d={linePath}
+                    fill="none"
+                    stroke={s.color}
+                    strokeWidth="9"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    opacity={isHovered ? 0.2 : 0.11}
+                    className={styles.curveGlow}
                   />
                   <motion.path
                     d={linePath}
@@ -353,7 +387,7 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
                       cy={p.y}
                       r={hoverPointIdx === i && isHovered ? 5 : 3}
                       fill={s.color}
-                      opacity={hoverSeriesIdx == null || isHovered ? 0.7 : 0.2}
+                      opacity={isHovered ? (hoverPointIdx === i ? 1 : 0.5) : 0}
                       style={{ transition: "r 160ms ease, opacity 160ms ease" }}
                     />
                   ))}
@@ -379,7 +413,10 @@ export function ProductTrendsChart({ data }: { data: ProductTrendData }) {
         ) : (
           <div className={styles.noChart}>
             <Minus size={20} strokeWidth={1.5} aria-hidden="true" />
-            <span>Not enough history for this window.</span>
+            <span>
+              Current market snapshot. A curve appears after two dated
+              observations.
+            </span>
           </div>
         )}
         {/* Hover readout + legend */}

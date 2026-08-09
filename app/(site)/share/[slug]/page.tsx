@@ -6,7 +6,6 @@ import { buildShareData } from "./share-data";
 import { ShareAlternatives, ShareCard } from "./share-card";
 import { Reveal } from "@/components/motion/reveal";
 import { ShareButton } from "@/components/share/share-button";
-import { ScreenshotButton } from "@/components/share/screenshot-button";
 import { ProductTrendsChart } from "@/components/product-trends/product-trends-chart";
 import { getWorthSharingReadModel } from "@/lib/share/worth-sharing";
 import { getProductTrendData } from "@/lib/share/product-trends";
@@ -44,7 +43,12 @@ export async function generateMetadata({
 async function ProductTrendsSection({ slug }: { slug: string }) {
   const trendData = await getProductTrendData(slug);
   if (!trendData) return null;
-  return <ProductTrendsChart data={trendData} />;
+  return (
+    <ProductTrendsChart
+      data={trendData}
+      storyHref={`/share/${slug}/story?kind=trend`}
+    />
+  );
 }
 
 export default async function SharePage({
@@ -72,13 +76,12 @@ export default async function SharePage({
             </>
           ) : null}
         </h1>
-        <ScreenshotButton
-          targetId="card-grid"
-          fileName={`${data.view.brand}-${data.view.name}-jelocare`}
-        />
       </Reveal>
-      <div id="card-grid" className={styles.cardGrid}>
-        <ShareCard view={data.view} />
+      <div className={styles.cardGrid}>
+        <ShareCard
+          view={data.view}
+          storyHref={`/share/${slug}/story?kind=price`}
+        />
         <Suspense fallback={null}>
           <ProductTrendsSection slug={slug} />
         </Suspense>

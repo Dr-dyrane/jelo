@@ -1,114 +1,120 @@
-'use client';
+"use client";
 
-import { useRef, useState } from 'react';
-import { Camera, Check, Loader2 } from 'lucide-react';
-import { toPng } from 'html-to-image';
-import styles from './screenshot-button.module.css';
+import { useEffect, useRef, useState } from "react";
+import { AlertCircle, Check, Download, Loader2 } from "lucide-react";
+import styles from "./screenshot-button.module.css";
 
 type Props = {
-  /** The DOM element ID to capture */
-  targetId: string;
+  href: string;
   fileName: string;
+  label: string;
 };
 
-/**
- * One-tap card screenshot. Captures the actual rendered DOM element
- * (the card grid with both the share card and trend card) as a PNG.
- *
- * Uses html-to-image which handles:
- * - Cross-origin images (fetches and converts to data URLs)
- * - CSS custom properties (inlines computed styles)
- * - color-mix() and gradients (resolved via getComputedStyle)
- * - Web fonts (embeds as data URLs)
- * - SVG foreignObject serialization
- */
-export function ScreenshotButton({ targetId, fileName }: Props) {
-  const [state, setState] = useState<'idle' | 'flashing' | 'done'>('idle');
-  const audioCtxRef = useRef<AudioContext | null>(null);
+type DownloadState = "idle" | "working" | "done" | "error";
 
-  function playShutter() {
-    try {
-      if (!audioCtxRef.current) {
-        audioCtxRef.current = new AudioContext();
-      }
-      const ctx = audioCtxRef.current;
-      const now = ctx.currentTime;
+function safeFileName(value: string) {
+  const cleaned = value
+    .trim()
+    .replace(/\.png$/i, "")
+    .replace(/[^a-z0-9._-]+/gi, "-")
+    .replace(/^-+|-+$/g, "");
+  return `${cleaned || "jelocare-story"}.png`;
+}
 
-      function click(at: number) {
-        const bufferSize = Math.floor(ctx.sampleRate * 0.03);
-        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufferSize, 3);
-        }
-        const noise = ctx.createBufferSource();
-        noise.buffer = buffer;
+/** Downloads one deterministic server-rendered 1080 × 1920 campaign story. */
+export function ScreenshotButton({ href, fileName, label }: Props) {
+  const [state, setState] = useState<DownloadState>("idle");
+  const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-        const bandpass = ctx.createBiquadFilter();
-        bandpass.type = 'bandpass';
-        bandpass.frequency.setValueAtTime(2500, at);
-        bandpass.Q.setValueAtTime(2, at);
+  useEffect(
+    () => () => {
+      if (resetTimer.current) clearTimeout(resetTimer.current);
+    },
+    [],
+  );
 
-        const gain = ctx.createGain();
-        gain.gain.setValueAtTime(0.35, at);
-        gain.gain.exponentialRampToValueAtTime(0.001, at + 0.025);
-
-        noise.connect(bandpass);
-        bandpass.connect(gain);
-        gain.connect(ctx.destination);
-        noise.start(at);
-        noise.stop(at + 0.03);
-      }
-
-      click(now);
-      click(now + 0.06);
-    } catch {
-      // Audio is a nice-to-have; ignore failures silently.
-    }
+  function resetLater() {
+    if (resetTimer.current) clearTimeout(resetTimer.current);
+    resetTimer.current = setTimeout(() => setState("idle"), 2400);
   }
 
-  async function captureCard() {
-    const target = document.getElementById(targetId);
-    if (!target) return;
-
-    setState('flashing');
-    playShutter();
+  async function downloadStory() {
+    if (state === "working") return;
+    setState("working");
 
     try {
-      const dataUrl = await toPng(target, {
-        pixelRatio: 2,
-        cacheBust: true,
-        backgroundColor: '#fffdf9',
-        skipFonts: false,
+      const response = await fetch(href, {
+        method: "GET",
+        cache: "no-store",
+        headers: { Accept: "image/png" },
       });
+      if (!response.ok) {
+        const message = (await response.text()).trim();
+        throw new Error(message || `Story render failed (${response.status}).`);
+      }
+      const blob = await response.blob();
+      if (blob.type !== "image/png" || blob.size === 0) {
+        throw new Error("The story renderer did not return a PNG.");
+      }
 
-      const a = document.createElement('a');
-      a.href = dataUrl;
-      a.download = `${fileName}.png`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      const objectUrl = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = objectUrl;
+      anchor.download = safeFileName(fileName);
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
 
-      setState('done');
-      setTimeout(() => setState('idle'), 1800);
-    } catch (err) {
-      console.error('Screenshot failed:', err);
-      setState('done');
-      setTimeout(() => setState('idle'), 1800);
+      setState("done");
+      resetLater();
+    } catch (error) {
+      console.error("Campaign story download failed:", error);
+      setState("error");
+      resetLater();
     }
   }
+
+  const visibleLabel =
+    state === "working"
+      ? "Preparing story"
+      : state === "done"
+        ? "Story saved"
+        : state === "error"
+          ? "Try again"
+          : label;
 
   return (
     <button
-      className={`${styles.button} ${state === 'flashing' ? styles.flashing : ''} ${state === 'done' ? styles.done : ''}`}
-      onClick={captureCard}
-      aria-label="Save card as image"
-      title="Save card as image"
+      type="button"
+      className={`${styles.button} ${state === "done" ? styles.done : ""} ${state === "error" ? styles.error : ""}`}
+      onClick={downloadStory}
+      disabled={state === "working"}
+      aria-busy={state === "working"}
+      aria-label={visibleLabel}
+      title={visibleLabel}
     >
-      {state === 'done' ? <Check size={18} strokeWidth={1.5} aria-hidden="true" />
-      : state === 'flashing' ? <Loader2 size={18} strokeWidth={1.5} aria-hidden="true" className={styles.spin} />
-      : <Camera size={18} strokeWidth={1.5} aria-hidden="true" />}
-      {state === 'flashing' ? <span className={styles.flash} /> : null}
+      {state === "working" ? (
+        <Loader2
+          size={16}
+          strokeWidth={1.7}
+          aria-hidden="true"
+          className={styles.spin}
+        />
+      ) : state === "done" ? (
+        <Check size={16} strokeWidth={1.7} aria-hidden="true" />
+      ) : state === "error" ? (
+        <AlertCircle size={16} strokeWidth={1.7} aria-hidden="true" />
+      ) : (
+        <Download size={16} strokeWidth={1.7} aria-hidden="true" />
+      )}
+      <span className={styles.status} aria-live="polite" aria-atomic="true">
+        {state === "done"
+          ? `${label} downloaded.`
+          : state === "error"
+            ? `${label} could not be downloaded.`
+            : ""}
+      </span>
     </button>
   );
 }
