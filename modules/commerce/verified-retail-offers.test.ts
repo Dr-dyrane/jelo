@@ -38,6 +38,55 @@ test('at least thirteen catalogue products have reliable exact Nigerian price ev
   assert.ok(priced.length >= 13, `expected at least 13 priced products, received ${priced.length}`);
 });
 
+test('the seven newest catalogue products carry the exact Nigerian offers found in the enrichment pass', () => {
+  const expected = {
+    'anessa-perfect-uv-sunscreen-skincare-milk-na-60ml': [['BuyBetter', 32249]],
+    'aveeno-daily-moisturizing-body-oil-mist-200ml': [
+      ['Teeka4', 15700],
+      ['Lux Beauty', 17500],
+      ['Perona Beauty', 17500],
+    ],
+    'beauty-of-joseon-glow-serum-propolis-niacinamide-30ml': [
+      ['BuyBetter', 13500],
+      ['Kadimez Essentials', 19500],
+      ['Rhema Beauty Shop', 20425],
+    ],
+    'eos-coconut-waters-body-wash-473ml': [
+      ['Teeka4', 18500],
+      ['BuyBetter', 18500],
+      ['Rhema Beauty Shop', 25000],
+    ],
+    'eos-pink-champagne-body-wash-473ml': [
+      ['Teeka4', 18500],
+      ['BuyBetter', 18500],
+      ['Rhema Beauty Shop', 25000],
+    ],
+    'eos-vanilla-cashmere-body-wash-473ml': [
+      ['Beauty by Daz', 19500],
+      ['Teeka4', 18500],
+      ['Perona Beauty', 20850],
+    ],
+    'saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml': [
+      ['BuyBetter', 31175],
+    ],
+  } as const;
+
+  for (const [slug, offerRows] of Object.entries(expected)) {
+    const offers = verifiedRetailOffers[slug];
+    assert.ok(offers, `missing offers for ${slug}`);
+    assert.deepEqual(
+      offers.map((offer) => [offer.retailer, offer.priceNgn]),
+      offerRows,
+      slug,
+    );
+    assert.equal(
+      offers.every((offer) => offer.checkedAt === '2026-08-09T09:30:30Z'),
+      true,
+      `${slug}: observation timestamp`,
+    );
+  }
+});
+
 test('browser-verified Beauty by Daz prices serve exact original catalogue products', () => {
   const expected = [
     ['cosrx-salicylic-acid-daily-gentle-cleanser', 8_500, '150 ml', false],
