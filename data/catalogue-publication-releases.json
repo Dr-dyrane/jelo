@@ -3340,30 +3340,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "dang-snail-secretion-filtrate-repair-face-cream-50g",
-      "dossierFingerprint": "e925d1e280d315992864e67754ce9b9fcf16a6380eebcffdcbff4c0b695a9b07",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Moisturise",
-        "displayLine": "Snail secretion filtrate repair cream.",
-        "usage": "Apply a pea-sized amount to clean skin morning and evening. Patch test before first use.",
-        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/snail-mucin-cream",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-09T18:21:02Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-09T18:21:03Z"
-      },
-      "releaseFingerprint": "b40775872373cede325908253be76c1f46a8354e37469611cf11b1598bb7c332"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "dang-snail-mucin-repair-serum-100ml",
       "dossierFingerprint": "79678b19d510291932ee258b9aee75b2baeb76e610691aca23b8f1c245d9a13d",
       "exposure": "public-catalogue",
@@ -3457,6 +3433,30 @@
         "publishedAt": "2026-08-09T18:21:56Z"
       },
       "releaseFingerprint": "8d83f89d69abcb5582dd841c2612e5aea062db898210b798fc022a7053429612"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-snail-secretion-filtrate-repair-face-cream-50g",
+      "dossierFingerprint": "dda9863948f85a93a55afa4d704abf0dda157c0f2cdd8f67cb0781aed53c62b5",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturise",
+        "displayLine": "Snail secretion filtrate repair cream.",
+        "usage": "Apply a pea-sized amount to clean skin morning and evening. Patch test before first use.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/snail-mucin-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T18:36:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T18:37:00Z"
+      },
+      "releaseFingerprint": "5a4adcb5a3ef7500cd924e29e7ce954203d8992df1410919caffc57f0e1f0a4f"
     }
   ]
 }
