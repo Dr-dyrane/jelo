@@ -102,16 +102,12 @@ export default async function ProductsPage({
                   <Link
                     aria-current={browse === mode ? "page" : undefined}
                     className={browse === mode ? styles.active : ""}
-                    href={href(
-                      params,
-                      {
-                        browse: mode,
-                        category: null,
-                        concern: null,
-                        step: null,
-                      },
-                      "browse",
-                    )}
+                    href={href(params, {
+                      browse: mode,
+                      category: null,
+                      concern: null,
+                      step: null,
+                    })}
                     key={mode}
                   >
                     {mode}
