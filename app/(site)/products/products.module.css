@@ -120,8 +120,9 @@
   color: var(--ink);
 }
 .browse {
+  position: relative;
+  z-index: 1;
   padding: 8vw 4vw 5vw;
-  scroll-margin-top: 6rem;
 }
 .sectionHeading,
 .catalogueHeading {
