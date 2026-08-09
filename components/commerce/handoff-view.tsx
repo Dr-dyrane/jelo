@@ -1,11 +1,21 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Check, ChevronLeft, ExternalLink, ShieldCheck, TriangleAlert } from 'lucide-react';
-import type { HandoffModel } from '@/lib/commerce/handoff-model';
-import styles from './handoff-view.module.css';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import {
+  ArrowRight,
+  Check,
+  ChevronLeft,
+  ExternalLink,
+  ShieldCheck,
+  TriangleAlert,
+  Store,
+  Clock3,
+  BadgeCheck,
+} from "lucide-react";
+import type { HandoffModel } from "@/lib/commerce/handoff-model";
+import styles from "./handoff-view.module.css";
 
 type Props = {
   model: HandoffModel;
@@ -17,19 +27,19 @@ export function HandoffView({ model }: Props) {
   const continueLinkRef = useRef<HTMLAnchorElement | null>(null);
 
   const offer = model.selectedOffer;
-  const retailer = offer?.retailer ?? '';
+  const retailer = offer?.retailer ?? "";
 
   // Record handoff_viewed on mount (best-effort, never blocks)
   useEffect(() => {
     if (!offer) return;
-    fetch('/api/handoff', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("/api/handoff", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         productSlug: model.productSlug,
         retailer: offer.retailer,
         market: model.market,
-        interaction: 'viewed',
+        interaction: "viewed",
       }),
     }).catch(() => {
       // Analytics is best-effort; never block the experience
@@ -49,13 +59,13 @@ export function HandoffView({ model }: Props) {
   useEffect(() => {
     if (!offer) return;
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         event.preventDefault();
         router.push(`/products/${model.productSlug}`);
       }
     }
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [router, model.productSlug, offer]);
 
   if (!offer) return null;
@@ -63,14 +73,14 @@ export function HandoffView({ model }: Props) {
   function handleContinue() {
     setContinueClicked(true);
     // Record handoff_continue (best-effort)
-    fetch('/api/handoff', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("/api/handoff", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         productSlug: model.productSlug,
         retailer: offer!.retailer,
         market: model.market,
-        interaction: 'continue',
+        interaction: "continue",
       }),
     }).catch(() => {});
     // Navigation happens via the link href — no preventDefault
@@ -78,28 +88,28 @@ export function HandoffView({ model }: Props) {
 
   function handleAlternative(altRetailer: string) {
     // Record handoff_alternative (best-effort)
-    fetch('/api/handoff', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("/api/handoff", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         productSlug: model.productSlug,
         retailer: altRetailer,
         market: model.market,
-        interaction: 'alternative',
+        interaction: "alternative",
       }),
     }).catch(() => {});
   }
 
   function handleCancel() {
     // Record handoff_cancelled (best-effort)
-    fetch('/api/handoff', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("/api/handoff", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         productSlug: model.productSlug,
         retailer: offer!.retailer,
         market: model.market,
-        interaction: 'cancelled',
+        interaction: "cancelled",
       }),
     }).catch(() => {});
   }
@@ -167,11 +177,14 @@ export function HandoffView({ model }: Props) {
           {/* Trust signals — only factual, never implied guarantees */}
           <div className={styles.signals}>
             {offer.listedByBrand ? (
-              <span className={styles.signal}><ShieldCheck size={14} aria-hidden="true" /> Listed by the brand</span>
+              <span className={styles.signal}>
+                <ShieldCheck size={14} aria-hidden="true" /> Listed by the brand
+              </span>
             ) : null}
             {offer.sellerName ? (
               <span className={styles.signal}>
-                Sold by {offer.sellerName}{offer.sellerScore ? ` · ${offer.sellerScore}%` : ''}
+                Sold by {offer.sellerName}
+                {offer.sellerScore ? ` · ${offer.sellerScore}%` : ""}
               </span>
             ) : null}
             {offer.checkSeller ? (
@@ -186,18 +199,28 @@ export function HandoffView({ model }: Props) {
             ) : null}
             {offer.isSearchOnly ? (
               <span className={`${styles.signal} ${styles.signalWarning}`}>
-                <TriangleAlert size={14} aria-hidden="true" /> Search link, not an exact listing
+                <TriangleAlert size={14} aria-hidden="true" /> Search link, not
+                an exact listing
               </span>
             ) : null}
           </div>
         </div>
 
-        {/* Disclosure */}
-        <p className={styles.disclosure}>
-          You are continuing to <strong>{offer.retailer}</strong>, an external retailer.
-          JeloCare does not process payment, fulfil orders, or guarantee listings.
-          Prices and stock can change. A listing is not proof it is genuine.
-        </p>
+        {/* Disclosure — compact badge chips, Apple-style */}
+        <div className={styles.disclosureChips}>
+          <span className={styles.disclosureChip}>
+            <Store size={13} strokeWidth={2} aria-hidden="true" />
+            {offer.retailer}
+          </span>
+          <span className={styles.disclosureChip}>
+            <Clock3 size={13} strokeWidth={2} aria-hidden="true" />
+            Prices may change
+          </span>
+          <span className={styles.disclosureChip}>
+            <BadgeCheck size={13} strokeWidth={2} aria-hidden="true" />
+            Listing ≠ genuine
+          </span>
+        </div>
 
         {/* Actions */}
         <div className={styles.actions}>
@@ -215,7 +238,8 @@ export function HandoffView({ model }: Props) {
               </>
             ) : (
               <>
-                <ExternalLink size={18} aria-hidden="true" /> Continue to {offer.retailer}
+                <ExternalLink size={18} aria-hidden="true" /> Continue to{" "}
+                {offer.retailer}
               </>
             )}
           </a>
@@ -242,7 +266,9 @@ export function HandoffView({ model }: Props) {
                   >
                     <span className={styles.alternativeName}>
                       <strong>{alt.retailer}</strong>
-                      <small>{alt.priceLabel} · {alt.stockLabel}</small>
+                      <small>
+                        {alt.priceLabel} · {alt.stockLabel}
+                      </small>
                     </span>
                     <ArrowRight size={16} aria-hidden="true" />
                   </Link>

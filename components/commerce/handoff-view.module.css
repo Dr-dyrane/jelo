@@ -23,14 +23,14 @@
 /* Header */
 .header {
   display: grid;
-  gap: .35rem;
+  gap: 0.35rem;
 }
 
 .eyebrow {
   margin: 0;
-  font-size: .62rem;
+  font-size: 0.62rem;
   font-weight: 600;
-  letter-spacing: .14em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -41,13 +41,13 @@
   font-size: clamp(2rem, 6vw, 2.8rem);
   font-weight: 400;
   line-height: 1;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
   color: var(--ink);
 }
 
 .subtitle {
   margin: 0;
-  font-size: .82rem;
+  font-size: 0.82rem;
   color: var(--muted);
   line-height: 1.5;
 }
@@ -71,7 +71,7 @@
 .offerLeft {
   width: 4.5rem;
   height: 4.5rem;
-  border-radius: .9rem;
+  border-radius: 0.9rem;
   overflow: hidden;
   background: var(--paper);
   display: grid;
@@ -86,37 +86,37 @@
 
 .offerRight {
   display: grid;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .priceRow {
   display: flex;
   align-items: baseline;
-  gap: .6rem;
+  gap: 0.6rem;
   flex-wrap: wrap;
 }
 
 .price {
   font-size: 1.35rem;
   font-weight: 600;
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
   color: var(--ink);
 }
 
 .lowestBadge {
-  padding: .2rem .55rem;
+  padding: 0.2rem 0.55rem;
   border-radius: 999px;
   background: var(--state-success-bg);
   color: var(--state-success);
-  font-size: .62rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .reason {
   margin: 0;
-  font-size: .78rem;
+  font-size: 0.78rem;
   color: var(--muted);
   line-height: 1.55;
 }
@@ -126,25 +126,25 @@
   margin: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: .5rem .8rem;
+  gap: 0.5rem 0.8rem;
 }
 
 .fact {
   display: grid;
-  gap: .1rem;
+  gap: 0.1rem;
 }
 
 .fact dt {
-  font-size: .6rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
 .fact dd {
   margin: 0;
-  font-size: .78rem;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--ink);
 }
@@ -153,17 +153,17 @@
 .signals {
   display: flex;
   flex-wrap: wrap;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .signal {
   display: inline-flex;
   align-items: center;
-  gap: .35rem;
-  padding: .35rem .6rem;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem;
   border-radius: 999px;
   background: color-mix(in srgb, var(--paper) 72%, transparent);
-  font-size: .68rem;
+  font-size: 0.68rem;
   font-weight: 500;
   color: var(--ink);
   line-height: 1.4;
@@ -174,26 +174,36 @@
   color: var(--state-warning);
 }
 
-/* Disclosure */
-.disclosure {
-  margin: 0;
-  padding: .9rem 1rem;
-  border-radius: 1rem;
-  background: color-mix(in srgb, var(--wine) 5%, transparent);
-  font-size: .72rem;
-  line-height: 1.6;
-  color: var(--muted);
+/* Disclosure — compact badge chips */
+.disclosureChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
 }
 
-.disclosure strong {
-  color: var(--ink);
-  font-weight: 600;
+.disclosureChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--wine) 5%, transparent);
+  font-size: 0.68rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.disclosureChip svg {
+  color: var(--wine);
+  opacity: 0.7;
 }
 
 /* Actions */
 .actions {
   display: grid;
-  gap: .6rem;
+  gap: 0.6rem;
 }
 
 .continueButton {
@@ -201,15 +211,17 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: .5rem;
-  padding: .85rem 1.2rem;
+  gap: 0.5rem;
+  padding: 0.85rem 1.2rem;
   border-radius: 999px;
   background: var(--ink);
   color: var(--on-accent);
-  font-size: .82rem;
+  font-size: 0.82rem;
   font-weight: 600;
   text-decoration: none;
-  transition: transform .15s ease, opacity .15s ease;
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
 }
 
 .continueButton:hover {
@@ -230,15 +242,17 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: .35rem;
-  padding: .7rem 1rem;
+  gap: 0.35rem;
+  padding: 0.7rem 1rem;
   border-radius: 999px;
   background: transparent;
   color: var(--muted);
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 500;
   text-decoration: none;
-  transition: color .15s ease, background .15s ease;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
 }
 
 .cancelButton:hover {
@@ -254,16 +268,16 @@
 /* Alternatives */
 .alternatives {
   display: grid;
-  gap: .6rem;
-  padding-top: .5rem;
+  gap: 0.6rem;
+  padding-top: 0.5rem;
   border-top: 1px solid var(--border);
 }
 
 .alternativesLabel {
   margin: 0;
-  font-size: .62rem;
+  font-size: 0.62rem;
   font-weight: 600;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -273,20 +287,20 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: .35rem;
+  gap: 0.35rem;
 }
 
 .alternativeRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: .6rem;
-  padding: .7rem .85rem;
-  border-radius: .9rem;
+  gap: 0.6rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 0.9rem;
   background: color-mix(in srgb, var(--paper) 52%, transparent);
   text-decoration: none;
   color: var(--ink);
-  transition: background .15s ease;
+  transition: background 0.15s ease;
 }
 
 .alternativeRow:hover {
@@ -300,16 +314,16 @@
 
 .alternativeName {
   display: grid;
-  gap: .15rem;
+  gap: 0.15rem;
 }
 
 .alternativeName strong {
-  font-size: .78rem;
+  font-size: 0.78rem;
   font-weight: 600;
 }
 
 .alternativeName small {
-  font-size: .68rem;
+  font-size: 0.68rem;
   color: var(--muted);
 }
 

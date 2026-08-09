@@ -27,6 +27,7 @@ import { productMatchesConcern } from "@/modules/concerns/product-matching";
 import {
   buildMarketReading,
   isPriced,
+  isListingOnly,
 } from "@/modules/commerce/market-reading";
 
 export const revalidate = 3600;
@@ -115,6 +116,7 @@ export default async function ProductPage({
 
   const marketReading = buildMarketReading(product.offers, "NG");
   const priced = isPriced(marketReading);
+  const listingOnly = isListingOnly(marketReading);
 
   return (
     <>
@@ -132,7 +134,13 @@ export default async function ProductPage({
           category={product.category}
           step={product.step}
           careStatus={careStatus}
-          priceLabel={priced ? marketReading.priceLabel : null}
+          priceLabel={
+            priced
+              ? marketReading.priceLabel
+              : listingOnly
+                ? marketReading.lastKnownPriceLabel
+                : null
+          }
           lowestPrice={priced ? marketReading.lowestPrice : null}
           storeCount={priced ? marketReading.storeCount : 0}
           sizeSelector={

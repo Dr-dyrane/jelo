@@ -33,6 +33,59 @@ type SearchState = "idle" | "loading" | "paused" | "done" | "empty";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
 
+// Built-in popular searches so the overlay is never blank.
+// These are high-traffic categories and concerns that work on any page.
+const defaultPopular: CatalogueSearchSuggestion[] = [
+  {
+    kind: "category",
+    label: "Cleansers",
+    detail: "Face washes and cleansing balms",
+    href: "/products?category=Face&concern=acne-breakouts",
+  },
+  {
+    kind: "category",
+    label: "Moisturisers",
+    detail: "Creams, gels, and barrier creams",
+    href: "/products?category=Face",
+  },
+  {
+    kind: "category",
+    label: "Sunscreens",
+    detail: "SPF protection for every skin",
+    href: "/products?category=Face&concern=sun-damage",
+  },
+  {
+    kind: "guide",
+    label: "Acne breakouts",
+    detail: "Concerns guide",
+    href: "/concerns/acne-breakouts",
+  },
+  {
+    kind: "guide",
+    label: "Dark spots",
+    detail: "Concerns guide",
+    href: "/concerns/dark-spots",
+  },
+  {
+    kind: "guide",
+    label: "Sensitive barrier",
+    detail: "Concerns guide",
+    href: "/concerns/sensitive-barrier",
+  },
+  {
+    kind: "company",
+    label: "COSRX",
+    detail: "Korean skincare",
+    href: "/products?brand=COSRX",
+  },
+  {
+    kind: "company",
+    label: "The Ordinary",
+    detail: "Active ingredients",
+    href: "/products?brand=The+Ordinary",
+  },
+];
+
 type MobileSearchOverlayProps = {
   open: boolean;
   onClose: () => void;
@@ -149,9 +202,13 @@ export function MobileSearchOverlay({
     };
   }, [query, fetchRemote]);
 
+  // Use passed suggestions or fall back to built-in popular searches
+  const popularSuggestions =
+    staticSuggestions.length > 0 ? staticSuggestions : defaultPopular;
+
   // Merge static + remote suggestions
   const merged = useMemo<MergedSuggestion[]>(() => {
-    const local = matchingCatalogueSearchSuggestions(staticSuggestions, query);
+    const local = matchingCatalogueSearchSuggestions(popularSuggestions, query);
     // Combine, deduplicate by href, limit to 8
     const seen = new Set<string>();
     const combined: MergedSuggestion[] = [];
@@ -162,7 +219,7 @@ export function MobileSearchOverlay({
       if (combined.length >= 8) break;
     }
     return combined;
-  }, [staticSuggestions, query, remoteSuggestions]);
+  }, [popularSuggestions, query, remoteSuggestions]);
 
   // Reset active index when results change
   useEffect(() => {
@@ -198,11 +255,7 @@ export function MobileSearchOverlay({
     !showSuggestions &&
     searchState === "empty" &&
     query.length >= catalogueSuggestionMinimumQueryLength;
-  const showPopular =
-    !showSuggestions &&
-    !showEmpty &&
-    query.length === 0 &&
-    staticSuggestions.length > 0;
+  const showPopular = !showSuggestions && !showEmpty && query.length === 0;
 
   return (
     <AnimatePresence>
@@ -305,7 +358,7 @@ export function MobileSearchOverlay({
                   <TrendingUp size={14} aria-hidden="true" /> Popular
                 </p>
                 <div className={styles.popularChips}>
-                  {staticSuggestions.slice(0, 8).map((s) => (
+                  {popularSuggestions.slice(0, 8).map((s) => (
                     <Link
                       key={s.href}
                       href={s.href}

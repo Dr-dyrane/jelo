@@ -1,15 +1,16 @@
-import 'server-only';
+import "server-only";
 
-import { hasPostgresConfig, getPostgresClient } from '@/lib/db/postgres';
+import { hasPostgresConfig, getPostgresClient } from "@/lib/db/postgres";
 import {
   calculateOfferPriceTrends,
   calculatePriceTrends,
   selectCurrentPriceObservations,
   type CurrentPriceObservation,
+  type PriceObservation,
   type PriceTrendOfferSnapshot,
   type ProductPriceTrends,
-} from '@/modules/commerce/price-trends';
-import { computeStaticPriceTrends } from './static-price-trends';
+} from "@/modules/commerce/price-trends";
+import { computeStaticPriceTrends } from "./static-price-trends";
 
 type ObservationRow = CurrentPriceObservation;
 type ProductObservationRow = ObservationRow & {
@@ -28,12 +29,12 @@ function calculateProductPriceTrends(
   const observations = selectCurrentPriceObservations(rows, snapshot);
 
   const result: ProductPriceTrends = {};
-  for (const market of ['NG', 'US'] as const) {
+  for (const market of ["NG", "US"] as const) {
     const marketOfferIds = new Set(
-      rows.filter(row => row.market === market).map(row => row.offerId),
+      rows.filter((row) => row.market === market).map((row) => row.offerId),
     );
-    const marketObservations = observations.filter(
-      observation => marketOfferIds.has(observation.offerId),
+    const marketObservations = observations.filter((observation) =>
+      marketOfferIds.has(observation.offerId),
     );
     if (!marketObservations.length) continue;
 
@@ -138,7 +139,7 @@ export async function getProductsPriceTrends(
   } catch (error) {
     console.error(
       `Price history unavailable for ${slugs.length} ${
-        slugs.length === 1 ? 'product' : 'products'
+        slugs.length === 1 ? "product" : "products"
       }; falling back to static trends.`,
       error,
     );
@@ -152,4 +153,46 @@ export async function getProductPriceTrends(
 ): Promise<ProductPriceTrends> {
   const trends = await getProductsPriceTrends([{ slug, snapshot }]);
   return trends.get(slug.trim()) ?? {};
+}
+
+/**
+ * Fetches raw price observations from the database for a single product.
+ * Returns an empty array when no database is configured or the query fails.
+ *
+ * Each row is one historical price point from `offer_price_history`, joined
+ * with the offer and retailer tables to get the retailer name.
+ */
+export async function getProductPriceHistory(
+  slug: string,
+): Promise<PriceObservation[]> {
+  if (!hasPostgresConfig()) return [];
+  try {
+    const sql = getPostgresClient();
+    const rows = await sql<PriceObservation[]>`
+      select
+        h.id::text as "historyId",
+        o.id::text as "offerId",
+        r.name as retailer,
+        h.price_minor::double precision as "priceMinor",
+        h.observed_at::text as "observedAt",
+        h.created_at::text as "recordedAt"
+      from offer_price_history h
+      join offers o on o.id = h.offer_id
+      join products p on p.id = o.product_id
+      join retailers r on r.id = o.retailer_id
+      where p.slug = ${slug}
+        and o.match_kind = 'exact'
+        and o.market_code = 'NG'
+        and h.currency_code = 'NGN'
+        and h.observed_at >= now() - interval '46 days'
+      order by h.observed_at asc, h.created_at asc, h.id asc
+    `;
+    return rows as unknown as PriceObservation[];
+  } catch (error) {
+    console.error(
+      `Price history query failed for ${slug}; returning empty.`,
+      error,
+    );
+    return [];
+  }
 }

@@ -33,6 +33,8 @@ export type MarketReading =
       observedAt: string;
       /** Human-readable freshness label for the listing observation. */
       freshnessLabel: string;
+      /** Last known price label, e.g. "Was ₦9,850", or null if no price was ever observed. */
+      lastKnownPriceLabel: string | null;
     }
   | {
       state: "unavailable";
@@ -226,11 +228,32 @@ export function buildMarketReading(
     const retailers = uniqueRetailers(listingOffers);
     const observedAt = latestObservation(listingOffers);
     if (!observedAt) return { state: "unavailable" };
+    // Find last known price from out-of-stock offers that still have a recorded price
+    const lastKnownPrices = listingOffers
+      .map((offer) => {
+        if (offer.available) return null; // skip in-stock — those are in the priced set
+        const price = market === "NG" ? offer.priceNgn : offer.priceUsd;
+        return typeof price === "number" && Number.isFinite(price) && price > 0
+          ? {
+              price,
+              observedAt:
+                offer.priceObservation?.observedAt ??
+                offer.listingEvidence?.observedAt ??
+                "",
+            }
+          : null;
+      })
+      .filter((p): p is { price: number; observedAt: string } => p != null)
+      .sort((a, b) => a.price - b.price);
+    const lastKnown = lastKnownPrices[0]?.price ?? null;
+    const lastKnownPriceLabel =
+      lastKnown != null ? `Was ${formatMarketPrice(lastKnown, market)}` : null;
     return {
       state: "listing-only",
       listingCount: retailers.length,
       observedAt,
       freshnessLabel: freshnessLabelFor(observedAt, now) ?? "Checked recently",
+      lastKnownPriceLabel,
     };
   }
 
