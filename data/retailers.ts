@@ -646,6 +646,20 @@ export function retailerSearchUrl(retailerName: string, query: string) {
     ?.searchUrl(query);
 }
 
+export function retailerSlug(retailerName: string) {
+  return retailerName
+    .normalize("NFKD")
+    .toLocaleLowerCase("en-NG")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+export function retailerBySlug(slug: string) {
+  return nigeriaRetailers.find(
+    (retailer) => retailerSlug(retailer.name) === slug,
+  );
+}
+
 export function retailerEvidenceFor(
   retailerName: string,
 ): RetailerEvidence | undefined {

@@ -1,0 +1,563 @@
+.main {
+  padding-top: 4.75rem;
+  background: var(--cream);
+}
+
+.hero {
+  min-height: 88svh;
+  padding: clamp(6.5rem, 10vw, 9rem) 4vw 4vw;
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(30rem, 1.18fr);
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: center;
+  background:
+    radial-gradient(
+      circle at 14% 18%,
+      color-mix(in srgb, var(--paper) 84%, transparent),
+      transparent 28rem
+    ),
+    linear-gradient(
+      140deg,
+      var(--product-pink),
+      var(--peach) 58%,
+      var(--product-blush)
+    );
+}
+
+.heroCopy {
+  position: relative;
+  z-index: 2;
+  max-width: 42rem;
+}
+
+.backLink {
+  width: max-content;
+  min-height: 2.75rem;
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.hero h1 {
+  max-width: 9ch;
+  margin: 1.1rem 0 1.5rem;
+  font-family: var(--font-display), serif;
+  font-size: clamp(4.5rem, 9.4vw, 10rem);
+  font-weight: 400;
+  line-height: 0.79;
+  letter-spacing: -0.055em;
+  overflow-wrap: anywhere;
+}
+
+.note {
+  max-width: 36rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.3vw, 1.16rem);
+  line-height: 1.65;
+}
+
+.heroActions {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.primaryAction {
+  min-height: 3.25rem;
+  padding: 0.8rem 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.heroActions > span {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.disclaimerChips {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.disclaimerChips span {
+  padding: 0.48rem 0.65rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 58%, transparent);
+  color: var(--muted);
+  font-size: 0.64rem;
+}
+
+.heroStage {
+  position: relative;
+  min-height: clamp(32rem, 48vw, 39rem);
+  overflow: hidden;
+  border-radius: clamp(2rem, 4vw, 3.5rem);
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      color-mix(in srgb, var(--paper) 86%, transparent),
+      transparent 37%
+    ),
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--paper) 58%, transparent),
+      color-mix(in srgb, var(--rose) 50%, transparent)
+    );
+  box-shadow: var(--shadow);
+  isolation: isolate;
+}
+
+.heroStage::before,
+.heroStage::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.heroStage::before {
+  width: 28rem;
+  height: 28rem;
+  right: -9rem;
+  top: -12rem;
+  background: color-mix(in srgb, var(--paper) 36%, transparent);
+}
+
+.heroStage::after {
+  width: 20rem;
+  height: 8rem;
+  left: 50%;
+  bottom: 8.5rem;
+  background: color-mix(in srgb, var(--wine) 12%, transparent);
+  filter: blur(2.5rem);
+  transform: translateX(-50%);
+}
+
+.stageLabel {
+  position: absolute;
+  z-index: 5;
+  top: 1.5rem;
+  left: 1.6rem;
+  display: grid;
+  gap: 0.22rem;
+}
+
+.stageLabel span {
+  color: var(--wine);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.stageLabel small {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.productPortraits {
+  position: absolute;
+  z-index: 2;
+  inset: 4rem 1rem 8.2rem;
+}
+
+.productPortraits > span {
+  position: absolute;
+  bottom: 0;
+  display: block;
+}
+
+.productPortraits img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(
+    0 2rem 2.5rem color-mix(in srgb, var(--wine) 16%, transparent)
+  );
+}
+
+.portrait1 {
+  z-index: 3;
+  width: 46%;
+  height: 82%;
+  left: 27%;
+}
+
+.portrait2 {
+  z-index: 2;
+  width: 36%;
+  height: 64%;
+  left: 2%;
+  transform: rotate(-4deg);
+}
+
+.portrait3 {
+  z-index: 1;
+  width: 34%;
+  height: 60%;
+  right: 2%;
+  transform: rotate(4deg);
+}
+
+.emptyPortrait {
+  position: absolute;
+  inset: 5rem 2rem 9rem;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.emptyPortrait span {
+  max-width: 8ch;
+  color: color-mix(in srgb, var(--wine) 70%, transparent);
+  font-family: var(--font-display), serif;
+  font-size: clamp(4rem, 8vw, 8rem);
+  line-height: 0.82;
+}
+
+.metrics {
+  position: absolute;
+  z-index: 6;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+  border-radius: 1.6rem;
+  background: color-mix(in srgb, var(--paper) 80%, transparent);
+  backdrop-filter: blur(22px);
+}
+
+.metrics > span {
+  min-width: 0;
+  min-height: 4.4rem;
+  padding: 0.35rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.metrics strong {
+  overflow: hidden;
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.65rem, 3vw, 2.7rem);
+  font-weight: 400;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metrics small {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.catalogueSection {
+  padding: clamp(5rem, 9vw, 9rem) 4vw;
+  background: var(--cream);
+}
+
+.sectionHeading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 28rem);
+  gap: 3rem;
+  align-items: end;
+}
+
+.sectionHeading h2,
+.truthSection h2 {
+  max-width: 11ch;
+  margin: 0.9rem 0 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(4rem, 8vw, 8rem);
+  font-weight: 400;
+  line-height: 0.79;
+  letter-spacing: -0.05em;
+}
+
+.sectionHeading > p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.storeAction {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  color: var(--ink);
+  box-shadow: 0 0.8rem 2rem color-mix(in srgb, var(--wine) 10%, transparent);
+}
+
+.emptyState {
+  min-height: 22rem;
+  margin-top: 3rem;
+  padding: clamp(2rem, 5vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  border-radius: 2.5rem;
+  background: linear-gradient(145deg, var(--surface-2), var(--product-pink));
+}
+
+.emptyState p {
+  max-width: 40rem;
+  color: var(--muted);
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  line-height: 1.5;
+}
+
+.emptyState a {
+  min-height: 3rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.truthSection {
+  margin: 0 4vw clamp(5rem, 9vw, 9rem);
+  padding: clamp(2rem, 6vw, 6rem);
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(26rem, 1fr);
+  gap: clamp(2rem, 7vw, 8rem);
+  align-items: end;
+  border-radius: clamp(2rem, 4vw, 3rem);
+  background: linear-gradient(135deg, var(--product-pink), var(--peach));
+}
+
+.truthSection h2 {
+  font-size: clamp(3.5rem, 7vw, 7rem);
+}
+
+.truthSection dl {
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+
+.truthSection dl > div {
+  padding: 1.15rem 0;
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1.25rem;
+}
+
+.truthSection dt {
+  color: var(--wine);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.truthSection dd {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .metrics {
+    background: var(--paper);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .metrics,
+  .disclaimerChips span {
+    background: var(--paper);
+    backdrop-filter: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .hero {
+    min-height: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .heroCopy {
+    max-width: 48rem;
+  }
+
+  .heroStage {
+    min-height: 36rem;
+  }
+
+  .truthSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .hero,
+  .catalogueSection {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .hero {
+    padding-top: 6.5rem;
+  }
+
+  .backLink {
+    margin-bottom: 2.5rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(4rem, 22vw, 6rem);
+  }
+
+  .heroStage {
+    min-height: 32rem;
+    border-radius: 2rem;
+  }
+
+  .productPortraits {
+    inset: 4rem 0.4rem 8rem;
+  }
+
+  .portrait1 {
+    width: 52%;
+    left: 24%;
+  }
+
+  .portrait2 {
+    width: 39%;
+    left: -1%;
+  }
+
+  .portrait3 {
+    width: 37%;
+    right: -1%;
+  }
+
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .metrics > span:last-child {
+    grid-column: 1 / -1;
+    min-height: 3.5rem;
+  }
+
+  .sectionHeading {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .sectionHeading h2 {
+    font-size: clamp(3.8rem, 19vw, 5.5rem);
+  }
+
+  .truthSection {
+    margin: 0 1rem 5rem;
+    padding: 3rem 1.25rem;
+    border-radius: 2rem;
+  }
+
+  .truthSection dl > div {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+}
+
+:global(html[data-theme="dark"]) .hero {
+  background:
+    radial-gradient(
+      circle at 14% 18%,
+      color-mix(in srgb, var(--surface-3) 72%, transparent),
+      transparent 28rem
+    ),
+    linear-gradient(140deg, var(--wash-c), var(--wash-b) 58%, var(--surface-2));
+}
+
+:global(html[data-theme="dark"]) .heroStage {
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      color-mix(in srgb, var(--surface-3) 76%, transparent),
+      transparent 37%
+    ),
+    linear-gradient(155deg, var(--paper), var(--card-2));
+}
+
+:global(html[data-theme="dark"]) .primaryAction,
+:global(html[data-theme="dark"]) .emptyState a {
+  background: var(--accent-solid);
+  color: var(--on-accent);
+}
+
+:global(html[data-theme="dark"]) .truthSection {
+  background: linear-gradient(135deg, var(--surface-2), var(--surface-3));
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .hero {
+    background:
+      radial-gradient(
+        circle at 14% 18%,
+        color-mix(in srgb, var(--surface-3) 72%, transparent),
+        transparent 28rem
+      ),
+      linear-gradient(
+        140deg,
+        var(--wash-c),
+        var(--wash-b) 58%,
+        var(--surface-2)
+      );
+  }
+
+  :global(html:not([data-theme="light"])) .heroStage {
+    background:
+      radial-gradient(
+        circle at 50% 45%,
+        color-mix(in srgb, var(--surface-3) 76%, transparent),
+        transparent 37%
+      ),
+      linear-gradient(155deg, var(--paper), var(--card-2));
+  }
+
+  :global(html:not([data-theme="light"])) .primaryAction,
+  :global(html:not([data-theme="light"])) .emptyState a {
+    background: var(--accent-solid);
+    color: var(--on-accent);
+  }
+
+  :global(html:not([data-theme="light"])) .truthSection {
+    background: linear-gradient(135deg, var(--surface-2), var(--surface-3));
+  }
+}

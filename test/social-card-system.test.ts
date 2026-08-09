@@ -15,6 +15,7 @@ import {
   catalogueSocialCard,
   productSocialCard,
   publicSocialMetadata,
+  retailerSocialCard,
   resolveSocialCard,
   socialCardVersion,
   socialImageUrl,
@@ -168,6 +169,31 @@ test('social image URLs change when route or product content changes', () => {
   assert.notEqual(socialCardVersion(card), socialCardVersion(newPackshot));
   assert.notEqual(socialImageUrl(card), socialImageUrl(renamed));
   assert.notEqual(socialImageUrl(card), socialImageUrl(newPackshot));
+});
+
+test('retailer profile cards preserve exact retailer identity and observed depth', async () => {
+  const beautyHut = retailerSocialCard({
+    slug: 'beauty-hut-africa',
+    name: 'Beauty Hut Africa',
+    productCount: 15,
+  });
+  const buyBetter = retailerSocialCard({
+    slug: 'buybetter',
+    name: 'BuyBetter',
+    productCount: 42,
+  });
+
+  assert.notEqual(socialImageUrl(beautyHut), socialImageUrl(buyBetter));
+  assert.notEqual(beautyHut.title, buyBetter.title);
+  assert.match(beautyHut.description, /15 products/);
+  const resolved = await resolveSocialCard(
+    new URL(socialImageUrl(beautyHut)),
+    undefined,
+    async slug => slug === beautyHut.request.slug
+      ? { slug, name: 'Beauty Hut Africa', productCount: 15 }
+      : undefined,
+  );
+  assert.deepEqual(resolved, beautyHut);
 });
 
 test('the shared endpoint emits cacheable 1200x630 PNG images', async () => {

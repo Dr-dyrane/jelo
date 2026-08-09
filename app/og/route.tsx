@@ -14,6 +14,16 @@ export async function GET(request: Request) {
   const card = await resolveSocialCard(requestUrl, async slug => {
     const { findCatalogueProduct } = await import('@/lib/catalogue/repository');
     return findCatalogueProduct(slug);
+  }, async slug => {
+    const [{ retailerBySlug }, { listCatalogueProducts }, { buildRetailerProfile }] = await Promise.all([
+      import('@/data/retailers'),
+      import('@/lib/catalogue/repository'),
+      import('@/modules/commerce/retailer-profile'),
+    ]);
+    const retailer = retailerBySlug(slug);
+    if (!retailer) return undefined;
+    const profile = buildRetailerProfile(retailer, await listCatalogueProducts());
+    return { slug, name: retailer.name, productCount: profile.productCount };
   });
   const resolvedCard = card ?? staticSocialCard('home');
   const [fonts, packshotSrc] = await Promise.all([
