@@ -1,27 +1,24 @@
 {
-  "schemaVersion": 3,
   "candidateId": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
-  "sourceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
-  "responseUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
-  "retrievedAt": "2026-08-09T17:00:00Z",
   "fields": {
     "gtin": {
-      "value": "DGL-SKC-020",
       "locator": "Official Shopify variant barcode",
-      "sourceText": "barcode: DGL-SKC-020"
-    },
-    "variant": {
-      "value": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
-      "locator": "Official product JSON title",
-      "sourceText": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml"
+      "sourceText": "barcode: DGL-SKC-020",
+      "value": "DGL-SKC-020"
     },
     "size": {
-      "value": "30 ml",
       "locator": "Official product title size suffix",
-      "sourceText": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml"
+      "sourceText": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
+      "value": "30 ml"
+    },
+    "variant": {
+      "locator": "Official product JSON title",
+      "sourceText": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
+      "value": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml"
     }
   },
-  "method": "reviewed-exact-identity-field-extraction",
-  "reviewer": "JeloCare catalogue evidence review",
-  "reviewedAt": "2026-08-09T17:00:00Z"
+  "responseUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+  "retrievedAt": "2026-08-09T17:00:00Z",
+  "schemaVersion": 3,
+  "sourceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
 }

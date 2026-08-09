@@ -1,27 +1,24 @@
 {
-  "schemaVersion": 3,
   "candidateId": "dang-collagen-hydrating-serum-ceramides-30ml",
-  "sourceUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
-  "responseUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
-  "retrievedAt": "2026-08-09T17:00:00Z",
   "fields": {
     "gtin": {
-      "value": "DGL-SKC-034",
       "locator": "Official Shopify variant barcode",
-      "sourceText": "barcode: DGL-SKC-034"
-    },
-    "variant": {
-      "value": "Collagen And Hydrating Serum With Ceramides -30ml",
-      "locator": "Official product JSON title",
-      "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml"
+      "sourceText": "barcode: DGL-SKC-034",
+      "value": "DGL-SKC-034"
     },
     "size": {
-      "value": "30 ml",
       "locator": "Official product title size suffix",
-      "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml"
+      "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml",
+      "value": "30 ml"
+    },
+    "variant": {
+      "locator": "Official product JSON title",
+      "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml",
+      "value": "Collagen And Hydrating Serum With Ceramides -30ml"
     }
   },
-  "method": "reviewed-exact-identity-field-extraction",
-  "reviewer": "JeloCare catalogue evidence review",
-  "reviewedAt": "2026-08-09T17:00:00Z"
+  "responseUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+  "retrievedAt": "2026-08-09T17:00:00Z",
+  "schemaVersion": 3,
+  "sourceUrl": "https://danglifestyle.co/products/collagen-peptide-serum"
 }

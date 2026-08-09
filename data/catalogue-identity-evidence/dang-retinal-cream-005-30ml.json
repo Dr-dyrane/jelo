@@ -1,27 +1,24 @@
 {
-  "schemaVersion": 3,
   "candidateId": "dang-retinal-cream-005-30ml",
-  "sourceUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
-  "responseUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
-  "retrievedAt": "2026-08-09T17:00:00Z",
   "fields": {
     "gtin": {
-      "value": "DGL-SKC-030",
       "locator": "Official Shopify variant barcode",
-      "sourceText": "barcode: DGL-SKC-030"
-    },
-    "variant": {
-      "value": "Multipurpose Retinal Cream 0.05% 30ml",
-      "locator": "Official product JSON title",
-      "sourceText": "Multipurpose Retinal Cream 0.05% 30ml"
+      "sourceText": "barcode: DGL-SKC-030",
+      "value": "DGL-SKC-030"
     },
     "size": {
-      "value": "30 ml",
       "locator": "Official product title size suffix",
-      "sourceText": "Multipurpose Retinal Cream 0.05% 30ml"
+      "sourceText": "Multipurpose Retinal Cream 0.05% 30ml",
+      "value": "30 ml"
+    },
+    "variant": {
+      "locator": "Official product JSON title",
+      "sourceText": "Multipurpose Retinal Cream 0.05% 30ml",
+      "value": "Multipurpose Retinal Cream 0.05% 30ml"
     }
   },
-  "method": "reviewed-exact-identity-field-extraction",
-  "reviewer": "JeloCare catalogue evidence review",
-  "reviewedAt": "2026-08-09T17:00:00Z"
+  "responseUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+  "retrievedAt": "2026-08-09T17:00:00Z",
+  "schemaVersion": 3,
+  "sourceUrl": "https://danglifestyle.co/products/retinal-cream-0-05"
 }

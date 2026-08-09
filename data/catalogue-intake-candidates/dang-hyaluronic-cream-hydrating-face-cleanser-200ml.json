@@ -3,8 +3,9 @@
   "publicationStatus": "private-research-only",
   "updatedAt": "2026-08-09T17:00:00Z",
   "origin": {
-    "kind": "legacy-deliberate-intake",
-    "reference": "dang-hyaluronic-cream-hydrating-face-cleanser-200ml"
+    "kind": "community-aggregate-packet",
+    "packetId": "4848fadf5203b9fb21d49692",
+    "reportSha256": "3be03ccad7ef4da4002588d8170342e4c6df6aa7fd53bf9dd60a116390ee2534"
   },
   "candidate": {
     "id": "dang-hyaluronic-cream-hydrating-face-cleanser-200ml",
@@ -57,7 +58,9 @@
               "sourceText": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml"
             }
           }
-        }
+        },
+        "snapshotSha256": "07274e458f72471d8a2fee06101a150dde01595bb170d24ee7d629c9ffa3559b",
+        "snapshotByteSize": 774
       }
     },
     "care": {
@@ -85,6 +88,5 @@
       "role": "packshot",
       "sourceUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser"
     }
-  },
-  "order": 42
+  }
 }

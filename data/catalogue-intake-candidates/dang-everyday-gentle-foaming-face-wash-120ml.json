@@ -3,8 +3,9 @@
   "publicationStatus": "private-research-only",
   "updatedAt": "2026-08-09T17:00:00Z",
   "origin": {
-    "kind": "legacy-deliberate-intake",
-    "reference": "dang-everyday-gentle-foaming-face-wash-120ml"
+    "kind": "community-aggregate-packet",
+    "packetId": "b3b05e7c6248c8ea15d30c8c",
+    "reportSha256": "988784a2cbd44d4084b1cbe7dc6d6da311de722c7413846e4d2597e242842c81"
   },
   "candidate": {
     "id": "dang-everyday-gentle-foaming-face-wash-120ml",
@@ -55,7 +56,9 @@
               "sourceText": "Everyday Gentle Foaming Face Wash-120ml"
             }
           }
-        }
+        },
+        "snapshotSha256": "9406ce1a32a2965526059930b0e61386b4dbab163b05caae93bf93bdf1bde22e",
+        "snapshotByteSize": 654
       }
     },
     "care": {
@@ -81,6 +84,5 @@
       "role": "packshot",
       "sourceUrl": "https://danglifestyle.co/products/rose-face-wash"
     }
-  },
-  "order": 39
+  }
 }

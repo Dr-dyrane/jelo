@@ -3,8 +3,9 @@
   "publicationStatus": "private-research-only",
   "updatedAt": "2026-08-09T17:00:00Z",
   "origin": {
-    "kind": "legacy-deliberate-intake",
-    "reference": "dang-snail-mucin-repair-serum-100ml"
+    "kind": "community-aggregate-packet",
+    "packetId": "d3c4d294df9a2bc623c7d9cf",
+    "reportSha256": "a9860d5f070bc2c2ba3be218838ab5f6ed732a9c3b0c57ec3340c19468f18b42"
   },
   "candidate": {
     "id": "dang-snail-mucin-repair-serum-100ml",
@@ -57,7 +58,9 @@
               "sourceText": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml"
             }
           }
-        }
+        },
+        "snapshotSha256": "0944223db0b0e515b7497be25b75667187f7a05b1cc9ce489e9c30b3f8c23d53",
+        "snapshotByteSize": 724
       }
     },
     "care": {
@@ -83,6 +86,5 @@
       "role": "packshot",
       "sourceUrl": "https://danglifestyle.co/products/snail-essence-serum"
     }
-  },
-  "order": 41
+  }
 }

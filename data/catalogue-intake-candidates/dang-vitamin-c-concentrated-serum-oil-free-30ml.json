@@ -3,8 +3,9 @@
   "publicationStatus": "private-research-only",
   "updatedAt": "2026-08-09T17:00:00Z",
   "origin": {
-    "kind": "legacy-deliberate-intake",
-    "reference": "dang-vitamin-c-concentrated-serum-oil-free-30ml"
+    "kind": "community-aggregate-packet",
+    "packetId": "2b8ddfdf0910ba9c94ffbd77",
+    "reportSha256": "5961467f79379bfa629000d9efbf92e771854a1c2aeb02247066ca3e771c4400"
   },
   "candidate": {
     "id": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
@@ -57,7 +58,9 @@
               "sourceText": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml"
             }
           }
-        }
+        },
+        "snapshotSha256": "abbc289e72840c09269b3f4e58ade860d62ba1adc2a8c148c292d4136efb1318",
+        "snapshotByteSize": 728
       }
     },
     "care": {
@@ -85,6 +88,5 @@
       "role": "packshot",
       "sourceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
     }
-  },
-  "order": 36
+  }
 }

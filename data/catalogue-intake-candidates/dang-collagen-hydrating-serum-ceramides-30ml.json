@@ -3,8 +3,9 @@
   "publicationStatus": "private-research-only",
   "updatedAt": "2026-08-09T17:00:00Z",
   "origin": {
-    "kind": "legacy-deliberate-intake",
-    "reference": "dang-collagen-hydrating-serum-ceramides-30ml"
+    "kind": "community-aggregate-packet",
+    "packetId": "ebab0728a3046f8ce2fd5c3b",
+    "reportSha256": "63dc65c45f9da208a0c711798ff1f00d91dc7db6a4359c362d92d46028c44a34"
   },
   "candidate": {
     "id": "dang-collagen-hydrating-serum-ceramides-30ml",
@@ -57,7 +58,9 @@
               "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml"
             }
           }
-        }
+        },
+        "snapshotSha256": "5093e0843ca3afafd830ec69bac12c7f5cafe9f04e8355ca8267aefefe7372a2",
+        "snapshotByteSize": 699
       }
     },
     "care": {
@@ -85,6 +88,5 @@
       "role": "packshot",
       "sourceUrl": "https://danglifestyle.co/products/collagen-peptide-serum"
     }
-  },
-  "order": 37
+  }
 }

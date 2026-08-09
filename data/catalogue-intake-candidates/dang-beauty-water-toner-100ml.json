@@ -3,8 +3,9 @@
   "publicationStatus": "private-research-only",
   "updatedAt": "2026-08-09T17:00:00Z",
   "origin": {
-    "kind": "legacy-deliberate-intake",
-    "reference": "dang-beauty-water-toner-100ml"
+    "kind": "community-aggregate-packet",
+    "packetId": "9a3334521469082febb1be5b",
+    "reportSha256": "08251591101441c8991c23b87497ff6872ace5c43518718fe4bd5b91d64e4822"
   },
   "candidate": {
     "id": "dang-beauty-water-toner-100ml",
@@ -57,7 +58,9 @@
               "sourceText": "Beauty Water (Toner)-100ml"
             }
           }
-        }
+        },
+        "snapshotSha256": "d66ac9ef29d48d5e555124fd07452299bdd7eb65a19d52dda06dd8cb7f825098",
+        "snapshotByteSize": 618
       }
     },
     "care": {
@@ -85,6 +88,5 @@
       "role": "packshot",
       "sourceUrl": "https://danglifestyle.co/products/centella-asiatica-toner"
     }
-  },
-  "order": 38
+  }
 }

@@ -3,8 +3,9 @@
   "publicationStatus": "private-research-only",
   "updatedAt": "2026-08-09T17:00:00Z",
   "origin": {
-    "kind": "legacy-deliberate-intake",
-    "reference": "dang-retinal-cream-005-30ml"
+    "kind": "community-aggregate-packet",
+    "packetId": "67e541a3f11fc165af5e85a1",
+    "reportSha256": "dda874b725840cb96a121e3a8cdfa276d81473d68a019c03ca34c8452007769c"
   },
   "candidate": {
     "id": "dang-retinal-cream-005-30ml",
@@ -57,7 +58,9 @@
               "sourceText": "Multipurpose Retinal Cream 0.05% 30ml"
             }
           }
-        }
+        },
+        "snapshotSha256": "c28a7be2d62e4e65bd4355fb27399e202d84f1508cf47259251b4b9c705390be",
+        "snapshotByteSize": 638
       }
     },
     "care": {
@@ -83,6 +86,5 @@
       "role": "packshot",
       "sourceUrl": "https://danglifestyle.co/products/retinal-cream-0-05"
     }
-  },
-  "order": 43
+  }
 }

@@ -1,27 +1,24 @@
 {
-  "schemaVersion": 3,
   "candidateId": "dang-everyday-gentle-foaming-face-wash-120ml",
-  "sourceUrl": "https://danglifestyle.co/products/rose-face-wash",
-  "responseUrl": "https://danglifestyle.co/products/rose-face-wash",
-  "retrievedAt": "2026-08-09T17:00:00Z",
   "fields": {
     "gtin": {
-      "value": "DGL-SKC-031",
       "locator": "Official Shopify variant barcode",
-      "sourceText": "barcode: DGL-SKC-031"
-    },
-    "variant": {
-      "value": "Everyday Gentle Foaming Face Wash-120ml",
-      "locator": "Official product JSON title",
-      "sourceText": "Everyday Gentle Foaming Face Wash-120ml"
+      "sourceText": "barcode: DGL-SKC-031",
+      "value": "DGL-SKC-031"
     },
     "size": {
-      "value": "120 ml",
       "locator": "Official product title size suffix",
-      "sourceText": "Everyday Gentle Foaming Face Wash-120ml"
+      "sourceText": "Everyday Gentle Foaming Face Wash-120ml",
+      "value": "120 ml"
+    },
+    "variant": {
+      "locator": "Official product JSON title",
+      "sourceText": "Everyday Gentle Foaming Face Wash-120ml",
+      "value": "Everyday Gentle Foaming Face Wash-120ml"
     }
   },
-  "method": "reviewed-exact-identity-field-extraction",
-  "reviewer": "JeloCare catalogue evidence review",
-  "reviewedAt": "2026-08-09T17:00:00Z"
+  "responseUrl": "https://danglifestyle.co/products/rose-face-wash",
+  "retrievedAt": "2026-08-09T17:00:00Z",
+  "schemaVersion": 3,
+  "sourceUrl": "https://danglifestyle.co/products/rose-face-wash"
 }

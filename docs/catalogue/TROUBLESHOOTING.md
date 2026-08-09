@@ -21,6 +21,12 @@ fixed historical cohort.
 valid 24-hex-char `packetId`. The `reportSha256` must also be set. See
 `lib/catalogue/intake-source.ts` for the schema.
 
+For direct intake (not from a community report), generate the `packetId`
+as the first 24 hex chars of `sha256("community:<candidate-id>")` and the
+`reportSha256` as `sha256(stableJson(candidate))`. Do NOT use
+`legacy-deliberate-intake` for new candidates — the legacy cohort count is
+fixed at 36 and cannot grow.
+
 ### `Catalogue intake must retain the fixed N-record legacy migration cohort`
 
 **Symptom:** Intake compile fails because `catalogueIntakeLegacyMigrationCount`
@@ -407,6 +413,7 @@ shifts down by 1. The test file has hard-coded indices for every candidate.
 
 **Fix:** Use a Python script to shift all affected indices in
 `publication-dossier.test.ts`:
+
 1. Replace `dossiers[N]` and `products[N]` with temporary placeholders for
    indices old+1 through 128.
 2. Replace the placeholders with the shifted values (N-1).

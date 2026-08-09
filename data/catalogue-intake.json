@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-09T06:24:00Z",
+  "updatedAt": "2026-08-09T17:00:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -13883,6 +13883,658 @@
         "artReviewedAt": "2026-08-07T22:58:00Z",
         "artReviewer": "Devin visual audit",
         "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "dang-beauty-water-toner-100ml",
+      "brand": "DANG",
+      "name": "Beauty Water Toner",
+      "variant": "Beauty Water (Toner)-100ml",
+      "size": "100 ml",
+      "category": "Face care",
+      "reason": "Alcohol-free and fragrance-free hydrating toner with official manufacturer SKU DGL-SKC-017, observed on the DANG mid-year sale at ₦12,240 (regular ₦14,400). Gentle daily-care toner with centella asiatica and hyaluronic acid.",
+      "priority": "essential",
+      "gapIds": ["hydration-routine-coverage"],
+      "demandEvidenceUrls": [
+        "https://danglifestyle.co/products/centella-asiatica-toner"
+      ],
+      "identity": {
+        "canonicalIdentifier": {
+          "kind": "manufacturer-sku",
+          "value": "DGL-SKC-017"
+        },
+        "officialProductUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+        "checkedAt": "2026-08-09T17:00:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://danglifestyle.co/products/centella-asiatica-toner",
+          "observedGtin": "DGL-SKC-017",
+          "observedVariant": "Beauty Water (Toner)-100ml",
+          "observedSize": "100 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/dang-beauty-water-toner-100ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "dang-beauty-water-toner-100ml",
+            "sourceUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+            "responseUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+            "retrievedAt": "2026-08-09T17:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "DGL-SKC-017",
+                "locator": "Official Shopify variant barcode",
+                "sourceText": "barcode: DGL-SKC-017"
+              },
+              "variant": {
+                "value": "Beauty Water (Toner)-100ml",
+                "locator": "Official product JSON title",
+                "sourceText": "Beauty Water (Toner)-100ml"
+              },
+              "size": {
+                "value": "100 ml",
+                "locator": "Official product title size suffix",
+                "sourceText": "Beauty Water (Toner)-100ml"
+              }
+            }
+          },
+          "snapshotSha256": "d66ac9ef29d48d5e555124fd07452299bdd7eb65a19d52dda06dd8cb7f825098",
+          "snapshotByteSize": 618
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Alcohol-free and fragrance-free hydrating toner with centella asiatica and hyaluronic acid listed by the manufacturer",
+        "careTier": "gentle-daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+        "manufacturerEvidenceUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+        "evidenceUrls": [
+          "https://danglifestyle.co/products/centella-asiatica-toner"
+        ],
+        "reviewedAt": "2026-08-09T17:00:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "pending",
+        "origin": "official-brand-source",
+        "role": "packshot",
+        "sourceUrl": "https://danglifestyle.co/products/centella-asiatica-toner"
+      }
+    },
+    {
+      "id": "dang-collagen-hydrating-serum-ceramides-30ml",
+      "brand": "DANG",
+      "name": "Collagen Hydrating Serum",
+      "variant": "Collagen And Hydrating Serum With Ceramides -30ml",
+      "size": "30 ml",
+      "category": "Face care",
+      "reason": "Hydrating repair serum with official manufacturer SKU DGL-SKC-034, observed on the DANG mid-year sale at ₦14,450 (regular ₦17,000). Supports hydration and skin repair with collagen, ceramides and hyaluronic acid.",
+      "priority": "essential",
+      "gapIds": ["hydration-routine-coverage"],
+      "demandEvidenceUrls": [
+        "https://danglifestyle.co/products/collagen-peptide-serum"
+      ],
+      "identity": {
+        "canonicalIdentifier": {
+          "kind": "manufacturer-sku",
+          "value": "DGL-SKC-034"
+        },
+        "officialProductUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+        "checkedAt": "2026-08-09T17:00:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://danglifestyle.co/products/collagen-peptide-serum",
+          "observedGtin": "DGL-SKC-034",
+          "observedVariant": "Collagen And Hydrating Serum With Ceramides -30ml",
+          "observedSize": "30 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/dang-collagen-hydrating-serum-ceramides-30ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "dang-collagen-hydrating-serum-ceramides-30ml",
+            "sourceUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+            "responseUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+            "retrievedAt": "2026-08-09T17:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "DGL-SKC-034",
+                "locator": "Official Shopify variant barcode",
+                "sourceText": "barcode: DGL-SKC-034"
+              },
+              "variant": {
+                "value": "Collagen And Hydrating Serum With Ceramides -30ml",
+                "locator": "Official product JSON title",
+                "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "Official product title size suffix",
+                "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml"
+              }
+            }
+          },
+          "snapshotSha256": "5093e0843ca3afafd830ec69bac12c7f5cafe9f04e8355ca8267aefefe7372a2",
+          "snapshotByteSize": 699
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on hydrating serum with collagen, ceramides and hyaluronic acid listed by the manufacturer",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+        "manufacturerEvidenceUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+        "evidenceUrls": [
+          "https://danglifestyle.co/products/collagen-peptide-serum"
+        ],
+        "reviewedAt": "2026-08-09T17:00:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "pending",
+        "origin": "official-brand-source",
+        "role": "packshot",
+        "sourceUrl": "https://danglifestyle.co/products/collagen-peptide-serum"
+      }
+    },
+    {
+      "id": "dang-everyday-gentle-foaming-face-wash-120ml",
+      "brand": "DANG",
+      "name": "Everyday Gentle Foaming Face Wash",
+      "variant": "Everyday Gentle Foaming Face Wash-120ml",
+      "size": "120 ml",
+      "category": "Face care",
+      "reason": "Fragrance-free gentle foaming cleanser with official manufacturer SKU DGL-SKC-031, observed on the DANG mid-year sale at ₦13,175 (regular ₦15,500). Supports a gentle daily cleansing routine with rose extract and beta-glucan.",
+      "priority": "essential",
+      "gapIds": ["hydration-routine-coverage"],
+      "demandEvidenceUrls": [
+        "https://danglifestyle.co/products/rose-face-wash"
+      ],
+      "identity": {
+        "canonicalIdentifier": {
+          "kind": "manufacturer-sku",
+          "value": "DGL-SKC-031"
+        },
+        "officialProductUrl": "https://danglifestyle.co/products/rose-face-wash",
+        "checkedAt": "2026-08-09T17:00:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://danglifestyle.co/products/rose-face-wash",
+          "observedGtin": "DGL-SKC-031",
+          "observedVariant": "Everyday Gentle Foaming Face Wash-120ml",
+          "observedSize": "120 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/dang-everyday-gentle-foaming-face-wash-120ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "dang-everyday-gentle-foaming-face-wash-120ml",
+            "sourceUrl": "https://danglifestyle.co/products/rose-face-wash",
+            "responseUrl": "https://danglifestyle.co/products/rose-face-wash",
+            "retrievedAt": "2026-08-09T17:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "DGL-SKC-031",
+                "locator": "Official Shopify variant barcode",
+                "sourceText": "barcode: DGL-SKC-031"
+              },
+              "variant": {
+                "value": "Everyday Gentle Foaming Face Wash-120ml",
+                "locator": "Official product JSON title",
+                "sourceText": "Everyday Gentle Foaming Face Wash-120ml"
+              },
+              "size": {
+                "value": "120 ml",
+                "locator": "Official product title size suffix",
+                "sourceText": "Everyday Gentle Foaming Face Wash-120ml"
+              }
+            }
+          },
+          "snapshotSha256": "9406ce1a32a2965526059930b0e61386b4dbab163b05caae93bf93bdf1bde22e",
+          "snapshotByteSize": 654
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Fragrance-free gentle foaming cleanser with rose extract and beta-glucan listed by the manufacturer",
+        "careTier": "gentle-daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+        "manufacturerEvidenceUrl": "https://danglifestyle.co/products/rose-face-wash",
+        "evidenceUrls": ["https://danglifestyle.co/products/rose-face-wash"],
+        "reviewedAt": "2026-08-09T17:00:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/rose-face-wash",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "pending",
+        "origin": "official-brand-source",
+        "role": "packshot",
+        "sourceUrl": "https://danglifestyle.co/products/rose-face-wash"
+      }
+    },
+    {
+      "id": "dang-hyaluronic-cream-hydrating-face-cleanser-200ml",
+      "brand": "DANG",
+      "name": "Hyaluronic Cream Hydrating Face Cleanser",
+      "variant": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml",
+      "size": "200 ml",
+      "category": "Face care",
+      "reason": "Hydrating cream cleanser with official manufacturer SKU DGL-SKC-052, observed on the DANG mid-year sale at ₦15,280 (regular ₦19,100). Gentle daily-care cleanser for sensitive and dry skin with hyaluronic acid; the official product page lists the item as sold out.",
+      "priority": "essential",
+      "gapIds": ["hydration-routine-coverage"],
+      "demandEvidenceUrls": [
+        "https://danglifestyle.co/products/hydrating-cream-cleanser"
+      ],
+      "identity": {
+        "canonicalIdentifier": {
+          "kind": "manufacturer-sku",
+          "value": "DGL-SKC-052"
+        },
+        "officialProductUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
+        "checkedAt": "2026-08-09T17:00:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://danglifestyle.co/products/hydrating-cream-cleanser",
+          "observedGtin": "DGL-SKC-052",
+          "observedVariant": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml",
+          "observedSize": "200 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/dang-hyaluronic-cream-hydrating-face-cleanser-200ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "dang-hyaluronic-cream-hydrating-face-cleanser-200ml",
+            "sourceUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
+            "responseUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
+            "retrievedAt": "2026-08-09T17:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "DGL-SKC-052",
+                "locator": "Official Shopify variant barcode",
+                "sourceText": "barcode: DGL-SKC-052"
+              },
+              "variant": {
+                "value": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml",
+                "locator": "Official product JSON title",
+                "sourceText": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml"
+              },
+              "size": {
+                "value": "200 ml",
+                "locator": "Official product title size suffix",
+                "sourceText": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml"
+              }
+            }
+          },
+          "snapshotSha256": "07274e458f72471d8a2fee06101a150dde01595bb170d24ee7d629c9ffa3559b",
+          "snapshotByteSize": 774
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Hydrating cream cleanser for sensitive and dry skin with hyaluronic acid listed by the manufacturer",
+        "careTier": "gentle-daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+        "manufacturerEvidenceUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
+        "evidenceUrls": [
+          "https://danglifestyle.co/products/hydrating-cream-cleanser"
+        ],
+        "reviewedAt": "2026-08-09T17:00:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "pending",
+        "origin": "official-brand-source",
+        "role": "packshot",
+        "sourceUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser"
+      }
+    },
+    {
+      "id": "dang-retinal-cream-005-30ml",
+      "brand": "DANG",
+      "name": "Retinal Cream 0.05%",
+      "variant": "Multipurpose Retinal Cream 0.05% 30ml",
+      "size": "30 ml",
+      "category": "Face care",
+      "reason": "Anti-aging retinal cream with official manufacturer SKU DGL-SKC-030, observed on the DANG store at ₦10,430 (regular ₦14,900). Targets fine lines and uneven skin tone with 0.05% retinaldehyde; the page notes the item is not suitable for pregnant and breastfeeding mothers.",
+      "priority": "essential",
+      "gapIds": ["anti-aging-routine-coverage"],
+      "demandEvidenceUrls": [
+        "https://danglifestyle.co/products/retinal-cream-0-05"
+      ],
+      "identity": {
+        "canonicalIdentifier": {
+          "kind": "manufacturer-sku",
+          "value": "DGL-SKC-030"
+        },
+        "officialProductUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+        "checkedAt": "2026-08-09T17:00:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://danglifestyle.co/products/retinal-cream-0-05",
+          "observedGtin": "DGL-SKC-030",
+          "observedVariant": "Multipurpose Retinal Cream 0.05% 30ml",
+          "observedSize": "30 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/dang-retinal-cream-005-30ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "dang-retinal-cream-005-30ml",
+            "sourceUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+            "responseUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+            "retrievedAt": "2026-08-09T17:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "DGL-SKC-030",
+                "locator": "Official Shopify variant barcode",
+                "sourceText": "barcode: DGL-SKC-030"
+              },
+              "variant": {
+                "value": "Multipurpose Retinal Cream 0.05% 30ml",
+                "locator": "Official product JSON title",
+                "sourceText": "Multipurpose Retinal Cream 0.05% 30ml"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "Official product title size suffix",
+                "sourceText": "Multipurpose Retinal Cream 0.05% 30ml"
+              }
+            }
+          },
+          "snapshotSha256": "c28a7be2d62e4e65bd4355fb27399e202d84f1508cf47259251b4b9c705390be",
+          "snapshotByteSize": 638
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on night retinal cream with 0.05% retinaldehyde and bakuchiol listed by the manufacturer",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Use at night only, introduce gradually, avoid the eye contour, stop if persistent irritation develops and seek clinical advice for severe or changing symptoms. Not suitable for pregnant or breastfeeding mothers.",
+        "manufacturerEvidenceUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+        "evidenceUrls": [
+          "https://danglifestyle.co/products/retinal-cream-0-05"
+        ],
+        "reviewedAt": "2026-08-09T17:00:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "pending",
+        "origin": "official-brand-source",
+        "role": "packshot",
+        "sourceUrl": "https://danglifestyle.co/products/retinal-cream-0-05"
+      }
+    },
+    {
+      "id": "dang-snail-mucin-repair-serum-100ml",
+      "brand": "DANG",
+      "name": "Snail Mucin Repair Serum",
+      "variant": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+      "size": "100 ml",
+      "category": "Face care",
+      "reason": "Repair serum with official manufacturer SKU DGL-SKC-023, observed on the DANG mid-year sale at ₦16,200 (regular ₦21,600). Supports skin rejuvenation and repair with snail mucin.",
+      "priority": "essential",
+      "gapIds": ["hydration-routine-coverage"],
+      "demandEvidenceUrls": [
+        "https://danglifestyle.co/products/snail-essence-serum"
+      ],
+      "identity": {
+        "canonicalIdentifier": {
+          "kind": "manufacturer-sku",
+          "value": "DGL-SKC-023"
+        },
+        "officialProductUrl": "https://danglifestyle.co/products/snail-essence-serum",
+        "checkedAt": "2026-08-09T17:00:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://danglifestyle.co/products/snail-essence-serum",
+          "observedGtin": "DGL-SKC-023",
+          "observedVariant": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+          "observedSize": "100 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/dang-snail-mucin-repair-serum-100ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "dang-snail-mucin-repair-serum-100ml",
+            "sourceUrl": "https://danglifestyle.co/products/snail-essence-serum",
+            "responseUrl": "https://danglifestyle.co/products/snail-essence-serum",
+            "retrievedAt": "2026-08-09T17:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "DGL-SKC-023",
+                "locator": "Official Shopify variant barcode",
+                "sourceText": "barcode: DGL-SKC-023"
+              },
+              "variant": {
+                "value": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+                "locator": "Official product JSON title",
+                "sourceText": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml"
+              },
+              "size": {
+                "value": "100 ml",
+                "locator": "Official product title size suffix",
+                "sourceText": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml"
+              }
+            }
+          },
+          "snapshotSha256": "0944223db0b0e515b7497be25b75667187f7a05b1cc9ce489e9c30b3f8c23d53",
+          "snapshotByteSize": 724
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on repair serum with snail mucin listed by the manufacturer",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+        "manufacturerEvidenceUrl": "https://danglifestyle.co/products/snail-essence-serum",
+        "evidenceUrls": [
+          "https://danglifestyle.co/products/snail-essence-serum"
+        ],
+        "reviewedAt": "2026-08-09T17:00:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/snail-essence-serum",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "pending",
+        "origin": "official-brand-source",
+        "role": "packshot",
+        "sourceUrl": "https://danglifestyle.co/products/snail-essence-serum"
+      }
+    },
+    {
+      "id": "dang-snail-secretion-filtrate-repair-face-cream-50g",
+      "brand": "DANG",
+      "name": "Snail Secretion Filtrate Repair Face Cream",
+      "variant": "Snail Secretion Filtrate Repair Face Cream",
+      "size": "50 g",
+      "category": "Face care",
+      "reason": "Repair face cream with official manufacturer SKU DGL-SKC-019, observed on the DANG mid-year sale at ₦12,920 (regular ₦15,200). Targets dark spots and skin repair with snail secretion filtrate and tranexamic acid.",
+      "priority": "essential",
+      "gapIds": ["dark-spot-routine-coverage"],
+      "demandEvidenceUrls": [
+        "https://danglifestyle.co/products/snail-mucin-cream"
+      ],
+      "identity": {
+        "canonicalIdentifier": {
+          "kind": "manufacturer-sku",
+          "value": "DGL-SKC-019"
+        },
+        "officialProductUrl": "https://danglifestyle.co/products/snail-mucin-cream",
+        "checkedAt": "2026-08-09T17:00:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://danglifestyle.co/products/snail-mucin-cream",
+          "observedGtin": "DGL-SKC-019",
+          "observedVariant": "Snail Secretion Filtrate Repair Face Cream",
+          "observedSize": "50 g",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/dang-snail-secretion-filtrate-repair-face-cream-50g.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "dang-snail-secretion-filtrate-repair-face-cream-50g",
+            "sourceUrl": "https://danglifestyle.co/products/snail-mucin-cream",
+            "responseUrl": "https://danglifestyle.co/products/snail-mucin-cream",
+            "retrievedAt": "2026-08-09T17:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "DGL-SKC-019",
+                "locator": "Official Shopify variant barcode",
+                "sourceText": "barcode: DGL-SKC-019"
+              },
+              "variant": {
+                "value": "Snail Secretion Filtrate Repair Face Cream",
+                "locator": "Official product JSON title",
+                "sourceText": "Snail Secretion Filtrate Repair Face Cream"
+              },
+              "size": {
+                "value": "50 g",
+                "locator": "Official product page size specification",
+                "sourceText": "50g"
+              }
+            }
+          },
+          "snapshotSha256": "c68fe021496bceefbc4b3cb2835aa3b130a81e51d523e5cc0bdc040400b3873e",
+          "snapshotByteSize": 641
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on repair face cream with snail secretion filtrate and tranexamic acid listed by the manufacturer",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+        "manufacturerEvidenceUrl": "https://danglifestyle.co/products/snail-mucin-cream",
+        "evidenceUrls": ["https://danglifestyle.co/products/snail-mucin-cream"],
+        "reviewedAt": "2026-08-09T17:00:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/snail-mucin-cream",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "pending",
+        "origin": "official-brand-source",
+        "role": "packshot",
+        "sourceUrl": "https://danglifestyle.co/products/snail-mucin-cream"
+      }
+    },
+    {
+      "id": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
+      "brand": "DANG",
+      "name": "Vitamin C Concentrated Serum (Oil Free)",
+      "variant": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
+      "size": "30 ml",
+      "category": "Face care",
+      "reason": "Brightening serum with official manufacturer SKU DGL-SKC-020, observed on the DANG mid-year sale at ₦15,045 (regular ₦17,700). Targets dark spots and dullness with 7% ethyl ascorbic acid, aloe vera extract and glycerin.",
+      "priority": "essential",
+      "gapIds": ["dark-spot-routine-coverage"],
+      "demandEvidenceUrls": [
+        "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
+      ],
+      "identity": {
+        "canonicalIdentifier": {
+          "kind": "manufacturer-sku",
+          "value": "DGL-SKC-020"
+        },
+        "officialProductUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+        "checkedAt": "2026-08-09T17:00:00Z",
+        "basis": "official-brand",
+        "officialEvidence": {
+          "url": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+          "observedGtin": "DGL-SKC-020",
+          "observedVariant": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
+          "observedSize": "30 ml",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/dang-vitamin-c-concentrated-serum-oil-free-30ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
+            "sourceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+            "responseUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+            "retrievedAt": "2026-08-09T17:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "DGL-SKC-020",
+                "locator": "Official Shopify variant barcode",
+                "sourceText": "barcode: DGL-SKC-020"
+              },
+              "variant": {
+                "value": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
+                "locator": "Official product JSON title",
+                "sourceText": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml"
+              },
+              "size": {
+                "value": "30 ml",
+                "locator": "Official product title size suffix",
+                "sourceText": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml"
+              }
+            }
+          },
+          "snapshotSha256": "abbc289e72840c09269b3f4e58ade860d62ba1adc2a8c148c292d4136efb1318",
+          "snapshotByteSize": 728
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "Leave-on oil-free serum with 7% ethyl ascorbic acid, aloe vera extract and glycerin listed by the manufacturer",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+        "manufacturerEvidenceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+        "evidenceUrls": [
+          "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
+        ],
+        "reviewedAt": "2026-08-09T17:00:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "pending",
+        "origin": "official-brand-source",
+        "role": "packshot",
+        "sourceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
       }
     },
     {
