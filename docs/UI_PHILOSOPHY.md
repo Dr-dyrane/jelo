@@ -67,3 +67,110 @@ Before shipping a new interaction, verify:
 3. Focus, keyboard use, mobile sheets, contrast, and reduced motion work.
 4. Copy is shorter than the first draft and still clear.
 5. No border, badge, weight, icon, image, price, or claim violates this contract.
+
+## Lessons learned — UI and data-flow fixes
+
+Updated: 2026-08-08
+
+Each entry below documents a real bug that shipped, its root cause, and the
+rule that prevents recurrence. Follow these before adding new UI or changing
+data flow.
+
+### 1. Use design tokens, not generic CSS variables
+
+**Symptom:** Mobile search overlay looked like a blank white canvas with a
+slender, unrounded input that did not match the site's warm aesthetic.
+
+**Root cause:** The overlay CSS used generic variable names (`--surface`,
+`--text`, `--accent`, `--text-muted`) with hardcoded fallbacks instead of the
+project's design tokens (`--cream`, `--ink`, `--wine`, `--paper`, `--muted`,
+`--surface-2`, `--border`). The fallbacks resolved to a plain white/grey
+palette that ignored the warm peach/cream theme.
+
+**Rule:** Every new CSS module must use the project's design tokens from
+`app/globals.css`. Never invent local CSS variable names with hardcoded
+fallbacks. The token set is: `--ink`, `--muted`, `--cream`, `--paper`,
+`--surface-2`, `--surface-3`, `--card`, `--card-2`, `--card-3`, `--border`,
+`--peach`, `--rose`, `--wine`, `--accent-solid`, `--on-accent`, `--band`,
+`--on-band`, `--band-muted`, `--shadow`, `--shot-shadow`. These tokens
+auto-flip in dark mode — generic variables do not.
+
+### 2. A search surface is never blank
+
+**Symptom:** Mobile search overlay showed nothing before the user typed.
+Desktop search (Twitter/X-style) always shows trending topics or popular
+categories.
+
+**Root cause:** No `staticSuggestions` prop was passed to the overlay, and
+the component had no built-in defaults. The `showPopular` condition required
+`staticSuggestions.length > 0`, so the popular section never rendered.
+
+**Rule:** Any search interface must show useful content before the user
+types — popular categories, trending concerns, or recent searches. Never
+render a blank search page. If no external suggestions are passed, fall back
+to built-in defaults.
+
+### 3. Badges must not be clipped by ancestor overflow
+
+**Symptom:** The "verified pick" badge (a circular icon at `top: -10px;
+left: -10px`) on the #1 store link was clipped on mobile.
+
+**Root cause:** `.retailer-panel` had `overflow: hidden` at `max-width: 620px`
+to prevent horizontal scroll. The badge was absolutely positioned outside the
+container's content box, so `overflow: hidden` cut it off.
+
+**Rule:** When a child element is absolutely positioned with negative offsets
+(badges, pick markers, decorative elements), no ancestor may have
+`overflow: hidden` or `overflow: clip`. Use `overflow-x: hidden` only if
+horizontal scroll is a problem, and add padding to the container to
+accommodate the negative offset. Test badges at every breakpoint.
+
+### 4. Out-of-stock products should show last known price
+
+**Symptom:** Products with listings but no available stock showed "Current
+price unavailable" even when a price had been observed and recorded before
+the stockout.
+
+**Root cause:** `observedMarketPrice()` returns `null` when
+`offer.available === false`, so the `listing-only` market reading state had
+no price information. The old price was in the offer data but never surfaced.
+
+**Rule:** The `listing-only` `MarketReading` state must include
+`lastKnownPriceLabel` (e.g. "Was ₦9,850") when a price was previously
+recorded. Never show "Current price unavailable" when a historical price
+exists. The price label must be prefixed with "Was" to make clear it is not
+current.
+
+### 5. Price trends chart must query the database, not just static data
+
+**Symptom:** Price trends graph on the share page showed no data even after
+the inventory refresh worker had saved prices to the `offer_price_history`
+table for 4+ days.
+
+**Root cause:** `fetchRawObservations()` in `lib/share/product-trends.ts`
+only read from `data/price-history.ts` (static, hardcoded anchor points). It
+never queried the `offer_price_history` database table. The inventory refresh
+worker was correctly inserting rows, but the chart never read them.
+
+**Rule:** Any function that fetches historical data for charts or trends must
+query the database (`offer_price_history` table) as the primary source. Static
+data is a fallback only when `hasPostgresConfig()` returns false or the query
+returns no rows. The data flow is: inventory refresh worker →
+`offer_price_history` table → `getProductPriceHistory()` → chart points.
+Never bypass the database to read only static data when a DB is configured.
+
+### 6. Disclaimers should be compact chips, not paragraphs
+
+**Symptom:** The handoff view had a 3-line disclosure paragraph that was
+verbose and visually heavy. The retailer list and share card had similarly
+long disclaimer text.
+
+**Root cause:** Disclaimers were written as full sentences in `<p>` tags
+with no visual hierarchy. The copy repeated across three surfaces with
+slightly different wording.
+
+**Rule:** Disclaimers should be compact badge chips — one icon + 2-3 words
+per chip, wrapped in a flex row. Use the project's `color-mix` warm tint
+background. Keep copy to the minimum: "Prices may change", "Listing ≠
+genuine", "Delivery extra". Never write a multi-sentence disclaimer paragraph
+when chips communicate the same information.

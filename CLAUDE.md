@@ -4,9 +4,11 @@ Start with [the JeloCare handbook](./docs/README.md). For routine product work,
 use [the catalogue fast lane](./docs/catalogue/FAST_LANE.md) and the enforcing
 manifests and verifiers instead of reconstructing the workflow from git
 history. For a log of errors encountered and their fixes, see
-[troubleshooting](./docs/catalogue/TROUBLESHOOTING.md).
+[troubleshooting](./docs/catalogue/TROUBLESHOOTING.md). For UI and data-flow
+rules learned from shipped bugs, see the [lessons learned section in
+UI_PHILOSOPHY](./docs/UI_PHILOSOPHY.md#lessons-learned--ui-and-data-flow-fixes).
 
-That means do not re-derive the *whole* workflow from history. It does not mean
+That means do not re-derive the _whole_ workflow from history. It does not mean
 avoid history. When a single step is unclear — how an asset is produced, what a
 release record contains, which fixtures move — read the last product commit
 (`git log --oneline -- data/catalogue-publication-releases.json`, then
