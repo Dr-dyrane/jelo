@@ -121,10 +121,7 @@ test("company suggestions retain counts and market in a bounded deterministic re
     ["CeraVe", "CeraMed"],
   );
   assert.equal(suggestions[0]?.detail, "8 products");
-  assert.equal(
-    suggestions[0]?.href,
-    "/products?brand=CeraVe&market=US#all-products",
-  );
+  assert.equal(suggestions[0]?.href, "/brands/cerave");
 });
 
 test("suggestion requests are bounded, normalized and market aware", () => {

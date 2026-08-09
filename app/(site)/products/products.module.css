@@ -148,6 +148,24 @@
   color: var(--wine);
   font-size: 0.75rem;
 }
+
+.brandProfileLink {
+  width: fit-content;
+  min-height: 2.75rem;
+  margin-top: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--wine);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.brandProfileLink:focus-visible {
+  border-radius: 999px;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
 .browseTabs {
   padding: 0.25rem;
   display: flex;

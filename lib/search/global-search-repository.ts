@@ -11,6 +11,7 @@ import {
 import { nigeriaRetailers } from "@/data/retailers";
 import { parsePublicCatalogueSearchArtifact } from "@/lib/catalogue/public-catalogue-search";
 import type { GlobalSearchEntry } from "./global-search-index";
+import { brandProfileHref } from "@/lib/catalogue/brand-profile";
 
 const categoryRecords = [
   {
@@ -132,7 +133,7 @@ export function buildGlobalSearchRepository(): GlobalSearchRepository {
       type: "company",
       label: company.label,
       detail: `${company.count} ${company.count === 1 ? "product" : "products"} in the public catalogue`,
-      href: `/products?brand=${encodeURIComponent(company.label)}#all-products`,
+      href: brandProfileHref(company.label),
       keywords: ["brand", "company"],
     }),
   );

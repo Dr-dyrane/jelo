@@ -24,6 +24,19 @@ export async function GET(request: Request) {
     if (!retailer) return undefined;
     const profile = buildRetailerProfile(retailer, await listCatalogueProducts());
     return { slug, name: retailer.name, productCount: profile.productCount };
+  }, async slug => {
+    const [{ listCatalogueProducts }, { buildBrandProfile }] = await Promise.all([
+      import('@/lib/catalogue/repository'),
+      import('@/lib/catalogue/brand-profile'),
+    ]);
+    const profile = buildBrandProfile(slug, await listCatalogueProducts());
+    if (!profile) return undefined;
+    return {
+      slug,
+      name: profile.name,
+      productCount: profile.productCount,
+      categoryCount: profile.categoryCount,
+    };
   });
   const resolvedCard = card ?? staticSocialCard('home');
   const [fonts, packshotSrc] = await Promise.all([

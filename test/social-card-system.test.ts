@@ -12,6 +12,7 @@ import {
   PUBLIC_SOCIAL_ROUTE_COVERAGE,
   SITE_ORIGIN,
   SocialCard,
+  brandSocialCard,
   catalogueSocialCard,
   productSocialCard,
   publicSocialMetadata,
@@ -194,6 +195,33 @@ test('retailer profile cards preserve exact retailer identity and observed depth
       : undefined,
   );
   assert.deepEqual(resolved, beautyHut);
+});
+
+test('brand profile cards preserve exact brand identity and catalogue depth', async () => {
+  const dang = brandSocialCard({
+    slug: 'dang-lifestyle',
+    name: 'DANG! Lifestyle',
+    productCount: 3,
+    categoryCount: 2,
+  });
+  const cerave = brandSocialCard({
+    slug: 'cerave',
+    name: 'CeraVe',
+    productCount: 12,
+    categoryCount: 2,
+  });
+
+  assert.notEqual(socialImageUrl(dang), socialImageUrl(cerave));
+  assert.match(dang.description, /3 products/);
+  const resolved = await resolveSocialCard(
+    new URL(socialImageUrl(dang)),
+    undefined,
+    undefined,
+    async slug => slug === dang.request.slug
+      ? { slug, name: 'DANG! Lifestyle', productCount: 3, categoryCount: 2 }
+      : undefined,
+  );
+  assert.deepEqual(resolved, dang);
 });
 
 test('the shared endpoint emits cacheable 1200x630 PNG images', async () => {

@@ -1,0 +1,472 @@
+.main {
+  padding-top: 4.75rem;
+  background: var(--cream);
+}
+
+.hero {
+  min-height: calc(100svh - 4.75rem);
+  padding: clamp(4.5rem, 8vw, 8rem) 4vw 4vw;
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(30rem, 1.14fr);
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: center;
+  background:
+    radial-gradient(
+      circle at 12% 16%,
+      color-mix(in srgb, var(--paper) 78%, transparent),
+      transparent 28rem
+    ),
+    linear-gradient(
+      145deg,
+      var(--product-blush),
+      var(--peach) 57%,
+      var(--product-pink)
+    );
+}
+
+.heroCopy {
+  position: relative;
+  z-index: 2;
+  max-width: 45rem;
+}
+
+.backLink {
+  width: max-content;
+  min-height: 2.75rem;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.hero h1 {
+  max-width: 9ch;
+  margin: 1rem 0 1.6rem;
+  font-family: var(--font-display), serif;
+  font-size: clamp(4.5rem, 8.7vw, 9.4rem);
+  font-weight: 400;
+  line-height: 0.79;
+  letter-spacing: -0.055em;
+  overflow-wrap: anywhere;
+}
+
+.intro {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.3vw, 1.16rem);
+  line-height: 1.68;
+}
+
+.heroActions {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.heroActions a {
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 58%, transparent);
+  color: var(--wine);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.heroActions .primaryAction {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.roleLink {
+  width: fit-content;
+  min-height: 2.75rem;
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--wine);
+  font-size: 0.71rem;
+  font-weight: 600;
+}
+
+.heroStage {
+  position: relative;
+  min-height: clamp(32rem, 48vw, 40rem);
+  overflow: hidden;
+  border-radius: clamp(2rem, 4vw, 3.5rem);
+  background:
+    radial-gradient(
+      circle at 50% 43%,
+      color-mix(in srgb, var(--paper) 80%, transparent),
+      transparent 39%
+    ),
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--paper) 56%, transparent),
+      color-mix(in srgb, var(--rose) 52%, transparent)
+    );
+  box-shadow: var(--shadow);
+  isolation: isolate;
+}
+
+.heroStage::before {
+  content: "";
+  position: absolute;
+  width: 28rem;
+  height: 28rem;
+  right: -10rem;
+  top: -13rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--paper) 35%, transparent);
+}
+
+.stageCopy {
+  position: absolute;
+  z-index: 5;
+  top: 1.55rem;
+  left: 1.65rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.stageCopy span {
+  color: var(--wine);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.stageCopy strong {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.productPortraits {
+  position: absolute;
+  z-index: 2;
+  inset: 4.2rem 1rem 8.4rem;
+}
+
+.productPortraits > span {
+  position: absolute;
+  bottom: 0;
+  display: block;
+}
+
+.productPortraits img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(
+    0 2rem 2.4rem color-mix(in srgb, var(--wine) 15%, transparent)
+  );
+}
+
+.portrait1 {
+  z-index: 3;
+  width: 45%;
+  height: 83%;
+  left: 27.5%;
+}
+
+.portrait2 {
+  z-index: 2;
+  width: 35%;
+  height: 64%;
+  left: 1%;
+  transform: rotate(-4deg);
+}
+
+.portrait3 {
+  z-index: 1;
+  width: 34%;
+  height: 61%;
+  right: 1%;
+  transform: rotate(4deg);
+}
+
+.metrics {
+  position: absolute;
+  z-index: 6;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 0.8rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+  border-radius: 1.55rem;
+  background: color-mix(in srgb, var(--paper) 80%, transparent);
+  backdrop-filter: blur(22px);
+}
+
+.metrics > span {
+  min-height: 4.6rem;
+  padding: 0.35rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.metrics strong {
+  font-family: var(--font-display), serif;
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.metrics small {
+  margin-top: 0.3rem;
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.rangeSection,
+.catalogueSection,
+.observedSection {
+  padding: clamp(5rem, 9vw, 9rem) 4vw;
+}
+
+.rangeSection {
+  background: var(--paper);
+}
+
+.sectionHeading {
+  margin-bottom: clamp(2rem, 4vw, 4rem);
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.sectionHeading h2,
+.observedSection h2 {
+  margin: 0.7rem 0 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(3.3rem, 6.8vw, 7rem);
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+}
+
+.sectionHeading > p {
+  max-width: 28rem;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.categoryRail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.categoryRail article {
+  min-height: 15rem;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 1.8rem;
+  background: var(--product-peach);
+}
+
+.categoryRail article:nth-child(2) {
+  background: var(--product-pink);
+}
+
+.categoryRail article:nth-child(3) {
+  background: var(--product-blush);
+}
+
+.categoryRail article > span,
+.categoryRail small {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.categoryRail strong {
+  margin-top: auto;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.2rem, 4vw, 4.4rem);
+  font-weight: 400;
+  line-height: 0.9;
+}
+
+.categoryRail small {
+  margin-top: 0.7rem;
+}
+
+.catalogueSection {
+  background: var(--cream);
+}
+
+.observedSection {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(24rem, 1.15fr);
+  gap: clamp(3rem, 8vw, 9rem);
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.observedSection > div:first-child > p:last-child {
+  max-width: 34rem;
+  color: var(--band-muted);
+  line-height: 1.7;
+}
+
+.retailerList {
+  align-self: center;
+  display: grid;
+}
+
+.retailerList > a,
+.retailerList > div {
+  min-height: 4.75rem;
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--cream) 14%, transparent);
+}
+
+.retailerList span {
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.retailerList small,
+.observedAt,
+.emptyRetailers {
+  color: var(--band-muted);
+  font-size: 0.7rem;
+}
+
+.observedAt {
+  margin: 1.2rem 0 0;
+}
+
+.emptyRetailers {
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    max-width: 11ch;
+  }
+
+  .heroStage {
+    min-height: 36rem;
+  }
+
+  .observedSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: auto;
+    padding: 6rem 1rem 1rem;
+    gap: 3rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(4.2rem, 20vw, 7rem);
+  }
+
+  .heroStage {
+    min-height: 31rem;
+    border-radius: 1.8rem;
+  }
+
+  .heroActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .heroActions a {
+    width: 100%;
+  }
+
+  .roleLink {
+    align-items: flex-start;
+  }
+
+  .productPortraits {
+    right: 0.25rem;
+    left: 0.25rem;
+  }
+
+  .metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .metrics > span {
+    padding: 0.25rem;
+  }
+
+  .metrics strong {
+    font-size: 2rem;
+  }
+
+  .metrics small {
+    font-size: 0.56rem;
+  }
+
+  .rangeSection,
+  .catalogueSection,
+  .observedSection {
+    padding: 5rem 1rem;
+  }
+
+  .sectionHeading {
+    display: block;
+  }
+
+  .sectionHeading > p {
+    margin-top: 1.25rem;
+  }
+
+  .categoryRail {
+    grid-template-columns: 1fr;
+  }
+
+  .categoryRail article {
+    min-height: 11rem;
+  }
+
+  .retailerList > a,
+  .retailerList > div {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .retailerList svg {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    scroll-behavior: auto;
+  }
+}

@@ -14,6 +14,7 @@ import { Parallax } from "@/components/motion/parallax";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { editorialAsset } from "@/data/editorial";
+import { brandProfileHref } from "@/lib/catalogue/brand-profile";
 import {
   buildCataloguePageModel,
   type CataloguePageParams,
@@ -273,6 +274,15 @@ export default async function ProductsPage({
                 ? `${result.total.toLocaleString()} ${result.total === 1 ? "profile" : "profiles"}.`
                 : `${result.total.toLocaleString()} found.`}
             </h2>
+            {result.filters.brand ? (
+              <Link
+                className={styles.brandProfileLink}
+                href={brandProfileHref(result.filters.brand)}
+              >
+                View {result.filters.brand} brand profile
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            ) : null}
           </div>
           <InventoryFilterSheet
             filters={

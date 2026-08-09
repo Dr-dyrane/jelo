@@ -1,12 +1,15 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { Counter } from "@/components/motion/counter";
 import { Stamp } from "@/components/motion/stamp";
 
 type ProductHeroMotionProps = {
   brand: string;
+  brandHref: string;
   name: string;
   size: string | null;
   category: string;
@@ -36,6 +39,7 @@ function nairaFormat(value: number) {
  */
 export function ProductHeroMotion({
   brand,
+  brandHref,
   name,
   size,
   category,
@@ -55,14 +59,17 @@ export function ProductHeroMotion({
     <section className="product-hero">
       <div className="product-visual-large">{image}</div>
       <div className="product-story">
-        <motion.p
-          className="eyebrow"
+        <motion.div
+          className="product-brand-entry"
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease, delay: 0 }}
         >
-          {brand}
-        </motion.p>
+          <Link href={brandHref} aria-label={`View all ${brand} products`}>
+            <span className="eyebrow">{brand}</span>
+            <ArrowUpRight size={14} aria-hidden="true" />
+          </Link>
+        </motion.div>
         <motion.h1
           initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

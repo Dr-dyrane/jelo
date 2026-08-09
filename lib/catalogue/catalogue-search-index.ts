@@ -1,4 +1,5 @@
 import type { CatalogueSearchSuggestion } from '@/components/products/catalogue-search-suggestions';
+import { brandProfileHref } from '@/lib/catalogue/brand-profile';
 
 export type CatalogueSearchRecord = {
   source: 'reviewed' | 'community';
@@ -106,7 +107,7 @@ export function productCatalogueSearchSuggestions(
 export function companyCatalogueSearchSuggestions(
   companies: CatalogueSearchCompany[],
   query: string,
-  market: 'NG' | 'US',
+  _market: 'NG' | 'US',
   limit = 4,
 ): CatalogueSearchSuggestion[] {
   const tokens = catalogueSearchTokens(query);
@@ -136,13 +137,11 @@ export function companyCatalogueSearchSuggestions(
     })
     .slice(0, safeLimit)
     .map(company => {
-      const params = new URLSearchParams({ brand: company.label });
-      if (market === 'US') params.set('market', 'US');
       return {
         kind: 'company',
         label: company.label,
         detail: `${company.count} ${company.count === 1 ? 'product' : 'products'}`,
-        href: `/products?${params.toString()}#all-products`,
+        href: brandProfileHref(company.label),
       };
     });
 }

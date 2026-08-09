@@ -20,6 +20,7 @@ export type SocialCardKind =
   | 'ingredient'
   | 'retailers'
   | 'retailer'
+  | 'brand'
   | 'consult'
   | 'contribute'
   | 'share-index'
@@ -163,6 +164,7 @@ export const PUBLIC_SOCIAL_ROUTE_COVERAGE = [
   { family: '/ingredients', source: 'app/(site)/ingredients/page.tsx', context: 'ingredient library index' },
   { family: '/retailers', source: 'app/(site)/retailers/page.tsx', context: 'retailer guide' },
   { family: '/retailers/[slug]', source: 'app/(site)/retailers/[slug]/page.tsx', context: 'exact retailer profile and observed products' },
+  { family: '/brands/[slug]', source: 'app/(site)/brands/[slug]/page.tsx', context: 'exact brand profile and public catalogue products' },
   { family: '/consult', source: 'app/(site)/consult/page.tsx', context: 'educational consultation entry' },
   { family: '/contribute', source: 'app/(site)/contribute/page.tsx', context: 'anonymous contribution entry' },
   { family: '/share', source: 'app/(site)/share/page.tsx', context: 'share landing' },
@@ -423,6 +425,13 @@ export type RetailerCardIdentity = {
   productCount: number;
 };
 
+export type BrandCardIdentity = {
+  slug: string;
+  name: string;
+  productCount: number;
+  categoryCount: number;
+};
+
 export function retailerSocialCard(retailer: RetailerCardIdentity): SocialCardModel {
   const productLabel = `${retailer.productCount} ${retailer.productCount === 1 ? 'product' : 'products'}`;
   const hasProducts = retailer.productCount > 0;
@@ -443,10 +452,27 @@ export function retailerSocialCard(retailer: RetailerCardIdentity): SocialCardMo
   };
 }
 
+export function brandSocialCard(brand: BrandCardIdentity): SocialCardModel {
+  const productLabel = `${brand.productCount} ${brand.productCount === 1 ? 'product' : 'products'}`;
+  const areaLabel = `${brand.categoryCount} ${brand.categoryCount === 1 ? 'care area' : 'care areas'}`;
+  return {
+    request: { kind: 'brand', slug: brand.slug },
+    eyebrow: 'Brand profile · JeloCare',
+    title: brand.name,
+    description: `${productLabel} across ${areaLabel}.`,
+    detail: 'Exact products · Nigerian price context',
+    metaTitle: `${brand.name} products`,
+    metaDescription: `Browse ${productLabel} from ${brand.name} in the JeloCare catalogue, with current Nigerian price context where available.`,
+    alt: `${brand.name} brand profile on JeloCare · ${productLabel}`,
+    theme: 'dark',
+  };
+}
+
 export async function resolveSocialCard(
   url: URL,
   findProduct: (slug: string) => Promise<ProductCardIdentity | undefined> = async slug => products.find(product => product.slug === slug),
   findRetailer: (slug: string) => Promise<RetailerCardIdentity | undefined> = async () => undefined,
+  findBrand: (slug: string) => Promise<BrandCardIdentity | undefined> = async () => undefined,
 ): Promise<SocialCardModel | null> {
   const kind = url.searchParams.get('kind') as SocialCardKind | null;
   if (!kind) return null;
@@ -472,6 +498,10 @@ export async function resolveSocialCard(
   if (kind === 'retailer') {
     const retailer = await findRetailer(url.searchParams.get('slug') ?? '');
     return retailer ? retailerSocialCard(retailer) : null;
+  }
+  if (kind === 'brand') {
+    const brand = await findBrand(url.searchParams.get('slug') ?? '');
+    return brand ? brandSocialCard(brand) : null;
   }
   if (kind === 'concern') return concernSocialCard(url.searchParams.get('slug') ?? '');
   if (kind === 'ingredient') return ingredientSocialCard(url.searchParams.get('slug') ?? '');

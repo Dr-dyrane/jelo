@@ -13,6 +13,7 @@ import { ProductQuickPanel } from "@/components/products/product-quick-panel";
 import { ProductSizeSelector } from "@/components/products/product-size-selector";
 import { SafeProductImage } from "@/components/products/safe-product-image";
 import { resolveCatalogueProductFamily } from "@/lib/catalogue/product-family";
+import { brandProfileHref } from "@/lib/catalogue/brand-profile";
 import { readProductPanelData } from "@/lib/catalogue/product-panel-model";
 import {
   findCatalogueProduct,
@@ -129,6 +130,7 @@ export default async function ProductPage({
       <main className="product-page">
         <ProductHeroMotion
           brand={product.brand}
+          brandHref={brandProfileHref(product.brand)}
           name={product.name}
           size={productFamily ? null : product.size}
           category={product.category}

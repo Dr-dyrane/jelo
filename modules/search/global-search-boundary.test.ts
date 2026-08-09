@@ -43,6 +43,15 @@ test("retailer results use truthful source labels", () => {
   }
 });
 
+test("company results open dedicated brand profiles", () => {
+  const repository = buildGlobalSearchRepository();
+  for (const company of repository.entries.filter(
+    (entry) => entry.type === "company",
+  )) {
+    assert.match(company.href, /^\/brands\/[a-z0-9-]+$/);
+  }
+});
+
 test("header routes every search entry point to the global search page and the old overlay is retired", () => {
   const root = process.cwd();
   const header = readFileSync(

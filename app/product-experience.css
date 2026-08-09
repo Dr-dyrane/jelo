@@ -43,6 +43,24 @@
   gap: 0.4rem;
 }
 
+.product-brand-entry {
+  width: fit-content;
+}
+
+.product-brand-entry a {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--wine);
+}
+
+.product-brand-entry a:focus-visible {
+  border-radius: 999px;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
 .product-size-selector-label {
   color: var(--muted);
   font-size: 0.61rem;

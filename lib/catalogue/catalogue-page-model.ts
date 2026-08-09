@@ -24,6 +24,7 @@ import {
   loadInventory,
 } from '@/lib/catalogue/inventory-repository';
 import { selectRecentlyCheckedProducts } from '@/lib/catalogue/inventory-shelves';
+import { brandProfileHref } from '@/lib/catalogue/brand-profile';
 import { catalogueSearchHandoffHref } from '@/lib/community-intake/catalogue-search-handoff';
 import { productMatchesConcern } from '@/modules/concerns/product-matching';
 
@@ -174,7 +175,7 @@ export async function buildCataloguePageModel(
         kind: 'company' as const,
         label: company.label,
         detail: `${company.count} ${company.count === 1 ? 'product' : 'products'}`,
-        href: inventoryShortcutHref(market, 'brand', company.label),
+        href: brandProfileHref(company.label),
       })),
   ];
   const paginationParams = queryFrom(params);
