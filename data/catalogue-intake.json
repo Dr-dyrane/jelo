@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-09T17:05:00Z",
+  "updatedAt": "2026-08-09T18:10:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -13887,7 +13887,7 @@
     },
     {
       "id": "dang-beauty-water-toner-100ml",
-      "brand": "DANG",
+      "brand": "Dang! Lifestyle Inc.",
       "name": "Beauty Water (Toner)",
       "variant": "Beauty Water (Toner)-100ml",
       "size": "100 ml",
@@ -13905,7 +13905,7 @@
           "label": "SKU"
         },
         "officialProductUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
-        "packageVersion": "Beauty Water (Toner)-100ml",
+        "packageVersion": "Current bottle",
         "checkedAt": "2026-08-09T17:05:00Z",
         "basis": "official-brand",
         "officialEvidence": {
@@ -13917,9 +13917,9 @@
           "observedSize": "100ml",
           "snapshotKind": "canonical-extraction",
           "snapshotPath": "data/catalogue-identity-evidence/dang-beauty-water-toner-100ml.json",
-          "snapshotSha256": "b063ab89ba45ef1087f220fd6de54035d1d54391f1b82146b2f42b4d3f6b6266",
+          "snapshotSha256": "084e5c62f1f08a39b12d7e6e36292475118a204104c2dc9cacf2109d7c8aaf9d",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 5113,
+          "snapshotByteSize": 6107,
           "retrievedAt": "2026-08-09T17:00:00Z",
           "canonicalExtraction": {
             "barcodeAlias": true,
@@ -13942,9 +13942,14 @@
                 "value": "DGL-SKC-017"
               },
               "packageVersion": {
-                "locator": "Official Shopify product response title and package identity",
-                "sourceText": "Beauty Water (Toner)-100ml",
-                "value": "Beauty Water (Toner)-100ml"
+                "locator": "Official Shopify product response media[0].src, visually reviewed",
+                "reviewedMedia": {
+                  "sourceAssetSha256": "77c8dc3a190c63a67b11167657ff4aeb82bf1ed94c1cfbc2f5f683f9059302a5",
+                  "sourceAssetUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051",
+                  "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051"
+                },
+                "sourceText": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051",
+                "value": "Current bottle"
               },
               "size": {
                 "locator": "Official Shopify product response title size suffix",
@@ -13959,11 +13964,11 @@
             },
             "method": "reviewed-exact-official-manufacturer-sku-response",
             "productRecord": {
-              "byteEnd": 2431,
+              "byteEnd": 2880,
               "byteStart": 0,
               "locator": "Complete official Shopify product response root object",
-              "sourceFragmentSha256": "8a612c2d196e103330407a33a54798a201c8d112d3df2dde99f4c7844b4fff23",
-              "sourceText": "{\"id\":10201190465784,\"title\":\"Beauty Water (Toner)-100ml\",\"handle\":\"centella-asiatica-toner\",\"description\":\"<p>Hydrating Face Toner; Alcohol-Free; Fragrance-Free</p>\\n<p>Transform your skincare routine with this hydrating face toner, your secret to soft, balanced, and visibly refreshed skin.</p>\\n<p><strong>Who is it for?</strong></p>\\n<p>Perfect for dry, sensitive skin.</p>\\n<p><em><strong>Ready to experience hydration like never before? Add this soothing toner to your cart and give your skin the love it deserves.</strong></em></p>\\n<div>\\n<p><strong>Shelf Life</strong>: 1 year from the date of first use.</p>\\n</div>\",\"published_at\":\"2026-07-09T10:57:29+01:00\",\"created_at\":\"2026-07-09T10:57:29+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[],\"price\":1224000,\"price_min\":1224000,\"price_max\":1224000,\"available\":true,\"price_varies\":false,\"compare_at_price\":1440000,\"compare_at_price_min\":1440000,\"compare_at_price_max\":1440000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931559534840,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-017\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Beauty Water (Toner)-100ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1224000,\"weight\":700,\"compare_at_price\":1440000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-017\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/centella-asiatica-toner\",\"media\":[{\"alt\":\"hydrating face toner\",\"id\":41393976148216,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":1000,\"width\":1000,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\"},\"aspect_ratio\":1,\"height\":1000,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\",\"width\":1000}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+              "sourceFragmentSha256": "02ec18f8fa3877fc32f585fe493058514c19fb80498f64b2c114a13b32dc88f2",
+              "sourceText": "{\n  \"id\": 10201190465784,\n  \"title\": \"Beauty Water (Toner)-100ml\",\n  \"handle\": \"centella-asiatica-toner\",\n  \"description\": \"<p>Hydrating Face Toner; Alcohol-Free; Fragrance-Free</p>\\n<p>Transform your skincare routine with this hydrating face toner, your secret to soft, balanced, and visibly refreshed skin.</p>\\n<p><strong>Who is it for?</strong></p>\\n<p>Perfect for dry, sensitive skin.</p>\\n<p><em><strong>Ready to experience hydration like never before? Add this soothing toner to your cart and give your skin the love it deserves.</strong></em></p>\\n<div>\\n<p><strong>Shelf Life</strong>: 1 year from the date of first use.</p>\\n</div>\",\n  \"published_at\": \"2026-07-09T10:57:29+01:00\",\n  \"created_at\": \"2026-07-09T10:57:29+01:00\",\n  \"vendor\": \"Dang! Lifestyle Inc.\",\n  \"type\": \"Skin Care\",\n  \"tags\": [],\n  \"price\": 1224000,\n  \"price_min\": 1224000,\n  \"price_max\": 1224000,\n  \"available\": true,\n  \"price_varies\": false,\n  \"compare_at_price\": 1440000,\n  \"compare_at_price_min\": 1440000,\n  \"compare_at_price_max\": 1440000,\n  \"compare_at_price_varies\": false,\n  \"variants\": [\n    {\n      \"id\": 49931559534840,\n      \"title\": \"Default Title\",\n      \"option1\": \"Default Title\",\n      \"option2\": null,\n      \"option3\": null,\n      \"sku\": \"DGL-SKC-017\",\n      \"requires_shipping\": true,\n      \"taxable\": true,\n      \"featured_image\": null,\n      \"available\": true,\n      \"name\": \"Beauty Water (Toner)-100ml\",\n      \"public_title\": null,\n      \"options\": [\"Default Title\"],\n      \"price\": 1224000,\n      \"weight\": 700,\n      \"compare_at_price\": 1440000,\n      \"inventory_management\": \"shopify\",\n      \"barcode\": \"DGL-SKC-017\",\n      \"quantity_rule\": { \"min\": 1, \"max\": null, \"increment\": 1 },\n      \"quantity_price_breaks\": [],\n      \"requires_selling_plan\": false,\n      \"selling_plan_allocations\": []\n    }\n  ],\n  \"images\": [\n    \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\"\n  ],\n  \"featured_image\": \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\",\n  \"options\": [{ \"name\": \"Title\", \"position\": 1, \"values\": [\"Default Title\"] }],\n  \"url\": \"/products/centella-asiatica-toner\",\n  \"media\": [\n    {\n      \"alt\": \"hydrating face toner\",\n      \"id\": 41393976148216,\n      \"position\": 1,\n      \"preview_image\": {\n        \"aspect_ratio\": 1,\n        \"height\": 1000,\n        \"width\": 1000,\n        \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\"\n      },\n      \"aspect_ratio\": 1,\n      \"height\": 1000,\n      \"media_type\": \"image\",\n      \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\",\n      \"width\": 1000\n    }\n  ],\n  \"requires_selling_plan\": false,\n  \"selling_plan_groups\": []\n}\n"
             },
             "responseDigestScope": "decoded-response-body",
             "responseUrl": "https://danglifestyle.co/products/centella-asiatica-toner.js?country=NG&currency=NGN&v=2",
@@ -13971,18 +13976,35 @@
             "reviewedAt": "2026-08-09T17:05:00Z",
             "reviewer": "JeloCare catalogue evidence review",
             "schemaVersion": 9,
-            "sourceResponseByteSize": 2431,
+            "sourceResponseByteSize": 2880,
             "sourceResponseMimeType": "text/javascript",
-            "sourceResponseSha256": "8a612c2d196e103330407a33a54798a201c8d112d3df2dde99f4c7844b4fff23",
+            "sourceResponseSha256": "02ec18f8fa3877fc32f585fe493058514c19fb80498f64b2c114a13b32dc88f2",
             "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-beauty-water-toner-100ml.json",
             "sourceUrl": "https://danglifestyle.co/products/centella-asiatica-toner"
-          }
+          },
+          "observedPackageVersion": "Current bottle"
+        },
+        "officialProductCrosswalk": {
+          "schemaVersion": 2,
+          "canonicalManufacturerProductKey": {
+            "basis": "manufacturer-sku",
+            "value": "DGL-SKC-017",
+            "manufacturerHost": "danglifestyle.co",
+            "sourceLocator": "Official Shopify product response variants[0].sku",
+            "sourceText": "\"sku\":\"DGL-SKC-017\"",
+            "sourceTextSha256": "f1c0e369b286e05fc04e374a51c7d892b807f6e2075cb28092576a1acdea0f56"
+          },
+          "officialSourceResponseSha256": "02ec18f8fa3877fc32f585fe493058514c19fb80498f64b2c114a13b32dc88f2",
+          "officialProductUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+          "variant": "Beauty Water (Toner)-100ml",
+          "size": "100 ml",
+          "packageVersion": "Current bottle"
         }
       },
       "care": {
         "status": "reviewed",
         "formulaArchetype": "Hydrating alcohol-free face toner with centella asiatica and hyaluronic acid",
-        "careTier": "gentle-daily-care",
+        "careTier": "daily-care",
         "reviewScope": "catalogue-supportive-care",
         "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
         "manufacturerEvidenceUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
@@ -13998,18 +14020,40 @@
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
         "exactOffers": [],
-        "excludedObservations": []
+        "excludedObservations": [],
+        "marketRoute": "reference-only"
       },
       "asset": {
-        "rightsStatus": "pending",
-        "origin": "official-brand-source",
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
         "role": "packshot",
-        "sourceUrl": "https://danglifestyle.co/products/centella-asiatica-toner"
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051",
+        "sourceAssetSha256": "77c8dc3a190c63a67b11167657ff4aeb82bf1ed94c1cfbc2f5f683f9059302a5",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 83368,
+        "sourceAssetWidth": 1000,
+        "sourceAssetHeight": 1000,
+        "sourceAssetRetrievedAt": "2026-08-09T17:00:00Z",
+        "backgroundTreatment": "source-pixel-isolation",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-beauty-water-toner-100ml/packshot-v1-bd9f06fefbfe294f.png",
+        "publicImageSha256": "bd9f06fefbfe294fb2cbb5f520fc1d5172de69eb9a60b27ff653975d1e2d4c23",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 1357764,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T18:10:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "rightsUrl": "https://danglifestyle.co/products/centella-asiatica-toner"
       }
     },
     {
       "id": "dang-collagen-hydrating-serum-ceramides-30ml",
-      "brand": "DANG",
+      "brand": "Dang! Lifestyle Inc.",
       "name": "Collagen And Hydrating Serum With Ceramides",
       "variant": "Collagen And Hydrating Serum With Ceramides -30ml",
       "size": "30 ml",
@@ -14027,7 +14071,7 @@
           "label": "SKU"
         },
         "officialProductUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
-        "packageVersion": "Collagen And Hydrating Serum With Ceramides -30ml",
+        "packageVersion": "Current carton and dropper bottle",
         "checkedAt": "2026-08-09T17:05:00Z",
         "basis": "official-brand",
         "officialEvidence": {
@@ -14039,9 +14083,9 @@
           "observedSize": "30ml",
           "snapshotKind": "canonical-extraction",
           "snapshotPath": "data/catalogue-identity-evidence/dang-collagen-hydrating-serum-ceramides-30ml.json",
-          "snapshotSha256": "46f55dab2f5222fbbc4299f93139070ed7cac57858c3f394655f392ede4b36ff",
+          "snapshotSha256": "249c883b0806f283ee87c258745a9a678a8eeaed953ccc64c07656165f9b6e6c",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 5840,
+          "snapshotByteSize": 7002,
           "retrievedAt": "2026-08-09T17:00:00Z",
           "canonicalExtraction": {
             "barcodeAlias": true,
@@ -14064,9 +14108,14 @@
                 "value": "DGL-SKC-034"
               },
               "packageVersion": {
-                "locator": "Official Shopify product response title and package identity",
-                "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml",
-                "value": "Collagen And Hydrating Serum With Ceramides -30ml"
+                "locator": "Official Shopify product response media[0].src, visually reviewed",
+                "reviewedMedia": {
+                  "sourceAssetSha256": "911f377e5390faa63d139930a4c4e2854d7a9a11862254ce3b1f97f01f5f2e0a",
+                  "sourceAssetUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040",
+                  "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040"
+                },
+                "sourceText": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040",
+                "value": "Current carton and dropper bottle"
               },
               "size": {
                 "locator": "Official Shopify product response title size suffix",
@@ -14081,11 +14130,11 @@
             },
             "method": "reviewed-exact-official-manufacturer-sku-response",
             "productRecord": {
-              "byteEnd": 2951,
+              "byteEnd": 3536,
               "byteStart": 0,
               "locator": "Complete official Shopify product response root object",
-              "sourceFragmentSha256": "79c3f86ad05d567e42481837011c8b6676dda37d7e606c0e9132ccee707f1a5b",
-              "sourceText": "{\"id\":10201190203640,\"title\":\"Collagen And Hydrating Serum With Ceramides -30ml\",\"handle\":\"collagen-peptide-serum\",\"description\":\"<p><em><strong>Powered by a potent blend of collagen, ceramides, and hyaluronic acid, this fast-absorbing serum works deep within the skin’s layers to:</strong></em></p>\\n<ul>\\n<li>Replenish lost moisture</li>\\n<li>Improve elasticity</li>\\n<li>Smooth fine lines and rough texture</li>\\n<li>Strengthen your moisture barrier. Say goodbye to flaky and tight skin.</li>\\n</ul>\\n<p><em><strong>Shelf Life: 1 year from date of first use.</strong></em></p>\",\"published_at\":\"2026-07-09T10:57:18+01:00\",\"created_at\":\"2026-07-09T10:57:18+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[\"ceramides\",\"collagen\",\"serum\"],\"price\":1445000,\"price_min\":1445000,\"price_max\":1445000,\"available\":true,\"price_varies\":false,\"compare_at_price\":1700000,\"compare_at_price_min\":1700000,\"compare_at_price_max\":1700000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931559272696,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-034\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Collagen And Hydrating Serum With Ceramides -30ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1445000,\"weight\":700,\"compare_at_price\":1700000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-034\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\",\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Collagen.webp?v=1783591040\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/collagen-peptide-serum\",\"media\":[{\"alt\":\"Dang Collagen Serum\",\"id\":41393969758456,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":1080,\"width\":1080,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\"},\"aspect_ratio\":1,\"height\":1080,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\",\"width\":1080},{\"alt\":\"Collagen and Hydrating serum\",\"id\":41393969791224,\"position\":2,\"preview_image\":{\"aspect_ratio\":1,\"height\":1000,\"width\":1000,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Collagen.webp?v=1783591040\"},\"aspect_ratio\":1,\"height\":1000,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Collagen.webp?v=1783591040\",\"width\":1000}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+              "sourceFragmentSha256": "d1de9efc3619610d6143375c6915c396cec6a734bd49d84012022c98fb31627f",
+              "sourceText": "{\n  \"id\": 10201190203640,\n  \"title\": \"Collagen And Hydrating Serum With Ceramides -30ml\",\n  \"handle\": \"collagen-peptide-serum\",\n  \"description\": \"<p><em><strong>Powered by a potent blend of collagen, ceramides, and hyaluronic acid, this fast-absorbing serum works deep within the skin’s layers to:</strong></em></p>\\n<ul>\\n<li>Replenish lost moisture</li>\\n<li>Improve elasticity</li>\\n<li>Smooth fine lines and rough texture</li>\\n<li>Strengthen your moisture barrier. Say goodbye to flaky and tight skin.</li>\\n</ul>\\n<p><em><strong>Shelf Life: 1 year from date of first use.</strong></em></p>\",\n  \"published_at\": \"2026-07-09T10:57:18+01:00\",\n  \"created_at\": \"2026-07-09T10:57:18+01:00\",\n  \"vendor\": \"Dang! Lifestyle Inc.\",\n  \"type\": \"Skin Care\",\n  \"tags\": [\"ceramides\", \"collagen\", \"serum\"],\n  \"price\": 1445000,\n  \"price_min\": 1445000,\n  \"price_max\": 1445000,\n  \"available\": true,\n  \"price_varies\": false,\n  \"compare_at_price\": 1700000,\n  \"compare_at_price_min\": 1700000,\n  \"compare_at_price_max\": 1700000,\n  \"compare_at_price_varies\": false,\n  \"variants\": [\n    {\n      \"id\": 49931559272696,\n      \"title\": \"Default Title\",\n      \"option1\": \"Default Title\",\n      \"option2\": null,\n      \"option3\": null,\n      \"sku\": \"DGL-SKC-034\",\n      \"requires_shipping\": true,\n      \"taxable\": true,\n      \"featured_image\": null,\n      \"available\": true,\n      \"name\": \"Collagen And Hydrating Serum With Ceramides -30ml\",\n      \"public_title\": null,\n      \"options\": [\"Default Title\"],\n      \"price\": 1445000,\n      \"weight\": 700,\n      \"compare_at_price\": 1700000,\n      \"inventory_management\": \"shopify\",\n      \"barcode\": \"DGL-SKC-034\",\n      \"quantity_rule\": { \"min\": 1, \"max\": null, \"increment\": 1 },\n      \"quantity_price_breaks\": [],\n      \"requires_selling_plan\": false,\n      \"selling_plan_allocations\": []\n    }\n  ],\n  \"images\": [\n    \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\",\n    \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Collagen.webp?v=1783591040\"\n  ],\n  \"featured_image\": \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\",\n  \"options\": [{ \"name\": \"Title\", \"position\": 1, \"values\": [\"Default Title\"] }],\n  \"url\": \"/products/collagen-peptide-serum\",\n  \"media\": [\n    {\n      \"alt\": \"Dang Collagen Serum\",\n      \"id\": 41393969758456,\n      \"position\": 1,\n      \"preview_image\": {\n        \"aspect_ratio\": 1,\n        \"height\": 1080,\n        \"width\": 1080,\n        \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\"\n      },\n      \"aspect_ratio\": 1,\n      \"height\": 1080,\n      \"media_type\": \"image\",\n      \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\",\n      \"width\": 1080\n    },\n    {\n      \"alt\": \"Collagen and Hydrating serum\",\n      \"id\": 41393969791224,\n      \"position\": 2,\n      \"preview_image\": {\n        \"aspect_ratio\": 1,\n        \"height\": 1000,\n        \"width\": 1000,\n        \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Collagen.webp?v=1783591040\"\n      },\n      \"aspect_ratio\": 1,\n      \"height\": 1000,\n      \"media_type\": \"image\",\n      \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Collagen.webp?v=1783591040\",\n      \"width\": 1000\n    }\n  ],\n  \"requires_selling_plan\": false,\n  \"selling_plan_groups\": []\n}\n"
             },
             "responseDigestScope": "decoded-response-body",
             "responseUrl": "https://danglifestyle.co/products/collagen-peptide-serum.js?country=NG&currency=NGN&v=2",
@@ -14093,12 +14142,29 @@
             "reviewedAt": "2026-08-09T17:05:00Z",
             "reviewer": "JeloCare catalogue evidence review",
             "schemaVersion": 9,
-            "sourceResponseByteSize": 2951,
+            "sourceResponseByteSize": 3536,
             "sourceResponseMimeType": "text/javascript",
-            "sourceResponseSha256": "79c3f86ad05d567e42481837011c8b6676dda37d7e606c0e9132ccee707f1a5b",
+            "sourceResponseSha256": "d1de9efc3619610d6143375c6915c396cec6a734bd49d84012022c98fb31627f",
             "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-collagen-hydrating-serum-ceramides-30ml.json",
             "sourceUrl": "https://danglifestyle.co/products/collagen-peptide-serum"
-          }
+          },
+          "observedPackageVersion": "Current carton and dropper bottle"
+        },
+        "officialProductCrosswalk": {
+          "schemaVersion": 2,
+          "canonicalManufacturerProductKey": {
+            "basis": "manufacturer-sku",
+            "value": "DGL-SKC-034",
+            "manufacturerHost": "danglifestyle.co",
+            "sourceLocator": "Official Shopify product response variants[0].sku",
+            "sourceText": "\"sku\":\"DGL-SKC-034\"",
+            "sourceTextSha256": "e614607fc890754c5985a962e0aba6e4232789bb9a3f686b0bd81325ee35291b"
+          },
+          "officialSourceResponseSha256": "d1de9efc3619610d6143375c6915c396cec6a734bd49d84012022c98fb31627f",
+          "officialProductUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+          "variant": "Collagen And Hydrating Serum With Ceramides -30ml",
+          "size": "30 ml",
+          "packageVersion": "Current carton and dropper bottle"
         }
       },
       "care": {
@@ -14120,18 +14186,40 @@
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
         "exactOffers": [],
-        "excludedObservations": []
+        "excludedObservations": [],
+        "marketRoute": "reference-only"
       },
       "asset": {
-        "rightsStatus": "pending",
-        "origin": "official-brand-source",
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
         "role": "packshot",
-        "sourceUrl": "https://danglifestyle.co/products/collagen-peptide-serum"
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040",
+        "sourceAssetSha256": "911f377e5390faa63d139930a4c4e2854d7a9a11862254ce3b1f97f01f5f2e0a",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 62147,
+        "sourceAssetWidth": 1080,
+        "sourceAssetHeight": 1080,
+        "sourceAssetRetrievedAt": "2026-08-09T17:00:00Z",
+        "backgroundTreatment": "source-pixel-isolation",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-collagen-hydrating-serum-ceramides-30ml/packshot-v1-e4d9e5cfc368c681.png",
+        "publicImageSha256": "e4d9e5cfc368c681f07e8775b67727130686931da8f6958983bbf7a66a72957c",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 998545,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T18:10:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "rightsUrl": "https://danglifestyle.co/products/collagen-peptide-serum"
       }
     },
     {
       "id": "dang-everyday-gentle-foaming-face-wash-120ml",
-      "brand": "DANG",
+      "brand": "Dang! Lifestyle Inc.",
       "name": "Everyday Gentle Foaming Face Wash",
       "variant": "Everyday Gentle Foaming Face Wash-120ml",
       "size": "120 ml",
@@ -14149,7 +14237,7 @@
           "label": "SKU"
         },
         "officialProductUrl": "https://danglifestyle.co/products/rose-face-wash",
-        "packageVersion": "Everyday Gentle Foaming Face Wash-120ml",
+        "packageVersion": "Current tube",
         "checkedAt": "2026-08-09T17:05:00Z",
         "basis": "official-brand",
         "officialEvidence": {
@@ -14161,9 +14249,9 @@
           "observedSize": "120ml",
           "snapshotKind": "canonical-extraction",
           "snapshotPath": "data/catalogue-identity-evidence/dang-everyday-gentle-foaming-face-wash-120ml.json",
-          "snapshotSha256": "7ee6f8e22b330b91d4a3f97fba560c530c2979d12b1c734b700ce25740b3ec5e",
+          "snapshotSha256": "b328da3350bfb2821425d054525e73ef1aa32868fd4804b06b6a4d3f708ac27d",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 4768,
+          "snapshotByteSize": 5746,
           "retrievedAt": "2026-08-09T17:00:00Z",
           "canonicalExtraction": {
             "barcodeAlias": true,
@@ -14186,9 +14274,14 @@
                 "value": "DGL-SKC-031"
               },
               "packageVersion": {
-                "locator": "Official Shopify product response title and package identity",
-                "sourceText": "Everyday Gentle Foaming Face Wash-120ml",
-                "value": "Everyday Gentle Foaming Face Wash-120ml"
+                "locator": "Official Shopify product response media[0].src, visually reviewed",
+                "reviewedMedia": {
+                  "sourceAssetSha256": "9411f503146fb57980f3258380ccc28b43b6cd5d1db570596dece66f9b379ec2",
+                  "sourceAssetUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041",
+                  "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041"
+                },
+                "sourceText": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041",
+                "value": "Current tube"
               },
               "size": {
                 "locator": "Official Shopify product response title size suffix",
@@ -14203,11 +14296,11 @@
             },
             "method": "reviewed-exact-official-manufacturer-sku-response",
             "productRecord": {
-              "byteEnd": 2003,
+              "byteEnd": 2452,
               "byteStart": 0,
               "locator": "Complete official Shopify product response root object",
-              "sourceFragmentSha256": "8fe18ceda140342d4753be1529a6ed5e164e692bdd6d1bba1eced2e28881f14a",
-              "sourceText": "{\"id\":10201190236408,\"title\":\"Everyday Gentle Foaming Face Wash-120ml\",\"handle\":\"rose-face-wash\",\"description\":\"<p><span>Gentle cleanser for face; Fragrance-Free</span></p>\",\"published_at\":\"2026-07-09T10:57:19+01:00\",\"created_at\":\"2026-07-09T10:57:19+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[],\"price\":1317500,\"price_min\":1317500,\"price_max\":1317500,\"available\":true,\"price_varies\":false,\"compare_at_price\":1550000,\"compare_at_price_min\":1550000,\"compare_at_price_max\":1550000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931559305464,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-031\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Everyday Gentle Foaming Face Wash-120ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1317500,\"weight\":700,\"compare_at_price\":1550000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-031\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/rose-face-wash\",\"media\":[{\"alt\":\"foaming cleanser for face\",\"id\":41393970872568,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":1080,\"width\":1080,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\"},\"aspect_ratio\":1,\"height\":1080,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\",\"width\":1080}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+              "sourceFragmentSha256": "b97ffde82e6206f90b09d3e4615ff9f34a5e1d043d7ebc885dceaf2ea28e7102",
+              "sourceText": "{\n  \"id\": 10201190236408,\n  \"title\": \"Everyday Gentle Foaming Face Wash-120ml\",\n  \"handle\": \"rose-face-wash\",\n  \"description\": \"<p><span>Gentle cleanser for face; Fragrance-Free</span></p>\",\n  \"published_at\": \"2026-07-09T10:57:19+01:00\",\n  \"created_at\": \"2026-07-09T10:57:19+01:00\",\n  \"vendor\": \"Dang! Lifestyle Inc.\",\n  \"type\": \"Skin Care\",\n  \"tags\": [],\n  \"price\": 1317500,\n  \"price_min\": 1317500,\n  \"price_max\": 1317500,\n  \"available\": true,\n  \"price_varies\": false,\n  \"compare_at_price\": 1550000,\n  \"compare_at_price_min\": 1550000,\n  \"compare_at_price_max\": 1550000,\n  \"compare_at_price_varies\": false,\n  \"variants\": [\n    {\n      \"id\": 49931559305464,\n      \"title\": \"Default Title\",\n      \"option1\": \"Default Title\",\n      \"option2\": null,\n      \"option3\": null,\n      \"sku\": \"DGL-SKC-031\",\n      \"requires_shipping\": true,\n      \"taxable\": true,\n      \"featured_image\": null,\n      \"available\": true,\n      \"name\": \"Everyday Gentle Foaming Face Wash-120ml\",\n      \"public_title\": null,\n      \"options\": [\"Default Title\"],\n      \"price\": 1317500,\n      \"weight\": 700,\n      \"compare_at_price\": 1550000,\n      \"inventory_management\": \"shopify\",\n      \"barcode\": \"DGL-SKC-031\",\n      \"quantity_rule\": { \"min\": 1, \"max\": null, \"increment\": 1 },\n      \"quantity_price_breaks\": [],\n      \"requires_selling_plan\": false,\n      \"selling_plan_allocations\": []\n    }\n  ],\n  \"images\": [\n    \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\"\n  ],\n  \"featured_image\": \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\",\n  \"options\": [{ \"name\": \"Title\", \"position\": 1, \"values\": [\"Default Title\"] }],\n  \"url\": \"/products/rose-face-wash\",\n  \"media\": [\n    {\n      \"alt\": \"foaming cleanser for face\",\n      \"id\": 41393970872568,\n      \"position\": 1,\n      \"preview_image\": {\n        \"aspect_ratio\": 1,\n        \"height\": 1080,\n        \"width\": 1080,\n        \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\"\n      },\n      \"aspect_ratio\": 1,\n      \"height\": 1080,\n      \"media_type\": \"image\",\n      \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\",\n      \"width\": 1080\n    }\n  ],\n  \"requires_selling_plan\": false,\n  \"selling_plan_groups\": []\n}\n"
             },
             "responseDigestScope": "decoded-response-body",
             "responseUrl": "https://danglifestyle.co/products/rose-face-wash.js?country=NG&currency=NGN&v=2",
@@ -14215,18 +14308,35 @@
             "reviewedAt": "2026-08-09T17:05:00Z",
             "reviewer": "JeloCare catalogue evidence review",
             "schemaVersion": 9,
-            "sourceResponseByteSize": 2003,
+            "sourceResponseByteSize": 2452,
             "sourceResponseMimeType": "text/javascript",
-            "sourceResponseSha256": "8fe18ceda140342d4753be1529a6ed5e164e692bdd6d1bba1eced2e28881f14a",
+            "sourceResponseSha256": "b97ffde82e6206f90b09d3e4615ff9f34a5e1d043d7ebc885dceaf2ea28e7102",
             "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-everyday-gentle-foaming-face-wash-120ml.json",
             "sourceUrl": "https://danglifestyle.co/products/rose-face-wash"
-          }
+          },
+          "observedPackageVersion": "Current tube"
+        },
+        "officialProductCrosswalk": {
+          "schemaVersion": 2,
+          "canonicalManufacturerProductKey": {
+            "basis": "manufacturer-sku",
+            "value": "DGL-SKC-031",
+            "manufacturerHost": "danglifestyle.co",
+            "sourceLocator": "Official Shopify product response variants[0].sku",
+            "sourceText": "\"sku\":\"DGL-SKC-031\"",
+            "sourceTextSha256": "727133ef2800b44a0250fe494dde7c53439f40ba2a2279f7a06dae9dfd2e212c"
+          },
+          "officialSourceResponseSha256": "b97ffde82e6206f90b09d3e4615ff9f34a5e1d043d7ebc885dceaf2ea28e7102",
+          "officialProductUrl": "https://danglifestyle.co/products/rose-face-wash",
+          "variant": "Everyday Gentle Foaming Face Wash-120ml",
+          "size": "120 ml",
+          "packageVersion": "Current tube"
         }
       },
       "care": {
         "status": "reviewed",
         "formulaArchetype": "Gentle fragrance-free foaming face cleanser with rose extract and beta-glucan",
-        "careTier": "gentle-daily-care",
+        "careTier": "daily-care",
         "reviewScope": "catalogue-supportive-care",
         "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Avoid contact with eyes. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
         "manufacturerEvidenceUrl": "https://danglifestyle.co/products/rose-face-wash",
@@ -14242,18 +14352,40 @@
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/rose-face-wash",
         "exactOffers": [],
-        "excludedObservations": []
+        "excludedObservations": [],
+        "marketRoute": "reference-only"
       },
       "asset": {
-        "rightsStatus": "pending",
-        "origin": "official-brand-source",
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
         "role": "packshot",
-        "sourceUrl": "https://danglifestyle.co/products/rose-face-wash"
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041",
+        "sourceAssetSha256": "9411f503146fb57980f3258380ccc28b43b6cd5d1db570596dece66f9b379ec2",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 69700,
+        "sourceAssetWidth": 1080,
+        "sourceAssetHeight": 1080,
+        "sourceAssetRetrievedAt": "2026-08-09T17:00:00Z",
+        "backgroundTreatment": "source-pixel-isolation",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-everyday-gentle-foaming-face-wash-120ml/packshot-v1-54c388bce4d9a34b.png",
+        "publicImageSha256": "54c388bce4d9a34bde43139b79f5035cf184ce06a368971834c4ba307630cc2c",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 906756,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T18:10:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "rightsUrl": "https://danglifestyle.co/products/rose-face-wash"
       }
     },
     {
       "id": "dang-hyaluronic-cream-hydrating-face-cleanser-200ml",
-      "brand": "DANG",
+      "brand": "Dang! Lifestyle Inc.",
       "name": "Hyaluronic Cream Hydrating Face Cleanser",
       "variant": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml",
       "size": "200 ml",
@@ -14271,7 +14403,7 @@
           "label": "SKU"
         },
         "officialProductUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
-        "packageVersion": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml",
+        "packageVersion": "Current tube",
         "checkedAt": "2026-08-09T17:05:00Z",
         "basis": "official-brand",
         "officialEvidence": {
@@ -14283,9 +14415,9 @@
           "observedSize": "200ml",
           "snapshotKind": "canonical-extraction",
           "snapshotPath": "data/catalogue-identity-evidence/dang-hyaluronic-cream-hydrating-face-cleanser-200ml.json",
-          "snapshotSha256": "5e537b09f13b04cecde180e851839d5c7587d0fb5d7ca0735480a8fe66e54db0",
+          "snapshotSha256": "a4c907d0d64fc619505c1ddc0a407fb9e2ed374fa07a8fb66cb35f7f9f7cfc13",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 5481,
+          "snapshotByteSize": 6310,
           "retrievedAt": "2026-08-09T17:00:00Z",
           "canonicalExtraction": {
             "barcodeAlias": true,
@@ -14308,9 +14440,14 @@
                 "value": "DGL-SKC-052"
               },
               "packageVersion": {
-                "locator": "Official Shopify product response title and package identity",
-                "sourceText": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml",
-                "value": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml"
+                "locator": "Official Shopify product response media[0].src, visually reviewed",
+                "reviewedMedia": {
+                  "sourceAssetSha256": "0e6b65e3af213925b71eab902dc269a52c4531f45744233ac69b7b34a285234c",
+                  "sourceAssetUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037",
+                  "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037"
+                },
+                "sourceText": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037",
+                "value": "Current tube"
               },
               "size": {
                 "locator": "Official Shopify product response title size suffix",
@@ -14325,11 +14462,11 @@
             },
             "method": "reviewed-exact-official-manufacturer-sku-response",
             "productRecord": {
-              "byteEnd": 2484,
+              "byteEnd": 2933,
               "byteStart": 0,
               "locator": "Complete official Shopify product response root object",
-              "sourceFragmentSha256": "d2835bc76fcdd0fa01c25b8966906a8a05c22608e9d5b02dbade05f0ecece746",
-              "sourceText": "{\"id\":10201190138104,\"title\":\"Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml\",\"handle\":\"hydrating-cream-cleanser\",\"description\":\"<p>Perfect face wash for dry and sensitive skin</p>\\n<p>Why you’ll love this cream face cleanser</p>\\n<ul>\\n<li>Creamy texture that feels like a silky moisturiser for your face</li>\\n<li>Hydrating formula powered by hyaluronic acid to lock in moisture</li>\\n<li>Fragrance-free and pH-balanced, perfect for easily irritated skin</li>\\n<li>Gentle face cleanser washes excess oils without drying your skin</li>\\n<li>Free from harsh sulfates, parabens, and alcohol, making it a perfect cream cleanser for sensitive skin</li>\\n</ul>\",\"published_at\":\"2026-07-09T10:57:15+01:00\",\"created_at\":\"2026-07-09T10:57:15+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[\"face wash\"],\"price\":1528000,\"price_min\":1528000,\"price_max\":1528000,\"available\":false,\"price_varies\":false,\"compare_at_price\":1910000,\"compare_at_price_min\":1910000,\"compare_at_price_max\":1910000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931559207160,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-052\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":false,\"name\":\"Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1528000,\"weight\":1000,\"compare_at_price\":1910000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-052\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/hydrating-cream-cleanser\",\"media\":[{\"alt\":\"An image of a cream cleanser for sensitive skin in a tube\",\"id\":41393968349432,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":1000,\"width\":1000,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037\"},\"aspect_ratio\":1,\"height\":1000,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037\",\"width\":1000}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+              "sourceFragmentSha256": "1575d25560a6c06114f1205f3a23f3998dfd08b34612cfe5edd537915531d769",
+              "sourceText": "{\n  \"id\": 10201190138104,\n  \"title\": \"Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml\",\n  \"handle\": \"hydrating-cream-cleanser\",\n  \"description\": \"<p>Perfect face wash for dry and sensitive skin</p>\\n<p>Why you’ll love this cream face cleanser</p>\\n<ul>\\n<li>Creamy texture that feels like a silky moisturiser for your face</li>\\n<li>Hydrating formula powered by hyaluronic acid to lock in moisture</li>\\n<li>Fragrance-free and pH-balanced, perfect for easily irritated skin</li>\\n<li>Gentle face cleanser washes excess oils without drying your skin</li>\\n<li>Free from harsh sulfates, parabens, and alcohol, making it a perfect cream cleanser for sensitive skin</li>\\n</ul>\",\n  \"published_at\": \"2026-07-09T10:57:15+01:00\",\n  \"created_at\": \"2026-07-09T10:57:15+01:00\",\n  \"vendor\": \"Dang! Lifestyle Inc.\",\n  \"type\": \"Skin Care\",\n  \"tags\": [\"face wash\"],\n  \"price\": 1528000,\n  \"price_min\": 1528000,\n  \"price_max\": 1528000,\n  \"available\": false,\n  \"price_varies\": false,\n  \"compare_at_price\": 1910000,\n  \"compare_at_price_min\": 1910000,\n  \"compare_at_price_max\": 1910000,\n  \"compare_at_price_varies\": false,\n  \"variants\": [\n    {\n      \"id\": 49931559207160,\n      \"title\": \"Default Title\",\n      \"option1\": \"Default Title\",\n      \"option2\": null,\n      \"option3\": null,\n      \"sku\": \"DGL-SKC-052\",\n      \"requires_shipping\": true,\n      \"taxable\": true,\n      \"featured_image\": null,\n      \"available\": false,\n      \"name\": \"Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml\",\n      \"public_title\": null,\n      \"options\": [\"Default Title\"],\n      \"price\": 1528000,\n      \"weight\": 1000,\n      \"compare_at_price\": 1910000,\n      \"inventory_management\": \"shopify\",\n      \"barcode\": \"DGL-SKC-052\",\n      \"quantity_rule\": { \"min\": 1, \"max\": null, \"increment\": 1 },\n      \"quantity_price_breaks\": [],\n      \"requires_selling_plan\": false,\n      \"selling_plan_allocations\": []\n    }\n  ],\n  \"images\": [\n    \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037\"\n  ],\n  \"featured_image\": \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037\",\n  \"options\": [{ \"name\": \"Title\", \"position\": 1, \"values\": [\"Default Title\"] }],\n  \"url\": \"/products/hydrating-cream-cleanser\",\n  \"media\": [\n    {\n      \"alt\": \"An image of a cream cleanser for sensitive skin in a tube\",\n      \"id\": 41393968349432,\n      \"position\": 1,\n      \"preview_image\": {\n        \"aspect_ratio\": 1,\n        \"height\": 1000,\n        \"width\": 1000,\n        \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037\"\n      },\n      \"aspect_ratio\": 1,\n      \"height\": 1000,\n      \"media_type\": \"image\",\n      \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037\",\n      \"width\": 1000\n    }\n  ],\n  \"requires_selling_plan\": false,\n  \"selling_plan_groups\": []\n}\n"
             },
             "responseDigestScope": "decoded-response-body",
             "responseUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser.js?country=NG&currency=NGN&v=2",
@@ -14337,18 +14474,35 @@
             "reviewedAt": "2026-08-09T17:05:00Z",
             "reviewer": "JeloCare catalogue evidence review",
             "schemaVersion": 9,
-            "sourceResponseByteSize": 2484,
+            "sourceResponseByteSize": 2933,
             "sourceResponseMimeType": "text/javascript",
-            "sourceResponseSha256": "d2835bc76fcdd0fa01c25b8966906a8a05c22608e9d5b02dbade05f0ecece746",
+            "sourceResponseSha256": "1575d25560a6c06114f1205f3a23f3998dfd08b34612cfe5edd537915531d769",
             "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-hyaluronic-cream-hydrating-face-cleanser-200ml.json",
             "sourceUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser"
-          }
+          },
+          "observedPackageVersion": "Current tube"
+        },
+        "officialProductCrosswalk": {
+          "schemaVersion": 2,
+          "canonicalManufacturerProductKey": {
+            "basis": "manufacturer-sku",
+            "value": "DGL-SKC-052",
+            "manufacturerHost": "danglifestyle.co",
+            "sourceLocator": "Official Shopify product response variants[0].sku",
+            "sourceText": "\"sku\":\"DGL-SKC-052\"",
+            "sourceTextSha256": "3b4eb1406cd7d5e56f6faadc33723357de5d3c0c68250382a7d926ad94ba08fc"
+          },
+          "officialSourceResponseSha256": "1575d25560a6c06114f1205f3a23f3998dfd08b34612cfe5edd537915531d769",
+          "officialProductUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
+          "variant": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin-200ml",
+          "size": "200 ml",
+          "packageVersion": "Current tube"
         }
       },
       "care": {
         "status": "reviewed",
         "formulaArchetype": "Hyaluronic acid cream cleanser for sensitive and dry skin",
-        "careTier": "gentle-daily-care",
+        "careTier": "daily-care",
         "reviewScope": "catalogue-supportive-care",
         "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Avoid contact with eyes. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
         "manufacturerEvidenceUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
@@ -14364,18 +14518,40 @@
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
         "exactOffers": [],
-        "excludedObservations": []
+        "excludedObservations": [],
+        "marketRoute": "reference-only"
       },
       "asset": {
-        "rightsStatus": "pending",
-        "origin": "official-brand-source",
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
         "role": "packshot",
-        "sourceUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser"
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037",
+        "sourceAssetSha256": "0e6b65e3af213925b71eab902dc269a52c4531f45744233ac69b7b34a285234c",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 97764,
+        "sourceAssetWidth": 1000,
+        "sourceAssetHeight": 1000,
+        "sourceAssetRetrievedAt": "2026-08-09T17:00:00Z",
+        "backgroundTreatment": "source-pixel-isolation",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-hyaluronic-cream-hydrating-face-cleanser-200ml/packshot-v1-74c19e7a290457de.png",
+        "publicImageSha256": "74c19e7a290457de056325f91b359c709aa9aa35e23caf251e4e7c4b7d3a00b4",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 1178643,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T18:10:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "rightsUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser"
       }
     },
     {
       "id": "dang-retinal-cream-005-30ml",
-      "brand": "DANG",
+      "brand": "Dang! Lifestyle Inc.",
       "name": "Multipurpose Retinal Cream 0.05%",
       "variant": "Multipurpose Retinal Cream 0.05% 30ml",
       "size": "30 ml",
@@ -14393,7 +14569,7 @@
           "label": "SKU"
         },
         "officialProductUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
-        "packageVersion": "Multipurpose Retinal Cream 0.05% 30ml",
+        "packageVersion": "Current carton and tube",
         "checkedAt": "2026-08-09T17:05:00Z",
         "basis": "official-brand",
         "officialEvidence": {
@@ -14405,9 +14581,9 @@
           "observedSize": "30ml",
           "snapshotKind": "canonical-extraction",
           "snapshotPath": "data/catalogue-identity-evidence/dang-retinal-cream-005-30ml.json",
-          "snapshotSha256": "8164885e0d98b29a298536a34408f1821b14d7433323a32d92c61481667540a7",
+          "snapshotSha256": "3c822293e6d124b7e3a82d32db23c4b0686537f3534d9d84a18f1e0656e50e0c",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 5378,
+          "snapshotByteSize": 6456,
           "retrievedAt": "2026-08-09T17:00:00Z",
           "canonicalExtraction": {
             "barcodeAlias": true,
@@ -14430,9 +14606,14 @@
                 "value": "DGL-SKC-030"
               },
               "packageVersion": {
-                "locator": "Official Shopify product response title and package identity",
-                "sourceText": "Multipurpose Retinal Cream 0.05% 30ml",
-                "value": "Multipurpose Retinal Cream 0.05% 30ml"
+                "locator": "Official Shopify product response media[0].src, visually reviewed",
+                "reviewedMedia": {
+                  "sourceAssetSha256": "c7defa9cd4c816828f89174f4db9e155bdae8064e464289a4697b2bd58094208",
+                  "sourceAssetUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027",
+                  "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027"
+                },
+                "sourceText": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027",
+                "value": "Current carton and tube"
               },
               "size": {
                 "locator": "Official Shopify product response title size suffix",
@@ -14447,11 +14628,11 @@
             },
             "method": "reviewed-exact-official-manufacturer-sku-response",
             "productRecord": {
-              "byteEnd": 2614,
+              "byteEnd": 3197,
               "byteStart": 0,
               "locator": "Complete official Shopify product response root object",
-              "sourceFragmentSha256": "70670d89b9b9ee45fe89907b44dc514ccee3d4178746b2a2afb83dc4752b4ebc",
-              "sourceText": "{\"id\":10201189974264,\"title\":\"Multipurpose Retinal Cream 0.05% 30ml\",\"handle\":\"retinal-cream-0-05\",\"description\":\"<p><strong>Key Ingredients</strong></p>\\n<p>0.05% Retinaldehyde.</p>\\n<p>Not suitable for pregnant and breastfeeding mothers</p>\",\"published_at\":\"2026-07-09T10:57:04+01:00\",\"created_at\":\"2026-07-09T10:57:04+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[],\"price\":1043000,\"price_min\":1043000,\"price_max\":1043000,\"available\":true,\"price_varies\":false,\"compare_at_price\":1490000,\"compare_at_price_min\":1490000,\"compare_at_price_max\":1490000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931558912248,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-030\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Multipurpose Retinal Cream 0.05% 30ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1043000,\"weight\":500,\"compare_at_price\":1490000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-030\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027\",\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-1.webp?v=1783591027\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/retinal-cream-0-05\",\"media\":[{\"alt\":\"An image of a tube face cream for anti-gaing and skin repair; the Dang! Multipurpose Retinal Cream\",\"id\":41393963204856,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":1000,\"width\":1000,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027\"},\"aspect_ratio\":1,\"height\":1000,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027\",\"width\":1000},{\"alt\":\"An Image of the a yellow coloured face cream coming out of a tube\",\"id\":41393963237624,\"position\":2,\"preview_image\":{\"aspect_ratio\":1,\"height\":1000,\"width\":1000,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-1.webp?v=1783591027\"},\"aspect_ratio\":1,\"height\":1000,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-1.webp?v=1783591027\",\"width\":1000}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+              "sourceFragmentSha256": "ee6e887a78401bdaa75b9eea8abdc04eb1ebf3cdad011f8be2d01415899e94b6",
+              "sourceText": "{\n  \"id\": 10201189974264,\n  \"title\": \"Multipurpose Retinal Cream 0.05% 30ml\",\n  \"handle\": \"retinal-cream-0-05\",\n  \"description\": \"<p><strong>Key Ingredients</strong></p>\\n<p>0.05% Retinaldehyde.</p>\\n<p>Not suitable for pregnant and breastfeeding mothers</p>\",\n  \"published_at\": \"2026-07-09T10:57:04+01:00\",\n  \"created_at\": \"2026-07-09T10:57:04+01:00\",\n  \"vendor\": \"Dang! Lifestyle Inc.\",\n  \"type\": \"Skin Care\",\n  \"tags\": [],\n  \"price\": 1043000,\n  \"price_min\": 1043000,\n  \"price_max\": 1043000,\n  \"available\": true,\n  \"price_varies\": false,\n  \"compare_at_price\": 1490000,\n  \"compare_at_price_min\": 1490000,\n  \"compare_at_price_max\": 1490000,\n  \"compare_at_price_varies\": false,\n  \"variants\": [\n    {\n      \"id\": 49931558912248,\n      \"title\": \"Default Title\",\n      \"option1\": \"Default Title\",\n      \"option2\": null,\n      \"option3\": null,\n      \"sku\": \"DGL-SKC-030\",\n      \"requires_shipping\": true,\n      \"taxable\": true,\n      \"featured_image\": null,\n      \"available\": true,\n      \"name\": \"Multipurpose Retinal Cream 0.05% 30ml\",\n      \"public_title\": null,\n      \"options\": [\"Default Title\"],\n      \"price\": 1043000,\n      \"weight\": 500,\n      \"compare_at_price\": 1490000,\n      \"inventory_management\": \"shopify\",\n      \"barcode\": \"DGL-SKC-030\",\n      \"quantity_rule\": { \"min\": 1, \"max\": null, \"increment\": 1 },\n      \"quantity_price_breaks\": [],\n      \"requires_selling_plan\": false,\n      \"selling_plan_allocations\": []\n    }\n  ],\n  \"images\": [\n    \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027\",\n    \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-1.webp?v=1783591027\"\n  ],\n  \"featured_image\": \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027\",\n  \"options\": [{ \"name\": \"Title\", \"position\": 1, \"values\": [\"Default Title\"] }],\n  \"url\": \"/products/retinal-cream-0-05\",\n  \"media\": [\n    {\n      \"alt\": \"An image of a tube face cream for anti-gaing and skin repair; the Dang! Multipurpose Retinal Cream\",\n      \"id\": 41393963204856,\n      \"position\": 1,\n      \"preview_image\": {\n        \"aspect_ratio\": 1,\n        \"height\": 1000,\n        \"width\": 1000,\n        \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027\"\n      },\n      \"aspect_ratio\": 1,\n      \"height\": 1000,\n      \"media_type\": \"image\",\n      \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027\",\n      \"width\": 1000\n    },\n    {\n      \"alt\": \"An Image of the a yellow coloured face cream coming out of a tube\",\n      \"id\": 41393963237624,\n      \"position\": 2,\n      \"preview_image\": {\n        \"aspect_ratio\": 1,\n        \"height\": 1000,\n        \"width\": 1000,\n        \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-1.webp?v=1783591027\"\n      },\n      \"aspect_ratio\": 1,\n      \"height\": 1000,\n      \"media_type\": \"image\",\n      \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-1.webp?v=1783591027\",\n      \"width\": 1000\n    }\n  ],\n  \"requires_selling_plan\": false,\n  \"selling_plan_groups\": []\n}\n"
             },
             "responseDigestScope": "decoded-response-body",
             "responseUrl": "https://danglifestyle.co/products/retinal-cream-0-05.js?country=NG&currency=NGN&v=2",
@@ -14459,12 +14640,29 @@
             "reviewedAt": "2026-08-09T17:05:00Z",
             "reviewer": "JeloCare catalogue evidence review",
             "schemaVersion": 9,
-            "sourceResponseByteSize": 2614,
+            "sourceResponseByteSize": 3197,
             "sourceResponseMimeType": "text/javascript",
-            "sourceResponseSha256": "70670d89b9b9ee45fe89907b44dc514ccee3d4178746b2a2afb83dc4752b4ebc",
+            "sourceResponseSha256": "ee6e887a78401bdaa75b9eea8abdc04eb1ebf3cdad011f8be2d01415899e94b6",
             "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-retinal-cream-005-30ml.json",
             "sourceUrl": "https://danglifestyle.co/products/retinal-cream-0-05"
-          }
+          },
+          "observedPackageVersion": "Current carton and tube"
+        },
+        "officialProductCrosswalk": {
+          "schemaVersion": 2,
+          "canonicalManufacturerProductKey": {
+            "basis": "manufacturer-sku",
+            "value": "DGL-SKC-030",
+            "manufacturerHost": "danglifestyle.co",
+            "sourceLocator": "Official Shopify product response variants[0].sku",
+            "sourceText": "\"sku\":\"DGL-SKC-030\"",
+            "sourceTextSha256": "8be8f4e709be2185caa38534ec6a5d3e0330ec87ab2de24980c6113034f7b042"
+          },
+          "officialSourceResponseSha256": "ee6e887a78401bdaa75b9eea8abdc04eb1ebf3cdad011f8be2d01415899e94b6",
+          "officialProductUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+          "variant": "Multipurpose Retinal Cream 0.05% 30ml",
+          "size": "30 ml",
+          "packageVersion": "Current carton and tube"
         }
       },
       "care": {
@@ -14486,18 +14684,40 @@
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
         "exactOffers": [],
-        "excludedObservations": []
+        "excludedObservations": [],
+        "marketRoute": "reference-only"
       },
       "asset": {
-        "rightsStatus": "pending",
-        "origin": "official-brand-source",
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
         "role": "packshot",
-        "sourceUrl": "https://danglifestyle.co/products/retinal-cream-0-05"
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027",
+        "sourceAssetSha256": "c7defa9cd4c816828f89174f4db9e155bdae8064e464289a4697b2bd58094208",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 68354,
+        "sourceAssetWidth": 1000,
+        "sourceAssetHeight": 1000,
+        "sourceAssetRetrievedAt": "2026-08-09T17:00:00Z",
+        "backgroundTreatment": "source-pixel-isolation",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-retinal-cream-005-30ml/packshot-v1-5afbe9a49f5c4d2e.png",
+        "publicImageSha256": "5afbe9a49f5c4d2e0bc10445dae4be8049d7d27c3390ee4de103cdb86a140642",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 1077982,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T18:10:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "rightsUrl": "https://danglifestyle.co/products/retinal-cream-0-05"
       }
     },
     {
       "id": "dang-snail-mucin-repair-serum-100ml",
-      "brand": "DANG",
+      "brand": "Dang! Lifestyle Inc.",
       "name": "Multi Function Formula Snail Mucin Repair Serum",
       "variant": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
       "size": "100 ml",
@@ -14515,7 +14735,7 @@
           "label": "SKU"
         },
         "officialProductUrl": "https://danglifestyle.co/products/snail-essence-serum",
-        "packageVersion": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+        "packageVersion": "Current bottle",
         "checkedAt": "2026-08-09T17:05:00Z",
         "basis": "official-brand",
         "officialEvidence": {
@@ -14527,9 +14747,9 @@
           "observedSize": "100ml",
           "snapshotKind": "canonical-extraction",
           "snapshotPath": "data/catalogue-identity-evidence/dang-snail-mucin-repair-serum-100ml.json",
-          "snapshotSha256": "8b52b414fe7839d93e32771f44a35a3f0eef593cb34c01291b799d1225bda6cc",
+          "snapshotSha256": "67c4e4411eb6d2882043ea814ab37de3b536ca2043ee09f521b697ed62450fa3",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 4878,
+          "snapshotByteSize": 5704,
           "retrievedAt": "2026-08-09T17:00:00Z",
           "canonicalExtraction": {
             "barcodeAlias": true,
@@ -14552,9 +14772,14 @@
                 "value": "DGL-SKC-023"
               },
               "packageVersion": {
-                "locator": "Official Shopify product response title and package identity",
-                "sourceText": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
-                "value": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml"
+                "locator": "Official Shopify product response media[0].src, visually reviewed",
+                "reviewedMedia": {
+                  "sourceAssetSha256": "3dd9cc010f8a874d9f72aefd813606b6ca0ef143576be21d87f62274777cccdf",
+                  "sourceAssetUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044",
+                  "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044"
+                },
+                "sourceText": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044",
+                "value": "Current bottle"
               },
               "size": {
                 "locator": "Official Shopify product response title size suffix",
@@ -14569,11 +14794,11 @@
             },
             "method": "reviewed-exact-official-manufacturer-sku-response",
             "productRecord": {
-              "byteEnd": 1979,
+              "byteEnd": 2428,
               "byteStart": 0,
               "locator": "Complete official Shopify product response root object",
-              "sourceFragmentSha256": "f455b719624b86394e1f77397e8260f33ff89b694a0513eaa7b7a166fa4d8d08",
-              "sourceText": "{\"id\":10201190301944,\"title\":\"Multi Function Formula Snail Mucin Repair Serum For Face-100ml\",\"handle\":\"snail-essence-serum\",\"description\":\"<p>Promotes Skin Rejuvenation and Repair</p>\\n<div>\\n<strong>Shelf Life</strong>: 1 year from the date of first use.</div>\",\"published_at\":\"2026-07-09T10:57:22+01:00\",\"created_at\":\"2026-07-09T10:57:22+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[\"serum\"],\"price\":1620000,\"price_min\":1620000,\"price_max\":1620000,\"available\":true,\"price_varies\":false,\"compare_at_price\":2160000,\"compare_at_price_min\":2160000,\"compare_at_price_max\":2160000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931559371000,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-023\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Multi Function Formula Snail Mucin Repair Serum For Face-100ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1620000,\"weight\":700,\"compare_at_price\":2160000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-023\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/snail-essence-serum\",\"media\":[{\"alt\":\"snail serum for face\",\"id\":41393972510968,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":2560,\"width\":2560,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\"},\"aspect_ratio\":1,\"height\":2560,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\",\"width\":2560}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+              "sourceFragmentSha256": "902a14ff9db6fef4a32db1336b26ba0bc902ff720c57d2d431ab328d9d741cc9",
+              "sourceText": "{\n  \"id\": 10201190301944,\n  \"title\": \"Multi Function Formula Snail Mucin Repair Serum For Face-100ml\",\n  \"handle\": \"snail-essence-serum\",\n  \"description\": \"<p>Promotes Skin Rejuvenation and Repair</p>\\n<div>\\n<strong>Shelf Life</strong>: 1 year from the date of first use.</div>\",\n  \"published_at\": \"2026-07-09T10:57:22+01:00\",\n  \"created_at\": \"2026-07-09T10:57:22+01:00\",\n  \"vendor\": \"Dang! Lifestyle Inc.\",\n  \"type\": \"Skin Care\",\n  \"tags\": [\"serum\"],\n  \"price\": 1620000,\n  \"price_min\": 1620000,\n  \"price_max\": 1620000,\n  \"available\": true,\n  \"price_varies\": false,\n  \"compare_at_price\": 2160000,\n  \"compare_at_price_min\": 2160000,\n  \"compare_at_price_max\": 2160000,\n  \"compare_at_price_varies\": false,\n  \"variants\": [\n    {\n      \"id\": 49931559371000,\n      \"title\": \"Default Title\",\n      \"option1\": \"Default Title\",\n      \"option2\": null,\n      \"option3\": null,\n      \"sku\": \"DGL-SKC-023\",\n      \"requires_shipping\": true,\n      \"taxable\": true,\n      \"featured_image\": null,\n      \"available\": true,\n      \"name\": \"Multi Function Formula Snail Mucin Repair Serum For Face-100ml\",\n      \"public_title\": null,\n      \"options\": [\"Default Title\"],\n      \"price\": 1620000,\n      \"weight\": 700,\n      \"compare_at_price\": 2160000,\n      \"inventory_management\": \"shopify\",\n      \"barcode\": \"DGL-SKC-023\",\n      \"quantity_rule\": { \"min\": 1, \"max\": null, \"increment\": 1 },\n      \"quantity_price_breaks\": [],\n      \"requires_selling_plan\": false,\n      \"selling_plan_allocations\": []\n    }\n  ],\n  \"images\": [\n    \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\"\n  ],\n  \"featured_image\": \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\",\n  \"options\": [{ \"name\": \"Title\", \"position\": 1, \"values\": [\"Default Title\"] }],\n  \"url\": \"/products/snail-essence-serum\",\n  \"media\": [\n    {\n      \"alt\": \"snail serum for face\",\n      \"id\": 41393972510968,\n      \"position\": 1,\n      \"preview_image\": {\n        \"aspect_ratio\": 1,\n        \"height\": 2560,\n        \"width\": 2560,\n        \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\"\n      },\n      \"aspect_ratio\": 1,\n      \"height\": 2560,\n      \"media_type\": \"image\",\n      \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\",\n      \"width\": 2560\n    }\n  ],\n  \"requires_selling_plan\": false,\n  \"selling_plan_groups\": []\n}\n"
             },
             "responseDigestScope": "decoded-response-body",
             "responseUrl": "https://danglifestyle.co/products/snail-essence-serum.js?country=NG&currency=NGN&v=2",
@@ -14581,12 +14806,29 @@
             "reviewedAt": "2026-08-09T17:05:00Z",
             "reviewer": "JeloCare catalogue evidence review",
             "schemaVersion": 9,
-            "sourceResponseByteSize": 1979,
+            "sourceResponseByteSize": 2428,
             "sourceResponseMimeType": "text/javascript",
-            "sourceResponseSha256": "f455b719624b86394e1f77397e8260f33ff89b694a0513eaa7b7a166fa4d8d08",
+            "sourceResponseSha256": "902a14ff9db6fef4a32db1336b26ba0bc902ff720c57d2d431ab328d9d741cc9",
             "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-snail-mucin-repair-serum-100ml.json",
             "sourceUrl": "https://danglifestyle.co/products/snail-essence-serum"
-          }
+          },
+          "observedPackageVersion": "Current bottle"
+        },
+        "officialProductCrosswalk": {
+          "schemaVersion": 2,
+          "canonicalManufacturerProductKey": {
+            "basis": "manufacturer-sku",
+            "value": "DGL-SKC-023",
+            "manufacturerHost": "danglifestyle.co",
+            "sourceLocator": "Official Shopify product response variants[0].sku",
+            "sourceText": "\"sku\":\"DGL-SKC-023\"",
+            "sourceTextSha256": "ef0a9be45c14e862e55fde4d1b027e764c8cdb259e226bc95e6135a1e8cd83b3"
+          },
+          "officialSourceResponseSha256": "902a14ff9db6fef4a32db1336b26ba0bc902ff720c57d2d431ab328d9d741cc9",
+          "officialProductUrl": "https://danglifestyle.co/products/snail-essence-serum",
+          "variant": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+          "size": "100 ml",
+          "packageVersion": "Current bottle"
         }
       },
       "care": {
@@ -14608,18 +14850,40 @@
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/snail-essence-serum",
         "exactOffers": [],
-        "excludedObservations": []
+        "excludedObservations": [],
+        "marketRoute": "reference-only"
       },
       "asset": {
-        "rightsStatus": "pending",
-        "origin": "official-brand-source",
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
         "role": "packshot",
-        "sourceUrl": "https://danglifestyle.co/products/snail-essence-serum"
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044",
+        "sourceAssetSha256": "3dd9cc010f8a874d9f72aefd813606b6ca0ef143576be21d87f62274777cccdf",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 291523,
+        "sourceAssetWidth": 2048,
+        "sourceAssetHeight": 2048,
+        "sourceAssetRetrievedAt": "2026-08-09T17:00:00Z",
+        "backgroundTreatment": "source-pixel-isolation",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-snail-mucin-repair-serum-100ml/packshot-v1-6a5e17d4e69c1606.png",
+        "publicImageSha256": "6a5e17d4e69c16062387c36262ab13b3ab7376f9b0f0d6ac76d4756d10290e41",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 2622997,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T18:10:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "rightsUrl": "https://danglifestyle.co/products/snail-essence-serum"
       }
     },
     {
       "id": "dang-snail-secretion-filtrate-repair-face-cream-50g",
-      "brand": "DANG",
+      "brand": "Dang! Lifestyle Inc.",
       "name": "Snail Secretion Filtrate Repair Face Cream",
       "variant": "Snail Secretion Filtrate Repair Face Cream",
       "size": "50 g",
@@ -14637,7 +14901,7 @@
           "label": "SKU"
         },
         "officialProductUrl": "https://danglifestyle.co/products/snail-mucin-cream",
-        "packageVersion": "Snail Secretion Filtrate Repair Face Cream",
+        "packageVersion": "Current jar",
         "checkedAt": "2026-08-09T17:05:00Z",
         "basis": "official-brand",
         "officialEvidence": {
@@ -14649,9 +14913,9 @@
           "observedSize": "50g",
           "snapshotKind": "canonical-extraction",
           "snapshotPath": "data/catalogue-identity-evidence/dang-snail-secretion-filtrate-repair-face-cream-50g.json",
-          "snapshotSha256": "6c5ae662726c5b212903b5f5d3c56ae3bd4d0ebd7e81b67e6edf634166ca2e2b",
+          "snapshotSha256": "193baacca387571fdce94440081b5267b1f2de0ec2c3e9a65996fcd3d52ac50d",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 5104,
+          "snapshotByteSize": 5979,
           "retrievedAt": "2026-08-09T17:00:00Z",
           "canonicalExtraction": {
             "barcodeAlias": true,
@@ -14674,9 +14938,14 @@
                 "value": "DGL-SKC-019"
               },
               "packageVersion": {
-                "locator": "Official Shopify product response title and package identity",
-                "sourceText": "Snail Secretion Filtrate Repair Face Cream",
-                "value": "Snail Secretion Filtrate Repair Face Cream"
+                "locator": "Official Shopify product response media[0].src, visually reviewed",
+                "reviewedMedia": {
+                  "sourceAssetSha256": "c6758b590b2c089bee9cc8d9ec1b3b33e5745bd4812563dd516204ca1c8091dd",
+                  "sourceAssetUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047",
+                  "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047"
+                },
+                "sourceText": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047",
+                "value": "Current jar"
               },
               "size": {
                 "locator": "Official Shopify product response title size suffix",
@@ -14691,11 +14960,11 @@
             },
             "method": "reviewed-exact-official-manufacturer-sku-response",
             "productRecord": {
-              "byteEnd": 2326,
+              "byteEnd": 2775,
               "byteStart": 0,
               "locator": "Complete official Shopify product response root object",
-              "sourceFragmentSha256": "b5f91729113a552aea1be6e09c1a6c779d6c34424f783b09a3e79cbeb2b70e60",
-              "sourceText": "{\"id\":10201190367480,\"title\":\"Snail Secretion Filtrate Repair Face Cream\",\"handle\":\"snail-mucin-cream\",\"description\":\"<p>Moisturising Cream: Skin Repair and Regeneration</p>\\n<p><strong>Perfect For:</strong></p>\\n<ul>\\n<li>Dark spots and post-acne marks</li>\\n<li>Uneven skin tone</li>\\n<li>Dull or textured skin</li>\\n<li>Skin prone to irritation</li>\\n<li>Dry or dehydrated skin</li>\\n<li>Compromised skin barriers</li>\\n</ul>\\n<div>\\n<p><strong>Shelf Life</strong>: 1 year from the date of first use.</p>\\n<p><strong>Size:<span> </span></strong>50g</p>\\n</div>\\n<p> </p>\",\"published_at\":\"2026-07-09T10:57:25+01:00\",\"created_at\":\"2026-07-09T10:57:25+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[\"face cream\"],\"price\":1292000,\"price_min\":1292000,\"price_max\":1292000,\"available\":true,\"price_varies\":false,\"compare_at_price\":1520000,\"compare_at_price_min\":1520000,\"compare_at_price_max\":1520000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931559436536,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-019\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Snail Secretion Filtrate Repair Face Cream\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1292000,\"weight\":500,\"compare_at_price\":1520000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-019\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/snail-mucin-cream\",\"media\":[{\"alt\":\"A cup of face moisturizer with snail secretion filtrate\",\"id\":41393973657848,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":1000,\"width\":1000,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047\"},\"aspect_ratio\":1,\"height\":1000,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047\",\"width\":1000}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+              "sourceFragmentSha256": "de854ff00e2a714d8ab0287b921739435e8d4c799009942d78c3b61b42027937",
+              "sourceText": "{\n  \"id\": 10201190367480,\n  \"title\": \"Snail Secretion Filtrate Repair Face Cream\",\n  \"handle\": \"snail-mucin-cream\",\n  \"description\": \"<p>Moisturising Cream: Skin Repair and Regeneration</p>\\n<p><strong>Perfect For:</strong></p>\\n<ul>\\n<li>Dark spots and post-acne marks</li>\\n<li>Uneven skin tone</li>\\n<li>Dull or textured skin</li>\\n<li>Skin prone to irritation</li>\\n<li>Dry or dehydrated skin</li>\\n<li>Compromised skin barriers</li>\\n</ul>\\n<div>\\n<p><strong>Shelf Life</strong>: 1 year from the date of first use.</p>\\n<p><strong>Size:<span> </span></strong>50g</p>\\n</div>\\n<p> </p>\",\n  \"published_at\": \"2026-07-09T10:57:25+01:00\",\n  \"created_at\": \"2026-07-09T10:57:25+01:00\",\n  \"vendor\": \"Dang! Lifestyle Inc.\",\n  \"type\": \"Skin Care\",\n  \"tags\": [\"face cream\"],\n  \"price\": 1292000,\n  \"price_min\": 1292000,\n  \"price_max\": 1292000,\n  \"available\": true,\n  \"price_varies\": false,\n  \"compare_at_price\": 1520000,\n  \"compare_at_price_min\": 1520000,\n  \"compare_at_price_max\": 1520000,\n  \"compare_at_price_varies\": false,\n  \"variants\": [\n    {\n      \"id\": 49931559436536,\n      \"title\": \"Default Title\",\n      \"option1\": \"Default Title\",\n      \"option2\": null,\n      \"option3\": null,\n      \"sku\": \"DGL-SKC-019\",\n      \"requires_shipping\": true,\n      \"taxable\": true,\n      \"featured_image\": null,\n      \"available\": true,\n      \"name\": \"Snail Secretion Filtrate Repair Face Cream\",\n      \"public_title\": null,\n      \"options\": [\"Default Title\"],\n      \"price\": 1292000,\n      \"weight\": 500,\n      \"compare_at_price\": 1520000,\n      \"inventory_management\": \"shopify\",\n      \"barcode\": \"DGL-SKC-019\",\n      \"quantity_rule\": { \"min\": 1, \"max\": null, \"increment\": 1 },\n      \"quantity_price_breaks\": [],\n      \"requires_selling_plan\": false,\n      \"selling_plan_allocations\": []\n    }\n  ],\n  \"images\": [\n    \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047\"\n  ],\n  \"featured_image\": \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047\",\n  \"options\": [{ \"name\": \"Title\", \"position\": 1, \"values\": [\"Default Title\"] }],\n  \"url\": \"/products/snail-mucin-cream\",\n  \"media\": [\n    {\n      \"alt\": \"A cup of face moisturizer with snail secretion filtrate\",\n      \"id\": 41393973657848,\n      \"position\": 1,\n      \"preview_image\": {\n        \"aspect_ratio\": 1,\n        \"height\": 1000,\n        \"width\": 1000,\n        \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047\"\n      },\n      \"aspect_ratio\": 1,\n      \"height\": 1000,\n      \"media_type\": \"image\",\n      \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047\",\n      \"width\": 1000\n    }\n  ],\n  \"requires_selling_plan\": false,\n  \"selling_plan_groups\": []\n}\n"
             },
             "responseDigestScope": "decoded-response-body",
             "responseUrl": "https://danglifestyle.co/products/snail-mucin-cream.js?country=NG&currency=NGN&v=2",
@@ -14703,12 +14972,29 @@
             "reviewedAt": "2026-08-09T17:05:00Z",
             "reviewer": "JeloCare catalogue evidence review",
             "schemaVersion": 9,
-            "sourceResponseByteSize": 2326,
+            "sourceResponseByteSize": 2775,
             "sourceResponseMimeType": "text/javascript",
-            "sourceResponseSha256": "b5f91729113a552aea1be6e09c1a6c779d6c34424f783b09a3e79cbeb2b70e60",
+            "sourceResponseSha256": "de854ff00e2a714d8ab0287b921739435e8d4c799009942d78c3b61b42027937",
             "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-snail-secretion-filtrate-repair-face-cream-50g.json",
             "sourceUrl": "https://danglifestyle.co/products/snail-mucin-cream"
-          }
+          },
+          "observedPackageVersion": "Current jar"
+        },
+        "officialProductCrosswalk": {
+          "schemaVersion": 2,
+          "canonicalManufacturerProductKey": {
+            "basis": "manufacturer-sku",
+            "value": "DGL-SKC-019",
+            "manufacturerHost": "danglifestyle.co",
+            "sourceLocator": "Official Shopify product response variants[0].sku",
+            "sourceText": "\"sku\":\"DGL-SKC-019\"",
+            "sourceTextSha256": "714442047e8d26bffb6ac86cd92dac21ea36fd77532a833af8dba20025dbf00e"
+          },
+          "officialSourceResponseSha256": "de854ff00e2a714d8ab0287b921739435e8d4c799009942d78c3b61b42027937",
+          "officialProductUrl": "https://danglifestyle.co/products/snail-mucin-cream",
+          "variant": "Snail Secretion Filtrate Repair Face Cream",
+          "size": "50 g",
+          "packageVersion": "Current jar"
         }
       },
       "care": {
@@ -14730,18 +15016,40 @@
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/snail-mucin-cream",
         "exactOffers": [],
-        "excludedObservations": []
+        "excludedObservations": [],
+        "marketRoute": "reference-only"
       },
       "asset": {
-        "rightsStatus": "pending",
-        "origin": "official-brand-source",
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
         "role": "packshot",
-        "sourceUrl": "https://danglifestyle.co/products/snail-mucin-cream"
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047",
+        "sourceAssetSha256": "c6758b590b2c089bee9cc8d9ec1b3b33e5745bd4812563dd516204ca1c8091dd",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 62184,
+        "sourceAssetWidth": 1000,
+        "sourceAssetHeight": 1000,
+        "sourceAssetRetrievedAt": "2026-08-09T17:00:00Z",
+        "backgroundTreatment": "source-pixel-isolation",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-snail-secretion-filtrate-repair-face-cream-50g/packshot-v1-7b7b69980cfeef64.png",
+        "publicImageSha256": "7b7b69980cfeef64e832c958b95032c296eef2da8c44349705b67832039e1c3f",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 828184,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T18:10:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "rightsUrl": "https://danglifestyle.co/products/snail-mucin-cream"
       }
     },
     {
       "id": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
-      "brand": "DANG",
+      "brand": "Dang! Lifestyle Inc.",
       "name": "Vitamin C Concentrated Serum (Oil Free)",
       "variant": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
       "size": "30 ml",
@@ -14759,7 +15067,7 @@
           "label": "SKU"
         },
         "officialProductUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
-        "packageVersion": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
+        "packageVersion": "Current carton and dropper bottle",
         "checkedAt": "2026-08-09T17:05:00Z",
         "basis": "official-brand",
         "officialEvidence": {
@@ -14771,9 +15079,9 @@
           "observedSize": "30ml",
           "snapshotKind": "canonical-extraction",
           "snapshotPath": "data/catalogue-identity-evidence/dang-vitamin-c-concentrated-serum-oil-free-30ml.json",
-          "snapshotSha256": "5d98f5f29bb31c84b46a058632be103bcd131029703fd176fb32b3d8668cfb83",
+          "snapshotSha256": "572503f074e722c34430d2e2fd04292793041bb63d60a626149b1922967c49fc",
           "snapshotMimeType": "application/json",
-          "snapshotByteSize": 5069,
+          "snapshotByteSize": 5989,
           "retrievedAt": "2026-08-09T17:00:00Z",
           "canonicalExtraction": {
             "barcodeAlias": true,
@@ -14796,9 +15104,14 @@
                 "value": "DGL-SKC-020"
               },
               "packageVersion": {
-                "locator": "Official Shopify product response title and package identity",
-                "sourceText": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
-                "value": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml"
+                "locator": "Official Shopify product response media[0].src, visually reviewed",
+                "reviewedMedia": {
+                  "sourceAssetSha256": "c06cc3d2cfb48acb95eac3364d184e87a2c0acc4943c6560c0a4a3ba82e143ad",
+                  "sourceAssetUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050",
+                  "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050"
+                },
+                "sourceText": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050",
+                "value": "Current carton and dropper bottle"
               },
               "size": {
                 "locator": "Official Shopify product response title size suffix",
@@ -14813,11 +15126,11 @@
             },
             "method": "reviewed-exact-official-manufacturer-sku-response",
             "productRecord": {
-              "byteEnd": 2172,
+              "byteEnd": 2624,
               "byteStart": 0,
               "locator": "Complete official Shopify product response root object",
-              "sourceFragmentSha256": "063ca088da33d57d30c24883c3e04413af0c2777d152316ed41f9ef7ee0662b4",
-              "sourceText": "{\"id\":10201190433016,\"title\":\"Vitamin C Concentrated Serum For Face (Oil Free)-30ml\",\"handle\":\"vitamin-c-serum-for-oily-skin\",\"description\":\"<p>The Skin Defender</p>\\n<p><em>7% Ethyl Ascorbic Acid. Aloe Vera Extract. Glycerin.</em></p>\\n<div>\\n<p><strong>Shelf Life</strong>:1 year from the date of first use.</p>\\n</div>\\n<p> </p>\",\"published_at\":\"2026-07-09T10:57:27+01:00\",\"created_at\":\"2026-07-09T10:57:27+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[\"brightening\",\"hyperpigmentation\",\"oily skin\",\"Serum\"],\"price\":1504500,\"price_min\":1504500,\"price_max\":1504500,\"available\":true,\"price_varies\":false,\"compare_at_price\":1770000,\"compare_at_price_min\":1770000,\"compare_at_price_max\":1770000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931559502072,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-020\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Vitamin C Concentrated Serum For Face (Oil Free)-30ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1504500,\"weight\":700,\"compare_at_price\":1770000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-020\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/vitamin-c-serum-for-oily-skin\",\"media\":[{\"alt\":\"Vitamin c serum for face\",\"id\":41393975329016,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":2560,\"width\":2560,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050\"},\"aspect_ratio\":1,\"height\":2560,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050\",\"width\":2560}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+              "sourceFragmentSha256": "0a34f81846ecf0d180837e48d9b3341e79bd8306f17987e3500a2bb6cee2df03",
+              "sourceText": "{\n  \"id\": 10201190433016,\n  \"title\": \"Vitamin C Concentrated Serum For Face (Oil Free)-30ml\",\n  \"handle\": \"vitamin-c-serum-for-oily-skin\",\n  \"description\": \"<p>The Skin Defender</p>\\n<p><em>7% Ethyl Ascorbic Acid. Aloe Vera Extract. Glycerin.</em></p>\\n<div>\\n<p><strong>Shelf Life</strong>:1 year from the date of first use.</p>\\n</div>\\n<p> </p>\",\n  \"published_at\": \"2026-07-09T10:57:27+01:00\",\n  \"created_at\": \"2026-07-09T10:57:27+01:00\",\n  \"vendor\": \"Dang! Lifestyle Inc.\",\n  \"type\": \"Skin Care\",\n  \"tags\": [\"brightening\", \"hyperpigmentation\", \"oily skin\", \"Serum\"],\n  \"price\": 1504500,\n  \"price_min\": 1504500,\n  \"price_max\": 1504500,\n  \"available\": true,\n  \"price_varies\": false,\n  \"compare_at_price\": 1770000,\n  \"compare_at_price_min\": 1770000,\n  \"compare_at_price_max\": 1770000,\n  \"compare_at_price_varies\": false,\n  \"variants\": [\n    {\n      \"id\": 49931559502072,\n      \"title\": \"Default Title\",\n      \"option1\": \"Default Title\",\n      \"option2\": null,\n      \"option3\": null,\n      \"sku\": \"DGL-SKC-020\",\n      \"requires_shipping\": true,\n      \"taxable\": true,\n      \"featured_image\": null,\n      \"available\": true,\n      \"name\": \"Vitamin C Concentrated Serum For Face (Oil Free)-30ml\",\n      \"public_title\": null,\n      \"options\": [\"Default Title\"],\n      \"price\": 1504500,\n      \"weight\": 700,\n      \"compare_at_price\": 1770000,\n      \"inventory_management\": \"shopify\",\n      \"barcode\": \"DGL-SKC-020\",\n      \"quantity_rule\": { \"min\": 1, \"max\": null, \"increment\": 1 },\n      \"quantity_price_breaks\": [],\n      \"requires_selling_plan\": false,\n      \"selling_plan_allocations\": []\n    }\n  ],\n  \"images\": [\n    \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050\"\n  ],\n  \"featured_image\": \"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050\",\n  \"options\": [{ \"name\": \"Title\", \"position\": 1, \"values\": [\"Default Title\"] }],\n  \"url\": \"/products/vitamin-c-serum-for-oily-skin\",\n  \"media\": [\n    {\n      \"alt\": \"Vitamin c serum for face\",\n      \"id\": 41393975329016,\n      \"position\": 1,\n      \"preview_image\": {\n        \"aspect_ratio\": 1,\n        \"height\": 2560,\n        \"width\": 2560,\n        \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050\"\n      },\n      \"aspect_ratio\": 1,\n      \"height\": 2560,\n      \"media_type\": \"image\",\n      \"src\": \"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050\",\n      \"width\": 2560\n    }\n  ],\n  \"requires_selling_plan\": false,\n  \"selling_plan_groups\": []\n}\n"
             },
             "responseDigestScope": "decoded-response-body",
             "responseUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin.js?country=NG&currency=NGN&v=2",
@@ -14825,12 +15138,29 @@
             "reviewedAt": "2026-08-09T17:05:00Z",
             "reviewer": "JeloCare catalogue evidence review",
             "schemaVersion": 9,
-            "sourceResponseByteSize": 2172,
+            "sourceResponseByteSize": 2624,
             "sourceResponseMimeType": "text/javascript",
-            "sourceResponseSha256": "063ca088da33d57d30c24883c3e04413af0c2777d152316ed41f9ef7ee0662b4",
+            "sourceResponseSha256": "0a34f81846ecf0d180837e48d9b3341e79bd8306f17987e3500a2bb6cee2df03",
             "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-vitamin-c-concentrated-serum-oil-free-30ml.json",
             "sourceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
-          }
+          },
+          "observedPackageVersion": "Current carton and dropper bottle"
+        },
+        "officialProductCrosswalk": {
+          "schemaVersion": 2,
+          "canonicalManufacturerProductKey": {
+            "basis": "manufacturer-sku",
+            "value": "DGL-SKC-020",
+            "manufacturerHost": "danglifestyle.co",
+            "sourceLocator": "Official Shopify product response variants[0].sku",
+            "sourceText": "\"sku\":\"DGL-SKC-020\"",
+            "sourceTextSha256": "bc4e25c47daf481a6ceb5f9ef7962a2d8cf0b8c4c6182ab1bc06088b7aa42b83"
+          },
+          "officialSourceResponseSha256": "0a34f81846ecf0d180837e48d9b3341e79bd8306f17987e3500a2bb6cee2df03",
+          "officialProductUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+          "variant": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
+          "size": "30 ml",
+          "packageVersion": "Current carton and dropper bottle"
         }
       },
       "care": {
@@ -14852,13 +15182,35 @@
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
         "exactOffers": [],
-        "excludedObservations": []
+        "excludedObservations": [],
+        "marketRoute": "reference-only"
       },
       "asset": {
-        "rightsStatus": "pending",
-        "origin": "official-brand-source",
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
         "role": "packshot",
-        "sourceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050",
+        "sourceAssetSha256": "c06cc3d2cfb48acb95eac3364d184e87a2c0acc4943c6560c0a4a3ba82e143ad",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 209936,
+        "sourceAssetWidth": 2048,
+        "sourceAssetHeight": 2048,
+        "sourceAssetRetrievedAt": "2026-08-09T17:00:00Z",
+        "backgroundTreatment": "source-pixel-isolation",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-vitamin-c-concentrated-serum-oil-free-30ml/packshot-v1-3ac9a3fa7d46acb1.png",
+        "publicImageSha256": "3ac9a3fa7d46acb1d604a0b4673237f38fed94e560b2525c98839eff1e7ed3b1",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 2063560,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T18:10:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "rightsUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
       }
     },
     {

@@ -318,6 +318,42 @@
       "source": "dossier-release"
     },
     {
+      "slug": "dang-beauty-water-toner-100ml",
+      "brand": "DANG! Lifestyle",
+      "name": "Beauty Water (Toner)",
+      "size": "100 ml",
+      "category": "Face",
+      "approvedGtin": null,
+      "source": "dossier-release"
+    },
+    {
+      "slug": "dang-collagen-hydrating-serum-ceramides-30ml",
+      "brand": "DANG! Lifestyle",
+      "name": "Collagen And Hydrating Serum With Ceramides",
+      "size": "30 ml",
+      "category": "Face",
+      "approvedGtin": null,
+      "source": "dossier-release"
+    },
+    {
+      "slug": "dang-everyday-gentle-foaming-face-wash-120ml",
+      "brand": "DANG! Lifestyle",
+      "name": "Everyday Gentle Foaming Face Wash",
+      "size": "120 ml",
+      "category": "Face",
+      "approvedGtin": null,
+      "source": "dossier-release"
+    },
+    {
+      "slug": "dang-hyaluronic-cream-hydrating-face-cleanser-200ml",
+      "brand": "DANG! Lifestyle",
+      "name": "Hyaluronic Cream Hydrating Face Cleanser",
+      "size": "200 ml",
+      "category": "Face",
+      "approvedGtin": null,
+      "source": "dossier-release"
+    },
+    {
       "slug": "dang-hydra-glow-sun-protection-gel-60ml",
       "brand": "DANG! Lifestyle",
       "name": "Hydra Glow Sun Protection Gel",
@@ -330,6 +366,42 @@
       "slug": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
       "brand": "DANG! Lifestyle",
       "name": "Ageless Niacinamide + N-Acetyl Glucosamine Serum",
+      "size": "30 ml",
+      "category": "Face",
+      "approvedGtin": null,
+      "source": "dossier-release"
+    },
+    {
+      "slug": "dang-retinal-cream-005-30ml",
+      "brand": "DANG! Lifestyle",
+      "name": "Multipurpose Retinal Cream 0.05%",
+      "size": "30 ml",
+      "category": "Face",
+      "approvedGtin": null,
+      "source": "dossier-release"
+    },
+    {
+      "slug": "dang-snail-mucin-repair-serum-100ml",
+      "brand": "DANG! Lifestyle",
+      "name": "Multi Function Formula Snail Mucin Repair Serum",
+      "size": "100 ml",
+      "category": "Face",
+      "approvedGtin": null,
+      "source": "dossier-release"
+    },
+    {
+      "slug": "dang-snail-secretion-filtrate-repair-face-cream-50g",
+      "brand": "DANG! Lifestyle",
+      "name": "Snail Secretion Filtrate Repair Face Cream",
+      "size": "50 g",
+      "category": "Face",
+      "approvedGtin": null,
+      "source": "dossier-release"
+    },
+    {
+      "slug": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
+      "brand": "DANG! Lifestyle",
+      "name": "Vitamin C Concentrated Serum (Oil Free)",
       "size": "30 ml",
       "category": "Face",
       "approvedGtin": null,

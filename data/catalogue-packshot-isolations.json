@@ -51,11 +51,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-02T18:11:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "bdfa9f056b8a471f42a3a683eb24390fa69df6f273d0f34457dd59023f0d8da3",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -114,11 +110,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T03:52:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -177,11 +169,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T03:45:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -240,11 +228,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-06T07:33:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "beac42cd123817838ee5dffbd5e958d1566e225e23b726014db94db46598087e",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -303,11 +287,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-05T00:25:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "11fc11ac363caf23392730851d225f1f4bff1d9be2433f6582fad3e40d5679ce",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -366,11 +346,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T04:13:30Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -412,9 +388,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "b405acb34f2088a01bb87c460c13fe3fa065d4d7e3b3633d68d61319dfce188a",
@@ -429,11 +405,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T16:45:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "9ef0d8fa8375c05fa58c95691d3087ffe401a6f0e1b322c7ba445e434cb0586d",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -475,9 +447,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "11197a072a0d343f88e0492b3b5259f0a8791ba821116b10bfab04e726aca65d",
@@ -492,11 +464,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T16:45:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "ad7d564f6ac6460718e044205dd7738a002664731d5724c3d02e2a0e71e36cb7",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -555,11 +523,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T15:48:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "3fbb8f094ccc140c6097102d1f2166067112eea6f4d8a0b489a7f9c39692f95c",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -618,11 +582,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T15:48:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "4dcc0466ff66a2804c6af856d7f3fc6ae4d1aebdf3e8ef7b59b7d0b985c4e4e2",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -664,9 +624,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "dc995193903dc26f5392849422721049be7313f1f89680341744015f2f84646e",
@@ -681,11 +641,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T22:20:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "fe7b8c94caaa8bee14c9445fe063ad5e930b693f098ee8f88a70662f6220ea9f",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -727,9 +683,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "b0334a0752f800877ced0c84088ce0aeb25eb7f5766d7a74891c15853c0e1b6c",
@@ -744,11 +700,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T22:35:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "97a57e012106a38faaf7f3824825f5f97a85d3191e4f49c31afefc836424d0f6",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -790,9 +742,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "4101d7087e1912d3d5b47cb2b49f48f75d4b1e6f8de9d4389d487cad73984b84",
@@ -807,11 +759,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T22:58:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "28285caf618710ee4e3207c1d8fed1782e984cfb32c36095fc6d46b5a3418d0a",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -870,11 +818,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-07-29T05:35:00Z",
       "artReviewer": "Claude Code visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "463dbde51c725fc8fdb512ccd5dfba7966dfb535e2e594cce2dad58414a69bea",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -916,9 +860,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "718923721e27314952900df6a92cd9502668fbbc3ebb7380a2ae3749422b4937",
@@ -933,11 +877,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T23:28:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "4b257ac3d63ac3eafa1ceec6af16f204fe86ac3cc0848f0d65e38085b8ea929f",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -996,11 +936,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-02T22:59:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "02884d61476458bd701a20d6b64c6520e21a6ad37712060b6e0f8170bc122b2a",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1059,11 +995,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T00:06:15Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "cad4c2f647ba901ef05f8ec3f2f93ca8aacf95c8137a2bbea9e8c3c2b9f0792b",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1106,9 +1038,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "c6f6e2adc24144c7110c63e3ee751ed0c0dec04149b4c902dbf16c4a29a9b81c",
@@ -1123,11 +1055,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T17:44:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "33a93e3d73e859f4de8dadb46f76460611ac6a247b677100426570affaae849e",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1186,11 +1114,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-05T05:24:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "5305f003ef583fab3016be076743d4aa208657886e95667d86ace90090cd7b56",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1249,11 +1173,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-05T01:26:00Z",
       "artReviewer": "JeloCare catalogue art review",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "9f8eaa45a8c415faeade2e091e05f0deb8ffc41e34bfdcdb3a7340b81432651b",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1312,11 +1232,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-02T14:49:45Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "623da548ce6835943e916a117d8e3e9227b3089739107459263d867c177fad4c",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1358,9 +1274,9 @@
       "inferredComponentCount": 2,
       "retainedComponentCount": 2,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "94e157c51366427cfb6ec01f7b6776da9d6d870fd1b81721849b9e31204e7665",
@@ -1375,11 +1291,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T17:00:30Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "577630c670383ac1b1fa9928a400a825764d5e8122dfb1c16c5682f2914c1df3",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1421,9 +1333,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced",
@@ -1438,11 +1350,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T22:45:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "a65faaf612d38c05296c7d21deade913cb50dcc921da2a56b85710862c5828f4",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1501,11 +1409,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-06T12:10:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "1904e3f59e5dddad51da9b2e6acfe45d7305fe90ecc2aa56710264b741239b56",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1564,11 +1468,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-04T13:20:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "889c110b60cb58c684947274cdb200b5ea0d5f5de68b1e89acabb8476e957d9c",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1627,11 +1527,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-04T13:20:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "f5dc3f9ef2401da79f799692ba35e1af57bf1479e7be0b2cccefedfc59f37c74",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1673,9 +1569,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "8e0de18b28f2ea4ad414d18163a4351e329eab2461495a3d0040770546461074",
@@ -1690,11 +1586,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T22:50:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "cd40bbcf0de2fa04f4a2626e1ee19ec3143e959e143c1521c809d18557d84891",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1736,9 +1628,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "a6699d6baae90863fb52cbcb0991c6d6e61ccaef780ba4629372f47e77e2a7bf",
@@ -1753,11 +1645,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T22:53:00Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "9bd02e8c823f92b4bbf5ab8f7e7614db6093a92a5687717d4bf3521e2d599777",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1816,11 +1704,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-04T14:11:07Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "5871fc98898696b2d13aae788d144ace53e74805a3e9f1fae9191e4156ea6f62",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1879,11 +1763,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-04T14:04:30Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "c8fa5827910ecbdd2c912f48578b2547ae1314f9d8ae0892d0a815d4c9a9c451",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -1942,11 +1822,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-04T16:54:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "4a3a737265cd5295cbeb7b14de90ef346a4402ddab66a0777a29a72f55c0db05",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -2005,11 +1881,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-04T16:54:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "db1a4b1c0c3e73caa6ef23f77611e14c7232b25e9adeb13fed65d5a3ba9a7fb0",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -2069,11 +1941,7 @@
       "artReviewedAt": "2026-08-07T11:42:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "d71f56d2d74745e903286c00399e58444b8f0ea2b9e603e85e293426c50326e3",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2132,11 +2000,7 @@
       "artReviewedAt": "2026-08-07T13:17:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "746739def7979eb1f0b21bb3cf7800d365591c397d3969faa1012eb0aa718804",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2177,9 +2041,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "16029ebf58c00f9681b1dd10afb9c072608382ee532d96c40eb8539d6352aea4",
@@ -2195,11 +2059,7 @@
       "artReviewedAt": "2026-08-07T15:15:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "0c2bcf7b24580d0e371867506996a659ae0675aa264ffa6454f382809983b8bd",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2258,11 +2118,7 @@
       "artReviewedAt": "2026-08-07T11:38:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "07ec331320054a19ea9367c33b089d811dbb4dc6c852ffabd6cb148178314566",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2321,11 +2177,7 @@
       "artReviewedAt": "2026-08-07T12:17:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "6b1a36d4ec2ff18f1df0f785ede3975f8d99057e132dc176eb919a2f312a521e",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2384,11 +2236,7 @@
       "artReviewedAt": "2026-08-07T12:06:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "aa380764e211ed6d0634179d21da249fd78cec81a1630549cb99049b51b646cc",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2447,11 +2295,7 @@
       "artReviewedAt": "2026-08-07T12:03:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "76c3b105b785232782e0f3dfd1f3c3298bbcd5a59a438c572474351b39dead6e",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2492,9 +2336,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "8a8259370215e861a80ce30665a76754b91bfa663d49e0a9cee12d7f1b3b7798",
@@ -2510,11 +2354,7 @@
       "artReviewedAt": "2026-08-07T15:15:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "9706fef9e0a1b7e18c1cc28a6d3b99dd52759b0170d898ec230b8164323dbc39",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2573,11 +2413,7 @@
       "artReviewedAt": "2026-08-07T11:24:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "c7e8ac8b024f46618541aecdf7acf833959c3ddefaa765b36b7cb70618074b68",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2636,11 +2472,7 @@
       "artReviewedAt": "2026-08-07T11:35:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "8a73213b3eebce75228f8fb856d978693e91cc848059b4ebf0a54b10c0dbcfa2",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2699,11 +2531,7 @@
       "artReviewedAt": "2026-08-07T13:02:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "a1ee0fd2a614d65c35fadfcb60faa5172c2ddb78f2e395eea96f82a43ce51989",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2762,11 +2590,7 @@
       "artReviewedAt": "2026-08-07T12:41:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "119e3eacfd8b583d9fe550d8b31d2b7a53e6ba954e99a3868bf9dd88420a5105",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2825,11 +2649,7 @@
       "artReviewedAt": "2026-08-07T11:56:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "b81ed9d0389bd5a2f74b463495a3423b4a32e10267fbd1295f46a3888eadeecf",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2888,11 +2708,7 @@
       "artReviewedAt": "2026-08-07T13:25:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "4c5d2f346b9efaef26fe99be83bd4423bde5048f9a05e36e67acf015b7748e3f",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -2933,9 +2749,9 @@
       "inferredComponentCount": 2,
       "retainedComponentCount": 2,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "5454bb6022caebf29c6e9f509a3120c6a34ad82a7a6d93084df221a700c4e2b1",
@@ -2951,11 +2767,7 @@
       "artReviewedAt": "2026-08-07T15:15:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "953991471d63fa757ec3fcdc5eef2cd966f058e8f5f5b3fb195f6f436c6f4ade",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3014,11 +2826,7 @@
       "artReviewedAt": "2026-08-07T11:33:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "3aba96919cc2789656e7db506975e6052b69349447260b3c5b72ba9825750ffe",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3077,11 +2885,7 @@
       "artReviewedAt": "2026-08-07T12:44:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "b6966e0d25185c37af48919d4f8f31463f4841feb3f89ed401093c18883c12ad",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3192,11 +2996,7 @@
       "artReviewedAt": "2026-08-08T15:17:00Z",
       "artReviewer": "Codex independent alpha-repair release recheck",
       "surfaceReviewSha256": "cb9924c912576e53e8519202d4d4049e097d9a07594edf64aca0c0ed41879c72",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3255,11 +3055,7 @@
       "artReviewedAt": "2026-08-07T11:59:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "03a0700e169ab746446515e153c1e167dcb10ace2f46bf6daabecbe62523c89d",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3300,9 +3096,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "2a39ae1c6a509af277762014c282aa46db13bc0040158a33a00c266b58de6a64",
@@ -3318,11 +3114,7 @@
       "artReviewedAt": "2026-08-07T15:15:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "dcf606504e7d07aa2795f4f5901f31b2cb47047946af721b1530b8d1afc2d2f6",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3381,11 +3173,7 @@
       "artReviewedAt": "2026-08-07T11:30:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "3dc7276271866f98d7850082a98c50c86c19c7d96b38edf473a6fdb6745cf844",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3426,9 +3214,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "5b3fa4fb836407b5cfc54dfad23a76f917e55d74b84f66a43917fbef1c241252",
@@ -3444,11 +3232,7 @@
       "artReviewedAt": "2026-08-07T15:15:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "d9ceacf0516a89a155364b02c22033f1ba3db2fc8191c32660dbff8d734bd314",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3489,9 +3273,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "c9470c5825104e9c727eb58d02a7831551141c207d8156c114cf06c0f1c72d3e",
@@ -3507,11 +3291,7 @@
       "artReviewedAt": "2026-08-07T15:15:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "5b1091a66161cb2c57c0bf4a42be990f7a5ce911205d9f011aa17789d73322eb",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3552,9 +3332,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "0d5e0866be5ae63fa26304ad3db3c6872961b428e11a7c311819e0b85ddf4ba8",
@@ -3570,11 +3350,7 @@
       "artReviewedAt": "2026-08-07T15:15:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "87d4abbb8dc29a0e4323fbec4458c22e8917983e56a5c06a9e3eac9f7c0becb7",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3633,11 +3409,7 @@
       "artReviewedAt": "2026-08-07T12:10:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "b08275e172d1f3c82ffd76aa1c416502b5d13f99c097c4da254c629e6a407003",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3678,9 +3450,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "07bed449f01a3f5f81c48933bdb5ae6213e4e378d08ae8e3180cb40509934546",
@@ -3696,11 +3468,7 @@
       "artReviewedAt": "2026-08-07T15:15:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "4a72e4a96c516e21366c91f70c814433e0db75a5d4b16225d9b682d647f98103",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3759,11 +3527,7 @@
       "artReviewedAt": "2026-08-07T11:27:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "5e670bad7b5926c0437c824164b2348aaca522d6a6846c511714ef0595241482",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3822,11 +3586,7 @@
       "artReviewedAt": "2026-08-07T12:54:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "648131700854416eb02b848224bba85f7fc4dc2a0d7a15f49123d6c5b66f675a",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3867,9 +3627,9 @@
       "inferredComponentCount": 2,
       "retainedComponentCount": 2,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "0e5ae8f2962b175994efc0d53c5238f12ee57087a17f678f1aeb0d2895cae0ee",
@@ -3885,11 +3645,7 @@
       "artReviewedAt": "2026-08-07T14:59:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "de57284281287f3e98db37ff091d94087deec4cb1374d55e06ec5ef3d35f5321",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3948,11 +3704,7 @@
       "artReviewedAt": "2026-08-07T11:52:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "d02b8f43adfaaba3d92c53bd5ec1565c3d253962983947a22c909ddc99f75461",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -3993,9 +3745,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "a1c2ab873f54de137924ed2873fc7e06714bb498877c9fbd03cf8738d4c124e2",
@@ -4011,11 +3763,7 @@
       "artReviewedAt": "2026-08-07T15:15:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "33bd5e6eba0423ee9d5884642d0f897e7f23f68a37ecd421603487824b356cad",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4074,11 +3822,7 @@
       "artReviewedAt": "2026-08-07T12:19:18Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "8441192f9fd3db91afaae984418d513d89c1a901d996bb7c72ecac1d4bc34893",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4119,9 +3863,9 @@
       "inferredComponentCount": 7,
       "retainedComponentCount": 7,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "20f612bc9b629ce9474061c8bcceac5df4458f7e28d2644f4958791bb9c0110f",
@@ -4137,11 +3881,7 @@
       "artReviewedAt": "2026-08-07T14:59:57Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "79bbb5f522c10a5c2bd39bb76efa4713b461659dc12d7529738f477b93233f0f",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4182,9 +3922,9 @@
       "inferredComponentCount": 25,
       "retainedComponentCount": 25,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "92ea6cbb3abc55676499887c84a5a8d684578132907142f806053bef006eb020",
@@ -4200,11 +3940,7 @@
       "artReviewedAt": "2026-08-07T15:15:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "3edcf5aa10f4552a5b29929fc89d70f990701119eaad11dd56bd24a24ab741ce",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4263,11 +3999,7 @@
       "artReviewedAt": "2026-08-07T12:31:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "d55ba85d779481d3dc641e7db0c256a892ddbc848e575afd94a7abe0668bfee3",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4326,11 +4058,7 @@
       "artReviewedAt": "2026-08-07T12:25:31Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "70f53a92bcf274385155893ab6e921718e4ddbce319ef01c327cf4d8538cceae",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4389,11 +4117,7 @@
       "artReviewedAt": "2026-08-07T11:44:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "13249825fe367d5508b21f600b81808f8ae073103196d014b2656294a3614f48",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4452,11 +4176,7 @@
       "artReviewedAt": "2026-08-07T13:11:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "c863873087d549bc29ea923b414a7b39f0b438d71d38f20114205905640d512a",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4563,11 +4283,7 @@
       "artReviewedAt": "2026-08-08T15:17:00Z",
       "artReviewer": "Codex independent alpha-repair release recheck",
       "surfaceReviewSha256": "4aa242cb228a4f5fb032b05b1b3623ce0a3c15f913a8920479ffea263e1c015f",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4625,11 +4341,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-04T13:04:15Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "66b0e0534093607f87cb71d3a45a5212d1bf4235c55cd07dc04429bde97de3c5",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -4689,11 +4401,7 @@
       "artReviewedAt": "2026-08-07T13:28:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "468072881f7cae36c576ee9f7a4a4a3f820cb6e41ef097d7e70aab56ffff57b5",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4752,11 +4460,7 @@
       "artReviewedAt": "2026-08-07T12:36:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "44e07312212f15f7a5e924c0c5e72b993c91993881c1a619525f2c8a76cdb55f",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4815,11 +4519,7 @@
       "artReviewedAt": "2026-08-07T11:48:30Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "f76c642f895b97ae6783590166eff32c31a52f440921dd8e3b6963aa3da9c164",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4878,11 +4578,7 @@
       "artReviewedAt": "2026-08-07T12:49:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "b75891cf057e425813a4b51f72140dbf30e3e8708fbd175a62e7ea0c1326e144",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -4941,11 +4637,7 @@
       "artReviewedAt": "2026-08-07T11:16:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "16209787bc3de419c300381a5f119bcb9ee6a586f83a0292f04181760c0224de",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -5004,11 +4696,7 @@
       "artReviewedAt": "2026-08-07T13:20:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "bcfccece3a4cfdb7be585201bd8921477b0e7f9e24080c04197a5803c12ec8c2",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -5067,11 +4755,7 @@
       "artReviewedAt": "2026-08-07T13:14:00Z",
       "artReviewer": "Codex visual audit",
       "surfaceReviewSha256": "0049a975bab71502e4a8beebd814c337699d6a3b5e5d38d36f5d96fc71668e5c",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
@@ -5129,11 +4813,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T04:02:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -5192,11 +4872,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-06T23:46:15Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "c82008eecf8f18c0a07c04038aebe5186451c7318e496d2a2e78fb01597c5b98",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -5238,9 +4914,9 @@
       "inferredComponentCount": 3,
       "retainedComponentCount": 3,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "49c649774b2d42e4db3c4d3491a750f5febc6af92269c6f045c8748749ec9142",
@@ -5255,11 +4931,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T16:45:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "83644da61b944db0e6f3357575e731da0410e5f0847b275ade93e16ae72c74b3",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -5301,9 +4973,9 @@
       "inferredComponentCount": 1,
       "retainedComponentCount": 1,
       "removedComponentCount": 0,
-      "removedForegroundFraction": 0.0,
+      "removedForegroundFraction": 0,
       "componentReviewRequired": false,
-      "sourceEdgeContactFraction": 0.0
+      "sourceEdgeContactFraction": 0
     },
     "output": {
       "sha256": "4d07e383b70138a47c301874ad8a6159e58be2387fd590926f53d79d8794299d",
@@ -5318,11 +4990,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-08T01:20:57Z",
       "artReviewer": "Devin visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "616d05f081e8d06205f6ed5875e4af18f9dc79159a1d2337383c76e77888fa34",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -5381,11 +5049,7 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T02:35:00Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
@@ -5444,12 +5108,488 @@
       "identityReviewer": "JeloCare catalogue identity review",
       "artReviewedAt": "2026-08-07T04:28:30Z",
       "artReviewer": "Codex visual audit",
-      "surfaces": [
-        "peach",
-        "pink",
-        "dark"
-      ],
+      "surfaces": ["peach", "pink", "dark"],
       "surfaceReviewSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050",
+      "sha256": "c06cc3d2cfb48acb95eac3364d184e87a2c0acc4943c6560c0a4a3ba82e143ad",
+      "byteSize": 209936,
+      "width": 2048,
+      "height": 2048,
+      "retrievedAt": "2026-08-09T17:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-020",
+        "label": "SKU"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "3ac9a3fa7d46acb1d604a0b4673237f38fed94e560b2525c98839eff1e7ed3b1",
+      "generatedAt": "2026-08-09T18:02:34Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "3ac9a3fa7d46acb1d604a0b4673237f38fed94e560b2525c98839eff1e7ed3b1",
+      "byteSize": 2063560,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-09T18:10:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-09T18:10:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "07abb328e013253e1849a6e0ca284ae384c66830e8221cb4ed44feac8da0ad5f",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "dang-collagen-hydrating-serum-ceramides-30ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040",
+      "sha256": "911f377e5390faa63d139930a4c4e2854d7a9a11862254ce3b1f97f01f5f2e0a",
+      "byteSize": 62147,
+      "width": 1080,
+      "height": 1080,
+      "retrievedAt": "2026-08-09T17:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-034",
+        "label": "SKU"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/collagen-peptide-serum"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "e4d9e5cfc368c681f07e8775b67727130686931da8f6958983bbf7a66a72957c",
+      "generatedAt": "2026-08-09T18:02:47Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "e4d9e5cfc368c681f07e8775b67727130686931da8f6958983bbf7a66a72957c",
+      "byteSize": 998545,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-09T18:10:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-09T18:10:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "102e42e96c13dfea46d4150c155917ff4b777d908319a6d8ade5a51aac35014b",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "dang-beauty-water-toner-100ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051",
+      "sha256": "77c8dc3a190c63a67b11167657ff4aeb82bf1ed94c1cfbc2f5f683f9059302a5",
+      "byteSize": 83368,
+      "width": 1000,
+      "height": 1000,
+      "retrievedAt": "2026-08-09T17:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-017",
+        "label": "SKU"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/centella-asiatica-toner"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "bd9f06fefbfe294fb2cbb5f520fc1d5172de69eb9a60b27ff653975d1e2d4c23",
+      "generatedAt": "2026-08-09T18:02:55Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "bd9f06fefbfe294fb2cbb5f520fc1d5172de69eb9a60b27ff653975d1e2d4c23",
+      "byteSize": 1357764,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-09T18:10:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-09T18:10:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "5d7cd4f5bc0447afe3b158c8bc5b68230f6209093180bde454a8c9a64a5cfe39",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "dang-everyday-gentle-foaming-face-wash-120ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041",
+      "sha256": "9411f503146fb57980f3258380ccc28b43b6cd5d1db570596dece66f9b379ec2",
+      "byteSize": 69700,
+      "width": 1080,
+      "height": 1080,
+      "retrievedAt": "2026-08-09T17:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-031",
+        "label": "SKU"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/rose-face-wash"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "54c388bce4d9a34bde43139b79f5035cf184ce06a368971834c4ba307630cc2c",
+      "generatedAt": "2026-08-09T18:03:03Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "54c388bce4d9a34bde43139b79f5035cf184ce06a368971834c4ba307630cc2c",
+      "byteSize": 906756,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-09T18:10:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-09T18:10:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "f2df13e57d1f0a19b808ccf3656d16c414976e5f828b5630e559bb3820d4c5ab",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "dang-snail-secretion-filtrate-repair-face-cream-50g",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-filtrate.-web-p.webp?v=1783591047",
+      "sha256": "c6758b590b2c089bee9cc8d9ec1b3b33e5745bd4812563dd516204ca1c8091dd",
+      "byteSize": 62184,
+      "width": 1000,
+      "height": 1000,
+      "retrievedAt": "2026-08-09T17:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-019",
+        "label": "SKU"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/snail-mucin-cream"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "7b7b69980cfeef64e832c958b95032c296eef2da8c44349705b67832039e1c3f",
+      "generatedAt": "2026-08-09T18:03:11Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "7b7b69980cfeef64e832c958b95032c296eef2da8c44349705b67832039e1c3f",
+      "byteSize": 828184,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-09T18:10:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-09T18:10:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "49a8d0d02e752ccb148103db70b3eabe91129bd07cb07f2f421c709aca30b8c6",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "dang-snail-mucin-repair-serum-100ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044",
+      "sha256": "3dd9cc010f8a874d9f72aefd813606b6ca0ef143576be21d87f62274777cccdf",
+      "byteSize": 291523,
+      "width": 2048,
+      "height": 2048,
+      "retrievedAt": "2026-08-09T17:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-023",
+        "label": "SKU"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/snail-essence-serum"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "6a5e17d4e69c16062387c36262ab13b3ab7376f9b0f0d6ac76d4756d10290e41",
+      "generatedAt": "2026-08-09T18:03:18Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "6a5e17d4e69c16062387c36262ab13b3ab7376f9b0f0d6ac76d4756d10290e41",
+      "byteSize": 2622997,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-09T18:10:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-09T18:10:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "fe87be9d1aa073a2a1409bd876d27d707091726e327274a996faeafab7b8b576",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "dang-hyaluronic-cream-hydrating-face-cleanser-200ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Hyaluronic-face-cleanser.webp?v=1783591037",
+      "sha256": "0e6b65e3af213925b71eab902dc269a52c4531f45744233ac69b7b34a285234c",
+      "byteSize": 97764,
+      "width": 1000,
+      "height": 1000,
+      "retrievedAt": "2026-08-09T17:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-052",
+        "label": "SKU"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "74c19e7a290457de056325f91b359c709aa9aa35e23caf251e4e7c4b7d3a00b4",
+      "generatedAt": "2026-08-09T18:03:24Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "74c19e7a290457de056325f91b359c709aa9aa35e23caf251e4e7c4b7d3a00b4",
+      "byteSize": 1178643,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-09T18:10:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-09T18:10:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "7ed8fcae84d46b5204b8994ae0e94bc2c1e7e294ef4aebd75db2a1424480b188",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "dang-retinal-cream-005-30ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027",
+      "sha256": "c7defa9cd4c816828f89174f4db9e155bdae8064e464289a4697b2bd58094208",
+      "byteSize": 68354,
+      "width": 1000,
+      "height": 1000,
+      "retrievedAt": "2026-08-09T17:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-030",
+        "label": "SKU"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/retinal-cream-0-05"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "5afbe9a49f5c4d2e0bc10445dae4be8049d7d27c3390ee4de103cdb86a140642",
+      "generatedAt": "2026-08-09T18:03:30Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "5afbe9a49f5c4d2e0bc10445dae4be8049d7d27c3390ee4de103cdb86a140642",
+      "byteSize": 1077982,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-09T18:10:00Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-09T18:10:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "37602e7ca832af04194800801e8f734fbef372365d377b3a8c2d7b2a224fc7a7",
       "packagingIntact": true,
       "labelVariantSizeUnchanged": true,
       "magazineReady": true

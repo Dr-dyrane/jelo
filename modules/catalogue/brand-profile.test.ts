@@ -23,10 +23,10 @@ test("brand profiles group canonical aliases into one stable public route", () =
   );
   assert.ok(profile);
   assert.equal(profile.name, "DANG! Lifestyle");
-  assert.equal(profile.productCount, 3);
+  assert.equal(profile.productCount, 11);
   assert.deepEqual(
     profile.products.map((product) => product.brand),
-    ["DANG! Lifestyle", "DANG! Lifestyle", "DANG! Lifestyle"],
+    Array.from({ length: 11 }, () => "DANG! Lifestyle"),
   );
   assert.equal(profile.ownRetailer?.href, "/retailers/dang-lifestyle");
 });

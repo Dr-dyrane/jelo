@@ -194,7 +194,7 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
     sheet,
     /name="step" value=\{value\} defaultChecked=\{filters\.step === value\}/,
   );
-  assert.match(sheet, /Search companies/);
+  assert.match(sheet, /Search brands/);
   assert.match(concerns, /role="status" aria-live="polite"/);
   assert.match(concerns, /Last change undone/);
   assert.match(concerns, /View matches/);
@@ -223,12 +223,14 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
     productPanelStyles,
     /@media \(max-width: 620px\)[\s\S]*\.product-panel-tabs\s*\{[\s\S]*overflow: hidden;/,
   );
-  assert.match(navigation, /href="\/contribute"[^>]*>Share skincare/);
+  assert.match(navigation, /href="\/contribute"[^>]*>Contribute/);
   assert.match(
     navigation,
-    /label: "Share skincare",[\s\S]*?detail: "Tell us what you use"/,
+    /label: "Contribute",[\s\S]*?detail: "Tell us what you use"/,
   );
-  assert.match(layout, /href="\/contribute">Share skincare/);
+  assert.match(navigation, /href="\/share">Price watch/);
+  assert.match(navigation, /href="\/brands">Brands/);
+  assert.match(layout, /href="\/contribute">Contribute/);
   assert.equal((navigation.match(/href="\/me"/g) ?? []).length, 1);
   assert.match(
     navigation,

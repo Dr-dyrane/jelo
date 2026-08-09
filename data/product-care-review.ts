@@ -1784,6 +1784,86 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: "2026-08-08",
   },
+  "dang-vitamin-c-concentrated-serum-oil-free-30ml": {
+    productSlug: "dang-vitamin-c-concentrated-serum-oil-free-30ml",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+      "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+    ],
+    reviewedAt: "2026-08-09",
+  },
+  "dang-collagen-hydrating-serum-ceramides-30ml": {
+    productSlug: "dang-collagen-hydrating-serum-ceramides-30ml",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://danglifestyle.co/products/collagen-peptide-serum",
+      "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
+    ],
+    reviewedAt: "2026-08-09",
+  },
+  "dang-beauty-water-toner-100ml": {
+    productSlug: "dang-beauty-water-toner-100ml",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://danglifestyle.co/products/centella-asiatica-toner",
+      "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+    ],
+    reviewedAt: "2026-08-09",
+  },
+  "dang-everyday-gentle-foaming-face-wash-120ml": {
+    productSlug: "dang-everyday-gentle-foaming-face-wash-120ml",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://danglifestyle.co/products/rose-face-wash",
+      "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+    ],
+    reviewedAt: "2026-08-09",
+  },
+  "dang-snail-secretion-filtrate-repair-face-cream-50g": {
+    productSlug: "dang-snail-secretion-filtrate-repair-face-cream-50g",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://danglifestyle.co/products/snail-mucin-cream",
+      "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
+    ],
+    reviewedAt: "2026-08-09",
+  },
+  "dang-snail-mucin-repair-serum-100ml": {
+    productSlug: "dang-snail-mucin-repair-serum-100ml",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://danglifestyle.co/products/snail-essence-serum",
+      "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+    ],
+    reviewedAt: "2026-08-09",
+  },
+  "dang-hyaluronic-cream-hydrating-face-cleanser-200ml": {
+    productSlug: "dang-hyaluronic-cream-hydrating-face-cleanser-200ml",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://danglifestyle.co/products/hydrating-cream-cleanser",
+      "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+    ],
+    reviewedAt: "2026-08-09",
+  },
+  "dang-retinal-cream-005-30ml": {
+    productSlug: "dang-retinal-cream-005-30ml",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://danglifestyle.co/products/retinal-cream-0-05",
+      "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+    ],
+    reviewedAt: "2026-08-09",
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

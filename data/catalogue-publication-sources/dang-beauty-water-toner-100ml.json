@@ -1,36 +1,47 @@
 {
   "schemaVersion": 1,
-  "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-09T18:10:00Z",
-  "origin": {
-    "kind": "community-aggregate-packet",
-    "packetId": "9a3334521469082febb1be5b",
-    "reportSha256": "08251591101441c8991c23b87497ff6872ace5c43518718fe4bd5b91d64e4822"
-  },
-  "candidate": {
-    "id": "dang-beauty-water-toner-100ml",
-    "brand": "Dang! Lifestyle Inc.",
-    "name": "Beauty Water (Toner)",
-    "variant": "Beauty Water (Toner)-100ml",
-    "size": "100 ml",
-    "category": "Face care",
-    "reason": "Hydrating alcohol-free fragrance-free face toner with centella asiatica. Official DANG manufacturer SKU DGL-SKC-017. Mid-year sale pricing live on danglifestyle.co.",
-    "priority": "essential",
-    "gapIds": ["hydration-routine-coverage"],
-    "demandEvidenceUrls": [
-      "https://danglifestyle.co/products/centella-asiatica-toner"
-    ],
+  "candidateId": "dang-beauty-water-toner-100ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "dang-beauty-water-toner-100ml",
+    "candidateFingerprint": "04f549a21e60a3cfd883090641701e3d191167fe6767e8b6db1962d3029694e5",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
     "identity": {
       "canonicalIdentifier": {
         "kind": "manufacturer-sku",
         "value": "DGL-SKC-017",
         "label": "SKU"
       },
-      "officialProductUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+      "officialProductCrosswalk": {
+        "schemaVersion": 2,
+        "canonicalManufacturerProductKey": {
+          "basis": "manufacturer-sku",
+          "value": "DGL-SKC-017",
+          "manufacturerHost": "danglifestyle.co",
+          "sourceLocator": "Official Shopify product response variants[0].sku",
+          "sourceText": "\"sku\":\"DGL-SKC-017\"",
+          "sourceTextSha256": "f1c0e369b286e05fc04e374a51c7d892b807f6e2075cb28092576a1acdea0f56"
+        },
+        "officialSourceResponseSha256": "02ec18f8fa3877fc32f585fe493058514c19fb80498f64b2c114a13b32dc88f2",
+        "officialProductUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+        "variant": "Beauty Water (Toner)-100ml",
+        "size": "100 ml",
+        "packageVersion": "Current bottle"
+      },
+      "brand": "Dang! Lifestyle Inc.",
+      "name": "Beauty Water (Toner)",
+      "variant": "Beauty Water (Toner)-100ml",
+      "size": "100 ml",
       "packageVersion": "Current bottle",
-      "checkedAt": "2026-08-09T17:05:00Z",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
       "basis": "official-brand",
-      "officialEvidence": {
+      "officialProductUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+      "officialIdentity": {
         "identityKind": "manufacturer-sku",
         "url": "https://danglifestyle.co/products/centella-asiatica-toner",
         "observedManufacturerSku": "DGL-SKC-017",
@@ -47,11 +58,6 @@
           "barcodeAlias": true,
           "candidateId": "dang-beauty-water-toner-100ml",
           "fields": {
-            "gtinPublicationStatus": {
-              "locator": "Complete official response structured identifier scan and variants[0].barcode alias",
-              "sourceText": "{\"id\":49931559534840,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-017\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Beauty Water (Toner)-100ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1224000,\"weight\":700,\"compare_at_price\":1440000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-017\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}",
-              "value": "not-published"
-            },
             "manufacturerBrand": {
               "locator": "Official Shopify product response vendor",
               "sourceText": "Vendor Dang! Lifestyle Inc.",
@@ -63,6 +69,16 @@
               "sourceText": "\"sku\":\"DGL-SKC-017\"",
               "value": "DGL-SKC-017"
             },
+            "variant": {
+              "locator": "Official Shopify product response title",
+              "sourceText": "Beauty Water (Toner)-100ml",
+              "value": "Beauty Water (Toner)-100ml"
+            },
+            "size": {
+              "locator": "Official Shopify product response title size suffix",
+              "sourceText": "Beauty Water (Toner)-100ml",
+              "value": "100ml"
+            },
             "packageVersion": {
               "locator": "Official Shopify product response media[0].src, visually reviewed",
               "reviewedMedia": {
@@ -73,15 +89,10 @@
               "sourceText": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051",
               "value": "Current bottle"
             },
-            "size": {
-              "locator": "Official Shopify product response title size suffix",
-              "sourceText": "Beauty Water (Toner)-100ml",
-              "value": "100ml"
-            },
-            "variant": {
-              "locator": "Official Shopify product response title",
-              "sourceText": "Beauty Water (Toner)-100ml",
-              "value": "Beauty Water (Toner)-100ml"
+            "gtinPublicationStatus": {
+              "locator": "Complete official response structured identifier scan and variants[0].barcode alias",
+              "sourceText": "{\"id\":49931559534840,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-017\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Beauty Water (Toner)-100ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1224000,\"weight\":700,\"compare_at_price\":1440000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-017\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}",
+              "value": "not-published"
             }
           },
           "method": "reviewed-exact-official-manufacturer-sku-response",
@@ -106,22 +117,10 @@
         },
         "observedPackageVersion": "Current bottle"
       },
-      "officialProductCrosswalk": {
-        "schemaVersion": 2,
-        "canonicalManufacturerProductKey": {
-          "basis": "manufacturer-sku",
-          "value": "DGL-SKC-017",
-          "manufacturerHost": "danglifestyle.co",
-          "sourceLocator": "Official Shopify product response variants[0].sku",
-          "sourceText": "\"sku\":\"DGL-SKC-017\"",
-          "sourceTextSha256": "f1c0e369b286e05fc04e374a51c7d892b807f6e2075cb28092576a1acdea0f56"
-        },
-        "officialSourceResponseSha256": "02ec18f8fa3877fc32f585fe493058514c19fb80498f64b2c114a13b32dc88f2",
-        "officialProductUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
-        "variant": "Beauty Water (Toner)-100ml",
-        "size": "100 ml",
-        "packageVersion": "Current bottle"
-      }
+      "checkedAt": "2026-08-09T17:05:00Z",
+      "demandEvidenceUrls": [
+        "https://danglifestyle.co/products/centella-asiatica-toner"
+      ]
     },
     "care": {
       "status": "reviewed",
@@ -139,38 +138,131 @@
       "reviewer": "JeloCare catalogue evidence review"
     },
     "nigeria": {
+      "marketRoute": "reference-only",
       "regulatoryStatus": "pending",
-      "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
       "exactOffers": [],
-      "excludedObservations": [],
-      "marketRoute": "reference-only"
+      "brandSellerAuthorizationEvidence": []
     },
-    "asset": {
-      "rightsStatus": "documented",
+    "rights": {
+      "status": "documented",
       "origin": "official-brand-media",
+      "evidenceUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+      "sourceAsset": {
+        "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051",
+        "sha256": "77c8dc3a190c63a67b11167657ff4aeb82bf1ed94c1cfbc2f5f683f9059302a5",
+        "mimeType": "image/jpeg",
+        "byteSize": 83368,
+        "width": 1000,
+        "height": 1000,
+        "retrievedAt": "2026-08-09T17:00:00Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "dang-beauty-water-toner-100ml",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051",
+          "sha256": "77c8dc3a190c63a67b11167657ff4aeb82bf1ed94c1cfbc2f5f683f9059302a5",
+          "byteSize": 83368,
+          "width": 1000,
+          "height": 1000,
+          "retrievedAt": "2026-08-09T17:00:00Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "manufacturer-sku",
+            "value": "DGL-SKC-017",
+            "label": "SKU"
+          },
+          "officialProductUrl": "https://danglifestyle.co/products/centella-asiatica-toner"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "bd9f06fefbfe294fb2cbb5f520fc1d5172de69eb9a60b27ff653975d1e2d4c23",
+          "generatedAt": "2026-08-09T18:02:55Z",
+          "inferredComponentCount": 2,
+          "retainedComponentCount": 2,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "bd9f06fefbfe294fb2cbb5f520fc1d5172de69eb9a60b27ff653975d1e2d4c23",
+          "byteSize": 1357764,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-09T18:10:00Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-09T18:10:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaces": ["peach", "pink", "dark"],
+          "surfaceReviewSha256": "5d7cd4f5bc0447afe3b158c8bc5b68230f6209093180bde454a8c9a64a5cfe39",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
       "role": "packshot",
-      "sourceUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051",
-      "sourceAssetSha256": "77c8dc3a190c63a67b11167657ff4aeb82bf1ed94c1cfbc2f5f683f9059302a5",
-      "sourceAssetMimeType": "image/jpeg",
-      "sourceAssetByteSize": 83368,
-      "sourceAssetWidth": 1000,
-      "sourceAssetHeight": 1000,
-      "sourceAssetRetrievedAt": "2026-08-09T17:00:00Z",
-      "backgroundTreatment": "source-pixel-isolation",
-      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-beauty-water-toner-100ml/packshot-v1-bd9f06fefbfe294f.png",
-      "publicImageSha256": "bd9f06fefbfe294fb2cbb5f520fc1d5172de69eb9a60b27ff653975d1e2d4c23",
-      "publicImageMimeType": "image/png",
-      "publicImageByteSize": 1357764,
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang-lifestyle-inc/dang-beauty-water-toner-100ml/packshot-v1-bd9f06fefbfe294f.png",
+      "sha256": "bd9f06fefbfe294fb2cbb5f520fc1d5172de69eb9a60b27ff653975d1e2d4c23",
+      "mimeType": "image/png",
+      "byteSize": 1357764,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
-      "artReviewedAt": "2026-08-09T18:10:00Z",
-      "artReviewer": "Codex visual audit",
       "presentationQuality": "magazine-ready",
-      "rightsUrl": "https://danglifestyle.co/products/centella-asiatica-toner"
-    }
+      "reviewedAt": "2026-08-09T18:10:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-09T18:21:26Z"
+    },
+    "dossierFingerprint": "69302e4a59e672d756147056d7bff13232498a853388e7464c1efd3340a5a6ec"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "dang-beauty-water-toner-100ml",
+    "dossierFingerprint": "69302e4a59e672d756147056d7bff13232498a853388e7464c1efd3340a5a6ec",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Prep",
+      "displayLine": "Alcohol-free hydrating centella toner.",
+      "usage": "Apply to clean skin with a cotton pad after cleansing. Use morning and evening.",
+      "manufacturerDirectionsUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-09T18:21:27Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-09T18:21:28Z"
+    },
+    "releaseFingerprint": "72a45bd5443db9347edc19ba14bbe614b74df940a35d7ffd13941bf31f60053f"
   }
 }

@@ -3265,6 +3265,198 @@
         "publishedAt": "2026-08-09T06:32:10Z"
       },
       "releaseFingerprint": "81696859192e89498e70b25cb3c6ae458fa53ef87ffbeda304b42f940292a772"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
+      "dossierFingerprint": "553aefbb7608715c3c7f3c4fc02747e94f44116e1aa8dd1650b7a7d297b3c51f",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Oil-free vitamin C brightening serum.",
+        "usage": "Apply 3-4 drops to clean skin morning and evening. Use sunscreen during the day. Patch test before first use.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T18:20:26Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T18:20:27Z"
+      },
+      "releaseFingerprint": "77f75e647405424c91b44ff84c6d4dc507272c6e828d6259d266b93be72bd76c"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-retinal-cream-005-30ml",
+      "dossierFingerprint": "fa7264f7f781f34e63926cc2e64b9a643f1525d0458ae63d0bb575bc1e5518cd",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "0.05% retinaldehyde anti-ageing cream.",
+        "usage": "Apply a pea-sized amount to clean skin at night. Start 2-3 times weekly. Not suitable for pregnant or breastfeeding mothers.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T18:20:38Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T18:20:39Z"
+      },
+      "releaseFingerprint": "0a77cee95ab1d9af8aeca4cbf144099f958443b7965790ccefe666882d7cae1b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-collagen-hydrating-serum-ceramides-30ml",
+      "dossierFingerprint": "7b3ae0157b7ab60cb5920b4afbf8276c483bf06fe451f624af06bd6acadbf1a1",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Collagen and ceramide hydrating serum.",
+        "usage": "Apply 3-4 drops to clean skin morning and evening. Patch test before first use.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T18:20:50Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T18:20:51Z"
+      },
+      "releaseFingerprint": "b235032f2ddb8a7aa7472da5ef58ad7ea50ecbfcc184a6b3d53ec457a86c4eec"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-snail-secretion-filtrate-repair-face-cream-50g",
+      "dossierFingerprint": "e925d1e280d315992864e67754ce9b9fcf16a6380eebcffdcbff4c0b695a9b07",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturise",
+        "displayLine": "Snail secretion filtrate repair cream.",
+        "usage": "Apply a pea-sized amount to clean skin morning and evening. Patch test before first use.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/snail-mucin-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T18:21:02Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T18:21:03Z"
+      },
+      "releaseFingerprint": "b40775872373cede325908253be76c1f46a8354e37469611cf11b1598bb7c332"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-snail-mucin-repair-serum-100ml",
+      "dossierFingerprint": "79678b19d510291932ee258b9aee75b2baeb76e610691aca23b8f1c245d9a13d",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Snail mucin repair and rejuvenation serum.",
+        "usage": "Apply to clean skin morning and evening. Patch test before first use.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/snail-essence-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T18:21:15Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T18:21:16Z"
+      },
+      "releaseFingerprint": "99f1425d6de774cedbff6e05bab82209893fcac3a9d3d0bd0382a15167db5390"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-beauty-water-toner-100ml",
+      "dossierFingerprint": "69302e4a59e672d756147056d7bff13232498a853388e7464c1efd3340a5a6ec",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Prep",
+        "displayLine": "Alcohol-free hydrating centella toner.",
+        "usage": "Apply to clean skin with a cotton pad after cleansing. Use morning and evening.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T18:21:27Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T18:21:28Z"
+      },
+      "releaseFingerprint": "72a45bd5443db9347edc19ba14bbe614b74df940a35d7ffd13941bf31f60053f"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-everyday-gentle-foaming-face-wash-120ml",
+      "dossierFingerprint": "4dd1d2c3f3fc6ce84865426ada04d504f88ae3f8f9ef0f104e011ab62ac9fda9",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Fragrance-free gentle foaming face wash.",
+        "usage": "Massage onto wet skin morning and evening. Rinse thoroughly with water.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/rose-face-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T18:21:41Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T18:21:42Z"
+      },
+      "releaseFingerprint": "5837ec94f163d4bc6b4ae516806a208df29f9888eabd8774b6a202155811533a"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-hyaluronic-cream-hydrating-face-cleanser-200ml",
+      "dossierFingerprint": "d5bc6829a12f7fe9e9af5c9ae3d74562356c2923c3c77017dc1eac3e22ed4e78",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Hydrating cream cleanser for dry and sensitive skin.",
+        "usage": "Massage onto wet skin morning and evening. Rinse thoroughly with lukewarm water.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T18:21:55Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T18:21:56Z"
+      },
+      "releaseFingerprint": "8d83f89d69abcb5582dd841c2612e5aea062db898210b798fc022a7053429612"
     }
   ]
 }
