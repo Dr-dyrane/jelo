@@ -106,6 +106,11 @@
   backdrop-filter: blur(28px) saturate(130%);
 }
 
+/* Desktop: hide the mobile bottom sheet dialog */
+.suggestionSheet {
+  display: none;
+}
+
 .suggestionHeading {
   min-height: 2.25rem;
   padding: 0.1rem 0.35rem 0.5rem 0.65rem;
@@ -302,16 +307,54 @@
     flex: 1;
     text-align: center;
   }
-  /* Suggestions anchor below the search bar (absolute relative to sticky shell)
-     so they follow the search bar when it moves to top on focus */
+  /* Mobile: hide the absolute dropdown, use the bottom sheet dialog instead */
   .suggestions {
-    position: absolute;
-    z-index: 80;
-    inset: calc(100% + 0.5rem) 0 0;
-    max-height: min(66svh, 34rem);
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    border-radius: 1.4rem;
+    display: none;
+  }
+  /* Bottom sheet dialog for suggestions — uses browser top layer */
+  .suggestionSheet {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: min(82svh, 46rem);
+    max-height: none;
+    margin: auto 0 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 1.8rem 1.8rem 0 0;
+    background: var(--card-2, #fff9f5);
+    box-shadow: 0 -28px 90px rgba(67, 39, 34, 0.2);
+  }
+  .suggestionSheet::backdrop {
+    background: rgba(45, 33, 31, 0.34);
+    backdrop-filter: blur(8px) saturate(115%);
+  }
+  .suggestionSheet[data-fallback-modal="true"] {
+    width: 100vw;
+    height: 100dvh;
+    background: rgba(45, 33, 31, 0.34);
+  }
+  /* Suggestions content inside the bottom sheet */
+  .suggestionSheet .suggestionHeading {
+    padding: 0.8rem 0.8rem 0.5rem;
+  }
+  .suggestionSheet .suggestionList {
+    min-height: 0;
+    max-height: none;
+    padding: 0 0.8rem;
+  }
+  .suggestionSheet .suggestionList a {
+    min-height: 4.25rem;
+  }
+  .suggestionSheet .searchFallback {
+    padding: 0.35rem 0.8rem 0.8rem;
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .suggestionSheet .searchFallback a {
+    width: 100%;
+    justify-content: center;
   }
   .suggestionList {
     min-height: 0;
