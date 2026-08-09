@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
-import {
-  IngredientExplorer,
-  type IngredientCard,
-} from "@/components/ingredients/ingredient-explorer";
-import { products } from "@/data/catalogue";
-import {
-  ingredientSeeds,
-  verifiedProductIngredients,
-} from "@/data/product-ingredients";
-import { ingredientById } from "@/modules/clinical/core/ingredients";
+import { IngredientExplorer } from "@/components/ingredients/ingredient-explorer";
+import { listCatalogueProducts } from "@/lib/catalogue/repository";
+import { buildIngredientLibraryCards } from "@/lib/clinical/ingredient-library";
 import { publicSocialMetadata, staticSocialCard } from "@/lib/og/social-card";
 import styles from "@/components/ingredients/ingredient-explorer.module.css";
 
@@ -17,44 +10,10 @@ export const metadata: Metadata = publicSocialMetadata(
   "/ingredients",
 );
 
-const ingredientCards: IngredientCard[] = ingredientSeeds
-  .map((ingredient) => {
-    const knowledge = ingredientById.get(ingredient.slug);
-    return {
-      slug: ingredient.slug,
-      name: ingredient.commonName,
-      inciName: ingredient.inciName,
-      summary: ingredient.summary,
-      evidenceGrade: ingredient.evidenceGrade,
-      sensitiveSkinStatus: ingredient.sensitiveSkinStatus,
-      products: Object.entries(verifiedProductIngredients).flatMap(
-        ([productSlug, productIngredients]) => {
-          const product = products.find((item) => item.slug === productSlug);
-          if (!product) return [];
-          return productIngredients
-            .filter((item) => item.ingredientSlug === ingredient.slug)
-            .map((item) => ({
-              slug: product.slug,
-              brand: product.brand,
-              name: product.name,
-              concentrationPercent: item.concentrationPercent,
-              sourceUrl: item.sourceUrl,
-            }));
-        },
-      ),
-      // Enrich with clinical knowledge where available
-      family: knowledge?.family,
-      concerns: knowledge?.concerns,
-      allowedTimes: knowledge?.allowedTimes,
-      pregnancyStatus: knowledge?.pregnancy,
-      nursingStatus: knowledge?.breastfeeding,
-      photosensitivity: knowledge?.photosensitivity,
-      irritationRisk: knowledge?.irritationRisk,
-    };
-  })
-  .filter((ingredient) => ingredient.products.length > 0);
-
-export default function IngredientsPage() {
+export default async function IngredientsPage() {
+  const ingredientCards = buildIngredientLibraryCards(
+    await listCatalogueProducts(),
+  );
   const productCount = new Set(
     ingredientCards.flatMap((ingredient) =>
       ingredient.products.map((product) => product.slug),

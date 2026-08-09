@@ -58,7 +58,7 @@ test("unconditional urgent patterns publish a concise action before optional car
   assert.match(page, />What to do now</);
   assert.match(
     page,
-    /concern\.kind === "concern"\s*\?\s*\(await listRecommendationEligibleProducts\(\)\)/,
+    /concern\.kind === "concern"\s*\?\s*productsLinkedToConcern\(await listCatalogueProducts\(\), concern\)\s*:\s*\{ supportive: \[\], reviewedContext: \[\] \}/,
     "An urgent pattern guide must not wait on catalogue data before it can render.",
   );
   assert.ok(

@@ -180,6 +180,27 @@
   color: var(--muted);
   line-height: 1.7;
 }
+.concern-reviewed-context {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+}
+.concern-reviewed-context > div:first-child {
+  max-width: 42rem;
+  margin-bottom: 1.5rem;
+}
+.concern-reviewed-context h3 {
+  margin: 0.45rem 0 0.65rem;
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 400;
+  line-height: 0.98;
+}
+.concern-reviewed-context > div:first-child > p:last-child {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
 @media (max-width: 760px) {
   .concern-sources {
     grid-template-columns: 1fr;

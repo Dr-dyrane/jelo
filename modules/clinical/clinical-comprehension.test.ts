@@ -15,6 +15,10 @@ const ingredientExplorer = readFileSync(
   "utf8",
 );
 const ingredientPage = readFileSync("app/(site)/ingredients/page.tsx", "utf8");
+const ingredientLibrary = readFileSync(
+  "lib/clinical/ingredient-library.ts",
+  "utf8",
+);
 const decisionSummary = readFileSync(
   "components/products/product-decision-summary.tsx",
   "utf8",
@@ -96,14 +100,15 @@ test("ingredient card type supports enriched clinical knowledge fields", () => {
 
 test("ingredient page enriches cards with clinical knowledge from the core module", () => {
   assert.match(
-    ingredientPage,
+    ingredientLibrary,
     /from "@\/modules\/clinical\/core\/ingredients"/,
   );
-  assert.match(ingredientPage, /ingredientById/);
-  assert.match(ingredientPage, /knowledge\?\.family/);
-  assert.match(ingredientPage, /knowledge\?\.concerns/);
-  assert.match(ingredientPage, /knowledge\?\.pregnancy/);
-  assert.match(ingredientPage, /knowledge\?\.breastfeeding/);
+  assert.match(ingredientLibrary, /ingredientById/);
+  assert.match(ingredientLibrary, /knowledge\?\.family/);
+  assert.match(ingredientLibrary, /knowledge\?\.concerns/);
+  assert.match(ingredientLibrary, /knowledge\?\.pregnancy/);
+  assert.match(ingredientLibrary, /knowledge\?\.breastfeeding/);
+  assert.match(ingredientPage, /await listCatalogueProducts\(\)/);
 });
 
 test("ingredient detail sheet first view answers what, why, and important caution", () => {
@@ -211,8 +216,10 @@ test("concern page preserves urgent action rendering before signs and optional c
   assert.match(concernPage, />What to do now</);
   assert.match(
     concernPage,
-    /concern\.kind === (?:'concern'|"concern")\s*\?\s*\(await listRecommendationEligibleProducts\(\)\)/,
+    /concern\.kind === (?:'concern'|"concern")\s*\?\s*productsLinkedToConcern\(await listCatalogueProducts\(\), concern\)/,
   );
+  assert.match(concernPage, /Reviewed product context/);
+  assert.match(concernPage, /they are not\s+direct recommendations/);
   assert.ok(
     concernPage.indexOf("concern-urgent-action") <
       concernPage.indexOf("concern-detail-grid"),

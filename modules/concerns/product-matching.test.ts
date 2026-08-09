@@ -1,16 +1,20 @@
-import assert from 'node:assert/strict';
-import test from 'node:test';
-import { products as catalogueProducts, reviewedProductRecords } from '@/data/catalogue';
-import { concernBySlug, concerns } from '@/data/knowledge';
+import assert from "node:assert/strict";
+import test from "node:test";
+import {
+  products as catalogueProducts,
+  reviewedProductRecords,
+} from "@/data/catalogue";
+import { concernBySlug, concerns } from "@/data/knowledge";
 import {
   isProductMatchConcern,
   productMatchesConcern,
   productReferencesConcern,
+  productsLinkedToConcern,
   rankProductsForConcerns,
-} from './product-matching';
+} from "./product-matching";
 
 function product(slug: string) {
-  const match = catalogueProducts.find(item => item.slug === slug);
+  const match = catalogueProducts.find((item) => item.slug === slug);
   assert.ok(match, `Missing product fixture: ${slug}`);
   return match;
 }
@@ -21,38 +25,76 @@ function concern(slug: string) {
   return match;
 }
 
-test('concern matching uses approved supportive uses, not catalogue concern prose', () => {
-  const cleanser = product('cerave-foaming-facial-cleanser');
-  assert.equal(productMatchesConcern(cleanser, concern('acne-breakouts')), false);
-  assert.equal(productMatchesConcern(cleanser, concern('oily-congested-skin')), true);
+test("concern matching uses approved supportive uses, not catalogue concern prose", () => {
+  const cleanser = product("cerave-foaming-facial-cleanser");
+  assert.equal(
+    productMatchesConcern(cleanser, concern("acne-breakouts")),
+    false,
+  );
+  assert.equal(
+    productMatchesConcern(cleanser, concern("oily-congested-skin")),
+    true,
+  );
 
-  const snail = product('cosrx-advanced-snail-96-mucin-power-essence');
-  assert.equal(productMatchesConcern(snail, concern('sensitive-barrier')), false);
+  const snail = product("cosrx-advanced-snail-96-mucin-power-essence");
+  assert.equal(
+    productMatchesConcern(snail, concern("sensitive-barrier")),
+    false,
+  );
 });
 
-test('daily sun protection matches only the explicitly reviewed sunscreen', () => {
-  const dailySun = concern('daily-sun-protection');
-  const references = catalogueProducts.filter(candidate => productReferencesConcern(candidate, dailySun));
-  const matches = catalogueProducts.filter(candidate => productMatchesConcern(candidate, dailySun));
+test("daily sun protection matches only the explicitly reviewed sunscreen", () => {
+  const dailySun = concern("daily-sun-protection");
+  const references = catalogueProducts.filter((candidate) =>
+    productReferencesConcern(candidate, dailySun),
+  );
+  const matches = catalogueProducts.filter((candidate) =>
+    productMatchesConcern(candidate, dailySun),
+  );
 
-  assert.equal(dailySun.kind, 'concern');
-  assert.deepEqual(references.map(candidate => candidate.slug), ['eucerin-oil-control-sun-gel-cream-spf50-50ml']);
-  assert.deepEqual(matches.map(candidate => candidate.slug), ['eucerin-oil-control-sun-gel-cream-spf50-50ml']);
+  assert.equal(dailySun.kind, "concern");
+  assert.deepEqual(
+    references.map((candidate) => candidate.slug),
+    ["eucerin-oil-control-sun-gel-cream-spf50-50ml"],
+  );
+  assert.deepEqual(
+    matches.map((candidate) => candidate.slug),
+    ["eucerin-oil-control-sun-gel-cream-spf50-50ml"],
+  );
 });
 
-test('pharmacist-review products never enter direct concern matches', () => {
-  const cleanser = product('cerave-blemish-control-cleanser');
-  assert.equal(productMatchesConcern(cleanser, concern('acne-breakouts')), false);
-  assert.equal(productReferencesConcern(cleanser, concern('acne-breakouts')), true);
+test("pharmacist-review products never enter direct concern matches", () => {
+  const cleanser = product("cerave-blemish-control-cleanser");
+  assert.equal(
+    productMatchesConcern(cleanser, concern("acne-breakouts")),
+    false,
+  );
+  assert.equal(
+    productReferencesConcern(cleanser, concern("acne-breakouts")),
+    true,
+  );
 });
 
-test('condition patterns cannot match products even if an approved slug is reused', () => {
-  const cleanser = product('cerave-foaming-facial-cleanser');
-  const approvedConcern = concern('oily-congested-skin');
+test("concern links separate supportive products from pharmacist-review context", () => {
+  const acne = concern("acne-breakouts");
+  const linked = productsLinkedToConcern(catalogueProducts, acne);
+
+  assert.deepEqual(linked.supportive, []);
+  assert.ok(linked.reviewedContext.length > 0);
+  assert.ok(
+    linked.reviewedContext.some(
+      (candidate) => candidate.slug === "cerave-blemish-control-cleanser",
+    ),
+  );
+});
+
+test("condition patterns cannot match products even if an approved slug is reused", () => {
+  const cleanser = product("cerave-foaming-facial-cleanser");
+  const approvedConcern = concern("oily-congested-skin");
   const adversarialPattern = {
     ...approvedConcern,
-    kind: 'condition-pattern' as const,
-    clinicalPatternIds: ['adversarial-test-pattern'],
+    kind: "condition-pattern" as const,
+    clinicalPatternIds: ["adversarial-test-pattern"],
     productTerms: [],
   };
 
@@ -60,26 +102,44 @@ test('condition patterns cannot match products even if an approved slug is reuse
   assert.equal(productReferencesConcern(cleanser, adversarialPattern), false);
 });
 
-test('every published condition pattern is product-ineligible', () => {
-  const conditionPatterns = concerns.filter(item => item.kind === 'condition-pattern');
+test("every published condition pattern is product-ineligible", () => {
+  const conditionPatterns = concerns.filter(
+    (item) => item.kind === "condition-pattern",
+  );
 
   for (const pattern of conditionPatterns) {
     for (const candidate of reviewedProductRecords) {
-      assert.equal(productMatchesConcern(candidate, pattern), false, `${pattern.slug} matched ${candidate.slug}`);
+      assert.equal(
+        productMatchesConcern(candidate, pattern),
+        false,
+        `${pattern.slug} matched ${candidate.slug}`,
+      );
     }
   }
 });
 
-test('condition patterns never enter mixed concern ranking', () => {
-  const supportiveConcern = concern('oily-congested-skin');
-  const conditionPattern = concern('leprosy-pattern');
-  const cleanser = product('cerave-foaming-facial-cleanser');
+test("condition patterns never enter mixed concern ranking", () => {
+  const supportiveConcern = concern("oily-congested-skin");
+  const conditionPattern = concern("leprosy-pattern");
+  const cleanser = product("cerave-foaming-facial-cleanser");
 
   assert.equal(isProductMatchConcern(supportiveConcern), true);
   assert.equal(isProductMatchConcern(conditionPattern), false);
   assert.deepEqual(
-    rankProductsForConcerns([cleanser], concerns, [supportiveConcern.slug, conditionPattern.slug]),
-    [{ product: cleanser, index: 0, matchedConcernSlugs: [supportiveConcern.slug] }],
+    rankProductsForConcerns([cleanser], concerns, [
+      supportiveConcern.slug,
+      conditionPattern.slug,
+    ]),
+    [
+      {
+        product: cleanser,
+        index: 0,
+        matchedConcernSlugs: [supportiveConcern.slug],
+      },
+    ],
   );
-  assert.deepEqual(rankProductsForConcerns([cleanser], concerns, [conditionPattern.slug]), []);
+  assert.deepEqual(
+    rankProductsForConcerns([cleanser], concerns, [conditionPattern.slug]),
+    [],
+  );
 });

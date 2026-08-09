@@ -9,10 +9,10 @@ import {
   SourceList,
   type SourceEntry,
 } from "@/components/clinical/clinical-primitives";
-import { listRecommendationEligibleProducts } from "@/lib/catalogue/repository";
+import { listCatalogueProducts } from "@/lib/catalogue/repository";
 import { concernSocialCard, publicSocialMetadata } from "@/lib/og/social-card";
 import { ingredientLibraryReference } from "@/lib/clinical/care-context-links";
-import { productMatchesConcern } from "@/modules/concerns/product-matching";
+import { productsLinkedToConcern } from "@/modules/concerns/product-matching";
 
 export const revalidate = 3600;
 
@@ -40,12 +40,12 @@ export default async function ConcernPage({
   const { slug } = await params;
   const concern = concernBySlug(slug);
   if (!concern) notFound();
-  const matches =
+  const linkedProducts =
     concern.kind === "concern"
-      ? (await listRecommendationEligibleProducts()).filter((product) =>
-          productMatchesConcern(product, concern),
-        )
-      : [];
+      ? productsLinkedToConcern(await listCatalogueProducts(), concern)
+      : { supportive: [], reviewedContext: [] };
+  const matches = linkedProducts.supportive;
+  const reviewedContext = linkedProducts.reviewedContext;
 
   const sources: SourceEntry[] = concern.sources.map((s) => ({
     title: s.title,
@@ -164,15 +164,35 @@ export default async function ConcernPage({
         <section className="concern-matches">
           <p className="eyebrow">Products</p>
           <div className="section-heading">
-            <h2>{matches.length ? "Catalogue matches." : "Care first."}</h2>
+            <h2>
+              {matches.length
+                ? "Catalogue matches."
+                : reviewedContext.length
+                  ? "Reviewed product context."
+                  : "Care first."}
+            </h2>
           </div>
           {matches.length ? (
             <ProductRail products={matches} />
-          ) : (
+          ) : !reviewedContext.length ? (
             <p className="concern-no-match">
               Start with the care options above.
             </p>
-          )}
+          ) : null}
+          {reviewedContext.length ? (
+            <div className="concern-reviewed-context">
+              <div>
+                <p className="eyebrow">Pharmacist review</p>
+                <h3>Products connected by reviewed evidence.</h3>
+                <p>
+                  These products are linked to this concern, but they are not
+                  direct recommendations. Check suitability with a pharmacist or
+                  clinician first.
+                </p>
+              </div>
+              <ProductRail products={reviewedContext} />
+            </div>
+          ) : null}
         </section>
       ) : null}
 
