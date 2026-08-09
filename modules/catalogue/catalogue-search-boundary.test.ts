@@ -197,7 +197,7 @@ test("the public projection has a deterministic drift check in the release gate"
   assert.match(releaseSource, /Public catalogue search projection/);
   assert.match(
     buildSource,
-    /step === 'build-next'[\s\S]*catalogue:search:bundle:verify/,
+    /["']verify-search-bundle["']:\s*\[["']npm["'],\s*\[["']run["'],\s*["']catalogue:search:bundle:verify["']\]\]/,
   );
   assert.match(bundleVerifier, /tracePath = `\$\{routePath\}\.nft\.json`/);
   assert.match(bundleVerifier, /maximumTraceBytes/);

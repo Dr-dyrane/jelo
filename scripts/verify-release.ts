@@ -19,6 +19,19 @@ const releaseGates: ReleaseGate[] = [
   { label: 'Canonical media', script: 'assets:verify' },
 ];
 
+const releaseGateGroups = [
+  ['lint', 'typecheck', 'test', 'docs:check'],
+  [
+    'catalogue:intake:verify',
+    'catalogue:search:verify',
+    'catalogue:publication:verify',
+    'catalogue:publication:releases:verify',
+    'catalogue:research:verify',
+    'catalogue:publication:images:verify',
+    'assets:verify',
+  ],
+] as const;
+
 function runNpmScript(script: string) {
   return new Promise<void>((resolve, reject) => {
     const child = spawn('npm', ['run', script], {
@@ -45,9 +58,31 @@ function runNpmScript(script: string) {
 }
 
 async function main() {
-  for (const gate of releaseGates) {
-    console.log(`\nRelease gate: ${gate.label}`);
-    await runNpmScript(gate.script);
+  const deferTypecheck = process.argv.includes('--defer-typecheck-to-next');
+  const isVercelProduction =
+    process.env.VERCEL === '1' && process.env.VERCEL_ENV === 'production';
+  if (deferTypecheck && !isVercelProduction) {
+    throw new Error(
+      'Typecheck may be delegated only to a concurrent Vercel production Next build.',
+    );
+  }
+  if (deferTypecheck) {
+    console.log(
+      '\nRelease gate: Typecheck is delegated to the concurrent Next build.',
+    );
+  }
+
+  const gateByScript = new Map(releaseGates.map(gate => [gate.script, gate]));
+  for (const scripts of releaseGateGroups) {
+    const gates = scripts
+      .filter(script => !(deferTypecheck && script === 'typecheck'))
+      .map(script => gateByScript.get(script)!);
+    await Promise.all(
+      gates.map(gate => {
+        console.log(`\nRelease gate: ${gate.label}`);
+        return runNpmScript(gate.script);
+      }),
+    );
   }
   console.log('\nRelease verification passed.');
 }

@@ -31,17 +31,22 @@ async function main() {
   }
 
   const commands: Record<DeploymentStep, [string, string[]]> = {
-    'verify-release': ['npm', ['run', 'verify:release']],
+    'verify-release': [
+      'npm',
+      ['run', 'verify:release', '--', '--defer-typecheck-to-next'],
+    ],
     'build-next': ['next', ['build']],
+    'verify-search-bundle': ['npm', ['run', 'catalogue:search:bundle:verify']],
     'promote-staged-assets': ['npm', ['run', 'assets:promote:staged']],
   };
 
-  for (const step of plan) {
-    const [command, args] = commands[step];
-    await run(command, args);
-    if (step === 'build-next') {
-      await run('npm', ['run', 'catalogue:search:bundle:verify']);
-    }
+  for (const phase of plan) {
+    await Promise.all(
+      phase.map(step => {
+        const [command, args] = commands[step];
+        return run(command, args);
+      }),
+    );
   }
 }
 

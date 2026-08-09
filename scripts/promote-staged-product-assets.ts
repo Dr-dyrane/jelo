@@ -41,6 +41,7 @@ const publicationVisibilityRetryDelaysMs = [
   60_000,
   30_000,
 ] as const;
+const promotionConcurrency = 6;
 
 function publicationExpectation(
   candidateId: string,
@@ -116,6 +117,48 @@ function usableCredential(value: string | undefined) {
   return Boolean(value && value !== '[SENSITIVE]');
 }
 
+async function processPromotion(promotion: StagedProductAssetPromotion) {
+  const target = assertStagedProductAssetPromotion(promotion);
+  const localPath = resolveStagedProductAssetPath(promotion);
+  let localFileExists = true;
+  try {
+    await access(localPath);
+  } catch {
+    localFileExists = false;
+  }
+  if (!localFileExists) {
+    // Already promoted to blob and removed from git — verify the remote
+    // blob directly instead of reading local bytes.
+    if (target.kind === 'catalogue-publication') {
+      await verifyRemoteCataloguePublicationImage(
+        publicationExpectation(target.id, promotion),
+        { notFoundRetryDelaysMs: publicationVisibilityRetryDelaysMs },
+      );
+    }
+    console.log(
+      `Verified existing ${promotion.id} at its hash-reviewed Blob path (local file absent).`,
+    );
+    return;
+  }
+  const bytes = await verifiedBytes(promotion);
+  const result = await promoteVerifiedStagedProductAsset(
+    promotion,
+    bytes,
+    blobClient,
+  );
+  if (target.kind === 'catalogue-publication') {
+    await verifyRemoteCataloguePublicationImage(
+      publicationExpectation(target.id, promotion),
+      { notFoundRetryDelaysMs: publicationVisibilityRetryDelaysMs },
+    );
+  }
+  console.log(
+    result === 'uploaded'
+      ? `Promoted ${promotion.id} to its hash-reviewed Blob path.`
+      : `Verified existing ${promotion.id} at its hash-reviewed Blob path.`,
+  );
+}
+
 async function main() {
   const requestedIds = parseStagedProductPromotionIds(process.argv.slice(2));
   const activePromotions = (promotions as StagedProductAssetPromotion[])
@@ -144,39 +187,9 @@ async function main() {
     );
   }
 
-  for (const promotion of active) {
-    const target = assertStagedProductAssetPromotion(promotion);
-    const localPath = resolveStagedProductAssetPath(promotion);
-    let localFileExists = true;
-    try {
-      await access(localPath);
-    } catch {
-      localFileExists = false;
-    }
-    if (!localFileExists) {
-      // Already promoted to blob and removed from git — verify the remote
-      // blob directly instead of reading local bytes.
-      if (target.kind === 'catalogue-publication') {
-        await verifyRemoteCataloguePublicationImage(
-          publicationExpectation(target.id, promotion),
-          { notFoundRetryDelaysMs: publicationVisibilityRetryDelaysMs },
-        );
-      }
-      console.log(`Verified existing ${promotion.id} at its hash-reviewed Blob path (local file absent).`);
-      continue;
-    }
-    const bytes = await verifiedBytes(promotion);
-    const result = await promoteVerifiedStagedProductAsset(promotion, bytes, blobClient);
-    if (target.kind === 'catalogue-publication') {
-      await verifyRemoteCataloguePublicationImage(
-        publicationExpectation(target.id, promotion),
-        { notFoundRetryDelaysMs: publicationVisibilityRetryDelaysMs },
-      );
-    }
-    console.log(
-      result === 'uploaded'
-        ? `Promoted ${promotion.id} to its hash-reviewed Blob path.`
-        : `Verified existing ${promotion.id} at its hash-reviewed Blob path.`,
+  for (let offset = 0; offset < active.length; offset += promotionConcurrency) {
+    await Promise.all(
+      active.slice(offset, offset + promotionConcurrency).map(processPromotion),
     );
   }
 }
