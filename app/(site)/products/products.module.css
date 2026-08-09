@@ -121,6 +121,7 @@
 }
 .browse {
   padding: 8vw 4vw 5vw;
+  scroll-margin-top: 6rem;
 }
 .sectionHeading,
 .catalogueHeading {
@@ -283,6 +284,7 @@
 .catalogue {
   margin-top: 7vw;
   padding: 7vw 4vw 8vw;
+  scroll-margin-top: 6rem;
   background: rgba(255, 249, 246, 0.68);
 }
 .grid {
