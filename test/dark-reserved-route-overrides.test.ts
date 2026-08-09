@@ -88,7 +88,11 @@ test("reserved public dark overrides consume the shared black-cherry foundation"
     2,
   );
   assert.equal(
-    occurrences(consultReport, ".report-pattern .eyebrow{color:var(--muted)}"),
+    (
+      consultReport.match(
+        /\.report-pattern \.eyebrow\s*\{\s*color:\s*var\(--muted\)/g,
+      ) ?? []
+    ).length,
     2,
   );
 });

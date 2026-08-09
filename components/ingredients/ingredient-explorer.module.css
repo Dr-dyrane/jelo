@@ -918,6 +918,7 @@
   }
 }
 
+/* dark theme */
 :global(html[data-theme="dark"]) .intro,
 :global(html[data-theme="dark"]) .explorer {
   --ingredient-surface: var(--paper);

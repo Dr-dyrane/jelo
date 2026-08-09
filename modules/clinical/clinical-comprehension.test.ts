@@ -97,7 +97,7 @@ test("ingredient card type supports enriched clinical knowledge fields", () => {
 test("ingredient page enriches cards with clinical knowledge from the core module", () => {
   assert.match(
     ingredientPage,
-    /from '@\/modules\/clinical\/core\/ingredients'/,
+    /from "@\/modules\/clinical\/core\/ingredients"/,
   );
   assert.match(ingredientPage, /ingredientById/);
   assert.match(ingredientPage, /knowledge\?\.family/);
