@@ -37,7 +37,7 @@ test("price movement stays compact, per-store, accessible, and evidence gated", 
   assert.match(productPage, /readProductPanelData\(product\)/);
   assert.match(
     productPanelModel,
-    /if \(offer\.match === 'search'\) return \[\]/,
+    /if \(offer\.match === "search"\) return \[\]/,
   );
   assert.match(productPanelModel, /priceTrendOfferSnapshot\(offer, market\)/);
   assert.match(

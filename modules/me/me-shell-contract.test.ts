@@ -570,9 +570,9 @@ test("member routes are guarded, stack-owned, and never replace public product r
   assert.doesNotMatch(home, /window\.location\.assign\('\/consult'/);
   assert.match(publicProduct, /findCatalogueProduct\(slug\)/);
   assert.match(publicProduct, /<main className="product-page">/);
-  assert.match(sharedPanel, /\{ id: 'buy', label: 'Prices' \}/);
-  assert.match(sharedPanel, /\{ id: 'stores', label: 'Search' \}/);
-  assert.match(sharedPanel, /\{ id: 'details', label: 'Details' \}/);
+  assert.match(sharedPanel, /\{ id: "buy", label: "Prices" \}/);
+  assert.match(sharedPanel, /\{ id: "stores", label: "Search" \}/);
+  assert.match(sharedPanel, /\{ id: "details", label: "Details" \}/);
   assert.match(sharedPanel, /href=\{`\/go\?product=/);
 });
 

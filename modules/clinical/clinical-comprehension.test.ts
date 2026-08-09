@@ -72,11 +72,14 @@ test("ingredient explorer uses shared clinical primitives", () => {
 
 test("ingredient explorer implements progressive disclosure with accessible toggle", () => {
   // Disclosure toggle with aria-expanded and aria-controls
-  assert.match(ingredientExplorer, /aria-expanded=\{showDetails\}/);
-  assert.match(ingredientExplorer, /aria-controls=\{detailsId\}/);
-  // Chevron icon that rotates on open
-  assert.match(ingredientExplorer, /ChevronDown/);
-  assert.match(ingredientExplorer, /chevronOpen/);
+  assert.match(
+    ingredientExplorer,
+    /aria-expanded=\{openSlug === ingredient\.slug\}/,
+  );
+  assert.match(ingredientExplorer, /aria-controls=\{dialogId\}/);
+  // Dialog semantics and arrow icon on the toggle
+  assert.match(ingredientExplorer, /aria-haspopup="dialog"/);
+  assert.match(ingredientExplorer, /ArrowRight/);
 });
 
 test("ingredient card type supports enriched clinical knowledge fields", () => {
@@ -106,20 +109,20 @@ test("ingredient page enriches cards with clinical knowledge from the core modul
 test("ingredient detail sheet first view answers what, why, and important caution", () => {
   // What is it — summary and family
   assert.match(ingredientExplorer, /sheetSummary/);
-  assert.match(ingredientExplorer, /sheetFamily/);
+  assert.match(ingredientExplorer, /familyLabels/);
   // Why might I use it — concerns section
-  assert.match(ingredientExplorer, /May help with/);
-  assert.match(ingredientExplorer, /sheetConcerns/);
+  assert.match(ingredientExplorer, /Related care guides/);
+  assert.match(ingredientExplorer, /relatedSection/);
   // Important caution — ClinicalCaution component
   assert.match(ingredientExplorer, /hasCaution/);
   assert.match(ingredientExplorer, /cautionText/);
 });
 
 test("ingredient detail sheet omits sections when data is absent", () => {
-  // hasDeeperData gates the disclosure section
-  assert.match(ingredientExplorer, /hasDeeperData/);
-  // The disclosure body only renders when showDetails is true
-  assert.match(ingredientExplorer, /\{showDetails \?/);
+  // concernLinks.length gates the related care guides section
+  assert.match(ingredientExplorer, /concernLinks\.length \?/);
+  // detailRows.length gates the detail list rendering
+  assert.match(ingredientExplorer, /detailRows\.length \?/);
 });
 
 test("product decision summary uses shared EvidenceGradeBadge and ClinicalCaution", () => {
