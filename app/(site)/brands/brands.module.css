@@ -50,59 +50,11 @@
   line-height: 1.7;
 }
 
-.searchForm {
+.searchEntry {
   grid-area: search;
   align-self: end;
-  display: grid;
-  gap: 0.6rem;
 }
 
-.searchForm > label {
-  color: var(--wine);
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.searchForm > div {
-  min-height: 4.25rem;
-  padding: 0.55rem 0.55rem 0.55rem 1rem;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 0.7rem;
-  align-items: center;
-  border-radius: 1.4rem;
-  background: color-mix(in srgb, var(--paper) 78%, transparent);
-  box-shadow: var(--shadow);
-}
-
-.searchForm input {
-  width: 100%;
-  min-width: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--ink);
-  font: inherit;
-}
-
-.searchForm input::placeholder {
-  color: var(--muted);
-}
-
-.searchForm button {
-  width: 3.1rem;
-  height: 3.1rem;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 1rem;
-  background: var(--accent-solid);
-  color: var(--on-accent);
-}
-
-.searchForm button:focus-visible,
 .letterGroup a:focus-visible {
   outline: 2px solid var(--wine);
   outline-offset: 3px;
@@ -265,10 +217,6 @@
 
   .heroCopy h1 {
     font-size: clamp(4.5rem, 20vw, 7rem);
-  }
-
-  .searchForm > div {
-    min-height: 4rem;
   }
 
   .metrics {

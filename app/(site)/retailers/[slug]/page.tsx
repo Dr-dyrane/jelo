@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
+import { SmartBackLink } from "@/components/navigation/smart-back-link";
 import { ProductCardGrid } from "@/components/products/product-grid";
 import { SafeProductImage } from "@/components/products/safe-product-image";
 import {
@@ -88,10 +89,13 @@ export default async function RetailerProfilePage({
     <main className={styles.main}>
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
-          <Link className={styles.backLink} href="/retailers">
+          <SmartBackLink
+            className={styles.backLink}
+            fallbackHref="/retailers"
+          >
             <ArrowLeft size={16} aria-hidden="true" />
-            All retailers
-          </Link>
+            Back
+          </SmartBackLink>
           <p className="eyebrow">JeloCare retailer profile</p>
           <h1>{retailer.name}</h1>
           <p className={styles.note}>{retailer.note}</p>

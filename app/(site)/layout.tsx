@@ -2,11 +2,13 @@ import Link from 'next/link';
 import { Analytics } from '@vercel/analytics/next';
 import { SiteHeader } from '@/components/navigation/site-header';
 import { ThemeToggle } from '@/components/navigation/theme-toggle';
+import { NavigationMemory } from '@/components/navigation/navigation-memory';
 
 // Public chrome. The html/body shell, fonts, and theme come from the root layout.
 export default function SiteLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
+      <NavigationMemory />
       <SiteHeader />
       {children}
       <footer className="site-footer">

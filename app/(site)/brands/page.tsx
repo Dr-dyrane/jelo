@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { DirectoryTypeahead } from "@/components/directory/directory-typeahead";
 import { buildBrandDirectory } from "@/lib/catalogue/brand-profile";
 import { listCatalogueProducts } from "@/lib/catalogue/repository";
 import { publicSocialMetadata, staticSocialCard } from "@/lib/og/social-card";
@@ -36,6 +37,14 @@ export default async function BrandsPage() {
     (total, profile) => total + profile.pricedProductCount,
     0,
   );
+  const searchItems = profiles.map((profile) => ({
+    href: `/brands/${profile.slug}`,
+    name: profile.name,
+    detail: `${profile.productCount} ${profile.productCount === 1 ? "product" : "products"} · ${profile.categoryCount} ${profile.categoryCount === 1 ? "care area" : "care areas"}`,
+    searchText: profile.categoryCounts
+      .map(({ category }) => category)
+      .join(" "),
+  }));
 
   return (
     <main className={styles.main}>
@@ -43,8 +52,7 @@ export default async function BrandsPage() {
         <div className={styles.heroCopy}>
           <p className="eyebrow">Brand directory</p>
           <h1>
-            Find the{" "}
-            <br />
+            Find the <br />
             name first.
           </h1>
           <p>
@@ -53,23 +61,14 @@ export default async function BrandsPage() {
           </p>
         </div>
 
-        <form action="/search" className={styles.searchForm}>
-          <input type="hidden" name="type" value="company" />
-          <label htmlFor="brand-directory-search">Find a brand</label>
-          <div>
-            <Search size={18} aria-hidden="true" />
-            <input
-              id="brand-directory-search"
-              name="q"
-              type="search"
-              placeholder="Search company names"
-              autoComplete="off"
-            />
-            <button type="submit" aria-label="Search brands">
-              <ArrowRight size={18} aria-hidden="true" />
-            </button>
-          </div>
-        </form>
+        <div className={styles.searchEntry}>
+          <DirectoryTypeahead
+            id="brand-directory-search"
+            label="Find a brand"
+            placeholder="Search brand names"
+            items={searchItems}
+          />
+        </div>
 
         <div className={styles.metrics} aria-label="Brand directory summary">
           <span>

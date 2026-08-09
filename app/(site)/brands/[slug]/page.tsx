@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Store } from "lucide-react";
 import { notFound } from "next/navigation";
+import { SmartBackLink } from "@/components/navigation/smart-back-link";
 import { ProductGrid } from "@/components/products/product-grid";
 import { SafeProductImage } from "@/components/products/safe-product-image";
 import { products as staticProducts } from "@/data/catalogue";
@@ -71,10 +72,13 @@ export default async function BrandProfilePage({
     <main className={styles.main}>
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
-          <Link className={styles.backLink} href="/products">
+          <SmartBackLink
+            className={styles.backLink}
+            fallbackHref="/brands"
+          >
             <ArrowLeft size={16} aria-hidden="true" />
-            All products
-          </Link>
+            Back
+          </SmartBackLink>
           <p className="eyebrow">
             Brand catalogue · {profile.productCount} live
           </p>

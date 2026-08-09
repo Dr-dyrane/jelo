@@ -863,58 +863,9 @@
   align-items: center;
   gap: 1rem;
 }
-.directorySearch {
-  position: relative;
+.directoryTools > :first-child {
+  min-width: 0;
   flex: 1;
-  display: flex;
-  align-items: center;
-}
-.directorySearch > svg {
-  position: absolute;
-  left: 1.15rem;
-  color: var(--muted);
-  pointer-events: none;
-}
-.directorySearch input {
-  width: 100%;
-  min-height: 3.75rem;
-  padding: 0 3.5rem 0 3.15rem;
-  border: 0;
-  border-radius: 999px;
-  outline: none;
-  background: rgba(255, 253, 249, 0.82);
-  color: var(--ink);
-  font: inherit;
-  font-size: 0.92rem;
-  box-shadow: 0 18px 50px rgba(112, 71, 61, 0.07);
-  transition:
-    box-shadow 0.2s ease,
-    background 0.2s ease;
-}
-.directorySearch input::placeholder {
-  color: var(--muted);
-}
-.directorySearch input:focus-visible {
-  box-shadow:
-    0 0 0 3px color-mix(in srgb, var(--wine) 24%, transparent),
-    0 18px 50px rgba(112, 71, 61, 0.1);
-}
-.directorySearch input::-webkit-search-cancel-button {
-  -webkit-appearance: none;
-  appearance: none;
-}
-.directorySearch button {
-  position: absolute;
-  right: 0.45rem;
-  width: 2.75rem;
-  height: 2.75rem;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  background: var(--ghost-bg);
-  color: var(--ink);
-  cursor: pointer;
 }
 .directoryTools > p {
   margin: 0;
@@ -953,17 +904,14 @@
   font-weight: 700;
   cursor: pointer;
 }
-.directorySearch button:focus-visible,
 .directoryEmpty button:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--wine) 34%, transparent);
   outline-offset: 2px;
 }
-:global(html[data-theme="dark"]) .directorySearch input,
 :global(html[data-theme="dark"]) .directoryEmpty {
   background: var(--paper);
 }
 @media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme="light"])) .directorySearch input,
   :global(html:not([data-theme="light"])) .directoryEmpty {
     background: var(--paper);
   }
@@ -979,12 +927,6 @@
   }
   .directoryTools > p {
     padding-left: 0.3rem;
-  }
-  .directorySearch {
-    width: 100%;
-  }
-  .directorySearch input {
-    min-height: 3.5rem;
   }
   .directoryEmpty {
     min-height: 14rem;
