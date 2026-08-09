@@ -43,7 +43,9 @@ export function SmartBackLink({
     const cameFromJeloCare = referrer
       ? new URL(referrer).origin === window.location.origin
       : false;
-    if (!cameFromJeloCare || window.history.length <= 1) return;
+    const canUseNativeBack =
+      window.history.length > 1 && (cameFromJeloCare || !referrer);
+    if (!canUseNativeBack) return;
 
     event.preventDefault();
     router.back();
