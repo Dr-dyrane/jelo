@@ -582,11 +582,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-07-29T05:35:00Z",
             "artReviewer": "Claude Code visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "463dbde51c725fc8fdb512ccd5dfba7966dfb535e2e594cce2dad58414a69bea",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -828,11 +824,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-02T14:49:45Z",
             "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "623da548ce6835943e916a117d8e3e9227b3089739107459263d867c177fad4c",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -1174,11 +1166,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-02T18:11:00Z",
             "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "bdfa9f056b8a471f42a3a683eb24390fa69df6f273d0f34457dd59023f0d8da3",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -1266,12 +1254,7 @@
                 "sourceText": "Search terms barcode, ean, gtin and upc returned 0 matches in the complete rendered DOM outerHTML.",
                 "absenceProof": {
                   "searchScope": "complete-rendered-dom-outerhtml",
-                  "searchedTerms": [
-                    "barcode",
-                    "ean",
-                    "gtin",
-                    "upc"
-                  ],
+                  "searchedTerms": ["barcode", "ean", "gtin", "upc"],
                   "matchStrategy": "whole-word",
                   "caseInsensitive": true,
                   "matchCount": 0
@@ -1634,11 +1617,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-04T13:04:15Z",
             "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "66b0e0534093607f87cb71d3a45a5212d1bf4235c55cd07dc04429bde97de3c5",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -1841,11 +1820,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-04T13:20:00Z",
             "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "889c110b60cb58c684947274cdb200b5ea0d5f5de68b1e89acabb8476e957d9c",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -2048,11 +2023,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-04T13:20:00Z",
             "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "f5dc3f9ef2401da79f799692ba35e1af57bf1479e7be0b2cccefedfc59f37c74",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -2251,11 +2222,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-04T14:04:30Z",
             "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "c8fa5827910ecbdd2c912f48578b2547ae1314f9d8ae0892d0a815d4c9a9c451",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -2453,11 +2420,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-04T14:11:07Z",
             "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "5871fc98898696b2d13aae788d144ace53e74805a3e9f1fae9191e4156ea6f62",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -2813,11 +2776,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-04T16:54:00Z",
             "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "4a3a737265cd5295cbeb7b14de90ef346a4402ddab66a0777a29a72f55c0db05",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -3020,11 +2979,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-04T16:54:00Z",
             "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "db1a4b1c0c3e73caa6ef23f77611e14c7232b25e9adeb13fed65d5a3ba9a7fb0",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -3214,11 +3169,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-05T00:25:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "11fc11ac363caf23392730851d225f1f4bff1d9be2433f6582fad3e40d5679ce",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -3322,12 +3273,7 @@
                 "sourceText": "\"barcode\":null",
                 "absenceProof": {
                   "searchScope": "complete-rendered-dom-outerhtml",
-                  "searchedTerms": [
-                    "barcode",
-                    "ean",
-                    "gtin",
-                    "upc"
-                  ],
+                  "searchedTerms": ["barcode", "ean", "gtin", "upc"],
                   "matchStrategy": "structured-key-variants",
                   "caseInsensitive": true,
                   "matchCount": 0
@@ -3515,11 +3461,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-05T01:26:00Z",
             "artReviewer": "JeloCare catalogue art review",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "9f8eaa45a8c415faeade2e091e05f0deb8ffc41e34bfdcdb3a7340b81432651b",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -3757,11 +3699,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-05T05:24:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "5305f003ef583fab3016be076743d4aa208657886e95667d86ace90090cd7b56",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -3999,11 +3937,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-06T07:33:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "beac42cd123817838ee5dffbd5e958d1566e225e23b726014db94db46598087e",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -4193,11 +4127,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-06T12:10:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "1904e3f59e5dddad51da9b2e6acfe45d7305fe90ecc2aa56710264b741239b56",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -4301,12 +4231,7 @@
                 "sourceText": "Official product page: SKU: 81807UP (no barcode published)",
                 "absenceProof": {
                   "searchScope": "complete-rendered-dom-outerhtml",
-                  "searchedTerms": [
-                    "barcode",
-                    "ean",
-                    "gtin",
-                    "upc"
-                  ],
+                  "searchedTerms": ["barcode", "ean", "gtin", "upc"],
                   "matchStrategy": "whole-word",
                   "caseInsensitive": true,
                   "matchCount": 0
@@ -4708,9 +4633,7 @@
           }
         },
         "checkedAt": "2026-08-07T03:45:00Z",
-        "demandEvidenceUrls": [
-          "https://en.abib.com/products/heartleaf-foam"
-        ]
+        "demandEvidenceUrls": ["https://en.abib.com/products/heartleaf-foam"]
       },
       "care": {
         "status": "reviewed",
@@ -5591,11 +5514,7 @@
             "artReviewedAt": "2026-08-07T11:16:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "16209787bc3de419c300381a5f119bcb9ee6a586f83a0292f04181760c0224de",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -5799,11 +5718,7 @@
             "artReviewedAt": "2026-08-07T11:24:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "c7e8ac8b024f46618541aecdf7acf833959c3ddefaa765b36b7cb70618074b68",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -6007,11 +5922,7 @@
             "artReviewedAt": "2026-08-07T11:27:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "5e670bad7b5926c0437c824164b2348aaca522d6a6846c511714ef0595241482",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -6215,11 +6126,7 @@
             "artReviewedAt": "2026-08-07T11:30:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "3dc7276271866f98d7850082a98c50c86c19c7d96b38edf473a6fdb6745cf844",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -6423,11 +6330,7 @@
             "artReviewedAt": "2026-08-07T11:33:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "3aba96919cc2789656e7db506975e6052b69349447260b3c5b72ba9825750ffe",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -6631,11 +6534,7 @@
             "artReviewedAt": "2026-08-07T11:35:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "8a73213b3eebce75228f8fb856d978693e91cc848059b4ebf0a54b10c0dbcfa2",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -6839,11 +6738,7 @@
             "artReviewedAt": "2026-08-07T11:38:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "07ec331320054a19ea9367c33b089d811dbb4dc6c852ffabd6cb148178314566",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -7047,11 +6942,7 @@
             "artReviewedAt": "2026-08-07T11:42:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "d71f56d2d74745e903286c00399e58444b8f0ea2b9e603e85e293426c50326e3",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -7255,11 +7146,7 @@
             "artReviewedAt": "2026-08-07T11:44:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "13249825fe367d5508b21f600b81808f8ae073103196d014b2656294a3614f48",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -7463,11 +7350,7 @@
             "artReviewedAt": "2026-08-07T11:48:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "f76c642f895b97ae6783590166eff32c31a52f440921dd8e3b6963aa3da9c164",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -7671,11 +7554,7 @@
             "artReviewedAt": "2026-08-07T11:52:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "d02b8f43adfaaba3d92c53bd5ec1565c3d253962983947a22c909ddc99f75461",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -7879,11 +7758,7 @@
             "artReviewedAt": "2026-08-07T11:56:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "b81ed9d0389bd5a2f74b463495a3423b4a32e10267fbd1295f46a3888eadeecf",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -8087,11 +7962,7 @@
             "artReviewedAt": "2026-08-07T11:59:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "03a0700e169ab746446515e153c1e167dcb10ace2f46bf6daabecbe62523c89d",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -8295,11 +8166,7 @@
             "artReviewedAt": "2026-08-07T12:03:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "76c3b105b785232782e0f3dfd1f3c3298bbcd5a59a438c572474351b39dead6e",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -8503,11 +8370,7 @@
             "artReviewedAt": "2026-08-07T12:06:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "aa380764e211ed6d0634179d21da249fd78cec81a1630549cb99049b51b646cc",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -8711,11 +8574,7 @@
             "artReviewedAt": "2026-08-07T12:10:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "b08275e172d1f3c82ffd76aa1c416502b5d13f99c097c4da254c629e6a407003",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -8919,11 +8778,7 @@
             "artReviewedAt": "2026-08-07T12:17:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "6b1a36d4ec2ff18f1df0f785ede3975f8d99057e132dc176eb919a2f312a521e",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -9127,11 +8982,7 @@
             "artReviewedAt": "2026-08-07T12:19:18Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "8441192f9fd3db91afaae984418d513d89c1a901d996bb7c72ecac1d4bc34893",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -9335,11 +9186,7 @@
             "artReviewedAt": "2026-08-07T12:25:31Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "70f53a92bcf274385155893ab6e921718e4ddbce319ef01c327cf4d8538cceae",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -9543,11 +9390,7 @@
             "artReviewedAt": "2026-08-07T12:31:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "d55ba85d779481d3dc641e7db0c256a892ddbc848e575afd94a7abe0668bfee3",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -9751,11 +9594,7 @@
             "artReviewedAt": "2026-08-07T12:36:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "44e07312212f15f7a5e924c0c5e72b993c91993881c1a619525f2c8a76cdb55f",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -9959,11 +9798,7 @@
             "artReviewedAt": "2026-08-07T12:41:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "119e3eacfd8b583d9fe550d8b31d2b7a53e6ba954e99a3868bf9dd88420a5105",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -10167,11 +10002,7 @@
             "artReviewedAt": "2026-08-07T12:44:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "b6966e0d25185c37af48919d4f8f31463f4841feb3f89ed401093c18883c12ad",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -10375,11 +10206,7 @@
             "artReviewedAt": "2026-08-07T12:49:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "b75891cf057e425813a4b51f72140dbf30e3e8708fbd175a62e7ea0c1326e144",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -10583,11 +10410,7 @@
             "artReviewedAt": "2026-08-07T12:54:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "648131700854416eb02b848224bba85f7fc4dc2a0d7a15f49123d6c5b66f675a",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -10791,11 +10614,7 @@
             "artReviewedAt": "2026-08-07T13:02:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "a1ee0fd2a614d65c35fadfcb60faa5172c2ddb78f2e395eea96f82a43ce51989",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -10999,11 +10818,7 @@
             "artReviewedAt": "2026-08-07T13:11:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "c863873087d549bc29ea923b414a7b39f0b438d71d38f20114205905640d512a",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -11207,11 +11022,7 @@
             "artReviewedAt": "2026-08-07T13:14:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "0049a975bab71502e4a8beebd814c337699d6a3b5e5d38d36f5d96fc71668e5c",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -11415,11 +11226,7 @@
             "artReviewedAt": "2026-08-07T13:17:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "746739def7979eb1f0b21bb3cf7800d365591c397d3969faa1012eb0aa718804",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -11623,11 +11430,7 @@
             "artReviewedAt": "2026-08-07T13:20:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "bcfccece3a4cfdb7be585201bd8921477b0e7f9e24080c04197a5803c12ec8c2",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -11831,11 +11634,7 @@
             "artReviewedAt": "2026-08-07T13:25:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "4c5d2f346b9efaef26fe99be83bd4423bde5048f9a05e36e67acf015b7748e3f",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -12039,11 +11838,7 @@
             "artReviewedAt": "2026-08-07T13:28:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "468072881f7cae36c576ee9f7a4a4a3f820cb6e41ef097d7e70aab56ffff57b5",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -12247,11 +12042,7 @@
             "artReviewedAt": "2026-08-07T14:59:30Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "de57284281287f3e98db37ff091d94087deec4cb1374d55e06ec5ef3d35f5321",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -12455,11 +12246,7 @@
             "artReviewedAt": "2026-08-07T14:59:57Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "79bbb5f522c10a5c2bd39bb76efa4713b461659dc12d7529738f477b93233f0f",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -12663,11 +12450,7 @@
             "artReviewedAt": "2026-08-07T15:15:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "0c2bcf7b24580d0e371867506996a659ae0675aa264ffa6454f382809983b8bd",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -12871,11 +12654,7 @@
             "artReviewedAt": "2026-08-07T15:15:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "9706fef9e0a1b7e18c1cc28a6d3b99dd52759b0170d898ec230b8164323dbc39",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -13079,11 +12858,7 @@
             "artReviewedAt": "2026-08-07T15:15:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "953991471d63fa757ec3fcdc5eef2cd966f058e8f5f5b3fb195f6f436c6f4ade",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -13287,11 +13062,7 @@
             "artReviewedAt": "2026-08-07T15:15:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "dcf606504e7d07aa2795f4f5901f31b2cb47047946af721b1530b8d1afc2d2f6",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -13495,11 +13266,7 @@
             "artReviewedAt": "2026-08-07T15:15:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "d9ceacf0516a89a155364b02c22033f1ba3db2fc8191c32660dbff8d734bd314",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -13703,11 +13470,7 @@
             "artReviewedAt": "2026-08-07T15:15:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "5b1091a66161cb2c57c0bf4a42be990f7a5ce911205d9f011aa17789d73322eb",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -13911,11 +13674,7 @@
             "artReviewedAt": "2026-08-07T15:15:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "87d4abbb8dc29a0e4323fbec4458c22e8917983e56a5c06a9e3eac9f7c0becb7",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -14119,11 +13878,7 @@
             "artReviewedAt": "2026-08-07T15:15:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "4a72e4a96c516e21366c91f70c814433e0db75a5d4b16225d9b682d647f98103",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -14327,11 +14082,7 @@
             "artReviewedAt": "2026-08-07T15:15:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "33bd5e6eba0423ee9d5884642d0f897e7f23f68a37ecd421603487824b356cad",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -14535,11 +14286,7 @@
             "artReviewedAt": "2026-08-07T15:15:00Z",
             "artReviewer": "Codex visual audit",
             "surfaceReviewSha256": "3edcf5aa10f4552a5b29929fc89d70f990701119eaad11dd56bd24a24ab741ce",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -14777,11 +14524,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-07T17:44:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "33a93e3d73e859f4de8dadb46f76460611ac6a247b677100426570affaae849e",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -14968,11 +14711,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-07T22:20:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "fe7b8c94caaa8bee14c9445fe063ad5e930b693f098ee8f88a70662f6220ea9f",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -15159,11 +14898,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-07T22:35:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "97a57e012106a38faaf7f3824825f5f97a85d3191e4f49c31afefc836424d0f6",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -15354,11 +15089,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-07T22:45:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "a65faaf612d38c05296c7d21deade913cb50dcc921da2a56b85710862c5828f4",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -15549,11 +15280,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-07T22:50:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "cd40bbcf0de2fa04f4a2626e1ee19ec3143e959e143c1521c809d18557d84891",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -15744,11 +15471,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-07T22:53:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "9bd02e8c823f92b4bbf5ab8f7e7614db6093a92a5687717d4bf3521e2d599777",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -15939,11 +15662,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-07T22:58:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "28285caf618710ee4e3207c1d8fed1782e984cfb32c36095fc6d46b5a3418d0a",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -16134,11 +15853,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-07T23:28:00Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "4b257ac3d63ac3eafa1ceec6af16f204fe86ac3cc0848f0d65e38085b8ea929f",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -16329,11 +16044,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-08T01:20:57Z",
             "artReviewer": "Devin visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "616d05f081e8d06205f6ed5875e4af18f9dc79159a1d2337383c76e77888fa34",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -25636,12 +25347,7 @@
                 "sourceText": "Search terms barcode, ean, gtin and upc returned 0 matches in the complete rendered DOM outerHTML.",
                 "absenceProof": {
                   "searchScope": "complete-rendered-dom-outerhtml",
-                  "searchedTerms": [
-                    "barcode",
-                    "ean",
-                    "gtin",
-                    "upc"
-                  ],
+                  "searchedTerms": ["barcode", "ean", "gtin", "upc"],
                   "matchStrategy": "whole-word",
                   "caseInsensitive": true,
                   "matchCount": 0
@@ -26033,12 +25739,7 @@
                 "sourceText": "Search terms barcode, ean, gtin and upc returned 0 matches in the complete rendered DOM outerHTML.",
                 "absenceProof": {
                   "searchScope": "complete-rendered-dom-outerhtml",
-                  "searchedTerms": [
-                    "barcode",
-                    "ean",
-                    "gtin",
-                    "upc"
-                  ],
+                  "searchedTerms": ["barcode", "ean", "gtin", "upc"],
                   "matchStrategy": "whole-word",
                   "caseInsensitive": true,
                   "matchCount": 0
@@ -26943,11 +26644,7 @@
             "identityReviewer": "JeloCare catalogue identity review",
             "artReviewedAt": "2026-08-02T22:59:00Z",
             "artReviewer": "Codex visual audit",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "surfaceReviewSha256": "02884d61476458bd701a20d6b64c6520e21a6ad37712060b6e0f8170bc122b2a",
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
@@ -28597,24 +28294,11 @@
               "removedForegroundFraction": 0.00000119,
               "sourceEdgeContactFractionBefore": 0,
               "sourceEdgeContactFractionAfter": 0,
-              "sourceAlphaBounds": [
-                606,
-                48,
-                1392,
-                1867
-              ],
+              "sourceAlphaBounds": [606, 48, 1392, 1867],
               "sourceForegroundFraction": 0.278084,
-              "subjectTargetSize": [
-                709,
-                1640
-              ],
+              "subjectTargetSize": [709, 1640],
               "subjectScale": 0.901594,
-              "outputAlphaBounds": [
-                645,
-                180,
-                1354,
-                1820
-              ],
+              "outputAlphaBounds": [645, 180, 1354, 1820],
               "transparentPixelCount": 3089925,
               "partialAlphaPixelCount": 10887,
               "opaquePixelCount": 899188,
@@ -28639,11 +28323,7 @@
             "artReviewedAt": "2026-08-08T15:17:00Z",
             "artReviewer": "Codex independent alpha-repair release recheck",
             "surfaceReviewSha256": "cb9924c912576e53e8519202d4d4049e097d9a07594edf64aca0c0ed41879c72",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -28866,24 +28546,11 @@
               "removedForegroundFraction": 0.05738769,
               "sourceEdgeContactFractionBefore": 0.05988,
               "sourceEdgeContactFractionAfter": 0,
-              "sourceAlphaBounds": [
-                620,
-                37,
-                1378,
-                1865
-              ],
+              "sourceAlphaBounds": [620, 37, 1378, 1865],
               "sourceForegroundFraction": 0.271149,
-              "subjectTargetSize": [
-                680,
-                1640
-              ],
+              "subjectTargetSize": [680, 1640],
               "subjectScale": 0.897155,
-              "outputAlphaBounds": [
-                660,
-                180,
-                1340,
-                1820
-              ],
+              "outputAlphaBounds": [660, 180, 1340, 1820],
               "transparentPixelCount": 3118855,
               "partialAlphaPixelCount": 21717,
               "opaquePixelCount": 859428,
@@ -28908,11 +28575,7 @@
             "artReviewedAt": "2026-08-08T15:17:00Z",
             "artReviewer": "Codex independent alpha-repair release recheck",
             "surfaceReviewSha256": "4aa242cb228a4f5fb032b05b1b3623ce0a3c15f913a8920479ffea263e1c015f",
-            "surfaces": [
-              "peach",
-              "pink",
-              "dark"
-            ],
+            "surfaces": ["peach", "pink", "dark"],
             "packagingIntact": true,
             "labelVariantSizeUnchanged": true,
             "magazineReady": true
@@ -30402,6 +30065,1078 @@
         "approvedAt": "2026-08-08T20:00:31Z"
       },
       "dossierFingerprint": "e435cdb13497563db63e3bc2c67298cf8760a3296aa3ec87aee6413672ef54f7"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+      "candidateFingerprint": "b1ccfd47df1e7dc61b03809354eb563292b5330406d2b64616ec6c60a5a43cd1",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "00381371192731",
+        "brand": "Aveeno",
+        "name": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+        "variant": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+        "size": "6.7 fl oz / 200 ml",
+        "packageVersion": "Current Aveeno Daily Moisturizing Body Oil Mist 6.7 fl oz / 200 ml spray bottle",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+        "officialIdentity": {
+          "url": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+          "observedGtin": "00381371192731",
+          "observedVariant": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+          "observedSize": "6.7 fl oz / 200 ml",
+          "observedPackageVersion": "Current Aveeno Daily Moisturizing Body Oil Mist 6.7 fl oz / 200 ml spray bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/aveeno-daily-moisturizing-body-oil-mist-200ml.json",
+          "snapshotSha256": "700ba71aa906039c12caf71daf9bee2676df6f3674977d495e888bffd2fe357b",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1814,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+            "sourceUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+            "responseUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "00381371192731",
+                "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+                "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 00381371192731"
+              },
+              "variant": {
+                "value": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "Aveeno Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil"
+              },
+              "size": {
+                "value": "6.7 fl oz / 200 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil 6.7 fl oz / 200 ml"
+              }
+            },
+            "sourceResponseSha256": "233cd504714ade5241af72d25288f065c6f97e43ddb3b9038ecbf229d542e068",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 477464,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+                "responseUrl": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "100be1caee92e4a27d15c02b92ac63e28ea63d8a109340dde35a11652379da00",
+                "responseMimeType": "image/png",
+                "responseByteSize": 315431
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        },
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "demandEvidenceUrls": [
+          "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "lightweight oat and jojoba body oil mist",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. For external body use; avoid the face, eyes and broken skin, use care around slippery floors, and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+          "sha256": "100be1caee92e4a27d15c02b92ac63e28ea63d8a109340dde35a11652379da00",
+          "mimeType": "image/png",
+          "byteSize": 315431,
+          "width": 1200,
+          "height": 1200,
+          "retrievedAt": "2026-08-09T05:50:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+          "model": "isnet-general-use",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Aveeno Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil 6.7 fl oz / 200 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+              "sha256": "100be1caee92e4a27d15c02b92ac63e28ea63d8a109340dde35a11652379da00"
+            }
+          ],
+          "outputSha256": "74171e933325bbad95defd4feb786ad590e7006f307daef0f59984a6d4026934",
+          "generatedAt": "2026-08-09T06:04:30Z",
+          "recordSha256": "3d1826a3af421721ff050d21590f2402bd1fec58270836f8cf40e8d43485e609"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aveeno/aveeno-daily-moisturizing-body-oil-mist-200ml/packshot-v1-74171e933325bbad.png",
+        "sha256": "74171e933325bbad95defd4feb786ad590e7006f307daef0f59984a6d4026934",
+        "mimeType": "image/png",
+        "byteSize": 633278,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-09T06:08:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-09T06:16:00Z"
+      },
+      "dossierFingerprint": "a3896546d423220be800cb6748eff8fcc909aadfe2097f5d866c165d7106e8e4"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+      "candidateFingerprint": "c2550b73a6cb5f974e80013cfdc74201c216d2cdf7c3b7df02bfbf0bf830f561",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "810083682860",
+        "brand": "Saltair",
+        "name": "Santal Bloom Moisture Bound Hair Oil Rich",
+        "variant": "Moisture Bound Hair Oil Rich — Santal Bloom",
+        "size": "1.69 fl oz / 50 ml",
+        "packageVersion": "Current Saltair Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml bottle",
+        "category": "Hair & scalp"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+        "officialIdentity": {
+          "url": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+          "observedGtin": "810083682860",
+          "observedVariant": "Moisture Bound Hair Oil Rich — Santal Bloom",
+          "observedSize": "1.69 fl oz / 50 ml",
+          "observedPackageVersion": "Current Saltair Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml.json",
+          "snapshotSha256": "a87c6aa6627987684114cca51fb3c4d47b4417d2efe9232e8681b074f09e1e93",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1769,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+            "sourceUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+            "responseUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "810083682860",
+                "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+                "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 810083682860"
+              },
+              "variant": {
+                "value": "Moisture Bound Hair Oil Rich — Santal Bloom",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "Saltair Moisture Bound Hair Oil Rich — Santal Bloom"
+              },
+              "size": {
+                "value": "1.69 fl oz / 50 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml"
+              }
+            },
+            "sourceResponseSha256": "bcf28572c2cc5587277738ed8d552142a4eb76cb554fc9cf7394e5e659838152",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 323723,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "1498c396440776d00b2afd4670cc25e67d4c86705b4271855e87de3c61dfea0a",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 70751
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        },
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "demandEvidenceUrls": [
+          "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "rich finishing hair oil for mid-lengths and ends",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. Use a small amount through hair lengths and ends, avoid the eyes and irritated scalp, and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips",
+        "evidenceUrls": [
+          "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+          "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+          "sha256": "1498c396440776d00b2afd4670cc25e67d4c86705b4271855e87de3c61dfea0a",
+          "mimeType": "image/jpeg",
+          "byteSize": 70751,
+          "width": 1326,
+          "height": 1360,
+          "retrievedAt": "2026-08-09T05:50:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+          "model": "isnet-general-use",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Saltair Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+              "sha256": "1498c396440776d00b2afd4670cc25e67d4c86705b4271855e87de3c61dfea0a"
+            }
+          ],
+          "outputSha256": "63698f66a0746020e81d26ee2ca3da325a999845f85a2242417469c27f335989",
+          "generatedAt": "2026-08-09T06:04:30Z",
+          "recordSha256": "8990fed5bce70a656475b1117be56df4857336aa71ca17a02b1e02aa6e0cb59f"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/saltair/saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml/packshot-v1-63698f66a0746020.png",
+        "sha256": "63698f66a0746020e81d26ee2ca3da325a999845f85a2242417469c27f335989",
+        "mimeType": "image/png",
+        "byteSize": 797203,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-09T06:08:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-09T06:16:00Z"
+      },
+      "dossierFingerprint": "eb9b76f40af8bd2d8096232a8c8e44dc44b5baee4fd2a5af95f6e9f710453d9f"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "eos-coconut-waters-body-wash-473ml",
+      "candidateFingerprint": "fe79eed7c17589e3f0af76e27350e59cb75caf030ba60e8b3b001d0b69d789fc",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "840044714088",
+        "brand": "eos",
+        "name": "Coconut Waters Body Wash",
+        "variant": "Coconut Waters Body Wash",
+        "size": "16 fl oz / 473 ml",
+        "packageVersion": "Current eos Coconut Waters Body Wash 16 fl oz / 473 ml pump bottle",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+        "officialIdentity": {
+          "url": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+          "observedGtin": "840044714088",
+          "observedVariant": "Coconut Waters Body Wash",
+          "observedSize": "16 fl oz / 473 ml",
+          "observedPackageVersion": "Current eos Coconut Waters Body Wash 16 fl oz / 473 ml pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/eos-coconut-waters-body-wash-473ml.json",
+          "snapshotSha256": "ca901a4fd794d11de3c5fd7591858a0eaa933ed9596c0087d10379fb76777936",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1622,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "eos-coconut-waters-body-wash-473ml",
+            "sourceUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+            "responseUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "840044714088",
+                "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+                "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 840044714088"
+              },
+              "variant": {
+                "value": "Coconut Waters Body Wash",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "eos Coconut Waters Body Wash"
+              },
+              "size": {
+                "value": "16 fl oz / 473 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Coconut Waters Body Wash 16 fl oz / 473 ml"
+              }
+            },
+            "sourceResponseSha256": "b04e395a2bc1c0e661b7db6bfa530edb62cc5eaf39389c455b2ba8c088f771c5",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 281607,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "ed4bfa17eadee79051a2752939a93c1246cfb5ea97169d76aa39f92ba7763391",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 65064
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        },
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "demandEvidenceUrls": [
+          "https://evolutionofsmooth.com/products/coconut-waters-body-wash"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "fragranced rinse-off body cleanser",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. This is a scented rinse-off body cleanser; avoid the eyes and broken skin and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+          "sha256": "ed4bfa17eadee79051a2752939a93c1246cfb5ea97169d76aa39f92ba7763391",
+          "mimeType": "image/jpeg",
+          "byteSize": 65064,
+          "width": 1000,
+          "height": 1161,
+          "retrievedAt": "2026-08-09T05:50:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare source-pixel rembg isolation plus deterministic alpha cleanup and transparent 2000 px recenter",
+          "model": "isnet-general-use + Pillow alpha-only cleanup",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current eos Coconut Waters Body Wash 16 fl oz / 473 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+              "sha256": "ed4bfa17eadee79051a2752939a93c1246cfb5ea97169d76aa39f92ba7763391"
+            }
+          ],
+          "outputSha256": "eb42525129639dd0b666b15b7745d5db60c66ec7e9170283ed824b273470bf11",
+          "generatedAt": "2026-08-09T06:22:30Z",
+          "recordSha256": "419c744c2d88aa686de37dfc6a53122c7f171aa50d246bd5e7cbb95634ec1abc"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/eos/eos-coconut-waters-body-wash-473ml/packshot-v1-eb42525129639dd0.png",
+        "sha256": "eb42525129639dd0b666b15b7745d5db60c66ec7e9170283ed824b273470bf11",
+        "mimeType": "image/png",
+        "byteSize": 833828,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-09T06:23:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-09T06:25:00Z"
+      },
+      "dossierFingerprint": "28da799b7c7223e6ee82c5cdf2e4d9220d4a0074e2b5b6ee2e658fe76d86c738"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "eos-vanilla-cashmere-body-wash-473ml",
+      "candidateFingerprint": "5443ebb1ff1b977defc83b681071723ca0096511696219a26909ccbe9fe33ed6",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "840044714163",
+        "brand": "eos",
+        "name": "Vanilla Cashmere Body Wash",
+        "variant": "Vanilla Cashmere Body Wash",
+        "size": "16 fl oz / 473 ml",
+        "packageVersion": "Current eos Vanilla Cashmere Body Wash 16 fl oz / 473 ml pump bottle",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+        "officialIdentity": {
+          "url": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+          "observedGtin": "840044714163",
+          "observedVariant": "Vanilla Cashmere Body Wash",
+          "observedSize": "16 fl oz / 473 ml",
+          "observedPackageVersion": "Current eos Vanilla Cashmere Body Wash 16 fl oz / 473 ml pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/eos-vanilla-cashmere-body-wash-473ml.json",
+          "snapshotSha256": "c516e5c32f2b817ad57378dab80f097f05ccfe8a39c91529a53acbb1bcfc03ac",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1634,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "eos-vanilla-cashmere-body-wash-473ml",
+            "sourceUrl": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+            "responseUrl": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "840044714163",
+                "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+                "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 840044714163"
+              },
+              "variant": {
+                "value": "Vanilla Cashmere Body Wash",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "eos Vanilla Cashmere Body Wash"
+              },
+              "size": {
+                "value": "16 fl oz / 473 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Vanilla Cashmere Body Wash 16 fl oz / 473 ml"
+              }
+            },
+            "sourceResponseSha256": "5454dc68d2e622f3f2900ba3cc6f10d57b83405e471b76bd3193025906686ebc",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 286740,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-VC-1000X1161.jpg?v=1763417523",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-VC-1000X1161.jpg?v=1763417523",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "9096676ef41705bf0ca5777e15220d4720a3fa6f0b46dda8721c9a7c8f3d1431",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 67463
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        },
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "demandEvidenceUrls": [
+          "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "fragranced rinse-off body cleanser",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. This is a scented rinse-off body cleanser; avoid the eyes and broken skin and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-VC-1000X1161.jpg?v=1763417523",
+          "sha256": "9096676ef41705bf0ca5777e15220d4720a3fa6f0b46dda8721c9a7c8f3d1431",
+          "mimeType": "image/jpeg",
+          "byteSize": 67463,
+          "width": 1000,
+          "height": 1161,
+          "retrievedAt": "2026-08-09T05:50:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare source-pixel rembg isolation plus deterministic alpha cleanup and transparent 2000 px recenter",
+          "model": "isnet-general-use + Pillow alpha-only cleanup",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current eos Vanilla Cashmere Body Wash 16 fl oz / 473 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-VC-1000X1161.jpg?v=1763417523",
+              "sha256": "9096676ef41705bf0ca5777e15220d4720a3fa6f0b46dda8721c9a7c8f3d1431"
+            }
+          ],
+          "outputSha256": "68270f669e9bbab20b62db94527d309bf0e16418396ef6a6dfaa47f19d2347d7",
+          "generatedAt": "2026-08-09T06:22:30Z",
+          "recordSha256": "b843b9f12a345600a271b2a25528460e5cabafe952e872b05f66f68b072f7908"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/eos/eos-vanilla-cashmere-body-wash-473ml/packshot-v1-68270f669e9bbab2.png",
+        "sha256": "68270f669e9bbab20b62db94527d309bf0e16418396ef6a6dfaa47f19d2347d7",
+        "mimeType": "image/png",
+        "byteSize": 833315,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-09T06:23:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-09T06:25:10Z"
+      },
+      "dossierFingerprint": "f9d4c5f85944d3972a14677c4295fa16603399732f62343b54021c41391266ac"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+      "candidateFingerprint": "b50ec414ed3c31767dd1f336b444847de3c1c6d3f93a152f97f7ecc0265841b7",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "4909978147105",
+        "brand": "Anessa",
+        "name": "Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++",
+        "variant": "Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++",
+        "size": "60 ml",
+        "packageVersion": "Current Anessa Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++ 60 ml bottle",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+        "officialIdentity": {
+          "url": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+          "observedGtin": "4909978147105",
+          "observedVariant": "Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++",
+          "observedSize": "60 ml",
+          "observedPackageVersion": "Current Anessa Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++ 60 ml bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/anessa-perfect-uv-sunscreen-skincare-milk-na-60ml.json",
+          "snapshotSha256": "210d2eb1cb253fa5e5a9a986a49a53b76d2abf94f6c960cb34e4fae6b0d6da83",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1715,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+            "sourceUrl": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+            "responseUrl": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "4909978147105",
+                "locator": "Official Shiseido structured Product sku field; the 13-digit Japanese Article Number is normalized as EAN-13/GTIN-13",
+                "sourceText": "Official Shiseido Product sku: 4909978147105 (13-digit JAN/EAN-13 identity)"
+              },
+              "variant": {
+                "value": "Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "Anessa Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++"
+              },
+              "size": {
+                "value": "60 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++ 60 ml"
+              }
+            },
+            "sourceResponseSha256": "48dda103e82dfa9e720475d16a436a4df2fcc45d9f6219cdf5fddb9680068d28",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 56685,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.shiseido.co.jp/resources/sw/products/img/20231221/SHOHIN_PL_C1_H16501.jpg",
+                "responseUrl": "https://www.shiseido.co.jp/resources/sw/products/img/20231221/SHOHIN_PL_C1_H16501.jpg",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "b07b7d2bc4822cb27a01b7fac7903aff0231435dc3a6d685cc2f36a94092676c",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 907306
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        },
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "demandEvidenceUrls": [
+          "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "SPF50+ PA++++ sunscreen milk",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. Apply sunscreen generously before sun exposure, reapply at least every two hours and after swimming or sweating, and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+        "evidenceUrls": [
+          "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://www.shiseido.co.jp/resources/sw/products/img/20231221/SHOHIN_PL_C1_H16501.jpg",
+          "sha256": "b07b7d2bc4822cb27a01b7fac7903aff0231435dc3a6d685cc2f36a94092676c",
+          "mimeType": "image/jpeg",
+          "byteSize": 907306,
+          "width": 1500,
+          "height": 1500,
+          "retrievedAt": "2026-08-09T05:50:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare source-pixel rembg isolation plus deterministic alpha cleanup and transparent 2000 px recenter",
+          "model": "isnet-general-use + Pillow alpha-only cleanup",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Anessa Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++ 60 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://www.shiseido.co.jp/resources/sw/products/img/20231221/SHOHIN_PL_C1_H16501.jpg",
+              "sha256": "b07b7d2bc4822cb27a01b7fac7903aff0231435dc3a6d685cc2f36a94092676c"
+            }
+          ],
+          "outputSha256": "4e314c5b9121d5004634e496ce6f9cab49bd447df30de5cf6e93fb571743085c",
+          "generatedAt": "2026-08-09T06:22:30Z",
+          "recordSha256": "f877b9bc61dedba23974fd95e3c9d9d257150c650f7193d0f30ef1ec9e86a134"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/anessa/anessa-perfect-uv-sunscreen-skincare-milk-na-60ml/packshot-v1-4e314c5b9121d500.png",
+        "sha256": "4e314c5b9121d5004634e496ce6f9cab49bd447df30de5cf6e93fb571743085c",
+        "mimeType": "image/png",
+        "byteSize": 2371699,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-09T06:23:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-09T06:25:30Z"
+      },
+      "dossierFingerprint": "350b2c0f2a9c6bb307baa63379c066e7c2fed839952540cdc06f4b5f88054648"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "eos-pink-champagne-body-wash-473ml",
+      "candidateFingerprint": "0124824c2fabd1f842ed5a8b7fa8c144bf3d8a62064b6fd9150339277f1ad77a",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "840044714101",
+        "brand": "eos",
+        "name": "Pink Champagne Body Wash",
+        "variant": "Pink Champagne Body Wash",
+        "size": "16 fl oz / 473 ml",
+        "packageVersion": "Current eos Pink Champagne Body Wash 16 fl oz / 473 ml pump bottle",
+        "category": "Body care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+        "officialIdentity": {
+          "url": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+          "observedGtin": "840044714101",
+          "observedVariant": "Pink Champagne Body Wash",
+          "observedSize": "16 fl oz / 473 ml",
+          "observedPackageVersion": "Current eos Pink Champagne Body Wash 16 fl oz / 473 ml pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/eos-pink-champagne-body-wash-473ml.json",
+          "snapshotSha256": "76aeec0f47d9b848455fb5c4fa67a18aaf35c772c88d0a77b5d36d102a18c065",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1622,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "eos-pink-champagne-body-wash-473ml",
+            "sourceUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+            "responseUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "840044714101",
+                "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+                "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 840044714101"
+              },
+              "variant": {
+                "value": "Pink Champagne Body Wash",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "eos Pink Champagne Body Wash"
+              },
+              "size": {
+                "value": "16 fl oz / 473 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Pink Champagne Body Wash 16 fl oz / 473 ml"
+              }
+            },
+            "sourceResponseSha256": "fc87022d1d7fb191a3d519c5bdec0dfc44323cc1c92e1478a27e1b0d7038ffd5",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 283158,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "75c6d44b3913ef93377edad817108801f66827899511f4ae93874c2680bcdb0c",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 71246
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        },
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "demandEvidenceUrls": [
+          "https://evolutionofsmooth.com/products/pink-champagne-body-wash"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "fragranced rinse-off body cleanser",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. This is a scented rinse-off body cleanser; avoid the eyes and broken skin and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+          "sha256": "75c6d44b3913ef93377edad817108801f66827899511f4ae93874c2680bcdb0c",
+          "mimeType": "image/jpeg",
+          "byteSize": 71246,
+          "width": 1000,
+          "height": 1161,
+          "retrievedAt": "2026-08-09T05:50:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare source-pixel rembg isolation plus deterministic alpha cleanup and transparent 2000 px recenter",
+          "model": "isnet-general-use + Pillow alpha-only cleanup",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current eos Pink Champagne Body Wash 16 fl oz / 473 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+              "sha256": "75c6d44b3913ef93377edad817108801f66827899511f4ae93874c2680bcdb0c"
+            }
+          ],
+          "outputSha256": "b34d8dd775ef985611c1ed40782b83c7b28680aecdb8f101eb0fa2fa69ac60bd",
+          "generatedAt": "2026-08-09T06:22:30Z",
+          "recordSha256": "b6e1c397b15a73dc2fa514c1e63ba6b91aae4db0ea168d2acd647d1ce7056121"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/eos/eos-pink-champagne-body-wash-473ml/packshot-v1-b34d8dd775ef9856.png",
+        "sha256": "b34d8dd775ef985611c1ed40782b83c7b28680aecdb8f101eb0fa2fa69ac60bd",
+        "mimeType": "image/png",
+        "byteSize": 893907,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-09T06:23:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-09T06:30:00Z"
+      },
+      "dossierFingerprint": "6ae5f20f7417a7cb2cd1c3c1c9f33a3e289fa8f67995663ea520779bee6bb878"
+    },
+    {
+      "schemaVersion": 8,
+      "candidateId": "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml",
+      "candidateFingerprint": "3570c744f23214703694522fc03432eff38c036073b8b918dccb703abbc5f1a7",
+      "exposure": "private-only",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "not-published",
+      "recommendationEligible": false,
+      "identity": {
+        "gtin": "8809657114960",
+        "brand": "Beauty of Joseon",
+        "name": "Glow Serum : Propolis + Niacinamide",
+        "variant": "Glow Serum : Propolis + Niacinamide",
+        "size": "1.01 fl oz / 30 ml",
+        "packageVersion": "Current Beauty of Joseon Glow Serum : Propolis + Niacinamide 1.01 fl oz / 30 ml dropper bottle",
+        "category": "Face care"
+      },
+      "sourceEvidence": {
+        "basis": "official-brand",
+        "officialProductUrl": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+        "officialIdentity": {
+          "url": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+          "observedGtin": "8809657114960",
+          "observedVariant": "Glow Serum : Propolis + Niacinamide",
+          "observedSize": "1.01 fl oz / 30 ml",
+          "observedPackageVersion": "Current Beauty of Joseon Glow Serum : Propolis + Niacinamide 1.01 fl oz / 30 ml dropper bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/beauty-of-joseon-glow-serum-propolis-niacinamide-30ml.json",
+          "snapshotSha256": "86364b316e28fb06b1ad953fa564635c249cb7c21047dd671a5cb4764170732f",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1641,
+          "retrievedAt": "2026-08-09T06:19:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml",
+            "sourceUrl": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+            "responseUrl": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+            "retrievedAt": "2026-08-09T06:19:00Z",
+            "fields": {
+              "gtin": {
+                "value": "8809657114960",
+                "locator": "Official Shopify product JSON-LD 30 ml offer gtin13",
+                "sourceText": "1.01 fl. oz.(30ml) offer — gtin13: 8809657114960; SKU: 82BS006"
+              },
+              "variant": {
+                "value": "Glow Serum : Propolis + Niacinamide",
+                "locator": "Official Shopify product title and structured Product name",
+                "sourceText": "Beauty of Joseon Glow Serum : Propolis + Niacinamide"
+              },
+              "size": {
+                "value": "1.01 fl oz / 30 ml",
+                "locator": "Official Shopify selected 30 ml variant title",
+                "sourceText": "1.01 fl. oz.(30ml)"
+              }
+            },
+            "sourceResponseSha256": "6007618552c4d9ad8eb5f95232d482075bef98ac6ea811139c934ac905f50a19",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 942724,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0558/4135/7989/files/glow-serum-propolis-niacinamide-1-front.webp?v=1770278801",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0558/4135/7989/files/glow-serum-propolis-niacinamide-1-front.webp?v=1770278801",
+                "retrievedAt": "2026-08-09T06:18:00Z",
+                "responseSha256": "cd6074efee0a93d4f0e3dffe5bcf2610d32cdb0676de88a8025228f1835d0e6c",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 151832
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:21:00Z"
+          }
+        },
+        "checkedAt": "2026-08-09T06:22:00Z",
+        "demandEvidenceUrls": [
+          "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+          "https://buybetter.ng/product/beauty-of-joseon-glow-serum-propolis-niacinamide-30ml/"
+        ]
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "leave-on propolis and niacinamide facial serum",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. Patch test before facial use, avoid the eye area and broken skin, introduce gradually, stop if irritation occurs, and use daytime sun protection.",
+        "manufacturerEvidenceUrl": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-08-09T06:22:30Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "marketRoute": "reference-only",
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "brandSellerAuthorizationEvidence": []
+      },
+      "rights": {
+        "status": "documented",
+        "origin": "owned-identity-verified-render",
+        "sourceAsset": {
+          "url": "https://cdn.shopify.com/s/files/1/0558/4135/7989/files/glow-serum-propolis-niacinamide-1-front.webp?v=1770278801",
+          "sha256": "cd6074efee0a93d4f0e3dffe5bcf2610d32cdb0676de88a8025228f1835d0e6c",
+          "mimeType": "image/jpeg",
+          "byteSize": 151832,
+          "width": 3000,
+          "height": 3000,
+          "retrievedAt": "2026-08-09T06:18:00Z"
+        },
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare source-pixel rembg isolation plus deterministic reflection removal, alpha cleanup and transparent 2000 px recenter",
+          "model": "isnet-general-use + Pillow alpha-only cleanup",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Beauty of Joseon Glow Serum : Propolis + Niacinamide 1.01 fl oz / 30 ml bottle and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact bottle from the source background, remove only the detached mirrored reflection below the bottle base, and centre the intact source pixels on a transparent 2000x2000 canvas.\nComposition: square; complete bottle visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0558/4135/7989/files/glow-serum-propolis-niacinamide-1-front.webp?v=1770278801",
+              "sha256": "cd6074efee0a93d4f0e3dffe5bcf2610d32cdb0676de88a8025228f1835d0e6c"
+            }
+          ],
+          "outputSha256": "72df333f42511baad2c3592c312195ee748aac8903ff3f69c364b081e456aa83",
+          "generatedAt": "2026-08-09T06:22:30Z",
+          "recordSha256": "91a896d4d645ccf315a1a5e40a35b8c5e8a0119e6ece14b2b8a6907d434c85b2"
+        }
+      },
+      "finalImage": {
+        "role": "packshot",
+        "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/beauty-of-joseon/beauty-of-joseon-glow-serum-propolis-niacinamide-30ml/packshot-v1-72df333f42511baa.png",
+        "sha256": "72df333f42511baad2c3592c312195ee748aac8903ff3f69c364b081e456aa83",
+        "mimeType": "image/png",
+        "byteSize": 731266,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "presentationQuality": "magazine-ready",
+        "reviewedAt": "2026-08-09T06:23:30Z",
+        "reviewer": "Codex visual audit"
+      },
+      "approval": {
+        "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+        "reviewer": "JeloCare catalogue publication reviewer",
+        "approvedAt": "2026-08-09T06:30:10Z"
+      },
+      "dossierFingerprint": "ab51b321136bc205267b8abf993c7419bea0665085356264f4db30daf7cf0320"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-08T20:00:33Z",
+  "updatedAt": "2026-08-09T06:24:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -267,11 +267,7 @@
       "category": "Body care",
       "reason": "Adds an exact body-wash identity made specifically for melanin-rich skin. The official Dove URL and rendered product page bind the GTIN, exact variant and 18.5 oz size. BuyBetter and Teeka4 independently bind the shortened 5% title to the same exact 547 ml presentation without promoting either retailer SKU as a manufacturer barcode. Teeka4's legacy permalink is retained only because its current response, canonical route and rendered product fields all resolve to this exact product. Slique remains excluded because its EAN conflicts and the retailer is provisional.",
       "priority": "essential",
-      "gapIds": [
-        "melanated-body-care",
-        "body-cleansing",
-        "even-looking-tone"
-      ],
+      "gapIds": ["melanated-body-care", "body-cleansing", "even-looking-tone"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/product/dove-melanin-even-tone-5-body-wash-547ml/",
         "https://teeka4.com/shop/etude-house-sunprise-mild-watery-light-spf50-pa/",
@@ -581,10 +577,7 @@
       "category": "Face care",
       "reason": "A gentle cleanser candidate for dry-skin and barrier-support coverage, with an official EAN and one brand-authorized Nigerian offer bound to the printed package barcode. NAFDAC research is retained as context and never blocks neutral catalogue publication.",
       "priority": "essential",
-      "gapIds": [
-        "gentle-cleanse-dry-skin",
-        "barrier-support"
-      ],
+      "gapIds": ["gentle-cleanse-dry-skin", "barrier-support"],
       "demandEvidenceUrls": [
         "https://teeka4.com/shop/cerave-hydrating-cleanser-16-oz/",
         "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/cerave-hydrating-cleanser/",
@@ -862,10 +855,7 @@
       "category": "Body care",
       "reason": "A high-utility face-and-body moisturiser candidate for dryness and barrier-support coverage.",
       "priority": "essential",
-      "gapIds": [
-        "body-dryness",
-        "barrier-support"
-      ],
+      "gapIds": ["body-dryness", "barrier-support"],
       "demandEvidenceUrls": [
         "https://beautybydaz.com/shop/bath-body/creams-lotions/cerave-moisturising-cream-454g-16oz-uk/",
         "https://sliquebeautylimited.com/product/cerave-moisturising-cream-454g/",
@@ -1793,10 +1783,7 @@
       "category": "Face care",
       "reason": "A strong acne-wash candidate for inflammatory facial and body-breakout coverage. Care review is complete, and Beauty by Daz plus Teeka4 each show the exact 10% / 150 ml variant with a current Nigerian price.",
       "priority": "important",
-      "gapIds": [
-        "inflammatory-acne-wash",
-        "body-acne-support"
-      ],
+      "gapIds": ["inflammatory-acne-wash", "body-acne-support"],
       "demandEvidenceUrls": [
         "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
         "https://teeka4.com/shop/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5fl-150ml/"
@@ -2054,10 +2041,7 @@
       "category": "Face care",
       "reason": "A rough-and-bumpy-skin candidate with its 473 ml UK/EU identity locked separately from the 236 ml Africa and 8 fl oz US variants.",
       "priority": "important",
-      "gapIds": [
-        "rough-bumpy-skin",
-        "keratosis-pilaris-support"
-      ],
+      "gapIds": ["rough-bumpy-skin", "keratosis-pilaris-support"],
       "demandEvidenceUrls": [
         "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/"
       ],
@@ -2378,9 +2362,7 @@
       "category": "Body care",
       "reason": "Adds a Nigerian-observed body-moisture candidate with an exact official package EAN; care, regulation, exact-offer evidence, rights, and final imagery remain deliberately unapproved.",
       "priority": "important",
-      "gapIds": [
-        "body-moisture-barrier"
-      ],
+      "gapIds": ["body-moisture-barrier"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
         "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrate-protect/"
@@ -2698,9 +2680,7 @@
       "category": "Body care",
       "reason": "Adds the exact Aqua Rich 500 ml turmeric and vitamin C body-lotion variant with an official package EAN, two current Nigerian purchase routes, a deliberately narrow daily-moisture care boundary, and an identity-locked transparent packshot.",
       "priority": "important",
-      "gapIds": [
-        "body-tone-support"
-      ],
+      "gapIds": ["body-tone-support"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
         "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
@@ -3020,10 +3000,7 @@
       "category": "Face care",
       "reason": "Adds a widely observed daily face cream with an exact manufacturer GTIN and current Nigerian retailer evidence; treatment, regulatory, rights, and publication claims remain held.",
       "priority": "important",
-      "gapIds": [
-        "daily-face-moisturiser",
-        "face-tone-support"
-      ],
+      "gapIds": ["daily-face-moisturiser", "face-tone-support"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/product/garnier-vitamin-c-bright-day-cream-50ml/",
         "https://sliquebeautylimited.com/product/garnier-skinactive-vitamin-c-brightening-day-cream-50ml/"
@@ -3331,19 +3308,14 @@
     {
       "id": "balance-salicylic-acid-zinc-clarifying-toner-200ml",
       "brand": "Balance Active Formula",
-      "brandAliases": [
-        "Balance"
-      ],
+      "brandAliases": ["Balance"],
       "name": "Salicylic Acid + Zinc Clarifying Toner",
       "variant": "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "size": "200 ml",
       "category": "Face care",
       "reason": "Adds a current 2% salicylic-acid toner with an exact official 200 ml manufacturer barcode. BuyBetter and 24Eleven each show the exact named 200 ml variant with a current Nigerian price and live availability. Their separately labelled SKUs are retained only as retailer-local identifiers; exact identity remains bound to the official manufacturer extraction. Slique remains excluded because its published EAN conflicts with the manufacturer GTIN.",
       "priority": "important",
-      "gapIds": [
-        "oily-acne-prone-face",
-        "leave-on-bha"
-      ],
+      "gapIds": ["oily-acne-prone-face", "leave-on-bha"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/product/balance-salicylic-acid-zinc-clarifying-toner-7-039-oz-200ml/",
         "https://www.24eleven.ng/balance-salicylic-acid-zinc-clarifying-toner-200ml"
@@ -3641,19 +3613,14 @@
     {
       "id": "balance-niacinamide-blemish-recovery-serum-30ml",
       "brand": "Balance Active Formula",
-      "brandAliases": [
-        "Balance"
-      ],
+      "brandAliases": ["Balance"],
       "name": "Niacinamide Blemish Recovery Serum",
       "variant": "Skincare Niacinamide Blemish Recovery Serum",
       "size": "30 ml",
       "category": "Face care",
       "reason": "Adds a current high-strength niacinamide serum for blemish-prone appearance and texture support. Balance Active Formula binds the exact 30 ml pack to GTIN 5015833328165 and discloses the complete formula. BuyBetter and CSi Grocery each show the exact named 30 ml variant with a current Nigerian price and live stock. Their identifiers remain retailer-local; exact identity is bound only to the official manufacturer extraction. Slique is retained as a provisional observation but excluded from comparison.",
       "priority": "important",
-      "gapIds": [
-        "blemish-prone-skin-support",
-        "high-strength-niacinamide"
-      ],
+      "gapIds": ["blemish-prone-skin-support", "high-strength-niacinamide"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/product/balance-niacinamide-blemish-recovery-serum-clear-30ml/",
         "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/balance-active-formula/",
@@ -3975,9 +3942,7 @@
     {
       "id": "nineless-a-control-10-azelaic-acid-serum-30ml",
       "brand": "NINELESS",
-      "brandAliases": [
-        "NINE LESS"
-      ],
+      "brandAliases": ["NINE LESS"],
       "name": "A-Control 10% Azelaic Acid Serum",
       "variant": "A-Control 10% Azelaic Acid Serum",
       "size": "30 ml",
@@ -4402,9 +4367,7 @@
     {
       "id": "nineless-mela-pro-rice-txa-toner-200ml",
       "brand": "NINELESS",
-      "brandAliases": [
-        "NINE LESS"
-      ],
+      "brandAliases": ["NINE LESS"],
       "name": "Mela-Pro Rice & TXA Toner",
       "variant": "Mela-Pro Rice & TXA Toner",
       "size": "200 ml",
@@ -4770,9 +4733,7 @@
     {
       "id": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
       "brand": "FACE FACTS",
-      "brandAliases": [
-        "FACEFACTS"
-      ],
+      "brandAliases": ["FACEFACTS"],
       "name": "Ceramide Oil Control Foaming Cleanser",
       "variant": "Ceramide Oil Control Foaming Cleanser",
       "size": "400 ml",
@@ -5129,9 +5090,7 @@
     {
       "id": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
       "brand": "FACE FACTS",
-      "brandAliases": [
-        "FACEFACTS"
-      ],
+      "brandAliases": ["FACEFACTS"],
       "name": "Ceramide Hydrating Gentle Cleanser",
       "variant": "Ceramide Hydrating Gentle Cleanser",
       "size": "400 ml",
@@ -5556,9 +5515,7 @@
     {
       "id": "facefacts-ceramide-foaming-cleanser-400ml",
       "brand": "FACE FACTS",
-      "brandAliases": [
-        "FACEFACTS"
-      ],
+      "brandAliases": ["FACEFACTS"],
       "name": "Ceramide Foaming Cleanser",
       "variant": "Ceramide Foaming Cleanser",
       "size": "400 ml",
@@ -5880,9 +5837,7 @@
             "priceNgn": 8800,
             "stock": "in-stock",
             "disposition": "excluded-from-exact-comparison",
-            "exclusionReasons": [
-              "package-variant-conflict"
-            ],
+            "exclusionReasons": ["package-variant-conflict"],
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-retailer-observation",
@@ -9243,10 +9198,7 @@
     {
       "id": "laroche-posay-mela-b3-serum-30ml",
       "brand": "La Roche-Posay",
-      "brandAliases": [
-        "La Roche Posay",
-        "LRP"
-      ],
+      "brandAliases": ["La Roche Posay", "LRP"],
       "name": "Mela B3 Serum",
       "variant": "Mela B3 Serum",
       "size": "30 ml",
@@ -9766,10 +9718,7 @@
       "category": "Face care",
       "reason": "Community-priority facial cleanser with an official current GTIN-13 and two live Nigerian listings. Its identity-verified 150 ml tube render passed label, packaging and multi-surface review.",
       "priority": "essential",
-      "gapIds": [
-        "daily-facial-cleansing",
-        "sensitive-skin-routine-coverage"
-      ],
+      "gapIds": ["daily-facial-cleansing", "sensitive-skin-routine-coverage"],
       "demandEvidenceUrls": [
         "https://teeka4.com/shop/simple-kind-to-skin-refreshing-facial-gel-wash/",
         "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/simple-refreshing-facial-wash/"
@@ -10016,10 +9965,7 @@
       "category": "Face care",
       "reason": "Community-priority targeted serum with official manufacturer GTIN-13 6154000333867, two exact live Nigerian retailer observations and one additional retailer-local-SKU observation. Its single-bottle identity-verified render passed label, packaging and multi-surface review.",
       "priority": "essential",
-      "gapIds": [
-        "acne-prone-skin-support",
-        "dark-spot-routine-coverage"
-      ],
+      "gapIds": ["acne-prone-skin-support", "dark-spot-routine-coverage"],
       "demandEvidenceUrls": [
         "https://www.konga.com/product/dang-azelaic-acid-serum-30ml-6961916",
         "https://peronabeauty.com/product/dang-azelaic-acid-serum-30ml/",
@@ -10231,9 +10177,7 @@
             "priceNgn": 20421.5,
             "stock": "in-stock",
             "disposition": "excluded-from-exact-comparison",
-            "exclusionReasons": [
-              "retailer-identifier-only"
-            ],
+            "exclusionReasons": ["retailer-identifier-only"],
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-retailer-observation",
@@ -10329,10 +10273,7 @@
       "category": "Face care",
       "reason": "Community-priority lead retained privately: the official product response names internal SKU DGL-SKC-005 but barcode is null. A live Nigerian price is preserved as a retailer-local-SKU observation, not promoted to an exact manufacturer-identity comparison.",
       "priority": "essential",
-      "gapIds": [
-        "dark-spot-routine-coverage",
-        "barrier-support-routine"
-      ],
+      "gapIds": ["dark-spot-routine-coverage", "barrier-support-routine"],
       "demandEvidenceUrls": [
         "https://www.brackettsbeauty.com/products/ageless-niacinamide-n-acetyl-glucosamine-serum"
       ],
@@ -10467,9 +10408,7 @@
             "priceNgn": 20421.5,
             "stock": "in-stock",
             "disposition": "excluded-from-exact-comparison",
-            "exclusionReasons": [
-              "retailer-identifier-only"
-            ],
+            "exclusionReasons": ["retailer-identifier-only"],
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-retailer-observation",
@@ -10551,10 +10490,7 @@
       "category": "Face care",
       "reason": "Community-priority daily sunscreen candidate. The exact official 60 ml product response now binds the Dang Lifestyle manufacturer SKU and a null barcode to the current package. Nigerian retailer observations remain excluded until an exact manufacturer-SKU offer correlation is reviewed; the official response reported the product unavailable at capture time, which is not a Nigerian market release signal.",
       "priority": "essential",
-      "gapIds": [
-        "daily-sun-protection",
-        "transparent-sunscreen-coverage"
-      ],
+      "gapIds": ["daily-sun-protection", "transparent-sunscreen-coverage"],
       "demandEvidenceUrls": [
         "https://www.brackettsbeauty.com/products/hydra-glow-sun-protection",
         "https://beautyhutafrica.com/product/dang-hydra-glow-sun-protection-gel/",
@@ -10691,9 +10627,7 @@
             "priceNgn": 27500,
             "stock": "in-stock",
             "disposition": "excluded-from-exact-comparison",
-            "exclusionReasons": [
-              "retailer-identifier-only"
-            ],
+            "exclusionReasons": ["retailer-identifier-only"],
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-retailer-observation",
@@ -10746,9 +10680,7 @@
             "priceNgn": 19350,
             "stock": "out-of-stock",
             "disposition": "excluded-from-exact-comparison",
-            "exclusionReasons": [
-              "retailer-identifier-only"
-            ],
+            "exclusionReasons": ["retailer-identifier-only"],
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-retailer-observation",
@@ -10844,10 +10776,7 @@
       "category": "Face care",
       "reason": "Official brand Shopify store at advancedclinicals.com publishes SKU AC049 with a 2560x2560 product image. No GTIN published on official store; manufacturer-SKU identity route with reference-only publication. UPC 819265008016 confirmed via Amazon and iHerb listings but not on official page, so manufacturer-SKU route is used.",
       "priority": "important",
-      "gapIds": [
-        "face-tone-support",
-        "antioxidant-care"
-      ],
+      "gapIds": ["face-tone-support", "antioxidant-care"],
       "demandEvidenceUrls": [
         "https://www.amazon.ae/Advanced-Clinicals-Vitamin-Aging-Serum/dp/B0B3R125RT"
       ],
@@ -11135,10 +11064,7 @@
     {
       "id": "abib-clear-spot-serum-7-325-30ml",
       "brand": "ABIB",
-      "brandAliases": [
-        "Abib",
-        "abib"
-      ],
+      "brandAliases": ["Abib", "abib"],
       "name": "Clear spot serum 7.325 pump",
       "variant": "Clear spot serum 7.325 pump",
       "size": "30 ml",
@@ -11292,10 +11218,7 @@
     {
       "id": "abib-heartleaf-foam-cleanser-150ml",
       "brand": "ABIB",
-      "brandAliases": [
-        "Abib",
-        "abib"
-      ],
+      "brandAliases": ["Abib", "abib"],
       "name": "Mild foam cleanser Heartleaf foam",
       "variant": "Mild foam cleanser Heartleaf foam",
       "size": "150 ml",
@@ -11307,9 +11230,7 @@
         "heartleaf-cleanser",
         "korean-acne-care"
       ],
-      "demandEvidenceUrls": [
-        "https://en.abib.com/products/heartleaf-foam"
-      ],
+      "demandEvidenceUrls": ["https://en.abib.com/products/heartleaf-foam"],
       "identity": {
         "gtin": "08809562559108",
         "officialProductUrl": "https://en.abib.com/products/heartleaf-foam",
@@ -11455,10 +11376,7 @@
       "category": "Hair & scalp",
       "reason": "Adds a bond repair conditioner from amika's official Shopify store. The 9.2 oz / 275 ml variant binds GTIN-12 840117805743 to a 2000x2000 transparent packshot on the official CDN. amika is a cruelty-free, vegan hair-care brand carried by major retailers.",
       "priority": "exploratory",
-      "gapIds": [
-        "bond-repair-conditioning",
-        "hair-conditioning"
-      ],
+      "gapIds": ["bond-repair-conditioning", "hair-conditioning"],
       "demandEvidenceUrls": [
         "https://loveamika.com/products/the-kure-strength-repair-conditioner"
       ],
@@ -11562,6 +11480,145 @@
         "artReviewedAt": "2026-08-05T00:25:00Z",
         "artReviewer": "Devin visual audit",
         "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+      "brand": "Anessa",
+      "brandAliases": ["ANESSA", "Shiseido Anessa"],
+      "name": "Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++",
+      "variant": "Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++",
+      "size": "60 ml",
+      "category": "Face care",
+      "reason": "Official Shiseido Anessa sunscreen milk with exact JAN/EAN-13 product code and current 60 ml SPF50+ PA++++ bottle evidence.",
+      "priority": "important",
+      "gapIds": ["sunscreen", "spf50", "high-protection"],
+      "demandEvidenceUrls": [
+        "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html"
+      ],
+      "identity": {
+        "gtin": "4909978147105",
+        "officialProductUrl": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current Anessa Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++ 60 ml bottle",
+        "officialEvidence": {
+          "url": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+          "observedGtin": "4909978147105",
+          "observedVariant": "Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++",
+          "observedSize": "60 ml",
+          "observedPackageVersion": "Current Anessa Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++ 60 ml bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/anessa-perfect-uv-sunscreen-skincare-milk-na-60ml.json",
+          "snapshotSha256": "210d2eb1cb253fa5e5a9a986a49a53b76d2abf94f6c960cb34e4fae6b0d6da83",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1715,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+            "sourceUrl": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+            "responseUrl": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "4909978147105",
+                "locator": "Official Shiseido structured Product sku field; the 13-digit Japanese Article Number is normalized as EAN-13/GTIN-13",
+                "sourceText": "Official Shiseido Product sku: 4909978147105 (13-digit JAN/EAN-13 identity)"
+              },
+              "variant": {
+                "value": "Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "Anessa Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++"
+              },
+              "size": {
+                "value": "60 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++ 60 ml"
+              }
+            },
+            "sourceResponseSha256": "48dda103e82dfa9e720475d16a436a4df2fcc45d9f6219cdf5fddb9680068d28",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 56685,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://www.shiseido.co.jp/resources/sw/products/img/20231221/SHOHIN_PL_C1_H16501.jpg",
+                "responseUrl": "https://www.shiseido.co.jp/resources/sw/products/img/20231221/SHOHIN_PL_C1_H16501.jpg",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "b07b7d2bc4822cb27a01b7fac7903aff0231435dc3a6d685cc2f36a94092676c",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 907306
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "SPF50+ PA++++ sunscreen milk",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. Apply sunscreen generously before sun exposure, reapply at least every two hours and after swimming or sweating, and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+        "evidenceUrls": [
+          "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+          "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "sourceUrl": "https://www.shiseido.co.jp/resources/sw/products/img/20231221/SHOHIN_PL_C1_H16501.jpg",
+        "sourceAssetSha256": "b07b7d2bc4822cb27a01b7fac7903aff0231435dc3a6d685cc2f36a94092676c",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 907306,
+        "sourceAssetWidth": 1500,
+        "sourceAssetHeight": 1500,
+        "sourceAssetRetrievedAt": "2026-08-09T05:50:00Z",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/anessa/anessa-perfect-uv-sunscreen-skincare-milk-na-60ml/packshot-v1-4e314c5b9121d500.png",
+        "publicImageSha256": "4e314c5b9121d5004634e496ce6f9cab49bd447df30de5cf6e93fb571743085c",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 2371699,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T06:23:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare source-pixel rembg isolation plus deterministic alpha cleanup and transparent 2000 px recenter",
+          "model": "isnet-general-use + Pillow alpha-only cleanup",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Anessa Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++ 60 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://www.shiseido.co.jp/resources/sw/products/img/20231221/SHOHIN_PL_C1_H16501.jpg",
+              "sha256": "b07b7d2bc4822cb27a01b7fac7903aff0231435dc3a6d685cc2f36a94092676c"
+            }
+          ],
+          "outputSha256": "4e314c5b9121d5004634e496ce6f9cab49bd447df30de5cf6e93fb571743085c",
+          "generatedAt": "2026-08-09T06:22:30Z",
+          "recordSha256": "f877b9bc61dedba23974fd95e3c9d9d257150c650f7193d0f30ef1ec9e86a134"
+        }
       }
     },
     {
@@ -11823,20 +11880,14 @@
     {
       "id": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
       "brand": "Anua",
-      "brandAliases": [
-        "anua"
-      ],
+      "brandAliases": ["anua"],
       "name": "Zero-cast Moisturizing Finish Sunscreen",
       "variant": "Zero-cast Moisturizing Finish Sunscreen",
       "size": "50 ml",
       "category": "Face care",
       "reason": "Anua Zero-cast Moisturizing Finish Sunscreen with GTIN 8809640738838 published in official JSON-LD structured data on the Anua US site, official Shopify CDN packshot (2000x2000), and daily-care boundary for sun protection.",
       "priority": "important",
-      "gapIds": [
-        "sunscreen",
-        "spf",
-        "no-white-cast"
-      ],
+      "gapIds": ["sunscreen", "spf", "no-white-cast"],
       "demandEvidenceUrls": [
         "https://anua.com/products/zero-cast-moisturizing-finish-sunscreen"
       ],
@@ -11985,9 +12036,7 @@
       "category": "Body care",
       "reason": "Adds a Nigerian-observed brightening body lotion candidate with an exact official package EAN; care, regulation, exact-offer evidence, rights, and final imagery remain deliberately unapproved.",
       "priority": "important",
-      "gapIds": [
-        "body-brightening-moisture"
-      ],
+      "gapIds": ["body-brightening-moisture"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/product/aqua-rich-bright-glow-body-lotion-licorice-mulberry-root-extract-500ml/"
       ],
@@ -12127,9 +12176,7 @@
       "category": "Body care",
       "reason": "Adds a Nigerian-observed brightening body wash candidate with an exact official package EAN; care, regulation, exact-offer evidence, rights, and final imagery remain deliberately unapproved.",
       "priority": "important",
-      "gapIds": [
-        "body-brightening-cleanse"
-      ],
+      "gapIds": ["body-brightening-cleanse"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/product/aqua-rich-bright-glow-body-gel-wash-licorice-mulberry-root-extract-1000ml/"
       ],
@@ -12269,9 +12316,7 @@
       "category": "Body care",
       "reason": "Adds a Nigerian-observed brightening body wash candidate with an exact official package EAN; care, regulation, exact-offer evidence, rights, and final imagery remain deliberately unapproved.",
       "priority": "important",
-      "gapIds": [
-        "body-brightening-cleanse"
-      ],
+      "gapIds": ["body-brightening-cleanse"],
       "demandEvidenceUrls": [
         "https://giftybeautystoree.com/product/aqua-rich-body-gel-wash-with-niacinamide-alpha-arbutin-and-tranexamic-acid/"
       ],
@@ -12411,9 +12456,7 @@
       "category": "Body care",
       "reason": "Adds a Nigerian-observed brightening body wash candidate with an exact official package EAN; care, regulation, exact-offer evidence, rights, and final imagery remain deliberately unapproved.",
       "priority": "important",
-      "gapIds": [
-        "body-brightening-cleanse"
-      ],
+      "gapIds": ["body-brightening-cleanse"],
       "demandEvidenceUrls": [
         "https://giftybeautystoree.com/product/aqua-rich-hydrating-bright-body-gel-wash-with-turmeric-and-vitamin-c-1000ml/"
       ],
@@ -12545,12 +12588,148 @@
       }
     },
     {
+      "id": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+      "brand": "Aveeno",
+      "brandAliases": ["AVEENO"],
+      "name": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+      "variant": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+      "size": "6.7 fl oz / 200 ml",
+      "category": "Body care",
+      "reason": "Official Aveeno body oil mist with exact GTIN and current 200 ml pack evidence, adding a lightweight body-moisturising format to the catalogue.",
+      "priority": "important",
+      "gapIds": ["body-moisture", "body-oil", "dry-skin"],
+      "demandEvidenceUrls": [
+        "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil"
+      ],
+      "identity": {
+        "gtin": "00381371192731",
+        "officialProductUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current Aveeno Daily Moisturizing Body Oil Mist 6.7 fl oz / 200 ml spray bottle",
+        "officialEvidence": {
+          "url": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+          "observedGtin": "00381371192731",
+          "observedVariant": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+          "observedSize": "6.7 fl oz / 200 ml",
+          "observedPackageVersion": "Current Aveeno Daily Moisturizing Body Oil Mist 6.7 fl oz / 200 ml spray bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/aveeno-daily-moisturizing-body-oil-mist-200ml.json",
+          "snapshotSha256": "700ba71aa906039c12caf71daf9bee2676df6f3674977d495e888bffd2fe357b",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1814,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+            "sourceUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+            "responseUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "00381371192731",
+                "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+                "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 00381371192731"
+              },
+              "variant": {
+                "value": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "Aveeno Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil"
+              },
+              "size": {
+                "value": "6.7 fl oz / 200 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil 6.7 fl oz / 200 ml"
+              }
+            },
+            "sourceResponseSha256": "233cd504714ade5241af72d25288f065c6f97e43ddb3b9038ecbf229d542e068",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 477464,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+                "responseUrl": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "100be1caee92e4a27d15c02b92ac63e28ea63d8a109340dde35a11652379da00",
+                "responseMimeType": "image/png",
+                "responseByteSize": 315431
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "lightweight oat and jojoba body oil mist",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. For external body use; avoid the face, eyes and broken skin, use care around slippery floors, and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "sourceUrl": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+        "sourceAssetSha256": "100be1caee92e4a27d15c02b92ac63e28ea63d8a109340dde35a11652379da00",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 315431,
+        "sourceAssetWidth": 1200,
+        "sourceAssetHeight": 1200,
+        "sourceAssetRetrievedAt": "2026-08-09T05:50:00Z",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aveeno/aveeno-daily-moisturizing-body-oil-mist-200ml/packshot-v1-74171e933325bbad.png",
+        "publicImageSha256": "74171e933325bbad95defd4feb786ad590e7006f307daef0f59984a6d4026934",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 633278,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T06:08:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+          "model": "isnet-general-use",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Aveeno Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil 6.7 fl oz / 200 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+              "sha256": "100be1caee92e4a27d15c02b92ac63e28ea63d8a109340dde35a11652379da00"
+            }
+          ],
+          "outputSha256": "74171e933325bbad95defd4feb786ad590e7006f307daef0f59984a6d4026934",
+          "generatedAt": "2026-08-09T06:04:30Z",
+          "recordSha256": "3d1826a3af421721ff050d21590f2402bd1fec58270836f8cf40e8d43485e609"
+        }
+      }
+    },
+    {
       "id": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
       "brand": "Beauty Formulas",
-      "brandAliases": [
-        "BEAUTY FORMULA",
-        "Beauty Formula"
-      ],
+      "brandAliases": ["BEAUTY FORMULA", "Beauty Formula"],
       "name": "Glowing Serum 2% Vitamin C",
       "variant": "Glowing Serum 2% Vitamin C",
       "size": "30 ml",
@@ -12922,6 +13101,146 @@
       }
     },
     {
+      "id": "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml",
+      "brand": "Beauty of Joseon",
+      "brandAliases": ["BEAUTY OF JOSEON"],
+      "name": "Glow Serum : Propolis + Niacinamide",
+      "variant": "Glow Serum : Propolis + Niacinamide",
+      "size": "1.01 fl oz / 30 ml",
+      "category": "Face care",
+      "reason": "Official Beauty of Joseon 30 ml Glow Serum with exact GTIN-13, current bottle evidence and niacinamide-focused facial-serum coverage.",
+      "priority": "important",
+      "gapIds": ["pigment-support", "niacinamide-serum", "face-serum"],
+      "demandEvidenceUrls": [
+        "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+        "https://buybetter.ng/product/beauty-of-joseon-glow-serum-propolis-niacinamide-30ml/"
+      ],
+      "identity": {
+        "gtin": "8809657114960",
+        "officialProductUrl": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+        "checkedAt": "2026-08-09T06:22:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current Beauty of Joseon Glow Serum : Propolis + Niacinamide 1.01 fl oz / 30 ml dropper bottle",
+        "officialEvidence": {
+          "url": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+          "observedGtin": "8809657114960",
+          "observedVariant": "Glow Serum : Propolis + Niacinamide",
+          "observedSize": "1.01 fl oz / 30 ml",
+          "observedPackageVersion": "Current Beauty of Joseon Glow Serum : Propolis + Niacinamide 1.01 fl oz / 30 ml dropper bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/beauty-of-joseon-glow-serum-propolis-niacinamide-30ml.json",
+          "snapshotSha256": "86364b316e28fb06b1ad953fa564635c249cb7c21047dd671a5cb4764170732f",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1641,
+          "retrievedAt": "2026-08-09T06:19:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml",
+            "sourceUrl": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+            "responseUrl": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+            "retrievedAt": "2026-08-09T06:19:00Z",
+            "fields": {
+              "gtin": {
+                "value": "8809657114960",
+                "locator": "Official Shopify product JSON-LD 30 ml offer gtin13",
+                "sourceText": "1.01 fl. oz.(30ml) offer — gtin13: 8809657114960; SKU: 82BS006"
+              },
+              "variant": {
+                "value": "Glow Serum : Propolis + Niacinamide",
+                "locator": "Official Shopify product title and structured Product name",
+                "sourceText": "Beauty of Joseon Glow Serum : Propolis + Niacinamide"
+              },
+              "size": {
+                "value": "1.01 fl oz / 30 ml",
+                "locator": "Official Shopify selected 30 ml variant title",
+                "sourceText": "1.01 fl. oz.(30ml)"
+              }
+            },
+            "sourceResponseSha256": "6007618552c4d9ad8eb5f95232d482075bef98ac6ea811139c934ac905f50a19",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 942724,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0558/4135/7989/files/glow-serum-propolis-niacinamide-1-front.webp?v=1770278801",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0558/4135/7989/files/glow-serum-propolis-niacinamide-1-front.webp?v=1770278801",
+                "retrievedAt": "2026-08-09T06:18:00Z",
+                "responseSha256": "cd6074efee0a93d4f0e3dffe5bcf2610d32cdb0676de88a8025228f1835d0e6c",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 151832
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:21:00Z"
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "leave-on propolis and niacinamide facial serum",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. Patch test before facial use, avoid the eye area and broken skin, introduce gradually, stop if irritation occurs, and use daytime sun protection.",
+        "manufacturerEvidenceUrl": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+        "evidenceUrls": [
+          "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+          "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+        ],
+        "reviewedAt": "2026-08-09T06:22:30Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0558/4135/7989/files/glow-serum-propolis-niacinamide-1-front.webp?v=1770278801",
+        "sourceAssetSha256": "cd6074efee0a93d4f0e3dffe5bcf2610d32cdb0676de88a8025228f1835d0e6c",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 151832,
+        "sourceAssetWidth": 3000,
+        "sourceAssetHeight": 3000,
+        "sourceAssetRetrievedAt": "2026-08-09T06:18:00Z",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/beauty-of-joseon/beauty-of-joseon-glow-serum-propolis-niacinamide-30ml/packshot-v1-72df333f42511baa.png",
+        "publicImageSha256": "72df333f42511baad2c3592c312195ee748aac8903ff3f69c364b081e456aa83",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 731266,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T06:23:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare source-pixel rembg isolation plus deterministic reflection removal, alpha cleanup and transparent 2000 px recenter",
+          "model": "isnet-general-use + Pillow alpha-only cleanup",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Beauty of Joseon Glow Serum : Propolis + Niacinamide 1.01 fl oz / 30 ml bottle and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact bottle from the source background, remove only the detached mirrored reflection below the bottle base, and centre the intact source pixels on a transparent 2000x2000 canvas.\nComposition: square; complete bottle visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0558/4135/7989/files/glow-serum-propolis-niacinamide-1-front.webp?v=1770278801",
+              "sha256": "cd6074efee0a93d4f0e3dffe5bcf2610d32cdb0676de88a8025228f1835d0e6c"
+            }
+          ],
+          "outputSha256": "72df333f42511baad2c3592c312195ee748aac8903ff3f69c364b081e456aa83",
+          "generatedAt": "2026-08-09T06:22:30Z",
+          "recordSha256": "91a896d4d645ccf315a1a5e40a35b8c5e8a0119e6ece14b2b8a6907d434c85b2"
+        }
+      }
+    },
+    {
       "id": "benton-honest-cleansing-foam-150g",
       "brand": "Benton",
       "name": "Honest Cleansing Foam",
@@ -12970,12 +13289,7 @@
                 "sourceText": "Search terms barcode, ean, gtin and upc returned 0 matches in the complete rendered DOM outerHTML.",
                 "absenceProof": {
                   "searchScope": "complete-rendered-dom-outerhtml",
-                  "searchedTerms": [
-                    "barcode",
-                    "ean",
-                    "gtin",
-                    "upc"
-                  ],
+                  "searchedTerms": ["barcode", "ean", "gtin", "upc"],
                   "matchStrategy": "whole-word",
                   "caseInsensitive": true,
                   "matchCount": 0
@@ -13240,10 +13554,7 @@
       "category": "Face care",
       "reason": "A salicylic acid cleanser for blemish-prone skin coverage, with an official EAN from the CeraVe Africa site and existing Nigerian retailer offers.",
       "priority": "important",
-      "gapIds": [
-        "blemish-cleanse",
-        "salicylic-acid-care"
-      ],
+      "gapIds": ["blemish-cleanse", "salicylic-acid-care"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/shop/specific-concern/acne/cerave-blemish-control-cleanser-236ml/",
         "https://www.dermastore.co.za/cerave-blemish-control-cleanser/",
@@ -13355,10 +13666,7 @@
       "category": "Face care",
       "reason": "A foaming gel cleanser for normal-to-oily skin coverage, with an official EAN from the CeraVe Africa site and existing Nigerian retailer offers.",
       "priority": "important",
-      "gapIds": [
-        "normal-oily-cleansing",
-        "barrier-support"
-      ],
+      "gapIds": ["normal-oily-cleansing", "barrier-support"],
       "demandEvidenceUrls": [
         "https://www.caretobeauty.com/ng/cerave-foaming-cleanser-normal-to-oily-skin-236ml/",
         "https://www.ulta.com/p/foaming-facial-cleanser-xlsImpprod5140065",
@@ -13470,10 +13778,7 @@
       "category": "Face care",
       "reason": "A snail mucin essence for hydration and barrier support, with an official EAN from the COSRX official site and existing Nigerian retailer offers.",
       "priority": "important",
-      "gapIds": [
-        "hydration",
-        "barrier-support"
-      ],
+      "gapIds": ["hydration", "barrier-support"],
       "demandEvidenceUrls": [
         "https://www.caretobeauty.com/ng/cosrx-advanced-snail-96-mucin-power-essence-100ml/",
         "https://www.ulta.com/p/advanced-snail-96-mucin-power-essence-xlsImpprod15641052"
@@ -13589,9 +13894,7 @@
       "category": "Body care",
       "reason": "An aluminum-free deodorant spray with 1/4 moisturizers for daily underarm odor protection, with an official GTIN-14 from the Dove US site GS1 JSON-LD and existing Nigerian retailer offers.",
       "priority": "important",
-      "gapIds": [
-        "sweat-body-odour"
-      ],
+      "gapIds": ["sweat-body-odour"],
       "demandEvidenceUrls": [
         "https://beautybydaz.com/?s=dove+go+fresh+cucumber+green+tea+spray&post_type=product",
         "https://www.caretobeauty.com/ng/catalogsearch/result/?q=dove%20cucumber%20deodorant"
@@ -13973,20 +14276,14 @@
     {
       "id": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
       "brand": "e.l.f.",
-      "brandAliases": [
-        "elf",
-        "e.l.f. SKIN",
-        "ELF"
-      ],
+      "brandAliases": ["elf", "e.l.f. SKIN", "ELF"],
       "name": "Suntouchable Invisible Sunscreen SPF 35",
       "variant": "Suntouchable Invisible Sunscreen SPF 35",
       "size": "50 ml",
       "category": "Face care",
       "reason": "High-consumer-utility SPF 35 invisible gel sunscreen that doubles as a makeup primer; directory-retailer-observed with a GTIN-shaped identity lead.",
       "priority": "important",
-      "gapIds": [
-        "sun-protection"
-      ],
+      "gapIds": ["sun-protection"],
       "demandEvidenceUrls": [
         "https://www.elfcosmetics.com/products/suntouchable-invisible-sunscreen-spf-35"
       ],
@@ -14048,12 +14345,7 @@
                 "sourceText": "Official product page: SKU: 81807UP (no barcode published)",
                 "absenceProof": {
                   "searchScope": "complete-rendered-dom-outerhtml",
-                  "searchedTerms": [
-                    "barcode",
-                    "ean",
-                    "gtin",
-                    "upc"
-                  ],
+                  "searchedTerms": ["barcode", "ean", "gtin", "upc"],
                   "matchStrategy": "whole-word",
                   "caseInsensitive": true,
                   "matchCount": 0
@@ -14214,6 +14506,423 @@
       }
     },
     {
+      "id": "eos-coconut-waters-body-wash-473ml",
+      "brand": "eos",
+      "brandAliases": ["EOS", "Evolution of Smooth"],
+      "name": "Coconut Waters Body Wash",
+      "variant": "Coconut Waters Body Wash",
+      "size": "16 fl oz / 473 ml",
+      "category": "Body care",
+      "reason": "Official eos Coconut Waters scented body wash with exact barcode and current 473 ml bottle evidence.",
+      "priority": "important",
+      "gapIds": ["body-cleanse", "scented-body-wash"],
+      "demandEvidenceUrls": [
+        "https://evolutionofsmooth.com/products/coconut-waters-body-wash"
+      ],
+      "identity": {
+        "gtin": "840044714088",
+        "officialProductUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current eos Coconut Waters Body Wash 16 fl oz / 473 ml pump bottle",
+        "officialEvidence": {
+          "url": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+          "observedGtin": "840044714088",
+          "observedVariant": "Coconut Waters Body Wash",
+          "observedSize": "16 fl oz / 473 ml",
+          "observedPackageVersion": "Current eos Coconut Waters Body Wash 16 fl oz / 473 ml pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/eos-coconut-waters-body-wash-473ml.json",
+          "snapshotSha256": "ca901a4fd794d11de3c5fd7591858a0eaa933ed9596c0087d10379fb76777936",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1622,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "eos-coconut-waters-body-wash-473ml",
+            "sourceUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+            "responseUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "840044714088",
+                "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+                "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 840044714088"
+              },
+              "variant": {
+                "value": "Coconut Waters Body Wash",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "eos Coconut Waters Body Wash"
+              },
+              "size": {
+                "value": "16 fl oz / 473 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Coconut Waters Body Wash 16 fl oz / 473 ml"
+              }
+            },
+            "sourceResponseSha256": "b04e395a2bc1c0e661b7db6bfa530edb62cc5eaf39389c455b2ba8c088f771c5",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 281607,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "ed4bfa17eadee79051a2752939a93c1246cfb5ea97169d76aa39f92ba7763391",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 65064
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "fragranced rinse-off body cleanser",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. This is a scented rinse-off body cleanser; avoid the eyes and broken skin and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+        "sourceAssetSha256": "ed4bfa17eadee79051a2752939a93c1246cfb5ea97169d76aa39f92ba7763391",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 65064,
+        "sourceAssetWidth": 1000,
+        "sourceAssetHeight": 1161,
+        "sourceAssetRetrievedAt": "2026-08-09T05:50:00Z",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/eos/eos-coconut-waters-body-wash-473ml/packshot-v1-eb42525129639dd0.png",
+        "publicImageSha256": "eb42525129639dd0b666b15b7745d5db60c66ec7e9170283ed824b273470bf11",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 833828,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T06:23:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare source-pixel rembg isolation plus deterministic alpha cleanup and transparent 2000 px recenter",
+          "model": "isnet-general-use + Pillow alpha-only cleanup",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current eos Coconut Waters Body Wash 16 fl oz / 473 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+              "sha256": "ed4bfa17eadee79051a2752939a93c1246cfb5ea97169d76aa39f92ba7763391"
+            }
+          ],
+          "outputSha256": "eb42525129639dd0b666b15b7745d5db60c66ec7e9170283ed824b273470bf11",
+          "generatedAt": "2026-08-09T06:22:30Z",
+          "recordSha256": "419c744c2d88aa686de37dfc6a53122c7f171aa50d246bd5e7cbb95634ec1abc"
+        }
+      }
+    },
+    {
+      "id": "eos-pink-champagne-body-wash-473ml",
+      "brand": "eos",
+      "brandAliases": ["EOS", "Evolution of Smooth"],
+      "name": "Pink Champagne Body Wash",
+      "variant": "Pink Champagne Body Wash",
+      "size": "16 fl oz / 473 ml",
+      "category": "Body care",
+      "reason": "Official eos Pink Champagne scented body wash with exact barcode and current 473 ml bottle evidence.",
+      "priority": "important",
+      "gapIds": ["body-cleanse", "scented-body-wash"],
+      "demandEvidenceUrls": [
+        "https://evolutionofsmooth.com/products/pink-champagne-body-wash"
+      ],
+      "identity": {
+        "gtin": "840044714101",
+        "officialProductUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current eos Pink Champagne Body Wash 16 fl oz / 473 ml pump bottle",
+        "officialEvidence": {
+          "url": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+          "observedGtin": "840044714101",
+          "observedVariant": "Pink Champagne Body Wash",
+          "observedSize": "16 fl oz / 473 ml",
+          "observedPackageVersion": "Current eos Pink Champagne Body Wash 16 fl oz / 473 ml pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/eos-pink-champagne-body-wash-473ml.json",
+          "snapshotSha256": "76aeec0f47d9b848455fb5c4fa67a18aaf35c772c88d0a77b5d36d102a18c065",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1622,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "eos-pink-champagne-body-wash-473ml",
+            "sourceUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+            "responseUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "840044714101",
+                "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+                "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 840044714101"
+              },
+              "variant": {
+                "value": "Pink Champagne Body Wash",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "eos Pink Champagne Body Wash"
+              },
+              "size": {
+                "value": "16 fl oz / 473 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Pink Champagne Body Wash 16 fl oz / 473 ml"
+              }
+            },
+            "sourceResponseSha256": "fc87022d1d7fb191a3d519c5bdec0dfc44323cc1c92e1478a27e1b0d7038ffd5",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 283158,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "75c6d44b3913ef93377edad817108801f66827899511f4ae93874c2680bcdb0c",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 71246
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "fragranced rinse-off body cleanser",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. This is a scented rinse-off body cleanser; avoid the eyes and broken skin and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+        "sourceAssetSha256": "75c6d44b3913ef93377edad817108801f66827899511f4ae93874c2680bcdb0c",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 71246,
+        "sourceAssetWidth": 1000,
+        "sourceAssetHeight": 1161,
+        "sourceAssetRetrievedAt": "2026-08-09T05:50:00Z",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/eos/eos-pink-champagne-body-wash-473ml/packshot-v1-b34d8dd775ef9856.png",
+        "publicImageSha256": "b34d8dd775ef985611c1ed40782b83c7b28680aecdb8f101eb0fa2fa69ac60bd",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 893907,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T06:23:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare source-pixel rembg isolation plus deterministic alpha cleanup and transparent 2000 px recenter",
+          "model": "isnet-general-use + Pillow alpha-only cleanup",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current eos Pink Champagne Body Wash 16 fl oz / 473 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+              "sha256": "75c6d44b3913ef93377edad817108801f66827899511f4ae93874c2680bcdb0c"
+            }
+          ],
+          "outputSha256": "b34d8dd775ef985611c1ed40782b83c7b28680aecdb8f101eb0fa2fa69ac60bd",
+          "generatedAt": "2026-08-09T06:22:30Z",
+          "recordSha256": "b6e1c397b15a73dc2fa514c1e63ba6b91aae4db0ea168d2acd647d1ce7056121"
+        }
+      }
+    },
+    {
+      "id": "eos-vanilla-cashmere-body-wash-473ml",
+      "brand": "eos",
+      "brandAliases": ["EOS", "Evolution of Smooth"],
+      "name": "Vanilla Cashmere Body Wash",
+      "variant": "Vanilla Cashmere Body Wash",
+      "size": "16 fl oz / 473 ml",
+      "category": "Body care",
+      "reason": "Official eos Vanilla Cashmere scented body wash with exact barcode and current 473 ml bottle evidence.",
+      "priority": "important",
+      "gapIds": ["body-cleanse", "scented-body-wash"],
+      "demandEvidenceUrls": [
+        "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash"
+      ],
+      "identity": {
+        "gtin": "840044714163",
+        "officialProductUrl": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current eos Vanilla Cashmere Body Wash 16 fl oz / 473 ml pump bottle",
+        "officialEvidence": {
+          "url": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+          "observedGtin": "840044714163",
+          "observedVariant": "Vanilla Cashmere Body Wash",
+          "observedSize": "16 fl oz / 473 ml",
+          "observedPackageVersion": "Current eos Vanilla Cashmere Body Wash 16 fl oz / 473 ml pump bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/eos-vanilla-cashmere-body-wash-473ml.json",
+          "snapshotSha256": "c516e5c32f2b817ad57378dab80f097f05ccfe8a39c91529a53acbb1bcfc03ac",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1634,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "eos-vanilla-cashmere-body-wash-473ml",
+            "sourceUrl": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+            "responseUrl": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "840044714163",
+                "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+                "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 840044714163"
+              },
+              "variant": {
+                "value": "Vanilla Cashmere Body Wash",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "eos Vanilla Cashmere Body Wash"
+              },
+              "size": {
+                "value": "16 fl oz / 473 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Vanilla Cashmere Body Wash 16 fl oz / 473 ml"
+              }
+            },
+            "sourceResponseSha256": "5454dc68d2e622f3f2900ba3cc6f10d57b83405e471b76bd3193025906686ebc",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 286740,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-VC-1000X1161.jpg?v=1763417523",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-VC-1000X1161.jpg?v=1763417523",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "9096676ef41705bf0ca5777e15220d4720a3fa6f0b46dda8721c9a7c8f3d1431",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 67463
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "fragranced rinse-off body cleanser",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. This is a scented rinse-off body cleanser; avoid the eyes and broken skin and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+        "evidenceUrls": [
+          "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-VC-1000X1161.jpg?v=1763417523",
+        "sourceAssetSha256": "9096676ef41705bf0ca5777e15220d4720a3fa6f0b46dda8721c9a7c8f3d1431",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 67463,
+        "sourceAssetWidth": 1000,
+        "sourceAssetHeight": 1161,
+        "sourceAssetRetrievedAt": "2026-08-09T05:50:00Z",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/eos/eos-vanilla-cashmere-body-wash-473ml/packshot-v1-68270f669e9bbab2.png",
+        "publicImageSha256": "68270f669e9bbab20b62db94527d309bf0e16418396ef6a6dfaa47f19d2347d7",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 833315,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T06:23:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare source-pixel rembg isolation plus deterministic alpha cleanup and transparent 2000 px recenter",
+          "model": "isnet-general-use + Pillow alpha-only cleanup",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current eos Vanilla Cashmere Body Wash 16 fl oz / 473 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-VC-1000X1161.jpg?v=1763417523",
+              "sha256": "9096676ef41705bf0ca5777e15220d4720a3fa6f0b46dda8721c9a7c8f3d1431"
+            }
+          ],
+          "outputSha256": "68270f669e9bbab20b62db94527d309bf0e16418396ef6a6dfaa47f19d2347d7",
+          "generatedAt": "2026-08-09T06:22:30Z",
+          "recordSha256": "b843b9f12a345600a271b2a25528460e5cabafe952e872b05f66f68b072f7908"
+        }
+      }
+    },
+    {
       "id": "estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g",
       "brand": "ESTELIN",
       "name": "Ultra-Light Hydrating Invisible Sunscreen SPF 50 PA+++",
@@ -14222,10 +14931,7 @@
       "category": "Face care",
       "reason": "Adds an ESTELIN SPF 50 invisible sunscreen with an exact official manufacturer SKU; care, regulation, exact-offer evidence, rights, and final imagery remain deliberately unapproved.",
       "priority": "important",
-      "gapIds": [
-        "sun-protection",
-        "hydration-support"
-      ],
+      "gapIds": ["sun-protection", "hydration-support"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/?s=estelin+sunscreen+sPF+50"
       ],
@@ -14388,10 +15094,7 @@
       "category": "Face care",
       "reason": "Official brand Shopify store at estelin.co.in publishes SKU ES0088 with a 3334x3334 product image. No GTIN published; manufacturer-SKU identity route with reference-only publication.",
       "priority": "important",
-      "gapIds": [
-        "face-tone-support",
-        "dry-dehydrated-skin"
-      ],
+      "gapIds": ["face-tone-support", "dry-dehydrated-skin"],
       "demandEvidenceUrls": [
         "https://babesquarters.ng/shop/estelin-spf-80-ultra-light-hydrating-invisible-sunscreen-2/"
       ],
@@ -14548,10 +15251,7 @@
     {
       "id": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
       "brand": "FACE FACTS",
-      "brandAliases": [
-        "FACEFACTS",
-        "Face Facts"
-      ],
+      "brandAliases": ["FACEFACTS", "Face Facts"],
       "name": "Ceramide Blemish Gel Moisturiser",
       "variant": "Ceramide Blemish Gel Moisturiser",
       "size": "50 ml",
@@ -14910,10 +15610,7 @@
     {
       "id": "facefacts-ceramide-moisturising-gel-cream-50ml",
       "brand": "FACE FACTS",
-      "brandAliases": [
-        "FACEFACTS",
-        "Face Facts"
-      ],
+      "brandAliases": ["FACEFACTS", "Face Facts"],
       "name": "Ceramide Moisturising Gel Cream",
       "variant": "Ceramide Moisturising Gel Cream",
       "size": "50 ml",
@@ -14962,12 +15659,7 @@
                 "sourceText": "Search terms barcode, ean, gtin and upc returned 0 matches in the complete rendered DOM outerHTML.",
                 "absenceProof": {
                   "searchScope": "complete-rendered-dom-outerhtml",
-                  "searchedTerms": [
-                    "barcode",
-                    "ean",
-                    "gtin",
-                    "upc"
-                  ],
+                  "searchedTerms": ["barcode", "ean", "gtin", "upc"],
                   "matchStrategy": "whole-word",
                   "caseInsensitive": true,
                   "matchCount": 0
@@ -15299,18 +15991,14 @@
     {
       "id": "facefacts-enhance-gel-cream-cleanser-150ml",
       "brand": "FaceFacts",
-      "brandAliases": [
-        "Face Facts"
-      ],
+      "brandAliases": ["Face Facts"],
       "name": "Enhance Gel-Cream Cleanser",
       "variant": "Enhance Gel-Cream Cleanser",
       "size": "150 ml",
       "category": "Face care",
       "reason": "Salicylic acid gel-cream cleanser with rice and cherry extract for daily acne-prone skin care",
       "priority": "important",
-      "gapIds": [
-        "acne-breakouts"
-      ],
+      "gapIds": ["acne-breakouts"],
       "demandEvidenceUrls": [
         "https://www.csigrocery.com/shop/skin-care/face/face-facts-enhance-gel-cream-cleanser-150ml/",
         "https://buybetter.ng/product-category/facefacts/"
@@ -15373,12 +16061,7 @@
                 "sourceText": "\"barcode\":null",
                 "absenceProof": {
                   "searchScope": "complete-rendered-dom-outerhtml",
-                  "searchedTerms": [
-                    "barcode",
-                    "ean",
-                    "gtin",
-                    "upc"
-                  ],
+                  "searchedTerms": ["barcode", "ean", "gtin", "upc"],
                   "matchStrategy": "structured-key-variants",
                   "caseInsensitive": true,
                   "matchCount": 0
@@ -15528,20 +16211,14 @@
     {
       "id": "facefacts-soothe-glow-niacinamide-serum-30ml",
       "brand": "FaceFacts",
-      "brandAliases": [
-        "FACE FACTS"
-      ],
+      "brandAliases": ["FACE FACTS"],
       "name": "Soothe & Glow Niacinamide Facial Serum",
       "variant": "Soothe \\u0026 Glow Niacinamide Facial Serum",
       "size": "30 ml",
       "category": "Face care",
       "reason": "Published as a neutral FaceFacts reference for exact manufacturer SKU 43771-150. The official 30 ml identity, bottle media, formula, usage and care review are verified. Teeka4 and CSi Grocery observations remain retained but excluded from public price comparison because their titles omit the official “Facial” token and no manufacturer GTIN binds either retailer identifier to the current official record.",
       "priority": "important",
-      "gapIds": [
-        "lightweight-hydration",
-        "tone-support",
-        "niacinamide-serum"
-      ],
+      "gapIds": ["lightweight-hydration", "tone-support", "niacinamide-serum"],
       "demandEvidenceUrls": [
         "https://facefacts.me/products/soothe-glow-niacinamide-serum",
         "https://skintoc.com/products/face-facts-niacinamide-serum-sooth-glow-30ml",
@@ -15730,19 +16407,14 @@
     {
       "id": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
       "brand": "FaceFacts",
-      "brandAliases": [
-        "FACE FACTS"
-      ],
+      "brandAliases": ["FACE FACTS"],
       "name": "Vitamin C Brightening Jelly Cleanser",
       "variant": "Vitamin C Brightening Jelly Cleanser",
       "size": "150 ml",
       "category": "Face care",
       "reason": "Community-priority gentle-cleansing lead: the official FaceFacts response binds manufacturer SKU 25968-150 with no published barcode, the description declares 150ml, and the official 2000 px transparent packshot passes review.",
       "priority": "important",
-      "gapIds": [
-        "gentle-cleansing-coverage",
-        "tone-support"
-      ],
+      "gapIds": ["gentle-cleansing-coverage", "tone-support"],
       "demandEvidenceUrls": [
         "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser"
       ],
@@ -15878,9 +16550,7 @@
             "priceNgn": 4300,
             "stock": "in-stock",
             "disposition": "excluded-from-exact-comparison",
-            "exclusionReasons": [
-              "retailer-identifier-only"
-            ],
+            "exclusionReasons": ["retailer-identifier-only"],
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-retailer-observation",
@@ -15962,11 +16632,7 @@
       "category": "Body care",
       "reason": "Adds the exact official Fenty Fresh Standard 200 mL jar. Essentials Hub's ₦79,000 page does not reliably distinguish the Standard jar from the 200 mL refill or other scent variants, so the release remains reference-only until the retailer binds the exact variant.",
       "priority": "important",
-      "gapIds": [
-        "rich-body-moisturizer",
-        "body-cream",
-        "premium-body-care"
-      ],
+      "gapIds": ["rich-body-moisturizer", "body-cream", "premium-body-care"],
       "demandEvidenceUrls": [
         "https://essentialshub.com/product/fenty-skin-butta-drop-whipped-oil-body-cream/"
       ],
@@ -16104,10 +16770,7 @@
       "category": "Face care",
       "reason": "Adds a globally distributed Garnier sheet mask candidate with an exact official package EAN; care, regulation, exact-offer evidence, rights, and final imagery remain deliberately unapproved.",
       "priority": "important",
-      "gapIds": [
-        "acne-spot-treatment",
-        "sheet-mask"
-      ],
+      "gapIds": ["acne-spot-treatment", "sheet-mask"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/product/garnier-pure-active-tea-tree-salicylic-acid-tissue-mask/"
       ],
@@ -16232,10 +16895,7 @@
       "category": "Face care",
       "reason": "A high-protection sunscreen for oily skin with UVMune 400 technology, with an official EAN from the La Roche-Posay UK site and existing Nigerian retailer offers.",
       "priority": "important",
-      "gapIds": [
-        "daily-sun-protection",
-        "oily-skin-care"
-      ],
+      "gapIds": ["daily-sun-protection", "oily-skin-care"],
       "demandEvidenceUrls": [
         "https://www.caretobeauty.com/ng/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-spf50/",
         "https://www.amazon.com/s?k=La+Roche-Posay+UVMune+400+Oil+Control"
@@ -16351,10 +17011,7 @@
       "category": "Face care",
       "reason": "Adds La Roche-Posay Effaclar Purifying Foaming Gel 400ml — a daily foaming facial cleanser for oily, blemish-prone skin. The 400ml variant binds GTIN-13 3337872411991 from the official UK site JSON-LD. 2000x2000 source image from the official Demandware CDN processed through rembg ISNet isolation.",
       "priority": "exploratory",
-      "gapIds": [
-        "oily-skin-cleansing",
-        "acne-cleansing"
-      ],
+      "gapIds": ["oily-skin-cleansing", "acne-cleansing"],
       "demandEvidenceUrls": [
         "https://www.laroche-posay.co.uk/en_GB/effaclar-purifying-cleansing-gel/LRP_050.html"
       ],
@@ -16745,10 +17402,7 @@
       "category": "Face care",
       "reason": "A matte moisturizer for oily skin with ceramides and niacinamide, with an official EAN from the La Roche-Posay US site and existing Nigerian retailer offers.",
       "priority": "important",
-      "gapIds": [
-        "oily-skin-care",
-        "barrier-support"
-      ],
+      "gapIds": ["oily-skin-care", "barrier-support"],
       "demandEvidenceUrls": [
         "https://www.caretobeauty.com/ng/catalogsearch/result/?q=toleriane%20double%20repair%20matte",
         "https://www.ulta.com/p/toleriane-double-repair-matte-face-moisturizer-oily-skin-pimprod2030179"
@@ -16864,10 +17518,7 @@
       "category": "Face care",
       "reason": "A daily moisturizer with SPF 30 for sensitive skin with ceramides and niacinamide, with an official EAN from the La Roche-Posay US site and existing Nigerian retailer offers.",
       "priority": "important",
-      "gapIds": [
-        "daily-sun-protection",
-        "barrier-support"
-      ],
+      "gapIds": ["daily-sun-protection", "barrier-support"],
       "demandEvidenceUrls": [
         "https://www.caretobeauty.com/ng/catalogsearch/result/?q=toleriane%20double%20repair",
         "https://www.ulta.com/p/toleriane-double-repair-face-moisturizer-uv-spf-30-xlsImpprod15681007?sku=2503390"
@@ -16983,11 +17634,7 @@
       "category": "Body care",
       "reason": "Adds the exact current official Almond Softening Shower Oil 250 mL black-cap package. Jumia's ₦57,000 marketplace lead names 250 mL but could not be reconciled to the current official GTIN/package through the challenged page and seller evidence, so the release remains reference-only.",
       "priority": "important",
-      "gapIds": [
-        "rinse-off-body-care",
-        "shower-oil",
-        "dry-skin-cleansing"
-      ],
+      "gapIds": ["rinse-off-body-care", "shower-oil", "dry-skin-cleansing"],
       "demandEvidenceUrls": [
         "https://www.jumia.com.ng/generic-loccitane-almond-shower-oil-250ml-390146429.html"
       ],
@@ -17861,11 +18508,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 30 mL Naturium Azelaic Acid Emulsion 10%. Official Shopify structured data publishes GTIN 850010792378. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "azelaic-acid",
-        "redness-support",
-        "leave-on-face-care"
-      ],
+      "gapIds": ["azelaic-acid", "redness-support", "leave-on-face-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/azelaic-acid-emulsion-10/",
         "https://peronabeauty.com/product/naturium-azelaic-acid-emulsion-10/"
@@ -18000,11 +18643,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 100 mL Naturium Barrier Bounce Bi-Phase Mist. Official Shopify structured data publishes GTIN 810120263328. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "barrier-support",
-        "hydrating-toner",
-        "bi-phase-mist"
-      ],
+      "gapIds": ["barrier-support", "hydrating-toner", "bi-phase-mist"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/barrier-bounce-bi-phase-mist/",
         "https://peronabeauty.com/product/naturium-barrier-bounce-bi-phase-mist/"
@@ -18139,11 +18778,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 120 mL Naturium BHA Liquid Exfoliant 2%. Official Shopify structured data publishes GTIN 850010792279. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "bha-exfoliant",
-        "salicylic-acid-exfoliant",
-        "acne-support"
-      ],
+      "gapIds": ["bha-exfoliant", "salicylic-acid-exfoliant", "acne-support"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/bha-liquid-exfoliant-2/",
         "https://peronabeauty.com/product/naturium-bha-liquid-exfoliant-2/"
@@ -18278,11 +18913,7 @@
       "category": "Body care",
       "reason": "Adds the exact current 14 oz Naturium Bio-Lipid Restoring Body Lotion. Official Shopify structured data publishes GTIN 850010792804. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "leave-on-body-care",
-        "body-lotion",
-        "dry-skin-support"
-      ],
+      "gapIds": ["leave-on-body-care", "body-lotion", "dry-skin-support"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/bio-lipid-restoring-body-lotion/",
         "https://peronabeauty.com/product/naturium-bio-lipid-restoring-body-lotion/"
@@ -18556,11 +19187,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 50 mL Naturium Dew-Glow Moisturizer Mineral SPF 50. Official Shopify structured data publishes GTIN 810120263083. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "spf-moisturizer",
-        "mineral-sunscreen",
-        "sun-protection"
-      ],
+      "gapIds": ["spf-moisturizer", "mineral-sunscreen", "sun-protection"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/dew-glow-moisturizer-mineral-spf-50/",
         "https://peronabeauty.com/product/naturium-dew-glow-mineral-spf-50/"
@@ -18695,11 +19322,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 50 mL Naturium Dew-Glow Moisturizer SPF 50. Official Shopify structured data publishes GTIN 810456020329. No exact Nigerian offers yet bound, so reference-only.",
       "priority": "important",
-      "gapIds": [
-        "spf-moisturizer",
-        "sun-protection",
-        "daily-moisturizer"
-      ],
+      "gapIds": ["spf-moisturizer", "sun-protection", "daily-moisturizer"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/dew-glow-moisturizer-spf-50/",
         "https://peronabeauty.com/product/naturium-dew-glow-moisturizer-spf-50/"
@@ -18973,11 +19596,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 103.5 mL Naturium Fermented Camellia Creamy Cleansing Oil. Official Shopify structured data publishes GTIN 850010792385. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "cleansing-oil",
-        "makeup-removal",
-        "rinse-off-face-care"
-      ],
+      "gapIds": ["cleansing-oil", "makeup-removal", "rinse-off-face-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/fermented-camellia-creamy-cleansing-oil/",
         "https://peronabeauty.com/product/naturium-fermented-camellia-creamy-cleansing-oil/"
@@ -19251,11 +19870,7 @@
       "category": "Body care",
       "reason": "Adds the exact current 100 mL Naturium Glow Getter Body Oil. Official Shopify structured data publishes GTIN 810120261089. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "leave-on-body-care",
-        "body-oil",
-        "dry-skin-support"
-      ],
+      "gapIds": ["leave-on-body-care", "body-oil", "dry-skin-support"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/the-glow-getter-body-oil/",
         "https://peronabeauty.com/product/naturium-glow-getter-body-oil/"
@@ -19390,11 +20005,7 @@
       "category": "Body care",
       "reason": "Adds the exact current 232 mL Naturium The Glow Getter Multi-Oil Body Butter. Official Shopify structured data publishes GTIN 810120260594. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "body-butter",
-        "body-care",
-        "moisturizing-body-care"
-      ],
+      "gapIds": ["body-butter", "body-care", "moisturizing-body-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/the-glow-getter-multi-oil-body-butter/",
         "https://peronabeauty.com/product/naturium-the-glow-getter-multi-oil-body-butter/"
@@ -19529,11 +20140,7 @@
       "category": "Body care",
       "reason": "Adds the exact current 8 oz Naturium Glow Getter Multi-Oil Body Scrub. Official Shopify structured data publishes GTIN 810120263076. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "body-scrub",
-        "exfoliating-body-care",
-        "multi-oil-care"
-      ],
+      "gapIds": ["body-scrub", "exfoliating-body-care", "multi-oil-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/the-glow-getter-multi-oil-body-scrub/",
         "https://peronabeauty.com/product/naturium-glow-getter-multi-oil-body-scrub/"
@@ -19807,11 +20414,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 1.7 oz Naturium Intense Overnight Sleeping Cream. Official Shopify structured data publishes GTIN 850010792170. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "overnight-cream",
-        "barrier-support",
-        "leave-on-face-care"
-      ],
+      "gapIds": ["overnight-cream", "barrier-support", "leave-on-face-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/intense-overnight-sleeping-cream/",
         "https://peronabeauty.com/product/naturium-intense-overnight-sleeping-cream/"
@@ -19946,11 +20549,7 @@
       "category": "Body care",
       "reason": "Adds the exact current 8 oz Naturium KP Body Scrub & Mask. Official Shopify structured data publishes GTIN 810120260044. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "kp-body-scrub",
-        "exfoliating-body-care",
-        "body-care"
-      ],
+      "gapIds": ["kp-body-scrub", "exfoliating-body-care", "body-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/kp-body-scrub-mask/",
         "https://peronabeauty.com/product/naturium-kp-body-scrub-mask/"
@@ -20085,11 +20684,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 1.7 oz Naturium Marshmallow Root Barrier Balm. Official Shopify structured data publishes GTIN 850010792750. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "barrier-support",
-        "marshmallow-root",
-        "moisturizer"
-      ],
+      "gapIds": ["barrier-support", "marshmallow-root", "moisturizer"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/marshmallow-root-barrier-balm/",
         "https://peronabeauty.com/product/naturium-marshmallow-root-barrier-balm/"
@@ -20224,11 +20819,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 30 mL Naturium Multi-Active Exosome Serum. Official Shopify structured data publishes GTIN 609332213661. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "exosome-serum",
-        "anti-aging-support",
-        "leave-on-face-care"
-      ],
+      "gapIds": ["exosome-serum", "anti-aging-support", "leave-on-face-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/multi-active-exosome-serum/",
         "https://peronabeauty.com/product/naturium-multi-active-exosome-serum/"
@@ -20641,11 +21232,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 15 mL Naturium Multi-Peptide Eye Cream. Official Shopify structured data publishes GTIN 850010792682. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "eye-cream",
-        "peptide-eye-care",
-        "anti-aging-support"
-      ],
+      "gapIds": ["eye-cream", "peptide-eye-care", "anti-aging-support"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/multi-peptide-eye-cream/",
         "https://peronabeauty.com/product/naturium-multi-peptide-eye-cream/"
@@ -21197,11 +21784,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 30 mL Naturium Niacinamide Serum 12% Plus Zinc 2%. Official Shopify structured data publishes GTIN 850010792064. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "niacinamide-serum",
-        "oil-control-support",
-        "pore-refining"
-      ],
+      "gapIds": ["niacinamide-serum", "oil-control-support", "pore-refining"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/niacinamide-serum-12-plus-zinc-2/",
         "https://peronabeauty.com/product/naturium-niacinamide-serum-12-plus-zinc-2/"
@@ -21336,11 +21919,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 10 mL Naturium Phyto-Glow Lip Balm Clear. Official Shopify structured data publishes GTIN 850010792392. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "lip-balm",
-        "lip-care",
-        "clear-lip-balm"
-      ],
+      "gapIds": ["lip-balm", "lip-care", "clear-lip-balm"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/phyto-glow-lip-balm-clear/",
         "https://peronabeauty.com/product/naturium-phyto-glow-lip-balm-clear/"
@@ -21475,11 +22054,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 1.7 oz Naturium Plant Ceramide Rich Moisture Cream. Official Shopify structured data publishes GTIN 850010792200. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "ceramide-cream",
-        "moisturizer",
-        "leave-on-face-care"
-      ],
+      "gapIds": ["ceramide-cream", "moisturizer", "leave-on-face-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/plant-ceramide-rich-moisture-cream/",
         "https://peronabeauty.com/product/naturium-plant-ceramide-rich-moisture-cream/"
@@ -21753,11 +22328,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 88 mL Naturium Purple Ginseng Cleansing Balm. Official Shopify structured data publishes GTIN 850010792446. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "cleansing-balm",
-        "makeup-removal",
-        "rinse-off-face-care"
-      ],
+      "gapIds": ["cleansing-balm", "makeup-removal", "rinse-off-face-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/purple-ginseng-cleansing-balm/",
         "https://peronabeauty.com/product/naturium-purple-ginseng-cleansing-balm/"
@@ -22031,11 +22602,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 50 mL Naturium Retinaldehyde Cream Serum 0.05%. Official Shopify structured data publishes GTIN 810120260013. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "retinaldehyde",
-        "anti-aging-support",
-        "leave-on-face-care"
-      ],
+      "gapIds": ["retinaldehyde", "anti-aging-support", "leave-on-face-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/retinaldehyde-cream-serum-0-05/",
         "https://peronabeauty.com/product/naturium-retinaldehyde-cream-serum-0-05/"
@@ -22170,11 +22737,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 50 mL Naturium Retinaldehyde Cream Serum 0.10%. Official Shopify structured data publishes GTIN 810120260471. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "retinaldehyde",
-        "anti-aging-support",
-        "leave-on-face-care"
-      ],
+      "gapIds": ["retinaldehyde", "anti-aging-support", "leave-on-face-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/retinaldehyde-cream-serum-0-10/",
         "https://peronabeauty.com/product/naturium-retinaldehyde-cream-serum-0-10/"
@@ -22309,11 +22872,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 50 mL Naturium Retinol Complex Cream. Official Shopify structured data publishes GTIN 850010792040. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "retinol-cream",
-        "anti-aging-support",
-        "leave-on-face-care"
-      ],
+      "gapIds": ["retinol-cream", "anti-aging-support", "leave-on-face-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/retinol-complex-cream/",
         "https://peronabeauty.com/product/naturium-retinol-complex-cream/"
@@ -22448,11 +23007,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 30 mL Naturium Retinol Complex Serum. Official Shopify structured data publishes GTIN 850010792033. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "retinol-serum",
-        "anti-aging-support",
-        "leave-on-face-care"
-      ],
+      "gapIds": ["retinol-serum", "anti-aging-support", "leave-on-face-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/retinol-complex-serum/",
         "https://peronabeauty.com/product/naturium-retinol-complex-serum/"
@@ -22587,11 +23142,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 30 mL Naturium Salicylic Acid Serum 2%. Official Shopify structured data publishes GTIN 850010792767. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "salicylic-acid-serum",
-        "acne-support",
-        "exfoliating-serum"
-      ],
+      "gapIds": ["salicylic-acid-serum", "acne-support", "exfoliating-serum"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/salicylic-acid-serum-2/",
         "https://peronabeauty.com/product/naturium-salicylic-acid-serum-2/"
@@ -22726,11 +23277,7 @@
       "category": "Body care",
       "reason": "Adds the exact current 8 fl oz Naturium Skin-Renewing Retinol Body Lotion. Official Shopify structured data publishes GTIN 810120260037. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "retinol-body-lotion",
-        "body-care",
-        "anti-aging-body-care"
-      ],
+      "gapIds": ["retinol-body-lotion", "body-care", "anti-aging-body-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/skin-renewing-retinol-body-lotion/",
         "https://peronabeauty.com/product/naturium-skin-renewing-retinol-body-lotion/"
@@ -23144,11 +23691,7 @@
       "category": "Body care",
       "reason": "Adds the exact current 500 mL Naturium The Smoother Glycolic Acid Exfoliating Body Wash. Official Shopify structured data publishes GTIN 850010792903. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "glycolic-body-wash",
-        "exfoliating-body-care",
-        "body-care"
-      ],
+      "gapIds": ["glycolic-body-wash", "exfoliating-body-care", "body-care"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/the-smoother-glycolic-acid-exfoliating-body-wash/",
         "https://peronabeauty.com/product/naturium-the-smoother-glycolic-acid-exfoliating-body-wash/"
@@ -23422,11 +23965,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 50 mL Naturium UV Reflect Antioxidant SPF 50. Official Shopify structured data publishes GTIN 810120260181. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "spf-face",
-        "antioxidant-sunscreen",
-        "sun-protection"
-      ],
+      "gapIds": ["spf-face", "antioxidant-sunscreen", "sun-protection"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/uv-reflect-antioxidant-spf-50/",
         "https://peronabeauty.com/product/naturium-uv-reflect-antioxidant-spf-50/"
@@ -23561,11 +24100,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 15 mL Naturium Vitamin Bright Illuminating Eye Cream (Light/Medium shade). Official Shopify structured data publishes GTIN 810120260211. No exact Nigerian offers yet bound, so reference only.",
       "priority": "important",
-      "gapIds": [
-        "eye-cream",
-        "vitamin-c-eye-care",
-        "brightening-support"
-      ],
+      "gapIds": ["eye-cream", "vitamin-c-eye-care", "brightening-support"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/vitamin-bright-illuminating-eye-cream/",
         "https://peronabeauty.com/product/naturium-vitamin-bright-illuminating-eye-cream/"
@@ -23700,11 +24235,7 @@
       "category": "Face care",
       "reason": "Adds the exact current 30 mL Naturium Vitamin C Complex Serum. Official Shopify structured data publishes GTIN 850010792071. No exact Nigerian offers yet bound, so reference-only.",
       "priority": "important",
-      "gapIds": [
-        "vitamin-c-serum",
-        "brightening-support",
-        "antioxidant-serum"
-      ],
+      "gapIds": ["vitamin-c-serum", "brightening-support", "antioxidant-serum"],
       "demandEvidenceUrls": [
         "https://www.urbanskinng.com/shop/vitamin-c-complex-serum/",
         "https://peronabeauty.com/product/naturium-vitamin-c-complex-face-serum-30ml/",
@@ -24112,20 +24643,14 @@
     {
       "id": "neutrogena-light-sesame-body-oil-8-5oz",
       "brand": "Neutrogena",
-      "brandAliases": [
-        "neutrogena"
-      ],
+      "brandAliases": ["neutrogena"],
       "name": "Body Oil, Light Sesame Formula",
       "variant": "Body Oil, Light Sesame Formula",
       "size": "8.5 fl oz",
       "category": "Body care",
       "reason": "Neutrogena Light Sesame Formula Body Oil with GTIN 070501618202 published in official JSON-LD structured data on the Neutrogena US site, official Kenvue CDN packshot (2000x2000), and supportive-care boundary for dry skin.",
       "priority": "important",
-      "gapIds": [
-        "body-oil",
-        "dry-skin-body",
-        "sesame-oil"
-      ],
+      "gapIds": ["body-oil", "dry-skin-body", "sesame-oil"],
       "demandEvidenceUrls": [
         "https://www.neutrogena.com/products/skincare/neutrogena-body-oil-light-sesame-formula-for-dry-skin/6811101"
       ],
@@ -24268,9 +24793,7 @@
     {
       "id": "nineless-a-control-azelaic-acid-cream-50ml",
       "brand": "NINELESS",
-      "brandAliases": [
-        "NINE LESS"
-      ],
+      "brandAliases": ["NINE LESS"],
       "name": "A-Control Azelaic Acid Cream",
       "variant": "A-Control Azelaic Acid Cream",
       "size": "50 ml",
@@ -24597,9 +25120,7 @@
             "priceNgn": 13500,
             "stock": "out-of-stock",
             "disposition": "excluded-from-exact-comparison",
-            "exclusionReasons": [
-              "listing-no-longer-current"
-            ],
+            "exclusionReasons": ["listing-no-longer-current"],
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-retailer-observation",
@@ -24646,9 +25167,7 @@
             "priceNgn": 11150,
             "stock": "out-of-stock",
             "disposition": "excluded-from-exact-comparison",
-            "exclusionReasons": [
-              "listing-no-longer-current"
-            ],
+            "exclusionReasons": ["listing-no-longer-current"],
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-retailer-observation",
@@ -25118,9 +25637,7 @@
       "category": "Hair & scalp",
       "reason": "An argan oil penetrating hair treatment for dry, frizzy hair with an official GTIN-14 from the OGX US site JSON-LD and existing Nigerian retailer offers.",
       "priority": "important",
-      "gapIds": [
-        "dry-frizzy-hair"
-      ],
+      "gapIds": ["dry-frizzy-hair"],
       "demandEvidenceUrls": [
         "https://beautybydaz.com/?s=OGX+Renewing+Argan+Oil+of+Morocco&post_type=product",
         "https://www.caretobeauty.com/ng/ogx-renewing-argan-oil-of-morocco-extra-penetrating-oil-100ml/"
@@ -25230,10 +25747,7 @@
     {
       "id": "panoxyl-acne-creamy-wash-4-170g",
       "brand": "PanOxyl",
-      "brandAliases": [
-        "Panoxyl",
-        "PANOXYL"
-      ],
+      "brandAliases": ["Panoxyl", "PANOXYL"],
       "name": "Acne Creamy Wash Benzoyl Peroxide 4%",
       "variant": "Acne Creamy Wash Benzoyl Peroxide 4%",
       "size": "170 g",
@@ -25376,10 +25890,7 @@
       "category": "Face care",
       "reason": "A private gentle-cleansing research lead with two current Nigerian listings. The retained official Shopify response binds PREQUEL's GLEANSER + GLYCOLIC variant to barcode 810129110562, while the reviewed official front pack confirms 13.5 fl oz / 400 ml. Fresh exact Nigerian observations retain one currently in-stock offer and one currently unavailable offer; publication still depends on a rights-cleared exact-pack asset.",
       "priority": "important",
-      "gapIds": [
-        "gentle-cleansing",
-        "texture-support"
-      ],
+      "gapIds": ["gentle-cleansing", "texture-support"],
       "demandEvidenceUrls": [
         "https://buybetter.ng/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
         "https://nihetbeauty.com/product/prequel-gleanser-glycolic-acid-cleanser-400ml/"
@@ -25595,9 +26106,7 @@
             "priceNgn": 47000,
             "stock": "in-stock",
             "disposition": "excluded-from-exact-comparison",
-            "exclusionReasons": [
-              "retailer-identifier-only"
-            ],
+            "exclusionReasons": ["retailer-identifier-only"],
             "evidence": {
               "schemaVersion": 1,
               "method": "reviewed-retailer-observation",
@@ -25687,20 +26196,14 @@
     {
       "id": "replenix-bp-10-acne-wash-aloe-vera-7oz",
       "brand": "Replenix",
-      "brandAliases": [
-        "replenix"
-      ],
+      "brandAliases": ["replenix"],
       "name": "BP 10% Acne Wash + Aloe Vera",
       "variant": "BP 10% Acne Wash + Aloe Vera",
       "size": "7 oz",
       "category": "Face care",
       "reason": "Replenix BP 10% Acne Wash + Aloe Vera with GTIN 358211113003 published as barcode in Shopify product variant data on the official Replenix site, official Shopify CDN packshot (2000x2000), and daily-care boundary for acne-prone skin.",
       "priority": "important",
-      "gapIds": [
-        "acne",
-        "benzoyl-peroxide",
-        "cleanser"
-      ],
+      "gapIds": ["acne", "benzoyl-peroxide", "cleanser"],
       "demandEvidenceUrls": [
         "https://replenix.com/products/bp-10-acne-wash-aloe-vera"
       ],
@@ -25841,6 +26344,145 @@
       }
     },
     {
+      "id": "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+      "brand": "Saltair",
+      "brandAliases": ["SALTAIR"],
+      "name": "Santal Bloom Moisture Bound Hair Oil Rich",
+      "variant": "Moisture Bound Hair Oil Rich — Santal Bloom",
+      "size": "1.69 fl oz / 50 ml",
+      "category": "Hair & scalp",
+      "reason": "Official Saltair rich hair oil in Santal Bloom with exact barcode, variant and 50 ml bottle evidence.",
+      "priority": "important",
+      "gapIds": ["hair-oil", "dry-hair", "hair-finish"],
+      "demandEvidenceUrls": [
+        "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063"
+      ],
+      "identity": {
+        "gtin": "810083682860",
+        "officialProductUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+        "checkedAt": "2026-08-09T06:07:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current Saltair Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml bottle",
+        "officialEvidence": {
+          "url": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+          "observedGtin": "810083682860",
+          "observedVariant": "Moisture Bound Hair Oil Rich — Santal Bloom",
+          "observedSize": "1.69 fl oz / 50 ml",
+          "observedPackageVersion": "Current Saltair Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml bottle",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml.json",
+          "snapshotSha256": "a87c6aa6627987684114cca51fb3c4d47b4417d2efe9232e8681b074f09e1e93",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1769,
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "canonicalExtraction": {
+            "schemaVersion": 3,
+            "candidateId": "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+            "sourceUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+            "responseUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+            "retrievedAt": "2026-08-09T05:52:00Z",
+            "fields": {
+              "gtin": {
+                "value": "810083682860",
+                "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+                "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 810083682860"
+              },
+              "variant": {
+                "value": "Moisture Bound Hair Oil Rich — Santal Bloom",
+                "locator": "Official product response product name and selected variant",
+                "sourceText": "Saltair Moisture Bound Hair Oil Rich — Santal Bloom"
+              },
+              "size": {
+                "value": "1.69 fl oz / 50 ml",
+                "locator": "Official product response and exact official primary pack image",
+                "sourceText": "Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml"
+              }
+            },
+            "sourceResponseSha256": "bcf28572c2cc5587277738ed8d552142a4eb76cb554fc9cf7394e5e659838152",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 323723,
+            "supplementalResponses": [
+              {
+                "role": "official-pack-image",
+                "sourceUrl": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+                "responseUrl": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+                "retrievedAt": "2026-08-09T05:50:00Z",
+                "responseSha256": "1498c396440776d00b2afd4670cc25e67d4c86705b4271855e87de3c61dfea0a",
+                "responseMimeType": "image/jpeg",
+                "responseByteSize": 70751
+              }
+            ],
+            "responseDigestScope": "decoded-response-body",
+            "method": "reviewed-exact-identity-field-extraction",
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-09T06:06:00Z"
+          }
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "rich finishing hair oil for mid-lengths and ends",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Catalogue context only. Use a small amount through hair lengths and ends, avoid the eyes and irritated scalp, and stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips",
+        "evidenceUrls": [
+          "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+          "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips"
+        ],
+        "reviewedAt": "2026-08-09T06:08:00Z",
+        "reviewer": "JeloCare catalogue care review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "tierAIdentityEvidenceUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+        "sourceAssetSha256": "1498c396440776d00b2afd4670cc25e67d4c86705b4271855e87de3c61dfea0a",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 70751,
+        "sourceAssetWidth": 1326,
+        "sourceAssetHeight": 1360,
+        "sourceAssetRetrievedAt": "2026-08-09T05:50:00Z",
+        "origin": "owned-identity-verified-render",
+        "role": "packshot",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/saltair/saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml/packshot-v1-63698f66a0746020.png",
+        "publicImageSha256": "63698f66a0746020e81d26ee2ca3da325a999845f85a2242417469c27f335989",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 797203,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "identity-verified-render",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-09T06:08:30Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready",
+        "generationRecord": {
+          "schemaVersion": 1,
+          "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+          "model": "isnet-general-use",
+          "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Saltair Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+          "inputs": [
+            {
+              "url": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+              "sha256": "1498c396440776d00b2afd4670cc25e67d4c86705b4271855e87de3c61dfea0a"
+            }
+          ],
+          "outputSha256": "63698f66a0746020e81d26ee2ca3da325a999845f85a2242417469c27f335989",
+          "generatedAt": "2026-08-09T06:04:30Z",
+          "recordSha256": "8990fed5bce70a656475b1117be56df4857336aa71ca17a02b1e02aa6e0cb59f"
+        }
+      }
+    },
+    {
       "id": "skin-by-zaron-vitamin-c-body-wash-650ml",
       "brand": "Skin by Zaron",
       "name": "Vitamin C Body Wash",
@@ -25890,12 +26532,7 @@
                 "sourceText": "Search terms barcode, ean, gtin and upc returned 0 matches in the complete rendered DOM outerHTML.",
                 "absenceProof": {
                   "searchScope": "complete-rendered-dom-outerhtml",
-                  "searchedTerms": [
-                    "barcode",
-                    "ean",
-                    "gtin",
-                    "upc"
-                  ],
+                  "searchedTerms": ["barcode", "ean", "gtin", "upc"],
                   "matchStrategy": "whole-word",
                   "caseInsensitive": true,
                   "matchCount": 0

@@ -61,9 +61,12 @@ export const packshotEligibleOrigins = [
 ] as const;
 const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   amika: ["loveamika.com"],
+  anessa: ["www.shiseido.co.jp"],
   anua: ["anua.com"],
+  aveeno: ["www.aveeno.com"],
   aquarich: ["www.aquarich.net"],
   balanceactiveformula: ["www.balanceactiveformula.com"],
+  beautyofjoseon: ["beautyofjoseon.com"],
   beautyformulas: ["www.beautyformulas.co.uk"],
   benton: ["bentoncosmetics.com"],
   cerave: ["africa.cerave.com", "www.cerave.com", "www.cerave.co.uk"],
@@ -77,6 +80,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   drteals: ["www.drteals.com"],
   estelin: ["estelin.co.in"],
   estelinindia: ["estelin.co.in"],
+  eos: ["evolutionofsmooth.com"],
   elf: ["www.elfcosmetics.com"],
   eucerin: ["www.eucerin-cewa.com"],
   facefacts: ["facefacts.me"],
@@ -98,6 +102,7 @@ const reviewedOfficialCareHosts: Readonly<Record<string, readonly string[]>> = {
   olay: ["www.olay.com"],
   prequel: ["prequelskin.com", "www.prequelskin.com"],
   sheamoisture: ["www.sheamoisture.com"],
+  saltair: ["saltair.com"],
   simple: ["www.simpleskincare.com", "www.simple.co.uk"],
   skinbyzaron: ["www.zaroncosmetics.com"],
   tresemme: ["www.tresemme.com"],
@@ -147,9 +152,12 @@ const reviewedOfficialIdentityHosts: Readonly<
   Record<string, readonly string[]>
 > = {
   amika: ["loveamika.com", "cdn.shopify.com"],
+  anessa: ["www.shiseido.co.jp"],
   anua: ["anua.com"],
+  aveeno: ["www.aveeno.com", "images.ctfassets.net"],
   aquarich: ["www.aquarich.net"],
   balanceactiveformula: ["www.balanceactiveformula.com"],
+  beautyofjoseon: ["beautyofjoseon.com", "cdn.shopify.com"],
   beautyformulas: ["www.beautyformulas.co.uk"],
   benton: ["bentoncosmetics.com", "cafe24img.poxo.com"],
   cerave: [
@@ -168,6 +176,7 @@ const reviewedOfficialIdentityHosts: Readonly<
   drteals: ["www.drteals.com"],
   estelin: ["estelin.co.in", "cdn.shopify.com"],
   estelinindia: ["estelin.co.in", "cdn.shopify.com"],
+  eos: ["evolutionofsmooth.com", "cdn.shopify.com"],
   elf: ["www.elfcosmetics.com", "cdn.shopify.com"],
   eucerin: ["www.eucerin-cewa.com"],
   facefacts: ["facefacts.me"],
@@ -191,6 +200,7 @@ const reviewedOfficialIdentityHosts: Readonly<
   olay: ["www.olay.com"],
   prequel: ["prequelskin.com", "www.prequelskin.com"],
   sheamoisture: ["www.sheamoisture.com", "assets.unileversolutions.com"],
+  saltair: ["saltair.com", "cdn.shopify.com"],
   simple: [
     "www.simpleskincare.com",
     "www.simple.co.uk",

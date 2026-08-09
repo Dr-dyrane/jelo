@@ -48,6 +48,15 @@
       "source": "dossier-release"
     },
     {
+      "slug": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+      "brand": "Anessa",
+      "name": "Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++",
+      "size": "60 ml",
+      "category": "Face",
+      "approvedGtin": "4909978147105",
+      "source": "dossier-release"
+    },
+    {
       "slug": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
       "brand": "ANUA",
       "name": "Azelaic Acid 10 Hyaluron Redness Soothing Serum",
@@ -129,6 +138,15 @@
       "source": "dossier-release"
     },
     {
+      "slug": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+      "brand": "Aveeno",
+      "name": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+      "size": "6.7 fl oz / 200 ml",
+      "category": "Body",
+      "approvedGtin": "00381371192731",
+      "source": "dossier-release"
+    },
+    {
       "slug": "b-lab-matcha-hydrating-real-sunscreen",
       "brand": "B.LAB",
       "name": "Matcha Hydrating Real Sunscreen SPF50+ PA++++",
@@ -162,6 +180,15 @@
       "size": "30 ml",
       "category": "Face",
       "approvedGtin": "5012251013611",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml",
+      "brand": "Beauty of Joseon",
+      "name": "Glow Serum : Propolis + Niacinamide",
+      "size": "1.01 fl oz / 30 ml",
+      "category": "Face",
+      "approvedGtin": "8809657114960",
       "source": "dossier-release"
     },
     {
@@ -387,6 +414,33 @@
       "size": "50 ml",
       "category": "Face",
       "approvedGtin": "00609332818071",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "eos-coconut-waters-body-wash-473ml",
+      "brand": "eos",
+      "name": "Coconut Waters Body Wash",
+      "size": "16 fl oz / 473 ml",
+      "category": "Body",
+      "approvedGtin": "840044714088",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "eos-pink-champagne-body-wash-473ml",
+      "brand": "eos",
+      "name": "Pink Champagne Body Wash",
+      "size": "16 fl oz / 473 ml",
+      "category": "Body",
+      "approvedGtin": "840044714101",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "eos-vanilla-cashmere-body-wash-473ml",
+      "brand": "eos",
+      "name": "Vanilla Cashmere Body Wash",
+      "size": "16 fl oz / 473 ml",
+      "category": "Body",
+      "approvedGtin": "840044714163",
       "source": "dossier-release"
     },
     {
@@ -1215,6 +1269,15 @@
       "size": "7 oz",
       "category": "Face",
       "approvedGtin": "358211113003",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+      "brand": "Saltair",
+      "name": "Santal Bloom Moisture Bound Hair Oil Rich",
+      "size": "1.69 fl oz / 50 ml",
+      "category": "Hair",
+      "approvedGtin": "810083682860",
       "source": "dossier-release"
     },
     {

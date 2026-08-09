@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-09T06:09:00Z",
+  "origin": {
+    "kind": "static-research-packet",
+    "packetId": "cbc834ef2dfe1921106b9ad0",
+    "discoveryId": "7afa2f6eac15547f92afd336",
+    "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
+  },
+  "candidate": {
+    "id": "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+    "brand": "Saltair",
+    "brandAliases": ["SALTAIR"],
+    "name": "Santal Bloom Moisture Bound Hair Oil Rich",
+    "variant": "Moisture Bound Hair Oil Rich — Santal Bloom",
+    "size": "1.69 fl oz / 50 ml",
+    "category": "Hair & scalp",
+    "reason": "Official Saltair rich hair oil in Santal Bloom with exact barcode, variant and 50 ml bottle evidence.",
+    "priority": "important",
+    "gapIds": ["hair-oil", "dry-hair", "hair-finish"],
+    "demandEvidenceUrls": [
+      "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063"
+    ],
+    "identity": {
+      "gtin": "810083682860",
+      "officialProductUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+      "checkedAt": "2026-08-09T06:07:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Current Saltair Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml bottle",
+      "officialEvidence": {
+        "url": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+        "observedGtin": "810083682860",
+        "observedVariant": "Moisture Bound Hair Oil Rich — Santal Bloom",
+        "observedSize": "1.69 fl oz / 50 ml",
+        "observedPackageVersion": "Current Saltair Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml.json",
+        "snapshotSha256": "a87c6aa6627987684114cca51fb3c4d47b4417d2efe9232e8681b074f09e1e93",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1769,
+        "retrievedAt": "2026-08-09T05:52:00Z",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+          "sourceUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+          "responseUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "fields": {
+            "gtin": {
+              "value": "810083682860",
+              "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+              "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 810083682860"
+            },
+            "variant": {
+              "value": "Moisture Bound Hair Oil Rich — Santal Bloom",
+              "locator": "Official product response product name and selected variant",
+              "sourceText": "Saltair Moisture Bound Hair Oil Rich — Santal Bloom"
+            },
+            "size": {
+              "value": "1.69 fl oz / 50 ml",
+              "locator": "Official product response and exact official primary pack image",
+              "sourceText": "Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml"
+            }
+          },
+          "sourceResponseSha256": "bcf28572c2cc5587277738ed8d552142a4eb76cb554fc9cf7394e5e659838152",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 323723,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+              "responseUrl": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+              "retrievedAt": "2026-08-09T05:50:00Z",
+              "responseSha256": "1498c396440776d00b2afd4670cc25e67d4c86705b4271855e87de3c61dfea0a",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 70751
+            }
+          ],
+          "responseDigestScope": "decoded-response-body",
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-09T06:06:00Z"
+        }
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "rich finishing hair oil for mid-lengths and ends",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Catalogue context only. Use a small amount through hair lengths and ends, avoid the eyes and irritated scalp, and stop if irritation occurs.",
+      "manufacturerEvidenceUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips",
+      "evidenceUrls": [
+        "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+        "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips"
+      ],
+      "reviewedAt": "2026-08-09T06:08:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+      "sourceAssetSha256": "1498c396440776d00b2afd4670cc25e67d4c86705b4271855e87de3c61dfea0a",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 70751,
+      "sourceAssetWidth": 1326,
+      "sourceAssetHeight": 1360,
+      "sourceAssetRetrievedAt": "2026-08-09T05:50:00Z",
+      "origin": "owned-identity-verified-render",
+      "role": "packshot",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/saltair/saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml/packshot-v1-63698f66a0746020.png",
+      "publicImageSha256": "63698f66a0746020e81d26ee2ca3da325a999845f85a2242417469c27f335989",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 797203,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-09T06:08:30Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+        "model": "isnet-general-use",
+        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Saltair Moisture Bound Hair Oil Rich — Santal Bloom 1.69 fl oz / 50 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+        "inputs": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0549/3286/5231/files/1-SLTR_PDP_Haircare-HairOil-Rich_CapOn.jpg?v=1731366151",
+            "sha256": "1498c396440776d00b2afd4670cc25e67d4c86705b4271855e87de3c61dfea0a"
+          }
+        ],
+        "outputSha256": "63698f66a0746020e81d26ee2ca3da325a999845f85a2242417469c27f335989",
+        "generatedAt": "2026-08-09T06:04:30Z",
+        "recordSha256": "8990fed5bce70a656475b1117be56df4857336aa71ca17a02b1e02aa6e0cb59f"
+      }
+    }
+  }
+}

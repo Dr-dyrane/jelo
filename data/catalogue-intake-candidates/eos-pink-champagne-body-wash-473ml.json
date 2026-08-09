@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-09T06:24:00Z",
+  "origin": {
+    "kind": "static-research-packet",
+    "packetId": "258b05593ae6b7cb1e1d5ddf",
+    "discoveryId": "0b79938ca156f8c9fac4469f",
+    "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
+  },
+  "candidate": {
+    "id": "eos-pink-champagne-body-wash-473ml",
+    "brand": "eos",
+    "brandAliases": ["EOS", "Evolution of Smooth"],
+    "name": "Pink Champagne Body Wash",
+    "variant": "Pink Champagne Body Wash",
+    "size": "16 fl oz / 473 ml",
+    "category": "Body care",
+    "reason": "Official eos Pink Champagne scented body wash with exact barcode and current 473 ml bottle evidence.",
+    "priority": "important",
+    "gapIds": ["body-cleanse", "scented-body-wash"],
+    "demandEvidenceUrls": [
+      "https://evolutionofsmooth.com/products/pink-champagne-body-wash"
+    ],
+    "identity": {
+      "gtin": "840044714101",
+      "officialProductUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+      "checkedAt": "2026-08-09T06:07:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Current eos Pink Champagne Body Wash 16 fl oz / 473 ml pump bottle",
+      "officialEvidence": {
+        "url": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+        "observedGtin": "840044714101",
+        "observedVariant": "Pink Champagne Body Wash",
+        "observedSize": "16 fl oz / 473 ml",
+        "observedPackageVersion": "Current eos Pink Champagne Body Wash 16 fl oz / 473 ml pump bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/eos-pink-champagne-body-wash-473ml.json",
+        "snapshotSha256": "76aeec0f47d9b848455fb5c4fa67a18aaf35c772c88d0a77b5d36d102a18c065",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1622,
+        "retrievedAt": "2026-08-09T05:52:00Z",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "eos-pink-champagne-body-wash-473ml",
+          "sourceUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+          "responseUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "fields": {
+            "gtin": {
+              "value": "840044714101",
+              "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+              "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 840044714101"
+            },
+            "variant": {
+              "value": "Pink Champagne Body Wash",
+              "locator": "Official product response product name and selected variant",
+              "sourceText": "eos Pink Champagne Body Wash"
+            },
+            "size": {
+              "value": "16 fl oz / 473 ml",
+              "locator": "Official product response and exact official primary pack image",
+              "sourceText": "Pink Champagne Body Wash 16 fl oz / 473 ml"
+            }
+          },
+          "sourceResponseSha256": "fc87022d1d7fb191a3d519c5bdec0dfc44323cc1c92e1478a27e1b0d7038ffd5",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 283158,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+              "responseUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+              "retrievedAt": "2026-08-09T05:50:00Z",
+              "responseSha256": "75c6d44b3913ef93377edad817108801f66827899511f4ae93874c2680bcdb0c",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 71246
+            }
+          ],
+          "responseDigestScope": "decoded-response-body",
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-09T06:06:00Z"
+        }
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "fragranced rinse-off body cleanser",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Catalogue context only. This is a scented rinse-off body cleanser; avoid the eyes and broken skin and stop if irritation occurs.",
+      "manufacturerEvidenceUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+      "evidenceUrls": [
+        "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+      ],
+      "reviewedAt": "2026-08-09T06:08:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+      "sourceAssetSha256": "75c6d44b3913ef93377edad817108801f66827899511f4ae93874c2680bcdb0c",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 71246,
+      "sourceAssetWidth": 1000,
+      "sourceAssetHeight": 1161,
+      "sourceAssetRetrievedAt": "2026-08-09T05:50:00Z",
+      "origin": "owned-identity-verified-render",
+      "role": "packshot",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/eos/eos-pink-champagne-body-wash-473ml/packshot-v1-b34d8dd775ef9856.png",
+      "publicImageSha256": "b34d8dd775ef985611c1ed40782b83c7b28680aecdb8f101eb0fa2fa69ac60bd",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 893907,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-09T06:23:30Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "JeloCare source-pixel rembg isolation plus deterministic alpha cleanup and transparent 2000 px recenter",
+        "model": "isnet-general-use + Pillow alpha-only cleanup",
+        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current eos Pink Champagne Body Wash 16 fl oz / 473 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+        "inputs": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-PC-1000X1161.jpg?v=1763417498",
+            "sha256": "75c6d44b3913ef93377edad817108801f66827899511f4ae93874c2680bcdb0c"
+          }
+        ],
+        "outputSha256": "b34d8dd775ef985611c1ed40782b83c7b28680aecdb8f101eb0fa2fa69ac60bd",
+        "generatedAt": "2026-08-09T06:22:30Z",
+        "recordSha256": "b6e1c397b15a73dc2fa514c1e63ba6b91aae4db0ea168d2acd647d1ce7056121"
+      }
+    }
+  }
+}

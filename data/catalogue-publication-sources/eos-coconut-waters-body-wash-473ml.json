@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "eos-coconut-waters-body-wash-473ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "eos-coconut-waters-body-wash-473ml",
+    "candidateFingerprint": "fe79eed7c17589e3f0af76e27350e59cb75caf030ba60e8b3b001d0b69d789fc",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "840044714088",
+      "brand": "eos",
+      "name": "Coconut Waters Body Wash",
+      "variant": "Coconut Waters Body Wash",
+      "size": "16 fl oz / 473 ml",
+      "packageVersion": "Current eos Coconut Waters Body Wash 16 fl oz / 473 ml pump bottle",
+      "category": "Body care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+      "officialIdentity": {
+        "url": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+        "observedGtin": "840044714088",
+        "observedVariant": "Coconut Waters Body Wash",
+        "observedSize": "16 fl oz / 473 ml",
+        "observedPackageVersion": "Current eos Coconut Waters Body Wash 16 fl oz / 473 ml pump bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/eos-coconut-waters-body-wash-473ml.json",
+        "snapshotSha256": "ca901a4fd794d11de3c5fd7591858a0eaa933ed9596c0087d10379fb76777936",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1622,
+        "retrievedAt": "2026-08-09T05:52:00Z",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "eos-coconut-waters-body-wash-473ml",
+          "sourceUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+          "responseUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "fields": {
+            "gtin": {
+              "value": "840044714088",
+              "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+              "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 840044714088"
+            },
+            "variant": {
+              "value": "Coconut Waters Body Wash",
+              "locator": "Official product response product name and selected variant",
+              "sourceText": "eos Coconut Waters Body Wash"
+            },
+            "size": {
+              "value": "16 fl oz / 473 ml",
+              "locator": "Official product response and exact official primary pack image",
+              "sourceText": "Coconut Waters Body Wash 16 fl oz / 473 ml"
+            }
+          },
+          "sourceResponseSha256": "b04e395a2bc1c0e661b7db6bfa530edb62cc5eaf39389c455b2ba8c088f771c5",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 281607,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+              "responseUrl": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+              "retrievedAt": "2026-08-09T05:50:00Z",
+              "responseSha256": "ed4bfa17eadee79051a2752939a93c1246cfb5ea97169d76aa39f92ba7763391",
+              "responseMimeType": "image/jpeg",
+              "responseByteSize": 65064
+            }
+          ],
+          "responseDigestScope": "decoded-response-body",
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-09T06:06:00Z"
+        }
+      },
+      "checkedAt": "2026-08-09T06:07:00Z",
+      "demandEvidenceUrls": [
+        "https://evolutionofsmooth.com/products/coconut-waters-body-wash"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "fragranced rinse-off body cleanser",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Catalogue context only. This is a scented rinse-off body cleanser; avoid the eyes and broken skin and stop if irritation occurs.",
+      "manufacturerEvidenceUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+      "evidenceUrls": [
+        "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101"
+      ],
+      "reviewedAt": "2026-08-09T06:08:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "owned-identity-verified-render",
+      "sourceAsset": {
+        "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+        "sha256": "ed4bfa17eadee79051a2752939a93c1246cfb5ea97169d76aa39f92ba7763391",
+        "mimeType": "image/jpeg",
+        "byteSize": 65064,
+        "width": 1000,
+        "height": 1161,
+        "retrievedAt": "2026-08-09T05:50:00Z"
+      },
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "JeloCare source-pixel rembg isolation plus deterministic alpha cleanup and transparent 2000 px recenter",
+        "model": "isnet-general-use + Pillow alpha-only cleanup",
+        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current eos Coconut Waters Body Wash 16 fl oz / 473 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+        "inputs": [
+          {
+            "url": "https://cdn.shopify.com/s/files/1/0102/6949/1258/files/BodyWash-CW-1000X1161.jpg?v=1763417451",
+            "sha256": "ed4bfa17eadee79051a2752939a93c1246cfb5ea97169d76aa39f92ba7763391"
+          }
+        ],
+        "outputSha256": "eb42525129639dd0b666b15b7745d5db60c66ec7e9170283ed824b273470bf11",
+        "generatedAt": "2026-08-09T06:22:30Z",
+        "recordSha256": "419c744c2d88aa686de37dfc6a53122c7f171aa50d246bd5e7cbb95634ec1abc"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/eos/eos-coconut-waters-body-wash-473ml/packshot-v1-eb42525129639dd0.png",
+      "sha256": "eb42525129639dd0b666b15b7745d5db60c66ec7e9170283ed824b273470bf11",
+      "mimeType": "image/png",
+      "byteSize": 833828,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-09T06:23:30Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-09T06:25:00Z"
+    },
+    "dossierFingerprint": "28da799b7c7223e6ee82c5cdf2e4d9220d4a0074e2b5b6ee2e658fe76d86c738"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "eos-coconut-waters-body-wash-473ml",
+    "dossierFingerprint": "28da799b7c7223e6ee82c5cdf2e4d9220d4a0074e2b5b6ee2e658fe76d86c738",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Body",
+      "routineStep": "Cleanse",
+      "displayLine": "Coconut Waters scented body wash",
+      "usage": "Massage over wet body skin and rinse; avoid the eyes and irritated skin.",
+      "manufacturerDirectionsUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-09T06:26:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-09T06:27:00Z"
+    },
+    "releaseFingerprint": "d27b1cb52e1ece15841dce921fad08d9f665f79cf220227fa0fc54683823b291"
+  }
+}

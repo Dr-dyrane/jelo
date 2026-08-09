@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+    "candidateFingerprint": "b1ccfd47df1e7dc61b03809354eb563292b5330406d2b64616ec6c60a5a43cd1",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "00381371192731",
+      "brand": "Aveeno",
+      "name": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+      "variant": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+      "size": "6.7 fl oz / 200 ml",
+      "packageVersion": "Current Aveeno Daily Moisturizing Body Oil Mist 6.7 fl oz / 200 ml spray bottle",
+      "category": "Body care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+      "officialIdentity": {
+        "url": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+        "observedGtin": "00381371192731",
+        "observedVariant": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+        "observedSize": "6.7 fl oz / 200 ml",
+        "observedPackageVersion": "Current Aveeno Daily Moisturizing Body Oil Mist 6.7 fl oz / 200 ml spray bottle",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/aveeno-daily-moisturizing-body-oil-mist-200ml.json",
+        "snapshotSha256": "700ba71aa906039c12caf71daf9bee2676df6f3674977d495e888bffd2fe357b",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1814,
+        "retrievedAt": "2026-08-09T05:52:00Z",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+          "sourceUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+          "responseUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+          "retrievedAt": "2026-08-09T05:52:00Z",
+          "fields": {
+            "gtin": {
+              "value": "00381371192731",
+              "locator": "Official product response structured product identity field (barcode, GTIN, EAN-13 or JAN/EAN-13)",
+              "sourceText": "Official manufacturer barcode / GTIN / EAN-13: 00381371192731"
+            },
+            "variant": {
+              "value": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+              "locator": "Official product response product name and selected variant",
+              "sourceText": "Aveeno Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil"
+            },
+            "size": {
+              "value": "6.7 fl oz / 200 ml",
+              "locator": "Official product response and exact official primary pack image",
+              "sourceText": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil 6.7 fl oz / 200 ml"
+            }
+          },
+          "sourceResponseSha256": "233cd504714ade5241af72d25288f065c6f97e43ddb3b9038ecbf229d542e068",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 477464,
+          "supplementalResponses": [
+            {
+              "role": "official-pack-image",
+              "sourceUrl": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+              "responseUrl": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+              "retrievedAt": "2026-08-09T05:50:00Z",
+              "responseSha256": "100be1caee92e4a27d15c02b92ac63e28ea63d8a109340dde35a11652379da00",
+              "responseMimeType": "image/png",
+              "responseByteSize": 315431
+            }
+          ],
+          "responseDigestScope": "decoded-response-body",
+          "method": "reviewed-exact-identity-field-extraction",
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-09T06:06:00Z"
+        }
+      },
+      "checkedAt": "2026-08-09T06:07:00Z",
+      "demandEvidenceUrls": [
+        "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "lightweight oat and jojoba body oil mist",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Catalogue context only. For external body use; avoid the face, eyes and broken skin, use care around slippery floors, and stop if irritation occurs.",
+      "manufacturerEvidenceUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-09T06:08:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "owned-identity-verified-render",
+      "sourceAsset": {
+        "url": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+        "sha256": "100be1caee92e4a27d15c02b92ac63e28ea63d8a109340dde35a11652379da00",
+        "mimeType": "image/png",
+        "byteSize": 315431,
+        "width": 1200,
+        "height": 1200,
+        "retrievedAt": "2026-08-09T05:50:00Z"
+      },
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
+        "model": "isnet-general-use",
+        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Aveeno Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil 6.7 fl oz / 200 ml package and the sole authority for identity, geometry, label wording, colour, variant and size.\nPrimary request: isolate the complete exact product from its source background on a transparent 2000x2000 canvas, centered and upright with generous even padding. Remove only the background and detached non-package promotional artwork; preserve the complete package and all label pixels.\nComposition: square; complete package visible; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: preserve the exact current label, printed size, package geometry and colour placement. Do not invent or alter text, barcode or GTIN.",
+        "inputs": [
+          {
+            "url": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+            "sha256": "100be1caee92e4a27d15c02b92ac63e28ea63d8a109340dde35a11652379da00"
+          }
+        ],
+        "outputSha256": "74171e933325bbad95defd4feb786ad590e7006f307daef0f59984a6d4026934",
+        "generatedAt": "2026-08-09T06:04:30Z",
+        "recordSha256": "3d1826a3af421721ff050d21590f2402bd1fec58270836f8cf40e8d43485e609"
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aveeno/aveeno-daily-moisturizing-body-oil-mist-200ml/packshot-v1-74171e933325bbad.png",
+      "sha256": "74171e933325bbad95defd4feb786ad590e7006f307daef0f59984a6d4026934",
+      "mimeType": "image/png",
+      "byteSize": 633278,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "identity-verified-render",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-09T06:08:30Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-09T06:16:00Z"
+    },
+    "dossierFingerprint": "a3896546d423220be800cb6748eff8fcc909aadfe2097f5d866c165d7106e8e4"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+    "dossierFingerprint": "a3896546d423220be800cb6748eff8fcc909aadfe2097f5d866c165d7106e8e4",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Body",
+      "routineStep": "Moisturize",
+      "displayLine": "Oat + jojoba body oil mist",
+      "usage": "Mist onto damp or dry body skin and massage in; avoid the face and slippery floors.",
+      "manufacturerDirectionsUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-09T06:17:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-09T06:18:00Z"
+    },
+    "releaseFingerprint": "7247c95c807a8fdd5591a7227d35b4d8e5f25e9bf917b8834329f9c56e224a16"
+  }
+}

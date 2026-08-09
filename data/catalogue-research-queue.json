@@ -51,9 +51,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -78,9 +76,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -105,9 +101,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -132,9 +126,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -159,9 +151,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -185,9 +175,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -211,9 +199,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -238,9 +224,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -265,9 +249,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -292,9 +274,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -319,9 +299,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -345,9 +323,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -371,9 +347,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -397,24 +371,22 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
       "rank": 15,
-      "discoveryId": "228728aa93580571b165ad66",
-      "title": "AVEENO Daily Moisturizing Body Oil Mist (Oat And Jojoba Oil) 200ml",
-      "brandHint": "AVEENO",
+      "discoveryId": "02c725b1d7a62394c0144a0a",
+      "title": "DISAAR (Cocoa Deep Moisturizing) Body oil gel 200ml",
+      "brandHint": "DISAAR",
       "size": "200ml",
       "categoryHint": "Body care",
       "lane": "moisture-barrier",
       "priorityScore": 170,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
-      "identityLead": "00381371192731",
+      "identityLead": "06932511228021",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
@@ -423,9 +395,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -450,10 +420,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified",
-        "abrasive-or-peel-review"
-      ],
+      "cautions": ["retailer-code-unverified", "abrasive-or-peel-review"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -477,92 +444,12 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
       "rank": 18,
-      "discoveryId": "e3e002f6425926e8343cb8e9",
-      "title": "EOS Evolution Of smooth Cashmere Body Wash Coconut Water 16oz/473ml",
-      "brandHint": "EOS",
-      "size": "16oz / 473ml",
-      "categoryHint": "Body care",
-      "lane": "body-care",
-      "priorityScore": 158,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "00840044714088",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 19,
-      "discoveryId": "af4cf984d6ae1296e4ffd1b0",
-      "title": "EOS Evolution Of smooth Cashmere Body Wash Vanilla Cashmere 16oz/473ml",
-      "brandHint": "EOS",
-      "size": "16oz / 473ml",
-      "categoryHint": "Body care",
-      "lane": "body-care",
-      "priorityScore": 158,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "00840044714163",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 20,
-      "discoveryId": "0b79938ca156f8c9fac4469f",
-      "title": "EOS Shea Better Cashmere (Pink Champagne) Body Wash 473ml",
-      "brandHint": "EOS",
-      "size": "473ml",
-      "categoryHint": "Body care",
-      "lane": "body-care",
-      "priorityScore": 158,
-      "retailerObservationCount": 2,
-      "directoryRetailerCount": 1,
-      "identityLead": "00840044714101",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "multi-retailer-observed",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 21,
       "discoveryId": "492cfec4b5d57894f3917ecc",
       "title": "ST IVES -Exfoliating (Fresh Peach and Jasmine) Body Wash 650ml",
       "brandHint": "ST IVES",
@@ -581,14 +468,12 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 22,
+      "rank": 19,
       "discoveryId": "fe369f475a0d890702084b1b",
       "title": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
       "brandHint": "COS DE BAHA",
@@ -607,15 +492,12 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 23,
+      "rank": 20,
       "discoveryId": "0b73f42e4c3d2f14656610ae",
       "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
       "brandHint": "PURITO",
@@ -634,15 +516,12 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 24,
+      "rank": 21,
       "discoveryId": "cd29efd703d9f5ad9192bf01",
       "title": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
       "brandHint": "SKIN BY ZARON",
@@ -661,10 +540,79 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 22,
+      "discoveryId": "1eefdc1c039c1961f1ecb4a5",
+      "title": "ADVANCED KOREAN Brightest Body Oil 280ml",
+      "brandHint": "ADVANCED",
+      "size": "280ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 153,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "06156000469706",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
       ],
+      "cautions": ["retailer-code-unverified"],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 23,
+      "discoveryId": "76cb646ee768be4a06ba8e99",
+      "title": "DOVE DEEPLY NOURISHING BODY WASH 750ML",
+      "brandHint": "DOVE",
+      "size": "750ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 153,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "08712561594424",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": ["retailer-code-unverified"],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 24,
+      "discoveryId": "1574cd56b431a85795ed0ce7",
+      "title": "DOVE Nourishing Silk Body Wash 750ml",
+      "brandHint": "DOVE",
+      "size": "750ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 153,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "identityLead": "08712561626569",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": ["retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -688,10 +636,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -715,10 +660,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -741,10 +683,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -767,10 +706,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -793,25 +729,22 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
       "rank": 30,
-      "discoveryId": "d3fa39510608390e2ac79f8b",
-      "title": "SHISEIDO Professional -Anessa Perfect UV Sunscreen Skincare Milk 60ml",
-      "brandHint": "SHISEIDO Professional",
-      "size": "60ml",
+      "discoveryId": "73a9a185be892d6ee54262dc",
+      "title": "SUPERGOOP - Unseen SPF 40 Sunscreen Stick 20g",
+      "brandHint": "SUPERGOOP",
+      "size": "20g",
       "categoryHint": "Face care",
       "lane": "sun-protection",
       "priorityScore": 148,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
-      "identityLead": "04909978147105",
+      "identityLead": "00816218028329",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
         "directory-retailer-observed",
@@ -819,10 +752,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -846,10 +776,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -872,10 +799,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -899,10 +823,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -926,10 +847,7 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -952,10 +870,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -978,10 +893,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1004,10 +916,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1030,10 +939,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1056,10 +962,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1082,10 +985,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1108,10 +1008,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1134,10 +1031,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1160,10 +1054,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1186,41 +1077,12 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
       "rank": 45,
-      "discoveryId": "7afa2f6eac15547f92afd336",
-      "title": "SALTAIR Santal Bloom Moisture Bound Hair Oil Rich 50ml",
-      "brandHint": "SALTAIR",
-      "size": "50ml",
-      "categoryHint": "Hair & scalp",
-      "lane": "hair-scalp",
-      "priorityScore": 134,
-      "retailerObservationCount": 1,
-      "directoryRetailerCount": 1,
-      "identityLead": "00810083682860",
-      "identityLeadStatus": "unverified-retailer-code",
-      "reasons": [
-        "directory-retailer-observed",
-        "high-consumer-utility",
-        "gtin-shaped-identity-lead",
-        "current-stock-observed"
-      ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
-      "nextAction": "confirm-official-manufacturer-identity",
-      "publicationStatus": "private-research-only"
-    },
-    {
-      "rank": 46,
       "discoveryId": "434e6d0e45a3bea8326d0911",
       "title": "SEAPURI Scalpy Hair Serum 20ml",
       "brandHint": "SEAPURI",
@@ -1238,15 +1100,12 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 47,
+      "rank": 46,
       "discoveryId": "0defb63ca2f722fc93d4e0d5",
       "title": "SHISEIDO Professional -SUBLIMIC Fuente Forte SHAMPOO (Oily Scalp) 1000ml",
       "brandHint": "SHISEIDO Professional",
@@ -1264,15 +1123,12 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 48,
+      "rank": 47,
       "discoveryId": "5154a75f6a4315ba69ff7bdf",
       "title": "KERACARE Dry And Itchy Shampoo 950ml",
       "brandHint": "KERACARE",
@@ -1290,10 +1146,30 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "nextAction": "confirm-official-manufacturer-identity",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 48,
+      "discoveryId": "464a9907d5db1b62751eea4f",
+      "title": "NATURES GENTLE TOUCH -Tea Tree Anti-Dandruff Instant Conditioner (250ml)",
+      "brandHint": "NATURES",
+      "size": "250ml",
+      "categoryHint": "Hair & scalp",
+      "lane": "hair-scalp",
+      "priorityScore": 129,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "identityLead": "00608887047080",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "directory-retailer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
       ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     }

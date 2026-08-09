@@ -3097,6 +3097,174 @@
         "publishedAt": "2026-08-08T20:00:33Z"
       },
       "releaseFingerprint": "0bdd84087dfd38e2ee52002e4fe967ae221b9de07532678b1d877b339363af49"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+      "dossierFingerprint": "a3896546d423220be800cb6748eff8fcc909aadfe2097f5d866c165d7106e8e4",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Oat + jojoba body oil mist",
+        "usage": "Mist onto damp or dry body skin and massage in; avoid the face and slippery floors.",
+        "manufacturerDirectionsUrl": "https://www.aveeno.com/products/daily-moisturizing-body-oil-mist-with-oat-oil",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T06:17:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T06:18:00Z"
+      },
+      "releaseFingerprint": "7247c95c807a8fdd5591a7227d35b4d8e5f25e9bf917b8834329f9c56e224a16"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+      "dossierFingerprint": "eb9b76f40af8bd2d8096232a8c8e44dc44b5baee4fd2a5af95f6e9f710453d9f",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Hair",
+        "routineStep": "Finish",
+        "displayLine": "Rich moisture-bound hair oil",
+        "usage": "Apply a small amount through damp or dry mid-lengths and ends.",
+        "manufacturerDirectionsUrl": "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T06:17:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T06:18:00Z"
+      },
+      "releaseFingerprint": "44a8d303ec7f5c8cd40040121b69c64f2956d93cdae42222a8dcddd0d9440606"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "eos-coconut-waters-body-wash-473ml",
+      "dossierFingerprint": "28da799b7c7223e6ee82c5cdf2e4d9220d4a0074e2b5b6ee2e658fe76d86c738",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Coconut Waters scented body wash",
+        "usage": "Massage over wet body skin and rinse; avoid the eyes and irritated skin.",
+        "manufacturerDirectionsUrl": "https://evolutionofsmooth.com/products/coconut-waters-body-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T06:26:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T06:27:00Z"
+      },
+      "releaseFingerprint": "d27b1cb52e1ece15841dce921fad08d9f665f79cf220227fa0fc54683823b291"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "eos-vanilla-cashmere-body-wash-473ml",
+      "dossierFingerprint": "f9d4c5f85944d3972a14677c4295fa16603399732f62343b54021c41391266ac",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Vanilla Cashmere scented body wash",
+        "usage": "Massage over wet body skin and rinse; avoid the eyes and irritated skin.",
+        "manufacturerDirectionsUrl": "https://evolutionofsmooth.com/products/vanilla-cashmere-body-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T06:26:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T06:27:10Z"
+      },
+      "releaseFingerprint": "1e1e30f82da16def7154ca50fceeac920bad69ff09c7f76790f9217b2dd27cb0"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+      "dossierFingerprint": "350b2c0f2a9c6bb307baa63379c066e7c2fed839952540cdc06f4b5f88054648",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "SPF50+ PA++++ sunscreen milk",
+        "usage": "Apply evenly before sun exposure and reapply after swimming, sweating or towel drying.",
+        "manufacturerDirectionsUrl": "https://www.shiseido.co.jp/sw/onlinestore/products/H16501.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T06:26:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T06:27:30Z"
+      },
+      "releaseFingerprint": "a36312c4cab305c6652c41771d1c83aeafb4f50560d9c7c168a5e8589f9b52b8"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "eos-pink-champagne-body-wash-473ml",
+      "dossierFingerprint": "6ae5f20f7417a7cb2cd1c3c1c9f33a3e289fa8f67995663ea520779bee6bb878",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Cleanse",
+        "displayLine": "Pink Champagne scented body wash",
+        "usage": "Massage over wet body skin and rinse; avoid the eyes and irritated skin.",
+        "manufacturerDirectionsUrl": "https://evolutionofsmooth.com/products/pink-champagne-body-wash",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T06:31:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T06:32:00Z"
+      },
+      "releaseFingerprint": "4cc5ec328bd865068b2aba6b8ffc9abec20b32a41912a3e6aaac1e0b98fe1bb9"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml",
+      "dossierFingerprint": "ab51b321136bc205267b8abf993c7419bea0665085356264f4db30daf7cf0320",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Propolis and niacinamide glow serum",
+        "usage": "Dispense 2–3 drops into the palm, apply gently to the face and neck, then tap until absorbed.",
+        "manufacturerDirectionsUrl": "https://beautyofjoseon.com/products/glow-serum-propolis-niacinamide",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T06:31:10Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T06:32:10Z"
+      },
+      "releaseFingerprint": "81696859192e89498e70b25cb3c6ae458fa53ef87ffbeda304b42f940292a772"
     }
   ]
 }
