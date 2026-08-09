@@ -226,15 +226,15 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
     /min-height:\s*2\.75rem;/,
   );
   assert.match(
-    ruleDeclarations(navigationStyles, ".mobileLinks>a"),
+    ruleDeclarations(navigationStyles, ".mobileLinks > a"),
     /min-height:\s*4\.4rem;/,
   );
   assert.match(
     ruleDeclarations(footerStyles, ".footer-group .footer-member-link"),
     /min-height:\s*2\.75rem;/,
   );
-  assert.match(navigationStyles, /prefers-reduced-motion:no-preference/);
-  assert.match(navigationStyles, /prefers-reduced-transparency:reduce/);
+  assert.match(navigationStyles, /prefers-reduced-motion:\s*no-preference/);
+  assert.match(navigationStyles, /prefers-reduced-transparency:\s*reduce/);
   assert.doesNotMatch(
     navigation,
     /requireCustomer|getSession|customerSignInPath|sign-in/,
