@@ -132,14 +132,25 @@
   },
   "dove-moroccan-argan-oil-beauty-bar": {
     "sourceUrl": "https://assets.unileversolutions.com/v1/946691.png",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-moroccan-argan-oil-beauty-bar/packshot.avif",
-    "contentType": "image/avif",
-    "byteSize": 76722,
-    "importedAt": "2026-07-22T00:50:46.314Z",
-    "width": 2880,
-    "height": 2880,
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dove/dove-moroccan-argan-oil-beauty-bar/packshot-v2.png",
+    "contentType": "image/png",
+    "byteSize": 869266,
+    "importedAt": "2026-08-09T21:26:00Z",
+    "width": 2000,
+    "height": 2000,
     "hasAlpha": true,
-    "contentHash": "4a1f7378a4a7a89fd685da21df393906ea9a3315dbef29ae82c0af829aec0856"
+    "contentHash": "09e243e922141f31fedb31283ffd5b72e7ef1dcdcac7d5bcadd350251e1655e7",
+    "derivation": {
+      "kind": "source-preserving-trim-and-centre",
+      "tool": "Sharp 0.35.3 alpha-bounds crop, Lanczos3 resize and centre",
+      "localPath": "/products/dove/dove-moroccan-argan-oil-beauty-bar/packshot-v2.png",
+      "sourceAssetSha256": "4a1f7378a4a7a89fd685da21df393906ea9a3315dbef29ae82c0af829aec0856",
+      "promotionRecordId": "dove-moroccan-argan-oil-beauty-bar-v2",
+      "sourceCompared": true,
+      "fullSilhouetteVisible": true,
+      "reviewer": "JeloCare catalogue media correction review",
+      "reviewedAt": "2026-08-09T21:26:00Z"
+    }
   },
   "miracle-natural-hair-anti-dandruff-shampoo": {
     "sourceUrl": "https://www.agtplaza.com/cdn/shop/files/background-editor_output_7b61d159-dd7a-41f8-a083-ec9548d9bdf2.png?v=1735099870",
@@ -250,24 +261,24 @@
   },
   "mediana-leave-in-conditioning-milk": {
     "sourceUrl": "https://www.cocci.com.ng/cdn/shop/files/Mediana_Leave-In_Conditioner_Milk.gif?v=1760002469",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/mediana/mediana-leave-in-conditioning-milk/packshot-v1.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/mediana/mediana-leave-in-conditioning-milk/packshot-v2.png",
     "contentType": "image/png",
-    "byteSize": 2229212,
-    "importedAt": "2026-08-04T14:14:00Z",
+    "byteSize": 1957470,
+    "importedAt": "2026-08-09T21:26:00Z",
     "width": 2000,
     "height": 2000,
     "hasAlpha": true,
-    "contentHash": "c226c46a93527b6187eed245ba151d6e7a0f437421ef936e1bceea1527f05512",
+    "contentHash": "b839501c0f871080d4199955912e8a82ce4877100fd8df2f87da9576564ca1ed",
     "derivation": {
-      "kind": "local-rembg-packshot",
-      "tool": "rembg isnet-general-use",
-      "localPath": "/products/mediana/mediana-leave-in-conditioning-milk/packshot-v1.png",
+      "kind": "source-preserving-trim-and-centre",
+      "tool": "Sharp 0.35.3 alpha-bounds crop, Lanczos3 resize and centre",
+      "localPath": "/products/mediana/mediana-leave-in-conditioning-milk/packshot-v2.png",
       "sourceAssetSha256": "c226c46a93527b6187eed245ba151d6e7a0f437421ef936e1bceea1527f05512",
-      "promotionRecordId": "mediana-leave-in-conditioning-milk-v1",
+      "promotionRecordId": "mediana-leave-in-conditioning-milk-v2",
       "sourceCompared": true,
       "fullSilhouetteVisible": true,
-      "reviewer": "JeloCare packshot review",
-      "reviewedAt": "2026-08-04T14:14:00Z"
+      "reviewer": "JeloCare catalogue media correction review",
+      "reviewedAt": "2026-08-09T21:26:00Z"
     }
   }
 }

@@ -452,3 +452,26 @@ shifts down by 1. The test file has hard-coded indices for every candidate.
    re-verified candidate's details.
 4. Update `catalogue-intake-manifest.test.ts` with the new retailer names,
    prices, stocks, and `researchAsOf` timestamp.
+
+## Corrected product image reverted during a later product batch
+
+**Symptom:** A product that previously passed media review displays an older,
+promotional, clipped, or contaminated packshot after an unrelated catalogue
+or offer release.
+
+**Root cause:** The later batch rebuilt a complete product/publication record
+from an older exemplar or stale candidate source and carried its image binding
+forward. A valid data projection was mistaken for authority to revise media.
+
+**Fix:** Stop the batch and compare the current product image, active promotion,
+display approval, publication final image, and Blob bytes with the last
+accepted media hash. Restore the accepted immutable asset through the normal
+media revision path; do not overwrite either asset. Re-run exact-SKU and
+peach/pink/dark review, then add the accepted hash to
+`restoredPackshotCohort` in `modules/assets/asset-manifests.test.ts`.
+
+**Prevention:** Every product lane must run the media-preservation preflight in
+`FAST_LANE.md`. If media is outside scope, its URL and active hash must be
+identical before and after the write. The restored-packshot regression test is
+mandatory for product, offer, care, brand, retailer, search, and projection
+release waves—not only for tasks whose title mentions images.

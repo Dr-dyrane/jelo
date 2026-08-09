@@ -87,8 +87,8 @@ export const productDisplayApprovals = {
     name: 'Dry Oil Beauty Bar with Moroccan Argan Oil',
     size: '6 pack',
     sourceUrl: 'https://assets.unileversolutions.com/v1/946691.png',
-    contentHash: '4a1f7378a4a7a89fd685da21df393906ea9a3315dbef29ae82c0af829aec0856',
-    reviewedAt: '2026-07-22T12:34:11.000Z',
+    contentHash: '09e243e922141f31fedb31283ffd5b72e7ef1dcdcac7d5bcadd350251e1655e7',
+    reviewedAt: '2026-08-09T21:26:00.000Z',
   }),
   'lush-hair-mentholated-conditioner': approval({
     brand: 'LUSH HAIR',
@@ -111,8 +111,8 @@ export const productDisplayApprovals = {
     name: 'Leave-In Conditioning Milk',
     size: '250 ml',
     sourceUrl: 'https://www.cocci.com.ng/cdn/shop/files/Mediana_Leave-In_Conditioner_Milk.gif?v=1760002469',
-    contentHash: 'c226c46a93527b6187eed245ba151d6e7a0f437421ef936e1bceea1527f05512',
-    reviewedAt: '2026-08-04T14:14:00.000Z',
+    contentHash: 'b839501c0f871080d4199955912e8a82ce4877100fd8df2f87da9576564ca1ed',
+    reviewedAt: '2026-08-09T21:26:00.000Z',
   }),
   'disaar-argan-oil-body-oil-gel': approval({
     brand: 'DISAAR',

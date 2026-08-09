@@ -1,6 +1,6 @@
 # Product image workflow
 
-Updated: 2026-07-22
+Updated: 2026-08-09
 
 Product imagery is approved one exact SKU at a time. Speed and catalogue size never lower the visual bar.
 
@@ -176,3 +176,30 @@ Preview the approved asset in the real home rail, inventory card and product her
 When an exact official packshot already has genuine transparency, preserve those bytes in `public/products/` and bind them in `data/product-asset-promotions.json`. Production promotes only active, locally hash-verified entries to their declared deterministic Blob paths. The promotion is a two-phase release: first upload and remotely verify the bytes; only a later checked-in manifest and display approval may expose them. A production upload never approves or publishes a product by itself.
 
 Raw bulk imports, automated extraction output, generated drafts, and operator audits remain private research or preparation assets. A source-pixel isolation becomes eligible for approval and dossier generation only after its checked-in typed isolation record binds the full preparation provenance and reviewer chronology described above; publication still requires every release check.
+
+### Corrected-media lock
+
+A product, offer, care, brand, retailer, search, or projection update must not
+change an already published image unless the task explicitly includes a new
+media review. Never copy an older image field, dossier, promotion, or product
+record from a structural exemplar over the current record.
+
+Before any product-lane write, reopen the product's current public image and
+active promotion. If media is outside the requested scope, preserve its URL,
+content hash, byte size, dimensions, active promotion, final-image binding,
+and display approval exactly. A projection rebuild must derive those current
+bindings; it must not reconstruct them from an older commit or source record.
+
+Every accepted correction must:
+
+1. create a new immutable versioned asset instead of overwriting old bytes;
+2. update the active promotion and every canonical image binding atomically;
+3. repeat exact-SKU and peach, pink, and dark review;
+4. add the accepted hash to `restoredPackshotCohort` in
+   `modules/assets/asset-manifests.test.ts`; and
+5. run that focused regression test before the product is committed.
+
+That cohort is the fail-closed warning for all agents: a later data or product
+batch that restores an older packshot must fail before release. Changing or
+removing a protected hash is itself a media revision and requires the full
+review above; making an unrelated test pass is never sufficient authority.

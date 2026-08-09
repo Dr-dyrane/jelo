@@ -1,6 +1,6 @@
 # Catalogue fast lane
 
-Updated: 2026-08-08
+Updated: 2026-08-09
 
 Use this lane for a routine exact-SKU addition that follows the already proven
 catalogue contract. Faster means removing repeated global verification, not
@@ -60,6 +60,21 @@ Treat each SKU as an independent release cell:
    for a concrete new release-stopping defect.
 6. Freeze optional framework expansion once the current cells can be safely
    admitted or rejected.
+
+### Media-preservation preflight
+
+All agents must treat the current published image as immutable input unless
+their assigned cell explicitly owns media. Before editing a released SKU,
+record its public image URL and active-promotion hash. After any candidate,
+offer, care, brand, retailer, search, or projection update, assert that both
+values are unchanged. Do not copy image fields from the nearest structural
+example or from an older candidate/publication source.
+
+When media is intentionally corrected, follow the corrected-media lock in
+[Product image workflow](../PRODUCT_IMAGE_WORKFLOW.md): new versioned bytes,
+atomic binding updates, three-surface review, and an exact hash added to the
+`restoredPackshotCohort` regression gate. The fast lane is not complete while
+that gate fails.
 
 After each wave, return the usable product/share links immediately, then list
 only the exact blockers for pending rows. This partial handback is the normal

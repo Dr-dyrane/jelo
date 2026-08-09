@@ -36,12 +36,16 @@ const restoredPackshotCohort = {
     "4d3620eb731dc444e4504fcf0096dbd937cc8c4986d93cb4e1192bcee12de329",
   "dang-azelaic-acid-serum-30ml":
     "4042aa08f87c067d2d930d05f0f631f9175eb7e40beac8f112bf5c264f234b33",
+  "dove-moroccan-argan-oil-beauty-bar":
+    "09e243e922141f31fedb31283ffd5b72e7ef1dcdcac7d5bcadd350251e1655e7",
   "facefacts-vitamin-c-brightening-jelly-cleanser-150ml":
     "70fe9c17e42e25f8309c8789e1a5a1782710cea5c700b5cff51e5354524883a8",
   "la-roche-posay-toleriane-double-repair-matte":
     "78b804a306e10225ac4b37e641b8466b381a7678dbd9e339c8f7944b889389fa",
   "la-roche-posay-toleriane-double-repair-spf30":
     "d167a20ff9c2e527ec5b12c75418fe878f3eb70fbc7108b540c349f1ae94fc78",
+  "mediana-leave-in-conditioning-milk":
+    "b839501c0f871080d4199955912e8a82ce4877100fd8df2f87da9576564ca1ed",
   "naturium-bio-lipid-restoring-body-lotion-14oz":
     "937f61145e90218cbd14752041f12f69e07877cc9866b20a8760edf4d5eef3c1",
   "naturium-glow-getter-multi-oil-body-scrub-8oz":

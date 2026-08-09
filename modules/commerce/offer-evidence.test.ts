@@ -301,6 +301,6 @@ test('Slique remains provisional and link-only with a complete dated Mediana obs
   assert.equal(offer.priceObservation?.size, '250 ml');
   assert.equal(offer.priceObservation?.landedCost, 'unknown');
   assert.equal(observedMarketPrice(offer, 'NG', now), 22_500);
-  assert.equal(mediana.image, 'https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/mediana/mediana-leave-in-conditioning-milk/packshot-v1.png');
+  assert.equal(mediana.image, 'https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/mediana/mediana-leave-in-conditioning-milk/packshot-v2.png');
   assert.equal('mediana-leave-in-conditioning-milk' in productAssets, true);
 });
