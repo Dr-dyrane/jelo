@@ -10,7 +10,9 @@
   },
   "selection": {
     "packetCount": 1,
-    "packetIds": ["b08a06cbbfe550825932aec2"],
+    "packetIds": [
+      "b08a06cbbfe550825932aec2"
+    ],
     "responseCount": 2
   },
   "sources": [
@@ -20,7 +22,9 @@
       "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/d2c4e5c6cae3fcc5a63116c20f1816eea9d45c48d14ec94aafe49cd62a8f0028.json",
       "researchPacketSourceSha256": "d2c4e5c6cae3fcc5a63116c20f1816eea9d45c48d14ec94aafe49cd62a8f0028",
       "packetCount": 1,
-      "packetIds": ["b08a06cbbfe550825932aec2"],
+      "packetIds": [
+        "b08a06cbbfe550825932aec2"
+      ],
       "responseCount": 2
     }
   ],

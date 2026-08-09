@@ -28,7 +28,10 @@
           "current-stock-observed",
           "formula-or-active-visible"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
@@ -146,7 +149,10 @@
           "current-stock-observed",
           "formula-or-active-visible"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
@@ -263,7 +269,10 @@
           "gtin-shaped-identity-lead",
           "current-stock-observed"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
@@ -380,7 +389,10 @@
           "gtin-shaped-identity-lead",
           "current-stock-observed"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
@@ -497,7 +509,10 @@
           "gtin-shaped-identity-lead",
           "current-stock-observed"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
@@ -614,7 +629,10 @@
           "gtin-shaped-identity-lead",
           "current-stock-observed"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
@@ -732,7 +750,10 @@
           "current-stock-observed",
           "formula-or-active-visible"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
@@ -849,7 +870,10 @@
           "gtin-shaped-identity-lead",
           "current-stock-observed"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
@@ -967,7 +991,10 @@
           "current-stock-observed",
           "formula-or-active-visible"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
@@ -1085,7 +1112,10 @@
           "current-stock-observed",
           "formula-or-active-visible"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
@@ -1202,7 +1232,10 @@
           "gtin-shaped-identity-lead",
           "current-stock-observed"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {
@@ -1319,7 +1352,10 @@
           "gtin-shaped-identity-lead",
           "current-stock-observed"
         ],
-        "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+        "cautions": [
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
         "nextAction": "confirm-official-manufacturer-identity"
       },
       "productLead": {

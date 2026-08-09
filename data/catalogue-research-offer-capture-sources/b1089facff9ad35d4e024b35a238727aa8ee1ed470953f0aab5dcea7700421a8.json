@@ -10,7 +10,9 @@
   },
   "selection": {
     "packetCount": 1,
-    "packetIds": ["b08a06cbbfe550825932aec2"],
+    "packetIds": [
+      "b08a06cbbfe550825932aec2"
+    ],
     "responseCount": 2
   },
   "qualityCautions": [],

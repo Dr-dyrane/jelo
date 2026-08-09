@@ -51,7 +51,9 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -76,7 +78,9 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -101,7 +105,9 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -126,7 +132,9 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -151,7 +159,9 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -175,7 +185,9 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -199,7 +211,9 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -224,7 +238,9 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -249,7 +265,9 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -274,7 +292,9 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -299,7 +319,9 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -323,7 +345,9 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -347,7 +371,9 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -371,7 +397,9 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -395,7 +423,9 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -420,7 +450,10 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["retailer-code-unverified", "abrasive-or-peel-review"],
+      "cautions": [
+        "retailer-code-unverified",
+        "abrasive-or-peel-review"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -444,7 +477,9 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -468,7 +503,9 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -492,7 +529,10 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -516,7 +556,10 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -540,7 +583,10 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -564,7 +610,9 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -588,7 +636,9 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -612,7 +662,9 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["retailer-code-unverified"],
+      "cautions": [
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -636,7 +688,10 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -660,7 +715,10 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -683,7 +741,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -706,7 +767,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -729,7 +793,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -752,7 +819,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -776,7 +846,10 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -799,7 +872,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -823,7 +899,10 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -847,7 +926,10 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -870,7 +952,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -893,7 +978,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -916,7 +1004,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -939,7 +1030,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -962,7 +1056,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -985,7 +1082,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1008,7 +1108,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1031,7 +1134,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1054,7 +1160,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1077,7 +1186,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1100,7 +1212,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1123,7 +1238,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1146,7 +1264,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
@@ -1169,7 +1290,10 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
+      "cautions": [
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     }
