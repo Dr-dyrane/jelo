@@ -19,6 +19,8 @@ export const catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion =
   6 as const;
 export const catalogueManufacturerSkuIdentityExtractionSchemaVersion =
   8 as const;
+export const catalogueManufacturerSkuBarcodeAliasIdentityExtractionSchemaVersion =
+  9 as const;
 export const catalogueMarketObservationSchemaVersion = 1 as const;
 export const catalogueRegulatorySearchObservationSchemaVersion = 1 as const;
 
@@ -338,6 +340,7 @@ export type CatalogueManufacturerSkuIdentityExtraction =
   CatalogueManufacturerSkuIdentityExtractionBase &
     (
       | {
+          schemaVersion: typeof catalogueManufacturerSkuIdentityExtractionSchemaVersion;
           sourceResponseMimeType: "text/html";
           responseDigestScope: "rendered-dom-outerhtml";
           method: "reviewed-browser-dom-official-manufacturer-sku-identity";
@@ -348,12 +351,46 @@ export type CatalogueManufacturerSkuIdentityExtraction =
           };
         }
       | {
+          schemaVersion: typeof catalogueManufacturerSkuIdentityExtractionSchemaVersion;
           sourceResponseMimeType: "application/json" | "text/javascript";
           responseDigestScope: "decoded-response-body";
           method: "reviewed-exact-official-manufacturer-sku-response";
           browserCapture?: never;
         }
     );
+
+/**
+ * Schema 9 extends the manufacturer-SKU route for brands (e.g. DANG! Lifestyle)
+ * that publish the same alphanumeric manufacturer code in both the Shopify `sku`
+ * AND `barcode` fields. The `barcodeAlias: true` marker distinguishes this from
+ * schema 8, which requires `barcode === null`. The verifier accepts the non-null
+ * barcode only when it exactly equals the selected variant's SKU and is not
+ * GTIN-shaped (8, 12, 13, or 14 digits).
+ */
+export type CatalogueManufacturerSkuBarcodeAliasIdentityExtraction = Omit<
+  CatalogueManufacturerSkuIdentityExtractionBase,
+  "schemaVersion"
+> & {
+  schemaVersion: typeof catalogueManufacturerSkuBarcodeAliasIdentityExtractionSchemaVersion;
+  barcodeAlias: true;
+} & (
+    | {
+        sourceResponseMimeType: "text/html";
+        responseDigestScope: "rendered-dom-outerhtml";
+        method: "reviewed-browser-dom-official-manufacturer-sku-identity";
+        browserCapture: {
+          surface: ReviewedBrowserCaptureSurface;
+          documentReadyState: "complete";
+          pageTitle: string;
+        };
+      }
+    | {
+        sourceResponseMimeType: "application/json" | "text/javascript";
+        responseDigestScope: "decoded-response-body";
+        method: "reviewed-exact-official-manufacturer-sku-response";
+        browserCapture?: never;
+      }
+  );
 
 export type CatalogueOfficialIdentityExtraction =
   | (CatalogueOfficialIdentityExtractionBase &
@@ -376,7 +413,8 @@ export type CatalogueOfficialIdentityExtraction =
       ))
   | CatalogueCorroboratedIdentityExtraction
   | CatalogueAccessibleCorroboratedIdentityExtraction
-  | CatalogueManufacturerSkuIdentityExtraction;
+  | CatalogueManufacturerSkuIdentityExtraction
+  | CatalogueManufacturerSkuBarcodeAliasIdentityExtraction;
 
 type CatalogueOfficialIdentityEvidenceBase = {
   url: string;
@@ -396,7 +434,8 @@ export type CatalogueOfficialGtinIdentityEvidence =
     observedGtin: string;
     canonicalExtraction: Exclude<
       CatalogueOfficialIdentityExtraction,
-      CatalogueManufacturerSkuIdentityExtraction
+      | CatalogueManufacturerSkuIdentityExtraction
+      | CatalogueManufacturerSkuBarcodeAliasIdentityExtraction
     >;
   };
 
@@ -406,7 +445,9 @@ export type CatalogueOfficialManufacturerSkuIdentityEvidence =
     observedGtin?: never;
     observedManufacturerSku: string;
     observedManufacturerSkuLabel: CatalogueManufacturerSkuLabel;
-    canonicalExtraction: CatalogueManufacturerSkuIdentityExtraction;
+    canonicalExtraction:
+      | CatalogueManufacturerSkuIdentityExtraction
+      | CatalogueManufacturerSkuBarcodeAliasIdentityExtraction;
   };
 
 /**

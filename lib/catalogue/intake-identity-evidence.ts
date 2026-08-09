@@ -22,6 +22,7 @@ import {
   catalogueCorroboratedIdentityExtractionSchemaVersion,
   catalogueAccessibleCorroboratedIdentityExtractionSchemaVersion,
   catalogueManufacturerSkuIdentityExtractionSchemaVersion,
+  catalogueManufacturerSkuBarcodeAliasIdentityExtractionSchemaVersion,
   catalogueRegulatorySearchObservationSchemaVersion,
   reviewedBrowserSurface,
   identifierAbsenceProofValid,
@@ -31,6 +32,7 @@ import {
   type CatalogueCorroboratedIdentityExtraction,
   type CatalogueAccessibleCorroboratedIdentityExtraction,
   type CatalogueManufacturerSkuIdentityExtraction,
+  type CatalogueManufacturerSkuBarcodeAliasIdentityExtraction,
   type CatalogueOfficialGtinIdentityEvidence,
   type CatalogueOfficialManufacturerSkuIdentityEvidence,
   type CatalogueGenerationRecordContent,
@@ -550,6 +552,33 @@ function officialNullIdentifierFieldValid(
   );
 }
 
+function officialBarcodeAliasFieldValid(
+  status: CatalogueManufacturerSkuIdentityExtraction["fields"]["gtinPublicationStatus"],
+  manufacturerSku: CatalogueManufacturerSkuIdentityExtraction["fields"]["manufacturerSku"],
+) {
+  const escapedSku = manufacturerSku.value.replace(
+    /[.*+?^${}()|[\]\\]/g,
+    "\\$&",
+  );
+  const skuMatch = new RegExp(
+    `["']?sku["']?\\s*:\\s*["']${escapedSku}["']`,
+    "i",
+  ).test(status.sourceText);
+  const barcodeMatch = new RegExp(
+    `["']?barcode["']?\\s*:\\s*["']${escapedSku}["']`,
+    "i",
+  ).test(status.sourceText);
+  const isGtinShaped = /^\d{8}$|^\d{12}$|^\d{13}$|^\d{14}$/.test(
+    manufacturerSku.value.trim(),
+  );
+  return (
+    /(?:^|[^a-z0-9])barcode(?:[^a-z0-9]|$)/i.test(status.locator) &&
+    skuMatch &&
+    barcodeMatch &&
+    !isGtinShaped
+  );
+}
+
 function extractionNamesExplicitManufacturerIdentifier(field: {
   value: string;
   locator: string;
@@ -600,7 +629,9 @@ function canonicalOneHandleProductPath(pathname: string) {
 }
 
 function exactOfficialManufacturerResponseUrl(
-  extraction: CatalogueManufacturerSkuIdentityExtraction,
+  extraction:
+    | CatalogueManufacturerSkuIdentityExtraction
+    | CatalogueManufacturerSkuBarcodeAliasIdentityExtraction,
   officialProductUrl: string,
 ) {
   if (!sameUrl(extraction.sourceUrl, officialProductUrl)) return false;
@@ -635,7 +666,9 @@ function exactOfficialManufacturerResponseUrl(
 }
 
 function manufacturerIdentityCaptureValid(
-  extraction: CatalogueManufacturerSkuIdentityExtraction,
+  extraction:
+    | CatalogueManufacturerSkuIdentityExtraction
+    | CatalogueManufacturerSkuBarcodeAliasIdentityExtraction,
 ) {
   if (
     extraction.sourceResponseMimeType === "application/json" ||
@@ -1093,7 +1126,9 @@ function accessibleCorroboratedIdentityEvidenceValid(
 function manufacturerSkuIdentityEvidenceValid(
   candidate: CatalogueIntakeCandidate,
   evidence: CatalogueOfficialManufacturerSkuIdentityEvidence,
-  extraction: CatalogueManufacturerSkuIdentityExtraction,
+  extraction:
+    | CatalogueManufacturerSkuIdentityExtraction
+    | CatalogueManufacturerSkuBarcodeAliasIdentityExtraction,
   asOf: number,
 ) {
   const canonicalIdentifier = catalogueCanonicalIdentifierFor(
@@ -1151,8 +1186,10 @@ function manufacturerSkuIdentityEvidenceValid(
     sameUrl(extraction.sourceUrl, evidence.url) &&
     exactOfficialManufacturerResponseUrl(extraction, evidence.url) &&
     extraction.candidateId === candidate.id &&
-    extraction.schemaVersion ===
-      catalogueManufacturerSkuIdentityExtractionSchemaVersion &&
+    (extraction.schemaVersion ===
+      catalogueManufacturerSkuIdentityExtractionSchemaVersion ||
+      extraction.schemaVersion ===
+        catalogueManufacturerSkuBarcodeAliasIdentityExtractionSchemaVersion) &&
     manufacturerIdentityCaptureValid(extraction) &&
     extraction.sourceSnapshotPath ===
       `data/catalogue-identity-source-evidence/${candidate.id}.` +
@@ -1212,7 +1249,8 @@ function manufacturerSkuIdentityEvidenceValid(
     identityExtractionFieldValid(gtinStatus) &&
     gtinStatus.value === "not-published" &&
     (identifierAbsenceProofValid(gtinStatus.absenceProof, extraction) ||
-      officialNullIdentifierFieldValid(gtinStatus, manufacturerSku)) &&
+      officialNullIdentifierFieldValid(gtinStatus, manufacturerSku) ||
+      officialBarcodeAliasFieldValid(gtinStatus, manufacturerSku)) &&
     (!gtinStatus.absenceProof ||
       gtinStatus.absenceProof.matchStrategy === "structured-key-variants") &&
     typeof evidence.observedManufacturerSku === "string" &&
@@ -1245,8 +1283,10 @@ export function officialIdentityEvidenceValid(
       Object.prototype.hasOwnProperty.call(evidence, "observedGtin") ||
       typeof evidence.observedManufacturerSku !== "string" ||
       !validManufacturerSkuLabel(evidence.observedManufacturerSkuLabel) ||
-      evidence.canonicalExtraction.schemaVersion !==
-        catalogueManufacturerSkuIdentityExtractionSchemaVersion
+      (evidence.canonicalExtraction.schemaVersion !==
+        catalogueManufacturerSkuIdentityExtractionSchemaVersion &&
+        evidence.canonicalExtraction.schemaVersion !==
+          catalogueManufacturerSkuBarcodeAliasIdentityExtractionSchemaVersion)
     )
       return false;
     return manufacturerSkuIdentityEvidenceValid(

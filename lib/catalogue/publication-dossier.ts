@@ -8,6 +8,7 @@ import {
   auditCatalogueIntakeCandidates,
   catalogueBrandAuthorizationSourceValid,
   catalogueManufacturerSkuIdentityExtractionSchemaVersion,
+  catalogueManufacturerSkuBarcodeAliasIdentityExtractionSchemaVersion,
   evaluateCatalogueIntakeCandidate,
   type CatalogueGenerationRecord,
   type CatalogueIntakeCandidate,
@@ -171,7 +172,9 @@ function cloneOfficialIdentityExtraction(
 ): CatalogueOfficialIdentityExtraction {
   if (
     extraction.schemaVersion ===
-    catalogueManufacturerSkuIdentityExtractionSchemaVersion
+      catalogueManufacturerSkuIdentityExtractionSchemaVersion ||
+    extraction.schemaVersion ===
+      catalogueManufacturerSkuBarcodeAliasIdentityExtractionSchemaVersion
   ) {
     const fields = {
       manufacturerBrand: { ...extraction.fields.manufacturerBrand },
@@ -319,8 +322,10 @@ function cloneOfficialIdentityEvidence(
     if (
       evidence.identityKind !== "manufacturer-sku" ||
       Object.prototype.hasOwnProperty.call(evidence, "observedGtin") ||
-      evidence.canonicalExtraction.schemaVersion !==
-        catalogueManufacturerSkuIdentityExtractionSchemaVersion
+      (evidence.canonicalExtraction.schemaVersion !==
+        catalogueManufacturerSkuIdentityExtractionSchemaVersion &&
+        evidence.canonicalExtraction.schemaVersion !==
+          catalogueManufacturerSkuBarcodeAliasIdentityExtractionSchemaVersion)
     )
       throw new Error("Manufacturer identity evidence is ambiguous.");
     return {

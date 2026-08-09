@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-09T17:00:00Z",
+  "updatedAt": "2026-08-09T17:05:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "d3c4d294df9a2bc623c7d9cf",
@@ -10,11 +10,11 @@
   "candidate": {
     "id": "dang-snail-mucin-repair-serum-100ml",
     "brand": "DANG",
-    "name": "Snail Mucin Repair Serum",
+    "name": "Multi Function Formula Snail Mucin Repair Serum",
     "variant": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
     "size": "100 ml",
     "category": "Face care",
-    "reason": "Repair serum with official manufacturer SKU DGL-SKC-023, observed on the DANG mid-year sale at ₦16,200 (regular ₦21,600). Supports skin rejuvenation and repair with snail mucin.",
+    "reason": "Snail mucin repair serum for skin rejuvenation and repair. Official DANG manufacturer SKU DGL-SKC-023. Mid-year sale pricing live on danglifestyle.co.",
     "priority": "essential",
     "gapIds": ["hydration-routine-coverage"],
     "demandEvidenceUrls": [
@@ -23,56 +23,98 @@
     "identity": {
       "canonicalIdentifier": {
         "kind": "manufacturer-sku",
-        "value": "DGL-SKC-023"
+        "value": "DGL-SKC-023",
+        "label": "SKU"
       },
       "officialProductUrl": "https://danglifestyle.co/products/snail-essence-serum",
-      "checkedAt": "2026-08-09T17:00:00Z",
+      "packageVersion": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+      "checkedAt": "2026-08-09T17:05:00Z",
       "basis": "official-brand",
       "officialEvidence": {
+        "identityKind": "manufacturer-sku",
         "url": "https://danglifestyle.co/products/snail-essence-serum",
-        "observedGtin": "DGL-SKC-023",
+        "observedManufacturerSku": "DGL-SKC-023",
+        "observedManufacturerSkuLabel": "SKU",
         "observedVariant": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
-        "observedSize": "100 ml",
+        "observedSize": "100ml",
         "snapshotKind": "canonical-extraction",
         "snapshotPath": "data/catalogue-identity-evidence/dang-snail-mucin-repair-serum-100ml.json",
+        "snapshotSha256": "8b52b414fe7839d93e32771f44a35a3f0eef593cb34c01291b799d1225bda6cc",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 4878,
+        "retrievedAt": "2026-08-09T17:00:00Z",
         "canonicalExtraction": {
-          "schemaVersion": 3,
+          "barcodeAlias": true,
           "candidateId": "dang-snail-mucin-repair-serum-100ml",
-          "sourceUrl": "https://danglifestyle.co/products/snail-essence-serum",
-          "responseUrl": "https://danglifestyle.co/products/snail-essence-serum",
-          "retrievedAt": "2026-08-09T17:00:00Z",
           "fields": {
-            "gtin": {
-              "value": "DGL-SKC-023",
-              "locator": "Official Shopify variant barcode",
-              "sourceText": "barcode: DGL-SKC-023"
+            "gtinPublicationStatus": {
+              "locator": "Complete official response structured identifier scan and variants[0].barcode alias",
+              "sourceText": "{\"id\":49931559371000,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-023\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Multi Function Formula Snail Mucin Repair Serum For Face-100ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1620000,\"weight\":700,\"compare_at_price\":2160000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-023\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}",
+              "value": "not-published"
             },
-            "variant": {
-              "value": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
-              "locator": "Official product JSON title",
-              "sourceText": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml"
+            "manufacturerBrand": {
+              "locator": "Official Shopify product response vendor",
+              "sourceText": "Vendor Dang! Lifestyle Inc.",
+              "value": "Dang! Lifestyle Inc."
+            },
+            "manufacturerSku": {
+              "label": "SKU",
+              "locator": "Official Shopify product response variants[0].sku",
+              "sourceText": "\"sku\":\"DGL-SKC-023\"",
+              "value": "DGL-SKC-023"
+            },
+            "packageVersion": {
+              "locator": "Official Shopify product response title and package identity",
+              "sourceText": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+              "value": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml"
             },
             "size": {
-              "value": "100 ml",
-              "locator": "Official product title size suffix",
-              "sourceText": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml"
+              "locator": "Official Shopify product response title size suffix",
+              "sourceText": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+              "value": "100ml"
+            },
+            "variant": {
+              "locator": "Official Shopify product response title",
+              "sourceText": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+              "value": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml"
             }
-          }
-        },
-        "snapshotSha256": "0944223db0b0e515b7497be25b75667187f7a05b1cc9ce489e9c30b3f8c23d53",
-        "snapshotByteSize": 724
+          },
+          "method": "reviewed-exact-official-manufacturer-sku-response",
+          "productRecord": {
+            "byteEnd": 1979,
+            "byteStart": 0,
+            "locator": "Complete official Shopify product response root object",
+            "sourceFragmentSha256": "f455b719624b86394e1f77397e8260f33ff89b694a0513eaa7b7a166fa4d8d08",
+            "sourceText": "{\"id\":10201190301944,\"title\":\"Multi Function Formula Snail Mucin Repair Serum For Face-100ml\",\"handle\":\"snail-essence-serum\",\"description\":\"<p>Promotes Skin Rejuvenation and Repair</p>\\n<div>\\n<strong>Shelf Life</strong>: 1 year from the date of first use.</div>\",\"published_at\":\"2026-07-09T10:57:22+01:00\",\"created_at\":\"2026-07-09T10:57:22+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[\"serum\"],\"price\":1620000,\"price_min\":1620000,\"price_max\":1620000,\"available\":true,\"price_varies\":false,\"compare_at_price\":2160000,\"compare_at_price_min\":2160000,\"compare_at_price_max\":2160000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931559371000,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-023\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Multi Function Formula Snail Mucin Repair Serum For Face-100ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1620000,\"weight\":700,\"compare_at_price\":2160000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-023\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/snail-essence-serum\",\"media\":[{\"alt\":\"snail serum for face\",\"id\":41393972510968,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":2560,\"width\":2560,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\"},\"aspect_ratio\":1,\"height\":2560,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Snail-Mucin-scaled.jpg?v=1783591044\",\"width\":2560}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+          },
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://danglifestyle.co/products/snail-essence-serum.js?country=NG&currency=NGN&v=2",
+          "retrievedAt": "2026-08-09T17:00:00Z",
+          "reviewedAt": "2026-08-09T17:05:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 9,
+          "sourceResponseByteSize": 1979,
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseSha256": "f455b719624b86394e1f77397e8260f33ff89b694a0513eaa7b7a166fa4d8d08",
+          "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-snail-mucin-repair-serum-100ml.json",
+          "sourceUrl": "https://danglifestyle.co/products/snail-essence-serum"
+        }
       }
     },
     "care": {
       "status": "reviewed",
-      "formulaArchetype": "Leave-on repair serum with snail mucin listed by the manufacturer",
+      "formulaArchetype": "Snail mucin repair serum for skin rejuvenation and repair",
       "careTier": "targeted-care",
       "reviewScope": "catalogue-supportive-care",
       "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
       "manufacturerEvidenceUrl": "https://danglifestyle.co/products/snail-essence-serum",
-      "evidenceUrls": ["https://danglifestyle.co/products/snail-essence-serum"],
-      "reviewedAt": "2026-08-09T17:00:00Z",
-      "reviewer": "JeloCare catalogue care review"
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://danglifestyle.co/products/snail-essence-serum",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-08-09T17:05:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
     },
     "nigeria": {
       "regulatoryStatus": "pending",

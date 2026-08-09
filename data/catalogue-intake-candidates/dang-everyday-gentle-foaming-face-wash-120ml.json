@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-09T17:00:00Z",
+  "updatedAt": "2026-08-09T17:05:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "b3b05e7c6248c8ea15d30c8c",
@@ -14,63 +14,105 @@
     "variant": "Everyday Gentle Foaming Face Wash-120ml",
     "size": "120 ml",
     "category": "Face care",
-    "reason": "Fragrance-free gentle foaming cleanser with official manufacturer SKU DGL-SKC-031, observed on the DANG mid-year sale at ₦13,175 (regular ₦15,500). Supports a gentle daily cleansing routine with rose extract and beta-glucan.",
+    "reason": "Gentle fragrance-free foaming face wash with rose extract and beta-glucan. Official DANG manufacturer SKU DGL-SKC-031. Mid-year sale pricing live on danglifestyle.co.",
     "priority": "essential",
     "gapIds": ["hydration-routine-coverage"],
     "demandEvidenceUrls": ["https://danglifestyle.co/products/rose-face-wash"],
     "identity": {
       "canonicalIdentifier": {
         "kind": "manufacturer-sku",
-        "value": "DGL-SKC-031"
+        "value": "DGL-SKC-031",
+        "label": "SKU"
       },
       "officialProductUrl": "https://danglifestyle.co/products/rose-face-wash",
-      "checkedAt": "2026-08-09T17:00:00Z",
+      "packageVersion": "Everyday Gentle Foaming Face Wash-120ml",
+      "checkedAt": "2026-08-09T17:05:00Z",
       "basis": "official-brand",
       "officialEvidence": {
+        "identityKind": "manufacturer-sku",
         "url": "https://danglifestyle.co/products/rose-face-wash",
-        "observedGtin": "DGL-SKC-031",
+        "observedManufacturerSku": "DGL-SKC-031",
+        "observedManufacturerSkuLabel": "SKU",
         "observedVariant": "Everyday Gentle Foaming Face Wash-120ml",
-        "observedSize": "120 ml",
+        "observedSize": "120ml",
         "snapshotKind": "canonical-extraction",
         "snapshotPath": "data/catalogue-identity-evidence/dang-everyday-gentle-foaming-face-wash-120ml.json",
+        "snapshotSha256": "7ee6f8e22b330b91d4a3f97fba560c530c2979d12b1c734b700ce25740b3ec5e",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 4768,
+        "retrievedAt": "2026-08-09T17:00:00Z",
         "canonicalExtraction": {
-          "schemaVersion": 3,
+          "barcodeAlias": true,
           "candidateId": "dang-everyday-gentle-foaming-face-wash-120ml",
-          "sourceUrl": "https://danglifestyle.co/products/rose-face-wash",
-          "responseUrl": "https://danglifestyle.co/products/rose-face-wash",
-          "retrievedAt": "2026-08-09T17:00:00Z",
           "fields": {
-            "gtin": {
-              "value": "DGL-SKC-031",
-              "locator": "Official Shopify variant barcode",
-              "sourceText": "barcode: DGL-SKC-031"
+            "gtinPublicationStatus": {
+              "locator": "Complete official response structured identifier scan and variants[0].barcode alias",
+              "sourceText": "{\"id\":49931559305464,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-031\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Everyday Gentle Foaming Face Wash-120ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1317500,\"weight\":700,\"compare_at_price\":1550000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-031\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}",
+              "value": "not-published"
             },
-            "variant": {
-              "value": "Everyday Gentle Foaming Face Wash-120ml",
-              "locator": "Official product JSON title",
-              "sourceText": "Everyday Gentle Foaming Face Wash-120ml"
+            "manufacturerBrand": {
+              "locator": "Official Shopify product response vendor",
+              "sourceText": "Vendor Dang! Lifestyle Inc.",
+              "value": "Dang! Lifestyle Inc."
+            },
+            "manufacturerSku": {
+              "label": "SKU",
+              "locator": "Official Shopify product response variants[0].sku",
+              "sourceText": "\"sku\":\"DGL-SKC-031\"",
+              "value": "DGL-SKC-031"
+            },
+            "packageVersion": {
+              "locator": "Official Shopify product response title and package identity",
+              "sourceText": "Everyday Gentle Foaming Face Wash-120ml",
+              "value": "Everyday Gentle Foaming Face Wash-120ml"
             },
             "size": {
-              "value": "120 ml",
-              "locator": "Official product title size suffix",
-              "sourceText": "Everyday Gentle Foaming Face Wash-120ml"
+              "locator": "Official Shopify product response title size suffix",
+              "sourceText": "Everyday Gentle Foaming Face Wash-120ml",
+              "value": "120ml"
+            },
+            "variant": {
+              "locator": "Official Shopify product response title",
+              "sourceText": "Everyday Gentle Foaming Face Wash-120ml",
+              "value": "Everyday Gentle Foaming Face Wash-120ml"
             }
-          }
-        },
-        "snapshotSha256": "9406ce1a32a2965526059930b0e61386b4dbab163b05caae93bf93bdf1bde22e",
-        "snapshotByteSize": 654
+          },
+          "method": "reviewed-exact-official-manufacturer-sku-response",
+          "productRecord": {
+            "byteEnd": 2003,
+            "byteStart": 0,
+            "locator": "Complete official Shopify product response root object",
+            "sourceFragmentSha256": "8fe18ceda140342d4753be1529a6ed5e164e692bdd6d1bba1eced2e28881f14a",
+            "sourceText": "{\"id\":10201190236408,\"title\":\"Everyday Gentle Foaming Face Wash-120ml\",\"handle\":\"rose-face-wash\",\"description\":\"<p><span>Gentle cleanser for face; Fragrance-Free</span></p>\",\"published_at\":\"2026-07-09T10:57:19+01:00\",\"created_at\":\"2026-07-09T10:57:19+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[],\"price\":1317500,\"price_min\":1317500,\"price_max\":1317500,\"available\":true,\"price_varies\":false,\"compare_at_price\":1550000,\"compare_at_price_min\":1550000,\"compare_at_price_max\":1550000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931559305464,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-031\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Everyday Gentle Foaming Face Wash-120ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1317500,\"weight\":700,\"compare_at_price\":1550000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-031\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/rose-face-wash\",\"media\":[{\"alt\":\"foaming cleanser for face\",\"id\":41393970872568,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":1080,\"width\":1080,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\"},\"aspect_ratio\":1,\"height\":1080,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041\",\"width\":1080}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+          },
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://danglifestyle.co/products/rose-face-wash.js?country=NG&currency=NGN&v=2",
+          "retrievedAt": "2026-08-09T17:00:00Z",
+          "reviewedAt": "2026-08-09T17:05:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 9,
+          "sourceResponseByteSize": 2003,
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseSha256": "8fe18ceda140342d4753be1529a6ed5e164e692bdd6d1bba1eced2e28881f14a",
+          "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-everyday-gentle-foaming-face-wash-120ml.json",
+          "sourceUrl": "https://danglifestyle.co/products/rose-face-wash"
+        }
       }
     },
     "care": {
       "status": "reviewed",
-      "formulaArchetype": "Fragrance-free gentle foaming cleanser with rose extract and beta-glucan listed by the manufacturer",
+      "formulaArchetype": "Gentle fragrance-free foaming face cleanser with rose extract and beta-glucan",
       "careTier": "gentle-daily-care",
       "reviewScope": "catalogue-supportive-care",
-      "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+      "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Avoid contact with eyes. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
       "manufacturerEvidenceUrl": "https://danglifestyle.co/products/rose-face-wash",
-      "evidenceUrls": ["https://danglifestyle.co/products/rose-face-wash"],
-      "reviewedAt": "2026-08-09T17:00:00Z",
-      "reviewer": "JeloCare catalogue care review"
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+      "evidenceUrls": [
+        "https://danglifestyle.co/products/rose-face-wash",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+      ],
+      "reviewedAt": "2026-08-09T17:05:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
     },
     "nigeria": {
       "regulatoryStatus": "pending",

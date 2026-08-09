@@ -1,0 +1,72 @@
+{
+  "id": 10201190465784,
+  "title": "Beauty Water (Toner)-100ml",
+  "handle": "centella-asiatica-toner",
+  "description": "<p>Hydrating Face Toner; Alcohol-Free; Fragrance-Free</p>\n<p>Transform your skincare routine with this hydrating face toner, your secret to soft, balanced, and visibly refreshed skin.</p>\n<p><strong>Who is it for?</strong></p>\n<p>Perfect for dry, sensitive skin.</p>\n<p><em><strong>Ready to experience hydration like never before? Add this soothing toner to your cart and give your skin the love it deserves.</strong></em></p>\n<div>\n<p><strong>Shelf Life</strong>: 1 year from the date of first use.</p>\n</div>",
+  "published_at": "2026-07-09T10:57:29+01:00",
+  "created_at": "2026-07-09T10:57:29+01:00",
+  "vendor": "Dang! Lifestyle Inc.",
+  "type": "Skin Care",
+  "tags": [],
+  "price": 1224000,
+  "price_min": 1224000,
+  "price_max": 1224000,
+  "available": true,
+  "price_varies": false,
+  "compare_at_price": 1440000,
+  "compare_at_price_min": 1440000,
+  "compare_at_price_max": 1440000,
+  "compare_at_price_varies": false,
+  "variants": [
+    {
+      "id": 49931559534840,
+      "title": "Default Title",
+      "option1": "Default Title",
+      "option2": null,
+      "option3": null,
+      "sku": "DGL-SKC-017",
+      "requires_shipping": true,
+      "taxable": true,
+      "featured_image": null,
+      "available": true,
+      "name": "Beauty Water (Toner)-100ml",
+      "public_title": null,
+      "options": ["Default Title"],
+      "price": 1224000,
+      "weight": 700,
+      "compare_at_price": 1440000,
+      "inventory_management": "shopify",
+      "barcode": "DGL-SKC-017",
+      "quantity_rule": { "min": 1, "max": null, "increment": 1 },
+      "quantity_price_breaks": [],
+      "requires_selling_plan": false,
+      "selling_plan_allocations": []
+    }
+  ],
+  "images": [
+    "//cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051"
+  ],
+  "featured_image": "//cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051",
+  "options": [{ "name": "Title", "position": 1, "values": ["Default Title"] }],
+  "url": "/products/centella-asiatica-toner",
+  "media": [
+    {
+      "alt": "hydrating face toner",
+      "id": 41393976148216,
+      "position": 1,
+      "preview_image": {
+        "aspect_ratio": 1,
+        "height": 1000,
+        "width": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051"
+      },
+      "aspect_ratio": 1,
+      "height": 1000,
+      "media_type": "image",
+      "src": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051",
+      "width": 1000
+    }
+  ],
+  "requires_selling_plan": false,
+  "selling_plan_groups": []
+}

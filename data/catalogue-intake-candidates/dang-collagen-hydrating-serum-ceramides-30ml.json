@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-09T17:00:00Z",
+  "updatedAt": "2026-08-09T17:05:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "ebab0728a3046f8ce2fd5c3b",
@@ -10,11 +10,11 @@
   "candidate": {
     "id": "dang-collagen-hydrating-serum-ceramides-30ml",
     "brand": "DANG",
-    "name": "Collagen Hydrating Serum",
+    "name": "Collagen And Hydrating Serum With Ceramides",
     "variant": "Collagen And Hydrating Serum With Ceramides -30ml",
     "size": "30 ml",
     "category": "Face care",
-    "reason": "Hydrating repair serum with official manufacturer SKU DGL-SKC-034, observed on the DANG mid-year sale at ₦14,450 (regular ₦17,000). Supports hydration and skin repair with collagen, ceramides and hyaluronic acid.",
+    "reason": "Collagen and hydrating serum with ceramides for skin barrier support and hydration. Official DANG manufacturer SKU DGL-SKC-034. Mid-year sale pricing live on danglifestyle.co.",
     "priority": "essential",
     "gapIds": ["hydration-routine-coverage"],
     "demandEvidenceUrls": [
@@ -23,58 +23,98 @@
     "identity": {
       "canonicalIdentifier": {
         "kind": "manufacturer-sku",
-        "value": "DGL-SKC-034"
+        "value": "DGL-SKC-034",
+        "label": "SKU"
       },
       "officialProductUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
-      "checkedAt": "2026-08-09T17:00:00Z",
+      "packageVersion": "Collagen And Hydrating Serum With Ceramides -30ml",
+      "checkedAt": "2026-08-09T17:05:00Z",
       "basis": "official-brand",
       "officialEvidence": {
+        "identityKind": "manufacturer-sku",
         "url": "https://danglifestyle.co/products/collagen-peptide-serum",
-        "observedGtin": "DGL-SKC-034",
+        "observedManufacturerSku": "DGL-SKC-034",
+        "observedManufacturerSkuLabel": "SKU",
         "observedVariant": "Collagen And Hydrating Serum With Ceramides -30ml",
-        "observedSize": "30 ml",
+        "observedSize": "30ml",
         "snapshotKind": "canonical-extraction",
         "snapshotPath": "data/catalogue-identity-evidence/dang-collagen-hydrating-serum-ceramides-30ml.json",
+        "snapshotSha256": "46f55dab2f5222fbbc4299f93139070ed7cac57858c3f394655f392ede4b36ff",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 5840,
+        "retrievedAt": "2026-08-09T17:00:00Z",
         "canonicalExtraction": {
-          "schemaVersion": 3,
+          "barcodeAlias": true,
           "candidateId": "dang-collagen-hydrating-serum-ceramides-30ml",
-          "sourceUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
-          "responseUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
-          "retrievedAt": "2026-08-09T17:00:00Z",
           "fields": {
-            "gtin": {
-              "value": "DGL-SKC-034",
-              "locator": "Official Shopify variant barcode",
-              "sourceText": "barcode: DGL-SKC-034"
+            "gtinPublicationStatus": {
+              "locator": "Complete official response structured identifier scan and variants[0].barcode alias",
+              "sourceText": "{\"id\":49931559272696,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-034\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Collagen And Hydrating Serum With Ceramides -30ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1445000,\"weight\":700,\"compare_at_price\":1700000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-034\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}",
+              "value": "not-published"
             },
-            "variant": {
-              "value": "Collagen And Hydrating Serum With Ceramides -30ml",
-              "locator": "Official product JSON title",
-              "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml"
+            "manufacturerBrand": {
+              "locator": "Official Shopify product response vendor",
+              "sourceText": "Vendor Dang! Lifestyle Inc.",
+              "value": "Dang! Lifestyle Inc."
+            },
+            "manufacturerSku": {
+              "label": "SKU",
+              "locator": "Official Shopify product response variants[0].sku",
+              "sourceText": "\"sku\":\"DGL-SKC-034\"",
+              "value": "DGL-SKC-034"
+            },
+            "packageVersion": {
+              "locator": "Official Shopify product response title and package identity",
+              "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml",
+              "value": "Collagen And Hydrating Serum With Ceramides -30ml"
             },
             "size": {
-              "value": "30 ml",
-              "locator": "Official product title size suffix",
-              "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml"
+              "locator": "Official Shopify product response title size suffix",
+              "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml",
+              "value": "30ml"
+            },
+            "variant": {
+              "locator": "Official Shopify product response title",
+              "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml",
+              "value": "Collagen And Hydrating Serum With Ceramides -30ml"
             }
-          }
-        },
-        "snapshotSha256": "5093e0843ca3afafd830ec69bac12c7f5cafe9f04e8355ca8267aefefe7372a2",
-        "snapshotByteSize": 699
+          },
+          "method": "reviewed-exact-official-manufacturer-sku-response",
+          "productRecord": {
+            "byteEnd": 2951,
+            "byteStart": 0,
+            "locator": "Complete official Shopify product response root object",
+            "sourceFragmentSha256": "79c3f86ad05d567e42481837011c8b6676dda37d7e606c0e9132ccee707f1a5b",
+            "sourceText": "{\"id\":10201190203640,\"title\":\"Collagen And Hydrating Serum With Ceramides -30ml\",\"handle\":\"collagen-peptide-serum\",\"description\":\"<p><em><strong>Powered by a potent blend of collagen, ceramides, and hyaluronic acid, this fast-absorbing serum works deep within the skin’s layers to:</strong></em></p>\\n<ul>\\n<li>Replenish lost moisture</li>\\n<li>Improve elasticity</li>\\n<li>Smooth fine lines and rough texture</li>\\n<li>Strengthen your moisture barrier. Say goodbye to flaky and tight skin.</li>\\n</ul>\\n<p><em><strong>Shelf Life: 1 year from date of first use.</strong></em></p>\",\"published_at\":\"2026-07-09T10:57:18+01:00\",\"created_at\":\"2026-07-09T10:57:18+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[\"ceramides\",\"collagen\",\"serum\"],\"price\":1445000,\"price_min\":1445000,\"price_max\":1445000,\"available\":true,\"price_varies\":false,\"compare_at_price\":1700000,\"compare_at_price_min\":1700000,\"compare_at_price_max\":1700000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931559272696,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-034\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Collagen And Hydrating Serum With Ceramides -30ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1445000,\"weight\":700,\"compare_at_price\":1700000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-034\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\",\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Collagen.webp?v=1783591040\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/collagen-peptide-serum\",\"media\":[{\"alt\":\"Dang Collagen Serum\",\"id\":41393969758456,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":1080,\"width\":1080,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\"},\"aspect_ratio\":1,\"height\":1080,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040\",\"width\":1080},{\"alt\":\"Collagen and Hydrating serum\",\"id\":41393969791224,\"position\":2,\"preview_image\":{\"aspect_ratio\":1,\"height\":1000,\"width\":1000,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Collagen.webp?v=1783591040\"},\"aspect_ratio\":1,\"height\":1000,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Collagen.webp?v=1783591040\",\"width\":1000}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+          },
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://danglifestyle.co/products/collagen-peptide-serum.js?country=NG&currency=NGN&v=2",
+          "retrievedAt": "2026-08-09T17:00:00Z",
+          "reviewedAt": "2026-08-09T17:05:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 9,
+          "sourceResponseByteSize": 2951,
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseSha256": "79c3f86ad05d567e42481837011c8b6676dda37d7e606c0e9132ccee707f1a5b",
+          "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-collagen-hydrating-serum-ceramides-30ml.json",
+          "sourceUrl": "https://danglifestyle.co/products/collagen-peptide-serum"
+        }
       }
     },
     "care": {
       "status": "reviewed",
-      "formulaArchetype": "Leave-on hydrating serum with collagen, ceramides and hyaluronic acid listed by the manufacturer",
+      "formulaArchetype": "Leave-on hydrating serum with collagen, ceramides and hyaluronic acid",
       "careTier": "targeted-care",
       "reviewScope": "catalogue-supportive-care",
       "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
       "manufacturerEvidenceUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
       "evidenceUrls": [
-        "https://danglifestyle.co/products/collagen-peptide-serum"
+        "https://danglifestyle.co/products/collagen-peptide-serum",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
       ],
-      "reviewedAt": "2026-08-09T17:00:00Z",
-      "reviewer": "JeloCare catalogue care review"
+      "reviewedAt": "2026-08-09T17:05:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
     },
     "nigeria": {
       "regulatoryStatus": "pending",

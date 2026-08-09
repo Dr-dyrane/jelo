@@ -1,0 +1,72 @@
+{
+  "id": 10201190236408,
+  "title": "Everyday Gentle Foaming Face Wash-120ml",
+  "handle": "rose-face-wash",
+  "description": "<p><span>Gentle cleanser for face; Fragrance-Free</span></p>",
+  "published_at": "2026-07-09T10:57:19+01:00",
+  "created_at": "2026-07-09T10:57:19+01:00",
+  "vendor": "Dang! Lifestyle Inc.",
+  "type": "Skin Care",
+  "tags": [],
+  "price": 1317500,
+  "price_min": 1317500,
+  "price_max": 1317500,
+  "available": true,
+  "price_varies": false,
+  "compare_at_price": 1550000,
+  "compare_at_price_min": 1550000,
+  "compare_at_price_max": 1550000,
+  "compare_at_price_varies": false,
+  "variants": [
+    {
+      "id": 49931559305464,
+      "title": "Default Title",
+      "option1": "Default Title",
+      "option2": null,
+      "option3": null,
+      "sku": "DGL-SKC-031",
+      "requires_shipping": true,
+      "taxable": true,
+      "featured_image": null,
+      "available": true,
+      "name": "Everyday Gentle Foaming Face Wash-120ml",
+      "public_title": null,
+      "options": ["Default Title"],
+      "price": 1317500,
+      "weight": 700,
+      "compare_at_price": 1550000,
+      "inventory_management": "shopify",
+      "barcode": "DGL-SKC-031",
+      "quantity_rule": { "min": 1, "max": null, "increment": 1 },
+      "quantity_price_breaks": [],
+      "requires_selling_plan": false,
+      "selling_plan_allocations": []
+    }
+  ],
+  "images": [
+    "//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041"
+  ],
+  "featured_image": "//cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041",
+  "options": [{ "name": "Title", "position": 1, "values": ["Default Title"] }],
+  "url": "/products/rose-face-wash",
+  "media": [
+    {
+      "alt": "foaming cleanser for face",
+      "id": 41393970872568,
+      "position": 1,
+      "preview_image": {
+        "aspect_ratio": 1,
+        "height": 1080,
+        "width": 1080,
+        "src": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041"
+      },
+      "aspect_ratio": 1,
+      "height": 1080,
+      "media_type": "image",
+      "src": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041",
+      "width": 1080
+    }
+  ],
+  "requires_selling_plan": false,
+  "selling_plan_groups": []
+}

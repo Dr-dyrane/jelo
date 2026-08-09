@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-09T17:00:00Z",
+  "updatedAt": "2026-08-09T17:05:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "9a3334521469082febb1be5b",
@@ -10,11 +10,11 @@
   "candidate": {
     "id": "dang-beauty-water-toner-100ml",
     "brand": "DANG",
-    "name": "Beauty Water Toner",
+    "name": "Beauty Water (Toner)",
     "variant": "Beauty Water (Toner)-100ml",
     "size": "100 ml",
     "category": "Face care",
-    "reason": "Alcohol-free and fragrance-free hydrating toner with official manufacturer SKU DGL-SKC-017, observed on the DANG mid-year sale at ₦12,240 (regular ₦14,400). Gentle daily-care toner with centella asiatica and hyaluronic acid.",
+    "reason": "Hydrating alcohol-free fragrance-free face toner with centella asiatica. Official DANG manufacturer SKU DGL-SKC-017. Mid-year sale pricing live on danglifestyle.co.",
     "priority": "essential",
     "gapIds": ["hydration-routine-coverage"],
     "demandEvidenceUrls": [
@@ -23,58 +23,98 @@
     "identity": {
       "canonicalIdentifier": {
         "kind": "manufacturer-sku",
-        "value": "DGL-SKC-017"
+        "value": "DGL-SKC-017",
+        "label": "SKU"
       },
       "officialProductUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
-      "checkedAt": "2026-08-09T17:00:00Z",
+      "packageVersion": "Beauty Water (Toner)-100ml",
+      "checkedAt": "2026-08-09T17:05:00Z",
       "basis": "official-brand",
       "officialEvidence": {
+        "identityKind": "manufacturer-sku",
         "url": "https://danglifestyle.co/products/centella-asiatica-toner",
-        "observedGtin": "DGL-SKC-017",
+        "observedManufacturerSku": "DGL-SKC-017",
+        "observedManufacturerSkuLabel": "SKU",
         "observedVariant": "Beauty Water (Toner)-100ml",
-        "observedSize": "100 ml",
+        "observedSize": "100ml",
         "snapshotKind": "canonical-extraction",
         "snapshotPath": "data/catalogue-identity-evidence/dang-beauty-water-toner-100ml.json",
+        "snapshotSha256": "b063ab89ba45ef1087f220fd6de54035d1d54391f1b82146b2f42b4d3f6b6266",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 5113,
+        "retrievedAt": "2026-08-09T17:00:00Z",
         "canonicalExtraction": {
-          "schemaVersion": 3,
+          "barcodeAlias": true,
           "candidateId": "dang-beauty-water-toner-100ml",
-          "sourceUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
-          "responseUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
-          "retrievedAt": "2026-08-09T17:00:00Z",
           "fields": {
-            "gtin": {
-              "value": "DGL-SKC-017",
-              "locator": "Official Shopify variant barcode",
-              "sourceText": "barcode: DGL-SKC-017"
+            "gtinPublicationStatus": {
+              "locator": "Complete official response structured identifier scan and variants[0].barcode alias",
+              "sourceText": "{\"id\":49931559534840,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-017\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Beauty Water (Toner)-100ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1224000,\"weight\":700,\"compare_at_price\":1440000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-017\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}",
+              "value": "not-published"
             },
-            "variant": {
-              "value": "Beauty Water (Toner)-100ml",
-              "locator": "Official product JSON title",
-              "sourceText": "Beauty Water (Toner)-100ml"
+            "manufacturerBrand": {
+              "locator": "Official Shopify product response vendor",
+              "sourceText": "Vendor Dang! Lifestyle Inc.",
+              "value": "Dang! Lifestyle Inc."
+            },
+            "manufacturerSku": {
+              "label": "SKU",
+              "locator": "Official Shopify product response variants[0].sku",
+              "sourceText": "\"sku\":\"DGL-SKC-017\"",
+              "value": "DGL-SKC-017"
+            },
+            "packageVersion": {
+              "locator": "Official Shopify product response title and package identity",
+              "sourceText": "Beauty Water (Toner)-100ml",
+              "value": "Beauty Water (Toner)-100ml"
             },
             "size": {
-              "value": "100 ml",
-              "locator": "Official product title size suffix",
-              "sourceText": "Beauty Water (Toner)-100ml"
+              "locator": "Official Shopify product response title size suffix",
+              "sourceText": "Beauty Water (Toner)-100ml",
+              "value": "100ml"
+            },
+            "variant": {
+              "locator": "Official Shopify product response title",
+              "sourceText": "Beauty Water (Toner)-100ml",
+              "value": "Beauty Water (Toner)-100ml"
             }
-          }
-        },
-        "snapshotSha256": "d66ac9ef29d48d5e555124fd07452299bdd7eb65a19d52dda06dd8cb7f825098",
-        "snapshotByteSize": 618
+          },
+          "method": "reviewed-exact-official-manufacturer-sku-response",
+          "productRecord": {
+            "byteEnd": 2431,
+            "byteStart": 0,
+            "locator": "Complete official Shopify product response root object",
+            "sourceFragmentSha256": "8a612c2d196e103330407a33a54798a201c8d112d3df2dde99f4c7844b4fff23",
+            "sourceText": "{\"id\":10201190465784,\"title\":\"Beauty Water (Toner)-100ml\",\"handle\":\"centella-asiatica-toner\",\"description\":\"<p>Hydrating Face Toner; Alcohol-Free; Fragrance-Free</p>\\n<p>Transform your skincare routine with this hydrating face toner, your secret to soft, balanced, and visibly refreshed skin.</p>\\n<p><strong>Who is it for?</strong></p>\\n<p>Perfect for dry, sensitive skin.</p>\\n<p><em><strong>Ready to experience hydration like never before? Add this soothing toner to your cart and give your skin the love it deserves.</strong></em></p>\\n<div>\\n<p><strong>Shelf Life</strong>: 1 year from the date of first use.</p>\\n</div>\",\"published_at\":\"2026-07-09T10:57:29+01:00\",\"created_at\":\"2026-07-09T10:57:29+01:00\",\"vendor\":\"Dang! Lifestyle Inc.\",\"type\":\"Skin Care\",\"tags\":[],\"price\":1224000,\"price_min\":1224000,\"price_max\":1224000,\"available\":true,\"price_varies\":false,\"compare_at_price\":1440000,\"compare_at_price_min\":1440000,\"compare_at_price_max\":1440000,\"compare_at_price_varies\":false,\"variants\":[{\"id\":49931559534840,\"title\":\"Default Title\",\"option1\":\"Default Title\",\"option2\":null,\"option3\":null,\"sku\":\"DGL-SKC-017\",\"requires_shipping\":true,\"taxable\":true,\"featured_image\":null,\"available\":true,\"name\":\"Beauty Water (Toner)-100ml\",\"public_title\":null,\"options\":[\"Default Title\"],\"price\":1224000,\"weight\":700,\"compare_at_price\":1440000,\"inventory_management\":\"shopify\",\"barcode\":\"DGL-SKC-017\",\"quantity_rule\":{\"min\":1,\"max\":null,\"increment\":1},\"quantity_price_breaks\":[],\"requires_selling_plan\":false,\"selling_plan_allocations\":[]}],\"images\":[\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\"],\"featured_image\":\"//cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\",\"options\":[{\"name\":\"Title\",\"position\":1,\"values\":[\"Default Title\"]}],\"url\":\"/products/centella-asiatica-toner\",\"media\":[{\"alt\":\"hydrating face toner\",\"id\":41393976148216,\"position\":1,\"preview_image\":{\"aspect_ratio\":1,\"height\":1000,\"width\":1000,\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\"},\"aspect_ratio\":1,\"height\":1000,\"media_type\":\"image\",\"src\":\"https://cdn.shopify.com/s/files/1/0837/2181/4264/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051\",\"width\":1000}],\"requires_selling_plan\":false,\"selling_plan_groups\":[]}"
+          },
+          "responseDigestScope": "decoded-response-body",
+          "responseUrl": "https://danglifestyle.co/products/centella-asiatica-toner.js?country=NG&currency=NGN&v=2",
+          "retrievedAt": "2026-08-09T17:00:00Z",
+          "reviewedAt": "2026-08-09T17:05:00Z",
+          "reviewer": "JeloCare catalogue evidence review",
+          "schemaVersion": 9,
+          "sourceResponseByteSize": 2431,
+          "sourceResponseMimeType": "text/javascript",
+          "sourceResponseSha256": "8a612c2d196e103330407a33a54798a201c8d112d3df2dde99f4c7844b4fff23",
+          "sourceSnapshotPath": "data/catalogue-identity-source-evidence/dang-beauty-water-toner-100ml.json",
+          "sourceUrl": "https://danglifestyle.co/products/centella-asiatica-toner"
+        }
       }
     },
     "care": {
       "status": "reviewed",
-      "formulaArchetype": "Alcohol-free and fragrance-free hydrating toner with centella asiatica and hyaluronic acid listed by the manufacturer",
+      "formulaArchetype": "Hydrating alcohol-free face toner with centella asiatica and hyaluronic acid",
       "careTier": "gentle-daily-care",
       "reviewScope": "catalogue-supportive-care",
       "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
       "manufacturerEvidenceUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
       "evidenceUrls": [
-        "https://danglifestyle.co/products/centella-asiatica-toner"
+        "https://danglifestyle.co/products/centella-asiatica-toner",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
       ],
-      "reviewedAt": "2026-08-09T17:00:00Z",
-      "reviewer": "JeloCare catalogue care review"
+      "reviewedAt": "2026-08-09T17:05:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
     },
     "nigeria": {
       "regulatoryStatus": "pending",
