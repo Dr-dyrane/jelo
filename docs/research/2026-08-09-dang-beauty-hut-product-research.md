@@ -193,14 +193,23 @@ integration path is:
 
 ## Next steps
 
-1. **DANG products** — 8 intake candidates created with manufacturer-SKU
-   identity. Nigerian retailer offers need Playwright MCP browser capture
-   for exact-offer binding. Reference-only release is valid while offers
-   are pending.
+1. **DANG products** — 8 intake candidates created and registered in the
+   pipeline at the `identity` stage. They use `community-aggregate-packet`
+   origin with manufacturer-SKU canonical identifiers (DGL-SKC-xxx).
+   **Blocker:** The manufacturer-SKU identity route (schemaVersion 8)
+   requires `barcode === null` in the Shopify variant JSON. DANG puts the
+   SKU in both the `sku` AND `barcode` fields, so the verifier rejects
+   these candidates. The existing 3 released DANG products all had real
+   GTIN-13s (6154000xxxxxx) in the barcode field and used the GTIN route
+   (schemaVersion 3). The 8 new products have no published GTINs.
+   This is a schema boundary — the verifier in
+   `lib/catalogue/identity-evidence-artifact.ts` would need to be updated
+   to accept a non-null barcode that matches the manufacturer SKU (not a
+   GTIN). Per CLAUDE.md, this crosses the publication-gate boundary.
 2. **Beauty Hut** — Add as an exact-offer source for existing catalogue
    brands (CeraVe, COSRX, La Roche-Posay). The WooCommerce Store API can
    automate offer discovery.
 3. **DANG products without barcodes** — The 3 products without barcodes
-   (Q10 serum, Mandelic wash, White Tea shower gel) cannot use the
-   manufacturer-SKU route. They need GTIN-13 extraction from the physical
-   product packaging or a different identity route.
+   (Q10 serum, Mandelic wash, White Tea shower gel) cannot use any
+   identity route. They need GTIN-13 extraction from the physical
+   product packaging.

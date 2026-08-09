@@ -58,6 +58,37 @@ canonical form. The `snapshotSha256` is the SHA-256 of that string, and
 correct hash and byte size. Do NOT manually format the JSON — the canonical
 form is compact with sorted keys.
 
+### `retained official product record does not bind the selected SKU, variant, size, package and null barcode to one variant`
+
+**Symptom:** Manufacturer-SKU identity route (schemaVersion 8) fails
+because the Shopify variant's `barcode` field is not null.
+
+**Root cause:** The verifier in `identity-evidence-artifact.ts` requires
+`barcode === null` for the manufacturer-SKU route. Some brands (e.g.,
+DANG! Lifestyle) put the manufacturer SKU in both the `sku` AND `barcode`
+fields of the Shopify variant JSON. The verifier treats a non-null
+barcode as a potential GTIN, rejecting the no-GTIN claim.
+
+**Fix:** This is a schema boundary. The verifier would need to accept a
+non-null barcode that matches the manufacturer SKU (not a GTIN format).
+Do not relax the verifier without updating the publication gate. Use the
+GTIN route (schemaVersion 3) if the product has a real GTIN, or leave the
+candidate blocked at the `identity` stage.
+
+### `.prettierignore` for canonical evidence files
+
+**Symptom:** Pre-commit hook (lint-staged + prettier) reformats identity
+evidence files from canonical compact JSON to pretty-printed JSON,
+breaking the `snapshotSha256` verification.
+
+**Root cause:** The `.lintstagedrc` runs `prettier --write` on all staged
+`*.json` files. Identity evidence files must remain in canonical
+`stableJson` form (compact, sorted keys, + newline).
+
+**Fix:** Add `data/catalogue-identity-evidence/` and
+`data/catalogue-research-evidence-packet-sources/` to `.prettierignore`.
+This prevents prettier from reformatting canonical JSON evidence files.
+
 ### `care-independent-guidance-missing`
 
 **Symptom:** Intake compile fails because the care review's
