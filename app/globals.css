@@ -553,7 +553,7 @@ textarea {
 }
 .retailer-row {
   display: grid;
-  grid-template-columns: 3rem 1fr auto;
+  grid-template-columns: 3rem 1fr auto auto;
   align-items: center;
   gap: 1rem;
   padding: 1.2rem 0;
@@ -570,6 +570,12 @@ textarea {
 }
 .retailer-arrow {
   font-size: 1.4rem;
+}
+.retailer-trust-icon {
+  display: none;
+}
+.retailer-trust-text {
+  display: block;
 }
 
 .consult-page {

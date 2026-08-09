@@ -212,35 +212,55 @@ export function RetailerList({
         <span className="retailer-rank">
           {String(index + 1).padStart(2, "0")}
         </span>
-        <span>
+        <span className="retailer-info">
           <strong>{offer.retailer}</strong>
-          <small>
+          <small className="retailer-stock-date">
             {stock}
             {checked ? ` · ${checked}` : ""}
           </small>
-          {fulfilmentText ? <small>{fulfilmentText}</small> : null}
+          {fulfilmentText ? (
+            <small className="retailer-detail-secondary">
+              {fulfilmentText}
+            </small>
+          ) : null}
           {deliveryFee != null ? (
-            <small className="retailer-delivery">
+            <small className="retailer-delivery retailer-detail-secondary">
               +{formatAmount(deliveryFee, market)} delivery
             </small>
           ) : null}
           {offer.priceObservation ? (
-            <small>{offer.priceObservation.size}</small>
+            <small className="retailer-detail-secondary">
+              {offer.priceObservation.size}
+            </small>
           ) : null}
           {offer.sellerName ? (
-            <small className="retailer-seller">
+            <small className="retailer-seller retailer-detail-secondary">
               Sold by {offer.sellerName}
               {offer.sellerScore ? ` · ${offer.sellerScore}%` : ""}
               {hasSellerIdentityEvidence(offer) ? "" : " · Check seller"}
             </small>
           ) : null}
           {offer.retailerEvidence?.reviewStatus === "provisional" ? (
-            <small>Check with store</small>
+            <small className="retailer-detail-secondary">
+              Check with store
+            </small>
           ) : null}
           {hasBrandAuthorizationEvidence(offer) ? (
-            <small>Listed by the brand</small>
+            <small className="retailer-detail-secondary">
+              Listed by the brand
+            </small>
           ) : null}
-          <small className="retailer-trust">Trust {liveTrust(offer)}</small>
+          <small className="retailer-trust-text">
+            Trust {liveTrust(offer)}
+          </small>
+        </span>
+        <span
+          className="retailer-trust-icon"
+          aria-label={`Trust score ${liveTrust(offer)}`}
+          title={`Trust ${liveTrust(offer)}`}
+        >
+          <BadgeCheck size={16} aria-hidden="true" />
+          <span>{liveTrust(offer)}</span>
         </span>
         <span className="retailer-price">
           <span className="retailer-price-line">
@@ -254,7 +274,9 @@ export function RetailerList({
               />
             ) : null}
           </span>
-          <small>{offerActionLabel(offer)}</small>
+          <small className="retailer-action-label">
+            {offerActionLabel(offer)}
+          </small>
         </span>
         <ArrowUpRight className="retailer-arrow" size={19} />
       </a>
