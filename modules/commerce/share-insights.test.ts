@@ -311,7 +311,10 @@ test('share index and detail cards keep deterministic mobile reflow contracts', 
   assert.match(compactIndexCss, /\.card\{[^}]*grid-template-columns:5\.5remminmax\(0,1fr\)auto/);
   assert.match(compactIndexCss, /@media\(max-width:720px\)\{\.grid,\.topics/);
   assert.match(compactIndexCss, /@media\(max-width:720px\)[\s\S]*\.card\{grid-template-columns:4\.75remminmax\(0,1fr\)auto/);
-  assert.match(detailCard, /<ul className=\{styles\.alternativeList\} data-count=\{Math\.min\(items\.length, 3\)\}>/);
+  assert.match(
+    detailCard,
+    /<ul\s+className=\{styles\.alternativeList\}\s+data-count=\{Math\.min\(items\.length, 3\)\}\s*>/,
+  );
   assert.match(compactDetailCss, /\.alternativeList\{[^}]*repeat\(3,minmax\(0,1fr\)\)/);
   assert.match(compactDetailCss, /@media\(max-width:760px\)[\s\S]*\.alternativeList\[data-count\]\{grid-template-columns:1fr;max-width:none/);
   assert.match(compactDetailCss, /@media\(max-width:430px\)[\s\S]*grid-template-columns:4\.75remminmax\(0,1fr\)auto/);

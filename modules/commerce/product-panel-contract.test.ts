@@ -23,7 +23,10 @@ test('the product panel exposes one controlled dialog with a stable accessible t
   assert.match(component, /event\.key === 'Escape'/);
   assert.match(component, /useControlledDialog/);
   assert.equal(component.match(/hidden=\{tab !== '(?:buy|stores|details)'\}/g)?.length, 3);
-  assert.match(panelStyles, /\.product-panel-body \[hidden\] \{ display: none !important; \}/);
+  assert.match(
+    panelStyles,
+    /\.product-panel-body \[hidden\]\s*\{\s*display:\s*none\s*!important;\s*\}/,
+  );
 });
 
 test('the public wrapper keeps its two familiar triggers and delegates to the controlled sheet', () => {
