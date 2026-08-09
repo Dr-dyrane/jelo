@@ -63,8 +63,8 @@ export const productDisplayApprovals = {
     name: 'Salicylic Acid Daily Gentle Cleanser',
     size: '150 ml',
     sourceUrl: 'https://www.cosrx.co.kr/shopimages/cosrx/019000000580.jpg?1688373373',
-    contentHash: '0944847bfbcf0a8d57fed34a05c6f76a2fe79e1876e2833e326e49d75cf0519b',
-    reviewedAt: '2026-07-22T12:34:11.000Z',
+    contentHash: '4d3620eb731dc444e4504fcf0096dbd937cc8c4986d93cb4e1192bcee12de329',
+    reviewedAt: '2026-08-09T19:59:00Z',
   }),
   'some-by-mi-aha-bha-pha-miracle-toner': approval({
     brand: 'SOME BY MI',
@@ -127,8 +127,8 @@ export const productDisplayApprovals = {
     name: 'Azelaic Acid Suspension 10%',
     size: '30 ml',
     sourceUrl: 'https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw711cec9a/Images/products/The%20Ordinary/rdn-azelaic-acid-suspension-10pct-30ml.png?sw=1200&sh=1200&sm=fit',
-    contentHash: 'c5403d6e8e094b8a8c4cffd681c31edefad65fa3350854bf623f726048739e79',
-    reviewedAt: '2026-07-22T20:09:49Z',
+    contentHash: '4de3dcc4e8b15336f3e7254f36157f65fcc47b3aa27aed87f384267a39d983df',
+    reviewedAt: '2026-08-09T20:10:00Z',
   }),
   'panoxyl-acne-foaming-wash-10-benzoyl-peroxide': approval({
     brand: 'PanOxyl',

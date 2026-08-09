@@ -28,30 +28,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
-      "dossierFingerprint": "1ad59de49188ff91a4ef28f4780c8d75d13245deba82d6e20f280f18dc13ed38",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Cleanse",
-        "displayLine": "Vitamin C jelly cleanser · 150 ml",
-        "usage": "Massage onto damp skin morning or evening, working into a light lather, then rinse thoroughly, avoiding the eye area. Follow with your usual routine and SPF in the daytime.",
-        "manufacturerDirectionsUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-07-29T05:07:57Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-07-29T05:07:57Z"
-      },
-      "releaseFingerprint": "442defbfd37d41d581feac96ae51515c6ebf0290cd5cfa05be1c56fc69a483a4"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
       "dossierFingerprint": "3cf0342f9fefe3adebb7bb3c4738242109279e05ba4f7e82b69b8a9b9e2f59b9",
       "exposure": "public-catalogue",
@@ -436,30 +412,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
-      "dossierFingerprint": "2dada1c72aba7ed036c7d66f1dfffafc9807e2c924bb4a6a454031253fbdd2a6",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Vitamin C face serum",
-        "usage": "Apply a thin layer to clean face and neck in the morning. Follow with your favorite Advanced Clinicals face cream. Avoid using alongside retinol. Use vitamin C in the morning and retinol at night.",
-        "manufacturerDirectionsUrl": "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-06T07:36:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-06T07:37:00Z"
-      },
-      "releaseFingerprint": "2f70c63b223f972156c1dbd75b1c1d9a0e6543b4395d64d5695f8c838c8cf264"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
       "dossierFingerprint": "04c56eb112c9db7f8bb9699ea37bd280596bd340d9edaaa342fa6059cf13535b",
       "exposure": "public-catalogue",
@@ -556,30 +508,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "abib-clear-spot-serum-7-325-30ml",
-      "dossierFingerprint": "7a3fef90bed05b3844e43cf3d360b35ba3913033174a8ec04d70158f848323d2",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Azelaic acid 7% + sea moss spot serum · 30 ml",
-        "usage": "Apply a small amount to clean, dry skin focusing on blemish-prone areas. Start with every other evening and build to daily as tolerated. Follow with moisturiser. Use SPF 30+ in the daytime. Avoid the eye area and discontinue if persistent irritation occurs.",
-        "manufacturerDirectionsUrl": "https://en.abib.com/products/clear-spot-serum-7-325-pump-option",
-        "reviewer": "Codex visual audit",
-        "reviewedAt": "2026-08-07T03:52:30Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T03:53:00Z"
-      },
-      "releaseFingerprint": "97bd69d2d63379b2a18595cf34b402d1ddb695b156b02a73c98f7e5b5699bea1"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "neutrogena-light-sesame-body-oil-8-5oz",
       "dossierFingerprint": "97121c41df55ceb687444d7bf7bdd15f45e915bc3a9522ec99b7c1d613fec692",
       "exposure": "public-catalogue",
@@ -625,30 +553,6 @@
         "publishedAt": "2026-08-07T04:19:00Z"
       },
       "releaseFingerprint": "6a833a25bd7a7ce917ec2d45592fc6b590fcf466d9eefa566a986c86fd38a585"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
-      "dossierFingerprint": "300e5c57ba3e766a8403222d61e629a860107a64841ba800b9e71a0462ee5a61",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Cleanse",
-        "displayLine": "10% benzoyl peroxide acne wash with aloe vera · 7 oz",
-        "usage": "Wet affected area, wash and rinse well. Use once or twice daily or as directed by your doctor. Start with once daily to assess skin tolerance. May cause dryness; follow with a moisturizer.",
-        "manufacturerDirectionsUrl": "https://replenix.com/products/bp-10-acne-wash-aloe-vera",
-        "reviewer": "Codex visual audit",
-        "reviewedAt": "2026-08-07T04:29:30Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T04:30:00Z"
-      },
-      "releaseFingerprint": "9d3bcf6cd1e3f5d2faba8fc9f091869a018c71cdf38c94eea5685dbabcda3e1f"
     },
     {
       "schemaVersion": 2,
@@ -985,30 +889,6 @@
         "publishedAt": "2026-08-07T12:05:00Z"
       },
       "releaseFingerprint": "49f3c4e012848959fb1bfe69aaf74d38d155784cc7c2652bf6f6dabba4283ef8"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "naturium-bio-lipid-restoring-body-lotion-14oz",
-      "dossierFingerprint": "bcb41feea231d909af8ee602ed261d76c4d1e9beaa8088bf569c668f42472c3b",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Moisturize",
-        "displayLine": "Bio-Lipid Restoring Body Lotion 14 fl oz",
-        "usage": "Apply to clean dry skin morning and evening",
-        "manufacturerDirectionsUrl": "https://naturium.com/products/bio-lipid-restoring-body-lotion",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T12:07:30Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T12:08:00Z"
-      },
-      "releaseFingerprint": "f0df1feec6817ca2c2e106909f70e312828d7c925f6da66ca53dca71e7fc1008"
     },
     {
       "schemaVersion": 2,
@@ -1420,54 +1300,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
-      "dossierFingerprint": "d0a6f6e690ef8806b9c77344c96299aeabba5c7672b697d3bc3c3b42ba793336",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Moisturize",
-        "displayLine": "Plant Ceramide Rich Moisture Cream 1.7 oz",
-        "usage": "Apply a small amount to clean skin morning and night. Gently massage until absorbed.",
-        "manufacturerDirectionsUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T15:01:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T15:02:00Z"
-      },
-      "releaseFingerprint": "c28d42c53ec4bda756ac51fb7ea4621c579b0a1ce2b1ce6f435893f0c66deb3b"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
-      "dossierFingerprint": "2a85a47fb3028aeb1def6f641421bb19437aa897d588bdf2fe42fd8e9196fa10",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz",
-        "usage": "Apply a pea-sized amount to clean dry skin in the evening. Start with 2-3 nights per week and gradually increase. Always follow with SPF during the day.",
-        "manufacturerDirectionsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T15:01:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T15:02:00Z"
-      },
-      "releaseFingerprint": "3f0e1cf668e874799857b6cf05ecd36fe42091c487c07b0a17f85cfe80f7a799"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "naturium-azelaic-acid-emulsion-10-1fl-oz",
       "dossierFingerprint": "c10d195f1a371794aa71b41c77c235b69909841b1dffa706cf07e7f37b3da3cd",
       "exposure": "public-catalogue",
@@ -1513,30 +1345,6 @@
         "publishedAt": "2026-08-07T15:22:00Z"
       },
       "releaseFingerprint": "5f09d696f6ee906865c8e3d054a75f746113a97c9a675723a61907980219a4b2"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
-      "dossierFingerprint": "b5afd8c66f2fe1c8da078bb2598aa683a2ee2d704a9fb753bc9283b8d23c94af",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Body",
-        "routineStep": "Treat",
-        "displayLine": "The Glow Getter Multi-Oil Body Scrub 8 oz",
-        "usage": "Apply to damp skin in circular motions then rinse thoroughly. Use 2-3 times per week for smooth glowing skin.",
-        "manufacturerDirectionsUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T15:21:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T15:22:00Z"
-      },
-      "releaseFingerprint": "b7063b705b819eb642ec868cd111a10b7267a6b54aa5baec3264809787f42492"
     },
     {
       "schemaVersion": 2,
@@ -1636,30 +1444,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "naturium-niacinamide-gel-cream-5-1-7oz",
-      "dossierFingerprint": "72bf0edcc0e07247a40a0fd1b6feb610348662898e468f3148e877ca7eea84e8",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Niacinamide Gel Cream 5% 1.7 oz",
-        "usage": "Apply a small amount to clean skin morning and night. Gently massage until absorbed. Suitable for all skin types.",
-        "manufacturerDirectionsUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T15:21:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T15:22:00Z"
-      },
-      "releaseFingerprint": "d2e8511657bebc4d9eed73221869c3da6aebf4db1f7024f8a99e2c0c80222e2e"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "naturium-purple-ginseng-cleansing-balm-3oz",
       "dossierFingerprint": "b658ee8efe6c766d030868cf416f4d23cee1a8845d1c239192943ad2b91ef016",
       "exposure": "public-catalogue",
@@ -1681,30 +1465,6 @@
         "publishedAt": "2026-08-07T15:22:00Z"
       },
       "releaseFingerprint": "28cd1b8683e632d83ffc352f75245d311f8f3e609782a24d9cf6fcecf2d4d168"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "naturium-retinaldehyde-cream-serum-0-10-1-7oz",
-      "dossierFingerprint": "f85ac542b472605fc914d6a54d53cefb21b7f524fbb29fdb886553818af3778a",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Retinaldehyde Cream Serum 0.10% 1.7 fl oz",
-        "usage": "Apply a pea-sized amount to clean dry skin in the evening. Start with 1-2 nights per week and gradually increase. Always follow with SPF during the day.",
-        "manufacturerDirectionsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-10",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T15:21:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T15:22:00Z"
-      },
-      "releaseFingerprint": "85a6f905a2ed7012f17dc7db7edd2c89bc10f4dc3a10cf181cd7a6a92bd14828"
     },
     {
       "schemaVersion": 2,
@@ -1756,30 +1516,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "cerave-foaming-facial-cleanser",
-      "dossierFingerprint": "0b3aa3379ec723751bdbe6bec6dc60e167769f23bf3905ef5d7cfa8f6d083b20",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Cleanse",
-        "displayLine": "Cleanse · balance",
-        "usage": "Massage onto damp skin, rinse, and avoid over-cleansing.",
-        "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T22:35:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T22:36:00Z"
-      },
-      "releaseFingerprint": "23a3b1e643ac6bac0d83df8bcd9c22fc859945b773e116c5f74ffd5e0cec5519"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
       "dossierFingerprint": "e81caf03f85a642edc5f7f2db2dc7207168e0b0450a457003284f96fa4eaff8b",
       "exposure": "public-catalogue",
@@ -1801,54 +1537,6 @@
         "publishedAt": "2026-08-07T22:46:00Z"
       },
       "releaseFingerprint": "b9ab64e7b624de6c89bce25113af9a0685ec6ed7e67e727008176604027ff134"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
-      "dossierFingerprint": "a23187da9e4dab9c0136e739a5e48fe9c68a15d1581eb0be07a476cb9892295e",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Moisturize",
-        "displayLine": "Hydrate · mattify",
-        "usage": "Apply after treatment steps morning or evening.",
-        "manufacturerDirectionsUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T22:50:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T22:51:00Z"
-      },
-      "releaseFingerprint": "29281dbc67a04d0bfd41a06cfee8aadfbadb8e95cd3c093cc57024ccc92ca53a"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "la-roche-posay-toleriane-double-repair-spf30",
-      "dossierFingerprint": "acb89dc9549f1cecd4f45c2b5002208530133c113813b82d0b5cbaee77c26ffe",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Protect",
-        "displayLine": "Repair · protect",
-        "usage": "Use every morning as moisturizer and sunscreen; reapply sunscreen as needed.",
-        "manufacturerDirectionsUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-facial-moisturizer-with-spf-3337875545846.html",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T22:53:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T22:54:00Z"
-      },
-      "releaseFingerprint": "ec0d425c9836d475a5922bc595df4e05c7006651e063e6fd0e20f3139ee358da"
     },
     {
       "schemaVersion": 2,
@@ -1948,30 +1636,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
-      "dossierFingerprint": "ce8698f39014649d1ea63bbb6b43c7b26dd942aa3483605335310366950ca15d",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Azelaic acid cream · 50 ml",
-        "usage": "Apply a thin layer to clean, dry skin in the evening. Start two nights a week and build as tolerated. Follow with moisturiser. Use SPF 30+ in the daytime. Avoid the eye area and stop if burning or a persistent rash develops.",
-        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-08T02:05:15Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-08T02:05:30Z"
-      },
-      "releaseFingerprint": "afd6e5ebdab120bbb9f94eed3ebe97e3d7ea46cfe529df25d7307d05fc36f340"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
       "dossierFingerprint": "4d77d33a1aed342660dbdf20e0c5da8db11814d6c9d870b40b9d0ed2f7523a90",
       "exposure": "public-catalogue",
@@ -2065,30 +1729,6 @@
         "publishedAt": "2026-08-08T02:52:20Z"
       },
       "releaseFingerprint": "d17179c6e1dc25457bd7d9d6a1dd1a4123ae4d1fd9c00513dc1c504d1aab2f1c"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "dang-azelaic-acid-serum-30ml",
-      "dossierFingerprint": "43d23b4a1b10d7143b9e9fa836fe422b5a97f8a892e375f72489ad97121aea6b",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Azelaic acid and niacinamide · 30 ml",
-        "usage": "Dispense 2–3 drops onto clean, dry skin and press over the face, neck and décolletage, avoiding the eye area. Follow with moisturiser and use SPF 30+ in the daytime. Begin three nights a week, then build as tolerated.",
-        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-08T02:57:10Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-08T02:57:20Z"
-      },
-      "releaseFingerprint": "0cfd946a8dd04594f3e82c579a2d82dce0a8a136e2159fd7f53d4da14280f600"
     },
     {
       "schemaVersion": 2,
@@ -3457,6 +3097,366 @@
         "publishedAt": "2026-08-09T18:37:00Z"
       },
       "releaseFingerprint": "5a4adcb5a3ef7500cd924e29e7ce954203d8992df1410919caffc57f0e1f0a4f"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "dossierFingerprint": "06f7c947a9ba6f9778a521fd2bc458ec77d00ccaf311eed8ba1ff84ec3de087f",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Vitamin C face serum",
+        "usage": "Apply a thin layer to clean face and neck in the morning. Follow with your favorite Advanced Clinicals face cream. Avoid using alongside retinol. Use vitamin C in the morning and retinol at night.",
+        "manufacturerDirectionsUrl": "https://advancedclinicals.com/products/vitamin-c-anti-aging-serum-1-75oz",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "ab3d40c14730175e3251a8746c4b8f26b9e501d12ace38155ecce5ec114a6c20"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cerave-foaming-facial-cleanser",
+      "dossierFingerprint": "c704fda8b6d38f1f0c42b1c46c82ec89572dd6ca2566a3cec18a788c30445e16",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Cleanse · balance",
+        "usage": "Massage onto damp skin, rinse, and avoid over-cleansing.",
+        "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "15ff2fd7ef00e761a179b728e2779b773e9528ee8d4e552a68dcd59fc35377f3"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "dang-azelaic-acid-serum-30ml",
+      "dossierFingerprint": "48012008aeac6b2c10e2af36f9a541df77bd27801f4b574223d45fdf8e6cc28a",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Azelaic acid and niacinamide · 30 ml",
+        "usage": "Dispense 2–3 drops onto clean, dry skin and press over the face, neck and décolletage, avoiding the eye area. Follow with moisturiser and use SPF 30+ in the daytime. Begin three nights a week, then build as tolerated.",
+        "manufacturerDirectionsUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "2886c21764a2f59bca5c545b5282e35ff4cd5c52e416e15ea593af07ad38f71d"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+      "dossierFingerprint": "285d554ee4c60f03c859aa95f0e0817f96102679018673ff5c674ebb96d295a7",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Vitamin C jelly cleanser · 150 ml",
+        "usage": "Massage onto damp skin morning or evening, working into a light lather, then rinse thoroughly, avoiding the eye area. Follow with your usual routine and SPF in the daytime.",
+        "manufacturerDirectionsUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "cf1df1cbdda8970ed8fe78cd88ed413d3f19f66ca2f43ebecdef78e15cbc2749"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "dossierFingerprint": "d837bdc56fd5ebad669c5604d9c799c2264e5069310553ae3fb50d03d89d68c6",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Hydrate · mattify",
+        "usage": "Apply after treatment steps morning or evening.",
+        "manufacturerDirectionsUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "1a3e6cbdee30b7990fff6886c812138ab28d057ac21b6ec031a12b3ec867e595"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "la-roche-posay-toleriane-double-repair-spf30",
+      "dossierFingerprint": "ab2761f093f36533f686b53f2763bc0b218a9f9d2974c183b56c1e2b117f7620",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Protect",
+        "displayLine": "Repair · protect",
+        "usage": "Use every morning as moisturizer and sunscreen; reapply sunscreen as needed.",
+        "manufacturerDirectionsUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-facial-moisturizer-with-spf-3337875545846.html",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "67ac032c3af2c6f99e37762f48bc7fff5d32c0b0360e1b0fca04a9f4efd1f31e"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-bio-lipid-restoring-body-lotion-14oz",
+      "dossierFingerprint": "35d0b062d7910e757e6b7a6246b915b9696e8dcce1c9d406b9f69006c35226a8",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Moisturize",
+        "displayLine": "Bio-Lipid Restoring Body Lotion 14 fl oz",
+        "usage": "Apply to clean dry skin morning and evening",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/bio-lipid-restoring-body-lotion",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "9b9fe5c4f8358fb7ce64767c29b97d9e201a890d4b0f9d72de1e004467dff0eb"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+      "dossierFingerprint": "c3b77f638e7232e9b9b73a989d91c803c0caaf79b223cecebfda8174e7f9afe4",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Body",
+        "routineStep": "Treat",
+        "displayLine": "The Glow Getter Multi-Oil Body Scrub 8 oz",
+        "usage": "Apply to damp skin in circular motions then rinse thoroughly. Use 2-3 times per week for smooth glowing skin.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "3dba80c3d44629d073d0b42c0b8db1116a6500cec83f052b282e71a216270ac6"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-niacinamide-gel-cream-5-1-7oz",
+      "dossierFingerprint": "43fa5b6666f7403ed0ea52d24a97f2f16f9fd703b451a75ad0c925fb18623e9f",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Niacinamide Gel Cream 5% 1.7 oz",
+        "usage": "Apply a small amount to clean skin morning and night. Gently massage until absorbed. Suitable for all skin types.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/niacinamide-gel-cream-5",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "275fdc63ec1ffc133005111483586a14dce0b9b2e6465e96290d7d7a3760fcc7"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
+      "dossierFingerprint": "e164d1445cf206d5f4b8d2614cd96bbc995ab436bc592d820db1cc52c0f2e928",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz",
+        "usage": "Apply a pea-sized amount to clean dry skin in the evening. Start with 2-3 nights per week and gradually increase. Always follow with SPF during the day.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "e4c74c4cc7de5b9a4a3ffb228c2b8e6c226cc2c1444235db8345605d3df509f1"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-retinaldehyde-cream-serum-0-10-1-7oz",
+      "dossierFingerprint": "1e1d3e62595f73af941cce3693de4e8f4f6ad3be3a559c1dd7d7a009619c048f",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Retinaldehyde Cream Serum 0.10% 1.7 fl oz",
+        "usage": "Apply a pea-sized amount to clean dry skin in the evening. Start with 1-2 nights per week and gradually increase. Always follow with SPF during the day.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-10",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "19df4826945958d4c3a5949e0dbff3c3290b7540296cfc92ea3e7a9fc12fe351"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+      "dossierFingerprint": "f757f7274f3c4e92252224eca7dc8203acb3c466a42b7f692a7d5239c3e6d93c",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Azelaic acid cream · 50 ml",
+        "usage": "Apply a thin layer to clean, dry skin in the evening. Start two nights a week and build as tolerated. Follow with moisturiser. Use SPF 30+ in the daytime. Avoid the eye area and stop if burning or a persistent rash develops.",
+        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:01:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:02:00Z"
+      },
+      "releaseFingerprint": "23e89c2af2e67974363251c928c43ee6266f2240dd1735fe43e110cc01c76f70"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
+      "dossierFingerprint": "5c5b4553f345d411287d2cb0e4a505fa62076da7d2b3435c2b8a54021b31a649",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Plant Ceramide Rich Moisture Cream 1.7 oz",
+        "usage": "Apply a small amount to clean skin morning and night. Gently massage until absorbed.",
+        "manufacturerDirectionsUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-09T20:12:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:13:00Z"
+      },
+      "releaseFingerprint": "ca20929edb51dbd56a352855274680747a84ae31373e8eb5fae61fdc7ac0df8b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+      "dossierFingerprint": "174845576643b296cf24d48866b343e40a6e38ec67b5470080089699a2995f35",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "10% benzoyl peroxide acne wash with aloe vera · 7 oz",
+        "usage": "Wet affected area, wash and rinse well. Use once or twice daily or as directed by your doctor. Start with once daily to assess skin tolerance. May cause dryness; follow with a moisturizer.",
+        "manufacturerDirectionsUrl": "https://replenix.com/products/bp-10-acne-wash-aloe-vera",
+        "reviewer": "Codex visual audit",
+        "reviewedAt": "2026-08-09T20:12:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:13:00Z"
+      },
+      "releaseFingerprint": "300e0602775760bbcf958501b7ecc0a727a1a705fe189edd99f51f089a915ebf"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "abib-clear-spot-serum-7-325-30ml",
+      "dossierFingerprint": "1a8b002c718a484f5d274024f1cf7aff7ac34cadb5e3c6d6714b5fa3267293e8",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Azelaic acid 7% + sea moss spot serum · 30 ml",
+        "usage": "Apply a small amount to clean, dry skin focusing on blemish-prone areas. Start with every other evening and build to daily as tolerated. Follow with moisturiser. Use SPF 30+ in the daytime. Avoid the eye area and discontinue if persistent irritation occurs.",
+        "manufacturerDirectionsUrl": "https://en.abib.com/products/clear-spot-serum-7-325-pump-option",
+        "reviewer": "Codex visual audit",
+        "reviewedAt": "2026-08-09T20:22:30Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-09T20:22:45Z"
+      },
+      "releaseFingerprint": "aa36a7afcd511ad88335ec2c3fce1b194369e6a0388811b008c4889841f444cb"
     }
   ]
 }

@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
-    "candidateFingerprint": "7b41aa0199eb7c22ea15554eabee3dc045fe04cbae38d1e65b486ff1876203fb",
+    "candidateFingerprint": "a66b8c39f838f0be94b75e23c48d02c7169f302a4ce5fbf943c4862698f8a912",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -121,26 +121,30 @@
       },
       "generationRecord": {
         "schemaVersion": 1,
-        "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
-        "model": "isnet-general-use",
-        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current Replenix BP 10% Acne Wash + Aloe Vera 7 oz bottle and the sole authority for product identity, package geometry, label layout, wording, colours, variant and size.\nPrimary request: Remove the background from Image 1 and place the exact product on a transparent 2000x2000 canvas, centered, upright, with generous even padding on all sides. Preserve the exact package shape, label text, colours, proportions, and all visible identity details including the Replenix brand, BP 10% Acne Wash + Aloe Vera variant, and 7 oz size.\nComposition: square; complete package visible; generous even clear margin on all sides; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: Image 1 overrides every assumption. Preserve the exact current package label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN.",
+        "provider": "JeloCare deterministic source-pixel alpha-only correction and transparent PNG encoding",
+        "model": "Sharp 0.34.3",
+        "prompt": "Use case: deterministic alpha-only correction. From the exact reviewed Replenix BP 10% Acne Wash + Aloe Vera 6.7 fl oz / 200 mL v2 packshot, remove only the retained cast shadow beneath the true cap base, then normalize the intact tube to 82% canvas height. Preserve every product RGB pixel, tube, cap, printed label, exact front size and geometry. No generation, label edits, redraw, props, reflection or crop.",
         "inputs": [
           {
             "url": "https://replenix.com/cdn/shop/products/Replenix__81130_Benzoyl_Peroxide_10_Acne_Wash_Aloe_Vera_Acne_2000x.jpg?v=1766513472",
             "sha256": "4a52244fa35fbcbdb5880d6a1ad365f773677def4b5cc8ba4ed2305e63eabbb6"
+          },
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/replenix/replenix-bp-10-acne-wash-aloe-vera-7oz/packshot-v2-8f07b80251fc6db8.png",
+            "sha256": "8f07b80251fc6db8946f3f0d34945864e3bb42fb6d632a62af1b2707e75d39e8"
           }
         ],
-        "outputSha256": "b017760fb6d638fecbd05ad1c8775abac7a080ec962f1fc62b0f5e1f050858a0",
-        "generatedAt": "2026-08-07T04:28:30Z",
-        "recordSha256": "7ebf62c31d76a6684961c5f064712ec69e4a7130a0d3a71e8bc5db47c6b2cb70"
+        "outputSha256": "384219249218df8bed92ac365b56fb0010eb57da423a854f31fceffc3e4b87df",
+        "generatedAt": "2026-08-09T20:09:00Z",
+        "recordSha256": "a084c616acb11c5872e77ba9921a5f43e25cb21295daa31106228136240dc4ae"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/replenix/replenix-bp-10-acne-wash-aloe-vera-7oz/packshot-v1-b017760fb6d638fe.png",
-      "sha256": "b017760fb6d638fecbd05ad1c8775abac7a080ec962f1fc62b0f5e1f050858a0",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/replenix/replenix-bp-10-acne-wash-aloe-vera-7oz/packshot-v3-384219249218df8b.png",
+      "sha256": "384219249218df8bed92ac365b56fb0010eb57da423a854f31fceffc3e4b87df",
       "mimeType": "image/png",
-      "byteSize": 454878,
+      "byteSize": 651147,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
@@ -149,20 +153,20 @@
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-08-07T04:28:30Z",
-      "reviewer": "Codex visual audit"
+      "reviewedAt": "2026-08-09T20:10:00Z",
+      "reviewer": "Codex full-catalogue media restoration recheck"
     },
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-07T04:29:00Z"
+      "approvedAt": "2026-08-09T20:11:00Z"
     },
-    "dossierFingerprint": "300e5c57ba3e766a8403222d61e629a860107a64841ba800b9e71a0462ee5a61"
+    "dossierFingerprint": "174845576643b296cf24d48866b343e40a6e38ec67b5470080089699a2995f35"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
-    "dossierFingerprint": "300e5c57ba3e766a8403222d61e629a860107a64841ba800b9e71a0462ee5a61",
+    "dossierFingerprint": "174845576643b296cf24d48866b343e40a6e38ec67b5470080089699a2995f35",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -174,13 +178,13 @@
       "usage": "Wet affected area, wash and rinse well. Use once or twice daily or as directed by your doctor. Start with once daily to assess skin tolerance. May cause dryness; follow with a moisturizer.",
       "manufacturerDirectionsUrl": "https://replenix.com/products/bp-10-acne-wash-aloe-vera",
       "reviewer": "Codex visual audit",
-      "reviewedAt": "2026-08-07T04:29:30Z"
+      "reviewedAt": "2026-08-09T20:12:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-07T04:30:00Z"
+      "publishedAt": "2026-08-09T20:13:00Z"
     },
-    "releaseFingerprint": "9d3bcf6cd1e3f5d2faba8fc9f091869a018c71cdf38c94eea5685dbabcda3e1f"
+    "releaseFingerprint": "300e0602775760bbcf958501b7ecc0a727a1a705fe189edd99f51f089a915ebf"
   }
 }

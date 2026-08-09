@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
-    "candidateFingerprint": "5df1f83a939e7d75038e37e15018b3f0234b2a7bee68c4c9bb033863cd5c1aab",
+    "candidateFingerprint": "27c49f92b1779c415a61a0286e4a7ea78892d7b0a7aad70afb6834fd352aacbf",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -327,36 +327,36 @@
       "status": "documented",
       "origin": "owned-identity-verified-render",
       "sourceAsset": {
-        "url": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/1.MainBanner.png?v=1781858601",
-        "sha256": "ad3ddcd096bb9bf995edd84914b192addd7f0431d3665897b570fae59d961c2e",
+        "url": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/2_f2126e7c-4b8a-42e8-b83e-90c55db8d27a.png?v=1782283483",
+        "sha256": "502ccf00c30909237973af84ffa2c3037d33bff49ed7dd60439cff70f199b430",
         "mimeType": "image/png",
-        "byteSize": 1549697,
-        "width": 1500,
-        "height": 1500,
-        "retrievedAt": "2026-08-06T23:25:05Z"
+        "byteSize": 167110,
+        "width": 900,
+        "height": 900,
+        "retrievedAt": "2026-08-08T21:13:20Z"
       },
       "generationRecord": {
         "schemaVersion": 1,
-        "provider": "JeloCare local rembg background removal and transparent 2000 px resize",
-        "model": "isnet-general-use",
-        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background preparation\nInput image: Image 1 is the exact current NINELESS A-Control Azelaic Acid Cream 50ml tube/pump pack and the sole authority for product identity, package geometry, label layout, wording, colours, variant and size.\nPrimary request: Remove the background from Image 1 and place the exact product on a transparent 2000x2000 canvas, centered, upright, with generous even padding on all sides. Preserve the exact package shape, label text, colours, proportions, and all visible identity details including the NINELESS brand, A-Control Azelaic Acid Cream title, and 50ml size.\nComposition: square; complete package visible; generous even clear margin on all sides; no clipping, tilt, duplicate, pedestal, floor, props, shadow or reflection.\nConstraints: Image 1 overrides every assumption. Preserve the exact current package label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN.",
+        "provider": "JeloCare reviewed local source-pixel background isolation and transparent PNG encoding",
+        "model": "isnet-general-use + Pillow 11.3.0",
+        "prompt": "Use case: precise-object-edit. Isolate the exact NINELESS A-Control Azelaic Acid Cream, exact 50 ml product from the retained identity-reviewed source onto a centered 2000 by 2000 transparent canvas. Preserve all connected package pixels, label, size, geometry and full silhouette. Remove only background/editorial decoration and detached residue; no generation, repainting, redraw, shadow, props or clipping.",
         "inputs": [
           {
-            "url": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/1.MainBanner.png?v=1781858601",
-            "sha256": "ad3ddcd096bb9bf995edd84914b192addd7f0431d3665897b570fae59d961c2e"
+            "url": "https://cdn.shopify.com/s/files/1/0614/5215/7184/files/2_f2126e7c-4b8a-42e8-b83e-90c55db8d27a.png?v=1782283483",
+            "sha256": "502ccf00c30909237973af84ffa2c3037d33bff49ed7dd60439cff70f199b430"
           }
         ],
-        "outputSha256": "8f5981be456a00c07a6ad8e30939cf0c1811fe4a1cdeb7eace364d7d228db3d6",
-        "generatedAt": "2026-08-06T23:45:31Z",
-        "recordSha256": "c8fe1ee9dd51fa35cce0f22d68e8738f1adf99bd4b4ab5aa0672a6e4d2db4f8b"
+        "outputSha256": "c9f45ea392074354061e973ee149c330e690838bc29121ef707ce0e132d89acb",
+        "generatedAt": "2026-08-09T19:58:00Z",
+        "recordSha256": "137e234ea4fa6a98bd6d71afeaa07cadc4cf1d94120b886096576e2675f8d7ad"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-a-control-azelaic-acid-cream-50ml/packshot-v1-8f5981be456a00c0.png",
-      "sha256": "8f5981be456a00c07a6ad8e30939cf0c1811fe4a1cdeb7eace364d7d228db3d6",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/nineless/nineless-a-control-azelaic-acid-cream-50ml/packshot-v2-c9f45ea392074354.png",
+      "sha256": "c9f45ea392074354061e973ee149c330e690838bc29121ef707ce0e132d89acb",
       "mimeType": "image/png",
-      "byteSize": 1080167,
+      "byteSize": 483959,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
@@ -365,20 +365,20 @@
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-08-06T23:46:15Z",
-      "reviewer": "Codex visual audit"
+      "reviewedAt": "2026-08-09T19:59:00Z",
+      "reviewer": "Codex full-catalogue media restoration review"
     },
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-08T02:05:00Z"
+      "approvedAt": "2026-08-09T20:00:00Z"
     },
-    "dossierFingerprint": "ce8698f39014649d1ea63bbb6b43c7b26dd942aa3483605335310366950ca15d"
+    "dossierFingerprint": "f757f7274f3c4e92252224eca7dc8203acb3c466a42b7f692a7d5239c3e6d93c"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
-    "dossierFingerprint": "ce8698f39014649d1ea63bbb6b43c7b26dd942aa3483605335310366950ca15d",
+    "dossierFingerprint": "f757f7274f3c4e92252224eca7dc8203acb3c466a42b7f692a7d5239c3e6d93c",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -390,13 +390,13 @@
       "usage": "Apply a thin layer to clean, dry skin in the evening. Start two nights a week and build as tolerated. Follow with moisturiser. Use SPF 30+ in the daytime. Avoid the eye area and stop if burning or a persistent rash develops.",
       "manufacturerDirectionsUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-08T02:05:15Z"
+      "reviewedAt": "2026-08-09T20:01:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-08T02:05:30Z"
+      "publishedAt": "2026-08-09T20:02:00Z"
     },
-    "releaseFingerprint": "afd6e5ebdab120bbb9f94eed3ebe97e3d7ea46cfe529df25d7307d05fc36f340"
+    "releaseFingerprint": "23e89c2af2e67974363251c928c43ee6266f2240dd1735fe43e110cc01c76f70"
   }
 }

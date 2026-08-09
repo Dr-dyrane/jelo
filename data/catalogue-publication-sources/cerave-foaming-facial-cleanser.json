@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "cerave-foaming-facial-cleanser",
-    "candidateFingerprint": "2c61fe77d7e8e72f1737f65062f8032fccac2e1b3cc4be79b8a6f6b7227a706b",
+    "candidateFingerprint": "afcf76e1c2ba2365087c2dc2bc74060e1c5ebfdc33bd6bf1520ab364484d3d74",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -93,109 +93,64 @@
     },
     "rights": {
       "status": "documented",
-      "origin": "official-brand-media",
-      "evidenceUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
+      "origin": "owned-identity-verified-render",
       "sourceAsset": {
-        "url": "https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/cleansers/CeraVe_FoamingCleanser_NEW_v021.png",
-        "sha256": "116a6994697044d6a1fe005db1f8c9c8ac3a3a741efad6137c22951fa0cea3c1",
-        "mimeType": "image/png",
-        "byteSize": 23374,
-        "width": 177,
-        "height": 400,
-        "retrievedAt": "2026-08-07T22:30:00Z"
+        "url": "https://www.alpropharmacy.com/cdn/shop/files/00606462_L_1.jpg?v=1783614087&width=1445",
+        "sha256": "26a50932f20950f93098282a2822b9754c4023ad3ce77477cc17207dc8cafbf7",
+        "mimeType": "image/jpeg",
+        "byteSize": 67403,
+        "width": 1000,
+        "height": 1000,
+        "retrievedAt": "2026-08-09T19:50:00Z"
       },
-      "isolationRecord": {
+      "generationRecord": {
         "schemaVersion": 1,
-        "candidateId": "cerave-foaming-facial-cleanser",
-        "publicationScope": "catalogue-publication",
-        "source": {
-          "url": "https://africa.cerave.com/en/-/media/Project/Loreal/BrandSites/CeraVe/Master/AfricaHub/English/Product/cleansers/CeraVe_FoamingCleanser_NEW_v021.png",
-          "sha256": "116a6994697044d6a1fe005db1f8c9c8ac3a3a741efad6137c22951fa0cea3c1",
-          "byteSize": 23374,
-          "width": 177,
-          "height": 400,
-          "retrievedAt": "2026-08-07T22:30:00Z"
-        },
-        "identity": {
-          "canonicalIdentifier": {
-            "kind": "gtin",
-            "value": "03337875597197"
+        "provider": "OpenAI built-in image generation plus JeloCare deterministic source-pixel compositing and transparent PNG encoding",
+        "model": "gpt-image-2 + Pillow 11.3.0",
+        "prompt": "Use case: precise-object-edit. Build a transparent catalogue packshot of the exact CeraVe Foaming Cleanser 236 ml bottle. The official CeraVe Arabia 236 ml pack proves the exact size and silhouette; the exact Alpro 236 ml source supplies the retained English front-label RGB pixels. Use image generation only for the clean bottle silhouette/matte, then composite the exact source pixels through that matte. Preserve the complete pump, shoulders, label, 236 ml size and bottle proportions. Remove the promotional disc, background and shadow. Do not invent, redraw or change packaging text, variant, size, barcode or geometry.",
+        "inputs": [
+          {
+            "url": "https://www.alpropharmacy.com/cdn/shop/files/00606462_L_1.jpg?v=1783614087&width=1445",
+            "sha256": "26a50932f20950f93098282a2822b9754c4023ad3ce77477cc17207dc8cafbf7"
           },
-          "officialProductUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser"
-        },
-        "processing": {
-          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-          "packageRgbOrigin": "identity-master-source-pixels-only",
-          "tool": "rembg alpha mask over source RGB pixels",
-          "model": "u2net",
-          "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
-          "provider": "CPUExecutionProvider",
-          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-        },
-        "audit": {
-          "sha256": "b0334a0752f800877ced0c84088ce0aeb25eb7f5766d7a74891c15853c0e1b6c",
-          "generatedAt": "2026-08-07T22:33:00Z",
-          "inferredComponentCount": 1,
-          "retainedComponentCount": 1,
-          "removedComponentCount": 0,
-          "removedForegroundFraction": 0,
-          "componentReviewRequired": false,
-          "sourceEdgeContactFraction": 0
-        },
-        "output": {
-          "sha256": "b0334a0752f800877ced0c84088ce0aeb25eb7f5766d7a74891c15853c0e1b6c",
-          "byteSize": 724267,
-          "mimeType": "image/png",
-          "width": 2000,
-          "height": 2000,
-          "hasAlpha": true
-        },
-        "review": {
-          "identityReviewedAt": "2026-08-07T22:34:00Z",
-          "identityReviewer": "JeloCare catalogue identity review",
-          "artReviewedAt": "2026-08-07T22:35:00Z",
-          "artReviewer": "Devin visual audit",
-          "surfaces": [
-            "peach",
-            "pink",
-            "dark"
-          ],
-          "surfaceReviewSha256": "97a57e012106a38faaf7f3824825f5f97a85d3191e4f49c31afefc836424d0f6",
-          "packagingIntact": true,
-          "labelVariantSizeUnchanged": true,
-          "magazineReady": true
-        }
+          {
+            "url": "https://www.ceravearabia.com/-/media/project/loreal/brand-sites/cerave/americas/gcc/scx/refresh-packshot/foaming_clenaser_236ml/in-fc-1-lg.webp?rev=-1",
+            "sha256": "9d6350ccdbfef910a79112e48047c98a4c92efbbd151b2cb2b973e1a67be82db"
+          }
+        ],
+        "outputSha256": "9997d844ef7cef928bc36682bf038bf44ad7ba2e589a461ac7019b74816a49d9",
+        "generatedAt": "2026-08-09T19:58:00Z",
+        "recordSha256": "df2ef401c82f8a27377efbf4ece72f5aea626e3dbd845b6ecd3589af36abad53"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-foaming-facial-cleanser/packshot-v2-b0334a0752f80087.png",
-      "sha256": "b0334a0752f800877ced0c84088ce0aeb25eb7f5766d7a74891c15853c0e1b6c",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cerave/cerave-foaming-facial-cleanser/packshot-v3-9997d844ef7cef92.png",
+      "sha256": "9997d844ef7cef928bc36682bf038bf44ad7ba2e589a461ac7019b74816a49d9",
       "mimeType": "image/png",
-      "byteSize": 724267,
+      "byteSize": 598827,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
-      "backgroundTreatment": "source-pixel-isolation",
+      "backgroundTreatment": "identity-verified-render",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-08-07T22:35:00Z",
-      "reviewer": "Devin visual audit"
+      "reviewedAt": "2026-08-09T19:59:00Z",
+      "reviewer": "Codex full-catalogue media restoration review"
     },
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-07T22:35:00Z"
+      "approvedAt": "2026-08-09T20:00:00Z"
     },
-    "dossierFingerprint": "0b3aa3379ec723751bdbe6bec6dc60e167769f23bf3905ef5d7cfa8f6d083b20"
+    "dossierFingerprint": "c704fda8b6d38f1f0c42b1c46c82ec89572dd6ca2566a3cec18a788c30445e16"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "cerave-foaming-facial-cleanser",
-    "dossierFingerprint": "0b3aa3379ec723751bdbe6bec6dc60e167769f23bf3905ef5d7cfa8f6d083b20",
+    "dossierFingerprint": "c704fda8b6d38f1f0c42b1c46c82ec89572dd6ca2566a3cec18a788c30445e16",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -207,13 +162,13 @@
       "usage": "Massage onto damp skin, rinse, and avoid over-cleansing.",
       "manufacturerDirectionsUrl": "https://africa.cerave.com/en/our-products/cleansers/foaming-cleanser",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-07T22:35:00Z"
+      "reviewedAt": "2026-08-09T20:01:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-07T22:36:00Z"
+      "publishedAt": "2026-08-09T20:02:00Z"
     },
-    "releaseFingerprint": "23a3b1e643ac6bac0d83df8bcd9c22fc859945b773e116c5f74ffd5e0cec5519"
+    "releaseFingerprint": "15ff2fd7ef00e761a179b728e2779b773e9528ee8d4e552a68dcd59fc35377f3"
   }
 }

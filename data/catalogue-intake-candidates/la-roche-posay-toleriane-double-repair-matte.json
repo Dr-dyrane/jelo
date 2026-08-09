@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-07T22:50:00Z",
+  "updatedAt": "2026-08-09T20:02:00Z",
   "origin": {
     "kind": "static-research-packet",
     "packetId": "ef1c1ca7e03335c12a915a82",
@@ -101,9 +101,8 @@
     },
     "asset": {
       "rightsStatus": "documented",
-      "origin": "official-brand-media",
+      "origin": "owned-identity-verified-render",
       "role": "packshot",
-      "rightsUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
       "sourceUrl": "https://www.laroche-posay.us/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-acd-laroche-posay-master-catalog/default/dw7cdd1101/product/March%202023%20packshot%20updates/Toleriane_DblRepairMoisturizer_Matte_Tube.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
       "sourceAssetSha256": "2bf4f269f4867b2fd2c791ff171a797ebb5efeed89f777fa28703b991b12f436",
       "sourceAssetMimeType": "image/jpeg",
@@ -111,20 +110,39 @@
       "sourceAssetWidth": 2000,
       "sourceAssetHeight": 2000,
       "sourceAssetRetrievedAt": "2026-08-07T22:49:00Z",
-      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot-v2-8e0de18b28f2ea4a.png",
-      "publicImageSha256": "8e0de18b28f2ea4ad414d18163a4351e329eab2461495a3d0040770546461074",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot-v3-78b804a306e10225.png",
+      "publicImageSha256": "78b804a306e10225ac4b37e641b8466b381a7678dbd9e339c8f7944b889389fa",
       "publicImageMimeType": "image/png",
-      "publicImageByteSize": 751090,
+      "publicImageByteSize": 482781,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
-      "backgroundTreatment": "source-pixel-isolation",
+      "backgroundTreatment": "identity-verified-render",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
-      "artReviewedAt": "2026-08-07T22:50:00Z",
-      "artReviewer": "Devin visual audit",
-      "presentationQuality": "magazine-ready"
+      "artReviewedAt": "2026-08-09T19:59:00Z",
+      "artReviewer": "Codex full-catalogue media restoration review",
+      "presentationQuality": "magazine-ready",
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "JeloCare deterministic source-pixel isolation, alpha cleanup and transparent PNG encoding",
+        "model": "Pillow 11.3.0",
+        "prompt": "Use case: deterministic media repair. Starting from the prior identity-reviewed public packshot for La Roche-Posay Toleriane Double Repair Matte Moisturizer, exact 75 ml, remove only detached shadow, floor, badge, smear or background residue and reframe the intact connected product to safe centered catalogue scale. Preserve all retained product RGB pixels, label, exact size, geometry and full silhouette. No generation, repainting, redraw, packaging change, props or clipping.",
+        "inputs": [
+          {
+            "url": "https://www.laroche-posay.us/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-acd-laroche-posay-master-catalog/default/dw7cdd1101/product/March%202023%20packshot%20updates/Toleriane_DblRepairMoisturizer_Matte_Tube.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
+            "sha256": "2bf4f269f4867b2fd2c791ff171a797ebb5efeed89f777fa28703b991b12f436"
+          },
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot-v2-8e0de18b28f2ea4a.png",
+            "sha256": "8e0de18b28f2ea4ad414d18163a4351e329eab2461495a3d0040770546461074"
+          }
+        ],
+        "outputSha256": "78b804a306e10225ac4b37e641b8466b381a7678dbd9e339c8f7944b889389fa",
+        "generatedAt": "2026-08-09T19:58:00Z",
+        "recordSha256": "2639786aaf796eb3d177ffbb7293422eafe216b55b1daba03e1058072c345a57"
+      }
     }
   }
 }

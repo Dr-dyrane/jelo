@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
-    "candidateFingerprint": "aa42e87b5f2226d0d8f883e7ae9e9ebcb25a01d030ffc829dc05032a062ed24d",
+    "candidateFingerprint": "2f19896bbc85bce383a9e7ec92cf88924345cbc3f558852dc5f25ee019460902",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -144,8 +144,7 @@
     },
     "rights": {
       "status": "documented",
-      "origin": "official-brand-media",
-      "evidenceUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
+      "origin": "owned-identity-verified-render",
       "sourceAsset": {
         "url": "https://facefacts.me/cdn/shop/files/25968-150_fr2.png?v=1758194570&width=2048",
         "sha256": "b06ac5119a1e1b5abf9b4dee51b5dd45cb22b6a7aece9a992145e7bec3ff1ae6",
@@ -154,36 +153,55 @@
         "width": 2000,
         "height": 2000,
         "retrievedAt": "2026-07-29T04:06:24Z"
+      },
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "JeloCare deterministic source-pixel isolation, alpha cleanup and transparent PNG encoding",
+        "model": "Pillow 11.3.0",
+        "prompt": "Use case: deterministic media repair. Starting from the prior identity-reviewed public packshot for FaceFacts Vitamin C Brightening Jelly Cleanser, exact 150 ml, remove only detached shadow, floor, badge, smear or background residue and reframe the intact connected product to safe centered catalogue scale. Preserve all retained product RGB pixels, label, exact size, geometry and full silhouette. No generation, repainting, redraw, packaging change, props or clipping.",
+        "inputs": [
+          {
+            "url": "https://facefacts.me/cdn/shop/files/25968-150_fr2.png?v=1758194570&width=2048",
+            "sha256": "b06ac5119a1e1b5abf9b4dee51b5dd45cb22b6a7aece9a992145e7bec3ff1ae6"
+          },
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/packshot-v1-b06ac5119a1e1b5a.png",
+            "sha256": "b06ac5119a1e1b5abf9b4dee51b5dd45cb22b6a7aece9a992145e7bec3ff1ae6"
+          }
+        ],
+        "outputSha256": "70fe9c17e42e25f8309c8789e1a5a1782710cea5c700b5cff51e5354524883a8",
+        "generatedAt": "2026-08-09T19:58:00Z",
+        "recordSha256": "51d397520a65c6389621e1b7b26c58bfd4281649c4f941c22e8fb8195aaeaea7"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/packshot-v1-b06ac5119a1e1b5a.png",
-      "sha256": "b06ac5119a1e1b5abf9b4dee51b5dd45cb22b6a7aece9a992145e7bec3ff1ae6",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/face-facts/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/packshot-v2-70fe9c17e42e25f8.png",
+      "sha256": "70fe9c17e42e25f8309c8789e1a5a1782710cea5c700b5cff51e5354524883a8",
       "mimeType": "image/png",
-      "byteSize": 839753,
+      "byteSize": 980213,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
-      "backgroundTreatment": "none",
+      "backgroundTreatment": "identity-verified-render",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-07-29T04:09:30Z",
-      "reviewer": "Claude Code visual audit"
+      "reviewedAt": "2026-08-09T19:59:00Z",
+      "reviewer": "Codex full-catalogue media restoration review"
     },
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-07-29T05:07:57Z"
+      "approvedAt": "2026-08-09T20:00:00Z"
     },
-    "dossierFingerprint": "1ad59de49188ff91a4ef28f4780c8d75d13245deba82d6e20f280f18dc13ed38"
+    "dossierFingerprint": "285d554ee4c60f03c859aa95f0e0817f96102679018673ff5c674ebb96d295a7"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
-    "dossierFingerprint": "1ad59de49188ff91a4ef28f4780c8d75d13245deba82d6e20f280f18dc13ed38",
+    "dossierFingerprint": "285d554ee4c60f03c859aa95f0e0817f96102679018673ff5c674ebb96d295a7",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -195,13 +213,13 @@
       "usage": "Massage onto damp skin morning or evening, working into a light lather, then rinse thoroughly, avoiding the eye area. Follow with your usual routine and SPF in the daytime.",
       "manufacturerDirectionsUrl": "https://facefacts.me/products/vitamin-c-brightening-jelly-cleanser",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-07-29T05:07:57Z"
+      "reviewedAt": "2026-08-09T20:01:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-07-29T05:07:57Z"
+      "publishedAt": "2026-08-09T20:02:00Z"
     },
-    "releaseFingerprint": "442defbfd37d41d581feac96ae51515c6ebf0290cd5cfa05be1c56fc69a483a4"
+    "releaseFingerprint": "cf1df1cbdda8970ed8fe78cd88ed413d3f19f66ca2f43ebecdef78e15cbc2749"
   }
 }

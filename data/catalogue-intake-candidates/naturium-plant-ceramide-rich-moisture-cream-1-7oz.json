@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-07T15:02:00Z",
+  "updatedAt": "2026-08-09T20:13:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "d34092980dce29db8a0a356b",
@@ -120,9 +120,8 @@
     },
     "asset": {
       "rightsStatus": "documented",
-      "origin": "official-brand-media",
+      "origin": "owned-identity-verified-render",
       "role": "packshot",
-      "rightsUrl": "https://naturium.com/products/plant-ceramide-rich-moisture-cream",
       "sourceUrl": "https://naturium.com/cdn/shop/files/NATR_Catalog_PCRM-Cream-CapOn.webp?v=1774292215&width=2048",
       "sourceAssetSha256": "e72708efef9c2d06e9d69297a682d8ad1b5f51719fc39533d7dd4a4641571516",
       "sourceAssetMimeType": "image/png",
@@ -131,19 +130,38 @@
       "sourceAssetHeight": 2000,
       "sourceAssetRetrievedAt": "2026-08-07T13:29:57Z",
       "packaging": "intact",
-      "backgroundTreatment": "source-pixel-isolation",
+      "backgroundTreatment": "identity-verified-render",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
-      "artReviewedAt": "2026-08-07T14:59:30Z",
-      "artReviewer": "Codex visual audit",
+      "artReviewedAt": "2026-08-09T20:10:00Z",
+      "artReviewer": "Codex full-catalogue media restoration recheck",
       "presentationQuality": "magazine-ready",
-      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-plant-ceramide-rich-moisture-cream-1-7oz/packshot-v1-0e5ae8f2962b1759.png",
-      "publicImageSha256": "0e5ae8f2962b175994efc0d53c5238f12ee57087a17f678f1aeb0d2895cae0ee",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-plant-ceramide-rich-moisture-cream-1-7oz/packshot-v3-b0885243c3c1319b.png",
+      "publicImageSha256": "b0885243c3c1319bfbd1da7d633b69f72b3fbe778fdfc1d496f036277819ec10",
       "publicImageMimeType": "image/png",
-      "publicImageByteSize": 489926,
+      "publicImageByteSize": 722796,
       "width": 2000,
-      "height": 2000
+      "height": 2000,
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "JeloCare deterministic source-pixel alpha-only correction and transparent PNG encoding",
+        "model": "Sharp 0.34.3",
+        "prompt": "Use case: deterministic alpha-only correction. From the exact reviewed Naturium Plant Ceramide Rich Moisture Cream 1.7 oz / 48 mL v2 packshot, remove only the reflected jar pixels below the true black jar base. Preserve every retained product RGB pixel, complete lid and jar, front label, size, geometry, centering and 82% width. No generation, label edits, redraw, shadow, props or crop.",
+        "inputs": [
+          {
+            "url": "https://naturium.com/cdn/shop/files/NATR_Catalog_PCRM-Cream-CapOn.webp?v=1774292215&width=2048",
+            "sha256": "e72708efef9c2d06e9d69297a682d8ad1b5f51719fc39533d7dd4a4641571516"
+          },
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-plant-ceramide-rich-moisture-cream-1-7oz/packshot-v2-428395883686489b.png",
+            "sha256": "428395883686489bc17b133790b3205eeffd789af677f1d535d532168798be7e"
+          }
+        ],
+        "outputSha256": "b0885243c3c1319bfbd1da7d633b69f72b3fbe778fdfc1d496f036277819ec10",
+        "generatedAt": "2026-08-09T20:09:00Z",
+        "recordSha256": "36cb01d937a11c7b6d18c79b60c9eb4d1aae67dee748da1d50b1db6a9124eda3"
+      }
     }
   }
 }

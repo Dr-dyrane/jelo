@@ -20,21 +20,21 @@
   },
   "cosrx-salicylic-acid-daily-gentle-cleanser": {
     "sourceUrl": "https://www.cosrx.co.kr/shopimages/cosrx/019000000580.jpg?1688373373",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cosrx/cosrx-salicylic-acid-daily-gentle-cleanser/packshot-v2.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cosrx/cosrx-salicylic-acid-daily-gentle-cleanser/packshot-v3.png",
     "contentType": "image/png",
-    "byteSize": 164146,
-    "importedAt": "2026-07-22T11:57:54.000Z",
-    "width": 1000,
-    "height": 1000,
+    "byteSize": 366827,
+    "importedAt": "2026-08-09T20:02:00Z",
+    "width": 2000,
+    "height": 2000,
     "hasAlpha": true,
-    "contentHash": "0944847bfbcf0a8d57fed34a05c6f76a2fe79e1876e2833e326e49d75cf0519b",
+    "contentHash": "4d3620eb731dc444e4504fcf0096dbd937cc8c4986d93cb4e1192bcee12de329",
     "derivation": {
-      "kind": "source-preserving-trim-and-centre",
-      "tool": "Sharp",
-      "localPath": "/products/cosrx/cosrx-salicylic-acid-daily-gentle-cleanser-transparent-v2.png",
+      "kind": "source-preserving-alpha-cleanup-and-centre",
+      "tool": "Pillow 11.3.0",
+      "localPath": "/products/cosrx/cosrx-salicylic-acid-daily-gentle-cleanser/packshot-v3.png",
       "sourceCompared": true,
       "reviewer": "Codex visual audit",
-      "reviewedAt": "2026-07-22T11:57:54.000Z"
+      "reviewedAt": "2026-08-09T19:59:00Z"
     }
   },
   "some-by-mi-aha-bha-pha-miracle-toner": {
@@ -209,21 +209,21 @@
   },
   "the-ordinary-azelaic-acid-suspension-10": {
     "sourceUrl": "https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw711cec9a/Images/products/The%20Ordinary/rdn-azelaic-acid-suspension-10pct-30ml.png?sw=1200&sh=1200&sm=fit",
-    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/the-ordinary/the-ordinary-azelaic-acid-suspension-10/packshot-v2.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/the-ordinary/the-ordinary-azelaic-acid-suspension-10/packshot-v3.png",
     "contentType": "image/png",
-    "byteSize": 266162,
-    "importedAt": "2026-07-22T20:09:49Z",
-    "width": 1200,
-    "height": 1200,
+    "byteSize": 1361825,
+    "importedAt": "2026-08-09T20:13:00Z",
+    "width": 2000,
+    "height": 2000,
     "hasAlpha": true,
-    "contentHash": "c5403d6e8e094b8a8c4cffd681c31edefad65fa3350854bf623f726048739e79",
+    "contentHash": "4de3dcc4e8b15336f3e7254f36157f65fcc47b3aa27aed87f384267a39d983df",
     "derivation": {
-      "kind": "official-transparent-source",
-      "tool": "Manufacturer delivery",
-      "localPath": "/products/the-ordinary/the-ordinary-azelaic-acid-suspension-10-transparent-v2.png",
+      "kind": "identity-verified-render-shadow-removal",
+      "tool": "OpenAI built-in image generation, isnet-general-use alpha isolation, Sharp transparent normalization",
+      "localPath": "/products/the-ordinary/the-ordinary-azelaic-acid-suspension-10/packshot-v3.png",
       "sourceCompared": true,
       "reviewer": "Codex visual audit",
-      "reviewedAt": "2026-07-22T20:09:49Z"
+      "reviewedAt": "2026-08-09T20:10:00Z"
     }
   },
   "panoxyl-acne-foaming-wash-10-benzoyl-peroxide": {

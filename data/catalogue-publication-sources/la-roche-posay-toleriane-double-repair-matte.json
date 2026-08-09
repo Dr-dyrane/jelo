@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "la-roche-posay-toleriane-double-repair-matte",
-    "candidateFingerprint": "7eb58bb08c1223472ec3ff1ee1d04cbfd98e04f7984e4605dd9157ddaefb5089",
+    "candidateFingerprint": "4f160d2e89e3b6c626e478de11c47d5b419c953814674d45ad3a8ed7be23880b",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -97,8 +97,7 @@
     },
     "rights": {
       "status": "documented",
-      "origin": "official-brand-media",
-      "evidenceUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
+      "origin": "owned-identity-verified-render",
       "sourceAsset": {
         "url": "https://www.laroche-posay.us/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-acd-laroche-posay-master-catalog/default/dw7cdd1101/product/March%202023%20packshot%20updates/Toleriane_DblRepairMoisturizer_Matte_Tube.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
         "sha256": "2bf4f269f4867b2fd2c791ff171a797ebb5efeed89f777fa28703b991b12f436",
@@ -108,98 +107,54 @@
         "height": 2000,
         "retrievedAt": "2026-08-07T22:49:00Z"
       },
-      "isolationRecord": {
+      "generationRecord": {
         "schemaVersion": 1,
-        "candidateId": "la-roche-posay-toleriane-double-repair-matte",
-        "publicationScope": "catalogue-publication",
-        "source": {
-          "url": "https://www.laroche-posay.us/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-acd-laroche-posay-master-catalog/default/dw7cdd1101/product/March%202023%20packshot%20updates/Toleriane_DblRepairMoisturizer_Matte_Tube.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
-          "sha256": "2bf4f269f4867b2fd2c791ff171a797ebb5efeed89f777fa28703b991b12f436",
-          "byteSize": 130323,
-          "width": 2000,
-          "height": 2000,
-          "retrievedAt": "2026-08-07T22:49:00Z"
-        },
-        "identity": {
-          "canonicalIdentifier": {
-            "kind": "gtin",
-            "value": "03337875782999"
+        "provider": "JeloCare deterministic source-pixel isolation, alpha cleanup and transparent PNG encoding",
+        "model": "Pillow 11.3.0",
+        "prompt": "Use case: deterministic media repair. Starting from the prior identity-reviewed public packshot for La Roche-Posay Toleriane Double Repair Matte Moisturizer, exact 75 ml, remove only detached shadow, floor, badge, smear or background residue and reframe the intact connected product to safe centered catalogue scale. Preserve all retained product RGB pixels, label, exact size, geometry and full silhouette. No generation, repainting, redraw, packaging change, props or clipping.",
+        "inputs": [
+          {
+            "url": "https://www.laroche-posay.us/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-acd-laroche-posay-master-catalog/default/dw7cdd1101/product/March%202023%20packshot%20updates/Toleriane_DblRepairMoisturizer_Matte_Tube.jpg?sw=2000&sh=2000&sm=cut&sfrm=jpg&q=95",
+            "sha256": "2bf4f269f4867b2fd2c791ff171a797ebb5efeed89f777fa28703b991b12f436"
           },
-          "officialProductUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html"
-        },
-        "processing": {
-          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-          "packageRgbOrigin": "identity-master-source-pixels-only",
-          "tool": "rembg alpha mask over source RGB pixels",
-          "model": "u2net",
-          "modelSha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491",
-          "provider": "CPUExecutionProvider",
-          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-        },
-        "audit": {
-          "sha256": "8e0de18b28f2ea4ad414d18163a4351e329eab2461495a3d0040770546461074",
-          "generatedAt": "2026-08-07T22:49:30Z",
-          "inferredComponentCount": 1,
-          "retainedComponentCount": 1,
-          "removedComponentCount": 0,
-          "removedForegroundFraction": 0,
-          "componentReviewRequired": false,
-          "sourceEdgeContactFraction": 0
-        },
-        "output": {
-          "sha256": "8e0de18b28f2ea4ad414d18163a4351e329eab2461495a3d0040770546461074",
-          "byteSize": 751090,
-          "mimeType": "image/png",
-          "width": 2000,
-          "height": 2000,
-          "hasAlpha": true
-        },
-        "review": {
-          "identityReviewedAt": "2026-08-07T22:49:45Z",
-          "identityReviewer": "JeloCare catalogue identity review",
-          "artReviewedAt": "2026-08-07T22:50:00Z",
-          "artReviewer": "Devin visual audit",
-          "surfaces": [
-            "peach",
-            "pink",
-            "dark"
-          ],
-          "surfaceReviewSha256": "cd40bbcf0de2fa04f4a2626e1ee19ec3143e959e143c1521c809d18557d84891",
-          "packagingIntact": true,
-          "labelVariantSizeUnchanged": true,
-          "magazineReady": true
-        }
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot-v2-8e0de18b28f2ea4a.png",
+            "sha256": "8e0de18b28f2ea4ad414d18163a4351e329eab2461495a3d0040770546461074"
+          }
+        ],
+        "outputSha256": "78b804a306e10225ac4b37e641b8466b381a7678dbd9e339c8f7944b889389fa",
+        "generatedAt": "2026-08-09T19:58:00Z",
+        "recordSha256": "2639786aaf796eb3d177ffbb7293422eafe216b55b1daba03e1058072c345a57"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot-v2-8e0de18b28f2ea4a.png",
-      "sha256": "8e0de18b28f2ea4ad414d18163a4351e329eab2461495a3d0040770546461074",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/la-roche-posay/la-roche-posay-toleriane-double-repair-matte/packshot-v3-78b804a306e10225.png",
+      "sha256": "78b804a306e10225ac4b37e641b8466b381a7678dbd9e339c8f7944b889389fa",
       "mimeType": "image/png",
-      "byteSize": 751090,
+      "byteSize": 482781,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
-      "backgroundTreatment": "source-pixel-isolation",
+      "backgroundTreatment": "identity-verified-render",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-08-07T22:50:00Z",
-      "reviewer": "Devin visual audit"
+      "reviewedAt": "2026-08-09T19:59:00Z",
+      "reviewer": "Codex full-catalogue media restoration review"
     },
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-07T22:50:00Z"
+      "approvedAt": "2026-08-09T20:00:00Z"
     },
-    "dossierFingerprint": "a23187da9e4dab9c0136e739a5e48fe9c68a15d1581eb0be07a476cb9892295e"
+    "dossierFingerprint": "d837bdc56fd5ebad669c5604d9c799c2264e5069310553ae3fb50d03d89d68c6"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "la-roche-posay-toleriane-double-repair-matte",
-    "dossierFingerprint": "a23187da9e4dab9c0136e739a5e48fe9c68a15d1581eb0be07a476cb9892295e",
+    "dossierFingerprint": "d837bdc56fd5ebad669c5604d9c799c2264e5069310553ae3fb50d03d89d68c6",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -211,13 +166,13 @@
       "usage": "Apply after treatment steps morning or evening.",
       "manufacturerDirectionsUrl": "https://www.laroche-posay.us/our-products/face/face-moisturizer/toleriane-double-repair-matte-face-moisturizer-for-oily-skin-3337875782999.html",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-07T22:50:00Z"
+      "reviewedAt": "2026-08-09T20:01:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-07T22:51:00Z"
+      "publishedAt": "2026-08-09T20:02:00Z"
     },
-    "releaseFingerprint": "29281dbc67a04d0bfd41a06cfee8aadfbadb8e95cd3c093cc57024ccc92ca53a"
+    "releaseFingerprint": "1a3e6cbdee30b7990fff6886c812138ab28d057ac21b6ec031a12b3ec867e595"
   }
 }

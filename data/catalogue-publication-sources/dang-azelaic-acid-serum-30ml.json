@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "dang-azelaic-acid-serum-30ml",
-    "candidateFingerprint": "e618242916a475c0cd1f606f51822b38b3b68508c8506c4db6bace398b0065a4",
+    "candidateFingerprint": "187599105b4ade19a155837595de7c86738e44137d3f9c2f57294aa5b9706f6c",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -233,26 +233,30 @@
       },
       "generationRecord": {
         "schemaVersion": 1,
-        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
-        "model": "gpt-image-2",
-        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background removal\nInput image: Image 1 is the exact current DANG Azelaic Acid Serum 30ml pack and the sole authority for product identity, bottle geometry, dropper, label layout, wording, colours, variant and size. The carton in Image 1 is identity reference only and must not appear in the output.\nPrimary request: recreate only the exact single serum bottle shown to the right of Image 1. Produce one complete upright deep warm-red 30 ml glass bottle, centered, perfectly front-facing, crisp, photorealistic and premium catalogue quality. Preserve its softly rounded rectangular body, fine metallic texture, salmon-red screw collar, complete glossy salmon-red dropper bulb, white Dang! mark, AZELAIC ACID SERUM title, supporting claim, ingredient line and exact printed size. Do not create a carton, barcode or additional package.\nText, verbatim where visible on the bottle: “Dang!”; “AZELAIC ACID”; “SERUM”; “Visibly Fade Pigmentation, Acne Control”; “Azelaic Acid. Niacinamide. Purslane Extract. Licorice Root Extract.”; “30ml”.\nComposition: square; full dropper tip, collar, bottle shoulders and complete rounded bottle base visible; generous even clear margin on all sides; product occupies about 66% of canvas height; no clipping, tilt, duplicate, carton, pedestal, floor, props, shadow or reflection.\nLighting: soft clean frontal product light contained on the bottle, with subtle edge definition and faithful warm-red material.\nScene/backdrop: perfectly flat uniform solid #ff00ff chroma-magenta for local removal, with no gradient, texture, vignette, spill, floor plane or lighting variation.\nConstraints: Image 1 overrides every generated assumption. Preserve the exact current bottle label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN. Use no #ff00ff anywhere on the product. The previously rejected render with an altered carton barcode is not an input and must never be reused.",
+        "provider": "JeloCare deterministic source-pixel isolation, alpha cleanup and transparent PNG encoding",
+        "model": "Pillow 11.3.0",
+        "prompt": "Use case: deterministic media repair. Starting from the prior identity-reviewed public packshot for DANG Azelaic Acid Serum, exact 30 ml, remove only detached shadow, floor, badge, smear or background residue and reframe the intact connected product to safe centered catalogue scale. Preserve all retained product RGB pixels, label, exact size, geometry and full silhouette. No generation, repainting, redraw, packaging change, props or clipping.",
         "inputs": [
           {
             "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/azelaic-acid-pigmentationacne-control-30ml-114853.jpg?v=1783591062",
             "sha256": "9e67f794d3ed1f69ef027201c29a6caf418603f1d7209c1c73ee316efc52dd6a"
+          },
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang/dang-azelaic-acid-serum-30ml/packshot-v1-b30b887a07133d28.png",
+            "sha256": "b30b887a07133d289ecb630a1c90b810a7f6510cf406d46827fafbb306f39372"
           }
         ],
-        "outputSha256": "b30b887a07133d289ecb630a1c90b810a7f6510cf406d46827fafbb306f39372",
-        "generatedAt": "2026-07-26T19:11:17Z",
-        "recordSha256": "c955b7bc837f8c0b4b963e6aa6f3d30aad42b63870a63a37468409ecf7f37efb"
+        "outputSha256": "4042aa08f87c067d2d930d05f0f631f9175eb7e40beac8f112bf5c264f234b33",
+        "generatedAt": "2026-08-09T19:58:00Z",
+        "recordSha256": "d5520b18ba1101349330c5732e9171651d2cbb6f3cad2099275f611961697773"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang/dang-azelaic-acid-serum-30ml/packshot-v1-b30b887a07133d28.png",
-      "sha256": "b30b887a07133d289ecb630a1c90b810a7f6510cf406d46827fafbb306f39372",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang/dang-azelaic-acid-serum-30ml/packshot-v2-4042aa08f87c067d.png",
+      "sha256": "4042aa08f87c067d2d930d05f0f631f9175eb7e40beac8f112bf5c264f234b33",
       "mimeType": "image/png",
-      "byteSize": 1745200,
+      "byteSize": 1521368,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
@@ -261,20 +265,20 @@
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-07-26T19:47:16Z",
-      "reviewer": "Codex visual audit"
+      "reviewedAt": "2026-08-09T19:59:00Z",
+      "reviewer": "Codex full-catalogue media restoration review"
     },
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-08T02:57:00Z"
+      "approvedAt": "2026-08-09T20:00:00Z"
     },
-    "dossierFingerprint": "43d23b4a1b10d7143b9e9fa836fe422b5a97f8a892e375f72489ad97121aea6b"
+    "dossierFingerprint": "48012008aeac6b2c10e2af36f9a541df77bd27801f4b574223d45fdf8e6cc28a"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "dang-azelaic-acid-serum-30ml",
-    "dossierFingerprint": "43d23b4a1b10d7143b9e9fa836fe422b5a97f8a892e375f72489ad97121aea6b",
+    "dossierFingerprint": "48012008aeac6b2c10e2af36f9a541df77bd27801f4b574223d45fdf8e6cc28a",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -286,13 +290,13 @@
       "usage": "Dispense 2–3 drops onto clean, dry skin and press over the face, neck and décolletage, avoiding the eye area. Follow with moisturiser and use SPF 30+ in the daytime. Begin three nights a week, then build as tolerated.",
       "manufacturerDirectionsUrl": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-08T02:57:10Z"
+      "reviewedAt": "2026-08-09T20:01:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-08T02:57:20Z"
+      "publishedAt": "2026-08-09T20:02:00Z"
     },
-    "releaseFingerprint": "0cfd946a8dd04594f3e82c579a2d82dce0a8a136e2159fd7f53d4da14280f600"
+    "releaseFingerprint": "2886c21764a2f59bca5c545b5282e35ff4cd5c52e416e15ea593af07ad38f71d"
   }
 }

@@ -73,15 +73,19 @@ test('owned renders retain tamper-evident generation records', () => {
   }
 });
 
-test('the DANG record preserves the bottle-only rejected-carton safety rule', () => {
+test('the DANG repair stays bound to the approved bottle-only input and forbids props', () => {
   const candidate = catalogueIntakeCandidates.find(item => (
     item.id === 'dang-azelaic-acid-serum-30ml'
   ));
   assert.ok(candidate);
-  const prompt = candidate.asset.generationRecord?.prompt ?? '';
-  assert.match(prompt, /single serum bottle/i);
-  assert.match(prompt, /carton.*must not appear/i);
-  assert.match(prompt, /previously rejected render.*must never be reused/i);
+  const generation = candidate.asset.generationRecord;
+  assert.ok(generation);
+  assert.match(generation.prompt, /prior identity-reviewed public packshot/i);
+  assert.match(generation.prompt, /intact connected product/i);
+  assert.match(generation.prompt, /no generation.*props/i);
+  assert.ok(generation.inputs.some(input => (
+    input.sha256 === 'b30b887a07133d289ecb630a1c90b810a7f6510cf406d46827fafbb306f39372'
+  )));
 });
 
 test('the empty plan still fails closed on schema or future-time drift', () => {

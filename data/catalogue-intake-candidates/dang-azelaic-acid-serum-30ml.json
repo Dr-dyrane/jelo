@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-08T02:55:58Z",
+  "updatedAt": "2026-08-09T20:02:00Z",
   "order": 32,
   "origin": {
     "kind": "legacy-deliberate-intake",
@@ -291,23 +291,27 @@
       "sourceAssetRetrievedAt": "2026-07-26T14:50:00Z",
       "generationRecord": {
         "schemaVersion": 1,
-        "provider": "OpenAI built-in image generation; JeloCare local chroma-key removal and transparent 2000 px resize",
-        "model": "gpt-image-2",
-        "prompt": "Use case: precise-object-edit\nAsset type: JeloCare catalogue packshot source for transparent-background removal\nInput image: Image 1 is the exact current DANG Azelaic Acid Serum 30ml pack and the sole authority for product identity, bottle geometry, dropper, label layout, wording, colours, variant and size. The carton in Image 1 is identity reference only and must not appear in the output.\nPrimary request: recreate only the exact single serum bottle shown to the right of Image 1. Produce one complete upright deep warm-red 30 ml glass bottle, centered, perfectly front-facing, crisp, photorealistic and premium catalogue quality. Preserve its softly rounded rectangular body, fine metallic texture, salmon-red screw collar, complete glossy salmon-red dropper bulb, white Dang! mark, AZELAIC ACID SERUM title, supporting claim, ingredient line and exact printed size. Do not create a carton, barcode or additional package.\nText, verbatim where visible on the bottle: “Dang!”; “AZELAIC ACID”; “SERUM”; “Visibly Fade Pigmentation, Acne Control”; “Azelaic Acid. Niacinamide. Purslane Extract. Licorice Root Extract.”; “30ml”.\nComposition: square; full dropper tip, collar, bottle shoulders and complete rounded bottle base visible; generous even clear margin on all sides; product occupies about 66% of canvas height; no clipping, tilt, duplicate, carton, pedestal, floor, props, shadow or reflection.\nLighting: soft clean frontal product light contained on the bottle, with subtle edge definition and faithful warm-red material.\nScene/backdrop: perfectly flat uniform solid #ff00ff chroma-magenta for local removal, with no gradient, texture, vignette, spill, floor plane or lighting variation.\nConstraints: Image 1 overrides every generated assumption. Preserve the exact current bottle label, printed size, package geometry and colour placement. Do not invent or alter any text, barcode or GTIN. Use no #ff00ff anywhere on the product. The previously rejected render with an altered carton barcode is not an input and must never be reused.",
+        "provider": "JeloCare deterministic source-pixel isolation, alpha cleanup and transparent PNG encoding",
+        "model": "Pillow 11.3.0",
+        "prompt": "Use case: deterministic media repair. Starting from the prior identity-reviewed public packshot for DANG Azelaic Acid Serum, exact 30 ml, remove only detached shadow, floor, badge, smear or background residue and reframe the intact connected product to safe centered catalogue scale. Preserve all retained product RGB pixels, label, exact size, geometry and full silhouette. No generation, repainting, redraw, packaging change, props or clipping.",
         "inputs": [
           {
             "url": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/azelaic-acid-pigmentationacne-control-30ml-114853.jpg?v=1783591062",
             "sha256": "9e67f794d3ed1f69ef027201c29a6caf418603f1d7209c1c73ee316efc52dd6a"
+          },
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang/dang-azelaic-acid-serum-30ml/packshot-v1-b30b887a07133d28.png",
+            "sha256": "b30b887a07133d289ecb630a1c90b810a7f6510cf406d46827fafbb306f39372"
           }
         ],
-        "outputSha256": "b30b887a07133d289ecb630a1c90b810a7f6510cf406d46827fafbb306f39372",
-        "generatedAt": "2026-07-26T19:11:17Z",
-        "recordSha256": "c955b7bc837f8c0b4b963e6aa6f3d30aad42b63870a63a37468409ecf7f37efb"
+        "outputSha256": "4042aa08f87c067d2d930d05f0f631f9175eb7e40beac8f112bf5c264f234b33",
+        "generatedAt": "2026-08-09T19:58:00Z",
+        "recordSha256": "d5520b18ba1101349330c5732e9171651d2cbb6f3cad2099275f611961697773"
       },
-      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang/dang-azelaic-acid-serum-30ml/packshot-v1-b30b887a07133d28.png",
-      "publicImageSha256": "b30b887a07133d289ecb630a1c90b810a7f6510cf406d46827fafbb306f39372",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/dang/dang-azelaic-acid-serum-30ml/packshot-v2-4042aa08f87c067d.png",
+      "publicImageSha256": "4042aa08f87c067d2d930d05f0f631f9175eb7e40beac8f112bf5c264f234b33",
       "publicImageMimeType": "image/png",
-      "publicImageByteSize": 1745200,
+      "publicImageByteSize": 1521368,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
@@ -315,8 +319,8 @@
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
-      "artReviewedAt": "2026-07-26T19:47:16Z",
-      "artReviewer": "Codex visual audit",
+      "artReviewedAt": "2026-08-09T19:59:00Z",
+      "artReviewer": "Codex full-catalogue media restoration review",
       "presentationQuality": "magazine-ready"
     }
   }

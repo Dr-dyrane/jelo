@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
-    "candidateFingerprint": "ced3c501571dd12994e1c0d50dbe15551a59a6413e39aadc9b94aae6b70ea879",
+    "candidateFingerprint": "304e20c80802fca6ec868282399c4c676465cab5db17a30dfd650182991fe3a0",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -110,8 +110,7 @@
     },
     "rights": {
       "status": "documented",
-      "origin": "official-brand-media",
-      "evidenceUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
+      "origin": "owned-identity-verified-render",
       "sourceAsset": {
         "url": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
         "sha256": "120384888c3a93ece78f25de793e0637f653c3ef80ed148a0adc9642afbef6f4",
@@ -121,98 +120,54 @@
         "height": 2000,
         "retrievedAt": "2026-08-07T12:58:41Z"
       },
-      "isolationRecord": {
+      "generationRecord": {
         "schemaVersion": 1,
-        "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
-        "publicationScope": "catalogue-publication",
-        "source": {
-          "url": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
-          "sha256": "120384888c3a93ece78f25de793e0637f653c3ef80ed148a0adc9642afbef6f4",
-          "byteSize": 526200,
-          "width": 2000,
-          "height": 2000,
-          "retrievedAt": "2026-08-07T12:58:41Z"
-        },
-        "identity": {
-          "canonicalIdentifier": {
-            "kind": "gtin",
-            "value": "00810120263076"
+        "provider": "JeloCare deterministic source-pixel isolation, alpha cleanup and transparent PNG encoding",
+        "model": "Pillow 11.3.0",
+        "prompt": "Use case: deterministic media repair. Starting from the prior identity-reviewed public packshot for Naturium The Glow Getter Multi-Oil Body Scrub, exact 8 oz / 226 mL, remove only detached shadow, floor, badge, smear or background residue and reframe the intact connected product to safe centered catalogue scale. Preserve all retained product RGB pixels, label, exact size, geometry and full silhouette. No generation, repainting, redraw, packaging change, props or clipping.",
+        "inputs": [
+          {
+            "url": "https://naturium.com/cdn/shop/files/NATR-40028-GlowGetter-Multi-Oil-Body-Scrub-Front-CapOn-bonebkgd.webp?v=1773876363&width=2048",
+            "sha256": "120384888c3a93ece78f25de793e0637f653c3ef80ed148a0adc9642afbef6f4"
           },
-          "officialProductUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub"
-        },
-        "processing": {
-          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-          "packageRgbOrigin": "identity-master-source-pixels-only",
-          "tool": "rembg alpha mask over source RGB pixels",
-          "model": "isnet-general-use",
-          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-          "provider": "CPUExecutionProvider",
-          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-        },
-        "audit": {
-          "sha256": "5454bb6022caebf29c6e9f509a3120c6a34ad82a7a6d93084df221a700c4e2b1",
-          "generatedAt": "2026-08-07T15:15:00Z",
-          "inferredComponentCount": 2,
-          "retainedComponentCount": 2,
-          "removedComponentCount": 0,
-          "removedForegroundFraction": 0,
-          "componentReviewRequired": false,
-          "sourceEdgeContactFraction": 0
-        },
-        "output": {
-          "sha256": "5454bb6022caebf29c6e9f509a3120c6a34ad82a7a6d93084df221a700c4e2b1",
-          "byteSize": 860792,
-          "mimeType": "image/png",
-          "width": 2000,
-          "height": 2000,
-          "hasAlpha": true
-        },
-        "review": {
-          "identityReviewedAt": "2026-08-07T15:15:00Z",
-          "identityReviewer": "JeloCare catalogue identity review",
-          "artReviewedAt": "2026-08-07T15:15:00Z",
-          "artReviewer": "Codex visual audit",
-          "surfaceReviewSha256": "953991471d63fa757ec3fcdc5eef2cd966f058e8f5f5b3fb195f6f436c6f4ade",
-          "surfaces": [
-            "peach",
-            "pink",
-            "dark"
-          ],
-          "packagingIntact": true,
-          "labelVariantSizeUnchanged": true,
-          "magazineReady": true
-        }
+          {
+            "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-multi-oil-body-scrub-8oz/packshot-v1-5454bb6022caebf2.png",
+            "sha256": "5454bb6022caebf29c6e9f509a3120c6a34ad82a7a6d93084df221a700c4e2b1"
+          }
+        ],
+        "outputSha256": "8332e654a48e9c6f02c8092a7543ea2447915711088bc0b83da7bb775aa931a6",
+        "generatedAt": "2026-08-09T19:58:00Z",
+        "recordSha256": "a65d8e397f9ca74ce117c5eca31a02660f645efd14c348db958afd288ee1f2ce"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-multi-oil-body-scrub-8oz/packshot-v1-5454bb6022caebf2.png",
-      "sha256": "5454bb6022caebf29c6e9f509a3120c6a34ad82a7a6d93084df221a700c4e2b1",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-glow-getter-multi-oil-body-scrub-8oz/packshot-v2-8332e654a48e9c6f.png",
+      "sha256": "8332e654a48e9c6f02c8092a7543ea2447915711088bc0b83da7bb775aa931a6",
       "mimeType": "image/png",
-      "byteSize": 860792,
+      "byteSize": 832191,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
-      "backgroundTreatment": "source-pixel-isolation",
+      "backgroundTreatment": "identity-verified-render",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-08-07T15:15:00Z",
-      "reviewer": "Codex visual audit"
+      "reviewedAt": "2026-08-09T19:59:00Z",
+      "reviewer": "Codex full-catalogue media restoration review"
     },
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-07T15:20:00Z"
+      "approvedAt": "2026-08-09T20:00:00Z"
     },
-    "dossierFingerprint": "b5afd8c66f2fe1c8da078bb2598aa683a2ee2d704a9fb753bc9283b8d23c94af"
+    "dossierFingerprint": "c3b77f638e7232e9b9b73a989d91c803c0caaf79b223cecebfda8174e7f9afe4"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
-    "dossierFingerprint": "b5afd8c66f2fe1c8da078bb2598aa683a2ee2d704a9fb753bc9283b8d23c94af",
+    "dossierFingerprint": "c3b77f638e7232e9b9b73a989d91c803c0caaf79b223cecebfda8174e7f9afe4",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -224,13 +179,13 @@
       "usage": "Apply to damp skin in circular motions then rinse thoroughly. Use 2-3 times per week for smooth glowing skin.",
       "manufacturerDirectionsUrl": "https://naturium.com/products/the-glow-getter-multi-oil-body-scrub",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-07T15:21:00Z"
+      "reviewedAt": "2026-08-09T20:01:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-07T15:22:00Z"
+      "publishedAt": "2026-08-09T20:02:00Z"
     },
-    "releaseFingerprint": "b7063b705b819eb642ec868cd111a10b7267a6b54aa5baec3264809787f42492"
+    "releaseFingerprint": "3dba80c3d44629d073d0b42c0b8db1116a6500cec83f052b282e71a216270ac6"
   }
 }

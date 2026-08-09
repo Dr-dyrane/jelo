@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-07T15:02:00Z",
+  "updatedAt": "2026-08-09T20:02:00Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "d34092980dce29db8a0a356b",
@@ -120,9 +120,8 @@
     },
     "asset": {
       "rightsStatus": "documented",
-      "origin": "official-brand-media",
+      "origin": "owned-identity-verified-render",
       "role": "packshot",
-      "rightsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
       "sourceUrl": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
       "sourceAssetSha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
       "sourceAssetMimeType": "image/png",
@@ -131,19 +130,34 @@
       "sourceAssetHeight": 2000,
       "sourceAssetRetrievedAt": "2026-08-07T13:06:18Z",
       "packaging": "intact",
-      "backgroundTreatment": "source-pixel-isolation",
+      "backgroundTreatment": "identity-verified-render",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
-      "artReviewedAt": "2026-08-07T14:59:57Z",
-      "artReviewer": "Codex visual audit",
+      "artReviewedAt": "2026-08-09T19:59:00Z",
+      "artReviewer": "Codex full-catalogue media restoration review",
       "presentationQuality": "magazine-ready",
-      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinaldehyde-cream-serum-0-05-1-7oz/packshot-v1-20f612bc9b629ce9.png",
-      "publicImageSha256": "20f612bc9b629ce9474061c8bcceac5df4458f7e28d2644f4958791bb9c0110f",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinaldehyde-cream-serum-0-05-1-7oz/packshot-v2-04321945ad655034.png",
+      "publicImageSha256": "04321945ad655034f3e7c30a5ca7cf318ac1750244fcc4d297cc40102677c4c3",
       "publicImageMimeType": "image/png",
-      "publicImageByteSize": 466755,
+      "publicImageByteSize": 602775,
       "width": 2000,
-      "height": 2000
+      "height": 2000,
+      "generationRecord": {
+        "schemaVersion": 1,
+        "provider": "OpenAI built-in image generation plus JeloCare deterministic source-pixel compositing and transparent PNG encoding",
+        "model": "gpt-image-2 + Pillow 11.3.0",
+        "prompt": "Use case: precise-object-edit. Reconstruct a complete, upright transparent catalogue packshot for Naturium Retinaldehyde Cream Serum 0.05%, exact 1.7 fl oz / 50 mL from the exact official Naturium source. Use an identity-locked chroma render for the intact tube silhouette, then overlay the exact official front-label pixels and normalize to a centered 2000 by 2000 transparent canvas. Preserve the full crimp, cap, dosage strength, label, size and package proportions. Remove only background, props, reflection and shadow. Do not invent or alter package identity.",
+        "inputs": [
+          {
+            "url": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+            "sha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b"
+          }
+        ],
+        "outputSha256": "04321945ad655034f3e7c30a5ca7cf318ac1750244fcc4d297cc40102677c4c3",
+        "generatedAt": "2026-08-09T19:58:00Z",
+        "recordSha256": "298fd5882d7914e8745d86b342b1a758cb7cedcd94e2b20bfec8838da63c9ec2"
+      }
     }
   }
 }

@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
-    "candidateFingerprint": "d9988d249a0de5f57590551664a7691f7149ab5fcbd987451b36a490dd11f7f0",
+    "candidateFingerprint": "ec1c692f1791b84e9c834df9803f8f08cdab2e22cf5b0079faa23d917c630cc0",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -110,8 +110,7 @@
     },
     "rights": {
       "status": "documented",
-      "origin": "official-brand-media",
-      "evidenceUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
+      "origin": "owned-identity-verified-render",
       "sourceAsset": {
         "url": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
         "sha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
@@ -121,98 +120,50 @@
         "height": 2000,
         "retrievedAt": "2026-08-07T13:06:18Z"
       },
-      "isolationRecord": {
+      "generationRecord": {
         "schemaVersion": 1,
-        "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
-        "publicationScope": "catalogue-publication",
-        "source": {
-          "url": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
-          "sha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b",
-          "byteSize": 413568,
-          "width": 2000,
-          "height": 2000,
-          "retrievedAt": "2026-08-07T13:06:18Z"
-        },
-        "identity": {
-          "canonicalIdentifier": {
-            "kind": "gtin",
-            "value": "00810120260013"
-          },
-          "officialProductUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05"
-        },
-        "processing": {
-          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
-          "packageRgbOrigin": "identity-master-source-pixels-only",
-          "tool": "rembg alpha mask over source RGB pixels",
-          "model": "isnet-general-use",
-          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
-          "provider": "CPUExecutionProvider",
-          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
-          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
-        },
-        "audit": {
-          "sha256": "20f612bc9b629ce9474061c8bcceac5df4458f7e28d2644f4958791bb9c0110f",
-          "generatedAt": "2026-08-07T14:59:57Z",
-          "inferredComponentCount": 7,
-          "retainedComponentCount": 7,
-          "removedComponentCount": 0,
-          "removedForegroundFraction": 0,
-          "componentReviewRequired": false,
-          "sourceEdgeContactFraction": 0
-        },
-        "output": {
-          "sha256": "20f612bc9b629ce9474061c8bcceac5df4458f7e28d2644f4958791bb9c0110f",
-          "byteSize": 466755,
-          "mimeType": "image/png",
-          "width": 2000,
-          "height": 2000,
-          "hasAlpha": true
-        },
-        "review": {
-          "identityReviewedAt": "2026-08-07T14:59:57Z",
-          "identityReviewer": "JeloCare catalogue identity review",
-          "artReviewedAt": "2026-08-07T14:59:57Z",
-          "artReviewer": "Codex visual audit",
-          "surfaceReviewSha256": "79bbb5f522c10a5c2bd39bb76efa4713b461659dc12d7529738f477b93233f0f",
-          "surfaces": [
-            "peach",
-            "pink",
-            "dark"
-          ],
-          "packagingIntact": true,
-          "labelVariantSizeUnchanged": true,
-          "magazineReady": true
-        }
+        "provider": "OpenAI built-in image generation plus JeloCare deterministic source-pixel compositing and transparent PNG encoding",
+        "model": "gpt-image-2 + Pillow 11.3.0",
+        "prompt": "Use case: precise-object-edit. Reconstruct a complete, upright transparent catalogue packshot for Naturium Retinaldehyde Cream Serum 0.05%, exact 1.7 fl oz / 50 mL from the exact official Naturium source. Use an identity-locked chroma render for the intact tube silhouette, then overlay the exact official front-label pixels and normalize to a centered 2000 by 2000 transparent canvas. Preserve the full crimp, cap, dosage strength, label, size and package proportions. Remove only background, props, reflection and shadow. Do not invent or alter package identity.",
+        "inputs": [
+          {
+            "url": "https://naturium.com/cdn/shop/files/1-NATR_Catalog_Ret-CreamSerum-CapOn.webp?v=1774296507&width=2048",
+            "sha256": "97e208871b1f4689f2a315429f56b2109e0b74ad63580a5eb7e08195156a361b"
+          }
+        ],
+        "outputSha256": "04321945ad655034f3e7c30a5ca7cf318ac1750244fcc4d297cc40102677c4c3",
+        "generatedAt": "2026-08-09T19:58:00Z",
+        "recordSha256": "298fd5882d7914e8745d86b342b1a758cb7cedcd94e2b20bfec8838da63c9ec2"
       }
     },
     "finalImage": {
       "role": "packshot",
-      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinaldehyde-cream-serum-0-05-1-7oz/packshot-v1-20f612bc9b629ce9.png",
-      "sha256": "20f612bc9b629ce9474061c8bcceac5df4458f7e28d2644f4958791bb9c0110f",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/naturium/naturium-retinaldehyde-cream-serum-0-05-1-7oz/packshot-v2-04321945ad655034.png",
+      "sha256": "04321945ad655034f3e7c30a5ca7cf318ac1750244fcc4d297cc40102677c4c3",
       "mimeType": "image/png",
-      "byteSize": 466755,
+      "byteSize": 602775,
       "width": 2000,
       "height": 2000,
       "packaging": "intact",
-      "backgroundTreatment": "source-pixel-isolation",
+      "backgroundTreatment": "identity-verified-render",
       "labelVariantSizeUnchanged": true,
       "packagingInvented": false,
       "manualSourceOutputQa": true,
       "presentationQuality": "magazine-ready",
-      "reviewedAt": "2026-08-07T14:59:57Z",
-      "reviewer": "Codex visual audit"
+      "reviewedAt": "2026-08-09T19:59:00Z",
+      "reviewer": "Codex full-catalogue media restoration review"
     },
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-07T15:00:00Z"
+      "approvedAt": "2026-08-09T20:00:00Z"
     },
-    "dossierFingerprint": "2a85a47fb3028aeb1def6f641421bb19437aa897d588bdf2fe42fd8e9196fa10"
+    "dossierFingerprint": "e164d1445cf206d5f4b8d2614cd96bbc995ab436bc592d820db1cc52c0f2e928"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
-    "dossierFingerprint": "2a85a47fb3028aeb1def6f641421bb19437aa897d588bdf2fe42fd8e9196fa10",
+    "dossierFingerprint": "e164d1445cf206d5f4b8d2614cd96bbc995ab436bc592d820db1cc52c0f2e928",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -224,13 +175,13 @@
       "usage": "Apply a pea-sized amount to clean dry skin in the evening. Start with 2-3 nights per week and gradually increase. Always follow with SPF during the day.",
       "manufacturerDirectionsUrl": "https://naturium.com/products/retinaldehyde-cream-serum-0-05",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-07T15:01:00Z"
+      "reviewedAt": "2026-08-09T20:01:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-07T15:02:00Z"
+      "publishedAt": "2026-08-09T20:02:00Z"
     },
-    "releaseFingerprint": "3f0e1cf668e874799857b6cf05ecd36fe42091c487c07b0a17f85cfe80f7a799"
+    "releaseFingerprint": "e4c74c4cc7de5b9a4a3ffb228c2b8e6c226cc2c1444235db8345605d3df509f1"
   }
 }
