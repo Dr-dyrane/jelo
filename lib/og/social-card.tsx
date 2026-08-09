@@ -12,6 +12,7 @@ export const SITE_ORIGIN = 'https://www.jelocare.com';
 export type SocialCardTheme = 'light' | 'dark';
 export type SocialCardKind =
   | 'home'
+  | 'search'
   | 'catalogue'
   | 'concerns'
   | 'concern'
@@ -60,6 +61,17 @@ const staticCards = {
     metaDescription: 'Skin education and clear product discovery.',
     alt: 'JeloCare — skin education and clear product discovery',
     theme: 'light',
+  },
+  search: {
+    request: { kind: 'search' },
+    eyebrow: 'Search · JeloCare',
+    title: 'Find products and clear context.',
+    description: 'Search products, reviewed guides, ingredients, companies and retailer sources.',
+    detail: 'Exact names. Useful sources.',
+    metaTitle: 'Search',
+    metaDescription: 'Search JeloCare products, reviewed guides, ingredients, companies and retailer sources.',
+    alt: 'Search JeloCare products, guides, ingredients, companies and retailer sources',
+    theme: 'dark',
   },
   catalogue: {
     request: { kind: 'catalogue' },
@@ -142,6 +154,7 @@ const staticCards = {
 
 export const PUBLIC_SOCIAL_ROUTE_COVERAGE = [
   { family: '/', source: 'app/(site)/page.tsx', context: 'home' },
+  { family: '/search', source: 'app/(site)/search/page.tsx', context: 'global public search' },
   { family: '/products', source: 'app/(site)/products/page.tsx', context: 'catalogue and validated filter state' },
   { family: '/products/[slug]', source: 'app/(site)/products/[slug]/page.tsx', context: 'exact catalogue SKU and packshot' },
   { family: '/concerns', source: 'app/(site)/concerns/page.tsx', context: 'concern guide index' },

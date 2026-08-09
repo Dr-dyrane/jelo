@@ -1,17 +1,15 @@
-import type { Metadata } from "next";
 import { GlobalSearchExperience } from "@/components/search/global-search-experience";
+import { publicSocialMetadata, staticSocialCard } from "@/lib/og/social-card";
 import {
   globalSearchTypes,
   type GlobalSearchFilter,
 } from "@/lib/search/global-search-index";
 import { buildGlobalSearchRepository } from "@/lib/search/global-search-repository";
 
-export const metadata: Metadata = {
-  title: "Search | JeloCare",
-  description:
-    "Search JeloCare products, reviewed guides, ingredients, companies and retailer sources.",
-  alternates: { canonical: "/search" },
-};
+export const metadata = publicSocialMetadata(
+  staticSocialCard("search"),
+  "/search",
+);
 
 type SearchParams = { q?: string | string[]; type?: string | string[] };
 
