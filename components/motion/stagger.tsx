@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
 import type { ReactNode } from "react";
 
 type StaggerProps = {
@@ -17,6 +18,10 @@ type StaggerProps = {
  * container enters the viewport.
  *
  * Respects prefers-reduced-motion by rendering children directly.
+ *
+ * Uses useInView hook instead of whileInView prop for reliable detection
+ * on client-side navigation (Next.js Link) where elements mount already
+ * in the viewport.
  */
 export function Stagger({
   children,
@@ -26,6 +31,8 @@ export function Stagger({
   className,
 }: StaggerProps) {
   const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once, margin: "-60px" });
 
   if (reduce) {
     return <div className={className}>{children}</div>;
@@ -33,10 +40,10 @@ export function Stagger({
 
   return (
     <motion.div
+      ref={ref}
       className={className}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once, margin: "-60px" }}
+      animate={inView ? "visible" : "hidden"}
       variants={{
         hidden: {},
         visible: {

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
 import type { ReactNode } from "react";
 
 type Direction = "up" | "left" | "right" | "down";
@@ -29,6 +30,10 @@ type RevealProps = {
  * Wraps any content. When the element enters the viewport (with a -60px
  * margin), it fades in and slides from the given direction. Respects
  * prefers-reduced-motion by rendering children directly.
+ *
+ * Uses useInView hook instead of whileInView prop for reliable detection
+ * on client-side navigation (Next.js Link) where elements mount already
+ * in the viewport.
  */
 export function Reveal({
   children,
@@ -40,6 +45,8 @@ export function Reveal({
   as = "div",
 }: RevealProps) {
   const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once, margin: "-60px" });
   const MotionTag = motion[as];
 
   if (reduce) {
@@ -51,10 +58,11 @@ export function Reveal({
 
   return (
     <MotionTag
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ref={ref as any}
       className={className}
       initial={initial}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once, margin: "-60px" }}
+      animate={inView ? { opacity: 1, x: 0, y: 0 } : initial}
       transition={{
         duration,
         delay,
