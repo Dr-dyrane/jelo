@@ -43,6 +43,7 @@ This is the entry point for product, engineering, data, and operations.
 - [4 August founder/pharmacist catalogue offer targets](./research/catalogue-founder-pharmacist-offer-targets-2026-08-04.md)
 - [NINELESS A-Control azelaic acid cream research](./research/2026-08-06-nineless-a-control-azelaic-acid-cream-50ml-research.md)
 - [Garnier Pure Active tissue mask image handoff](./research/2026-08-06-garnier-pure-active-tissue-mask-image-handoff.md)
+- [Product-care completion Phase 1](./research/2026-08-09-product-care-completion-phase-1.md)
 - [Retail intelligence](./RETAIL_INTELLIGENCE.md)
 - [Nigeria retailer reference](./NIGERIA_RETAILERS.md)
 - [Smart store guide](./retailers/SMART_STORE_GUIDE.md)

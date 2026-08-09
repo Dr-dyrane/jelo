@@ -37,6 +37,12 @@ Everyday concern pages fetch the current canonical public catalogue and partitio
 
 Products in `insufficient_data`, unreviewed products, free-text catalogue matches and retailer claims appear in neither tier. A product lane must not manufacture a concern relationship from a product name, marketing copy or ingredient overlap; it must advance the separate product-care review instead.
 
+The dated [Product-care completion Phase 1](./research/2026-08-09-product-care-completion-phase-1.md)
+records the exact 158-cell public audit, the first eight evidence-passing
+review-required cells, the rejected size-drift cell and the source blocker for
+every remaining `insufficient_data` product. It does not weaken the direct
+recommendation or condition-pattern boundaries above.
+
 Condition patterns remain outside both tiers. Their route resolves the guide kind before fetching catalogue data, renders urgent action first when present, and never waits for or displays products. The partition is implemented in `modules/concerns/product-matching.ts`; `modules/concerns/product-matching.test.ts` and `modules/concerns/concern-guide-urgency.test.ts` enforce the separation and stop-journey boundary.
 
 Red flags and directed clinical patterns always take precedence. For example, ordinary underarm odour may reach deodorant guidance, while night sweats or soaking unexplained sweating remain on the cause-finding path. Dry or frizzy hair may reach reviewed conditioning uses, while a smooth bald patch suppresses products and routes to an examination. This precedence is tested at the API boundary with zero model calls on both the ordinary deterministic path and every interrupted path.

@@ -878,13 +878,21 @@ export const publishedProductCareManifest = {
   },
   c28f590dd2739ea73f1b5ea3: {
     productSlug: "c28f590dd2739ea73f1b5ea3",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "rich-facial-moisturiser-review",
+        label: "Rich facial-moisturiser review",
+        concernIds: ["dryness", "dehydration", "sensitivity", "tightness"],
+        concernSlugs: ["dry-dehydrated-skin", "sensitive-barrier"],
+        skinTypes: ["dry", "sensitive"],
+      },
+    ],
     evidenceSourceUrls: [
       "https://www.simple.co.uk/p/kind-to-skin-replenishing-rich-moisturiser.html/05011451103948",
       "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
     ],
-    reviewedAt: "2026-08-02",
+    reviewedAt: "2026-08-09T23:43:07Z",
   },
   "11d3a6116ccfc1cbce191430": {
     productSlug: "11d3a6116ccfc1cbce191430",
@@ -899,13 +907,21 @@ export const publishedProductCareManifest = {
   "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml": {
     productSlug:
       "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "face-body-emollient-balm-review",
+        label: "Face-and-body emollient-balm review",
+        concernIds: ["body dryness", "rough skin", "very dry skin"],
+        concernSlugs: ["dry-rough-body-skin"],
+        skinTypes: ["dry", "very dry"],
+      },
+    ],
     evidenceSourceUrls: [
       "https://www.laroche-posay.fr/lipikar-baume-ap-max/3337875930048.html",
       "https://www.nhs.uk/tests-and-treatments/emollients/",
     ],
-    reviewedAt: "2026-08-04",
+    reviewedAt: "2026-08-09T23:43:07Z",
   },
   "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml": {
     productSlug:
@@ -940,13 +956,20 @@ export const publishedProductCareManifest = {
   },
   "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz": {
     productSlug: "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "spf-50-moisturiser-review",
+        label: "SPF 50 moisturiser review",
+        concernIds: ["sun protection", "sunscreen"],
+        concernSlugs: ["daily-sun-protection"],
+      },
+    ],
     evidenceSourceUrls: [
       "https://naturium.com/products/dew-glow-moisturizer-spf-50-original",
       "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
     ],
-    reviewedAt: "2026-08-07",
+    reviewedAt: "2026-08-09T23:43:07Z",
   },
   "naturium-niacinamide-serum-12-percent-1fl-oz": {
     productSlug: "naturium-niacinamide-serum-12-percent-1fl-oz",
@@ -1251,23 +1274,38 @@ export const publishedProductCareManifest = {
   },
   "medik8-advanced-night-restore-50ml": {
     productSlug: "medik8-advanced-night-restore-50ml",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "ceramide-night-moisturiser-review",
+        label: "Ceramide night-moisturiser review",
+        concernIds: ["dryness", "dehydration", "tightness"],
+        concernSlugs: ["dry-dehydrated-skin"],
+      },
+    ],
     evidenceSourceUrls: [
       "https://www.medik8.com/products/advanced-night-restore",
       "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer",
     ],
-    reviewedAt: "2026-08-04",
+    reviewedAt: "2026-08-09T23:43:07Z",
   },
   "loccitane-almond-softening-shower-oil-250ml": {
     productSlug: "loccitane-almond-softening-shower-oil-250ml",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "fragranced-shower-oil-review",
+        label: "Fragranced shower-oil review",
+        concernIds: ["body dryness", "rough skin", "gentle cleansing"],
+        concernSlugs: ["dry-rough-body-skin"],
+        skinTypes: ["dry"],
+      },
+    ],
     evidenceSourceUrls: [
       "https://no.loccitane.com/products/almond-amande-shower-oil-250ml",
       "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
     ],
-    reviewedAt: "2026-08-04",
+    reviewedAt: "2026-08-09T23:43:07Z",
   },
   "fenty-skin-butta-drop-fenty-fresh-standard-200ml": {
     productSlug: "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
@@ -1385,13 +1423,20 @@ export const publishedProductCareManifest = {
   },
   "panoxyl-acne-creamy-wash-4-170g": {
     productSlug: "panoxyl-acne-creamy-wash-4-170g",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "benzoyl-peroxide-4-wash-review",
+        label: "4% benzoyl-peroxide wash review",
+        concernIds: ["acne", "body acne", "breakouts"],
+        concernSlugs: ["acne-breakouts"],
+      },
+    ],
     evidenceSourceUrls: [
       "https://panoxyl.com/acne-products/acne-creamy-wash/",
       "https://www.nhs.uk/medicines/benzoyl-peroxide/about-benzoyl-peroxide/",
     ],
-    reviewedAt: "2026-08-07",
+    reviewedAt: "2026-08-09T23:43:07Z",
   },
   "abib-heartleaf-foam-cleanser-150ml": {
     productSlug: "abib-heartleaf-foam-cleanser-150ml",
@@ -1739,13 +1784,20 @@ export const publishedProductCareManifest = {
   },
   "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml": {
     productSlug: "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "rich-hair-finishing-oil-review",
+        label: "Rich hair finishing-oil review",
+        concernIds: ["dry hair", "frizz", "flyaways"],
+        concernSlugs: ["dry-frizzy-hair"],
+      },
+    ],
     evidenceSourceUrls: [
       "https://saltair.com/products/hair-oil-for-thick-hair?variant=44047707898063",
       "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips",
     ],
-    reviewedAt: "2026-08-09",
+    reviewedAt: "2026-08-09T23:43:07Z",
   },
   "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml": {
     productSlug: "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
@@ -1786,13 +1838,20 @@ export const publishedProductCareManifest = {
   },
   "dang-vitamin-c-concentrated-serum-oil-free-30ml": {
     productSlug: "dang-vitamin-c-concentrated-serum-oil-free-30ml",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "vitamin-c-dark-spot-review",
+        label: "Vitamin C dark-spot review",
+        concernIds: ["dark spots", "hyperpigmentation", "uneven tone"],
+        concernSlugs: ["dark-spots"],
+      },
+    ],
     evidenceSourceUrls: [
       "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
       "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
     ],
-    reviewedAt: "2026-08-09",
+    reviewedAt: "2026-08-09T23:43:07Z",
   },
   "dang-collagen-hydrating-serum-ceramides-30ml": {
     productSlug: "dang-collagen-hydrating-serum-ceramides-30ml",

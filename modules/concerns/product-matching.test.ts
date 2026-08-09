@@ -43,7 +43,7 @@ test("concern matching uses approved supportive uses, not catalogue concern pros
   );
 });
 
-test("daily sun protection matches only the explicitly reviewed sunscreen", () => {
+test("daily sun protection separates the direct match from reviewed context", () => {
   const dailySun = concern("daily-sun-protection");
   const references = catalogueProducts.filter((candidate) =>
     productReferencesConcern(candidate, dailySun),
@@ -55,7 +55,10 @@ test("daily sun protection matches only the explicitly reviewed sunscreen", () =
   assert.equal(dailySun.kind, "concern");
   assert.deepEqual(
     references.map((candidate) => candidate.slug),
-    ["eucerin-oil-control-sun-gel-cream-spf50-50ml"],
+    [
+      "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz",
+      "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+    ],
   );
   assert.deepEqual(
     matches.map((candidate) => candidate.slug),
@@ -90,16 +93,16 @@ test("concern links separate supportive products from pharmacist-review context"
 
 test("ordinary concern coverage keeps the audited two-tier catalogue matrix", () => {
   const expected = [
-    ["acne-breakouts", 0, 12, 92],
-    ["dark-spots", 0, 6, 98],
-    ["sensitive-barrier", 3, 0, 101],
-    ["dry-dehydrated-skin", 5, 0, 99],
-    ["dry-rough-body-skin", 6, 0, 37],
+    ["acne-breakouts", 0, 13, 91],
+    ["dark-spots", 0, 7, 97],
+    ["sensitive-barrier", 3, 1, 100],
+    ["dry-dehydrated-skin", 5, 2, 97],
+    ["dry-rough-body-skin", 6, 2, 35],
     ["sweat-body-odour", 1, 0, 42],
     ["oily-congested-skin", 3, 2, 99],
-    ["daily-sun-protection", 1, 0, 103],
+    ["daily-sun-protection", 1, 1, 102],
     ["dandruff-itchy-scalp", 0, 1, 10],
-    ["dry-frizzy-hair", 5, 0, 6],
+    ["dry-frizzy-hair", 5, 1, 5],
   ];
 
   const actual = concerns.filter(isProductMatchConcern).map((item) => {
@@ -125,7 +128,7 @@ test("ordinary concern coverage keeps the audited two-tier catalogue matrix", ()
 test("server concern payload keeps only exact reviewed ordinary-concern links", () => {
   const linked = productsWithReviewedConcernLinks(catalogueProducts, concerns);
 
-  assert.equal(linked.length, 38);
+  assert.equal(linked.length, 46);
   assert.equal(
     linked.every((candidate) =>
       concerns.some((item) => productReferencesConcern(candidate, item)),
@@ -163,10 +166,10 @@ test("multi-concern rankings deduplicate products inside each care tier", () => 
     ["oily-congested-skin", "daily-sun-protection"],
   );
 
-  assert.equal(reviewedContext.length, 16);
+  assert.equal(reviewedContext.length, 18);
   assert.equal(
     new Set(reviewedContext.map((item) => item.product.slug)).size,
-    16,
+    18,
   );
   assert.deepEqual(
     reviewedContext.find(
@@ -183,7 +186,7 @@ test("a zero-direct concern retains pharmacist-reviewed context", () => {
   assert.equal(rankProductsForConcerns(linked, concerns, selected).length, 0);
   assert.equal(
     rankReviewedContextForConcerns(linked, concerns, selected).length,
-    12,
+    13,
   );
 });
 
