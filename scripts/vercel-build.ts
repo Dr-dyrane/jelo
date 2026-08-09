@@ -1,12 +1,16 @@
 import { spawn } from 'node:child_process';
 import { createDeploymentPlan, type DeploymentStep } from '../lib/release/deployment-plan';
 
-function run(command: string, args: string[]) {
+function run(
+  command: string,
+  args: string[],
+  environment: NodeJS.ProcessEnv = process.env,
+) {
   return new Promise<void>((resolve, reject) => {
     const child = spawn(command, args, {
       stdio: 'inherit',
       shell: process.platform === 'win32',
-      env: process.env,
+      env: environment,
     });
 
     child.once('error', reject);
@@ -31,22 +35,27 @@ async function main() {
   }
 
   const commands: Record<DeploymentStep, [string, string[]]> = {
-    'verify-release': [
-      'npm',
-      ['run', 'verify:release', '--', '--defer-typecheck-to-next'],
-    ],
+    'verify-release': ['npm', ['run', 'verify:release']],
     'build-next': ['next', ['build']],
     'verify-search-bundle': ['npm', ['run', 'catalogue:search:bundle:verify']],
     'promote-staged-assets': ['npm', ['run', 'assets:promote:staged']],
   };
 
+  let releaseVerificationPassed = false;
   for (const phase of plan) {
     await Promise.all(
       phase.map(step => {
         const [command, args] = commands[step];
-        return run(command, args);
+        const environment =
+          step === 'build-next'
+          && isVercelProduction
+          && releaseVerificationPassed
+            ? { ...process.env, JELO_VERCEL_RELEASE_TYPECHECK_PASSED: '1' }
+            : process.env;
+        return run(command, args, environment);
       }),
     );
+    if (phase.includes('verify-release')) releaseVerificationPassed = true;
   }
 }
 

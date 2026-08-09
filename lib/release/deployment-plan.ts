@@ -18,7 +18,8 @@ export function createDeploymentPlan({
   }
   return [
     ['promote-staged-assets'],
-    ['verify-release', 'build-next'],
+    ['verify-release'],
+    ['build-next'],
     ['verify-search-bundle'],
   ];
 }

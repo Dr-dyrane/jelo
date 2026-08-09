@@ -10,10 +10,11 @@ test('preview and local builds stay on the fast Next build path', () => {
   ]);
 });
 
-test('production promotes assets, verifies alongside Next, then checks the bundle', () => {
+test('production promotes assets, verifies, builds, then checks the bundle', () => {
   assert.deepEqual(createDeploymentPlan({ isVercelProduction: true }), [
     ['promote-staged-assets'],
-    ['verify-release', 'build-next'],
+    ['verify-release'],
+    ['build-next'],
     ['verify-search-bundle'],
   ]);
 });
@@ -33,32 +34,23 @@ test('Vercel builds cannot migrate, seed, or opt into external discovery', async
     assert.doesNotMatch(source, new RegExp(forbidden.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
   assert.match(source, /assets:promote:staged/);
-  assert.match(source, /--defer-typecheck-to-next/);
+  assert.match(source, /JELO_VERCEL_RELEASE_TYPECHECK_PASSED: '1'/);
   assert.match(source, /await Promise\.all\(\s*phase\.map/);
 });
 
-test('production delegates TypeScript only when Next runs in the same phase', async () => {
-  const [buildSource, releaseSource] = await Promise.all([
+test('Next skips its duplicate TypeScript pass only after production verification', async () => {
+  const [buildSource, nextConfigSource] = await Promise.all([
     readFile('scripts/vercel-build.ts', 'utf8'),
-    readFile('scripts/verify-release.ts', 'utf8'),
+    readFile('next.config.ts', 'utf8'),
   ]);
 
-  assert.match(buildSource, /--defer-typecheck-to-next/);
-  assert.match(
-    releaseSource,
-    /process\.argv\.includes\(["']--defer-typecheck-to-next["']\)/,
-  );
-  assert.match(releaseSource, /process\.env\.VERCEL === ["']1["']/);
-  assert.match(
-    releaseSource,
-    /process\.env\.VERCEL_ENV === ["']production["']/,
-  );
-  assert.match(releaseSource, /deferTypecheck && !isVercelProduction/);
-  assert.match(releaseSource, /script === ["']typecheck["']/);
-  assert.match(
-    releaseSource,
-    /Typecheck is delegated to the concurrent Next build/,
-  );
+  assert.match(buildSource, /let releaseVerificationPassed = false/);
+  assert.match(buildSource, /phase\.includes\('verify-release'\)[\s\S]*releaseVerificationPassed = true/);
+  assert.match(buildSource, /step === 'build-next'[\s\S]*releaseVerificationPassed/);
+  assert.match(nextConfigSource, /process\.env\.VERCEL === "1"/);
+  assert.match(nextConfigSource, /process\.env\.VERCEL_ENV === "production"/);
+  assert.match(nextConfigSource, /JELO_VERCEL_RELEASE_TYPECHECK_PASSED === "1"/);
+  assert.match(nextConfigSource, /ignoreBuildErrors: verifiedVercelProductionBuild/);
 });
 
 test('staged asset checks use bounded concurrency', async () => {

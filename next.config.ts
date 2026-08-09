@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
+const verifiedVercelProductionBuild =
+  process.env.VERCEL === "1" &&
+  process.env.VERCEL_ENV === "production" &&
+  process.env.JELO_VERCEL_RELEASE_TYPECHECK_PASSED === "1";
+
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
+  typescript: {
+    ignoreBuildErrors: verifiedVercelProductionBuild,
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
