@@ -1,3 +1,281 @@
+.consult-card {
+  max-width: 70rem;
+  margin-top: clamp(1.25rem, 4vw, 3.5rem);
+  padding: clamp(0.9rem, 2vw, 1.4rem);
+  overflow: hidden;
+}
+
+.consult-empty {
+  max-width: 58rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(0.35rem, 3vw, 2rem)
+    clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.consult-empty .consult-orb {
+  margin-bottom: 1rem;
+}
+
+.consult-empty > .eyebrow {
+  margin: 0 0 0.7rem;
+  color: var(--wine);
+}
+
+.consult-empty h2 {
+  max-width: 45rem;
+  margin: 0 auto;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.6rem, 6vw, 5.6rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+.consult-empty > p:not(.eyebrow, .timeline-note) {
+  max-width: 38rem;
+  margin: 1rem auto 0;
+  color: var(--muted);
+  font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+  line-height: 1.65;
+}
+
+.prompt-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: clamp(1.6rem, 3vw, 2.4rem);
+  text-align: left;
+}
+
+.prompt-row button {
+  min-width: 0;
+  min-height: 6.4rem;
+  padding: 1rem 1.05rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "label arrow"
+    "copy arrow";
+  align-items: center;
+  gap: 0.35rem 1rem;
+  border: 0;
+  border-radius: 1.35rem;
+  background: var(--cream);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.prompt-row button > span {
+  grid-area: label;
+  color: var(--wine);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.prompt-row button > strong {
+  grid-area: copy;
+  font-size: 0.84rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.prompt-row button > svg {
+  grid-area: arrow;
+}
+
+.prompt-row button:hover {
+  transform: translateY(-2px);
+}
+
+.prompt-row button:focus-visible,
+.profile-trigger:focus-visible,
+.consult-form .consult-clear:focus-visible,
+.profile-head button:focus-visible,
+.profile-sheet footer button:focus-visible,
+.profile-toggles button:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 3px;
+}
+
+.prompt-row button:disabled,
+.profile-trigger:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+
+.prompt-row button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.prompt-row button[aria-pressed="true"] > span {
+  color: var(--rose);
+}
+
+.consult-form {
+  display: block;
+  margin-top: 0.7rem;
+  padding: 1rem;
+  border-radius: 1.8rem;
+  background: var(--paper);
+}
+
+.consult-composer-head,
+.consult-composer-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.consult-composer-head {
+  padding: 0 0.35rem 0.8rem;
+}
+
+.consult-composer-head label {
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.consult-composer-head span,
+.consult-composer-foot > span {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.consult-compose-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.8rem;
+  padding: 0.55rem;
+  border-radius: 1.4rem;
+  background: var(--cream);
+}
+
+.consult-compose-row:focus-within {
+  outline: 2px solid var(--wine);
+  outline-offset: 2px;
+}
+
+.consult-compose-row textarea {
+  min-width: 0;
+  min-height: 7rem;
+  padding: 0.75rem;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.consult-compose-row textarea:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.consult-form .consult-submit {
+  min-height: 3rem;
+  align-self: end;
+  padding: 0.8rem 1.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent-solid);
+  color: var(--on-accent);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.consult-form .consult-submit:disabled {
+  cursor: not-allowed;
+}
+
+.consult-composer-foot {
+  min-height: 2.75rem;
+  padding: 0.55rem 0.25rem 0;
+}
+
+.consult-form .consult-clear {
+  min-height: 2.75rem;
+  padding: 0.55rem 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.7rem;
+}
+
+.consult-progress,
+.consult-error {
+  max-width: calc(100% - 2rem);
+  margin: 0.8rem auto 0;
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+}
+
+.consult-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--peach);
+  color: var(--wine);
+  font-size: 0.75rem;
+}
+
+.consult-error {
+  display: grid;
+  gap: 0.25rem;
+  background: var(--state-danger-bg);
+  color: var(--state-danger);
+  line-height: 1.45;
+}
+
+.consult-error strong {
+  font-size: 0.78rem;
+}
+
+.consult-error span {
+  font-size: 0.72rem;
+}
+
+.consult-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  line-height: 1.5;
+}
+
+.consult-spinner {
+  animation: consult-spin 0.8s linear infinite;
+}
+
+@keyframes consult-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 .profile-trigger {
   width: 100%;
   margin: 1rem 0;
@@ -7,10 +285,41 @@
   justify-content: space-between;
   border: 0;
   border-radius: 1.3rem;
-  background: rgba(255, 253, 249, .78);
+  background: rgba(255, 253, 249, 0.78);
   color: var(--ink);
   cursor: pointer;
   font-weight: 500;
+}
+
+.profile-trigger > span:first-child {
+  display: grid;
+  gap: 0.25rem;
+  text-align: left;
+}
+
+.profile-trigger strong {
+  font-size: 0.78rem;
+}
+
+.profile-trigger small {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 400;
+}
+
+.profile-trigger-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--wine);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.profile-grid input,
+.profile-grid textarea,
+.profile-toggles button {
+  min-height: 2.75rem;
 }
 
 .profile-dialog {
@@ -26,12 +335,12 @@
 }
 
 .profile-dialog::backdrop {
-  background: rgba(45, 33, 31, .3);
+  background: rgba(45, 33, 31, 0.3);
   backdrop-filter: blur(12px) saturate(115%);
 }
 
 .profile-dialog[data-fallback-modal="true"] {
-  background: rgba(45, 33, 31, .3);
+  background: rgba(45, 33, 31, 0.3);
   backdrop-filter: blur(12px) saturate(115%);
 }
 
@@ -44,8 +353,8 @@
   flex-direction: column;
   overflow: hidden;
   border-radius: 2rem 0 0 2rem;
-  background: rgba(255, 250, 246, .98);
-  box-shadow: -24px 0 70px rgba(45, 33, 31, .15);
+  background: rgba(255, 250, 246, 0.98);
+  box-shadow: -24px 0 70px rgba(45, 33, 31, 0.15);
 }
 
 .profile-head {
@@ -57,13 +366,13 @@
 
 .profile-head small {
   color: var(--wine);
-  font-size: .7rem;
-  letter-spacing: .14em;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .profile-head h2 {
-  margin: .4rem 0 0;
+  margin: 0.4rem 0 0;
   font-family: var(--font-display), serif;
   font-size: 2.6rem;
   font-weight: 400;
@@ -82,7 +391,7 @@
 }
 
 .profile-dialog .profile-grid {
-  padding: .4rem 1.4rem 1.4rem;
+  padding: 0.4rem 1.4rem 1.4rem;
   overflow-y: auto;
 }
 
@@ -93,18 +402,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  background: rgba(255, 250, 246, .96);
+  background: rgba(255, 250, 246, 0.96);
 }
 
 .profile-sheet footer p {
   margin: 0;
   color: var(--wine);
-  font-size: .72rem;
+  font-size: 0.72rem;
 }
 
 .profile-sheet footer button {
   min-height: 2.75rem;
-  padding: .7rem 1.1rem;
+  padding: 0.7rem 1.1rem;
   border: 0;
   border-radius: 999px;
   background: var(--ink);
@@ -112,65 +421,192 @@
   cursor: pointer;
 }
 
-.prompt-row {
-  position: relative;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  scroll-snap-type: x mandatory;
-}
-
-.prompt-row button {
-  flex: 0 0 auto;
-  scroll-snap-align: start;
-}
-
 @media (max-width: 620px) {
+  .consult-card {
+    margin-top: 1rem;
+    padding: 0.7rem;
+    border-radius: 1.8rem;
+  }
+
+  .consult-empty {
+    padding: 2.3rem 0.25rem 1.4rem;
+  }
+
+  .consult-empty h2 {
+    font-size: clamp(2.45rem, 12vw, 3.8rem);
+  }
+
+  .prompt-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.65rem;
+    margin-inline: -0.7rem;
+    padding: 0 0.7rem 0.4rem;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .prompt-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .prompt-row button {
+    flex: 0 0 min(82vw, 21rem);
+    min-height: 6.8rem;
+    scroll-snap-align: start;
+  }
+
+  .consult-form {
+    padding: 0.75rem;
+  }
+
+  .consult-compose-row {
+    grid-template-columns: 1fr;
+  }
+
+  .consult-form .consult-submit {
+    width: 100%;
+  }
+
+  .consult-composer-head > span,
+  .consult-composer-foot > span {
+    display: none;
+  }
+
+  .consult-composer-foot {
+    justify-content: flex-end;
+  }
+
   .profile-sheet {
     inset: auto 0 0;
     width: 100%;
     height: min(86dvh, 46rem);
     border-radius: 2rem 2rem 0 0;
-    box-shadow: 0 -24px 70px rgba(45, 33, 31, .15);
+    box-shadow: 0 -24px 70px rgba(45, 33, 31, 0.15);
   }
 
   .profile-sheet::before {
-    content: '';
+    content: "";
     width: 2.6rem;
-    height: .28rem;
-    margin: .65rem auto 0;
+    height: 0.28rem;
+    margin: 0.65rem auto 0;
     border-radius: 999px;
-    background: rgba(45, 33, 31, .24);
+    background: rgba(45, 33, 31, 0.24);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prompt-row button {
+    transition: none;
+  }
+  .prompt-row button:hover {
+    transform: none;
+  }
+  .consult-spinner {
+    animation: none;
   }
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .profile-dialog::backdrop { backdrop-filter: none; }
-  .profile-dialog[data-fallback-modal="true"] { backdrop-filter: none; }
-  .profile-sheet { background: var(--paper); }
+  .profile-dialog::backdrop {
+    backdrop-filter: none;
+  }
+  .profile-dialog[data-fallback-modal="true"] {
+    backdrop-filter: none;
+  }
+  .consult-card,
+  .profile-trigger,
+  .profile-sheet {
+    background: var(--paper);
+  }
 }
 
 /* dark theme */
-html[data-theme="dark"] .profile-trigger { background: var(--ghost-bg); }
+html[data-theme="dark"] .prompt-row button {
+  background: var(--surface-3);
+}
+html[data-theme="dark"] .prompt-row button[aria-pressed="true"] {
+  background: var(--wine);
+  color: var(--cream);
+}
+html[data-theme="dark"] .consult-form {
+  background: var(--paper);
+}
+html[data-theme="dark"] .consult-compose-row {
+  background: var(--surface-2);
+}
+html[data-theme="dark"] .consult-progress {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+html[data-theme="dark"] .profile-trigger {
+  background: var(--ghost-bg);
+}
 html[data-theme="dark"] .profile-dialog::backdrop,
-html[data-theme="dark"] .profile-dialog[data-fallback-modal="true"] { background: var(--glass-scrim); }
-html[data-theme="dark"] .profile-sheet { background: var(--surface-2); box-shadow: -24px 0 70px rgba(0, 0, 0, .58); }
-html[data-theme="dark"] .profile-sheet footer { background: var(--paper); }
-html[data-theme="dark"] .profile-sheet footer button { color: var(--cream); }
+html[data-theme="dark"] .profile-dialog[data-fallback-modal="true"] {
+  background: var(--glass-scrim);
+}
+html[data-theme="dark"] .profile-sheet {
+  background: var(--surface-2);
+  box-shadow: -24px 0 70px rgba(0, 0, 0, 0.58);
+}
+html[data-theme="dark"] .profile-sheet footer {
+  background: var(--paper);
+}
+html[data-theme="dark"] .profile-sheet footer button {
+  color: var(--cream);
+}
 @media (max-width: 620px) {
-  html[data-theme="dark"] .profile-sheet { box-shadow: 0 -24px 70px rgba(0, 0, 0, .58); }
-  html[data-theme="dark"] .profile-sheet::before { background: rgba(255, 255, 255, .24); }
+  html[data-theme="dark"] .profile-sheet {
+    box-shadow: 0 -24px 70px rgba(0, 0, 0, 0.58);
+  }
+  html[data-theme="dark"] .profile-sheet::before {
+    background: rgba(255, 255, 255, 0.24);
+  }
 }
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) .profile-trigger { background: var(--ghost-bg); }
+  html:not([data-theme="light"]) .prompt-row button {
+    background: var(--surface-3);
+  }
+  html:not([data-theme="light"]) .prompt-row button[aria-pressed="true"] {
+    background: var(--wine);
+    color: var(--cream);
+  }
+  html:not([data-theme="light"]) .consult-form {
+    background: var(--paper);
+  }
+  html:not([data-theme="light"]) .consult-compose-row {
+    background: var(--surface-2);
+  }
+  html:not([data-theme="light"]) .consult-progress {
+    background: var(--surface-3);
+    color: var(--ink);
+  }
+  html:not([data-theme="light"]) .profile-trigger {
+    background: var(--ghost-bg);
+  }
   html:not([data-theme="light"]) .profile-dialog::backdrop,
-  html:not([data-theme="light"]) .profile-dialog[data-fallback-modal="true"] { background: var(--glass-scrim); }
-  html:not([data-theme="light"]) .profile-sheet { background: var(--surface-2); box-shadow: -24px 0 70px rgba(0, 0, 0, .58); }
-  html:not([data-theme="light"]) .profile-sheet footer { background: var(--paper); }
-  html:not([data-theme="light"]) .profile-sheet footer button { color: var(--cream); }
+  html:not([data-theme="light"]) .profile-dialog[data-fallback-modal="true"] {
+    background: var(--glass-scrim);
+  }
+  html:not([data-theme="light"]) .profile-sheet {
+    background: var(--surface-2);
+    box-shadow: -24px 0 70px rgba(0, 0, 0, 0.58);
+  }
+  html:not([data-theme="light"]) .profile-sheet footer {
+    background: var(--paper);
+  }
+  html:not([data-theme="light"]) .profile-sheet footer button {
+    color: var(--cream);
+  }
 }
 @media (prefers-color-scheme: dark) and (max-width: 620px) {
-  html:not([data-theme="light"]) .profile-sheet { box-shadow: 0 -24px 70px rgba(0, 0, 0, .58); }
-  html:not([data-theme="light"]) .profile-sheet::before { background: rgba(255, 255, 255, .24); }
+  html:not([data-theme="light"]) .profile-sheet {
+    box-shadow: 0 -24px 70px rgba(0, 0, 0, 0.58);
+  }
+  html:not([data-theme="light"]) .profile-sheet::before {
+    background: rgba(255, 255, 255, 0.24);
+  }
 }

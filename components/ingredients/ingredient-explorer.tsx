@@ -1,22 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, ChevronDown, Search, X } from "lucide-react";
-import { useId, useMemo, useState } from "react";
-import { useModalDialog } from "@/components/ui/use-modal-dialog";
-import { ShareButton } from "@/components/share/share-button";
+import { ArrowRight, ArrowUpRight, Search, X } from "lucide-react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
-  EvidenceGradeBadge,
-  SafetyBadge,
   ClinicalCaution,
-  SourceList,
+  EvidenceGradeBadge,
   ReviewedOn,
+  SafetyBadge,
+  SourceList,
 } from "@/components/clinical/clinical-primitives";
 import type {
   EvidenceGradeLevel,
   SafetyStatus,
   SourceEntry,
 } from "@/components/clinical/clinical-primitives";
+import { ShareButton } from "@/components/share/share-button";
+import { useModalDialog } from "@/components/ui/use-modal-dialog";
 import { concernGuideLinks } from "@/lib/clinical/care-context-links";
 import styles from "./ingredient-explorer.module.css";
 
@@ -36,7 +36,7 @@ export type IngredientCard = {
   evidenceGrade: EvidenceGradeLevel;
   sensitiveSkinStatus: SafetyStatus;
   products: IngredientProduct[];
-  /** Enriched clinical knowledge — only present when source data supports it */
+  /** Enriched clinical knowledge — only present when source data supports it. */
   family?: string;
   concerns?: string[];
   allowedTimes?: string[];
@@ -50,7 +50,7 @@ export type IngredientCard = {
 
 type LibraryView = "all" | "high" | "gentle";
 
-const evidenceLabel = {
+const evidenceLabel: Record<EvidenceGradeLevel, string> = {
   high: "High evidence",
   moderate: "Moderate evidence",
   emerging: "Early evidence",
@@ -75,7 +75,7 @@ const familyLabels: Record<string, string> = {
   barrier: "Barrier support",
   hydrating: "Hydrating",
   sunscreen: "Sunscreen",
-  other: "Other",
+  other: "Ingredient guide",
 };
 
 const timeLabels: Record<string, string> = {
@@ -122,13 +122,24 @@ const views: Array<{ id: LibraryView; label: string }> = [
   { id: "gentle", label: "Usually gentle" },
 ];
 
-function concentration(value: number | undefined, productName: string) {
-  if (value === undefined || productName.includes(`${value}%`)) return "";
-  return `${value}% `;
+function isGentle(status: SafetyStatus) {
+  return status === "safe" || status === "generally_safe";
+}
+
+function productName(product: IngredientProduct) {
+  const value = product.concentrationPercent;
+  if (value === undefined || product.name.includes(`${value}%`)) {
+    return product.name;
+  }
+  return `${value}% ${product.name}`;
 }
 
 function productCountLabel(count: number) {
   return `${count} source-checked ${count === 1 ? "product" : "products"}`;
+}
+
+function libraryView(value: string | null): LibraryView {
+  return value === "high" || value === "gentle" ? value : "all";
 }
 
 export function IngredientExplorer({
@@ -138,38 +149,46 @@ export function IngredientExplorer({
 }) {
   const dialogId = useId();
   const { dialogRef, triggerRef, open, close } = useModalDialog();
+  const ingredientButtons = useRef(new Map<string, HTMLButtonElement>());
+  const openRef = useRef(open);
+  const closeRef = useRef(close);
+  const openSlugRef = useRef<string | null>(null);
   const [query, setQuery] = useState("");
   const [view, setView] = useState<LibraryView>("all");
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const normalized = query.trim().toLowerCase();
   const selected =
     ingredients.find((ingredient) => ingredient.slug === openSlug) ?? null;
+
   const counts = useMemo(
     () => ({
       all: ingredients.length,
       high: ingredients.filter(
         (ingredient) => ingredient.evidenceGrade === "high",
       ).length,
-      gentle: ingredients.filter(
-        (ingredient) => ingredient.sensitiveSkinStatus === "generally_safe",
+      gentle: ingredients.filter((ingredient) =>
+        isGentle(ingredient.sensitiveSkinStatus),
       ).length,
     }),
     [ingredients],
   );
+
   const visible = useMemo(
     () =>
       ingredients.filter((ingredient) => {
         const matchesView =
           view === "all" ||
           (view === "high" && ingredient.evidenceGrade === "high") ||
-          (view === "gentle" &&
-            ingredient.sensitiveSkinStatus === "generally_safe");
+          (view === "gentle" && isGentle(ingredient.sensitiveSkinStatus));
         if (!matchesView) return false;
         if (!normalized) return true;
+
         return [
           ingredient.name,
           ingredient.inciName,
           ingredient.summary,
+          ingredient.family ?? "",
+          ...(ingredient.concerns ?? []),
           ...ingredient.products.flatMap((product) => [
             product.brand,
             product.name,
@@ -181,15 +200,95 @@ export function IngredientExplorer({
       }),
     [ingredients, normalized, view],
   );
+
   const hasFilters = Boolean(normalized) || view !== "all";
+  const resultLabel = `${visible.length} of ${ingredients.length} ${
+    ingredients.length === 1 ? "ingredient" : "ingredients"
+  } shown`;
+
+  useEffect(() => {
+    openRef.current = open;
+    closeRef.current = close;
+    openSlugRef.current = openSlug;
+  }, [close, open, openSlug]);
+
+  useEffect(() => {
+    function readLocation() {
+      const params = new URLSearchParams(window.location.search);
+      setQuery(params.get("q") ?? "");
+      setView(libraryView(params.get("view")));
+
+      const slug = decodeURIComponent(window.location.hash.slice(1));
+      const ingredient = ingredients.find((item) => item.slug === slug);
+      if (!ingredient) {
+        if (openSlugRef.current) {
+          closeRef.current();
+          setOpenSlug(null);
+        }
+        return;
+      }
+
+      const opener = ingredientButtons.current.get(ingredient.slug);
+      if (opener) triggerRef.current = opener;
+      setOpenSlug(ingredient.slug);
+      window.requestAnimationFrame(() =>
+        window.requestAnimationFrame(() => openRef.current()),
+      );
+    }
+
+    const initialRead = window.setTimeout(readLocation, 0);
+    window.addEventListener("popstate", readLocation);
+    window.addEventListener("hashchange", readLocation);
+    return () => {
+      window.clearTimeout(initialRead);
+      window.removeEventListener("popstate", readLocation);
+      window.removeEventListener("hashchange", readLocation);
+    };
+  }, [ingredients, triggerRef]);
+
+  function updateLibraryUrl(nextQuery: string, nextView: LibraryView) {
+    const url = new URL(window.location.href);
+    const cleanedQuery = nextQuery.trim();
+
+    if (cleanedQuery) url.searchParams.set("q", cleanedQuery);
+    else url.searchParams.delete("q");
+
+    if (nextView === "all") url.searchParams.delete("view");
+    else url.searchParams.set("view", nextView);
+
+    window.history.replaceState(
+      window.history.state,
+      "",
+      `${url.pathname}${url.search}${url.hash}`,
+    );
+  }
 
   function showIngredient(slug: string, opener: HTMLButtonElement) {
     triggerRef.current = opener;
+    const url = new URL(window.location.href);
+    url.hash = slug;
+    window.history.pushState(
+      window.history.state,
+      "",
+      `${url.pathname}${url.search}${url.hash}`,
+    );
     setOpenSlug(slug);
     window.requestAnimationFrame(open);
   }
 
+  function clearIngredientHash() {
+    const url = new URL(window.location.href);
+    if (!url.hash) return;
+    url.hash = "";
+    window.history.replaceState(
+      window.history.state,
+      "",
+      `${url.pathname}${url.search}`,
+    );
+  }
+
   function closeIngredient() {
+    clearIngredientHash();
     close();
     setOpenSlug(null);
   }
@@ -197,57 +296,72 @@ export function IngredientExplorer({
   function resetLibrary() {
     setQuery("");
     setView("all");
+    updateLibraryUrl("", "all");
   }
 
   return (
     <section className={styles.explorer} aria-label="Ingredient library">
       <div className={styles.tools}>
         <label className={styles.search}>
-          <Search size={18} strokeWidth={1.8} aria-hidden="true" />
+          <Search size={19} strokeWidth={1.8} aria-hidden="true" />
           <span className="sr-only">Search ingredients</span>
           <input
+            type="search"
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search ingredient or product"
+            onChange={(event) => {
+              setQuery(event.target.value);
+              updateLibraryUrl(event.target.value, view);
+            }}
+            placeholder="Ingredient, product, brand or concern"
+            autoComplete="off"
+            enterKeyHint="search"
           />
           {query ? (
             <button
               type="button"
-              onClick={() => setQuery("")}
+              onClick={() => {
+                setQuery("");
+                updateLibraryUrl("", view);
+              }}
               aria-label="Clear ingredient search"
             >
-              <X size={16} aria-hidden="true" />
+              <X size={17} aria-hidden="true" />
             </button>
           ) : null}
         </label>
 
-        <div
-          className={styles.views}
-          role="group"
-          aria-label="Filter ingredients"
-        >
-          {views.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              aria-pressed={view === item.id}
-              onClick={() => setView(item.id)}
-            >
-              {item.label}
-              <span>{counts[item.id]}</span>
-            </button>
-          ))}
+        <div className={styles.viewsWrap}>
+          <span>Browse by</span>
+          <div
+            className={styles.views}
+            role="group"
+            aria-label="Filter ingredients"
+          >
+            {views.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                aria-pressed={view === item.id}
+                onClick={() => {
+                  setView(item.id);
+                  updateLibraryUrl(query, item.id);
+                }}
+              >
+                {item.label}
+                <span>{counts[item.id]}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       <div className={styles.resultBar}>
         <p role="status" aria-live="polite" aria-atomic="true">
-          <strong>{visible.length}</strong>{" "}
-          {visible.length === 1 ? "ingredient" : "ingredients"} shown
+          {resultLabel}
         </p>
         {hasFilters ? (
           <button type="button" onClick={resetLibrary}>
-            Clear
+            Clear all
           </button>
         ) : null}
       </div>
@@ -276,15 +390,21 @@ export function IngredientExplorer({
               <div className={styles.cardFooter}>
                 <span>{productCountLabel(ingredient.products.length)}</span>
                 <button
+                  ref={(node) => {
+                    if (node)
+                      ingredientButtons.current.set(ingredient.slug, node);
+                    else ingredientButtons.current.delete(ingredient.slug);
+                  }}
                   type="button"
                   aria-haspopup="dialog"
                   aria-controls={dialogId}
                   aria-expanded={openSlug === ingredient.slug}
+                  aria-label={`Open ${ingredient.name} ingredient guide`}
                   onClick={(event) =>
                     showIngredient(ingredient.slug, event.currentTarget)
                   }
                 >
-                  View <ArrowRight size={15} aria-hidden="true" />
+                  Open guide <ArrowRight size={15} aria-hidden="true" />
                 </button>
               </div>
             </article>
@@ -292,8 +412,11 @@ export function IngredientExplorer({
         </div>
       ) : (
         <div className={styles.empty}>
-          <p>No match</p>
-          <h2>Try another name.</h2>
+          <p>No ingredients found</p>
+          <h2>Try another name or product.</h2>
+          <span>
+            Search also checks INCI names, brands and related concerns.
+          </span>
           <button type="button" onClick={resetLibrary}>
             Show all ingredients
           </button>
@@ -308,13 +431,16 @@ export function IngredientExplorer({
         aria-modal="true"
         aria-labelledby={`${dialogId}-title`}
         tabIndex={-1}
-        onClose={() => setOpenSlug(null)}
-        onCancel={() => setOpenSlug(null)}
+        onClose={() => {
+          clearIngredientHash();
+          setOpenSlug(null);
+        }}
+        onCancel={(event) => {
+          event.preventDefault();
+          closeIngredient();
+        }}
         onKeyDownCapture={(event) => {
-          if (
-            event.key === "Escape" &&
-            dialogRef.current?.dataset.fallbackModal === "true"
-          ) {
+          if (event.key === "Escape") {
             event.preventDefault();
             event.stopPropagation();
             closeIngredient();
@@ -336,17 +462,6 @@ export function IngredientExplorer({
   );
 }
 
-/**
- * Progressive disclosure ingredient detail sheet.
- *
- * First view answers:
- * - What is it? (name, INCI, family, summary)
- * - Why might I use it? (concerns it may help with)
- * - Is there anything important I should know? (sensitive skin, pregnancy, caution)
- *
- * Deeper evidence (timing, photosensitivity, irritation, sources, products)
- * is behind a disclosure toggle.
- */
 function IngredientDetailSheet({
   selected,
   dialogId,
@@ -356,9 +471,41 @@ function IngredientDetailSheet({
   dialogId: string;
   onClose: () => void;
 }) {
-  const [showDetails, setShowDetails] = useState(false);
-  const detailsId = useId();
   const concernLinks = concernGuideLinks(selected.concerns ?? []);
+  const detailRows = [
+    selected.allowedTimes?.length
+      ? {
+          label: "Routine timing",
+          value: selected.allowedTimes
+            .map((time) => timeLabels[time] ?? time)
+            .join(" · "),
+        }
+      : null,
+    selected.photosensitivity
+      ? {
+          label: "Sun sensitivity",
+          value: photosensitivityLabels[selected.photosensitivity],
+        }
+      : null,
+    selected.irritationRisk
+      ? {
+          label: "Irritation",
+          value: irritationLabels[selected.irritationRisk],
+        }
+      : null,
+    selected.pregnancyStatus
+      ? {
+          label: "Pregnancy",
+          value: pregnancyLabels[selected.pregnancyStatus],
+        }
+      : null,
+    selected.nursingStatus
+      ? {
+          label: "Nursing",
+          value: nursingLabels[selected.nursingStatus],
+        }
+      : null,
+  ].filter((row): row is { label: string; value: string } => Boolean(row));
 
   const hasCaution =
     selected.sensitiveSkinStatus === "use_with_caution" ||
@@ -384,27 +531,19 @@ function IngredientDetailSheet({
               ? "Check with a clinician before use during pregnancy."
               : null;
 
-  const hasDeeperData = Boolean(
-    selected.family ||
-    (selected.concerns && selected.concerns.length > 0) ||
-    (selected.allowedTimes && selected.allowedTimes.length > 0) ||
-    selected.photosensitivity ||
-    selected.irritationRisk ||
-    selected.pregnancyStatus ||
-    selected.nursingStatus ||
-    (selected.sources && selected.sources.length > 0) ||
-    selected.reviewedAt,
-  );
-
   return (
     <div className={styles.sheet}>
       <span className={styles.handle} aria-hidden="true" />
       <header className={styles.sheetHeader}>
         <div>
-          <p>Ingredient guide</p>
+          <p>
+            {selected.family
+              ? (familyLabels[selected.family] ?? selected.family)
+              : "Ingredient guide"}
+          </p>
           <h2 id={`${dialogId}-title`}>{selected.name}</h2>
           {selected.inciName !== selected.name ? (
-            <span>{selected.inciName}</span>
+            <span>INCI · {selected.inciName}</span>
           ) : null}
         </div>
         <button
@@ -417,18 +556,44 @@ function IngredientDetailSheet({
       </header>
 
       <div className={styles.sheetBody}>
-        {/* First view: What is it? */}
         <p className={styles.sheetSummary}>{selected.summary}</p>
-        {selected.family ? (
-          <p className={styles.sheetFamily}>
-            {familyLabels[selected.family] ?? selected.family}
-          </p>
-        ) : null}
 
-        {/* First view: Why might I use it? */}
-        {concernLinks.length > 0 ? (
-          <div className={styles.sheetConcerns}>
-            <p className={styles.sheetSectionLabel}>May help with</p>
+        <section
+          className={styles.evidenceSection}
+          aria-labelledby={`${dialogId}-evidence`}
+        >
+          <div className={styles.sectionHeading}>
+            <h3 id={`${dialogId}-evidence`}>Evidence & cautions</h3>
+            <p>Ingredient-level guidance</p>
+          </div>
+          <div className={styles.sheetBadges}>
+            <EvidenceGradeBadge level={selected.evidenceGrade} />
+            <SafetyBadge status={selected.sensitiveSkinStatus} />
+          </div>
+          {hasCaution && cautionText ? (
+            <ClinicalCaution text={cautionText} />
+          ) : null}
+          {detailRows.length ? (
+            <dl className={styles.detailList}>
+              {detailRows.map((row) => (
+                <div className={styles.detailRow} key={row.label}>
+                  <dt>{row.label}</dt>
+                  <dd>{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
+        </section>
+
+        {concernLinks.length ? (
+          <section
+            className={styles.relatedSection}
+            aria-labelledby={`${dialogId}-concerns`}
+          >
+            <div className={styles.sectionHeading}>
+              <h3 id={`${dialogId}-concerns`}>Related care guides</h3>
+              <p>Continue by concern</p>
+            </div>
             <div className={styles.sheetChips}>
               {concernLinks.map((concern) => (
                 <Link
@@ -438,111 +603,54 @@ function IngredientDetailSheet({
                   onClick={onClose}
                 >
                   {concern.label}
-                  <ArrowRight size={13} aria-hidden="true" />
+                  <ArrowRight size={14} aria-hidden="true" />
                 </Link>
               ))}
             </div>
-          </div>
-        ) : null}
-
-        {/* First view: Is there anything important I should know? */}
-        <div className={styles.sheetBadges}>
-          <EvidenceGradeBadge level={selected.evidenceGrade} />
-          <SafetyBadge status={selected.sensitiveSkinStatus} />
-        </div>
-        {hasCaution ? <ClinicalCaution text={cautionText} /> : null}
-
-        {/* Deeper evidence behind progressive disclosure */}
-        {hasDeeperData ? (
-          <div className={styles.disclosureWrap}>
-            <button
-              type="button"
-              className={styles.disclosureToggle}
-              aria-expanded={showDetails}
-              aria-controls={detailsId}
-              onClick={() => setShowDetails((v) => !v)}
-            >
-              <span>{showDetails ? "Hide details" : "More detail"}</span>
-              <ChevronDown
-                size={16}
-                aria-hidden="true"
-                className={showDetails ? styles.chevronOpen : ""}
-              />
-            </button>
-            {showDetails ? (
-              <div id={detailsId} className={styles.disclosureBody}>
-                {selected.allowedTimes && selected.allowedTimes.length > 0 ? (
-                  <div className={styles.detailRow}>
-                    <dt>Routine timing</dt>
-                    <dd>
-                      {selected.allowedTimes
-                        .map((t) => timeLabels[t] ?? t)
-                        .join(" · ")}
-                    </dd>
-                  </div>
-                ) : null}
-                {selected.photosensitivity ? (
-                  <div className={styles.detailRow}>
-                    <dt>Sun sensitivity</dt>
-                    <dd>{photosensitivityLabels[selected.photosensitivity]}</dd>
-                  </div>
-                ) : null}
-                {selected.irritationRisk ? (
-                  <div className={styles.detailRow}>
-                    <dt>Irritation</dt>
-                    <dd>{irritationLabels[selected.irritationRisk]}</dd>
-                  </div>
-                ) : null}
-                {selected.pregnancyStatus ? (
-                  <div className={styles.detailRow}>
-                    <dt>Pregnancy</dt>
-                    <dd>{pregnancyLabels[selected.pregnancyStatus]}</dd>
-                  </div>
-                ) : null}
-                {selected.nursingStatus ? (
-                  <div className={styles.detailRow}>
-                    <dt>Nursing</dt>
-                    <dd>{nursingLabels[selected.nursingStatus]}</dd>
-                  </div>
-                ) : null}
-                {selected.sources && selected.sources.length > 0 ? (
-                  <div className={styles.detailSources}>
-                    <SourceList sources={selected.sources} label="Sources" />
-                  </div>
-                ) : null}
-                {selected.reviewedAt ? (
-                  <ReviewedOn date={selected.reviewedAt} />
-                ) : null}
-              </div>
-            ) : null}
-          </div>
+          </section>
         ) : null}
 
         <section
           className={styles.productSection}
           aria-labelledby={`${dialogId}-products`}
         >
-          <div className={styles.productHeading}>
-            <h3 id={`${dialogId}-products`}>Found in</h3>
-            <span>{productCountLabel(selected.products.length)}</span>
+          <div className={styles.sectionHeading}>
+            <h3 id={`${dialogId}-products`}>Found in products</h3>
+            <p>{productCountLabel(selected.products.length)}</p>
           </div>
           <div className={styles.products}>
             {selected.products.map((product) => (
               <article className={styles.product} key={product.slug}>
-                <Link href={`/products/${product.slug}`} onClick={onClose}>
+                <div className={styles.productCopy}>
                   <span>{product.brand}</span>
-                  <strong>
-                    {concentration(product.concentrationPercent, product.name)}
-                    {product.name}
-                  </strong>
-                </Link>
-                <a href={product.sourceUrl} target="_blank" rel="noreferrer">
-                  Source <ArrowUpRight size={14} aria-hidden="true" />
-                </a>
+                  <strong>{productName(product)}</strong>
+                </div>
+                <div className={styles.productActions}>
+                  <Link href={`/products/${product.slug}`} onClick={onClose}>
+                    View product <ArrowRight size={14} aria-hidden="true" />
+                  </Link>
+                  <a href={product.sourceUrl} target="_blank" rel="noreferrer">
+                    Source <ArrowUpRight size={14} aria-hidden="true" />
+                  </a>
+                </div>
               </article>
             ))}
           </div>
         </section>
+
+        {selected.sources?.length || selected.reviewedAt ? (
+          <section
+            className={styles.sourceSection}
+            aria-label="Ingredient sources"
+          >
+            {selected.sources?.length ? (
+              <SourceList sources={selected.sources} label="Sources" />
+            ) : null}
+            {selected.reviewedAt ? (
+              <ReviewedOn date={selected.reviewedAt} />
+            ) : null}
+          </section>
+        ) : null}
 
         <div className={styles.sheetFoot}>
           <p className={styles.sheetNote}>

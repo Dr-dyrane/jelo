@@ -6,8 +6,13 @@ import {
   ArrowUpRight,
   BookOpen,
   CalendarClock,
+  Check,
   Clock3,
+  Eraser,
+  LoaderCircle,
+  MessageCircleMore,
   Moon,
+  PencilLine,
   RefreshCw,
   ShieldAlert,
   Sparkles,
@@ -21,9 +26,22 @@ import { inferMarket } from "@/data/prices";
 import { useModalDialog } from "@/components/ui/use-modal-dialog";
 
 const prompts = [
-  "Tiny bumps on my forehead",
-  "Dark marks after acne",
-  "My face is oily and sensitive",
+  {
+    label: "New bumps",
+    text: "I have tiny bumps on my forehead that started two weeks ago",
+  },
+  {
+    label: "Marks after spots",
+    text: "Dark marks stay behind after my acne spots heal",
+  },
+  {
+    label: "Sensitive skin",
+    text: "My face feels tight and stings after I use products",
+  },
+  {
+    label: "Oil and texture",
+    text: "My face gets oily by midday and the texture feels uneven",
+  },
 ];
 
 type ReportRoutineStep = {
@@ -151,6 +169,13 @@ function formatPrice(product: ConsultProduct) {
       maximumFractionDigits: product.price.currency === "NGN" ? 0 : 2,
     },
   ).format(product.price.amount);
+}
+function sourceHost(url: string) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "Source";
+  }
 }
 function RoutineIcon({ time }: { time: ReportRoutineStep["time"] }) {
   if (time === "Morning") return <Sun size={18} />;
@@ -290,8 +315,10 @@ export function ConsultExperience({
   const [submittedQuery, setSubmittedQuery] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [status, setStatus] = useState("");
   const reduce = useReducedMotion();
   const resultRegionRef = useRef<HTMLElement>(null);
+  const composerRef = useRef<HTMLTextAreaElement>(null);
   const {
     dialogRef: profileDialog,
     triggerRef: profileTrigger,
@@ -299,6 +326,38 @@ export function ConsultExperience({
     close: closeProfile,
   } = useModalDialog();
   const market = useMemo(() => inferMarket(), []);
+  const profileContextCount = useMemo(
+    () =>
+      [
+        profile.age.trim(),
+        profile.pregnant,
+        profile.breastfeeding,
+        profile.sensitiveSkin,
+        profile.allergies.trim(),
+        profile.medications.trim(),
+        profile.currentIngredients.trim(),
+      ].filter(Boolean).length,
+    [profile],
+  );
+
+  function focusComposer() {
+    window.requestAnimationFrame(() => {
+      composerRef.current?.focus();
+      composerRef.current?.scrollIntoView({
+        behavior: reduce ? "auto" : "smooth",
+        block: "center",
+      });
+    });
+  }
+
+  function choosePrompt(prompt: string) {
+    setInput(prompt);
+    setError("");
+    setStatus(
+      "Example added. Add or change any detail before creating your guide.",
+    );
+    focusComposer();
+  }
 
   useEffect(() => {
     if (!result) return;
@@ -320,6 +379,7 @@ export function ConsultExperience({
     if (!query || busy) return;
     setBusy(true);
     setError("");
+    setStatus("Reading your description and safety context.");
     setSubmittedQuery(query);
     const patient = profilePayload(profile);
     const priorTimeline = timeline.slice(0, 8);
@@ -351,12 +411,14 @@ export function ConsultExperience({
       setResult(payload);
       setTimeline((current) => mergeTimeline(current, payload.timeline));
       setInput("");
+      setStatus("Your JeloCare guide is ready.");
     } catch (cause) {
-      setError(
+      const message =
         cause instanceof Error
           ? cause.message
-          : "The consultation could not continue.",
-      );
+          : "The consultation could not continue.";
+      setError(message);
+      setStatus("");
     } finally {
       setBusy(false);
     }
@@ -364,13 +426,26 @@ export function ConsultExperience({
 
   function reset() {
     setResult(null);
+    setTimeline([]);
     setSubmittedQuery("");
     setError("");
+    setStatus("Ready for a new description.");
+    focusComposer();
+  }
+  function askFollowUp() {
+    setResult(null);
+    setSubmittedQuery("");
+    setInput("");
+    setError("");
+    setStatus("Add what changed or what you would like to check next.");
+    focusComposer();
   }
   function editDescription() {
     setInput(submittedQuery);
     setResult(null);
     setError("");
+    setStatus("Your previous description is ready to edit.");
+    focusComposer();
   }
 
   if (result) {
@@ -456,12 +531,17 @@ export function ConsultExperience({
             <p className="report-summary">{result.report.summary}</p>
           </div>
           <button className="report-reset" type="button" onClick={reset}>
-            <RefreshCw size={17} /> Ask another
+            <RefreshCw size={17} aria-hidden="true" /> Start over
           </button>
         </header>
         <div className="report-query">
-          <span>You described</span>
-          <p>{submittedQuery}</p>
+          <div>
+            <span>You described</span>
+            <p>{submittedQuery}</p>
+          </div>
+          <button type="button" onClick={editDescription}>
+            <PencilLine size={15} aria-hidden="true" /> Edit
+          </button>
         </div>
         <div className="report-grid">
           <article className="report-panel report-pattern">
@@ -541,6 +621,7 @@ export function ConsultExperience({
                 <p className="eyebrow">Products</p>
                 <h3>Start simple.</h3>
               </div>
+              <span>Check the product and retailer details before buying.</span>
             </div>
             <div className="consult-product-grid">
               {result.products.map((product) => {
@@ -550,13 +631,20 @@ export function ConsultExperience({
                     <Link
                       className="consult-product-image"
                       href={`/products/${product.slug}`}
+                      aria-label={`View ${product.brand} ${product.name}`}
                     >
                       <SafeProductImage
                         src={product.image}
                         alt={`${product.brand} ${product.name}`}
                       />
                       {price ? (
-                        <span className="consult-product-price">{price}</span>
+                        <span
+                          className="consult-product-price"
+                          aria-label={`${price} at ${product.price?.retailer}`}
+                        >
+                          <strong>{price}</strong>
+                          <small>at {product.price?.retailer}</small>
+                        </span>
                       ) : null}
                       <span className="consult-product-arrow">
                         <ArrowUpRight size={19} />
@@ -620,6 +708,7 @@ export function ConsultExperience({
                   <BookOpen size={14} /> Sources
                 </p>
                 <h3>Read the guidance.</h3>
+                <p>These published sources support the care guide above.</p>
               </div>
               <span>
                 {result.guide.sources.length} source
@@ -639,7 +728,8 @@ export function ConsultExperience({
                   </h4>
                   <footer>
                     <a href={item.url} target="_blank" rel="noreferrer">
-                      Open source <ArrowUpRight size={14} aria-hidden="true" />
+                      Open {sourceHost(item.url)}{" "}
+                      <ArrowUpRight size={14} aria-hidden="true" />
                     </a>
                   </footer>
                 </article>
@@ -647,7 +737,22 @@ export function ConsultExperience({
             </div>
           </section>
         ) : null}
-        <p className="report-disclaimer">Guidance, not diagnosis.</p>
+        <div className="report-next-step">
+          <div>
+            <MessageCircleMore size={20} aria-hidden="true" />
+            <span>
+              <strong>Something changed?</strong>
+              <small>Ask a follow-up while this visit stays in context.</small>
+            </span>
+          </div>
+          <button type="button" onClick={askFollowUp}>
+            Ask a follow-up <ArrowRight size={16} aria-hidden="true" />
+          </button>
+        </div>
+        <p className="report-disclaimer">
+          Guidance, not diagnosis. Urgent or worsening symptoms need in-person
+          care.
+        </p>
       </motion.section>
     );
   }
@@ -661,13 +766,35 @@ export function ConsultExperience({
     >
       <div className="consult-empty">
         <div className="consult-orb">
-          <Sparkles size={24} />
+          <Sparkles size={24} aria-hidden="true" />
         </div>
-        <p>Tell us what you notice, where it is, and when it began.</p>
-        <div className="prompt-row">
+        <p className="eyebrow">A useful description</p>
+        <h2>
+          {timeline.length
+            ? "What would you like to check next?"
+            : "Start with what you can see or feel."}
+        </h2>
+        <p>
+          {timeline.length
+            ? "Share what changed, what helped, or what you want to understand next."
+            : "Mention where it is, how it feels, and when you first noticed it."}
+        </p>
+        <div
+          className="prompt-row"
+          role="group"
+          aria-label="Example descriptions"
+        >
           {prompts.map((prompt) => (
-            <button key={prompt} type="button" onClick={() => setInput(prompt)}>
-              {prompt}
+            <button
+              key={prompt.label}
+              type="button"
+              disabled={busy}
+              aria-pressed={input === prompt.text}
+              onClick={() => choosePrompt(prompt.text)}
+            >
+              <span>{prompt.label}</span>
+              <strong>{prompt.text}</strong>
+              <ArrowRight size={15} aria-hidden="true" />
             </button>
           ))}
         </div>
@@ -682,9 +809,22 @@ export function ConsultExperience({
         className="profile-trigger"
         type="button"
         ref={profileTrigger}
+        disabled={busy}
         onClick={openProfile}
       >
-        Add safety context <ArrowRight size={16} aria-hidden="true" />
+        <span>
+          <strong>Safety context</strong>
+          <small>
+            {profileContextCount
+              ? `${profileContextCount} detail${profileContextCount === 1 ? "" : "s"} added`
+              : "Optional · used for this visit only"}
+          </small>
+        </span>
+        <span className="profile-trigger-action">
+          {profileContextCount ? <Check size={16} aria-hidden="true" /> : null}
+          {profileContextCount ? "Review" : "Add"}
+          <ArrowRight size={16} aria-hidden="true" />
+        </span>
       </button>
       <dialog
         className="profile-dialog"
@@ -811,29 +951,95 @@ export function ConsultExperience({
       </dialog>
       <form
         className="consult-form"
+        aria-busy={busy}
         onSubmit={(event) => {
           event.preventDefault();
           submit(input);
         }}
       >
-        <textarea
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          placeholder="Describe your concern…"
-          rows={4}
-          aria-label="Describe your skin concern"
-        />
-        <button type="submit" disabled={!input.trim() || busy}>
-          {busy ? "Considering…" : "Create guide"}
-        </button>
+        <div className="consult-composer-head">
+          <label htmlFor="consult-description">What are you noticing?</label>
+          <span>Private to this visit</span>
+        </div>
+        <div className="consult-compose-row">
+          <textarea
+            id="consult-description"
+            ref={composerRef}
+            value={input}
+            onChange={(event) => {
+              setInput(event.target.value);
+              setError("");
+              setStatus("");
+            }}
+            onKeyDown={(event) => {
+              if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+                event.preventDefault();
+                submit(input);
+              }
+            }}
+            placeholder="For example: It is itchy around my jaw and began last week…"
+            rows={4}
+            disabled={busy}
+          />
+          <button
+            className="consult-submit"
+            type="submit"
+            disabled={!input.trim() || busy}
+          >
+            {busy ? (
+              <LoaderCircle
+                className="consult-spinner"
+                size={18}
+                aria-hidden="true"
+              />
+            ) : (
+              <Sparkles size={18} aria-hidden="true" />
+            )}
+            {busy ? "Creating guide…" : "Create my guide"}
+          </button>
+        </div>
+        <div className="consult-composer-foot">
+          <span>Press Ctrl or ⌘ + Enter to create your guide.</span>
+          {input && !busy ? (
+            <button
+              className="consult-clear"
+              type="button"
+              onClick={() => {
+                setInput("");
+                setError("");
+                setStatus("Description cleared.");
+                focusComposer();
+              }}
+            >
+              <Eraser size={14} aria-hidden="true" /> Clear
+            </button>
+          ) : null}
+        </div>
       </form>
+      <p className="sr-only" role="status" aria-live="polite">
+        {status}
+      </p>
+      {busy ? (
+        <div className="consult-progress">
+          <LoaderCircle
+            className="consult-spinner"
+            size={16}
+            aria-hidden="true"
+          />
+          Reading your description and safety context…
+        </div>
+      ) : null}
       {error ? (
-        <p className="consult-error" role="alert" aria-live="assertive">
-          {error}
-        </p>
+        <div className="consult-error" role="alert" aria-live="assertive">
+          <strong>We couldn’t create your guide.</strong>
+          <span>
+            {error} Your description is still here so you can try again.
+          </span>
+        </div>
       ) : null}
       <p className="consult-note">
-        Urgent or worsening symptoms need in-person care.
+        <ShieldAlert size={14} aria-hidden="true" /> Urgent or worsening
+        symptoms need in-person care.
       </p>
     </motion.section>
   );
