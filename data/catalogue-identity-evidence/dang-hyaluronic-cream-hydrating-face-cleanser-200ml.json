@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 3,
+  "candidateId": "dang-hyaluronic-cream-hydrating-face-cleanser-200ml",
+  "sourceUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
+  "responseUrl": "https://danglifestyle.co/products/hydrating-cream-cleanser",
+  "retrievedAt": "2026-08-09T17:00:00Z",
+  "fields": {
+    "gtin": {
+      "value": "DGL-SKC-052",
+      "locator": "Official Shopify variant barcode",
+      "sourceText": "barcode: DGL-SKC-052"
+    },
+    "variant": {
+      "value": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml",
+      "locator": "Official product JSON title",
+      "sourceText": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml"
+    },
+    "size": {
+      "value": "200 ml",
+      "locator": "Official product title size suffix",
+      "sourceText": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml"
+    }
+  },
+  "method": "reviewed-exact-identity-field-extraction",
+  "reviewer": "JeloCare catalogue evidence review",
+  "reviewedAt": "2026-08-09T17:00:00Z"
+}

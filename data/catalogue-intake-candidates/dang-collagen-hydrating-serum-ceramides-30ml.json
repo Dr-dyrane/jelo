@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-09T17:00:00Z",
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "dang-collagen-hydrating-serum-ceramides-30ml"
+  },
+  "candidate": {
+    "id": "dang-collagen-hydrating-serum-ceramides-30ml",
+    "brand": "DANG",
+    "name": "Collagen Hydrating Serum",
+    "variant": "Collagen And Hydrating Serum With Ceramides -30ml",
+    "size": "30 ml",
+    "category": "Face care",
+    "reason": "Hydrating repair serum with official manufacturer SKU DGL-SKC-034, observed on the DANG mid-year sale at ₦14,450 (regular ₦17,000). Supports hydration and skin repair with collagen, ceramides and hyaluronic acid.",
+    "priority": "essential",
+    "gapIds": ["hydration-routine-coverage"],
+    "demandEvidenceUrls": [
+      "https://danglifestyle.co/products/collagen-peptide-serum"
+    ],
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-034"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+      "checkedAt": "2026-08-09T17:00:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://danglifestyle.co/products/collagen-peptide-serum",
+        "observedGtin": "DGL-SKC-034",
+        "observedVariant": "Collagen And Hydrating Serum With Ceramides -30ml",
+        "observedSize": "30 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/dang-collagen-hydrating-serum-ceramides-30ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "dang-collagen-hydrating-serum-ceramides-30ml",
+          "sourceUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+          "responseUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+          "retrievedAt": "2026-08-09T17:00:00Z",
+          "fields": {
+            "gtin": {
+              "value": "DGL-SKC-034",
+              "locator": "Official Shopify variant barcode",
+              "sourceText": "barcode: DGL-SKC-034"
+            },
+            "variant": {
+              "value": "Collagen And Hydrating Serum With Ceramides -30ml",
+              "locator": "Official product JSON title",
+              "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml"
+            },
+            "size": {
+              "value": "30 ml",
+              "locator": "Official product title size suffix",
+              "sourceText": "Collagen And Hydrating Serum With Ceramides -30ml"
+            }
+          }
+        }
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Leave-on hydrating serum with collagen, ceramides and hyaluronic acid listed by the manufacturer",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+      "manufacturerEvidenceUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+      "evidenceUrls": [
+        "https://danglifestyle.co/products/collagen-peptide-serum"
+      ],
+      "reviewedAt": "2026-08-09T17:00:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/collagen-peptide-serum",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "pending",
+      "origin": "official-brand-source",
+      "role": "packshot",
+      "sourceUrl": "https://danglifestyle.co/products/collagen-peptide-serum"
+    }
+  },
+  "order": 37
+}

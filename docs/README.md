@@ -38,6 +38,7 @@ This is the entry point for product, engineering, data, and operations.
 - [Next community-priority SKU evidence](./research/2026-07-27-next-community-sku-evidence.md)
 - [ANUA Zero-cast evidence blocker](./research/2026-07-28-anua-zero-cast-sunscreen-evidence-blocker.md)
 - [DANG Hydra Glow offer blocker](./research/2026-07-28-dang-hydra-glow-nigeria-offer-blocker.md)
+- [DANG! Lifestyle and Beauty Hut Africa product research](./research/2026-08-09-dang-beauty-hut-product-research.md)
 - [Skin by Zaron salicylic toner EAN resolution](./research/2026-08-02-skin-by-zaron-salicylic-acid-ean-resolution.md)
 - [4 August founder/pharmacist catalogue offer targets](./research/catalogue-founder-pharmacist-offer-targets-2026-08-04.md)
 - [NINELESS A-Control azelaic acid cream research](./research/2026-08-06-nineless-a-control-azelaic-acid-cream-50ml-research.md)

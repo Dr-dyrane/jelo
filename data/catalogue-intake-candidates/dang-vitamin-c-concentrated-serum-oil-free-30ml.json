@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-09T17:00:00Z",
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "dang-vitamin-c-concentrated-serum-oil-free-30ml"
+  },
+  "candidate": {
+    "id": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
+    "brand": "DANG",
+    "name": "Vitamin C Concentrated Serum (Oil Free)",
+    "variant": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
+    "size": "30 ml",
+    "category": "Face care",
+    "reason": "Brightening serum with official manufacturer SKU DGL-SKC-020, observed on the DANG mid-year sale at ₦15,045 (regular ₦17,700). Targets dark spots and dullness with 7% ethyl ascorbic acid, aloe vera extract and glycerin.",
+    "priority": "essential",
+    "gapIds": ["dark-spot-routine-coverage"],
+    "demandEvidenceUrls": [
+      "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
+    ],
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-020"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+      "checkedAt": "2026-08-09T17:00:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+        "observedGtin": "DGL-SKC-020",
+        "observedVariant": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
+        "observedSize": "30 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/dang-vitamin-c-concentrated-serum-oil-free-30ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
+          "sourceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+          "responseUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+          "retrievedAt": "2026-08-09T17:00:00Z",
+          "fields": {
+            "gtin": {
+              "value": "DGL-SKC-020",
+              "locator": "Official Shopify variant barcode",
+              "sourceText": "barcode: DGL-SKC-020"
+            },
+            "variant": {
+              "value": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
+              "locator": "Official product JSON title",
+              "sourceText": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml"
+            },
+            "size": {
+              "value": "30 ml",
+              "locator": "Official product title size suffix",
+              "sourceText": "Vitamin C Concentrated Serum For Face (Oil Free)-30ml"
+            }
+          }
+        }
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Leave-on oil-free serum with 7% ethyl ascorbic acid, aloe vera extract and glycerin listed by the manufacturer",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+      "manufacturerEvidenceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+      "evidenceUrls": [
+        "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
+      ],
+      "reviewedAt": "2026-08-09T17:00:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "pending",
+      "origin": "official-brand-source",
+      "role": "packshot",
+      "sourceUrl": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin"
+    }
+  },
+  "order": 36
+}

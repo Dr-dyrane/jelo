@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-09T17:00:00Z",
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "dang-retinal-cream-005-30ml"
+  },
+  "candidate": {
+    "id": "dang-retinal-cream-005-30ml",
+    "brand": "DANG",
+    "name": "Retinal Cream 0.05%",
+    "variant": "Multipurpose Retinal Cream 0.05% 30ml",
+    "size": "30 ml",
+    "category": "Face care",
+    "reason": "Anti-aging retinal cream with official manufacturer SKU DGL-SKC-030, observed on the DANG store at ₦10,430 (regular ₦14,900). Targets fine lines and uneven skin tone with 0.05% retinaldehyde; the page notes the item is not suitable for pregnant and breastfeeding mothers.",
+    "priority": "essential",
+    "gapIds": ["anti-aging-routine-coverage"],
+    "demandEvidenceUrls": [
+      "https://danglifestyle.co/products/retinal-cream-0-05"
+    ],
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-030"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+      "checkedAt": "2026-08-09T17:00:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://danglifestyle.co/products/retinal-cream-0-05",
+        "observedGtin": "DGL-SKC-030",
+        "observedVariant": "Multipurpose Retinal Cream 0.05% 30ml",
+        "observedSize": "30 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/dang-retinal-cream-005-30ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "dang-retinal-cream-005-30ml",
+          "sourceUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+          "responseUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+          "retrievedAt": "2026-08-09T17:00:00Z",
+          "fields": {
+            "gtin": {
+              "value": "DGL-SKC-030",
+              "locator": "Official Shopify variant barcode",
+              "sourceText": "barcode: DGL-SKC-030"
+            },
+            "variant": {
+              "value": "Multipurpose Retinal Cream 0.05% 30ml",
+              "locator": "Official product JSON title",
+              "sourceText": "Multipurpose Retinal Cream 0.05% 30ml"
+            },
+            "size": {
+              "value": "30 ml",
+              "locator": "Official product title size suffix",
+              "sourceText": "Multipurpose Retinal Cream 0.05% 30ml"
+            }
+          }
+        }
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Leave-on night retinal cream with 0.05% retinaldehyde and bakuchiol listed by the manufacturer",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Use at night only, introduce gradually, avoid the eye contour, stop if persistent irritation develops and seek clinical advice for severe or changing symptoms. Not suitable for pregnant or breastfeeding mothers.",
+      "manufacturerEvidenceUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+      "evidenceUrls": ["https://danglifestyle.co/products/retinal-cream-0-05"],
+      "reviewedAt": "2026-08-09T17:00:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/retinal-cream-0-05",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "pending",
+      "origin": "official-brand-source",
+      "role": "packshot",
+      "sourceUrl": "https://danglifestyle.co/products/retinal-cream-0-05"
+    }
+  },
+  "order": 43
+}

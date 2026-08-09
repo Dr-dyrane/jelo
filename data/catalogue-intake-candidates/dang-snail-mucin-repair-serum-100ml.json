@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-09T17:00:00Z",
+  "origin": {
+    "kind": "legacy-deliberate-intake",
+    "reference": "dang-snail-mucin-repair-serum-100ml"
+  },
+  "candidate": {
+    "id": "dang-snail-mucin-repair-serum-100ml",
+    "brand": "DANG",
+    "name": "Snail Mucin Repair Serum",
+    "variant": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+    "size": "100 ml",
+    "category": "Face care",
+    "reason": "Repair serum with official manufacturer SKU DGL-SKC-023, observed on the DANG mid-year sale at ₦16,200 (regular ₦21,600). Supports skin rejuvenation and repair with snail mucin.",
+    "priority": "essential",
+    "gapIds": ["hydration-routine-coverage"],
+    "demandEvidenceUrls": [
+      "https://danglifestyle.co/products/snail-essence-serum"
+    ],
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "manufacturer-sku",
+        "value": "DGL-SKC-023"
+      },
+      "officialProductUrl": "https://danglifestyle.co/products/snail-essence-serum",
+      "checkedAt": "2026-08-09T17:00:00Z",
+      "basis": "official-brand",
+      "officialEvidence": {
+        "url": "https://danglifestyle.co/products/snail-essence-serum",
+        "observedGtin": "DGL-SKC-023",
+        "observedVariant": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+        "observedSize": "100 ml",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/dang-snail-mucin-repair-serum-100ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 3,
+          "candidateId": "dang-snail-mucin-repair-serum-100ml",
+          "sourceUrl": "https://danglifestyle.co/products/snail-essence-serum",
+          "responseUrl": "https://danglifestyle.co/products/snail-essence-serum",
+          "retrievedAt": "2026-08-09T17:00:00Z",
+          "fields": {
+            "gtin": {
+              "value": "DGL-SKC-023",
+              "locator": "Official Shopify variant barcode",
+              "sourceText": "barcode: DGL-SKC-023"
+            },
+            "variant": {
+              "value": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml",
+              "locator": "Official product JSON title",
+              "sourceText": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml"
+            },
+            "size": {
+              "value": "100 ml",
+              "locator": "Official product title size suffix",
+              "sourceText": "Multi Function Formula Snail Mucin Repair Serum For Face-100ml"
+            }
+          }
+        }
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "Leave-on repair serum with snail mucin listed by the manufacturer",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Cosmetic routine support only; it does not diagnose or treat any skin condition. Stop if persistent irritation develops and seek clinical advice for severe or changing symptoms.",
+      "manufacturerEvidenceUrl": "https://danglifestyle.co/products/snail-essence-serum",
+      "evidenceUrls": ["https://danglifestyle.co/products/snail-essence-serum"],
+      "reviewedAt": "2026-08-09T17:00:00Z",
+      "reviewer": "JeloCare catalogue care review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "tierAIdentityEvidenceUrl": "https://danglifestyle.co/products/snail-essence-serum",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "pending",
+      "origin": "official-brand-source",
+      "role": "packshot",
+      "sourceUrl": "https://danglifestyle.co/products/snail-essence-serum"
+    }
+  },
+  "order": 41
+}

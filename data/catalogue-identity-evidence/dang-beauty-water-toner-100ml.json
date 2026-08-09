@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 3,
+  "candidateId": "dang-beauty-water-toner-100ml",
+  "sourceUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+  "responseUrl": "https://danglifestyle.co/products/centella-asiatica-toner",
+  "retrievedAt": "2026-08-09T17:00:00Z",
+  "fields": {
+    "gtin": {
+      "value": "DGL-SKC-017",
+      "locator": "Official Shopify variant barcode",
+      "sourceText": "barcode: DGL-SKC-017"
+    },
+    "variant": {
+      "value": "Beauty Water (Toner)-100ml",
+      "locator": "Official product JSON title",
+      "sourceText": "Beauty Water (Toner)-100ml"
+    },
+    "size": {
+      "value": "100 ml",
+      "locator": "Official product title size suffix",
+      "sourceText": "Beauty Water (Toner)-100ml"
+    }
+  },
+  "method": "reviewed-exact-identity-field-extraction",
+  "reviewer": "JeloCare catalogue evidence review",
+  "reviewedAt": "2026-08-09T17:00:00Z"
+}
