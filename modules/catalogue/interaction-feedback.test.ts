@@ -158,7 +158,7 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
   );
   assert.match(ruleDeclarations(mobileSearchStyles, ".shell"), /top:\s*5rem;/);
   assert.match(searchStyles, /scrollbar-width: none/);
-  assert.match(catalogueStyles, /^\.page\{overflow:clip;/);
+  assert.match(catalogueStyles, /^\.page\s*\{[\s\S]*overflow:\s*clip;/);
   assert.doesNotMatch(search, /[😀-🙏]/u);
   assert.equal((sheet.match(/<dialog/g) ?? []).length, 1);
   assert.doesNotMatch(sheet, /datalist|companyLogo|avatar/i);

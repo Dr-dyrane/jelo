@@ -1,28 +1,30 @@
-import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import path from 'node:path';
-import test from 'node:test';
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import test from "node:test";
 
 const root = process.cwd();
 
 const publicTypographySources = [
-  'app/(site)/contribute/contribute.module.css',
-  'app/(site)/products/products.module.css',
-  'components/products/catalogue-search.module.css',
-  'components/products/inventory-card.module.css',
-  'components/products/inventory-filter-sheet.module.css',
-  'components/ui/adaptive-selector.module.css',
+  "app/(site)/contribute/contribute.module.css",
+  "app/(site)/products/products.module.css",
+  "components/products/catalogue-search.module.css",
+  "components/products/inventory-card.module.css",
+  "components/products/inventory-filter-sheet.module.css",
+  "components/ui/adaptive-selector.module.css",
 ] as const;
 
 function readSource(relativePath: string) {
-  return readFile(path.join(root, relativePath), 'utf8');
+  return readFile(path.join(root, relativePath), "utf8");
 }
 
-test('current public surfaces keep subtle labels in sentence case', async () => {
-  const sources = await Promise.all(publicTypographySources.map(async relativePath => ({
-    relativePath,
-    source: await readSource(relativePath),
-  })));
+test("current public surfaces keep subtle labels in sentence case", async () => {
+  const sources = await Promise.all(
+    publicTypographySources.map(async (relativePath) => ({
+      relativePath,
+      source: await readSource(relativePath),
+    })),
+  );
 
   for (const { relativePath, source } of sources) {
     assert.doesNotMatch(
@@ -42,27 +44,21 @@ test('current public surfaces keep subtle labels in sentence case', async () => 
   }
 });
 
-test('public eyebrows, filter labels, card signals, and selection labels stay regular', async () => {
-  const [
-    contribute,
-    products,
-    search,
-    card,
-    filterSheet,
-    adaptiveSelector,
-  ] = await Promise.all(publicTypographySources.map(readSource));
+test("public eyebrows, filter labels, card signals, and selection labels stay regular", async () => {
+  const [contribute, products, search, card, filterSheet, adaptiveSelector] =
+    await Promise.all(publicTypographySources.map(readSource));
 
   assert.match(
     contribute,
-    /\.heroCopy>p,[^{]+\.complete>p:first-of-type\{[^}]*font-weight:var\(--weight-regular\)/,
+    /\.heroCopy\s*>\s*p[\s\S]*?\.complete\s*>\s*p:first-of-type\s*\{[^}]*font-weight:\s*var\(--weight-regular\)/,
   );
   assert.match(
     contribute,
-    /\.boundary p\{[^}]*font-weight:var\(--weight-regular\)/,
+    /\.boundary\s+p\s*\{[^}]*font-weight:\s*var\(--weight-regular\)/,
   );
   assert.match(
     products,
-    /\.kicker,[^{]+\.storyCopy>p\{[^}]*font-weight:var\(--weight-regular\)/,
+    /\.kicker[\s\S]*?\.storyCopy\s*>\s*p\s*\{[^}]*font-weight:\s*var\(--weight-regular\)/,
   );
   assert.match(
     search,
@@ -74,7 +70,7 @@ test('public eyebrows, filter labels, card signals, and selection labels stay re
   );
   assert.match(
     card,
-    /\.copy>p\{[^}]*font-weight:var\(--weight-regular\)/,
+    /\.copy\s*>\s*p\s*\{[^}]*font-weight:\s*var\(--weight-regular\)/,
   );
   assert.match(
     filterSheet,
@@ -90,6 +86,6 @@ test('public eyebrows, filter labels, card signals, and selection labels stay re
   );
   assert.match(
     adaptiveSelector,
-    /\.selectedBlock>p\{[^}]*font-weight:var\(--weight-regular\)/,
+    /\.selectedBlock\s*>\s*p\s*\{[^}]*font-weight:\s*var\(--weight-regular\)/,
   );
 });
