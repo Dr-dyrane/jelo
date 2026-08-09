@@ -266,9 +266,19 @@
     top: 5rem;
     width: calc(100% - 1.2rem);
     margin-top: -1.5rem;
+    transition: top 0.2s ease;
+  }
+  /* When search is focused, move to top: 0 (header is hidden via body attr) */
+  :global(body[data-search-active="true"]) .shell {
+    top: 0.5rem;
   }
   .searchBar {
     grid-template-columns: auto minmax(0, 1fr) auto auto;
+  }
+  /* Prevent iOS auto-zoom: inputs must be >= 16px on focus */
+  .searchBar input[type="text"],
+  .searchBar input[name="q"] {
+    font-size: 16px;
   }
   .submit {
     width: 2.75rem;
