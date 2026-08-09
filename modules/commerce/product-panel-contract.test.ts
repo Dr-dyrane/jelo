@@ -34,7 +34,7 @@ test("the product panel exposes one controlled dialog with a stable accessible t
   );
   assert.match(
     panelStyles,
-    /\.product-panel-body \[hidden\][\s\S]*?display: none !important/,
+    /\.product-panel-body \[hidden\]\s*\{\s*display:\s*none\s*!important;\s*\}/,
   );
 });
 

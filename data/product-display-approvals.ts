@@ -103,8 +103,8 @@ export const productDisplayApprovals = {
     name: 'Matcha Hydrating Real Sunscreen SPF50+ PA++++',
     size: '50 ml',
     sourceUrl: 'https://theskincounter.com/cdn/shop/products/blabrealsunscreenmatchatheskincounter.jpg?v=1677506934',
-    contentHash: 'b3cabe9824cfd8886e4ec7902c58534aab5dbe06d39284376c7547600ac2a55f',
-    reviewedAt: '2026-08-04T14:14:00.000Z',
+    contentHash: '73122802ca451c6cedb4c5ac3e1d184be9098bc9819abf3307c07fec682d4d8f',
+    reviewedAt: '2026-08-09T02:26:00.000Z',
   }),
   'mediana-leave-in-conditioning-milk': approval({
     brand: 'MEDIANA',
