@@ -150,6 +150,8 @@ export function IngredientExplorer({
   const dialogId = useId();
   const { dialogRef, triggerRef, open, close } = useModalDialog();
   const ingredientButtons = useRef(new Map<string, HTMLButtonElement>());
+  const viewButtons = useRef(new Map<LibraryView, HTMLButtonElement>());
+  const clearSearchButtonRef = useRef<HTMLButtonElement>(null);
   const openRef = useRef(open);
   const closeRef = useRef(close);
   const openSlugRef = useRef<string | null>(null);
@@ -229,7 +231,7 @@ export function IngredientExplorer({
       }
 
       const opener = ingredientButtons.current.get(ingredient.slug);
-      if (opener) triggerRef.current = opener;
+      triggerRef.current = opener ?? null;
       setOpenSlug(ingredient.slug);
       window.requestAnimationFrame(() =>
         window.requestAnimationFrame(() => openRef.current()),
@@ -288,6 +290,13 @@ export function IngredientExplorer({
   }
 
   function closeIngredient() {
+    if (!triggerRef.current?.isConnected) {
+      triggerRef.current =
+        (query ? clearSearchButtonRef.current : null) ??
+        viewButtons.current.get(view) ??
+        viewButtons.current.get("all") ??
+        null;
+    }
     clearIngredientHash();
     close();
     setOpenSlug(null);
@@ -318,6 +327,7 @@ export function IngredientExplorer({
           />
           {query ? (
             <button
+              ref={clearSearchButtonRef}
               type="button"
               onClick={() => {
                 setQuery("");
@@ -340,6 +350,10 @@ export function IngredientExplorer({
             {views.map((item) => (
               <button
                 key={item.id}
+                ref={(node) => {
+                  if (node) viewButtons.current.set(item.id, node);
+                  else viewButtons.current.delete(item.id);
+                }}
                 type="button"
                 aria-pressed={view === item.id}
                 onClick={() => {

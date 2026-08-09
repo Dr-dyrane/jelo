@@ -1,7 +1,7 @@
 # JeloCare work ledger
 
 Updated: 2026-08-09
-Base: `ba7e6ff` on `origin/main`
+Base before the public care UX integration: `d32944a` on `origin/main`
 Production checkpoint before this enrichment release: Vercel deployment `dpl_BLGBfofetUuzPBvFFTtMTovFiXVw` READY on `www.jelocare.com`
 
 ## Release authority
@@ -17,6 +17,13 @@ Production checkpoint before this enrichment release: Vercel deployment `dpl_BLG
 - Price history is owned by Neon (`offers` + append-only `offer_price_history`) and refreshed through the twice-daily inventory cron. Static `data/price-history.ts` is fallback only and must not invent prior observations for newly discovered offers.
 - Product news has no released persistence contract. The smallest safe next foundation is an identity-version-bound private news table plus a published-only runtime view. Applying it is blocked until the protected non-Vercel `MIGRATION_DATABASE_URL` is available.
 - The strongest current news signal is an Argentina-specific ANMAT registration/traceability action naming three exact catalogue products. It must never be presented as a Nigerian recall or as evidence that every global unit is unsafe or counterfeit.
+
+## Public care experience roadmap
+
+- **Trust and discovery foundation — released:** `95c55bc` aligned product market facts, removed retailer-registration autofocus, improved token-bounded search relevance, exposed Brands/Price watch/Contribute, connected source-checked care links, and added concern search/filtering.
+- **Ask JeloCare conversation — released in this wave:** `/consult` now starts with guided descriptions, gives immediate composer/progress/error feedback, distinguishes evidence and safety context, and preserves concern/product follow-up without changing the clinical API or diagnosis boundary.
+- **Ingredient library interaction — released in this wave:** `/ingredients` now exposes search in the first task surface, preserves query/filter/hash state, uses desktop side-sheet/mobile bottom-sheet detail, and returns focus safely even when a deep-linked ingredient is hidden by the active filter.
+- **Next safe lane after production observation:** connect an authenticated Ask JeloCare result into `/me` history and saved care context without copying transient safety data, then audit remaining concern–ingredient–product relationship coverage. Do not begin either foundation from visual assumptions alone.
 
 ## Lane checkpoint
 
