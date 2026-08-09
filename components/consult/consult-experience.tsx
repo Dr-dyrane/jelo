@@ -423,8 +423,14 @@ export function ConsultExperience({
         </motion.section>
       );
     }
-    const displayedConcerns =
-      result.careIntent?.labels ?? (result.guide ? [result.guide.name] : []);
+    const displayedConcerns = result.careIntent
+      ? result.careIntent.labels.flatMap((label, index) => {
+          const slug = result.careIntent?.concernSlugs[index];
+          return slug ? [{ label, slug }] : [];
+        })
+      : result.guide
+        ? [{ label: result.guide.name, slug: result.guide.slug }]
+        : [];
     const distinctFollowUp = !repeatsCopy(result.report.followUp, [
       result.report.summary,
       ...result.report.cautions,
@@ -471,7 +477,10 @@ export function ConsultExperience({
             {displayedConcerns.length ? (
               <div className="concern-chips">
                 {displayedConcerns.map((concern) => (
-                  <span key={concern}>{concern}</span>
+                  <Link key={concern.slug} href={`/concerns/${concern.slug}`}>
+                    {concern.label}
+                    <ArrowRight size={13} aria-hidden="true" />
+                  </Link>
                 ))}
               </div>
             ) : null}

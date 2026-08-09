@@ -25,11 +25,6 @@ import {
   serializeJsonLd,
 } from "@/modules/commerce/product-structured-data";
 import { productMatchesConcern } from "@/modules/concerns/product-matching";
-import {
-  buildMarketReading,
-  isPriced,
-  isListingOnly,
-} from "@/modules/commerce/market-reading";
 
 export const revalidate = 3600;
 
@@ -115,9 +110,11 @@ export default async function ProductPage({
   );
   const structuredData = productStructuredData(product);
 
-  const marketReading = buildMarketReading(product.offers, "NG");
-  const priced = isPriced(marketReading);
-  const listingOnly = isListingOnly(marketReading);
+  const marketReading = panelData.marketSnapshot?.NG.reading;
+  const pricedReading =
+    marketReading?.state === "priced" ? marketReading : null;
+  const listingReading =
+    marketReading?.state === "listing-only" ? marketReading : null;
 
   return (
     <>
@@ -137,14 +134,14 @@ export default async function ProductPage({
           step={product.step}
           careStatus={careStatus}
           priceLabel={
-            priced
-              ? marketReading.priceLabel
-              : listingOnly
-                ? marketReading.lastKnownPriceLabel
+            pricedReading
+              ? pricedReading.priceLabel
+              : listingReading
+                ? listingReading.lastKnownPriceLabel
                 : null
           }
-          lowestPrice={priced ? marketReading.lowestPrice : null}
-          storeCount={priced ? marketReading.storeCount : 0}
+          lowestPrice={pricedReading?.lowestPrice ?? null}
+          storeCount={pricedReading?.storeCount ?? 0}
           sizeSelector={
             productFamily ? (
               <ProductSizeSelector family={productFamily} />

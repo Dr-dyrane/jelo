@@ -16,7 +16,7 @@ const mobileLinks = [
   { href: "/products", label: "Products", detail: "Find what fits" },
   {
     href: "/contribute",
-    label: "Share skincare",
+    label: "Contribute",
     detail: "Tell us what you use",
   },
   { href: "/consult", label: "Ask JeloCare", detail: "Create a simple guide" },
@@ -99,7 +99,13 @@ export function SiteHeader() {
           <div className={styles.links}>
             <Link href="/concerns">Concerns</Link>
             <Link href="/products">Products</Link>
-            <Link href="/contribute">Share skincare</Link>
+            <Link className={styles.utilityLink} href="/brands">
+              Brands
+            </Link>
+            <Link className={styles.utilityLink} href="/share">
+              Price watch
+            </Link>
+            <Link href="/contribute">Contribute</Link>
             <Link href="/consult">Consult</Link>
             <Link className={styles.memberLink} href="/me">
               Me
@@ -172,6 +178,12 @@ export function SiteHeader() {
             ))}
           </nav>
           <div className={styles.mobileSecondary}>
+            <Link href="/brands" onClick={closeMenu}>
+              Brands
+            </Link>
+            <Link href="/share" onClick={closeMenu}>
+              Price watch
+            </Link>
             <Link href="/ingredients" onClick={closeMenu}>
               Ingredients
             </Link>

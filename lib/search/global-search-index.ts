@@ -35,7 +35,7 @@ export const globalSearchTypeLabels: Record<GlobalSearchFilter, string> = {
   guide: "Guides",
   ingredient: "Ingredients",
   retailer: "Retailers",
-  company: "Companies",
+  company: "Brands",
   category: "Categories",
 };
 
@@ -57,9 +57,17 @@ function entryScore(
   const label = normalizeGlobalSearchText(entry.label);
   const detail = normalizeGlobalSearchText(entry.detail);
   const keywords = normalizeGlobalSearchText(entry.keywords.join(" "));
-  const searchable = `${label} ${detail} ${keywords}`;
+  const words = `${label} ${detail} ${keywords}`.split(" ").filter(Boolean);
+  const tokenMatches = tokens.map((token) =>
+    words.some(
+      (word) =>
+        word === token ||
+        word.startsWith(token) ||
+        (token.length >= 4 && word.includes(token)),
+    ),
+  );
 
-  if (!tokens.every((token) => searchable.includes(token))) return 0;
+  if (!tokenMatches.every(Boolean)) return 0;
 
   let score = 20;
   if (label === normalizedQuery) score += 180;

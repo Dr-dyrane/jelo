@@ -26,10 +26,12 @@ test("the product panel exposes one controlled dialog with a stable accessible t
   assert.match(component, /aria-labelledby={`\$\{dialogId\}-tab-stores`}/);
   assert.match(component, /aria-labelledby={`\$\{dialogId\}-tab-details`}/);
   assert.match(component, /onCancel=/);
-  assert.match(component, /event\.key === 'Escape'/);
+  assert.match(component, /event\.key === (?:'Escape'|"Escape")/);
   assert.match(component, /useControlledDialog/);
   assert.equal(
-    component.match(/hidden=\{tab !== '(?:buy|stores|details)'\}/g)?.length,
+    component.match(
+      /hidden=\{tab !== (?:'buy'|"buy"|'stores'|"stores"|'details'|"details")\}/g,
+    )?.length,
     3,
   );
   assert.match(
@@ -52,15 +54,18 @@ test("the public wrapper keeps its two familiar triggers and delegates to the co
 test("one server read model owns evidence and the public page consumes it", () => {
   assert.match(
     model,
-    /export type ProductPanelTab = 'buy' \| 'stores' \| 'details'/,
+    /export type ProductPanelTab = (?:'buy'|"buy") \| (?:'stores'|"stores") \| (?:'details'|"details")/,
   );
   assert.match(model, /export type ProductPanelData/);
   assert.match(
     model,
-    /export async function readProductPanelData\(product: Product, now: number \| Date = Date\.now\(\)\)/,
+    /export async function readProductPanelData\(\s*product: Product,\s*now: number \| Date = Date\.now\(\),?\s*\)/,
   );
-  assert.match(model, /if \(offer\.match === 'search'\) return \[\]/);
-  assert.match(model, /\(\['NG', 'US'\] as const\)/);
+  assert.match(
+    model,
+    /if \(offer\.match === (?:'search'|"search")\) return \[\]/,
+  );
+  assert.match(model, /\(\[(?:'NG'|"NG"), (?:'US'|"US")\] as const\)/);
   assert.match(model, /getProductPriceTrends\(product\.slug, trendSnapshot\)/);
   assert.match(model, /listProductIngredientsSafe\(product\.slug\)/);
   assert.match(model, /getReviewedProductCare\(product\.slug\)/);

@@ -102,6 +102,18 @@ export default async function RetailersPage() {
         </div>
       </section>
 
+      <section className={styles.directory}>
+        <div className={styles.sectionHeading}>
+          <p className="eyebrow">Nigeria</p>
+          <h2>
+            Reference
+            <br />
+            sources.
+          </h2>
+        </div>
+        <RetailerDirectory items={directoryItems} />
+      </section>
+
       <section className={styles.standardSection}>
         <div className={styles.sectionHeading}>
           <p className="eyebrow">A price means</p>
@@ -147,18 +159,6 @@ export default async function RetailersPage() {
           </div>
         </div>
         <RetailerPartnershipExperience brands={brands} />
-      </section>
-
-      <section className={styles.directory}>
-        <div className={styles.sectionHeading}>
-          <p className="eyebrow">Nigeria</p>
-          <h2>
-            Reference
-            <br />
-            sources.
-          </h2>
-        </div>
-        <RetailerDirectory items={directoryItems} />
       </section>
 
       <section className={styles.disclosure}>

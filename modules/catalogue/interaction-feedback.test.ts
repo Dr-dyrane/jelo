@@ -187,12 +187,15 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
   assert.match(sheet, /Boolean\(filters\.step\)/);
   assert.match(
     sheet,
-    /facets\.steps\.filter\(\(\{ value, count \}\) => count > 0 \|\| filters\.step === value\)/,
+    /facets\.steps\.filter\(\s*\(\{ value, count \}\) => count > 0 \|\| filters\.step === value,?\s*\)/,
   );
-  assert.match(sheet, /name="step" value="" defaultChecked=\{!filters\.step\}/);
   assert.match(
     sheet,
-    /name="step" value=\{value\} defaultChecked=\{filters\.step === value\}/,
+    /name="step"\s+value=""\s+defaultChecked=\{!filters\.step\}/,
+  );
+  assert.match(
+    sheet,
+    /name="step"\s+value=\{value\}\s+defaultChecked=\{filters\.step === value\}/,
   );
   assert.match(sheet, /Search brands/);
   assert.match(concerns, /role="status" aria-live="polite"/);
@@ -228,8 +231,8 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
     navigation,
     /label: "Contribute",[\s\S]*?detail: "Tell us what you use"/,
   );
-  assert.match(navigation, /href="\/share">Price watch/);
-  assert.match(navigation, /href="\/brands">Brands/);
+  assert.match(navigation, /<Link[^>]*href="\/share"[^>]*>\s*Price watch/);
+  assert.match(navigation, /<Link[^>]*href="\/brands"[^>]*>\s*Brands/);
   assert.match(layout, /href="\/contribute">Contribute/);
   assert.equal((navigation.match(/href="\/me"/g) ?? []).length, 1);
   assert.match(
@@ -242,7 +245,7 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
   );
   assert.doesNotMatch(navigation, /My JeloCare/);
   assert.equal((layout.match(/href="\/me"/g) ?? []).length, 1);
-  assert.match(layout, /href="\/me">My JeloCare/);
+  assert.match(layout, /<Link[^>]*href="\/me"[^>]*>\s*My JeloCare/);
   assert.match(
     ruleDeclarations(navigationStyles, ".links .memberLink"),
     /min-height:\s*2\.75rem;/,

@@ -24,7 +24,7 @@ import styles from "./catalogue-search.module.css";
 
 const kindLabels: Record<CatalogueSearchSuggestionKind, string> = {
   product: "Product",
-  company: "Company",
+  company: "Brand",
   category: "Category",
   guide: "Guide",
 };
@@ -406,7 +406,7 @@ export function CatalogueSearch({
           onFocus={openSuggestions}
           onClick={openSuggestions}
           onKeyDown={handleKeyDown}
-          placeholder="Product, company or barcode"
+          placeholder="Product, brand or barcode"
           autoComplete="off"
           spellCheck="false"
           role="combobox"

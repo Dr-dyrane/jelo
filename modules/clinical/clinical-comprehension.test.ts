@@ -63,7 +63,7 @@ test("clinical primitive CSS has dark theme and reduced motion support", () => {
 test("ingredient explorer uses shared clinical primitives", () => {
   assert.match(
     ingredientExplorer,
-    /from '@\/components\/clinical\/clinical-primitives'/,
+    /from (?:'@\/components\/clinical\/clinical-primitives'|"@\/components\/clinical\/clinical-primitives")/,
   );
   assert.match(ingredientExplorer, /EvidenceGradeBadge/);
   assert.match(ingredientExplorer, /SafetyBadge/);
@@ -169,7 +169,7 @@ test("product page derives care status from care review data", () => {
 test("concern page uses shared ReviewedOn and SourceList primitives", () => {
   assert.match(
     concernPage,
-    /from '@\/components\/clinical\/clinical-primitives'/,
+    /from (?:'@\/components\/clinical\/clinical-primitives'|"@\/components\/clinical\/clinical-primitives")/,
   );
   assert.match(concernPage, /ReviewedOn/);
   assert.match(concernPage, /SourceList/);
@@ -208,7 +208,7 @@ test("concern page preserves urgent action rendering before signs and optional c
   assert.match(concernPage, />What to do now</);
   assert.match(
     concernPage,
-    /concern\.kind === 'concern'\s*\?\s*\(await listRecommendationEligibleProducts\(\)\)/,
+    /concern\.kind === (?:'concern'|"concern")\s*\?\s*\(await listRecommendationEligibleProducts\(\)\)/,
   );
   assert.ok(
     concernPage.indexOf("concern-urgent-action") <
@@ -217,7 +217,7 @@ test("concern page preserves urgent action rendering before signs and optional c
   );
   assert.match(
     concernPage,
-    /concern\.kind === 'concern' \? <section className="concern-matches"/,
+    /concern\.kind === (?:'concern'|"concern")\s*\?\s*\(\s*<section className="concern-matches"/,
   );
 });
 

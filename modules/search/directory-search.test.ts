@@ -55,6 +55,11 @@ test("brand and retailer directories keep search local and profile backs context
   assert.match(retailers, /<RetailerDirectory items=\{directoryItems\} \/>/);
   assert.match(retailerDirectory, /<DirectoryTypeahead/);
   assert.match(retailerDirectory, /onValueChange=\{setQuery\}/);
+  assert.ok(
+    retailers.indexOf("className={styles.directory}") <
+      retailers.indexOf("className={styles.partnership}"),
+    "retailer search should precede the store-registration flow",
+  );
   assert.match(brandProfile, /fallbackHref="\/brands"/);
   assert.match(retailerProfile, /fallbackHref="\/retailers"/);
   assert.match(layout, /<NavigationMemory \/>/);

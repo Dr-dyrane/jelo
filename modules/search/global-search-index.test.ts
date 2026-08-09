@@ -30,6 +30,22 @@ const entries: GlobalSearchEntry[] = [
     href: "/concerns/dark-spots",
     keywords: ["uneven tone", "niacinamide"],
   },
+  {
+    id: "company:cerave",
+    type: "company",
+    label: "CeraVe",
+    detail: "12 products",
+    href: "/brands/cerave",
+    keywords: ["brand"],
+  },
+  {
+    id: "guide:ulcer",
+    type: "guide",
+    label: "Painless swelling or ulcer",
+    detail: "Body guide",
+    href: "/concerns/painless-ulcer-pattern",
+    keywords: ["ulcer"],
+  },
 ];
 
 test("global search ranks exact labels before related keyword matches", () => {
@@ -53,5 +69,12 @@ test("global search requires every query token and returns no empty-query result
   assert.deepEqual(
     searchGlobalIndex(entries, "dark tone").map((result) => result.id),
     ["guide:1"],
+  );
+});
+
+test("global search keeps short prefixes token-bounded", () => {
+  assert.deepEqual(
+    searchGlobalIndex(entries, "cer").map((result) => result.id),
+    ["company:cerave"],
   );
 });

@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Counter } from "@/components/motion/counter";
 import { Stamp } from "@/components/motion/stamp";
 
 type ProductHeroMotionProps = {
@@ -26,15 +25,11 @@ type ProductHeroMotionProps = {
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
 
-function nairaFormat(value: number) {
-  return `₦${Math.round(value).toLocaleString("en-NG")}`;
-}
-
 /**
  * Product page hero with motion layer.
  *
  * - Staggered entrance: brand → name → meta → size → care → price → panel → concerns
- * - Price counter: counts up from ₦0 with 1.2s settle ease
+ * - Market facts render at their final server-owned values; price never animates from a false zero
  * - Care status stamp: scale 1.15 → 0.98 → 1 with warm radial flash
  */
 export function ProductHeroMotion({
@@ -113,30 +108,7 @@ export function ProductHeroMotion({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease, delay: 0.24 }}
           >
-            {reduce ? (
-              priceLabel
-            ) : (
-              <>
-                {lowestPrice > 0 && (
-                  <>
-                    From{" "}
-                    <Counter
-                      value={lowestPrice}
-                      duration={1.2}
-                      format={nairaFormat}
-                    />
-                  </>
-                )}
-                {" · "}
-                <Counter
-                  value={storeCount}
-                  duration={0.6}
-                  format={(v) =>
-                    `${Math.round(v)} ${Math.round(v) === 1 ? "store" : "stores"}`
-                  }
-                />
-              </>
-            )}
+            {priceLabel} · {storeCount} {storeCount === 1 ? "store" : "stores"}
           </motion.p>
         ) : priceLabel ? (
           <motion.p

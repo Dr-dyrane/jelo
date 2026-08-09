@@ -1,36 +1,89 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { ArrowDown, ArrowUpRight, Check, CircleCheck, Plus, RotateCcw, Undo2 } from 'lucide-react';
-import { startTransition, useMemo, useOptimistic, useRef, useState } from 'react';
-import type { Concern } from '@/data/knowledge';
-import type { Product } from '@/data/products';
-import { ProductCard } from '@/components/products/product-card';
-import { isProductMatchConcern, rankProductsForConcerns } from '@/modules/concerns/product-matching';
-import styles from './concern-selector.module.css';
-import feedbackStyles from './concern-feedback.module.css';
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  ArrowDown,
+  ArrowUpRight,
+  Check,
+  CircleCheck,
+  Plus,
+  RotateCcw,
+  Search,
+  Undo2,
+  X,
+} from "lucide-react";
+import {
+  startTransition,
+  useMemo,
+  useOptimistic,
+  useRef,
+  useState,
+} from "react";
+import type { Concern } from "@/data/knowledge";
+import type { Product } from "@/data/products";
+import { ProductCard } from "@/components/products/product-card";
+import {
+  isProductMatchConcern,
+  rankProductsForConcerns,
+} from "@/modules/concerns/product-matching";
+import styles from "./concern-selector.module.css";
+import feedbackStyles from "./concern-feedback.module.css";
 
 function matchedConcernNames(slugs: string[], concerns: Concern[]) {
   return slugs
-    .map(slug => concerns.find(concern => concern.slug === slug)?.name)
+    .map((slug) => concerns.find((concern) => concern.slug === slug)?.name)
     .filter((name): name is string => Boolean(name));
 }
 
-export function ConcernSelector({ concerns, products, initialSelected }: { concerns: Concern[]; products: Product[]; initialSelected: string[] }) {
+export function ConcernSelector({
+  concerns,
+  products,
+  initialSelected,
+}: {
+  concerns: Concern[];
+  products: Product[];
+  initialSelected: string[];
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const selectableSlugs = useMemo(
-    () => new Set(concerns.filter(isProductMatchConcern).map(concern => concern.slug)),
+    () =>
+      new Set(
+        concerns.filter(isProductMatchConcern).map((concern) => concern.slug),
+      ),
     [concerns],
   );
   const safeInitialSelected = useMemo(
-    () => initialSelected.filter(slug => selectableSlugs.has(slug)),
+    () => initialSelected.filter((slug) => selectableSlugs.has(slug)),
     [initialSelected, selectableSlugs],
   );
   const [selected, setSelected] = useOptimistic(safeInitialSelected);
-  const [feedback, setFeedback] = useState<{ message: string; previous: string[] } | null>(null);
+  const [feedback, setFeedback] = useState<{
+    message: string;
+    previous: string[];
+  } | null>(null);
+  const [query, setQuery] = useState("");
+  const [area, setArea] = useState<"All" | Concern["area"]>("All");
   const resultsRef = useRef<HTMLElement>(null);
+
+  const visibleConcerns = useMemo(() => {
+    const normalized = query.trim().toLowerCase();
+    return concerns.filter((concern) => {
+      if (area !== "All" && concern.area !== area) return false;
+      if (!normalized) return true;
+      return [
+        concern.name,
+        concern.area,
+        concern.summary,
+        ...concern.signals,
+        ...concern.ingredients,
+      ]
+        .join(" ")
+        .toLowerCase()
+        .includes(normalized);
+    });
+  }, [area, concerns, query]);
 
   const ranked = useMemo(
     () => rankProductsForConcerns(products, concerns, selected),
@@ -38,88 +91,273 @@ export function ConcernSelector({ concerns, products, initialSelected }: { conce
   );
 
   function update(next: string[], message: string, previous = selected) {
-    const safeNext = next.filter(slug => selectableSlugs.has(slug));
+    const safeNext = next.filter((slug) => selectableSlugs.has(slug));
     const query = new URLSearchParams(window.location.search);
-    if (safeNext.length) query.set('concerns', safeNext.join(','));
-    else query.delete('concerns');
+    if (safeNext.length) query.set("concerns", safeNext.join(","));
+    else query.delete("concerns");
     const suffix = query.toString();
     startTransition(() => {
       setSelected(safeNext);
       setFeedback({ message, previous: [...previous] });
-      router.replace(suffix ? `${pathname}?${suffix}` : pathname, { scroll: false });
+      router.replace(suffix ? `${pathname}?${suffix}` : pathname, {
+        scroll: false,
+      });
     });
   }
 
   function toggle(slug: string) {
-    const concern = concerns.find(item => item.slug === slug);
+    const concern = concerns.find((item) => item.slug === slug);
     const active = selected.includes(slug);
-    const next = active ? selected.filter(item => item !== slug) : [...selected, slug];
-    update(next, `${concern?.name ?? 'Concern'} ${active ? 'removed' : 'selected'}.`);
+    const next = active
+      ? selected.filter((item) => item !== slug)
+      : [...selected, slug];
+    update(
+      next,
+      `${concern?.name ?? "Concern"} ${active ? "removed" : "selected"}.`,
+    );
   }
 
   function undo() {
     if (!feedback) return;
-    update(feedback.previous, 'Last change undone.', selected);
+    update(feedback.previous, "Last change undone.", selected);
   }
 
   function viewMatches() {
-    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     resultsRef.current?.focus({ preventScroll: true });
   }
 
   return (
     <>
-      <section className={styles.selector} aria-labelledby="concern-selector-title">
+      <section
+        className={styles.selector}
+        aria-labelledby="concern-selector-title"
+      >
         <div className={styles.selectorHeading}>
-          <div><p className="eyebrow">Your edit</p><h2 id="concern-selector-title">Pick yours.</h2></div>
+          <div>
+            <p className="eyebrow">Your edit</p>
+            <h2 id="concern-selector-title">Pick yours.</h2>
+          </div>
         </div>
 
-        <div className={styles.rail} aria-label="Select concerns">
-          {concerns.map((concern, index) => {
-            const active = selected.includes(concern.slug);
-            if (!isProductMatchConcern(concern)) {
-              return <article className={`${styles.card} ${styles.guideCard}`} key={concern.slug}>
-                <Link className={styles.guideCardLink} href={`/concerns/${concern.slug}`}>
-                  <span className={styles.cardTop}><small>{String(index + 1).padStart(2, '0')} · {concern.area} guide</small><span><ArrowUpRight size={17} aria-hidden="true" /></span></span>
-                  <strong>{concern.name}</strong>
-                  <p>{concern.summary}</p>
-                  <span className={styles.guideAction}>Read guide <ArrowUpRight size={14} aria-hidden="true" /></span>
-                </Link>
-              </article>;
-            }
-            return <article className={`${styles.card} ${active ? styles.active : ''}`} key={concern.slug}>
-              <button type="button" aria-pressed={active} onClick={() => toggle(concern.slug)}>
-                <span className={styles.cardTop}><small>{String(index + 1).padStart(2, '0')} · {concern.area}</small><span>{active ? <Check size={17} aria-hidden="true" /> : <Plus size={17} aria-hidden="true" />}</span></span>
-                <strong>{concern.name}</strong>
-                <p>{concern.summary}</p>
+        <div className={styles.tools}>
+          <label className={styles.search}>
+            <Search size={18} strokeWidth={1.8} aria-hidden="true" />
+            <span className="sr-only">Search concerns and signs</span>
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search a concern or sign"
+            />
+            {query ? (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label="Clear concern search"
+              >
+                <X size={16} aria-hidden="true" />
               </button>
-              <Link className={styles.cardGuideLink} href={`/concerns/${concern.slug}`}>Guide <ArrowUpRight size={14} aria-hidden="true" /></Link>
-            </article>;
-          })}
-        </div>
-        {feedback ? <div className={feedbackStyles.feedback} role="status" aria-live="polite">
-          <CircleCheck size={18} strokeWidth={1.8} aria-hidden="true" />
-          <div><strong>{feedback.message}</strong><span>{selected.length} selected · {ranked.length} matches</span></div>
-          <div className={feedbackStyles.actions}>
-            {selected.length ? <button type="button" onClick={viewMatches}>View matches <ArrowDown size={14} aria-hidden="true" /></button> : null}
-            <button type="button" onClick={undo}><Undo2 size={14} aria-hidden="true" /> Undo</button>
-            {selected.length ? <button type="button" onClick={() => update([], 'Selections cleared.')}>Clear</button> : null}
+            ) : null}
+          </label>
+          <div
+            className={styles.areaFilters}
+            role="group"
+            aria-label="Filter concerns by area"
+          >
+            {(["All", "Face", "Body", "Hair", "Scalp"] as const).map((item) => (
+              <button
+                key={item}
+                type="button"
+                aria-pressed={area === item}
+                onClick={() => setArea(item)}
+              >
+                {item}
+              </button>
+            ))}
           </div>
-        </div> : null}
+        </div>
+
+        <div className={styles.directoryStatus}>
+          <p role="status" aria-live="polite">
+            <strong>{visibleConcerns.length}</strong>{" "}
+            {visibleConcerns.length === 1 ? "guide" : "guides"} shown
+          </p>
+          {query || area !== "All" ? (
+            <button
+              type="button"
+              onClick={() => {
+                setQuery("");
+                setArea("All");
+              }}
+            >
+              Clear
+            </button>
+          ) : null}
+        </div>
+
+        {visibleConcerns.length ? (
+          <div className={styles.rail} aria-label="Select concerns">
+            {visibleConcerns.map((concern) => {
+              const index = concerns.findIndex(
+                (item) => item.slug === concern.slug,
+              );
+              const active = selected.includes(concern.slug);
+              if (!isProductMatchConcern(concern)) {
+                return (
+                  <article
+                    className={`${styles.card} ${styles.guideCard}`}
+                    key={concern.slug}
+                  >
+                    <Link
+                      className={styles.guideCardLink}
+                      href={`/concerns/${concern.slug}`}
+                    >
+                      <span className={styles.cardTop}>
+                        <small>
+                          {String(index + 1).padStart(2, "0")} · {concern.area}{" "}
+                          guide
+                        </small>
+                        <span>
+                          <ArrowUpRight size={17} aria-hidden="true" />
+                        </span>
+                      </span>
+                      <strong>{concern.name}</strong>
+                      <p>{concern.summary}</p>
+                      <span className={styles.guideAction}>
+                        Read guide <ArrowUpRight size={14} aria-hidden="true" />
+                      </span>
+                    </Link>
+                  </article>
+                );
+              }
+              return (
+                <article
+                  className={`${styles.card} ${active ? styles.active : ""}`}
+                  key={concern.slug}
+                >
+                  <button
+                    type="button"
+                    aria-pressed={active}
+                    onClick={() => toggle(concern.slug)}
+                  >
+                    <span className={styles.cardTop}>
+                      <small>
+                        {String(index + 1).padStart(2, "0")} · {concern.area}
+                      </small>
+                      <span>
+                        {active ? (
+                          <Check size={17} aria-hidden="true" />
+                        ) : (
+                          <Plus size={17} aria-hidden="true" />
+                        )}
+                      </span>
+                    </span>
+                    <strong>{concern.name}</strong>
+                    <p>{concern.summary}</p>
+                  </button>
+                  <Link
+                    className={styles.cardGuideLink}
+                    href={`/concerns/${concern.slug}`}
+                  >
+                    Guide <ArrowUpRight size={14} aria-hidden="true" />
+                  </Link>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={styles.directoryEmpty}>
+            <p>No matching guide</p>
+            <h3>Try another word.</h3>
+            <button
+              type="button"
+              onClick={() => {
+                setQuery("");
+                setArea("All");
+              }}
+            >
+              Show all concerns
+            </button>
+          </div>
+        )}
+        {feedback ? (
+          <div
+            className={feedbackStyles.feedback}
+            role="status"
+            aria-live="polite"
+          >
+            <CircleCheck size={18} strokeWidth={1.8} aria-hidden="true" />
+            <div>
+              <strong>{feedback.message}</strong>
+              <span>
+                {selected.length} selected · {ranked.length} matches
+              </span>
+            </div>
+            <div className={feedbackStyles.actions}>
+              {selected.length ? (
+                <button type="button" onClick={viewMatches}>
+                  View matches <ArrowDown size={14} aria-hidden="true" />
+                </button>
+              ) : null}
+              <button type="button" onClick={undo}>
+                <Undo2 size={14} aria-hidden="true" /> Undo
+              </button>
+              {selected.length ? (
+                <button
+                  type="button"
+                  onClick={() => update([], "Selections cleared.")}
+                >
+                  Clear
+                </button>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
       </section>
 
-      {selected.length ? <section className={`${styles.results} ${feedbackStyles.results}`} ref={resultsRef} tabIndex={-1}>
-        <div className={styles.resultsHeading}>
-          <div><p className="eyebrow">Products</p><h2>Your matches.</h2></div>
-          <button type="button" onClick={() => update([], 'Selections cleared.')}><RotateCcw size={15} aria-hidden="true" /> Clear</button>
-        </div>
+      {selected.length ? (
+        <section
+          className={`${styles.results} ${feedbackStyles.results}`}
+          ref={resultsRef}
+          tabIndex={-1}
+        >
+          <div className={styles.resultsHeading}>
+            <div>
+              <p className="eyebrow">Products</p>
+              <h2>Your matches.</h2>
+            </div>
+            <button
+              type="button"
+              onClick={() => update([], "Selections cleared.")}
+            >
+              <RotateCcw size={15} aria-hidden="true" /> Clear
+            </button>
+          </div>
 
-        <p className={styles.resultCount}>{ranked.length} {ranked.length === 1 ? 'product' : 'products'} · {selected.length} selected</p>
-        {ranked.length ? <div className={styles.productGrid}>{ranked.map(result => <div className={styles.productMatch} key={result.product.slug}>
-          <span>Matches {matchedConcernNames(result.matchedConcernSlugs, concerns).join(' · ')}</span>
-          <ProductCard product={result.product}/>
-        </div>)}</div> : <p className={styles.empty}>No care-cleared product yet.</p>}
-      </section> : null}
+          <p className={styles.resultCount}>
+            {ranked.length} {ranked.length === 1 ? "product" : "products"} ·{" "}
+            {selected.length} selected
+          </p>
+          {ranked.length ? (
+            <div className={styles.productGrid}>
+              {ranked.map((result) => (
+                <div className={styles.productMatch} key={result.product.slug}>
+                  <span>
+                    Matches{" "}
+                    {matchedConcernNames(
+                      result.matchedConcernSlugs,
+                      concerns,
+                    ).join(" · ")}
+                  </span>
+                  <ProductCard product={result.product} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className={styles.empty}>No care-cleared product yet.</p>
+          )}
+        </section>
+      ) : null}
     </>
   );
 }

@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
-import { ArrowUpRight, Info, ShoppingBag, X } from 'lucide-react';
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, Info, ShoppingBag, X } from "lucide-react";
 import {
   type KeyboardEvent,
   type RefObject,
@@ -9,19 +10,23 @@ import {
   useId,
   useRef,
   useState,
-} from 'react';
-import { RetailerList } from '@/components/commerce/retailer-list';
-import { ShareButton } from '@/components/share/share-button';
-import { useControlledDialog } from '@/components/ui/use-controlled-dialog';
-import { nigeriaRetailers } from '@/data/retailers';
+} from "react";
+import { RetailerList } from "@/components/commerce/retailer-list";
+import { ShareButton } from "@/components/share/share-button";
+import { useControlledDialog } from "@/components/ui/use-controlled-dialog";
+import { nigeriaRetailers } from "@/data/retailers";
 import type {
   ProductPanelData,
   ProductPanelTab,
-} from '@/lib/catalogue/product-panel-model';
-import { hasListingEvidence } from '@/modules/commerce/offer-evidence';
-import { hasShareableNgOffer } from '@/modules/commerce/shareable-offer';
+} from "@/lib/catalogue/product-panel-model";
+import { ingredientLibraryHref } from "@/lib/clinical/care-context-links";
+import { hasListingEvidence } from "@/modules/commerce/offer-evidence";
+import { hasShareableNgOffer } from "@/modules/commerce/shareable-offer";
 
-export type { ProductPanelData, ProductPanelTab } from '@/lib/catalogue/product-panel-model';
+export type {
+  ProductPanelData,
+  ProductPanelTab,
+} from "@/lib/catalogue/product-panel-model";
 
 export type ProductQuickPanelSheetProps = {
   data: ProductPanelData;
@@ -34,15 +39,20 @@ export type ProductQuickPanelSheetProps = {
 };
 
 const tabs: Array<{ id: ProductPanelTab; label: string }> = [
-  { id: 'buy', label: 'Prices' },
-  { id: 'stores', label: 'Search' },
-  { id: 'details', label: 'Details' },
+  { id: "buy", label: "Prices" },
+  { id: "stores", label: "Search" },
+  { id: "details", label: "Details" },
 ];
 
 function focusableElements(dialog: HTMLDialogElement) {
-  return Array.from(dialog.querySelectorAll<HTMLElement>(
-    'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
-  )).filter(element => !element.hasAttribute('hidden') && !element.closest('[hidden]'));
+  return Array.from(
+    dialog.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    ),
+  ).filter(
+    (element) =>
+      !element.hasAttribute("hidden") && !element.closest("[hidden]"),
+  );
 }
 
 export function ProductQuickPanelSheet({
@@ -56,7 +66,9 @@ export function ProductQuickPanelSheet({
 }: ProductQuickPanelSheetProps) {
   const generatedDialogId = useId();
   const dialogId = providedDialogId ?? generatedDialogId;
-  const tabRefs = useRef<Partial<Record<ProductPanelTab, HTMLButtonElement | null>>>({});
+  const tabRefs = useRef<
+    Partial<Record<ProductPanelTab, HTMLButtonElement | null>>
+  >({});
   const closeRequestedRef = useRef(false);
 
   const { dialogRef } = useControlledDialog({
@@ -65,9 +77,13 @@ export function ProductQuickPanelSheet({
     restoreFocusRef,
   });
 
-  const exactRetailers = new Set(data.offers.filter(hasListingEvidence).map(offer => offer.retailer));
+  const exactRetailers = new Set(
+    data.offers.filter(hasListingEvidence).map((offer) => offer.retailer),
+  );
   const shareable = hasShareableNgOffer({ offers: data.offers });
-  const moreStores = nigeriaRetailers.filter(store => !exactRetailers.has(store.name));
+  const moreStores = nigeriaRetailers.filter(
+    (store) => !exactRetailers.has(store.name),
+  );
 
   const requestClose = useCallback(() => {
     if (closeRequestedRef.current) return;
@@ -75,14 +91,20 @@ export function ProductQuickPanelSheet({
     onClose();
   }, [onClose]);
 
-  const handlePanelBackdropClick = useCallback((event: React.MouseEvent<HTMLDialogElement>) => {
-    if (event.target === event.currentTarget) requestClose();
-  }, [requestClose]);
+  const handlePanelBackdropClick = useCallback(
+    (event: React.MouseEvent<HTMLDialogElement>) => {
+      if (event.target === event.currentTarget) requestClose();
+    },
+    [requestClose],
+  );
 
-  const handlePanelCancel = useCallback((event: React.SyntheticEvent) => {
-    event.preventDefault();
-    requestClose();
-  }, [requestClose]);
+  const handlePanelCancel = useCallback(
+    (event: React.SyntheticEvent) => {
+      event.preventDefault();
+      requestClose();
+    },
+    [requestClose],
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -93,14 +115,19 @@ export function ProductQuickPanelSheet({
     return () => window.cancelAnimationFrame(focusFrame);
   }, [open, tab]);
 
-  function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, currentTab: ProductPanelTab) {
-    const currentIndex = tabs.findIndex(item => item.id === currentTab);
+  function handleTabKeyDown(
+    event: KeyboardEvent<HTMLButtonElement>,
+    currentTab: ProductPanelTab,
+  ) {
+    const currentIndex = tabs.findIndex((item) => item.id === currentTab);
     let nextIndex: number | null = null;
 
-    if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabs.length;
-    if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-    if (event.key === 'Home') nextIndex = 0;
-    if (event.key === 'End') nextIndex = tabs.length - 1;
+    if (event.key === "ArrowRight")
+      nextIndex = (currentIndex + 1) % tabs.length;
+    if (event.key === "ArrowLeft")
+      nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+    if (event.key === "Home") nextIndex = 0;
+    if (event.key === "End") nextIndex = tabs.length - 1;
     if (nextIndex == null) return;
 
     event.preventDefault();
@@ -110,14 +137,14 @@ export function ProductQuickPanelSheet({
   }
 
   function handleDialogKeyDown(event: KeyboardEvent<HTMLDialogElement>) {
-    if (event.key === 'Escape') {
+    if (event.key === "Escape") {
       event.preventDefault();
       requestClose();
       return;
     }
 
     const dialog = dialogRef.current;
-    if (event.key !== 'Tab' || dialog?.dataset.fallbackModal !== 'true') return;
+    if (event.key !== "Tab" || dialog?.dataset.fallbackModal !== "true") return;
 
     const focusable = dialog ? focusableElements(dialog) : [];
     if (!focusable.length) {
@@ -151,20 +178,30 @@ export function ProductQuickPanelSheet({
         <span className="product-panel-handle" aria-hidden="true" />
         <header className="product-panel-header">
           <div>
-            <p className="eyebrow">{tab === 'details' ? 'Product guide' : 'Nigeria'}</p>
+            <p className="eyebrow">
+              {tab === "details" ? "Product guide" : "Nigeria"}
+            </p>
             <h2 id={`${dialogId}-title`}>{data.productName}</h2>
           </div>
-          <button type="button" onClick={requestClose} aria-label="Close product information">
+          <button
+            type="button"
+            onClick={requestClose}
+            aria-label="Close product information"
+          >
             <X size={20} aria-hidden="true" />
           </button>
         </header>
 
-        <div className="product-panel-tabs" role="tablist" aria-label="Product information">
-          {tabs.map(item => (
+        <div
+          className="product-panel-tabs"
+          role="tablist"
+          aria-label="Product information"
+        >
+          {tabs.map((item) => (
             <button
               key={item.id}
               id={`${dialogId}-tab-${item.id}`}
-              ref={element => {
+              ref={(element) => {
                 tabRefs.current[item.id] = element;
               }}
               type="button"
@@ -173,7 +210,7 @@ export function ProductQuickPanelSheet({
               aria-selected={tab === item.id}
               aria-controls={`${dialogId}-panel-${item.id}`}
               onClick={() => onTabChange(item.id)}
-              onKeyDown={event => handleTabKeyDown(event, item.id)}
+              onKeyDown={(event) => handleTabKeyDown(event, item.id)}
             >
               {item.label}
             </button>
@@ -187,21 +224,23 @@ export function ProductQuickPanelSheet({
             role="tabpanel"
             aria-labelledby={`${dialogId}-tab-buy`}
             tabIndex={0}
-            hidden={tab !== 'buy'}
+            hidden={tab !== "buy"}
           >
             <RetailerList
               offers={data.offers}
               productSlug={data.productSlug}
               priceTrends={data.priceTrends}
               marketSnapshot={data.marketSnapshot}
-              footer={shareable ? (
-                <ShareButton
-                  path={`/share/${data.productSlug}`}
-                  title={data.productName}
-                  label="Share"
-                  inline
-                />
-              ) : null}
+              footer={
+                shareable ? (
+                  <ShareButton
+                    path={`/share/${data.productSlug}`}
+                    title={data.productName}
+                    label="Share"
+                    inline
+                  />
+                ) : null
+              }
             />
           </section>
 
@@ -211,16 +250,20 @@ export function ProductQuickPanelSheet({
             role="tabpanel"
             aria-labelledby={`${dialogId}-tab-stores`}
             tabIndex={0}
-            hidden={tab !== 'stores'}
+            hidden={tab !== "stores"}
           >
-            {moreStores.map(store => (
+            {moreStores.map((store) => (
               <a
                 key={store.name}
                 href={`/go?product=${encodeURIComponent(data.productSlug)}&retailer=${encodeURIComponent(store.name)}`}
               >
                 <span>
                   <strong>{store.name}</strong>
-                  <small>{store.kind === 'marketplace' ? 'Marketplace search' : 'Search only'}</small>
+                  <small>
+                    {store.kind === "marketplace"
+                      ? "Marketplace search"
+                      : "Search only"}
+                  </small>
                 </span>
                 <ArrowUpRight size={18} aria-hidden="true" />
               </a>
@@ -233,7 +276,7 @@ export function ProductQuickPanelSheet({
             role="tabpanel"
             aria-labelledby={`${dialogId}-tab-details`}
             tabIndex={0}
-            hidden={tab !== 'details'}
+            hidden={tab !== "details"}
           >
             <div className="product-panel-caution">
               <p className="eyebrow">Profile</p>
@@ -243,11 +286,33 @@ export function ProductQuickPanelSheet({
               <div>
                 <p className="eyebrow">Key ingredients</p>
                 <div className="product-panel-chips">
-                  {data.ingredients.map(ingredient => ingredient.sourceUrl ? (
-                    <a key={ingredient.id} href={ingredient.sourceUrl} target="_blank" rel="noreferrer">
-                      {ingredient.label}<ArrowUpRight size={13} aria-hidden="true" />
-                    </a>
-                  ) : <span key={ingredient.id}>{ingredient.label}</span>)}
+                  {data.ingredients.map((ingredient) => {
+                    const libraryHref = ingredientLibraryHref(ingredient.slug);
+                    if (libraryHref)
+                      return (
+                        <Link
+                          key={ingredient.id}
+                          href={libraryHref}
+                          onClick={onClose}
+                        >
+                          {ingredient.label}
+                          <ArrowRight size={13} aria-hidden="true" />
+                        </Link>
+                      );
+                    return ingredient.sourceUrl ? (
+                      <a
+                        key={ingredient.id}
+                        href={ingredient.sourceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {ingredient.label}
+                        <ArrowUpRight size={13} aria-hidden="true" />
+                      </a>
+                    ) : (
+                      <span key={ingredient.id}>{ingredient.label}</span>
+                    );
+                  })}
                 </div>
               </div>
             ) : null}
@@ -261,8 +326,11 @@ export function ProductQuickPanelSheet({
                 <div className="product-panel-routine">
                   {data.routine.map((item, index) => (
                     <div key={`${item.title}-${index}`}>
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                      <p><strong>{item.title}</strong><small>{item.detail}</small></p>
+                      <span>{String(index + 1).padStart(2, "0")}</span>
+                      <p>
+                        <strong>{item.title}</strong>
+                        <small>{item.detail}</small>
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -278,7 +346,7 @@ export function ProductQuickPanelSheet({
 export function ProductQuickPanel(data: ProductPanelData) {
   const dialogId = useId();
   const openerRef = useRef<HTMLElement | null>(null);
-  const [tab, setTab] = useState<ProductPanelTab>('buy');
+  const [tab, setTab] = useState<ProductPanelTab>("buy");
   const [open, setOpen] = useState(false);
 
   function openPanel(nextTab: ProductPanelTab, opener: HTMLButtonElement) {
@@ -292,19 +360,19 @@ export function ProductQuickPanel(data: ProductPanelData) {
       <div className="product-quick-actions" aria-label="Product actions">
         <button
           type="button"
-          onClick={event => openPanel('buy', event.currentTarget)}
+          onClick={(event) => openPanel("buy", event.currentTarget)}
           aria-haspopup="dialog"
           aria-controls={dialogId}
-          aria-expanded={open && tab === 'buy'}
+          aria-expanded={open && tab === "buy"}
         >
           <ShoppingBag size={18} aria-hidden="true" /> Find a store
         </button>
         <button
           type="button"
-          onClick={event => openPanel('details', event.currentTarget)}
+          onClick={(event) => openPanel("details", event.currentTarget)}
           aria-haspopup="dialog"
           aria-controls={dialogId}
-          aria-expanded={open && tab === 'details'}
+          aria-expanded={open && tab === "details"}
         >
           <Info size={18} aria-hidden="true" /> Details
         </button>

@@ -77,8 +77,8 @@
 .links {
   display: flex;
   align-items: center;
-  gap: 1.4rem;
-  max-width: 24rem;
+  gap: clamp(0.75rem, 1.25vw, 1.4rem);
+  max-width: 38rem;
   opacity: 1;
   overflow: hidden;
   transition:
@@ -336,6 +336,7 @@
 .mobileSecondary {
   padding: 1rem 0.35rem 0.15rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 1.15rem;
   color: var(--muted);
   font-size: 0.7rem;

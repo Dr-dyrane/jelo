@@ -3,10 +3,28 @@
   color: var(--ink);
 }
 
-.consult-report .report-pattern .eyebrow { color: var(--wine); }
-.consult-report .report-pattern > p:last-of-type { color: #614f49; }
-.consult-report .report-pattern .concern-chips span { background: rgba(255, 253, 249, .7); }
-.caution-panel p { color: var(--ink); }
+.consult-report .report-pattern .eyebrow {
+  color: var(--wine);
+}
+.consult-report .report-pattern > p:last-of-type {
+  color: #614f49;
+}
+.consult-report .report-pattern .concern-chips a {
+  background: rgba(255, 253, 249, 0.7);
+}
+.consult-report .concern-chips a {
+  padding: 0.55rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  color: inherit;
+  font-size: 0.72rem;
+  text-transform: capitalize;
+}
+.caution-panel p {
+  color: var(--ink);
+}
 
 .consult-interrupt {
   max-width: 52rem;
@@ -23,7 +41,9 @@
   scroll-margin-top: 6rem;
 }
 
-.consult-interrupt-care { background: linear-gradient(145deg, var(--card), #f2c8c2); }
+.consult-interrupt-care {
+  background: linear-gradient(145deg, var(--card), #f2c8c2);
+}
 
 .interrupt-icon {
   width: 3.8rem;
@@ -32,7 +52,7 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: rgba(107, 59, 53, .1);
+  background: rgba(107, 59, 53, 0.1);
   color: var(--wine);
 }
 
@@ -41,8 +61,8 @@
   font-family: var(--font-display), serif;
   font-size: clamp(3.4rem, 8vw, 7rem);
   font-weight: 400;
-  line-height: .86;
-  letter-spacing: -.04em;
+  line-height: 0.86;
+  letter-spacing: -0.04em;
 }
 
 .interrupt-summary {
@@ -58,22 +78,27 @@
   margin: 2rem auto 0;
   padding: 1.2rem 1.3rem;
   border-radius: 1.4rem;
-  background: rgba(255, 253, 249, .78);
+  background: rgba(255, 253, 249, 0.78);
   text-align: left;
 }
 
 .interrupt-next span {
   color: var(--wine);
-  font-size: .68rem;
-  letter-spacing: .14em;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.interrupt-next p { margin: .45rem 0 0; line-height: 1.6; }
-.interrupt-actions { margin-top: 1.4rem; }
+.interrupt-next p {
+  margin: 0.45rem 0 0;
+  line-height: 1.6;
+}
+.interrupt-actions {
+  margin-top: 1.4rem;
+}
 .interrupt-actions button {
   min-height: 2.8rem;
-  padding: .75rem 1.2rem;
+  padding: 0.75rem 1.2rem;
   border: 0;
   border-radius: 999px;
   background: var(--ink);
@@ -85,29 +110,76 @@
   display: block;
   margin-top: 1rem;
   color: #614f49;
-  font-size: .72rem;
+  font-size: 0.72rem;
 }
 
 /* dark theme */
-html[data-theme="dark"] .consult-report .report-pattern { background: linear-gradient(145deg, var(--surface-3), var(--surface-2)); }
-html[data-theme="dark"] .consult-report .report-pattern > p:last-of-type { color: var(--muted); }
-html[data-theme="dark"] .consult-report .report-pattern .concern-chips span { background: rgba(255, 255, 255, .1); }
-html[data-theme="dark"] .consult-interrupt { background: linear-gradient(145deg, var(--paper), var(--surface-3)); }
-html[data-theme="dark"] .consult-interrupt-care { background: linear-gradient(145deg, var(--card), var(--surface-3)); }
-html[data-theme="dark"] .interrupt-icon { background: rgba(255, 255, 255, .1); }
-html[data-theme="dark"] .interrupt-summary { color: var(--muted); }
-html[data-theme="dark"] .interrupt-next { background: var(--paper); }
-html[data-theme="dark"] .interrupt-actions button { color: var(--cream); }
-html[data-theme="dark"] .consult-interrupt > small { color: var(--muted); }
+html[data-theme="dark"] .consult-report .report-pattern {
+  background: linear-gradient(145deg, var(--surface-3), var(--surface-2));
+}
+html[data-theme="dark"] .consult-report .report-pattern > p:last-of-type {
+  color: var(--muted);
+}
+html[data-theme="dark"] .consult-report .report-pattern .concern-chips a {
+  background: rgba(255, 255, 255, 0.1);
+}
+html[data-theme="dark"] .consult-interrupt {
+  background: linear-gradient(145deg, var(--paper), var(--surface-3));
+}
+html[data-theme="dark"] .consult-interrupt-care {
+  background: linear-gradient(145deg, var(--card), var(--surface-3));
+}
+html[data-theme="dark"] .interrupt-icon {
+  background: rgba(255, 255, 255, 0.1);
+}
+html[data-theme="dark"] .interrupt-summary {
+  color: var(--muted);
+}
+html[data-theme="dark"] .interrupt-next {
+  background: var(--paper);
+}
+html[data-theme="dark"] .interrupt-actions button {
+  color: var(--cream);
+}
+html[data-theme="dark"] .consult-interrupt > small {
+  color: var(--muted);
+}
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) .consult-report .report-pattern { background: linear-gradient(145deg, var(--surface-3), var(--surface-2)); }
-  html:not([data-theme="light"]) .consult-report .report-pattern > p:last-of-type { color: var(--muted); }
-  html:not([data-theme="light"]) .consult-report .report-pattern .concern-chips span { background: rgba(255, 255, 255, .1); }
-  html:not([data-theme="light"]) .consult-interrupt { background: linear-gradient(145deg, var(--paper), var(--surface-3)); }
-  html:not([data-theme="light"]) .consult-interrupt-care { background: linear-gradient(145deg, var(--card), var(--surface-3)); }
-  html:not([data-theme="light"]) .interrupt-icon { background: rgba(255, 255, 255, .1); }
-  html:not([data-theme="light"]) .interrupt-summary { color: var(--muted); }
-  html:not([data-theme="light"]) .interrupt-next { background: var(--paper); }
-  html:not([data-theme="light"]) .interrupt-actions button { color: var(--cream); }
-  html:not([data-theme="light"]) .consult-interrupt > small { color: var(--muted); }
+  html:not([data-theme="light"]) .consult-report .report-pattern {
+    background: linear-gradient(145deg, var(--surface-3), var(--surface-2));
+  }
+  html:not([data-theme="light"])
+    .consult-report
+    .report-pattern
+    > p:last-of-type {
+    color: var(--muted);
+  }
+  html:not([data-theme="light"])
+    .consult-report
+    .report-pattern
+    .concern-chips
+    a {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  html:not([data-theme="light"]) .consult-interrupt {
+    background: linear-gradient(145deg, var(--paper), var(--surface-3));
+  }
+  html:not([data-theme="light"]) .consult-interrupt-care {
+    background: linear-gradient(145deg, var(--card), var(--surface-3));
+  }
+  html:not([data-theme="light"]) .interrupt-icon {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  html:not([data-theme="light"]) .interrupt-summary {
+    color: var(--muted);
+  }
+  html:not([data-theme="light"]) .interrupt-next {
+    background: var(--paper);
+  }
+  html:not([data-theme="light"]) .interrupt-actions button {
+    color: var(--cream);
+  }
+  html:not([data-theme="light"]) .consult-interrupt > small {
+    color: var(--muted);
+  }
 }

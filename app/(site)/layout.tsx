@@ -1,11 +1,13 @@
-import Link from 'next/link';
-import { Analytics } from '@vercel/analytics/next';
-import { SiteHeader } from '@/components/navigation/site-header';
-import { ThemeToggle } from '@/components/navigation/theme-toggle';
-import { NavigationMemory } from '@/components/navigation/navigation-memory';
+import Link from "next/link";
+import { Analytics } from "@vercel/analytics/next";
+import { SiteHeader } from "@/components/navigation/site-header";
+import { ThemeToggle } from "@/components/navigation/theme-toggle";
+import { NavigationMemory } from "@/components/navigation/navigation-memory";
 
 // Public chrome. The html/body shell, fonts, and theme come from the root layout.
-export default function SiteLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function SiteLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
       <NavigationMemory />
@@ -21,22 +23,28 @@ export default function SiteLayout({ children }: Readonly<{ children: React.Reac
           <Link href="/products">All products</Link>
           <Link href="/brands">Brands</Link>
           <Link href="/concerns">Browse concerns</Link>
-          <Link href="/contribute">Share skincare</Link>
+          <Link href="/contribute">Contribute</Link>
           <Link href="/consult">Ask JeloCare</Link>
           <Link href="/ingredients">Ingredient library</Link>
           <Link href="/retailers">Retailer guide</Link>
         </div>
         <div className="footer-group">
           <strong>Connect</strong>
-          <Link className="footer-member-link" href="/me">My JeloCare</Link>
+          <Link className="footer-member-link" href="/me">
+            My JeloCare
+          </Link>
           <Link href="/share">Worth sharing</Link>
           <a href="mailto:hello@jelocare.com">hello@jelocare.com</a>
           <Link href="/retailers#list-your-store">Retail partnerships</Link>
-          <a href="mailto:hello@jelocare.com?subject=JeloCare%20affiliate%20partnership">Affiliate enquiries</a>
+          <a href="mailto:hello@jelocare.com?subject=JeloCare%20affiliate%20partnership">
+            Affiliate enquiries
+          </a>
         </div>
         <div className="footer-legal">
           <ThemeToggle />
-          <span>© {new Date().getFullYear()} Dyrane · Guidance, not diagnosis.</span>
+          <span>
+            © {new Date().getFullYear()} Dyrane · Guidance, not diagnosis.
+          </span>
         </div>
       </footer>
       <Analytics />
