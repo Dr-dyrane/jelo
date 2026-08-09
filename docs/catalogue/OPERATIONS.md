@@ -1,6 +1,6 @@
 # Catalogue operations
 
-Updated: 2026-08-08
+Updated: 2026-08-09
 
 Release one exact product at a time. Discovery can run in parallel; evidence and publication cannot be assumed.
 
@@ -290,8 +290,7 @@ Care review establishes a narrow role, not a marketing claim.
 
 Exact Nigerian offers are required only for price, store, stock, ranking, and
 share-priority claims. If identity, care, rights/provenance, and final-image
-review pass but current offers do not, use the reference-only release in step
-9. It materializes no offers and market research may continue independently.
+review pass but current offers do not, use the reference-only release in step 9. It materializes no offers and market research may continue independently.
 
 An exact observation binds:
 
@@ -447,6 +446,31 @@ does not reopen identity, care, or image review. The workflow:
 
 6. **Run `npm run test` and `npm run build`.** Fix any assertion failures
    from changed prices or availability. Commit and push atomically.
+
+#### Runtime offer-publication invariant
+
+Production has two offer projections: the reviewed offers checked into
+`data/retail-offers.ts` and the protected observations already persisted in
+Neon. They are complementary; a non-empty Neon result must never replace the
+complete checked-in set wholesale.
+
+At the public read boundary, intersect products with the checked-in exact-SKU
+catalogue, retain only complete evidence-bound offers, and merge by retailer
+and market. For the same retailer and market, a persisted observation replaces
+the checked-in observation only when its listing-evidence timestamp is
+strictly newer. This is the same precedence rule used by the protected seed
+reconciliation. Neon price history remains append-only.
+
+Do not restore the former `persistedOffers.length ? persistedOffers :
+approvedOffers` shortcut. A stale but non-empty Neon row would hide newly
+checked-in offers and make an otherwise valid `/share/<slug>` route render the
+not-found state until an operator ran database reconciliation.
+
+Every offer-enrichment wave must include a regression using one real enriched
+SKU with stale persisted offers, proving that the reconciled product remains
+shareable and exposes the new retailers. After deployment, test the rendered
+share page and reject any `Nothing here` state; a raw-HTML keyword smoke is not
+sufficient.
 
 Run retailer searches in parallel using background subagents — one per
 retailer. The Playwright MCP browser is shared, so subagents must retry
