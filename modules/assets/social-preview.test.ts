@@ -20,7 +20,7 @@ test("site metadata uses contextual cards instead of a generic root preview", as
     homeSource,
     /publicSocialMetadata\(staticSocialCard\(["']home["']\), ["']\/["']\)/,
   );
-  assert.match(socialCardSource, /card: 'summary_large_image'/);
+  assert.match(socialCardSource, /card: ["']summary_large_image["']/);
   assert.match(socialCardSource, /width: OG_SIZE\.width/);
   assert.match(socialCardSource, /height: OG_SIZE\.height/);
   assert.match(
