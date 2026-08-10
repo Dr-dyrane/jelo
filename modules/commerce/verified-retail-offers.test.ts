@@ -135,6 +135,7 @@ test("the zero-depth enrichment wave publishes seven exact offers across four pr
     "aqua-rich-licorice-mulberry-body-wash-1000ml": [
       ["BuyBetter", 11288, "1000 ml"],
       ["Perona Beauty", 10850, "1000 ml"],
+      ["Konga Health", 15000, "1000 ml"],
     ],
     "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml": [
       ["CSi Grocery", 12000, "1000 ml"],
@@ -146,6 +147,7 @@ test("the zero-depth enrichment wave publishes seven exact offers across four pr
     ],
     "naturium-multi-peptide-eye-cream-0-5oz": [
       ["Nihet Beauty", 69800, "0.5 fl oz / 15 ml"],
+      ["Jumia", 50000, "0.5 fl oz / 15 ml"],
     ],
   } as const;
 
