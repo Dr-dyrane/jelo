@@ -5559,6 +5559,32 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "low-stock",
       },
     ),
+    exactNg(
+      "TOS Nigeria",
+      "https://tosnigeria.com/shop/replenix-acne-bp10-acne-wash-aloe-vera-6-7floz-200ml/",
+      78,
+      24000,
+      "Replenix BP 10% Acne Wash + Aleo Vera, 6.7 fl oz/200ml",
+      "6.7 fl oz / 200 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
+    exactNg(
+      "Teeka4",
+      "https://teeka4.com/shop/replenix-bp-10-acne-wash-aloe-vera-200ml/",
+      98,
+      28500,
+      "Replenix BP 10% Acne Wash + Aloe Vera 200ml",
+      "6.7 fl oz / 200 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "naturium-multi-peptide-advanced-serum-1fl-oz": [
     exactNg(
