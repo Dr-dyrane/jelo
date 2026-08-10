@@ -1782,7 +1782,7 @@
   .routineSurface { padding-inline: 14px; }
   .routePage { padding-inline: 4px; }
   .exploreDiscovery { padding: 22px 16px; border-radius: 28px; }
-  .routeHeading h1 { font-size: clamp(3.45rem, 18vw, 5.4rem); }
+  .routeHeading h1 { max-width: 100%; font-size: clamp(3.2rem, 14vw, 4.6rem); overflow-wrap: anywhere; }
   .routeHeading.exploreHeading h1 { font-size: clamp(2.55rem, 14vw, 4rem); }
   .exploreToolbar { align-items: flex-start; flex-direction: column; }
   .exploreSectionHeading { align-items: flex-start; flex-direction: column; gap: 12px; }

@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { ClockPlus } from 'lucide-react';
+import { SafeProductImage } from '@/components/products/safe-product-image';
 import type { CustomerPortalSavedRoutine } from '@/lib/customer/portal-model';
 import { RoutineCreateSheet, RoutineEditSheet } from './routine-sheet';
-import { RoutineDeleteDialog } from './routine-delete-dialog';
 import styles from './routine-manager.module.css';
 
 const OUTCOME_MESSAGE: Record<string, string> = {
@@ -31,7 +32,7 @@ export function RoutineManager({
   return (
     <div className={styles.manager}>
       {feedback ? <p className={styles.feedback} role="status">{feedback}</p> : null}
-      <div className={styles.routines}>
+      {routines.length ? <div className={styles.routines}>
         {routines.map(routine => (
           <article className={styles.routine} key={routine.id}>
             <header>
@@ -43,8 +44,24 @@ export function RoutineManager({
             </header>
             <ol>
               {routine.steps.map(step => (
-                <li key={step.id}>
+                <li className={step.product ? styles.productStep : styles.actionStep} key={step.id}>
                   <span className={styles.position}>{String(step.position).padStart(2, '0')}</span>
+                  {step.product ? (
+                    <Link
+                      className={styles.stepImage}
+                      href={`/me/product/${step.product.slug}?from=routine`}
+                      aria-label={`View ${step.product.name}`}
+                    >
+                      <SafeProductImage
+                        src={step.product.image}
+                        alt={`${step.product.brand} ${step.product.name}`}
+                      />
+                    </Link>
+                  ) : (
+                    <span className={styles.actionStepIcon} aria-hidden="true">
+                      <ClockPlus size={18} strokeWidth={1.6} />
+                    </span>
+                  )}
                   <span className={styles.stepCopy}>
                     <strong>{step.label}</strong>
                     {step.instruction ? <span>{step.instruction}</span> : null}
@@ -53,9 +70,9 @@ export function RoutineManager({
                         {step.product.brand} {step.product.name}
                       </Link>
                     ) : step.referenceState === 'product_request' ? (
-                      <small>Pending catalogue review</small>
+                      <small>Pending review</small>
                     ) : step.referenceState === 'unresolved' ? (
-                      <small>Product reference kept as written</small>
+                      <small>Product no longer available</small>
                     ) : null}
                   </span>
                 </li>
@@ -63,11 +80,16 @@ export function RoutineManager({
             </ol>
             <div className={styles.controls}>
               <RoutineEditSheet routine={routine} />
-              <RoutineDeleteDialog routine={routine} />
             </div>
           </article>
         ))}
-      </div>
+      </div> : (
+        <div className={styles.emptyRoutine}>
+          <ClockPlus size={24} strokeWidth={1.5} aria-hidden="true" />
+          <strong>No routine yet.</strong>
+          <span>Build a simple sequence you can return to.</span>
+        </div>
+      )}
 
       <RoutineCreateSheet />
     </div>

@@ -50,6 +50,7 @@ import { HomeView } from '@/components/me/home/home-view';
 import { ExploreView } from '@/components/me/explore/explore-view';
 import { useMeExploreState } from '@/components/me/explore/me-explore-state';
 import { RoutineView } from '@/components/me/routine/routine-view';
+import { OPEN_ROUTINE_BUILDER_EVENT } from '@/components/me/routine/routine-sheet';
 import {
   memberProductHref,
   UnavailableShelfCard,
@@ -62,6 +63,7 @@ import type {
   CustomerExploreReadModel,
   CustomerHomeReadModel,
   CustomerProductReadModel,
+  CustomerRoutineReadModel,
 } from '@/lib/customer/route-read-models';
 import {
   createCustomerExploreFilterOptions,
@@ -157,6 +159,24 @@ function shellViewModelFromExplore(readModel: CustomerExploreReadModel): Custome
     routine: readModel.routine,
     routineState: readModel.routineState,
     routines: undefined,
+  };
+}
+
+// Route-scoped Routine bridge. It carries Routine plus only the shared account
+// sheet context required by the shell; it never loads the full portal catalogue.
+function shellViewModelFromRoutine(readModel: CustomerRoutineReadModel): CustomerPortalViewModel {
+  return {
+    account: readModel.account,
+    featuredProduct: null,
+    catalogue: undefined,
+    concerns: readModel.concerns,
+    selectedRetailers: [],
+    shelfState: readModel.shelfState,
+    shelf: readModel.shelf,
+    routineProvenance: readModel.routineProvenance,
+    routine: readModel.routine,
+    routineState: readModel.routineState,
+    routines: readModel.routines,
   };
 }
 
@@ -286,6 +306,7 @@ function MePortalView({
   viewModel,
   homeModel,
   exploreModel,
+  routineModel,
   route,
   productReadModel,
   productPanelData,
@@ -295,6 +316,7 @@ function MePortalView({
   viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
   exploreModel?: CustomerExploreReadModel;
+  routineModel?: CustomerRoutineReadModel;
   route: MePortalRoute;
   productReadModel?: CustomerProductReadModel;
   productPanelData?: ProductPanelData;
@@ -305,6 +327,7 @@ function MePortalView({
   const resolvedViewModel = viewModel
     ?? (productReadModel ? shellViewModelFromProduct(productReadModel) : undefined)
     ?? (exploreModel ? shellViewModelFromExplore(exploreModel) : undefined)
+    ?? (routineModel ? shellViewModelFromRoutine(routineModel) : undefined)
     ?? (homeModel ? shellViewModelFromHome(homeModel) : EMPTY_PORTAL_VIEW);
   const shelfState = useMeShelfState(resolvedViewModel);
   const concernState = useMeConcernState(shelfState.viewModel);
@@ -483,6 +506,10 @@ function MePortalView({
       openProductPanel('buy');
       return;
     }
+    if (fabContract.action === 'open-routine-builder') {
+      window.dispatchEvent(new Event(OPEN_ROUTINE_BUILDER_EVENT));
+      return;
+    }
     router.push(fabContract.href);
   };
 
@@ -639,7 +666,7 @@ function MePortalView({
           ) : null}
           {route.kind === 'routine' ? (
             <RoutineView
-              viewModel={portalViewModel}
+              routineModel={routineModel}
               mutationOutcome={productRequestOutcome}
             />
           ) : null}
@@ -687,6 +714,7 @@ export function MePortal({
   viewModel,
   homeModel,
   exploreModel,
+  routineModel,
   route,
   productReadModel,
   productPanelData,
@@ -696,6 +724,7 @@ export function MePortal({
   viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
   exploreModel?: CustomerExploreReadModel;
+  routineModel?: CustomerRoutineReadModel;
   route: MePortalRoute;
   productReadModel?: CustomerProductReadModel;
   productPanelData?: ProductPanelData;
@@ -717,6 +746,7 @@ export function MePortal({
         viewModel={viewModel as CustomerPortalViewModel}
         homeModel={homeModel}
         exploreModel={exploreModel}
+        routineModel={routineModel}
         route={route}
         productReadModel={productReadModel}
         productPanelData={productPanelData}

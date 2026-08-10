@@ -591,8 +591,8 @@ The intended route/view/read-model architecture has been partially
 extracted, but the live Me routes still need to be migrated from the
 portal-wide `readCustomerPortal` boundary to route-scoped readers.
 
-**Current state**: Home, Explore, and member Product now use their
-route-scoped readers. Shelf, Routine, Consult, and the private request
+**Current state**: Home, Explore, Routine, and member Product now use their
+route-scoped readers. Shelf, Consult, and the private request
 stack still cross the portal-wide `readCustomerPortal(customer)` boundary
 and remain the next migration cells.
 
@@ -604,7 +604,7 @@ reader:
 | `/me` | `app/(customer)/me/page.tsx` | `readMeHome()` → `CustomerHomeReadModel` | `readMeHome` |
 | `/me/explore` | `app/(customer)/me/[...route]/page.ts` | `readMeExplore()` → `CustomerExploreReadModel` | `readMeExplore` |
 | `/me/shelf` | same | `readMeShelf()` → `CustomerShelfReadModel` | `readCustomerPortal` |
-| `/me/routine` | same | `readMeRoutine()` → `CustomerRoutineReadModel` | `readCustomerPortal` |
+| `/me/routine` | same | `readMeRoutine()` → `CustomerRoutineReadModel` | `readMeRoutine` |
 | `/me/consult` | same | `readMeConsult()` → `CustomerConsultReadModel` | `readCustomerPortal` |
 | `/me/product/[slug]` | same | `readMeProduct()` → `CustomerProductReadModel` | `readMeProduct` |
 | `/me/shelf/add` | same | `readMeShelf()` + catalogue | `readCustomerPortal` |
@@ -620,7 +620,7 @@ an already migrated surface.
 - `components/me/home/` — Home composition and shared view primitives
 - `components/me/explore/` — Explore search, filters, and product grid
 - `components/me/shelf/` — Shelf state, cards, and actions
-- `components/me/routine/` — Routine manager, builder, and rail
+- `components/me/routine/` — one visual Routine sequence plus its structured builder
 - `components/me/consult/` — Ask Me view (future authenticated adapter)
 - `components/me/product/` — Member Product view
 - `components/me/product-requests/` — Private request lifecycle

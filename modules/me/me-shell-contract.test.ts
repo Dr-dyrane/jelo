@@ -605,6 +605,26 @@ test("Explore is route-scoped and keeps private discovery state inside the Me la
   assert.match(css, /\.exploreSearchRow[\s\S]*position: sticky/);
 });
 
+test("Routine is route-scoped, visual once, and edits through its builder", () => {
+  const route = readFileSync("app/(customer)/me/[...route]/page.ts", "utf8");
+  const home = readFileSync("components/me/home/me-home.tsx", "utf8");
+  const view = readFileSync("components/me/routine/routine-view.tsx", "utf8");
+  const manager = readFileSync("components/me/routine/routine-manager.tsx", "utf8");
+  const sheet = readFileSync("components/me/routine/routine-sheet.tsx", "utf8");
+
+  assert.match(route, /route\.kind === 'routine'[\s\S]*readMeRoutine\(customer\)/);
+  assert.match(home, /shellViewModelFromRoutine/);
+  assert.match(view, /<RoutineManager/);
+  assert.doesNotMatch(view, /RoutineRail|routineGrid|routineRailCard/);
+  assert.match(manager, /<SafeProductImage/);
+  assert.match(manager, />Product no longer available</);
+  assert.match(manager, />Pending review</);
+  assert.match(sheet, /name="revision" value=\{routine\.revision\}/);
+  assert.match(sheet, /moveStep\(index, -1\)/);
+  assert.match(sheet, /<RoutineDeleteDialog routine=\{routine\}/);
+  assert.match(home, /window\.dispatchEvent\(new Event\(OPEN_ROUTINE_BUILDER_EVENT\)\)/);
+});
+
 test("Saved Product is removable from any origin, not just Shelf", () => {
   const productView = readFileSync(
     "components/me/product/member-product-view.tsx",
@@ -648,9 +668,8 @@ test("every Me surface owns exactly one truthful working FAB", () => {
     },
     routine: {
       ownerId: "me-routine-add",
-      label: "Add routine step",
-      action: "navigate",
-      href: "/me/explore",
+      label: "Create routine",
+      action: "open-routine-builder",
     },
     consult: {
       ownerId: "me-consult-search",
@@ -703,7 +722,7 @@ test("every Me surface owns exactly one truthful working FAB", () => {
   assert.match(dockNavigation, /import Link from 'next\/link'/);
   assert.match(dockNavigation, /<Link[\s\S]*href=\{item\.href\}/);
   assert.doesNotMatch(dockNavigation, /<a[\s\S]*href=\{item\.href\}/);
-  assert.equal(ME_WORKSPACE_FABS.routine.label, "Add routine step");
+  assert.equal(ME_WORKSPACE_FABS.routine.label, "Create routine");
   assert.doesNotMatch(JSON.stringify(ME_WORKSPACE_FABS), /mutat|save|edit/i);
 });
 

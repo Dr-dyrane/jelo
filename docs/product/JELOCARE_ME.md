@@ -1,6 +1,6 @@
 # JeloCare Me
 
-Updated: 2026-08-05
+Updated: 2026-08-09
 
 JeloCare Me is the authenticated customer workspace for asking, discovering,
 saving, and organising care. It ships the real `/me` route family,
@@ -170,7 +170,10 @@ while Home previews retain their editorial section composition.
   import, deployment, and authenticated smoke remain incomplete. Request review
   closure and per-owner request/upload limits also remain incomplete.
 - Routine persistence ships with owner-isolated named routines, 1–20 ordered
-  steps, and create/update/delete server actions. Canonical user-controlled
+  steps, optimistic revision conflicts, and create/update/delete server actions.
+  `/me/routine` now reads through its route-scoped model and renders one visual
+  time-ordered sequence; create, reorder, edit, and delete remain inside the
+  structured builder sheet. Canonical user-controlled
   Concerns remain unshipped and appear only in the local Synthetic Amara preview.
 - Ask Me supports truthful discovery over customer context and exact products;
   it does not claim an AI answer, consultation submission, or saved mutation.

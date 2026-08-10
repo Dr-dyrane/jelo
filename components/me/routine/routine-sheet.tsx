@@ -1,7 +1,7 @@
 'use client';
 
 import { Plus, Trash2, X } from 'lucide-react';
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useModalDialog } from '@/components/ui/use-modal-dialog';
 import {
   createRoutineAction,
@@ -9,7 +9,10 @@ import {
 } from '@/app/(customer)/me/actions';
 import type { CustomerPortalSavedRoutine } from '@/lib/customer/portal-model';
 import { serializeCustomerRoutineSteps } from '@/lib/customer/routine-input';
+import { RoutineDeleteDialog } from './routine-delete-dialog';
 import styles from './routine-manager.module.css';
+
+export const OPEN_ROUTINE_BUILDER_EVENT = 'jelocare:open-routine-builder';
 
 type StepDraft = { label: string; instruction: string };
 
@@ -175,20 +178,18 @@ function RoutineForm({ routine }: { routine?: CustomerPortalSavedRoutine }) {
 export function RoutineCreateSheet() {
   const { dialogRef, triggerRef, open, close } = useModalDialog();
 
-  return (
-    <>
-      <button
-        ref={triggerRef}
-        className={styles.createTrigger}
-        type="button"
-        aria-haspopup="dialog"
-        aria-controls="create-routine-sheet"
-        onClick={open}
-      >
-        Create routine
-      </button>
+  useEffect(() => {
+    function handleOpen() {
+      const activeElement = document.activeElement;
+      triggerRef.current = activeElement instanceof HTMLButtonElement ? activeElement : null;
+      open();
+    }
+    window.addEventListener(OPEN_ROUTINE_BUILDER_EVENT, handleOpen);
+    return () => window.removeEventListener(OPEN_ROUTINE_BUILDER_EVENT, handleOpen);
+  }, [open, triggerRef]);
 
-      <dialog
+  return (
+    <dialog
         id="create-routine-sheet"
         ref={dialogRef}
         className={styles.sheetDialog}
@@ -216,8 +217,7 @@ export function RoutineCreateSheet() {
             </div>
           </form>
         </section>
-      </dialog>
-    </>
+    </dialog>
   );
 }
 
@@ -268,6 +268,9 @@ export function RoutineEditSheet({
               <button className={styles.submitAction} type="submit">Save changes</button>
             </div>
           </form>
+          <div className={styles.sheetDeleteZone}>
+            <RoutineDeleteDialog routine={routine} />
+          </div>
         </section>
       </dialog>
     </>

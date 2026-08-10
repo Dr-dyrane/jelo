@@ -126,10 +126,13 @@ export type CustomerShelfReadModel = {
  */
 export type CustomerRoutineReadModel = {
   account: CustomerPortalViewModel['account'];
+  shelf: readonly CustomerPortalShelfItem[];
+  shelfState: CustomerPortalViewModel['shelfState'];
   routine: readonly CustomerPortalRoutineStep[];
   routineProvenance: string | null;
   routineState: NonNullable<CustomerPortalViewModel['routineState']>;
   routines: readonly CustomerPortalSavedRoutine[];
+  concerns: CustomerPortalViewModel['concerns'];
   synthetic: boolean;
 };
 
@@ -362,10 +365,13 @@ function syntheticRoutine(): CustomerRoutineReadModel {
   const portal = createSyntheticCustomerPortal();
   return {
     account: portal.account,
+    shelf: portal.shelf,
+    shelfState: portal.shelfState,
     routine: portal.routine,
     routineProvenance: portal.routineProvenance,
     routineState: portal.routineState ?? { status: 'ready', message: null },
     routines: portal.routines ?? [],
+    concerns: portal.concerns,
     synthetic: true,
   };
 }
@@ -612,7 +618,11 @@ export async function readMeRoutine(identity: CustomerAccessIdentity): Promise<C
 
   const catalogue = await readCatalogue();
   const catalogueBySlug = new Map(catalogue.map(p => [p.slug, p]));
-  const routineData = await readRoutines(identity, catalogueBySlug);
+  const [shelfData, routineData, concerns] = await Promise.all([
+    readShelf(identity, catalogueBySlug),
+    readRoutines(identity, catalogueBySlug),
+    readConcerns(identity),
+  ]);
   return {
     account: {
       displayName: identity.displayName,
@@ -620,10 +630,13 @@ export async function readMeRoutine(identity: CustomerAccessIdentity): Promise<C
       email: identity.email,
       synthetic: false,
     },
+    shelf: shelfData.shelf,
+    shelfState: shelfData.shelfState,
     routine: routineData.routine,
     routineProvenance: null,
     routineState: routineData.routineState,
     routines: routineData.routines,
+    concerns,
     synthetic: false,
   };
 }

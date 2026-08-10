@@ -88,7 +88,7 @@ export const ME_WORKSPACE_FABS = {
   home: { ownerId: 'me-home-consult', label: 'Ask Me', action: 'navigate', href: '/me/consult' },
   explore: { ownerId: 'me-explore-search', label: 'Search products', action: 'focus-search' },
   shelf: { ownerId: 'me-shelf-add', label: 'Add to your Shelf', action: 'navigate', href: '/me/shelf/add' },
-  routine: { ownerId: 'me-routine-add', label: 'Add routine step', action: 'navigate', href: '/me/explore' },
+  routine: { ownerId: 'me-routine-add', label: 'Create routine', action: 'open-routine-builder' },
   consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
   product: { ownerId: 'me-product-find-store', label: 'Find a store', action: 'open-product-prices' },
   'shelf-add': { ownerId: 'me-shelf-add-search', label: 'Search exact catalogue', action: 'focus-search' },
@@ -97,7 +97,7 @@ export const ME_WORKSPACE_FABS = {
 } as const satisfies Record<MeWorkspacePage, {
   ownerId: string;
   label: string;
-  action: 'navigate' | 'focus-search' | 'open-product-prices';
+  action: 'navigate' | 'focus-search' | 'open-product-prices' | 'open-routine-builder';
   href?: string;
 }>;
 
