@@ -27,6 +27,7 @@ export default function SiteLayout({
           <Link href="/consult">Ask JeloCare</Link>
           <Link href="/ingredients">Ingredient library</Link>
           <Link href="/retailers">Retailer guide</Link>
+          <Link href="/bundle">Bundle Finder</Link>
         </div>
         <div className="footer-group">
           <strong>Connect</strong>

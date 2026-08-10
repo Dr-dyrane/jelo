@@ -772,3 +772,347 @@ html[data-theme="dark"] .retailer-rank {
     color: var(--wine);
   }
 }
+
+/* ─── Bundle Finder ─── */
+.bundle-page {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+}
+.bundle-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.bundle-hero svg {
+  color: var(--rose);
+  margin-bottom: 1rem;
+}
+.bundle-hero h1 {
+  font-family: var(--font-display), serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  margin: 0 0 0.5rem;
+}
+.bundle-hero p {
+  color: var(--muted);
+  max-width: 32rem;
+  margin: 0 auto;
+}
+.bundle-finder {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.bundle-finder-picker-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Picker search */
+.bundle-picker-search {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 2rem;
+  background: var(--card-glass);
+  border: 1px solid var(--border);
+}
+.bundle-picker-search svg {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.bundle-picker-search input {
+  border: none;
+  background: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  width: 100%;
+}
+.bundle-picker-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.bundle-picker-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  transition: background 0.15s;
+}
+.bundle-picker-item:hover {
+  background: var(--surface-2);
+}
+.bundle-picker-item svg {
+  color: var(--rose);
+  flex-shrink: 0;
+}
+.bundle-picker-item span {
+  display: flex;
+  flex-direction: column;
+}
+.bundle-picker-item small {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.bundle-picker-no-results {
+  color: var(--muted);
+  padding: 0.5rem 1rem;
+  margin: 0;
+}
+
+/* Selected chips */
+.bundle-selected {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.bundle-selected-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem 0.5rem 1rem;
+  border-radius: 2rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.bundle-selected-chip span {
+  display: flex;
+  flex-direction: column;
+}
+.bundle-selected-chip small {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.bundle-selected-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  background: var(--card);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+.bundle-selected-remove:hover {
+  color: var(--wine);
+}
+
+/* Hint */
+.bundle-finder-hint,
+.bundle-loading {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--muted);
+}
+
+/* Results count */
+.bundle-results-count {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Bundle rows */
+.bundle-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.bundle-row {
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background: var(--card-glass);
+  border: 1px solid var(--border);
+}
+.bundle-row-best {
+  border-color: var(--rose);
+  background: var(--card);
+}
+.bundle-row-partial {
+  opacity: 0.85;
+}
+.bundle-row-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.bundle-rank {
+  font-family: var(--font-display), serif;
+  font-size: 1.75rem;
+  color: var(--rose);
+  flex-shrink: 0;
+  line-height: 1;
+}
+.bundle-store-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.bundle-store-info strong {
+  font-size: 1.1rem;
+}
+.bundle-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.bundle-badge-ok {
+  color: #4a7c59;
+}
+.bundle-badge-warn {
+  color: #b8860b;
+}
+.bundle-total {
+  text-align: right;
+  flex-shrink: 0;
+}
+.bundle-total-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.bundle-total-value {
+  font-family: var(--font-display), serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+/* Product links within a bundle row */
+.bundle-products {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+.bundle-product-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.15s;
+}
+.bundle-product-link:hover {
+  opacity: 0.7;
+}
+.bundle-product-name {
+  display: flex;
+  flex-direction: column;
+}
+.bundle-product-name small {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.bundle-product-price {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* Empty state */
+.bundle-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+.bundle-empty svg {
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.bundle-empty p {
+  margin: 0 0 0.5rem;
+}
+.bundle-empty-hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+/* Buy-together suggestions on product pages */
+.buy-together-section {
+  margin-top: 3rem;
+}
+.buy-together-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.buy-together-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 1.25rem;
+  background: var(--card-glass);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
+}
+.buy-together-card:hover {
+  border-color: var(--rose);
+  transform: translateY(-2px);
+}
+.buy-together-card strong {
+  font-size: 0.95rem;
+}
+.buy-together-card small {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.buy-together-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+.buy-together-stores {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.buy-together-price {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 620px) {
+  .bundle-page {
+    padding: 2rem 1rem 4rem;
+  }
+  .bundle-row-header {
+    flex-wrap: wrap;
+  }
+  .bundle-total {
+    text-align: left;
+  }
+}

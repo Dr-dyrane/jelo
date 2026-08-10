@@ -12,6 +12,7 @@ import { ProductGrid } from "@/components/products/product-grid";
 import { ProductQuickPanel } from "@/components/products/product-quick-panel";
 import { ProductSizeSelector } from "@/components/products/product-size-selector";
 import { SafeProductImage } from "@/components/products/safe-product-image";
+import { BuyTogetherSuggestions } from "@/components/commerce/buy-together-suggestions";
 import { resolveCatalogueProductFamily } from "@/lib/catalogue/product-family";
 import { brandProfileHref } from "@/lib/catalogue/brand-profile";
 import { readProductPanelData } from "@/lib/catalogue/product-panel-model";
@@ -167,6 +168,13 @@ export default async function ProductPage({
             />
           }
         />
+
+        <Suspense fallback={null}>
+          <BuyTogetherSuggestions
+            product={product}
+            allProducts={staticProducts}
+          />
+        </Suspense>
 
         <Suspense fallback={null}>
           <RelatedProducts product={product} />
