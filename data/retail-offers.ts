@@ -698,6 +698,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "Essenza",
+      "https://www.essenza.ng/products/loccitane-almond-shower-oil-250ml-1",
+      90,
+      25000,
+      "L'OCCITANE Almond Shower Oil",
+      "250 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml": [
     exactNg(
