@@ -58,13 +58,12 @@ export function RoutineDeleteDialog({
           </div>
 
           <form className={styles.deleteActions}>
+            <input type="hidden" name="routineId" value={routine.id} />
             <button type="button" onClick={close}>Cancel</button>
             <button
               className={styles.confirmDelete}
               type="submit"
               formAction={deleteRoutineAction}
-              name="routineId"
-              value={routine.id}
             >
               <Trash2 size={16} aria-hidden="true" /> Delete
             </button>

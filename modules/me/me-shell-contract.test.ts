@@ -1169,3 +1169,18 @@ test("deriveRoutineSteps helper has been removed", () => {
   const readModels = readFileSync("lib/customer/route-read-models.ts", "utf8");
   assert.doesNotMatch(readModels, /function deriveRoutineSteps/);
 });
+
+test("routine deletion submits identity without overloading the server-action button", () => {
+  const dialog = readFileSync(
+    "components/me/routine/routine-delete-dialog.tsx",
+    "utf8",
+  );
+  assert.match(
+    dialog,
+    /<input type="hidden" name="routineId" value=\{routine\.id\} \/>/,
+  );
+  assert.doesNotMatch(
+    dialog,
+    /formAction=\{deleteRoutineAction\}[\s\S]{0,120}name="routineId"/,
+  );
+});
