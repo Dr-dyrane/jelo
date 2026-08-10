@@ -487,6 +487,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "200 mL",
       { observedAt: "2026-08-08T13:15:00Z", expiresAt: "2026-08-15T13:15:00Z" },
     ),
+    exactNg(
+      "Nihet Beauty",
+      "https://nihetbeauty.com/product/la-roche-posay-lipikar-baume-apm-200ml/",
+      86,
+      36000,
+      "Laroche Posay LIPIKAR Baume AP+M 200ml",
+      "200 mL",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
   ],
   "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml": [
     exactNg(
