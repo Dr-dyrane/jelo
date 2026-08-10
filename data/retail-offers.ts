@@ -641,6 +641,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       { observedAt: "2026-08-08T13:15:00Z", expiresAt: "2026-08-15T13:15:00Z" },
     ),
+    exactNg(
+      "Care to Beauty",
+      "https://www.caretobeauty.com/ng/medik8-crystal-retinal-night-serum/",
+      88,
+      77956,
+      "Medik8 Crystal Retinal Night Serum",
+      "30 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "medik8-crystal-retinal-6-30ml": [
     exactNg(
@@ -1572,6 +1585,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         expiresAt: "2026-08-16T17:50:00Z",
         stock: "in-stock",
         available: true,
+      },
+    ),
+    exactNg(
+      "MamaTega",
+      "https://shopmamatega.com/products/6156000247298",
+      76,
+      1300,
+      "Miracle Shampoo Natural Hair Anti Dandruff",
+      "400 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
       },
     ),
   ],
@@ -4162,6 +4188,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: false,
       },
     ),
+    exactNg(
+      "Medplus",
+      "https://medplusnig.com/product/dang-ageless-snail-repair-cream-50g-661G2O",
+      97,
+      15700,
+      "DANG AGELESS SNAIL REPAIR CREAM 50G",
+      "50 g",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "dang-vitamin-c-concentrated-serum-oil-free-30ml": [
     exactNg(
@@ -4578,6 +4617,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Shea Moisture Raw Shea Butter Deep Moisturizing Conditioner 384ml",
       "384 ml",
       { stock: "low-stock", priceComparison: "exclude" },
+    ),
+    exactNg(
+      "Perfect Trust Beauty",
+      "https://perfecttrustbeauty.com/products/raw-shea-butter-deep-treatment-masque-340g",
+      78,
+      12700,
+      "Shea Moisture Raw Shea Butter Restorative Conditioner",
+      "384 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
     ),
   ],
   "tresemme-keratin-smooth-weightless-conditioner-828ml": [
@@ -6868,6 +6920,33 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         expiresAt: "2026-08-16T17:50:00Z",
         stock: "in-stock",
         available: true,
+      },
+    ),
+    exactNg(
+      "MamaTega",
+      "https://shopmamatega.com/products/850010792194",
+      76,
+      21000,
+      "Naturium Tranexamic Topical Acid 5%",
+      "1.0 fl oz / 30 mL",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
+    exactNg(
+      "Mon Père Stores",
+      "https://monperestores.com/products/naturium-tranexamic-topical-acid-5-30ml",
+      76,
+      45000,
+      "Naturium Tranexamic Topical Acid 5% 30ml",
+      "1.0 fl oz / 30 mL",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        available: false,
+        stock: "out-of-stock",
       },
     ),
   ],

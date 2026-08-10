@@ -1031,6 +1031,42 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Lagos skincare retailer with a direct catalogue and Naira pricing.",
   },
   {
+    name: "MamaTega",
+    homepage: "https://shopmamatega.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 76,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-10T00:00:00Z",
+      sourceUrl: "https://shopmamatega.com/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query: string) =>
+      `https://shopmamatega.com/search?q=${encodeURIComponent(query)}`,
+    note: "Lagos beauty retailer with branches in Ogba and Yaba, Naira pricing and nationwide shipping.",
+  },
+  {
+    name: "Mon Père Stores",
+    homepage: "https://monperestores.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 76,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-10T00:00:00Z",
+      sourceUrl: "https://monperestores.com/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query: string) =>
+      `https://monperestores.com/search?q=${encodeURIComponent(query)}`,
+    note: "Surulere Lagos skincare and fragrance retailer with Naira pricing and nationwide delivery.",
+  },
+  {
     name: "Choices Beauty",
     homepage: "https://choiceschi.com/",
     market: "NG",
