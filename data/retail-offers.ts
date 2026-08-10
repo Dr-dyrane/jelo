@@ -165,6 +165,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         inventoryQuantity: 2,
       },
     ),
+    exactNg(
+      "Mirrors Beauty",
+      "https://mirrorsbeauty.com/products/naturium-dew-glow-moisturizer-spf-50",
+      78,
+      24200,
+      "Naturium Dew-Glow Moisturizer SPF 50",
+      "1.7 fl oz / 50 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "naturium-multi-peptide-eye-cream-0-5oz": [
     exactNg(
@@ -501,6 +514,31 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "BuyBetter",
+      "https://buybetter.ng/product/la-roche-posay-lipikar-baume-eco-tube-apm-200ml/",
+      97,
+      19565,
+      "LA ROCHE-POSAY LIPIKAR BAUME AP+M TUBE 200ML (Eco-Tube)",
+      "200 mL",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
+    exactNg(
+      "24Eleven",
+      "https://www.24eleven.ng/la-roche-posay-lipikar-baume-ap-m-body-lotion-200ml",
+      76,
+      18500,
+      "La Roche Posay Lipikar Baume AP+M Body Lotion - 200ml",
+      "200 mL",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+      },
+    ),
   ],
   "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml": [
     exactNg(
@@ -664,6 +702,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         expiresAt: "2026-08-16T17:50:00Z",
         stock: "out-of-stock",
         available: false,
+      },
+    ),
+    exactNg(
+      "SweetCare Nigeria",
+      "https://www.sweetcare.com/ng/medik8-advanced-night-restore-rejuvenating-night-cream-p-017649kd?st=01",
+      88,
+      91221,
+      "Medik8 Advanced Night Restore Rejuvenating Night Cream",
+      "50 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
       },
     ),
   ],
@@ -1955,6 +2006,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
       location: ["NG"],
     },
+    exactNg(
+      "Holly's Wellness",
+      "https://hollyswellness.com/product/panoxyl-acne-foaming-wash-benzoyl-peroxide-10/",
+      78,
+      19000,
+      "Panoxyl Acne Foaming Wash Benzoyl Peroxide 10%",
+      "156 g",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
   ],
   "benton-honest-cleansing-foam-150g": [
     exactNg(
@@ -5705,6 +5770,45 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         expiresAt: "2026-08-16T17:50:00Z",
         stock: "in-stock",
         available: true,
+      },
+    ),
+    exactNg(
+      "TOS Nigeria",
+      "https://tosnigeria.com/shop/aqua-rich-hydrating-bright-body-gel-wash-1000ml/",
+      78,
+      10800,
+      "Aqua Rich Hydrating Bright Body Gel Wash 1000ml",
+      "1000 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
+    exactNg(
+      "Eslin Beauty",
+      "https://eslinbeauty.com/product/aqua-rich-hydrating-bright-body-gel-wash-with-turmeric-and-vitamin-c-1000ml/",
+      78,
+      12000,
+      "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
+      "1000 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
+    exactNg(
+      "Slique Beauty",
+      "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-bright-glow/",
+      78,
+      10500,
+      "AQUA RICH BODY GEL WASH 1000ML – BRIGHT + GLOW",
+      "1000 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
       },
     ),
   ],
