@@ -806,6 +806,24 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Lekki Lagos science-backed skincare retailer with a physical store and Naira pricing.",
   },
   {
+    name: "Derma Essentials",
+    homepage: "https://dermaessentialshub.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-10T00:00:00Z",
+      sourceUrl: "https://dermaessentialshub.com/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query) =>
+      `https://dermaessentialshub.com/?s=${encodeURIComponent(query)}`,
+    note: "Nigerian skincare retailer with nationwide delivery and Naira pricing.",
+  },
+  {
     name: "Mirrors Beauty",
     homepage: "https://mirrorsbeauty.com/",
     market: "NG",

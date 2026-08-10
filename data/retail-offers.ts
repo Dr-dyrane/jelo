@@ -1976,6 +1976,35 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "Muna Cosmetics",
+      "https://munacosmetics.com/face-facts-vitamin-c-jelly-cleanser",
+      82,
+      3500,
+      "Face Facts Vitamin C Jelly Cleanser 150ml",
+      "150 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+    exactNg(
+      "Derma Essentials",
+      "https://dermaessentialshub.com/product/face-facts-vitamin-c-jelly-cleanser/",
+      78,
+      5000,
+      "FACE FACTS VITAMIN C JELLY CLEANSER",
+      "150 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+        available: true,
+        inventoryQuantity: 1,
+      },
+    ),
   ],
   "cerave-moisturising-cream-454g": [
     exactNg(
