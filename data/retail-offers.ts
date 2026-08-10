@@ -1808,6 +1808,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: false,
       },
     ),
+    exactNg(
+      "Konga Health",
+      "https://www.konga.com/product/dang-ageless-beauty-water-100ml-6961914",
+      80,
+      34000,
+      "Dang Ageless Beauty Water - 100ml",
+      "100 ml",
+      { observedAt: "2026-08-10T00:03:45Z", expiresAt: "2026-08-17T00:03:45Z" },
+    ),
   ],
   "dang-collagen-hydrating-serum-ceramides-30ml": [
     exactNg(
@@ -1832,6 +1841,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: false,
       },
     ),
+    exactNg(
+      "Konga Health",
+      "https://www.konga.com/product/dang-collagen-and-hydrating-serum-with-ceramides-30ml-6961918",
+      80,
+      37000,
+      "Dang Collagen & Hydrating Serum With Ceramides - 30ml",
+      "30 ml",
+      { observedAt: "2026-08-10T00:03:33Z", expiresAt: "2026-08-17T00:03:33Z" },
+    ),
   ],
   "dang-everyday-gentle-foaming-face-wash-120ml": [
     exactNg(
@@ -1855,6 +1873,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         expiresAt: "2026-08-16T23:27:47Z",
         available: false,
       },
+    ),
+    exactNg(
+      "Konga Health",
+      "https://www.konga.com/product/dang-everyday-gentle-foaming-face-wash-120ml-6961919",
+      80,
+      36000,
+      "Dang Everyday Gentle Foaming Face Wash - 120ml",
+      "120 ml",
+      { observedAt: "2026-08-10T00:03:19Z", expiresAt: "2026-08-17T00:03:19Z" },
     ),
   ],
   "dang-hyaluronic-cream-hydrating-face-cleanser-200ml": [
@@ -1886,6 +1913,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: false,
       },
     ),
+    exactNg(
+      "Konga Health",
+      "https://www.konga.com/product/dang-retinoic-cream-0-05-30ml-6961927",
+      80,
+      39000,
+      "Dang Retinoic Cream 0.05% - 30ml",
+      "30 ml",
+      { observedAt: "2026-08-10T00:03:03Z", expiresAt: "2026-08-17T00:03:03Z" },
+    ),
   ],
   "dang-snail-mucin-repair-serum-100ml": [
     exactNg(
@@ -1909,6 +1945,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         expiresAt: "2026-08-16T23:27:39Z",
         available: false,
       },
+    ),
+    exactNg(
+      "Konga Health",
+      "https://www.konga.com/product/dang-multifunction-formula-snail-mucin-repair-serum-100ml-6962080",
+      80,
+      43000,
+      "Dang Multifunction Formula Snail Mucin Repair Serum - 100ml",
+      "100 ml",
+      { observedAt: "2026-08-10T00:02:45Z", expiresAt: "2026-08-17T00:02:45Z" },
     ),
   ],
   "dang-snail-secretion-filtrate-repair-face-cream-50g": [
