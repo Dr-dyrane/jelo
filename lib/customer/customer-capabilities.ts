@@ -29,8 +29,8 @@ export const customerCapabilities = {
 
   /** Customer-controlled canonical Concerns are not yet shipped. */
   customerConcerns: false,
-  /** Authenticated Ask Me does not submit or call a model. */
-  authenticatedGuidance: false,
+  /** Authenticated Ask Me reuses the deterministic public safety and guidance authority. */
+  authenticatedGuidance: true,
   /** Notifications are not shipped. */
   notifications: false,
   /** Basket/refill timing decisions are not shipped. */

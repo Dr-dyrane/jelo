@@ -9,7 +9,8 @@ development-only synthetic presentation. Shipped capabilities include
 owner-isolated canonical Shelf persistence, owner-isolated Routine persistence
 with create/update/delete actions, private missing-product requests, complete
 eligible-catalogue Explore reachability, exact member-Product OTP continuation,
-and the global public reporting helper.
+the global public reporting helper, and an authenticated Ask Me adapter over
+the same deterministic reviewed guidance authority as public `/consult`.
 
 The single authoritative record of what currently ships is
 [`lib/customer/customer-capabilities.ts`](../../lib/customer/customer-capabilities.ts).
@@ -56,7 +57,7 @@ Four authenticated stack pages sit above that primary model:
 
 | Stack page | Canonical route | Parent semantics | Page-owned FAB |
 | --- | --- | --- | --- |
-| Ask Me | `/me/consult` | Home; combines the guidance entry and customer concern context without reusing public `/consult` state | Search your care → focus the real care field |
+| Ask Me | `/me/consult` | Home; reuses public `/consult` safety and guidance authority while keeping its session and opt-in member context separate | Search your care → focus the real care field |
 | Member product | `/me/product/[slug]` | The originating primary destination (or Ask Me with Home selected); reuses exact public catalogue identity while preserving `/products/[slug]` | Find a store → open exact public offer evidence |
 | Add to Shelf | `/me/shelf/add` | Shelf; search the canonical catalogue first and open a private request only when no identity matches | Search exact catalogue → focus the real catalogue field |
 | Private request | `/me/shelf/request/[id]` | Shelf; inspect or manage one owner-isolated missing-product request without treating it as saved or canonical | Request another product → `/me/shelf/add` |
@@ -175,10 +176,15 @@ while Home previews retain their editorial section composition.
   time-ordered sequence; create, reorder, edit, and delete remain inside the
   structured builder sheet. Canonical user-controlled
   Concerns remain unshipped and appear only in the local Synthetic Amara preview.
-- Ask Me supports truthful discovery over customer context and exact products;
-  it does not claim an AI answer, consultation submission, or saved mutation.
-  Public `/consult` remains a separate account-free, deterministic guidance
-  route with its existing safety and request-protection authority.
+- Ask Me submits to the same deterministic, reviewed safety and guidance
+  authority as public `/consult`; it creates no second recommendation engine
+  and makes zero model calls. Saved Concerns and exact products from Shelf or
+  Routine are excluded by default, may be included only through explicit
+  per-session controls, are previewed before submission, and are never saved as
+  a transcript. Product context contributes only canonical verified ingredient
+  identifiers after the server revalidates each exact slug. Unknown Concern or
+  product slugs are ignored. Public `/consult` remains account-free and keeps
+  its existing request-protection authority.
 
 ## Production progression
 
@@ -188,8 +194,9 @@ next executable slice live only in the
 [JeloCare Me production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md). In short,
 Shelf persistence, Routine persistence, private product requests, complete
 Explore, member-Product OTP continuation, and the global report helper now ship.
-User-controlled canonical Concerns, authenticated Ask or true AI guidance,
-contextual discovery, request operating closure and rate limits,
+The deterministic authenticated Ask adapter also ships. User-controlled
+canonical Concerns, true AI wording, account-keyed Ask rate limits, contextual
+discovery, request operating closure and rate limits,
 refill/basket decisions, notifications, and public community follow only through
 their recorded gates. The current catalogue snapshot is evidence, never a
 hard-coded limit.

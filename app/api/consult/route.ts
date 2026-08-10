@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { products } from '@/data/catalogue';
+import { concerns as knowledgeConcerns } from '@/data/knowledge';
 import type { Market } from '@/data/prices';
 import type { Product } from '@/data/products';
 import { sameSiteRequest } from '@/lib/community-intake/request-security';
@@ -61,7 +62,18 @@ const requestSchema = z.object({
   profile: patientProfileSchema,
   clientSchemaVersion: z.literal(2).optional(),
   priorTimeline: z.array(timelineRecordInputSchema).max(8).optional(),
+  memberContext: z.object({
+    concernSlugs: z.array(z.string().trim().min(1).max(120)).max(12),
+    productSlugs: z.array(z.string().trim().min(1).max(180)).max(30),
+  }).optional(),
 });
+
+const reviewedConcernSlugs = new Set(
+  knowledgeConcerns
+    .filter(concern => concern.kind === 'concern')
+    .map(concern => concern.slug),
+);
+const catalogueBySlug = new Map(products.map(product => [product.slug, product]));
 
 type TimelineRecordInput = z.infer<typeof timelineRecordInputSchema>;
 
@@ -185,14 +197,24 @@ export async function POST(request: Request) {
     query,
     market,
     profile,
+    memberContext,
     clientSchemaVersion,
     priorTimeline: priorTimelineInput = [],
   } = parsed.data;
   const legacyClient = clientSchemaVersion !== 2;
   const priorTimeline = priorTimelineInput.map(normalizeTimelineRecord);
-  const concerns = inferConcerns(query);
+  const sharedConcernSlugs = (memberContext?.concernSlugs ?? [])
+    .filter(slug => reviewedConcernSlugs.has(slug));
+  const sharedIngredientIds = (memberContext?.productSlugs ?? [])
+    .flatMap(slug => catalogueBySlug.get(slug)?.verifiedIngredientIds ?? []);
+  const concerns = [...new Set([...inferConcerns(query), ...sharedConcernSlugs])];
+  const currentIngredients = [...new Set([
+    ...(profile?.currentIngredients ?? []),
+    ...sharedIngredientIds,
+  ])];
   const clinical = assessClinicalRoutine(query, {
     ...profile,
+    currentIngredients: currentIngredients.length ? currentIngredients : undefined,
     concerns,
     market,
     sensitiveSkin: profile?.sensitiveSkin ?? concerns.includes('sensitivity'),

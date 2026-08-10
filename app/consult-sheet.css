@@ -291,6 +291,128 @@
   font-weight: 500;
 }
 
+.member-consult-context {
+  margin: 1rem 0;
+  padding: clamp(1rem, 2.5vw, 1.35rem);
+  border-radius: 1.5rem;
+  background: color-mix(in srgb, var(--peach) 58%, var(--paper));
+}
+
+.member-consult-context-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.member-consult-context-heading .eyebrow {
+  margin: 0 0 0.35rem;
+}
+
+.member-consult-context-heading h3 {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.55rem, 3vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.member-consult-context-heading > span {
+  flex: 0 0 auto;
+  padding: 0.55rem 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 76%, transparent);
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+
+.member-consult-context-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.member-consult-context-options button {
+  min-width: 0;
+  min-height: 4.5rem;
+  padding: 0.9rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  border: 0;
+  border-radius: 1.15rem;
+  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.member-consult-context-options button > span {
+  min-width: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.member-consult-context-options strong {
+  font-size: 0.78rem;
+}
+
+.member-consult-context-options small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.67rem;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.member-consult-context-options button[aria-pressed="true"] {
+  background: var(--wine);
+  color: var(--cream);
+}
+
+.member-consult-context-options button[aria-pressed="true"] small {
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
+}
+
+.member-consult-context-options button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.member-consult-context-options button:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 3px;
+}
+
+.member-consult-context-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.8rem;
+}
+
+.member-consult-context-preview span {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0.55rem 0.7rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 76%, transparent);
+  color: var(--wine);
+  font-size: 0.65rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.member-consult-context-empty {
+  margin: 0.8rem 0 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.55;
+}
+
 .profile-trigger > span:first-child {
   display: grid;
   gap: 0.25rem;
@@ -468,6 +590,18 @@
 
   .consult-form .consult-submit {
     width: 100%;
+  }
+
+  .member-consult-context-heading {
+    display: grid;
+  }
+
+  .member-consult-context-heading > span {
+    width: fit-content;
+  }
+
+  .member-consult-context-options {
+    grid-template-columns: 1fr;
   }
 
   .consult-composer-head > span,

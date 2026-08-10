@@ -35,6 +35,21 @@ calls: safety and condition paths project reviewed guidance, everyday-care
 paths use reviewed product authority, and unclear descriptions ask for more
 detail.
 
+## Authenticated My JeloCare adapter
+
+`/me/consult` renders the same `ConsultExperience` and submits to the same
+reviewed `/api/consult` safety and guidance authority as public `/consult`. It
+does not create a second engine, call a model, or persist a transcript.
+
+Private member context is always excluded initially. A customer may explicitly
+include saved Concern references or exact products currently on Shelf or in a
+Routine for that session. The interface previews every included item before a
+submission. The server ignores unknown Concern and product slugs, resolves
+known products through the canonical catalogue, and supplies only their
+verified ingredient identifiers to clinical screening. Retailer copy, public
+marketing claims, and arbitrary client ingredient text cannot be promoted into
+member product context through this adapter.
+
 ## Everyday care requests
 
 An explicit, non-diagnostic request for everyday care does not need a disease-pattern result. Ask Jelo can route daily sun protection, ordinary sweat or body odour, dry or rough body skin, dry or frizzy hair, dry facial skin, sensitive-feeling skin, and oily skin to their canonical concern guides.

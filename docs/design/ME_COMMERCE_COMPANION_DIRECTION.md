@@ -1,7 +1,7 @@
 # JeloCare Me — Consumer Experience Direction
 
-Updated: 2026-08-05
-Status: Direction packet for review — amended after first approval pass
+Updated: 2026-08-09
+Status: Direction packet with Home, Explore, Routine, Member Product, and authenticated Ask Me implementation notes
 
 ## 1. Current-state reading
 
@@ -30,12 +30,10 @@ automated browser suite does not yet exist.
   `readMeExplore`, `readMeShelf`, `readMeRoutine`, `readMeConsult`,
   `readMeProduct`) exist in `lib/customer/route-read-models.ts` with pure
   derivation, thin view components, shared modal/sheet controller, and
-  adaptive dock with FAB registration. However, the live Me routes
-  (`app/(customer)/me/page.tsx` and `app/(customer)/me/[...route]/page.ts`)
-  still call the portal-wide `readCustomerPortal` loader, not the
-  route-scoped readers. The route → model → view → controller split is
-  designed and partially tested but not yet wired into the live route
-  adapters.
+  adaptive dock with FAB registration. Home, Explore, Routine, Consult, and
+  member Product are wired to their route-scoped readers. Shelf, Add to Shelf,
+  and private request routes retain the portal-wide bridge until each is
+  migrated as a bounded release cell.
 - **Shelf**: Owner-isolated immutable-version persistence with add/remove/
   clear, lifecycle-aware unavailable rows, export, hard-delete. Private
   product requests are a separate owner-isolated lifecycle. Synthetic preview
@@ -49,8 +47,9 @@ automated browser suite does not yet exist.
 - **Member Product**: Exact catalogue identity, price evidence, retailer
   offers, care details, shelf action, routine context, buy/details panel.
 - **Consult**: Public deterministic safety engine with care intent, safety
-  gate, clinical product filtering, timeline, profile context. Concern guides
-  now link to consult with safe prefill.
+  gate, clinical product filtering, timeline, and profile context. Member Ask
+  Me now reuses that same authority, with Concern and exact Shelf/Routine
+  context off by default, explicitly previewed, and session-only.
 - **Dock**: Four-mode adaptive workspace dock with scroll hysteresis, FAB
   registration, back navigation for stack pages, focus management.
 - **Boundaries**: Server-derived owner, private data never in public
@@ -74,8 +73,8 @@ composition:
 - Member Product is a two-column hero (image + story) with evidence
   buttons — good structure but the evidence is behind buttons rather
   than integrated.
-- Ask Me is currently catalogue search, not the guided consultation
-  the public `/consult` already provides.
+- Ask Me now uses the guided deterministic consultation that public `/consult`
+  provides; it does not duplicate the clinical engine or persist a transcript.
 
 The dock, shell mechanics, read models, and data boundaries are
 companion-grade. The visual composition and interaction flow are still
@@ -605,7 +604,7 @@ reader:
 | `/me/explore` | `app/(customer)/me/[...route]/page.ts` | `readMeExplore()` → `CustomerExploreReadModel` | `readMeExplore` |
 | `/me/shelf` | same | `readMeShelf()` → `CustomerShelfReadModel` | `readCustomerPortal` |
 | `/me/routine` | same | `readMeRoutine()` → `CustomerRoutineReadModel` | `readMeRoutine` |
-| `/me/consult` | same | `readMeConsult()` → `CustomerConsultReadModel` | `readCustomerPortal` |
+| `/me/consult` | same | `readMeConsult()` → `CustomerConsultReadModel` | `readMeConsult` |
 | `/me/product/[slug]` | same | `readMeProduct()` → `CustomerProductReadModel` | `readMeProduct` |
 | `/me/shelf/add` | same | `readMeShelf()` + catalogue | `readCustomerPortal` |
 | `/me/shelf/request/[id]` | same | `readMeShelf()` + request | `readCustomerPortal` |
@@ -621,7 +620,7 @@ an already migrated surface.
 - `components/me/explore/` — Explore search, filters, and product grid
 - `components/me/shelf/` — Shelf state, cards, and actions
 - `components/me/routine/` — one visual Routine sequence plus its structured builder
-- `components/me/consult/` — Ask Me view (future authenticated adapter)
+- `components/me/consult/` — authenticated Ask Me context adapter over the shared consult experience
 - `components/me/product/` — Member Product view
 - `components/me/product-requests/` — Private request lifecycle
 - `components/me/shell/` — Me shell vocabulary, dock model, sheets
@@ -751,22 +750,22 @@ etc.) coordinate ephemeral interaction:
 - **Mobile**: Single column. Filter sheet is a bottom sheet.
 - **Testing**: Existing explore model tests + visual verification.
 
-### Proposed: Ask Me phase flow (future Phase 4)
+### Shipped initial Ask Me phase flow (Phase 4 adapter)
 
 - **Customer job**: Receive care-first guidance using private context.
 - **Authoritative source**: Public consult safety engine. Must be
   reused, not duplicated.
-- **Does the behavior exist?**: Public `/consult` has the full flow.
-  `/me/consult` is currently search only.
+- **Does the behavior exist?**: Yes. `/me/consult` reuses the shared
+  `ConsultExperience` and API authority; private context is off by default.
 - **Public/private separation**: Authenticated adapter must not log
   private context or query text.
-- **Who owns the interaction?**: ConsultView + future authenticated
-  API.
+- **Who owns the interaction?**: `ConsultView` owns the member context adapter;
+  `ConsultExperience` and `/api/consult` own the shared guidance interaction.
 - **States**: Describe, clarify, guide, continue, safety interrupt,
   error, rate-limited.
 - **Mobile**: Single column. Phase transitions in-place.
-- **Testing**: Shared public/member safety corpus. Not implemented in
-  first wave.
+- **Testing**: Shared public/member safety corpus plus route, context opt-in,
+  focus, and local authenticated browser evidence.
 
 ## 9. Chosen first implementation wave
 

@@ -1,7 +1,7 @@
 # JeloCare Me production roadmap
 
 Updated: 2026-08-09
-Status: Shelf, Routine, private requests, complete Explore, member-Product OTP, and global report helper ship. Protected activation, request operating closure, and production evidence remain.
+Status: Shelf, Routine, private requests, complete Explore, member-Product OTP, global report helper, and the deterministic authenticated Ask adapter ship. Protected activation, account-keyed Ask limiting, request operating closure, and production evidence remain.
 
 This is the canonical delivery roadmap from the shipped JeloCare Me foundation
 to production completeness. [JeloCare Me](./JELOCARE_ME.md) remains the canon
@@ -26,7 +26,7 @@ exact release revision is recorded only after the checklist passes.
 | Entry and authentication | `/me` and every released child route are dynamic and derive a verified customer session. Signed-out member Product routes carry only the exact allowlisted `/me/product/[slug]?from=home\|explore\|shelf\|routine` intent through OTP; other customer entry falls back to `/me`, and nested or external destinations fail closed. Public search, catalogue, product, concern, and `/consult` routes remain account-free. | Expired-session and provider-error recovery plus authenticated production evidence for the complete sign-in-return-sign-out journey remain. | `lib/customer/access.ts`, `lib/auth/sign-in-intent.ts`, `modules/me/customer-access.test.ts` |
 | Home | `/me` renders the warm adaptive shell, one Ask Me entry, an exact catalogue feature, and honest Shelf/Routine previews. Real accounts read the durable canonical Shelf and persisted Routine. | Persistent Concern summaries, actionable recovery when one private source fails, and explainable personal context. | `app/(customer)/me/page.tsx`, `components/me/home/me-home.tsx` |
 | Explore and member Product | `/me/explore` partitions the full eligible publication projection without a fixed client cap. All 59 products in the 2026-08-05 snapshot are reachable by browse or search, and add/retire fixtures change reachability without a count edit. `/me/product/[slug]` preserves an allowlisted parent, reuses public catalogue identity, and restores that exact safe intent after OTP. | Production smoke, explicit stale/error handling, successor behavior, scale evidence, and future customer-controlled contextual ordering remain. | `components/me/home/me-home.tsx`, `lib/customer/explore-model.ts`, `modules/me/customer-explore-model.test.ts` |
-| Ask Me and Concerns | `/me/consult` is currently catalogue/context search, not a consultation submission. Real accounts have no stored Concerns. Separately, public `/consult` already returns deterministic, reviewed education with same-site checks, a 64 KiB body limit, and a production-fail-closed 20-request-per-hour network limit; it makes zero model calls and keeps visit context in memory. | An authenticated adapter over the reviewed safety engine, explicit context controls, account-aware abuse protection, cost policy for any optional model wording, and recovery without hiding the public route. | [Ask Jelo](../ASK_JELO_EXPERIENCE.md), `app/api/consult/route.ts`, `lib/consult/security.ts` |
+| Ask Me and Concerns | `/me/consult` reuses public `/consult`'s deterministic reviewed safety and guidance authority. Private Concerns and exact Shelf/Routine products are excluded by default, explicitly selected and previewed per session, then server-revalidated; no transcript is persisted and the flow makes zero model calls. Real accounts still have no customer-controlled canonical Concern persistence. | Account-keyed abuse protection, authenticated production smoke and telemetry, persistent customer-controlled Concerns, and a separately accepted cost/privacy policy before any optional model wording. | [Ask Jelo](../ASK_JELO_EXPERIENCE.md), `app/api/consult/route.ts`, `components/me/consult/consult-view.tsx`, `lib/consult/security.ts` |
 | Canonical Shelf | The Phase 1 candidate adds immutable-version persistence, owner-derived add/remove/read, lifecycle-aware unavailable rows with individual removal, export, and hard-delete clear. The August 4 slice labels the entry **Add to your Shelf** and exposes add on every canonical search match. It fails closed unless `CUSTOMER_SHELF_DATABASE_URL` uses the exact attested `jelocare_shelf_runtime` role. | Complete the protected role/migration/reconciliation release, datastore isolation evidence, reviewed five-item import, owner-credential removal/rotation, and authenticated production smoke. | `db/migrations/0034_customer_shelf.sql`, `db/migrations/0035_runtime_database_roles.sql`, [ADR 0014](../adr/0014-customer-shelf-data-boundary.md) |
 | Private missing-product requests | A zero-match canonical search can create an owner-isolated draft or pending request with bounded identity fields and an optional private photo. Requests remain separate from saved Shelf counts and canonical/public catalogue truth; customers can inspect, edit within lifecycle limits, change photo consent, and delete them. | A governed review-to-closure operating path, customer feedback for matched/published outcomes, per-owner request and upload limits, account-wide request export/clear semantics, protected activation through migration `0036`, and authenticated isolation/photo smoke remain. | `db/migrations/0036_customer_product_requests.sql`, `lib/customer/product-request-service.ts`, `components/me/product-requests/` |
 | Routine | `/me/routine` ships owner-isolated named routines with 1–20 ordered steps, optimistic revision conflicts, and create/update/delete server actions. Its route-scoped reader feeds one visual sequence; the structured sheet owns create, reorder, edit, and delete. | Persistence lifecycle evidence and authenticated production smoke remain. | `lib/customer/route-read-models.ts`, `db/migrations/0037_customer_routines.sql`, `app/(customer)/me/actions.ts`, `components/me/routine/` |
@@ -348,15 +348,21 @@ product decision. Customer Experience owns the member journey. Platform
 Delivery owns authenticated request protection, budgets, secrets, observability,
 and availability. Public Experience owns compatibility with `/consult`.
 
-**Routes, data, and contracts.** Replace search-only behavior at `/me/consult`
-through an authenticated `/api/me/consult`-style boundary that reuses pure
-public consult services rather than calling one public HTTP route from another.
-Inputs are bounded request text plus the confirmed server-projected context;
-outputs remain presentation-safe and exclude internal scores and rule IDs.
+**Routes, data, and contracts.** The initial release replaces search-only
+behavior at `/me/consult` by rendering the shared `ConsultExperience` and using
+the existing bounded `/api/consult` authority. Member context originates in the
+authenticated route read model, is off by default, and is sent only after an
+explicit selection. The API revalidates Concern slugs against reviewed
+knowledge and product slugs against the canonical catalogue; products
+contribute only their verified ingredient identifiers. Outputs remain
+presentation-safe and exclude internal scores and rule IDs. A future separate
+member endpoint is required only if account-keyed policy cannot be added safely
+to the shared boundary.
 
 **Entry gate.** Phase 3 passes; public safety and concern parity suites are
-green; the authenticated threat model, per-account keying, limiter failure mode,
-support path, zero-retention default, and cost policy are accepted.
+green; same-site and bounded-body enforcement remain shared; the zero-retention
+default and zero-model cost policy are accepted. Per-account keying and its
+authenticated threat-model evidence remain a production-completeness gate.
 
 **Measurable exit gate.** 100% of emergency, urgent, condition, medication,
 under-18, allergy, and ordinary-care regression fixtures preserve public safety
@@ -377,9 +383,9 @@ tests; accessibility/state evidence; full release/build gates; exact READY
 revision; public `/consult`, signed-out `/me/consult`, and authenticated Ask
 smokes. No authenticated claim without the last smoke.
 
-**Rollback.** Disable member submission and return `/me/consult` to truthful
-catalogue/context search with a link to public `/consult`; do not weaken the
-public safety or limiter boundary.
+**Rollback.** Disable member context and submission, then provide a truthful
+link to public `/consult`; do not restore the obsolete catalogue-search
+imitation and do not weaken the public safety or limiter boundary.
 
 **Unlocks.** Explainable context-aware Home/Explore and optional future wording
 assistance under a separate gate.

@@ -270,6 +270,25 @@ test("urgent and pregnancy paths return before AI and products", async () => {
   assert.deepEqual(pregnancy.products, []);
 });
 
+test("member context cannot bypass a safety interrupt or leak into the response", async () => {
+  const response = await POST(request({
+    query: "My lips are swelling and I am having trouble breathing.",
+    market: "NG",
+    memberContext: {
+      concernSlugs: ["dry-dehydrated-skin", "unknown-private-concern"],
+      productSlugs: ["cerave-hydrating-cleanser-473ml", "unknown-private-product"],
+    },
+  }));
+  const payload = await response.json();
+  const serialized = JSON.stringify(payload);
+
+  assert.equal(response.status, 200);
+  assert.equal(payload.meta.safetyInterrupt, true);
+  assert.deepEqual(payload.products, []);
+  assert.match(payload.report.title, /Get help now/);
+  assert.doesNotMatch(serialized, /unknown-private|memberContext/);
+});
+
 test("common emergency and urgent word orders fail closed with matching care copy", async () => {
   const cases = [
     [

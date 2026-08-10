@@ -142,6 +142,10 @@ export type CustomerRoutineReadModel = {
 export type CustomerConsultReadModel = {
   account: CustomerPortalViewModel['account'];
   catalogue: readonly CustomerPortalProduct[];
+  shelf: readonly CustomerPortalShelfItem[];
+  shelfState: CustomerPortalViewModel['shelfState'];
+  routine: readonly CustomerPortalRoutineStep[];
+  routineState: NonNullable<CustomerPortalViewModel['routineState']>;
   concerns: CustomerPortalViewModel['concerns'];
   synthetic: boolean;
 };
@@ -381,6 +385,10 @@ function syntheticConsult(): CustomerConsultReadModel {
   return {
     account: portal.account,
     catalogue: staticProducts.map(toCustomerPortalProduct),
+    shelf: portal.shelf,
+    shelfState: portal.shelfState,
+    routine: portal.routine,
+    routineState: portal.routineState ?? { status: 'ready', message: null },
     concerns: portal.concerns,
     synthetic: true,
   };
@@ -644,8 +652,11 @@ export async function readMeRoutine(identity: CustomerAccessIdentity): Promise<C
 export async function readMeConsult(identity: CustomerAccessIdentity): Promise<CustomerConsultReadModel> {
   if (identity.source === 'synthetic-development') return syntheticConsult();
 
-  const [catalogue, concerns] = await Promise.all([
-    readCatalogue(),
+  const catalogue = await readCatalogue();
+  const catalogueBySlug = new Map(catalogue.map(p => [p.slug, p]));
+  const [shelfData, routineData, concerns] = await Promise.all([
+    readShelf(identity, catalogueBySlug),
+    readRoutines(identity, catalogueBySlug),
     readConcerns(identity),
   ]);
   return {
@@ -656,6 +667,10 @@ export async function readMeConsult(identity: CustomerAccessIdentity): Promise<C
       synthetic: false,
     },
     catalogue,
+    shelf: shelfData.shelf,
+    shelfState: shelfData.shelfState,
+    routine: routineData.routine,
+    routineState: routineData.routineState,
     concerns,
     synthetic: false,
   };

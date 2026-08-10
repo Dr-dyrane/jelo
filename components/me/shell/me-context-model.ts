@@ -163,9 +163,9 @@ export function createMeContextSheetModel({
     return {
       eyebrow: 'Ask Me',
       title: 'My care',
-      summary: `${count(viewModel.concerns.length, 'concern')} · ${count(visibleProductCount, 'matching product')}`,
+      summary: `${count(viewModel.concerns.length, 'saved concern')} · Session-only guide`,
       items: [
-        { id: 'explore', label: 'Explore products', detail: count(visibleProductCount, 'matching product'), href: '/me/explore' },
+        { id: 'explore', label: 'Explore products', detail: 'Exact catalogue', href: '/me/explore' },
         { id: 'shelf', label: 'My Shelf', detail: shelfCount, href: '/me/shelf' },
       ],
     };

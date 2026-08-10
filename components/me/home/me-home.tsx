@@ -60,6 +60,7 @@ import type {
   CustomerPortalViewModel,
 } from '@/lib/customer/portal-model';
 import type {
+  CustomerConsultReadModel,
   CustomerExploreReadModel,
   CustomerHomeReadModel,
   CustomerProductReadModel,
@@ -177,6 +178,25 @@ function shellViewModelFromRoutine(readModel: CustomerRoutineReadModel): Custome
     routine: readModel.routine,
     routineState: readModel.routineState,
     routines: readModel.routines,
+  };
+}
+
+// Route-scoped Ask Me bridge. The catalogue remains available only to the
+// reviewed consult engine; the shell receives the explicit member context
+// needed for the opt-in preview and account summary.
+function shellViewModelFromConsult(readModel: CustomerConsultReadModel): CustomerPortalViewModel {
+  return {
+    account: readModel.account,
+    featuredProduct: null,
+    catalogue: readModel.catalogue,
+    concerns: readModel.concerns,
+    selectedRetailers: [],
+    shelfState: readModel.shelfState,
+    shelf: readModel.shelf,
+    routineProvenance: null,
+    routine: readModel.routine,
+    routineState: readModel.routineState,
+    routines: undefined,
   };
 }
 
@@ -307,6 +327,7 @@ function MePortalView({
   homeModel,
   exploreModel,
   routineModel,
+  consultModel,
   route,
   productReadModel,
   productPanelData,
@@ -317,6 +338,7 @@ function MePortalView({
   homeModel?: CustomerHomeReadModel;
   exploreModel?: CustomerExploreReadModel;
   routineModel?: CustomerRoutineReadModel;
+  consultModel?: CustomerConsultReadModel;
   route: MePortalRoute;
   productReadModel?: CustomerProductReadModel;
   productPanelData?: ProductPanelData;
@@ -328,6 +350,7 @@ function MePortalView({
     ?? (productReadModel ? shellViewModelFromProduct(productReadModel) : undefined)
     ?? (exploreModel ? shellViewModelFromExplore(exploreModel) : undefined)
     ?? (routineModel ? shellViewModelFromRoutine(routineModel) : undefined)
+    ?? (consultModel ? shellViewModelFromConsult(consultModel) : undefined)
     ?? (homeModel ? shellViewModelFromHome(homeModel) : EMPTY_PORTAL_VIEW);
   const shelfState = useMeShelfState(resolvedViewModel);
   const concernState = useMeConcernState(shelfState.viewModel);
@@ -338,9 +361,9 @@ function MePortalView({
     getScrollPosition: getExploreScrollPosition,
     setScrollPosition: setExploreScrollPosition,
   } = useMeExploreState();
-  const [consultSearch, setConsultSearch] = useState('');
   const [shelfMutationFeedback, setShelfMutationFeedback] = useState({ message: '', sequence: 0 });
   const searchRef = useRef<HTMLInputElement>(null);
+  const consultComposerRef = useRef<HTMLTextAreaElement>(null);
   const scrollRef = useRef<HTMLElement>(null);
   const shelfMutationStatusRef = useRef<HTMLParagraphElement>(null);
   const state = routeState(route, portalViewModel, homeModel);
@@ -370,19 +393,9 @@ function MePortalView({
     exploreProjection,
     portalViewModel.concerns,
   ), [exploreProjection, portalViewModel.concerns]);
-  const normalizedSearch = consultSearch.trim().toLowerCase();
-  const consultProducts = useMemo(() => catalogue.filter((product) => {
-    if (!normalizedSearch) return true;
-    return [product.brand, product.name, product.category, product.step, product.displayLine, product.size]
-      .join(' ')
-      .toLowerCase()
-      .includes(normalizedSearch);
-  }), [catalogue, normalizedSearch]);
   const visibleProductCount = route.kind === 'explore'
     ? flattenCustomerExplore(filteredExploreProjection).length
-    : route.kind === 'consult' && normalizedSearch
-      ? consultProducts.length
-      : catalogue.length;
+    : catalogue.length;
   const product = route.kind === 'product'
     ? (productReadModel?.product ?? catalogue.find((candidate) => candidate.slug === route.slug))
     : undefined;
@@ -481,8 +494,9 @@ function MePortalView({
     }
   };
   const focusSearch = () => {
-    searchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    searchRef.current?.focus({ preventScroll: true });
+    const target = route.kind === 'consult' ? consultComposerRef.current : searchRef.current;
+    target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    target?.focus({ preventScroll: true });
   };
   const fabContract = ME_WORKSPACE_FABS[state.page];
   const fabIcon = state.page === 'home'
@@ -673,13 +687,7 @@ function MePortalView({
           {route.kind === 'consult' ? (
             <ConsultView
               viewModel={portalViewModel}
-              products={consultProducts}
-              search={consultSearch}
-              setSearch={setConsultSearch}
-              searchRef={searchRef}
-              previewOnly={concernState.previewOnly}
-              addPreviewConcern={concernState.addPreviewConcern}
-              removePreviewConcern={concernState.removePreviewConcern}
+              composerRef={consultComposerRef}
             />
           ) : null}
           {route.kind === 'product' && product ? (
@@ -715,6 +723,7 @@ export function MePortal({
   homeModel,
   exploreModel,
   routineModel,
+  consultModel,
   route,
   productReadModel,
   productPanelData,
@@ -725,6 +734,7 @@ export function MePortal({
   homeModel?: CustomerHomeReadModel;
   exploreModel?: CustomerExploreReadModel;
   routineModel?: CustomerRoutineReadModel;
+  consultModel?: CustomerConsultReadModel;
   route: MePortalRoute;
   productReadModel?: CustomerProductReadModel;
   productPanelData?: ProductPanelData;
@@ -747,6 +757,7 @@ export function MePortal({
         homeModel={homeModel}
         exploreModel={exploreModel}
         routineModel={routineModel}
+        consultModel={consultModel}
         route={route}
         productReadModel={productReadModel}
         productPanelData={productPanelData}

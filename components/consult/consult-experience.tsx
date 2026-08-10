@@ -19,7 +19,7 @@ import {
   Sun,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { SafeProductImage } from "@/components/products/safe-product-image";
 import { inferMarket } from "@/data/prices";
@@ -101,6 +101,10 @@ type TimelineRecord = {
   followUpAt: string;
 };
 type CareIntent = { concernSlugs: string[]; labels: string[] };
+export type MemberConsultContext = {
+  concerns: readonly { slug: string; name: string }[];
+  products: readonly { slug: string; brand: string; name: string }[];
+};
 type Consultation = {
   report: Report;
   products: ConsultProduct[];
@@ -307,7 +311,13 @@ function repeatsCopy(value: string, candidates: string[]) {
 
 export function ConsultExperience({
   initialQuery = "",
-}: { initialQuery?: string } = {}) {
+  memberContext,
+  externalComposerRef,
+}: {
+  initialQuery?: string;
+  memberContext?: MemberConsultContext;
+  externalComposerRef?: RefObject<HTMLTextAreaElement | null>;
+} = {}) {
   const [input, setInput] = useState(initialQuery);
   const [profile, setProfile] = useState<ProfileForm>(emptyProfile);
   const [result, setResult] = useState<Consultation | null>(null);
@@ -318,7 +328,9 @@ export function ConsultExperience({
   const [status, setStatus] = useState("");
   const reduce = useReducedMotion();
   const resultRegionRef = useRef<HTMLElement>(null);
-  const composerRef = useRef<HTMLTextAreaElement>(null);
+  const localComposerRef = useRef<HTMLTextAreaElement>(null);
+  const composerRef = externalComposerRef ?? localComposerRef;
+  const [sharedContext, setSharedContext] = useState({ concerns: false, products: false });
   const {
     dialogRef: profileDialog,
     triggerRef: profileTrigger,
@@ -383,6 +395,14 @@ export function ConsultExperience({
     setSubmittedQuery(query);
     const patient = profilePayload(profile);
     const priorTimeline = timeline.slice(0, 8);
+    const selectedMemberContext = memberContext ? {
+      concernSlugs: sharedContext.concerns
+        ? memberContext.concerns.map(concern => concern.slug)
+        : [],
+      productSlugs: sharedContext.products
+        ? memberContext.products.map(product => product.slug)
+        : [],
+    } : undefined;
     try {
       const response = await fetch("/api/consult", {
         method: "POST",
@@ -393,6 +413,7 @@ export function ConsultExperience({
           profile: patient,
           clientSchemaVersion: 2,
           priorTimeline,
+          memberContext: selectedMemberContext,
         }),
       });
       const payload: unknown = await response.json();
@@ -630,7 +651,9 @@ export function ConsultExperience({
                   <article className="consult-product" key={product.slug}>
                     <Link
                       className="consult-product-image"
-                      href={`/products/${product.slug}`}
+                      href={memberContext
+                        ? `/me/product/${product.slug}?from=home`
+                        : `/products/${product.slug}`}
                       aria-label={`View ${product.brand} ${product.name}`}
                     >
                       <SafeProductImage
@@ -653,7 +676,9 @@ export function ConsultExperience({
                     <div className="consult-product-copy">
                       <p className="eyebrow">{product.brand}</p>
                       <h4>
-                        <Link href={`/products/${product.slug}`}>
+                        <Link href={memberContext
+                          ? `/me/product/${product.slug}?from=home`
+                          : `/products/${product.slug}`}>
                           {product.name}
                         </Link>
                       </h4>
@@ -764,47 +789,108 @@ export function ConsultExperience({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
     >
-      <div className="consult-empty">
-        <div className="consult-orb">
-          <Sparkles size={24} aria-hidden="true" />
-        </div>
-        <p className="eyebrow">A useful description</p>
-        <h2>
-          {timeline.length
-            ? "What would you like to check next?"
-            : "Start with what you can see or feel."}
-        </h2>
-        <p>
-          {timeline.length
-            ? "Share what changed, what helped, or what you want to understand next."
-            : "Mention where it is, how it feels, and when you first noticed it."}
-        </p>
-        <div
-          className="prompt-row"
-          role="group"
-          aria-label="Example descriptions"
-        >
-          {prompts.map((prompt) => (
-            <button
-              key={prompt.label}
-              type="button"
-              disabled={busy}
-              aria-pressed={input === prompt.text}
-              onClick={() => choosePrompt(prompt.text)}
-            >
-              <span>{prompt.label}</span>
-              <strong>{prompt.text}</strong>
-              <ArrowRight size={15} aria-hidden="true" />
-            </button>
-          ))}
-        </div>
-        {timeline.length ? (
-          <p className="timeline-note">
-            <CalendarClock size={14} /> {timeline.length} guide
-            {timeline.length === 1 ? "" : "s"} in this visit.
+      {!memberContext ? (
+        <div className="consult-empty">
+          <div className="consult-orb">
+            <Sparkles size={24} aria-hidden="true" />
+          </div>
+          <p className="eyebrow">A useful description</p>
+          <h2>
+            {timeline.length
+              ? "What would you like to check next?"
+              : "Start with what you can see or feel."}
+          </h2>
+          <p>
+            {timeline.length
+              ? "Share what changed, what helped, or what you want to understand next."
+              : "Mention where it is, how it feels, and when you first noticed it."}
           </p>
-        ) : null}
-      </div>
+          <div
+            className="prompt-row"
+            role="group"
+            aria-label="Example descriptions"
+          >
+            {prompts.map((prompt) => (
+              <button
+                key={prompt.label}
+                type="button"
+                disabled={busy}
+                aria-pressed={input === prompt.text}
+                onClick={() => choosePrompt(prompt.text)}
+              >
+                <span>{prompt.label}</span>
+                <strong>{prompt.text}</strong>
+                <ArrowRight size={15} aria-hidden="true" />
+              </button>
+            ))}
+          </div>
+          {timeline.length ? (
+            <p className="timeline-note">
+              <CalendarClock size={14} /> {timeline.length} guide
+              {timeline.length === 1 ? "" : "s"} in this visit.
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+      {memberContext ? (
+        <section className="member-consult-context" aria-labelledby="member-consult-context-title">
+          <div className="member-consult-context-heading">
+            <div>
+              <p className="eyebrow">Private context</p>
+              <h3 id="member-consult-context-title">Choose what Ask Me may use.</h3>
+            </div>
+            <span>Session only</span>
+          </div>
+          <div className="member-consult-context-options">
+            <button
+              type="button"
+              aria-pressed={sharedContext.concerns}
+              disabled={!memberContext.concerns.length || busy}
+              onClick={() => setSharedContext(current => ({
+                ...current,
+                concerns: !current.concerns,
+              }))}
+            >
+              <span>
+                <strong>My concerns</strong>
+                <small>{memberContext.concerns.length
+                  ? `${memberContext.concerns.length} saved`
+                  : 'Nothing saved'}</small>
+              </span>
+              {sharedContext.concerns ? <Check size={17} aria-hidden="true" /> : null}
+            </button>
+            <button
+              type="button"
+              aria-pressed={sharedContext.products}
+              disabled={!memberContext.products.length || busy}
+              onClick={() => setSharedContext(current => ({
+                ...current,
+                products: !current.products,
+              }))}
+            >
+              <span>
+                <strong>My current products</strong>
+                <small>{memberContext.products.length
+                  ? `${memberContext.products.length} exact product${memberContext.products.length === 1 ? '' : 's'}`
+                  : 'Nothing saved or in Routine'}</small>
+              </span>
+              {sharedContext.products ? <Check size={17} aria-hidden="true" /> : null}
+            </button>
+          </div>
+          {sharedContext.concerns || sharedContext.products ? (
+            <div className="member-consult-context-preview" aria-label="Context Ask Me may use">
+              {sharedContext.concerns ? memberContext.concerns.map(concern => (
+                <span key={`concern-${concern.slug}`}>{concern.name}</span>
+              )) : null}
+              {sharedContext.products ? memberContext.products.map(product => (
+                <span key={`product-${product.slug}`}>{product.brand} {product.name}</span>
+              )) : null}
+            </div>
+          ) : (
+            <p className="member-consult-context-empty">Nothing from My JeloCare is included unless you choose it.</p>
+          )}
+        </section>
+      ) : null}
       <button
         className="profile-trigger"
         type="button"

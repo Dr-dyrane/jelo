@@ -413,7 +413,7 @@ test("Me context stays truthful and expands into useful route shortcuts", () => 
       visibleProductCount: 1,
       product: undefined,
     }).summary,
-    "1 concern · 1 matching product",
+    "1 saved concern · Session-only guide",
   );
   const memberProduct = createMeContextSheetModel({
     route: { kind: "product", slug: product.slug, origin: "shelf" },
@@ -625,6 +625,29 @@ test("Routine is route-scoped, visual once, and edits through its builder", () =
   assert.match(home, /window\.dispatchEvent\(new Event\(OPEN_ROUTINE_BUILDER_EVENT\)\)/);
 });
 
+test("Ask Me is route-scoped and reuses one reviewed guidance authority with opt-in context", () => {
+  const route = readFileSync("app/(customer)/me/[...route]/page.ts", "utf8");
+  const home = readFileSync("components/me/home/me-home.tsx", "utf8");
+  const view = readFileSync("components/me/consult/consult-view.tsx", "utf8");
+  const experience = readFileSync("components/consult/consult-experience.tsx", "utf8");
+  const api = readFileSync("app/api/consult/route.ts", "utf8");
+  const capabilities = readFileSync("lib/customer/customer-capabilities.ts", "utf8");
+
+  assert.match(route, /route\.kind === 'consult'[\s\S]*readMeConsult\(customer\)/);
+  assert.match(home, /shellViewModelFromConsult/);
+  assert.match(home, /consultComposerRef/);
+  assert.match(view, /<ConsultExperience/);
+  assert.match(view, /memberContext=\{memberContext\}/);
+  assert.doesNotMatch(view, /fetch\(|assessClinicalRoutine|\/api\/consult/);
+  assert.match(experience, /useState\(\{ concerns: false, products: false \}\)/);
+  assert.match(experience, /Nothing from My JeloCare is included unless you choose it\./);
+  assert.match(experience, /Session only/);
+  assert.match(experience, /memberContext: selectedMemberContext/);
+  assert.match(api, /reviewedConcernSlugs\.has\(slug\)/);
+  assert.match(api, /catalogueBySlug\.get\(slug\)\?\.verifiedIngredientIds/);
+  assert.match(capabilities, /authenticatedGuidance: true/);
+});
+
 test("Saved Product is removable from any origin, not just Shelf", () => {
   const productView = readFileSync(
     "components/me/product/member-product-view.tsx",
@@ -711,7 +734,8 @@ test("every Me surface owns exactly one truthful working FAB", () => {
     home,
     /useWorkspaceDockFabRegistration\(\{[\s\S]*ownerId: fabContract\.ownerId/,
   );
-  assert.match(home, /searchRef\.current\?\.focus/);
+  assert.match(home, /route\.kind === 'consult' \? consultComposerRef\.current : searchRef\.current/);
+  assert.match(home, /target\?\.focus/);
   assert.match(home, /router\.push\(fabContract\.href\)/);
   assert.doesNotMatch(home, /window\.location\.assign\(fabContract\.href\)/);
   assert.match(
