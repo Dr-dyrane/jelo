@@ -1977,6 +1977,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "710 ml",
       { observedAt: "2026-08-08T13:15:00Z", expiresAt: "2026-08-15T13:15:00Z" },
     ),
+    exactNg(
+      "Reginah",
+      "https://reginah.com/product/dr-teals-epsom-salt-coconut-oil-body-wash-710ml/",
+      78,
+      13416,
+      "Dr Teal's Epsom Salt Coconut Oil Body Wash - 710ml",
+      "710 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "facefacts-vitamin-c-brightening-jelly-cleanser-150ml": [
     exactNg(
