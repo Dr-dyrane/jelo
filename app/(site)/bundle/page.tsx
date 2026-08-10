@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Package } from "lucide-react";
 import {
   listCatalogueProducts,
   findCatalogueProduct,
@@ -8,6 +7,7 @@ import {
 import { findBundleStores } from "@/lib/commerce/bundle-finder";
 import { publicSocialMetadata, staticSocialCard } from "@/lib/og/social-card";
 import { BundleFinderClient } from "@/components/commerce/bundle-finder-client";
+import styles from "@/components/commerce/bundle-finder.module.css";
 
 export const revalidate = 3600;
 
@@ -17,14 +17,14 @@ export async function generateMetadata({
   searchParams: Promise<{ products?: string }>;
 }): Promise<Metadata> {
   const { products } = await searchParams;
-  const slugs = products?.split(",").filter(Boolean) ?? [];
+  const slugs = normaliseSlugs(products);
   const card = staticSocialCard("bundle");
   if (slugs.length >= 2) {
     return publicSocialMetadata(
       {
         ...card,
         title: `Bundle Finder · ${slugs.length} products`,
-        description: `Find stores where you can buy all ${slugs.length} products in one shipment and save on delivery fees.`,
+        description: `Compare retailers with exact Nigerian listings for all ${slugs.length} products.`,
       },
       `/bundle?products=${slugs.join(",")}`,
     );
@@ -38,7 +38,7 @@ export default async function BundlePage({
   searchParams: Promise<{ products?: string }>;
 }) {
   const { products } = await searchParams;
-  const slugs = products?.split(",").filter(Boolean) ?? [];
+  const slugs = normaliseSlugs(products);
 
   const allProducts = await listCatalogueProducts();
 
@@ -56,23 +56,64 @@ export default async function BundlePage({
       : { bundles: [], productSlugs: validSlugs, unmatchedProducts: [] };
 
   return (
-    <main className="bundle-page">
-      <div className="bundle-hero">
-        <Package size={40} strokeWidth={1.5} aria-hidden="true" />
-        <h1>Bundle Finder</h1>
-        <p>
-          Pick products and find stores that stock them all — so you can buy
-          them in one shipment and save on delivery fees.
-        </p>
-      </div>
+    <main className={styles.main}>
+      <section className={styles.hero} aria-labelledby="bundle-title">
+        <div className={styles.heroCopy}>
+          <p className="eyebrow">Bundle Finder</p>
+          <h1 id="bundle-title">Build one basket.</h1>
+          <p className={styles.heroLead}>
+            Choose 2–4 products. Compare retailers with an exact Nigerian
+            listing for every item.
+          </p>
+        </div>
+        <ol className={styles.steps} aria-label="How Bundle Finder works">
+          <li>
+            <span>01</span>
+            <strong>Choose products</strong>
+          </li>
+          <li>
+            <span>02</span>
+            <strong>Compare one retailer</strong>
+          </li>
+          <li>
+            <span>03</span>
+            <strong>Open exact listings</strong>
+          </li>
+        </ol>
+      </section>
 
-      <Suspense fallback={<div className="bundle-loading">Loading…</div>}>
-        <BundleFinderClient
-          allProducts={allProducts}
-          initialResult={result}
-          initialSlugs={validSlugs}
-        />
-      </Suspense>
+      <section
+        className={styles.workspace}
+        aria-labelledby="bundle-builder-title"
+      >
+        <div className={styles.sectionHeading}>
+          <div>
+            <p className="eyebrow">One retailer</p>
+            <h2 id="bundle-builder-title">Choose your products.</h2>
+          </div>
+          <p>Exact listed prices only. Product totals exclude delivery.</p>
+        </div>
+        <Suspense
+          fallback={<div className={styles.loading}>Loading products…</div>}
+        >
+          <BundleFinderClient
+            allProducts={allProducts}
+            initialResult={result}
+            initialSlugs={validSlugs}
+          />
+        </Suspense>
+      </section>
     </main>
   );
+}
+
+function normaliseSlugs(value?: string) {
+  return Array.from(
+    new Set(
+      value
+        ?.split(",")
+        .map((slug) => slug.trim())
+        .filter(Boolean) ?? [],
+    ),
+  ).slice(0, 4);
 }

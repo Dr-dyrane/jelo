@@ -46,11 +46,11 @@ function stockLabel(offer: Offer): "in-stock" | "low-stock" | "out-of-stock" {
 }
 
 /**
- * Find stores where ALL given products are available, so a shopper can buy
- * them together in one shipment to save on delivery fees.
+ * Find retailers with an exact Nigerian listing for ALL given products.
  *
- * Only considers fresh, exact-match offers with listing evidence and a visible
- * NGN price. Retailers are ranked by combined total (cheapest first).
+ * Only considers exact-match offers with listing evidence and a visible NGN
+ * price. Expired offers are removed by the shared offer merge. Retailers are
+ * ranked by combined total (lowest first).
  */
 export function findBundleStores(
   products: Pick<Product, "slug" | "name" | "brand" | "size" | "offers">[],

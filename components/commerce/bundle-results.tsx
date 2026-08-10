@@ -1,7 +1,10 @@
 "use client";
 
-import { ArrowUpRight, Package, Truck } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { BundleOffer } from "@/lib/commerce/bundle-finder";
+import { ProductCard } from "@/components/products/product-card";
+import type { PickerProduct } from "./bundle-product-picker";
+import styles from "./bundle-finder.module.css";
 
 const formatNaira = new Intl.NumberFormat("en-NG", {
   style: "currency",
@@ -9,81 +12,109 @@ const formatNaira = new Intl.NumberFormat("en-NG", {
   maximumFractionDigits: 0,
 });
 
-export function BundleResults({ bundles }: { bundles: BundleOffer[] }) {
+export function BundleResults({
+  bundles,
+  products,
+}: {
+  bundles: BundleOffer[];
+  products: PickerProduct[];
+}) {
   if (bundles.length === 0) return null;
 
+  const productsBySlug = new Map(
+    products.map((product) => [product.slug, product]),
+  );
+
   return (
-    <div className="bundle-results">
+    <div className={styles.results}>
       {bundles.map((bundle, index) => (
-        <BundleRow key={bundle.retailer} bundle={bundle} rank={index + 1} />
+        <BundleRow
+          key={bundle.retailer}
+          bundle={bundle}
+          rank={index + 1}
+          productsBySlug={productsBySlug}
+        />
       ))}
-    </div>
-  );
-}
-
-function BundleRow({ bundle, rank }: { bundle: BundleOffer; rank: number }) {
-  const isCheapest = rank === 1;
-  return (
-    <div
-      className={`bundle-row ${isCheapest ? "bundle-row-best" : ""} ${!bundle.allInStock ? "bundle-row-partial" : ""}`}
-    >
-      <div className="bundle-row-header">
-        <span className="bundle-rank">{String(rank).padStart(2, "0")}</span>
-        <div className="bundle-store-info">
-          <strong>{bundle.retailer}</strong>
-          {isCheapest ? (
-            <small className="bundle-badge">Cheapest combined</small>
-          ) : null}
-          {!bundle.allInStock ? (
-            <small className="bundle-badge bundle-badge-warn">
-              Some items low/out of stock
-            </small>
-          ) : (
-            <small className="bundle-badge bundle-badge-ok">
-              <Truck size={12} strokeWidth={1.9} aria-hidden="true" /> One
-              shipment
-            </small>
-          )}
-        </div>
-        <div className="bundle-total">
-          <span className="bundle-total-label">Combined</span>
-          <strong className="bundle-total-value">
-            {formatNaira.format(bundle.combinedTotal)}
-          </strong>
-        </div>
-      </div>
-      <div className="bundle-products">
-        {bundle.offers.map((offer) => (
-          <a
-            key={offer.productSlug}
-            className="bundle-product-link"
-            href={`/go?product=${encodeURIComponent(offer.productSlug)}&retailer=${encodeURIComponent(offer.retailer)}`}
-          >
-            <span className="bundle-product-name">
-              {offer.productBrand} {offer.productName}
-              <small>{offer.productSize}</small>
-            </span>
-            <span className="bundle-product-price">
-              {formatNaira.format(offer.priceNgn)}
-              <ArrowUpRight size={14} strokeWidth={1.9} aria-hidden="true" />
-            </span>
-          </a>
-        ))}
+      <div className={styles.disclaimers} aria-label="Price notes">
+        <span>Prices may change</span>
+        <span>Delivery extra</span>
+        <span>Listing ≠ genuine</span>
       </div>
     </div>
   );
 }
 
-export function BundleEmptyState({ productSlugs }: { productSlugs: string[] }) {
+function BundleRow({
+  bundle,
+  rank,
+  productsBySlug,
+}: {
+  bundle: BundleOffer;
+  rank: number;
+  productsBySlug: Map<string, PickerProduct>;
+}) {
+  const isLowest = rank === 1;
+
   return (
-    <div className="bundle-empty">
-      <Package size={32} strokeWidth={1.5} aria-hidden="true" />
+    <article className={styles.resultCard}>
+      <header className={styles.resultHeader}>
+        <span className={styles.rank}>{String(rank).padStart(2, "0")}</span>
+        <div className={styles.retailerName}>
+          <p className="eyebrow">One retailer</p>
+          <h3>{bundle.retailer}</h3>
+          <div className={styles.resultSignals}>
+            {isLowest ? <span>Lowest listed product total</span> : null}
+            <span>
+              {bundle.allInStock
+                ? "All listed in stock"
+                : "Some items unavailable"}
+            </span>
+          </div>
+        </div>
+        <div className={styles.total}>
+          <span>Product total</span>
+          <strong>{formatNaira.format(bundle.combinedTotal)}</strong>
+        </div>
+      </header>
+
+      <div className={`product-grid ${styles.resultProducts}`}>
+        {bundle.offers.map((offer) => {
+          const product = productsBySlug.get(offer.productSlug);
+          if (!product) return null;
+          return (
+            <ProductCard
+              key={offer.productSlug}
+              product={{
+                slug: product.slug,
+                brand: product.brand,
+                name: product.name,
+                size: product.size,
+                image: product.image,
+                priceLabel: formatNaira.format(offer.priceNgn),
+              }}
+              density="compact"
+              href={`/go?product=${encodeURIComponent(offer.productSlug)}&retailer=${encodeURIComponent(offer.retailer)}`}
+              context={{ retailerNames: [bundle.retailer] }}
+              footer={
+                <span className={styles.openStore} aria-hidden="true">
+                  <ArrowUpRight size={19} strokeWidth={1.9} />
+                </span>
+              }
+            />
+          );
+        })}
+      </div>
+    </article>
+  );
+}
+
+export function BundleEmptyState({ productCount }: { productCount: number }) {
+  return (
+    <div className={styles.empty}>
+      <p className="eyebrow">No one-retailer match</p>
+      <h2>These {productCount} products do not meet at one retailer yet.</h2>
       <p>
-        No single store carries all {productSlugs.length} products together.
-      </p>
-      <p className="bundle-empty-hint">
-        Try removing a product or choosing different ones — the more products
-        you add, the harder it is to find one store that stocks them all.
+        Remove one product or try another. JeloCare only shows exact listings.
       </p>
     </div>
   );

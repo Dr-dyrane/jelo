@@ -1,79 +1,138 @@
 "use client";
 
-import { Search, X, Plus } from "lucide-react";
+import { Plus, Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { Product } from "@/data/products";
+import { rankCatalogueSearchRecords } from "@/lib/catalogue/catalogue-search-index";
+import { ProductCard } from "@/components/products/product-card";
+import styles from "./bundle-finder.module.css";
 
 export type PickerProduct = Pick<
   Product,
-  "slug" | "brand" | "name" | "size" | "image"
+  "slug" | "brand" | "name" | "size" | "image" | "offers"
 >;
 
 export function BundleProductPicker({
   allProducts,
   selectedSlugs,
   onAdd,
-  onRemove,
 }: {
   allProducts: PickerProduct[];
   selectedSlugs: string[];
   onAdd: (slug: string) => void;
-  onRemove: (slug: string) => void;
 }) {
   const [query, setQuery] = useState("");
-
   const selectedSet = useMemo(() => new Set(selectedSlugs), [selectedSlugs]);
+  const availableProducts = useMemo(
+    () => allProducts.filter((product) => !selectedSet.has(product.slug)),
+    [allProducts, selectedSet],
+  );
+
+  const productsByHref = useMemo(
+    () =>
+      new Map(
+        availableProducts.map((product) => [
+          `/products/${product.slug}`,
+          product,
+        ]),
+      ),
+    [availableProducts],
+  );
 
   const results = useMemo(() => {
-    if (!query.trim()) return [];
-    const q = query.toLowerCase();
-    return allProducts
-      .filter(
-        (p) =>
-          !selectedSet.has(p.slug) &&
-          (p.name.toLowerCase().includes(q) ||
-            p.brand.toLowerCase().includes(q) ||
-            p.slug.includes(q)),
-      )
-      .slice(0, 8);
-  }, [query, allProducts, selectedSet]);
+    if (!query.trim()) {
+      const withObservedOffers = availableProducts.filter((product) =>
+        product.offers.some((offer) => offer.priceNgn != null),
+      );
+      return (
+        withObservedOffers.length >= 6 ? withObservedOffers : availableProducts
+      ).slice(0, 6);
+    }
+
+    return rankCatalogueSearchRecords(
+      availableProducts.map((product) => ({
+        source: "reviewed" as const,
+        brand: product.brand,
+        name: product.name,
+        size: product.size,
+        href: `/products/${product.slug}`,
+      })),
+      query,
+      8,
+    )
+      .map((record) => productsByHref.get(record.href))
+      .filter((product): product is PickerProduct => product != null);
+  }, [availableProducts, productsByHref, query]);
+
+  const isFull = selectedSlugs.length >= 4;
+  const resultsLabel = query.trim()
+    ? `${results.length} ${results.length === 1 ? "match" : "matches"}`
+    : "Start with a product";
 
   return (
-    <div className="bundle-picker">
-      <div className="bundle-picker-search">
-        <Search size={18} strokeWidth={1.9} aria-hidden="true" />
+    <div className={styles.picker}>
+      <label className={styles.searchLabel} htmlFor="bundle-product-search">
+        Find a product
+      </label>
+      <div className={styles.searchField}>
+        <Search size={20} strokeWidth={1.8} aria-hidden="true" />
         <input
+          id="bundle-product-search"
           type="search"
-          placeholder="Search products to add to your bundle…"
+          placeholder="Search by product or brand"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          aria-label="Search products"
+          onChange={(event) => setQuery(event.target.value)}
+          autoComplete="off"
+          aria-describedby="bundle-search-status"
         />
+        {query ? (
+          <button
+            type="button"
+            onClick={() => setQuery("")}
+            aria-label="Clear product search"
+            className={styles.clearQuery}
+          >
+            <X size={18} strokeWidth={1.9} aria-hidden="true" />
+          </button>
+        ) : null}
       </div>
+
+      <div className={styles.pickerHeading}>
+        <p id="bundle-search-status" role="status" aria-live="polite">
+          {resultsLabel}
+        </p>
+        {isFull ? <span>Remove one to add another</span> : null}
+      </div>
+
       {results.length > 0 ? (
-        <ul className="bundle-picker-results">
+        <div className={`product-rail ${styles.productRail}`}>
           {results.map((product) => (
-            <li key={product.slug}>
-              <button
-                type="button"
-                className="bundle-picker-item"
-                onClick={() => {
-                  onAdd(product.slug);
-                  setQuery("");
-                }}
-              >
-                <Plus size={16} strokeWidth={1.9} aria-hidden="true" />
-                <span>
-                  {product.brand} {product.name}
-                  <small>{product.size}</small>
-                </span>
-              </button>
-            </li>
+            <ProductCard
+              key={product.slug}
+              product={product}
+              density="compact"
+              footer={
+                <button
+                  type="button"
+                  className={styles.cardAction}
+                  onClick={() => onAdd(product.slug)}
+                  disabled={isFull}
+                  aria-label={`Add ${product.brand} ${product.name} to bundle`}
+                >
+                  <Plus size={19} strokeWidth={1.9} aria-hidden="true" />
+                </button>
+              }
+            />
           ))}
-        </ul>
-      ) : query.trim() ? (
-        <p className="bundle-picker-no-results">No products found.</p>
-      ) : null}
+        </div>
+      ) : (
+        <div className={styles.noResults}>
+          <p>No matching product yet.</p>
+          <button type="button" onClick={() => setQuery("")}>
+            Browse starter products
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -86,24 +145,35 @@ export function BundleSelectedProducts({
   onRemove: (slug: string) => void;
 }) {
   if (products.length === 0) return null;
+
   return (
-    <div className="bundle-selected">
-      {products.map((product) => (
-        <div key={product.slug} className="bundle-selected-chip">
-          <span>
-            {product.brand} {product.name}
-            <small>{product.size}</small>
-          </span>
-          <button
-            type="button"
-            onClick={() => onRemove(product.slug)}
-            aria-label={`Remove ${product.brand} ${product.name}`}
-            className="bundle-selected-remove"
-          >
-            <X size={14} strokeWidth={2} aria-hidden="true" />
-          </button>
-        </div>
-      ))}
-    </div>
+    <section
+      className={styles.selected}
+      aria-labelledby="bundle-selected-title"
+    >
+      <div className={styles.selectedHeading}>
+        <p className="eyebrow">Your bundle</p>
+        <h2 id="bundle-selected-title">Selected products.</h2>
+      </div>
+      <div className={`product-rail ${styles.productRail}`}>
+        {products.map((product) => (
+          <ProductCard
+            key={product.slug}
+            product={product}
+            density="compact"
+            footer={
+              <button
+                type="button"
+                className={`${styles.cardAction} ${styles.removeAction}`}
+                onClick={() => onRemove(product.slug)}
+                aria-label={`Remove ${product.brand} ${product.name} from bundle`}
+              >
+                <X size={19} strokeWidth={1.9} aria-hidden="true" />
+              </button>
+            }
+          />
+        ))}
+      </div>
+    </section>
   );
 }
