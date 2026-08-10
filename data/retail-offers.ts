@@ -818,6 +818,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         inventoryQuantity: 5,
       },
     ),
+    exactNg(
+      "House of Lola",
+      "https://houseoflola.com.ng/product/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/",
+      84,
+      11484,
+      "COSRX Salicylic Acid Daily Gentle Cleanser 150ml",
+      "150 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
   ],
   "some-by-mi-aha-bha-pha-miracle-toner": [
     exactNg(
@@ -4317,6 +4331,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "low-stock",
         available: true,
         inventoryQuantity: 1,
+      },
+    ),
+    exactNg(
+      "House of Lola",
+      "https://houseoflola.com.ng/product/advanced-clinicals-vitamin-c-anti-aging-face-serum-52ml/",
+      84,
+      15500,
+      "Advanced Clinicals Vitamin C Anti-Aging Face Serum 52ml",
+      "52 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+        available: true,
       },
     ),
   ],

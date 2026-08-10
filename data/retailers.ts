@@ -430,6 +430,24 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigeria beauty retailer with direct Magento product pages, Naira pricing, live availability and self-published 24Eleven Beauty Ltd identity.",
   },
   {
+    name: "House of Lola",
+    homepage: "https://houseoflola.com.ng/",
+    market: "NG",
+    kind: "retailer",
+    trust: 84,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-10T00:00:00Z",
+      sourceUrl: "https://houseoflola.com.ng/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query) =>
+      `https://houseoflola.com.ng/?s=${encodeURIComponent(query)}&post_type=product`,
+    note: "Lagos beauty and lifestyle retailer with a curated catalogue and Naira pricing.",
+  },
+  {
     name: "Ediths Essentials",
     homepage: "https://edithsessentials.com/",
     market: "NG",
