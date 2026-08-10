@@ -570,6 +570,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "200 mL / 6.7 fl oz",
       { observedAt: "2026-08-08T13:15:00Z", expiresAt: "2026-08-15T13:15:00Z" },
     ),
+    exactNg(
+      "Essenza",
+      "https://www.essenza.ng/products/fenty-skin-butta-drop-whipped-oil-body-cream",
+      90,
+      83000,
+      "Fenty Skin Butta Drop Whipped Oil Body Cream",
+      "200 mL / 6.7 fl oz",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "medik8-crystal-retinal-3-30ml": [
     exactNg(

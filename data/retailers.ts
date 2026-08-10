@@ -234,6 +234,24 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Lekki retailer with a direct catalogue, Naira pricing, live stock, store address and social ordering channels.",
   },
   {
+    name: "Essenza",
+    homepage: "https://essenza.ng/",
+    market: "NG",
+    kind: "retailer",
+    trust: 90,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-10T00:00:00Z",
+      sourceUrl: "https://essenza.ng/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query) =>
+      `https://essenza.ng/search?q=${encodeURIComponent(query)}`,
+    note: "Nigeria's leading luxury fragrance, skincare and makeup retailer with stores in Lagos and Abuja. Established 2003.",
+  },
+  {
     name: "Konga Health",
     homepage: "https://www.konga.com/content/health",
     market: "NG",
