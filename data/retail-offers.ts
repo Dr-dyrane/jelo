@@ -4571,6 +4571,35 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "150 ml",
       { available: false, stock: "out-of-stock" },
     ),
+    exactNg(
+      "Perona Beauty",
+      "https://ibadan.peronabeauty.com/product/face-facts-enhance-gel-cream-cleanser/",
+      86,
+      6950,
+      "Face Facts Enhance Gel-Cream Cleanser",
+      "150 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+    exactNg(
+      "CSi Grocery",
+      "https://www.csigrocery.com/shop/skin-care/face/face-facts-enhance-gel-cream-cleanser-150ml/",
+      78,
+      6800,
+      "Face Facts Enhance Gel-Cream Cleanser – 150ml",
+      "150 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+        available: true,
+        inventoryQuantity: 3,
+      },
+    ),
   ],
   "anua-zero-cast-moisturizing-finish-sunscreen-50ml": [
     exactNg(
