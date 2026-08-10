@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { ShelfActionButton } from '@/components/me/shelf/shelf-action-button';
@@ -168,6 +169,20 @@ function ExploreFilterSheet({
               <option value="off">Not on your Shelf</option>
             </select>
           </label>
+          <label className={styles.filterField}>
+            <span>Routine</span>
+            <select
+              value={filters.routine}
+              onChange={(event) => update(
+                'routine',
+                event.target.value as CustomerExploreFilterState['routine'],
+              )}
+            >
+              <option value="all">Any routine state</option>
+              <option value="in">In your routine</option>
+              <option value="out">Not in your routine</option>
+            </select>
+          </label>
           {options.concerns.length ? (
             <ExploreFilterSelect
               label="My concern"
@@ -225,33 +240,94 @@ export function ExploreView({
   const filterTriggerRef = useRef<HTMLButtonElement>(null);
   const visibleProducts = flattenCustomerExplore(projection);
   const activeCount = countCustomerExploreFilters(filters);
+  const activeFilters = [
+    filters.search ? { key: 'search' as const, label: `Search: ${filters.search}` } : null,
+    filters.category ? { key: 'category' as const, label: filters.category } : null,
+    filters.step ? { key: 'step' as const, label: filters.step } : null,
+    filters.brand ? { key: 'brand' as const, label: filters.brand } : null,
+    filters.shelf !== 'all' ? {
+      key: 'shelf' as const,
+      label: filters.shelf === 'on' ? 'On your Shelf' : 'Not on your Shelf',
+    } : null,
+    filters.routine !== 'all' ? {
+      key: 'routine' as const,
+      label: filters.routine === 'in' ? 'In your routine' : 'Not in your routine',
+    } : null,
+    filters.concernSlug ? {
+      key: 'concernSlug' as const,
+      label: filterOptions.concerns.find(concern => concern.slug === filters.concernSlug)?.name
+        ?? filters.concernSlug,
+    } : null,
+    filters.retailerName ? { key: 'retailerName' as const, label: filters.retailerName } : null,
+  ].filter((filter): filter is NonNullable<typeof filter> => Boolean(filter));
+
+  const clearFilter = (key: typeof activeFilters[number]['key']) => {
+    if (key === 'shelf') onFiltersChange({ ...filters, shelf: 'all' });
+    else if (key === 'routine') onFiltersChange({ ...filters, routine: 'all' });
+    else onFiltersChange({ ...filters, [key]: '' });
+  };
+
   return (
-    <section className={styles.routePage} aria-labelledby="me-explore-title">
-      <div className={styles.routeHeading}>
-        <p className={styles.eyebrow}>{surface.eyebrow}</p>
-        <h1 id="me-explore-title">{surface.title}</h1>
-        <p>Every exact product, arranged around the care context you chose.</p>
-      </div>
-      <div className={styles.exploreSearchRow}>
-        <SearchField
-          value={filters.search}
-          onChange={(search) => onFiltersChange({ ...filters, search })}
-          inputRef={searchRef}
-          label="Search exact products"
-        />
-        <button
-          ref={filterTriggerRef}
-          type="button"
-          className={styles.exploreFilterTrigger}
-          aria-haspopup="dialog"
-          aria-controls="me-explore-filter-sheet"
-          aria-expanded={filterOpen}
-          onClick={() => setFilterOpen(true)}
-        >
-          <SlidersHorizontal size={18} aria-hidden="true" />
-          <span className={styles.visuallyHidden}>Filters{activeCount ? ` · ${activeCount}` : ''}</span>
-          {activeCount ? <span className={styles.exploreFilterBadge} aria-hidden="true">{activeCount}</span> : null}
-        </button>
+    <section className={`${styles.routePage} ${styles.explorePage}`} aria-labelledby="me-explore-title">
+      <div className={styles.exploreDiscovery}>
+        <div className={`${styles.routeHeading} ${styles.exploreHeading}`}>
+          <p className={styles.eyebrow}>{surface.eyebrow}</p>
+          <h1 id="me-explore-title">{surface.title}</h1>
+        </div>
+        <div className={styles.exploreSearchRow}>
+          <SearchField
+            value={filters.search}
+            onChange={(search) => onFiltersChange({ ...filters, search })}
+            inputRef={searchRef}
+            label="Search exact products"
+          />
+          <button
+            ref={filterTriggerRef}
+            type="button"
+            className={styles.exploreFilterTrigger}
+            aria-label={`Open filters${activeCount ? `, ${activeCount} active` : ''}`}
+            aria-haspopup="dialog"
+            aria-controls="me-explore-filter-sheet"
+            aria-expanded={filterOpen}
+            onClick={() => setFilterOpen(true)}
+          >
+            <SlidersHorizontal size={18} aria-hidden="true" />
+            {activeCount ? <span className={styles.exploreFilterBadge} aria-hidden="true">{activeCount}</span> : null}
+          </button>
+        </div>
+        <div className={styles.exploreCategoryRail} aria-label="Product categories">
+          <button
+            type="button"
+            aria-pressed={!filters.category}
+            onClick={() => onFiltersChange({ ...filters, category: '' })}
+          >
+            All
+          </button>
+          {filterOptions.categories.map(category => (
+            <button
+              key={category}
+              type="button"
+              aria-pressed={filters.category === category}
+              onClick={() => onFiltersChange({ ...filters, category })}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+        {activeFilters.length ? (
+          <div className={styles.exploreActiveFilters} aria-label="Active filters">
+            {activeFilters.map(filter => (
+              <button key={filter.key} type="button" onClick={() => clearFilter(filter.key)}>
+                <span>{filter.label}</span>
+                <X size={13} aria-hidden="true" />
+                <span className={styles.visuallyHidden}>Remove {filter.label} filter</span>
+              </button>
+            ))}
+            <button type="button" onClick={() => onFiltersChange(clearCustomerExploreFilters())}>
+              Clear all
+            </button>
+          </div>
+        ) : null}
       </div>
       <div className={styles.exploreToolbar}>
         <p role="status" aria-live="polite">
@@ -311,6 +387,7 @@ export function ExploreView({
           >
             Clear filters
           </button>
+          <Link href="/me/shelf/add">Request a missing product</Link>
         </div>
       )}
 

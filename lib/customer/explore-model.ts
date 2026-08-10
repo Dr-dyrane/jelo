@@ -12,6 +12,7 @@ export type CustomerExploreFilterState = {
   step: string;
   brand: string;
   shelf: 'all' | 'on' | 'off';
+  routine: 'all' | 'in' | 'out';
   concernSlug: string;
   retailerName: string;
 };
@@ -22,6 +23,7 @@ export const EMPTY_CUSTOMER_EXPLORE_FILTERS: CustomerExploreFilterState = {
   step: '',
   brand: '',
   shelf: 'all',
+  routine: 'all',
   concernSlug: '',
   retailerName: '',
 };
@@ -239,6 +241,8 @@ export function filterCustomerExplore(
       if (filters.brand && product.brand !== filters.brand) return false;
       if (filters.shelf === 'on' && !entry.onShelf) return false;
       if (filters.shelf === 'off' && entry.onShelf) return false;
+      if (filters.routine === 'in' && !entry.inRoutine) return false;
+      if (filters.routine === 'out' && entry.inRoutine) return false;
       if (filters.concernSlug && !entry.matchedConcernSlugs.includes(filters.concernSlug)) return false;
       if (filters.retailerName && !entry.matchedRetailerNames.includes(filters.retailerName)) return false;
       return true;
@@ -259,6 +263,7 @@ export function countCustomerExploreFilters(filters: CustomerExploreFilterState)
     filters.step,
     filters.brand,
     filters.shelf === 'all' ? '' : filters.shelf,
+    filters.routine === 'all' ? '' : filters.routine,
     filters.concernSlug,
     filters.retailerName,
   ].filter(Boolean).length;

@@ -7,7 +7,7 @@ import {
 } from '@/components/me/shell/me-shell-model';
 import { requireCustomer } from '@/lib/customer/access';
 import { readCustomerPortal } from '@/lib/customer/read-model';
-import { readMeProduct } from '@/lib/customer/route-read-models';
+import { readMeExplore, readMeProduct } from '@/lib/customer/route-read-models';
 import { findCatalogueProduct } from '@/lib/catalogue/repository';
 import { readProductPanelData } from '@/lib/catalogue/product-panel-model';
 
@@ -53,6 +53,8 @@ export default async function MeRoutePage({
 
   const continuation = route.kind === 'product'
     ? `/me/product/${route.slug}?from=${route.origin}`
+    : route.kind === 'explore'
+      ? '/me/explore'
     : route.kind === 'routine'
       ? '/me/routine'
       : undefined;
@@ -75,6 +77,11 @@ export default async function MeRoutePage({
       productReadModel,
       productPanelData,
     });
+  }
+
+  if (route.kind === 'explore') {
+    const exploreModel = await readMeExplore(customer);
+    return createElement(MePortal, { route, exploreModel });
   }
 
   const viewModel = await readCustomerPortal(customer);

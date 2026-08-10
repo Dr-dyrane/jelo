@@ -78,7 +78,9 @@
 .searchField:focus-within,
 .exploreToolbar button:focus-visible,
 .filterSheet button:focus-visible,
-.filterField select:focus-visible {
+.filterField select:focus-visible,
+.exploreCategoryRail button:focus-visible,
+.exploreActiveFilters button:focus-visible {
   outline: 2px solid var(--wine);
   outline-offset: 3px;
 }
@@ -1029,15 +1031,81 @@
 /* Explore search row: search field + filter trigger.
    On desktop the filter trigger is hidden (it lives in the toolbar).
    On mobile the filter trigger sits at the right end of the search row. */
+.explorePage { padding-top: clamp(14px, 2vw, 26px); }
+
+.exploreDiscovery {
+  margin-bottom: clamp(42px, 6vw, 72px);
+  padding: clamp(22px, 3vw, 38px);
+  border: 1px solid color-mix(in srgb, var(--peach) 44%, transparent);
+  border-radius: clamp(26px, 4vw, 40px);
+  background:
+    radial-gradient(circle at 92% 0%, color-mix(in srgb, var(--rose) 24%, transparent), transparent 20rem),
+    color-mix(in srgb, var(--paper) 76%, transparent);
+  box-shadow: 0 22px 70px rgb(61 35 31 / 9%);
+}
+
+.exploreHeading { margin-bottom: clamp(18px, 2.5vw, 28px); }
+
+.routeHeading.exploreHeading h1 {
+  max-width: 16ch;
+  font-size: clamp(2.6rem, 5.2vw, 5.4rem);
+}
+
 .exploreSearchRow {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: clamp(32px, 5vw, 62px);
+  margin-bottom: 14px;
 }
 
 .exploreSearchRow .searchField {
+  width: 100%;
+  max-width: none;
+  min-height: 54px;
   margin-bottom: 0;
+}
+
+.exploreCategoryRail,
+.exploreActiveFilters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+
+.exploreCategoryRail { padding: 2px 1px 8px; }
+.exploreActiveFilters { padding: 4px 1px 2px; }
+.exploreCategoryRail::-webkit-scrollbar,
+.exploreActiveFilters::-webkit-scrollbar { display: none; }
+
+.exploreCategoryRail button,
+.exploreActiveFilters button {
+  display: inline-flex;
+  min-height: 36px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cream) 58%, var(--paper));
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
+}
+
+.exploreCategoryRail button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.exploreActiveFilters button { color: var(--wine); }
+.exploreActiveFilters button:last-child {
+  background: transparent;
+  color: var(--muted);
+  font-weight: 600;
 }
 
 .exploreFilterTrigger {
@@ -1114,7 +1182,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  margin: calc(clamp(32px, 5vw, 62px) * -0.62) 0 clamp(42px, 6vw, 76px);
+  margin: 6px 2px 0;
 }
 
 .exploreToolbar p { margin: 0; color: var(--muted); font-size: 0.78rem; }
@@ -1136,7 +1204,7 @@
   font-weight: 600;
 }
 
-.exploreSections { display: grid; gap: clamp(76px, 10vw, 140px); }
+.exploreSections { display: grid; gap: clamp(56px, 8vw, 104px); }
 .exploreSection { min-width: 0; }
 .exploreSectionHeading {
   display: flex;
@@ -1155,7 +1223,7 @@
   letter-spacing: -0.04em;
   line-height: 0.96;
 }
-.exploreSectionHeading h2 { font-size: clamp(2.8rem, 5vw, 5.4rem); }
+.exploreSectionHeading h2 { font-size: clamp(2.35rem, 4.2vw, 4.4rem); }
 .exploreSectionHeading p { max-width: 31rem; margin: 0; color: var(--muted); font-size: 0.78rem; line-height: 1.65; }
 
 .filterDialog {
@@ -1674,6 +1742,18 @@
   }
 }
 
+@media (min-width: 821px) {
+  .filterSheet {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(100%, 480px);
+    max-height: none;
+    border-radius: 36px 0 0 36px;
+    transform: none;
+  }
+}
+
 @media (max-width: 980px) {
   .productHero { grid-template-columns: 1fr; }
   .productVisualLarge { min-height: 520px; }
@@ -1701,7 +1781,9 @@
   .routineGrid { grid-template-columns: 1fr; }
   .routineSurface { padding-inline: 14px; }
   .routePage { padding-inline: 4px; }
+  .exploreDiscovery { padding: 22px 16px; border-radius: 28px; }
   .routeHeading h1 { font-size: clamp(3.45rem, 18vw, 5.4rem); }
+  .routeHeading.exploreHeading h1 { font-size: clamp(2.55rem, 14vw, 4rem); }
   .exploreToolbar { align-items: flex-start; flex-direction: column; }
   .exploreSectionHeading { align-items: flex-start; flex-direction: column; gap: 12px; }
   .productCardShell { border-radius: 24px; }
@@ -1724,6 +1806,27 @@
   .productEvidenceAction { flex: 1 1 0; min-width: 0; min-height: 3rem; padding-inline: .8rem; }
   .marketTrendsGrid { grid-template-columns: 1fr; }
   .marketTrendsOosList { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 620px) {
+  .exploreDiscovery { display: contents; }
+  .exploreHeading {
+    margin-bottom: 18px;
+    padding: 16px 12px 0;
+  }
+  .exploreSearchRow {
+    position: sticky;
+    z-index: 40;
+    top: env(safe-area-inset-top);
+    margin: 0 -4px 10px;
+    padding: 10px 4px;
+    background: color-mix(in srgb, var(--cream) 82%, transparent);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+  .exploreCategoryRail,
+  .exploreActiveFilters { padding-inline: 8px; }
+  .exploreToolbar { margin: 10px 10px 42px; }
 }
 
 /* Ultra-narrow: stack feed section headings and trailing actions vertically

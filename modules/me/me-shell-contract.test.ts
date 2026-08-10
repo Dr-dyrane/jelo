@@ -522,6 +522,7 @@ test("member routes are guarded, stack-owned, and never replace public product r
     /route\.kind === 'product'[\s\S]*`\/me\/product\/\$\{route\.slug\}\?from=\$\{route\.origin\}`/,
   );
   assert.match(route, /await requireCustomer\(continuation\)/);
+  assert.match(route, /route\.kind === 'explore'[\s\S]*readMeExplore\(customer\)/);
   assert.match(
     route,
     /section === 'explore'[\s\S]*section === 'shelf'[\s\S]*section === 'routine'[\s\S]*section === 'consult'/,
@@ -574,6 +575,34 @@ test("member routes are guarded, stack-owned, and never replace public product r
   assert.match(sharedPanel, /\{ id: "stores", label: "Search" \}/);
   assert.match(sharedPanel, /\{ id: "details", label: "Details" \}/);
   assert.match(sharedPanel, /href=\{`\/go\?product=/);
+});
+
+test("Explore is route-scoped and keeps private discovery state inside the Me layout", () => {
+  const layout = readFileSync("app/(customer)/me/layout.tsx", "utf8");
+  const home = readFileSync("components/me/home/me-home.tsx", "utf8");
+  const state = readFileSync(
+    "components/me/explore/me-explore-state.tsx",
+    "utf8",
+  );
+  const explore = readFileSync(
+    "components/me/explore/explore-view.tsx",
+    "utf8",
+  );
+  const css = readFileSync(
+    "components/me/home/me-home.module.css",
+    "utf8",
+  );
+
+  assert.match(layout, /<MeExploreStateProvider>/);
+  assert.match(home, /shellViewModelFromExplore/);
+  assert.match(home, /setExploreScrollPosition\(scrollTop\)/);
+  assert.match(home, /scrollTo\(\{ top: getExploreScrollPosition\(\) \}\)/);
+  assert.doesNotMatch(state, /localStorage|sessionStorage|URLSearchParams|document\.cookie/);
+  assert.match(explore, /aria-label="Product categories"/);
+  assert.match(explore, /aria-label="Active filters"/);
+  assert.match(explore, />Request a missing product</);
+  assert.match(explore, />In your routine</);
+  assert.match(css, /\.exploreSearchRow[\s\S]*position: sticky/);
 });
 
 test("Saved Product is removable from any origin, not just Shelf", () => {
@@ -723,7 +752,7 @@ test("Me header visibility derives from the dock scroll state and route reset", 
   assert.match(home, /chromeHidden: controller\.scroll\.chromeHidden/);
   assert.match(
     home,
-    /key=\{state\.routeKey\}[\s\S]*onScroll=.*controller\.onScrollPositionChange/,
+    /key=\{state\.routeKey\}[\s\S]*onScroll=\{\(event\) => \{[\s\S]*controller\.onScrollPositionChange/,
   );
   assert.match(
     controller,

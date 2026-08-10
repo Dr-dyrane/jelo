@@ -11,7 +11,7 @@ import {
   ShelvingUnit,
   ShoppingBag,
 } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState, type FocusEvent } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type FocusEvent } from 'react';
 import {
   PrivateProductRequestShelf,
   ProductRequestAddPage,
@@ -48,6 +48,7 @@ import { MemberProductView } from '@/components/me/product/member-product-view';
 import { MemberNotFoundView } from '@/components/me/product/member-not-found-view';
 import { HomeView } from '@/components/me/home/home-view';
 import { ExploreView } from '@/components/me/explore/explore-view';
+import { useMeExploreState } from '@/components/me/explore/me-explore-state';
 import { RoutineView } from '@/components/me/routine/routine-view';
 import {
   memberProductHref,
@@ -57,14 +58,16 @@ import type {
   CustomerPortalProduct,
   CustomerPortalViewModel,
 } from '@/lib/customer/portal-model';
-import type { CustomerHomeReadModel, CustomerProductReadModel } from '@/lib/customer/route-read-models';
+import type {
+  CustomerExploreReadModel,
+  CustomerHomeReadModel,
+  CustomerProductReadModel,
+} from '@/lib/customer/route-read-models';
 import {
-  clearCustomerExploreFilters,
   createCustomerExploreFilterOptions,
   createCustomerExploreProjection,
   filterCustomerExplore,
   flattenCustomerExplore,
-  type CustomerExploreFilterState,
 } from '@/lib/customer/explore-model';
 import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
 import type { CustomerProductRequestPresentationViewModel } from '@/lib/customer/product-request-model';
@@ -134,6 +137,25 @@ function shellViewModelFromProduct(readModel: CustomerProductReadModel): Custome
     routineState: shell.routineAvailable
       ? { status: 'ready' as const, message: null }
       : { status: 'unavailable' as const, message: shell.routineUnavailableMessage },
+    routines: undefined,
+  };
+}
+
+// Transitional bridge for the route-scoped Explore reader. Unlike the legacy
+// portal loader, this carries only the account and collections Explore and the
+// shared shell actually consume.
+function shellViewModelFromExplore(readModel: CustomerExploreReadModel): CustomerPortalViewModel {
+  return {
+    account: readModel.account,
+    featuredProduct: null,
+    catalogue: readModel.catalogue,
+    concerns: readModel.concerns,
+    selectedRetailers: readModel.selectedRetailers,
+    shelfState: readModel.shelfState,
+    shelf: readModel.shelf,
+    routineProvenance: null,
+    routine: readModel.routine,
+    routineState: readModel.routineState,
     routines: undefined,
   };
 }
@@ -263,6 +285,7 @@ function ShelfPage({
 function MePortalView({
   viewModel,
   homeModel,
+  exploreModel,
   route,
   productReadModel,
   productPanelData,
@@ -271,6 +294,7 @@ function MePortalView({
 }: {
   viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
+  exploreModel?: CustomerExploreReadModel;
   route: MePortalRoute;
   productReadModel?: CustomerProductReadModel;
   productPanelData?: ProductPanelData;
@@ -280,15 +304,21 @@ function MePortalView({
   const router = useRouter();
   const resolvedViewModel = viewModel
     ?? (productReadModel ? shellViewModelFromProduct(productReadModel) : undefined)
+    ?? (exploreModel ? shellViewModelFromExplore(exploreModel) : undefined)
     ?? (homeModel ? shellViewModelFromHome(homeModel) : EMPTY_PORTAL_VIEW);
   const shelfState = useMeShelfState(resolvedViewModel);
   const concernState = useMeConcernState(shelfState.viewModel);
   const portalViewModel = concernState.viewModel;
-  const [exploreFilters, setExploreFilters] = useState<CustomerExploreFilterState>(
-    clearCustomerExploreFilters,
-  );
+  const {
+    filters: exploreFilters,
+    setFilters: setExploreFilters,
+    getScrollPosition: getExploreScrollPosition,
+    setScrollPosition: setExploreScrollPosition,
+  } = useMeExploreState();
+  const [consultSearch, setConsultSearch] = useState('');
   const [shelfMutationFeedback, setShelfMutationFeedback] = useState({ message: '', sequence: 0 });
   const searchRef = useRef<HTMLInputElement>(null);
+  const scrollRef = useRef<HTMLElement>(null);
   const shelfMutationStatusRef = useRef<HTMLParagraphElement>(null);
   const state = routeState(route, portalViewModel, homeModel);
   const controller = useAdaptiveWorkspaceDockController({
@@ -317,7 +347,7 @@ function MePortalView({
     exploreProjection,
     portalViewModel.concerns,
   ), [exploreProjection, portalViewModel.concerns]);
-  const normalizedSearch = exploreFilters.search.trim().toLowerCase();
+  const normalizedSearch = consultSearch.trim().toLowerCase();
   const consultProducts = useMemo(() => catalogue.filter((product) => {
     if (!normalizedSearch) return true;
     return [product.brand, product.name, product.category, product.step, product.displayLine, product.size]
@@ -404,6 +434,13 @@ function MePortalView({
     accountSheetOpen: accountSheetOpen || contextSheetOpen || productPanelOpen,
     headerOwnsFocus,
   });
+  useLayoutEffect(() => {
+    if (route.kind !== 'explore') return;
+    const frame = window.requestAnimationFrame(() => {
+      scrollRef.current?.scrollTo({ top: getExploreScrollPosition() });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [getExploreScrollPosition, route.kind]);
   useEffect(() => {
     if (!shelfMutationFeedback.message) return;
     const frame = window.requestAnimationFrame(() => {
@@ -536,8 +573,13 @@ function MePortalView({
 
       <main
         key={state.routeKey}
+        ref={scrollRef}
         className={styles.scroll}
-        onScroll={(event) => controller.onScrollPositionChange(event.currentTarget.scrollTop)}
+        onScroll={(event) => {
+          const scrollTop = event.currentTarget.scrollTop;
+          if (route.kind === 'explore') setExploreScrollPosition(scrollTop);
+          controller.onScrollPositionChange(scrollTop);
+        }}
       >
         <div className={styles.content}>
           {shelfState.previewOnly ? (
@@ -605,8 +647,8 @@ function MePortalView({
             <ConsultView
               viewModel={portalViewModel}
               products={consultProducts}
-              search={exploreFilters.search}
-              setSearch={(search) => setExploreFilters(current => ({ ...current, search }))}
+              search={consultSearch}
+              setSearch={setConsultSearch}
               searchRef={searchRef}
               previewOnly={concernState.previewOnly}
               addPreviewConcern={concernState.addPreviewConcern}
@@ -644,6 +686,7 @@ function MePortalView({
 export function MePortal({
   viewModel,
   homeModel,
+  exploreModel,
   route,
   productReadModel,
   productPanelData,
@@ -652,6 +695,7 @@ export function MePortal({
 }: {
   viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
+  exploreModel?: CustomerExploreReadModel;
   route: MePortalRoute;
   productReadModel?: CustomerProductReadModel;
   productPanelData?: ProductPanelData;
@@ -672,6 +716,7 @@ export function MePortal({
       <MePortalView
         viewModel={viewModel as CustomerPortalViewModel}
         homeModel={homeModel}
+        exploreModel={exploreModel}
         route={route}
         productReadModel={productReadModel}
         productPanelData={productPanelData}

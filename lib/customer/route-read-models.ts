@@ -100,10 +100,12 @@ export type CustomerHomeReadModel = {
  * Explore route data: full catalogue plus shelf context for filtering.
  */
 export type CustomerExploreReadModel = {
+  account: CustomerPortalViewModel['account'];
   catalogue: readonly CustomerPortalProduct[];
   shelf: readonly CustomerPortalShelfItem[];
   shelfState: CustomerPortalViewModel['shelfState'];
   routine: readonly CustomerPortalRoutineStep[];
+  routineState: NonNullable<CustomerPortalViewModel['routineState']>;
   concerns: CustomerPortalViewModel['concerns'];
   selectedRetailers: CustomerPortalViewModel['selectedRetailers'];
   synthetic: boolean;
@@ -334,10 +336,12 @@ function syntheticHome(): CustomerHomeReadModel {
 function syntheticExplore(): CustomerExploreReadModel {
   const portal = createSyntheticCustomerPortal();
   return {
+    account: portal.account,
     catalogue: staticProducts.map(toCustomerPortalProduct),
     shelf: portal.shelf,
     shelfState: portal.shelfState,
     routine: portal.routine,
+    routineState: portal.routineState ?? { status: 'ready', message: null },
     concerns: portal.concerns,
     selectedRetailers: portal.selectedRetailers,
     synthetic: true,
@@ -567,10 +571,17 @@ export async function readMeExplore(identity: CustomerAccessIdentity): Promise<C
     readConcerns(identity),
   ]);
   return {
+    account: {
+      displayName: identity.displayName,
+      preferredFirstName: identity.preferredFirstName,
+      email: identity.email,
+      synthetic: false,
+    },
     catalogue,
     shelf: shelfData.shelf,
     shelfState: shelfData.shelfState,
     routine: routineData.routine,
+    routineState: routineData.routineState,
     concerns,
     selectedRetailers: [],
     synthetic: false,

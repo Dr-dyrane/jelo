@@ -123,7 +123,7 @@ test('smart filters compose and Clear restores the complete eligible catalogue',
   const projection = createCustomerExploreProjection({
     catalogue: [saved, other],
     shelf: [shelfItem(saved)],
-    routine: [],
+    routine: [{ id: 'saved-step', moment: 'Saved', status: 'confirmed', product: saved }],
     concerns: [dryness],
     selectedRetailers: [{ name: 'Chosen Store', source: 'synthetic-development' }],
   });
@@ -133,6 +133,7 @@ test('smart filters compose and Clear restores the complete eligible catalogue',
     step: 'Treat',
     brand: saved.brand,
     shelf: 'on',
+    routine: 'in',
     concernSlug: dryness.slug,
     retailerName: 'Chosen Store',
   });
@@ -142,6 +143,33 @@ test('smart filters compose and Clear restores the complete eligible catalogue',
   assert.deepEqual(
     flattenCustomerExplore(cleared).map(entry => entry.product.slug),
     ['saved', 'other'],
+  );
+});
+
+test('routine filters distinguish products already placed in a routine', () => {
+  const routine = product('routine');
+  const other = product('other');
+  const projection = createCustomerExploreProjection({
+    catalogue: [routine, other],
+    shelf: [],
+    routine: [{ id: 'routine-step', moment: 'Saved', status: 'confirmed', product: routine }],
+    concerns: [],
+    selectedRetailers: [],
+  });
+
+  assert.deepEqual(
+    flattenCustomerExplore(filterCustomerExplore(projection, {
+      ...clearCustomerExploreFilters(),
+      routine: 'in',
+    })).map(entry => entry.product.slug),
+    ['routine'],
+  );
+  assert.deepEqual(
+    flattenCustomerExplore(filterCustomerExplore(projection, {
+      ...clearCustomerExploreFilters(),
+      routine: 'out',
+    })).map(entry => entry.product.slug),
+    ['other'],
   );
 });
 

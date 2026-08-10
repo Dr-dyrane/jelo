@@ -591,30 +591,29 @@ The intended route/view/read-model architecture has been partially
 extracted, but the live Me routes still need to be migrated from the
 portal-wide `readCustomerPortal` boundary to route-scoped readers.
 
-**Current state**: Both `app/(customer)/me/page.tsx` and
-`app/(customer)/me/[...route]/page.ts` call `readCustomerPortal(customer)`,
-which loads the entire portal view model (full catalogue, full shelf,
-full routines, concerns, retailers) for every route — even routes that
-only need a subset.
+**Current state**: Home, Explore, and member Product now use their
+route-scoped readers. Shelf, Routine, Consult, and the private request
+stack still cross the portal-wide `readCustomerPortal(customer)` boundary
+and remain the next migration cells.
 
 **Target state**: Each route adapter calls its dedicated route-scoped
 reader:
 
 | Route | Owner | Read model | Current loader |
 | --- | --- | --- | --- |
-| `/me` | `app/(customer)/me/page.tsx` | `readMeHome()` → `CustomerHomeReadModel` | `readCustomerPortal` |
-| `/me/explore` | `app/(customer)/me/[...route]/page.ts` | `readMeExplore()` → `CustomerExploreReadModel` | `readCustomerPortal` |
+| `/me` | `app/(customer)/me/page.tsx` | `readMeHome()` → `CustomerHomeReadModel` | `readMeHome` |
+| `/me/explore` | `app/(customer)/me/[...route]/page.ts` | `readMeExplore()` → `CustomerExploreReadModel` | `readMeExplore` |
 | `/me/shelf` | same | `readMeShelf()` → `CustomerShelfReadModel` | `readCustomerPortal` |
 | `/me/routine` | same | `readMeRoutine()` → `CustomerRoutineReadModel` | `readCustomerPortal` |
 | `/me/consult` | same | `readMeConsult()` → `CustomerConsultReadModel` | `readCustomerPortal` |
-| `/me/product/[slug]` | same | `readMeProduct()` → `CustomerProductReadModel` | `readCustomerPortal` |
+| `/me/product/[slug]` | same | `readMeProduct()` → `CustomerProductReadModel` | `readMeProduct` |
 | `/me/shelf/add` | same | `readMeShelf()` + catalogue | `readCustomerPortal` |
 | `/me/shelf/request/[id]` | same | `readMeShelf()` + request | `readCustomerPortal` |
 
-The route-scoped readers already exist in
-`lib/customer/route-read-models.ts` but are not yet wired into the
-route adapters. The first implementation wave must complete the Home
-route migration as proof of the pattern.
+The remaining route-scoped readers already exist in
+`lib/customer/route-read-models.ts`; each unfinished route must migrate as
+its own bounded release cell rather than restoring a portal-wide loader to
+an already migrated surface.
 
 ### Feature boundaries
 
