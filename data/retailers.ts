@@ -895,6 +895,23 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigerian beauty retailer with a direct catalogue and Naira pricing.",
   },
   {
+    name: "Bloom Hair Atelier",
+    homepage: "https://bloomhairatelier.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-10T00:00:00Z",
+      sourceUrl: "https://bloomhairatelier.com/contact-us/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: wordpressSearch("https://bloomhairatelier.com/"),
+    note: "Ikoyi Lagos hair salon and retailer with same-day Lagos delivery and Naira pricing.",
+  },
+  {
     name: "ShopTESA Ng",
     homepage: "https://shoptesang.com/",
     market: "NG",

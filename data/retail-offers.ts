@@ -2707,6 +2707,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "out-of-stock",
       },
     ),
+    exactNg(
+      "Bloom Hair Atelier",
+      "https://bloomhairatelier.com/product/cecred-moisturizing-deep-conditioner/",
+      78,
+      149800,
+      "Cécred Moisturizing Deep Conditioner",
+      "300 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "aqua-rich-ceramide-body-lotion-500ml": [
     exactNg(
