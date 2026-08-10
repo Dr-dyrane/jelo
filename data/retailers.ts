@@ -788,6 +788,24 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigerian cosmetics retailer with nationwide delivery and Naira pricing.",
   },
   {
+    name: "HilarySays",
+    homepage: "https://hilarysays.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-10T00:00:00Z",
+      sourceUrl: "https://hilarysays.com/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query) =>
+      `https://hilarysays.com/search?q=${encodeURIComponent(query)}`,
+    note: "Lekki Lagos science-backed skincare retailer with a physical store and Naira pricing.",
+  },
+  {
     name: "Mirrors Beauty",
     homepage: "https://mirrorsbeauty.com/",
     market: "NG",

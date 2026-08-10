@@ -150,6 +150,21 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         expiresAt: "2026-08-16T12:27:59Z",
       },
     ),
+    exactNg(
+      "HilarySays",
+      "https://hilarysays.com/products/naturium-dew-glow-moisturizer-spf50",
+      78,
+      56500,
+      "Naturium Dew-Glow Moisturizer SPF50",
+      "1.7 fl oz / 50 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+        available: true,
+        inventoryQuantity: 2,
+      },
+    ),
   ],
   "naturium-multi-peptide-eye-cream-0-5oz": [
     exactNg(

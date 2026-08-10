@@ -144,6 +144,7 @@ test("the zero-depth enrichment wave publishes seven exact offers across four pr
     ],
     "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz": [
       ["Nihet Beauty", 75850, "1.7 fl oz / 50 ml"],
+      ["HilarySays", 56500, "1.7 fl oz / 50 ml"],
     ],
     "naturium-multi-peptide-eye-cream-0-5oz": [
       ["Nihet Beauty", 69800, "0.5 fl oz / 15 ml"],
