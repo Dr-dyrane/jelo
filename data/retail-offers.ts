@@ -1669,6 +1669,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "BLab Matcha Hydrating Real Sun Screen SPF50+ PA++++",
       "50 ml",
     ),
+    exactNg(
+      "Skin Bank NG",
+      "https://skinbankng.com/product/b-lab-matcha-hydrating-real-sunscreen-50ml/",
+      76,
+      5200,
+      "B.LAB Matcha Hydrating Real Sunscreen 50mL",
+      "50 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
   ],
   "mediana-leave-in-conditioning-milk": [
     exactNg(
@@ -4414,6 +4428,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "Beccaville",
+      "https://beccaville.com/product/ogx-renewing-argan-oil-of-morocco-extra-strength-penetrating-hair-oil-3-3-fl-oz/",
+      74,
+      12000,
+      "OGX Renewing + Argan Oil of Morocco Extra Strength Penetrating Hair Oil, 3.3 fl oz",
+      "3.3 fl oz",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "aqua-rich-turmeric-vitamin-c-body-lotion-500ml": [
     exactNg(
@@ -5432,6 +5459,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         expiresAt: "2026-08-16T17:50:00Z",
         stock: "in-stock",
         available: true,
+      },
+    ),
+    exactNg(
+      "Care to Beauty",
+      "https://www.caretobeauty.com/ng/abib-acne-foam-cleanser-heartleaf-foam-150ml/",
+      88,
+      20516,
+      "Abib Acne Foam Cleanser Heartleaf Foam 150ml",
+      "150 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        available: false,
+        stock: "out-of-stock",
       },
     ),
   ],
