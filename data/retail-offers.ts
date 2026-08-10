@@ -6173,6 +6173,33 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "Derma Essentials",
+      "https://dermaessentialshub.com/product/naturium-kp-body-scrub-mask/",
+      78,
+      40000,
+      "NATURIUM KP BODY SCRUB & MASK",
+      "226 g",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "out-of-stock",
+        available: false,
+      },
+    ),
+    exactNg(
+      "Reys Beauty Shelf",
+      "https://reysbeautyshelf.com/product/naturium-the-kp-body-scrub-mask/",
+      78,
+      41000,
+      "Naturium The KP Body Scrub & Mask",
+      "8 oz / 226 g",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "naturium-multi-peptide-advanced-body-wash-500ml": [
     exactNg(

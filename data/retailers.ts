@@ -824,6 +824,24 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigerian skincare retailer with nationwide delivery and Naira pricing.",
   },
   {
+    name: "Reys Beauty Shelf",
+    homepage: "https://reysbeautyshelf.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-10T00:00:00Z",
+      sourceUrl: "https://reysbeautyshelf.com/contact-us/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query) =>
+      `https://reysbeautyshelf.com/?s=${encodeURIComponent(query)}`,
+    note: "Ikeja Lagos skincare retailer with nationwide delivery and Naira pricing.",
+  },
+  {
     name: "Mirrors Beauty",
     homepage: "https://mirrorsbeauty.com/",
     market: "NG",
