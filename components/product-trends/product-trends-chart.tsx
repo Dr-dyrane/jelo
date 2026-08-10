@@ -2,21 +2,17 @@
 
 import { useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  TrendingDown,
-  TrendingUp,
-  Minus,
-  Package,
-  ShieldCheck,
-} from "lucide-react";
+import { Minus, Package, ShieldCheck } from "lucide-react";
 import type {
   ProductTrendData,
   TrendPricePoint,
 } from "@/lib/share/product-trends";
 import {
   filterTrendPointsByWindow,
+  buildStepTrendPath,
   hasRenderableTrendSeries,
   selectInitialTrendWindow,
+  selectTrendWindowMovement,
   TREND_WINDOWS,
   trendStoryHref,
   trendWindowDefinition,
@@ -58,42 +54,10 @@ type FlatPoint = {
   priceNaira: number;
 };
 
-/**
- * Catmull-Rom spline → cubic bezier conversion for smooth curved lines.
- * Returns an SVG path string that passes through all points smoothly.
- */
-function buildCurvedPath(pts: { x: number; y: number }[]) {
-  if (pts.length < 2) return "";
-  if (pts.length === 2)
-    return `M${pts[0].x},${pts[0].y} L${pts[1].x},${pts[1].y}`;
-  let d = `M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
-  for (let i = 0; i < pts.length - 1; i++) {
-    const p0 = pts[i - 1] ?? pts[i];
-    const p1 = pts[i];
-    const p2 = pts[i + 1];
-    const p3 = pts[i + 2] ?? p2;
-    const tension = 0.18;
-    const c1x = p1.x + (p2.x - p0.x) * tension;
-    const c1y = p1.y + (p2.y - p0.y) * tension;
-    const c2x = p2.x - (p3.x - p1.x) * tension;
-    const c2y = p2.y - (p3.y - p1.y) * tension;
-    d += ` C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
-  }
-  return d;
-}
-
-function buildAreaPath(pts: { x: number; y: number }[], height: number) {
-  if (pts.length < 2) return "";
-  const line = buildCurvedPath(pts);
-  return `${line} L${pts.at(-1)!.x.toFixed(1)},${height} L${pts[0].x.toFixed(1)},${height} Z`;
-}
-
 type SeriesGroup = {
   retailer: string;
   color: string;
   points: FlatPoint[];
-  globalX: number;
-  globalY: number;
 };
 
 export function ProductTrendsChart({
@@ -175,17 +139,20 @@ export function ProductTrendsChart({
           (rightOrder ?? Number.MAX_SAFE_INTEGER) || left.localeCompare(right)
       );
     });
-    const xRange = xMax - xMin || 1;
-    const yRange = yMax - yMin || 1;
+    const xRange = xMax - xMin;
+    const yRange = yMax - yMin;
     const w = CHART_W - PAD * 2;
     const h = CHART_H - PAD * 2;
     return retailers.map((retailer, i) => {
-      const pts = byRetailer
-        .get(retailer)!
+      const eventsByTime = new Map<number, FlatPoint>();
+      for (const point of byRetailer.get(retailer)!) {
+        eventsByTime.set(point.x, point);
+      }
+      const pts = [...eventsByTime.values()]
         .map((p) => ({
           ...p,
-          x: PAD + ((p.x - xMin) / xRange) * w,
-          y: PAD + h - ((p.y - yMin) / yRange) * h,
+          x: xRange === 0 ? CHART_W / 2 : PAD + ((p.x - xMin) / xRange) * w,
+          y: yRange === 0 ? CHART_H / 2 : PAD + h - ((p.y - yMin) / yRange) * h,
         }))
         .sort((a, b) => a.x - b.x);
       return {
@@ -194,8 +161,6 @@ export function ProductTrendsChart({
           retailerVisuals.get(retailerKey(retailer))?.color ??
           RETAILER_COLORS[i % RETAILER_COLORS.length],
         points: pts,
-        globalX: 0,
-        globalY: 0,
       };
     });
   }, [allPoints, retailerVisuals, xMin, xMax, yMin, yMax]);
@@ -203,6 +168,25 @@ export function ProductTrendsChart({
   const hasChart = hasRenderableTrendSeries(filtered);
   const { summary } = data;
   const selectedStoryHref = trendStoryHref(storyHref, windowKey);
+  const selectedMovement = useMemo(
+    () =>
+      selectTrendWindowMovement(
+        data.points,
+        windowKey,
+        now,
+        data.stores.map((store) => store.retailer),
+      ),
+    [data.points, data.stores, now, windowKey],
+  );
+  const movementLabel = (() => {
+    if (!selectedMovement) return null;
+    if (selectedMovement.direction === "flat") return "No change";
+    const movementPercent = Math.abs(selectedMovement.percent);
+    const formattedPercent = Number.isInteger(movementPercent)
+      ? movementPercent.toFixed(0)
+      : movementPercent.toFixed(1);
+    return `${selectedMovement.direction === "down" ? "↓" : "↑"} ${formattedPercent}%`;
+  })();
 
   function handleWindowKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
@@ -313,19 +297,21 @@ export function ProductTrendsChart({
             </span>
           </div>
         ) : null}
-        {summary.marketTrendLabel ? (
+        {selectedMovement && movementLabel ? (
           <div className={`${styles.stat} ${styles.statTrend}`}>
-            <span className={styles.statLabel}>Market</span>
+            <span className={styles.statLabel}>
+              {selectedWindow.label} · {selectedMovement.retailer}
+            </span>
             <span
               className={`${styles.statValue} ${
-                summary.marketTrendDirection === "down"
+                selectedMovement.direction === "down"
                   ? styles.down
-                  : summary.marketTrendDirection === "up"
+                  : selectedMovement.direction === "up"
                     ? styles.up
                     : ""
               }`}
             >
-              {summary.marketTrendLabel}
+              {movementLabel}
             </span>
           </div>
         ) : null}
@@ -348,34 +334,12 @@ export function ProductTrendsChart({
             onMouseLeave={() => setHoverIdx(null)}
             aria-hidden="true"
           >
-            <defs>
-              {series.map((s) => (
-                <linearGradient
-                  key={s.retailer}
-                  id={`grad-${s.retailer.replace(/[^a-z0-9]/gi, "")}`}
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-                >
-                  <stop offset="0%" stopColor={s.color} stopOpacity="0.18" />
-                  <stop offset="100%" stopColor={s.color} stopOpacity="0" />
-                </linearGradient>
-              ))}
-            </defs>
-            {/* Series with gradient fill + curved line */}
+            {/* Dated events joined by discrete price steps. */}
             {series.map((s) => {
-              const linePath = buildCurvedPath(s.points);
-              const areaPath = buildAreaPath(s.points, CHART_H);
-              const gradId = `grad-${s.retailer.replace(/[^a-z0-9]/gi, "")}`;
+              const linePath = buildStepTrendPath(s.points);
               const isHovered = hoverSeriesIdx === series.indexOf(s);
               return (
                 <g key={s.retailer}>
-                  <path
-                    d={areaPath}
-                    fill={`url(#${gradId})`}
-                    opacity={isHovered ? 0.3 : 1}
-                  />
                   <path
                     d={linePath}
                     fill="none"
@@ -402,15 +366,21 @@ export function ProductTrendsChart({
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: [0.2, 0.8, 0.2, 1] }}
                   />
-                  {/* Points — only show on hover */}
+                  {/* Every circle is a dated observation event. */}
                   {s.points.map((p, i) => (
                     <circle
-                      key={i}
+                      key={`${p.observedAt}-${i}`}
                       cx={p.x}
                       cy={p.y}
                       r={hoverPointIdx === i && isHovered ? 5 : 3}
                       fill={s.color}
-                      opacity={isHovered ? (hoverPointIdx === i ? 1 : 0.5) : 0}
+                      opacity={
+                        hoverSeriesIdx == null || isHovered
+                          ? hoverPointIdx === i && isHovered
+                            ? 1
+                            : 0.82
+                          : 0.35
+                      }
                       style={{ transition: "r 160ms ease, opacity 160ms ease" }}
                     />
                   ))}
@@ -496,32 +466,6 @@ export function ProductTrendsChart({
                 aria-label={store.isLowest ? "Lowest" : undefined}
               />
               {store.retailer}
-              {store.trendLabel ? (
-                <span
-                  className={`${styles.storeTrend} ${
-                    store.trendDirection === "down"
-                      ? styles.down
-                      : store.trendDirection === "up"
-                        ? styles.up
-                        : ""
-                  }`}
-                >
-                  {store.trendDirection === "down" ? (
-                    <TrendingDown
-                      size={11}
-                      strokeWidth={1.5}
-                      aria-hidden="true"
-                    />
-                  ) : store.trendDirection === "up" ? (
-                    <TrendingUp
-                      size={11}
-                      strokeWidth={1.5}
-                      aria-hidden="true"
-                    />
-                  ) : null}
-                  {store.trendLabel}
-                </span>
-              ) : null}
             </span>
             <span className={styles.storePrice}>
               {naira.format(store.priceNaira)}

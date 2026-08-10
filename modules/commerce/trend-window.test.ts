@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  buildStepTrendPath,
   DEFAULT_TREND_WINDOW,
   filterTrendPointsByWindow,
   hasRenderableTrendSeries,
   isTrendWindowKey,
   selectInitialTrendWindow,
+  selectTrendWindowMovement,
   trendStoryHref,
 } from "@/lib/share/trend-window";
 import type { TrendPricePoint } from "@/lib/share/product-trends";
@@ -91,4 +93,44 @@ test("a point exactly on the selected window cutoff is retained", () => {
   ];
 
   assert.equal(selectInitialTrendWindow(points, now), "1m");
+});
+
+test("selected movement is calculated only from one retailer in the visible window", () => {
+  const points = [
+    point("Exact store", "2026-08-04T12:00:00Z", 15_000),
+    point("Other store", "2026-08-05T12:00:00Z", 9_000),
+    point("Exact store", "2026-08-09T10:00:00Z", 12_000),
+  ];
+
+  const movement = selectTrendWindowMovement(points, "7d", now, [
+    "Exact store",
+    "Other store",
+  ]);
+  assert.equal(movement?.retailer, "Exact store");
+  assert.equal(movement?.percent, -20);
+  assert.deepEqual(
+    movement?.points.map((item) => item.retailer),
+    ["Exact store", "Exact store"],
+  );
+});
+
+test("selected movement hides a percentage when each retailer has one event", () => {
+  const points = [
+    point("First store", "2026-08-08T12:00:00Z", 15_000),
+    point("Second store", "2026-08-09T10:00:00Z", 12_000),
+  ];
+
+  assert.equal(selectTrendWindowMovement(points, "7d", now), null);
+});
+
+test("step path changes only at dated observation events", () => {
+  const path = buildStepTrendPath([
+    { x: 20, y: 220 },
+    { x: 180, y: 160 },
+    { x: 360, y: 190 },
+    { x: 760, y: 80 },
+  ]);
+
+  assert.equal(path, "M20.0,220.0 H180.0 V160.0 H360.0 V190.0 H760.0 V80.0");
+  assert.doesNotMatch(path, /[CQS]/);
 });

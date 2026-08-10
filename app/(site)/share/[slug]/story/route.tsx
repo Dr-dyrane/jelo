@@ -2,7 +2,6 @@ import { ImageResponse } from "next/og";
 import { buildShareData, type ShareData } from "../share-data";
 import {
   buildCampaignTrendStory,
-  buildMonotoneCampaignPath,
   CAMPAIGN_STORY_SIZE,
   formatCampaignProductSize,
   type CampaignTrendHistory,
@@ -14,6 +13,7 @@ import {
   type TrendPricePoint,
 } from "@/lib/share/product-trends";
 import {
+  buildStepTrendPath,
   DEFAULT_TREND_WINDOW,
   isTrendWindowKey,
   trendWindowDefinition,
@@ -404,7 +404,7 @@ function PriceStory({
   );
 }
 
-function scaleCurve(points: TrendPricePoint[]) {
+function scaleEvents(points: TrendPricePoint[]) {
   const width = 800;
   const height = 370;
   const xs = points.map((point) => Date.parse(point.observedAt));
@@ -414,10 +414,13 @@ function scaleCurve(points: TrendPricePoint[]) {
   const minY = Math.min(...ys);
   const maxY = Math.max(...ys);
   const xRange = maxX - minX || 1;
-  const yRange = maxY - minY || 1;
+  const yRange = maxY - minY;
   return points.map((point) => ({
     x: 20 + ((Date.parse(point.observedAt) - minX) / xRange) * (width - 40),
-    y: 25 + (1 - (point.priceNaira - minY) / yRange) * (height - 70),
+    y:
+      yRange === 0
+        ? height / 2
+        : 25 + (1 - (point.priceNaira - minY) / yRange) * (height - 70),
   }));
 }
 
@@ -428,10 +431,9 @@ function movementHeadline(history: CampaignTrendHistory) {
   return `${history.direction === "down" ? "Down" : "Up"} ${percent}.`;
 }
 
-function TrendCurve({ history }: { history: CampaignTrendHistory }) {
-  const points = scaleCurve(history.points);
-  const path = buildMonotoneCampaignPath(points);
-  const area = `${path} L${points.at(-1)!.x.toFixed(1)},390 L${points[0].x.toFixed(1)},390 Z`;
+function TrendEvents({ history }: { history: CampaignTrendHistory }) {
+  const points = scaleEvents(history.points);
+  const path = buildStepTrendPath(points);
   const accent = history.direction === "up" ? "#f09a8d" : "#87d6ad";
   return (
     <div
@@ -447,16 +449,11 @@ function TrendCurve({ history }: { history: CampaignTrendHistory }) {
     >
       <svg width="800" height="400" viewBox="0 0 800 400">
         <defs>
-          <linearGradient id="story-area" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={accent} stopOpacity="0.26" />
-            <stop offset="100%" stopColor={accent} stopOpacity="0" />
-          </linearGradient>
           <linearGradient id="story-line" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#f2b8a7" />
             <stop offset="100%" stopColor={accent} />
           </linearGradient>
         </defs>
-        <path d={area} fill="url(#story-area)" />
         <path
           d={path}
           fill="none"
@@ -474,13 +471,15 @@ function TrendCurve({ history }: { history: CampaignTrendHistory }) {
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <circle cx={points[0].x} cy={points[0].y} r="8" fill="#f2b8a7" />
-        <circle
-          cx={points.at(-1)!.x}
-          cy={points.at(-1)!.y}
-          r="10"
-          fill={accent}
-        />
+        {points.map((point, index) => (
+          <circle
+            key={`${point.x}-${point.y}-${index}`}
+            cx={point.x}
+            cy={point.y}
+            r={index === points.length - 1 ? 10 : 8}
+            fill={index === 0 ? "#f2b8a7" : accent}
+          />
+        ))}
       </svg>
     </div>
   );
@@ -639,7 +638,7 @@ function TrendStory({
           ) : (
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex" }}>
-                More dated observations will draw the curve.
+                More dated observations will show time movement.
               </div>
               <div style={{ display: "flex" }}>
                 Today’s verified range stays useful.
@@ -661,45 +660,41 @@ function TrendStory({
         }}
       >
         {isHistory ? (
-          <TrendCurve history={story} />
+          <TrendEvents history={story} />
         ) : (
           <div
             style={{
               width: 840,
               height: 430,
               display: "flex",
+              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              position: "relative",
+              gap: 18,
               background:
                 "radial-gradient(ellipse at center, rgba(235,132,151,.18) 0%, rgba(18,8,12,0) 68%)",
             }}
           >
-            <div
+            <span
               style={{
-                width: 720,
-                height: 4,
-                display: "flex",
-                background:
-                  "linear-gradient(90deg, rgba(242,184,167,.45), #f09a8d 52%, #87d6ad)",
-                borderRadius: 999,
+                color: "#fffaf4",
+                fontFamily: "Manrope",
+                fontSize: 40,
+                fontWeight: 400,
+                letterSpacing: "-1.2px",
               }}
-            />
-            {[60, 420, 780].map((left, index) => (
-              <div
-                key={left}
-                style={{
-                  position: "absolute",
-                  left,
-                  top: 202,
-                  width: index === 1 ? 18 : 13,
-                  height: index === 1 ? 18 : 13,
-                  borderRadius: 999,
-                  background: index === 2 ? "#87d6ad" : "#f2b8a7",
-                  boxShadow: "0 0 34px rgba(240,154,141,.5)",
-                }}
-              />
-            ))}
+            >
+              Current offer snapshot.
+            </span>
+            <span
+              style={{
+                color: "rgba(255,250,244,.66)",
+                fontFamily: "Manrope",
+                fontSize: 22,
+              }}
+            >
+              Two dated observations are needed for time movement.
+            </span>
           </div>
         )}
         <TrendStats data={data} />

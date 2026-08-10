@@ -1,15 +1,9 @@
 import "server-only";
 
 import { findCatalogueProduct } from "@/lib/catalogue/repository";
-import {
-  getProductPriceTrends,
-  getProductPriceHistory,
-} from "@/lib/inventory/price-trends";
-import { staticPriceHistory } from "@/data/price-history";
+import { getProductPriceHistory } from "@/lib/inventory/price-trends";
 import { summarizeMarket } from "@/modules/commerce/market-summary";
 import {
-  compactPriceMovementLabel,
-  preferredPriceMovement,
   priceTrendOfferSnapshot,
   type PriceObservation,
   type PriceTrendOfferSnapshot,
@@ -30,8 +24,6 @@ export type TrendStoreOffer = {
   lastVerifiedAt: string | null;
   isLowest: boolean;
   isMarketplace: boolean;
-  trendLabel: string | null;
-  trendDirection: "down" | "up" | "flat" | null;
 };
 
 export type TrendSummary = {
@@ -42,8 +34,6 @@ export type TrendSummary = {
   storeCount: number;
   avgTrust: number;
   confidence: number;
-  marketTrendLabel: string | null;
-  marketTrendDirection: "down" | "up" | "flat" | null;
   observedDate: string;
   observedAt: string | null;
 };
@@ -71,51 +61,14 @@ const shortDate = new Intl.DateTimeFormat("en-GB", {
  * Primary source: the `offer_price_history` database table, which is populated
  * by the inventory refresh worker every time a price is observed.
  *
- * Fallback: static price history data (anchor + current price per retailer)
- * when no database is configured or the query returns no rows.
+ * The chart fails closed when the database is unavailable or has no matching
+ * rows. Current offer snapshots are not reconstructed into historical points.
  */
 async function fetchRawObservations(
   slug: string,
   snapshot: readonly PriceTrendOfferSnapshot[],
 ): Promise<PriceObservation[]> {
-  // Try the database first — this is where live price history lives
-  const dbObservations = await getProductPriceHistory(slug, snapshot);
-  if (dbObservations.length > 0) return dbObservations;
-
-  // Fall back to static price history when no DB or no rows
-  const historyEntries = staticPriceHistory.filter(
-    (entry) => entry.productSlug === slug,
-  );
-  const observations: PriceObservation[] = [];
-
-  for (const entry of historyEntries) {
-    const snap = snapshot.find(
-      (s) =>
-        s.market === "NG" &&
-        s.retailer.trim().toLocaleLowerCase("en-NG") ===
-          entry.retailer.trim().toLocaleLowerCase("en-NG"),
-    );
-    if (!snap) continue;
-    const offerId = `static-${slug}-${entry.retailer}`;
-    observations.push({
-      historyId: `static-${slug}-${entry.retailer}-anchor`,
-      offerId,
-      retailer: entry.retailer,
-      priceMinor: entry.oldPriceNgn,
-      observedAt: entry.oldObservedAt,
-      recordedAt: entry.oldObservedAt,
-    });
-    observations.push({
-      historyId: `static-${slug}-${entry.retailer}-current`,
-      offerId,
-      retailer: snap.retailer,
-      priceMinor: snap.priceMinor,
-      observedAt: snap.observedAt,
-      recordedAt: snap.observedAt,
-    });
-  }
-
-  return observations;
+  return getProductPriceHistory(slug, snapshot);
 }
 
 /**
@@ -140,19 +93,9 @@ export async function getProductTrendData(
     return snap ? [snap] : [];
   });
 
-  const [trends, rawObservations] = await Promise.all([
-    getProductPriceTrends(product.slug, snapshots),
-    fetchRawObservations(product.slug, snapshots),
-  ]);
+  const rawObservations = await fetchRawObservations(product.slug, snapshots);
 
   const summary = summarizeMarket(product.offers, "NG", now);
-  const marketMovement = preferredPriceMovement(
-    trends.NG,
-    (movement) =>
-      movement.direction !== "flat" &&
-      (movement.comparableRetailerCount ?? 0) >= 2,
-  );
-  const marketTrendLabel = compactPriceMovementLabel(marketMovement);
 
   // Build per-store offer data
   const stores: TrendStoreOffer[] = offers.map((offer, index) => {
@@ -165,14 +108,6 @@ export async function getProductTrendData(
           : stock === "out-of-stock"
             ? "out-of-stock"
             : "unknown";
-    const offerTrend = trends.byOffer?.NG?.find(
-      (item) =>
-        item.retailer.trim().toLocaleLowerCase("en-NG") ===
-        offer.retailer.trim().toLocaleLowerCase("en-NG"),
-    );
-    const offerMovement = offerTrend
-      ? preferredPriceMovement(offerTrend, (m) => m.direction !== "flat")
-      : null;
     return {
       retailer: offer.retailer,
       priceNaira: offer.priceNgn as number,
@@ -182,25 +117,33 @@ export async function getProductTrendData(
         offer.checkedAt ?? offer.priceObservation?.observedAt ?? null,
       isLowest: index === 0,
       isMarketplace: Boolean(offer.orderChannels?.includes("marketplace")),
-      trendLabel: compactPriceMovementLabel(offerMovement),
-      trendDirection: offerMovement?.direction ?? null,
     };
   });
 
-  // Build chart points from raw observations + current snapshot prices.
-  // The current snapshot ensures every retailer with a live offer has at
-  // least one point, even if the DB has no history yet. Combined with
-  // historical observations, this gives us 2+ points for the chart line.
+  // Project only append-only history rows that remain bound to one rendered
+  // exact offer per retailer. A retailer with multiple offer IDs is ambiguous
+  // on the retailer-level chart and therefore fails closed.
   const snapshotRetailers = new Set(
     snapshots.map((snapshot) =>
       snapshot.retailer.trim().toLocaleLowerCase("en-NG"),
     ),
   );
+  const offerIdsByRetailer = new Map<string, Set<string>>();
+  for (const observation of rawObservations) {
+    const key = observation.retailer.trim().toLocaleLowerCase("en-NG");
+    const offerIds = offerIdsByRetailer.get(key) ?? new Set<string>();
+    offerIds.add(observation.offerId);
+    offerIdsByRetailer.set(key, offerIds);
+  }
   const points: TrendPricePoint[] = rawObservations
-    .filter((observation) =>
-      snapshotRetailers.has(
-        observation.retailer.trim().toLocaleLowerCase("en-NG"),
-      ),
+    .filter(
+      (observation) =>
+        snapshotRetailers.has(
+          observation.retailer.trim().toLocaleLowerCase("en-NG"),
+        ) &&
+        offerIdsByRetailer.get(
+          observation.retailer.trim().toLocaleLowerCase("en-NG"),
+        )?.size === 1,
     )
     .map((obs) => ({
       retailer: obs.retailer,
@@ -208,24 +151,6 @@ export async function getProductTrendData(
       observedAt: obs.observedAt,
     }));
 
-  // Add current snapshot prices as the latest data point for each retailer
-  const knownSnapshots = new Set(
-    points.map(
-      (point) =>
-        `${point.retailer.trim().toLocaleLowerCase("en-NG")}|${point.observedAt}|${point.priceNaira}`,
-    ),
-  );
-  for (const snap of snapshots) {
-    if (snap.market !== "NG") continue;
-    const key = `${snap.retailer.trim().toLocaleLowerCase("en-NG")}|${snap.observedAt}|${snap.priceMinor}`;
-    if (knownSnapshots.has(key)) continue;
-    points.push({
-      retailer: snap.retailer,
-      priceNaira: snap.priceMinor,
-      observedAt: snap.observedAt,
-    });
-    knownSnapshots.add(key);
-  }
   points.sort(
     (left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt),
   );
@@ -257,8 +182,6 @@ export async function getProductTrendData(
         offers.reduce((sum, o) => sum + o.trust, 0) / offers.length,
       ),
       confidence: summary.confidence,
-      marketTrendLabel,
-      marketTrendDirection: marketMovement?.direction ?? null,
       observedDate,
       observedAt: observedIso ?? null,
     },

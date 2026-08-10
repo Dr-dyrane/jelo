@@ -18,6 +18,13 @@ Production checkpoint before this enrichment release: Vercel deployment `dpl_BLG
 - Product news has no released persistence contract. The smallest safe next foundation is an identity-version-bound private news table plus a published-only runtime view. Applying it is blocked until the protected non-Vercel `MIGRATION_DATABASE_URL` is available.
 - The strongest current news signal is an Argentina-specific ANMAT registration/traceability action naming three exact catalogue products. It must never be presented as a Nigerian recall or as evidence that every global unit is unsafe or counterfeit.
 
+## 2026-08-09 market-price history foundation
+
+- Temporal UI now fails closed to the canonical database flow: `offer_price_history` → `getProductPriceHistory()` → share trend read model → event/step renderer. Retimed static anchors and current-offer snapshots never become chart history or movement claims.
+- The selected 7D/14D/1M/3M window and its downloaded story share one exact-store evidence calculation. A percentage or step line requires two time-distinct dated observations in that visible window; the current cross-store low/typical/high range remains a separate snapshot.
+- Inventory refresh, manual observation, and catalogue reconciliation retain their append-only history writes. This foundation does not change current exact offers, retailer order, product identity, media, or care copy.
+- Release confirmation and live-route smoke are owned by the current platform-delivery integration task. Rollback is one forward revert of its scoped commit; never rewrite historical rows.
+
 ## Public care experience roadmap
 
 - **Trust and discovery foundation — released:** `95c55bc` aligned product market facts, removed retailer-registration autofocus, improved token-bounded search relevance, exposed Brands/Price watch/Contribute, connected source-checked care links, and added concern search/filtering.

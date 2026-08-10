@@ -10,7 +10,6 @@ import {
   type PriceTrendOfferSnapshot,
   type ProductPriceTrends,
 } from "@/modules/commerce/price-trends";
-import { computeStaticPriceTrends } from "./static-price-trends";
 
 type ObservationRow = CurrentPriceObservation;
 type ProductObservationRow = ObservationRow & {
@@ -79,9 +78,7 @@ export async function getProductsPriceTrends(
     }
   }
 
-  if (!hasPostgresConfig() || snapshots.size === 0) {
-    return computeStaticPriceTrends(requests);
-  }
+  if (!hasPostgresConfig() || snapshots.size === 0) return results;
 
   const slugs = [...snapshots.keys()];
   try {
@@ -140,10 +137,10 @@ export async function getProductsPriceTrends(
     console.error(
       `Price history unavailable for ${slugs.length} ${
         slugs.length === 1 ? "product" : "products"
-      }; falling back to static trends.`,
+      }; hiding movement.`,
       error,
     );
-    return computeStaticPriceTrends(requests);
+    return results;
   }
 }
 
@@ -167,6 +164,11 @@ export async function getProductPriceHistory(
   snapshot: readonly PriceTrendOfferSnapshot[],
 ): Promise<PriceObservation[]> {
   if (!hasPostgresConfig() || snapshot.length === 0) return [];
+  const referenceNow = Math.max(
+    ...snapshot.map((item) => Date.parse(item.observedAt)),
+  );
+  if (!Number.isFinite(referenceNow)) return [];
+  const historyCutoff = new Date(referenceNow - 90 * 86_400_000);
   try {
     const sql = getPostgresClient();
     const rows = await sql<CurrentPriceObservation[]>`
@@ -196,7 +198,7 @@ export async function getProductPriceHistory(
         and o.match_kind = 'exact'
         and o.market_code = 'NG'
         and h.currency_code = 'NGN'
-        and h.observed_at >= now() - interval '46 days'
+        and h.observed_at >= ${historyCutoff}
       order by h.observed_at asc, h.created_at asc, h.id asc
     `;
     return selectCurrentPriceObservations(rows, snapshot);

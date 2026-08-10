@@ -25,6 +25,18 @@ test("share cards carry compact market and exact-store movement without steady n
     path.join(root, "lib/share/worth-sharing.ts"),
     "utf8",
   );
+  const productTrends = await readFile(
+    path.join(root, "lib/share/product-trends.ts"),
+    "utf8",
+  );
+  const trendChart = await readFile(
+    path.join(root, "components/product-trends/product-trends-chart.tsx"),
+    "utf8",
+  );
+  const trendStory = await readFile(
+    path.join(root, "app/(site)/share/[slug]/story/route.tsx"),
+    "utf8",
+  );
 
   assert.match(
     data,
@@ -69,4 +81,34 @@ test("share cards carry compact market and exact-store movement without steady n
   assert.match(priceModel, /observedTitle:\s*string/);
   assert.match(priceModel, /observedSize:\s*string/);
   assert.doesNotMatch(card, /Steady|Median|Average/);
+  assert.doesNotMatch(
+    repository,
+    /computeStaticPriceTrends|staticPriceHistory/,
+  );
+  assert.match(repository, /return results;/);
+  assert.match(repository, /referenceNow - 90 \* 86_400_000/);
+  assert.match(repository, /h\.observed_at >= \$\{historyCutoff\}/);
+  assert.match(
+    productTrends,
+    /return getProductPriceHistory\(slug, snapshot\)/,
+  );
+  assert.doesNotMatch(
+    productTrends,
+    /staticPriceHistory|oldObservedAt|knownSnapshots|points\.push/,
+  );
+  assert.match(trendChart, /buildStepTrendPath\(s\.points\)/);
+  assert.match(trendChart, /selectTrendWindowMovement\(/);
+  assert.doesNotMatch(
+    trendChart,
+    /buildCurvedPath|buildAreaPath|Catmull|marketTrendLabel|store\.trendLabel/,
+  );
+  assert.match(trendStory, /buildStepTrendPath\(points\)/);
+  assert.doesNotMatch(
+    trendStory,
+    /buildMonotoneCampaignPath|story-area|\[60, 420, 780\]|draw the curve/,
+  );
+  assert.match(
+    trendStory,
+    /Two dated observations are needed for time movement\./,
+  );
 });

@@ -2,7 +2,6 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   buildCampaignTrendStory,
-  buildMonotoneCampaignPath,
   formatCampaignProductSize,
 } from "@/lib/share/campaign-story";
 import type { ProductTrendData } from "@/lib/share/product-trends";
@@ -29,8 +28,6 @@ function trendData(
       lastVerifiedAt: "2026-08-08T10:00:00Z",
       isLowest: index === 0,
       isMarketplace: false,
-      trendLabel: null,
-      trendDirection: null,
     })),
     summary: {
       lowestNaira: 12_000,
@@ -40,8 +37,6 @@ function trendData(
       storeCount: retailers.length,
       avgTrust: 90,
       confidence: 90,
-      marketTrendLabel: null,
-      marketTrendDirection: null,
       observedDate: "8 Aug",
       observedAt: "2026-08-08T10:00:00Z",
     },
@@ -145,16 +140,4 @@ test("trend story uses the selected 3M download window", () => {
   assert.equal(story.percent, -20);
   assert.equal(story.startObservedAt, "2026-07-08T12:00:00Z");
   assert.equal(story.endObservedAt, "2026-08-08T10:00:00Z");
-});
-
-test("monotone story path is curved, finite and retains both endpoints", () => {
-  const path = buildMonotoneCampaignPath([
-    { x: 20, y: 220 },
-    { x: 180, y: 160 },
-    { x: 360, y: 190 },
-    { x: 760, y: 80 },
-  ]);
-  assert.match(path, /^M20\.0,220\.0 C/);
-  assert.match(path, /760\.0,80\.0$/);
-  assert.doesNotMatch(path, /NaN|Infinity/);
 });

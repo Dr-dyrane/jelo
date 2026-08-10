@@ -153,11 +153,12 @@ never queried the `offer_price_history` database table. The inventory refresh
 worker was correctly inserting rows, but the chart never read them.
 
 **Rule:** Any function that fetches historical data for charts or trends must
-query the database (`offer_price_history` table) as the primary source. Static
-data is a fallback only when `hasPostgresConfig()` returns false or the query
-returns no rows. The data flow is: inventory refresh worker →
-`offer_price_history` table → `getProductPriceHistory()` → chart points.
-Never bypass the database to read only static data when a DB is configured.
+query the database (`offer_price_history` table). Static current-offer data is
+not temporal evidence and must never be reconstructed into historical points.
+If the database is unavailable or the selected window lacks two dated
+observations for one exact store series, hide the percentage and line. The data
+flow is: inventory refresh worker → `offer_price_history` table →
+`getProductPriceHistory()` → share trend read model → event/step renderer.
 
 ### 6. Disclaimers should be compact chips, not paragraphs
 

@@ -54,11 +54,117 @@ export function filterTrendPointsByWindow<T extends TrendPricePoint>(
   });
 }
 
+export type TrendWindowMovement = {
+  retailer: string;
+  points: TrendPricePoint[];
+  startPriceNaira: number;
+  endPriceNaira: number;
+  startObservedAt: string;
+  endObservedAt: string;
+  percent: number;
+  direction: "down" | "up" | "flat";
+};
+
+/**
+ * Selects one evidence-backed retailer series inside the requested window.
+ * Different stores are never merged into a temporal line or percentage.
+ */
+export function selectTrendWindowMovement(
+  points: readonly TrendPricePoint[],
+  windowKey: TrendWindowKey,
+  now: number,
+  currentRetailers?: readonly string[],
+): TrendWindowMovement | null {
+  const allowedRetailers = currentRetailers
+    ? new Set(currentRetailers.map(retailerKey))
+    : null;
+  const grouped = new Map<string, TrendPricePoint[]>();
+
+  for (const point of filterTrendPointsByWindow(points, windowKey, now)) {
+    const key = retailerKey(point.retailer);
+    if (
+      !key ||
+      (allowedRetailers && !allowedRetailers.has(key)) ||
+      !Number.isFinite(point.priceNaira) ||
+      point.priceNaira <= 0
+    ) {
+      continue;
+    }
+    grouped.set(key, [...(grouped.get(key) ?? []), point]);
+  }
+
+  const candidates = [...grouped.values()]
+    .map((series) => {
+      const byObservedAt = new Map<number, TrendPricePoint>();
+      for (const point of series) {
+        byObservedAt.set(Date.parse(point.observedAt), point);
+      }
+      const ordered = [...byObservedAt.entries()]
+        .sort(([left], [right]) => left - right)
+        .map(([, point]) => point);
+      const span =
+        ordered.length >= 2
+          ? Date.parse(ordered.at(-1)!.observedAt) -
+            Date.parse(ordered[0].observedAt)
+          : 0;
+      return { points: ordered, span };
+    })
+    .filter((candidate) => candidate.points.length >= 2 && candidate.span > 0)
+    .sort(
+      (left, right) =>
+        right.points.length - left.points.length ||
+        right.span - left.span ||
+        left.points[0].retailer.localeCompare(right.points[0].retailer),
+    );
+
+  const selected = candidates[0]?.points;
+  if (!selected) return null;
+
+  const first = selected[0];
+  const last = selected.at(-1)!;
+  const percent =
+    ((last.priceNaira - first.priceNaira) / first.priceNaira) * 100;
+  const direction =
+    Math.abs(percent) < 0.5 ? "flat" : percent < 0 ? "down" : "up";
+
+  return {
+    retailer: first.retailer,
+    points: selected,
+    startPriceNaira: first.priceNaira,
+    endPriceNaira: last.priceNaira,
+    startObservedAt: first.observedAt,
+    endObservedAt: last.observedAt,
+    percent: Math.round(percent * 10) / 10,
+    direction,
+  };
+}
+
+export type TrendPlotPoint = { x: number; y: number };
+
+/**
+ * Draws observed price events as a step path: the prior observed value holds
+ * until the next dated event, where the path changes vertically.
+ */
+export function buildStepTrendPath(points: readonly TrendPlotPoint[]) {
+  if (points.length < 2) return "";
+  let path = `M${points[0].x.toFixed(1)},${points[0].y.toFixed(1)}`;
+  for (const point of points.slice(1)) {
+    path += ` H${point.x.toFixed(1)} V${point.y.toFixed(1)}`;
+  }
+  return path;
+}
+
 export function hasRenderableTrendSeries(points: readonly TrendPricePoint[]) {
   const observationsByRetailer = new Map<string, Set<number>>();
   for (const point of points) {
     const observedAt = Date.parse(point.observedAt);
-    if (!Number.isFinite(observedAt)) continue;
+    if (
+      !Number.isFinite(observedAt) ||
+      !Number.isFinite(point.priceNaira) ||
+      point.priceNaira <= 0
+    ) {
+      continue;
+    }
     const key = retailerKey(point.retailer);
     const observations = observationsByRetailer.get(key) ?? new Set<number>();
     observations.add(observedAt);
