@@ -788,6 +788,24 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigerian cosmetics retailer with nationwide delivery and Naira pricing.",
   },
   {
+    name: "Mirrors Beauty",
+    homepage: "https://mirrorsbeauty.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-10T00:00:00Z",
+      sourceUrl: "https://mirrorsbeauty.com/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query) =>
+      `https://mirrorsbeauty.com/search?type=product&q=${encodeURIComponent(query)}`,
+    note: "Nigerian beauty retailer with a curated luxury catalogue and Naira pricing.",
+  },
+  {
     name: "Beautymart",
     homepage: "https://beautymartng.com/",
     market: "NG",

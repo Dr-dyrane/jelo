@@ -5711,6 +5711,48 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
+    exactNg(
+      "TOS Nigeria",
+      "https://tosnigeria.com/shop/naturium-bha-liquid-exfoliant-2-120-ml-4-0-fl-oz/",
+      78,
+      36000,
+      "Naturium BHA liquid Exfoliant 2% 120 ML / 4.0 FL OZ",
+      "4.0 fl oz / 120 mL",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+    exactNg(
+      "Mirrors Beauty",
+      "https://mirrorsbeauty.com/products/naturium-bha-liquid-exfoliant-2",
+      78,
+      41800,
+      "Naturium BHA Liquid Exfoliant 2%",
+      "4.0 fl oz / 120 mL",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+    exactNg(
+      "Rhema Beauty Shop",
+      "https://rhemabeautyshop.com/shop/naturium-salicylic-acid-serum-2/",
+      86,
+      40012,
+      "Naturium Salicylic Acid Serum 2%",
+      "4.0 fl oz / 120 mL",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
   ],
   "naturium-bio-lipid-restoring-body-lotion-14oz": [
     exactNg(
