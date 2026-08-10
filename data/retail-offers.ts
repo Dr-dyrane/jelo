@@ -206,6 +206,32 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "BabesQuarters",
+      "https://babesquarters.ng/product/naturium-multi-peptide-eye-cream/",
+      78,
+      25000,
+      "Naturium Multi Peptide Eye Cream",
+      "0.5 fl oz / 15 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
+    exactNg(
+      "Essentials Hub",
+      "https://essentialshub.com/product/naturium-multi-peptide-eye-cream/",
+      76,
+      36000,
+      "Naturium Multi Peptide Eye Cream",
+      "0.5 fl oz / 15 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+      },
+    ),
   ],
   "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml": [
     exactNg(

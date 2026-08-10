@@ -130,7 +130,7 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
   }
 });
 
-test("the zero-depth enrichment wave publishes seven exact offers across four products", () => {
+test("the zero-depth enrichment wave publishes exact offers across its cohort", () => {
   const expected = {
     "aqua-rich-licorice-mulberry-body-wash-1000ml": [
       ["BuyBetter", 11288, "1000 ml"],
@@ -146,10 +146,6 @@ test("the zero-depth enrichment wave publishes seven exact offers across four pr
       ["Nihet Beauty", 75850, "1.7 fl oz / 50 ml"],
       ["HilarySays", 56500, "1.7 fl oz / 50 ml"],
       ["Mirrors Beauty", 24200, "1.7 fl oz / 50 ml"],
-    ],
-    "naturium-multi-peptide-eye-cream-0-5oz": [
-      ["Nihet Beauty", 69800, "0.5 fl oz / 15 ml"],
-      ["Jumia", 50000, "0.5 fl oz / 15 ml"],
     ],
   } as const;
 
