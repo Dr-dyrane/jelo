@@ -27,6 +27,29 @@ export const SYNTHETIC_SHELF_PRODUCT_SLUGS = SYNTHETIC_SHELF_BINDINGS.map(
 
 const SYNTHETIC_ROUTINE_STATUSES = ['done', 'confirmed', 'alert'] as const;
 
+function cosmeticVolumeInMillilitres(value: string) {
+  const volume = value.match(/^\s*(\d+(?:\.\d+)?)\s*(ml|fl\.?\s*oz)\s*$/i);
+  if (!volume) return null;
+
+  const amount = Number(volume[1]);
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+
+  if (/^ml$/i.test(volume[2])) return amount;
+  if (/^fl\.?\s*oz$/i.test(volume[2])) return amount * 29.5735;
+
+  return null;
+}
+
+export function reviewedSyntheticSizeMatches(current: string, reviewed: string) {
+  if (current === reviewed) return true;
+
+  const currentMl = cosmeticVolumeInMillilitres(current);
+  const reviewedMl = cosmeticVolumeInMillilitres(reviewed);
+  if (currentMl === null || reviewedMl === null) return false;
+
+  return Math.abs(currentMl - reviewedMl) <= Math.max(currentMl, reviewedMl) * 0.03;
+}
+
 function morningRoutinePosition(
   binding: (typeof SYNTHETIC_SHELF_BINDINGS)[number],
 ) {
@@ -51,7 +74,7 @@ export function createSyntheticCustomerPortal(): CustomerPortalViewModel {
     if (
       product.brand !== identityVersion.brandAtReview
       || product.name !== identityVersion.variantAtReview
-      || product.size !== identityVersion.sizeAtReview
+      || !reviewedSyntheticSizeMatches(product.size, identityVersion.sizeAtReview)
     ) {
       throw new Error(`The development customer requires the reviewed identity for ${binding.legacyId}.`);
     }

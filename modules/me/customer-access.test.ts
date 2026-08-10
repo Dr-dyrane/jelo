@@ -12,6 +12,10 @@ import {
   preferredCustomerFirstName,
   SYNTHETIC_CUSTOMER_ENV_FLAG,
 } from '../../lib/customer/access-policy';
+import {
+  createSyntheticCustomerPortal,
+  reviewedSyntheticSizeMatches,
+} from '../../lib/customer/development-fixture';
 import { LEGACY_SHELF_IMPORT_MANIFEST } from '../../lib/customer/legacy-shelf-import-manifest';
 
 test('sign-in continuation accepts roots and exact bounded member Product destinations', () => {
@@ -152,6 +156,18 @@ test('the synthetic Shelf derives five approved products plus nine pending reque
   assert.match(home, /shelfState\.previewOnly/);
   assert.match(home, /Preview Shelf · Resets on reload\./);
   assert.doesNotMatch(fixture, /recommended|JeloCare routine/i);
+
+  const portal = createSyntheticCustomerPortal();
+  assert.equal(portal.shelf.length, 5);
+  const ogx = portal.shelf.find(
+    (item) => item.snapshot.slug === 'ogx-renewing-argan-oil-of-morocco',
+  );
+  assert.equal(ogx?.snapshot.size, '100 ml');
+  assert.equal(ogx?.product?.size, '3.3 fl oz');
+  assert.equal(reviewedSyntheticSizeMatches('100 ml', '3.3 fl oz'), true);
+  assert.equal(reviewedSyntheticSizeMatches('2 x 100 ml', '100 ml'), false);
+  assert.equal(reviewedSyntheticSizeMatches('100 ml + 50 ml', '100 ml'), false);
+  assert.equal(reviewedSyntheticSizeMatches('200 ml', '100 ml'), false);
 });
 
 test('preferred first names come only from a safe verified name token', () => {
