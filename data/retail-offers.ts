@@ -2046,6 +2046,32 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "out-of-stock",
       },
     ),
+    exactNg(
+      "BuyBetter",
+      "https://buybetter.ng/product/panoxyl-acne-foaming-wash-benzoyl-peroxide-10/",
+      97,
+      13250,
+      "PanOxyl Acne Foaming Wash Benzoyl Peroxide 10% 156g",
+      "156 g",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
+    exactNg(
+      "Rehmie",
+      "https://rehmie.com.ng/p/panoxyl-acne-foaming-wash-10-benzoyl-peroxide-156g-696550",
+      70,
+      25740,
+      "Panoxyl Acne Foaming Wash 10% Benzoyl Peroxide - 156g",
+      "156 g",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "benton-honest-cleansing-foam-150g": [
     exactNg(
@@ -2079,6 +2105,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         observedAt: "2026-08-10T00:00:00Z",
         expiresAt: "2026-08-17T00:00:00Z",
         stock: "in-stock",
+      },
+    ),
+    exactNg(
+      "Perfect Trust Beauty",
+      "https://perfecttrustbeauty.com/products/dr-teals-coconut-oil-body-wash",
+      78,
+      7200,
+      "Dr Teal's Body Wash with Pure Epsom Salt, Nourish & Protect with Coconut Oil - 710ml",
+      "710 ml",
+      {
+        observedAt: "2026-08-10T00:00:00Z",
+        expiresAt: "2026-08-17T00:00:00Z",
+        available: false,
+        stock: "out-of-stock",
       },
     ),
   ],

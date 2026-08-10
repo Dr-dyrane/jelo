@@ -1078,6 +1078,24 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigeria beauty retailer with direct catalogue pages.",
   },
   {
+    name: "Rehmie",
+    homepage: "https://rehmie.com.ng/",
+    market: "NG",
+    kind: "marketplace",
+    trust: 70,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-10T00:00:00Z",
+      sourceUrl: "https://rehmie.com.ng/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query: string) =>
+      `https://rehmie.com.ng/search?search=${encodeURIComponent(query)}`,
+    note: "Nigerian general marketplace with health and beauty categories, Naira pricing and nationwide delivery.",
+  },
+  {
     name: "Jumia",
     homepage: "https://www.jumia.com.ng/",
     market: "NG",

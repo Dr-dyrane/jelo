@@ -378,7 +378,7 @@ test("PanOxyl publishes only the current GTIN-matched Slique observation", () =>
   const slug = "panoxyl-acne-foaming-wash-10-benzoyl-peroxide";
   const offers = verifiedRetailOffers[slug];
 
-  assert.equal(offers.length, 2);
+  assert.equal(offers.length, 4);
   assert.deepEqual(
     {
       retailer: offers[0]?.retailer,
@@ -407,6 +407,8 @@ test("PanOxyl publishes only the current GTIN-matched Slique observation", () =>
   );
   assert.equal(offers[0]?.brandAuthorizationEvidence, undefined);
   assert.equal(offers[1]?.retailer, "Holly's Wellness");
+  assert.equal(offers[2]?.retailer, "BuyBetter");
+  assert.equal(offers[3]?.retailer, "Rehmie");
 });
 
 test("stale PanOxyl Teeka and Lux routes cannot leak through base offers", () => {
@@ -438,7 +440,7 @@ test("stale PanOxyl Teeka and Lux routes cannot leak through base offers", () =>
 
   assert.deepEqual(
     merged.map((offer) => offer.retailer),
-    ["Slique Beauty", "Holly's Wellness"],
+    ["Slique Beauty", "Holly's Wellness", "BuyBetter", "Rehmie"],
   );
   assert.equal(merged[0]?.brandAuthorizationEvidence, undefined);
 });
