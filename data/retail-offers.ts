@@ -1817,6 +1817,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "100 ml",
       { observedAt: "2026-08-10T00:03:45Z", expiresAt: "2026-08-17T00:03:45Z" },
     ),
+    exactNg(
+      "Jumia",
+      "https://www.jumia.com.ng/dang-hydrating-face-toner-beauty-water-100ml-420018620.html",
+      62,
+      29000,
+      "Dang Hydrating Face Toner Beauty Water - 100ml",
+      "100 ml",
+      { observedAt: "2026-08-10T00:12:40Z", expiresAt: "2026-08-17T00:12:40Z" },
+    ),
   ],
   "dang-collagen-hydrating-serum-ceramides-30ml": [
     exactNg(
@@ -1849,6 +1858,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Collagen & Hydrating Serum With Ceramides - 30ml",
       "30 ml",
       { observedAt: "2026-08-10T00:03:33Z", expiresAt: "2026-08-17T00:03:33Z" },
+    ),
+    exactNg(
+      "Jumia",
+      "https://www.jumia.com.ng/dang-collagen-and-hydrating-serum-with-ceramides-30ml-420018885.html",
+      62,
+      32000,
+      "Dang Collagen And Hydrating Serum With Ceramides -30ml",
+      "30 ml",
+      { observedAt: "2026-08-10T00:12:17Z", expiresAt: "2026-08-17T00:12:17Z" },
     ),
   ],
   "dang-everyday-gentle-foaming-face-wash-120ml": [
@@ -1898,6 +1916,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: false,
       },
     ),
+    exactNg(
+      "Jumia",
+      "https://www.jumia.com.ng/dang-hyaluronic-cream-hydrating-face-cleanser-200ml-for-sensitive-dry-skin-gentle-cleansing-hydration-419909418.html",
+      62,
+      41500,
+      "Dang Hyaluronic Cream Hydrating Face Cleanser 200ml",
+      "200 ml",
+      { observedAt: "2026-08-10T00:12:57Z", expiresAt: "2026-08-17T00:12:57Z" },
+    ),
   ],
   "dang-retinal-cream-005-30ml": [
     exactNg(
@@ -1921,6 +1948,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Retinoic Cream 0.05% - 30ml",
       "30 ml",
       { observedAt: "2026-08-10T00:03:03Z", expiresAt: "2026-08-17T00:03:03Z" },
+    ),
+    exactNg(
+      "Jumia",
+      "https://www.jumia.com.ng/dang-multipurpose-retinal-cream-0.05-30ml-420100660.html",
+      62,
+      30000,
+      "Dang Multipurpose Retinal Cream 0.05% 30ml",
+      "30 ml",
+      { observedAt: "2026-08-10T00:12:49Z", expiresAt: "2026-08-17T00:12:49Z" },
     ),
   ],
   "dang-snail-mucin-repair-serum-100ml": [
@@ -1954,6 +1990,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Multifunction Formula Snail Mucin Repair Serum - 100ml",
       "100 ml",
       { observedAt: "2026-08-10T00:02:45Z", expiresAt: "2026-08-17T00:02:45Z" },
+    ),
+    exactNg(
+      "Jumia",
+      "https://www.jumia.com.ng/dang-multi-function-formula-snail-mucin-repair-serum-100ml-for-skin-repair-hydration-radiance-420018407.html",
+      62,
+      42000,
+      "Dang Multi Function Formula Snail Mucin Repair Serum 100ml",
+      "100 ml",
+      { observedAt: "2026-08-10T00:12:29Z", expiresAt: "2026-08-17T00:12:29Z" },
     ),
   ],
   "dang-snail-secretion-filtrate-repair-face-cream-50g": [
@@ -2002,6 +2047,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         expiresAt: "2026-08-16T23:27:10Z",
         available: false,
       },
+    ),
+    exactNg(
+      "Jumia",
+      "https://www.jumia.com.ng/dang-vitamin-c-concentrated-serum-for-face-oil-free-30ml-420019126.html",
+      62,
+      38000,
+      "Dang Vitamin C Concentrated Serum For Face (Oil Free)-30ml",
+      "30 ml",
+      { observedAt: "2026-08-10T00:12:08Z", expiresAt: "2026-08-17T00:12:08Z" },
     ),
   ],
   "facefacts-soothe-glow-niacinamide-serum-30ml": [
