@@ -1,14 +1,14 @@
-import 'server-only';
+import "server-only";
 
 import {
   calculatePriceTrends,
   type PriceObservation,
   type PriceTrendOfferSnapshot,
   type ProductPriceTrends,
-} from '@/modules/commerce/price-trends';
-import { staticPriceHistory } from '@/data/price-history';
+} from "@/modules/commerce/price-trends";
+import { staticPriceHistory } from "@/data/price-history";
 
-import type { ProductPriceTrendRequest } from './price-trends';
+import type { ProductPriceTrendRequest } from "./price-trends";
 
 /**
  * Computes price trends from static price history data when no database is
@@ -25,7 +25,7 @@ function computeStaticProductTrends(
   snapshot: readonly PriceTrendOfferSnapshot[],
 ): ProductPriceTrends {
   const historyEntries = staticPriceHistory.filter(
-    entry => entry.productSlug === slug,
+    (entry) => entry.productSlug === slug,
   );
   if (!historyEntries.length) return {};
 
@@ -34,8 +34,10 @@ function computeStaticProductTrends(
   for (const entry of historyEntries) {
     // Find the matching snapshot entry by retailer
     const snap = snapshot.find(
-      s => s.market === 'NG'
-        && s.retailer.trim().toLocaleLowerCase('en-NG') === entry.retailer.trim().toLocaleLowerCase('en-NG'),
+      (s) =>
+        s.market === "NG" &&
+        s.retailer.trim().toLocaleLowerCase("en-NG") ===
+          entry.retailer.trim().toLocaleLowerCase("en-NG"),
     );
     if (!snap) continue;
 
@@ -87,4 +89,54 @@ export function computeStaticPriceTrends(
   }
 
   return results;
+}
+
+/**
+ * Fallback price history that returns raw observations from static price
+ * history data. Used by the trend chart when the database has no rows.
+ */
+export function computeStaticPriceHistory(
+  slug: string,
+  snapshot: readonly PriceTrendOfferSnapshot[],
+): PriceObservation[] {
+  const historyEntries = staticPriceHistory.filter(
+    (entry) => entry.productSlug === slug,
+  );
+  if (!historyEntries.length) return [];
+
+  const observations: PriceObservation[] = [];
+
+  for (const entry of historyEntries) {
+    const snap = snapshot.find(
+      (s) =>
+        s.market === "NG" &&
+        s.retailer.trim().toLocaleLowerCase("en-NG") ===
+          entry.retailer.trim().toLocaleLowerCase("en-NG"),
+    );
+    if (!snap) continue;
+
+    const offerId = `static-${slug}-${entry.retailer}`;
+
+    // Anchor observation (old price)
+    observations.push({
+      historyId: `static-${slug}-${entry.retailer}-anchor`,
+      offerId,
+      retailer: entry.retailer,
+      priceMinor: entry.oldPriceNgn,
+      observedAt: entry.oldObservedAt,
+      recordedAt: entry.oldObservedAt,
+    });
+
+    // Current observation (new price from snapshot)
+    observations.push({
+      historyId: `static-${slug}-${entry.retailer}-current`,
+      offerId,
+      retailer: entry.retailer,
+      priceMinor: snap.priceMinor,
+      observedAt: snap.observedAt,
+      recordedAt: snap.observedAt,
+    });
+  }
+
+  return observations;
 }

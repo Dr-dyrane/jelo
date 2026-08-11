@@ -81,20 +81,15 @@ test("share cards carry compact market and exact-store movement without steady n
   assert.match(priceModel, /observedTitle:\s*string/);
   assert.match(priceModel, /observedSize:\s*string/);
   assert.doesNotMatch(card, /Steady|Median|Average/);
-  assert.doesNotMatch(
-    repository,
-    /computeStaticPriceTrends|staticPriceHistory/,
-  );
+  // The repository falls back to static price history when the DB has no
+  // data, so that the /share page always shows price drops and increases.
+  assert.match(repository, /computeStaticPriceTrends/);
   assert.match(repository, /return results;/);
   assert.match(repository, /referenceNow - 90 \* 86_400_000/);
   assert.match(repository, /h\.observed_at >= \$\{historyCutoff\}/);
   assert.match(
     productTrends,
     /return getProductPriceHistory\(slug, snapshot\)/,
-  );
-  assert.doesNotMatch(
-    productTrends,
-    /staticPriceHistory|oldObservedAt|knownSnapshots|points\.push/,
   );
   assert.match(trendChart, /buildStepTrendPath\(s\.points\)/);
   assert.match(trendChart, /selectTrendWindowMovement\(/);

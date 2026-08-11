@@ -10,6 +10,10 @@ import {
   type PriceTrendOfferSnapshot,
   type ProductPriceTrends,
 } from "@/modules/commerce/price-trends";
+import {
+  computeStaticPriceTrends,
+  computeStaticPriceHistory,
+} from "./static-price-trends";
 
 type ObservationRow = CurrentPriceObservation;
 type ProductObservationRow = ObservationRow & {
@@ -78,7 +82,9 @@ export async function getProductsPriceTrends(
     }
   }
 
-  if (!hasPostgresConfig() || snapshots.size === 0) return results;
+  if (!hasPostgresConfig() || snapshots.size === 0) {
+    return computeStaticPriceTrends(requests);
+  }
 
   const slugs = [...snapshots.keys()];
   try {
@@ -127,20 +133,29 @@ export async function getProductsPriceTrends(
     }
 
     for (const [slug, snapshot] of snapshots) {
-      results.set(
-        slug,
-        calculateProductPriceTrends(rowsBySlug.get(slug) ?? [], snapshot),
+      const dbTrends = calculateProductPriceTrends(
+        rowsBySlug.get(slug) ?? [],
+        snapshot,
       );
+      // If the DB produced no NG trend data, fall back to static history
+      // so the /share page still shows price drops and increases.
+      if (dbTrends.NG) {
+        results.set(slug, dbTrends);
+      } else {
+        const staticTrends = computeStaticPriceTrends([{ slug, snapshot }]);
+        const staticResult = staticTrends.get(slug);
+        results.set(slug, staticResult ?? dbTrends);
+      }
     }
     return results;
   } catch (error) {
     console.error(
       `Price history unavailable for ${slugs.length} ${
         slugs.length === 1 ? "product" : "products"
-      }; hiding movement.`,
+      }; falling back to static trends.`,
       error,
     );
-    return results;
+    return computeStaticPriceTrends(requests);
   }
 }
 
@@ -163,12 +178,17 @@ export async function getProductPriceHistory(
   slug: string,
   snapshot: readonly PriceTrendOfferSnapshot[],
 ): Promise<PriceObservation[]> {
-  if (!hasPostgresConfig() || snapshot.length === 0) return [];
+  if (snapshot.length === 0) return [];
   const referenceNow = Math.max(
     ...snapshot.map((item) => Date.parse(item.observedAt)),
   );
   if (!Number.isFinite(referenceNow)) return [];
   const historyCutoff = new Date(referenceNow - 90 * 86_400_000);
+
+  if (!hasPostgresConfig()) {
+    return computeStaticPriceHistory(slug, snapshot);
+  }
+
   try {
     const sql = getPostgresClient();
     const rows = await sql<CurrentPriceObservation[]>`
@@ -201,12 +221,16 @@ export async function getProductPriceHistory(
         and h.observed_at >= ${historyCutoff}
       order by h.observed_at asc, h.created_at asc, h.id asc
     `;
-    return selectCurrentPriceObservations(rows, snapshot);
+    const dbObservations = selectCurrentPriceObservations(rows, snapshot);
+    if (dbObservations.length > 0) return dbObservations;
+    // DB has no history for this product; fall back to static history
+    // so the trend chart still shows price points.
+    return computeStaticPriceHistory(slug, snapshot);
   } catch (error) {
     console.error(
-      `Price history query failed for ${slug}; returning empty.`,
+      `Price history query failed for ${slug}; falling back to static.`,
       error,
     );
-    return [];
+    return computeStaticPriceHistory(slug, snapshot);
   }
 }
