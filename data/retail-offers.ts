@@ -680,6 +680,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "out-of-stock",
       },
     ),
+    exactNg(
+      "Deoset",
+      "https://deoset.com/product/la-roche-posay-toleriane-double-repair-matte-face-moisturizer-for-oily-skin/",
+      86,
+      48990,
+      "Toleriane Double Repair Matte Face Moisturizer for Oily Skin",
+      "75 ml",
+      {
+        observedAt: "2026-08-11T20:14:00Z",
+        expiresAt: "2026-08-18T20:14:00Z",
+        available: true,
+        stock: "in-stock",
+      },
+    ),
   ],
   "medik8-crystal-retinal-3-30ml": [
     exactNg(
