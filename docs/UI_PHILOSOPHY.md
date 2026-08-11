@@ -70,7 +70,7 @@ Before shipping a new interaction, verify:
 
 ## Lessons learned — UI and data-flow fixes
 
-Updated: 2026-08-08
+Updated: 2026-08-11
 
 Each entry below documents a real bug that shipped, its root cause, and the
 rule that prevents recurrence. Follow these before adding new UI or changing
@@ -175,3 +175,85 @@ per chip, wrapped in a flex row. Use the project's `color-mix` warm tint
 background. Keep copy to the minimum: "Prices may change", "Listing ≠
 genuine", "Delivery extra". Never write a multi-sentence disclaimer paragraph
 when chips communicate the same information.
+
+### 7. `whileInView` renders invisible on the server and is unreliable on hydration
+
+**This is a recurring class of bug, not a one-off mistake in a single file.**
+It has independently reproduced in at least four unrelated components. Do not
+treat a fifth report of "this animated thing isn't showing up" as a fresh,
+unrelated issue — check for `whileInView` first.
+
+**Symptom:** The `/share` product trend chart's animated price line rendered
+as `stroke-dasharray="0 1"` (a zero-length, fully invisible path) in
+production, even though the underlying price data was present and correct.
+Independently, `SwipeableRail`, `KenBurns`, and `Stamp` used the identical
+`initial={{ opacity: 0, ... }}` + `whileInView={{ opacity: 1, ... }}` shape,
+carrying the same latent risk: an element that mounts already inside the
+viewport (the normal case for Next.js client-side navigation via `<Link>`)
+can get stuck in its invisible `initial` state permanently.
+
+**Root cause:** `whileInView` drives its animated state from framer-motion's
+own internal `viewport` IntersectionObserver instance, which is not exposed
+to the component and is not guaranteed to fire before first paint when the
+target is already intersecting at mount. The server always renders the
+`initial` state. If the observer never fires (or fires after the component
+already considers itself settled), the DOM stays in the invisible/zero state
+indefinitely — with no error, no console warning, and no visual difference in
+local dev when scrolling triggers it manually. This makes it easy to ship and
+hard to notice without a genuinely cold, already-in-viewport mount.
+
+**Rule:** Never use the framer-motion `whileInView` prop directly, on any
+element, for any purpose. Use the `useInView` hook with an explicit `ref` and
+derive `animate` from the returned boolean instead — see
+`components/motion/reveal.tsx` and `components/motion/stagger.tsx` for the
+canonical pattern:
+
+```tsx
+const ref = useRef<HTMLDivElement>(null);
+const inView = useInView(ref, { once: true, margin: "-40px" });
+return (
+  <motion.div ref={ref} initial={initial} animate={inView ? target : initial}>
+    ...
+  </motion.div>
+);
+```
+
+This is enforced by `test/animation-render-safety.test.ts`, which scans every
+`.tsx` file under `app/` and `components/` for a literal `whileInView=` prop
+assignment and for a `pathLength` animation that lacks a paired `useInView`
+reference in the same file, then fails the suite if either pattern appears
+anywhere — not just in the one file that broke before. If this test starts
+failing after you add or copy a component, that is the bug reproducing again,
+not a false positive to silence.
+
+### 8. Capping a comparison list must never cap the data query behind it
+
+**Symptom:** The `/share` price card and its trend chart originally rendered
+every verified Nigerian offer for a product — 20-30+ rows for popular SKUs
+(the COSRX cleanser and B.Lab sunscreen both cleared 29 in the same
+verification pass), producing an unreadable wall of near-identical store
+rows. Capping the trend chart's rendered set to three representative offers
+(lowest, typical/median-floor, highest, by current price) then caused a
+_second_, distinct regression: the chart went dark for products whose seeded
+price history belonged to a retailer that was not currently the cheapest,
+typical, or priciest — because the historical-data query itself had been
+scoped to only those three offers before the fetch ran.
+
+**Root cause:** "What we render" and "what we query for evidence" are
+different concerns and must not share the same narrowed input. A store's
+dated price series stays valid trend evidence even after that store stops
+being today's price leader. Scoping the DB/static-history query to the same
+three offers used for display discarded other stores' legitimate history
+before it could ever be evaluated.
+
+**Rule:** Any surface that caps a comparison list to a representative subset
+(see `modules/commerce/representative-offers.ts` for the shared
+lowest/median-floor/highest selector) must fetch historical or supporting
+evidence across the _full_ eligible set first, then choose which subset to
+render from what actually has evidence. If the preferred representative set
+carries no supporting evidence, fall back to the same lowest/median/highest
+selection scoped only to the offers that do, so the rendered comparison never
+goes empty while real data exists for a different store. See
+`lib/share/product-trends.ts` (`fullSnapshots`, `retailersWithHistory`,
+`priceRepresentativeHasHistory`, `offersWithHistory`) for the reference
+implementation.
