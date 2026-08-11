@@ -7211,6 +7211,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
+    exactNg(
+      "Derma Essentials",
+      "https://dermaessentialshub.com/product/naturium-retinaldehyde-cream-serum-0-1/",
+      78,
+      69500,
+      "NATURIUM RETINALDEHYDE CREAM SERUM 0.1%",
+      "1.7 fl oz / 50 mL",
+      {
+        observedAt: "2026-08-11T00:00:00Z",
+        expiresAt: "2026-08-18T00:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
   ],
   "naturium-intense-overnight-sleeping-cream-1-7oz": [
     exactNg(
