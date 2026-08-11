@@ -84,6 +84,7 @@ test("share cards carry compact market and exact-store movement without steady n
   // The repository falls back to static price history when the DB has no
   // data, so that the /share page always shows price drops and increases.
   assert.match(repository, /computeStaticPriceTrends/);
+  assert.match(repository, /computeStaticPriceHistory/);
   assert.match(repository, /return results;/);
   assert.match(repository, /referenceNow - 90 \* 86_400_000/);
   assert.match(repository, /h\.observed_at >= \$\{historyCutoff\}/);
@@ -97,6 +98,10 @@ test("share cards carry compact market and exact-store movement without steady n
     trendChart,
     /buildCurvedPath|buildAreaPath|Catmull|marketTrendLabel|store\.trendLabel/,
   );
+  // The chart must not use framer-motion pathLength animation, which renders
+  // lines invisible on the server (stroke-dasharray="0 1") and fails to
+  // animate on hydration when the element is already in the viewport.
+  assert.doesNotMatch(trendChart, /whileInView|pathLength|motion\.path/);
   assert.match(trendStory, /buildStepTrendPath\(points\)/);
   assert.doesNotMatch(
     trendStory,
