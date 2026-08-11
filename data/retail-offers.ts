@@ -2124,14 +2124,14 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     ),
     exactNg(
       "BuyBetter",
-      "https://buybetter.ng/product/panoxyl-acne-foaming-wash-benzoyl-peroxide-10/",
+      "https://buybetter.ng/product/panoxyl-acne-foaming-wash-benzoyl-peroxide-10-156g/",
       97,
       13250,
-      "PanOxyl Acne Foaming Wash Benzoyl Peroxide 10% 156g",
+      "PANOXYL Acne Foaming Wash Benzoyl Peroxide 10% - 156g",
       "156 g",
       {
-        observedAt: "2026-08-10T00:00:00Z",
-        expiresAt: "2026-08-17T00:00:00Z",
+        observedAt: "2026-08-11T14:08:00Z",
+        expiresAt: "2026-08-18T14:08:00Z",
         stock: "in-stock",
       },
     ),
@@ -2145,6 +2145,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-10T00:00:00Z",
         expiresAt: "2026-08-17T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
+    exactNg(
+      "Perona Beauty",
+      "https://peronabeauty.com/product/panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength/",
+      86,
+      16500,
+      "Panoxyl Acne Foaming Wash Benzoyl Peroxide 10% | 5.5oz",
+      "156 g",
+      {
+        observedAt: "2026-08-11T14:10:00Z",
+        expiresAt: "2026-08-18T14:10:00Z",
         stock: "in-stock",
       },
     ),
