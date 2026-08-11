@@ -5,6 +5,8 @@ export type RetailerDirectoryItem = {
   kind: string;
   productCount: number;
   evidenceNote: string;
+  trust: number;
+  latestObservedAt: string | null;
 };
 
 function searchable(value: string) {
@@ -25,7 +27,7 @@ export function filterRetailerDirectory(
 
   return items.filter((item) => {
     const haystack = searchable(
-      `${item.name} ${item.kind} ${item.productCount} products ${item.evidenceNote}`,
+      `${item.name} ${item.kind} ${item.productCount} products trust ${item.trust} ${item.evidenceNote}`,
     );
     return tokens.every((token) => haystack.includes(token));
   });

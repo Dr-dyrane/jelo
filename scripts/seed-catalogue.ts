@@ -1,33 +1,34 @@
-import postgres from 'postgres';
-import { products as catalogue } from '../data/catalogue';
-import { isPublishedIntakeProduct } from '../data/published-intake-products';
-import productAssets from '../data/product-assets.json';
-import publicCatalogueSearchProjectionJson from '../data/public-catalogue-search.json';
-import { mergeRetailOffers } from '../data/retail-offers';
+import postgres from "postgres";
+import { products as catalogue } from "../data/catalogue";
+import { canonicalBrandName } from "../data/brand-canonical-names";
+import { isPublishedIntakeProduct } from "../data/published-intake-products";
+import productAssets from "../data/product-assets.json";
+import publicCatalogueSearchProjectionJson from "../data/public-catalogue-search.json";
+import { mergeRetailOffers } from "../data/retail-offers";
 import {
   ingredientSeeds,
   verifiedProductIngredients,
-} from '../data/product-ingredients';
+} from "../data/product-ingredients";
 import {
   parsePublicCatalogueSearchArtifact,
   publicCatalogueSearchText,
   type PublicCatalogueSearchProduct,
-} from '../lib/catalogue/public-catalogue-search';
+} from "../lib/catalogue/public-catalogue-search";
 import {
   catalogueIdentityIdForProductId,
   catalogueIdentityVersionIdForProductId,
-} from '../lib/catalogue/product-identity-resolver';
+} from "../lib/catalogue/product-identity-resolver";
 import {
   catalogueSyncTimeouts,
   assertCatalogueRetirementSafety,
   parseCatalogueSeedScope,
   selectCatalogueSeedProducts,
   shouldRetireStaleCatalogueProducts,
-} from '../lib/catalogue/seed-sync-scope';
-import { catalogueBrandSlug } from '../lib/catalogue/slug';
-import { priceAmountToStorageInteger } from '../lib/inventory/price-storage';
-import { assertRetailerResponseScope } from '../modules/retail-intelligence/response-scope';
-import { requireAdminDatabaseUrl } from './lib/admin-database';
+} from "../lib/catalogue/seed-sync-scope";
+import { catalogueBrandSlug } from "../lib/catalogue/slug";
+import { priceAmountToStorageInteger } from "../lib/inventory/price-storage";
+import { assertRetailerResponseScope } from "../modules/retail-intelligence/response-scope";
+import { requireAdminDatabaseUrl } from "./lib/admin-database";
 
 type ProductAssetRecord = {
   sourceUrl: string;
@@ -63,7 +64,7 @@ function publicSearchProjectionBySlug() {
       );
     }
     if (
-      projectedProduct.brand !== reviewedProduct.brand ||
+      canonicalBrandName(reviewedProduct.brand) !== projectedProduct.brand ||
       projectedProduct.name !== reviewedProduct.name ||
       projectedProduct.size !== reviewedProduct.size
     ) {
@@ -93,13 +94,13 @@ async function main() {
     max: 1,
     prepare: false,
     connect_timeout: 10,
-    connection: { application_name: 'jelocare-catalogue-sync' },
+    connection: { application_name: "jelocare-catalogue-sync" },
   });
   const slugify = catalogueBrandSlug;
 
   const sourceHost = (value: string) => {
     try {
-      return new URL(value).hostname.replace(/^www\./, '');
+      return new URL(value).hostname.replace(/^www\./, "");
     } catch {
       return null;
     }
@@ -131,7 +132,7 @@ async function main() {
 
   try {
     console.log(
-      `Synchronizing ${selectedCatalogue.length} reviewed public product${selectedCatalogue.length === 1 ? '' : 's'}${scope.isScoped ? ' (scoped)' : ''}.`,
+      `Synchronizing ${selectedCatalogue.length} reviewed public product${selectedCatalogue.length === 1 ? "" : "s"}${scope.isScoped ? " (scoped)" : ""}.`,
     );
     for (const [productIndex, product] of selectedCatalogue.entries()) {
       const startedAt = Date.now();
@@ -149,8 +150,8 @@ async function main() {
         await configureSyncTransaction(tx);
         const brandSlug = slugify(product.brand);
         const sourceVersion = isPublishedIntakeProduct(product.slug)
-          ? 'published-intake-v1'
-          : 'static-v1';
+          ? "published-intake-v1"
+          : "static-v1";
         const [brand] = await tx<{ id: string }[]>`
         insert into brands (slug, name)
         values (${brandSlug}, ${product.brand})
@@ -164,10 +165,10 @@ async function main() {
         const imageUrl = productAsset?.blobUrl ?? product.image;
         const imageSourceUrl =
           productAsset?.sourceUrl ??
-          (product.image.includes('vercel-storage.com') ? null : product.image);
+          (product.image.includes("vercel-storage.com") ? null : product.image);
         const isPlaceholder =
-          imageUrl.startsWith('/product-fallback') ||
-          imageUrl.startsWith('/product-placeholder');
+          imageUrl.startsWith("/product-fallback") ||
+          imageUrl.startsWith("/product-placeholder");
 
         const [savedProduct] = await tx<{ id: string }[]>`
         insert into products (
@@ -199,10 +200,11 @@ async function main() {
         returning id
       `;
 
-        const expectedIdentityId = catalogueIdentityIdForProductId(savedProduct.id);
-        const expectedIdentityVersionId = catalogueIdentityVersionIdForProductId(
+        const expectedIdentityId = catalogueIdentityIdForProductId(
           savedProduct.id,
         );
+        const expectedIdentityVersionId =
+          catalogueIdentityVersionIdForProductId(savedProduct.id);
         await tx`
         insert into catalogue_product_identity_versions (
           identity_version_id, identity_id, product_id, version_number,
@@ -219,14 +221,16 @@ async function main() {
         on conflict (product_id) do nothing
       `;
 
-        const [savedIdentity] = await tx<{
-          identity_id: string;
-          identity_version_id: string;
-          version_number: number;
-          provenance: string;
-          public_eligibility_basis: string;
-          lifecycle_state: string;
-        }[]>`
+        const [savedIdentity] = await tx<
+          {
+            identity_id: string;
+            identity_version_id: string;
+            version_number: number;
+            provenance: string;
+            public_eligibility_basis: string;
+            lifecycle_state: string;
+          }[]
+        >`
         select
           identity_id,
           identity_version_id,
@@ -238,12 +242,13 @@ async function main() {
         where product_id = ${savedProduct.id}
       `;
         if (
-          savedIdentity?.identity_id !== expectedIdentityId
-          || savedIdentity.identity_version_id !== expectedIdentityVersionId
-          || savedIdentity.version_number !== 1
-          || savedIdentity.provenance !== 'jelocare_reviewed'
-          || savedIdentity.public_eligibility_basis !== 'reviewed_catalogue_projection'
-          || savedIdentity.lifecycle_state !== 'active'
+          savedIdentity?.identity_id !== expectedIdentityId ||
+          savedIdentity.identity_version_id !== expectedIdentityVersionId ||
+          savedIdentity.version_number !== 1 ||
+          savedIdentity.provenance !== "jelocare_reviewed" ||
+          savedIdentity.public_eligibility_basis !==
+            "reviewed_catalogue_projection" ||
+          savedIdentity.lifecycle_state !== "active"
         ) {
           throw new Error(
             `Reviewed identity/version reconciliation failed for ${product.slug}.`,
@@ -302,10 +307,10 @@ async function main() {
         }
 
         const imageStatus = isPlaceholder
-          ? 'failed'
-          : imageUrl.includes('vercel-storage.com')
-            ? 'verified'
-            : 'pending';
+          ? "failed"
+          : imageUrl.includes("vercel-storage.com")
+            ? "verified"
+            : "pending";
 
         await tx`
         insert into product_images (
@@ -314,7 +319,7 @@ async function main() {
           status, verified_at
         ) values (
           ${savedProduct.id}, 'packshot',
-          ${imageUrl.includes('vercel-storage.com') ? imageUrl : null},
+          ${imageUrl.includes("vercel-storage.com") ? imageUrl : null},
           ${imageSourceUrl},
           ${imageSourceUrl ? sourceHost(imageSourceUrl) : null},
           ${`${product.brand} ${product.name}`},
@@ -325,7 +330,7 @@ async function main() {
           ${productAsset?.hasAlpha ?? null},
           ${productAsset?.contentHash ?? null},
           ${imageStatus},
-          ${imageStatus === 'verified' ? new Date() : null}
+          ${imageStatus === "verified" ? new Date() : null}
         )
         on conflict (product_id, kind) do update set
           blob_url = case
@@ -442,39 +447,39 @@ async function main() {
 
           for (const market of offer.location) {
             const inventoryStatus = offer.available
-              ? 'in_stock'
-              : 'out_of_stock';
+              ? "in_stock"
+              : "out_of_stock";
             const priceMinor =
-              market === 'NG' && offer.priceNgn != null
-                ? priceAmountToStorageInteger(offer.priceNgn, 'NGN')
-                : market === 'US' && offer.priceUsd != null
-                  ? priceAmountToStorageInteger(offer.priceUsd, 'USD')
+              market === "NG" && offer.priceNgn != null
+                ? priceAmountToStorageInteger(offer.priceNgn, "NGN")
+                : market === "US" && offer.priceUsd != null
+                  ? priceAmountToStorageInteger(offer.priceUsd, "USD")
                   : null;
             const currencyCode =
-              market === 'NG' && offer.priceNgn != null
-                ? 'NGN'
-                : market === 'US' && offer.priceUsd != null
-                  ? 'USD'
+              market === "NG" && offer.priceNgn != null
+                ? "NGN"
+                : market === "US" && offer.priceUsd != null
+                  ? "USD"
                   : null;
             const checkedAt = observationDate(offer.checkedAt);
             const lastVerifiedAt = observationDate(
               offer.listingEvidence?.observedAt ?? offer.checkedAt,
             );
             const verificationMethod =
-              offer.listingEvidence?.basis === 'retailer-api'
-                ? 'api'
-                : offer.listingEvidence?.basis === 'retailer-page'
-                  ? 'retailer_page'
-                  : 'import';
+              offer.listingEvidence?.basis === "retailer-api"
+                ? "api"
+                : offer.listingEvidence?.basis === "retailer-page"
+                  ? "retailer_page"
+                  : "import";
             const verificationNote =
-              verificationMethod === 'api'
-                ? 'Seeded from a dated retailer API observation.'
-                : verificationMethod === 'retailer_page'
-                  ? 'Seeded from a dated retailer-page observation.'
-                  : 'Seeded from the curated catalogue.';
+              verificationMethod === "api"
+                ? "Seeded from a dated retailer API observation."
+                : verificationMethod === "retailer_page"
+                  ? "Seeded from a dated retailer-page observation."
+                  : "Seeded from the curated catalogue.";
             const incomingObservationCanBeScopeChecked =
-              ['api', 'retailer_page'].includes(verificationMethod) &&
-              (offer.match ?? 'exact') === 'exact' &&
+              ["api", "retailer_page"].includes(verificationMethod) &&
+              (offer.match ?? "exact") === "exact" &&
               offer.priceObservation != null;
             let incomingObservationIsScopeChecked = false;
             if (incomingObservationCanBeScopeChecked) {
@@ -509,7 +514,7 @@ async function main() {
               ${offer.available}, ${priceMinor},
               ${currencyCode}, ${checkedAt},
               ${inventoryStatus}, ${verificationMethod}, ${verificationNote},
-              ${lastVerifiedAt}, ${lastVerifiedAt}::timestamptz + interval '7 days', ${offer.match ?? 'exact'},
+              ${lastVerifiedAt}, ${lastVerifiedAt}::timestamptz + interval '7 days', ${offer.match ?? "exact"},
               ${offer.inventoryQuantity ?? null}, ${offer.sellerName ?? null},
               ${offer.sellerScore ?? null}, ${offer.officialStore ?? false},
               ${offer.priceObservation?.variant ?? null},
@@ -570,7 +575,10 @@ async function main() {
           where is_published = true
             and source_version in ('static-v1', 'published-intake-v1')
         `;
-        assertCatalogueRetirementSafety(publishedSlugs.length, current?.count ?? 0);
+        assertCatalogueRetirementSafety(
+          publishedSlugs.length,
+          current?.count ?? 0,
+        );
         await tx`
         update products
         set is_published = false,
@@ -581,12 +589,12 @@ async function main() {
       `;
       });
       console.log(
-        'Retired stale reviewed catalogue rows after the successful full sync.',
+        "Retired stale reviewed catalogue rows after the successful full sync.",
       );
     }
 
     console.log(
-      `Synchronized ${selectedCatalogue.length} reviewed public product${selectedCatalogue.length === 1 ? '' : 's'} into Neon.`,
+      `Synchronized ${selectedCatalogue.length} reviewed public product${selectedCatalogue.length === 1 ? "" : "s"} into Neon.`,
     );
   } finally {
     await sql.end();

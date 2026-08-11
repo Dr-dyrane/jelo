@@ -71,6 +71,8 @@ export default async function RetailersPage() {
             : "Direct retailer",
       productCount: profile.productCount,
       evidenceNote,
+      trust: store.trust,
+      latestObservedAt: profile.latestObservedAt,
     };
   });
 

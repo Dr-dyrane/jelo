@@ -10,6 +10,17 @@ import {
   type RetailerDirectoryItem,
 } from "@/modules/commerce/retailer-directory-search";
 
+const dateFormatter = new Intl.DateTimeFormat("en-NG", {
+  day: "numeric",
+  month: "short",
+  timeZone: "UTC",
+});
+
+function formatDate(value: string) {
+  const parsed = Date.parse(value);
+  return Number.isFinite(parsed) ? dateFormatter.format(new Date(parsed)) : "";
+}
+
 export function RetailerDirectory({
   items,
 }: {
@@ -26,7 +37,7 @@ export function RetailerDirectory({
       items.map((item) => ({
         href: `/retailers/${item.slug}`,
         name: item.name,
-        detail: `${item.kind} · ${item.productCount} ${item.productCount === 1 ? "product" : "products"}`,
+        detail: `${item.kind} · ${item.productCount} ${item.productCount === 1 ? "product" : "products"} · trust ${item.trust}`,
         searchText: item.evidenceNote,
       })),
     [items],
@@ -62,6 +73,12 @@ export function RetailerDirectory({
               <small>
                 {item.productCount}{" "}
                 {item.productCount === 1 ? "product" : "products"} observed
+              </small>
+              <small>
+                Trust {item.trust}
+                {item.latestObservedAt
+                  ? ` · ${formatDate(item.latestObservedAt)}`
+                  : ""}
               </small>
               <small>{item.evidenceNote}</small>
               <ArrowRight size={18} aria-hidden="true" />
