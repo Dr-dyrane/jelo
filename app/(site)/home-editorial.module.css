@@ -4,7 +4,20 @@
 }
 
 .heroShade {
-  background: linear-gradient(90deg, rgba(255, 248, 244, .96) 0%, rgba(255, 244, 240, .74) 37%, rgba(255, 244, 240, .08) 67%, rgba(255, 244, 240, .12) 100%);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 248, 244, 0.7) 0%,
+      rgba(255, 244, 240, 0.42) 27%,
+      rgba(255, 244, 240, 0.08) 45%,
+      transparent 58%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(24, 15, 11, 0.08) 0%,
+      transparent 30%,
+      rgba(24, 15, 11, 0.08) 100%
+    );
 }
 
 .hero h1 {
@@ -16,7 +29,7 @@
 }
 
 .heroDeck {
-  color: rgba(45, 33, 31, .72);
+  color: rgba(45, 33, 31, 0.72);
 }
 
 .hero .heroPrimary {
@@ -25,27 +38,27 @@
 }
 
 .hero .heroSecondary {
-  background: rgba(255, 253, 249, .58);
+  background: rgba(255, 253, 249, 0.58);
   color: var(--ink);
 }
 
 .heroFeature {
-  background: rgba(255, 250, 247, .58);
+  background: rgba(255, 250, 247, 0.58);
   color: var(--ink);
 }
 
 .heroFeature span,
 .heroFeature small {
-  color: rgba(45, 33, 31, .62);
+  color: rgba(45, 33, 31, 0.62);
 }
 
 .heroMeta span {
-  background: rgba(255, 253, 249, .5);
-  color: rgba(45, 33, 31, .72);
+  background: rgba(255, 253, 249, 0.5);
+  color: rgba(45, 33, 31, 0.72);
 }
 
 .story {
-  grid-template-columns: 1.18fr .82fr;
+  grid-template-columns: 1.18fr 0.82fr;
   background: linear-gradient(145deg, #f9eee9, #f3dce2);
   color: var(--ink);
 }
@@ -68,7 +81,7 @@
   mix-blend-mode: normal;
   filter: none;
   transform: scale(1.002);
-  transition: transform .5s ease;
+  transition: transform 0.5s ease;
 }
 
 .story:hover .visual img {
@@ -96,7 +109,44 @@
   }
 
   .heroShade {
-    background: linear-gradient(180deg, rgba(255, 246, 242, .06) 0%, rgba(255, 246, 242, .08) 42%, rgba(255, 242, 238, .96) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(24, 15, 11, 0.06) 0%,
+      rgba(24, 15, 11, 0.08) 42%,
+      rgba(24, 15, 11, 0.82) 100%
+    );
+  }
+
+  .hero h1,
+  .heroKicker,
+  .heroDeck {
+    color: #fff;
+  }
+
+  .heroDeck {
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .hero .heroPrimary {
+    background: #fff;
+    color: #2d211f;
+  }
+
+  .hero .heroSecondary {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+
+  :global(html[data-theme="dark"]) .hero .heroPrimary {
+    background: #fff;
+    color: #2d211f;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(html:not([data-theme="light"])) .hero .heroPrimary {
+      background: #fff;
+      color: #2d211f;
+    }
   }
 
   .visual {
@@ -118,7 +168,11 @@
 }
 
 /* dark theme */
-:global(html[data-theme="dark"]) .link { color: var(--cream); }
+:global(html[data-theme="dark"]) .link {
+  color: var(--cream);
+}
 @media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme="light"])) .link { color: var(--cream); }
+  :global(html:not([data-theme="light"])) .link {
+    color: var(--cream);
+  }
 }

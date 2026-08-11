@@ -16,31 +16,39 @@ export default function SiteLayout({
       <footer className="site-footer">
         <div className="footer-brand">
           <strong>JeloCare</strong>
-          <p>Clear skin education. By Dyrane.</p>
+          <p>Products, prices, and clear care context.</p>
         </div>
-        <div className="footer-group">
-          <strong>Explore</strong>
-          <Link href="/products">All products</Link>
-          <Link href="/brands">Brands</Link>
-          <Link href="/concerns">Browse concerns</Link>
-          <Link href="/contribute">Contribute</Link>
-          <Link href="/consult">Ask JeloCare</Link>
-          <Link href="/ingredients">Ingredient library</Link>
-          <Link href="/retailers">Retailer guide</Link>
-          <Link href="/bundle">Bundle Finder</Link>
-        </div>
-        <div className="footer-group">
-          <strong>Connect</strong>
-          <Link className="footer-member-link" href="/me">
-            My JeloCare
-          </Link>
-          <Link href="/share">Worth sharing</Link>
-          <a href="mailto:hello@jelocare.com">hello@jelocare.com</a>
-          <Link href="/retailers#list-your-store">Retail partnerships</Link>
-          <a href="mailto:hello@jelocare.com?subject=JeloCare%20affiliate%20partnership">
-            Affiliate enquiries
-          </a>
-        </div>
+        <nav className="footer-navigation" aria-label="Footer navigation">
+          <div className="footer-group">
+            <strong>Discover</strong>
+            <Link href="/products">Products</Link>
+            <Link href="/brands">Brands</Link>
+            <Link href="/concerns">Concerns</Link>
+            <Link href="/ingredients">Ingredients</Link>
+          </div>
+          <div className="footer-group">
+            <strong>Compare</strong>
+            <Link href="/share">Price watch</Link>
+            <Link href="/bundle">Bundle finder</Link>
+            <Link href="/retailers">Retailers</Link>
+          </div>
+          <div className="footer-group">
+            <strong>Your care</strong>
+            <Link href="/consult">Ask JeloCare</Link>
+            <Link className="footer-member-link" href="/me">
+              My JeloCare
+            </Link>
+            <Link href="/contribute">Contribute</Link>
+          </div>
+          <div className="footer-group">
+            <strong>Partners</strong>
+            <Link href="/retailers#list-your-store">List your store</Link>
+            <a href="mailto:hello@jelocare.com?subject=JeloCare%20affiliate%20partnership">
+              Affiliate enquiries
+            </a>
+            <a href="mailto:hello@jelocare.com">Email JeloCare</a>
+          </div>
+        </nav>
         <div className="footer-legal">
           <ThemeToggle />
           <span>

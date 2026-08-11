@@ -8,7 +8,6 @@ import {
 } from "framer-motion";
 import { useRef } from "react";
 import { MagneticLink } from "@/components/motion/magnetic-link";
-import { MorningLightCanvas } from "@/components/motion/morning-light-canvas";
 
 type HomeHeroProps = {
   heroImageUrl: string;
@@ -33,11 +32,9 @@ const ease = [0.2, 0.8, 0.2, 1] as const;
 /**
  * Homepage hero with motion layer.
  *
- * - WebGL morning light canvas behind content (progressive enhancement)
  * - Staggered entrance for kicker, h1, deck, action buttons
  * - Glass card slides from right with parallax depth
- * - Scroll-away: content moves up slightly faster than scroll,
- *   morning light fades out
+ * - Scroll-away: content moves up slightly faster than scroll
  */
 export function HomeHero({
   heroImageUrl,
@@ -56,8 +53,6 @@ export function HomeHero({
   const copyY = useTransform(scrollYProgress, [0, 1], [0, -30]);
   const glassY = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const glassY2 = useTransform(scrollYProgress, [0, 1], [0, -20]);
-  const lightOpacity = useTransform(scrollYProgress, [0, 0.6], [0.5, 0]);
-
   return (
     <section
       ref={ref}
@@ -68,21 +63,7 @@ export function HomeHero({
         overflow: "hidden",
       }}
     >
-      {/* WebGL morning light — sits above background image, below shade */}
-      {!reduce && (
-        <motion.div
-          style={{
-            opacity: lightOpacity,
-            position: "absolute",
-            inset: 0,
-            zIndex: 1,
-          }}
-        >
-          <MorningLightCanvas opacity={0.5} />
-        </motion.div>
-      )}
-
-      {/* Shade overlay — above canvas, below copy */}
+      {/* Localized contrast treatment — preserves the photograph around the copy. */}
       <div
         className={classes.heroShade}
         style={{ position: "absolute", inset: 0, zIndex: 2 }}
