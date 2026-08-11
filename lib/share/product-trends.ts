@@ -91,22 +91,62 @@ export async function getProductTrendData(
     .sort((a, b) => (a.priceNgn as number) - (b.priceNgn as number));
   if (offers.length === 0) return null;
 
-  // A verified product can carry 20-30+ Nigerian offers. The trend chart
-  // compares the same small, representative set the share card renders —
-  // lowest, typical (median floor), and highest — instead of drawing one
-  // line per store.
-  const representative = selectRepresentativeOffers(
-    offers,
-    (offer) => offer.priceNgn as number,
-  );
-  const representativeOffers = representative?.unique ?? [];
+  const priceOf = (offer: (typeof offers)[number]) => offer.priceNgn as number;
+  const retailerKey = (retailer: string) =>
+    retailer.trim().toLocaleLowerCase("en-NG");
 
-  const snapshots = representativeOffers.flatMap((offer) => {
+  // History is queried across every shareable offer — not just the
+  // representative three — because a store's dated series can stay valid
+  // evidence even after it stops being today's lowest, typical, or highest
+  // priced listing. Restricting the query itself (rather than just the
+  // rendered set) previously made the chart go dark whenever the seeded
+  // history belonged to a retailer that had since fallen out of the
+  // representative set.
+  const fullSnapshots = offers.flatMap((offer) => {
     const snap = priceTrendOfferSnapshot(offer, "NG", now);
     return snap ? [snap] : [];
   });
+  const rawObservations = await fetchRawObservations(
+    product.slug,
+    fullSnapshots,
+  );
 
-  const rawObservations = await fetchRawObservations(product.slug, snapshots);
+  // A verified product can carry 20-30+ Nigerian offers. The trend chart
+  // compares the same small, representative set the share card renders —
+  // lowest, typical (median floor), and highest — instead of drawing one
+  // line per store. When none of those three carry a usable dated series,
+  // fall back to the same lowest/median/highest selection scoped to the
+  // offers that do, so the chart never goes dark while real trend evidence
+  // exists for a different store than today's cheapest/typical/priciest.
+  const observationCountByRetailer = new Map<string, number>();
+  for (const observation of rawObservations) {
+    const key = retailerKey(observation.retailer);
+    observationCountByRetailer.set(
+      key,
+      (observationCountByRetailer.get(key) ?? 0) + 1,
+    );
+  }
+  const retailersWithHistory = new Set(
+    [...observationCountByRetailer.entries()]
+      .filter(([, count]) => count >= 2)
+      .map(([key]) => key),
+  );
+
+  const priceRepresentative = selectRepresentativeOffers(offers, priceOf);
+  const priceRepresentativeHasHistory = Boolean(
+    priceRepresentative?.unique.some((offer) =>
+      retailersWithHistory.has(retailerKey(offer.retailer)),
+    ),
+  );
+  const offersWithHistory = offers.filter((offer) =>
+    retailersWithHistory.has(retailerKey(offer.retailer)),
+  );
+  const representative =
+    priceRepresentativeHasHistory || offersWithHistory.length === 0
+      ? priceRepresentative
+      : (selectRepresentativeOffers(offersWithHistory, priceOf) ??
+        priceRepresentative);
+  const representativeOffers = representative?.unique ?? [];
 
   const summary = summarizeMarket(product.offers, "NG", now);
 
@@ -137,16 +177,16 @@ export async function getProductTrendData(
   });
 
   // Project only append-only history rows that remain bound to one rendered
-  // exact offer per retailer. A retailer with multiple offer IDs is ambiguous
-  // on the retailer-level chart and therefore fails closed.
-  const snapshotRetailers = new Set(
-    snapshots.map((snapshot) =>
-      snapshot.retailer.trim().toLocaleLowerCase("en-NG"),
-    ),
+  // exact offer per retailer, and only for the representative comparison
+  // set rendered above (never all 20-30+ stores). A retailer with multiple
+  // offer IDs is ambiguous on the retailer-level chart and therefore fails
+  // closed.
+  const representativeRetailers = new Set(
+    representativeOffers.map((offer) => retailerKey(offer.retailer)),
   );
   const offerIdsByRetailer = new Map<string, Set<string>>();
   for (const observation of rawObservations) {
-    const key = observation.retailer.trim().toLocaleLowerCase("en-NG");
+    const key = retailerKey(observation.retailer);
     const offerIds = offerIdsByRetailer.get(key) ?? new Set<string>();
     offerIds.add(observation.offerId);
     offerIdsByRetailer.set(key, offerIds);
@@ -154,12 +194,8 @@ export async function getProductTrendData(
   const points: TrendPricePoint[] = rawObservations
     .filter(
       (observation) =>
-        snapshotRetailers.has(
-          observation.retailer.trim().toLocaleLowerCase("en-NG"),
-        ) &&
-        offerIdsByRetailer.get(
-          observation.retailer.trim().toLocaleLowerCase("en-NG"),
-        )?.size === 1,
+        representativeRetailers.has(retailerKey(observation.retailer)) &&
+        offerIdsByRetailer.get(retailerKey(observation.retailer))?.size === 1,
     )
     .map((obs) => ({
       retailer: obs.retailer,

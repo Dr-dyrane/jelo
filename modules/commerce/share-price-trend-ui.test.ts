@@ -92,6 +92,18 @@ test("share cards carry compact market and exact-store movement without steady n
     productTrends,
     /return getProductPriceHistory\(slug, snapshot\)/,
   );
+  // History must be queried across every shareable offer, not just the
+  // representative three rendered on the chart. Restricting the query
+  // itself (rather than just the rendered set) previously made the chart
+  // go dark whenever the seeded history belonged to a retailer that had
+  // since fallen out of the lowest/median/highest set.
+  assert.match(
+    productTrends,
+    /fetchRawObservations\(\s*product\.slug,\s*fullSnapshots,?\s*\)/,
+  );
+  assert.match(productTrends, /retailersWithHistory/);
+  assert.match(productTrends, /priceRepresentativeHasHistory/);
+  assert.match(productTrends, /offersWithHistory/);
   assert.match(trendChart, /buildStepTrendPath\(s\.points\)/);
   assert.match(trendChart, /selectTrendWindowMovement\(/);
   assert.doesNotMatch(
