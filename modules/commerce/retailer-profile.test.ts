@@ -75,6 +75,8 @@ test("retailer search preserves source positions while narrowing by name and kin
       kind: "Direct retailer",
       productCount: 15,
       evidenceNote: "Reference source",
+      trust: 80,
+      latestObservedAt: "2026-08-10T12:00:00Z",
     },
     {
       rank: 11,
@@ -83,6 +85,8 @@ test("retailer search preserves source positions while narrowing by name and kin
       kind: "Marketplace",
       productCount: 3,
       evidenceNote: "Seller identity checked per offer",
+      trust: 60,
+      latestObservedAt: "2026-08-10T12:00:00Z",
     },
   ];
 
