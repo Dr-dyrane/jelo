@@ -58,3 +58,20 @@ test("bundle route styles are locally owned", async () => {
     /\.bundle-(?:page|hero|finder|picker|row|empty)/,
   );
 });
+
+test("product-page bundle suggestions reuse image-led product cards", async () => {
+  const [suggestions, styles, globalCss] = await Promise.all([
+    source("components/commerce/buy-together-suggestions.tsx"),
+    source("components/commerce/buy-together-suggestions.module.css"),
+    source("app/globals.css"),
+  ]);
+
+  assert.match(suggestions, /<ProductCard/);
+  assert.match(suggestions, /image: catalogueProduct\.image/);
+  assert.match(suggestions, /together`/);
+  assert.match(suggestions, /shared store/);
+  assert.match(suggestions, /Product totals\s+exclude delivery/);
+  assert.match(styles, /\.rail/);
+  assert.doesNotMatch(suggestions, /buy-together-card/);
+  assert.doesNotMatch(globalCss, /\.buy-together-card/);
+});

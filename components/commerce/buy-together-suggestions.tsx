@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Product } from "@/data/products";
 import { findBuyTogetherSuggestions } from "@/lib/commerce/bundle-finder";
+import { ProductCard } from "@/components/products/product-card";
+import styles from "./buy-together-suggestions.module.css";
 
 const formatNaira = new Intl.NumberFormat("en-NG", {
   style: "currency",
@@ -14,8 +16,17 @@ export async function BuyTogetherSuggestions({
   allProducts,
 }: {
   product: Pick<Product, "slug" | "name" | "brand" | "size" | "offers">;
-  allProducts: Pick<Product, "slug" | "name" | "brand" | "size" | "offers">[];
+  allProducts: Pick<
+    Product,
+    "slug" | "name" | "brand" | "size" | "image" | "offers"
+  >[];
 }) {
+  const productsBySlug = new Map(
+    allProducts.map((catalogueProduct) => [
+      catalogueProduct.slug,
+      catalogueProduct,
+    ]),
+  );
   const suggestions = findBuyTogetherSuggestions(
     product,
     allProducts,
@@ -26,42 +37,50 @@ export async function BuyTogetherSuggestions({
   if (suggestions.length === 0) return null;
 
   return (
-    <section className="buy-together-section">
-      <div className="section-heading">
+    <section className={styles.section} aria-labelledby="buy-together-title">
+      <div className={styles.heading}>
         <div>
-          <p className="eyebrow">Save on delivery</p>
-          <h2>Buy together at one store.</h2>
+          <p className="eyebrow">One basket</p>
+          <h2 id="buy-together-title">Buy together.</h2>
+          <p className={styles.lead}>
+            Each pair has an exact Nigerian retailer in common. Product totals
+            exclude delivery.
+          </p>
         </div>
         <Link
-          className="text-link"
+          className={styles.finderLink}
           href={`/bundle?products=${encodeURIComponent(product.slug)}`}
         >
-          Bundle Finder <ArrowRight size={16} aria-hidden="true" />
+          Build your own <ArrowUpRight size={18} aria-hidden="true" />
         </Link>
       </div>
-      <div className="buy-together-list">
+      <div className={styles.rail}>
         {suggestions.map(
-          ({ product: other, sharedRetailerCount, cheapestCombined }) => (
-            <Link
-              key={other.slug}
-              className="buy-together-card"
-              href={`/bundle?products=${encodeURIComponent(product.slug)},${encodeURIComponent(other.slug)}`}
-            >
-              <strong>
-                {other.brand} {other.name}
-              </strong>
-              <small>{other.size}</small>
-              <div className="buy-together-meta">
-                <span className="buy-together-stores">
-                  {sharedRetailerCount} store
-                  {sharedRetailerCount === 1 ? "" : "s"}
-                </span>
-                <span className="buy-together-price">
-                  from {formatNaira.format(cheapestCombined)}
-                </span>
-              </div>
-            </Link>
-          ),
+          ({ product: other, sharedRetailerCount, cheapestCombined }) => {
+            const catalogueProduct = productsBySlug.get(other.slug);
+            if (!catalogueProduct) return null;
+
+            return (
+              <ProductCard
+                key={other.slug}
+                product={{
+                  slug: catalogueProduct.slug,
+                  brand: catalogueProduct.brand,
+                  name: catalogueProduct.name,
+                  size: catalogueProduct.size,
+                  image: catalogueProduct.image,
+                  priceLabel: `From ${formatNaira.format(cheapestCombined)} together`,
+                }}
+                href={`/bundle?products=${encodeURIComponent(product.slug)},${encodeURIComponent(other.slug)}`}
+                footer={
+                  <span className={styles.storeCount}>
+                    {sharedRetailerCount} shared store
+                    {sharedRetailerCount === 1 ? "" : "s"}
+                  </span>
+                }
+              />
+            );
+          },
         )}
       </div>
     </section>
