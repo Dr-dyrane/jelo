@@ -46,21 +46,17 @@
       "slug": "la-roche-posay-toleriane-double-repair-matte",
       "catalogueVariant": "La Roche-Posay Toleriane Double Repair Matte Moisturizer",
       "catalogueSize": "75 ml",
-      "retailer": "Jumia",
+      "retailer": "Perona Beauty",
       "retailerDirectoryStatus": "directory-listed",
-      "requestedUrl": "https://www.jumia.com.ng/la-roche-posay-toleriane-double-repair-matte-moisturizer-for-oily-and-combination-skin.-419141089.html",
-      "finalUrl": "https://www.jumia.com.ng/la-roche-posay-toleriane-double-repair-matte-moisturizer-for-oily-and-combination-skin.-419141089.html",
-      "observedTitle": "LA ROCHE-POSAY Toleriane Double Repair Matte Moisturizer for oily and combination skin.",
-      "observedSize": null,
-      "priceNgn": 65000,
-      "stock": "low-stock",
-      "sellerName": "luxury skin care",
-      "sellerScore": 92,
-      "disposition": "withheld",
-      "reasons": [
-        "catalogue-size-not-visible-on-product-page",
-        "seventy-five-millilitre-identity-not-established"
-      ]
+      "requestedUrl": "https://peronabeauty.com/product/la-roche-posay-toleriane-double-repair-matte-face-moisturizer-for-oily-skin/",
+      "finalUrl": "https://peronabeauty.com/product/la-roche-posay-toleriane-double-repair-matte-face-moisturizer-for-oily-skin/",
+      "observedTitle": "La Roche-Posay Toleriane Double Repair Matte Face Moisturizer for Oily Skin",
+      "observedSize": "75 ml",
+      "priceNgn": 38000,
+      "stock": "out-of-stock",
+      "disposition": "resolved",
+      "resolvedAt": "2026-08-11T20:06:00Z",
+      "reasons": ["exact-variant-match-confirmed-single-size-product"]
     }
   ]
 }

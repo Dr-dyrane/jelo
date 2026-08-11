@@ -665,6 +665,22 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
     ),
   ],
+  "la-roche-posay-toleriane-double-repair-matte": [
+    exactNg(
+      "Perona Beauty",
+      "https://peronabeauty.com/product/la-roche-posay-toleriane-double-repair-matte-face-moisturizer-for-oily-skin/",
+      93,
+      38000,
+      "Toleriane Double Repair Matte Face Moisturizer for Oily Skin",
+      "75 ml",
+      {
+        observedAt: "2026-08-11T20:06:00Z",
+        expiresAt: "2026-08-18T20:06:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
+  ],
   "medik8-crystal-retinal-3-30ml": [
     exactNg(
       "Teeka4",
