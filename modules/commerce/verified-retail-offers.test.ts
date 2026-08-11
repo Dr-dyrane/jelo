@@ -104,7 +104,7 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
       ["Beauty Hut Africa", 23100],
     ],
     "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml": [
-      ["BuyBetter", 31175],
+      ["BuyBetter", 27200],
     ],
   } as const;
 
@@ -122,7 +122,11 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
           offer.checkedAt ===
           (offer.retailer === "Beauty Hut Africa"
             ? "2026-08-09T11:47:34Z"
-            : "2026-08-09T09:30:30Z"),
+            : offer.retailer === "BuyBetter" &&
+                slug ===
+                  "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml"
+              ? "2026-08-11T19:54:00Z"
+              : "2026-08-09T09:30:30Z"),
       ),
       true,
       `${slug}: observation timestamp`,
