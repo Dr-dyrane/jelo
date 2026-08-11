@@ -104,7 +104,7 @@ test("share cards carry compact market and exact-store movement without steady n
   assert.match(productTrends, /retailersWithHistory/);
   assert.match(productTrends, /priceRepresentativeHasHistory/);
   assert.match(productTrends, /offersWithHistory/);
-  assert.match(trendChart, /buildStepTrendPath\(s\.points\)/);
+  assert.match(trendChart, /buildObservedTrendPath\(s\.points\)/);
   assert.match(trendChart, /selectTrendWindowMovement\(/);
   assert.doesNotMatch(
     trendChart,
@@ -114,7 +114,7 @@ test("share cards carry compact market and exact-store movement without steady n
   // lines invisible on the server (stroke-dasharray="0 1") and fails to
   // animate on hydration when the element is already in the viewport.
   assert.doesNotMatch(trendChart, /whileInView|pathLength|motion\.path/);
-  assert.match(trendStory, /buildStepTrendPath\(points\)/);
+  assert.match(trendStory, /buildObservedTrendPath\(points\)/);
   assert.doesNotMatch(
     trendStory,
     /buildMonotoneCampaignPath|story-area|\[60, 420, 780\]|draw the curve/,

@@ -8,7 +8,7 @@ import type {
 } from "@/lib/share/product-trends";
 import {
   filterTrendPointsByWindow,
-  buildStepTrendPath,
+  buildObservedTrendPath,
   hasRenderableTrendSeries,
   selectInitialTrendWindow,
   selectTrendWindowMovement,
@@ -332,9 +332,9 @@ export function ProductTrendsChart({
             onMouseLeave={() => setHoverIdx(null)}
             aria-hidden="true"
           >
-            {/* Dated events joined by discrete price steps. */}
+            {/* Straight segments join dated observations without inventing a regression. */}
             {series.map((s) => {
-              const linePath = buildStepTrendPath(s.points);
+              const linePath = buildObservedTrendPath(s.points);
               const isHovered = hoverSeriesIdx === series.indexOf(s);
               return (
                 <g key={s.retailer}>

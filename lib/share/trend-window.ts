@@ -142,16 +142,18 @@ export function selectTrendWindowMovement(
 export type TrendPlotPoint = { x: number; y: number };
 
 /**
- * Draws observed price events as a step path: the prior observed value holds
- * until the next dated event, where the path changes vertically.
+ * Joins dated price observations without smoothing or regression. A straight
+ * segment keeps the direction legible while every rendered value remains an
+ * observed event; no intermediate price is presented as measured.
  */
-export function buildStepTrendPath(points: readonly TrendPlotPoint[]) {
+export function buildObservedTrendPath(points: readonly TrendPlotPoint[]) {
   if (points.length < 2) return "";
-  let path = `M${points[0].x.toFixed(1)},${points[0].y.toFixed(1)}`;
-  for (const point of points.slice(1)) {
-    path += ` H${point.x.toFixed(1)} V${point.y.toFixed(1)}`;
-  }
-  return path;
+  return points
+    .map(
+      (point, index) =>
+        `${index === 0 ? "M" : "L"}${point.x.toFixed(1)},${point.y.toFixed(1)}`,
+    )
+    .join(" ");
 }
 
 export function hasRenderableTrendSeries(points: readonly TrendPricePoint[]) {

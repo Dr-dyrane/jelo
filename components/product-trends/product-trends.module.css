@@ -154,11 +154,7 @@
   width: 100%;
   height: 160px;
   overflow: visible;
-  background: radial-gradient(
-    70% 90% at 65% 55%,
-    color-mix(in srgb, var(--rose) 18%, transparent),
-    transparent 72%
-  );
+  background: transparent;
 }
 
 @media (min-width: 980px) {

@@ -13,7 +13,7 @@ import {
   type TrendPricePoint,
 } from "@/lib/share/product-trends";
 import {
-  buildStepTrendPath,
+  buildObservedTrendPath,
   DEFAULT_TREND_WINDOW,
   isTrendWindowKey,
   trendWindowDefinition,
@@ -433,7 +433,7 @@ function movementHeadline(history: CampaignTrendHistory) {
 
 function TrendEvents({ history }: { history: CampaignTrendHistory }) {
   const points = scaleEvents(history.points);
-  const path = buildStepTrendPath(points);
+  const path = buildObservedTrendPath(points);
   const accent = history.direction === "up" ? "#f09a8d" : "#87d6ad";
   return (
     <div

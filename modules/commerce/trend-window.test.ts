@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
-  buildStepTrendPath,
+  buildObservedTrendPath,
   DEFAULT_TREND_WINDOW,
   filterTrendPointsByWindow,
   hasRenderableTrendSeries,
@@ -123,14 +123,14 @@ test("selected movement hides a percentage when each retailer has one event", ()
   assert.equal(selectTrendWindowMovement(points, "7d", now), null);
 });
 
-test("step path changes only at dated observation events", () => {
-  const path = buildStepTrendPath([
+test("observed trend path joins dated events without a synthetic curve", () => {
+  const path = buildObservedTrendPath([
     { x: 20, y: 220 },
     { x: 180, y: 160 },
     { x: 360, y: 190 },
     { x: 760, y: 80 },
   ]);
 
-  assert.equal(path, "M20.0,220.0 H180.0 V160.0 H360.0 V190.0 H760.0 V80.0");
-  assert.doesNotMatch(path, /[CQS]/);
+  assert.equal(path, "M20.0,220.0 L180.0,160.0 L360.0,190.0 L760.0,80.0");
+  assert.doesNotMatch(path, /[CHQSV]/);
 });
