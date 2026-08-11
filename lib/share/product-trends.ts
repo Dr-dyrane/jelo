@@ -9,6 +9,7 @@ import {
   type PriceTrendOfferSnapshot,
 } from "@/modules/commerce/price-trends";
 import { isShareableNgOffer } from "@/modules/commerce/shareable-offer";
+import { selectRepresentativeOffers } from "@/modules/commerce/representative-offers";
 
 export type TrendPricePoint = {
   retailer: string;
@@ -23,6 +24,8 @@ export type TrendStoreOffer = {
   stockStatus: "in-stock" | "low-stock" | "out-of-stock" | "unknown";
   lastVerifiedAt: string | null;
   isLowest: boolean;
+  /** The typical floor price among the representative comparison set. */
+  isTypical: boolean;
   isMarketplace: boolean;
 };
 
@@ -88,7 +91,17 @@ export async function getProductTrendData(
     .sort((a, b) => (a.priceNgn as number) - (b.priceNgn as number));
   if (offers.length === 0) return null;
 
-  const snapshots = offers.flatMap((offer) => {
+  // A verified product can carry 20-30+ Nigerian offers. The trend chart
+  // compares the same small, representative set the share card renders —
+  // lowest, typical (median floor), and highest — instead of drawing one
+  // line per store.
+  const representative = selectRepresentativeOffers(
+    offers,
+    (offer) => offer.priceNgn as number,
+  );
+  const representativeOffers = representative?.unique ?? [];
+
+  const snapshots = representativeOffers.flatMap((offer) => {
     const snap = priceTrendOfferSnapshot(offer, "NG", now);
     return snap ? [snap] : [];
   });
@@ -98,7 +111,7 @@ export async function getProductTrendData(
   const summary = summarizeMarket(product.offers, "NG", now);
 
   // Build per-store offer data
-  const stores: TrendStoreOffer[] = offers.map((offer, index) => {
+  const stores: TrendStoreOffer[] = representativeOffers.map((offer) => {
     const stock = offer.priceObservation?.stock;
     const stockStatus: TrendStoreOffer["stockStatus"] =
       stock === "in-stock"
@@ -108,6 +121,8 @@ export async function getProductTrendData(
           : stock === "out-of-stock"
             ? "out-of-stock"
             : "unknown";
+    const isLowest = offer === representative?.lowest;
+    const isHighest = offer === representative?.highest;
     return {
       retailer: offer.retailer,
       priceNaira: offer.priceNgn as number,
@@ -115,7 +130,8 @@ export async function getProductTrendData(
       stockStatus,
       lastVerifiedAt:
         offer.checkedAt ?? offer.priceObservation?.observedAt ?? null,
-      isLowest: index === 0,
+      isLowest,
+      isTypical: offer === representative?.median && !isLowest && !isHighest,
       isMarketplace: Boolean(offer.orderChannels?.includes("marketplace")),
     };
   });

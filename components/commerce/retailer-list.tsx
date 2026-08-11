@@ -5,6 +5,7 @@ import {
   ArrowUp,
   ArrowUpRight,
   BadgeCheck,
+  ChevronDown,
   MapPin,
   SlidersHorizontal,
   Truck,
@@ -52,6 +53,11 @@ const formatDollars = new Intl.NumberFormat("en-US", {
   currency: "USD",
   maximumFractionDigits: 2,
 });
+
+// A verified product can carry 20-30+ Nigerian offers. Showing every store
+// up front turns "find a store" into a wall of near-identical rows. Reveal
+// a handful first and let shoppers progressively disclose the rest.
+const INITIAL_VISIBLE_STORES = 4;
 
 function shortDate(value?: string) {
   if (!value) return null;
@@ -110,6 +116,18 @@ export function RetailerList({
   const [fulfilment, setFulfilment] = useState<"any" | FulfilmentMethod>("any");
   const [sort, setSort] = useState<"ranked" | "trust" | "price">("ranked");
   const [showFilters, setShowFilters] = useState(false);
+  const [showAllStores, setShowAllStores] = useState(false);
+  // Collapse back to the initial view whenever the compared set changes, so
+  // a stale "show more" expansion never outlives the filter/sort it applied
+  // to. Adjusted during render (React's documented pattern for resetting
+  // state when derived inputs change) rather than in an effect, which would
+  // cause an extra cascading render.
+  const listKey = `${market}:${channel}:${fulfilment}:${sort}`;
+  const [prevListKey, setPrevListKey] = useState(listKey);
+  if (listKey !== prevListKey) {
+    setPrevListKey(listKey);
+    setShowAllStores(false);
+  }
   const preferences = useMemo(
     () => (fulfilment === "any" ? {} : { fulfilment }),
     [fulfilment],
@@ -181,6 +199,12 @@ export function RetailerList({
   // Best match is the top-ranked offer — shown as a calm, distinct card.
   const bestMatch = displayed[0] ?? null;
   const restOffers = displayed.slice(1);
+  const visibleRestOffers = showAllStores
+    ? restOffers
+    : restOffers.slice(0, INITIAL_VISIBLE_STORES);
+  const hiddenStoreCount = showAllStores
+    ? 0
+    : restOffers.length - visibleRestOffers.length;
   const hasChannelOrFulfilmentFilters =
     channels.length > 1 || fulfilments.length > 1;
 
@@ -474,10 +498,12 @@ export function RetailerList({
         </div>
       ) : null}
 
-      {/* Remaining offers */}
+      {/* Remaining offers — progressively disclosed past the initial page */}
       <div className="retailer-list">
-        {restOffers.length
-          ? restOffers.map((offer, index) => renderOfferRow(offer, index + 1))
+        {visibleRestOffers.length
+          ? visibleRestOffers.map((offer, index) =>
+              renderOfferRow(offer, index + 1),
+            )
           : null}
         {displayed.length === 0 ? (
           <div className="retailer-empty">
@@ -491,6 +517,18 @@ export function RetailerList({
           </div>
         ) : null}
       </div>
+      {hiddenStoreCount > 0 ? (
+        <button
+          type="button"
+          className="retailer-filters-toggle retailer-show-more"
+          aria-expanded={showAllStores}
+          onClick={() => setShowAllStores(true)}
+        >
+          <ChevronDown size={14} aria-hidden="true" />
+          Show {hiddenStoreCount} more{" "}
+          {hiddenStoreCount === 1 ? "store" : "stores"}
+        </button>
+      ) : null}
       <div className="retailer-foot">
         <p className="retailer-disclosure">
           Prices may change · Delivery extra

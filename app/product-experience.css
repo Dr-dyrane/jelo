@@ -651,6 +651,12 @@
   margin-bottom: 0.8rem;
 }
 
+.retailer-show-more {
+  margin: 0.4rem 0 0.4rem;
+  width: 100%;
+  justify-content: center;
+}
+
 /* Dark theme */
 html[data-theme="dark"] .retailer-pick-badge {
   background: var(--wine);

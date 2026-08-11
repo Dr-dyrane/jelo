@@ -302,6 +302,14 @@
   outline-offset: 2px;
 }
 
+.typicalTag {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 .storeTrend {
   display: inline-flex;
   align-items: center;

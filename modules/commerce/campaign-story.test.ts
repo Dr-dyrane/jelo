@@ -27,6 +27,7 @@ function trendData(
       stockStatus: "in-stock",
       lastVerifiedAt: "2026-08-08T10:00:00Z",
       isLowest: index === 0,
+      isTypical: false,
       isMarketplace: false,
     })),
     summary: {

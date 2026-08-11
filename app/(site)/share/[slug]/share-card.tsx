@@ -22,6 +22,10 @@ export type ShareOffer = {
   goHref: string;
   when: string;
   isLowest: boolean;
+  /** The typical floor price — the verified offer closest to (at or below)
+   *  the market median, shown as a third reference point next to lowest and
+   *  highest. Never set when the offer is also the lowest or highest. */
+  isTypical: boolean;
   isMarketplace: boolean;
   trend: SharePriceTrend | null;
 };
@@ -129,6 +133,11 @@ export function ShareCard({
               {offer.isLowest ? (
                 <span className={`${styles.label} ${styles.low}`}>
                   Lowest observed
+                </span>
+              ) : null}
+              {offer.isTypical ? (
+                <span className={`${styles.label} ${styles.mkt}`}>
+                  Typical price
                 </span>
               ) : null}
               {offer.isMarketplace ? (

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
 import type { ReactNode } from "react";
 
 type StampProps = {
@@ -19,20 +20,28 @@ type StampProps = {
  * should feel earned.
  *
  * Respects prefers-reduced-motion by rendering children at scale 1.
+ *
+ * Uses useInView hook instead of whileInView prop for reliable detection
+ * on client-side navigation (Next.js Link) where elements mount already
+ * in the viewport.
  */
 export function Stamp({ children, delay = 0, className }: StampProps) {
   const reduce = useReducedMotion();
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
 
   if (reduce) {
     return <span className={className}>{children}</span>;
   }
 
+  const initial = { opacity: 0, scale: 1.15 };
+
   return (
     <motion.span
+      ref={ref}
       className={className}
-      initial={{ opacity: 0, scale: 1.15 }}
-      whileInView={{ opacity: 1, scale: [1.15, 0.98, 1] }}
-      viewport={{ once: true, margin: "-40px" }}
+      initial={initial}
+      animate={inView ? { opacity: 1, scale: [1.15, 0.98, 1] } : initial}
       transition={{
         duration: 0.5,
         delay,
@@ -45,8 +54,7 @@ export function Stamp({ children, delay = 0, className }: StampProps) {
       <motion.span
         aria-hidden
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: [0.3, 0] }}
-        viewport={{ once: true, margin: "-40px" }}
+        animate={inView ? { opacity: [0.3, 0] } : { opacity: 0 }}
         transition={{ duration: 0.4, delay: delay + 0.1 }}
         style={{
           position: "absolute",

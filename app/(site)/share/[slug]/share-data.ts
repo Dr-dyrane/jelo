@@ -10,6 +10,7 @@ import {
   type PriceMovement,
 } from "@/modules/commerce/price-trends";
 import { isShareableNgOffer } from "@/modules/commerce/shareable-offer";
+import { selectRepresentativeOffers } from "@/modules/commerce/representative-offers";
 import { formatCampaignProductSize } from "@/lib/share/campaign-story";
 import type { ShareOffer, SharePriceTrend, ShareView } from "./share-card";
 
@@ -94,7 +95,16 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
     ? shortDate.format(new Date(observedIso))
     : "recently";
 
-  const shareOffers: ShareOffer[] = offers.map((offer, index) => {
+  // A verified product can carry 20-30+ Nigerian offers. Render a small,
+  // representative set — lowest, typical (median floor), and highest — so
+  // the card stays readable without ever inventing a price.
+  const representative = selectRepresentativeOffers(
+    offers,
+    (offer) => offer.priceNgn as number,
+  );
+  const representativeOffers = representative?.unique ?? [];
+
+  const shareOffers: ShareOffer[] = representativeOffers.map((offer) => {
     const stock = offer.priceObservation?.stock;
     const stockLabel =
       stock === "low-stock"
@@ -107,12 +117,15 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
     const dateLabel = offer.checkedAt
       ? shortDate.format(new Date(offer.checkedAt))
       : observedDate;
+    const isLowest = offer === representative?.lowest;
+    const isHighest = offer === representative?.highest;
     return {
       retailer: offer.retailer,
       priceLabel: naira.format(offer.priceNgn as number),
       goHref: `/go?product=${encodeURIComponent(product.slug)}&retailer=${encodeURIComponent(offer.retailer)}`,
       when: stockLabel ? `${stockLabel} · ${dateLabel}` : dateLabel,
-      isLowest: index === 0,
+      isLowest,
+      isTypical: offer === representative?.median && !isLowest && !isHighest,
       isMarketplace: Boolean(offer.orderChannels?.includes("marketplace")),
       trend: sharePriceTrend(
         selectRetailerPriceMovement(priceTrends, "NG", offer.retailer),

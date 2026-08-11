@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
 import type { ReactNode } from "react";
 
 type KenBurnsProps = {
@@ -16,6 +17,10 @@ type KenBurnsProps = {
  * (20s by default) and subtle (scale 1 → 1.08).
  *
  * Respects prefers-reduced-motion by rendering children without motion.
+ *
+ * Uses useInView hook instead of whileInView prop for reliable detection
+ * on client-side navigation (Next.js Link) where elements mount already
+ * in the viewport.
  */
 export function KenBurns({
   children,
@@ -24,6 +29,8 @@ export function KenBurns({
   duration = 20,
 }: KenBurnsProps) {
   const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true });
 
   if (reduce) {
     return <div className={className}>{children}</div>;
@@ -31,10 +38,10 @@ export function KenBurns({
 
   return (
     <motion.div
+      ref={ref}
       className={className}
       initial={{ scale: 1 }}
-      whileInView={{ scale }}
-      viewport={{ once: true }}
+      animate={inView ? { scale } : { scale: 1 }}
       transition={{
         duration,
         ease: "linear",

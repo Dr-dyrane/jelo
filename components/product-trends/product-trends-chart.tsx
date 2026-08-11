@@ -460,6 +460,9 @@ export function ProductTrendsChart({
                 aria-label={store.isLowest ? "Lowest" : undefined}
               />
               {store.retailer}
+              {store.isTypical ? (
+                <small className={styles.typicalTag}>Typical</small>
+              ) : null}
             </span>
             <span className={styles.storePrice}>
               {naira.format(store.priceNaira)}
