@@ -142,18 +142,23 @@ export function selectTrendWindowMovement(
 export type TrendPlotPoint = { x: number; y: number };
 
 /**
- * Joins dated price observations without smoothing or regression. A straight
- * segment keeps the direction legible while every rendered value remains an
- * observed event; no intermediate price is presented as measured.
+ * Joins dated price observations with a bounded easing curve. Every segment
+ * stays inside the rectangle formed by its two endpoints, so the line cannot
+ * overshoot the observed date or price range and is not a regression.
  */
 export function buildObservedTrendPath(points: readonly TrendPlotPoint[]) {
   if (points.length < 2) return "";
-  return points
-    .map(
-      (point, index) =>
-        `${index === 0 ? "M" : "L"}${point.x.toFixed(1)},${point.y.toFixed(1)}`,
-    )
-    .join(" ");
+  let path = `M${points[0].x.toFixed(1)},${points[0].y.toFixed(1)}`;
+  for (let index = 1; index < points.length; index += 1) {
+    const previous = points[index - 1];
+    const point = points[index];
+    const controlOffset = (point.x - previous.x) * 0.34;
+    path +=
+      ` C${(previous.x + controlOffset).toFixed(1)},${previous.y.toFixed(1)}` +
+      ` ${(point.x - controlOffset).toFixed(1)},${point.y.toFixed(1)}` +
+      ` ${point.x.toFixed(1)},${point.y.toFixed(1)}`;
+  }
+  return path;
 }
 
 export function hasRenderableTrendSeries(points: readonly TrendPricePoint[]) {

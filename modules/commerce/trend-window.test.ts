@@ -123,7 +123,7 @@ test("selected movement hides a percentage when each retailer has one event", ()
   assert.equal(selectTrendWindowMovement(points, "7d", now), null);
 });
 
-test("observed trend path joins dated events without a synthetic curve", () => {
+test("observed trend path curves through dated events without overshoot", () => {
   const path = buildObservedTrendPath([
     { x: 20, y: 220 },
     { x: 180, y: 160 },
@@ -131,6 +131,11 @@ test("observed trend path joins dated events without a synthetic curve", () => {
     { x: 760, y: 80 },
   ]);
 
-  assert.equal(path, "M20.0,220.0 L180.0,160.0 L360.0,190.0 L760.0,80.0");
-  assert.doesNotMatch(path, /[CHQSV]/);
+  assert.equal(
+    path,
+    "M20.0,220.0 C74.4,220.0 125.6,160.0 180.0,160.0" +
+      " C241.2,160.0 298.8,190.0 360.0,190.0" +
+      " C496.0,190.0 624.0,80.0 760.0,80.0",
+  );
+  assert.doesNotMatch(path, /[HQSV]/);
 });

@@ -332,7 +332,7 @@ export function ProductTrendsChart({
             onMouseLeave={() => setHoverIdx(null)}
             aria-hidden="true"
           >
-            {/* Straight segments join dated observations without inventing a regression. */}
+            {/* Bounded curves join dated observations without overshooting them. */}
             {series.map((s) => {
               const linePath = buildObservedTrendPath(s.points);
               const isHovered = hoverSeriesIdx === series.indexOf(s);
