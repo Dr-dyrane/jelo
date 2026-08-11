@@ -914,7 +914,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       8500,
       "COSRX Salicylic Acid Daily Gentle Cleanser",
       "150 ml",
-      { available: false, observedAt: "2026-08-08T13:15:00Z" },
+      {
+        available: true,
+        observedAt: "2026-08-11T00:00:00Z",
+        expiresAt: "2026-08-18T00:00:00Z",
+        stock: "in-stock",
+      },
     ),
     exactNg(
       "Lux Beauty",
@@ -1691,9 +1696,14 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nihet Beauty",
       "https://nihetbeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/",
       78,
-      36000,
+      134000,
       "BLab Matcha Hydrating Real Sun Screen SPF50+ PA++++",
       "50 ml",
+      {
+        observedAt: "2026-08-11T00:00:00Z",
+        expiresAt: "2026-08-18T00:00:00Z",
+        stock: "in-stock",
+      },
     ),
     exactNg(
       "Skin Bank NG",

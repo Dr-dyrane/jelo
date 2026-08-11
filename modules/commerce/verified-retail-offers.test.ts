@@ -177,7 +177,7 @@ test("the zero-depth enrichment wave publishes exact offers across its cohort", 
 
 test("browser-verified Beauty by Daz prices serve exact original catalogue products", () => {
   const expected = [
-    ["cosrx-salicylic-acid-daily-gentle-cleanser", 8_500, "150 ml", false],
+    ["cosrx-salicylic-acid-daily-gentle-cleanser", 8_500, "150 ml", true],
     ["anua-niacinamide-10-txa-4-serum", 18_850, "30 ml", false],
     ["face-facts-bright-clear-face-cream", 7_500, "75 ml", true],
   ] as const;
