@@ -46,21 +46,21 @@ compact product row.
 
 ## Information architecture
 
-| Primary destination | Canonical route | Customer job | Page-owned FAB |
-| --- | --- | --- | --- |
-| Home | `/me` | Return to the customer's care overview and Ask Me entry | Ask Me → `/me/consult` |
-| Explore | `/me/explore` | Browse or search every currently eligible exact public catalogue product without treating it as owned | Search products → focus the real catalogue field |
-| Shelf | `/me/shelf` | Retrieve and organise intentionally saved exact products without counting private requests as saved | Add to your Shelf → `/me/shelf/add` |
-| Routine | `/me/routine` | Arrange a customer-authored routine without turning it into a prescription | Create routine → open the routine builder sheet |
+| Primary destination | Canonical route | Customer job                                                                                          | Page-owned FAB                                   |
+| ------------------- | --------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Home                | `/me`           | Return to the customer's care overview and Ask Me entry                                               | Ask Me → `/me/consult`                           |
+| Explore             | `/me/explore`   | Browse or search every currently eligible exact public catalogue product without treating it as owned | Search products → focus the real catalogue field |
+| Shelf               | `/me/shelf`     | Retrieve and organise intentionally saved exact products without counting private requests as saved   | Add to your Shelf → `/me/shelf/add`              |
+| Routine             | `/me/routine`   | Arrange a customer-authored routine without turning it into a prescription                            | Create routine → open the routine builder sheet  |
 
 Four authenticated stack pages sit above that primary model:
 
-| Stack page | Canonical route | Parent semantics | Page-owned FAB |
-| --- | --- | --- | --- |
-| Ask Me | `/me/consult` | Home; reuses public `/consult` safety and guidance authority while keeping its session and opt-in member context separate | Search your care → focus the real care field |
-| Member product | `/me/product/[slug]` | The originating primary destination (or Ask Me with Home selected); reuses exact public catalogue identity while preserving `/products/[slug]` | Find a store → open exact public offer evidence |
-| Add to Shelf | `/me/shelf/add` | Shelf; search the canonical catalogue first and open a private request only when no identity matches | Search exact catalogue → focus the real catalogue field |
-| Private request | `/me/shelf/request/[id]` | Shelf; inspect or manage one owner-isolated missing-product request without treating it as saved or canonical | Request another product → `/me/shelf/add` |
+| Stack page      | Canonical route          | Parent semantics                                                                                                                               | Page-owned FAB                                          |
+| --------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| Ask Me          | `/me/consult`            | Home; reuses public `/consult` safety and guidance authority while keeping its session and opt-in member context separate                      | Search your care → focus the real care field            |
+| Member product  | `/me/product/[slug]`     | The originating primary destination (or Ask Me with Home selected); reuses exact public catalogue identity while preserving `/products/[slug]` | Find a store → open exact public offer evidence         |
+| Add to Shelf    | `/me/shelf/add`          | Shelf; search the canonical catalogue first and open a private request only when no identity matches                                           | Search exact catalogue → focus the real catalogue field |
+| Private request | `/me/shelf/request/[id]` | Shelf; inspect or manage one owner-isolated missing-product request without treating it as saved or canonical                                  | Request another product → `/me/shelf/add`               |
 
 Account and future real helper destinations belong behind the customer avatar
 in one modal helper sheet, not a popover or fifth destination. The current sheet
@@ -208,6 +208,23 @@ to buy a basket of care products. This capability is not shipped, and this
 contract does not commission a route, prediction, monitor, or notification.
 Its dependency and release gates are owned by
 [Phase 6 of the production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md#phase-6--refill-timing-and-basket-optimisation).
+If a customer proceeds from comparison into assisted procurement, the accepted
+direction in [ADR 0016](../adr/0016-retailer-scoped-assisted-procurement.md)
+applies: the experience uses normal Basket and Checkout language, each order
+binds to one retailer, and JeloCare acts only as a disclosed purchasing agent.
+Multiple-retailer advice therefore produces separately approved orders rather
+than one blended order.
+
+A product-page price remains an estimate until the customer supplies the
+delivery location needed for a retailer-specific quote. The payable quote must
+show product subtotal, retailer service or fulfilment fee, retailer tax actually
+observed, JeloCare service fee, and delivery as separate components; unknown is
+never zero. Exact products are never silently substituted, and any material
+change requires a new quote and explicit approval. Manual staff quoting is the
+first operating path. Guest order recovery, Operations workflow, payment,
+WhatsApp transport, browser assistance, fulfilment partners, and every other
+runtime dependency remain gated by ADR 0016 rather than being commissioned by
+this future timing section.
 
 For example, a customer may need exact products A, B, C, and D. Their preferred
 retailer usually carries all four, but currently has only A and B while another

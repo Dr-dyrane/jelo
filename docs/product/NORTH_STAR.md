@@ -4,7 +4,9 @@ Updated: 2026-07-23
 
 JeloCare should be the first place people in Nigeria check before buying skincare.
 
-It is not a store, open marketplace, diagnosis service, or generic chatbot. It combines three systems:
+It is not an open marketplace, inventory-first retailer, diagnosis service, or
+generic chatbot. It is an evidence-led care platform that may act as a
+disclosed purchasing agent. It combines three systems:
 
 ```text
 Clinical intelligence

@@ -10,6 +10,23 @@ Production checkpoint before this enrichment release: Vercel deployment `dpl_BLG
 - Never mix exact SKU identity across size, package form, image, or offer. A visual family may link independently published SKUs; it never merges them.
 - Release passing catalogue cells independently. Do not hold an admitted product for a blocked sibling.
 
+## 2026-08-11 assisted procurement decision checkpoint
+
+- ADR 0016 records the founder-accepted, implementation-gated direction for
+  retailer-scoped assisted procurement. One order binds to one retailer;
+  manual staff quotation is first, terms-permitted browser assistance may only
+  draft evidence for staff approval, and direct manufacturer fulfilment is a
+  later separately contracted source.
+- Signed-in orders remain owner-derived in JeloCare Me. Guests receive an
+  order-only private session recoverable through an atomically single-use
+  capability delivered over consented JeloCare WhatsApp contact. Operations is
+  the canonical state owner; WhatsApp is transport and recovery only.
+- Payment, merchant-of-record and tax treatment, refunds and chargebacks,
+  retention, schema and migration, automated WhatsApp, browser automation,
+  retailer/courier contracts, account claiming, and manufacturer fulfilment
+  remain explicit gates. No runtime, database, payment, message, commit, push,
+  deployment, or migration was performed for this documentation checkpoint.
+
 ## 2026-08-09 enrichment checkpoint
 
 - The public catalogue contains exactly 150 products. The latest checked-in offer wave added Beauty Hut coverage and two current DANG sale prices in `ba7e6ff`.
