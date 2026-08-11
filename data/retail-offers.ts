@@ -1315,6 +1315,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: false,
       },
     ),
+    exactNg(
+      "Care to Beauty",
+      "https://www.caretobeauty.com/ng/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/",
+      88,
+      19076,
+      "COSRX Salicylic Acid Daily Gentle Cleanser 150ml",
+      "150 ml",
+      {
+        observedAt: "2026-08-11T00:00:00Z",
+        expiresAt: "2026-08-18T00:00:00Z",
+        stock: "in-stock",
+      },
+    ),
   ],
   "some-by-mi-aha-bha-pha-miracle-toner": [
     exactNg(
@@ -1440,6 +1453,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua 10% Niacinamide + 4% TXA Acid Serum",
       "30 ml",
       { observedAt: "2026-08-08T13:15:00Z", expiresAt: "2026-08-15T13:15:00Z" },
+    ),
+    exactNg(
+      "Care to Beauty",
+      "https://www.caretobeauty.com/ng/anua-niacinamide-10-txa-4-serum-30ml/",
+      88,
+      43683,
+      "Anua Niacinamide 10% + TXA 4% Serum 30ml",
+      "30 ml",
+      {
+        observedAt: "2026-08-11T00:00:00Z",
+        expiresAt: "2026-08-18T00:00:00Z",
+        stock: "in-stock",
+      },
     ),
   ],
   "face-facts-wonder-cream-fragrance-free": [
@@ -7362,6 +7388,11 @@ const excludedRetailers: Partial<Record<string, string[]>> = {
   "cerave-foaming-facial-cleanser": ["Care to Beauty"],
   // These listings lack a manufacturer-GTIN match for the exact 156 g pack.
   "panoxyl-acne-foaming-wash-10-benzoyl-peroxide": ["Teeka4", "Lux Beauty"],
+  // Beauty by Daz audit withheld these offers for documented identity reasons.
+  "some-by-mi-aha-bha-pha-miracle-toner": ["Beauty by Daz"],
+  "face-facts-wonder-cream-fragrance-free": ["Beauty by Daz"],
+  "b-lab-matcha-hydrating-real-sunscreen": ["Beauty by Daz"],
+  "dove-moroccan-argan-oil-beauty-bar": ["Beauty by Daz"],
 };
 
 function isSearchRoute(url: string) {
