@@ -77,7 +77,7 @@ test("share cards carry compact market and exact-store movement without steady n
     /Promise\.all\(products\.map\(async product/,
   );
   assert.match(priceModel, /priceMinor:\s*number/);
-  assert.match(priceModel, /currencyCode:\s*'NGN' \| 'USD'/);
+  assert.match(priceModel, /currencyCode:\s*["']NGN["'] \| ["']USD["']/);
   assert.match(priceModel, /observedTitle:\s*string/);
   assert.match(priceModel, /observedSize:\s*string/);
   assert.doesNotMatch(card, /Steady|Median|Average/);
