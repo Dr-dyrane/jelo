@@ -43,16 +43,25 @@ test("bundle copy stays within verified product-price evidence", async () => {
 });
 
 test("bundle route styles are locally owned", async () => {
-  const [page, picker, results, globalCss] = await Promise.all([
+  const [page, picker, results, styles, globalCss] = await Promise.all([
     source("app/(site)/bundle/page.tsx"),
     source("components/commerce/bundle-product-picker.tsx"),
     source("components/commerce/bundle-results.tsx"),
+    source("components/commerce/bundle-finder.module.css"),
     source("app/globals.css"),
   ]);
 
   assert.match(page, /bundle-finder\.module\.css/);
   assert.match(picker, /bundle-finder\.module\.css/);
   assert.match(results, /bundle-finder\.module\.css/);
+  assert.match(
+    styles,
+    /\.productRail\s*\{[\s\S]*?margin:\s*1rem 0 0;[\s\S]*?padding:\s*0\.6rem 0\.2rem 1\.5rem;/,
+  );
+  assert.match(
+    styles,
+    /@media \(min-width: 901px\)[\s\S]*?grid-auto-columns:\s*max\(15rem, calc\(23\.53% - 1\.13rem\)\)/,
+  );
   assert.doesNotMatch(
     globalCss,
     /\.bundle-(?:page|hero|finder|picker|row|empty)/,
