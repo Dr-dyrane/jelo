@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useRef, useState, type KeyboardEvent } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { Minus, Package, ShieldCheck } from "lucide-react";
 import type {
   ProductTrendData,
@@ -75,7 +74,6 @@ export function ProductTrendsChart({
     selectInitialTrendWindow(data.points, now),
   );
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
-  const reduce = useReducedMotion();
   const svgRef = useRef<SVGSVGElement>(null);
   const selectedWindow = trendWindowDefinition(windowKey);
   const retailerVisuals = useMemo(
@@ -350,7 +348,7 @@ export function ProductTrendsChart({
                     opacity={isHovered ? 0.2 : 0.11}
                     className={styles.curveGlow}
                   />
-                  <motion.path
+                  <path
                     d={linePath}
                     fill="none"
                     stroke={s.color}
@@ -361,10 +359,6 @@ export function ProductTrendsChart({
                     style={{
                       transition: "opacity 160ms ease, stroke-width 160ms ease",
                     }}
-                    initial={reduce ? false : { pathLength: 0 }}
-                    whileInView={reduce ? undefined : { pathLength: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2, ease: [0.2, 0.8, 0.2, 1] }}
                   />
                   {/* Every circle is a dated observation event. */}
                   {s.points.map((p, i) => (
