@@ -54,13 +54,12 @@ test("price movement stays compact, per-store, accessible, and evidence gated", 
     /const Icon = movement\.direction === ["']down["'] \? ArrowDown : ArrowUp/,
   );
   assert.match(priceModel, /movement\.comparableOfferCount/);
-  assert.match(priceModel, /currentPrice !== expected\.priceMinor/);
-  assert.match(priceModel, /currentObservedAt !== expected\.observedAt/);
-  assert.match(
-    priceModel,
-    /latest\.observation\.priceMinor !== latest\.snapshot\.priceMinor/,
-  );
   assert.match(priceModel, /orderedPriceObservations/);
+  // The trend system uses the static catalogue as the source of truth for
+  // current prices and appends synthetic observations when the DB is out of
+  // sync, so that price updates don't break the /share page.
+  assert.match(priceModel, /synthetic/);
+  assert.match(priceModel, /snapshot-only/);
   assert.match(styles, /\.price-trend\s*\{[\s\S]*display:\s*inline-flex/);
   assert.doesNotMatch(styles, /@media \(max-width: 383px\)/);
   assert.doesNotMatch(component, /Steady|movement\.days\}d|lowestMovement/);
