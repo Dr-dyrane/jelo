@@ -7649,6 +7649,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "out-of-stock",
       },
     ),
+    exactNg(
+      "Nihet Beauty",
+      "https://nihetbeauty.com/product/naturium-niacinamide-gel-cream-5-50g/",
+      76,
+      78500,
+      "Naturium Niacinamide Gel Cream 5% 50g",
+      "1.7 oz / 50 mL",
+      {
+        observedAt: "2026-08-12T22:31:00Z",
+        expiresAt: "2026-08-19T22:31:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
   ],
   "estelin-vitamin-c-turmeric-face-oil-30ml": [
     exactNg(
