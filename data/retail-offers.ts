@@ -7511,6 +7511,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "The Beauty Prism",
+      "https://thebeautyprismng.com/shop/naturium-salicylic-acid-serum-2/",
+      74,
+      24000,
+      "Naturium Salicylic Acid Serum 2%",
+      "1.0 fl oz / 30 mL",
+      {
+        observedAt: "2026-08-12T22:23:00Z",
+        expiresAt: "2026-08-19T22:23:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
   ],
   "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz": [
     exactNg(
