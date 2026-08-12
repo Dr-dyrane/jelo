@@ -7588,6 +7588,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "Nihet Beauty",
+      "https://nihetbeauty.com/product/naturium-retinol-complex-cream-50ml/",
+      76,
+      78500,
+      "Naturium Retinol Complex cream 50ml",
+      "1.7 fl oz / 50 mL",
+      {
+        observedAt: "2026-08-12T22:29:00Z",
+        expiresAt: "2026-08-19T22:29:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
   ],
   "naturium-phyto-glow-lip-balm-clear-0-34oz": [
     exactNg(
