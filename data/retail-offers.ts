@@ -7527,6 +7527,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "Shadremmy Beauty",
+      "https://shadremmybeauty.com/product/naturium-uv-reflect-antioxidant-spf-50/",
+      78,
+      58500,
+      "Naturium UV Reflect Antioxidant SPF 50",
+      "1.7 OZ / 50 ML",
+      {
+        observedAt: "2026-08-12T22:02:00Z",
+        expiresAt: "2026-08-19T22:02:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
   ],
   "naturium-vitamin-bright-illuminating-eye-cream-0-5oz": [
     exactNg(
@@ -7589,6 +7603,53 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-12T11:05:00Z",
         expiresAt: "2026-08-19T11:05:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+    exactNg(
+      "Shadremmy Beauty",
+      "https://shadremmybeauty.com/product/naturium-niacinamde-gel-cream-5/",
+      78,
+      56500,
+      "Naturium Niacinamde Gel Cream 5%",
+      "50 G / 1.7 OZ",
+      {
+        observedAt: "2026-08-12T22:01:00Z",
+        expiresAt: "2026-08-19T22:01:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
+  ],
+  "estelin-vitamin-c-turmeric-face-oil-30ml": [
+    exactNg(
+      "BabesQuarters",
+      "https://babesquarters.ng/shop/estelin-spf-80-ultra-light-hydrating-invisible-sunscreen-2/",
+      78,
+      4500,
+      "Estelin Vitamin C Face Oil",
+      "30 ml",
+      {
+        observedAt: "2026-08-12T22:02:00Z",
+        expiresAt: "2026-08-19T22:02:00Z",
+        stock: "low-stock",
+        inventoryQuantity: 1,
+        available: true,
+      },
+    ),
+  ],
+  "naturium-vitamin-c-complex-serum-jumbo-2fl-oz": [
+    exactNg(
+      "Nihet Beauty",
+      "https://nihetbeauty.com/product/naturium-vitamin-c-complex-serum-60ml/",
+      76,
+      128000,
+      "Naturium Vitamin C Complex Serum (60ml)",
+      "2.0 fl oz / 60 mL",
+      {
+        observedAt: "2026-08-12T22:03:00Z",
+        expiresAt: "2026-08-19T22:03:00Z",
         stock: "in-stock",
         available: true,
       },
