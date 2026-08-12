@@ -912,6 +912,23 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Ikoyi Lagos hair salon and retailer with same-day Lagos delivery and Naira pricing.",
   },
   {
+    name: "Bola Blaque Beauty",
+    homepage: "https://bolablaquebeauty.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-12T10:37:00Z",
+      sourceUrl: "https://bolablaquebeauty.com/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: wordpressSearch("https://bolablaquebeauty.com/"),
+    note: "Lagos beauty retailer with Naira pricing, nationwide delivery, and a focus on premium skincare and haircare brands.",
+  },
+  {
     name: "ShopTESA Ng",
     homepage: "https://shoptesang.com/",
     market: "NG",

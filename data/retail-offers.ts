@@ -648,6 +648,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
+    exactNg(
+      "Bola Blaque Beauty",
+      "https://bolablaquebeauty.com/product/fenty-skin-butta-drop-whipped-oil-body-cream-with-tropical-oils-butters-200ml-fenty-fresh/",
+      78,
+      89500,
+      "Fenty Skin Butta Drop Whipped Oil Body Cream With Tropical Oils + Butters- 200ml-Fenty Fresh",
+      "200 mL / 6.7 fl oz",
+      {
+        observedAt: "2026-08-12T10:37:00Z",
+        expiresAt: "2026-08-19T10:37:00Z",
+        stock: "low-stock",
+        inventoryQuantity: 3,
+      },
+    ),
   ],
   "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask": [
     exactNg(
