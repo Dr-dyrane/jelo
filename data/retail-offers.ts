@@ -7655,6 +7655,22 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
     ),
   ],
+  "la-roche-posay-toleriane-double-repair-spf30": [
+    exactNg(
+      "Hermosa Mart",
+      "https://hermosamartng.com/product/la-roche-posay-toleriane-double-repair-face-moisturizer-uv-spf30/",
+      78,
+      15000,
+      "La Roche Posay Toleriane Double Repair Face Moisturizer UV SPF30",
+      "100 ml",
+      {
+        observedAt: "2026-08-12T22:15:00Z",
+        expiresAt: "2026-08-19T22:15:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
+  ],
 };
 
 const excludedRetailers: Partial<Record<string, string[]>> = {
