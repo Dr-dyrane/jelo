@@ -695,6 +695,22 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
     ),
   ],
+  "dove-moroccan-argan-oil-beauty-bar": [
+    exactNg(
+      "Teeka4",
+      "https://teeka4.com/shop/dove-cream-oil-beauty-bar-with-moroccan-argan-oil-100g-pack-of-4/",
+      98,
+      3000,
+      "Dove Cream Oil Beauty Bar With Moroccan Argan Oil 100G Pack Of 4",
+      "4 x 100g",
+      {
+        observedAt: "2026-08-11T22:20:00Z",
+        expiresAt: "2026-08-18T22:20:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
+  ],
   "medik8-crystal-retinal-3-30ml": [
     exactNg(
       "Teeka4",

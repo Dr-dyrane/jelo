@@ -7,21 +7,20 @@
     {
       "slug": "dove-moroccan-argan-oil-beauty-bar",
       "catalogueVariant": "DOVE Dry Oil Beauty Bar with Moroccan Argan Oil",
-      "catalogueSize": "6 pack",
-      "retailer": "Jumia",
+      "catalogueSize": "4 x 100g",
+      "retailer": "Teeka4",
       "retailerDirectoryStatus": "directory-listed",
-      "requestedUrl": "https://www.jumia.com.ng/cream-oil-beauty-bar-soap-with-moroccan-argan-oil-x4-dove-mpg1714636.html",
-      "finalUrl": "https://www.jumia.com.ng/cream-oil-beauty-bar-soap-with-moroccan-argan-oil-x4-dove-mpg1714636.html",
-      "observedTitle": "Dove Cream Oil Beauty Bar Soap With Moroccan Argan Oil X4",
-      "observedSize": "4 x 100 g",
-      "priceNgn": 9500,
-      "stock": "in-stock",
-      "sellerName": "Glow-Empire",
-      "sellerScore": 88,
-      "disposition": "withheld",
+      "requestedUrl": "https://teeka4.com/shop/dove-cream-oil-beauty-bar-with-moroccan-argan-oil-100g-pack-of-4/",
+      "finalUrl": "https://teeka4.com/shop/dove-cream-oil-beauty-bar-with-moroccan-argan-oil-100g-pack-of-4/",
+      "observedTitle": "Dove Cream Oil Beauty Bar With Moroccan Argan Oil 100G Pack Of 4",
+      "observedSize": "4 x 100g",
+      "priceNgn": 3000,
+      "stock": "out-of-stock",
+      "disposition": "resolved",
+      "resolvedAt": "2026-08-11T22:20:00Z",
       "reasons": [
-        "catalogue-pack-count-mismatch",
-        "four-bars-observed-six-bars-required"
+        "catalogue-size-corrected-from-6-pack-to-4x100g",
+        "exact-variant-match-confirmed-at-registered-retailer"
       ]
     },
     {
