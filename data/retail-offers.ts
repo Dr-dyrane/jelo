@@ -708,6 +708,21 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
+    exactNg(
+      "Derma Essentials",
+      "https://dermaessentialshub.com/product/la-roche-posay-toleriane-double-repair-matte-moisturizer/",
+      78,
+      57700,
+      "LA ROCHE-POSAY TOLERIANE DOUBLE REPAIR MATTE MOISTURIZE",
+      "75 ml",
+      {
+        observedAt: "2026-08-12T10:59:00Z",
+        expiresAt: "2026-08-19T10:59:00Z",
+        available: true,
+        stock: "low-stock",
+        inventoryQuantity: 4,
+      },
+    ),
   ],
   "dove-moroccan-argan-oil-beauty-bar": [
     exactNg(
@@ -7476,6 +7491,104 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-09T17:50:00Z",
         expiresAt: "2026-08-16T17:50:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+  ],
+  "naturium-salicylic-acid-serum-2-percent-1fl-oz": [
+    exactNg(
+      "Nihet Beauty",
+      "https://nihetbeauty.com/product/salicylic-acid-serum-2/",
+      76,
+      59750,
+      "Naturium Salicylic Acid Serum 2%",
+      "1.0 fl oz / 30 mL",
+      {
+        observedAt: "2026-08-12T11:01:00Z",
+        expiresAt: "2026-08-19T11:01:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+  ],
+  "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz": [
+    exactNg(
+      "Nihet Beauty",
+      "https://nihetbeauty.com/product/uv-reflect-antioxidant-spf-50/",
+      76,
+      86000,
+      "Naturium UV Reflect Antioxidant SPF 50",
+      "1.7 fl oz / 50 mL",
+      {
+        observedAt: "2026-08-12T11:02:00Z",
+        expiresAt: "2026-08-19T11:02:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+  ],
+  "naturium-vitamin-bright-illuminating-eye-cream-0-5oz": [
+    exactNg(
+      "Nihet Beauty",
+      "https://nihetbeauty.com/product/naturium-vitamin-bright-eye-cream/",
+      76,
+      74800,
+      "Naturium Vitamin Bright Eye Cream",
+      "0.5 fl oz / 15 mL",
+      {
+        observedAt: "2026-08-12T11:02:00Z",
+        expiresAt: "2026-08-19T11:02:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+  ],
+  "naturium-retinol-complex-cream-1-7oz": [
+    exactNg(
+      "Derma Essentials",
+      "https://dermaessentialshub.com/product/naturium-retinol-complex-cream/",
+      78,
+      48950,
+      "NATURIUM RETINOL COMPLEX CREAM",
+      "1.7 fl oz / 50 mL",
+      {
+        observedAt: "2026-08-12T11:03:00Z",
+        expiresAt: "2026-08-19T11:03:00Z",
+        stock: "low-stock",
+        inventoryQuantity: 4,
+        available: true,
+      },
+    ),
+  ],
+  "naturium-phyto-glow-lip-balm-clear-0-34oz": [
+    exactNg(
+      "The Beauty Prism",
+      "https://thebeautyprismng.com/shop/naturium-phyto-glow-lip-balm-clear/",
+      74,
+      24000,
+      "Naturium Phyto-Glow Lip Balm – Clear",
+      "0.34 fl oz / 10 mL",
+      {
+        observedAt: "2026-08-12T11:05:00Z",
+        expiresAt: "2026-08-19T11:05:00Z",
+        stock: "low-stock",
+        inventoryQuantity: 1,
+        available: true,
+      },
+    ),
+  ],
+  "naturium-niacinamide-gel-cream-5-1-7oz": [
+    exactNg(
+      "TOS Nigeria",
+      "https://tosnigeria.com/shop/naturium-niacinamide-gel-cream-5-50-g-1-7-oz/",
+      76,
+      20700,
+      "Naturium niacinamide gel cream 5% 50 G / 1.7 OZ",
+      "1.7 oz / 50 mL",
+      {
+        observedAt: "2026-08-12T11:05:00Z",
+        expiresAt: "2026-08-19T11:05:00Z",
         stock: "in-stock",
         available: true,
       },
