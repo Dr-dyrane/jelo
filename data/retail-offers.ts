@@ -7366,6 +7366,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "out-of-stock",
       },
     ),
+    exactNg(
+      "Shadremmy Beauty",
+      "https://shadremmybeauty.com/product/naturium-retinaldehyde-cream-serum-0-10/",
+      78,
+      72500,
+      "Naturium Retinaldehyde Cream Serum 0.10%",
+      "50 ML / 1.7 FL OZ",
+      {
+        observedAt: "2026-08-12T23:11:00Z",
+        expiresAt: "2026-08-19T23:11:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
   ],
   "naturium-intense-overnight-sleeping-cream-1-7oz": [
     exactNg(
@@ -7616,6 +7630,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         expiresAt: "2026-08-19T11:05:00Z",
         stock: "low-stock",
         inventoryQuantity: 1,
+        available: true,
+      },
+    ),
+    exactNg(
+      "Nihet Beauty",
+      "https://nihetbeauty.com/product/naturium-phyto-glow-lip-balm-clear/",
+      76,
+      45000,
+      "Naturium Phyto-Glow Lip Balm Clear",
+      "0.34 fl oz / 10 mL",
+      {
+        observedAt: "2026-08-12T23:12:00Z",
+        expiresAt: "2026-08-19T23:12:00Z",
+        stock: "in-stock",
         available: true,
       },
     ),
