@@ -27,6 +27,7 @@ const limitedAvailabilitySlugs = new Set([
   "naturium-retinol-complex-cream-1-7oz",
   "naturium-intense-overnight-sleeping-cream-1-7oz",
   "benton-honest-cleansing-foam-150g",
+  "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
 ]);
 
 /**
