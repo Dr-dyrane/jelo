@@ -929,6 +929,24 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Lagos beauty retailer with Naira pricing, nationwide delivery, and a focus on premium skincare and haircare brands.",
   },
   {
+    name: "HelloBeauty NG",
+    homepage: "https://hellobeautyng.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 76,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-13T05:30:00Z",
+      sourceUrl: "https://hellobeautyng.com/pages/contact-us",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query: string) =>
+      `https://hellobeautyng.com/search?q=${encodeURIComponent(query)}`,
+    note: "Lekki Lagos Shopify beauty retailer with Naira pricing and nationwide delivery.",
+  },
+  {
     name: "ShopTESA Ng",
     homepage: "https://shoptesang.com/",
     market: "NG",

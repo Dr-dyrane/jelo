@@ -7374,6 +7374,21 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "out-of-stock",
       },
     ),
+    exactNg(
+      "HelloBeauty NG",
+      "https://hellobeautyng.com/products/naturium-retinaldehyde-cream-serum-0-05",
+      76,
+      52500,
+      "Naturium Retinaldehyde Cream Serum 0.05%",
+      "1.7 fl oz / 50 mL",
+      {
+        observedAt: "2026-08-13T05:30:00Z",
+        expiresAt: "2026-08-20T05:30:00Z",
+        stock: "low-stock",
+        inventoryQuantity: 5,
+        available: true,
+      },
+    ),
   ],
   "naturium-retinaldehyde-cream-serum-0-10-1-7oz": [
     exactNg(
