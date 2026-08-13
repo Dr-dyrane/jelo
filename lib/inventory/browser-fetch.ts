@@ -82,6 +82,16 @@ export async function fetchRetailerPageWithBrowser(
       waitUntil: "networkidle",
       timeout: BROWSER_FETCH_TIMEOUT_MS,
     });
+    if (response && !response.ok()) {
+      console.warn(
+        JSON.stringify({
+          event: "browser_fetch_failed",
+          url,
+          error: `Browser received HTTP ${response.status()}`,
+        }),
+      );
+      return undefined;
+    }
     const html = await page.content();
     const responseUrl = page.url();
     const status = response?.status() ?? 200;

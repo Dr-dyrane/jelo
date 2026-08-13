@@ -734,12 +734,19 @@ export async function processNextInventoryRefreshJob(
     let observation =
       (await fetchWooStoreApi(job.url)) ?? (await fetchRetailerPage(job.url));
 
+    // Cache the browser fetch result so we don't launch the browser twice
+    // (once for structured extraction, once for AI extraction fallback).
+    let cachedBrowserHtml: string | undefined;
+    let cachedBrowserUrl: string | undefined;
+
     // If HTTP fetch failed and the host is known to block server-side requests
     // (e.g. Jumia/Cloudflare), fall back to a headless browser fetch. The
     // browser renders the page like a real user, bypassing bot detection.
     if (!observation && isBlockedHost(job.url) && isBrowserFetchAvailable()) {
       const browserResult = await fetchRetailerPageWithBrowser(job.url);
       if (browserResult) {
+        cachedBrowserHtml = browserResult.html;
+        cachedBrowserUrl = browserResult.responseUrl;
         const result = extractRetailerPage({
           url: new URL(browserResult.responseUrl),
           html: browserResult.html,
@@ -760,12 +767,11 @@ export async function processNextInventoryRefreshJob(
     if (!observation && aiExtractionConfig()) {
       let htmlForAi: string | undefined;
       let urlForAi = job.url;
-      if (isBlockedHost(job.url) && isBrowserFetchAvailable()) {
-        const browserResult = await fetchRetailerPageWithBrowser(job.url);
-        if (browserResult) {
-          htmlForAi = browserResult.html;
-          urlForAi = browserResult.responseUrl;
-        }
+
+      if (cachedBrowserHtml) {
+        // Reuse the browser HTML we already fetched for blocked hosts
+        htmlForAi = cachedBrowserHtml;
+        urlForAi = cachedBrowserUrl ?? job.url;
       } else {
         // Re-fetch the page HTML directly for AI extraction — the earlier
         // fetchRetailerPage call may have thrown before returning HTML.
@@ -790,6 +796,7 @@ export async function processNextInventoryRefreshJob(
           // If we can't get HTML, AI extraction can't run either
         }
       }
+
       if (!observation && htmlForAi) {
         const aiResult = await extractRetailerPageWithAi({
           html: htmlForAi,
