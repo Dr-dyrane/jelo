@@ -1,6 +1,6 @@
 # Environments
 
-Updated: 2026-08-03
+Updated: 2026-08-13
 
 Use the same names across local development, Vercel Preview, and Vercel Production. Values differ; contracts do not.
 
@@ -47,10 +47,10 @@ verification.
 
 ### Application
 
-| Variable | Required | Notes |
-| --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Production | Canonical origin and retailer magic-link origin |
-| `CATALOGUE_SOURCE` | Yes | `static` or `neon`; Neon reads retain static fallback |
+| Variable               | Required   | Notes                                                 |
+| ---------------------- | ---------- | ----------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | Production | Canonical origin and retailer magic-link origin       |
+| `CATALOGUE_SOURCE`     | Yes        | `static` or `neon`; Neon reads retain static fallback |
 
 Ask Jelo is deterministic and currently has no model provider or model-selection
 environment variable. Any future language-only lane requires a separate
@@ -58,12 +58,14 @@ reviewed boundary before a provider credential is added.
 
 ### PostgreSQL
 
-| Variable | Required | Notes |
-| --- | --- | --- |
-| `DATABASE_URL` | Production runtime data features | Pooled postgres.js URL whose username is exactly `jelocare_app_runtime`; require `sslmode=verify-full` and omit `channel_binding` |
-| `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf and Routine runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only |
-| `POSTGRES_URL` | Compatibility only | If retained, it must satisfy the same driver and exact app-role contract, never point to an owner or administrator |
-| `NEON_PROJECT_ID` | Operator convenience | Not read by application runtime |
+| Variable                      | Required                          | Notes                                                                                                                                                                                                                                                      |
+| ----------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `APP_DATABASE_URL`            | Production runtime data features  | Pooled postgres.js URL whose username is exactly `jelocare_app_runtime`; require `sslmode=verify-full` and omit `channel_binding`. Takes precedence over `DATABASE_URL` to bypass the Neon Vercel integration's auto-generated owner-role URL.             |
+| `DATABASE_URL`                | Compatibility only                | The Neon Vercel integration auto-generates this with the `neondb_owner` role, overriding any user-set value in Production. Use `APP_DATABASE_URL` for the restricted runtime credential. In local development, set this to the `jelocare_app_runtime` URL. |
+| `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf and Routine runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only                                                                                                              |
+| `POSTGRES_URL`                | Compatibility only                | If retained, it must satisfy the same driver and exact app-role contract, never point to an owner or administrator                                                                                                                                         |
+| `NEON_PROJECT_ID`             | Operator convenience              | Not read by application runtime                                                                                                                                                                                                                            |
+| `CRON_SECRET`                 | Production cron endpoints         | Bearer token for `/api/cron/inventory` and `/api/cron/reconcile-requests`. Must be at least 16 characters; `isAuthorizedCronRequest` rejects shorter secrets.                                                                                              |
 
 `MIGRATION_DATABASE_URL` is deliberately not a Vercel environment variable. A
 protected operator process injects one direct, non-pooled administrator URL for
@@ -92,21 +94,21 @@ the [Shelf release runbook](./RUNBOOKS.md#release-the-customer-shelf-boundary).
 
 ### Media
 
-| Variable | Required | Notes |
-| --- | --- | --- |
-| `BLOB_READ_WRITE_TOKEN` | Asset writes, production asset operators, and the protected private product-request cleanup drain | Server-only; inject beside `MIGRATION_DATABASE_URL` only for the bounded drain and remove afterward |
-| `BLOB_STORE_ID` | Provider metadata | Not read by the current runtime |
-| `BLOB_WEBHOOK_PUBLIC_KEY` | Future webhook verification | Not read by the current runtime |
+| Variable                  | Required                                                                                          | Notes                                                                                               |
+| ------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `BLOB_READ_WRITE_TOKEN`   | Asset writes, production asset operators, and the protected private product-request cleanup drain | Server-only; inject beside `MIGRATION_DATABASE_URL` only for the bounded drain and remove afterward |
+| `BLOB_STORE_ID`           | Provider metadata                                                                                 | Not read by the current runtime                                                                     |
+| `BLOB_WEBHOOK_PUBLIC_KEY` | Future webhook verification                                                                       | Not read by the current runtime                                                                     |
 
 ### Rate limiting
 
-| Variable | Required | Notes |
-| --- | --- | --- |
-| `KV_REST_API_URL` | Every production-mode Ask Jelo runtime | Upstash REST URL; required in Vercel Production, Vercel Preview, and local `next start` |
-| `KV_REST_API_TOKEN` | Every production-mode Ask Jelo runtime | Upstash REST token; required in Vercel Production, Vercel Preview, and local `next start` |
-| `CONSULT_RATE_LIMIT_SECRET` | Recommended | Dedicated server-only HMAC salt for Ask Jelo network keys; otherwise a database URL is used |
-| `COMMUNITY_INTAKE_RATE_LIMIT_SECRET` | Recommended | HMAC salt; otherwise a database URL is used |
-| `RETAILER_PARTNERSHIP_RATE_LIMIT_SECRET` | Recommended | Separate HMAC salt |
+| Variable                                 | Required                               | Notes                                                                                       |
+| ---------------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `KV_REST_API_URL`                        | Every production-mode Ask Jelo runtime | Upstash REST URL; required in Vercel Production, Vercel Preview, and local `next start`     |
+| `KV_REST_API_TOKEN`                      | Every production-mode Ask Jelo runtime | Upstash REST token; required in Vercel Production, Vercel Preview, and local `next start`   |
+| `CONSULT_RATE_LIMIT_SECRET`              | Recommended                            | Dedicated server-only HMAC salt for Ask Jelo network keys; otherwise a database URL is used |
+| `COMMUNITY_INTAKE_RATE_LIMIT_SECRET`     | Recommended                            | HMAC salt; otherwise a database URL is used                                                 |
+| `RETAILER_PARTNERSHIP_RATE_LIMIT_SECRET` | Recommended                            | Separate HMAC salt                                                                          |
 
 Ask Jelo fails closed in every production-mode runtime when either required
 Upstash REST value is missing or the configured limiter is unavailable. Vercel
@@ -120,14 +122,14 @@ values but are not used by the current request limiters.
 
 ### Email
 
-| Variable | Required | Notes |
-| --- | --- | --- |
-| `EMAIL_PROVIDER` | Retailer magic links | `hostinger-api` preferred; `hostinger-smtp` fallback |
-| `EMAIL_API_TOKEN` | Hostinger API delivery | Mailbox-scoped Agentic Mail token |
-| `EMAIL_SMTP_PASSWORD` | SMTP fallback only | Mailbox password, never an API token |
-| `EMAIL_FROM_ADDRESS` | Recommended | Auth username; defaults to `hello@jelocare.com` |
-| `EMAIL_FROM` | Recommended | Display sender |
-| `EMAIL_REPLY_TO` | Recommended | Reply destination |
+| Variable              | Required               | Notes                                                |
+| --------------------- | ---------------------- | ---------------------------------------------------- |
+| `EMAIL_PROVIDER`      | Retailer magic links   | `hostinger-api` preferred; `hostinger-smtp` fallback |
+| `EMAIL_API_TOKEN`     | Hostinger API delivery | Mailbox-scoped Agentic Mail token                    |
+| `EMAIL_SMTP_PASSWORD` | SMTP fallback only     | Mailbox password, never an API token                 |
+| `EMAIL_FROM_ADDRESS`  | Recommended            | Auth username; defaults to `hello@jelocare.com`      |
+| `EMAIL_FROM`          | Recommended            | Display sender                                       |
+| `EMAIL_REPLY_TO`      | Recommended            | Reply destination                                    |
 
 Create the API token under hPanel → Emails → the domain → Agentic mail → API.
 The mailer resolves the configured sender against `/api/v1/me` before sending.
@@ -136,8 +138,8 @@ is not an SMTP password.
 
 ### Scheduled and release operations
 
-| Variable | Required | Notes |
-| --- | --- | --- |
+| Variable      | Required   | Notes                                   |
+| ------------- | ---------- | --------------------------------------- |
 | `CRON_SECRET` | Production | Bearer secret for `/api/cron/inventory` |
 
 Vercel builds have no database-migration or seed switch. They verify, build,

@@ -1,17 +1,17 @@
 # Neon and data operations
 
-Updated: 2026-08-03
+Updated: 2026-08-13
 
 Neon PostgreSQL is the durable store. Checked-in reviewed data remains a deliberate public fallback.
 
 ## Connection roles
 
-| Use | Variable and database role | Allowed location |
-| --- | --- | --- |
-| General application runtime | `DATABASE_URL` as `jelocare_app_runtime` | Vercel server runtime and local development |
-| Private Shelf runtime | `CUSTOMER_SHELF_DATABASE_URL` as `jelocare_shelf_runtime` | Vercel server runtime and local development |
-| Migrations and reconciliation | `MIGRATION_DATABASE_URL` as a protected administrator | Operator workstation or protected release runner only; never Vercel |
-| General runtime compatibility | `POSTGRES_URL` as `jelocare_app_runtime` | Retain only when required; never point it to the owner |
+| Use                           | Variable and database role                                                 | Allowed location                                                    |
+| ----------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| General application runtime   | `APP_DATABASE_URL` (preferred) or `DATABASE_URL` as `jelocare_app_runtime` | Vercel server runtime and local development                         |
+| Private Shelf runtime         | `CUSTOMER_SHELF_DATABASE_URL` as `jelocare_shelf_runtime`                  | Vercel server runtime and local development                         |
+| Migrations and reconciliation | `MIGRATION_DATABASE_URL` as a protected administrator                      | Operator workstation or protected release runner only; never Vercel |
+| General runtime compatibility | `POSTGRES_URL` as `jelocare_app_runtime`                                   | Retain only when required; never point it to the owner              |
 
 Never expose a PostgreSQL connection string through a `NEXT_PUBLIC_` variable.
 Never put the database owner or another migration-capable credential in Vercel,
@@ -24,6 +24,30 @@ statements disabled. In production it fails closed unless the connection URL
 names the exact `jelocare_app_runtime` user. Shelf uses its own attested client;
 migration and reconciliation scripts accept only `MIGRATION_DATABASE_URL`.
 
+### Neon Vercel integration and `APP_DATABASE_URL`
+
+The Vercel Neon integration ("JeloCare" resource) auto-generates `DATABASE_URL`
+using the `neondb_owner` role on every deployment. This system-managed variable
+overrides any user-set `DATABASE_URL` in the Production environment, preventing
+the application from connecting via the restricted `jelocare_app_runtime` role.
+
+`APP_DATABASE_URL` is the precedence-first env var that bypasses the integration
+override. `applicationDatabaseUrl()` in `lib/database/runtime-database-config.ts`
+resolves `APP_DATABASE_URL` before `DATABASE_URL` and `POSTGRES_URL`, so the
+restricted runtime credential reaches the application even when the integration
+re-creates `DATABASE_URL` with the owner role.
+
+**Production setup:**
+
+1. Create the `jelocare_app_runtime` role in Neon (see
+   [Runbooks §1](../operations/RUNBOOKS.md#1-rehearse-and-provision-the-runtime-roles)).
+2. Set `APP_DATABASE_URL` in Vercel Production with the pooled postgres.js URL
+   whose username is exactly `jelocare_app_runtime`.
+3. The integration-managed `DATABASE_URL` may remain; it is ignored when
+   `APP_DATABASE_URL` is present and valid.
+4. Verify with the dry-run cron probe (see
+   [Inventory cron recovery](../operations/RUNBOOKS.md#inventory-cron-is-not-running)).
+
 The restricted application URLs are consumed by postgres.js. Their query
 strings must use `sslmode=verify-full` and omit the unsupported
 `channel_binding` parameter, including provider-generated
@@ -35,18 +59,18 @@ be `jelocare_app_runtime`, and the read-only Shelf audit must attest
 
 ## Schema map
 
-| Area | Tables |
-| --- | --- |
-| Catalogue | `brands`, `products`, `product_images`, `concerns`, product relation tables |
-| Retail | `retailers`, `offers`, `offer_price_history`, `inventory_refresh_jobs` |
-| Clinical | `ingredients`, `ingredient_synonyms`, `ingredient_concerns`, `ingredient_relations`, `product_ingredients` |
-| Editorial | `editorial_assets` |
-| Frozen external catalogue | `external_catalogue_products`, `external_catalogue_releases` |
-| Community intake | `community_intake_drafts`, `community_contributions`, moderation, observation, research-task, event, and edge tables |
-| Retailer partnerships | `retailer_partnership_applications`, `retailer_partnership_events` |
-| Operations | `moderation_operators`, append-only `moderation_audit_log` (`event_sequence` is causal order; `created_at` is presentation time) |
-| Customer Shelf | `customer_shelf_items`; private one-off `customer_shelf_import_receipts` |
-| Migration history | `schema_migrations` |
+| Area                      | Tables                                                                                                                           |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Catalogue                 | `brands`, `products`, `product_images`, `concerns`, product relation tables                                                      |
+| Retail                    | `retailers`, `offers`, `offer_price_history`, `inventory_refresh_jobs`                                                           |
+| Clinical                  | `ingredients`, `ingredient_synonyms`, `ingredient_concerns`, `ingredient_relations`, `product_ingredients`                       |
+| Editorial                 | `editorial_assets`                                                                                                               |
+| Frozen external catalogue | `external_catalogue_products`, `external_catalogue_releases`                                                                     |
+| Community intake          | `community_intake_drafts`, `community_contributions`, moderation, observation, research-task, event, and edge tables             |
+| Retailer partnerships     | `retailer_partnership_applications`, `retailer_partnership_events`                                                               |
+| Operations                | `moderation_operators`, append-only `moderation_audit_log` (`event_sequence` is causal order; `created_at` is presentation time) |
+| Customer Shelf            | `customer_shelf_items`; private one-off `customer_shelf_import_receipts`                                                         |
+| Migration history         | `schema_migrations`                                                                                                              |
 
 The ordered files in `db/migrations/` are authoritative.
 

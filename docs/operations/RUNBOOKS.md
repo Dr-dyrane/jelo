@@ -665,6 +665,100 @@ Never heal a mismatched package with generation.
 
 ## Inventory cron fails
 
+### Quick diagnosis
+
+1. Probe the dry-run endpoint with the CRON_SECRET:
+
+   ```bash
+   curl -s -H "Authorization: Bearer $CRON_SECRET" \
+     "https://www.jelocare.com/api/cron/inventory?dry-run"
+   ```
+   - **401 Unauthorized:** `CRON_SECRET` is missing, too short (< 16 chars),
+     or not propagated to the deployment. See
+     [Troubleshooting: CRON_SECRET too short](../catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running).
+   - **500 "Runtime database access is unavailable":** The
+     `jelocare_app_runtime` role is missing or `APP_DATABASE_URL` is not set.
+     See
+     [Troubleshooting: role missing / Neon integration override](../catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running).
+   - **200 with `backlog.due > 0`:** The cron is operational; offers are queued
+     and will be processed on the next scheduled run.
+
+2. Check the Neon database directly:
+
+   ```sql
+   SELECT count(*) FILTER (WHERE verification_expires_at <= now()) as expired,
+          count(*) FILTER (WHERE verification_expires_at > now()) as fresh,
+          max(last_verified_at) as most_recent
+   FROM offers WHERE match_kind = 'exact' AND url ~* '^https://';
+   ```
+
+   If `most_recent` is more than 24 hours old and `expired > 0`, the cron has
+   not been running.
+
+3. Check the `inventory_refresh_jobs` table:
+   ```sql
+   SELECT status, count(*) FROM inventory_refresh_jobs GROUP BY status;
+   ```
+   An empty table means no jobs have been enqueued. The cron's
+   `enqueueDueInventoryOffers` step creates jobs for offers whose verification
+   has expired or will expire within the 24-hour lookahead window.
+
+### Common failures
+
+#### CRON_SECRET too short
+
+`isAuthorizedCronRequest` in `modules/retail-intelligence/cron-auth.ts`
+requires the secret to be at least 16 characters. A shorter secret causes
+every cron request to return 401 before any database work begins.
+
+**Fix:**
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))" | vercel env add CRON_SECRET production
+```
+
+Then trigger a redeployment.
+
+#### `jelocare_app_runtime` role missing
+
+Migration `0035_runtime_database_roles.sql` expects the role to already exist
+but does not create it. Without it, `applicationDatabaseUrl()` returns
+`undefined` in production because the `DATABASE_URL` username is
+`neondb_owner`, not `jelocare_app_runtime`.
+
+**Fix:** Create the role in Neon and grant the required privileges (see
+[§1 Rehearse and provision the runtime roles](#1-rehearse-and-provision-the-runtime-roles)
+and migration `0035`).
+
+#### Neon Vercel integration overriding `DATABASE_URL`
+
+The "JeloCare" Neon integration resource auto-generates `DATABASE_URL` with the
+`neondb_owner` role on every deployment, overriding any user-set value.
+
+**Fix:** Set `APP_DATABASE_URL` in Vercel Production with the restricted
+`jelocare_app_runtime` URL. `applicationDatabaseUrl()` resolves
+`APP_DATABASE_URL` before `DATABASE_URL`, so the integration override is
+bypassed. See
+[NEON.md § Neon Vercel integration](../data/NEON.md#neon-vercel-integration-and-app_database_url).
+
+### After fixing
+
+1. Trigger a redeployment so the new env vars are picked up.
+2. Run the dry-run probe to confirm 200.
+3. Run the full cron to process the backlog:
+   ```bash
+   curl -s -H "Authorization: Bearer $CRON_SECRET" \
+     "https://www.jelocare.com/api/cron/inventory"
+   ```
+4. Verify that `run.completed > 0` and `run.failed === 0`.
+5. Check the database for fresh verifications:
+   ```sql
+   SELECT count(*) FILTER (WHERE last_verified_at >= now() - interval '1 hour') as just_verified
+   FROM offers WHERE match_kind = 'exact' AND url ~* '^https://';
+   ```
+
+### Runtime diagnosis
+
 1. Verify `CRON_SECRET` and the Authorization header.
 2. Inspect the response or `inventory_refresh_cron_completed` log. `run`
    separates completed, retrying, terminal-failed, discarded, lease-recovered,

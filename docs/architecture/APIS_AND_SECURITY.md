@@ -6,20 +6,20 @@ Route handlers validate at the boundary, keep secrets server-only, and fail clos
 
 ## Route catalogue
 
-| Route | Method | Purpose | Main controls |
-| --- | --- | --- | --- |
-| `/api/consult` | `POST` | Guided skin education | Browser provenance check, 64 KiB body, Zod bounds, deterministic safety gate, filtered catalogue, production-fail-closed Upstash limit |
-| `/api/products/suggestions` | `GET` | Bounded public catalogue typeahead | Minimal public projection, normalized 2–120 character query, indexed Neon lookup, market allowlist, seven-result cap, short shared cache, hashed-network read limit |
-| `/api/contribute/drafts` | `POST` | Start anonymous draft | Same-site check, honeypot, rate limit, PostgreSQL requirement |
-| `/api/contribute/drafts/[id]` | `PUT` | Save draft and events | HttpOnly edit secret, optimistic revision, 64 KiB body |
-| `/api/contribute/drafts/[id]/submit` | `POST` | Submit contribution | Edit secret, UUID idempotency key, rate limit, final schema |
-| `/api/retailers/applications` | `POST` | Start retailer application | Same-site check, consent, honeypot, rate limit, PostgreSQL |
-| `/api/retailers/applications/[id]` | `GET`, `PUT` | Restore or save retailer application | HttpOnly private token, optimistic revision |
-| `/api/retailers/applications/[id]/send-link` | `POST` | Resend private link | Edit secret, rate limit, mail availability |
-| `/api/retailers/applications/[id]/submit` | `POST` | Submit retailer application | Edit secret, UUID idempotency key, final schema |
-| `/api/retailers/magic` | `GET` | Open and verify private link | Token hash, expiry, rate limit, HttpOnly cookie |
-| `/api/cron/inventory` | `GET` | Refresh due retail offers | Bearer `CRON_SECRET`, bounded batch |
-| `/go` | `GET` | Outbound retailer redirect | Allowlisted offer lookup and attribution logic |
+| Route                                        | Method       | Purpose                              | Main controls                                                                                                                                                       |
+| -------------------------------------------- | ------------ | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/api/consult`                               | `POST`       | Guided skin education                | Browser provenance check, 64 KiB body, Zod bounds, deterministic safety gate, filtered catalogue, production-fail-closed Upstash limit                              |
+| `/api/products/suggestions`                  | `GET`        | Bounded public catalogue typeahead   | Minimal public projection, normalized 2–120 character query, indexed Neon lookup, market allowlist, seven-result cap, short shared cache, hashed-network read limit |
+| `/api/contribute/drafts`                     | `POST`       | Start anonymous draft                | Same-site check, honeypot, rate limit, PostgreSQL requirement                                                                                                       |
+| `/api/contribute/drafts/[id]`                | `PUT`        | Save draft and events                | HttpOnly edit secret, optimistic revision, 64 KiB body                                                                                                              |
+| `/api/contribute/drafts/[id]/submit`         | `POST`       | Submit contribution                  | Edit secret, UUID idempotency key, rate limit, final schema                                                                                                         |
+| `/api/retailers/applications`                | `POST`       | Start retailer application           | Same-site check, consent, honeypot, rate limit, PostgreSQL                                                                                                          |
+| `/api/retailers/applications/[id]`           | `GET`, `PUT` | Restore or save retailer application | HttpOnly private token, optimistic revision                                                                                                                         |
+| `/api/retailers/applications/[id]/send-link` | `POST`       | Resend private link                  | Edit secret, rate limit, mail availability                                                                                                                          |
+| `/api/retailers/applications/[id]/submit`    | `POST`       | Submit retailer application          | Edit secret, UUID idempotency key, final schema                                                                                                                     |
+| `/api/retailers/magic`                       | `GET`        | Open and verify private link         | Token hash, expiry, rate limit, HttpOnly cookie                                                                                                                     |
+| `/api/cron/inventory`                        | `GET`        | Refresh due retail offers            | Bearer `CRON_SECRET`, bounded batch                                                                                                                                 |
+| `/go`                                        | `GET`        | Outbound retailer redirect           | Allowlisted offer lookup and attribution logic                                                                                                                      |
 
 JeloCare Me Shelf mutations are authenticated server actions rather than public
 API routes. `/me/shelf/export` is an authenticated, private, no-store download.
@@ -48,15 +48,15 @@ path, query, form, or JSON body.
 
 ## Data classification
 
-| Data | Classification | Rule |
-| --- | --- | --- |
-| Public product and retailer records | Public | Publish only through the relevant evidence gate |
-| Community submissions | Internal, anonymous | Aggregate for research; do not present as verified fact |
-| Retailer applications | Confidential business data | Restrict to operations; retain only as documented |
-| Customer Shelf rows and exports | Private customer data | Owner-derived access only; never send to Operations, analytics, public caches, advertising, community research, or model training |
-| Edit and magic-link tokens | Secret | Never log or store in plaintext |
-| Email, phone, address | Personal/business contact data | Use only with recorded consent |
-| Database, Blob, Redis, mail, and third-party credentials | Secret | Server-only environment variables |
+| Data                                                     | Classification                 | Rule                                                                                                                              |
+| -------------------------------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| Public product and retailer records                      | Public                         | Publish only through the relevant evidence gate                                                                                   |
+| Community submissions                                    | Internal, anonymous            | Aggregate for research; do not present as verified fact                                                                           |
+| Retailer applications                                    | Confidential business data     | Restrict to operations; retain only as documented                                                                                 |
+| Customer Shelf rows and exports                          | Private customer data          | Owner-derived access only; never send to Operations, analytics, public caches, advertising, community research, or model training |
+| Edit and magic-link tokens                               | Secret                         | Never log or store in plaintext                                                                                                   |
+| Email, phone, address                                    | Personal/business contact data | Use only with recorded consent                                                                                                    |
+| Database, Blob, Redis, mail, and third-party credentials | Secret                         | Server-only environment variables                                                                                                 |
 
 The database owner and `MIGRATION_DATABASE_URL` are not application secrets and
 must not exist in Vercel. Production Vercel receives only the restricted
@@ -76,7 +76,8 @@ Ask Jelo is deterministic and does not call a language model.
 
 ## Known controls to preserve
 
-- `CRON_SECRET` must exist in production even though it is managed outside application code.
+- `CRON_SECRET` must exist in production and be at least 16 characters. `isAuthorizedCronRequest` rejects shorter secrets, causing the inventory and reconcile-requests crons to silently return 401. See [Troubleshooting: Inventory cron is not running](../catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running).
+- `APP_DATABASE_URL` must be set in Vercel Production with the `jelocare_app_runtime` role. The Neon Vercel integration auto-generates `DATABASE_URL` with the `neondb_owner` role, which `applicationDatabaseUrl()` rejects in production. `APP_DATABASE_URL` takes precedence and bypasses the override. See [NEON.md](../data/NEON.md#neon-vercel-integration-and-app_database_url).
 - Non-consult public limiters retain their documented local/failover behavior. Ask Jelo specifically requires Upstash in production and fails closed.
 - The Agentic Mail API token is preferred. SMTP remains a mailbox-password fallback.
 - Magic links expire after 30 days; retailer application retention is 24 months in the current migration.

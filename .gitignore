@@ -45,3 +45,4 @@ data/catalogue-intake-assets/**/*.avif
 
 # Vercel project linkage and pulled environments
 .vercel/
+.env*

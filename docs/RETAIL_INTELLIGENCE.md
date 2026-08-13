@@ -12,11 +12,11 @@ An exact identifier may come from a retailer's product-gallery back label when t
 
 ## Launch reference retailers
 
-| Retailer | Reference URL | Market | Role |
-| --- | --- | --- | --- |
-| Beauty by Daz | https://beautybydaz.com/ | NG | Primary catalogue and offer reference |
-| Lux Beauty NG | https://www.luxbeautyng.com/ | NG | Premium Nigerian beauty reference |
-| Teeka4 | https://teeka4.com/ | NG | Nigerian skincare and beauty reference |
+| Retailer      | Reference URL                | Market | Role                                   |
+| ------------- | ---------------------------- | ------ | -------------------------------------- |
+| Beauty by Daz | https://beautybydaz.com/     | NG     | Primary catalogue and offer reference  |
+| Lux Beauty NG | https://www.luxbeautyng.com/ | NG     | Premium Nigerian beauty reference      |
+| Teeka4        | https://teeka4.com/          | NG     | Nigerian skincare and beauty reference |
 
 Tracking parameters must not be stored as canonical retailer URLs. Product-level URLs should replace homepage references as they are verified.
 
@@ -141,6 +141,8 @@ Extraction order is conservative:
 Page-wide purchase copy is not stock evidence. Every refresh records the adapter, confidence, evidence labels, observed product title and same-origin canonical URL. High-confidence observations remain fresh longer than incomplete ones.
 
 Production queues and checks a bounded set of exact offers once each day, starting 24 hours before their verification window expires. The cron route is bearer-authenticated, ignores store-search URLs and uses the existing locked job queue so overlapping requests cannot claim the same offer. Public price and availability claims honor both the seven-day maximum and the shorter confidence-based expiry recorded by the worker.
+
+The cron depends on three production prerequisites: a `CRON_SECRET` of at least 16 characters, the `jelocare_app_runtime` database role provisioned in Neon, and `APP_DATABASE_URL` set in Vercel Production (bypassing the Neon integration's auto-generated `DATABASE_URL`). If any is missing, the cron silently fails. See [Troubleshooting: Inventory cron is not running](../catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running) and [Runbooks: Inventory cron fails](../operations/RUNBOOKS.md#inventory-cron-fails).
 
 The scheduled worker may service every configured market. A manual maintenance
 run must pass an explicit two-letter market when its authorization is narrower;

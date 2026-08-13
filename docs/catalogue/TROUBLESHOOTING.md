@@ -1,6 +1,6 @@
 # Catalogue troubleshooting — errors and fixes
 
-Updated: 2026-08-08
+Updated: 2026-08-13
 
 A running log of errors encountered during catalogue intake, release, offer
 binding, and market trends work. Each entry documents the symptom, root cause,
@@ -475,3 +475,71 @@ peach/pink/dark review, then add the accepted hash to
 identical before and after the write. The restored-packshot regression test is
 mandatory for product, offer, care, brand, retailer, search, and projection
 release waves—not only for tasks whose title mentions images.
+
+## Inventory cron is not running
+
+**Symptom:** The `/api/cron/inventory` endpoint never processes offers.
+`inventory_refresh_jobs` is empty, `offers.verification_expires_at` dates drift
+past their expiry, and `/share` price/stock data goes stale. The cron schedule
+(`17 4,16 * * *` in `vercel.json`) appears correct.
+
+**Root causes (three independent failures, all must be fixed):**
+
+1. **`CRON_SECRET` too short.** `isAuthorizedCronRequest` in
+   `modules/retail-intelligence/cron-auth.ts` requires the secret to be at least
+   16 characters. A shorter secret causes every cron request to return 401
+   before any database work begins. Vercel's cron scheduler sends
+   `Authorization: Bearer <CRON_SECRET>`, so the 401 is silent from the
+   scheduler's perspective.
+
+2. **`jelocare_app_runtime` role missing.** Migration
+   `0035_runtime_database_roles.sql` expects the role to already exist (it
+   raises an exception if not found) but does not create it. The role must be
+   provisioned separately via the
+   [Shelf release runbook §1](../operations/RUNBOOKS.md#1-rehearse-and-provision-the-runtime-roles).
+   Without it, `applicationDatabaseUrl()` in
+   `lib/database/runtime-database-config.ts` returns `undefined` in production
+   because the `DATABASE_URL` username is `neondb_owner`, not
+   `jelocare_app_runtime`. The cron returns 500 with
+   "Runtime database access is unavailable."
+
+3. **Neon Vercel integration overriding `DATABASE_URL`.** The "JeloCare" Neon
+   integration resource auto-generates `DATABASE_URL` with the `neondb_owner`
+   role on every deployment. This system-managed variable overrides any user-set
+   `DATABASE_URL` in the Production environment, so even after setting the
+   correct restricted URL, the integration replaces it.
+
+**Fix:**
+
+1. Generate a CRON_SECRET of at least 32 characters and set it in Vercel
+   Production (and Preview/Development if those environments run cron tests):
+
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))" | vercel env add CRON_SECRET production
+   ```
+
+2. Create the `jelocare_app_runtime` role in Neon and grant it the required
+   privileges (see
+   [Runbooks §1](../operations/RUNBOOKS.md#1-rehearse-and-provision-the-runtime-roles)
+   and migration `0035_runtime_database_roles.sql`).
+
+3. Set `APP_DATABASE_URL` in Vercel Production with the pooled postgres.js URL
+   whose username is exactly `jelocare_app_runtime`:
+
+   ```bash
+   echo "postgresql://jelocare_app_runtime:<password>@<pooler-host>/neondb?sslmode=verify-full" | vercel env add APP_DATABASE_URL production
+   ```
+
+4. Trigger a redeployment so the new env vars are picked up.
+
+5. Verify with the dry-run probe:
+   ```bash
+   fetch('https://www.jelocare.com/api/cron/inventory?dry-run', {
+     headers: { Authorization: 'Bearer ' + secret }
+   })
+   ```
+   A 200 response with `backlog.due > 0` confirms the cron is operational.
+
+**Prevention:** After any Vercel env var change, trigger a redeployment and run
+the dry-run probe. The `CRON_SECRET` length check is enforced by
+`isAuthorizedCronRequest` and tested in `modules/retail-intelligence/cron-auth.test.ts`.
