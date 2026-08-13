@@ -7308,6 +7308,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "Deoset",
+      "https://deoset.com/product/estelin-vitamin-c-turmeric-brightening-face-serum-30ml/",
+      82,
+      4200,
+      "ESTELIN (Vitamin C + Turmeric) brightening Face serum 30ml",
+      "30 ml",
+      {
+        observedAt: "2026-08-13T11:00:00Z",
+        expiresAt: "2026-08-20T11:00:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
   ],
   "naturium-vitamin-c-complex-serum-jumbo-2fl-oz": [
     exactNg(
