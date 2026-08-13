@@ -222,7 +222,7 @@ test("store-choice coverage counts distinct governed retailers toward the target
 
 test("tiered coverage target lowers the gap for confirmed limited-availability products", () => {
   const report = productCoverage({
-    slug: "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+    slug: "benton-honest-cleansing-foam-150g",
     size: "150 ml",
     databasePublished: true,
     offers: [exactOffer],
@@ -231,6 +231,19 @@ test("tiered coverage target lowers the gap for confirmed limited-availability p
   assert.equal(report.storeChoice.target, 2);
   assert.equal(report.storeChoice.gapToTarget, 1);
   assert.equal(report.nextAction, "find 1 more trustworthy exact NG store");
+});
+
+test("single-source coverage target sets 1 for products with only one exact NG stockist", () => {
+  const report = productCoverage({
+    slug: "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+    size: "150 ml",
+    databasePublished: true,
+    offers: [exactOffer],
+    now,
+  });
+  assert.equal(report.storeChoice.target, 1);
+  assert.equal(report.storeChoice.gapToTarget, 0);
+  assert.equal(report.nextAction, "none—fresh exact NG coverage");
 });
 
 test("tiered coverage target keeps default for non-limited products", () => {

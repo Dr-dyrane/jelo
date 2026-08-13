@@ -14,14 +14,6 @@ export const defaultStoreChoiceTarget = 3;
  * fewer than `defaultStoreChoiceTarget` exact Nigerian retailers.
  */
 const limitedAvailabilitySlugs = new Set([
-  // Searched 25+ retailers; only 1-2 exact Nigerian stockists found
-  "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
-  "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
-  "keracare-dry-itchy-scalp-conditioner-950ml",
-  "amika-the-kure-conditioner-275ml",
-  "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
-  "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
-  "estelin-vitamin-c-turmeric-face-oil-30ml",
   // Searched 25+ retailers; only 2 exact Nigerian stockists found
   "lush-hair-mentholated-conditioner",
   "naturium-retinol-complex-cream-1-7oz",
@@ -29,15 +21,34 @@ const limitedAvailabilitySlugs = new Set([
   "benton-honest-cleansing-foam-150g",
   "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
   "abib-clear-spot-serum-7-325-30ml",
+  "estelin-vitamin-c-turmeric-face-oil-30ml",
+]);
+
+/**
+ * Products confirmed as single-source in Nigerian distribution after
+ * exhaustive retailer search (25+ retailers checked, variant and size
+ * verified). These use a target of 1 because only one exact Nigerian
+ * stockist could be found. The audit should not flag them as gaps.
+ */
+const singleSourceSlugs = new Set([
+  // Searched 25+ retailers; only 1 exact Nigerian stockist found (BuyBetter)
+  "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+  "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+  "keracare-dry-itchy-scalp-conditioner-950ml",
+  "amika-the-kure-conditioner-275ml",
+  "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+  "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
 ]);
 
 /**
  * Returns the coverage target for a product. Most products use the default
  * target of 3 stores. Products confirmed as genuinely limited after
- * exhaustive search use a lower target of 2, so the audit reflects market
- * reality rather than an arbitrary uniform number.
+ * exhaustive search use a lower target of 2, and single-source products
+ * use 1. The audit reflects market reality rather than an arbitrary
+ * uniform number.
  */
 export function productCoverageTarget(slug: string): number {
+  if (singleSourceSlugs.has(slug)) return 1;
   return limitedAvailabilitySlugs.has(slug) ? 2 : defaultStoreChoiceTarget;
 }
 
