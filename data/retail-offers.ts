@@ -7409,6 +7409,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
+    exactNg(
+      "Skincare Plug NG",
+      "https://skincareplug-ng.com/products/naturium-intense-overnight-sleeping-cream",
+      78,
+      55500,
+      "Naturium Intense Overnight Sleeping Cream",
+      "1.7 fl oz / 50 mL",
+      {
+        observedAt: "2026-08-13T00:40:00Z",
+        expiresAt: "2026-08-20T00:40:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
   ],
   "estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g": [
     exactNg(
@@ -7748,6 +7762,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-12T22:03:00Z",
         expiresAt: "2026-08-19T22:03:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+    exactNg(
+      "Skincare Plug NG",
+      "https://skincareplug-ng.com/products/naturium-vitamin-c-complex-serum",
+      78,
+      91000,
+      "Naturium Vitamin C Complex Serum (60g)",
+      "2.0 fl oz / 60 mL",
+      {
+        observedAt: "2026-08-13T00:42:00Z",
+        expiresAt: "2026-08-20T00:42:00Z",
         stock: "in-stock",
         available: true,
       },
