@@ -38,7 +38,7 @@ test("one Vercel cron feeds the existing Neon inventory queue twice daily", () =
   assert.match(route, /enqueueDueInventoryOffers\(batchSize\)/);
   assert.match(
     route,
-    /processInventoryRefreshBatch\(batchSize, \{ claimDeadlineAt \}\)/,
+    /processInventoryRefreshBatch\(batchSize,\s*\{[\s\S]*claimDeadlineAt[\s\S]*\}\)/,
   );
   assert.doesNotMatch(route, /insert\s+into\s+inventory_refresh_jobs/i);
 });
@@ -139,19 +139,19 @@ test("the cron stops claims before maxDuration and invalidates only after succes
   assert.match(route, /requestStartedAt \+ INVENTORY_CRON_CLAIM_BUDGET_MS/);
   assert.match(route, /if \(run\.affectedProductSlugs\.length > 0\)/);
   for (const path of [
-    "revalidatePath('/')",
-    "revalidatePath('/products')",
-    "revalidatePath('/products/[slug]', 'page')",
-    "revalidatePath('/concerns')",
-    "revalidatePath('/concerns/[slug]', 'page')",
-    "revalidatePath('/share')",
-    "revalidatePath(`/products/${slug}`)",
-    "revalidatePath(`/share/${slug}`)",
+    /revalidatePath\(['"]\/['"]\)/,
+    /revalidatePath\(['"]\/products['"]\)/,
+    /revalidatePath\(['"]\/products\/\[slug\]['"],\s*['"]page['"]\)/,
+    /revalidatePath\(['"]\/concerns['"]\)/,
+    /revalidatePath\(['"]\/concerns\/\[slug\]['"],\s*['"]page['"]\)/,
+    /revalidatePath\(['"]\/share['"]\)/,
+    /revalidatePath\(`\/products\/\$\{slug\}`\)/,
+    /revalidatePath\(`\/share\/\$\{slug\}`\)/,
   ]) {
-    assert.ok(route.includes(path), `missing inventory revalidation: ${path}`);
+    assert.match(route, path, `missing inventory revalidation: ${path}`);
   }
   assert.match(route, /getInventoryRefreshBacklogSummary\(\)/);
-  assert.match(route, /event: 'inventory_refresh_cron_completed'/);
+  assert.match(route, /event: ['"]inventory_refresh_cron_completed['"]/);
   assert.match(route, /return Response\.json\(summary\)/);
 });
 
@@ -195,7 +195,7 @@ test("all Woo retailers in the extraction adapters have a matching Woo API host"
 
 test("the cron supports a dry-run mode that skips fetching and writing", () => {
   assert.match(route, /dry-run/);
-  assert.match(route, /searchParams\.has\('dry-run'\)/);
+  assert.match(route, /searchParams\.has\(['"]dry-run['"]\)/);
   assert.match(route, /inventory_refresh_cron_dry_run/);
 });
 
