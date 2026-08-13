@@ -95,6 +95,8 @@
 .quoteForm label > span { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; }
 .quoteForm input,
 .quoteForm textarea { min-width: 0; width: 100%; padding: .72rem; border: 0; border-radius: .65rem; background: color-mix(in srgb, var(--ops-workspace) 12%, transparent); color: var(--ops-workspace); font: inherit; }
+.quoteForm input::placeholder,
+.quoteForm textarea::placeholder { color: color-mix(in srgb, var(--ops-workspace) 55%, transparent); opacity: 1; }
 .quoteForm textarea { min-height: 5rem; resize: vertical; }
 .quoteQuestion { min-height: 12rem; align-content: center; }
 .quoteQuestion > .quotePrompt { font-size: clamp(1.45rem, 3vw, 2.25rem) !important; line-height: 1.05; letter-spacing: -.02em !important; text-transform: none !important; }

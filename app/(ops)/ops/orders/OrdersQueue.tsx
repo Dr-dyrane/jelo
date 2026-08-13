@@ -315,26 +315,26 @@ function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateV
   const observed = order.lines.reduce((sum, line) => sum + line.observedUnitPriceNgn * line.quantity, 0);
   const [step, setStep] = useState(0);
   const [draft, setDraft] = useState({
-    productSubtotalNgn: observed,
-    retailerFeeNgn: 0,
-    taxNgn: 0,
-    jelocareFeeNgn: 0,
-    deliveryNgn: 0,
+    productSubtotalNgn: '',
+    retailerFeeNgn: '',
+    taxNgn: '',
+    jelocareFeeNgn: '',
+    deliveryNgn: '',
     evidenceReference: '',
     notes: '',
     expiresAt: '',
   });
   const questions = [
-    { key: 'productSubtotalNgn', shortLabel: 'Products', icon: PackageSearch, label: 'What is the verified product total?', hint: `Observed when requested: ${naira.format(observed)}` },
-    { key: 'retailerFeeNgn', shortLabel: 'Retailer fee', icon: Store, label: 'Did the retailer add a service fee?', hint: 'Enter 0 only when the retailer confirms there is none.' },
-    { key: 'taxNgn', shortLabel: 'Tax', icon: ReceiptText, label: 'Is tax shown separately?', hint: 'Enter the exact listed tax, or 0 when the retailer shows none.' },
-    { key: 'jelocareFeeNgn', shortLabel: 'JeloCare fee', icon: HandCoins, label: 'What is JeloCare’s service fee?', hint: 'This must match the approved service-fee policy.' },
-    { key: 'deliveryNgn', shortLabel: 'Delivery', icon: Truck, label: 'What is delivery to this address?', hint: `${order.deliveryCity}, ${order.deliveryState}` },
+    { key: 'productSubtotalNgn', shortLabel: 'Products', icon: PackageSearch, label: 'What is the verified product total?', hint: `Observed when requested: ${naira.format(observed)}`, placeholder: `e.g. ${observed.toLocaleString('en-NG')}` },
+    { key: 'retailerFeeNgn', shortLabel: 'Retailer fee', icon: Store, label: 'Did the retailer add a service fee?', hint: 'Enter 0 only when the retailer confirms there is none.', placeholder: 'Enter amount or 0' },
+    { key: 'taxNgn', shortLabel: 'Tax', icon: ReceiptText, label: 'Is tax shown separately?', hint: 'Enter the exact listed tax, or 0 when the retailer shows none.', placeholder: 'Enter tax or 0' },
+    { key: 'jelocareFeeNgn', shortLabel: 'JeloCare fee', icon: HandCoins, label: 'What is JeloCare’s service fee?', hint: 'This must match the approved service-fee policy.', placeholder: 'Enter approved fee' },
+    { key: 'deliveryNgn', shortLabel: 'Delivery', icon: Truck, label: 'What is delivery to this address?', hint: `${order.deliveryCity}, ${order.deliveryState}`, placeholder: 'Enter delivery fee' },
   ] as const;
-  const total = draft.productSubtotalNgn + draft.retailerFeeNgn + draft.taxNgn + draft.jelocareFeeNgn + draft.deliveryNgn;
+  const total = Number(draft.productSubtotalNgn || 0) + Number(draft.retailerFeeNgn || 0) + Number(draft.taxNgn || 0) + Number(draft.jelocareFeeNgn || 0) + Number(draft.deliveryNgn || 0);
   const reviewStep = questions.length + 2;
   const canContinue = step < questions.length
-    ? Number.isInteger(draft[questions[step].key]) && draft[questions[step].key] >= 0
+    ? draft[questions[step].key] !== '' && Number.isInteger(Number(draft[questions[step].key])) && Number(draft[questions[step].key]) >= 0
     : step === questions.length
       ? draft.evidenceReference.trim().length >= 8
       : step === questions.length + 1
@@ -359,6 +359,11 @@ function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateV
       orderId: order.id,
       revision: order.revision,
       ...draft,
+      productSubtotalNgn: Number(draft.productSubtotalNgn),
+      retailerFeeNgn: Number(draft.retailerFeeNgn),
+      taxNgn: Number(draft.taxNgn),
+      jelocareFeeNgn: Number(draft.jelocareFeeNgn),
+      deliveryNgn: Number(draft.deliveryNgn),
       expiresAt: new Date(draft.expiresAt).toISOString(),
     });
   }
@@ -383,8 +388,9 @@ function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateV
             inputMode="numeric"
             type="number"
             min="0"
+            placeholder={question.placeholder}
             value={draft[question.key]}
-            onChange={event => setDraft(current => ({ ...current, [question.key]: Number(event.target.value) }))}
+            onChange={event => setDraft(current => ({ ...current, [question.key]: event.target.value }))}
             required
           />
         </label>;
@@ -394,7 +400,7 @@ function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateV
         <label className={styles.quoteQuestion}>
           <span className={styles.quotePrompt}><FileCheck2 size={24} aria-hidden="true" />Where did you verify these numbers?</span>
           <small>Use the retailer quote, checkout reference, or staff evidence—not a private credential.</small>
-          <input autoFocus value={draft.evidenceReference} onChange={event => setDraft(current => ({ ...current, evidenceReference: event.target.value }))} minLength={8} required />
+          <input autoFocus value={draft.evidenceReference} onChange={event => setDraft(current => ({ ...current, evidenceReference: event.target.value }))} minLength={8} placeholder="e.g. Checkout #BH-48392" required />
         </label>
       ) : null}
 
@@ -409,11 +415,11 @@ function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateV
         <div className={styles.quoteReview}>
           <p><ClipboardCheck size={17} aria-hidden="true" /> Review before sending</p>
           <dl>
-            <div><dt>Products</dt><dd>{naira.format(draft.productSubtotalNgn)}</dd></div>
-            <div><dt>Retailer fee</dt><dd>{naira.format(draft.retailerFeeNgn)}</dd></div>
-            <div><dt>Tax</dt><dd>{naira.format(draft.taxNgn)}</dd></div>
-            <div><dt>JeloCare fee</dt><dd>{naira.format(draft.jelocareFeeNgn)}</dd></div>
-            <div><dt>Delivery</dt><dd>{naira.format(draft.deliveryNgn)}</dd></div>
+            <div><dt>Products</dt><dd>{naira.format(Number(draft.productSubtotalNgn))}</dd></div>
+            <div><dt>Retailer fee</dt><dd>{naira.format(Number(draft.retailerFeeNgn))}</dd></div>
+            <div><dt>Tax</dt><dd>{naira.format(Number(draft.taxNgn))}</dd></div>
+            <div><dt>JeloCare fee</dt><dd>{naira.format(Number(draft.jelocareFeeNgn))}</dd></div>
+            <div><dt>Delivery</dt><dd>{naira.format(Number(draft.deliveryNgn))}</dd></div>
             <div><dt>Total</dt><dd>{naira.format(total)}</dd></div>
           </dl>
           <small>Evidence: {draft.evidenceReference}</small>

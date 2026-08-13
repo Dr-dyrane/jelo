@@ -161,6 +161,8 @@ test('Ops orders expose one truthful icon-led lifecycle and quote-step identity'
   assert.match(journey, /Request[\s\S]*Verify & quote[\s\S]*Approval[\s\S]*Payment[\s\S]*Purchase[\s\S]*Delivery[\s\S]*Complete/);
   assert.match(ui, /shortLabel: 'Products'[\s\S]*shortLabel: 'Retailer fee'[\s\S]*shortLabel: 'Tax'[\s\S]*shortLabel: 'JeloCare fee'[\s\S]*shortLabel: 'Delivery'/);
   assert.match(ui, /label: 'Evidence'[\s\S]*label: 'Validity'[\s\S]*label: 'Review'/);
+  assert.match(ui, /placeholder: `e\.g\. \$\{observed\.toLocaleString\('en-NG'\)\}`[\s\S]*placeholder: 'Enter amount or 0'[\s\S]*placeholder: 'Enter tax or 0'[\s\S]*placeholder: 'Enter approved fee'[\s\S]*placeholder: 'Enter delivery fee'/);
+  assert.match(ui, /placeholder="e\.g\. Checkout #BH-48392"/);
   const styles = await readFile('app/(ops)/ops/orders/orders.module.css', 'utf8');
   assert.match(styles, /\.queue,\s*\n\.inspector \{ min-width: 0;/);
   assert.match(styles, /grid-template-columns: minmax\(0, 1fr\)/);
