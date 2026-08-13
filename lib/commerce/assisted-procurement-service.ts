@@ -1,5 +1,6 @@
 import 'server-only';
 
+import { productBySlug as findStaticProductBySlug } from '@/data/catalogue';
 import { findCatalogueProduct } from '@/lib/catalogue/repository';
 import { findRetailerBasketOptions } from './retailer-basket';
 import type { CreateAssistedOrderInput } from './assisted-procurement-schema';
@@ -8,6 +9,7 @@ import {
   type CreateAssistedOrderRecord,
 } from './assisted-procurement-repository';
 import {
+  assistedOrderFixtureEnabled,
   createOrderReference,
   createOrderRequestFingerprint,
   createOrderSecret,
@@ -24,7 +26,9 @@ export async function requestAssistedOrder(
   input: CreateAssistedOrderInput,
   ownerSubject: string | null,
 ) {
-  const products = await Promise.all(input.lines.map(line => findCatalogueProduct(line.slug)));
+  const products = await Promise.all(input.lines.map(line => assistedOrderFixtureEnabled()
+    ? findStaticProductBySlug(line.slug)
+    : findCatalogueProduct(line.slug)));
   if (products.some(product => !product)) throw new AssistedOrderInputError('products');
   const exactProducts = products.filter((product): product is NonNullable<typeof product> => Boolean(product));
   const quantityBySlug = new Map(input.lines.map(line => [line.slug, line.quantity]));
