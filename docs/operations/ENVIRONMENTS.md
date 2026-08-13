@@ -127,18 +127,21 @@ remain compatibility values and are not used by the current runtime.
 
 ### Location suggestions
 
-| Variable           | Required                       | Notes                                                                                                                             |
-| ------------------ | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| `GEOAPIFY_API_KEY` | Smart address suggestions only | Server-only Geoapify key. Never prefix with `NEXT_PUBLIC`. Without it, checkout and `/me/locations` retain complete manual entry. |
+| Variable           | Required                       | Notes                                                                                                                                                                                             |
+| ------------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GEOAPIFY_API_KEY` | Smart address suggestions only | Server-only Geoapify key. Never prefix with `NEXT_PUBLIC`. Without it, JeloCare falls back to OpenStreetMap Nominatim. Both checkout and `/me/locations` retain complete manual entry regardless. |
 
 The address-suggestion route is same-site, Nigeria-filtered, no-store, and
-bounded by the shared Upstash runtime. The current free Geoapify plan allows
-3,000 credits per day and up to 5 requests per second, requires attribution,
-and carries no SLA. JeloCare limits aggregate provider traffic to four requests
-per second, limits each network to 30 requests per minute, and debounces
-typing. Exceeding or losing the provider reduces convenience but never blocks
-checkout. Typed address fragments leave JeloCare for Geoapify only after four
-characters; the UI states this boundary next to the field.
+bounded by the shared Upstash runtime. When `GEOAPIFY_API_KEY` is set, JeloCare
+tries Geoapify first (free plan: 3,000 credits/day, 5 req/s, attribution
+required, no SLA). If Geoapify is unconfigured, fails, or returns no results,
+the route falls back to OpenStreetMap Nominatim (keyless, attribution required,
+1 req/s usage policy). JeloCare rate-limits Geoapify to 4 req/s and Nominatim
+to 1 req/s, limits each network to 30 requests per minute, and debounces
+typing. Exceeding or losing both providers reduces convenience but never
+blocks checkout. Typed address fragments leave JeloCare for the active
+provider only after four characters; the UI states this boundary and shows the
+correct attribution next to the field.
 
 ### Email
 

@@ -35,6 +35,9 @@ export function SmartLocationFields({
   const [status, setStatus] = useState<
     "idle" | "loading" | "ready" | "unavailable"
   >("idle");
+  const [provider, setProvider] = useState<"geoapify" | "openstreetmap" | null>(
+    null,
+  );
   const [focused, setFocused] = useState(false);
   const citySuggestions = nigeriaCitySuggestions(value.state);
   const open = focused && suggestions.length > 0;
@@ -63,6 +66,7 @@ export function SmartLocationFields({
         });
         const payload = (await response.json()) as {
           suggestions?: LocationSuggestion[];
+          provider?: "geoapify" | "openstreetmap";
         };
         if (controller.signal.aborted) return;
         const next =
@@ -71,6 +75,7 @@ export function SmartLocationFields({
             : EMPTY_SUGGESTIONS;
         setSuggestions(next);
         setActiveIndex(next.length ? 0 : -1);
+        setProvider(response.ok && payload.provider ? payload.provider : null);
         setStatus(response.ok ? "ready" : "unavailable");
       } catch (error) {
         if (
@@ -258,11 +263,22 @@ export function SmartLocationFields({
       </label>
 
       <p className={styles.attribution}>
-        Suggestions send the typed location to Geoapify and are not saved by
-        JeloCare until you submit.{" "}
-        <a href="https://www.geoapify.com/" target="_blank" rel="noreferrer">
-          Powered by Geoapify
-        </a>
+        Suggestions send the typed location to{" "}
+        {provider === "openstreetmap" ? "OpenStreetMap" : "Geoapify"} and are
+        not saved by JeloCare until you submit.{" "}
+        {provider === "openstreetmap" ? (
+          <a
+            href="https://www.openstreetmap.org/copyright"
+            target="_blank"
+            rel="noreferrer"
+          >
+            © OpenStreetMap contributors
+          </a>
+        ) : (
+          <a href="https://www.geoapify.com/" target="_blank" rel="noreferrer">
+            Powered by Geoapify
+          </a>
+        )}
         .
       </p>
     </div>

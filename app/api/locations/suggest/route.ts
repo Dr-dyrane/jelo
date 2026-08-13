@@ -3,7 +3,7 @@ import {
   readBoundedJson,
   sameSiteRequest,
 } from "@/lib/community-intake/request-security";
-import { suggestNigeriaLocations } from "@/lib/location/geoapify";
+import { suggestNigerianLocations } from "@/lib/location/provider";
 import { smartLocationSuggestionRequestSchema } from "@/lib/location/schema";
 import { allowLocationSuggestion } from "@/lib/location/security";
 
@@ -29,22 +29,18 @@ export async function POST(request: NextRequest) {
     const input = smartLocationSuggestionRequestSchema.parse(
       await readBoundedJson(request),
     );
-    const suggestions = await suggestNigeriaLocations(input);
-    const response = NextResponse.json({ suggestions });
+    const { suggestions, provider } = await suggestNigerianLocations(input);
+    const response = NextResponse.json({ suggestions, provider });
     response.headers.set("Cache-Control", "private, no-store");
     return response;
-  } catch (error) {
-    const unavailable =
-      error instanceof Error &&
-      error.message === "location_provider_unavailable";
+  } catch {
     return NextResponse.json(
       {
-        error: unavailable
-          ? "Address suggestions are not configured. Enter the address manually."
-          : "Address suggestions are unavailable. Enter the address manually.",
+        error:
+          "Address suggestions are unavailable. Enter the address manually.",
         suggestions: [],
       },
-      { status: unavailable ? 503 : 400 },
+      { status: 400 },
     );
   }
 }

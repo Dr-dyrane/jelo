@@ -18,26 +18,46 @@ saved-location row.
 
 ## Provider decision
 
-JeloCare uses Geoapify Address Autocomplete through
-`POST /api/locations/suggest`:
+JeloCare tries Geoapify Address Autocomplete first, then falls back to
+OpenStreetMap Nominatim, through `POST /api/locations/suggest`:
 
 - `GEOAPIFY_API_KEY` is server-only and never appears in browser JavaScript;
 - provider requests are filtered to `countrycode:ng`;
 - client requests wait 500 ms after typing and begin at four characters;
-- the shared Upstash boundary allows at most 4 provider requests/second
-  across the application and 30 requests/minute per hashed network;
+- the shared Upstash boundary allows at most 4 Geoapify requests/second,
+  1 Nominatim request/second, and 30 requests/minute per hashed network;
 - provider and route responses use `no-store`; and
-- the interface includes the required “Powered by Geoapify” attribution.
+- the interface shows the correct attribution for whichever provider served
+  the suggestions ("Powered by Geoapify" or "© OpenStreetMap contributors").
 
 Geoapify's published free plan currently includes 3,000 credits/day, permits
 limited commercial use without a card, allows up to 5 requests/second, and
-provides no free-plan SLA. This is an optional enhancement, not an availability
-dependency. A missing key, quota, timeout, provider error, or rate limit leaves
-manual address, state, city, and postcode entry fully usable.
+provides no free-plan SLA. When Geoapify is unconfigured, fails, or returns no
+results, the route falls back to OpenStreetMap Nominatim — a keyless public
+geocoder that requires attribution and limits clients to 1 request/second.
 
-OpenStreetMap's public Nominatim endpoint is deliberately not used. Its public
-usage policy prohibits autocomplete and asks clients not to submit personal or
-confidential data.
+Neither provider is an availability dependency. A missing key, quota, timeout,
+provider error, or rate limit leaves manual address, state, city, and postcode
+entry fully usable.
+
+### Nominatim usage-policy mitigations
+
+Nominatim's public usage policy asks clients not to run direct autocomplete
+(typing into a search box that queries on every keystroke) and not to submit
+personal or confidential data. JeloCare's fallback respects these constraints:
+
+- the client never calls Nominatim directly — all requests go through the
+  same JeloCare server route, which is only reached after a 500 ms debounce
+  and a four-character minimum;
+- JeloCare rate-limits Nominatim to 1 request/second across the application;
+- the request sends only the typed address fragment, optional city/state
+  context, and `Nigeria` — no customer name, email, phone, order contents, or
+  saved-location identifier;
+- the server sets a identifying `User-Agent` header as required by the policy;
+- Nominatim is only attempted when Geoapify is unavailable, reducing
+  aggregate load on the public service; and
+- the UI displays the required "© OpenStreetMap contributors" attribution
+  when Nominatim served the suggestions.
 
 Primary references:
 
@@ -83,4 +103,6 @@ suggestion is added to the Operations projection.
    confirm `/ops/orders` contains only the copied order delivery fields.
 
 Rollback the application without dropping the table. Remove the Geoapify key
-to disable suggestions immediately; manual checkout remains available.
+to reduce suggestions to the OpenStreetMap fallback; remove both providers
+(env or deploy) to disable suggestions entirely. Manual checkout always
+remains available.

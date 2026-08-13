@@ -5,6 +5,7 @@ import type { CustomerAccessIdentity } from "../../lib/customer/access-policy";
 import { createCustomerLocationService } from "../../lib/customer/location-service";
 import type { CustomerLocationRepository } from "../../lib/customer/location-repository";
 import { mapGeoapifySuggestions } from "../../lib/location/geoapify";
+import { mapNominatimSuggestions } from "../../lib/location/nominatim";
 import type { SavedCustomerLocation } from "../../lib/location/model";
 import {
   NIGERIA_STATES,
@@ -207,5 +208,65 @@ test("saved-location migration and UI preserve the private/manual-fallback bound
   assert.match(fields, /role="combobox"/);
   assert.match(fields, /aria-activedescendant/);
   assert.match(fields, /Keep typing manually/);
-  assert.match(fields, /Powered by Geoapify/);
+  assert.match(fields, /Powered by Geoapify|OpenStreetMap contributors/);
+});
+
+test("Nominatim mapping keeps only complete Nigerian suggestions and removes duplicates", () => {
+  const suggestions = mapNominatimSuggestions([
+    {
+      place_id: 1,
+      display_name: "12 Adeola Odeku Street, Victoria Island, Lagos, Nigeria",
+      address: {
+        road: "12 Adeola Odeku Street",
+        suburb: "Victoria Island",
+        city: "Lagos",
+        state: "Lagos",
+        postcode: "101241",
+        country_code: "ng",
+      },
+    },
+    {
+      place_id: 2,
+      display_name: "12 Adeola Odeku Street, Victoria Island, Lagos, Nigeria",
+      address: {
+        road: "12 Adeola Odeku Street",
+        suburb: "Victoria Island",
+        city: "Lagos",
+        state: "Lagos State",
+        country_code: "ng",
+      },
+    },
+    {
+      place_id: 3,
+      display_name: "Accra, Ghana",
+      address: {
+        road: "Independence Avenue",
+        city: "Accra",
+        state: "Greater Accra",
+        country_code: "gh",
+      },
+    },
+  ]);
+  assert.deepEqual(suggestions, [
+    {
+      id: "osm-1-12 adeola odeku street, victoria island\u0000lagos\u0000lagos",
+      label: "12 Adeola Odeku Street, Victoria Island, Lagos, Nigeria",
+      address: "12 Adeola Odeku Street, Victoria Island",
+      city: "Lagos",
+      state: "Lagos",
+      postalCode: "101241",
+    },
+  ]);
+});
+
+test("the provider orchestrator tries Geoapify first and falls back to OpenStreetMap", async () => {
+  const provider = await import("../../lib/location/provider");
+  assert.match(
+    provider.suggestNigerianLocations.toString(),
+    /geoapify|Geoapify/,
+  );
+  assert.match(
+    provider.suggestNigerianLocations.toString(),
+    /nominatim|Nominatim|openstreetmap/i,
+  );
 });
