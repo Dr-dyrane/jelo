@@ -104,6 +104,7 @@ export type AssistedOrderLineView = {
   image: string;
   quantity: number;
   observedUnitPriceNgn: number;
+  observedListingUrl: string;
 };
 
 export type AssistedOrderQuoteView = {

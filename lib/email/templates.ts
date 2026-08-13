@@ -182,3 +182,41 @@ export function assistedOrderUpdateEmail(input: {
     `,
   };
 }
+
+export function assistedOrderOperatorAlertEmail(input: {
+  reference: string;
+  retailer: string;
+  itemCount: number;
+  opsLink: string;
+}) {
+  const reference = escapeHtml(input.reference);
+  const retailer = escapeHtml(input.retailer);
+  const opsLink = escapeHtml(input.opsLink);
+  const itemLabel = `${input.itemCount} ${input.itemCount === 1 ? 'item' : 'items'}`;
+  return {
+    subject: `New order request · ${input.reference}`,
+    text: [
+      'A new JeloCare order request is waiting.',
+      '',
+      `Reference: ${input.reference}`,
+      `Retailer: ${input.retailer}`,
+      `Basket: ${itemLabel}`,
+      '',
+      `Open the private Ops workspace: ${input.opsLink}`,
+      '',
+      'Customer details remain inside the authenticated workspace.',
+    ].join('\n'),
+    html: `
+      <div style="margin:0;background:#fff9f5;padding:40px 20px;color:#201b19;font-family:Arial,sans-serif">
+        <div style="max-width:560px;margin:0 auto;background:#fffdf9;border-radius:28px;padding:40px">
+          <p style="margin:0 0 28px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#6b3b35">JeloCare Ops</p>
+          <h1 style="margin:0 0 18px;font-size:36px;line-height:1.05;font-weight:400">A new order is waiting.</h1>
+          <p style="margin:0 0 8px;color:#201b19"><strong>${reference}</strong></p>
+          <p style="margin:0 0 28px;color:#6f625e;line-height:1.6">${retailer} · ${itemLabel}</p>
+          <a href="${opsLink}" style="display:inline-block;border-radius:999px;background:#201b19;padding:14px 20px;color:#fff;text-decoration:none">Open order workspace</a>
+          <p style="margin:28px 0 0;color:#8a7d78;font-size:13px;line-height:1.55">Customer details remain inside the authenticated JeloCare Ops workspace.</p>
+        </div>
+      </div>
+    `,
+  };
+}

@@ -7,6 +7,7 @@ import {
 } from './hostinger-mail-api';
 import {
   assistedOrderRecoveryEmail,
+  assistedOrderOperatorAlertEmail,
   assistedOrderUpdateEmail,
   operatorInvitationEmail,
   operatorOtpEmail,
@@ -126,6 +127,16 @@ export async function sendAssistedOrderUpdate(input: {
   statusLink: string;
 }) {
   return deliver(input.to, assistedOrderUpdateEmail(input));
+}
+
+export async function sendAssistedOrderOperatorAlert(input: {
+  to: string;
+  reference: string;
+  retailer: string;
+  itemCount: number;
+  opsLink: string;
+}) {
+  return deliver(input.to, assistedOrderOperatorAlertEmail(input));
 }
 
 export async function sendAlertEmail(input: {

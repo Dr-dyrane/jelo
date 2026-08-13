@@ -100,6 +100,30 @@ test('guest order session reads qualify order timestamps across the session join
   assert.doesNotMatch(repository, /\n\s+created_at::text, updated_at::text\n\s+from assisted_orders/);
 });
 
+test('new order alerts are durable, recipient-scoped, and independent of customer consent', async () => {
+  const migration = await readFile('db/migrations/0044_assisted_order_operator_alerts.sql', 'utf8');
+  const repository = await readFile('lib/commerce/assisted-procurement-repository.ts', 'utf8');
+  const alertRepository = await readFile('lib/commerce/order-operator-alert-repository.ts', 'utf8');
+  const route = await readFile('app/api/orders/route.ts', 'utf8');
+  assert.match(migration, /unique \(alert_id, operator_id\)/);
+  assert.match(migration, /order_id uuid not null unique/);
+  assert.match(repository, /operator\.active = true and operator\.role in \('operator', 'admin'\)/);
+  assert.match(alertRepository, /delivery\.attempts < 5/);
+  assert.match(alertRepository, /operator\.role in \('operator', 'admin'\)/);
+  assert.match(alertRepository, /lower\(btrim\(operator\.email\)\) = delivery\.recipient_email/);
+  assert.match(route, /deliverAssistedOrderOperatorAlerts\(\{ orderId: created\.order\.id \}\)/);
+});
+
+test('Ops order intake progressively verifies costs and keeps retailer evidence available', async () => {
+  const ui = await readFile('app/(ops)/ops/orders/OrdersQueue.tsx', 'utf8');
+  const model = await readFile('lib/commerce/assisted-procurement-model.ts', 'utf8');
+  assert.match(ui, /Quote intake · step/);
+  assert.match(ui, /Review before sending/);
+  assert.match(ui, /Open retailer/);
+  assert.match(ui, /target="_blank" rel="noopener noreferrer"/);
+  assert.match(model, /observedListingUrl: string/);
+});
+
 test('Ops order review uses the shared light and dark operations theme tokens', async () => {
   const styles = await readFile('app/(ops)/ops/orders/orders.module.css', 'utf8');
   assert.match(styles, /background: var\(--ops-workspace\)/);

@@ -21,6 +21,9 @@
 .lines > div { padding: .75rem 0; display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid color-mix(in srgb, var(--ops-ink) 10%, transparent); }
 .lines span { display: grid; }
 .lines small { color: var(--ops-muted, #716764); }
+.lineActions { justify-items: end; gap: .2rem; }
+.lineActions a { display: inline-flex; align-items: center; gap: .3rem; color: var(--ops-accent); font-size: .72rem; font-weight: 700; text-decoration: none; }
+.lineActions a:hover { text-decoration: underline; }
 .notificationDelivery { margin-top: 1rem; padding: .9rem; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .75rem; border-radius: 1rem; background: var(--ops-surface-subtle); color: var(--ops-ink); }
 .notificationDelivery > span { width: 2.25rem; height: 2.25rem; display: grid; place-items: center; border-radius: 999px; background: var(--ops-accent-subtle); color: var(--ops-accent); }
 .notificationDelivery > div { min-width: 0; display: grid; gap: .16rem; }
@@ -28,6 +31,13 @@
 .notificationDelivery small { color: var(--ops-muted, #716764); line-height: 1.35; }
 .notificationDelivery button { min-height: 2.25rem; padding: 0 .75rem; display: inline-flex; align-items: center; gap: .35rem; border: 0; border-radius: 999px; background: var(--ops-ink); color: var(--ops-workspace); font: inherit; font-weight: 700; cursor: pointer; }
 .notificationDelivery button:disabled { cursor: wait; opacity: .55; }
+.teamAlert { margin-top: 1rem; padding: .9rem; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .75rem; border-radius: 1rem; background: var(--ops-surface-subtle); color: var(--ops-ink); }
+.teamAlert > span { width: 2.25rem; height: 2.25rem; display: grid; place-items: center; border-radius: 999px; background: var(--ops-accent-subtle); color: var(--ops-accent); }
+.teamAlert > div { min-width: 0; display: grid; gap: .16rem; }
+.teamAlert p { margin: 0; color: var(--ops-muted, #716764); font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; }
+.teamAlert small { color: var(--ops-muted, #716764); line-height: 1.35; }
+.teamAlert button { min-height: 2.25rem; padding: 0 .75rem; display: inline-flex; align-items: center; gap: .35rem; border: 0; border-radius: 999px; background: var(--ops-ink); color: var(--ops-workspace); font: inherit; font-weight: 700; cursor: pointer; }
+.teamAlert[data-status="failed"] { outline: 1px solid color-mix(in srgb, var(--state-danger) 40%, transparent); }
 .decision,
 .paymentGate { margin-top: 1.5rem; padding: 1.2rem; border-radius: 1rem; background: var(--ops-ink); color: var(--ops-workspace); }
 .decision > p:first-child { display: flex; align-items: center; gap: .45rem; color: #ef879a; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; }
@@ -38,12 +48,30 @@
 .paymentGate p { margin: 0; line-height: 1.45; }
 .quoteForm { margin-top: 1.4rem; padding: 1.2rem; display: grid; gap: .9rem; border-radius: 1rem; background: var(--ops-ink); color: var(--ops-workspace); }
 .quoteEyebrow { margin: 0; color: var(--accent-solid); font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; }
-.moneyGrid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .7rem; }
+.quoteHeader { display: grid; gap: .6rem; }
+.quoteHeader > div { display: flex; align-items: end; justify-content: space-between; gap: 1rem; }
+.quoteHeader strong { font-size: 1.15rem; }
+.quoteHeader progress { width: 100%; height: .25rem; overflow: hidden; border: 0; border-radius: 999px; accent-color: var(--accent-solid); }
 .quoteForm label { display: grid; gap: .35rem; }
 .quoteForm label > span { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; }
 .quoteForm input,
 .quoteForm textarea { min-width: 0; width: 100%; padding: .72rem; border: 0; border-radius: .65rem; background: color-mix(in srgb, var(--ops-workspace) 12%, transparent); color: var(--ops-workspace); font: inherit; }
 .quoteForm textarea { min-height: 5rem; resize: vertical; }
+.quoteQuestion { min-height: 12rem; align-content: center; }
+.quoteQuestion > span { font-size: clamp(1.45rem, 3vw, 2.25rem) !important; line-height: 1.05; letter-spacing: -.02em !important; text-transform: none !important; }
+.quoteQuestion small { color: color-mix(in srgb, var(--ops-workspace) 65%, transparent); line-height: 1.45; }
+.quoteQuestion input { margin-top: .7rem; font-size: 1.4rem; }
+.quoteEvidence { display: grid; gap: 1rem; }
+.quoteReview { padding: 1rem; border-radius: .8rem; background: color-mix(in srgb, var(--ops-workspace) 8%, transparent); }
+.quoteReview > p { margin-top: 0; color: var(--accent-solid); text-transform: uppercase; letter-spacing: .08em; font-size: .68rem; }
+.quoteReview dl { display: grid; gap: .4rem; }
+.quoteReview dl > div { display: flex; justify-content: space-between; gap: 1rem; }
+.quoteReview dt { color: color-mix(in srgb, var(--ops-workspace) 70%, transparent); }
+.quoteReview dd { margin: 0; font-weight: 700; }
+.quoteReview dl > div:last-child { margin-top: .4rem; padding-top: .6rem; border-top: 1px solid color-mix(in srgb, var(--ops-workspace) 20%, transparent); font-size: 1.15rem; }
+.quoteNav { display: flex; justify-content: space-between; gap: .7rem; }
+.quoteNav button { display: inline-flex; align-items: center; gap: .4rem; }
+.quoteNav .quoteBack { background: transparent; color: var(--ops-workspace); }
 .cancel { margin-top: 1rem; min-height: 2.6rem; padding: 0 .9rem; display: inline-flex; align-items: center; gap: .45rem; border: 0; border-radius: 999px; background: transparent; color: var(--state-danger); cursor: pointer; }
 .error { color: var(--state-danger); font-weight: 700; }
 .feedback { color: var(--ops-accent); font-weight: 700; }
@@ -55,4 +83,11 @@
   .inspector { overflow: visible; }
 }
 
-@media (max-width: 560px) { .moneyGrid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  .lines > div { align-items: start; }
+  .lineActions { flex: 0 0 auto; }
+  .teamAlert,
+  .notificationDelivery { grid-template-columns: auto minmax(0, 1fr); }
+  .teamAlert button,
+  .notificationDelivery button { grid-column: 2; justify-self: start; }
+}

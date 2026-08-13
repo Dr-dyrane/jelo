@@ -95,6 +95,9 @@ progress bar reflects the current step (0%, 50%, 100%).
   Signed-in owners see them at `/me/notifications`; guests manage email from
   the private `/order` page. Turning email off suppresses unsent delivery but
   does not rewrite the useful private order history.
+- A new order also creates one durable internal handoff with one deduplicated
+  delivery per active order-capable operator/admin. Team alerts are independent
+  of customer consent and never include customer contact or delivery details.
 
 ## Retention and expiry
 
@@ -114,7 +117,8 @@ progress bar reflects the current step (0%, 50%, 100%).
    dedicated `ASSISTED_ORDER_RATE_LIMIT_SECRET`.
 2. From a protected operator process, inject the direct administrator URL only
    for `npm run db:migrate`. Migrations `0039_assisted_procurement.sql` and
-   `0041_assisted_order_notifications.sql` are additive and grant only the
+   `0041_assisted_order_notifications.sql` and
+   `0044_assisted_order_operator_alerts.sql` are additive and grant only the
    application runtime role. Never add the admin URL to Vercel or `.env.local`.
 3. Deploy the application revision.
 4. Complete the post-deploy journey below before announcing availability.
@@ -133,6 +137,9 @@ Use a real exact product with at least one fresh eligible retailer offer.
 3. Submit a test delivery/contact record approved for production testing.
 4. Confirm the clean `/order` URL, private cache headers, and `requested` state.
 5. In `/ops/orders`, start quoting and issue a complete short-lived quote.
+   Use the guided one-question-at-a-time intake, open each exact retailer
+   listing in a separate protected tab, and review the running total before
+   issuing the quote.
 6. Confirm the guest view refreshes to Quote ready; approve it.
 7. Confirm guest status, Operations, and signed-in ownership where applicable
    agree on `payment_pending`, with no payment or retailer-purchase control.
@@ -145,6 +152,9 @@ Use a real exact product with at least one fresh eligible retailer offer.
     in-app event exists in both cases, only the opted-in order sends email, Ops
     shows the delivery state, failed delivery can be retried, and switching the
     preference off suppresses unsent email immediately.
+11. Confirm the internal order alert is sent to every active operator/admin
+    recipient regardless of the customer email choice. Confirm failed team
+    delivery is visible and retryable without changing order state.
 
 ## Focused local verification
 
@@ -224,3 +234,7 @@ retailer-purchase, WhatsApp, or fulfilment action.
 - The append-only event record is corrected forward, never rewritten.
 - Notification transport never owns order state. A failed email leaves the
   canonical event intact and visible to Operations for bounded retry.
+- Ops quote entry progressively discloses one decision at a time, preserves the
+  draft while moving back, and runs the existing governed quote write only from
+  the final review. Exact retailer links open separately so a blocked iframe or
+  third-party page cannot replace the authenticated Ops workspace.

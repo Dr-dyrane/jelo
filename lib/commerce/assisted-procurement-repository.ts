@@ -111,9 +111,10 @@ async function hydrateOrder(sql: Sql, row: OrderRow): Promise<AssistedOrderPriva
       product_image: string;
       quantity: number;
       observed_unit_price_ngn: number;
+      observed_listing_url: string;
     }[]>`
       select product_slug, product_brand, product_name, product_size, product_image,
-             quantity, observed_unit_price_ngn
+             quantity, observed_unit_price_ngn, observed_listing_url
       from assisted_order_lines where order_id = ${row.id}
       order by created_at, id
     `,
@@ -198,6 +199,7 @@ async function hydrateOrder(sql: Sql, row: OrderRow): Promise<AssistedOrderPriva
       image: line.product_image,
       quantity: line.quantity,
       observedUnitPriceNgn: line.observed_unit_price_ngn,
+      observedListingUrl: line.observed_listing_url,
     })),
     quote,
     events: eventRows.map<AssistedOrderEventView>(event => ({
@@ -398,6 +400,22 @@ export async function createAssistedOrder(record: CreateAssistedOrderRecord) {
         'order_requested', null, 'requested',
         ${transaction.json({ retailer: record.retailer, lineCount: record.lines.length })}
       )
+    `;
+    const [alert] = await transaction<{ id: string }[]>`
+      insert into assisted_order_operator_alerts (order_id, retain_until)
+      select id, retain_until from assisted_orders where id = ${order.id}
+      on conflict (order_id) do update set order_id = excluded.order_id
+      returning id
+    `;
+    await transaction`
+      insert into assisted_order_operator_alert_deliveries (
+        alert_id, operator_id, recipient_email
+      )
+      select ${alert.id}, operator.id, lower(btrim(operator.email))
+      from moderation_operators operator
+      where operator.active = true and operator.role in ('operator', 'admin')
+        and operator.email is not null
+      on conflict (alert_id, operator_id) do nothing
     `;
     return order.id;
   });
@@ -805,6 +823,7 @@ function createFixtureOrder(record: CreateAssistedOrderRecord): AssistedOrderPri
       image: line.image,
       quantity: line.quantity,
       observedUnitPriceNgn: line.observedUnitPriceNgn,
+      observedListingUrl: line.observedListingUrl,
     })),
     quote: null,
     events: [{ id: randomUUID(), action: 'order_requested', fromState: null, toState: 'requested', reason: null, createdAt: now }],

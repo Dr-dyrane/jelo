@@ -4,6 +4,7 @@ import { hasTransactionalEmailConfig, sendAssistedOrderRecovery } from '@/lib/em
 import { readBoundedJson, sameSiteRequest } from '@/lib/community-intake/request-security';
 import { createAssistedOrderSchema } from '@/lib/commerce/assisted-procurement-schema';
 import { requestAssistedOrder, AssistedOrderInputError } from '@/lib/commerce/assisted-procurement-service';
+import { deliverAssistedOrderOperatorAlerts } from '@/lib/commerce/order-operator-alert-repository';
 import {
   allowAssistedOrderAction,
   assistedOrderCookieMaxAge,
@@ -26,6 +27,10 @@ export async function POST(request: NextRequest) {
     const input = createAssistedOrderSchema.parse(await readBoundedJson(request));
     const identity = await getAuthSubject();
     const created = await requestAssistedOrder(input, identity?.subject ?? null);
+    await deliverAssistedOrderOperatorAlerts({ orderId: created.order.id })
+      .catch(error => {
+        console.error('Assisted order operator alert failed.', error instanceof Error ? error.message : 'unknown');
+      });
     const recoveryUrl = new URL('/api/orders/recover', publicOrigin(request));
     recoveryUrl.searchParams.set('token', created.recoverySecret);
 

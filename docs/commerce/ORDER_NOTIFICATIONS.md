@@ -21,6 +21,15 @@ treatment reminders, refill alerts, price-pressure messages, or campaigns.
 The customer can switch email off per order at any time. That immediately
 suppresses unsent email while keeping the private event history intact.
 
+The initial Ops handoff is separate from those customer updates. Migration
+`0044_assisted_order_operator_alerts.sql` creates one durable alert per order
+and one deduplicated delivery per active operator/admin recipient. It does not
+depend on customer consent and its email contains only the order reference,
+retailer name, item count, and authenticated Ops link. Customer contact,
+address, products, prices, and capabilities remain inside `/ops/orders`.
+Delivery state is visible there and failed sends have the same bounded retry
+discipline without becoming canonical order state.
+
 The private order page also exposes a customer-initiated WhatsApp support link
 to JeloCare at `+234 812 288 7847`. Its generic URL,
 `https://wa.me/2348122887847`, carries no order ID, capability, customer detail,
@@ -41,7 +50,8 @@ delivery; staff contact remains manual and consent-governed.
 
 ## Operating and release check
 
-Apply `0041_assisted_order_notifications.sql` with the protected migration
+Apply `0041_assisted_order_notifications.sql` and
+`0044_assisted_order_operator_alerts.sql` with the protected migration
 owner, then deploy the application. For one controlled order, test consent off
 and on, issue a quote, verify the customer inbox, verify Ops delivery state,
 exercise one failed retry, mark the inbox item read, switch email off, and

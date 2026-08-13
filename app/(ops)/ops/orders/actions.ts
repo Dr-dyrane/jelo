@@ -13,6 +13,10 @@ import {
   deliverPendingAssistedOrderNotifications,
   retryAssistedOrderNotificationDelivery,
 } from '@/lib/commerce/order-notification-repository';
+import {
+  deliverAssistedOrderOperatorAlerts,
+  retryAssistedOrderOperatorAlerts,
+} from '@/lib/commerce/order-operator-alert-repository';
 
 export type OrderActionResult = {
   ok: true;
@@ -115,5 +119,22 @@ export async function retryOrderNotificationAction(input: unknown): Promise<Orde
     return result;
   } catch {
     return { ok: false, error: 'The notification retry could not be completed.' };
+  }
+}
+
+export async function retryOrderOperatorAlertAction(input: unknown): Promise<OrderActionResult> {
+  try {
+    const operator = await requireConsoleOperator();
+    assertCan(operator, 'orders.manage');
+    const parsed = z.object({ orderId: z.uuid() }).parse(input);
+    const admitted = await retryAssistedOrderOperatorAlerts(parsed.orderId);
+    if (!admitted) return { ok: false, error: 'No failed team alert is ready to retry.' };
+    const delivery = await deliverAssistedOrderOperatorAlerts({ orderId: parsed.orderId });
+    refresh();
+    if (delivery.sent > 0) return { ok: true, delivery: 'sent' };
+    if (delivery.failed > 0 || delivery.unavailable) return { ok: true, delivery: 'failed' };
+    return { ok: true, delivery: 'pending' };
+  } catch {
+    return { ok: false, error: 'The team alert retry could not be completed.' };
   }
 }

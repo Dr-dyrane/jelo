@@ -1,12 +1,19 @@
 'use client';
 
-import { BellRing, CheckCircle2, Clock3, MailCheck, PackageCheck, RefreshCcw, XCircle } from 'lucide-react';
+import {
+  ArrowLeft, ArrowRight, BellRing, CheckCircle2, Clock3, ExternalLink,
+  MailCheck, PackageCheck, RefreshCcw, XCircle,
+} from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState, useTransition } from 'react';
+import { useMemo, useState, useTransition, type FormEvent } from 'react';
 import type { AssistedOrderPrivateView } from '@/lib/commerce/assisted-procurement-repository';
 import { CUSTOMER_VISIBLE_ORDER_STATES } from '@/lib/commerce/assisted-procurement-model';
 import type { AssistedOrderNotificationDeliverySummary } from '@/lib/commerce/order-notification-model';
-import { retryOrderNotificationAction, submitOrderQuoteAction, transitionOrderAction } from './actions';
+import type { AssistedOrderOperatorAlertSummary } from '@/lib/commerce/order-operator-alert-repository';
+import {
+  retryOrderNotificationAction, retryOrderOperatorAlertAction,
+  submitOrderQuoteAction, transitionOrderAction,
+} from './actions';
 import styles from './orders.module.css';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
@@ -15,10 +22,12 @@ const date = new Intl.DateTimeFormat('en-NG', { dateStyle: 'medium', timeStyle: 
 export function OrdersQueue({
   orders,
   notificationDeliveries,
+  operatorAlerts,
   canManage,
 }: {
   orders: AssistedOrderPrivateView[];
   notificationDeliveries: AssistedOrderNotificationDeliverySummary[];
+  operatorAlerts: AssistedOrderOperatorAlertSummary[];
   canManage: boolean;
 }) {
   const router = useRouter();
@@ -28,6 +37,7 @@ export function OrdersQueue({
   const [pending, startTransition] = useTransition();
   const selected = orders.find(order => order.id === selectedId) ?? orders[0];
   const selectedDelivery = notificationDeliveries.find(delivery => delivery.orderId === selected?.id);
+  const selectedOperatorAlert = operatorAlerts.find(alert => alert.orderId === selected?.id);
   const sections = useMemo(() => ({
     waiting: orders.filter(order => ['requested', 'needs_response'].includes(order.state)),
     active: orders.filter(order => !['requested', 'needs_response', 'payment_pending'].includes(order.state)),
@@ -78,9 +88,26 @@ export function OrdersQueue({
         </div>
         <div className={styles.lines}>
           {selected.lines.map(line => (
-            <div key={line.slug}><span>{line.brand} · {line.name}<small>{line.size} × {line.quantity}</small></span><b>{naira.format(line.observedUnitPriceNgn * line.quantity)}</b></div>
+            <div key={line.slug}>
+              <span>{line.brand} · {line.name}<small>{line.size} × {line.quantity}</small></span>
+              <span className={styles.lineActions}>
+                <b>{naira.format(line.observedUnitPriceNgn * line.quantity)}</b>
+                {line.observedListingUrl ? (
+                  <a href={line.observedListingUrl} target="_blank" rel="noopener noreferrer">
+                    Open retailer <ExternalLink size={14} aria-hidden="true" />
+                  </a>
+                ) : null}
+              </span>
+            </div>
           ))}
         </div>
+
+        <TeamAlertDelivery
+          alert={selectedOperatorAlert}
+          canManage={canManage}
+          pending={pending}
+          onRetry={() => run(() => retryOrderOperatorAlertAction({ orderId: selected.id }))}
+        />
 
         <NotificationDelivery
           delivery={selectedDelivery}
@@ -104,6 +131,7 @@ export function OrdersQueue({
 
         {selected.state === 'quoting' ? (
           <QuoteForm
+            key={selected.id}
             order={selected}
             disabled={!canManage || pending}
             onSubmit={input => run(() => submitOrderQuoteAction(input))}
@@ -125,6 +153,48 @@ export function OrdersQueue({
         {feedback ? <p className={styles.feedback} role="status">{feedback}</p> : null}
       </aside>
     </div>
+  );
+}
+
+function TeamAlertDelivery({
+  alert,
+  canManage,
+  pending,
+  onRetry,
+}: {
+  alert?: AssistedOrderOperatorAlertSummary;
+  canManage: boolean;
+  pending: boolean;
+  onRetry: () => void;
+}) {
+  const failed = alert?.failedCount ?? 0;
+  const waiting = alert?.pendingCount ?? 0;
+  const sent = alert?.sentCount ?? 0;
+  const recipients = alert?.recipientCount ?? 0;
+  const status = failed > 0 ? 'failed' : waiting > 0 ? 'pending' : sent > 0 ? 'sent' : 'missing';
+  const label = status === 'sent'
+    ? `Team notified · ${sent}/${recipients}`
+    : status === 'failed'
+      ? `Team alert needs attention · ${failed} failed`
+      : status === 'pending'
+        ? `Team alert pending · ${waiting}`
+        : 'No active order-alert recipients';
+  return (
+    <section className={styles.teamAlert} data-status={status} aria-label="Operations team alert delivery">
+      <span aria-hidden="true"><BellRing size={19} /></span>
+      <div>
+        <p>Ops handoff</p>
+        <strong>{label}</strong>
+        <small>
+          {alert?.lastAttemptAt ? `Last attempt ${date.format(new Date(alert.lastAttemptAt))}` : 'Sent independently of customer email preferences.'}
+        </small>
+      </div>
+      {(failed > 0 || waiting > 0) && canManage ? (
+        <button type="button" disabled={pending} onClick={onRetry}>
+          <RefreshCcw size={15} aria-hidden="true" /> Try now
+        </button>
+      ) : null}
+    </section>
   );
 }
 
@@ -180,35 +250,108 @@ function QueueSection({ label, orders, selectedId, onSelect }: { label: string; 
 
 function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateView; disabled: boolean; onSubmit: (input: unknown) => void }) {
   const observed = order.lines.reduce((sum, line) => sum + line.observedUnitPriceNgn * line.quantity, 0);
+  const [step, setStep] = useState(0);
+  const [draft, setDraft] = useState({
+    productSubtotalNgn: observed,
+    retailerFeeNgn: 0,
+    taxNgn: 0,
+    jelocareFeeNgn: 0,
+    deliveryNgn: 0,
+    evidenceReference: '',
+    notes: '',
+    expiresAt: '',
+  });
+  const questions = [
+    { key: 'productSubtotalNgn', label: 'What is the verified product total?', hint: `Observed when requested: ${naira.format(observed)}` },
+    { key: 'retailerFeeNgn', label: 'Did the retailer add a service fee?', hint: 'Enter 0 only when the retailer confirms there is none.' },
+    { key: 'taxNgn', label: 'Is tax shown separately?', hint: 'Enter the exact listed tax, or 0 when the retailer shows none.' },
+    { key: 'jelocareFeeNgn', label: 'What is JeloCare’s service fee?', hint: 'This must match the approved service-fee policy.' },
+    { key: 'deliveryNgn', label: 'What is delivery to this address?', hint: `${order.deliveryCity}, ${order.deliveryState}` },
+  ] as const;
+  const total = draft.productSubtotalNgn + draft.retailerFeeNgn + draft.taxNgn + draft.jelocareFeeNgn + draft.deliveryNgn;
+  const reviewStep = questions.length + 2;
+  const canContinue = step < questions.length
+    ? Number.isInteger(draft[questions[step].key]) && draft[questions[step].key] >= 0
+    : step === questions.length
+      ? draft.evidenceReference.trim().length >= 8
+      : step === questions.length + 1
+        ? Boolean(draft.expiresAt) && Number.isFinite(new Date(draft.expiresAt).valueOf())
+        : true;
+
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (step < reviewStep) {
+      if (canContinue) setStep(current => current + 1);
+      return;
+    }
+    onSubmit({
+      orderId: order.id,
+      revision: order.revision,
+      ...draft,
+      expiresAt: new Date(draft.expiresAt).toISOString(),
+    });
+  }
+
   return (
-    <form className={styles.quoteForm} onSubmit={event => {
-      event.preventDefault();
-      const data = new FormData(event.currentTarget);
-      onSubmit({
-        orderId: order.id,
-        revision: order.revision,
-        productSubtotalNgn: Number(data.get('productSubtotalNgn')),
-        retailerFeeNgn: Number(data.get('retailerFeeNgn')),
-        taxNgn: Number(data.get('taxNgn')),
-        jelocareFeeNgn: Number(data.get('jelocareFeeNgn')),
-        deliveryNgn: Number(data.get('deliveryNgn')),
-        evidenceReference: data.get('evidenceReference'),
-        notes: data.get('notes'),
-        expiresAt: new Date(String(data.get('expiresAt'))).toISOString(),
-      });
-    }}>
-      <p className={styles.quoteEyebrow}>Complete quote · unknown cannot be zero</p>
-      <div className={styles.moneyGrid}>
-        <label><span>Products</span><input name="productSubtotalNgn" type="number" min="0" defaultValue={observed} required /></label>
-        <label><span>Retailer fee</span><input name="retailerFeeNgn" type="number" min="0" required /></label>
-        <label><span>Observed tax</span><input name="taxNgn" type="number" min="0" required /></label>
-        <label><span>JeloCare fee</span><input name="jelocareFeeNgn" type="number" min="0" required /></label>
-        <label><span>Delivery</span><input name="deliveryNgn" type="number" min="0" required /></label>
-        <label><span>Expires</span><input name="expiresAt" type="datetime-local" required /></label>
-      </div>
-      <label><span>Evidence reference</span><input name="evidenceReference" required minLength={8} placeholder="Retailer quote or staff evidence reference" /></label>
-      <label><span>Customer note</span><textarea name="notes" maxLength={1000} /></label>
-      <button disabled={disabled} type="submit">Issue exact quote</button>
+    <form className={styles.quoteForm} onSubmit={submit}>
+      <header className={styles.quoteHeader}>
+        <div><p className={styles.quoteEyebrow}>Quote intake · step {step + 1} of {reviewStep + 1}</p><strong>{naira.format(total)}</strong></div>
+        <progress value={step + 1} max={reviewStep + 1}>Step {step + 1} of {reviewStep + 1}</progress>
+      </header>
+
+      {step < questions.length ? (() => {
+        const question = questions[step];
+        return <label className={styles.quoteQuestion}>
+          <span>{question.label}</span>
+          <small>{question.hint}</small>
+          <input
+            autoFocus
+            inputMode="numeric"
+            type="number"
+            min="0"
+            value={draft[question.key]}
+            onChange={event => setDraft(current => ({ ...current, [question.key]: Number(event.target.value) }))}
+            required
+          />
+        </label>;
+      })() : null}
+
+      {step === questions.length ? (
+        <label className={styles.quoteQuestion}>
+          <span>Where did you verify these numbers?</span>
+          <small>Use the retailer quote, checkout reference, or staff evidence—not a private credential.</small>
+          <input autoFocus value={draft.evidenceReference} onChange={event => setDraft(current => ({ ...current, evidenceReference: event.target.value }))} minLength={8} required />
+        </label>
+      ) : null}
+
+      {step === questions.length + 1 ? (
+        <div className={styles.quoteEvidence}>
+          <label><span>When should this quote expire?</span><input autoFocus type="datetime-local" value={draft.expiresAt} onChange={event => setDraft(current => ({ ...current, expiresAt: event.target.value }))} required /></label>
+          <label><span>What should the customer know?</span><textarea value={draft.notes} onChange={event => setDraft(current => ({ ...current, notes: event.target.value }))} maxLength={1000} placeholder="Optional, concise customer note" /></label>
+        </div>
+      ) : null}
+
+      {step === reviewStep ? (
+        <div className={styles.quoteReview}>
+          <p>Review before sending</p>
+          <dl>
+            <div><dt>Products</dt><dd>{naira.format(draft.productSubtotalNgn)}</dd></div>
+            <div><dt>Retailer fee</dt><dd>{naira.format(draft.retailerFeeNgn)}</dd></div>
+            <div><dt>Tax</dt><dd>{naira.format(draft.taxNgn)}</dd></div>
+            <div><dt>JeloCare fee</dt><dd>{naira.format(draft.jelocareFeeNgn)}</dd></div>
+            <div><dt>Delivery</dt><dd>{naira.format(draft.deliveryNgn)}</dd></div>
+            <div><dt>Total</dt><dd>{naira.format(total)}</dd></div>
+          </dl>
+          <small>Evidence: {draft.evidenceReference}</small>
+        </div>
+      ) : null}
+
+      <footer className={styles.quoteNav}>
+        {step > 0 ? <button className={styles.quoteBack} type="button" onClick={() => setStep(current => current - 1)}><ArrowLeft size={16} aria-hidden="true" /> Back</button> : <span />}
+        <button disabled={disabled || !canContinue} type="submit">
+          {step === reviewStep ? 'Issue exact quote' : <>Continue <ArrowRight size={16} aria-hidden="true" /></>}
+        </button>
+      </footer>
     </form>
   );
 }
