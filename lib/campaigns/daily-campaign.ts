@@ -1,6 +1,6 @@
 import "server-only";
 
-import { listCatalogueProducts } from "@/lib/catalogue/repository";
+import { findCatalogueProduct } from "@/lib/catalogue/repository";
 import {
   buildCampaignTrendStory,
   formatCampaignProductSize,
@@ -145,13 +145,7 @@ export async function selectDailyCampaign(input: {
   if (!Number.isFinite(nowMs)) throw new Error("campaign_invalid_clock");
 
   const recentProductSlugs = input.recentProductSlugs ?? new Set<string>();
-  const [signals, products] = await Promise.all([
-    getWorthSharingReadModel({ now: nowDate }),
-    listCatalogueProducts(),
-  ]);
-  const productBySlug = new Map(
-    products.map((product) => [product.slug, product]),
-  );
+  const signals = await getWorthSharingReadModel({ now: nowDate });
   const rejectedCandidates: Array<{ slug: string; blocker: string }> = [];
 
   let selected:
@@ -160,7 +154,7 @@ export async function selectDailyCampaign(input: {
         evidence: NonNullable<
           ReturnType<typeof publishedCampaignProductEvidence>
         >;
-        product: (typeof products)[number];
+        product: NonNullable<Awaited<ReturnType<typeof findCatalogueProduct>>>;
         rank: number;
       }
     | undefined;
@@ -181,7 +175,11 @@ export async function selectDailyCampaign(input: {
       });
       continue;
     }
-    const product = productBySlug.get(signal.slug);
+    // Resolve the candidate through the same per-product repository boundary
+    // used by the deterministic story route. The catalogue list and product
+    // caches can refresh at different moments, so trusting the list snapshot
+    // here can select a product that the renderer correctly rejects.
+    const product = await findCatalogueProduct(signal.slug);
     if (!product) {
       rejectedCandidates.push({
         slug: signal.slug,
