@@ -1,9 +1,9 @@
-import 'server-only';
+import "server-only";
 
-import { getPostgresClient } from '@/lib/db/postgres';
-import { INVENTORY_REFRESH_LEASE_MS } from '@/lib/inventory/refresh-policy';
+import { getPostgresClient } from "@/lib/db/postgres";
+import { INVENTORY_REFRESH_LEASE_MS } from "@/lib/inventory/refresh-policy";
 
-export type InventoryFreshness = 'fresh' | 'stale' | 'unknown';
+export type InventoryFreshness = "fresh" | "stale" | "unknown";
 
 export type InventoryOffer = {
   id: string;
@@ -11,7 +11,7 @@ export type InventoryOffer = {
   retailer: string;
   marketCode: string;
   url: string;
-  status: 'in_stock' | 'low_stock' | 'out_of_stock' | 'unknown';
+  status: "in_stock" | "low_stock" | "out_of_stock" | "unknown";
   available: boolean;
   priceMinor: number | null;
   currencyCode: string | null;
@@ -32,7 +32,7 @@ type InventoryOfferRow = {
   retailer: string;
   market_code: string;
   url: string;
-  inventory_status: InventoryOffer['status'];
+  inventory_status: InventoryOffer["status"];
   available: boolean;
   price_minor: number | null;
   currency_code: string | null;
@@ -70,7 +70,9 @@ function mapOffer(row: InventoryOfferRow): InventoryOffer {
   };
 }
 
-export async function listInventoryOffers(options: { staleOnly?: boolean; limit?: number } = {}) {
+export async function listInventoryOffers(
+  options: { staleOnly?: boolean; limit?: number } = {},
+) {
   const sql = getPostgresClient();
   const staleOnly = options.staleOnly ?? false;
   const limit = Math.min(Math.max(options.limit ?? 100, 1), 500);
@@ -122,7 +124,10 @@ export async function listInventoryOffers(options: { staleOnly?: boolean; limit?
   return rows.map(mapOffer);
 }
 
-export async function enqueueDueInventoryOffers(limit = 100, lookaheadHours = 24) {
+export async function enqueueDueInventoryOffers(
+  limit = 100,
+  lookaheadHours = 24,
+) {
   const sql = getPostgresClient();
   const safeLimit = Math.min(Math.max(limit, 1), 500);
   const safeLookaheadHours = Math.min(Math.max(lookaheadHours, 0), 168);
@@ -185,14 +190,16 @@ export type InventoryRefreshBacklogSummary = {
 
 export async function getInventoryRefreshBacklogSummary(): Promise<InventoryRefreshBacklogSummary> {
   const sql = getPostgresClient();
-  const [row] = await sql<{
-    active: number;
-    queued: number;
-    due: number;
-    processing: number;
-    lease_expired: number;
-    oldest_due_at: Date | null;
-  }[]>`
+  const [row] = await sql<
+    {
+      active: number;
+      queued: number;
+      due: number;
+      processing: number;
+      lease_expired: number;
+      oldest_due_at: Date | null;
+    }[]
+  >`
     select
       (count(*) filter (where status in ('queued', 'processing')))::int as active,
       (count(*) filter (where status = 'queued'))::int as queued,
@@ -221,4 +228,31 @@ export async function getInventoryRefreshBacklogSummary(): Promise<InventoryRefr
     leaseExpired: row?.lease_expired ?? 0,
     oldestDueAt: row?.oldest_due_at ?? null,
   };
+}
+
+/**
+ * Counts exact Nigerian offers whose verification has expired (stale) and
+ * have no active refresh job. Used by the alerting system to flag data
+ * freshness degradation before users see outdated prices.
+ */
+export async function getStaleOfferCount(): Promise<number> {
+  try {
+    const sql = getPostgresClient();
+    const [row] = await sql<{ stale: number }[]>`
+      select count(*)::int as stale
+      from offers o
+      where o.match_kind = 'exact'
+        and o.market_code = 'NG'
+        and o.verification_expires_at is not null
+        and o.verification_expires_at <= now()
+        and not exists (
+          select 1 from inventory_refresh_jobs j
+          where j.offer_id = o.id
+            and j.status in ('queued', 'processing')
+        )
+    `;
+    return row?.stale ?? 0;
+  } catch {
+    return 0;
+  }
 }

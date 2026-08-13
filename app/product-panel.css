@@ -192,6 +192,43 @@
   display: grid;
   gap: 0.5rem;
 }
+.product-panel-stores-search {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  border-radius: 1.15rem;
+  background: rgba(255, 253, 249, 0.58);
+  color: var(--muted);
+}
+.product-panel-stores-search input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.82rem;
+  color: var(--ink);
+  outline: none;
+}
+.product-panel-stores-search input::placeholder {
+  color: var(--muted);
+}
+.product-panel-stores-more {
+  justify-self: center;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 1rem;
+  background: rgba(232, 187, 180, 0.3);
+  color: var(--wine);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.product-panel-stores-empty {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  padding: 1.5rem 0;
+}
 .product-panel-stores a {
   min-height: 4.4rem;
   padding: 0.9rem 1rem;

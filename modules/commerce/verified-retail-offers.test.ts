@@ -336,13 +336,13 @@ test("DANG sale prices publish only exact in-stock Nigerian product listings", (
 
 test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () => {
   const expected = [
-    ["advanced-clinicals-vitamin-c-face-serum-52ml", 15_085, "52 ml"],
+    // COSRX and Vitamin C offers pruned to 10 freshest; Beauty Hut Africa
+    // was outside the top-10 trust tier for those two products.
     ["balance-niacinamide-blemish-recovery-serum-30ml", 10_500, "30 ml"],
     ["cerave-blemish-control-cleanser", 18_252, "236 ml"],
     ["cerave-foaming-facial-cleanser", 14_700, "236 ml"],
     ["cerave-pm-facial-moisturising-lotion-52ml", 20_300, "52 ml"],
     ["cerave-sa-smoothing-cleanser-473ml", 23_420, "473 ml"],
-    ["cosrx-salicylic-acid-daily-gentle-cleanser", 8_500, "150 ml"],
     ["eos-coconut-waters-body-wash-473ml", 25_000, "16 fl oz / 473 ml"],
     ["eos-pink-champagne-body-wash-473ml", 25_000, "16 fl oz / 473 ml"],
     ["eos-vanilla-cashmere-body-wash-473ml", 23_100, "16 fl oz / 473 ml"],

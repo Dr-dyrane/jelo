@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Info, ShoppingBag, X } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Info,
+  Search,
+  ShoppingBag,
+  X,
+} from "lucide-react";
 import {
   type KeyboardEvent,
   type RefObject,
@@ -84,6 +91,19 @@ export function ProductQuickPanelSheet({
   const moreStores = nigeriaRetailers.filter(
     (store) => !exactRetailers.has(store.name),
   );
+  const [storeQuery, setStoreQuery] = useState("");
+  const [showAllStores, setShowAllStores] = useState(false);
+  const INITIAL_STORE_PREVIEW = 8;
+  const filteredStores = storeQuery.trim()
+    ? moreStores.filter((store) =>
+        store.name.toLowerCase().includes(storeQuery.toLowerCase().trim()),
+      )
+    : moreStores;
+  const visibleStores =
+    showAllStores || storeQuery.trim()
+      ? filteredStores
+      : filteredStores.slice(0, INITIAL_STORE_PREVIEW);
+  const hiddenStoreCount = filteredStores.length - visibleStores.length;
 
   const requestClose = useCallback(() => {
     if (closeRequestedRef.current) return;
@@ -252,7 +272,20 @@ export function ProductQuickPanelSheet({
             tabIndex={0}
             hidden={tab !== "stores"}
           >
-            {moreStores.map((store) => (
+            <div className="product-panel-stores-search">
+              <Search size={16} aria-hidden="true" />
+              <input
+                type="search"
+                placeholder="Filter stores…"
+                value={storeQuery}
+                onChange={(e) => {
+                  setStoreQuery(e.target.value);
+                  setShowAllStores(false);
+                }}
+                aria-label="Filter stores by name"
+              />
+            </div>
+            {visibleStores.map((store) => (
               <a
                 key={store.name}
                 href={`/go?product=${encodeURIComponent(data.productSlug)}&retailer=${encodeURIComponent(store.name)}`}
@@ -268,6 +301,21 @@ export function ProductQuickPanelSheet({
                 <ArrowUpRight size={18} aria-hidden="true" />
               </a>
             ))}
+            {hiddenStoreCount > 0 ? (
+              <button
+                type="button"
+                className="product-panel-stores-more"
+                onClick={() => setShowAllStores(true)}
+              >
+                Show {hiddenStoreCount} more{" "}
+                {hiddenStoreCount === 1 ? "store" : "stores"}
+              </button>
+            ) : null}
+            {filteredStores.length === 0 && storeQuery.trim() ? (
+              <p className="product-panel-stores-empty">
+                No stores matching &quot;{storeQuery.trim()}&quot;.
+              </p>
+            ) : null}
           </section>
 
           <section

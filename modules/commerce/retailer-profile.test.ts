@@ -30,7 +30,7 @@ test("retailer profiles expose only that store current exact Nigerian offers", (
   assert.ok(beautyHut);
   const profile = buildRetailerProfile(beautyHut, products, now);
 
-  assert.ok(profile.productCount >= 15);
+  assert.ok(profile.productCount >= 13);
   assert.ok(profile.latestObservedAt);
   for (const product of profile.products) {
     assert.ok(product.offers.length > 0);

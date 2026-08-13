@@ -1,4 +1,7 @@
-import { sendAlertEmail, hasTransactionalEmailConfig } from '@/lib/email/mailer';
+import {
+  sendAlertEmail,
+  hasTransactionalEmailConfig,
+} from "@/lib/email/mailer";
 
 type RefreshRunSummary = {
   queued: number;
@@ -20,11 +23,12 @@ type BacklogSummary = {
   processing: number;
   leaseExpired: number;
   oldestDueAt: Date | null;
+  staleOffers?: number;
 };
 
 type AlertPayload = {
   event: string;
-  severity: 'warning' | 'critical';
+  severity: "warning" | "critical";
   message: string;
   run?: RefreshRunSummary;
   backlog?: BacklogSummary;
@@ -33,13 +37,18 @@ type AlertPayload = {
 
 const BACKLOG_ALERT_THRESHOLD = 50;
 const FAILED_ALERT_THRESHOLD = 5;
-const ALERT_RECIPIENT = process.env.INVENTORY_ALERT_EMAIL ?? 'hello@jelocare.com';
+const STALE_OFFER_ALERT_THRESHOLD = 30;
+const ALERT_RECIPIENT =
+  process.env.INVENTORY_ALERT_EMAIL ?? "hello@jelocare.com";
 
-function shouldAlert(run: RefreshRunSummary, backlog: BacklogSummary): AlertPayload | undefined {
+function shouldAlert(
+  run: RefreshRunSummary,
+  backlog: BacklogSummary,
+): AlertPayload | undefined {
   if (run.failed >= FAILED_ALERT_THRESHOLD) {
     return {
-      event: 'inventory_refresh_failed_offers',
-      severity: 'critical',
+      event: "inventory_refresh_failed_offers",
+      severity: "critical",
       message: `${run.failed} offers failed all retry attempts in the last cron run.`,
       run,
       backlog,
@@ -49,9 +58,9 @@ function shouldAlert(run: RefreshRunSummary, backlog: BacklogSummary): AlertPayl
 
   if (run.completed === 0 && run.processed > 0) {
     return {
-      event: 'inventory_refresh_zero_completions',
-      severity: 'critical',
-      message: 'No offers were successfully refreshed in the last cron run.',
+      event: "inventory_refresh_zero_completions",
+      severity: "critical",
+      message: "No offers were successfully refreshed in the last cron run.",
       run,
       backlog,
       timestamp: new Date().toISOString(),
@@ -60,9 +69,20 @@ function shouldAlert(run: RefreshRunSummary, backlog: BacklogSummary): AlertPayl
 
   if (backlog.due > BACKLOG_ALERT_THRESHOLD) {
     return {
-      event: 'inventory_refresh_backlog_growing',
-      severity: 'warning',
+      event: "inventory_refresh_backlog_growing",
+      severity: "warning",
       message: `${backlog.due} offers are due for refresh — the cron is falling behind.`,
+      run,
+      backlog,
+      timestamp: new Date().toISOString(),
+    };
+  }
+
+  if ((backlog.staleOffers ?? 0) > STALE_OFFER_ALERT_THRESHOLD) {
+    return {
+      event: "inventory_stale_offers_accumulating",
+      severity: "warning",
+      message: `${backlog.staleOffers} exact NG offers have expired verification with no active refresh — prices may be outdated.`,
       run,
       backlog,
       timestamp: new Date().toISOString(),
@@ -74,31 +94,32 @@ function shouldAlert(run: RefreshRunSummary, backlog: BacklogSummary): AlertPayl
 
 function alertEmailHtml(alert: AlertPayload): string {
   const rows = [
-    ['Event', alert.event],
-    ['Severity', alert.severity],
-    ['Message', alert.message],
-    ['Timestamp', alert.timestamp],
+    ["Event", alert.event],
+    ["Severity", alert.severity],
+    ["Message", alert.message],
+    ["Timestamp", alert.timestamp],
   ];
   if (alert.run) {
     rows.push(
-      ['Processed', String(alert.run.processed)],
-      ['Completed', String(alert.run.completed)],
-      ['Failed', String(alert.run.failed)],
-      ['Retrying', String(alert.run.retrying)],
-      ['Discarded', String(alert.run.discarded)],
-      ['Stopped by deadline', String(alert.run.stoppedByDeadline)],
+      ["Processed", String(alert.run.processed)],
+      ["Completed", String(alert.run.completed)],
+      ["Failed", String(alert.run.failed)],
+      ["Retrying", String(alert.run.retrying)],
+      ["Discarded", String(alert.run.discarded)],
+      ["Stopped by deadline", String(alert.run.stoppedByDeadline)],
     );
   }
   if (alert.backlog) {
     rows.push(
-      ['Backlog — due', String(alert.backlog.due)],
-      ['Backlog — queued', String(alert.backlog.queued)],
-      ['Backlog — processing', String(alert.backlog.processing)],
-      ['Backlog — lease expired', String(alert.backlog.leaseExpired)],
+      ["Backlog — due", String(alert.backlog.due)],
+      ["Backlog — queued", String(alert.backlog.queued)],
+      ["Backlog — processing", String(alert.backlog.processing)],
+      ["Backlog — lease expired", String(alert.backlog.leaseExpired)],
+      ["Stale offers", String(alert.backlog.staleOffers ?? "n/a")],
     );
   }
   return `<table style="border-collapse:collapse;font-family:monospace;font-size:14px">
-    ${rows.map(([label, value]) => `<tr><td style="padding:4px 12px 4px 0;color:#666">${label}</td><td style="padding:4px 0">${value}</td></tr>`).join('')}
+    ${rows.map(([label, value]) => `<tr><td style="padding:4px 12px 4px 0;color:#666">${label}</td><td style="padding:4px 0">${value}</td></tr>`).join("")}
   </table>`;
 }
 
@@ -120,10 +141,12 @@ export async function sendRefreshAlertIfNeeded(
         html: alertEmailHtml(alert),
       });
     } catch (error) {
-      console.error(JSON.stringify({
-        event: 'inventory_alert_email_failed',
-        error: error instanceof Error ? error.message : String(error),
-      }));
+      console.error(
+        JSON.stringify({
+          event: "inventory_alert_email_failed",
+          error: error instanceof Error ? error.message : String(error),
+        }),
+      );
     }
   }
 

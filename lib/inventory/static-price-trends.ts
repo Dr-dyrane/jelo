@@ -94,6 +94,11 @@ export function computeStaticPriceTrends(
 /**
  * Fallback price history that returns raw observations from static price
  * history data. Used by the trend chart when the database has no rows.
+ *
+ * When no static history entries exist for a product (common for newly
+ * added offers), seeds a single anchor observation per shareable offer so
+ * the chart shows at least one point instead of going dark. The next cron
+ * run will add a second point, creating a visible trend line.
  */
 export function computeStaticPriceHistory(
   slug: string,
@@ -102,7 +107,6 @@ export function computeStaticPriceHistory(
   const historyEntries = staticPriceHistory.filter(
     (entry) => entry.productSlug === slug,
   );
-  if (!historyEntries.length) return [];
 
   const observations: PriceObservation[] = [];
 
@@ -136,6 +140,25 @@ export function computeStaticPriceHistory(
       observedAt: snap.observedAt,
       recordedAt: snap.observedAt,
     });
+  }
+
+  // Cold-start seeding: when no static history exists, create a single
+  // anchor point per NG offer so the chart isn't empty. This gives the
+  // chart one visible point immediately, and the next cron run will add
+  // a second point that creates a trend line.
+  if (observations.length === 0) {
+    for (const snap of snapshot) {
+      if (snap.market !== "NG" || snap.priceMinor <= 0) continue;
+      const offerId = `seed-${slug}-${snap.retailer}`;
+      observations.push({
+        historyId: `seed-${slug}-${snap.retailer}-anchor`,
+        offerId,
+        retailer: snap.retailer,
+        priceMinor: snap.priceMinor,
+        observedAt: snap.observedAt,
+        recordedAt: snap.observedAt,
+      });
+    }
   }
 
   return observations;
