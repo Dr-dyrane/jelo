@@ -102,7 +102,7 @@
   padding: clamp(1.5rem, 3vw, 2.5rem);
 }
 .muted,
-.checkoutForm > div > p,
+.checkoutForm .stepPanel > p,
 .finePrint {
   color: var(--muted);
   line-height: 1.65;
@@ -250,13 +250,81 @@
 }
 .checkoutForm {
   padding: clamp(1.5rem, 4vw, 3.5rem);
+  display: grid;
+  gap: 1.2rem;
 }
 .checkoutForm h1 {
   max-width: 14ch;
   font-size: clamp(2rem, 4vw, 3.6rem);
 }
+.progressRow {
+  position: relative;
+}
+.progress {
+  height: 0.28rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+}
+.progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--wine);
+  transition: width 0.3s ease;
+}
+.stepContent {
+  align-self: start;
+  animation: step-in 0.28s ease;
+}
+.stepPanel {
+  display: grid;
+  gap: 1rem;
+}
+.stepPanel > p:first-of-type {
+  color: var(--wine);
+  font-size: 0.68rem;
+  font-weight: 400;
+}
+.stepActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.5rem;
+}
+.backButton {
+  min-height: 3rem;
+  padding: 0 1.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--rose) 50%, transparent);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.stepActions .primaryAction {
+  width: auto;
+  margin-top: 0;
+}
+@keyframes step-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 .fieldGrid {
-  margin: 2rem 0;
+  margin: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
@@ -301,9 +369,6 @@
 .checkField input {
   margin-top: 0.2rem;
 }
-.checkoutForm .primaryAction {
-  margin-top: 1.4rem;
-}
 .error {
   color: #9f2f39;
   font-weight: 650;
@@ -331,6 +396,15 @@
   .retailerChoice,
   .checkoutSummary {
     position: static;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress span {
+    transition: none;
+  }
+  .stepContent {
+    animation: none;
   }
 }
 

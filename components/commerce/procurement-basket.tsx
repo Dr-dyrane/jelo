@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ArrowLeft,
   ArrowRight,
   Check,
   Minus,
@@ -218,6 +219,9 @@ export function ProcurementBasket({
   );
 }
 
+type CheckoutStep = "contact" | "delivery" | "review";
+const checkoutFlow: CheckoutStep[] = ["contact", "delivery", "review"];
+
 export function CheckoutExperience({
   products,
 }: {
@@ -244,8 +248,13 @@ export function CheckoutExperience({
     () => findRetailerBasketOptions(selectedProducts, quantities),
     [quantities, selectedProducts],
   );
+  const [stepIndex, setStepIndex] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [fields, setFields] = useState<Record<string, string>>({});
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const currentStep =
+    checkoutFlow[Math.min(stepIndex, checkoutFlow.length - 1)];
 
   if (!basket.ready)
     return <div className={styles.loading}>Preparing checkout…</div>;
@@ -267,8 +276,45 @@ export function CheckoutExperience({
     );
   }
 
+  const progress = Math.round((stepIndex / (checkoutFlow.length - 1)) * 100);
+
+  function canContinue(): boolean {
+    if (currentStep === "contact") {
+      return Boolean(
+        (fields.contactName?.trim().length ?? 0) >= 2 &&
+        fields.contactEmail?.trim() &&
+        fields.contactPhone?.trim(),
+      );
+    }
+    if (currentStep === "delivery") {
+      return Boolean(
+        (fields.deliveryAddress?.trim().length ?? 0) >= 5 &&
+        fields.deliveryCity?.trim() &&
+        fields.deliveryState?.trim(),
+      );
+    }
+    if (currentStep === "review") {
+      return termsAccepted;
+    }
+    return true;
+  }
+
+  function nextStep() {
+    setError("");
+    setStepIndex((index) => Math.min(index + 1, checkoutFlow.length - 1));
+  }
+
+  function previousStep() {
+    setError("");
+    setStepIndex((index) => Math.max(0, index - 1));
+  }
+
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!canContinue()) {
+      setError("A few answers are still missing.");
+      return;
+    }
     setSubmitting(true);
     setError("");
     const data = new FormData(event.currentTarget);
@@ -332,15 +378,22 @@ export function CheckoutExperience({
 
   return (
     <div className={styles.checkoutLayout}>
-      <form className={styles.checkoutForm} onSubmit={submit}>
-        <div>
-          <p className="eyebrow">Guest checkout</p>
-          <h1>Where should we quote delivery?</h1>
-          <p>
-            No account required. We use these details only for this order
-            request.
-          </p>
+      <form
+        className={styles.checkoutForm}
+        onSubmit={submit}
+        onChange={(e) => {
+          const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+          if (target.name) {
+            setFields((prev) => ({ ...prev, [target.name]: target.value }));
+          }
+        }}
+      >
+        <div className={styles.progressRow}>
+          <div className={styles.progress} aria-label={`${progress}% complete`}>
+            <span style={{ width: `${progress}%` }} />
+          </div>
         </div>
+
         <input
           className={styles.honeypot}
           name="websiteField"
@@ -348,88 +401,173 @@ export function CheckoutExperience({
           autoComplete="off"
           aria-hidden="true"
         />
-        <div className={styles.fieldGrid}>
-          <label>
-            <span>Name</span>
-            <input
-              name="contactName"
-              autoComplete="name"
-              required
-              minLength={2}
-            />
-          </label>
-          <label>
-            <span>Email</span>
-            <input
-              name="contactEmail"
-              type="email"
-              autoComplete="email"
-              required
-            />
-          </label>
-          <label>
-            <span>Phone</span>
-            <input name="contactPhone" type="tel" autoComplete="tel" required />
-          </label>
-          <label className={styles.fullField}>
-            <span>Delivery address</span>
-            <textarea
-              name="deliveryAddress"
-              autoComplete="street-address"
-              required
-              minLength={5}
-            />
-          </label>
-          <label>
-            <span>City</span>
-            <input name="deliveryCity" autoComplete="address-level2" required />
-          </label>
-          <label>
-            <span>State</span>
-            <input
-              name="deliveryState"
-              autoComplete="address-level1"
-              required
-            />
-          </label>
-          <label className={styles.fullField}>
-            <span>
-              Delivery notes <small>optional</small>
-            </span>
-            <textarea name="deliveryInstructions" maxLength={500} />
-          </label>
+
+        <div className={styles.stepContent} key={currentStep}>
+          {currentStep === "contact" ? (
+            <div className={styles.stepPanel}>
+              <p className="eyebrow">Step 1 of 3</p>
+              <h1>How can JeloCare reach you?</h1>
+              <p>
+                No account required. We use these details only for this order
+                request.
+              </p>
+              <div className={styles.fieldGrid}>
+                <label>
+                  <span>Name</span>
+                  <input
+                    name="contactName"
+                    autoComplete="name"
+                    required
+                    minLength={2}
+                  />
+                </label>
+                <label>
+                  <span>Email</span>
+                  <input
+                    name="contactEmail"
+                    type="email"
+                    autoComplete="email"
+                    required
+                  />
+                </label>
+                <label className={styles.fullField}>
+                  <span>Phone</span>
+                  <input
+                    name="contactPhone"
+                    type="tel"
+                    autoComplete="tel"
+                    required
+                  />
+                </label>
+              </div>
+            </div>
+          ) : null}
+
+          {currentStep === "delivery" ? (
+            <div className={styles.stepPanel}>
+              <p className="eyebrow">Step 2 of 3</p>
+              <h1>Where should we quote delivery?</h1>
+              <div className={styles.fieldGrid}>
+                <label className={styles.fullField}>
+                  <span>Delivery address</span>
+                  <textarea
+                    name="deliveryAddress"
+                    autoComplete="street-address"
+                    required
+                    minLength={5}
+                  />
+                </label>
+                <label>
+                  <span>City</span>
+                  <input
+                    name="deliveryCity"
+                    autoComplete="address-level2"
+                    required
+                  />
+                </label>
+                <label>
+                  <span>State</span>
+                  <input
+                    name="deliveryState"
+                    autoComplete="address-level1"
+                    required
+                  />
+                </label>
+                <label className={styles.fullField}>
+                  <span>
+                    Delivery notes <small>optional</small>
+                  </span>
+                  <textarea name="deliveryInstructions" maxLength={500} />
+                </label>
+              </div>
+              <label className={styles.checkField}>
+                <input type="checkbox" name="whatsappConsent" />
+                <span>
+                  JeloCare may contact this number on WhatsApp about this order.
+                  I can continue without WhatsApp.
+                </span>
+              </label>
+            </div>
+          ) : null}
+
+          {currentStep === "review" ? (
+            <div className={styles.stepPanel}>
+              <p className="eyebrow">Step 3 of 3</p>
+              <h1>Ready to request your quote?</h1>
+              <p className={styles.finePrint}>
+                No payment is taken. Unknown delivery, tax, or fees cannot be
+                treated as zero.
+              </p>
+              <div className={styles.quoteSteps}>
+                <span>
+                  <Check size={16} aria-hidden="true" /> Submit this exact
+                  basket
+                </span>
+                <span>
+                  <Check size={16} aria-hidden="true" /> Staff verifies every
+                  cost
+                </span>
+                <span>
+                  <Check size={16} aria-hidden="true" /> You approve the final
+                  quote
+                </span>
+              </div>
+              <label className={styles.checkField}>
+                <input
+                  type="checkbox"
+                  name="termsAccepted"
+                  required
+                  checked={termsAccepted}
+                  onChange={(e) => setTermsAccepted(e.target.checked)}
+                />
+                <span>
+                  I understand this is an order request, not payment. The
+                  retailer supplies the products and I must approve the complete
+                  quote.
+                </span>
+              </label>
+            </div>
+          ) : null}
         </div>
-        <label className={styles.checkField}>
-          <input type="checkbox" name="whatsappConsent" />
-          <span>
-            JeloCare may contact this number on WhatsApp about this order. I can
-            continue without WhatsApp.
-          </span>
-        </label>
-        <label className={styles.checkField}>
-          <input type="checkbox" name="termsAccepted" required />
-          <span>
-            I understand this is an order request, not payment. The retailer
-            supplies the products and I must approve the complete quote.
-          </span>
-        </label>
+
         {error ? (
           <p className={styles.error} role="alert">
             {error}
           </p>
         ) : null}
-        <button
-          className={styles.primaryAction}
-          type="submit"
-          disabled={submitting}
-        >
-          {submitting ? "Saving request…" : "Request verified quote"}
-          {!submitting ? <ArrowRight size={17} aria-hidden="true" /> : null}
-        </button>
-        <p className={styles.finePrint}>
-          No payment is taken. Unknown delivery, tax, or fees cannot be treated
-          as zero.
-        </p>
+
+        <div className={styles.stepActions}>
+          {stepIndex > 0 ? (
+            <button
+              type="button"
+              className={styles.backButton}
+              onClick={previousStep}
+            >
+              <ArrowLeft size={16} aria-hidden="true" /> Back
+            </button>
+          ) : (
+            <span />
+          )}
+          {currentStep === "review" ? (
+            <button
+              className={styles.primaryAction}
+              type="submit"
+              disabled={submitting}
+            >
+              {submitting ? "Saving request…" : "Request verified quote"}
+              {!submitting ? <ArrowRight size={17} aria-hidden="true" /> : null}
+            </button>
+          ) : (
+            <button
+              type="button"
+              className={styles.primaryAction}
+              onClick={nextStep}
+              disabled={!canContinue()}
+            >
+              Continue <ArrowRight size={16} aria-hidden="true" />
+            </button>
+          )}
+        </div>
       </form>
 
       <aside className={styles.checkoutSummary}>
