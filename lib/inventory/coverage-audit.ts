@@ -28,6 +28,7 @@ const limitedAvailabilitySlugs = new Set([
   "naturium-intense-overnight-sleeping-cream-1-7oz",
   "benton-honest-cleansing-foam-150g",
   "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+  "abib-clear-spot-serum-7-325-30ml",
 ]);
 
 /**
