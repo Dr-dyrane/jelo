@@ -11,6 +11,10 @@ import {
 import { processInventoryRefreshBatch } from "@/lib/inventory/refresh-worker";
 import { sendRefreshAlertIfNeeded } from "@/lib/inventory/refresh-alerting";
 import { isAuthorizedCronRequest } from "@/modules/retail-intelligence/cron-auth";
+import {
+  staticFileSyncConfig,
+  syncOffersToStaticFile,
+} from "@/lib/inventory/static-file-sync";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -69,10 +73,58 @@ export async function GET(request: Request) {
   const backlog = await getInventoryRefreshBacklogSummary();
   const staleOffers = await getStaleOfferCount();
   const backlogWithStale = { ...backlog, staleOffers };
-  const summary = { run, backlog: backlogWithStale };
 
   // Send an alert if the cron is failing or falling behind.
   await sendRefreshAlertIfNeeded(run, backlogWithStale);
+
+  // Sync refreshed offers back to the static data file via GitHub API.
+  // This is opt-in (requires STATIC_FILE_SYNC_ENABLED=true and GITHUB_TOKEN)
+  // and only updates offers refreshed by automation — never manual ones.
+  let staticFileSync = null;
+  if (staticFileSyncConfig()) {
+    const completedRefreshes = batch.results
+      .filter(
+        (
+          result,
+        ): result is typeof result & {
+          retailer: string;
+          verificationMethod: string;
+        } =>
+          result.status === "completed" &&
+          typeof result.retailer === "string" &&
+          typeof result.verificationMethod === "string",
+      )
+      .map((result) => ({
+        productSlug: result.productSlug,
+        retailer: result.retailer,
+        priceNgn: result.priceMinor ?? null,
+        available:
+          result.inventoryStatus === "in_stock" ||
+          result.inventoryStatus === "low_stock",
+        inventoryStatus: result.inventoryStatus ?? "unknown",
+        lastVerifiedAt: new Date(),
+        verificationMethod: result.verificationMethod,
+      }));
+    if (completedRefreshes.length > 0) {
+      try {
+        staticFileSync = await syncOffersToStaticFile({
+          refreshedOffers: completedRefreshes,
+        });
+      } catch (error) {
+        staticFileSync = {
+          synced: 0,
+          skipped: 0,
+          committed: false,
+          commitSha: null,
+          errors: [
+            `static_file_sync_failed: ${error instanceof Error ? error.message : "unknown"}`,
+          ],
+        };
+      }
+    }
+  }
+
+  const summary = { run, backlog: backlogWithStale, staticFileSync };
 
   console.info(
     JSON.stringify({ event: "inventory_refresh_cron_completed", ...summary }),

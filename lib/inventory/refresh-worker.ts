@@ -15,6 +15,15 @@ import {
   type RetailerExtraction,
 } from "@/modules/retail-intelligence/extraction";
 import { assertRetailerResponseScope } from "@/modules/retail-intelligence/response-scope";
+import {
+  fetchRetailerPageWithBrowser,
+  isBrowserFetchAvailable,
+} from "@/lib/inventory/browser-fetch";
+import {
+  aiExtractionConfig,
+  extractRetailerPageWithAi,
+  type AiExtractionResult,
+} from "@/lib/inventory/ai-extraction";
 
 const REQUEST_TIMEOUT_MS = 12_000;
 const MAX_RESPONSE_BYTES = 1_500_000;
@@ -40,24 +49,27 @@ const WOO_API_HOSTS = new Map<string, string>([
   ["beautybydaz.com", "https://beautybydaz.com"],
 ]);
 
-// Jumia blocks server-side fetch with Cloudflare 403. Skip it in the cron and
-// let manual re-verification handle those offers.
+// Jumia blocks server-side fetch with Cloudflare 403. These hosts now fall
+// back to the Playwright browser fetch instead of being skipped entirely.
 const BLOCKED_HOSTS = new Set(["jumia.com.ng"]);
 
 type RetailerObservation = RetailerExtraction & {
   adapterKey: string;
   responseUrl: string;
+  verificationMethod: string;
 };
 
 export type InventoryRefreshResult = {
   jobId: string;
   offerId: string;
   productSlug: string;
+  retailer?: string;
   status: InventoryRefreshRunStatus;
   recoveredLease: boolean;
   inventoryStatus?: InventoryStatus;
   priceMinor?: number;
   currencyCode?: string;
+  verificationMethod?: string;
   error?: string;
 };
 
@@ -71,6 +83,7 @@ type ClaimedJob = {
   product_name: string;
   product_size: string;
   brand_name: string;
+  retailer_name: string;
   recovered_lease: boolean;
   offer_version: string;
 };
@@ -225,11 +238,13 @@ async function claimJob(
       p.slug as product_slug,
       p.name as product_name,
       p.size as product_size,
-      b.name as brand_name
+      b.name as brand_name,
+      r.name as retailer_name
     from claimed
     join offers o on o.id = claimed.offer_id
     join products p on p.id = o.product_id
     join brands b on b.id = p.brand_id
+    join retailers r on r.id = o.retailer_id
   `;
   return job;
 }
@@ -349,7 +364,36 @@ async function fetchWooStoreApi(
       confidence,
       adapterKey: "woo-store-api",
       responseUrl: url,
+      verificationMethod: "retailer_page",
     };
+  } catch {
+    return undefined;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+/**
+ * Fetches raw HTML from a retailer page without running extraction. Used as a
+ * fallback path when fetchRetailerPage throws (e.g. non-HTML content type) but
+ * we still want the HTML for AI Gateway extraction.
+ */
+async function fetchPageHtml(url: string): Promise<string | undefined> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  try {
+    const response = await fetch(url, {
+      redirect: "follow",
+      signal: controller.signal,
+      headers: {
+        Accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.1",
+        "User-Agent": "JeloCareInventoryVerifier/1.1 (+https://jelocare.com)",
+      },
+    });
+    if (!response.ok) return undefined;
+    const html = await response.text();
+    if (Buffer.byteLength(html, "utf8") > MAX_RESPONSE_BYTES) return undefined;
+    return html;
   } catch {
     return undefined;
   } finally {
@@ -384,7 +428,12 @@ async function fetchRetailerPage(url: string): Promise<RetailerObservation> {
       throw new Error("Retailer page exceeded the inspection size limit.");
     const responseUrl = response.url || url;
     const result = extractRetailerPage({ url: new URL(responseUrl), html });
-    return { ...result.extraction, adapterKey: result.adapterKey, responseUrl };
+    return {
+      ...result.extraction,
+      adapterKey: result.adapterKey,
+      responseUrl,
+      verificationMethod: "retailer_page",
+    };
   } finally {
     clearTimeout(timeout);
   }
@@ -551,7 +600,7 @@ async function completeJob(
           available = ${available},
           price_minor = ${observation.priceMinor},
           currency_code = ${observation.currencyCode},
-          verification_method = 'retailer_page',
+          verification_method = ${observation.verificationMethod},
           verification_note = ${verificationNote},
           extraction_confidence = ${observation.confidence},
           extraction_evidence = ${transaction.json(observation.evidence)},
@@ -584,7 +633,7 @@ async function completeJob(
     if (observation.priceMinor != null && observation.currencyCode) {
       await transaction`
         insert into offer_price_history (offer_id, price_minor, currency_code, observed_at, source)
-        values (${job.offer_id}, ${observation.priceMinor}, ${observation.currencyCode}, now(), 'retailer_page')
+        values (${job.offer_id}, ${observation.priceMinor}, ${observation.currencyCode}, now(), ${observation.verificationMethod})
       `;
     }
 
@@ -667,30 +716,104 @@ export async function processNextInventoryRefreshJob(
   const job = await claimJob(options);
   if (!job) return undefined;
 
-  // Skip offers from hosts that block server-side fetch (e.g., Jumia/Cloudflare).
-  // These offers are refreshed manually and should not consume cron attempts.
-  if (isBlockedHost(job.url)) {
-    const settlement = await failJob(
-      job,
-      new Error(
-        "Retailer host blocks server-side fetch; manual verification required.",
-      ),
-    );
-    return {
-      jobId: job.job_id,
-      offerId: job.offer_id,
-      productSlug: job.product_slug,
-      status: settlement.status,
-      recoveredLease: job.recovered_lease,
-      error: settlement.error,
-    };
-  }
-
   try {
     // Try the Woo Store API first for known Woo retailers — it's more reliable
     // than HTML scraping and gives structured price/stock data directly.
-    const observation =
+    let observation =
       (await fetchWooStoreApi(job.url)) ?? (await fetchRetailerPage(job.url));
+
+    // If HTTP fetch failed and the host is known to block server-side requests
+    // (e.g. Jumia/Cloudflare), fall back to a headless browser fetch. The
+    // browser renders the page like a real user, bypassing bot detection.
+    if (!observation && isBlockedHost(job.url) && isBrowserFetchAvailable()) {
+      const browserResult = await fetchRetailerPageWithBrowser(job.url);
+      if (browserResult) {
+        const result = extractRetailerPage({
+          url: new URL(browserResult.responseUrl),
+          html: browserResult.html,
+        });
+        observation = {
+          ...result.extraction,
+          adapterKey: result.adapterKey,
+          responseUrl: browserResult.responseUrl,
+          verificationMethod: "retailer_page",
+        };
+      }
+    }
+
+    // Final fallback: if all fetch strategies failed or returned no usable
+    // extraction, ask the AI Gateway to extract price/stock from any HTML we
+    // did manage to fetch. This is gated by INVENTORY_AI_EXTRACTION=true and
+    // runs at confidence 50 (1-day freshness window).
+    if (!observation && aiExtractionConfig()) {
+      let htmlForAi: string | undefined;
+      let urlForAi = job.url;
+      if (isBlockedHost(job.url) && isBrowserFetchAvailable()) {
+        const browserResult = await fetchRetailerPageWithBrowser(job.url);
+        if (browserResult) {
+          htmlForAi = browserResult.html;
+          urlForAi = browserResult.responseUrl;
+        }
+      } else {
+        // Re-fetch the page HTML directly for AI extraction — the earlier
+        // fetchRetailerPage call may have thrown before returning HTML.
+        try {
+          htmlForAi = await fetchPageHtml(job.url);
+          if (htmlForAi) {
+            // Try structured extraction first from this HTML
+            const result = extractRetailerPage({
+              url: new URL(job.url),
+              html: htmlForAi,
+            });
+            if (result.extraction.confidence >= 60) {
+              observation = {
+                ...result.extraction,
+                adapterKey: result.adapterKey,
+                responseUrl: job.url,
+                verificationMethod: "retailer_page",
+              };
+            }
+          }
+        } catch {
+          // If we can't get HTML, AI extraction can't run either
+        }
+      }
+      if (!observation && htmlForAi) {
+        const aiResult = await extractRetailerPageWithAi({
+          html: htmlForAi,
+          url: urlForAi,
+          productSlug: job.product_slug,
+          productName: job.product_name,
+          productSize: job.product_size,
+        });
+        if (aiResult) {
+          observation = {
+            ...aiResult,
+            adapterKey: "ai-gateway-extraction",
+            responseUrl: urlForAi,
+          };
+        }
+      }
+    }
+
+    if (!observation) {
+      const settlement = await failJob(
+        job,
+        new Error(
+          "All fetch strategies failed (Woo API, HTTP, browser, AI extraction).",
+        ),
+      );
+      return {
+        jobId: job.job_id,
+        offerId: job.offer_id,
+        productSlug: job.product_slug,
+        retailer: job.retailer_name,
+        status: settlement.status,
+        recoveredLease: job.recovered_lease,
+        error: settlement.error,
+      };
+    }
+
     assertRetailerResponseScope({
       requestedUrl: job.url,
       responseUrl: observation.responseUrl,
@@ -708,6 +831,7 @@ export async function processNextInventoryRefreshJob(
       jobId: job.job_id,
       offerId: job.offer_id,
       productSlug: job.product_slug,
+      retailer: job.retailer_name,
       status: settlement.status,
       recoveredLease: job.recovered_lease,
       inventoryStatus:
@@ -722,6 +846,10 @@ export async function processNextInventoryRefreshJob(
         settlement.status === "completed"
           ? (observation.currencyCode ?? undefined)
           : undefined,
+      verificationMethod:
+        settlement.status === "completed"
+          ? observation.verificationMethod
+          : undefined,
       error: settlement.error,
     };
   } catch (error) {
@@ -730,6 +858,7 @@ export async function processNextInventoryRefreshJob(
       jobId: job.job_id,
       offerId: job.offer_id,
       productSlug: job.product_slug,
+      retailer: job.retailer_name,
       status: settlement.status,
       recoveredLease: job.recovered_lease,
       error: settlement.error,

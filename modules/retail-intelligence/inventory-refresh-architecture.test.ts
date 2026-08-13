@@ -165,11 +165,12 @@ test("the refresh worker tries the Woo Store API before HTML scraping", () => {
   assert.match(worker, /wp-json\/wc\/store\/v1\/products\?slug=/);
 });
 
-test("the refresh worker skips Jumia offers that block server-side fetch", () => {
+test("the refresh worker falls back to browser fetch for Jumia offers that block server-side fetch", () => {
   assert.match(worker, /BLOCKED_HOSTS/);
   assert.match(worker, /jumia\.com\.ng/);
   assert.match(worker, /isBlockedHost\(job\.url\)/);
-  assert.match(worker, /Retailer host blocks server-side fetch/);
+  assert.match(worker, /fetchRetailerPageWithBrowser/);
+  assert.match(worker, /isBrowserFetchAvailable/);
 });
 
 test("all Woo retailers in the extraction adapters have a matching Woo API host", () => {
