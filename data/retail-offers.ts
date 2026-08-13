@@ -3032,6 +3032,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
+    exactNg(
+      "GlowMart",
+      "https://glowmartng.com/shop/cecred-moisturizing-deep-conditioner-300ml/",
+      90,
+      149000,
+      "Cécred Moisturizing Deep Conditioner 300ml",
+      "300 ml",
+      {
+        observedAt: "2026-08-13T00:54:00Z",
+        expiresAt: "2026-08-20T00:54:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
   ],
   "aqua-rich-ceramide-body-lotion-500ml": [
     exactNg(
