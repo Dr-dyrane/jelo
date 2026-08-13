@@ -169,9 +169,21 @@ function consultResponseWithIntakeShadow(
   input: { query: string; deterministicOutcome: ConsultAiOutcome },
 ) {
   if (consultIntakeShadowConfig()) {
-    after(async () => {
-      await runConsultIntakeShadow(input);
-    });
+    try {
+      after(async () => {
+        await runConsultIntakeShadow(input);
+      });
+    } catch (error) {
+      // Route-contract tests invoke POST without a Next.js request scope. In a
+      // real request, `after` owns the durable shadow task; outside one there
+      // is deliberately nothing to schedule.
+      if (
+        !(error instanceof Error) ||
+        !error.message.includes('after` was called outside a request scope')
+      ) {
+        throw error;
+      }
+    }
   }
   return Response.json(payload);
 }
