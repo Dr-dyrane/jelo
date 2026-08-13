@@ -731,3 +731,39 @@ canvas with at least 10% padding margin before staging.
 - Use an intake compile to imply approval, release, or public exposure.
 - Treat a private evidence packet as an intake candidate, dossier, release, or public product.
 - Remove a failing gate to release faster.
+
+## Inventory cron and alerting
+
+The inventory cron (`/api/cron/inventory`) runs twice daily, enqueues due
+offers, processes a batch, and revalidates affected paths. The alerting
+system (`lib/inventory/refresh-alerting.ts`) sends email alerts when:
+
+1. **5+ offers fail all retry attempts** (critical) — the cron is losing
+   retailer pages to persistent errors.
+2. **Zero completions in a run with processed > 0** (critical) — every
+   refresh attempt failed.
+3. **Backlog exceeds 50 due offers** (warning) — the cron is falling behind
+   and offers are aging.
+4. **30+ stale exact NG offers with no active refresh** (warning) —
+   verification has expired and prices may be outdated. This catches data
+   freshness degradation before users see stale prices.
+
+Alert emails go to `INVENTORY_ALERT_EMAIL` (defaults to
+`hello@jelocare.com`) when transactional email is configured. All alerts
+are also logged to the console as structured JSON.
+
+### Tiered coverage target
+
+`lib/inventory/coverage-audit.ts` exports `productCoverageTarget(slug)` which
+returns 3 for most products and 2 for products confirmed as genuinely limited
+in Nigerian distribution after exhaustive search (25+ retailers checked). The
+limited-availability set is maintained in `limitedAvailabilitySlugs` and
+includes niche, imported, or brand-owned products with narrow distribution.
+
+### Cold-start trend history
+
+When a product has no static or database price history, the static fallback
+in `lib/inventory/static-price-trends.ts` seeds a single anchor observation
+per shareable NG offer. This ensures the `/share` trend chart shows at least
+one point immediately after a product is added. The next cron run adds a
+second observation, creating a visible trend line.
