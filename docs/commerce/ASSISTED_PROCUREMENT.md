@@ -9,10 +9,13 @@ purchasing agent. No payment is taken in this release.
 
 ## Customer journey
 
-1. A person adds one to four exact products to the local guest basket. No
-   account, contact data, or server record is created.
+1. A person adds an exact product to the local guest basket. The first add
+   selects a current in-stock retailer and opens that retailer's JeloCare
+   profile as a store-scoped shopping surface. Products added there stay with
+   the same retailer. No account, contact data, or server record is created.
 2. `/basket` shows only retailers with a current eligible listing for every
-   selected item. One order always has one retailer.
+   selected item. The person may explicitly switch the whole basket there; one
+   order always has one retailer.
 3. `/checkout` collects the delivery and contact details needed to prepare a
    quote. The server re-reads the catalogue, offer evidence, price, stock, and
    retailer; it never trusts client prices. A browser-scoped request key makes
@@ -57,14 +60,14 @@ The state and cost contract is defined by
 
 ## Retention and expiry
 
-| Record | Current contract |
-| --- | --- |
-| Guest basket | Browser-local until checkout clears it or the person removes it |
-| Guest order session | 30 days |
-| Recovery link | 20 minutes, one-time |
-| Quote | Operator-selected future expiry; expiry advances the order to `needs_response` and appends an event |
-| Order and event record | 365 days in the Phase 2 schema |
-| Order notification and delivery audit | Never beyond the parent order retention |
+| Record                                | Current contract                                                                                    |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Guest basket                          | Browser-local until checkout clears it or the person removes it                                     |
+| Guest order session                   | 30 days                                                                                             |
+| Recovery link                         | 20 minutes, one-time                                                                                |
+| Quote                                 | Operator-selected future expiry; expiry advances the order to `needs_response` and appends an event |
+| Order and event record                | 365 days in the Phase 2 schema                                                                      |
+| Order notification and delivery audit | Never beyond the parent order retention                                                             |
 
 ## Deployment order
 

@@ -11,6 +11,8 @@ const verifiedVercelProductionBuild =
 // upgrade directive; local development keeps the rest of the same CSP.
 const transportUpgradeDirectives =
   process.env.NODE_ENV === "development" ? [] : ["upgrade-insecure-requests"];
+const developmentScriptDirectives =
+  process.env.NODE_ENV === "development" ? ["'unsafe-eval'"] : [];
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
@@ -52,7 +54,10 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline'",
+              [
+                "script-src 'self' 'unsafe-inline'",
+                ...developmentScriptDirectives,
+              ].join(" "),
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data:",

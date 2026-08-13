@@ -83,6 +83,20 @@
   font-weight: 600;
 }
 
+.secondaryAction {
+  min-height: 3.25rem;
+  padding: 0.8rem 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 66%, transparent);
+  color: var(--ink);
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
 .heroActions > span {
   color: var(--muted);
   font-size: 0.72rem;
@@ -314,6 +328,12 @@
   box-shadow: 0 0.8rem 2rem color-mix(in srgb, var(--wine) 10%, transparent);
 }
 
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .emptyState {
   min-height: 22rem;
   margin-top: 3rem;
@@ -409,6 +429,10 @@
     grid-template-columns: 1fr;
   }
 
+  .hero[data-shopping="true"] {
+    min-height: 100svh;
+  }
+
   .heroCopy {
     max-width: 48rem;
   }
@@ -444,6 +468,18 @@
   .heroStage {
     min-height: 32rem;
     border-radius: 2rem;
+  }
+
+  .hero[data-shopping="true"] .heroStage {
+    min-height: 20rem;
+  }
+
+  .hero[data-shopping="true"] .productPortraits {
+    inset: 3.5rem 0.4rem 1.5rem;
+  }
+
+  .hero[data-shopping="true"] .metrics {
+    display: none;
   }
 
   .productPortraits {
@@ -516,6 +552,7 @@
 }
 
 :global(html[data-theme="dark"]) .primaryAction,
+:global(html[data-theme="dark"]) .secondaryAction,
 :global(html[data-theme="dark"]) .emptyState a {
   background: var(--accent-solid);
   color: var(--on-accent);
@@ -552,6 +589,7 @@
   }
 
   :global(html:not([data-theme="light"])) .primaryAction,
+  :global(html:not([data-theme="light"])) .secondaryAction,
   :global(html:not([data-theme="light"])) .emptyState a {
     background: var(--accent-solid);
     color: var(--on-accent);

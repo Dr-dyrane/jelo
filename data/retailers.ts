@@ -5,6 +5,7 @@ import type {
   RetailerReviewStatus,
   RegulatorMatchEvidence,
 } from "@/data/retail-evidence";
+import { retailerShoppingSlug } from "@/lib/commerce/shopping-session";
 
 export type RetailerReference = {
   name: string;
@@ -1272,11 +1273,7 @@ export function retailerSearchUrl(retailerName: string, query: string) {
 }
 
 export function retailerSlug(retailerName: string) {
-  return retailerName
-    .normalize("NFKD")
-    .toLocaleLowerCase("en-NG")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+  return retailerShoppingSlug(retailerName);
 }
 
 export function retailerBySlug(slug: string) {

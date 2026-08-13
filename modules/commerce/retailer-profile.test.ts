@@ -53,6 +53,9 @@ test("public retailer routes reuse product cards and keep store links evidence-s
   ]);
 
   assert.match(profilePage, /ProductCardGrid/);
+  assert.match(profilePage, /shopping \? "Now shopping at"/);
+  assert.match(profilePage, /<AddToBasketButton/);
+  assert.match(profilePage, /redirectToStore=\{false\}/);
   assert.match(profilePage, /buildRetailerProfile\(retailer, catalogue\)/);
   assert.match(
     profilePage,

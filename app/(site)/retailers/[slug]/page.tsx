@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  ShoppingBag,
+} from "lucide-react";
 import { notFound } from "next/navigation";
 import { SmartBackLink } from "@/components/navigation/smart-back-link";
+import { AddToBasketButton } from "@/components/commerce/add-to-basket-button";
 import { ProductCardGrid } from "@/components/products/product-grid";
 import { SafeProductImage } from "@/components/products/safe-product-image";
 import {
@@ -11,10 +18,7 @@ import {
   retailerSlug,
 } from "@/data/retailers";
 import { listCatalogueProducts } from "@/lib/catalogue/repository";
-import {
-  publicSocialMetadata,
-  retailerSocialCard,
-} from "@/lib/og/social-card";
+import { publicSocialMetadata, retailerSocialCard } from "@/lib/og/social-card";
 import { buildRetailerProfile } from "@/modules/commerce/retailer-profile";
 import styles from "./retailer-profile.module.css";
 
@@ -70,16 +74,20 @@ function identityLabel(
 
 export default async function RetailerProfilePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ shopping?: string }>;
 }) {
   const { slug } = await params;
+  const query = await searchParams;
   const retailer = retailerBySlug(slug);
   if (!retailer) notFound();
 
   const catalogue = await listCatalogueProducts();
   const profile = buildRetailerProfile(retailer, catalogue);
   const featured = profile.products.slice(0, 3);
+  const shopping = query.shopping === "1";
   const lastObserved = profile.latestObservedAt
     ? dateFormatter.format(new Date(profile.latestObservedAt))
     : "Awaiting price";
@@ -87,36 +95,57 @@ export default async function RetailerProfilePage({
 
   return (
     <main className={styles.main}>
-      <section className={styles.hero}>
+      <section
+        className={styles.hero}
+        data-shopping={shopping ? "true" : "false"}
+      >
         <div className={styles.heroCopy}>
-          <SmartBackLink
-            className={styles.backLink}
-            fallbackHref="/retailers"
-          >
+          <SmartBackLink className={styles.backLink} fallbackHref="/retailers">
             <ArrowLeft size={16} aria-hidden="true" />
             Back
           </SmartBackLink>
-          <p className="eyebrow">JeloCare retailer profile</p>
+          <p className="eyebrow">
+            {shopping ? "Now shopping at" : "JeloCare retailer profile"}
+          </p>
           <h1>{retailer.name}</h1>
-          <p className={styles.note}>{retailer.note}</p>
+          <p className={styles.note}>
+            {shopping
+              ? "Keep adding from this store. Your basket stays with one retailer."
+              : retailer.note}
+          </p>
           <div className={styles.heroActions}>
-            <a
-              href={retailer.homepage}
-              target="_blank"
-              rel="noreferrer"
-              className={styles.primaryAction}
+            {shopping ? (
+              <>
+                <a href="#store-products" className={styles.primaryAction}>
+                  Keep shopping <ArrowDown size={17} aria-hidden="true" />
+                </a>
+                <Link href="/basket" className={styles.secondaryAction}>
+                  <ShoppingBag size={17} aria-hidden="true" /> View basket
+                </Link>
+              </>
+            ) : (
+              <>
+                <a
+                  href={retailer.homepage}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.primaryAction}
+                >
+                  Visit retailer <ArrowUpRight size={17} aria-hidden="true" />
+                </a>
+                <span>{host}</span>
+              </>
+            )}
+          </div>
+          {shopping ? null : (
+            <div
+              className={styles.disclaimerChips}
+              aria-label="Retailer price disclosures"
             >
-              Visit retailer <ArrowUpRight size={17} aria-hidden="true" />
-            </a>
-            <span>{host}</span>
-          </div>
-          <div
-            className={styles.disclaimerChips}
-            aria-label="Retailer price disclosures"
-          >
-            <span>Prices may change</span>
-            <span>Listing ≠ genuine</span>
-          </div>
+              <span>Prices may change</span>
+              <span>Listing ≠ genuine</span>
+            </div>
+          )}
         </div>
 
         <div
@@ -124,8 +153,12 @@ export default async function RetailerProfilePage({
           aria-label={`${retailer.name} products observed by JeloCare`}
         >
           <div className={styles.stageLabel}>
-            <span>{sourceLabel(retailer)}</span>
-            <small>{identityLabel(retailer)}</small>
+            <span>
+              {shopping ? "Your current store" : sourceLabel(retailer)}
+            </span>
+            <small>
+              {shopping ? "Exact products below" : identityLabel(retailer)}
+            </small>
           </div>
           {featured.length ? (
             <div className={styles.productPortraits}>
@@ -169,19 +202,27 @@ export default async function RetailerProfilePage({
         </div>
       </section>
 
-      <section className={styles.catalogueSection}>
+      <section className={styles.catalogueSection} id="store-products">
         <div className={styles.sectionHeading}>
           <div>
-            <p className="eyebrow">Observed in Nigeria</p>
+            <p className="eyebrow">
+              {shopping
+                ? `Shopping at ${retailer.name}`
+                : "Observed in Nigeria"}
+            </p>
             <h2>
               {profile.productCount
-                ? "Products we found."
+                ? shopping
+                  ? "Add from this store."
+                  : "Products we found."
                 : "No current prices."}
             </h2>
           </div>
           <p>
             {profile.productCount
-              ? `Exact listings currently observed at ${retailer.name}.`
+              ? shopping
+                ? "Every card below has a current exact listing at your selected store."
+                : `Exact listings currently observed at ${retailer.name}.`
               : `No fresh exact-product offer from ${retailer.name} is public yet.`}
           </p>
         </div>
@@ -191,13 +232,24 @@ export default async function RetailerProfilePage({
             items={profile.products.map((product) => ({
               product,
               footer: (
-                <a
-                  className={styles.storeAction}
-                  href={`/go?product=${encodeURIComponent(product.slug)}&retailer=${encodeURIComponent(retailer.name)}`}
-                  aria-label={`Open ${product.brand} ${product.name} at ${retailer.name}`}
-                >
-                  <ArrowUpRight size={16} aria-hidden="true" />
-                </a>
+                <div className={styles.cardActions}>
+                  {shopping ? (
+                    <AddToBasketButton
+                      slug={product.slug}
+                      productName={`${product.brand} ${product.name}`}
+                      retailers={[{ name: retailer.name, slug }]}
+                      iconOnly
+                      redirectToStore={false}
+                    />
+                  ) : null}
+                  <a
+                    className={styles.storeAction}
+                    href={`/go?product=${encodeURIComponent(product.slug)}&retailer=${encodeURIComponent(retailer.name)}`}
+                    aria-label={`Open ${product.brand} ${product.name} at ${retailer.name}`}
+                  >
+                    <ArrowUpRight size={16} aria-hidden="true" />
+                  </a>
+                </div>
               ),
             }))}
           />

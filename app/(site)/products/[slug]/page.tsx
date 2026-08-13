@@ -7,6 +7,7 @@ import { products as staticProducts } from "@/data/catalogue";
 import { concerns } from "@/data/knowledge";
 import { getReviewedProductCare } from "@/data/product-care-review";
 import { isPublishedIntakeProduct } from "@/data/published-intake-products";
+import { nigeriaRetailers, retailerSlug } from "@/data/retailers";
 import { ProductHeroMotion } from "@/components/products/product-hero-motion";
 import { ProductGrid } from "@/components/products/product-grid";
 import { ProductQuickPanel } from "@/components/products/product-quick-panel";
@@ -16,6 +17,7 @@ import { BuyTogetherSuggestions } from "@/components/commerce/buy-together-sugge
 import { AddToBasketButton } from "@/components/commerce/add-to-basket-button";
 import { resolveCatalogueProductFamily } from "@/lib/catalogue/product-family";
 import { brandProfileHref } from "@/lib/catalogue/brand-profile";
+import { findRetailerBasketOptions } from "@/lib/commerce/retailer-basket";
 import { readProductPanelData } from "@/lib/catalogue/product-panel-model";
 import {
   findCatalogueProduct,
@@ -91,6 +93,20 @@ export default async function ProductPage({
   if (!product) notFound();
 
   const panelData = await readProductPanelData(product);
+  const registeredRetailers = new Set(
+    nigeriaRetailers.map((retailer) => retailer.name),
+  );
+  const shoppingRetailers = findRetailerBasketOptions(
+    [product],
+    new Map([[product.slug, 1]]),
+  )
+    .filter(
+      (option) => option.allInStock && registeredRetailers.has(option.retailer),
+    )
+    .map((option) => ({
+      name: option.retailer,
+      slug: retailerSlug(option.retailer),
+    }));
 
   const careReview = getReviewedProductCare(product.slug);
   const productFamily = resolveCatalogueProductFamily(
@@ -150,7 +166,13 @@ export default async function ProductPage({
             ) : null
           }
           quickPanel={<ProductQuickPanel {...panelData} />}
-          basketAction={<AddToBasketButton slug={product.slug} />}
+          basketAction={
+            <AddToBasketButton
+              slug={product.slug}
+              productName={`${product.brand} ${product.name}`}
+              retailers={shoppingRetailers}
+            />
+          }
           concernLinks={
             matchedConcerns.length ? (
               <div className="product-concern-links">

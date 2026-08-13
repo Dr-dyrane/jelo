@@ -21,3 +21,22 @@
   background: var(--rose);
   color: var(--ink);
 }
+
+.iconButton {
+  width: 2.75rem;
+  height: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.addButton[data-added="true"],
+.iconButton:disabled {
+  background: var(--rose);
+  color: var(--ink);
+}
+
+.iconButton:disabled {
+  cursor: default;
+  opacity: 1;
+}

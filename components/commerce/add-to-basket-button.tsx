@@ -1,17 +1,58 @@
-'use client';
+"use client";
 
-import { Check, ShoppingBag } from 'lucide-react';
-import Link from 'next/link';
-import { useState } from 'react';
-import { useBasket } from './basket-provider';
-import styles from './procurement-actions.module.css';
+import { Check, Plus, ShoppingBag } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { CHECKOUT_RETAILER_STORAGE_KEY } from "@/lib/commerce/basket";
+import {
+  chooseShoppingRetailer,
+  retailerShoppingSlug,
+  shoppingRetailerHref,
+  type ShoppingRetailer,
+} from "@/lib/commerce/shopping-session";
+import { useBasket } from "./basket-provider";
+import styles from "./procurement-actions.module.css";
 
-export function AddToBasketButton({ slug }: { slug: string }) {
+export function AddToBasketButton({
+  slug,
+  productName,
+  retailers,
+  iconOnly = false,
+  redirectToStore = true,
+}: {
+  slug: string;
+  productName: string;
+  retailers: readonly ShoppingRetailer[];
+  iconOnly?: boolean;
+  redirectToStore?: boolean;
+}) {
   const basket = useBasket();
+  const router = useRouter();
   const [added, setAdded] = useState(false);
-  const inBasket = basket.items.some(item => item.slug === slug);
+  const inBasket = basket.items.some((item) => item.slug === slug);
+  const storedRetailer = basket.ready
+    ? localStorage.getItem(CHECKOUT_RETAILER_STORAGE_KEY)
+    : null;
+  const retailer = chooseShoppingRetailer(
+    retailers,
+    storedRetailer,
+    basket.items.length > 0,
+  );
 
-  if (inBasket && added) {
+  if (inBasket) {
+    if (iconOnly) {
+      return (
+        <button
+          className={`${styles.addButton} ${styles.iconButton}`}
+          type="button"
+          disabled
+          aria-label={`${productName} is in your basket`}
+        >
+          <Check size={18} aria-hidden="true" />
+        </button>
+      );
+    }
     return (
       <Link className={styles.basketLink} href="/basket">
         <Check size={18} aria-hidden="true" /> View basket
@@ -19,17 +60,43 @@ export function AddToBasketButton({ slug }: { slug: string }) {
     );
   }
 
+  if (!retailer && storedRetailer) {
+    if (iconOnly) return null;
+    return (
+      <Link
+        className={styles.basketLink}
+        href={`/retailers/${retailerShoppingSlug(storedRetailer)}?shopping=1#store-products`}
+      >
+        Keep shopping at {storedRetailer}
+      </Link>
+    );
+  }
+
+  if (!retailer) return null;
+
   return (
     <button
-      className={styles.addButton}
+      className={`${styles.addButton} ${iconOnly ? styles.iconButton : ""}`}
       type="button"
+      aria-label={iconOnly ? `Add ${productName} to basket` : undefined}
+      data-added={added ? "true" : "false"}
       onClick={() => {
         basket.add(slug);
+        localStorage.setItem(CHECKOUT_RETAILER_STORAGE_KEY, retailer.name);
         setAdded(true);
+        if (redirectToStore) {
+          router.push(shoppingRetailerHref(retailer));
+        }
       }}
     >
-      <ShoppingBag size={18} aria-hidden="true" />
-      {inBasket ? 'Add another' : 'Add to basket'}
+      {added ? (
+        <Check size={18} aria-hidden="true" />
+      ) : iconOnly ? (
+        <Plus size={18} aria-hidden="true" />
+      ) : (
+        <ShoppingBag size={18} aria-hidden="true" />
+      )}
+      {iconOnly ? null : added ? "Opening store" : "Add to basket"}
     </button>
   );
 }

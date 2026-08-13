@@ -15,6 +15,7 @@ import {
   setBasketItemQuantity,
 } from '@/lib/commerce/basket';
 import { chooseRetailerBasketOption, findRetailerBasketOptions } from '@/lib/commerce/retailer-basket';
+import { chooseShoppingRetailer, shoppingRetailerHref } from '@/lib/commerce/shopping-session';
 import type { CreateAssistedOrderInput } from '@/lib/commerce/assisted-procurement-schema';
 import { productBySlug } from '@/data/catalogue';
 
@@ -41,6 +42,17 @@ test('checkout defaults to an in-stock retailer instead of a cheaper recheck', (
   assert.equal(chooseRetailerBasketOption(options)?.retailer, 'Ready');
   assert.equal(chooseRetailerBasketOption(options, 'Recheck')?.retailer, 'Ready');
   assert.equal(chooseRetailerBasketOption(options, 'Ready')?.retailer, 'Ready');
+});
+
+test('guest shopping stays with one retailer until the basket explicitly switches', () => {
+  const stores = [
+    { name: 'Beauty by Daz', slug: 'beauty-by-daz' },
+    { name: 'Beauty Hut Africa', slug: 'beauty-hut-africa' },
+  ];
+  assert.equal(chooseShoppingRetailer(stores, null, false), stores[0]);
+  assert.equal(chooseShoppingRetailer(stores, 'Beauty Hut Africa', true), stores[1]);
+  assert.equal(chooseShoppingRetailer(stores, 'Another Store', true), null);
+  assert.equal(shoppingRetailerHref(stores[0]), '/retailers/beauty-by-daz?shopping=1');
 });
 
 test('order state and quote completeness fail closed', () => {
@@ -88,6 +100,12 @@ test('Ops order review uses the shared light and dark operations theme tokens', 
   assert.match(styles, /background: var\(--ops-accent-subtle\)/);
   assert.doesNotMatch(styles, /var\(--ops-surface,\s*#fff\)/);
   assert.doesNotMatch(styles, /background:\s*#fff\b/);
+});
+
+test('local simulator CSP supports React diagnostics without weakening production', async () => {
+  const config = await readFile('next.config.ts', 'utf8');
+  assert.match(config, /developmentScriptDirectives[\s\S]*NODE_ENV === "development"[\s\S]*"'unsafe-eval'"/);
+  assert.match(config, /"script-src 'self' 'unsafe-inline'"[\s\S]*\.\.\.developmentScriptDirectives/);
 });
 
 test('fixture exercises request → quote → guest approval and one-time recovery', async () => {

@@ -169,7 +169,13 @@ export function ProcurementBasket({
                   name="retailer"
                   value={option.retailer}
                   checked={retailer === option.retailer}
-                  onChange={() => setSelectedRetailer(option.retailer)}
+                  onChange={() => {
+                    setSelectedRetailer(option.retailer);
+                    localStorage.setItem(
+                      CHECKOUT_RETAILER_STORAGE_KEY,
+                      option.retailer,
+                    );
+                  }}
                 />
                 <span>
                   <strong>{option.retailer}</strong>
