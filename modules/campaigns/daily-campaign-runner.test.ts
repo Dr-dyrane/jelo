@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { campaignDeliveryIntentKey } from "@/lib/campaigns/campaign-archive";
 import type { DailyCampaignDraft } from "@/lib/campaigns/daily-campaign";
 import { runDailyCampaign } from "@/lib/campaigns/daily-campaign-runner";
 
@@ -109,6 +110,39 @@ const recipient = {
     recipientKey: "e".repeat(64),
   },
 };
+
+test("production delivery intent is one atomic slot per WAT date", () => {
+  const first = {
+    ...archive,
+    mode: "production" as const,
+    runPath: "campaigns/daily/2026-08-13/first-campaign/v1",
+    campaignRecordKey:
+      "jelocare:campaigns:v1:production:first-campaign:v1:campaign",
+  };
+  const nextCandidate = {
+    ...first,
+    runPath: "campaigns/daily/2026-08-13/next-campaign/v1",
+    campaignRecordKey:
+      "jelocare:campaigns:v1:production:next-campaign:v1:campaign",
+  };
+  const tomorrow = {
+    ...first,
+    runPath: "campaigns/daily/2026-08-14/tomorrow-campaign/v1",
+  };
+
+  assert.equal(
+    campaignDeliveryIntentKey(first),
+    campaignDeliveryIntentKey(nextCandidate),
+  );
+  assert.notEqual(
+    campaignDeliveryIntentKey(first),
+    campaignDeliveryIntentKey(tomorrow),
+  );
+  assert.equal(
+    campaignDeliveryIntentKey(archive),
+    `${archive.campaignRecordKey}:delivery-intent`,
+  );
+});
 
 function dependencies(overrides: Record<string, unknown> = {}) {
   return {

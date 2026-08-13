@@ -38,6 +38,34 @@ const ledgerPrefix = "jelocare:campaigns:v1";
 const acceptedProductionIndex = `${ledgerPrefix}:production:accepted`;
 let redis: Redis | undefined;
 
+function productionCampaignDate(archive: ArchivedCampaign) {
+  const date = archive.runPath.match(
+    /^campaigns\/daily\/(\d{4}-\d{2}-\d{2})\//,
+  )?.[1];
+  if (!date) throw new Error("campaign_production_date_invalid");
+  return date;
+}
+
+export function campaignDeliveryIntentKey(archive: ArchivedCampaign) {
+  if (archive.mode !== "production") {
+    return `${archive.campaignRecordKey}:delivery-intent`;
+  }
+  return `${ledgerPrefix}:production:${productionCampaignDate(archive)}:delivery-intent`;
+}
+
+async function acceptedProductionRecordForDate(date: string) {
+  const start = Date.parse(`${date}T00:00:00+01:00`);
+  if (!Number.isFinite(start))
+    throw new Error("campaign_production_date_invalid");
+  const records = await campaignLedger().zrange<string[]>(
+    acceptedProductionIndex,
+    start,
+    start + 86_400_000 - 1,
+    { byScore: true, offset: 0, count: 1 },
+  );
+  return records[0] ?? null;
+}
+
 function runPrefix(mode: CampaignRunMode) {
   if (mode === "production") return productionPrefix;
   return mode === "test" ? "campaigns/tests" : "campaigns/previews";
@@ -196,7 +224,15 @@ export async function reserveCampaignDelivery(input: {
   recipient: CampaignDeliveryRecipientRecord;
   createdAt: string;
 }) {
-  const key = `${input.archive.campaignRecordKey}:delivery-intent`;
+  const key = campaignDeliveryIntentKey(input.archive);
+  if (
+    input.archive.mode === "production" &&
+    (await acceptedProductionRecordForDate(
+      productionCampaignDate(input.archive),
+    ))
+  ) {
+    return { reserved: false, key } as const;
+  }
   const body = jsonBytes({
     schemaVersion: 1,
     state: "sending",
