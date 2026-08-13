@@ -21,6 +21,12 @@ treatment reminders, refill alerts, price-pressure messages, or campaigns.
 The customer can switch email off per order at any time. That immediately
 suppresses unsent email while keeping the private event history intact.
 
+The private order page also exposes a customer-initiated WhatsApp support link
+to JeloCare at `+234 812 288 7847`. Its generic URL,
+`https://wa.me/2348122887847`, carries no order ID, capability, customer detail,
+product, price, or prefilled message. It does not represent automated WhatsApp
+delivery; staff contact remains manual and consent-governed.
+
 ## Authority and privacy
 
 - `assisted_order_events` remains canonical.

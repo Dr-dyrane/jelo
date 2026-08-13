@@ -14,7 +14,7 @@ import {
   normaliseBasketItems,
   setBasketItemQuantity,
 } from '@/lib/commerce/basket';
-import { findRetailerBasketOptions } from '@/lib/commerce/retailer-basket';
+import { chooseRetailerBasketOption, findRetailerBasketOptions } from '@/lib/commerce/retailer-basket';
 import type { CreateAssistedOrderInput } from '@/lib/commerce/assisted-procurement-schema';
 import { productBySlug } from '@/data/catalogue';
 
@@ -31,6 +31,16 @@ test('guest basket is bounded, quantity-aware, and does not require identity', (
   let items = normalised;
   for (const slug of ['gamma', 'delta', 'epsilon']) items = addBasketItem(items, slug);
   assert.equal(items.length, BASKET_MAX_PRODUCTS);
+});
+
+test('checkout defaults to an in-stock retailer instead of a cheaper recheck', () => {
+  const options = [
+    { retailer: 'Recheck', trust: 90, offers: [], combinedTotal: 5_000, allInStock: false, quantityTotal: 1 },
+    { retailer: 'Ready', trust: 88, offers: [], combinedTotal: 8_000, allInStock: true, quantityTotal: 1 },
+  ];
+  assert.equal(chooseRetailerBasketOption(options)?.retailer, 'Ready');
+  assert.equal(chooseRetailerBasketOption(options, 'Recheck')?.retailer, 'Ready');
+  assert.equal(chooseRetailerBasketOption(options, 'Ready')?.retailer, 'Ready');
 });
 
 test('order state and quote completeness fail closed', () => {
@@ -331,4 +341,19 @@ test('checkout submits persisted wizard state after earlier steps unmount', asyn
   assert.match(checkout, /whatsappConsent,\s+emailNotificationsConsent,\s+termsAccepted,/);
   assert.match(checkout, /checked=\{emailNotificationsConsent\}/);
   assert.match(checkout, /checked=\{whatsappConsent\}/);
+});
+
+test('the approved WhatsApp support action is public, generic, and capability-free', async () => {
+  const [contact, status] = await Promise.all([
+    readFile('lib/commerce/whatsapp-contact.ts', 'utf8'),
+    readFile('components/commerce/order-status.tsx', 'utf8'),
+  ]);
+
+  assert.match(contact, /display: '\+234 812 288 7847'/);
+  assert.match(contact, /e164: '\+2348122887847'/);
+  assert.match(contact, /href: 'https:\/\/wa\.me\/2348122887847'/);
+  assert.doesNotMatch(contact, /\?|order|capability|customer|product|price/i);
+  assert.match(status, /href=\{JELOCARE_WHATSAPP_CONTACT\.href\}/);
+  assert.match(status, /target="_blank"/);
+  assert.match(status, /rel="noopener noreferrer"/);
 });

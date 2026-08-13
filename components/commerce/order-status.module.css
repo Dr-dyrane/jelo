@@ -255,6 +255,33 @@
   font-size: 0.75rem;
   background: transparent;
 }
+.whatsappContact {
+  margin-top: 0.85rem;
+  min-height: 3.5rem;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  color: var(--ink);
+  text-decoration: none;
+}
+.whatsappContact > svg {
+  flex: 0 0 auto;
+  color: var(--accent-solid);
+}
+.whatsappContact > span {
+  display: grid;
+  gap: 0.12rem;
+}
+.whatsappContact small {
+  color: var(--muted);
+}
+.whatsappContact:hover,
+.whatsappContact:focus-visible {
+  background: color-mix(in srgb, var(--rose) 24%, transparent);
+}
 .continueShopping {
   margin-top: 0.8rem;
   width: 100%;

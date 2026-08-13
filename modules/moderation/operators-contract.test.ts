@@ -61,7 +61,9 @@ test('operator access changes are admin-only, guarded, and separately audited', 
   assert.doesNotMatch(actions, /Email is not connected/);
   assert.match(actions, /signInLink: operatorSignInUrl\(\)/);
   assert.match(signInUrl, /https:\/\/www\.jelocare\.com/);
-  assert.match(signInUrl, /return new URL\('\/sign-in', LIVE_SITE\)\.toString\(\)/);
+  assert.match(signInUrl, /const url = new URL\('\/sign-in', LIVE_SITE\)/);
+  assert.match(signInUrl, /url\.searchParams\.set\('next', '\/ops'\)/);
+  assert.match(signInUrl, /return url\.toString\(\)/);
   assert.doesNotMatch(signInUrl, /NEXT_PUBLIC_SITE_URL|process\.env|localhost|vercel\.app/);
   assert.match(signInPage, /emailOtp\.sendVerificationOtp/);
   assert.match(signInPage, /signIn\.emailOtp/);

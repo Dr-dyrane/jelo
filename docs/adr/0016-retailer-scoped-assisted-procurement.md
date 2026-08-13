@@ -164,6 +164,12 @@ failure handling require a separate accepted implementation boundary. Manual
 staff contact is the first permitted operating mode after the consent and
 privacy gates are implemented.
 
+The approved public JeloCare contact is `+234 812 288 7847`, exposed only as
+the generic customer-initiated URL `https://wa.me/2348122887847`. Order IDs,
+capabilities, customer details, products, prices, and prefilled messages must
+not be placed in that URL. This contact point does not expand the automated
+transport boundary above.
+
 ## Order notification boundary
 
 Order-service notifications are a projection of the append-only order record,

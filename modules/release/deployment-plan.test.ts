@@ -53,6 +53,16 @@ test('Next skips its duplicate TypeScript pass only after production verificatio
   assert.match(nextConfigSource, /ignoreBuildErrors: verifiedVercelProductionBuild/);
 });
 
+test('local mobile-device QA keeps CSP assets on the HTTP dev origin', async () => {
+  const nextConfigSource = await readFile('next.config.ts', 'utf8');
+
+  assert.match(
+    nextConfigSource,
+    /process\.env\.NODE_ENV === "development" \? \[\] : \["upgrade-insecure-requests"\]/,
+  );
+  assert.match(nextConfigSource, /\.\.\.transportUpgradeDirectives/);
+});
+
 test('staged asset checks use bounded concurrency', async () => {
   const source = await readFile('scripts/promote-staged-product-assets.ts', 'utf8');
 

@@ -5,9 +5,12 @@ export type RetailerBasketOption = BundleOffer & { quantityTotal: number };
 
 export function chooseRetailerBasketOption(
   options: readonly RetailerBasketOption[],
-  preferredRetailer: string | null | undefined,
-) {
-  return options.find(option => option.retailer === preferredRetailer) ?? options[0];
+  preferredRetailer?: string | null,
+): RetailerBasketOption | undefined {
+  const preferred = options.find(
+    option => option.retailer === preferredRetailer && option.allInStock,
+  );
+  return preferred ?? options.find(option => option.allInStock);
 }
 
 export function findRetailerBasketOptions(

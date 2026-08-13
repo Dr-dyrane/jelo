@@ -1,11 +1,12 @@
 'use client';
 
-import { Check, Clock3, LockKeyhole, PackageCheck, RefreshCw } from 'lucide-react';
+import { Check, Clock3, LockKeyhole, MessageCircle, PackageCheck, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import { OrderNotificationPreference } from './order-notification-preference';
+import { JELOCARE_WHATSAPP_CONTACT } from '@/lib/commerce/whatsapp-contact';
 import {
   CUSTOMER_VISIBLE_ORDER_STATES,
   type AssistedOrderCustomerView,
@@ -146,6 +147,18 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
           )}
           {error ? <p className={styles.error} role="alert">{error}</p> : null}
           <OrderNotificationPreference enabled={order.emailNotificationsConsent} />
+          <a
+            className={styles.whatsappContact}
+            href={JELOCARE_WHATSAPP_CONTACT.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <MessageCircle size={18} aria-hidden="true" />
+            <span>
+              <strong>Message JeloCare</strong>
+              <small>{JELOCARE_WHATSAPP_CONTACT.display}</small>
+            </span>
+          </a>
           <div className={styles.privateNote}><LockKeyhole size={16} aria-hidden="true" /><span>This private page is available on this device for 30 days.</span></div>
           <Link className={styles.continueShopping} href="/products">Continue browsing</Link>
         </aside>

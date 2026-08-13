@@ -5,6 +5,13 @@ const verifiedVercelProductionBuild =
   process.env.VERCEL_ENV === "production" &&
   process.env.JELO_VERCEL_RELEASE_TYPECHECK_PASSED === "1";
 
+// Mobile simulators reach the local server over plain HTTP. Safari applies
+// `upgrade-insecure-requests` to Next's relative CSS and JS assets as well,
+// which leaves the page as raw HTML during device QA. Production keeps the
+// upgrade directive; local development keeps the rest of the same CSP.
+const transportUpgradeDirectives =
+  process.env.NODE_ENV === "development" ? [] : ["upgrade-insecure-requests"];
+
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
   typescript: {
@@ -54,7 +61,7 @@ const nextConfig: NextConfig = {
               "base-uri 'self'",
               "form-action 'self'",
               "object-src 'none'",
-              "upgrade-insecure-requests",
+              ...transportUpgradeDirectives,
             ].join("; "),
           },
         ],
