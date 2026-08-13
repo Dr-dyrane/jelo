@@ -89,10 +89,16 @@ export async function GET(request: Request) {
         ): result is typeof result & {
           retailer: string;
           verificationMethod: string;
+          extractionConfidence: number;
+          verifiedAt: string;
+          verificationExpiresAt: string;
         } =>
           result.status === "completed" &&
           typeof result.retailer === "string" &&
-          typeof result.verificationMethod === "string",
+          typeof result.verificationMethod === "string" &&
+          typeof result.extractionConfidence === "number" &&
+          typeof result.verifiedAt === "string" &&
+          typeof result.verificationExpiresAt === "string",
       )
       .map((result) => ({
         productSlug: result.productSlug,
@@ -102,8 +108,10 @@ export async function GET(request: Request) {
           result.inventoryStatus === "in_stock" ||
           result.inventoryStatus === "low_stock",
         inventoryStatus: result.inventoryStatus ?? "unknown",
-        lastVerifiedAt: new Date(),
+        lastVerifiedAt: new Date(result.verifiedAt),
+        verificationExpiresAt: new Date(result.verificationExpiresAt),
         verificationMethod: result.verificationMethod,
+        extractionConfidence: result.extractionConfidence,
       }));
     if (completedRefreshes.length > 0) {
       try {

@@ -25,6 +25,7 @@ export type SocialCardKind =
   | "consult"
   | "contribute"
   | "share-index"
+  | "daily-desk"
   | "product"
   | "bundle";
 
@@ -177,6 +178,19 @@ const staticCards = {
     alt: "Products and source-checked guides worth sharing from JeloCare",
     theme: "dark",
   },
+  "daily-desk": {
+    request: { kind: "daily-desk" },
+    eyebrow: "Lagos Daily Desk · JeloCare",
+    title: "One useful price note.",
+    description:
+      "One accepted, evidence-checked Nigerian beauty price story each Lagos day.",
+    detail: "Exact product. Current source context.",
+    metaTitle: "Lagos Daily Desk",
+    metaDescription:
+      "One accepted, evidence-checked Nigerian beauty price story from JeloCare, updated daily.",
+    alt: "The JeloCare Lagos Daily Desk",
+    theme: "light",
+  },
   bundle: {
     request: { kind: "bundle" },
     eyebrow: "Bundle Finder · JeloCare",
@@ -263,6 +277,11 @@ export const PUBLIC_SOCIAL_ROUTE_COVERAGE = [
     family: "/share",
     source: "app/(site)/share/page.tsx",
     context: "share landing",
+  },
+  {
+    family: "/lagos",
+    source: "app/(site)/lagos/page.tsx",
+    context: "current accepted Nigerian campaign story",
   },
   {
     family: "/share/[slug]",

@@ -42,6 +42,27 @@ A product passes only when:
 The existing Next/OG story route renders the 1080 × 1920 dark master. The
 campaign lane verifies PNG type, geometry and SHA-256 before archiving it.
 
+## Lagos Daily Desk
+
+`/lagos` is a public, read-only projection of the day's accepted production
+campaign. It never reads preview or test runs. The projection resolves the
+accepted-production index for the current `Africa/Lagos` calendar date and
+publishes only the product identity, campaign copy, exact `/share/<slug>` CTA,
+verified story image, evidence count, evidence boundary, and checked-at time.
+
+The projection fails closed. A missing ledger, missing accepted campaign,
+invalid action URL, stale campaign date, non-positive offer price, non-share-
+ready evidence boundary, unverified asset, or non-deterministic creative shows
+a non-price skin-guide state instead. Delivery details, recipient markers,
+operator data, rejected candidates, and campaign captions are not projected.
+
+The page records only two private aggregate counters: `view` and
+`compare_click`. The write-only route accepts the current public campaign id
+after a same-site and bounded-body check. It does not read or store cookies,
+IP addresses, user agents, referrers, sessions, or person identifiers. Counters
+expire after 90 days, have a global non-identifying abuse ceiling, are never
+publicly readable, and never feed product, offer, retailer, or care ranking.
+
 ## Durable trail
 
 The campaign trail uses the stores already attached to the project:
@@ -51,7 +72,9 @@ The campaign trail uses the stores already attached to the project:
   already-public product and share-ready offer information.
 - Upstash Redis holds the private append-only campaign record, story checksum,
   delivery intent and accepted/failed outcome. `SET NX` is the one-send
-  reservation; a scored accepted-production index drives the 14-day rotation.
+  reservation; a scored accepted-production index drives the 14-day rotation
+  and authorizes the minimal `/lagos` public projection. Separate aggregate
+  Daily Desk counters retain only date, public campaign id, and event kind.
 
 Redis keys and records contain source facts, evidence boundary, copy and
 creative, but never the raw recipient email or database operator id. The only

@@ -22,7 +22,6 @@ import {
 import {
   aiExtractionConfig,
   extractRetailerPageWithAi,
-  type AiExtractionResult,
 } from "@/lib/inventory/ai-extraction";
 
 const REQUEST_TIMEOUT_MS = 12_000;
@@ -70,6 +69,9 @@ export type InventoryRefreshResult = {
   priceMinor?: number;
   currencyCode?: string;
   verificationMethod?: string;
+  extractionConfidence?: number;
+  verifiedAt?: string;
+  verificationExpiresAt?: string;
   error?: string;
 };
 
@@ -99,6 +101,8 @@ type CurrentClaim = {
 type ClaimSettlement = {
   status: InventoryRefreshRunStatus;
   error?: string;
+  verifiedAt?: string;
+  verificationExpiresAt?: string;
 };
 
 const VERIFIED_PRODUCT_TITLE_ALIASES: Record<string, string[]> = {
@@ -562,19 +566,21 @@ async function completeJob(
     observation.inventoryStatus === "in_stock" ||
     observation.inventoryStatus === "low_stock";
 
-  // Confidence-based validity: Woo API results (100% confidence) get 7 days,
-  // high-confidence HTML extractions get 5 days, medium get 3 days, low get 1 day.
-  // The Woo Store API adapter starts at 80 (10 + 25 + 35 + 5 + 5), so it lands
-  // in the 5-day bucket — more generous than the old 7-day flat window for
-  // HTML scrapes at 85%+ confidence, while still being conservative.
-  const validity =
+  // Confidence-based validity: the structured Woo API adapter gets 7 days,
+  // high-confidence HTML extractions get 5 days, medium get 3 days, and low or
+  // unknown observations get 1 day.
+  const validityDays =
     observation.inventoryStatus === "unknown" || observation.confidence < 60
-      ? "1 day"
+      ? 1
       : observation.confidence < 85
-        ? "3 days"
+        ? 3
         : observation.adapterKey === "woo-store-api"
-          ? "7 days"
-          : "5 days";
+          ? 7
+          : 5;
+  const verifiedAt = new Date();
+  const verificationExpiresAt = new Date(
+    verifiedAt.valueOf() + validityDays * 86_400_000,
+  );
   const verificationNote =
     observation.inventoryStatus === "unknown"
       ? "No product-scoped stock evidence found on the retailer page."
@@ -608,8 +614,10 @@ async function completeJob(
           observed_title = ${observation.productTitle ?? null},
           observed_size = ${observation.productSize ?? null},
           canonical_url = ${observation.canonicalUrl ?? null},
-          last_verified_at = now(), verification_expires_at = now() + ${validity}::interval,
-          checked_at = now(), updated_at = now()
+          last_verified_at = ${verifiedAt},
+          verification_expires_at = ${verificationExpiresAt},
+          checked_at = ${verifiedAt},
+          updated_at = ${verifiedAt}
       where o.id = ${job.offer_id}
         and o.url = ${job.url}
         and extract(epoch from o.updated_at)::text = ${job.offer_version}
@@ -633,7 +641,7 @@ async function completeJob(
     if (observation.priceMinor != null && observation.currencyCode) {
       await transaction`
         insert into offer_price_history (offer_id, price_minor, currency_code, observed_at, source)
-        values (${job.offer_id}, ${observation.priceMinor}, ${observation.currencyCode}, now(), ${observation.verificationMethod})
+        values (${job.offer_id}, ${observation.priceMinor}, ${observation.currencyCode}, ${verifiedAt}, ${observation.verificationMethod})
       `;
     }
 
@@ -650,7 +658,11 @@ async function completeJob(
       throw new Error("Inventory refresh claim changed before completion.");
     }
 
-    return { status: "completed" };
+    return {
+      status: "completed",
+      verifiedAt: verifiedAt.toISOString(),
+      verificationExpiresAt: verificationExpiresAt.toISOString(),
+    };
   });
 }
 
@@ -849,6 +861,14 @@ export async function processNextInventoryRefreshJob(
       verificationMethod:
         settlement.status === "completed"
           ? observation.verificationMethod
+          : undefined,
+      extractionConfidence:
+        settlement.status === "completed" ? observation.confidence : undefined,
+      verifiedAt:
+        settlement.status === "completed" ? settlement.verifiedAt : undefined,
+      verificationExpiresAt:
+        settlement.status === "completed"
+          ? settlement.verificationExpiresAt
           : undefined,
       error: settlement.error,
     };

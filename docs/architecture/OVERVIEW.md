@@ -1,6 +1,6 @@
 # Application architecture
 
-Updated: 2026-07-27
+Updated: 2026-08-13
 
 JeloCare is a Next.js App Router application deployed on Vercel. It keeps reviewed clinical guidance, retail observations, community signals, and retailer applications in separate trust lanes.
 
@@ -20,32 +20,33 @@ Browser
 
 ## Repository map
 
-| Path | Responsibility |
-| --- | --- |
-| `app/` | Routes, metadata, route handlers, and route-level styles |
-| `components/` | Reusable UI and client interactions |
-| `modules/` | Pure domain logic and most automated tests |
-| `lib/` | Server repositories, infrastructure adapters, and publication policies |
-| `data/` | Checked-in reviewed data, private manifests, and generated research projections |
-| `db/migrations/` | Ordered PostgreSQL schema history |
-| `scripts/` | Migration, seed, ingestion, audit, image, and release operators |
-| `docs/` | Product, architecture, and operations handbook |
-| `public/` | Stable local public assets and fallbacks |
+| Path             | Responsibility                                                                  |
+| ---------------- | ------------------------------------------------------------------------------- |
+| `app/`           | Routes, metadata, route handlers, and route-level styles                        |
+| `components/`    | Reusable UI and client interactions                                             |
+| `modules/`       | Pure domain logic and most automated tests                                      |
+| `lib/`           | Server repositories, infrastructure adapters, and publication policies          |
+| `data/`          | Checked-in reviewed data, private manifests, and generated research projections |
+| `db/migrations/` | Ordered PostgreSQL schema history                                               |
+| `scripts/`       | Migration, seed, ingestion, audit, image, and release operators                 |
+| `docs/`          | Product, architecture, and operations handbook                                  |
+| `public/`        | Stable local public assets and fallbacks                                        |
 
 ## Public journeys
 
-| Route | Purpose |
-| --- | --- |
-| `/` | Editorial discovery |
-| `/products` | Search, browse shelves, filters, and paged inventory |
-| `/products/[slug]` | Fit, evidence, care, and exact retailer options |
-| `/concerns` and `/concerns/[slug]` | Observable-pattern education |
-| `/ingredients` | Ingredient library |
-| `/consult` | Ask Jelo guided assessment |
-| `/contribute` | Anonymous community knowledge intake |
-| `/retailers` | Retailer guide and partnership entry |
-| `/basket`, `/checkout`, `/order` | Guest-first one-retailer assisted procurement and private status |
-| `/image-audit` | Browser-facing media audit |
+| Route                              | Purpose                                                                          |
+| ---------------------------------- | -------------------------------------------------------------------------------- |
+| `/`                                | Editorial discovery                                                              |
+| `/products`                        | Search, browse shelves, filters, and paged inventory                             |
+| `/products/[slug]`                 | Fit, evidence, care, and exact retailer options                                  |
+| `/concerns` and `/concerns/[slug]` | Observable-pattern education                                                     |
+| `/ingredients`                     | Ingredient library                                                               |
+| `/consult`                         | Ask Jelo guided assessment                                                       |
+| `/contribute`                      | Anonymous community knowledge intake                                             |
+| `/retailers`                       | Retailer guide and partnership entry                                             |
+| `/lagos`                           | One accepted, evidence-checked Nigerian campaign story for the current Lagos day |
+| `/basket`, `/checkout`, `/order`   | Guest-first one-retailer assisted procurement and private status                 |
+| `/image-audit`                     | Browser-facing media audit                                                       |
 
 ## Catalogue reads
 
@@ -131,7 +132,8 @@ The cron is a freshness operator. It does not replace deliberate publication evi
 
 - Neon PostgreSQL: durable application data.
 - Vercel Blob: canonical public product and editorial media.
-- Upstash Redis: rate limiting and transient coordination only.
+- Upstash Redis: rate limiting, coordination, the private immutable campaign
+  ledger, and identifier-free Daily Desk aggregate counters.
 - Hostinger Agentic Mail API, with SMTP fallback: retailer magic links.
 - Vercel Analytics: public usage analytics.
 

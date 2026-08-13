@@ -20,34 +20,49 @@ type StaticFileSyncConfig = {
   branch: string;
 };
 
-type RefreshedOffer = {
+export type StaticFileRefreshedOffer = {
   productSlug: string;
   retailer: string;
   priceNgn: number | null;
   available: boolean;
   inventoryStatus: string;
   lastVerifiedAt: Date;
+  verificationExpiresAt: Date;
   verificationMethod: string;
+  extractionConfidence: number;
 };
+
+type StaticVerificationMethod = "retailer_page" | "api";
 
 /* -------------------------------------------------------------------------- */
 /*                              Constants                                     */
 /* -------------------------------------------------------------------------- */
 
 const FILE_PATH = "data/retail-offers.ts";
-const FRESHNESS_WINDOW_DAYS = 7;
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
+const MIN_STATIC_SYNC_CONFIDENCE = 60;
+const MAX_AUTOMATED_PRICE_CHANGE_RATIO = 0.35;
+const REVIEW_BRANCH_PATTERN = /^inventory-sync-review(?:[-/][a-z0-9._-]+)?$/i;
+const MAX_FRESHNESS_DAYS: Record<string, number> = {
+  retailer_page: 5,
+  api: 7,
+};
 
 /**
  * Verification methods that are eligible for auto-sync. Offers with
  * `verificationMethod === "manual"` are never auto-synced — they represent
  * manually-curated, verified data that must not be overwritten by cron output.
  */
-const ALLOWED_VERIFICATION_METHODS = new Set([
+const ALLOWED_VERIFICATION_METHODS = new Set<StaticVerificationMethod>([
   "retailer_page",
   "api",
-  "ai_extraction",
 ]);
+
+function isAllowedVerificationMethod(
+  value: string,
+): value is StaticVerificationMethod {
+  return ALLOWED_VERIFICATION_METHODS.has(value as StaticVerificationMethod);
+}
 
 /* -------------------------------------------------------------------------- */
 /*                              Config                                        */
@@ -63,20 +78,22 @@ const ALLOWED_VERIFICATION_METHODS = new Set([
  * - `GITHUB_TOKEN`             — required repo-write token
  * - `GITHUB_REPO_OWNER`        — defaults to `"Dr-dyrane"`
  * - `GITHUB_REPO_NAME`         — defaults to `"jelo"`
- * - `GITHUB_REPO_BRANCH`       — defaults to `"main"`
+ * - `GITHUB_REPO_BRANCH`       — required `inventory-sync-review*` branch
  */
 export function staticFileSyncConfig(
   env: Record<string, string | undefined> = process.env,
 ): StaticFileSyncConfig | null {
   if (env.STATIC_FILE_SYNC_ENABLED !== "true") return null;
   if (!env.GITHUB_TOKEN) return null;
+  const branch = env.GITHUB_REPO_BRANCH?.trim();
+  if (!branch || !REVIEW_BRANCH_PATTERN.test(branch)) return null;
 
   return {
     enabled: true,
     githubToken: env.GITHUB_TOKEN,
     owner: env.GITHUB_REPO_OWNER ?? "Dr-dyrane",
     repo: env.GITHUB_REPO_NAME ?? "jelo",
-    branch: env.GITHUB_REPO_BRANCH ?? "main",
+    branch,
   };
 }
 
@@ -271,6 +288,15 @@ function extractObservedAt(offerText: string): string | null {
   return match ? match[1] : null;
 }
 
+function extractPriceNgn(offerText: string): number | null {
+  const match = /^exactNg\(\s*"[^"]+",\s*"[^"]+",\s*\d+,\s*(\d+),/.exec(
+    offerText,
+  );
+  if (!match) return null;
+  const price = Number(match[1]);
+  return Number.isSafeInteger(price) && price > 0 ? price : null;
+}
+
 /* -------------------------------------------------------------------------- */
 /*                       Offer-block update helpers                           */
 /* -------------------------------------------------------------------------- */
@@ -281,6 +307,7 @@ type OfferUpdates = {
   stock?: string;
   observedAt?: string;
   expiresAt?: string;
+  verificationMethod?: "retailer_page" | "api";
 };
 
 /**
@@ -402,6 +429,7 @@ function addFieldToOptionsObject(
  * - `stock`        → options field (mapped from `inventoryStatus`)
  * - `observedAt`   → options field (maps to `checkedAt` in the Offer type)
  * - `expiresAt`    → options field
+ * - `verificationMethod` → options field (retailer page or retailer API)
  *
  * All other fields (retailer, url, trust, variant, size, inventoryQuantity,
  * sellerName, sellerScore, priceComparison) are left untouched.
@@ -449,6 +477,14 @@ function updateOfferBlock(offerText: string, updates: OfferUpdates): string {
     result = addFieldToOptionsObject(result, "stock", `"${updates.stock}"`);
   }
 
+  if (updates.verificationMethod !== undefined) {
+    result = addFieldToOptionsObject(
+      result,
+      "verificationMethod",
+      `"${updates.verificationMethod}"`,
+    );
+  }
+
   return result;
 }
 
@@ -480,6 +516,10 @@ function verifyOfferUpdate(offerText: string, updates: OfferUpdates): boolean {
     const m = /\bstock\s*:\s*"([^"]+)"/.exec(offerText);
     if (!m || m[1] !== updates.stock) return false;
   }
+  if (updates.verificationMethod !== undefined) {
+    const m = /\bverificationMethod\s*:\s*"([^"]+)"/.exec(offerText);
+    if (!m || m[1] !== updates.verificationMethod) return false;
+  }
   return true;
 }
 
@@ -495,7 +535,7 @@ function verifyOfferUpdate(offerText: string, updates: OfferUpdates): boolean {
  */
 function updateOfferInContent(
   content: string,
-  offer: RefreshedOffer,
+  offer: StaticFileRefreshedOffer,
   topLevelCheckedAt: string | null,
 ): { updated: boolean; content: string; error?: string } {
   // 1. Find the slug section
@@ -525,6 +565,20 @@ function updateOfferInContent(
 
   const offerText = content.slice(call.start, call.end);
 
+  if (!isAllowedVerificationMethod(offer.verificationMethod)) {
+    return { updated: false, content };
+  }
+  if (
+    !Number.isFinite(offer.extractionConfidence) ||
+    offer.extractionConfidence < MIN_STATIC_SYNC_CONFIDENCE
+  ) {
+    return {
+      updated: false,
+      content,
+      error: `Static publication requires confidence >= ${MIN_STATIC_SYNC_CONFIDENCE}: ${offer.productSlug} / ${offer.retailer}`,
+    };
+  }
+
   // 3. Determine the static offer's current checkedAt
   const currentObservedAt = extractObservedAt(offerText);
   const staticCheckedAt = currentObservedAt ?? topLevelCheckedAt;
@@ -539,14 +593,66 @@ function updateOfferInContent(
 
   // 4. Freshness gate — only update if the refreshed data is strictly newer
   const staticDate = new Date(staticCheckedAt);
+  if (!Number.isFinite(staticDate.valueOf())) {
+    return {
+      updated: false,
+      content,
+      error: `Static checkedAt is invalid: ${offer.productSlug} / ${offer.retailer}`,
+    };
+  }
   if (offer.lastVerifiedAt <= staticDate) {
     return { updated: false, content };
   }
 
+  if (
+    !Number.isFinite(offer.lastVerifiedAt.valueOf()) ||
+    !Number.isFinite(offer.verificationExpiresAt.valueOf()) ||
+    offer.verificationExpiresAt <= offer.lastVerifiedAt
+  ) {
+    return {
+      updated: false,
+      content,
+      error: `Verification window is invalid: ${offer.productSlug} / ${offer.retailer}`,
+    };
+  }
+
+  if (offer.priceNgn != null) {
+    if (!Number.isSafeInteger(offer.priceNgn) || offer.priceNgn <= 0) {
+      return {
+        updated: false,
+        content,
+        error: `Refreshed price is invalid: ${offer.productSlug} / ${offer.retailer}`,
+      };
+    }
+    const currentPriceNgn = extractPriceNgn(offerText);
+    if (currentPriceNgn != null) {
+      const changeRatio =
+        Math.abs(offer.priceNgn - currentPriceNgn) / currentPriceNgn;
+      if (changeRatio > MAX_AUTOMATED_PRICE_CHANGE_RATIO) {
+        return {
+          updated: false,
+          content,
+          error:
+            `Price change exceeds ${MAX_AUTOMATED_PRICE_CHANGE_RATIO * 100}% review bound: ` +
+            `${offer.productSlug} / ${offer.retailer}`,
+        };
+      }
+    }
+  }
+
   // 5. Compute new field values
   const newObservedAt = toISODateString(offer.lastVerifiedAt);
+  const maximumExpiresAt = addDays(
+    offer.lastVerifiedAt,
+    MAX_FRESHNESS_DAYS[offer.verificationMethod],
+  );
   const newExpiresAt = toISODateString(
-    addDays(offer.lastVerifiedAt, FRESHNESS_WINDOW_DAYS),
+    new Date(
+      Math.min(
+        offer.verificationExpiresAt.valueOf(),
+        maximumExpiresAt.valueOf(),
+      ),
+    ),
   );
   const newStock = mapInventoryStatusToStock(offer.inventoryStatus);
 
@@ -556,6 +662,7 @@ function updateOfferInContent(
     stock: newStock,
     observedAt: newObservedAt,
     expiresAt: newExpiresAt,
+    verificationMethod: offer.verificationMethod,
   };
 
   // 6. Apply updates to the offer block
@@ -710,20 +817,55 @@ async function commitFileToGitHub(
  *
  * Safety guarantees:
  * 1. Never touches offers with `verificationMethod === "manual"`.
- * 2. Only processes offers with cron-refreshed verification methods
- *    (`retailer_page`, `api`, `ai_extraction`).
+ * 2. Only processes confidence-60+ retailer-page or retailer-API evidence.
+ *    AI extraction remains database-only and can never enter static share data.
  * 3. Only updates `priceNgn`, `available`, `inventoryStatus` (→ `stock`),
- *    `checkedAt` (→ `observedAt`), and `expiresAt`.
+ *    `checkedAt` (→ `observedAt`), `expiresAt`, and verification provenance.
  * 4. Never modifies `url`, `trust`, `match`, `variant`, `size`, or any other
  *    manually-set field.
  * 5. Uses a diff-based approach — reads the current file, applies only the
  *    changed offers, and writes back. Never blindly overwrites the whole file.
- * 6. Only runs when `STATIC_FILE_SYNC_ENABLED=true` and `GITHUB_TOKEN` is set.
+ * 6. Only runs when `STATIC_FILE_SYNC_ENABLED=true`, `GITHUB_TOKEN` is set,
+ *    and `GITHUB_REPO_BRANCH` names an `inventory-sync-review*` branch.
  * 7. Safe to call with an empty array or when the GitHub API is down —
  *    returns errors, never throws.
  */
+export function applyStaticOfferRefreshes(input: {
+  content: string;
+  refreshedOffers: StaticFileRefreshedOffer[];
+}) {
+  const result = {
+    content: input.content,
+    synced: 0,
+    skipped: 0,
+    errors: [] as string[],
+  };
+  const topLevelCheckedAt = parseTopLevelCheckedAt(input.content);
+
+  for (const offer of input.refreshedOffers) {
+    if (!isAllowedVerificationMethod(offer.verificationMethod)) {
+      result.skipped++;
+      continue;
+    }
+    const updateResult = updateOfferInContent(
+      result.content,
+      offer,
+      topLevelCheckedAt,
+    );
+    if (updateResult.updated) {
+      result.content = updateResult.content;
+      result.synced++;
+    } else {
+      result.skipped++;
+      if (updateResult.error) result.errors.push(updateResult.error);
+    }
+  }
+
+  return result;
+}
+
 export async function syncOffersToStaticFile(input: {
-  refreshedOffers: RefreshedOffer[];
+  refreshedOffers: StaticFileRefreshedOffer[];
 }): Promise<StaticFileSyncResult> {
   const emptyResult: StaticFileSyncResult = {
     synced: 0,
@@ -740,74 +882,42 @@ export async function syncOffersToStaticFile(input: {
   const config = staticFileSyncConfig();
   if (!config) return emptyResult;
 
-  const result: StaticFileSyncResult = {
-    synced: 0,
-    skipped: 0,
-    committed: false,
-    commitSha: null,
-    errors: [],
-  };
-
-  // --- Filter eligible offers ----------------------------------------------
-  const eligibleOffers: RefreshedOffer[] = [];
-
-  for (const offer of input.refreshedOffers) {
-    // Never auto-sync manually-curated offers
-    if (offer.verificationMethod === "manual") {
-      result.skipped++;
-      continue;
-    }
-
-    // Only sync offers refreshed by the cron
-    if (!ALLOWED_VERIFICATION_METHODS.has(offer.verificationMethod)) {
-      result.skipped++;
-      continue;
-    }
-
-    eligibleOffers.push(offer);
+  if (
+    !input.refreshedOffers.some(
+      (offer) =>
+        isAllowedVerificationMethod(offer.verificationMethod) &&
+        offer.extractionConfidence >= MIN_STATIC_SYNC_CONFIDENCE,
+    )
+  ) {
+    return { ...emptyResult, skipped: input.refreshedOffers.length };
   }
-
-  if (eligibleOffers.length === 0) return result;
 
   // --- Fetch current file from GitHub --------------------------------------
   const fetched = await fetchFileFromGitHub(config);
   if ("error" in fetched) {
-    result.errors.push(fetched.error);
-    return result;
+    return { ...emptyResult, errors: [fetched.error] };
   }
 
   const { content: fileContent, sha: fileSha } = fetched;
 
-  // --- Parse the top-level checkedAt fallback -------------------------------
-  const topLevelCheckedAt = parseTopLevelCheckedAt(fileContent);
-
-  // --- Apply updates offer-by-offer ----------------------------------------
-  let updatedContent = fileContent;
-
-  for (const offer of eligibleOffers) {
-    const updateResult = updateOfferInContent(
-      updatedContent,
-      offer,
-      topLevelCheckedAt,
-    );
-
-    if (updateResult.updated) {
-      updatedContent = updateResult.content;
-      result.synced++;
-    } else {
-      result.skipped++;
-      if (updateResult.error) {
-        result.errors.push(updateResult.error);
-      }
-    }
-  }
+  const projection = applyStaticOfferRefreshes({
+    content: fileContent,
+    refreshedOffers: input.refreshedOffers,
+  });
+  const result: StaticFileSyncResult = {
+    synced: projection.synced,
+    skipped: projection.skipped,
+    committed: false,
+    commitSha: null,
+    errors: projection.errors,
+  };
 
   // --- Commit if anything changed ------------------------------------------
   if (result.synced === 0) return result;
 
   const committed = await commitFileToGitHub(
     config,
-    updatedContent,
+    projection.content,
     fileSha,
     result.synced,
   );

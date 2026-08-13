@@ -36,7 +36,13 @@ export type CampaignDeliveryRecipientRecord = {
 const productionPrefix = "campaigns/daily";
 const ledgerPrefix = "jelocare:campaigns:v1";
 const acceptedProductionIndex = `${ledgerPrefix}:production:accepted`;
+const dailyDeskAggregatePrefix = `${ledgerPrefix}:daily-desk:aggregate`;
+const dailyDeskRatePrefix = `${ledgerPrefix}:daily-desk:rate`;
+const dailyDeskAggregateRetentionSeconds = 90 * 24 * 60 * 60;
+const dailyDeskRateLimitPerMinute = 500;
 let redis: Redis | undefined;
+
+export type DailyDeskAggregateEvent = "view" | "compare_click";
 
 function productionCampaignDate(archive: ArchivedCampaign) {
   const date = archive.runPath.match(
@@ -64,6 +70,73 @@ async function acceptedProductionRecordForDate(date: string) {
     { byScore: true, offset: 0, count: 1 },
   );
   return records[0] ?? null;
+}
+
+export async function acceptedProductionCampaignJsonForDate(date: string) {
+  const campaignRecordKey = await acceptedProductionRecordForDate(date);
+  if (!campaignRecordKey) return null;
+  return campaignLedger().get<string>(campaignRecordKey);
+}
+
+function safeDailyDeskSegment(value: string, pattern: RegExp, error: string) {
+  if (!pattern.test(value)) throw new Error(error);
+  return value;
+}
+
+export function dailyDeskAggregateMetricKey(input: {
+  date: string;
+  campaignId: string;
+  event: DailyDeskAggregateEvent;
+}) {
+  const date = safeDailyDeskSegment(
+    input.date,
+    /^\d{4}-\d{2}-\d{2}$/,
+    "daily_desk_metric_date_invalid",
+  );
+  const campaignId = safeDailyDeskSegment(
+    input.campaignId,
+    /^\d{4}-\d{2}-\d{2}-[a-z0-9-]{1,180}$/,
+    "daily_desk_metric_campaign_invalid",
+  );
+  if (input.event !== "view" && input.event !== "compare_click") {
+    throw new Error("daily_desk_metric_event_invalid");
+  }
+  return `${dailyDeskAggregatePrefix}:${date}:${campaignId}:${input.event}`;
+}
+
+export async function recordDailyDeskAggregateEvent(input: {
+  date: string;
+  campaignId: string;
+  event: DailyDeskAggregateEvent;
+  recordedAt?: Date;
+}) {
+  try {
+    const metricKey = dailyDeskAggregateMetricKey(input);
+    const recordedAt = input.recordedAt ?? new Date();
+    const timestamp = recordedAt.valueOf();
+    if (!Number.isFinite(timestamp)) return false;
+
+    // This is deliberately global, not visitor-based: no IP, user agent,
+    // cookie, session, referrer, or fingerprint is read or stored.
+    const minute = Math.floor(timestamp / 60_000);
+    const rateKey = `${dailyDeskRatePrefix}:${minute}`;
+    const rate = await campaignLedger().incr(rateKey);
+    if (rate === 1) await campaignLedger().expire(rateKey, 120);
+    if (rate > dailyDeskRateLimitPerMinute) return false;
+
+    const total = await campaignLedger().incr(metricKey);
+    if (total === 1) {
+      await campaignLedger().expire(
+        metricKey,
+        dailyDeskAggregateRetentionSeconds,
+      );
+    }
+    return true;
+  } catch {
+    // Measurement is best-effort. Redis failure cannot affect the public page
+    // or the shopper's navigation to the price comparison.
+    return false;
+  }
 }
 
 function runPrefix(mode: CampaignRunMode) {

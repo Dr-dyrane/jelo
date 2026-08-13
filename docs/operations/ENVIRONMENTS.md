@@ -153,15 +153,20 @@ is not an SMTP password.
 
 ### Inventory refresh sync
 
-| Variable                        | Required               | Notes                                                                                                              |
-| ------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `INVENTORY_AI_EXTRACTION`       | AI extraction fallback | Exact `true` enables the AI Gateway extraction fallback. Disabled by default.                                      |
-| `INVENTORY_AI_EXTRACTION_MODEL` | AI extraction fallback | Gateway model identifier, e.g. `google/gemini-2.5-flash-lite`. Required when `INVENTORY_AI_EXTRACTION` is `true`.  |
-| `STATIC_FILE_SYNC_ENABLED`      | Static file sync       | Exact `true` enables syncing refreshed offers back to `data/retail-offers.ts` via GitHub API. Disabled by default. |
-| `GITHUB_TOKEN`                  | Static file sync       | Fine-grained PAT with `contents:write` on the repo. Required when `STATIC_FILE_SYNC_ENABLED` is `true`.            |
-| `GITHUB_REPO_OWNER`             | Static file sync       | Repo owner; defaults to `Dr-dyrane`.                                                                               |
-| `GITHUB_REPO_NAME`              | Static file sync       | Repo name; defaults to `jelo`.                                                                                     |
-| `GITHUB_REPO_BRANCH`            | Static file sync       | Target branch; defaults to `main`.                                                                                 |
+| Variable                        | Required               | Notes                                                                                                                                              |
+| ------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `INVENTORY_AI_EXTRACTION`       | AI extraction fallback | Exact `true` enables the AI Gateway extraction fallback. Disabled by default.                                                                      |
+| `INVENTORY_AI_EXTRACTION_MODEL` | AI extraction fallback | Gateway model identifier, e.g. `google/gemini-2.5-flash-lite`. Required when `INVENTORY_AI_EXTRACTION` is `true`.                                  |
+| `STATIC_FILE_SYNC_ENABLED`      | Static file sync       | Exact `true` enables a review-branch proposal for eligible refreshed offers. Disabled by default.                                                  |
+| `GITHUB_TOKEN`                  | Static file sync       | Fine-grained PAT with `contents:write` on the repo. Required when `STATIC_FILE_SYNC_ENABLED` is `true`.                                            |
+| `GITHUB_REPO_OWNER`             | Static file sync       | Repo owner; defaults to `Dr-dyrane`.                                                                                                               |
+| `GITHUB_REPO_NAME`              | Static file sync       | Repo name; defaults to `jelo`.                                                                                                                     |
+| `GITHUB_REPO_BRANCH`            | Static file sync       | Required review branch named `inventory-sync-review` or prefixed `inventory-sync-review-` / `inventory-sync-review/`. Other branches are rejected. |
+
+AI extraction is deliberately database-only. Static sync accepts only
+confidence-60+ retailer-page or retailer-API observations, preserves their
+verification method, uses the actual bounded expiry, and stops price changes
+over 35% for manual review. It never commits directly to the production branch.
 
 The browser fetch fallback (Phase 1) requires no environment variable — it is
 active whenever `playwright-core` is installed in the deployment. The

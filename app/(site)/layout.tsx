@@ -41,6 +41,7 @@ export default async function SiteLayout({
           <div className="footer-group">
             <strong>Compare</strong>
             <Link href="/share">Price watch</Link>
+            <Link href="/lagos">Lagos Daily Desk</Link>
             <Link href="/bundle">Bundle finder</Link>
             <Link href="/retailers">Retailers</Link>
           </div>

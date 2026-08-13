@@ -25,6 +25,7 @@ Route handlers validate at the boundary, keep secrets server-only, and fail clos
 | `/api/orders/recover`                        | `GET`        | Exchange one-time recovery link      | Hashed token, atomic consume, session rotation, clean redirect, no-store/no-referrer                                                                                |
 | `/api/cron/inventory`                        | `GET`        | Refresh due retail offers            | Bearer `CRON_SECRET`, bounded batch                                                                                                                                 |
 | `/api/cron/daily-campaign`                   | `GET`        | Prepare and email one campaign draft | Bearer `CRON_SECRET`, disabled-by-default production gate, dossier/share evidence gate, immutable Redis send reservation, exact active-operator resolution          |
+| `/api/campaigns/daily-desk/events`           | `POST`       | Increment Daily Desk aggregate event | Same-site check, 64 KiB body, strict public campaign-id/event schema, current accepted-production match, no cookies or visitor identifiers stored, no public read   |
 | `/go`                                        | `GET`        | Outbound retailer redirect           | Allowlisted offer lookup and attribution logic                                                                                                                      |
 
 JeloCare Me Shelf mutations are authenticated server actions rather than public
@@ -48,6 +49,10 @@ path, query, form, or JSON body.
 - Daily campaign records keep recipient email out of Blob, Redis, and logs. The
   private Redis delivery trail stores only a `CRON_SECRET`-keyed recipient HMAC;
   the production mailbox must resolve to exactly one active operator before send.
+- `/lagos` reads only the current day's accepted-production campaign and
+  projects a strict public allowlist. Its aggregate event route accepts no free
+  text, omits cookies and referrer client-side, stores no request metadata, and
+  exposes no metric read endpoint.
 - Private Shelf operations use a dedicated exact-role connection, transaction-
   local owner context, an explicit owner predicate, and enabled plus forced
   PostgreSQL RLS. Missing or unsafe role attestation fails closed.
@@ -67,6 +72,8 @@ path, query, form, or JSON body.
 | Edit and magic-link tokens                               | Secret                         | Never log or store in plaintext                                                                                                                          |
 | Email, phone, address                                    | Personal/business contact data | Use only with recorded consent                                                                                                                           |
 | Campaign draft and delivery records                      | Internal operations data       | Private Redis ledger; omit raw recipient email, operator id, and all click-level data                                                                    |
+| Lagos Daily Desk projection                              | Public                         | Only current accepted production identity, verified creative, share-ready copy/evidence summary, exact share CTA, and checked-at time                    |
+| Daily Desk aggregate counters                            | Internal aggregate             | Date + public campaign id + enum event only; no visitor identifiers; 90-day expiry; never an input to ranking, guidance, or advertising                  |
 | Database, Blob, Redis, mail, and third-party credentials | Secret                         | Server-only environment variables                                                                                                                        |
 
 The database owner and `MIGRATION_DATABASE_URL` are not application secrets and

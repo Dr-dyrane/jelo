@@ -25,6 +25,7 @@ test("public service directories and profiles remain discoverable", async () => 
     "/consult",
     "/contribute",
     "/share",
+    "/lagos",
     "/search",
   ]) {
     assert.ok(uniqueUrls.has(`${origin}${route}`), route);

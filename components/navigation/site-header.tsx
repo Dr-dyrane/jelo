@@ -103,6 +103,9 @@ export function SiteHeader() {
             <Link className={styles.utilityLink} href="/share">
               Price watch
             </Link>
+            <Link className={styles.utilityLink} href="/lagos">
+              Daily desk
+            </Link>
             <Link href="/consult">Consult</Link>
             <Link className={styles.memberLink} href="/me">
               Me
@@ -191,6 +194,9 @@ export function SiteHeader() {
             </Link>
             <Link href="/share" onClick={closeMenu}>
               Price watch
+            </Link>
+            <Link href="/lagos" onClick={closeMenu}>
+              Daily desk
             </Link>
             <Link href="/ingredients" onClick={closeMenu}>
               Ingredients

@@ -886,11 +886,16 @@ overwrites of higher-quality data.
 
 - **When:** after each cron run, if any offers were successfully refreshed.
 - **How:** fetches `data/retail-offers.ts` from GitHub, applies targeted field-level diffs, commits via the Contents API.
-- **Env vars:** `STATIC_FILE_SYNC_ENABLED=true` + `GITHUB_TOKEN=<pat>` + optional `GITHUB_REPO_OWNER`, `GITHUB_REPO_NAME`, `GITHUB_REPO_BRANCH`.
+- **Env vars:** `STATIC_FILE_SYNC_ENABLED=true` + `GITHUB_TOKEN=<pat>` + required `inventory-sync-review*` `GITHUB_REPO_BRANCH`; owner and repo are optional.
 - **Anti-overwrite protections:**
   - Never touches offers with `verification_method = 'manual'`.
+  - Never publishes `ai_extraction` or any observation below confidence 60.
   - Only updates if refreshed `last_verified_at` is strictly newer than the static offer's timestamp.
-  - Only updates `priceNgn`, `available`, `stock`, `observedAt`, `expiresAt` — never `url`, `match`, `trust`, `variant`, `size`.
+  - Carries retailer-page/API provenance and the actual verification expiry into the static offer.
+  - Clamps retailer-page freshness to five days and retailer-API freshness to seven days.
+  - Stops price changes above 35% for manual review.
+  - Refuses every branch outside the `inventory-sync-review`, `inventory-sync-review-*`, or `inventory-sync-review/*` namespace; every proposed change lands on an explicit review branch.
+  - Only updates `priceNgn`, `available`, `stock`, `observedAt`, `expiresAt`, and verification method — never `url`, `match`, `trust`, `variant`, `size`.
   - Post-update verification confirms all requested fields were actually changed.
 - **Failure mode:** returns error results, never throws. Rate limiting and network errors are caught.
 
@@ -906,20 +911,23 @@ overwrites of higher-quality data.
    - `staticFileSync.errors` — any sync errors (rate limiting, network, parse failures).
    - `staticFileSync: null` — sync is disabled or no offers were refreshed.
 
-2. **Check the GitHub commit history** for sync commits:
+2. **Inspect and merge the configured review branch** after re-opening the
+   exact retailer evidence. Never configure static sync against `main`.
+
+3. **Check the GitHub commit history** for sync commits:
 
    ```bash
    git log --oneline --grep="sync:" -- data/retail-offers.ts
    ```
 
-3. **Check AI extraction** by looking for `verification_method = 'ai_extraction'` in the database:
+4. **Check AI extraction** by looking for `verification_method = 'ai_extraction'` in the database. These rows must never appear in a static-sync commit:
 
    ```sql
    SELECT retailer_id, price_minor, last_verified_at, verification_expires_at
    FROM offers WHERE verification_method = 'ai_extraction';
    ```
 
-4. **Check browser fetch** by looking for Jumia offers that are now fresh:
+5. **Check browser fetch** by looking for Jumia offers that are now fresh:
    ```sql
    SELECT o.url, o.price_minor, o.last_verified_at, o.verification_expires_at
    FROM offers o

@@ -216,8 +216,12 @@ test("the cron sends email alerts when offers fail or the backlog grows", () => 
 
 test("the refresh worker uses confidence-based validity windows", () => {
   assert.match(worker, /adapterKey === ["']woo-store-api["']/);
-  assert.match(worker, /["']7 days["']/);
-  assert.match(worker, /["']5 days["']/);
-  assert.match(worker, /["']3 days["']/);
-  assert.match(worker, /["']1 day["']/);
+  assert.match(worker, /const validityDays =/);
+  assert.match(worker, /\? 1[\s\S]*\? 3[\s\S]*\? 7[\s\S]*: 5/);
+  assert.match(worker, /validityDays \* 86_400_000/);
+  assert.match(worker, /verification_expires_at = \$\{verificationExpiresAt\}/);
+  assert.match(
+    worker,
+    /verificationExpiresAt: verificationExpiresAt\.toISOString\(\)/,
+  );
 });

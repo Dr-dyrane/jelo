@@ -15,6 +15,7 @@ type ExactNgOptions = Pick<
 > & {
   observedAt?: string;
   stock?: NonNullable<Offer["priceObservation"]>["stock"];
+  verificationMethod?: "manual" | "retailer_page" | "api";
 };
 
 const exactNg = (
@@ -27,6 +28,8 @@ const exactNg = (
   options: Partial<ExactNgOptions> = {},
 ): Offer => {
   const observationTime = options.observedAt ?? checkedAt;
+  const evidenceBasis =
+    options.verificationMethod === "api" ? "retailer-api" : "retailer-page";
   return {
     retailer,
     url,
@@ -43,7 +46,7 @@ const exactNg = (
     listingEvidence: {
       observedAt: observationTime,
       sourceUrl: url,
-      basis: "retailer-page",
+      basis: evidenceBasis,
     },
     priceObservation: {
       observedAt: observationTime,
