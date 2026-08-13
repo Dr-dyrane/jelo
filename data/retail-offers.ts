@@ -7890,6 +7890,48 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "out-of-stock",
       },
     ),
+    exactNg(
+      "Perona Beauty",
+      "https://peronabeauty.com/product/la-roche-posay-toleriane-double-repair-uv-face-moisturizer-with-spf-30-2-5-fl-oz/",
+      78,
+      45000,
+      "La Roche-Posay Toleriane Double Repair UV Face Moisturizer with SPF 30, 2.5 Fl. Oz.",
+      "2.5 fl oz / 75 mL",
+      {
+        observedAt: "2026-08-13T06:00:00Z",
+        expiresAt: "2026-08-20T06:00:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+    exactNg(
+      "HelloBeauty NG",
+      "https://hellobeautyng.com/products/la-roche-posay-toleriane-double-repair-face-moisturizer-uv-spf30",
+      76,
+      48000,
+      "La Roche Posay Toleriane Double Repair Face Moisturizer UV SPF30",
+      "2.5 fl oz / 75 mL",
+      {
+        observedAt: "2026-08-13T06:05:00Z",
+        expiresAt: "2026-08-20T06:05:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+    exactNg(
+      "MakeupAlleyNG",
+      "https://makeupalleyng.com/products/la-roche-posay-double-repair-moisturizer-spf30",
+      92,
+      48500,
+      "La Roche Posay Double Repair Moisturizer SPF30",
+      "2.5 fl oz / 75 mL",
+      {
+        observedAt: "2026-08-13T06:10:00Z",
+        expiresAt: "2026-08-20T06:10:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
   ],
 };
 
