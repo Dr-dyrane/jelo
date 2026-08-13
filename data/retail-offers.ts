@@ -7337,6 +7337,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
+    exactNg(
+      "MakeupAlleyNG",
+      "https://makeupalleyng.com/products/naturium-retinaldehyde-cream-serum-0-15",
+      92,
+      66000,
+      "Naturium Retinaldehyde Cream Serum 0.05%",
+      "1.7 fl oz / 50 mL",
+      {
+        observedAt: "2026-08-13T00:14:00Z",
+        expiresAt: "2026-08-20T00:14:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
   ],
   "naturium-retinaldehyde-cream-serum-0-10-1-7oz": [
     exactNg(
@@ -7535,6 +7549,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-12T22:23:00Z",
         expiresAt: "2026-08-19T22:23:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
+    exactNg(
+      "Rhema Beauty Shop",
+      "https://rhemabeautyshop.com/shop/naturium-salicylic-acid-serum-2/",
+      86,
+      40012,
+      "Naturium Salicylic Acid Serum 2%",
+      "1.0 fl oz / 30 mL",
+      {
+        observedAt: "2026-08-13T00:13:00Z",
+        expiresAt: "2026-08-20T00:13:00Z",
         available: false,
         stock: "out-of-stock",
       },
