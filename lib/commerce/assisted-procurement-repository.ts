@@ -296,13 +296,16 @@ async function expireAssistedOrderQuotes(orderId?: string) {
 }
 
 const orderSelect = `
-  select id, public_reference, owner_subject, retailer_name, state, revision,
-         contact_name, contact_email, contact_phone, delivery_address,
-         delivery_city, delivery_state, delivery_instructions,
-         (whatsapp_consent_at is not null) as whatsapp_consent,
-         (email_notifications_consent_at is not null) as email_notifications_consent,
-         created_at::text, updated_at::text
-  from assisted_orders
+  select orders.id, orders.public_reference, orders.owner_subject,
+         orders.retailer_name, orders.state, orders.revision,
+         orders.contact_name, orders.contact_email, orders.contact_phone,
+         orders.delivery_address, orders.delivery_city, orders.delivery_state,
+         orders.delivery_instructions,
+         (orders.whatsapp_consent_at is not null) as whatsapp_consent,
+         (orders.email_notifications_consent_at is not null) as email_notifications_consent,
+         orders.created_at::text as created_at,
+         orders.updated_at::text as updated_at
+  from assisted_orders orders
 `;
 
 export async function createAssistedOrder(record: CreateAssistedOrderRecord) {
@@ -405,7 +408,8 @@ async function readAssistedOrderById(id: string) {
   await expireAssistedOrderQuotes(id);
   if (assistedOrderFixtureEnabled()) return fixtureStore().orders.get(id) ?? null;
   const sql = getPostgresClient();
-  const [row] = await sql.unsafe<OrderRow[]>(`${orderSelect} where id = $1 and retain_until > now() limit 1`, [id]);
+  const [row] = await sql.unsafe<OrderRow[]>(`${orderSelect}
+    where orders.id = $1 and orders.retain_until > now() limit 1`, [id]);
   return row ? hydrateOrder(sql, row) : null;
 }
 
@@ -418,9 +422,9 @@ export async function readAssistedOrderBySession(sessionHash: string) {
   const sql = getPostgresClient();
   await expireAssistedOrderQuotes();
   const [row] = await sql.unsafe<OrderRow[]>(`${orderSelect}
-    join assisted_order_guest_sessions session on session.order_id = assisted_orders.id
+    join assisted_order_guest_sessions session on session.order_id = orders.id
     where session.token_hash = $1 and session.expires_at > now() and session.revoked_at is null
-      and assisted_orders.retain_until > now() limit 1`, [sessionHash]);
+      and orders.retain_until > now() limit 1`, [sessionHash]);
   return row ? hydrateOrder(sql, row) : null;
 }
 
@@ -432,7 +436,8 @@ export async function readAssistedOrderForOwner(orderId: string, ownerSubject: s
   }
   const sql = getPostgresClient();
   const [row] = await sql.unsafe<OrderRow[]>(`${orderSelect}
-    where id = $1 and owner_subject = $2 and retain_until > now() limit 1`, [orderId, ownerSubject]);
+    where orders.id = $1 and orders.owner_subject = $2
+      and orders.retain_until > now() limit 1`, [orderId, ownerSubject]);
   return row ? hydrateOrder(sql, row) : null;
 }
 
@@ -445,7 +450,8 @@ export async function listAssistedOrdersForOwner(ownerSubject: string) {
   }
   const sql = getPostgresClient();
   const rows = await sql.unsafe<OrderRow[]>(`${orderSelect}
-    where owner_subject = $1 and retain_until > now() order by created_at desc limit 100`, [ownerSubject]);
+    where orders.owner_subject = $1 and orders.retain_until > now()
+    order by orders.created_at desc limit 100`, [ownerSubject]);
   return Promise.all(rows.map(row => hydrateOrder(sql, row)));
 }
 

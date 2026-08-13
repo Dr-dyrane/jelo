@@ -92,6 +92,14 @@ test('migration preserves exact identity, guest capabilities, transparent quote,
   assert.doesNotMatch(migration, /grant[^;]+assisted_order[^;]+to public/i);
 });
 
+test('guest order session reads qualify order timestamps across the session join', async () => {
+  const repository = await readFile('lib/commerce/assisted-procurement-repository.ts', 'utf8');
+  assert.match(repository, /orders\.created_at::text as created_at/);
+  assert.match(repository, /orders\.updated_at::text as updated_at/);
+  assert.match(repository, /join assisted_order_guest_sessions session on session\.order_id = orders\.id/);
+  assert.doesNotMatch(repository, /\n\s+created_at::text, updated_at::text\n\s+from assisted_orders/);
+});
+
 test('Ops order review uses the shared light and dark operations theme tokens', async () => {
   const styles = await readFile('app/(ops)/ops/orders/orders.module.css', 'utf8');
   assert.match(styles, /background: var\(--ops-workspace\)/);
