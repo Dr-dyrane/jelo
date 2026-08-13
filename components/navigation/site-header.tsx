@@ -16,11 +16,6 @@ const mobileLinks = [
   },
   { href: "/products", label: "Products", detail: "Find what fits" },
   { href: "/basket", label: "Basket", detail: "Your exact products" },
-  {
-    href: "/contribute",
-    label: "Contribute",
-    detail: "Tell us what you use",
-  },
   { href: "/consult", label: "Ask JeloCare", detail: "Create a simple guide" },
   { href: "/me", label: "Me", detail: "Your care workspace" },
 ];
@@ -108,7 +103,6 @@ export function SiteHeader() {
             <Link className={styles.utilityLink} href="/share">
               Price watch
             </Link>
-            <Link href="/contribute">Contribute</Link>
             <Link href="/consult">Consult</Link>
             <Link className={styles.memberLink} href="/me">
               Me

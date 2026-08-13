@@ -234,11 +234,6 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
     productPanelStyles,
     /@media \(max-width: 620px\)[\s\S]*\.product-panel-tabs\s*\{[\s\S]*overflow: hidden;/,
   );
-  assert.match(navigation, /href="\/contribute"[^>]*>Contribute/);
-  assert.match(
-    navigation,
-    /label: "Contribute",[\s\S]*?detail: "Tell us what you use"/,
-  );
   assert.match(navigation, /<Link[^>]*href="\/share"[^>]*>\s*Price watch/);
   assert.match(navigation, /<Link[^>]*href="\/brands"[^>]*>\s*Brands/);
   assert.match(layout, /href="\/contribute">Contribute/);
