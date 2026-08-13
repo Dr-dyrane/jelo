@@ -70,6 +70,16 @@ test('migration preserves exact identity, guest capabilities, transparent quote,
   assert.doesNotMatch(migration, /grant[^;]+assisted_order[^;]+to public/i);
 });
 
+test('Ops order review uses the shared light and dark operations theme tokens', async () => {
+  const styles = await readFile('app/(ops)/ops/orders/orders.module.css', 'utf8');
+  assert.match(styles, /background: var\(--ops-workspace\)/);
+  assert.match(styles, /color: var\(--ops-ink\)/);
+  assert.match(styles, /background: var\(--ops-surface-subtle\)/);
+  assert.match(styles, /background: var\(--ops-accent-subtle\)/);
+  assert.doesNotMatch(styles, /var\(--ops-surface,\s*#fff\)/);
+  assert.doesNotMatch(styles, /background:\s*#fff\b/);
+});
+
 test('fixture exercises request → quote → guest approval and one-time recovery', async () => {
   process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE = 'true';
   const [{ requestAssistedOrder }, repository, security] = await Promise.all([

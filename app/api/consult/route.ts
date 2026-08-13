@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { after } from 'next/server';
 import { products } from '@/data/catalogue';
 import { concerns as knowledgeConcerns } from '@/data/knowledge';
 import type { Market } from '@/data/prices';
@@ -6,6 +7,11 @@ import type { Product } from '@/data/products';
 import { sameSiteRequest } from '@/lib/community-intake/request-security';
 import { readBoundedConsultJson } from '@/lib/consult/request-body';
 import { checkConsultRateLimit } from '@/lib/consult/security';
+import {
+  consultIntakeShadowConfig,
+  runConsultIntakeShadow,
+} from '@/lib/consult/ai-intake-shadow';
+import type { ConsultAiOutcome } from '@/lib/consult/ai-generation-repository';
 import { marketProductPrice, marketRetailerLinks } from '@/modules/commerce/market-product';
 import {
   buildDeterministicCareIntentReport,
@@ -158,6 +164,18 @@ function clarificationReport(questions: string[]) {
   };
 }
 
+function consultResponseWithIntakeShadow(
+  payload: Record<string, unknown>,
+  input: { query: string; deterministicOutcome: ConsultAiOutcome },
+) {
+  if (consultIntakeShadowConfig()) {
+    after(async () => {
+      await runConsultIntakeShadow(input);
+    });
+  }
+  return Response.json(payload);
+}
+
 export async function POST(request: Request) {
   if (!sameSiteRequest(request)) {
     return Response.json({ error: 'This request is not allowed.' }, { status: 403 });
@@ -284,7 +302,7 @@ export async function POST(request: Request) {
     const selected = eligible.slice(0, 4);
     const selectedSlugs = selected.map(item => item.product.slug);
 
-    return Response.json({
+    return consultResponseWithIntakeShadow({
       report: buildDeterministicCareIntentReport(careIntent, selectedSlugs),
       products: selected.map(item => publicProduct(item.product, market)),
       careIntent: {
@@ -300,6 +318,9 @@ export async function POST(request: Request) {
         market,
         ordinaryCare: true,
       }, legacyClient),
+    }, {
+      query,
+      deterministicOutcome: 'ordinary_care',
     });
   }
 
@@ -312,13 +333,16 @@ export async function POST(request: Request) {
       ? clinical.differential.questions
       : ['Where is it?', 'What does it look or feel like?', 'When did it start?'];
 
-    return Response.json({
+    return consultResponseWithIntakeShadow({
       report: clarificationReport(questions),
       products: [],
       meta: {
         market,
         needsClarification: true,
       },
+    }, {
+      query,
+      deterministicOutcome: 'clarification',
     });
   }
 
@@ -327,17 +351,20 @@ export async function POST(request: Request) {
       ? clinical.differential.questions
       : ['Where is it?', 'What does it look or feel like?', 'When did it start?'];
 
-    return Response.json({
+    return consultResponseWithIntakeShadow({
       report: clarificationReport(questions),
       products: [],
       meta: {
         market,
         needsClarification: true,
       },
+    }, {
+      query,
+      deterministicOutcome: 'clarification',
     });
   }
 
-  return Response.json({
+  return consultResponseWithIntakeShadow({
     report: buildDeterministicConditionGuideReport(clinical, concernGuide),
     products: [],
     guide: concernGuide,
@@ -350,5 +377,8 @@ export async function POST(request: Request) {
       market,
       guideOnly: true,
     }, legacyClient),
+  }, {
+    query,
+    deterministicOutcome: 'condition_guide',
   });
 }

@@ -2,6 +2,28 @@
 
 Updated: 2026-08-13
 
+## Implementation status
+
+Phase 1 is implemented as an explicitly flagged intake shadow on the existing
+`/api/consult` route. The deterministic emergency gate runs first. Only an
+ordinary-care, clarification, or guide-only outcome may schedule the shadow,
+and the customer receives the unchanged deterministic response without waiting
+for it.
+
+The shadow uses `ASK_JELO_AI_INTAKE_SHADOW=true` plus the reviewed
+`ASK_JELO_INTAKE_MODEL=openai/gpt-5.6-terra` configuration. It requests one
+strict non-clinical object through AI Gateway with zero-data-retention and
+prompt-training disabled. Before the call, JeloCare creates a pending
+`consult_ai_generations` row. The row stores only a SHA-256 digest and character
+count for the customer text, the deterministic outcome class, the constrained
+proposal, token usage, exact Gateway cost metadata when supplied, latency, and
+settlement state. Raw health text, member context, contact data, and customer-
+visible wording are not persisted in this lane. Retention is 30 days.
+
+Turning the flag off is the complete rollback. Phase 1 does not authorize model
+wording, guide selection, product selection, urgency, voice, concern writes, or
+orders.
+
 Ask Jelo remains deterministic today. The first AI release should improve
 intake and wording without giving a model clinical, product, urgency, or state
 authority. Vercel AI Gateway is the single provider boundary; direct provider

@@ -1,12 +1,12 @@
 .workspace { min-height: 0; height: 100%; display: grid; grid-template-columns: minmax(20rem, .78fr) minmax(27rem, 1.22fr); gap: 1rem; }
 .queue,
-.inspector { min-height: 0; overflow: auto; border-radius: 1.4rem; background: var(--ops-surface, #fff); }
+.inspector { min-height: 0; overflow: auto; border-radius: 1.4rem; background: var(--ops-workspace); color: var(--ops-ink); box-shadow: var(--ops-workspace-shadow); }
 .queue { padding: 1rem; }
 .queue section + section { margin-top: 1.4rem; }
 .queue section > h2 { margin: 0 0 .65rem; display: flex; justify-content: space-between; color: var(--ops-muted, #716764); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; }
 .queue section > div { display: grid; gap: .45rem; }
 .queue button { width: 100%; padding: .85rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 0; border-radius: .9rem; background: transparent; color: inherit; text-align: left; cursor: pointer; }
-.queue button[data-active="true"] { background: var(--ops-ink, #201b19); color: #fff; }
+.queue button[data-active="true"] { background: var(--ops-accent); color: var(--ops-workspace); }
 .queue button > span { display: grid; gap: .15rem; }
 .queue button > span:last-child { text-align: right; }
 .queue small { color: currentColor; opacity: .6; }
@@ -14,31 +14,31 @@
 .inspector > header { display: flex; justify-content: space-between; gap: 1rem; }
 .inspector header p { margin: 0; color: var(--ops-muted, #716764); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; }
 .inspector header h2 { margin: .3rem 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: .95; }
-.inspector header > span { height: fit-content; padding: .45rem .65rem; border-radius: 999px; background: #f4d4c5; font-size: .68rem; }
-.privateData { margin: 1.2rem 0; padding: 1rem; display: grid; gap: .25rem; border-radius: 1rem; background: rgba(32,27,25,.05); }
-.privateData small { margin-top: .35rem; color: #8e4c56; }
+.inspector header > span { height: fit-content; padding: .45rem .65rem; border-radius: 999px; background: var(--ops-accent-subtle); color: var(--ops-accent); font-size: .68rem; }
+.privateData { margin: 1.2rem 0; padding: 1rem; display: grid; gap: .25rem; border-radius: 1rem; background: var(--ops-surface-subtle); }
+.privateData small { margin-top: .35rem; color: var(--ops-accent); }
 .lines { display: grid; gap: .2rem; }
-.lines > div { padding: .75rem 0; display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid rgba(32,27,25,.1); }
+.lines > div { padding: .75rem 0; display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid color-mix(in srgb, var(--ops-ink) 10%, transparent); }
 .lines span { display: grid; }
 .lines small { color: var(--ops-muted, #716764); }
 .decision,
-.paymentGate { margin-top: 1.5rem; padding: 1.2rem; border-radius: 1rem; background: #171214; color: #fff9f5; }
+.paymentGate { margin-top: 1.5rem; padding: 1.2rem; border-radius: 1rem; background: var(--ops-ink); color: var(--ops-workspace); }
 .decision > p:first-child { display: flex; align-items: center; gap: .45rem; color: #ef879a; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; }
 .decision h3 { font-size: 1.5rem; }
 .decision button,
-.quoteForm button { min-height: 2.8rem; padding: 0 1rem; border: 0; border-radius: 999px; background: #ef879a; color: #201b19; font: inherit; font-weight: 700; cursor: pointer; }
-.paymentGate { display: flex; gap: .7rem; background: #f4d4c5; color: #201b19; }
+.quoteForm button { min-height: 2.8rem; padding: 0 1rem; border: 0; border-radius: 999px; background: var(--accent-solid); color: var(--paper); font: inherit; font-weight: 700; cursor: pointer; }
+.paymentGate { display: flex; gap: .7rem; background: var(--ops-accent-subtle); color: var(--ops-ink); }
 .paymentGate p { margin: 0; line-height: 1.45; }
-.quoteForm { margin-top: 1.4rem; padding: 1.2rem; display: grid; gap: .9rem; border-radius: 1rem; background: #171214; color: #fff9f5; }
-.quoteEyebrow { margin: 0; color: #ef879a; font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; }
+.quoteForm { margin-top: 1.4rem; padding: 1.2rem; display: grid; gap: .9rem; border-radius: 1rem; background: var(--ops-ink); color: var(--ops-workspace); }
+.quoteEyebrow { margin: 0; color: var(--accent-solid); font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; }
 .moneyGrid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .7rem; }
 .quoteForm label { display: grid; gap: .35rem; }
 .quoteForm label > span { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; }
 .quoteForm input,
-.quoteForm textarea { min-width: 0; width: 100%; padding: .72rem; border: 0; border-radius: .65rem; background: rgba(255,255,255,.1); color: #fff; font: inherit; }
+.quoteForm textarea { min-width: 0; width: 100%; padding: .72rem; border: 0; border-radius: .65rem; background: color-mix(in srgb, var(--ops-workspace) 12%, transparent); color: var(--ops-workspace); font: inherit; }
 .quoteForm textarea { min-height: 5rem; resize: vertical; }
-.cancel { margin-top: 1rem; min-height: 2.6rem; padding: 0 .9rem; display: inline-flex; align-items: center; gap: .45rem; border: 0; border-radius: 999px; background: transparent; color: #a23e49; cursor: pointer; }
-.error { color: #b22838; font-weight: 700; }
+.cancel { margin-top: 1rem; min-height: 2.6rem; padding: 0 .9rem; display: inline-flex; align-items: center; gap: .45rem; border: 0; border-radius: 999px; background: transparent; color: var(--state-danger); cursor: pointer; }
+.error { color: var(--state-danger); font-weight: 700; }
 .empty { padding: 3rem; display: grid; place-items: center; text-align: center; }
 
 @media (max-width: 900px) {
