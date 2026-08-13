@@ -14,7 +14,11 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import type { Product } from "@/data/products";
 import { ProductCard } from "@/components/products/product-card";
-import { findRetailerBasketOptions } from "@/lib/commerce/retailer-basket";
+import { SafeProductImage } from "@/components/products/safe-product-image";
+import {
+  chooseRetailerBasketOption,
+  findRetailerBasketOptions,
+} from "@/lib/commerce/retailer-basket";
 import { useBasket } from "./basket-provider";
 import {
   CHECKOUT_REQUEST_STORAGE_KEY,
@@ -76,14 +80,11 @@ export function ProcurementBasket({
   }
 
   const storedRetailer = localStorage.getItem(CHECKOUT_RETAILER_STORAGE_KEY);
-  const retailer = options.some(
-    (option) => option.retailer === selectedRetailer,
-  )
-    ? selectedRetailer
-    : options.some((option) => option.retailer === storedRetailer)
-      ? storedRetailer!
-      : (options[0]?.retailer ?? "");
-  const chosen = options.find((option) => option.retailer === retailer);
+  const chosen = chooseRetailerBasketOption(
+    options,
+    selectedRetailer || storedRetailer,
+  );
+  const retailer = chosen?.retailer ?? "";
 
   return (
     <div className={styles.basketLayout}>
@@ -244,6 +245,11 @@ export function CheckoutExperience({
     () => new Map(basket.items.map((item) => [item.slug, item.quantity])),
     [basket.items],
   );
+  const productImage = useMemo(
+    () =>
+      new Map(selectedProducts.map((product) => [product.slug, product.image])),
+    [selectedProducts],
+  );
   const options = useMemo(
     () => findRetailerBasketOptions(selectedProducts, quantities),
     [quantities, selectedProducts],
@@ -262,10 +268,8 @@ export function CheckoutExperience({
   if (!basket.ready)
     return <div className={styles.loading}>Preparing checkout…</div>;
   const storedRetailer = localStorage.getItem(CHECKOUT_RETAILER_STORAGE_KEY);
-  const retailer = options.some((option) => option.retailer === storedRetailer)
-    ? storedRetailer!
-    : (options[0]?.retailer ?? "");
-  const chosen = options.find((option) => option.retailer === retailer);
+  const chosen = chooseRetailerBasketOption(options, storedRetailer);
+  const retailer = chosen?.retailer ?? "";
   if (!chosen || !selectedProducts.length) {
     return (
       <section className={styles.empty}>
@@ -517,8 +521,8 @@ export function CheckoutExperience({
                   }
                 />
                 <span>
-                  Email me when my verified quote or order status changes. I
-                  can turn this off at any time.
+                  Email me when my verified quote or order status changes. I can
+                  turn this off at any time.
                 </span>
               </label>
               <label className={styles.checkField}>
@@ -621,7 +625,13 @@ export function CheckoutExperience({
         <h2>{chosen.retailer}</h2>
         <dl>
           {chosen.offers.map((offer) => (
-            <div key={offer.productSlug}>
+            <div key={offer.productSlug} className={styles.summaryLine}>
+              <div className={styles.summaryImage}>
+                <SafeProductImage
+                  src={productImage.get(offer.productSlug) ?? ""}
+                  alt=""
+                />
+              </div>
               <dt>
                 {offer.productBrand} · {offer.productName}{" "}
                 <small>× {quantities.get(offer.productSlug) ?? 1}</small>

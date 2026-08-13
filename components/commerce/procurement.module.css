@@ -222,8 +222,28 @@
   gap: 1rem;
   border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
 }
+.summaryLine {
+  align-items: center;
+}
+.summaryImage {
+  flex: 0 0 auto;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 0.8rem;
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+.summaryImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 .checkoutSummary dt {
   line-height: 1.35;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 .checkoutSummary small {
   color: var(--muted);
