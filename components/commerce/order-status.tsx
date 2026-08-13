@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { SafeProductImage } from '@/components/products/safe-product-image';
 import { OrderNotificationPreference } from './order-notification-preference';
 import { JELOCARE_WHATSAPP_CONTACT } from '@/lib/commerce/whatsapp-contact';
+import { formatOrderDateTime } from '@/lib/commerce/order-date';
 import {
   CUSTOMER_VISIBLE_ORDER_STATES,
   type AssistedOrderCustomerView,
@@ -14,7 +15,6 @@ import {
 import styles from './order-status.module.css';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
-const date = new Intl.DateTimeFormat('en-NG', { dateStyle: 'medium', timeStyle: 'short' });
 
 export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
   const router = useRouter();
@@ -74,7 +74,7 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
         </div>
         <div className={styles.heroMeta}>
           <span><PackageCheck size={17} aria-hidden="true" /> {order.retailer}</span>
-          <span><Clock3 size={17} aria-hidden="true" /> Updated {date.format(new Date(order.updatedAt))}</span>
+          <span><Clock3 size={17} aria-hidden="true" /> Updated {formatOrderDateTime(order.updatedAt)}</span>
         </div>
       </header>
 
@@ -103,7 +103,7 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
               {order.events.map(event => (
                 <li key={event.id}>
                   <span><Check size={15} aria-hidden="true" /></span>
-                  <div><strong>{CUSTOMER_VISIBLE_ORDER_STATES[event.toState].label}</strong>{event.reason ? <p>{event.reason}</p> : null}<small>{date.format(new Date(event.createdAt))}</small></div>
+                  <div><strong>{CUSTOMER_VISIBLE_ORDER_STATES[event.toState].label}</strong>{event.reason ? <p>{event.reason}</p> : null}<small>{formatOrderDateTime(event.createdAt)}</small></div>
                 </li>
               ))}
             </ol>
@@ -123,7 +123,7 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
                 <QuoteLine label="Delivery" value={order.quote.components.deliveryNgn} />
                 <div className={styles.quoteTotal}><dt>Total</dt><dd>{order.quote.totalNgn == null ? 'Incomplete' : naira.format(order.quote.totalNgn)}</dd></div>
               </dl>
-              <p className={styles.quoteExpiry}>Expires {date.format(new Date(order.quote.expiresAt))}</p>
+              <p className={styles.quoteExpiry}>Expires {formatOrderDateTime(order.quote.expiresAt)}</p>
               {order.quote.notes ? <p className={styles.quoteNotes}>{order.quote.notes}</p> : null}
               {order.state === 'awaiting_approval' && order.quote.status === 'awaiting_approval' ? (
                 <div className={styles.decisions}>
