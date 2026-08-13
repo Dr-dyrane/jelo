@@ -117,11 +117,53 @@ test('new order alerts are durable, recipient-scoped, and independent of custome
 test('Ops order intake progressively verifies costs and keeps retailer evidence available', async () => {
   const ui = await readFile('app/(ops)/ops/orders/OrdersQueue.tsx', 'utf8');
   const model = await readFile('lib/commerce/assisted-procurement-model.ts', 'utf8');
-  assert.match(ui, /Quote intake · step/);
+  assert.match(ui, /Step \{step \+ 1\} of \{reviewStep \+ 1\}/);
   assert.match(ui, /Review before sending/);
   assert.match(ui, /Open retailer/);
   assert.match(ui, /target="_blank" rel="noopener noreferrer"/);
   assert.match(model, /observedListingUrl: string/);
+});
+
+test('Ops orders expose one truthful icon-led lifecycle and quote-step identity', async () => {
+  const { resolveOrderOperationsJourney } = await import('@/lib/commerce/order-operations-journey');
+  assert.deepEqual(
+    resolveOrderOperationsJourney('quoting').steps.map(step => step.status),
+    ['complete', 'current', 'locked', 'locked', 'locked', 'locked', 'locked'],
+  );
+  assert.equal(resolveOrderOperationsJourney('needs_response', [{ fromState: 'awaiting_approval', toState: 'needs_response' }]).steps[2]?.status, 'attention');
+  assert.deepEqual(
+    resolveOrderOperationsJourney('delivered').steps.map(step => step.status),
+    ['complete', 'complete', 'complete', 'complete', 'complete', 'complete', 'complete'],
+  );
+  const allStates = [
+    'requested', 'quoting', 'awaiting_approval', 'needs_response', 'payment_pending',
+    'paid', 'procurement', 'retailer_confirmed', 'out_for_delivery', 'delivered',
+    'cancelled', 'refund_pending', 'refunded',
+  ] as const;
+  for (const state of allStates) assert.equal(resolveOrderOperationsJourney(state).steps.length, 7);
+  const reachedDelivery = [{ fromState: 'retailer_confirmed', toState: 'out_for_delivery' }] as const;
+  assert.deepEqual(
+    resolveOrderOperationsJourney('refund_pending', reachedDelivery).steps.map(step => step.status),
+    ['reached', 'reached', 'reached', 'reached', 'reached', 'reached', 'locked'],
+  );
+  assert.equal(resolveOrderOperationsJourney('refund_pending', reachedDelivery).exception?.id, 'refund_pending');
+  assert.equal(resolveOrderOperationsJourney('refunded', reachedDelivery).exception?.status, 'complete');
+  assert.equal(
+    resolveOrderOperationsJourney('cancelled', [{ fromState: 'needs_response', toState: 'cancelled' }, { fromState: 'awaiting_approval', toState: 'needs_response' }]).deepestReachedIndex,
+    2,
+  );
+  const [ui, journey] = await Promise.all([
+    readFile('app/(ops)/ops/orders/OrdersQueue.tsx', 'utf8'),
+    readFile('lib/commerce/order-operations-journey.ts', 'utf8'),
+  ]);
+  assert.match(ui, /aria-label="Order progress"/);
+  assert.match(ui, /className=\{styles\.queueIdentity\}/);
+  assert.match(journey, /Request[\s\S]*Verify & quote[\s\S]*Approval[\s\S]*Payment[\s\S]*Purchase[\s\S]*Delivery[\s\S]*Complete/);
+  assert.match(ui, /shortLabel: 'Products'[\s\S]*shortLabel: 'Retailer fee'[\s\S]*shortLabel: 'Tax'[\s\S]*shortLabel: 'JeloCare fee'[\s\S]*shortLabel: 'Delivery'/);
+  assert.match(ui, /label: 'Evidence'[\s\S]*label: 'Validity'[\s\S]*label: 'Review'/);
+  const styles = await readFile('app/(ops)/ops/orders/orders.module.css', 'utf8');
+  assert.match(styles, /\.queue,\s*\n\.inspector \{ min-width: 0;/);
+  assert.match(styles, /grid-template-columns: minmax\(0, 1fr\)/);
 });
 
 test('Ops order review uses the shared light and dark operations theme tokens', async () => {

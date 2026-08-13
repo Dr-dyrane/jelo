@@ -1,15 +1,22 @@
 'use client';
 
 import {
-  ArrowLeft, ArrowRight, BellRing, CheckCircle2, Clock3, ExternalLink,
-  MailCheck, PackageCheck, RefreshCcw, XCircle,
+  ArrowLeft, ArrowRight, BellRing, CalendarClock, Check, CheckCircle2,
+  CircleAlert, ClipboardCheck, Clock3, CreditCard, ExternalLink, FileCheck2,
+  HandCoins, Inbox, MailCheck, PackageCheck, PackageSearch,
+  ReceiptText, RefreshCcw, ShieldCheck, Store, Truck, UserRoundCheck,
+  XCircle, type LucideIcon,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState, useTransition, type FormEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, useTransition, type FormEvent } from 'react';
 import type { AssistedOrderPrivateView } from '@/lib/commerce/assisted-procurement-repository';
 import { CUSTOMER_VISIBLE_ORDER_STATES } from '@/lib/commerce/assisted-procurement-model';
 import type { AssistedOrderNotificationDeliverySummary } from '@/lib/commerce/order-notification-model';
 import type { AssistedOrderOperatorAlertSummary } from '@/lib/commerce/order-operator-alert-repository';
+import {
+  resolveOrderOperationsJourney,
+  type OrderOperationsJourneyId,
+} from '@/lib/commerce/order-operations-journey';
 import {
   retryOrderNotificationAction, retryOrderOperatorAlertAction,
   submitOrderQuoteAction, transitionOrderAction,
@@ -78,6 +85,7 @@ export function OrdersQueue({
           <div><p>Order {selected.reference}</p><h2>{selected.contactName}</h2></div>
           <span>{CUSTOMER_VISIBLE_ORDER_STATES[selected.state].label}</span>
         </header>
+        <OrderLifecycle order={selected} />
         <div className={styles.privateData}>
           <strong>{selected.retailer}</strong>
           <span>{selected.contactEmail}</span>
@@ -153,6 +161,54 @@ export function OrdersQueue({
         {feedback ? <p className={styles.feedback} role="status">{feedback}</p> : null}
       </aside>
     </div>
+  );
+}
+
+const JOURNEY_ICONS: Record<OrderOperationsJourneyId, LucideIcon> = {
+  request: Inbox,
+  verify: ShieldCheck,
+  approval: UserRoundCheck,
+  payment: CreditCard,
+  purchase: Store,
+  delivery: Truck,
+  complete: PackageCheck,
+};
+
+function OrderLifecycle({ order }: { order: AssistedOrderPrivateView }) {
+  const { steps, exception, deepestReachedIndex } = resolveOrderOperationsJourney(order.state, order.events);
+  const current = exception ?? CUSTOMER_VISIBLE_ORDER_STATES[order.state];
+  const ExceptionIcon = exception?.id === 'cancelled' ? XCircle : RefreshCcw;
+  const currentStepRef = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    if (!window.matchMedia('(max-width: 720px)').matches) return;
+    currentStepRef.current?.scrollIntoView({ block: 'nearest', inline: 'center' });
+  }, [order.id, order.state]);
+
+  return (
+    <section className={styles.lifecycle} aria-label="Order progress">
+      <header>
+        <div><p>Order progress</p><strong>{current.label}</strong></div>
+        <span>{current.detail}</span>
+      </header>
+      <ol>
+        {steps.map((step, index) => {
+          const Icon = JOURNEY_ICONS[step.id];
+          const shouldCenter = step.status === 'current' || step.status === 'attention' || Boolean(exception && index === deepestReachedIndex);
+          return (
+            <li ref={shouldCenter ? currentStepRef : undefined} key={step.id} data-status={step.status} aria-current={step.status === 'current' || step.status === 'attention' ? 'step' : undefined}>
+              <span className={styles.lifecycleIcon} aria-hidden="true">
+                <Icon size={18} />
+                {step.status === 'complete' ? <span className={styles.lifecycleBadge}><Check size={10} strokeWidth={3} /></span> : null}
+                {step.status === 'attention' ? <span className={styles.lifecycleBadge}><CircleAlert size={11} strokeWidth={2.5} /></span> : null}
+              </span>
+              <span><strong>{step.label}</strong><small>{step.status === 'complete' ? 'Done' : step.status === 'reached' ? 'Reached' : step.status === 'attention' ? 'Needs attention' : step.status === 'current' ? 'Now' : 'Later'}</small></span>
+            </li>
+          );
+        })}
+      </ol>
+      {exception ? <div className={styles.lifecycleException} data-status={exception.status}><ExceptionIcon size={17} aria-hidden="true" /><span><strong>{exception.label}</strong><small>{exception.detail}</small></span></div> : null}
+    </section>
   );
 }
 
@@ -245,7 +301,14 @@ function NotificationDelivery({
 
 function QueueSection({ label, orders, selectedId, onSelect }: { label: string; orders: AssistedOrderPrivateView[]; selectedId: string; onSelect: (id: string) => void }) {
   if (!orders.length) return null;
-  return <section><h2>{label}<span>{orders.length}</span></h2><div>{orders.map(order => <button key={order.id} type="button" data-active={order.id === selectedId ? 'true' : 'false'} onClick={() => onSelect(order.id)}><span><strong>{order.reference}</strong><small>{order.retailer}</small></span><span><b>{order.lines.length} lines</b><small>{date.format(new Date(order.updatedAt))}</small></span></button>)}</div></section>;
+  return <section><h2>{label}<span>{orders.length}</span></h2><div>{orders.map(order => <button key={order.id} type="button" data-active={order.id === selectedId ? 'true' : 'false'} onClick={() => onSelect(order.id)}><OrderQueueIdentity order={order} /><span><b>{order.lines.length} lines</b><small>{date.format(new Date(order.updatedAt))}</small></span></button>)}</div></section>;
+}
+
+function OrderQueueIdentity({ order }: { order: AssistedOrderPrivateView }) {
+  const { steps, exception, deepestReachedIndex } = resolveOrderOperationsJourney(order.state, order.events);
+  const active = steps.find(step => step.status === 'current' || step.status === 'attention') ?? steps[deepestReachedIndex] ?? steps.at(-1);
+  const Icon = exception?.id === 'cancelled' ? XCircle : exception ? RefreshCcw : JOURNEY_ICONS[active?.id ?? 'request'];
+  return <span className={styles.queueIdentity}><i aria-hidden="true"><Icon size={17} /></i><span><strong>{order.reference}</strong><small>{CUSTOMER_VISIBLE_ORDER_STATES[order.state].label} · {order.retailer}</small></span></span>;
 }
 
 function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateView; disabled: boolean; onSubmit: (input: unknown) => void }) {
@@ -262,11 +325,11 @@ function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateV
     expiresAt: '',
   });
   const questions = [
-    { key: 'productSubtotalNgn', label: 'What is the verified product total?', hint: `Observed when requested: ${naira.format(observed)}` },
-    { key: 'retailerFeeNgn', label: 'Did the retailer add a service fee?', hint: 'Enter 0 only when the retailer confirms there is none.' },
-    { key: 'taxNgn', label: 'Is tax shown separately?', hint: 'Enter the exact listed tax, or 0 when the retailer shows none.' },
-    { key: 'jelocareFeeNgn', label: 'What is JeloCare’s service fee?', hint: 'This must match the approved service-fee policy.' },
-    { key: 'deliveryNgn', label: 'What is delivery to this address?', hint: `${order.deliveryCity}, ${order.deliveryState}` },
+    { key: 'productSubtotalNgn', shortLabel: 'Products', icon: PackageSearch, label: 'What is the verified product total?', hint: `Observed when requested: ${naira.format(observed)}` },
+    { key: 'retailerFeeNgn', shortLabel: 'Retailer fee', icon: Store, label: 'Did the retailer add a service fee?', hint: 'Enter 0 only when the retailer confirms there is none.' },
+    { key: 'taxNgn', shortLabel: 'Tax', icon: ReceiptText, label: 'Is tax shown separately?', hint: 'Enter the exact listed tax, or 0 when the retailer shows none.' },
+    { key: 'jelocareFeeNgn', shortLabel: 'JeloCare fee', icon: HandCoins, label: 'What is JeloCare’s service fee?', hint: 'This must match the approved service-fee policy.' },
+    { key: 'deliveryNgn', shortLabel: 'Delivery', icon: Truck, label: 'What is delivery to this address?', hint: `${order.deliveryCity}, ${order.deliveryState}` },
   ] as const;
   const total = draft.productSubtotalNgn + draft.retailerFeeNgn + draft.taxNgn + draft.jelocareFeeNgn + draft.deliveryNgn;
   const reviewStep = questions.length + 2;
@@ -277,6 +340,14 @@ function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateV
       : step === questions.length + 1
         ? Boolean(draft.expiresAt) && Number.isFinite(new Date(draft.expiresAt).valueOf())
         : true;
+  const stepIdentity = step < questions.length
+    ? { label: questions[step].shortLabel, icon: questions[step].icon }
+    : step === questions.length
+      ? { label: 'Evidence', icon: FileCheck2 }
+      : step === questions.length + 1
+        ? { label: 'Validity', icon: CalendarClock }
+        : { label: 'Review', icon: ClipboardCheck };
+  const StepIcon = stepIdentity.icon;
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -295,14 +366,17 @@ function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateV
   return (
     <form className={styles.quoteForm} onSubmit={submit}>
       <header className={styles.quoteHeader}>
-        <div><p className={styles.quoteEyebrow}>Quote intake · step {step + 1} of {reviewStep + 1}</p><strong>{naira.format(total)}</strong></div>
+        <div>
+          <span className={styles.quoteStepIdentity}><StepIcon size={18} aria-hidden="true" /><span><small>Step {step + 1} of {reviewStep + 1}</small><strong>{stepIdentity.label}</strong></span></span>
+          <strong>{naira.format(total)}</strong>
+        </div>
         <progress value={step + 1} max={reviewStep + 1}>Step {step + 1} of {reviewStep + 1}</progress>
       </header>
 
       {step < questions.length ? (() => {
         const question = questions[step];
         return <label className={styles.quoteQuestion}>
-          <span>{question.label}</span>
+          <span className={styles.quotePrompt}><question.icon size={24} aria-hidden="true" />{question.label}</span>
           <small>{question.hint}</small>
           <input
             autoFocus
@@ -318,7 +392,7 @@ function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateV
 
       {step === questions.length ? (
         <label className={styles.quoteQuestion}>
-          <span>Where did you verify these numbers?</span>
+          <span className={styles.quotePrompt}><FileCheck2 size={24} aria-hidden="true" />Where did you verify these numbers?</span>
           <small>Use the retailer quote, checkout reference, or staff evidence—not a private credential.</small>
           <input autoFocus value={draft.evidenceReference} onChange={event => setDraft(current => ({ ...current, evidenceReference: event.target.value }))} minLength={8} required />
         </label>
@@ -326,14 +400,14 @@ function QuoteForm({ order, disabled, onSubmit }: { order: AssistedOrderPrivateV
 
       {step === questions.length + 1 ? (
         <div className={styles.quoteEvidence}>
-          <label><span>When should this quote expire?</span><input autoFocus type="datetime-local" value={draft.expiresAt} onChange={event => setDraft(current => ({ ...current, expiresAt: event.target.value }))} required /></label>
+          <label><span className={styles.quotePrompt}><CalendarClock size={22} aria-hidden="true" />When should this quote expire?</span><input autoFocus type="datetime-local" value={draft.expiresAt} onChange={event => setDraft(current => ({ ...current, expiresAt: event.target.value }))} required /></label>
           <label><span>What should the customer know?</span><textarea value={draft.notes} onChange={event => setDraft(current => ({ ...current, notes: event.target.value }))} maxLength={1000} placeholder="Optional, concise customer note" /></label>
         </div>
       ) : null}
 
       {step === reviewStep ? (
         <div className={styles.quoteReview}>
-          <p>Review before sending</p>
+          <p><ClipboardCheck size={17} aria-hidden="true" /> Review before sending</p>
           <dl>
             <div><dt>Products</dt><dd>{naira.format(draft.productSubtotalNgn)}</dd></div>
             <div><dt>Retailer fee</dt><dd>{naira.format(draft.retailerFeeNgn)}</dd></div>
