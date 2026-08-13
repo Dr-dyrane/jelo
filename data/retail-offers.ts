@@ -753,6 +753,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
+    exactNg(
+      "Amela Pharmacy",
+      "https://amelapharmacy.com/dove-beauty-cream-bar-4-x-100-g-moroccan-argan-oil",
+      75,
+      6000,
+      "Dove Beauty Cream Bar 4 x 100 g - Moroccan Argan Oil",
+      "4 x 100g",
+      {
+        observedAt: "2026-08-13T10:45:00Z",
+        expiresAt: "2026-08-20T10:45:00Z",
+        available: true,
+        stock: "in-stock",
+      },
+    ),
   ],
   "medik8-crystal-retinal-3-30ml": [
     exactNg(

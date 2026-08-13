@@ -1188,6 +1188,24 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Lagos-based Korean skincare wholesaler and retailer with Naira pricing and nationwide delivery.",
   },
   {
+    name: "Amela Pharmacy",
+    homepage: "https://amelapharmacy.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 75,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-13T10:45:00Z",
+      sourceUrl: "https://amelapharmacy.com/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query: string) =>
+      `https://amelapharmacy.com/search?q=${encodeURIComponent(query)}`,
+    note: "Uyo and Eket-based Nigerian pharmacy with Naira pricing, retail essentials, and nationwide delivery.",
+  },
+  {
     name: "Beccaville",
     homepage: "https://beccaville.com/",
     market: "NG",
