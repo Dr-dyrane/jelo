@@ -2264,6 +2264,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "150 g",
       { observedAt: "2026-08-08T13:15:00Z", expiresAt: "2026-08-15T13:15:00Z" },
     ),
+    exactNg(
+      "Care to Beauty",
+      "https://www.caretobeauty.com/ng/benton-honest-cleansing-foam-150g/",
+      88,
+      21269,
+      "Benton Honest Cleansing Foam 150g",
+      "150 g",
+      { observedAt: "2026-08-12T04:50:00Z", expiresAt: "2026-08-19T04:50:00Z" },
+    ),
   ],
   "dr-teals-nourish-protect-coconut-oil-body-wash-710ml": [
     exactNg(
