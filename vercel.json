@@ -8,6 +8,10 @@
     {
       "path": "/api/cron/reconcile-requests",
       "schedule": "37 4 * * *"
+    },
+    {
+      "path": "/api/cron/daily-campaign",
+      "schedule": "0 7 * * *"
     }
   ]
 }

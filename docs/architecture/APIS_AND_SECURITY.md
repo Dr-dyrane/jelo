@@ -1,6 +1,6 @@
 # APIs and security
 
-Updated: 2026-08-03
+Updated: 2026-08-13
 
 Route handlers validate at the boundary, keep secrets server-only, and fail closed when durable storage or required credentials are unavailable.
 
@@ -18,12 +18,13 @@ Route handlers validate at the boundary, keep secrets server-only, and fail clos
 | `/api/retailers/applications/[id]/send-link` | `POST`       | Resend private link                  | Edit secret, rate limit, mail availability                                                                                                                          |
 | `/api/retailers/applications/[id]/submit`    | `POST`       | Submit retailer application          | Edit secret, UUID idempotency key, final schema                                                                                                                     |
 | `/api/retailers/magic`                       | `GET`        | Open and verify private link         | Token hash, expiry, rate limit, HttpOnly cookie                                                                                                                     |
-| `/api/orders`                                | `POST`       | Create one retailer-scoped order     | Same-site check, bounded exact lines, server-recomputed offers, rate limit, hashed guest capability, no-store response                                             |
+| `/api/orders`                                | `POST`       | Create one retailer-scoped order     | Same-site check, bounded exact lines, server-recomputed offers, rate limit, hashed guest capability, no-store response                                              |
 | `/api/orders/current`                        | `GET`        | Read current guest order             | Order-scoped HttpOnly capability, expiry, private no-store response                                                                                                 |
-| `/api/orders/current/decision`               | `POST`       | Approve or decline exact quote       | Guest capability or server-derived owner, quote version, optimistic order revision, expiry, rate limit                                                            |
-| `/api/orders/recovery`                       | `POST`       | Request replacement recovery link    | Generic response, reference/email match, replacement invalidates prior unused capabilities, rate limit                                                            |
+| `/api/orders/current/decision`               | `POST`       | Approve or decline exact quote       | Guest capability or server-derived owner, quote version, optimistic order revision, expiry, rate limit                                                              |
+| `/api/orders/recovery`                       | `POST`       | Request replacement recovery link    | Generic response, reference/email match, replacement invalidates prior unused capabilities, rate limit                                                              |
 | `/api/orders/recover`                        | `GET`        | Exchange one-time recovery link      | Hashed token, atomic consume, session rotation, clean redirect, no-store/no-referrer                                                                                |
 | `/api/cron/inventory`                        | `GET`        | Refresh due retail offers            | Bearer `CRON_SECRET`, bounded batch                                                                                                                                 |
+| `/api/cron/daily-campaign`                   | `GET`        | Prepare and email one campaign draft | Bearer `CRON_SECRET`, disabled-by-default production gate, dossier/share evidence gate, immutable Redis send reservation, exact active-operator resolution          |
 | `/go`                                        | `GET`        | Outbound retailer redirect           | Allowlisted offer lookup and attribution logic                                                                                                                      |
 
 JeloCare Me Shelf mutations are authenticated server actions rather than public
@@ -44,6 +45,9 @@ path, query, form, or JSON body.
 - Submission keys make final submissions retry-safe.
 - Database writes that create derived knowledge or events use transactions.
 - Public errors stay concise; server logs must not print secrets or full submitted payloads.
+- Daily campaign records keep recipient email out of Blob, Redis, and logs. The
+  private Redis delivery trail stores only a `CRON_SECRET`-keyed recipient HMAC;
+  the production mailbox must resolve to exactly one active operator before send.
 - Private Shelf operations use a dedicated exact-role connection, transaction-
   local owner context, an explicit owner predicate, and enabled plus forced
   PostgreSQL RLS. Missing or unsafe role attestation fails closed.
@@ -53,16 +57,17 @@ path, query, form, or JSON body.
 
 ## Data classification
 
-| Data                                                     | Classification                 | Rule                                                                                                                              |
-| -------------------------------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| Public product and retailer records                      | Public                         | Publish only through the relevant evidence gate                                                                                   |
-| Community submissions                                    | Internal, anonymous            | Aggregate for research; do not present as verified fact                                                                           |
-| Retailer applications                                    | Confidential business data     | Restrict to operations; retain only as documented                                                                                 |
-| Customer Shelf rows and exports                          | Private customer data          | Owner-derived access only; never send to Operations, analytics, public caches, advertising, community research, or model training |
-| Order basket, contact, address, quotes, and events        | Private customer/order data    | Order-scoped guest capability or verified owner/operator only; never public cache, analytics payload, advertising, community research, or model training           |
-| Edit and magic-link tokens                               | Secret                         | Never log or store in plaintext                                                                                                   |
-| Email, phone, address                                    | Personal/business contact data | Use only with recorded consent                                                                                                    |
-| Database, Blob, Redis, mail, and third-party credentials | Secret                         | Server-only environment variables                                                                                                 |
+| Data                                                     | Classification                 | Rule                                                                                                                                                     |
+| -------------------------------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Public product and retailer records                      | Public                         | Publish only through the relevant evidence gate                                                                                                          |
+| Community submissions                                    | Internal, anonymous            | Aggregate for research; do not present as verified fact                                                                                                  |
+| Retailer applications                                    | Confidential business data     | Restrict to operations; retain only as documented                                                                                                        |
+| Customer Shelf rows and exports                          | Private customer data          | Owner-derived access only; never send to Operations, analytics, public caches, advertising, community research, or model training                        |
+| Order basket, contact, address, quotes, and events       | Private customer/order data    | Order-scoped guest capability or verified owner/operator only; never public cache, analytics payload, advertising, community research, or model training |
+| Edit and magic-link tokens                               | Secret                         | Never log or store in plaintext                                                                                                                          |
+| Email, phone, address                                    | Personal/business contact data | Use only with recorded consent                                                                                                                           |
+| Campaign draft and delivery records                      | Internal operations data       | Private Redis ledger; omit raw recipient email, operator id, and all click-level data                                                                    |
+| Database, Blob, Redis, mail, and third-party credentials | Secret                         | Server-only environment variables                                                                                                                        |
 
 The database owner and `MIGRATION_DATABASE_URL` are not application secrets and
 must not exist in Vercel. Production Vercel receives only the restricted
@@ -82,7 +87,7 @@ Ask Jelo is deterministic and does not call a language model.
 
 ## Known controls to preserve
 
-- `CRON_SECRET` must exist in production and be at least 16 characters. `isAuthorizedCronRequest` rejects shorter secrets, causing the inventory and reconcile-requests crons to silently return 401. See [Troubleshooting: Inventory cron is not running](../catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running).
+- `CRON_SECRET` must exist in production and be at least 16 characters. `isAuthorizedCronRequest` rejects shorter secrets, causing the inventory, reconcile-requests, and daily-campaign crons to return 401. See [Troubleshooting: Inventory cron is not running](../catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running).
 - `APP_DATABASE_URL` must be set in Vercel Production with the `jelocare_app_runtime` role. The Neon Vercel integration auto-generates `DATABASE_URL` with the `neondb_owner` role, which `applicationDatabaseUrl()` rejects in production. `APP_DATABASE_URL` takes precedence and bypasses the override. See [NEON.md](../data/NEON.md#neon-vercel-integration-and-app_database_url).
 - Non-consult public limiters retain their documented local/failover behavior. Ask Jelo specifically requires Upstash in production and fails closed.
 - The Agentic Mail API token is preferred. SMTP remains a mailbox-password fallback.

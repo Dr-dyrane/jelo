@@ -65,7 +65,7 @@ reviewed boundary before a provider credential is added.
 | `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf and Routine runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only                                                                                                              |
 | `POSTGRES_URL`                | Compatibility only                | If retained, it must satisfy the same driver and exact app-role contract, never point to an owner or administrator                                                                                                                                         |
 | `NEON_PROJECT_ID`             | Operator convenience              | Not read by application runtime                                                                                                                                                                                                                            |
-| `CRON_SECRET`                 | Production cron endpoints         | Bearer token for `/api/cron/inventory` and `/api/cron/reconcile-requests`. Must be at least 16 characters; `isAuthorizedCronRequest` rejects shorter secrets.                                                                                              |
+| `CRON_SECRET`                 | Production cron endpoints         | Bearer token for `/api/cron/inventory`, `/api/cron/reconcile-requests`, and `/api/cron/daily-campaign`. Must be at least 16 characters; `isAuthorizedCronRequest` rejects shorter secrets.                                                                 |
 
 `MIGRATION_DATABASE_URL` is deliberately not a Vercel environment variable. A
 protected operator process injects one direct, non-pooled administrator URL for
@@ -94,11 +94,11 @@ the [Shelf release runbook](./RUNBOOKS.md#release-the-customer-shelf-boundary).
 
 ### Media
 
-| Variable                  | Required                                                                                          | Notes                                                                                               |
-| ------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `BLOB_READ_WRITE_TOKEN`   | Asset writes, production asset operators, and the protected private product-request cleanup drain | Server-only; inject beside `MIGRATION_DATABASE_URL` only for the bounded drain and remove afterward |
-| `BLOB_STORE_ID`           | Provider metadata                                                                                 | Not read by the current runtime                                                                     |
-| `BLOB_WEBHOOK_PUBLIC_KEY` | Future webhook verification                                                                       | Not read by the current runtime                                                                     |
+| Variable                  | Required                                                                                                                        | Notes                                                                                                                                    |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `BLOB_READ_WRITE_TOKEN`   | Asset writes, daily campaign story archive, production asset operators, and the protected private product-request cleanup drain | Server-only; app runtime requires it for the daily campaign image archive; protected operators inject it only where otherwise documented |
+| `BLOB_STORE_ID`           | Provider metadata                                                                                                               | Not read by the current runtime                                                                                                          |
+| `BLOB_WEBHOOK_PUBLIC_KEY` | Future webhook verification                                                                                                     | Not read by the current runtime                                                                                                          |
 
 ### Rate limiting
 
@@ -118,19 +118,24 @@ Production and Preview must therefore receive both values; a local
 without Upstash. `CONSULT_RATE_LIMIT_SECRET` also falls back to a database URL
 for compatibility, but deployed environments should use the dedicated value.
 
-`KV_REST_API_READ_ONLY_TOKEN`, `KV_URL`, and `REDIS_URL` are compatibility
-values but are not used by the current request limiters.
+The daily campaign lane also requires `KV_REST_API_URL` and
+`KV_REST_API_TOKEN` for its private append-only record, delivery reservation,
+outcome trail, and accepted-production rotation index. It fails closed when
+either value is absent. `KV_REST_API_READ_ONLY_TOKEN`, `KV_URL`, and `REDIS_URL`
+remain compatibility values and are not used by the current runtime.
 
 ### Email
 
-| Variable              | Required               | Notes                                                |
-| --------------------- | ---------------------- | ---------------------------------------------------- |
-| `EMAIL_PROVIDER`      | Retailer magic links   | `hostinger-api` preferred; `hostinger-smtp` fallback |
-| `EMAIL_API_TOKEN`     | Hostinger API delivery | Mailbox-scoped Agentic Mail token                    |
-| `EMAIL_SMTP_PASSWORD` | SMTP fallback only     | Mailbox password, never an API token                 |
-| `EMAIL_FROM_ADDRESS`  | Recommended            | Auth username; defaults to `hello@jelocare.com`      |
-| `EMAIL_FROM`          | Recommended            | Display sender                                       |
-| `EMAIL_REPLY_TO`      | Recommended            | Reply destination                                    |
+| Variable                        | Required               | Notes                                                         |
+| ------------------------------- | ---------------------- | ------------------------------------------------------------- |
+| `EMAIL_PROVIDER`                | Retailer magic links   | `hostinger-api` preferred; `hostinger-smtp` fallback          |
+| `EMAIL_API_TOKEN`               | Hostinger API delivery | Mailbox-scoped Agentic Mail token                             |
+| `EMAIL_SMTP_PASSWORD`           | SMTP fallback only     | Mailbox password, never an API token                          |
+| `EMAIL_FROM_ADDRESS`            | Recommended            | Auth username; defaults to `hello@jelocare.com`               |
+| `EMAIL_FROM`                    | Recommended            | Display sender                                                |
+| `EMAIL_REPLY_TO`                | Recommended            | Reply destination                                             |
+| `CAMPAIGN_TEST_EMAIL`           | Campaign test only     | Explicit test mailbox; never written to campaign records      |
+| `CAMPAIGN_DAILY_OPERATOR_EMAIL` | Campaign production    | Must resolve to exactly one active `moderation_operators` row |
 
 Create the API token under hPanel → Emails → the domain → Agentic mail → API.
 The mailer resolves the configured sender against `/api/v1/me` before sending.
@@ -139,16 +144,19 @@ is not an SMTP password.
 
 ### Scheduled and release operations
 
-| Variable      | Required   | Notes                                   |
-| ------------- | ---------- | --------------------------------------- |
-| `CRON_SECRET` | Production | Bearer secret for `/api/cron/inventory` |
+| Variable                        | Required                | Notes                                                     |
+| ------------------------------- | ----------------------- | --------------------------------------------------------- |
+| `CRON_SECRET`                   | Production              | Bearer secret for every `/api/cron/*` route               |
+| `CAMPAIGN_DAILY_ENABLED`        | Daily campaign          | Exact `true` activates delivery; every other value is off |
+| `CAMPAIGN_TEST_EMAIL`           | Protected campaign test | Test-only destination                                     |
+| `CAMPAIGN_DAILY_OPERATOR_EMAIL` | Campaign production     | Exact active operator mailbox; no fallback recipient      |
 
 Vercel builds have no database-migration or seed switch. They verify, build,
 and may perform bounded staged public-asset promotion only. All PostgreSQL
 migrations, reconciliation, and private product-request Blob cleanup are
-explicit protected operator jobs. This Shelf release does not add or change a
-cron, scheduled owner, inventory queue, lease, worker, or manual observation
-setting.
+explicit protected operator jobs. The daily campaign configuration and
+activation sequence are documented in
+[Daily campaign handoff](./DAILY_CAMPAIGNS.md).
 
 ### Declared future service
 

@@ -24,10 +24,11 @@ This is the entry point for product, engineering, data, and operations.
 | Prepare exact-SKU image work for an image-capable operator | [Packshot generation handoff](./catalogue/PACKSHOT_GENERATION_HANDOFF.md)                              |
 | Research or operate the full catalogue pipeline            | [Catalogue operations](./catalogue/OPERATIONS.md)                                                      |
 | Run Neon safely                                            | [Neon and data](./data/NEON.md)                                                                        |
-| Operate guest-first assisted procurement                  | [Assisted procurement](./commerce/ASSISTED_PROCUREMENT.md)                                             |
-| Operate order-service notifications                       | [Order notifications](./commerce/ORDER_NOTIFICATIONS.md)                                               |
-| Plan the bounded Ask Jelo AI lane                         | [Ask Jelo AI Gateway plan](./ai/ASK_JELO_GATEWAY_PLAN.md)                                              |
+| Operate guest-first assisted procurement                   | [Assisted procurement](./commerce/ASSISTED_PROCUREMENT.md)                                             |
+| Operate order-service notifications                        | [Order notifications](./commerce/ORDER_NOTIFICATIONS.md)                                               |
+| Plan the bounded Ask Jelo AI lane                          | [Ask Jelo AI Gateway plan](./ai/ASK_JELO_GATEWAY_PLAN.md)                                              |
 | Configure a local, preview, or production environment      | [Environments](./operations/ENVIRONMENTS.md)                                                           |
+| Operate the deterministic daily campaign handoff           | [Daily campaigns](./operations/DAILY_CAMPAIGNS.md)                                                     |
 | Start and test the application                             | [Local development](./operations/LOCAL_DEVELOPMENT.md)                                                 |
 | Commit, deploy, and verify a release                       | [Release process](./operations/RELEASE.md)                                                             |
 | Respond to an operational issue                            | [Runbooks](./operations/RUNBOOKS.md)                                                                   |
