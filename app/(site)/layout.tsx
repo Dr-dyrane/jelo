@@ -4,16 +4,27 @@ import { SiteHeader } from "@/components/navigation/site-header";
 import { ThemeToggle } from "@/components/navigation/theme-toggle";
 import { NavigationMemory } from "@/components/navigation/navigation-memory";
 import { BasketProvider } from "@/components/commerce/basket-provider";
+import { PublicBasketPill } from "@/components/commerce/public-basket-pill";
+import { listCatalogueProducts } from "@/lib/catalogue/repository";
 
 // Public chrome. The html/body shell, fonts, and theme come from the root layout.
-export default function SiteLayout({
+export default async function SiteLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const products = await listCatalogueProducts();
+  const basketProducts = products.map(({ slug, brand, name, image }) => ({
+    slug,
+    brand,
+    name,
+    image,
+  }));
+
   return (
     <BasketProvider>
       <NavigationMemory />
       <SiteHeader />
       {children}
+      <PublicBasketPill products={basketProducts} />
       <footer className="site-footer">
         <div className="footer-brand">
           <strong>JeloCare</strong>
