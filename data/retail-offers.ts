@@ -7679,6 +7679,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "Shadremmy Beauty",
+      "https://shadremmybeauty.com/product/naturium-vitamin-bright-illuminating-eye-cream/",
+      78,
+      40500,
+      "Naturium Vitamin Bright Illuminating Eye Cream",
+      "0.5 fl oz / 15 mL",
+      {
+        observedAt: "2026-08-13T05:40:00Z",
+        expiresAt: "2026-08-20T05:40:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
+    ),
   ],
   "naturium-retinol-complex-cream-1-7oz": [
     exactNg(
