@@ -195,9 +195,10 @@ next executable slice live only in the
 Shelf persistence, Routine persistence, private product requests, complete
 Explore, member-Product OTP continuation, and the global report helper now ship.
 The deterministic authenticated Ask adapter also ships. Guest-first manual
-assisted procurement ships with signed-in order history under `/me/orders`.
+assisted procurement ships with signed-in order history under `/me/orders` and
+explicitly opted-in order-service notifications under `/me/notifications`.
 User-controlled canonical Concerns, true AI wording, account-keyed Ask rate
-limits, contextual discovery, refill timing decisions, notifications, and
+limits, contextual discovery, refill timing decisions, refill/basket alerts, and
 public community follow only through their recorded gates. The current
 catalogue snapshot is evidence, never a hard-coded limit.
 
@@ -207,7 +208,9 @@ The guest-first Basket, one-retailer Checkout, private Order status, recovery,
 manual Operations quote, and signed-in `/me/orders` history ship under
 [ADR 0016](../adr/0016-retailer-scoped-assisted-procurement.md). The basket
 stores no account or contact details; checkout creates the canonical private
-order. Payment and retailer checkout do not ship.
+order. Explicitly opted-in order-service email and `/me/notifications` mirror
+customer-visible order events without becoming order authority. Payment and
+retailer checkout do not ship.
 
 JeloCare may eventually support an evidence-bound decision about when and where
 to buy a basket of care products. That timing and forecast capability is not

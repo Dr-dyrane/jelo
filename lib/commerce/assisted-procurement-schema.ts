@@ -21,6 +21,7 @@ export const createAssistedOrderSchema = z.object({
   deliveryState: z.string().trim().min(2).max(120),
   deliveryInstructions: z.string().trim().max(500).optional().default(''),
   whatsappConsent: z.boolean().default(false),
+  emailNotificationsConsent: z.boolean().default(false),
   termsAccepted: z.literal(true),
   websiteField: z.string().max(0).optional().default(''),
 });
@@ -53,4 +54,9 @@ export const customerQuoteDecisionSchema = z.object({
 export const assistedOrderRecoveryRequestSchema = z.object({
   reference: z.string().trim().toUpperCase().regex(/^JC-[A-Z0-9]{10}$/),
   contactEmail: z.email().trim().max(320).transform(value => value.toLocaleLowerCase('en')),
+});
+
+export const assistedOrderNotificationPreferenceSchema = z.object({
+  orderId: z.uuid().optional(),
+  enabled: z.boolean(),
 });

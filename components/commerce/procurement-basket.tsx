@@ -252,6 +252,9 @@ export function CheckoutExperience({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [fields, setFields] = useState<Record<string, string>>({});
+  const [emailNotificationsConsent, setEmailNotificationsConsent] =
+    useState(false);
+  const [whatsappConsent, setWhatsappConsent] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const currentStep =
     checkoutFlow[Math.min(stepIndex, checkoutFlow.length - 1)];
@@ -345,15 +348,16 @@ export function CheckoutExperience({
           requestId: requestRecord.requestId,
           retailer,
           lines: basket.items,
-          contactName: data.get("contactName"),
-          contactEmail: data.get("contactEmail"),
-          contactPhone: data.get("contactPhone"),
-          deliveryAddress: data.get("deliveryAddress"),
-          deliveryCity: data.get("deliveryCity"),
-          deliveryState: data.get("deliveryState"),
-          deliveryInstructions: data.get("deliveryInstructions"),
-          whatsappConsent: data.get("whatsappConsent") === "on",
-          termsAccepted: data.get("termsAccepted") === "on",
+          contactName: fields.contactName,
+          contactEmail: fields.contactEmail,
+          contactPhone: fields.contactPhone,
+          deliveryAddress: fields.deliveryAddress,
+          deliveryCity: fields.deliveryCity,
+          deliveryState: fields.deliveryState,
+          deliveryInstructions: fields.deliveryInstructions ?? "",
+          whatsappConsent,
+          emailNotificationsConsent,
+          termsAccepted,
           websiteField: data.get("websiteField"),
         }),
       });
@@ -504,7 +508,26 @@ export function CheckoutExperience({
                 </label>
               </div>
               <label className={styles.checkField}>
-                <input type="checkbox" name="whatsappConsent" />
+                <input
+                  type="checkbox"
+                  name="emailNotificationsConsent"
+                  checked={emailNotificationsConsent}
+                  onChange={(event) =>
+                    setEmailNotificationsConsent(event.target.checked)
+                  }
+                />
+                <span>
+                  Email me when my verified quote or order status changes. I
+                  can turn this off at any time.
+                </span>
+              </label>
+              <label className={styles.checkField}>
+                <input
+                  type="checkbox"
+                  name="whatsappConsent"
+                  checked={whatsappConsent}
+                  onChange={(event) => setWhatsappConsent(event.target.checked)}
+                />
                 <span>
                   JeloCare may contact this number on WhatsApp about this order.
                   I can continue without WhatsApp.

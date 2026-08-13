@@ -197,6 +197,13 @@ test("the complete portal surface vocabulary is concise, personal, and route-own
       eyebrow: "My orders",
       title: "Track every request.",
     },
+    notifications: {
+      layer: "stack",
+      route: "/me/notifications",
+      parent: "home",
+      eyebrow: "Order notifications",
+      title: "Nothing important gets lost.",
+    },
     consult: {
       layer: "stack",
       route: "/me/consult",
@@ -233,7 +240,7 @@ test("the complete portal surface vocabulary is concise, personal, and route-own
       title: "Nothing here.",
     },
   });
-  assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 10);
+  assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 11);
 
   const home = readFileSync("components/me/home/me-home.tsx", "utf8");
   const homeView = readFileSync("components/me/home/home-view.tsx", "utf8");
@@ -708,6 +715,12 @@ test("every Me surface owns exactly one truthful working FAB", () => {
       action: "navigate",
       href: "/products",
     },
+    notifications: {
+      ownerId: "me-notifications-orders",
+      label: "View my orders",
+      action: "navigate",
+      href: "/me/orders",
+    },
     consult: {
       ownerId: "me-consult-search",
       label: "Search your care",
@@ -736,7 +749,7 @@ test("every Me surface owns exactly one truthful working FAB", () => {
       href: "/me/explore",
     },
   });
-  assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 10);
+  assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 11);
 
   const home = readFileSync("components/me/home/me-home.tsx", "utf8");
   const dockNavigation = readFileSync(

@@ -146,3 +146,39 @@ export function assistedOrderRecoveryEmail(input: {
     `,
   };
 }
+
+export function assistedOrderUpdateEmail(input: {
+  name: string;
+  reference: string;
+  statusLink: string;
+}) {
+  const name = escapeHtml(input.name);
+  const reference = escapeHtml(input.reference);
+  const statusLink = escapeHtml(input.statusLink);
+  return {
+    // Keep the subject and preview deliberately generic for lock-screen privacy.
+    subject: 'A JeloCare order update is ready',
+    text: [
+      `Hi ${input.name},`,
+      '',
+      'A saved order request has an update.',
+      `Reference: ${input.reference}`,
+      '',
+      `Open JeloCare securely: ${input.statusLink}`,
+      '',
+      'JeloCare never takes payment from an email link. You can turn off order emails from your private status page or My JeloCare.',
+    ].join('\n'),
+    html: `
+      <div style="margin:0;background:#fff9f5;padding:40px 20px;color:#201b19;font-family:Arial,sans-serif">
+        <div style="max-width:560px;margin:0 auto;background:#fffdf9;border-radius:28px;padding:40px">
+          <p style="margin:0 0 28px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#6b3b35">JeloCare</p>
+          <h1 style="margin:0 0 18px;font-size:36px;line-height:1.05;font-weight:400">Your private order has an update.</h1>
+          <p style="margin:0 0 8px;color:#6f625e;line-height:1.6">Hi ${name}. Open JeloCare to see the current governed order state.</p>
+          <p style="margin:0 0 28px;color:#201b19"><strong>${reference}</strong></p>
+          <a href="${statusLink}" style="display:inline-block;border-radius:999px;background:#201b19;padding:14px 20px;color:#fff;text-decoration:none">Open order status</a>
+          <p style="margin:28px 0 0;color:#8a7d78;font-size:13px;line-height:1.55">JeloCare never takes payment from an email link. Turn off order emails from your private status page or My JeloCare.</p>
+        </div>
+      </div>
+    `,
+  };
+}

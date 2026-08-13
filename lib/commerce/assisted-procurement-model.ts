@@ -140,6 +140,7 @@ export type AssistedOrderView = {
   deliveryCity: string;
   deliveryState: string;
   whatsappConsent: boolean;
+  emailNotificationsConsent: boolean;
   lines: AssistedOrderLineView[];
   quote: AssistedOrderQuoteView | null;
   events: AssistedOrderEventView[];
@@ -164,6 +165,7 @@ export function toAssistedOrderCustomerView(
     deliveryCity: order.deliveryCity,
     deliveryState: order.deliveryState,
     whatsappConsent: order.whatsappConsent,
+    emailNotificationsConsent: order.emailNotificationsConsent,
     lines: order.lines,
     quote: order.quote,
     events: order.events,

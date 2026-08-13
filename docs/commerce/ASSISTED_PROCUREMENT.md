@@ -16,12 +16,15 @@ purchasing agent. No payment is taken in this release.
 3. `/checkout` collects the delivery and contact details needed to prepare a
    quote. The server re-reads the catalogue, offer evidence, price, stock, and
    retailer; it never trusts client prices. A browser-scoped request key makes
-   a retry return the same order instead of creating a duplicate.
+   a retry return the same order instead of creating a duplicate. Email order
+   updates are an explicit, unchecked opt-in and are never marketing.
 4. Checkout creates one canonical private order and sets an order-scoped,
    secure HttpOnly guest cookie. Transactional email sends a one-time recovery
    link when mail is configured.
 5. Operations checks the retailer manually and records products, retailer fee,
    observed tax, JeloCare fee, delivery, evidence, and expiry separately.
+   Customer-visible order events create one deduplicated in-app notification;
+   opted-in email delivery uses the existing transactional mail provider.
 6. The customer approves or declines that exact quote version on `/order` or,
    when signed in, `/me/orders`.
 7. Approval ends at `payment_pending`. Paid, procurement, fulfilment, and refund
@@ -47,6 +50,10 @@ The state and cost contract is defined by
   product details, tokens, and order identifiers do not enter analytics or
   public URLs.
 - Operators require `orders.read`; mutations require `orders.manage`.
+- Notifications derive from the append-only order event by unique event ID.
+  Signed-in owners see them at `/me/notifications`; guests manage email from
+  the private `/order` page. Turning email off suppresses unsent delivery but
+  does not rewrite the useful private order history.
 
 ## Retention and expiry
 
@@ -57,6 +64,7 @@ The state and cost contract is defined by
 | Recovery link | 20 minutes, one-time |
 | Quote | Operator-selected future expiry; expiry advances the order to `needs_response` and appends an event |
 | Order and event record | 365 days in the Phase 2 schema |
+| Order notification and delivery audit | Never beyond the parent order retention |
 
 ## Deployment order
 
@@ -64,9 +72,9 @@ The state and cost contract is defined by
    REST credentials, transactional email, `NEXT_PUBLIC_SITE_URL`, and a
    dedicated `ASSISTED_ORDER_RATE_LIMIT_SECRET`.
 2. From a protected operator process, inject the direct administrator URL only
-   for `npm run db:migrate`. Migration `0039_assisted_procurement.sql` is
-   additive and grants only the application runtime role. Never add the admin
-   URL to Vercel or `.env.local`.
+   for `npm run db:migrate`. Migrations `0039_assisted_procurement.sql` and
+   `0041_assisted_order_notifications.sql` are additive and grant only the
+   application runtime role. Never add the admin URL to Vercel or `.env.local`.
 3. Deploy the application revision.
 4. Complete the post-deploy journey below before announcing availability.
 
@@ -92,6 +100,10 @@ Use a real exact product with at least one fresh eligible retailer offer.
    unused link fails.
 9. Issue another test quote with a short expiry and confirm it becomes
    `needs_response` with an appended `quote_expired` event.
+10. Repeat once with email updates off and once with them on. Confirm the
+    in-app event exists in both cases, only the opted-in order sends email, Ops
+    shows the delivery state, failed delivery can be retried, and switching the
+    preference off suppresses unsent email immediately.
 
 ## Focused local verification
 
@@ -169,3 +181,5 @@ retailer-purchase, WhatsApp, or fulfilment action.
 - A customer approval is not payment evidence. A redirect, message, screenshot,
   or staff note cannot make an order paid.
 - The append-only event record is corrected forward, never rewritten.
+- Notification transport never owns order state. A failed email leaves the
+  canonical event intact and visible to Operations for bounded retry.

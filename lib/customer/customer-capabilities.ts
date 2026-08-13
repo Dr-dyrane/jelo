@@ -33,8 +33,8 @@ export const customerCapabilities = {
   authenticatedGuidance: true,
   /** Guest-first, one-retailer assisted procurement with manual verified quotes. */
   assistedProcurement: true,
-  /** Notifications are not shipped. */
-  notifications: false,
+  /** Explicitly opted-in order-service notifications ship in-app and by email. */
+  notifications: true,
   /** Basket/refill timing decisions are not shipped. */
   basketTiming: false,
   /** Per-owner request/upload limits are not yet enforced. */

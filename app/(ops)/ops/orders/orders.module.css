@@ -21,6 +21,13 @@
 .lines > div { padding: .75rem 0; display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid color-mix(in srgb, var(--ops-ink) 10%, transparent); }
 .lines span { display: grid; }
 .lines small { color: var(--ops-muted, #716764); }
+.notificationDelivery { margin-top: 1rem; padding: .9rem; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .75rem; border-radius: 1rem; background: var(--ops-surface-subtle); color: var(--ops-ink); }
+.notificationDelivery > span { width: 2.25rem; height: 2.25rem; display: grid; place-items: center; border-radius: 999px; background: var(--ops-accent-subtle); color: var(--ops-accent); }
+.notificationDelivery > div { min-width: 0; display: grid; gap: .16rem; }
+.notificationDelivery p { margin: 0; color: var(--ops-muted, #716764); font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; }
+.notificationDelivery small { color: var(--ops-muted, #716764); line-height: 1.35; }
+.notificationDelivery button { min-height: 2.25rem; padding: 0 .75rem; display: inline-flex; align-items: center; gap: .35rem; border: 0; border-radius: 999px; background: var(--ops-ink); color: var(--ops-workspace); font: inherit; font-weight: 700; cursor: pointer; }
+.notificationDelivery button:disabled { cursor: wait; opacity: .55; }
 .decision,
 .paymentGate { margin-top: 1.5rem; padding: 1.2rem; border-radius: 1rem; background: var(--ops-ink); color: var(--ops-workspace); }
 .decision > p:first-child { display: flex; align-items: center; gap: .45rem; color: #ef879a; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; }
@@ -39,6 +46,7 @@
 .quoteForm textarea { min-height: 5rem; resize: vertical; }
 .cancel { margin-top: 1rem; min-height: 2.6rem; padding: 0 .9rem; display: inline-flex; align-items: center; gap: .45rem; border: 0; border-radius: 999px; background: transparent; color: var(--state-danger); cursor: pointer; }
 .error { color: var(--state-danger); font-weight: 700; }
+.feedback { color: var(--ops-accent); font-weight: 700; }
 .empty { padding: 3rem; display: grid; place-items: center; text-align: center; }
 
 @media (max-width: 900px) {

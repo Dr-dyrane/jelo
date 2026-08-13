@@ -77,6 +77,9 @@ import type { CustomerProductRequestPresentationViewModel } from '@/lib/customer
 import type { ProductPanelData, ProductPanelTab } from '@/lib/catalogue/product-panel-model';
 import type { AssistedOrderCustomerView } from '@/lib/commerce/assisted-procurement-model';
 import { MemberOrdersView } from '@/components/me/orders/member-orders-view';
+import { MeNotificationBell } from '@/components/me/notifications/me-notification-bell';
+import { MemberNotificationsView } from '@/components/me/notifications/member-notifications-view';
+import type { AssistedOrderNotificationCenter } from '@/lib/commerce/order-notification-model';
 import styles from './me-home.module.css';
 
 const EMPTY_PRODUCTS: readonly CustomerPortalProduct[] = [];
@@ -241,6 +244,9 @@ function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel, ho
   if (route.kind === 'orders') {
     return { routeKey: '/me/orders', currentHref: resolveMeActiveParentHref(route), page: 'orders' as MeWorkspacePage, detail: 'Private orders' };
   }
+  if (route.kind === 'notifications') {
+    return { routeKey: '/me/notifications', currentHref: resolveMeActiveParentHref(route), page: 'notifications' as MeWorkspacePage, detail: 'Order updates' };
+  }
   if (route.kind === 'consult') {
     return { routeKey: '/me/consult', currentHref: resolveMeActiveParentHref(route), page: 'consult' as MeWorkspacePage, detail: 'My care' };
   }
@@ -339,6 +345,7 @@ function MePortalView({
   productRequestOutcome,
   productRequestPresentation,
   orders,
+  notificationCenter,
 }: {
   viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
@@ -351,6 +358,7 @@ function MePortalView({
   productRequestOutcome?: string;
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
   orders?: AssistedOrderCustomerView[];
+  notificationCenter?: AssistedOrderNotificationCenter;
 }) {
   const router = useRouter();
   const resolvedViewModel = viewModel
@@ -507,7 +515,7 @@ function MePortalView({
   };
   const fabContract = ME_WORKSPACE_FABS[state.page];
   const fabIcon = state.page === 'home'
-    ? MessageCircleQuestion
+      ? MessageCircleQuestion
     : state.page === 'explore' || state.page === 'consult' || state.page === 'shelf-add'
       ? Search
       : state.page === 'routine'
@@ -568,6 +576,7 @@ function MePortalView({
         onBlurCapture={handleHeaderBlur}
       >
         <Link href="/me" className={styles.brand}>JeloCare</Link>
+        <MeNotificationBell />
         <button
           ref={accountTriggerRef}
           className={styles.accountTrigger}
@@ -692,6 +701,9 @@ function MePortalView({
             />
           ) : null}
           {route.kind === 'orders' ? <MemberOrdersView orders={orders ?? []} /> : null}
+          {route.kind === 'notifications' ? (
+            <MemberNotificationsView center={notificationCenter ?? { notifications: [], preferences: [], unreadCount: 0 }} />
+          ) : null}
           {route.kind === 'consult' ? (
             <ConsultView
               viewModel={portalViewModel}
@@ -738,6 +750,7 @@ export function MePortal({
   productRequestOutcome,
   productRequestPresentation,
   orders,
+  notificationCenter,
 }: {
   viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
@@ -750,6 +763,7 @@ export function MePortal({
   productRequestOutcome?: string;
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
   orders?: AssistedOrderCustomerView[];
+  notificationCenter?: AssistedOrderNotificationCenter;
 }) {
   const routeKey = route.kind === 'product'
     ? `/me/product/${route.slug}`
@@ -774,6 +788,7 @@ export function MePortal({
         productRequestOutcome={productRequestOutcome}
         productRequestPresentation={productRequestPresentation}
         orders={orders}
+        notificationCenter={notificationCenter}
       />
     </WorkspaceDockProvider>
   );

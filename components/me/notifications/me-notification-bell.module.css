@@ -1,0 +1,33 @@
+.bell {
+  position: absolute;
+  right: calc(clamp(18px, 4vw, 64px) + 58px);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--paper) 76%, transparent);
+  box-shadow: 0 12px 34px rgb(107 59 53 / 8%);
+  color: var(--wine);
+  text-decoration: none;
+  pointer-events: auto;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.bell > span {
+  position: absolute;
+  top: -.15rem;
+  right: -.15rem;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 .25rem;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: var(--accent-solid);
+  color: var(--paper);
+  font-size: .58rem;
+  font-weight: 750;
+}
+.bell:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }

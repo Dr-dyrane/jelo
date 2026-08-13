@@ -104,6 +104,7 @@ test('fixture exercises request → quote → guest approval and one-time recove
     deliveryState: 'Lagos',
     deliveryInstructions: '',
     whatsappConsent: false,
+    emailNotificationsConsent: true,
     termsAccepted: true,
     websiteField: '',
   };
@@ -168,6 +169,7 @@ test('expired quotes advance to needs response instead of looking payable', asyn
     deliveryState: 'Lagos',
     deliveryInstructions: null,
     whatsappConsent: false,
+    emailNotificationsConsent: false,
     sessionHash: security.hashOrderSecret(sessionSecret),
     recoveryHash: security.hashOrderSecret('expiry-recovery'),
     lines: [{
@@ -211,4 +213,122 @@ test('expired quotes advance to needs response instead of looking payable', asyn
   assert.equal(expired?.quote?.status, 'expired');
   assert.equal(expired?.events.at(-1)?.action, 'quote_expired');
   delete process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE;
+});
+
+test('order notifications are event-derived, owner-isolated, opt-in, and auditable', async () => {
+  process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE = 'true';
+  const repository = await import('@/lib/commerce/assisted-procurement-repository');
+  const notifications = await import('@/lib/commerce/order-notification-repository');
+  const security = await import('@/lib/commerce/assisted-procurement-security');
+  repository.resetAssistedProcurementDevelopmentFixture();
+  const ownerSubject = 'customer:notification-fixture';
+  const created = await repository.createAssistedOrder({
+    requestKeyHash: security.hashOrderSecret('notification-request'),
+    requestFingerprint: security.hashOrderSecret('notification-fingerprint'),
+    reference: 'JC-NOTIFY01A',
+    ownerSubject,
+    retailer: 'Beauty Hut Africa',
+    contactName: 'Notification Customer',
+    contactEmail: 'notification@example.com',
+    contactPhone: '+2348000000000',
+    deliveryAddress: '1 Example Street',
+    deliveryCity: 'Lagos',
+    deliveryState: 'Lagos',
+    deliveryInstructions: null,
+    whatsappConsent: false,
+    emailNotificationsConsent: true,
+    sessionHash: security.hashOrderSecret('notification-session'),
+    recoveryHash: security.hashOrderSecret('notification-recovery'),
+    lines: [{
+      slug: 'cerave-foaming-facial-cleanser',
+      brand: 'CeraVe',
+      name: 'Foaming Facial Cleanser',
+      size: '236 ml',
+      image: '/fixture.png',
+      quantity: 1,
+      observedUnitPriceNgn: 14_700,
+      observedListingUrl: 'https://example.com/product',
+      observedEvidenceReference: 'fixture-notification',
+      observedAt: new Date().toISOString(),
+    }],
+  });
+  const quoting = await repository.transitionAssistedOrderForOperator({
+    orderId: created.id,
+    revision: created.revision,
+    operatorSubject: 'operator:test',
+    toState: 'quoting',
+    reason: null,
+  });
+  assert.ok(quoting);
+  await repository.submitAssistedOrderQuote({
+    orderId: created.id,
+    revision: quoting.revision,
+    operatorSubject: 'operator:test',
+    components: {
+      productSubtotalNgn: 14_700,
+      retailerFeeNgn: 0,
+      taxNgn: 0,
+      jelocareFeeNgn: 500,
+      deliveryNgn: 2_000,
+    },
+    evidenceReference: 'notification-quote-evidence',
+    notes: null,
+    expiresAt: new Date(Date.now() + 60_000).toISOString(),
+  });
+
+  const before = await notifications.readAssistedOrderNotificationCenter(ownerSubject);
+  assert.equal(before.unreadCount, 1);
+  assert.equal(before.notifications[0]?.kind, 'quote_ready');
+  assert.equal(before.notifications[0]?.emailStatus, 'pending');
+  assert.equal((await notifications.readAssistedOrderNotificationCenter('customer:other')).unreadCount, 0);
+  assert.equal(await notifications.retryAssistedOrderNotificationDelivery({
+    notificationId: before.notifications[0]!.id,
+    orderId: '00000000-0000-4000-8000-000000000000',
+  }), false);
+
+  const delivery = await notifications.deliverPendingAssistedOrderNotifications({ orderId: created.id });
+  assert.equal(delivery.sent, 1);
+  assert.equal((await notifications.listAssistedOrderNotificationDeliverySummaries([created.id]))[0]?.emailStatus, 'sent');
+  await notifications.markAssistedOrderNotificationRead({
+    ownerSubject,
+    notificationId: before.notifications[0]!.id,
+  });
+  assert.equal((await notifications.readAssistedOrderNotificationCenter(ownerSubject)).unreadCount, 0);
+
+  const updated = await repository.updateAssistedOrderNotificationPreference({
+    orderId: created.id,
+    ownerSubject,
+    enabled: false,
+  });
+  assert.equal(updated?.emailNotificationsConsent, false);
+  delete process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE;
+});
+
+test('notification migration derives one delivery record from the canonical order event', async () => {
+  const migration = await readFile('db/migrations/0041_assisted_order_notifications.sql', 'utf8');
+  assert.match(migration, /email_notifications_consent_at/);
+  assert.match(migration, /event_id uuid not null unique references assisted_order_events/);
+  assert.match(migration, /after insert on assisted_order_events/);
+  assert.match(migration, /case when order_record\.email_notifications_consent_at is null then 'suppressed' else 'pending'/);
+  assert.match(migration, /Assisted order events are append-only|Preserve useful signed-in history/i);
+  assert.doesNotMatch(migration, /grant[^;]+assisted_order_notifications[^;]+to public/i);
+  assert.match(migration, /revoke delete on table assisted_order_notifications from jelocare_app_runtime/);
+});
+
+test('checkout submits persisted wizard state after earlier steps unmount', async () => {
+  const checkout = await readFile('components/commerce/procurement-basket.tsx', 'utf8');
+  for (const field of [
+    'contactName',
+    'contactEmail',
+    'contactPhone',
+    'deliveryAddress',
+    'deliveryCity',
+    'deliveryState',
+  ]) {
+    assert.match(checkout, new RegExp(`${field}: fields\\.${field}`));
+    assert.doesNotMatch(checkout, new RegExp(`${field}: data\\.get`));
+  }
+  assert.match(checkout, /whatsappConsent,\s+emailNotificationsConsent,\s+termsAccepted,/);
+  assert.match(checkout, /checked=\{emailNotificationsConsent\}/);
+  assert.match(checkout, /checked=\{whatsappConsent\}/);
 });

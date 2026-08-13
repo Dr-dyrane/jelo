@@ -12,13 +12,14 @@ import { findCatalogueProduct } from '@/lib/catalogue/repository';
 import { readProductPanelData } from '@/lib/catalogue/product-panel-model';
 import { listAssistedOrdersForOwner } from '@/lib/commerce/assisted-procurement-repository';
 import { toAssistedOrderCustomerView } from '@/lib/commerce/assisted-procurement-model';
+import { readAssistedOrderNotificationCenter } from '@/lib/commerce/order-notification-repository';
 
 export const dynamic = 'force-dynamic';
 
 function parseRoute(parts: readonly string[], from: string | string[] | undefined): MePortalRoute | null {
   if (parts.length === 1) {
     const [section] = parts;
-    if (section === 'explore' || section === 'shelf' || section === 'routine' || section === 'consult' || section === 'orders') {
+    if (section === 'explore' || section === 'shelf' || section === 'routine' || section === 'consult' || section === 'orders' || section === 'notifications') {
       return { kind: section };
     }
   }
@@ -59,6 +60,10 @@ export default async function MeRoutePage({
       ? '/me/explore'
     : route.kind === 'routine'
       ? '/me/routine'
+    : route.kind === 'orders'
+      ? '/me/orders'
+    : route.kind === 'notifications'
+      ? '/me/notifications'
       : undefined;
   const customer = await requireCustomer(continuation);
 
@@ -107,6 +112,11 @@ export default async function MeRoutePage({
       viewModel,
       orders: orders.map(toAssistedOrderCustomerView),
     });
+  }
+
+  if (route.kind === 'notifications') {
+    const notificationCenter = await readAssistedOrderNotificationCenter(customer.subject);
+    return createElement(MePortal, { route, notificationCenter });
   }
 
   const viewModel = await readCustomerPortal(customer);

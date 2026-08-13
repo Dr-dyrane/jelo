@@ -1,22 +1,33 @@
 'use client';
 
-import { CheckCircle2, Clock3, PackageCheck, XCircle } from 'lucide-react';
+import { BellRing, CheckCircle2, Clock3, MailCheck, PackageCheck, RefreshCcw, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState, useTransition } from 'react';
 import type { AssistedOrderPrivateView } from '@/lib/commerce/assisted-procurement-repository';
 import { CUSTOMER_VISIBLE_ORDER_STATES } from '@/lib/commerce/assisted-procurement-model';
-import { submitOrderQuoteAction, transitionOrderAction } from './actions';
+import type { AssistedOrderNotificationDeliverySummary } from '@/lib/commerce/order-notification-model';
+import { retryOrderNotificationAction, submitOrderQuoteAction, transitionOrderAction } from './actions';
 import styles from './orders.module.css';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
 const date = new Intl.DateTimeFormat('en-NG', { dateStyle: 'medium', timeStyle: 'short' });
 
-export function OrdersQueue({ orders, canManage }: { orders: AssistedOrderPrivateView[]; canManage: boolean }) {
+export function OrdersQueue({
+  orders,
+  notificationDeliveries,
+  canManage,
+}: {
+  orders: AssistedOrderPrivateView[];
+  notificationDeliveries: AssistedOrderNotificationDeliverySummary[];
+  canManage: boolean;
+}) {
   const router = useRouter();
   const [selectedId, setSelectedId] = useState(orders[0]?.id ?? '');
   const [error, setError] = useState('');
+  const [feedback, setFeedback] = useState('');
   const [pending, startTransition] = useTransition();
   const selected = orders.find(order => order.id === selectedId) ?? orders[0];
+  const selectedDelivery = notificationDeliveries.find(delivery => delivery.orderId === selected?.id);
   const sections = useMemo(() => ({
     waiting: orders.filter(order => ['requested', 'needs_response'].includes(order.state)),
     active: orders.filter(order => !['requested', 'needs_response', 'payment_pending'].includes(order.state)),
@@ -25,12 +36,22 @@ export function OrdersQueue({ orders, canManage }: { orders: AssistedOrderPrivat
 
   if (!selected) return <div className={styles.empty}><PackageCheck size={24} /><h2>You’re caught up.</h2><p>No assisted orders are waiting.</p></div>;
 
-  function run(action: () => Promise<{ ok: boolean; error?: string }>) {
+  function run(action: () => Promise<{
+    ok: boolean;
+    error?: string;
+    delivery?: 'sent' | 'pending' | 'failed' | 'none';
+  }>) {
     setError('');
+    setFeedback('');
     startTransition(async () => {
       const result = await action();
       if (!result.ok) setError(result.error ?? 'The action failed.');
-      else router.refresh();
+      else {
+        if (result.delivery === 'sent') setFeedback('Customer email delivered. The in-app update is also recorded.');
+        if (result.delivery === 'pending') setFeedback('The in-app update is recorded. Email delivery is pending.');
+        if (result.delivery === 'failed') setFeedback('The in-app update is recorded. Email delivery needs attention.');
+        router.refresh();
+      }
     });
   }
 
@@ -61,6 +82,17 @@ export function OrdersQueue({ orders, canManage }: { orders: AssistedOrderPrivat
           ))}
         </div>
 
+        <NotificationDelivery
+          delivery={selectedDelivery}
+          enabled={selected.emailNotificationsConsent}
+          canManage={canManage}
+          pending={pending}
+          onRetry={() => selectedDelivery && run(() => retryOrderNotificationAction({
+            notificationId: selectedDelivery.id,
+            orderId: selected.id,
+          }))}
+        />
+
         {selected.state === 'requested' || selected.state === 'needs_response' ? (
           <div className={styles.decision}>
             <p><Clock3 size={17} /> Next governed step</p>
@@ -90,8 +122,54 @@ export function OrdersQueue({ orders, canManage }: { orders: AssistedOrderPrivat
           <button className={styles.cancel} disabled={pending} onClick={() => run(() => transitionOrderAction({ orderId: selected.id, revision: selected.revision, transition: 'cancelled', reason: 'Cancelled by Operations.' }))}><XCircle size={16} /> Cancel order request</button>
         ) : null}
         {error ? <p className={styles.error} role="alert">{error}</p> : null}
+        {feedback ? <p className={styles.feedback} role="status">{feedback}</p> : null}
       </aside>
     </div>
+  );
+}
+
+function NotificationDelivery({
+  delivery,
+  enabled,
+  canManage,
+  pending,
+  onRetry,
+}: {
+  delivery?: AssistedOrderNotificationDeliverySummary;
+  enabled: boolean;
+  canManage: boolean;
+  pending: boolean;
+  onRetry: () => void;
+}) {
+  const status = delivery?.emailStatus ?? (enabled ? 'pending' : 'suppressed');
+  const label = status === 'sent'
+    ? 'Email delivered'
+    : status === 'failed'
+      ? 'Email needs attention'
+      : status === 'suppressed'
+        ? 'Email updates are off'
+        : 'Email delivery pending';
+  return (
+    <section
+      className={styles.notificationDelivery}
+      data-status={status}
+      aria-label="Customer notification delivery"
+    >
+      <span aria-hidden="true">{status === 'sent' ? <MailCheck size={19} /> : <BellRing size={19} />}</span>
+      <div>
+        <p>Customer update</p>
+        <strong>{label}</strong>
+        <small>
+          {delivery?.title ?? 'No customer-visible order event has been created yet.'}
+          {delivery?.emailLastAttemptAt ? ` · Last attempt ${date.format(new Date(delivery.emailLastAttemptAt))}` : ''}
+        </small>
+      </div>
+      {(status === 'failed' || status === 'pending') && delivery && canManage ? (
+        <button type="button" disabled={pending} onClick={onRetry}>
+          <RefreshCcw size={15} aria-hidden="true" /> {status === 'failed' ? 'Retry' : 'Try now'}
+        </button>
+      ) : null}
+    </section>
   );
 }
 

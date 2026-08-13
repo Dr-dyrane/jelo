@@ -1,7 +1,7 @@
 # JeloCare Me production roadmap
 
 Updated: 2026-08-09
-Status: Shelf, Routine, private requests, complete Explore, member-Product OTP, global report helper, and the deterministic authenticated Ask adapter ship. Protected activation, account-keyed Ask limiting, request operating closure, and production evidence remain.
+Status: Shelf, Routine, private requests, complete Explore, member-Product OTP, global report helper, deterministic authenticated Ask, and opt-in order-service notifications ship. Protected activation, account-keyed Ask limiting, request operating closure, and production evidence remain.
 
 This is the canonical delivery roadmap from the shipped JeloCare Me foundation
 to production completeness. [JeloCare Me](./JELOCARE_ME.md) remains the canon
@@ -31,6 +31,7 @@ exact release revision is recorded only after the checklist passes.
 | Private missing-product requests | A zero-match canonical search can create an owner-isolated draft or pending request with bounded identity fields and an optional private photo. Requests remain separate from saved Shelf counts and canonical/public catalogue truth; customers can inspect, edit within lifecycle limits, change photo consent, and delete them. | A governed review-to-closure operating path, customer feedback for matched/published outcomes, per-owner request and upload limits, account-wide request export/clear semantics, protected activation through migration `0036`, and authenticated isolation/photo smoke remain. | `db/migrations/0036_customer_product_requests.sql`, `lib/customer/product-request-service.ts`, `components/me/product-requests/` |
 | Routine | `/me/routine` ships owner-isolated named routines with 1–20 ordered steps, optimistic revision conflicts, and create/update/delete server actions. Its route-scoped reader feeds one visual sequence; the structured sheet owns create, reorder, edit, and delete. | Persistence lifecycle evidence and authenticated production smoke remain. | `lib/customer/route-read-models.ts`, `db/migrations/0037_customer_routines.sql`, `app/(customer)/me/actions.ts`, `components/me/routine/` |
 | Account and global helpers | The Account sheet now links globally to plain `/contribute`, exports the owner-derived Shelf without identity, and offers confirmed hard-delete clear. It remains a non-tab/non-FAB helper and sends no private state. | Dedicated-role activation, authenticated production smoke, and the future provider-account deletion orchestrator remain. Exact-product intake prefill remains excluded. | `components/me/shell/me-account-sheet.tsx`, `app/(customer)/me/shelf/export/route.ts`, [ADR 0014](../adr/0014-customer-shelf-data-boundary.md) |
+| Order-service notifications | Canonical customer-visible assisted-order events create one deduplicated private notification. Signed-in customers have `/me/notifications`; guests and members explicitly opt in per order for generic transactional email; Ops sees delivery state and bounded retry. | Production delivery canary, provider/bounce observability, and downstream payment/fulfilment events remain. Refill, basket, campaign, and treatment reminders are not included. | `db/migrations/0041_assisted_order_notifications.sql`, [Assisted procurement](../commerce/ASSISTED_PROCUREMENT.md), [ADR 0016](../adr/0016-retailer-scoped-assisted-procurement.md) |
 | Refill and basket decisions | A product contract describes the possible one-store, split, wait, and urgent-now outcomes. | No route, persisted intent, evaluator, forecast, notification, monitor, or customer result ships. | [JeloCare Me · basket timing](./JELOCARE_ME.md#future-basket-timing-intelligence) |
 | Resilience and observability | Me has route-owned loading and retryable error boundaries. Exact offer labels fail closed when current evidence cannot produce a market summary. | Offline/stale recovery, private-safe telemetry, service objectives, alerts, and rollback signals. There is no offline mutation contract. | `app/(customer)/me/loading.tsx`, `app/(customer)/me/error.tsx`, `modules/commerce/market-price-label.ts` |
 
@@ -519,7 +520,7 @@ scheduled inventory owner.
 **Unlocks.** Only an explicit notification gate; the basket evaluator itself is
 production complete without alerts.
 
-## Phase 7 — opt-in notifications, separately gated
+## Phase 7 — refill and basket subscriptions, separately gated
 
 **User outcome.** A customer deliberately subscribes to a narrowly described
 refill or basket event, sees channel/cadence/freshness, and can pause or
@@ -641,7 +642,8 @@ products reference immutable
 catalogue identity versions, not mutable display slugs. Later feature rollbacks
 preserve export/deletion only when those controls are independently implemented;
 Phase 1 follows ADR 0014's role-compatible floor. Schema rollback is a reviewed
-forward migration. A notification outbox appears only in Phase 7. Basket data
+forward migration. The narrow order-service delivery audit ships under ADR
+0016; a refill/basket subscription outbox appears only in Phase 7. Basket data
 references canonical offer observations and never copies or owns the inventory
 job ledger.
 
@@ -656,7 +658,7 @@ Founder decisions genuinely required before their phase:
   the shipped deterministic core and $0 model cost.
 - Phase 6: how cost, number of orders/pickups, urgency, preferred retailer, and
   acceptable wait are weighted, plus the customer-facing uncertainty threshold.
-- Phase 7: channel, provider, cadence, quiet hours, budget, and support policy.
+- Phase 7: refill/basket channel, provider, cadence, quiet hours, budget, and support policy.
 - Phase 8: whether public community should exist and whether moderation/support
   are funded. The roadmap alone is not approval.
 

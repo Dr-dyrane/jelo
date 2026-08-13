@@ -25,7 +25,10 @@ but no single order silently combines multiple retailers.
 The manual assisted-procurement release ships a guest-first basket, one-retailer
 checkout, private order status, one-time recovery, signed-in order history,
 manual Operations quoting, transparent quote approval, and append-only state
-history. Payment remains deliberately closed: approval ends at Payment pending
+history. Explicitly opted-in order-service email and a private signed-in
+notification inbox mirror customer-visible canonical events; they are not
+marketing and never become order authority. Payment remains deliberately
+closed: approval ends at Payment pending
 until a separate payment-evidence decision is implemented. WhatsApp automation,
 browser automation, retailer checkout, courier connections, and manufacturer
 fulfilment remain future gates.
@@ -160,6 +163,26 @@ Automated sends, inbound webhooks, delivery receipts, templates, and provider
 failure handling require a separate accepted implementation boundary. Manual
 staff contact is the first permitted operating mode after the consent and
 privacy gates are implemented.
+
+## Order notification boundary
+
+Order-service notifications are a projection of the append-only order record,
+not a second state machine. A customer-visible event may create one private
+in-app item and, only when the customer explicitly opted in for that order, one
+transactional email. The event ID is the deduplication key. Subjects and
+lock-screen previews stay generic; product, address, price, and health context
+do not enter provider metadata.
+
+Signed-in customers receive a private `/me/notifications` inbox and may manage
+email per order. Guests use the scoped `/order` session. Withdrawal suppresses
+unsent email immediately without deleting the canonical event or useful private
+history. Operations sees pending, sent, failed, or suppressed delivery and may
+retry a bounded failed send. Provider failure cannot roll back an order event or
+prevent the customer from reading the canonical status directly.
+
+This boundary does not authorize refill reminders, price-pressure alerts,
+marketing, campaigns, automated WhatsApp, inbound messaging, or a new cron.
+Those remain separate decisions.
 
 ## Quoting and retailer access
 

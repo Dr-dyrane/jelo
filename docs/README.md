@@ -25,6 +25,7 @@ This is the entry point for product, engineering, data, and operations.
 | Research or operate the full catalogue pipeline            | [Catalogue operations](./catalogue/OPERATIONS.md)                                                      |
 | Run Neon safely                                            | [Neon and data](./data/NEON.md)                                                                        |
 | Operate guest-first assisted procurement                  | [Assisted procurement](./commerce/ASSISTED_PROCUREMENT.md)                                             |
+| Operate order-service notifications                       | [Order notifications](./commerce/ORDER_NOTIFICATIONS.md)                                               |
 | Plan the bounded Ask Jelo AI lane                         | [Ask Jelo AI Gateway plan](./ai/ASK_JELO_GATEWAY_PLAN.md)                                              |
 | Configure a local, preview, or production environment      | [Environments](./operations/ENVIRONMENTS.md)                                                           |
 | Start and test the application                             | [Local development](./operations/LOCAL_DEVELOPMENT.md)                                                 |

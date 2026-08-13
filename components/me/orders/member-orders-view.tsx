@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SafeProductImage } from '@/components/products/safe-product-image';
+import { OrderNotificationPreference } from '@/components/commerce/order-notification-preference';
 import {
   CUSTOMER_VISIBLE_ORDER_STATES,
   type AssistedOrderCustomerView,
@@ -79,6 +80,11 @@ export function MemberOrdersView({ orders }: { orders: AssistedOrderCustomerView
                     {order.state === 'payment_pending' ? <span className={styles.gated}><Check size={15} /> Approved · payment gated</span> : null}
                   </div>
                 ) : null}
+                <OrderNotificationPreference
+                  orderId={order.id}
+                  enabled={order.emailNotificationsConsent}
+                  compact
+                />
               </article>
             );
           })}

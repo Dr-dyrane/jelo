@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { SafeProductImage } from '@/components/products/safe-product-image';
+import { OrderNotificationPreference } from './order-notification-preference';
 import {
   CUSTOMER_VISIBLE_ORDER_STATES,
   type AssistedOrderCustomerView,
@@ -144,6 +145,7 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
             </div>
           )}
           {error ? <p className={styles.error} role="alert">{error}</p> : null}
+          <OrderNotificationPreference enabled={order.emailNotificationsConsent} />
           <div className={styles.privateNote}><LockKeyhole size={16} aria-hidden="true" /><span>This private page is available on this device for 30 days.</span></div>
           <Link className={styles.continueShopping} href="/products">Continue browsing</Link>
         </aside>

@@ -30,7 +30,7 @@ export function orderSessionHashFromRequest(request: NextRequest) {
   return secret && secret.length >= 32 ? hashOrderSecret(secret) : null;
 }
 
-type AssistedOrderAction = 'create' | 'read' | 'decide' | 'recover';
+type AssistedOrderAction = 'create' | 'read' | 'decide' | 'recover' | 'preference';
 let redis: Redis | null | undefined;
 const limiters = new Map<AssistedOrderAction, Ratelimit>();
 
@@ -47,7 +47,7 @@ function limiterFor(action: AssistedOrderAction) {
   if (cached) return cached;
   const client = redisClient();
   if (!client) return null;
-  const maximum = action === 'create' ? 5 : action === 'recover' ? 10 : action === 'decide' ? 20 : 180;
+  const maximum = action === 'create' ? 5 : action === 'recover' ? 10 : action === 'decide' || action === 'preference' ? 20 : 180;
   const limiter = new Ratelimit({
     redis: client,
     limiter: Ratelimit.slidingWindow(maximum, action === 'read' ? '1 m' : '1 h'),

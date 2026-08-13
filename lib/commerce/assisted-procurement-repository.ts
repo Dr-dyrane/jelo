@@ -16,6 +16,12 @@ import type {
   AssistedOrderState,
   AssistedOrderView,
 } from './assisted-procurement-model';
+import {
+  deliverPendingAssistedOrderNotifications,
+  recordOrderNotificationDevelopmentFixture,
+  resetOrderNotificationDevelopmentFixture,
+  setOrderNotificationPreferenceDevelopmentFixture,
+} from './order-notification-repository';
 
 export type AssistedOrderPrivateView = AssistedOrderView & {
   contactPhone: string;
@@ -37,6 +43,7 @@ export type CreateAssistedOrderRecord = {
   deliveryState: string;
   deliveryInstructions: string | null;
   whatsappConsent: boolean;
+  emailNotificationsConsent: boolean;
   sessionHash: string;
   recoveryHash: string;
   lines: Array<AssistedOrderLineView & {
@@ -61,6 +68,7 @@ type OrderRow = {
   delivery_state: string;
   delivery_instructions: string | null;
   whatsapp_consent: boolean;
+  email_notifications_consent: boolean;
   created_at: string;
   updated_at: string;
 };
@@ -90,6 +98,7 @@ export function resetAssistedProcurementDevelopmentFixture() {
   store.sessions.clear();
   store.recoveries.clear();
   store.requests.clear();
+  resetOrderNotificationDevelopmentFixture();
 }
 
 async function hydrateOrder(sql: Sql, row: OrderRow): Promise<AssistedOrderPrivateView> {
@@ -180,6 +189,7 @@ async function hydrateOrder(sql: Sql, row: OrderRow): Promise<AssistedOrderPriva
     deliveryState: row.delivery_state,
     deliveryInstructions: row.delivery_instructions,
     whatsappConsent: row.whatsapp_consent,
+    emailNotificationsConsent: row.email_notifications_consent,
     lines: lineRows.map(line => ({
       slug: line.product_slug,
       brand: line.product_brand,
@@ -205,6 +215,7 @@ async function hydrateOrder(sql: Sql, row: OrderRow): Promise<AssistedOrderPriva
 
 async function expireAssistedOrderQuotes(orderId?: string) {
   if (assistedOrderFixtureEnabled()) {
+    const expiredOrderIds: string[] = [];
     for (const order of fixtureStore().orders.values()) {
       if (orderId && order.id !== orderId) continue;
       if (order.state !== 'awaiting_approval' || order.quote?.status !== 'awaiting_approval') continue;
@@ -213,20 +224,37 @@ async function expireAssistedOrderQuotes(orderId?: string) {
       order.state = 'needs_response';
       order.revision += 1;
       order.updatedAt = new Date().toISOString();
+      const eventId = randomUUID();
       order.events.push({
-        id: randomUUID(),
+        id: eventId,
         action: 'quote_expired',
         fromState: 'awaiting_approval',
         toState: 'needs_response',
         reason: 'Quote expired before approval.',
         createdAt: order.updatedAt,
       });
+      recordOrderNotificationDevelopmentFixture({
+        orderId: order.id,
+        orderReference: order.reference,
+        retailer: order.retailer,
+        ownerSubject: order.ownerSubject,
+        contactEmail: order.contactEmail,
+        contactName: order.contactName,
+        emailEnabled: order.emailNotificationsConsent,
+        eventId,
+        action: 'quote_expired',
+        createdAt: order.updatedAt,
+      });
+      expiredOrderIds.push(order.id);
+    }
+    for (const expiredOrderId of expiredOrderIds) {
+      await deliverPendingAssistedOrderNotifications({ orderId: expiredOrderId });
     }
     return;
   }
 
   const sql = getPostgresClient();
-  await sql.begin(async transaction => {
+  const expiredOrderIds = await sql.begin(async transaction => {
     const rows = await transaction<{
       order_id: string;
       quote_id: string;
@@ -260,7 +288,11 @@ async function expireAssistedOrderQuotes(orderId?: string) {
         )
       `;
     }
+    return rows.map(row => row.order_id);
   });
+  for (const expiredOrderId of expiredOrderIds) {
+    await deliverPendingAssistedOrderNotifications({ orderId: expiredOrderId });
+  }
 }
 
 const orderSelect = `
@@ -268,6 +300,7 @@ const orderSelect = `
          contact_name, contact_email, contact_phone, delivery_address,
          delivery_city, delivery_state, delivery_instructions,
          (whatsapp_consent_at is not null) as whatsapp_consent,
+         (email_notifications_consent_at is not null) as email_notifications_consent,
          created_at::text, updated_at::text
   from assisted_orders
 `;
@@ -288,14 +321,17 @@ export async function createAssistedOrder(record: CreateAssistedOrderRecord) {
         request_key_hash, request_fingerprint, public_reference, owner_subject,
         retailer_name, contact_name, contact_email,
         contact_phone, delivery_address, delivery_city, delivery_state,
-        delivery_instructions, whatsapp_consent_at, whatsapp_consent_policy
+        delivery_instructions, whatsapp_consent_at, whatsapp_consent_policy,
+        email_notifications_consent_at, email_notifications_consent_policy
       ) values (
         ${record.requestKeyHash}, ${record.requestFingerprint}, ${record.reference},
         ${record.ownerSubject}, ${record.retailer}, ${record.contactName},
         ${record.contactEmail}, ${record.contactPhone}, ${record.deliveryAddress},
         ${record.deliveryCity}, ${record.deliveryState}, ${record.deliveryInstructions},
         ${record.whatsappConsent ? transaction`now()` : null},
-        ${record.whatsappConsent ? 'assisted-procurement-v1' : null}
+        ${record.whatsappConsent ? 'assisted-procurement-v1' : null},
+        ${record.emailNotificationsConsent ? transaction`now()` : null},
+        ${record.emailNotificationsConsent ? 'assisted-order-email-v1' : null}
       ) on conflict (request_key_hash) do nothing returning id
     `;
     const [order] = createdOrder ? [createdOrder] : await transaction<{ id: string; request_fingerprint: string }[]>`
@@ -483,6 +519,83 @@ export async function replaceAssistedOrderRecovery(input: {
     `;
     return { reference: order.public_reference, contactEmail: order.contact_email, contactName: order.contact_name };
   });
+}
+
+export async function updateAssistedOrderNotificationPreference(input: {
+  orderId?: string;
+  sessionHash?: string;
+  ownerSubject?: string;
+  enabled: boolean;
+}) {
+  if (assistedOrderFixtureEnabled()) {
+    const store = fixtureStore();
+    const order = input.orderId ? store.orders.get(input.orderId) : undefined;
+    const sessionOrderId = input.sessionHash ? store.sessions.get(input.sessionHash) : undefined;
+    const candidate = order ?? (sessionOrderId ? store.orders.get(sessionOrderId) : undefined);
+    const ownerOwns = Boolean(input.ownerSubject && candidate?.ownerSubject === input.ownerSubject);
+    const sessionOwns = Boolean(sessionOrderId && candidate?.id === sessionOrderId);
+    if (!candidate || (!ownerOwns && !sessionOwns)) return null;
+    candidate.emailNotificationsConsent = input.enabled;
+    setOrderNotificationPreferenceDevelopmentFixture(candidate.id, input.enabled);
+    candidate.updatedAt = new Date().toISOString();
+    const eventId = randomUUID();
+    candidate.events.push({
+      id: eventId,
+      action: 'notification_preference_updated',
+      fromState: candidate.state,
+      toState: candidate.state,
+      reason: input.enabled ? 'Email order updates enabled.' : 'Email order updates disabled.',
+      createdAt: candidate.updatedAt,
+    });
+    return candidate;
+  }
+
+  const sql = getPostgresClient();
+  const id = await sql.begin(async transaction => {
+    const [order] = await transaction<{ id: string; state: AssistedOrderState }[]>`
+      select orders.id, orders.state
+      from assisted_orders orders
+      left join assisted_order_guest_sessions session
+        on session.order_id = orders.id
+        and session.token_hash = ${input.sessionHash ?? ''}
+        and session.expires_at > now() and session.revoked_at is null
+      where orders.retain_until > now()
+        and (
+          (${input.ownerSubject ?? null}::text is not null
+            and orders.id = ${input.orderId ?? null}::uuid
+            and orders.owner_subject = ${input.ownerSubject ?? null})
+          or (${input.sessionHash ?? null}::text is not null and session.order_id is not null)
+        )
+      for update of orders
+      limit 1
+    `;
+    if (!order) return null;
+    await transaction`
+      update assisted_orders
+      set email_notifications_consent_at = ${input.enabled ? transaction`now()` : null},
+          email_notifications_consent_policy = ${input.enabled ? 'assisted-order-email-v1' : null},
+          updated_at = now()
+      where id = ${order.id}
+    `;
+    await transaction`
+      insert into assisted_order_events (
+        order_id, actor_kind, actor_reference, action, from_state, to_state, reason
+      ) values (
+        ${order.id}, ${input.ownerSubject ? 'customer' : 'guest'}, ${input.ownerSubject ?? null},
+        'notification_preference_updated', ${order.state}, ${order.state},
+        ${input.enabled ? 'Email order updates enabled.' : 'Email order updates disabled.'}
+      )
+    `;
+    if (!input.enabled) {
+      await transaction`
+        update assisted_order_notifications
+        set email_status = 'suppressed', email_failure_code = 'consent_withdrawn', updated_at = now()
+        where order_id = ${order.id} and email_status in ('pending', 'failed')
+      `;
+    }
+    return order.id;
+  });
+  return id ? readAssistedOrderById(id) : null;
 }
 
 export async function decideAssistedOrderQuote(input: {
@@ -677,6 +790,7 @@ function createFixtureOrder(record: CreateAssistedOrderRecord): AssistedOrderPri
     deliveryState: record.deliveryState,
     deliveryInstructions: record.deliveryInstructions,
     whatsappConsent: record.whatsappConsent,
+    emailNotificationsConsent: record.emailNotificationsConsent,
     lines: record.lines.map(line => ({
       slug: line.slug,
       brand: line.brand,
@@ -718,7 +832,21 @@ function transitionFixtureOrder(input: {
   order.state = input.toState;
   order.revision += 1;
   order.updatedAt = new Date().toISOString();
-  order.events.push({ id: randomUUID(), action: input.toState === 'quoting' ? 'quoting_started' : 'order_cancelled', fromState: from, toState: input.toState, reason: input.reason, createdAt: order.updatedAt });
+  const eventId = randomUUID();
+  const action = input.toState === 'quoting' ? 'quoting_started' : 'order_cancelled';
+  order.events.push({ id: eventId, action, fromState: from, toState: input.toState, reason: input.reason, createdAt: order.updatedAt });
+  recordOrderNotificationDevelopmentFixture({
+    orderId: order.id,
+    orderReference: order.reference,
+    retailer: order.retailer,
+    ownerSubject: order.ownerSubject,
+    contactEmail: order.contactEmail,
+    contactName: order.contactName,
+    emailEnabled: order.emailNotificationsConsent,
+    eventId,
+    action,
+    createdAt: order.updatedAt,
+  });
   return order;
 }
 
@@ -739,7 +867,20 @@ function submitFixtureQuote(input: {
   order.state = 'awaiting_approval';
   order.revision += 1;
   order.updatedAt = new Date().toISOString();
-  order.events.push({ id: randomUUID(), action: 'quote_issued', fromState: 'quoting', toState: 'awaiting_approval', reason: null, createdAt: order.updatedAt });
+  const eventId = randomUUID();
+  order.events.push({ id: eventId, action: 'quote_issued', fromState: 'quoting', toState: 'awaiting_approval', reason: null, createdAt: order.updatedAt });
+  recordOrderNotificationDevelopmentFixture({
+    orderId: order.id,
+    orderReference: order.reference,
+    retailer: order.retailer,
+    ownerSubject: order.ownerSubject,
+    contactEmail: order.contactEmail,
+    contactName: order.contactName,
+    emailEnabled: order.emailNotificationsConsent,
+    eventId,
+    action: 'quote_issued',
+    createdAt: order.updatedAt,
+  });
   return order;
 }
 
