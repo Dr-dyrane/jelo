@@ -739,6 +739,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "out-of-stock",
       },
     ),
+    exactNg(
+      "Coco Rosey",
+      "https://cocorosey.net/products/dove-moroccan-argan-oil-beauty-cream-bar-pack-of-2",
+      78,
+      9200,
+      "Moroccan Argan Oil Beauty Cream Bar",
+      "Pack of 4",
+      {
+        observedAt: "2026-08-13T10:35:00Z",
+        expiresAt: "2026-08-20T10:35:00Z",
+        available: true,
+        stock: "in-stock",
+      },
+    ),
   ],
   "medik8-crystal-retinal-3-30ml": [
     exactNg(
