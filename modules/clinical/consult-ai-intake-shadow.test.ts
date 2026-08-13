@@ -12,7 +12,7 @@ function withEnabledShadow<T>(work: () => Promise<T>) {
   const priorFlag = process.env.ASK_JELO_AI_INTAKE_SHADOW;
   const priorModel = process.env.ASK_JELO_INTAKE_MODEL;
   process.env.ASK_JELO_AI_INTAKE_SHADOW = "true";
-  process.env.ASK_JELO_INTAKE_MODEL = "openai/gpt-5.6-terra";
+  process.env.ASK_JELO_INTAKE_MODEL = "google/gemini-2.5-flash-lite";
   return work().finally(() => {
     if (priorFlag === undefined) delete process.env.ASK_JELO_AI_INTAKE_SHADOW;
     else process.env.ASK_JELO_AI_INTAKE_SHADOW = priorFlag;
@@ -33,9 +33,9 @@ test("shadow mode is explicit and accepts only the reviewed intake model", () =>
   assert.deepEqual(
     consultIntakeShadowConfig({
       ASK_JELO_AI_INTAKE_SHADOW: "true",
-      ASK_JELO_INTAKE_MODEL: "openai/gpt-5.6-terra",
+      ASK_JELO_INTAKE_MODEL: "google/gemini-2.5-flash-lite",
     }),
-    { modelId: "openai/gpt-5.6-terra" },
+    { modelId: "google/gemini-2.5-flash-lite" },
   );
 });
 

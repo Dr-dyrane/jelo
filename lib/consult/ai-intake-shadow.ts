@@ -50,7 +50,7 @@ const gatewayMetadataSchema = z
   })
   .passthrough();
 
-const ACCEPTED_INTAKE_MODELS = new Set(["openai/gpt-5.6-terra"]);
+const ACCEPTED_INTAKE_MODELS = new Set(["google/gemini-2.5-flash-lite"]);
 
 export type ConsultIntakeProposal = z.infer<typeof intakeProposalSchema>;
 
@@ -101,11 +101,10 @@ async function generateIntakeProposal(input: {
     ].join(" "),
     prompt: `<CUSTOMER_WORDS>\n${input.query}\n</CUSTOMER_WORDS>`,
     maxOutputTokens: 300,
-    maxRetries: 1,
+    maxRetries: 0,
     timeout: { totalMs: 8_000 },
     providerOptions: {
       gateway: {
-        only: ["openai"],
         zeroDataRetention: true,
         disallowPromptTraining: true,
         tags: ["ask-jelo", "intake-shadow", "schema-v1"],

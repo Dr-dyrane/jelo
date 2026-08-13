@@ -11,7 +11,7 @@ and the customer receives the unchanged deterministic response without waiting
 for it.
 
 The shadow uses `ASK_JELO_AI_INTAKE_SHADOW=true` plus the reviewed
-`ASK_JELO_INTAKE_MODEL=openai/gpt-5.6-terra` configuration. It requests one
+`ASK_JELO_INTAKE_MODEL=google/gemini-2.5-flash-lite` configuration. It requests one
 strict non-clinical object through AI Gateway with zero-data-retention and
 prompt-training disabled. Before the call, JeloCare creates a pending
 `consult_ai_generations` row. The row stores only a SHA-256 digest and character
@@ -52,7 +52,7 @@ identifier supplied by server-only environment configuration:
 
 | Variable | Purpose | Initial class |
 | --- | --- | --- |
-| `ASK_JELO_INTAKE_MODEL` | Short structured extraction and clarification | Fast, low-cost text model; current candidate `openai/gpt-5.6-terra` |
+| `ASK_JELO_INTAKE_MODEL` | Short structured extraction and clarification | Fast, low-cost text model; current candidate `google/gemini-2.5-flash-lite` |
 | `ASK_JELO_WORDING_MODEL` | Carefully bounded final explanation from approved facts | Higher-reasoning text model; current candidate `openai/gpt-5.6-sol` |
 | `ASK_JELO_TRANSCRIPTION_MODEL` | Optional speech-to-text only | Gateway-supported transcription model selected at implementation review |
 
