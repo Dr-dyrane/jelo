@@ -853,6 +853,81 @@ market code such as `NG`. `--url` identifies the retailer listing but does not
 replace market scope. Do not use this command for a search result, variant
 ambiguity, or a retailer page whose title or size cannot be verified.
 
+## Inventory refresh sync paths
+
+The inventory cron has four fetch strategies and one post-run sync step. Each is
+opt-in or automatic, and each is designed to never cause unintentional
+overwrites of higher-quality data.
+
+### Phase 1: Browser fetch fallback (automatic)
+
+`lib/inventory/browser-fetch.ts` — headless Chromium via `playwright-core`.
+
+- **When:** a retailer host blocks server-side HTTP (e.g. Jumia/Cloudflare 403).
+- **How:** launches a headless browser, navigates to the URL, extracts rendered HTML, and passes it through the same structured-data extraction as HTTP fetch.
+- **No env vars required** — active whenever `playwright-core` is installed.
+- **Lazy-loaded:** the browser binary never affects cold start when unused.
+- **Safety:** returns HTML only; no DB writes, no extraction. The caller applies existing confidence-gated logic.
+
+### Phase 2: AI Gateway extraction fallback (opt-in)
+
+`lib/inventory/ai-extraction.ts` — Vercel AI Gateway structured extraction.
+
+- **When:** Woo API, HTTP fetch, and browser fetch all fail or return no usable extraction.
+- **How:** sends truncated page HTML (50k chars) to the AI Gateway with a strict Zod schema for price/stock/title/size.
+- **Env vars:** `INVENTORY_AI_EXTRACTION=true` + `INVENTORY_AI_EXTRACTION_MODEL=<model-id>`.
+- **Confidence:** 50 (1-day freshness window only) — lower than any other method.
+- **Privacy:** zero data retention, no prompt training, no telemetry inputs/outputs.
+- **Safety:** returns `undefined` if price is null or gateway is unavailable. Never writes to DB directly.
+
+### Phase 3: Static file sync (opt-in)
+
+`lib/inventory/static-file-sync.ts` — GitHub Contents API commit.
+
+- **When:** after each cron run, if any offers were successfully refreshed.
+- **How:** fetches `data/retail-offers.ts` from GitHub, applies targeted field-level diffs, commits via the Contents API.
+- **Env vars:** `STATIC_FILE_SYNC_ENABLED=true` + `GITHUB_TOKEN=<pat>` + optional `GITHUB_REPO_OWNER`, `GITHUB_REPO_NAME`, `GITHUB_REPO_BRANCH`.
+- **Anti-overwrite protections:**
+  - Never touches offers with `verification_method = 'manual'`.
+  - Only updates if refreshed `last_verified_at` is strictly newer than the static offer's timestamp.
+  - Only updates `priceNgn`, `available`, `stock`, `observedAt`, `expiresAt` — never `url`, `match`, `trust`, `variant`, `size`.
+  - Post-update verification confirms all requested fields were actually changed.
+- **Failure mode:** returns error results, never throws. Rate limiting and network errors are caught.
+
+### Diagnosing sync issues
+
+1. **Check the cron response** for `staticFileSync` in the JSON output:
+
+   ```bash
+   curl -s -H "Authorization: Bearer $CRON_SECRET" \
+     "https://www.jelocare.com/api/cron/inventory"
+   ```
+   - `staticFileSync.committed: true` — a commit was made to `data/retail-offers.ts`.
+   - `staticFileSync.errors` — any sync errors (rate limiting, network, parse failures).
+   - `staticFileSync: null` — sync is disabled or no offers were refreshed.
+
+2. **Check the GitHub commit history** for sync commits:
+
+   ```bash
+   git log --oneline --grep="sync:" -- data/retail-offers.ts
+   ```
+
+3. **Check AI extraction** by looking for `verification_method = 'ai_extraction'` in the database:
+
+   ```sql
+   SELECT retailer_id, price_minor, last_verified_at, verification_expires_at
+   FROM offers WHERE verification_method = 'ai_extraction';
+   ```
+
+4. **Check browser fetch** by looking for Jumia offers that are now fresh:
+   ```sql
+   SELECT o.url, o.price_minor, o.last_verified_at, o.verification_expires_at
+   FROM offers o
+   JOIN retailers r ON r.id = o.retailer_id
+   WHERE o.url ~* 'jumia\.com\.ng'
+     AND o.verification_expires_at > now();
+   ```
+
 ## Community submissions arrive
 
 ```bash

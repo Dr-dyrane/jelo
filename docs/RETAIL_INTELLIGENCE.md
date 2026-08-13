@@ -131,16 +131,27 @@ Claims should remain specific to the evidence available.
 
 The refresh worker selects a retailer adapter by canonical hostname. Beauty by Daz, Lux Beauty NG, Teeka4, Perona Beauty and Care to Beauty are registered first.
 
-Extraction order is conservative:
+Extraction order is conservative, with four fallback layers:
 
-1. JSON-LD `Product` and `Offer` data;
-2. product price metadata;
-3. a product-scoped WooCommerce stock marker;
-4. unknown when no reliable product evidence exists.
+1. **WooCommerce Store API** — structured JSON from `/wp-json/wc/store/v1/products?slug=` for known Woo retailers. Most reliable; 7-day freshness window.
+2. **HTTP fetch + structured-data extraction** — JSON-LD `Product`/`Offer` data, product price metadata, and product-scoped WooCommerce stock markers from the HTML response. Confidence-based freshness: 5 days (high), 3 days (medium), 1 day (low).
+3. **Browser fetch + structured-data extraction** — headless Chromium via `playwright-core` for hosts that block server-side HTTP (e.g. Jumia/Cloudflare 403). Lazy-loaded so it never affects cold start. Same extraction and confidence rules as HTTP fetch.
+4. **AI Gateway extraction** — sends truncated page HTML (50k chars) to the Vercel AI Gateway for structured price/stock extraction when all above strategies fail. Gated by `INVENTORY_AI_EXTRACTION=true` and `INVENTORY_AI_EXTRACTION_MODEL`. Returns confidence 50 (1-day freshness window only). Zero data retention, no prompt training.
 
 Page-wide purchase copy is not stock evidence. Every refresh records the adapter, confidence, evidence labels, observed product title and same-origin canonical URL. High-confidence observations remain fresh longer than incomplete ones.
 
 Production queues and checks a bounded set of exact offers once each day, starting 24 hours before their verification window expires. The cron route is bearer-authenticated, ignores store-search URLs and uses the existing locked job queue so overlapping requests cannot claim the same offer. Public price and availability claims honor both the seven-day maximum and the shorter confidence-based expiry recorded by the worker.
+
+## Static file sync
+
+After each cron run, refreshed offers are synced back to `data/retail-offers.ts` via the GitHub Contents API. This keeps the static seed data in sync with the live database so that re-seeding does not reintroduce stale prices.
+
+The sync is opt-in (`STATIC_FILE_SYNC_ENABLED=true` + `GITHUB_TOKEN`) and enforces these anti-overwrite protections:
+
+- **Never touches manual offers** — only offers with `verification_method` in `retailer_page`, `api`, or `ai_extraction` are synced.
+- **Freshness gate** — only updates if the refreshed `last_verified_at` is strictly newer than the static offer's `checkedAt`/`observedAt`.
+- **Field-level updates only** — updates `priceNgn`, `available`, `stock`, `observedAt`, and `expiresAt`. Never touches `url`, `match`, `trust`, `variant`, `size`, or any other field.
+- **Post-update verification** — confirms all requested fields were actually changed before accepting the update.
 
 The cron depends on three production prerequisites: a `CRON_SECRET` of at least 16 characters, the `jelocare_app_runtime` database role provisioned in Neon, and `APP_DATABASE_URL` set in Vercel Production (bypassing the Neon integration's auto-generated `DATABASE_URL`). If any is missing, the cron silently fails. See [Troubleshooting: Inventory cron is not running](./catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running) and [Runbooks: Inventory cron fails](./operations/RUNBOOKS.md#inventory-cron-fails).
 
