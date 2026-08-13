@@ -3,6 +3,13 @@ import { findBundleStores, type BundleOffer } from './bundle-finder';
 
 export type RetailerBasketOption = BundleOffer & { quantityTotal: number };
 
+export function chooseRetailerBasketOption(
+  options: readonly RetailerBasketOption[],
+  preferredRetailer: string | null | undefined,
+) {
+  return options.find(option => option.retailer === preferredRetailer) ?? options[0];
+}
+
 export function findRetailerBasketOptions(
   products: Pick<Product, 'slug' | 'name' | 'brand' | 'size' | 'offers'>[],
   quantities: ReadonlyMap<string, number>,
