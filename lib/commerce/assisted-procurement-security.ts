@@ -79,6 +79,6 @@ export async function allowAssistedOrderAction(
 }
 
 export function assistedOrderFixtureEnabled() {
-  return process.env.NODE_ENV !== 'production'
+  return (process.env.NODE_ENV !== 'production' || Boolean(process.env.NODE_TEST_CONTEXT))
     && process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE === 'true';
 }
