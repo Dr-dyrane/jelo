@@ -142,15 +142,15 @@ test("stack Back is shell-owned, deterministic, and preserves the active parent"
   assert.match(dock, /aria-label=\{back\.accessibleLabel\}/);
   assert.match(
     dock,
-    /mode === 'expanded'[\s\S]*\{backControl\}[\s\S]*\{navigation\(\)\}/,
+    /mode === ['"]expanded['"][\s\S]*\{backControl\}[\s\S]*\{navigation\(\)\}/,
   );
   assert.match(
     dock,
-    /mode === 'compact'[\s\S]*\{backControl \?\? \([\s\S]*<ActivePageOrb/,
+    /mode === ['"]compact['"][\s\S]*\{backControl \?\? \([\s\S]*<ActivePageOrb/,
   );
   assert.match(
     dock,
-    /mode === 'navigation'[\s\S]*\{backControl\}[\s\S]*\{navigation\(true\)\}/,
+    /mode === ['"]navigation['"][\s\S]*\{backControl\}[\s\S]*\{navigation\(true\)\}/,
   );
   assert.match(
     dockStyles,
@@ -204,6 +204,13 @@ test("the complete portal surface vocabulary is concise, personal, and route-own
       eyebrow: "Order notifications",
       title: "Nothing important gets lost.",
     },
+    locations: {
+      layer: "stack",
+      route: "/me/locations",
+      parent: "home",
+      eyebrow: "Private account data",
+      title: "My locations.",
+    },
     consult: {
       layer: "stack",
       route: "/me/consult",
@@ -240,7 +247,7 @@ test("the complete portal surface vocabulary is concise, personal, and route-own
       title: "Nothing here.",
     },
   });
-  assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 11);
+  assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 12);
 
   const home = readFileSync("components/me/home/me-home.tsx", "utf8");
   const homeView = readFileSync("components/me/home/home-view.tsx", "utf8");
@@ -498,10 +505,10 @@ test("Me context stays truthful and expands into useful route shortcuts", () => 
     /aria-expanded=\{context\.controls \? context\.expanded : undefined\}/,
   );
   assert.match(capsule, /aria-controls=\{context\.controls\}/);
-  assert.match(home, /controls: 'me-context-sheet'/);
-  assert.match(home, /onInvoke: \(\) => setContextSheetState/);
-  assert.match(home, /controls: 'me-product-evidence-sheet'/);
-  assert.match(home, /onInvoke: \(\) => openProductPanel\('details'\)/);
+  assert.match(home, /controls: ["']me-context-sheet["']/);
+  assert.match(home, /onInvoke: [\s\S]*setContextSheetState/);
+  assert.match(home, /controls: ["']me-product-evidence-sheet["']/);
+  assert.match(home, /onInvoke: \(\) => openProductPanel\(['\"]details['\"]\)/);
   assert.match(
     home,
     /accountSheetOpen: accountSheetOpen \|\| contextSheetOpen \|\| productPanelOpen/,
@@ -509,7 +516,7 @@ test("Me context stays truthful and expands into useful route shortcuts", () => 
   assert.doesNotMatch(contextModel, /\/products\//);
   assert.match(sheet, /role="dialog"/);
   assert.match(modalHook, /element\.showModal\(\)/);
-  assert.match(modalHook, /scrollOwner\.style\.overflow = 'hidden'/);
+  assert.match(modalHook, /scrollOwner\.style\.overflow = ['"]hidden['"]/);
   assert.match(modalHook, /trigger\?\.isConnected\) trigger\.focus/);
   assert.match(sheet, /onCancel=\{handleCancel\}/);
 });
@@ -533,17 +540,20 @@ test("member routes are guarded, stack-owned, and never replace public product r
 
   assert.match(
     route,
-    /route\.kind === 'product'[\s\S]*`\/me\/product\/\$\{route\.slug\}\?from=\$\{route\.origin\}`/,
+    /route\.kind === ["']product["'][\s\S]*`\/me\/product\/\$\{route\.slug\}\?from=\$\{route\.origin\}`/,
   );
   assert.match(route, /await requireCustomer\(continuation\)/);
-  assert.match(route, /route\.kind === 'explore'[\s\S]*readMeExplore\(customer\)/);
   assert.match(
     route,
-    /section === 'explore'[\s\S]*section === 'shelf'[\s\S]*section === 'routine'[\s\S]*section === 'consult'/,
+    /route\.kind === ['"]explore['"][\s\S]*readMeExplore\(customer\)/,
   );
-  assert.match(route, /parts\[0\] === 'product'/);
+  assert.match(
+    route,
+    /section === ['"]explore['"][\s\S]*section === ['"]shelf['"][\s\S]*section === ['"]routine['"][\s\S]*section === ['"]consult['"]/,
+  );
+  assert.match(route, /parts\[0\] === ['"]product['"]/);
   assert.match(route, /resolveMeProductOrigin\(from\)/);
-  assert.doesNotMatch(route, /PRODUCT_ORIGINS|:\s*'explore';/);
+  assert.doesNotMatch(route, /PRODUCT_ORIGINS|:\s*['"]explore['"];/);
   assert.doesNotMatch(route, /ownerId|customerId|subject:/);
   assert.match(homeView, /askEntry\.href/);
   const sharedViews = readFileSync(
@@ -554,10 +564,10 @@ test("member routes are guarded, stack-owned, and never replace public product r
   assert.doesNotMatch(home, /<BackLink|function BackLink/);
   assert.match(home, /currentHref: resolveMeActiveParentHref\(route\)/);
   assert.match(home, /createMeStackBack\(route\)/);
-  assert.match(homeView, /memberProductHref\(.*'home'\)/);
+  assert.match(homeView, /memberProductHref\(.*['"]home['"]\)/);
   assert.match(
     route,
-    /if \(route\.kind === 'product'\) \{[\s\S]*findCatalogueProduct\(route\.slug\)[\s\S]*readProductPanelData\(selectedProduct, now\)/,
+    /if \(route\.kind === ['"]product['"]\) \{[\s\S]*findCatalogueProduct\(route\.slug\)[\s\S]*readProductPanelData\(selectedProduct, now\)/,
   );
   assert.equal(route.match(/readProductPanelData\(/g)?.length, 1);
   assert.equal(home.match(/<ProductQuickPanelSheet/g)?.length, 1);
@@ -572,17 +582,17 @@ test("member routes are guarded, stack-owned, and never replace public product r
   assert.match(home, /restoreFocusRef=\{productPanelRestoreFocusRef\}/);
   assert.match(
     productView,
-    /onClick=\{\(event\) => onOpenPanel\(["']buy["'], event\.currentTarget\)\}/,
+    /onClick=\{\(event\) => onOpenPanel\(['"]buy['"], event\.currentTarget\)\}/,
   );
   assert.match(
     productView,
-    /onClick=\{\(event\) => onOpenPanel\(["']details["'], event\.currentTarget\)\}/,
+    /onClick=\{\(event\) => onOpenPanel\(['"]details['"], event\.currentTarget\)\}/,
   );
   assert.doesNotMatch(
     home,
     /View product|public-product|href=\{`\/products\/|window\.location\.assign\(`\/products/,
   );
-  assert.doesNotMatch(home, /window\.location\.assign\('\/consult'/);
+  assert.doesNotMatch(home, /window\.location\.assign\(['"]\/consult['"]/);
   assert.match(publicProduct, /findCatalogueProduct\(slug\)/);
   assert.match(publicProduct, /<main className="product-page">/);
   assert.match(sharedPanel, /\{ id: "buy", label: "Prices" \}/);
@@ -602,16 +612,16 @@ test("Explore is route-scoped and keeps private discovery state inside the Me la
     "components/me/explore/explore-view.tsx",
     "utf8",
   );
-  const css = readFileSync(
-    "components/me/home/me-home.module.css",
-    "utf8",
-  );
+  const css = readFileSync("components/me/home/me-home.module.css", "utf8");
 
   assert.match(layout, /<MeExploreStateProvider>/);
   assert.match(home, /shellViewModelFromExplore/);
   assert.match(home, /setExploreScrollPosition\(scrollTop\)/);
   assert.match(home, /scrollTo\(\{ top: getExploreScrollPosition\(\) \}\)/);
-  assert.doesNotMatch(state, /localStorage|sessionStorage|URLSearchParams|document\.cookie/);
+  assert.doesNotMatch(
+    state,
+    /localStorage|sessionStorage|URLSearchParams|document\.cookie/,
+  );
   assert.match(explore, /aria-label="Product categories"/);
   assert.match(explore, /aria-label="Active filters"/);
   assert.match(explore, />Request a missing product</);
@@ -623,10 +633,16 @@ test("Routine is route-scoped, visual once, and edits through its builder", () =
   const route = readFileSync("app/(customer)/me/[...route]/page.ts", "utf8");
   const home = readFileSync("components/me/home/me-home.tsx", "utf8");
   const view = readFileSync("components/me/routine/routine-view.tsx", "utf8");
-  const manager = readFileSync("components/me/routine/routine-manager.tsx", "utf8");
+  const manager = readFileSync(
+    "components/me/routine/routine-manager.tsx",
+    "utf8",
+  );
   const sheet = readFileSync("components/me/routine/routine-sheet.tsx", "utf8");
 
-  assert.match(route, /route\.kind === 'routine'[\s\S]*readMeRoutine\(customer\)/);
+  assert.match(
+    route,
+    /route\.kind === ["']routine["'][\s\S]*readMeRoutine\(customer\)/,
+  );
   assert.match(home, /shellViewModelFromRoutine/);
   assert.match(view, /<RoutineManager/);
   assert.doesNotMatch(view, /RoutineRail|routineGrid|routineRailCard/);
@@ -636,25 +652,43 @@ test("Routine is route-scoped, visual once, and edits through its builder", () =
   assert.match(sheet, /name="revision" value=\{routine\.revision\}/);
   assert.match(sheet, /moveStep\(index, -1\)/);
   assert.match(sheet, /<RoutineDeleteDialog routine=\{routine\}/);
-  assert.match(home, /window\.dispatchEvent\(new Event\(OPEN_ROUTINE_BUILDER_EVENT\)\)/);
+  assert.match(
+    home,
+    /window\.dispatchEvent\(new Event\(OPEN_ROUTINE_BUILDER_EVENT\)\)/,
+  );
 });
 
 test("Ask Me is route-scoped and reuses one reviewed guidance authority with opt-in context", () => {
   const route = readFileSync("app/(customer)/me/[...route]/page.ts", "utf8");
   const home = readFileSync("components/me/home/me-home.tsx", "utf8");
   const view = readFileSync("components/me/consult/consult-view.tsx", "utf8");
-  const experience = readFileSync("components/consult/consult-experience.tsx", "utf8");
+  const experience = readFileSync(
+    "components/consult/consult-experience.tsx",
+    "utf8",
+  );
   const api = readFileSync("app/api/consult/route.ts", "utf8");
-  const capabilities = readFileSync("lib/customer/customer-capabilities.ts", "utf8");
+  const capabilities = readFileSync(
+    "lib/customer/customer-capabilities.ts",
+    "utf8",
+  );
 
-  assert.match(route, /route\.kind === 'consult'[\s\S]*readMeConsult\(customer\)/);
+  assert.match(
+    route,
+    /route\.kind === ['"]consult['"][\s\S]*readMeConsult\(customer\)/,
+  );
   assert.match(home, /shellViewModelFromConsult/);
   assert.match(home, /consultComposerRef/);
   assert.match(view, /<ConsultExperience/);
   assert.match(view, /memberContext=\{memberContext\}/);
   assert.doesNotMatch(view, /fetch\(|assessClinicalRoutine|\/api\/consult/);
-  assert.match(experience, /useState\(\{ concerns: false, products: false \}\)/);
-  assert.match(experience, /Nothing from My JeloCare is included unless you choose it\./);
+  assert.match(
+    experience,
+    /useState\(\{ concerns: false, products: false \}\)/,
+  );
+  assert.match(
+    experience,
+    /Nothing from My JeloCare is included unless you choose it\./,
+  );
   assert.match(experience, /Session only/);
   assert.match(experience, /memberContext: selectedMemberContext/);
   assert.match(api, /reviewedConcernSlugs\.has\(slug\)/);
@@ -721,6 +755,12 @@ test("every Me surface owns exactly one truthful working FAB", () => {
       action: "navigate",
       href: "/me/orders",
     },
+    locations: {
+      ownerId: "me-locations-shop",
+      label: "Start a basket",
+      action: "navigate",
+      href: "/products",
+    },
     consult: {
       ownerId: "me-consult-search",
       label: "Search your care",
@@ -749,7 +789,7 @@ test("every Me surface owns exactly one truthful working FAB", () => {
       href: "/me/explore",
     },
   });
-  assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 11);
+  assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 12);
 
   const home = readFileSync("components/me/home/me-home.tsx", "utf8");
   const dockNavigation = readFileSync(
@@ -761,16 +801,19 @@ test("every Me surface owns exactly one truthful working FAB", () => {
     home,
     /useWorkspaceDockFabRegistration\(\{[\s\S]*ownerId: fabContract\.ownerId/,
   );
-  assert.match(home, /route\.kind === 'consult' \? consultComposerRef\.current : searchRef\.current/);
+  assert.match(
+    home,
+    /route\.kind === ["']consult["'] \? consultComposerRef\.current : searchRef\.current/,
+  );
   assert.match(home, /target\?\.focus/);
   assert.match(home, /router\.push\(fabContract\.href\)/);
   assert.doesNotMatch(home, /window\.location\.assign\(fabContract\.href\)/);
   assert.match(
     home,
-    /fabContract\.action === 'open-product-prices'[\s\S]*openProductPanel\('buy'\)/,
+    /fabContract\.action === ["']open-product-prices["'][\s\S]*openProductPanel\(["']buy["']\)/,
   );
   assert.doesNotMatch(home, /window\.location\.assign\(`\/products/);
-  assert.match(dockNavigation, /import Link from 'next\/link'/);
+  assert.match(dockNavigation, /import Link from ['"]next\/link['"]/);
   assert.match(dockNavigation, /<Link[\s\S]*href=\{item\.href\}/);
   assert.doesNotMatch(dockNavigation, /<a[\s\S]*href=\{item\.href\}/);
   assert.equal(ME_WORKSPACE_FABS.routine.label, "Create routine");
@@ -892,7 +935,7 @@ test("the compact reading pill does not become an ellipsised fragment", () => {
   // Home sets compactDetail to a useful short reading, not a truncated fragment.
   assert.match(
     meHome,
-    /compactDetail: route\.kind === 'home' \? `\$\{shelfCount\} saved` : undefined/,
+    /compactDetail:[\s\S]*route\.kind === ['"]home['"] \? `\$\{shelfCount\} saved` : undefined/,
   );
   // The full accessible label retains both counts.
   assert.match(
@@ -926,9 +969,10 @@ test("account avatar owns one accessible extensible modal sheet", () => {
   assert.match(modalHook, /scrollOwner\.style\.overflow = 'hidden'/);
   assert.match(
     sheet,
-    /ME_ACCOUNT_HELPER_ITEMS: readonly MeAccountHelperItem\[\] = \[[\s\S]*Report price or availability[\s\S]*href: '\/contribute'/,
+    /ME_ACCOUNT_HELPER_ITEMS: readonly MeAccountHelperItem\[\] = \[[\s\S]*Report price or availability[\s\S]*href: ["']\/contribute["']/,
   );
-  assert.match(sheet, /My orders[\s\S]*href: '\/me\/orders'/);
+  assert.match(sheet, /My orders[\s\S]*href: ['"]\/me\/orders['"]/);
+  assert.match(sheet, /Saved locations[\s\S]*href: ['"]\/me\/locations['"]/);
   assert.doesNotMatch(sheet, /\/contribute\?/);
   assert.match(sheet, /href="\/me\/shelf\/export"/);
   assert.match(
@@ -937,8 +981,11 @@ test("account avatar owns one accessible extensible modal sheet", () => {
   );
   assert.match(sheet, /Clear Shelf/);
   assert.match(sheet, /<ThemeToggle \/>/);
-  assert.match(sheet, /window\.location\.assign\('\/sign-in\?next=\/me'\)/);
-  assert.doesNotMatch(sheet, /href:\s*['"]\/(privacy|help|settings)/i);
+  assert.match(
+    sheet,
+    /window\.location\.assign\(['"]\/sign-in\?next=\/me['"]\)/,
+  );
+  assert.doesNotMatch(sheet, /href:\s*[['"]"]\/(privacy|help|settings)/i);
   assert.match(sheetStyles, /min-height: 48px/);
   assert.match(sheetStyles, /width: 44px/);
   assert.match(sheetStyles, /@media \(max-width: 620px\)/);
@@ -1011,9 +1058,9 @@ test("unavailable Shelf states fail closed while synthetic state stays explicitl
     "utf8",
   );
 
-  assert.match(home, /viewModel\.shelfState\.status === 'ready' \? \(/);
+  assert.match(home, /viewModel\.shelfState\.status === ["']ready["'] \? \(/);
   assert.match(productView, /shelfAvailable/);
-  assert.match(home, /'Shelf unavailable'/);
+  assert.match(home, /["']Shelf unavailable["']/);
   assert.match(home, /Preview Shelf · Resets on reload\./);
   assert.match(button, /onAction[\s\S]*\? await onAction\(mutation\)/);
   assert.match(previewState, /scope: 'preview-only'/);
@@ -1055,7 +1102,7 @@ test("Shelf removals announce and restore focus at a durable page-level target",
   );
   assert.match(
     home,
-    /result\.status === 'removed' \|\| result\.status === 'already_removed'/,
+    /result\.status === ['"]removed['"] \|\| result\.status === ['"]already_removed['"]/,
   );
 });
 
@@ -1121,7 +1168,7 @@ test("MeAccountSheet accepts a shelf count independently from the item array", (
   // The product page passes the live count for synthetic preview, and the
   // server count for production. Both must be present in the wiring.
   const home = readFileSync("components/me/home/me-home.tsx", "utf8");
-  assert.match(home, /shelfCount=\{shelfState\.previewOnly/);
+  assert.match(home, /shelfCount=\{[\s\S]*shelfState\.previewOnly/);
   assert.match(home, /productReadModel\?\.shell\.shelfCount/);
 });
 

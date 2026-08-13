@@ -1,40 +1,62 @@
-import { createElement } from 'react';
-import { notFound } from 'next/navigation';
-import { MePortal } from '@/components/me/home/me-home';
+import { createElement } from "react";
+import { notFound } from "next/navigation";
+import { MePortal } from "@/components/me/home/me-home";
 import {
   resolveMeProductOrigin,
   type MePortalRoute,
-} from '@/components/me/shell/me-shell-model';
-import { requireCustomer } from '@/lib/customer/access';
-import { readCustomerPortal } from '@/lib/customer/read-model';
-import { readMeConsult, readMeExplore, readMeProduct, readMeRoutine } from '@/lib/customer/route-read-models';
-import { findCatalogueProduct } from '@/lib/catalogue/repository';
-import { readProductPanelData } from '@/lib/catalogue/product-panel-model';
-import { listAssistedOrdersForOwner } from '@/lib/commerce/assisted-procurement-repository';
-import { toAssistedOrderCustomerView } from '@/lib/commerce/assisted-procurement-model';
-import { readAssistedOrderNotificationCenter } from '@/lib/commerce/order-notification-repository';
+} from "@/components/me/shell/me-shell-model";
+import { requireCustomer } from "@/lib/customer/access";
+import { readCustomerPortal } from "@/lib/customer/read-model";
+import {
+  readMeConsult,
+  readMeExplore,
+  readMeProduct,
+  readMeRoutine,
+} from "@/lib/customer/route-read-models";
+import { findCatalogueProduct } from "@/lib/catalogue/repository";
+import { readProductPanelData } from "@/lib/catalogue/product-panel-model";
+import { listAssistedOrdersForOwner } from "@/lib/commerce/assisted-procurement-repository";
+import { toAssistedOrderCustomerView } from "@/lib/commerce/assisted-procurement-model";
+import { readAssistedOrderNotificationCenter } from "@/lib/commerce/order-notification-repository";
+import { customerLocationService } from "@/lib/customer/location-service";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
-function parseRoute(parts: readonly string[], from: string | string[] | undefined): MePortalRoute | null {
+function parseRoute(
+  parts: readonly string[],
+  from: string | string[] | undefined,
+): MePortalRoute | null {
   if (parts.length === 1) {
     const [section] = parts;
-    if (section === 'explore' || section === 'shelf' || section === 'routine' || section === 'consult' || section === 'orders' || section === 'notifications') {
+    if (
+      section === "explore" ||
+      section === "shelf" ||
+      section === "routine" ||
+      section === "consult" ||
+      section === "orders" ||
+      section === "notifications" ||
+      section === "locations"
+    ) {
       return { kind: section };
     }
   }
 
-  if (parts.length === 2 && parts[0] === 'product' && parts[1]) {
+  if (parts.length === 2 && parts[0] === "product" && parts[1]) {
     const origin = resolveMeProductOrigin(from);
-    return { kind: 'product', slug: parts[1], origin };
+    return { kind: "product", slug: parts[1], origin };
   }
 
-  if (parts.length === 2 && parts[0] === 'shelf' && parts[1] === 'add') {
-    return { kind: 'shelf-add' };
+  if (parts.length === 2 && parts[0] === "shelf" && parts[1] === "add") {
+    return { kind: "shelf-add" };
   }
 
-  if (parts.length === 3 && parts[0] === 'shelf' && parts[1] === 'request' && parts[2]) {
-    return { kind: 'shelf-request', id: parts[2] };
+  if (
+    parts.length === 3 &&
+    parts[0] === "shelf" &&
+    parts[1] === "request" &&
+    parts[2]
+  ) {
+    return { kind: "shelf-request", id: parts[2] };
   }
 
   return null;
@@ -54,21 +76,24 @@ export default async function MeRoutePage({
   const route = parseRoute(parts, query.from);
   if (!route) notFound();
 
-  const continuation = route.kind === 'product'
-    ? `/me/product/${route.slug}?from=${route.origin}`
-    : route.kind === 'explore'
-      ? '/me/explore'
-    : route.kind === 'routine'
-      ? '/me/routine'
-    : route.kind === 'orders'
-      ? '/me/orders'
-    : route.kind === 'notifications'
-      ? '/me/notifications'
-      : undefined;
+  const continuation =
+    route.kind === "product"
+      ? `/me/product/${route.slug}?from=${route.origin}`
+      : route.kind === "explore"
+        ? "/me/explore"
+        : route.kind === "routine"
+          ? "/me/routine"
+          : route.kind === "orders"
+            ? "/me/orders"
+            : route.kind === "notifications"
+              ? "/me/notifications"
+              : route.kind === "locations"
+                ? "/me/locations"
+                : undefined;
   const customer = await requireCustomer(continuation);
 
   // Product route uses a route-scoped reader, not the portal-wide loader.
-  if (route.kind === 'product') {
+  if (route.kind === "product") {
     // One exact catalogue lookup — shared by the read model and the panel.
     const selectedProduct = await findCatalogueProduct(route.slug);
     if (!selectedProduct) notFound();
@@ -86,23 +111,28 @@ export default async function MeRoutePage({
     });
   }
 
-  if (route.kind === 'explore') {
+  if (route.kind === "explore") {
     const exploreModel = await readMeExplore(customer);
     return createElement(MePortal, { route, exploreModel });
   }
 
-  if (route.kind === 'routine') {
+  if (route.kind === "routine") {
     const routineModel = await readMeRoutine(customer);
-    const productRequestOutcome = typeof query.outcome === 'string' ? query.outcome : undefined;
-    return createElement(MePortal, { route, routineModel, productRequestOutcome });
+    const productRequestOutcome =
+      typeof query.outcome === "string" ? query.outcome : undefined;
+    return createElement(MePortal, {
+      route,
+      routineModel,
+      productRequestOutcome,
+    });
   }
 
-  if (route.kind === 'consult') {
+  if (route.kind === "consult") {
     const consultModel = await readMeConsult(customer);
     return createElement(MePortal, { route, consultModel });
   }
 
-  if (route.kind === 'orders') {
+  if (route.kind === "orders") {
     const [viewModel, orders] = await Promise.all([
       readCustomerPortal(customer),
       listAssistedOrdersForOwner(customer.subject),
@@ -114,22 +144,35 @@ export default async function MeRoutePage({
     });
   }
 
-  if (route.kind === 'notifications') {
-    const notificationCenter = await readAssistedOrderNotificationCenter(customer.subject);
+  if (route.kind === "notifications") {
+    const notificationCenter = await readAssistedOrderNotificationCenter(
+      customer.subject,
+    );
     return createElement(MePortal, { route, notificationCenter });
+  }
+
+  if (route.kind === "locations") {
+    const [viewModel, locations] = await Promise.all([
+      readCustomerPortal(customer),
+      customerLocationService.read(customer),
+    ]);
+    return createElement(MePortal, { route, viewModel, locations });
   }
 
   const viewModel = await readCustomerPortal(customer);
 
-  const productRequestPresentation = viewModel.account.synthetic
-    && (route.kind === 'shelf' || route.kind === 'shelf-request')
-    ? (await import('@/lib/customer/legacy-product-request-fixture'))
-        .createSyntheticProductRequestPresentation(
-          route.kind === 'shelf-request' ? route.id : undefined,
+  const productRequestPresentation =
+    viewModel.account.synthetic &&
+    (route.kind === "shelf" || route.kind === "shelf-request")
+      ? (
+          await import("@/lib/customer/legacy-product-request-fixture")
+        ).createSyntheticProductRequestPresentation(
+          route.kind === "shelf-request" ? route.id : undefined,
         )
-    : undefined;
+      : undefined;
 
-  const productRequestOutcome = typeof query.outcome === 'string' ? query.outcome : undefined;
+  const productRequestOutcome =
+    typeof query.outcome === "string" ? query.outcome : undefined;
   return createElement(MePortal, {
     viewModel,
     route,

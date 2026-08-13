@@ -1,175 +1,206 @@
-import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import test from 'node:test';
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import test from "node:test";
 import {
   canTransitionAssistedOrder,
   quoteIsComplete,
   quoteTotal,
   toAssistedOrderCustomerView,
-} from '@/lib/commerce/assisted-procurement-model';
+} from "@/lib/commerce/assisted-procurement-model";
 import {
   addBasketItem,
   BASKET_MAX_PRODUCTS,
   basketQuantity,
   normaliseBasketItems,
   setBasketItemQuantity,
-} from '@/lib/commerce/basket';
-import { chooseRetailerBasketOption, findRetailerBasketOptions } from '@/lib/commerce/retailer-basket';
-import { chooseShoppingRetailer, shoppingRetailerHref } from '@/lib/commerce/shopping-session';
-import type { CreateAssistedOrderInput } from '@/lib/commerce/assisted-procurement-schema';
-import { productBySlug } from '@/data/catalogue';
+} from "@/lib/commerce/basket";
+import {
+  chooseRetailerBasketOption,
+  findRetailerBasketOptions,
+} from "@/lib/commerce/retailer-basket";
+import {
+  chooseShoppingRetailer,
+  shoppingRetailerHref,
+} from "@/lib/commerce/shopping-session";
+import type { CreateAssistedOrderInput } from "@/lib/commerce/assisted-procurement-schema";
+import { productBySlug } from "@/data/catalogue";
 
-test('guest basket is bounded, quantity-aware, and does not require identity', () => {
+test("guest basket is bounded, quantity-aware, and does not require identity", () => {
   const normalised = normaliseBasketItems([
-    { slug: 'alpha', quantity: 2 },
-    { slug: 'alpha', quantity: 9 },
-    { slug: 'beta', quantity: 1 },
-    { slug: '', quantity: 1 },
+    { slug: "alpha", quantity: 2 },
+    { slug: "alpha", quantity: 9 },
+    { slug: "beta", quantity: 1 },
+    { slug: "", quantity: 1 },
   ]);
-  assert.deepEqual(normalised, [{ slug: 'alpha', quantity: 10 }, { slug: 'beta', quantity: 1 }]);
+  assert.deepEqual(normalised, [
+    { slug: "alpha", quantity: 10 },
+    { slug: "beta", quantity: 1 },
+  ]);
   assert.equal(basketQuantity(normalised), 11);
-  assert.deepEqual(setBasketItemQuantity(normalised, 'beta', 0), [{ slug: 'alpha', quantity: 10 }]);
+  assert.deepEqual(setBasketItemQuantity(normalised, "beta", 0), [
+    { slug: "alpha", quantity: 10 },
+  ]);
   let items = normalised;
-  for (const slug of ['gamma', 'delta', 'epsilon']) items = addBasketItem(items, slug);
+  for (const slug of ["gamma", "delta", "epsilon"])
+    items = addBasketItem(items, slug);
   assert.equal(items.length, BASKET_MAX_PRODUCTS);
 });
 
-test('checkout defaults to an in-stock retailer instead of a cheaper recheck', () => {
+test("checkout defaults to an in-stock retailer instead of a cheaper recheck", () => {
   const options = [
-    { retailer: 'Recheck', trust: 90, offers: [], combinedTotal: 5_000, allInStock: false, quantityTotal: 1 },
-    { retailer: 'Ready', trust: 88, offers: [], combinedTotal: 8_000, allInStock: true, quantityTotal: 1 },
+    {
+      retailer: "Recheck",
+      trust: 90,
+      offers: [],
+      combinedTotal: 5_000,
+      allInStock: false,
+      quantityTotal: 1,
+    },
+    {
+      retailer: "Ready",
+      trust: 88,
+      offers: [],
+      combinedTotal: 8_000,
+      allInStock: true,
+      quantityTotal: 1,
+    },
   ];
-  assert.equal(chooseRetailerBasketOption(options)?.retailer, 'Ready');
-  assert.equal(chooseRetailerBasketOption(options, 'Recheck')?.retailer, 'Ready');
-  assert.equal(chooseRetailerBasketOption(options, 'Ready')?.retailer, 'Ready');
+  assert.equal(chooseRetailerBasketOption(options)?.retailer, "Ready");
+  assert.equal(
+    chooseRetailerBasketOption(options, "Recheck")?.retailer,
+    "Ready",
+  );
+  assert.equal(chooseRetailerBasketOption(options, "Ready")?.retailer, "Ready");
 });
 
-test('guest shopping stays with one retailer until the basket explicitly switches', () => {
+test("guest shopping stays with one retailer until the basket explicitly switches", () => {
   const stores = [
-    { name: 'Beauty by Daz', slug: 'beauty-by-daz' },
-    { name: 'Beauty Hut Africa', slug: 'beauty-hut-africa' },
+    { name: "Beauty by Daz", slug: "beauty-by-daz" },
+    { name: "Beauty Hut Africa", slug: "beauty-hut-africa" },
   ];
   assert.equal(chooseShoppingRetailer(stores, null, false), stores[0]);
-  assert.equal(chooseShoppingRetailer(stores, 'Beauty Hut Africa', true), stores[1]);
-  assert.equal(chooseShoppingRetailer(stores, 'Another Store', true), null);
-  assert.equal(shoppingRetailerHref(stores[0]), '/retailers/beauty-by-daz?shopping=1');
+  assert.equal(
+    chooseShoppingRetailer(stores, "Beauty Hut Africa", true),
+    stores[1],
+  );
+  assert.equal(chooseShoppingRetailer(stores, "Another Store", true), null);
+  assert.equal(
+    shoppingRetailerHref(stores[0]),
+    "/retailers/beauty-by-daz?shopping=1",
+  );
 });
 
-test('order state and quote completeness fail closed', () => {
-  assert.equal(canTransitionAssistedOrder('requested', 'quoting'), true);
-  assert.equal(canTransitionAssistedOrder('requested', 'paid'), false);
-  assert.equal(canTransitionAssistedOrder('awaiting_approval', 'payment_pending'), true);
-  assert.equal(canTransitionAssistedOrder('payment_pending', 'procurement'), false);
-  assert.equal(quoteTotal({ productSubtotalNgn: 10_000, retailerFeeNgn: 0, taxNgn: 0, jelocareFeeNgn: 500, deliveryNgn: 2_000 }), 12_500);
-  assert.equal(quoteTotal({ productSubtotalNgn: 10_000, retailerFeeNgn: null, taxNgn: 0, jelocareFeeNgn: 500, deliveryNgn: 2_000 }), null);
-  assert.equal(quoteIsComplete({
-    components: { productSubtotalNgn: 10_000, retailerFeeNgn: 0, taxNgn: 0, jelocareFeeNgn: 500, deliveryNgn: 2_000 },
-    evidenceReference: 'retailer-quote:123',
-    expiresAt: new Date(Date.now() + 60_000),
-  }), true);
+test("order state and quote completeness fail closed", () => {
+  assert.equal(canTransitionAssistedOrder("requested", "quoting"), true);
+  assert.equal(canTransitionAssistedOrder("requested", "paid"), false);
+  assert.equal(
+    canTransitionAssistedOrder("awaiting_approval", "payment_pending"),
+    true,
+  );
+  assert.equal(
+    canTransitionAssistedOrder("payment_pending", "procurement"),
+    false,
+  );
+  assert.equal(
+    quoteTotal({
+      productSubtotalNgn: 10_000,
+      retailerFeeNgn: 0,
+      taxNgn: 0,
+      jelocareFeeNgn: 500,
+      deliveryNgn: 2_000,
+    }),
+    12_500,
+  );
+  assert.equal(
+    quoteTotal({
+      productSubtotalNgn: 10_000,
+      retailerFeeNgn: null,
+      taxNgn: 0,
+      jelocareFeeNgn: 500,
+      deliveryNgn: 2_000,
+    }),
+    null,
+  );
+  assert.equal(
+    quoteIsComplete({
+      components: {
+        productSubtotalNgn: 10_000,
+        retailerFeeNgn: 0,
+        taxNgn: 0,
+        jelocareFeeNgn: 500,
+        deliveryNgn: 2_000,
+      },
+      evidenceReference: "retailer-quote:123",
+      expiresAt: new Date(Date.now() + 60_000),
+    }),
+    true,
+  );
 });
 
-test('one-product basket still resolves exact one-retailer choices and quantities', () => {
-  const product = productBySlug('aqua-rich-licorice-mulberry-body-wash-1000ml');
+test("one-product basket still resolves exact one-retailer choices and quantities", () => {
+  const product = productBySlug("aqua-rich-licorice-mulberry-body-wash-1000ml");
   assert.ok(product);
-  const options = findRetailerBasketOptions([product], new Map([[product.slug, 3]]), new Date('2026-08-13T12:00:00Z'));
+  const options = findRetailerBasketOptions(
+    [product],
+    new Map([[product.slug, 3]]),
+    new Date("2026-08-13T12:00:00Z"),
+  );
   assert.ok(options.length >= 1);
   assert.equal(options[0].quantityTotal, 3);
   assert.equal(options[0].combinedTotal, options[0].offers[0].priceNgn * 3);
   assert.equal(options[0].offers.length, 1);
 });
 
-test('migration preserves exact identity, guest capabilities, transparent quote, and append-only history', async () => {
-  const migration = await readFile('db/migrations/0039_assisted_procurement.sql', 'utf8');
+test("migration preserves exact identity, guest capabilities, transparent quote, and append-only history", async () => {
+  const migration = await readFile(
+    "db/migrations/0039_assisted_procurement.sql",
+    "utf8",
+  );
   assert.match(migration, /exactly one|retailer_name text not null/i);
-  assert.match(migration, /product_identity_version_id uuid[\s\S]*references catalogue_product_identity_versions/);
+  assert.match(
+    migration,
+    /product_identity_version_id uuid[\s\S]*references catalogue_product_identity_versions/,
+  );
   assert.match(migration, /unique index assisted_order_lines_order_slug_idx/);
-  assert.match(migration, /assisted_order_guest_sessions[\s\S]*token_hash text primary key/);
+  assert.match(
+    migration,
+    /assisted_order_guest_sessions[\s\S]*token_hash text primary key/,
+  );
   assert.match(migration, /request_key_hash text not null unique/);
-  assert.match(migration, /assisted_order_recovery_capabilities[\s\S]*consumed_at timestamptz/);
-  assert.match(migration, /product_subtotal_ngn[\s\S]*retailer_fee_ngn[\s\S]*tax_ngn[\s\S]*jelocare_fee_ngn[\s\S]*delivery_ngn/);
+  assert.match(
+    migration,
+    /assisted_order_recovery_capabilities[\s\S]*consumed_at timestamptz/,
+  );
+  assert.match(
+    migration,
+    /product_subtotal_ngn[\s\S]*retailer_fee_ngn[\s\S]*tax_ngn[\s\S]*jelocare_fee_ngn[\s\S]*delivery_ngn/,
+  );
   assert.match(migration, /Assisted order events are append-only/);
   assert.doesNotMatch(migration, /grant[^;]+assisted_order[^;]+to public/i);
 });
 
-test('guest order session reads qualify order timestamps across the session join', async () => {
-  const repository = await readFile('lib/commerce/assisted-procurement-repository.ts', 'utf8');
+test("guest order session reads qualify order timestamps across the session join", async () => {
+  const repository = await readFile(
+    "lib/commerce/assisted-procurement-repository.ts",
+    "utf8",
+  );
   assert.match(repository, /orders\.created_at::text as created_at/);
   assert.match(repository, /orders\.updated_at::text as updated_at/);
-  assert.match(repository, /join assisted_order_guest_sessions session on session\.order_id = orders\.id/);
-  assert.doesNotMatch(repository, /\n\s+created_at::text, updated_at::text\n\s+from assisted_orders/);
+  assert.match(
+    repository,
+    /join assisted_order_guest_sessions session on session\.order_id = orders\.id/,
+  );
+  assert.doesNotMatch(
+    repository,
+    /\n\s+created_at::text, updated_at::text\n\s+from assisted_orders/,
+  );
 });
 
-test('new order alerts are durable, recipient-scoped, and independent of customer consent', async () => {
-  const migration = await readFile('db/migrations/0044_assisted_order_operator_alerts.sql', 'utf8');
-  const repository = await readFile('lib/commerce/assisted-procurement-repository.ts', 'utf8');
-  const alertRepository = await readFile('lib/commerce/order-operator-alert-repository.ts', 'utf8');
-  const route = await readFile('app/api/orders/route.ts', 'utf8');
-  assert.match(migration, /unique \(alert_id, operator_id\)/);
-  assert.match(migration, /order_id uuid not null unique/);
-  assert.match(repository, /operator\.active = true and operator\.role in \('operator', 'admin'\)/);
-  assert.match(alertRepository, /delivery\.attempts < 5/);
-  assert.match(alertRepository, /operator\.role in \('operator', 'admin'\)/);
-  assert.match(alertRepository, /lower\(btrim\(operator\.email\)\) = delivery\.recipient_email/);
-  assert.match(route, /deliverAssistedOrderOperatorAlerts\(\{ orderId: created\.order\.id \}\)/);
-});
-
-test('Ops order intake progressively verifies costs and keeps retailer evidence available', async () => {
-  const ui = await readFile('app/(ops)/ops/orders/OrdersQueue.tsx', 'utf8');
-  const model = await readFile('lib/commerce/assisted-procurement-model.ts', 'utf8');
-  assert.match(ui, /Step \{step \+ 1\} of \{reviewStep \+ 1\}/);
-  assert.match(ui, /Review before sending/);
-  assert.match(ui, /Open retailer/);
-  assert.match(ui, /target="_blank" rel="noopener noreferrer"/);
-  assert.match(model, /observedListingUrl: string/);
-});
-
-test('Ops orders expose one truthful icon-led lifecycle and quote-step identity', async () => {
-  const { resolveOrderOperationsJourney } = await import('@/lib/commerce/order-operations-journey');
-  assert.deepEqual(
-    resolveOrderOperationsJourney('quoting').steps.map(step => step.status),
-    ['complete', 'current', 'locked', 'locked', 'locked', 'locked', 'locked'],
+test("Ops order review uses the shared light and dark operations theme tokens", async () => {
+  const styles = await readFile(
+    "app/(ops)/ops/orders/orders.module.css",
+    "utf8",
   );
-  assert.equal(resolveOrderOperationsJourney('needs_response', [{ fromState: 'awaiting_approval', toState: 'needs_response' }]).steps[2]?.status, 'attention');
-  assert.deepEqual(
-    resolveOrderOperationsJourney('delivered').steps.map(step => step.status),
-    ['complete', 'complete', 'complete', 'complete', 'complete', 'complete', 'complete'],
-  );
-  const allStates = [
-    'requested', 'quoting', 'awaiting_approval', 'needs_response', 'payment_pending',
-    'paid', 'procurement', 'retailer_confirmed', 'out_for_delivery', 'delivered',
-    'cancelled', 'refund_pending', 'refunded',
-  ] as const;
-  for (const state of allStates) assert.equal(resolveOrderOperationsJourney(state).steps.length, 7);
-  const reachedDelivery = [{ fromState: 'retailer_confirmed', toState: 'out_for_delivery' }] as const;
-  assert.deepEqual(
-    resolveOrderOperationsJourney('refund_pending', reachedDelivery).steps.map(step => step.status),
-    ['reached', 'reached', 'reached', 'reached', 'reached', 'reached', 'locked'],
-  );
-  assert.equal(resolveOrderOperationsJourney('refund_pending', reachedDelivery).exception?.id, 'refund_pending');
-  assert.equal(resolveOrderOperationsJourney('refunded', reachedDelivery).exception?.status, 'complete');
-  assert.equal(
-    resolveOrderOperationsJourney('cancelled', [{ fromState: 'needs_response', toState: 'cancelled' }, { fromState: 'awaiting_approval', toState: 'needs_response' }]).deepestReachedIndex,
-    2,
-  );
-  const [ui, journey] = await Promise.all([
-    readFile('app/(ops)/ops/orders/OrdersQueue.tsx', 'utf8'),
-    readFile('lib/commerce/order-operations-journey.ts', 'utf8'),
-  ]);
-  assert.match(ui, /aria-label="Order progress"/);
-  assert.match(ui, /className=\{styles\.queueIdentity\}/);
-  assert.match(journey, /Request[\s\S]*Verify & quote[\s\S]*Approval[\s\S]*Payment[\s\S]*Purchase[\s\S]*Delivery[\s\S]*Complete/);
-  assert.match(ui, /shortLabel: 'Products'[\s\S]*shortLabel: 'Retailer fee'[\s\S]*shortLabel: 'Tax'[\s\S]*shortLabel: 'JeloCare fee'[\s\S]*shortLabel: 'Delivery'/);
-  assert.match(ui, /label: 'Evidence'[\s\S]*label: 'Validity'[\s\S]*label: 'Review'/);
-  assert.match(ui, /placeholder: `e\.g\. \$\{observed\.toLocaleString\('en-NG'\)\}`[\s\S]*placeholder: 'Enter amount or 0'[\s\S]*placeholder: 'Enter tax or 0'[\s\S]*placeholder: 'Enter approved fee'[\s\S]*placeholder: 'Enter delivery fee'/);
-  assert.match(ui, /placeholder="e\.g\. Checkout #BH-48392"/);
-  const styles = await readFile('app/(ops)/ops/orders/orders.module.css', 'utf8');
-  assert.match(styles, /\.queue,\s*\n\.inspector \{ min-width: 0;/);
-  assert.match(styles, /grid-template-columns: minmax\(0, 1fr\)/);
-});
-
-test('Ops order review uses the shared light and dark operations theme tokens', async () => {
-  const styles = await readFile('app/(ops)/ops/orders/orders.module.css', 'utf8');
   assert.match(styles, /background: var\(--ops-workspace\)/);
   assert.match(styles, /color: var\(--ops-ink\)/);
   assert.match(styles, /background: var\(--ops-surface-subtle\)/);
@@ -178,67 +209,109 @@ test('Ops order review uses the shared light and dark operations theme tokens', 
   assert.doesNotMatch(styles, /background:\s*#fff\b/);
 });
 
-test('local simulator CSP supports React diagnostics without weakening production', async () => {
-  const config = await readFile('next.config.ts', 'utf8');
-  assert.match(config, /developmentScriptDirectives[\s\S]*NODE_ENV === "development"[\s\S]*"'unsafe-eval'"/);
-  assert.match(config, /"script-src 'self' 'unsafe-inline'"[\s\S]*\.\.\.developmentScriptDirectives/);
+test("local simulator CSP supports React diagnostics without weakening production", async () => {
+  const config = await readFile("next.config.ts", "utf8");
+  assert.match(
+    config,
+    /developmentScriptDirectives[\s\S]*NODE_ENV === "development"[\s\S]*"'unsafe-eval'"/,
+  );
+  assert.match(
+    config,
+    /"script-src 'self' 'unsafe-inline'"[\s\S]*\.\.\.developmentScriptDirectives/,
+  );
 });
 
-test('fixture exercises request → quote → guest approval and one-time recovery', async () => {
-  process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE = 'true';
+test("fixture exercises request → quote → guest approval and one-time recovery", async () => {
+  process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE = "true";
   const [{ requestAssistedOrder }, repository, security] = await Promise.all([
-    import('@/lib/commerce/assisted-procurement-service'),
-    import('@/lib/commerce/assisted-procurement-repository'),
-    import('@/lib/commerce/assisted-procurement-security'),
+    import("@/lib/commerce/assisted-procurement-service"),
+    import("@/lib/commerce/assisted-procurement-repository"),
+    import("@/lib/commerce/assisted-procurement-security"),
   ]);
   repository.resetAssistedProcurementDevelopmentFixture();
-  const product = productBySlug('aqua-rich-licorice-mulberry-body-wash-1000ml');
+  const product = productBySlug("aqua-rich-licorice-mulberry-body-wash-1000ml");
   assert.ok(product);
-  const retailer = findRetailerBasketOptions([product], new Map([[product.slug, 1]]), new Date('2026-08-13T12:00:00Z'))[0]?.retailer;
+  const retailer = findRetailerBasketOptions(
+    [product],
+    new Map([[product.slug, 1]]),
+    new Date("2026-08-13T12:00:00Z"),
+  )[0]?.retailer;
   assert.ok(retailer);
   const request: CreateAssistedOrderInput = {
-    requestId: '11111111-1111-4111-8111-111111111111',
+    requestId: "11111111-1111-4111-8111-111111111111",
     retailer,
     lines: [{ slug: product.slug, quantity: 1 }],
-    contactName: 'Guest Customer',
-    contactEmail: 'guest@example.com',
-    contactPhone: '+2348000000000',
-    deliveryAddress: '1 Example Street',
-    deliveryCity: 'Lagos',
-    deliveryState: 'Lagos',
-    deliveryInstructions: '',
+    contactName: "Guest Customer",
+    contactEmail: "guest@example.com",
+    contactPhone: "+2348000000000",
+    deliveryAddress: "1 Example Street",
+    deliveryCity: "Lagos",
+    deliveryState: "Lagos",
+    deliveryInstructions: "",
     whatsappConsent: false,
     emailNotificationsConsent: true,
     termsAccepted: true,
-    websiteField: '',
+    websiteField: "",
   };
   const created = await requestAssistedOrder(request, null);
   const customerView = toAssistedOrderCustomerView(created.order);
-  for (const privateField of ['ownerSubject', 'contactName', 'contactEmail', 'contactPhone', 'deliveryAddress', 'deliveryInstructions']) {
+  for (const privateField of [
+    "ownerSubject",
+    "contactName",
+    "contactEmail",
+    "contactPhone",
+    "deliveryAddress",
+    "deliveryInstructions",
+  ]) {
     assert.equal(Object.hasOwn(customerView, privateField), false);
   }
   const retried = await requestAssistedOrder(request, null);
   assert.equal(retried.order.id, created.order.id);
   await assert.rejects(
-    requestAssistedOrder({ ...request, deliveryAddress: '2 Changed Street' }, null),
+    requestAssistedOrder(
+      { ...request, deliveryAddress: "2 Changed Street" },
+      null,
+    ),
     /order_idempotency_conflict/,
   );
   const sessionHash = security.hashOrderSecret(retried.sessionSecret);
-  assert.equal((await repository.readAssistedOrderBySession(sessionHash))?.state, 'requested');
-  const quoting = await repository.transitionAssistedOrderForOperator({ orderId: created.order.id, revision: 1, operatorSubject: 'operator-1', toState: 'quoting', reason: null });
-  assert.equal(quoting?.state, 'quoting');
+  assert.equal(
+    (await repository.readAssistedOrderBySession(sessionHash))?.state,
+    "requested",
+  );
+  const quoting = await repository.transitionAssistedOrderForOperator({
+    orderId: created.order.id,
+    revision: 1,
+    operatorSubject: "operator-1",
+    toState: "quoting",
+    reason: null,
+  });
+  assert.equal(quoting?.state, "quoting");
   const quoted = await repository.submitAssistedOrderQuote({
     orderId: created.order.id,
     revision: quoting!.revision,
-    operatorSubject: 'operator-1',
-    components: { productSubtotalNgn: created.order.lines[0].observedUnitPriceNgn, retailerFeeNgn: 0, taxNgn: 0, jelocareFeeNgn: 500, deliveryNgn: 2_000 },
-    evidenceReference: 'retailer-quote:fixture',
+    operatorSubject: "operator-1",
+    components: {
+      productSubtotalNgn: created.order.lines[0].observedUnitPriceNgn,
+      retailerFeeNgn: 0,
+      taxNgn: 0,
+      jelocareFeeNgn: 500,
+      deliveryNgn: 2_000,
+    },
+    evidenceReference: "retailer-quote:fixture",
     notes: null,
     expiresAt: new Date(Date.now() + 60_000).toISOString(),
   });
-  assert.equal(quoted?.state, 'awaiting_approval');
-  const approved = await repository.decideAssistedOrderQuote({ orderId: created.order.id, sessionHash, quoteVersion: quoted!.quote!.version, revision: quoted!.revision, decision: 'approve', reason: null });
-  assert.equal(approved?.state, 'payment_pending');
+  assert.equal(quoted?.state, "awaiting_approval");
+  const approved = await repository.decideAssistedOrderQuote({
+    orderId: created.order.id,
+    sessionHash,
+    quoteVersion: quoted!.quote!.version,
+    revision: quoted!.revision,
+    decision: "approve",
+    reason: null,
+  });
+  assert.equal(approved?.state, "payment_pending");
 
   const recoverySession = security.createOrderSecret();
   const recovered = await repository.exchangeAssistedOrderRecovery(
@@ -246,61 +319,67 @@ test('fixture exercises request → quote → guest approval and one-time recove
     security.hashOrderSecret(recoverySession),
   );
   assert.equal(recovered?.id, created.order.id);
-  assert.equal(await repository.exchangeAssistedOrderRecovery(
-    security.hashOrderSecret(retried.recoverySecret),
-    security.hashOrderSecret(security.createOrderSecret()),
-  ), null);
+  assert.equal(
+    await repository.exchangeAssistedOrderRecovery(
+      security.hashOrderSecret(retried.recoverySecret),
+      security.hashOrderSecret(security.createOrderSecret()),
+    ),
+    null,
+  );
   delete process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE;
 });
 
-test('expired quotes advance to needs response instead of looking payable', async () => {
-  process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE = 'true';
-  const repository = await import('@/lib/commerce/assisted-procurement-repository');
-  const security = await import('@/lib/commerce/assisted-procurement-security');
+test("expired quotes advance to needs response instead of looking payable", async () => {
+  process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE = "true";
+  const repository =
+    await import("@/lib/commerce/assisted-procurement-repository");
+  const security = await import("@/lib/commerce/assisted-procurement-security");
   repository.resetAssistedProcurementDevelopmentFixture();
-  const sessionSecret = 'expiry-session';
+  const sessionSecret = "expiry-session";
   const created = await repository.createAssistedOrder({
-    requestKeyHash: security.hashOrderSecret('expiry-request'),
-    requestFingerprint: security.hashOrderSecret('expiry-fingerprint'),
-    reference: 'JC-123456789A',
+    requestKeyHash: security.hashOrderSecret("expiry-request"),
+    requestFingerprint: security.hashOrderSecret("expiry-fingerprint"),
+    reference: "JC-123456789A",
     ownerSubject: null,
-    retailer: 'Beauty Hut Africa',
-    contactName: 'Guest Customer',
-    contactEmail: 'guest@example.com',
-    contactPhone: '+2348000000000',
-    deliveryAddress: '1 Example Street',
-    deliveryCity: 'Lagos',
-    deliveryState: 'Lagos',
+    retailer: "Beauty Hut Africa",
+    contactName: "Guest Customer",
+    contactEmail: "guest@example.com",
+    contactPhone: "+2348000000000",
+    deliveryAddress: "1 Example Street",
+    deliveryCity: "Lagos",
+    deliveryState: "Lagos",
     deliveryInstructions: null,
     whatsappConsent: false,
     emailNotificationsConsent: false,
     sessionHash: security.hashOrderSecret(sessionSecret),
-    recoveryHash: security.hashOrderSecret('expiry-recovery'),
-    lines: [{
-      slug: 'cerave-foaming-facial-cleanser',
-      brand: 'CeraVe',
-      name: 'Foaming Facial Cleanser',
-      size: '236 ml',
-      image: '/fixture.png',
-      quantity: 1,
-      observedUnitPriceNgn: 14_700,
-      observedListingUrl: 'https://example.com/product',
-      observedEvidenceReference: 'fixture-expiry',
-      observedAt: new Date().toISOString(),
-    }],
+    recoveryHash: security.hashOrderSecret("expiry-recovery"),
+    lines: [
+      {
+        slug: "cerave-foaming-facial-cleanser",
+        brand: "CeraVe",
+        name: "Foaming Facial Cleanser",
+        size: "236 ml",
+        image: "/fixture.png",
+        quantity: 1,
+        observedUnitPriceNgn: 14_700,
+        observedListingUrl: "https://example.com/product",
+        observedEvidenceReference: "fixture-expiry",
+        observedAt: new Date().toISOString(),
+      },
+    ],
   });
   const quoting = await repository.transitionAssistedOrderForOperator({
     orderId: created.id,
     revision: created.revision,
-    operatorSubject: 'operator:test',
-    toState: 'quoting',
+    operatorSubject: "operator:test",
+    toState: "quoting",
     reason: null,
   });
   assert.ok(quoting);
   await repository.submitAssistedOrderQuote({
     orderId: created.id,
     revision: quoting.revision,
-    operatorSubject: 'operator:test',
+    operatorSubject: "operator:test",
     components: {
       productSubtotalNgn: 14_700,
       retailerFeeNgn: 0,
@@ -308,66 +387,72 @@ test('expired quotes advance to needs response instead of looking payable', asyn
       jelocareFeeNgn: 500,
       deliveryNgn: 2_000,
     },
-    evidenceReference: 'expired-quote-evidence',
+    evidenceReference: "expired-quote-evidence",
     notes: null,
     expiresAt: new Date(Date.now() - 1_000).toISOString(),
   });
-  const expired = await repository.readAssistedOrderBySession(security.hashOrderSecret(sessionSecret));
-  assert.equal(expired?.state, 'needs_response');
-  assert.equal(expired?.quote?.status, 'expired');
-  assert.equal(expired?.events.at(-1)?.action, 'quote_expired');
+  const expired = await repository.readAssistedOrderBySession(
+    security.hashOrderSecret(sessionSecret),
+  );
+  assert.equal(expired?.state, "needs_response");
+  assert.equal(expired?.quote?.status, "expired");
+  assert.equal(expired?.events.at(-1)?.action, "quote_expired");
   delete process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE;
 });
 
-test('order notifications are event-derived, owner-isolated, opt-in, and auditable', async () => {
-  process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE = 'true';
-  const repository = await import('@/lib/commerce/assisted-procurement-repository');
-  const notifications = await import('@/lib/commerce/order-notification-repository');
-  const security = await import('@/lib/commerce/assisted-procurement-security');
+test("order notifications are event-derived, owner-isolated, opt-in, and auditable", async () => {
+  process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE = "true";
+  const repository =
+    await import("@/lib/commerce/assisted-procurement-repository");
+  const notifications =
+    await import("@/lib/commerce/order-notification-repository");
+  const security = await import("@/lib/commerce/assisted-procurement-security");
   repository.resetAssistedProcurementDevelopmentFixture();
-  const ownerSubject = 'customer:notification-fixture';
+  const ownerSubject = "customer:notification-fixture";
   const created = await repository.createAssistedOrder({
-    requestKeyHash: security.hashOrderSecret('notification-request'),
-    requestFingerprint: security.hashOrderSecret('notification-fingerprint'),
-    reference: 'JC-NOTIFY01A',
+    requestKeyHash: security.hashOrderSecret("notification-request"),
+    requestFingerprint: security.hashOrderSecret("notification-fingerprint"),
+    reference: "JC-NOTIFY01A",
     ownerSubject,
-    retailer: 'Beauty Hut Africa',
-    contactName: 'Notification Customer',
-    contactEmail: 'notification@example.com',
-    contactPhone: '+2348000000000',
-    deliveryAddress: '1 Example Street',
-    deliveryCity: 'Lagos',
-    deliveryState: 'Lagos',
+    retailer: "Beauty Hut Africa",
+    contactName: "Notification Customer",
+    contactEmail: "notification@example.com",
+    contactPhone: "+2348000000000",
+    deliveryAddress: "1 Example Street",
+    deliveryCity: "Lagos",
+    deliveryState: "Lagos",
     deliveryInstructions: null,
     whatsappConsent: false,
     emailNotificationsConsent: true,
-    sessionHash: security.hashOrderSecret('notification-session'),
-    recoveryHash: security.hashOrderSecret('notification-recovery'),
-    lines: [{
-      slug: 'cerave-foaming-facial-cleanser',
-      brand: 'CeraVe',
-      name: 'Foaming Facial Cleanser',
-      size: '236 ml',
-      image: '/fixture.png',
-      quantity: 1,
-      observedUnitPriceNgn: 14_700,
-      observedListingUrl: 'https://example.com/product',
-      observedEvidenceReference: 'fixture-notification',
-      observedAt: new Date().toISOString(),
-    }],
+    sessionHash: security.hashOrderSecret("notification-session"),
+    recoveryHash: security.hashOrderSecret("notification-recovery"),
+    lines: [
+      {
+        slug: "cerave-foaming-facial-cleanser",
+        brand: "CeraVe",
+        name: "Foaming Facial Cleanser",
+        size: "236 ml",
+        image: "/fixture.png",
+        quantity: 1,
+        observedUnitPriceNgn: 14_700,
+        observedListingUrl: "https://example.com/product",
+        observedEvidenceReference: "fixture-notification",
+        observedAt: new Date().toISOString(),
+      },
+    ],
   });
   const quoting = await repository.transitionAssistedOrderForOperator({
     orderId: created.id,
     revision: created.revision,
-    operatorSubject: 'operator:test',
-    toState: 'quoting',
+    operatorSubject: "operator:test",
+    toState: "quoting",
     reason: null,
   });
   assert.ok(quoting);
   await repository.submitAssistedOrderQuote({
     orderId: created.id,
     revision: quoting.revision,
-    operatorSubject: 'operator:test',
+    operatorSubject: "operator:test",
     components: {
       productSubtotalNgn: 14_700,
       retailerFeeNgn: 0,
@@ -375,29 +460,50 @@ test('order notifications are event-derived, owner-isolated, opt-in, and auditab
       jelocareFeeNgn: 500,
       deliveryNgn: 2_000,
     },
-    evidenceReference: 'notification-quote-evidence',
+    evidenceReference: "notification-quote-evidence",
     notes: null,
     expiresAt: new Date(Date.now() + 60_000).toISOString(),
   });
 
-  const before = await notifications.readAssistedOrderNotificationCenter(ownerSubject);
+  const before =
+    await notifications.readAssistedOrderNotificationCenter(ownerSubject);
   assert.equal(before.unreadCount, 1);
-  assert.equal(before.notifications[0]?.kind, 'quote_ready');
-  assert.equal(before.notifications[0]?.emailStatus, 'pending');
-  assert.equal((await notifications.readAssistedOrderNotificationCenter('customer:other')).unreadCount, 0);
-  assert.equal(await notifications.retryAssistedOrderNotificationDelivery({
-    notificationId: before.notifications[0]!.id,
-    orderId: '00000000-0000-4000-8000-000000000000',
-  }), false);
+  assert.equal(before.notifications[0]?.kind, "quote_ready");
+  assert.equal(before.notifications[0]?.emailStatus, "pending");
+  assert.equal(
+    (await notifications.readAssistedOrderNotificationCenter("customer:other"))
+      .unreadCount,
+    0,
+  );
+  assert.equal(
+    await notifications.retryAssistedOrderNotificationDelivery({
+      notificationId: before.notifications[0]!.id,
+      orderId: "00000000-0000-4000-8000-000000000000",
+    }),
+    false,
+  );
 
-  const delivery = await notifications.deliverPendingAssistedOrderNotifications({ orderId: created.id });
+  const delivery = await notifications.deliverPendingAssistedOrderNotifications(
+    { orderId: created.id },
+  );
   assert.equal(delivery.sent, 1);
-  assert.equal((await notifications.listAssistedOrderNotificationDeliverySummaries([created.id]))[0]?.emailStatus, 'sent');
+  assert.equal(
+    (
+      await notifications.listAssistedOrderNotificationDeliverySummaries([
+        created.id,
+      ])
+    )[0]?.emailStatus,
+    "sent",
+  );
   await notifications.markAssistedOrderNotificationRead({
     ownerSubject,
     notificationId: before.notifications[0]!.id,
   });
-  assert.equal((await notifications.readAssistedOrderNotificationCenter(ownerSubject)).unreadCount, 0);
+  assert.equal(
+    (await notifications.readAssistedOrderNotificationCenter(ownerSubject))
+      .unreadCount,
+    0,
+  );
 
   const updated = await repository.updateAssistedOrderNotificationPreference({
     orderId: created.id,
@@ -408,39 +514,63 @@ test('order notifications are event-derived, owner-isolated, opt-in, and auditab
   delete process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE;
 });
 
-test('notification migration derives one delivery record from the canonical order event', async () => {
-  const migration = await readFile('db/migrations/0041_assisted_order_notifications.sql', 'utf8');
+test("notification migration derives one delivery record from the canonical order event", async () => {
+  const migration = await readFile(
+    "db/migrations/0041_assisted_order_notifications.sql",
+    "utf8",
+  );
   assert.match(migration, /email_notifications_consent_at/);
-  assert.match(migration, /event_id uuid not null unique references assisted_order_events/);
+  assert.match(
+    migration,
+    /event_id uuid not null unique references assisted_order_events/,
+  );
   assert.match(migration, /after insert on assisted_order_events/);
-  assert.match(migration, /case when order_record\.email_notifications_consent_at is null then 'suppressed' else 'pending'/);
-  assert.match(migration, /Assisted order events are append-only|Preserve useful signed-in history/i);
-  assert.doesNotMatch(migration, /grant[^;]+assisted_order_notifications[^;]+to public/i);
-  assert.match(migration, /revoke delete on table assisted_order_notifications from jelocare_app_runtime/);
+  assert.match(
+    migration,
+    /case when order_record\.email_notifications_consent_at is null then 'suppressed' else 'pending'/,
+  );
+  assert.match(
+    migration,
+    /Assisted order events are append-only|Preserve useful signed-in history/i,
+  );
+  assert.doesNotMatch(
+    migration,
+    /grant[^;]+assisted_order_notifications[^;]+to public/i,
+  );
+  assert.match(
+    migration,
+    /revoke delete on table assisted_order_notifications from jelocare_app_runtime/,
+  );
 });
 
-test('checkout submits persisted wizard state after earlier steps unmount', async () => {
-  const checkout = await readFile('components/commerce/procurement-basket.tsx', 'utf8');
+test("checkout submits persisted wizard state after earlier steps unmount", async () => {
+  const checkout = await readFile(
+    "components/commerce/procurement-basket.tsx",
+    "utf8",
+  );
   for (const field of [
-    'contactName',
-    'contactEmail',
-    'contactPhone',
-    'deliveryAddress',
-    'deliveryCity',
-    'deliveryState',
+    "contactName",
+    "contactEmail",
+    "contactPhone",
+    "deliveryAddress",
+    "deliveryCity",
+    "deliveryState",
   ]) {
     assert.match(checkout, new RegExp(`${field}: fields\\.${field}`));
     assert.doesNotMatch(checkout, new RegExp(`${field}: data\\.get`));
   }
-  assert.match(checkout, /whatsappConsent,\s+emailNotificationsConsent,\s+termsAccepted,/);
+  assert.match(
+    checkout,
+    /whatsappConsent,\s+emailNotificationsConsent,\s+termsAccepted,/,
+  );
   assert.match(checkout, /checked=\{emailNotificationsConsent\}/);
   assert.match(checkout, /checked=\{whatsappConsent\}/);
 });
 
-test('the approved WhatsApp support action is public, generic, and capability-free', async () => {
+test("the approved WhatsApp support action is public, generic, and capability-free", async () => {
   const [contact, status] = await Promise.all([
-    readFile('lib/commerce/whatsapp-contact.ts', 'utf8'),
-    readFile('components/commerce/order-status.tsx', 'utf8'),
+    readFile("lib/commerce/whatsapp-contact.ts", "utf8"),
+    readFile("components/commerce/order-status.tsx", "utf8"),
   ]);
 
   assert.match(contact, /display: '\+234 812 288 7847'/);

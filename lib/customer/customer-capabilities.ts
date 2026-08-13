@@ -35,6 +35,8 @@ export const customerCapabilities = {
   assistedProcurement: true,
   /** Explicitly opted-in order-service notifications ship in-app and by email. */
   notifications: true,
+  /** Owner-isolated reusable delivery and billing locations. */
+  savedLocations: true,
   /** Basket/refill timing decisions are not shipped. */
   basketTiming: false,
   /** Per-owner request/upload limits are not yet enforced. */

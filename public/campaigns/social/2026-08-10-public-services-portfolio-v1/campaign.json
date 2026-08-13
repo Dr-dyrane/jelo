@@ -1,0 +1,347 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-10-public-services-portfolio-v1",
+  "status": "draft",
+  "createdAt": "2026-08-10T14:03:55.255Z",
+  "dataCheckedAt": "2026-08-10T14:03:55.255Z",
+  "objective": "Introduce every distinct public JeloCare service through one cohesive, immersive and minimal story collection.",
+  "sourceTruth": {
+    "repositoryCommit": "91d21fc8795a7926da1b865f38cdc6ab4e39619f",
+    "routeReview": "Current origin/main route implementations and public copy reviewed on 2026-08-10.",
+    "productPriceClaimsUsed": false,
+    "clinicalClaimsUsed": false
+  },
+  "sourceAsset": {
+    "path": "source/immersive-master-field-imagegen.png",
+    "sha256": "26c25ae52f89e93cb5919040804a2ae327a8989eed31c60a0a4916371589cb40",
+    "generationRoute": "built-in-imagegen",
+    "role": "Text-free campaign master field; deterministic SVG composition provides all visible copy and service motifs."
+  },
+  "creativeDirection": {
+    "format": "1080x1920 story",
+    "mode": "dark",
+    "safeAreas": {
+      "topPx": 220,
+      "sidePx": 120,
+      "bottomPx": 300
+    },
+    "embeddedUrls": false,
+    "note": "One service truth per frame. No product, price, retailer, stock, medical, or performance claim is implied."
+  },
+  "channels": ["whatsapp-status", "instagram-stories", "snapchat"],
+  "services": [
+    {
+      "id": "products",
+      "status": "draft",
+      "targetPath": "/products",
+      "targetUrl": "https://www.jelocare.com/products",
+      "copy": {
+        "eyebrow": "THE CATALOGUE",
+        "headline": "Browse the shelf.",
+        "body": "Exact products. Clear context.",
+        "action": "Explore products",
+        "disclaimer": "Clear context, one step at a time.",
+        "embeddedUrl": null
+      },
+      "caption": "Browse the shelf. Exact products. Clear context. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "01-products-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "6bfab33fc9da4ef81bde7a874b9abd734b240a1af02a71a9e7a2cee75db95d7c",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    },
+    {
+      "id": "price-watch",
+      "status": "draft",
+      "targetPath": "/share",
+      "targetUrl": "https://www.jelocare.com/share",
+      "copy": {
+        "eyebrow": "PRICE WATCH",
+        "headline": "Prices that help.",
+        "body": "Observed prices worth passing on.",
+        "action": "Compare prices",
+        "disclaimer": "Prices change.",
+        "embeddedUrl": null
+      },
+      "caption": "Prices that help. Observed prices worth passing on. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "02-price-watch-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "68a6f6e738610ef43d492b7669234c3a1469bbb6e42cc37a1a822c847631a687",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    },
+    {
+      "id": "bundle-finder",
+      "status": "draft",
+      "targetPath": "/bundle",
+      "targetUrl": "https://www.jelocare.com/bundle",
+      "copy": {
+        "eyebrow": "BUNDLE FINDER",
+        "headline": "Build one basket.",
+        "body": "Choose 2–4 products. Compare one retailer.",
+        "action": "Find a bundle",
+        "disclaimer": "Product totals exclude delivery.",
+        "embeddedUrl": null
+      },
+      "caption": "Build one basket. Choose 2–4 products. Compare one retailer. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "03-bundle-finder-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "644fc90d493e743a9428bbccf6e2de2baa45ae2f193062e75c145f750cb481d9",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    },
+    {
+      "id": "ask-jelocare",
+      "status": "draft",
+      "targetPath": "/consult",
+      "targetUrl": "https://www.jelocare.com/consult",
+      "copy": {
+        "eyebrow": "ASK JELOCARE",
+        "headline": "Tell us what you notice.",
+        "body": "A simple, sourced care guide.",
+        "action": "Ask JeloCare",
+        "disclaimer": "Guidance, not a diagnosis.",
+        "embeddedUrl": null
+      },
+      "caption": "Tell us what you notice. A simple, sourced care guide. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "04-ask-jelocare-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "62f1f12fb2a37d4c05978987cc3cea3005f44784e771351ddb14f778715c8b09",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    },
+    {
+      "id": "concern-guides",
+      "status": "draft",
+      "targetPath": "/concerns",
+      "targetUrl": "https://www.jelocare.com/concerns",
+      "copy": {
+        "eyebrow": "CONCERN GUIDES",
+        "headline": "Start with what you notice.",
+        "body": "Calm, educational guides for skin and hair concerns.",
+        "action": "Browse guides",
+        "disclaimer": "Guidance, not a diagnosis.",
+        "embeddedUrl": null
+      },
+      "caption": "Start with what you notice. Calm, educational guides for skin and hair concerns. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "05-concern-guides-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "5d9dd543c78679f690ffea936646751ba3af720a6751fc2a4be369f83b9b0a8a",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    },
+    {
+      "id": "ingredient-library",
+      "status": "draft",
+      "targetPath": "/ingredients",
+      "targetUrl": "https://www.jelocare.com/ingredients",
+      "copy": {
+        "eyebrow": "INGREDIENT LIBRARY",
+        "headline": "Know what’s inside.",
+        "body": "Read the evidence and cautions.",
+        "action": "Explore ingredients",
+        "disclaimer": "Key ingredients only. Check your pack.",
+        "embeddedUrl": null
+      },
+      "caption": "Know what’s inside. Read the evidence and cautions. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "06-ingredient-library-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "c0483e08eca636901e4d5eb23453b169f8ce9b95bda103a95d1b2fd108170a4c",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    },
+    {
+      "id": "brand-directory",
+      "status": "draft",
+      "targetPath": "/brands",
+      "targetUrl": "https://www.jelocare.com/brands",
+      "copy": {
+        "eyebrow": "BRAND DIRECTORY",
+        "headline": "Find the name first.",
+        "body": "Exact products under one canonical brand name.",
+        "action": "Browse brands",
+        "disclaimer": "Clear context, one step at a time.",
+        "embeddedUrl": null
+      },
+      "caption": "Find the name first. Exact products under one canonical brand name. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "07-brand-directory-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "5835918e2260cc0a21d90c1ed53603ba8d5cbcd8b9d1294ea8a08a24479f2c0f",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    },
+    {
+      "id": "retailer-guide",
+      "status": "draft",
+      "targetPath": "/retailers",
+      "targetUrl": "https://www.jelocare.com/retailers",
+      "copy": {
+        "eyebrow": "RETAILER GUIDE",
+        "headline": "Stores we check.",
+        "body": "Nigeria first. Exact products only.",
+        "action": "Browse retailers",
+        "disclaimer": "A listing is not proof of authenticity.",
+        "embeddedUrl": null
+      },
+      "caption": "Stores we check. Nigeria first. Exact products only. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "08-retailer-guide-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "fa6d5bb204e0846b9adb3c19c2218e8d911aae5845e3952a528b02a0d8da022b",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    },
+    {
+      "id": "contribute",
+      "status": "draft",
+      "targetPath": "/contribute",
+      "targetUrl": "https://www.jelocare.com/contribute",
+      "copy": {
+        "eyebrow": "COMMUNITY LIBRARY",
+        "headline": "Tell us about one product.",
+        "body": "Share what you use. No account.",
+        "action": "Contribute a note",
+        "disclaimer": "Clear context, one step at a time.",
+        "embeddedUrl": null
+      },
+      "caption": "Tell us about one product. Share what you use. No account. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "09-contribute-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "003d0a3d63b4060bcacee025a9de0215fac6bd646cfa37d85783c81212df1509",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    },
+    {
+      "id": "global-search",
+      "status": "draft",
+      "targetPath": "/search",
+      "targetUrl": "https://www.jelocare.com/search",
+      "copy": {
+        "eyebrow": "SEARCH JELOCARE",
+        "headline": "Find clear context.",
+        "body": "Products. Guides. Ingredients. Brands. Retailers.",
+        "action": "Search JeloCare",
+        "disclaimer": "Clear context, one step at a time.",
+        "embeddedUrl": null
+      },
+      "caption": "Find clear context. Products. Guides. Ingredients. Brands. Retailers. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "10-global-search-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "a2fa6eb9c62672ffafe4ceeae1ca1a7982b6ea342ff734680b6c77851fd68744",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    },
+    {
+      "id": "my-jelocare",
+      "status": "draft",
+      "targetPath": "/me",
+      "targetUrl": "https://www.jelocare.com/me",
+      "copy": {
+        "eyebrow": "MY JELOCARE",
+        "headline": "Shelf. Routine. Ask.",
+        "body": "Your private JeloCare workspace.",
+        "action": "Open My JeloCare",
+        "disclaimer": "Clear context, one step at a time.",
+        "embeddedUrl": null
+      },
+      "caption": "Shelf. Routine. Ask. Your private JeloCare workspace. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "11-my-jelocare-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "f2f8ce085ca26daa905560593fe34e4137672b5a18c08d7dabcee99c42112091",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    },
+    {
+      "id": "retailer-partnership",
+      "status": "draft",
+      "targetPath": "/retailers#list-your-store",
+      "targetUrl": "https://www.jelocare.com/retailers#list-your-store",
+      "copy": {
+        "eyebrow": "FOR STORES",
+        "headline": "Be easier to find.",
+        "body": "Physical or online. No website required.",
+        "action": "List your store",
+        "disclaimer": "Clear context, one step at a time.",
+        "embeddedUrl": null
+      },
+      "caption": "Be easier to find. Physical or online. No website required. Open through the JeloCare link.",
+      "creative": [
+        {
+          "mode": "dark",
+          "path": "12-retailer-partnership-story.png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "889f4ea6e3c8ce6597437cda28a003c0ed0115aa30cc3726ebbdeac272f42f6e",
+          "generationRoute": "built-in-imagegen-master-plus-deterministic-sharp-svg-composition"
+        }
+      ],
+      "publication": []
+    }
+  ],
+  "publication": []
+}

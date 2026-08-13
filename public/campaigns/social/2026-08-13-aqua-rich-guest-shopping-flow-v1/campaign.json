@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-13-aqua-rich-guest-shopping-flow-v1",
+  "status": "draft",
+  "createdAt": "2026-08-13T17:51:57.991Z",
+  "dataCheckedAt": "2026-08-13T17:39:11.035Z",
+  "objective": "Explain JeloCare's complete guest-first shopping request flow using the catalogue's strongest current recorded 30-day price-drop signal.",
+  "sourceTruth": {
+    "repositoryCommit": "30ea7e88d300d19967efeff06d384403574ab4a1",
+    "flowImplementationCommits": ["88352d2", "0e3251b"],
+    "simulatorEvidence": "Fresh disposable iPhone 17 Pro Max simulator; fixture-only identity and order; no real payment, message, or customer data.",
+    "currentOfferRecheck": "BuyBetter exact 500 ml listing reopened 2026-08-13 and observed out of stock; inaccessible retailers were not represented as freshly checked stock in visible copy."
+  },
+  "product": {
+    "slug": "aqua-rich-ceramide-body-lotion-500ml",
+    "brand": "Aqua Rich",
+    "name": "Hydrate + Protect Body Lotion",
+    "size": "500 ml",
+    "identifier": {
+      "kind": "gtin",
+      "value": "4897073187549"
+    }
+  },
+  "sourceAsset": {
+    "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/aqua-rich/aqua-rich-ceramide-body-lotion-500ml/packshot-v2-684207f5bc33db69.png",
+    "path": "source/approved-packshot.png",
+    "sha256": "684207f5bc33db699ee8fb3042d969cf2f88108d337449ece70a849683a6dd93"
+  },
+  "trendEvidence": {
+    "direction": "down",
+    "percent": -15.6,
+    "amountNaira": 2237,
+    "days": 30,
+    "comparableRetailerCount": 2,
+    "lowestObservedNaira": 9500,
+    "movementObservedAt": "2026-08-08T13:15:00.000Z",
+    "visibleCopy": "↓ 15.6% · 30d"
+  },
+  "careBoundary": "Product identity and shopping workflow only. No suitability, treatment, diagnosis, authenticity, sale, saving, or outcome claim.",
+  "copy": {
+    "headline": "A six-step guest shopping flow.",
+    "productLine": "Aqua Rich · Hydrate + Protect Body Lotion · 500 ml",
+    "action": "Try the guest flow",
+    "disclaimer": "Prices and availability change. A complete quote comes before approval or payment.",
+    "embeddedUrl": null
+  },
+  "background": {
+    "path": "source/immersive-master-field-imagegen.png",
+    "sha256": "4996271c8314d85775ea9c0cddd28d397a925ba6bf36d3427eae9f4dad5d0f26",
+    "generationRoute": "built-in-imagegen",
+    "promptBoundary": "Text-free near-black, wine, peach and porcelain campaign field; no product, phone, people, logo, UI or claims."
+  },
+  "simulatorSources": [
+    {
+      "path": "source/iphone-01-product.png",
+      "sha256": "58d88c8a8cc5f63c84b79032d3532b498ef866d5cb0ad2f7c471ee5974d45d04"
+    },
+    {
+      "path": "source/iphone-02-retailer-shopping.png",
+      "sha256": "318bb52b16c743e287bc7a56c189959190182d2d60e626687ff3a34cec5d6a3e"
+    },
+    {
+      "path": "source/iphone-03-retailer-products.png",
+      "sha256": "ccb6755f7624795421c1a68af465b7449f871a7ff76d85074f1a7d46fb8e015a"
+    },
+    {
+      "path": "source/iphone-04-basket.png",
+      "sha256": "cb54b0dbc2fd99410f73ce83c7238d29599891e7e07983224cffc55a6d0bdeca"
+    },
+    {
+      "path": "source/iphone-05-checkout.png",
+      "sha256": "5602c059f4d4f994eb238dde79dd31c54a3ea4a92f47a216c4dce2e437a654f9"
+    },
+    {
+      "path": "source/iphone-06-order-requested.png",
+      "sha256": "7f791ee57a138120b378946b7fadf84a204f15313ac3a4ef93c3d789487b898b"
+    }
+  ],
+  "creative": [
+    {
+      "mode": "dark",
+      "sequence": 1,
+      "path": "01-discover-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "35087c854d1497bd12d193b8c5d1cd7d210deb4d477f2a2fa91b38024119b7e2",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 2,
+      "path": "02-choose-store-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "40b3022acb61b7a13d6f8f59c852312b5eb519a0cc48c0579019d27319acca3a",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 3,
+      "path": "03-keep-shopping-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "a22f8bf99501d186b35e691fa509393eaf0dc09b6cc6541a69ec539271fa2d23",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 4,
+      "path": "04-review-basket-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "949b6cb5989855d50f91712a65158b6b970f0758e4435ac6179e04231ce1390a",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 5,
+      "path": "05-guest-checkout-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "39adc04eed3f85fa92bc4fb07ab4f231482776474c94be425913bcc0d6ae065b",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 6,
+      "path": "06-request-received-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "ce7528821ef8015eeba94cbf463607afd1bd27288ae9b8905efec82f6e116413",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    }
+  ],
+  "contactSheet": {
+    "path": "contact-sheet.png",
+    "sha256": "e9f00a653ea9a82f07f4ba93d38e3fcbc0f4932c7b02a547ac99b5a61489bef6"
+  },
+  "channels": ["whatsapp-status", "instagram-stories", "snapchat"],
+  "publication": []
+}

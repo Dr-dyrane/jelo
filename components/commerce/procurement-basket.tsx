@@ -8,6 +8,7 @@ import {
   Plus,
   ShieldCheck,
   Trash2,
+  MapPin,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -25,6 +26,11 @@ import {
   CHECKOUT_RETAILER_STORAGE_KEY,
 } from "@/lib/commerce/basket";
 import styles from "./procurement.module.css";
+import { SmartLocationFields } from "@/components/location/smart-location-fields";
+import type {
+  SavedCustomerLocation,
+  SmartLocationValue,
+} from "@/lib/location/model";
 
 export type ProcurementProduct = Pick<
   Product,
@@ -231,8 +237,10 @@ const checkoutFlow: CheckoutStep[] = ["contact", "delivery", "review"];
 
 export function CheckoutExperience({
   products,
+  savedLocations = [],
 }: {
   products: ProcurementProduct[];
+  savedLocations?: readonly SavedCustomerLocation[];
 }) {
   const basket = useBasket();
   const router = useRouter();
@@ -393,6 +401,23 @@ export function CheckoutExperience({
   const updateField = (name: string, value: string) =>
     setFields((prev) => ({ ...prev, [name]: value }));
 
+  const deliveryLocation: SmartLocationValue = {
+    address: fields.deliveryAddress ?? "",
+    city: fields.deliveryCity ?? "",
+    state: fields.deliveryState ?? "",
+    postalCode: fields.deliveryPostalCode ?? "",
+  };
+
+  function updateDeliveryLocation(location: SmartLocationValue) {
+    setFields((previous) => ({
+      ...previous,
+      deliveryAddress: location.address,
+      deliveryCity: location.city,
+      deliveryState: location.state,
+      deliveryPostalCode: location.postalCode,
+    }));
+  }
+
   return (
     <div className={styles.checkoutLayout}>
       <form className={styles.checkoutForm} onSubmit={submit}>
@@ -465,44 +490,40 @@ export function CheckoutExperience({
             <div className={styles.stepPanel}>
               <p className="eyebrow">Step 2 of 3</p>
               <h1>Where should we quote delivery?</h1>
+              {savedLocations.length ? (
+                <fieldset className={styles.savedLocations}>
+                  <legend>Use a saved location</legend>
+                  {savedLocations.map((location) => (
+                    <button
+                      key={location.id}
+                      type="button"
+                      data-selected={
+                        deliveryLocation.address === location.address &&
+                        deliveryLocation.city === location.city
+                          ? "true"
+                          : "false"
+                      }
+                      onClick={() => updateDeliveryLocation(location)}
+                    >
+                      <MapPin size={17} aria-hidden="true" />
+                      <span>
+                        <strong>{location.label}</strong>
+                        <small>
+                          {location.city}, {location.state}
+                          {location.isDefault ? " · Default" : ""}
+                        </small>
+                      </span>
+                    </button>
+                  ))}
+                </fieldset>
+              ) : null}
+              <SmartLocationFields
+                idPrefix="checkout-delivery"
+                value={deliveryLocation}
+                onChange={updateDeliveryLocation}
+                disabled={submitting}
+              />
               <div className={styles.fieldGrid}>
-                <label className={styles.fullField}>
-                  <span>Delivery address</span>
-                  <textarea
-                    name="deliveryAddress"
-                    autoComplete="street-address"
-                    required
-                    minLength={5}
-                    value={fields.deliveryAddress ?? ""}
-                    onChange={(e) =>
-                      updateField("deliveryAddress", e.target.value)
-                    }
-                  />
-                </label>
-                <label>
-                  <span>City</span>
-                  <input
-                    name="deliveryCity"
-                    autoComplete="address-level2"
-                    required
-                    value={fields.deliveryCity ?? ""}
-                    onChange={(e) =>
-                      updateField("deliveryCity", e.target.value)
-                    }
-                  />
-                </label>
-                <label>
-                  <span>State</span>
-                  <input
-                    name="deliveryState"
-                    autoComplete="address-level1"
-                    required
-                    value={fields.deliveryState ?? ""}
-                    onChange={(e) =>
-                      updateField("deliveryState", e.target.value)
-                    }
-                  />
-                </label>
                 <label className={styles.fullField}>
                   <span>
                     Delivery notes <small>optional</small>
@@ -517,6 +538,11 @@ export function CheckoutExperience({
                   />
                 </label>
               </div>
+              {savedLocations.length ? (
+                <Link className={styles.manageLocations} href="/me/locations">
+                  Manage saved locations
+                </Link>
+              ) : null}
               <label className={styles.checkField}>
                 <input
                   type="checkbox"

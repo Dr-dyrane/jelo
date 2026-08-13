@@ -225,6 +225,13 @@ retailer-purchase, WhatsApp, or fulfilment action.
 
 ## Preserved boundaries
 
+Checkout's delivery step uses the optional, server-proxied Nigeria location
+helper documented in [Smart delivery and saved locations](SMART_LOCATIONS.md).
+Manual entry remains complete and account-free. Signed-in customers may copy
+one owner-isolated saved delivery location into the order; the order stores the
+same bounded address fields as before and never stores a private-location ID,
+provider response, coordinates, or billing location.
+
 - Never silently split a basket, substitute a SKU, scrape around a retailer
   control, or treat an unknown fee as zero.
 - WhatsApp is optional manual transport under recorded consent; chat is never

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ClockPlus,
   Compass,
@@ -10,28 +10,35 @@ import {
   Search,
   ShelvingUnit,
   ShoppingBag,
-} from 'lucide-react';
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type FocusEvent } from 'react';
+} from "lucide-react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type FocusEvent,
+} from "react";
 import {
   PrivateProductRequestShelf,
   ProductRequestAddPage,
   ProductRequestDetailPage,
-} from '@/components/me/product-requests/product-request-experience';
+} from "@/components/me/product-requests/product-request-experience";
 import {
   useMeShelfState,
   type ShelfActionHandler,
-} from '@/components/me/shelf/me-shelf-state';
-import { useMeConcernState } from '@/components/me/consult/me-concern-state';
-import { ProductCard } from '@/components/products/product-card';
-import { ProductQuickPanelSheet } from '@/components/products/product-quick-panel';
+} from "@/components/me/shelf/me-shelf-state";
+import { useMeConcernState } from "@/components/me/consult/me-concern-state";
+import { ProductCard } from "@/components/products/product-card";
+import { ProductQuickPanelSheet } from "@/components/products/product-quick-panel";
 import {
   WorkspaceDockProvider,
   useAdaptiveWorkspaceDockController,
   useWorkspaceDockFabRegistration,
-} from '@/components/workspace-shell';
-import { MeAccountSheet } from '@/components/me/shell/me-account-sheet';
-import { createMeContextSheetModel } from '@/components/me/shell/me-context-model';
-import { MeContextSheet } from '@/components/me/shell/me-context-sheet';
+} from "@/components/workspace-shell";
+import { MeAccountSheet } from "@/components/me/shell/me-account-sheet";
+import { createMeContextSheetModel } from "@/components/me/shell/me-context-model";
+import { MeContextSheet } from "@/components/me/shell/me-context-sheet";
 import {
   createMeStackBack,
   createMeDockContext,
@@ -41,59 +48,72 @@ import {
   resolveMeHeaderHidden,
   type MePortalRoute,
   type MeWorkspacePage,
-} from '@/components/me/shell/me-shell-model';
-import { MeAccountAvatarIcon, MeWorkspaceDock } from '@/components/me/shell/me-workspace-dock';
-import { ConsultView } from '@/components/me/consult/consult-view';
-import { MemberProductView } from '@/components/me/product/member-product-view';
-import { MemberNotFoundView } from '@/components/me/product/member-not-found-view';
-import { HomeView } from '@/components/me/home/home-view';
-import { ExploreView } from '@/components/me/explore/explore-view';
-import { useMeExploreState } from '@/components/me/explore/me-explore-state';
-import { RoutineView } from '@/components/me/routine/routine-view';
-import { OPEN_ROUTINE_BUILDER_EVENT } from '@/components/me/routine/routine-sheet';
+} from "@/components/me/shell/me-shell-model";
+import {
+  MeAccountAvatarIcon,
+  MeWorkspaceDock,
+} from "@/components/me/shell/me-workspace-dock";
+import { ConsultView } from "@/components/me/consult/consult-view";
+import { MemberProductView } from "@/components/me/product/member-product-view";
+import { MemberNotFoundView } from "@/components/me/product/member-not-found-view";
+import { HomeView } from "@/components/me/home/home-view";
+import { ExploreView } from "@/components/me/explore/explore-view";
+import { useMeExploreState } from "@/components/me/explore/me-explore-state";
+import { RoutineView } from "@/components/me/routine/routine-view";
+import { OPEN_ROUTINE_BUILDER_EVENT } from "@/components/me/routine/routine-sheet";
 import {
   memberProductHref,
   UnavailableShelfCard,
-} from '@/components/me/home/shared-views';
+} from "@/components/me/home/shared-views";
 import type {
   CustomerPortalProduct,
   CustomerPortalViewModel,
-} from '@/lib/customer/portal-model';
+} from "@/lib/customer/portal-model";
 import type {
   CustomerConsultReadModel,
   CustomerExploreReadModel,
   CustomerHomeReadModel,
   CustomerProductReadModel,
   CustomerRoutineReadModel,
-} from '@/lib/customer/route-read-models';
+} from "@/lib/customer/route-read-models";
 import {
   createCustomerExploreFilterOptions,
   createCustomerExploreProjection,
   filterCustomerExplore,
   flattenCustomerExplore,
-} from '@/lib/customer/explore-model';
-import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
-import type { CustomerProductRequestPresentationViewModel } from '@/lib/customer/product-request-model';
-import type { ProductPanelData, ProductPanelTab } from '@/lib/catalogue/product-panel-model';
-import type { AssistedOrderCustomerView } from '@/lib/commerce/assisted-procurement-model';
-import { MemberOrdersView } from '@/components/me/orders/member-orders-view';
-import { MeNotificationBell } from '@/components/me/notifications/me-notification-bell';
-import { MemberNotificationsView } from '@/components/me/notifications/member-notifications-view';
-import type { AssistedOrderNotificationCenter } from '@/lib/commerce/order-notification-model';
-import styles from './me-home.module.css';
+} from "@/lib/customer/explore-model";
+import type { CustomerShelfActionResult } from "@/lib/customer/shelf-service";
+import type { CustomerProductRequestPresentationViewModel } from "@/lib/customer/product-request-model";
+import type {
+  ProductPanelData,
+  ProductPanelTab,
+} from "@/lib/catalogue/product-panel-model";
+import type { AssistedOrderCustomerView } from "@/lib/commerce/assisted-procurement-model";
+import { MemberOrdersView } from "@/components/me/orders/member-orders-view";
+import { MeNotificationBell } from "@/components/me/notifications/me-notification-bell";
+import { MemberNotificationsView } from "@/components/me/notifications/member-notifications-view";
+import type { AssistedOrderNotificationCenter } from "@/lib/commerce/order-notification-model";
+import type { CustomerLocationReadResult } from "@/lib/customer/location-service";
+import { MemberLocationsView } from "@/components/me/locations/member-locations-view";
+import styles from "./me-home.module.css";
 
 const EMPTY_PRODUCTS: readonly CustomerPortalProduct[] = [];
 
 const EMPTY_PORTAL_VIEW: CustomerPortalViewModel = {
-  account: { displayName: null, preferredFirstName: null, email: null, synthetic: false },
+  account: {
+    displayName: null,
+    preferredFirstName: null,
+    email: null,
+    synthetic: false,
+  },
   featuredProduct: null,
   concerns: [],
   selectedRetailers: [],
-  shelfState: { status: 'ready', message: null },
+  shelfState: { status: "ready", message: null },
   shelf: [],
   routineProvenance: null,
   routine: [],
-  routineState: { status: 'ready', message: null },
+  routineState: { status: "ready", message: null },
 };
 
 // Transitional debt: shellViewModelFromHome bridges the governed Home read
@@ -102,7 +122,9 @@ const EMPTY_PORTAL_VIEW: CustomerPortalViewModel = {
 // remaining Me routes migrate to route-scoped readers and the shell chrome
 // is refactored to consume route-scoped types directly, this adapter should
 // be removed. Do not add more dependencies on it.
-function shellViewModelFromHome(homeModel: CustomerHomeReadModel): CustomerPortalViewModel {
+function shellViewModelFromHome(
+  homeModel: CustomerHomeReadModel,
+): CustomerPortalViewModel {
   return {
     account: homeModel.account,
     featuredProduct: null,
@@ -122,7 +144,9 @@ function shellViewModelFromHome(homeModel: CustomerHomeReadModel): CustomerPorta
 // Uses the real shell summary from the read model — not a fake adapter.
 // For synthetic customers, passes the complete preview shelf and catalogue
 // so Add to Shelf, Export Shelf, and Clear Shelf work correctly.
-function shellViewModelFromProduct(readModel: CustomerProductReadModel): CustomerPortalViewModel {
+function shellViewModelFromProduct(
+  readModel: CustomerProductReadModel,
+): CustomerPortalViewModel {
   const { shell, shelfContext, previewShelf } = readModel;
   return {
     account: shell.account,
@@ -132,19 +156,26 @@ function shellViewModelFromProduct(readModel: CustomerProductReadModel): Custome
     concerns: shell.concerns,
     selectedRetailers: [],
     shelfState: shell.shelfAvailable
-      ? { status: 'ready' as const, message: null }
-      : { status: 'unavailable' as const, message: shell.shelfUnavailableMessage },
+      ? { status: "ready" as const, message: null }
+      : {
+          status: "unavailable" as const,
+          message: shell.shelfUnavailableMessage,
+        },
     // Synthetic customers need the full shelf for export and clear.
     shelf: previewShelf
       ? previewShelf.shelf
-      : shelfContext.state === 'saved-current' || shelfContext.state === 'saved-changed'
+      : shelfContext.state === "saved-current" ||
+          shelfContext.state === "saved-changed"
         ? [shelfContext.shelfItem]
         : [],
     routineProvenance: null,
     routine: [],
     routineState: shell.routineAvailable
-      ? { status: 'ready' as const, message: null }
-      : { status: 'unavailable' as const, message: shell.routineUnavailableMessage },
+      ? { status: "ready" as const, message: null }
+      : {
+          status: "unavailable" as const,
+          message: shell.routineUnavailableMessage,
+        },
     routines: undefined,
   };
 }
@@ -152,7 +183,9 @@ function shellViewModelFromProduct(readModel: CustomerProductReadModel): Custome
 // Transitional bridge for the route-scoped Explore reader. Unlike the legacy
 // portal loader, this carries only the account and collections Explore and the
 // shared shell actually consume.
-function shellViewModelFromExplore(readModel: CustomerExploreReadModel): CustomerPortalViewModel {
+function shellViewModelFromExplore(
+  readModel: CustomerExploreReadModel,
+): CustomerPortalViewModel {
   return {
     account: readModel.account,
     featuredProduct: null,
@@ -170,7 +203,9 @@ function shellViewModelFromExplore(readModel: CustomerExploreReadModel): Custome
 
 // Route-scoped Routine bridge. It carries Routine plus only the shared account
 // sheet context required by the shell; it never loads the full portal catalogue.
-function shellViewModelFromRoutine(readModel: CustomerRoutineReadModel): CustomerPortalViewModel {
+function shellViewModelFromRoutine(
+  readModel: CustomerRoutineReadModel,
+): CustomerPortalViewModel {
   return {
     account: readModel.account,
     featuredProduct: null,
@@ -189,7 +224,9 @@ function shellViewModelFromRoutine(readModel: CustomerRoutineReadModel): Custome
 // Route-scoped Ask Me bridge. The catalogue remains available only to the
 // reviewed consult engine; the shell receives the explicit member context
 // needed for the opt-in preview and account summary.
-function shellViewModelFromConsult(readModel: CustomerConsultReadModel): CustomerPortalViewModel {
+function shellViewModelFromConsult(
+  readModel: CustomerConsultReadModel,
+): CustomerPortalViewModel {
   return {
     account: readModel.account,
     featuredProduct: null,
@@ -205,70 +242,127 @@ function shellViewModelFromConsult(readModel: CustomerConsultReadModel): Custome
   };
 }
 
-function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel, homeModel?: CustomerHomeReadModel) {
-  const count = (value: number, noun: string) => `${value} ${noun}${value === 1 ? '' : 's'}`;
-  if (route.kind === 'home') {
+function routeState(
+  route: MePortalRoute,
+  viewModel: CustomerPortalViewModel,
+  homeModel?: CustomerHomeReadModel,
+) {
+  const count = (value: number, noun: string) =>
+    `${value} ${noun}${value === 1 ? "" : "s"}`;
+  if (route.kind === "home") {
     const shelfCount = homeModel
-      ? homeModel.shelfSection.state.status === 'ready'
+      ? homeModel.shelfSection.state.status === "ready"
         ? homeModel.shelfSection.items.length
         : 0
-      : viewModel.shelfState.status === 'ready'
+      : viewModel.shelfState.status === "ready"
         ? viewModel.shelf.length
         : 0;
     const routineCount = homeModel
-      ? homeModel.routineSection.state.status === 'ready'
+      ? homeModel.routineSection.state.status === "ready"
         ? homeModel.routineSection.steps.length
         : 0
       : viewModel.routine.length;
-    const detail = `${shelfCount} saved · ${count(routineCount, 'routine step')}`;
-    return { routeKey: '/me', currentHref: resolveMeActiveParentHref(route), page: 'home' as MeWorkspacePage, detail };
-  }
-  if (route.kind === 'explore') {
-    return { routeKey: '/me/explore', currentHref: resolveMeActiveParentHref(route), page: 'explore' as MeWorkspacePage, detail: 'Exact catalogue' };
-  }
-  if (route.kind === 'shelf') {
+    const detail = `${shelfCount} saved · ${count(routineCount, "routine step")}`;
     return {
-      routeKey: '/me/shelf',
+      routeKey: "/me",
       currentHref: resolveMeActiveParentHref(route),
-      page: 'shelf' as MeWorkspacePage,
-      detail: viewModel.shelfState.status === 'ready'
-        ? count(viewModel.shelf.length, 'saved product')
-        : 'Shelf unavailable',
+      page: "home" as MeWorkspacePage,
+      detail,
     };
   }
-  if (route.kind === 'routine') {
-    const stepCount = viewModel.routines?.reduce((total, routine) => total + routine.steps.length, 0)
-      ?? viewModel.routine.length;
-    return { routeKey: '/me/routine', currentHref: resolveMeActiveParentHref(route), page: 'routine' as MeWorkspacePage, detail: count(stepCount, 'saved step') };
+  if (route.kind === "explore") {
+    return {
+      routeKey: "/me/explore",
+      currentHref: resolveMeActiveParentHref(route),
+      page: "explore" as MeWorkspacePage,
+      detail: "Exact catalogue",
+    };
   }
-  if (route.kind === 'orders') {
-    return { routeKey: '/me/orders', currentHref: resolveMeActiveParentHref(route), page: 'orders' as MeWorkspacePage, detail: 'Private orders' };
+  if (route.kind === "shelf") {
+    return {
+      routeKey: "/me/shelf",
+      currentHref: resolveMeActiveParentHref(route),
+      page: "shelf" as MeWorkspacePage,
+      detail:
+        viewModel.shelfState.status === "ready"
+          ? count(viewModel.shelf.length, "saved product")
+          : "Shelf unavailable",
+    };
   }
-  if (route.kind === 'notifications') {
-    return { routeKey: '/me/notifications', currentHref: resolveMeActiveParentHref(route), page: 'notifications' as MeWorkspacePage, detail: 'Order updates' };
+  if (route.kind === "routine") {
+    const stepCount =
+      viewModel.routines?.reduce(
+        (total, routine) => total + routine.steps.length,
+        0,
+      ) ?? viewModel.routine.length;
+    return {
+      routeKey: "/me/routine",
+      currentHref: resolveMeActiveParentHref(route),
+      page: "routine" as MeWorkspacePage,
+      detail: count(stepCount, "saved step"),
+    };
   }
-  if (route.kind === 'consult') {
-    return { routeKey: '/me/consult', currentHref: resolveMeActiveParentHref(route), page: 'consult' as MeWorkspacePage, detail: 'My care' };
+  if (route.kind === "orders") {
+    return {
+      routeKey: "/me/orders",
+      currentHref: resolveMeActiveParentHref(route),
+      page: "orders" as MeWorkspacePage,
+      detail: "Private orders",
+    };
   }
-  if (route.kind === 'shelf-add') {
-    return { routeKey: '/me/shelf/add', currentHref: resolveMeActiveParentHref(route), page: 'shelf-add' as MeWorkspacePage, detail: 'Exact catalogue first' };
+  if (route.kind === "notifications") {
+    return {
+      routeKey: "/me/notifications",
+      currentHref: resolveMeActiveParentHref(route),
+      page: "notifications" as MeWorkspacePage,
+      detail: "Order updates",
+    };
   }
-  if (route.kind === 'shelf-request') {
+  if (route.kind === "locations") {
+    return {
+      routeKey: "/me/locations",
+      currentHref: resolveMeActiveParentHref(route),
+      page: "locations" as MeWorkspacePage,
+      detail: "Private saved locations",
+    };
+  }
+  if (route.kind === "consult") {
+    return {
+      routeKey: "/me/consult",
+      currentHref: resolveMeActiveParentHref(route),
+      page: "consult" as MeWorkspacePage,
+      detail: "My care",
+    };
+  }
+  if (route.kind === "shelf-add") {
+    return {
+      routeKey: "/me/shelf/add",
+      currentHref: resolveMeActiveParentHref(route),
+      page: "shelf-add" as MeWorkspacePage,
+      detail: "Exact catalogue first",
+    };
+  }
+  if (route.kind === "shelf-request") {
     return {
       routeKey: `/me/shelf/request/${route.id}`,
       currentHref: resolveMeActiveParentHref(route),
-      page: 'shelf-request' as MeWorkspacePage,
-      detail: 'Private product request',
+      page: "shelf-request" as MeWorkspacePage,
+      detail: "Private product request",
     };
   }
-  if (route.kind === 'not-found') {
-    return { routeKey: '/me/product/not-found', currentHref: resolveMeActiveParentHref(route), page: 'not-found' as MeWorkspacePage, detail: 'Product not found' };
+  if (route.kind === "not-found") {
+    return {
+      routeKey: "/me/product/not-found",
+      currentHref: resolveMeActiveParentHref(route),
+      page: "not-found" as MeWorkspacePage,
+      detail: "Product not found",
+    };
   }
   return {
     routeKey: `/me/product/${route.slug}`,
     currentHref: resolveMeActiveParentHref(route),
-    page: 'product' as MeWorkspacePage,
-    detail: 'Details',
+    page: "product" as MeWorkspacePage,
+    detail: "Details",
   };
 }
 
@@ -292,7 +386,7 @@ function ShelfPage({
         <p className={styles.eyebrow}>{surface.eyebrow}</p>
         <h1 id="me-shelf-title">{surface.title}</h1>
       </div>
-      {viewModel.shelfState.status === 'unavailable' ? (
+      {viewModel.shelfState.status === "unavailable" ? (
         <div className={styles.emptyAction} role="status">
           <ShelvingUnit size={24} strokeWidth={1.5} aria-hidden="true" />
           <p>{viewModel.shelfState.message}</p>
@@ -300,20 +394,22 @@ function ShelfPage({
         </div>
       ) : viewModel.shelf.length ? (
         <div className="product-grid">
-          {viewModel.shelf.map((item) => item.product ? (
-            <ProductCard
-              key={item.identityVersionId}
-              product={item.product}
-              href={memberProductHref(item.product, 'shelf')}
-            />
-          ) : (
-            <UnavailableShelfCard
-              key={item.identityVersionId}
-              item={item}
-              shelfAction={shelfAction}
-              onSettled={onShelfMutation}
-            />
-          ))}
+          {viewModel.shelf.map((item) =>
+            item.product ? (
+              <ProductCard
+                key={item.identityVersionId}
+                product={item.product}
+                href={memberProductHref(item.product, "shelf")}
+              />
+            ) : (
+              <UnavailableShelfCard
+                key={item.identityVersionId}
+                item={item}
+                shelfAction={shelfAction}
+                onSettled={onShelfMutation}
+              />
+            ),
+          )}
         </div>
       ) : (
         <div className={styles.emptyAction}>
@@ -322,7 +418,7 @@ function ShelfPage({
           <Link href="/me/explore">Explore products</Link>
         </div>
       )}
-      {viewModel.shelfState.status === 'ready' ? (
+      {viewModel.shelfState.status === "ready" ? (
         <PrivateProductRequestShelf
           synthetic={viewModel.account.synthetic}
           initialRequests={productRequestPresentation?.requests}
@@ -346,6 +442,7 @@ function MePortalView({
   productRequestPresentation,
   orders,
   notificationCenter,
+  locations,
 }: {
   viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
@@ -359,14 +456,18 @@ function MePortalView({
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
   orders?: AssistedOrderCustomerView[];
   notificationCenter?: AssistedOrderNotificationCenter;
+  locations?: CustomerLocationReadResult;
 }) {
   const router = useRouter();
-  const resolvedViewModel = viewModel
-    ?? (productReadModel ? shellViewModelFromProduct(productReadModel) : undefined)
-    ?? (exploreModel ? shellViewModelFromExplore(exploreModel) : undefined)
-    ?? (routineModel ? shellViewModelFromRoutine(routineModel) : undefined)
-    ?? (consultModel ? shellViewModelFromConsult(consultModel) : undefined)
-    ?? (homeModel ? shellViewModelFromHome(homeModel) : EMPTY_PORTAL_VIEW);
+  const resolvedViewModel =
+    viewModel ??
+    (productReadModel
+      ? shellViewModelFromProduct(productReadModel)
+      : undefined) ??
+    (exploreModel ? shellViewModelFromExplore(exploreModel) : undefined) ??
+    (routineModel ? shellViewModelFromRoutine(routineModel) : undefined) ??
+    (consultModel ? shellViewModelFromConsult(consultModel) : undefined) ??
+    (homeModel ? shellViewModelFromHome(homeModel) : EMPTY_PORTAL_VIEW);
   const shelfState = useMeShelfState(resolvedViewModel);
   const concernState = useMeConcernState(shelfState.viewModel);
   const portalViewModel = concernState.viewModel;
@@ -376,7 +477,10 @@ function MePortalView({
     getScrollPosition: getExploreScrollPosition,
     setScrollPosition: setExploreScrollPosition,
   } = useMeExploreState();
-  const [shelfMutationFeedback, setShelfMutationFeedback] = useState({ message: '', sequence: 0 });
+  const [shelfMutationFeedback, setShelfMutationFeedback] = useState({
+    message: "",
+    sequence: 0,
+  });
   const searchRef = useRef<HTMLInputElement>(null);
   const consultComposerRef = useRef<HTMLTextAreaElement>(null);
   const scrollRef = useRef<HTMLElement>(null);
@@ -388,36 +492,55 @@ function MePortalView({
     hasContext: true,
   });
   const catalogue = portalViewModel.catalogue ?? EMPTY_PRODUCTS;
-  const exploreProjection = useMemo(() => createCustomerExploreProjection({
-    catalogue,
-    shelf: portalViewModel.shelf,
-    routine: portalViewModel.routine,
-    concerns: portalViewModel.concerns,
-    selectedRetailers: portalViewModel.selectedRetailers,
-  }), [
-    catalogue,
-    portalViewModel.concerns,
-    portalViewModel.routine,
-    portalViewModel.selectedRetailers,
-    portalViewModel.shelf,
-  ]);
-  const filteredExploreProjection = useMemo(() => (
-    filterCustomerExplore(exploreProjection, exploreFilters)
-  ), [exploreFilters, exploreProjection]);
-  const exploreFilterOptions = useMemo(() => createCustomerExploreFilterOptions(
-    exploreProjection,
-    portalViewModel.concerns,
-  ), [exploreProjection, portalViewModel.concerns]);
-  const visibleProductCount = route.kind === 'explore'
-    ? flattenCustomerExplore(filteredExploreProjection).length
-    : catalogue.length;
-  const product = route.kind === 'product'
-    ? (productReadModel?.product ?? catalogue.find((candidate) => candidate.slug === route.slug))
-    : undefined;
-  const context = createMeDockContext({ page: state.page, detail: state.detail });
+  const exploreProjection = useMemo(
+    () =>
+      createCustomerExploreProjection({
+        catalogue,
+        shelf: portalViewModel.shelf,
+        routine: portalViewModel.routine,
+        concerns: portalViewModel.concerns,
+        selectedRetailers: portalViewModel.selectedRetailers,
+      }),
+    [
+      catalogue,
+      portalViewModel.concerns,
+      portalViewModel.routine,
+      portalViewModel.selectedRetailers,
+      portalViewModel.shelf,
+    ],
+  );
+  const filteredExploreProjection = useMemo(
+    () => filterCustomerExplore(exploreProjection, exploreFilters),
+    [exploreFilters, exploreProjection],
+  );
+  const exploreFilterOptions = useMemo(
+    () =>
+      createCustomerExploreFilterOptions(
+        exploreProjection,
+        portalViewModel.concerns,
+      ),
+    [exploreProjection, portalViewModel.concerns],
+  );
+  const visibleProductCount =
+    route.kind === "explore"
+      ? flattenCustomerExplore(filteredExploreProjection).length
+      : catalogue.length;
+  const product =
+    route.kind === "product"
+      ? (productReadModel?.product ??
+        catalogue.find((candidate) => candidate.slug === route.slug))
+      : undefined;
+  const context = createMeDockContext({
+    page: state.page,
+    detail: state.detail,
+  });
   const shelfCount = homeModel
-    ? homeModel.shelfSection.state.status === 'ready' ? homeModel.shelfSection.items.length : 0
-    : portalViewModel.shelfState.status === 'ready' ? portalViewModel.shelf.length : 0;
+    ? homeModel.shelfSection.state.status === "ready"
+      ? homeModel.shelfSection.items.length
+      : 0
+    : portalViewModel.shelfState.status === "ready"
+      ? portalViewModel.shelf.length
+      : 0;
   const routineStepCount = homeModel
     ? homeModel.routineSection.steps.length
     : portalViewModel.routine.length;
@@ -431,7 +554,7 @@ function MePortalView({
   const [productPanelState, setProductPanelState] = useState(() => ({
     routeKey: state.routeKey,
     open: false,
-    tab: 'buy' as ProductPanelTab,
+    tab: "buy" as ProductPanelTab,
   }));
   const accountTriggerRef = useRef<HTMLButtonElement>(null);
   const [accountSheetState, setAccountSheetState] = useState(() => ({
@@ -439,23 +562,31 @@ function MePortalView({
     open: false,
   }));
   const [headerOwnsFocus, setHeaderOwnsFocus] = useState(false);
-  const contextSheetOpen = contextSheetState.routeKey === state.routeKey && contextSheetState.open;
-  const productPanelOpen = route.kind === 'product'
-    && Boolean(productPanelData)
-    && productPanelState.routeKey === state.routeKey
-    && productPanelState.open;
-  const accountSheetOpen = accountSheetState.routeKey === state.routeKey && accountSheetState.open;
-  const openProductPanel = (tab: ProductPanelTab, opener?: HTMLElement | null) => {
-    if (route.kind !== 'product' || !productPanelData) return;
+  const contextSheetOpen =
+    contextSheetState.routeKey === state.routeKey && contextSheetState.open;
+  const productPanelOpen =
+    route.kind === "product" &&
+    Boolean(productPanelData) &&
+    productPanelState.routeKey === state.routeKey &&
+    productPanelState.open;
+  const accountSheetOpen =
+    accountSheetState.routeKey === state.routeKey && accountSheetState.open;
+  const openProductPanel = (
+    tab: ProductPanelTab,
+    opener?: HTMLElement | null,
+  ) => {
+    if (route.kind !== "product" || !productPanelData) return;
     const activeElement = document.activeElement;
-    productPanelRestoreFocusRef.current = opener
-      ?? (activeElement instanceof HTMLElement ? activeElement : null);
+    productPanelRestoreFocusRef.current =
+      opener ?? (activeElement instanceof HTMLElement ? activeElement : null);
     setProductPanelState({ routeKey: state.routeKey, open: true, tab });
   };
   const closeProductPanel = () => {
-    setProductPanelState((current) => current.routeKey === state.routeKey
-      ? { ...current, open: false }
-      : current);
+    setProductPanelState((current) =>
+      current.routeKey === state.routeKey
+        ? { ...current, open: false }
+        : current,
+    );
   };
   const contextSheetModel = createMeContextSheetModel({
     route,
@@ -463,30 +594,36 @@ function MePortalView({
     visibleProductCount,
     product,
   });
-  const dockContext = route.kind === 'product' ? {
-    ...context,
-    accessibleLabel: `Open details for ${product?.name ?? 'this product'}`,
-    controls: 'me-product-evidence-sheet',
-    expanded: productPanelOpen,
-    onInvoke: () => openProductPanel('details'),
-  } : {
-    ...context,
-    label: route.kind === 'home' ? '' : context.label,
-    compactDetail: route.kind === 'home' ? `${shelfCount} saved` : undefined,
-    accessibleLabel: route.kind === 'home'
-      ? `Home summary. ${shelfCount} saved products and ${routineStepCount} routine steps`
-      : `Open ${context.label} summary. ${context.detail}`,
-    controls: 'me-context-sheet',
-    expanded: contextSheetOpen,
-    onInvoke: () => setContextSheetState({ routeKey: state.routeKey, open: true }),
-  };
+  const dockContext =
+    route.kind === "product"
+      ? {
+          ...context,
+          accessibleLabel: `Open details for ${product?.name ?? "this product"}`,
+          controls: "me-product-evidence-sheet",
+          expanded: productPanelOpen,
+          onInvoke: () => openProductPanel("details"),
+        }
+      : {
+          ...context,
+          label: route.kind === "home" ? "" : context.label,
+          compactDetail:
+            route.kind === "home" ? `${shelfCount} saved` : undefined,
+          accessibleLabel:
+            route.kind === "home"
+              ? `Home summary. ${shelfCount} saved products and ${routineStepCount} routine steps`
+              : `Open ${context.label} summary. ${context.detail}`,
+          controls: "me-context-sheet",
+          expanded: contextSheetOpen,
+          onInvoke: () =>
+            setContextSheetState({ routeKey: state.routeKey, open: true }),
+        };
   const headerHidden = resolveMeHeaderHidden({
     chromeHidden: controller.scroll.chromeHidden,
     accountSheetOpen: accountSheetOpen || contextSheetOpen || productPanelOpen,
     headerOwnsFocus,
   });
   useLayoutEffect(() => {
-    if (route.kind !== 'explore') return;
+    if (route.kind !== "explore") return;
     const frame = window.requestAnimationFrame(() => {
       scrollRef.current?.scrollTo({ top: getExploreScrollPosition() });
     });
@@ -501,41 +638,45 @@ function MePortalView({
   }, [route, shelfMutationFeedback.message, shelfMutationFeedback.sequence]);
 
   const announceShelfMutation = (result: CustomerShelfActionResult) => {
-    if (result.status === 'removed' || result.status === 'already_removed') {
-      setShelfMutationFeedback(current => ({
+    if (result.status === "removed" || result.status === "already_removed") {
+      setShelfMutationFeedback((current) => ({
         message: result.message,
         sequence: current.sequence + 1,
       }));
     }
   };
   const focusSearch = () => {
-    const target = route.kind === 'consult' ? consultComposerRef.current : searchRef.current;
-    target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const target =
+      route.kind === "consult" ? consultComposerRef.current : searchRef.current;
+    target?.scrollIntoView({ behavior: "smooth", block: "center" });
     target?.focus({ preventScroll: true });
   };
   const fabContract = ME_WORKSPACE_FABS[state.page];
-  const fabIcon = state.page === 'home'
+  const fabIcon =
+    state.page === "home"
       ? MessageCircleQuestion
-    : state.page === 'explore' || state.page === 'consult' || state.page === 'shelf-add'
-      ? Search
-      : state.page === 'routine'
-        ? ClockPlus
-        : state.page === 'shelf-request'
-          ? PackagePlus
-        : state.page === 'product'
-          ? ShoppingBag
-          : Compass;
+      : state.page === "explore" ||
+          state.page === "consult" ||
+          state.page === "shelf-add"
+        ? Search
+        : state.page === "routine"
+          ? ClockPlus
+          : state.page === "shelf-request"
+            ? PackagePlus
+            : state.page === "product"
+              ? ShoppingBag
+              : Compass;
 
   const invokeFab = () => {
-    if (fabContract.action === 'focus-search') {
+    if (fabContract.action === "focus-search") {
       focusSearch();
       return;
     }
-    if (fabContract.action === 'open-product-prices') {
-      openProductPanel('buy');
+    if (fabContract.action === "open-product-prices") {
+      openProductPanel("buy");
       return;
     }
-    if (fabContract.action === 'open-routine-builder') {
+    if (fabContract.action === "open-routine-builder") {
       window.dispatchEvent(new Event(OPEN_ROUTINE_BUILDER_EVENT));
       return;
     }
@@ -551,31 +692,38 @@ function MePortalView({
   });
 
   function closeAccountSheet() {
-    setAccountSheetState((current) => current.routeKey === state.routeKey
-      ? { ...current, open: false }
-      : current);
+    setAccountSheetState((current) =>
+      current.routeKey === state.routeKey
+        ? { ...current, open: false }
+        : current,
+    );
   }
 
   function closeContextSheet() {
-    setContextSheetState((current) => current.routeKey === state.routeKey
-      ? { ...current, open: false }
-      : current);
+    setContextSheetState((current) =>
+      current.routeKey === state.routeKey
+        ? { ...current, open: false }
+        : current,
+    );
   }
 
   function handleHeaderBlur(event: FocusEvent<HTMLElement>) {
-    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHeaderOwnsFocus(false);
+    if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+      setHeaderOwnsFocus(false);
   }
 
   return (
     <div className={styles.shell}>
       <div className={styles.safeAreaTop} aria-hidden="true" />
       <header
-        className={`${styles.topbar} ${headerHidden ? styles.topbarHidden : ''}`}
-        data-me-header-hidden={headerHidden ? 'true' : 'false'}
+        className={`${styles.topbar} ${headerHidden ? styles.topbarHidden : ""}`}
+        data-me-header-hidden={headerHidden ? "true" : "false"}
         onFocusCapture={() => setHeaderOwnsFocus(true)}
         onBlurCapture={handleHeaderBlur}
       >
-        <Link href="/me" className={styles.brand}>JeloCare</Link>
+        <Link href="/me" className={styles.brand}>
+          JeloCare
+        </Link>
         <MeNotificationBell />
         <button
           ref={accountTriggerRef}
@@ -585,7 +733,9 @@ function MePortalView({
           aria-haspopup="dialog"
           aria-controls="me-account-sheet"
           aria-expanded={accountSheetOpen}
-          onClick={() => setAccountSheetState({ routeKey: state.routeKey, open: true })}
+          onClick={() =>
+            setAccountSheetState({ routeKey: state.routeKey, open: true })
+          }
         >
           <MeAccountAvatarIcon size={23} strokeWidth={1.7} aria-hidden="true" />
         </button>
@@ -594,10 +744,14 @@ function MePortalView({
       <MeAccountSheet
         account={portalViewModel.account}
         shelfItems={portalViewModel.shelf}
-        shelfCount={shelfState.previewOnly
-          ? (portalViewModel.shelfState.status === 'ready' ? portalViewModel.shelf.length : 0)
-          : productReadModel?.shell.shelfCount}
-        shelfAvailable={portalViewModel.shelfState.status === 'ready'}
+        shelfCount={
+          shelfState.previewOnly
+            ? portalViewModel.shelfState.status === "ready"
+              ? portalViewModel.shelf.length
+              : 0
+            : productReadModel?.shell.shelfCount
+        }
+        shelfAvailable={portalViewModel.shelfState.status === "ready"}
         onPreviewClear={shelfState.clearPreviewShelf}
         concerns={portalViewModel.concerns}
         concernsAvailable={true}
@@ -607,19 +761,21 @@ function MePortalView({
         triggerRef={accountTriggerRef}
       />
 
-      {route.kind === 'product' && productPanelData ? (
+      {route.kind === "product" && productPanelData ? (
         <ProductQuickPanelSheet
           data={productPanelData}
           open={productPanelOpen}
           tab={productPanelState.tab}
-          onTabChange={(tab) => setProductPanelState((current) => ({ ...current, tab }))}
+          onTabChange={(tab) =>
+            setProductPanelState((current) => ({ ...current, tab }))
+          }
           onClose={closeProductPanel}
           restoreFocusRef={productPanelRestoreFocusRef}
           dialogId="me-product-evidence-sheet"
         />
       ) : null}
 
-      {route.kind !== 'product' ? (
+      {route.kind !== "product" ? (
         <MeContextSheet
           model={contextSheetModel}
           open={contextSheetOpen}
@@ -634,13 +790,15 @@ function MePortalView({
         className={styles.scroll}
         onScroll={(event) => {
           const scrollTop = event.currentTarget.scrollTop;
-          if (route.kind === 'explore') setExploreScrollPosition(scrollTop);
+          if (route.kind === "explore") setExploreScrollPosition(scrollTop);
           controller.onScrollPositionChange(scrollTop);
         }}
       >
         <div className={styles.content}>
           {shelfState.previewOnly ? (
-            <p className={styles.previewNotice} role="status">Preview Shelf · Resets on reload.</p>
+            <p className={styles.previewNotice} role="status">
+              Preview Shelf · Resets on reload.
+            </p>
           ) : null}
           <p
             ref={shelfMutationStatusRef}
@@ -652,14 +810,14 @@ function MePortalView({
           >
             {shelfMutationFeedback.message}
           </p>
-          {route.kind === 'home' && homeModel ? (
+          {route.kind === "home" && homeModel ? (
             <HomeView
               homeModel={homeModel}
               shelfAction={shelfState.shelfAction}
               onShelfMutation={announceShelfMutation}
             />
           ) : null}
-          {route.kind === 'explore' ? (
+          {route.kind === "explore" ? (
             <ExploreView
               viewModel={portalViewModel}
               projection={filteredExploreProjection}
@@ -670,7 +828,7 @@ function MePortalView({
               shelfAction={shelfState.shelfAction}
             />
           ) : null}
-          {route.kind === 'shelf' ? (
+          {route.kind === "shelf" ? (
             <ShelfPage
               viewModel={portalViewModel}
               productRequestOutcome={productRequestOutcome}
@@ -679,14 +837,14 @@ function MePortalView({
               onShelfMutation={announceShelfMutation}
             />
           ) : null}
-          {route.kind === 'shelf-add' ? (
+          {route.kind === "shelf-add" ? (
             <ProductRequestAddPage
               viewModel={portalViewModel}
               shelfAction={shelfState.shelfAction}
               searchRef={searchRef}
             />
           ) : null}
-          {route.kind === 'shelf-request' ? (
+          {route.kind === "shelf-request" ? (
             <ProductRequestDetailPage
               requestId={route.id}
               synthetic={portalViewModel.account.synthetic}
@@ -694,23 +852,36 @@ function MePortalView({
               mutationOutcome={productRequestOutcome}
             />
           ) : null}
-          {route.kind === 'routine' ? (
+          {route.kind === "routine" ? (
             <RoutineView
               routineModel={routineModel}
               mutationOutcome={productRequestOutcome}
             />
           ) : null}
-          {route.kind === 'orders' ? <MemberOrdersView orders={orders ?? []} /> : null}
-          {route.kind === 'notifications' ? (
-            <MemberNotificationsView center={notificationCenter ?? { notifications: [], preferences: [], unreadCount: 0 }} />
+          {route.kind === "orders" ? (
+            <MemberOrdersView orders={orders ?? []} />
           ) : null}
-          {route.kind === 'consult' ? (
+          {route.kind === "notifications" ? (
+            <MemberNotificationsView
+              center={
+                notificationCenter ?? {
+                  notifications: [],
+                  preferences: [],
+                  unreadCount: 0,
+                }
+              }
+            />
+          ) : null}
+          {route.kind === "locations" && locations ? (
+            <MemberLocationsView initial={locations} />
+          ) : null}
+          {route.kind === "consult" ? (
             <ConsultView
               viewModel={portalViewModel}
               composerRef={consultComposerRef}
             />
           ) : null}
-          {route.kind === 'product' && product ? (
+          {route.kind === "product" && product ? (
             <MemberProductView
               product={product}
               productReadModel={productReadModel}
@@ -723,7 +894,7 @@ function MePortalView({
               onOpenPanel={openProductPanel}
             />
           ) : null}
-          {route.kind === 'not-found' ? <MemberNotFoundView /> : null}
+          {route.kind === "not-found" ? <MemberNotFoundView /> : null}
         </div>
       </main>
 
@@ -751,6 +922,7 @@ export function MePortal({
   productRequestPresentation,
   orders,
   notificationCenter,
+  locations,
 }: {
   viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
@@ -764,18 +936,20 @@ export function MePortal({
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
   orders?: AssistedOrderCustomerView[];
   notificationCenter?: AssistedOrderNotificationCenter;
+  locations?: CustomerLocationReadResult;
 }) {
-  const routeKey = route.kind === 'product'
-    ? `/me/product/${route.slug}`
-    : route.kind === 'shelf-request'
-      ? `/me/shelf/request/${route.id}`
-      : route.kind === 'shelf-add'
-        ? '/me/shelf/add'
-        : route.kind === 'not-found'
-          ? '/me/product/not-found'
-          : `/me/${route.kind}`;
+  const routeKey =
+    route.kind === "product"
+      ? `/me/product/${route.slug}`
+      : route.kind === "shelf-request"
+        ? `/me/shelf/request/${route.id}`
+        : route.kind === "shelf-add"
+          ? "/me/shelf/add"
+          : route.kind === "not-found"
+            ? "/me/product/not-found"
+            : `/me/${route.kind}`;
   return (
-    <WorkspaceDockProvider routeKey={route.kind === 'home' ? '/me' : routeKey}>
+    <WorkspaceDockProvider routeKey={route.kind === "home" ? "/me" : routeKey}>
       <MePortalView
         viewModel={viewModel as CustomerPortalViewModel}
         homeModel={homeModel}
@@ -789,6 +963,7 @@ export function MePortal({
         productRequestPresentation={productRequestPresentation}
         orders={orders}
         notificationCenter={notificationCenter}
+        locations={locations}
       />
     </WorkspaceDockProvider>
   );

@@ -25,6 +25,7 @@ This is the entry point for product, engineering, data, and operations.
 | Research or operate the full catalogue pipeline            | [Catalogue operations](./catalogue/OPERATIONS.md)                                                      |
 | Run Neon safely                                            | [Neon and data](./data/NEON.md)                                                                        |
 | Operate guest-first assisted procurement                   | [Assisted procurement](./commerce/ASSISTED_PROCUREMENT.md)                                             |
+| Operate smart delivery and private saved locations         | [Smart locations](./commerce/SMART_LOCATIONS.md)                                                       |
 | Operate order-service notifications                        | [Order notifications](./commerce/ORDER_NOTIFICATIONS.md)                                               |
 | Plan the bounded Ask Jelo AI lane                          | [Ask Jelo AI Gateway plan](./ai/ASK_JELO_GATEWAY_PLAN.md)                                              |
 | Configure a local, preview, or production environment      | [Environments](./operations/ENVIRONMENTS.md)                                                           |
@@ -93,6 +94,7 @@ This is the entry point for product, engineering, data, and operations.
 - [ADR 0014 · Customer Shelf data boundary](./adr/0014-customer-shelf-data-boundary.md)
 - [ADR 0015 · Customer concern consultation](./adr/0015-customer-concern-consultation.md)
 - [ADR 0016 · Retailer-scoped assisted procurement](./adr/0016-retailer-scoped-assisted-procurement.md)
+- [ADR 0017 · Private saved locations and optional geocoding](./adr/0017-private-saved-locations-and-optional-geocoding.md)
 
 ## What is authoritative
 

@@ -110,6 +110,7 @@ the [Shelf release runbook](./RUNBOOKS.md#release-the-customer-shelf-boundary).
 | `COMMUNITY_INTAKE_RATE_LIMIT_SECRET`     | Recommended                            | HMAC salt; otherwise a database URL is used                                                 |
 | `RETAILER_PARTNERSHIP_RATE_LIMIT_SECRET` | Recommended                            | Separate HMAC salt                                                                          |
 | `ASSISTED_ORDER_RATE_LIMIT_SECRET`       | Recommended                            | Separate server-only HMAC salt for guest order create, read, decision, and recovery limits  |
+| `LOCATION_RATE_LIMIT_SECRET`             | Recommended                            | Separate server-only HMAC salt for Nigeria address-suggestion traffic                       |
 
 Ask Jelo fails closed in every production-mode runtime when either required
 Upstash REST value is missing or the configured limiter is unavailable. Vercel
@@ -123,6 +124,21 @@ The daily campaign lane also requires `KV_REST_API_URL` and
 outcome trail, and accepted-production rotation index. It fails closed when
 either value is absent. `KV_REST_API_READ_ONLY_TOKEN`, `KV_URL`, and `REDIS_URL`
 remain compatibility values and are not used by the current runtime.
+
+### Location suggestions
+
+| Variable           | Required                       | Notes                                                                                                                             |
+| ------------------ | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| `GEOAPIFY_API_KEY` | Smart address suggestions only | Server-only Geoapify key. Never prefix with `NEXT_PUBLIC`. Without it, checkout and `/me/locations` retain complete manual entry. |
+
+The address-suggestion route is same-site, Nigeria-filtered, no-store, and
+bounded by the shared Upstash runtime. The current free Geoapify plan allows
+3,000 credits per day and up to 5 requests per second, requires attribution,
+and carries no SLA. JeloCare limits aggregate provider traffic to four requests
+per second, limits each network to 30 requests per minute, and debounces
+typing. Exceeding or losing the provider reduces convenience but never blocks
+checkout. Typed address fragments leave JeloCare for Geoapify only after four
+characters; the UI states this boundary next to the field.
 
 ### Email
 
