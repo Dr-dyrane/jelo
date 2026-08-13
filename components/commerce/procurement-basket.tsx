@@ -376,18 +376,12 @@ export function CheckoutExperience({
     router.push("/order");
   }
 
+  const updateField = (name: string, value: string) =>
+    setFields((prev) => ({ ...prev, [name]: value }));
+
   return (
     <div className={styles.checkoutLayout}>
-      <form
-        className={styles.checkoutForm}
-        onSubmit={submit}
-        onChange={(e) => {
-          const target = e.target as HTMLInputElement | HTMLTextAreaElement;
-          if (target.name) {
-            setFields((prev) => ({ ...prev, [target.name]: target.value }));
-          }
-        }}
-      >
+      <form className={styles.checkoutForm} onSubmit={submit}>
         <div className={styles.progressRow}>
           <div className={styles.progress} aria-label={`${progress}% complete`}>
             <span style={{ width: `${progress}%` }} />
@@ -419,6 +413,8 @@ export function CheckoutExperience({
                     autoComplete="name"
                     required
                     minLength={2}
+                    value={fields.contactName ?? ""}
+                    onChange={(e) => updateField("contactName", e.target.value)}
                   />
                 </label>
                 <label>
@@ -428,6 +424,10 @@ export function CheckoutExperience({
                     type="email"
                     autoComplete="email"
                     required
+                    value={fields.contactEmail ?? ""}
+                    onChange={(e) =>
+                      updateField("contactEmail", e.target.value)
+                    }
                   />
                 </label>
                 <label className={styles.fullField}>
@@ -437,6 +437,10 @@ export function CheckoutExperience({
                     type="tel"
                     autoComplete="tel"
                     required
+                    value={fields.contactPhone ?? ""}
+                    onChange={(e) =>
+                      updateField("contactPhone", e.target.value)
+                    }
                   />
                 </label>
               </div>
@@ -455,6 +459,10 @@ export function CheckoutExperience({
                     autoComplete="street-address"
                     required
                     minLength={5}
+                    value={fields.deliveryAddress ?? ""}
+                    onChange={(e) =>
+                      updateField("deliveryAddress", e.target.value)
+                    }
                   />
                 </label>
                 <label>
@@ -463,6 +471,10 @@ export function CheckoutExperience({
                     name="deliveryCity"
                     autoComplete="address-level2"
                     required
+                    value={fields.deliveryCity ?? ""}
+                    onChange={(e) =>
+                      updateField("deliveryCity", e.target.value)
+                    }
                   />
                 </label>
                 <label>
@@ -471,13 +483,24 @@ export function CheckoutExperience({
                     name="deliveryState"
                     autoComplete="address-level1"
                     required
+                    value={fields.deliveryState ?? ""}
+                    onChange={(e) =>
+                      updateField("deliveryState", e.target.value)
+                    }
                   />
                 </label>
                 <label className={styles.fullField}>
                   <span>
                     Delivery notes <small>optional</small>
                   </span>
-                  <textarea name="deliveryInstructions" maxLength={500} />
+                  <textarea
+                    name="deliveryInstructions"
+                    maxLength={500}
+                    value={fields.deliveryInstructions ?? ""}
+                    onChange={(e) =>
+                      updateField("deliveryInstructions", e.target.value)
+                    }
+                  />
                 </label>
               </div>
               <label className={styles.checkField}>
