@@ -1,0 +1,23 @@
+.addButton,
+.basketLink {
+  min-height: 2.85rem;
+  width: fit-content;
+  padding: 0 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font: inherit;
+  font-size: 0.84rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.basketLink {
+  background: var(--rose);
+  color: var(--ink);
+}

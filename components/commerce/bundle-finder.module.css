@@ -564,3 +564,39 @@
     transform: none;
   }
 }
+.procurementFooter {
+  padding: 1rem 1.2rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.procurementFooter p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  color: var(--muted);
+  font-size: .78rem;
+}
+
+.procurementFooter button {
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font: inherit;
+  font-size: .8rem;
+  cursor: pointer;
+}
+
+@media (max-width: 680px) {
+  .procurementFooter { align-items: stretch; flex-direction: column; }
+  .procurementFooter button { justify-content: center; }
+}

@@ -44,6 +44,7 @@ Browser
 | `/consult` | Ask Jelo guided assessment |
 | `/contribute` | Anonymous community knowledge intake |
 | `/retailers` | Retailer guide and partnership entry |
+| `/basket`, `/checkout`, `/order` | Guest-first one-retailer assisted procurement and private status |
 | `/image-audit` | Browser-facing media audit |
 
 ## Catalogue reads

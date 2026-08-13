@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Activity, BookOpen, Eye, GitFork, History, Home, Inbox, Microscope, RefreshCw, Store, UsersRound, X } from 'lucide-react';
+import { Activity, BookOpen, Eye, GitFork, History, Home, Inbox, Microscope, PackageCheck, RefreshCw, Store, UsersRound, X } from 'lucide-react';
 import { authClient } from '@/lib/auth/client';
 import type { ModerationOperator } from '@/lib/moderation/access';
 import type { QueueCounts } from '@/lib/moderation/queues';
@@ -130,6 +130,7 @@ export function OpsChrome({ operator, counts, sidebarSummary, children }: OpsChr
   }, [pathname]);
 
   const queueItems = [
+    { href: '/ops/orders', label: 'Orders', icon: PackageCheck, count: counts.orders },
     { href: '/ops/contributions', label: 'Contributions', icon: Inbox, count: counts.contributions },
     { href: '/ops/edges', label: 'Relationships', icon: GitFork, count: counts.edges },
     { href: '/ops/observations', label: 'Observations', icon: Eye, count: counts.observations },

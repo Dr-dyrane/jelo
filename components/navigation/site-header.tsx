@@ -1,11 +1,12 @@
 "use client";
 
-import { ChevronRight, Equal, Search, X } from "lucide-react";
+import { ChevronRight, Equal, Search, ShoppingBag, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useModalDialog } from "@/components/ui/use-modal-dialog";
 import styles from "./site-header.module.css";
+import { useBasket } from "@/components/commerce/basket-provider";
 
 const mobileLinks = [
   {
@@ -14,6 +15,7 @@ const mobileLinks = [
     detail: "Start with what you notice",
   },
   { href: "/products", label: "Products", detail: "Find what fits" },
+  { href: "/basket", label: "Basket", detail: "Your exact products" },
   {
     href: "/contribute",
     label: "Contribute",
@@ -28,6 +30,7 @@ export function SiteHeader() {
   const router = useRouter();
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
+  const basket = useBasket();
   const {
     dialogRef: menuDialogRef,
     triggerRef: menuTriggerRef,
@@ -121,6 +124,17 @@ export function SiteHeader() {
             <Search size={18} aria-hidden="true" />
             <span>Search</span>
           </button>
+
+          <Link
+            className={styles.basketTrigger}
+            href="/basket"
+            aria-label={`Basket, ${basket.totalQuantity} ${basket.totalQuantity === 1 ? "item" : "items"}`}
+          >
+            <ShoppingBag size={18} aria-hidden="true" />
+            <span className={styles.basketCount} aria-hidden="true">
+              {basket.ready ? basket.totalQuantity : 0}
+            </span>
+          </Link>
 
           <button
             className={styles.menuTrigger}

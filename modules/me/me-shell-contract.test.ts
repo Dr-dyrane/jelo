@@ -190,6 +190,13 @@ test("the complete portal surface vocabulary is concise, personal, and route-own
       eyebrow: "My Routine",
       title: "My Routine.",
     },
+    orders: {
+      layer: "stack",
+      route: "/me/orders",
+      parent: "home",
+      eyebrow: "My orders",
+      title: "Track every request.",
+    },
     consult: {
       layer: "stack",
       route: "/me/consult",
@@ -226,7 +233,7 @@ test("the complete portal surface vocabulary is concise, personal, and route-own
       title: "Nothing here.",
     },
   });
-  assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 9);
+  assert.equal(Object.keys(ME_PORTAL_SURFACES).length, 10);
 
   const home = readFileSync("components/me/home/me-home.tsx", "utf8");
   const homeView = readFileSync("components/me/home/home-view.tsx", "utf8");
@@ -646,6 +653,7 @@ test("Ask Me is route-scoped and reuses one reviewed guidance authority with opt
   assert.match(api, /reviewedConcernSlugs\.has\(slug\)/);
   assert.match(api, /catalogueBySlug\.get\(slug\)\?\.verifiedIngredientIds/);
   assert.match(capabilities, /authenticatedGuidance: true/);
+  assert.match(capabilities, /assistedProcurement: true/);
 });
 
 test("Saved Product is removable from any origin, not just Shelf", () => {
@@ -694,6 +702,12 @@ test("every Me surface owns exactly one truthful working FAB", () => {
       label: "Create routine",
       action: "open-routine-builder",
     },
+    orders: {
+      ownerId: "me-orders-shop",
+      label: "Start a basket",
+      action: "navigate",
+      href: "/products",
+    },
     consult: {
       ownerId: "me-consult-search",
       label: "Search your care",
@@ -722,7 +736,7 @@ test("every Me surface owns exactly one truthful working FAB", () => {
       href: "/me/explore",
     },
   });
-  assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 9);
+  assert.equal(Object.keys(ME_WORKSPACE_FABS).length, 10);
 
   const home = readFileSync("components/me/home/me-home.tsx", "utf8");
   const dockNavigation = readFileSync(
@@ -901,6 +915,7 @@ test("account avatar owns one accessible extensible modal sheet", () => {
     sheet,
     /ME_ACCOUNT_HELPER_ITEMS: readonly MeAccountHelperItem\[\] = \[[\s\S]*Report price or availability[\s\S]*href: '\/contribute'/,
   );
+  assert.match(sheet, /My orders[\s\S]*href: '\/me\/orders'/);
   assert.doesNotMatch(sheet, /\/contribute\?/);
   assert.match(sheet, /href="\/me\/shelf\/export"/);
   assert.match(

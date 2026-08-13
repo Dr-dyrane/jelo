@@ -56,7 +56,13 @@ test('every public page family has explicit contextual social metadata', () => {
     .filter(file => file.startsWith('app/(site)/') && /\/page\.(?:ts|tsx)$/.test(file))
     .sort();
   const covered = PUBLIC_SOCIAL_ROUTE_COVERAGE.map(route => route.source).sort();
-  const intentionallyNoindex = ['app/(site)/go/page.tsx', 'app/(site)/image-audit/page.tsx'];
+  const intentionallyNoindex = [
+    'app/(site)/basket/page.tsx',
+    'app/(site)/checkout/page.tsx',
+    'app/(site)/go/page.tsx',
+    'app/(site)/image-audit/page.tsx',
+    'app/(site)/order/page.tsx',
+  ];
 
   assert.deepEqual(sitePages, [...covered, ...intentionallyNoindex].sort());
   for (const route of PUBLIC_SOCIAL_ROUTE_COVERAGE) {
@@ -83,8 +89,11 @@ test('the full page tree is classified as contextual public or intentionally non
   const publicFiles = new Set(PUBLIC_SOCIAL_ROUTE_COVERAGE.map(route => route.source));
   const classified = pageFiles.filter(file => (
     publicFiles.has(file as (typeof PUBLIC_SOCIAL_ROUTE_COVERAGE)[number]['source'])
+    || file === 'app/(site)/basket/page.tsx'
+    || file === 'app/(site)/checkout/page.tsx'
     || file === 'app/(site)/go/page.tsx'
     || file === 'app/(site)/image-audit/page.tsx'
+    || file === 'app/(site)/order/page.tsx'
     || file.startsWith('app/(auth)/')
     || file.startsWith('app/(customer)/me/')
     || file.startsWith('app/(ops)/ops/')
@@ -93,7 +102,7 @@ test('the full page tree is classified as contextual public or intentionally non
   assert.deepEqual(classified.sort(), pageFiles.sort());
   assert.deepEqual(
     NON_INDEXABLE_ROUTE_COVERAGE.map(route => route.family),
-    ['/image-audit', '/go', '/sign-in', '/me', '/ops'],
+    ['/basket', '/checkout', '/order', '/image-audit', '/go', '/sign-in', '/me', '/ops'],
   );
 });
 

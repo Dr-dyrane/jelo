@@ -10,13 +10,15 @@ import { readCustomerPortal } from '@/lib/customer/read-model';
 import { readMeConsult, readMeExplore, readMeProduct, readMeRoutine } from '@/lib/customer/route-read-models';
 import { findCatalogueProduct } from '@/lib/catalogue/repository';
 import { readProductPanelData } from '@/lib/catalogue/product-panel-model';
+import { listAssistedOrdersForOwner } from '@/lib/commerce/assisted-procurement-repository';
+import { toAssistedOrderCustomerView } from '@/lib/commerce/assisted-procurement-model';
 
 export const dynamic = 'force-dynamic';
 
 function parseRoute(parts: readonly string[], from: string | string[] | undefined): MePortalRoute | null {
   if (parts.length === 1) {
     const [section] = parts;
-    if (section === 'explore' || section === 'shelf' || section === 'routine' || section === 'consult') {
+    if (section === 'explore' || section === 'shelf' || section === 'routine' || section === 'consult' || section === 'orders') {
       return { kind: section };
     }
   }
@@ -93,6 +95,18 @@ export default async function MeRoutePage({
   if (route.kind === 'consult') {
     const consultModel = await readMeConsult(customer);
     return createElement(MePortal, { route, consultModel });
+  }
+
+  if (route.kind === 'orders') {
+    const [viewModel, orders] = await Promise.all([
+      readCustomerPortal(customer),
+      listAssistedOrdersForOwner(customer.subject),
+    ]);
+    return createElement(MePortal, {
+      route,
+      viewModel,
+      orders: orders.map(toAssistedOrderCustomerView),
+    });
   }
 
   const viewModel = await readCustomerPortal(customer);

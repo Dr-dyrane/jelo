@@ -89,7 +89,8 @@ There is no current model-selection or AI Gateway runtime. Any future
 language-only lane requires a separate reviewed architecture decision,
 abuse-cost controls, privacy review, regression evidence, and a contract that
 keeps guide resolution, product authority, urgency, and displayed care outside
-the model.
+the model. The bounded implementation sequence and credential/model boundary
+are recorded in the [Ask Jelo AI Gateway plan](./ai/ASK_JELO_GATEWAY_PLAN.md).
 
 The initial red-flag vocabulary follows public guidance from [NHS anaphylaxis](https://www.nhs.uk/conditions/anaphylaxis/), [AAD Rash 101](https://www.aad.org/public/everyday-care/itchy-skin/rash/rash-101), and [NHS vision loss](https://www.nhs.uk/conditions/vision-loss/). These references support emergency action for breathing or throat/tongue symptoms and prompt in-person care for relevant swelling, eye symptoms, rapid spread, blistering, pain, or fever. The checked phrase corpus remains deliberately conservative and must expand through qualified review.
 

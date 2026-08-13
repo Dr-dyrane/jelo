@@ -14,6 +14,7 @@ export type QueueCounts = {
   values: number;
   research: number;
   retailers: number;
+  orders: number;
   signals: number;
 };
 
@@ -63,6 +64,7 @@ export async function pendingQueueCounts(sql: Sql): Promise<QueueCounts> {
           and signal_count > 0
       )::int as research,
       (select count(*) from retailer_partnership_applications where status = 'submitted')::int as retailers,
+      (select count(*) from assisted_orders where state not in ('delivered', 'cancelled', 'refunded'))::int as orders,
       (select count(*) from commerce_events)::int as signals
   `;
   return row;

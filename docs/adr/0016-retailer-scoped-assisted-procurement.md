@@ -1,6 +1,6 @@
 # ADR 0016: Retailer-scoped assisted procurement
 
-- **Status:** Accepted direction; implementation gated
+- **Status:** Manual assisted-procurement release implemented; payment and automation gated
 - **Date:** 2026-08-11
 - **Decision owner:** Founder
 - **Extends:** [ADR 0007](0007-internal-moderation-operations-console.md),
@@ -22,11 +22,13 @@ exactly one retailer or, in a separately governed future lane, one direct
 manufacturer fulfilment source. A comparison may recommend separate orders,
 but no single order silently combines multiple retailers.
 
-This ADR accepts the direction and operating boundary only. It does not ship a
-basket, checkout, order route, guest session, Operations queue, payment,
-WhatsApp automation, browser automation, retailer connection, courier
-connection, or manufacturer fulfilment path. Every implementation phase stays
-closed until its named gates are decided and verified.
+The manual assisted-procurement release ships a guest-first basket, one-retailer
+checkout, private order status, one-time recovery, signed-in order history,
+manual Operations quoting, transparent quote approval, and append-only state
+history. Payment remains deliberately closed: approval ends at Payment pending
+until a separate payment-evidence decision is implemented. WhatsApp automation,
+browser automation, retailer checkout, courier connections, and manufacturer
+fulfilment remain future gates.
 
 ## Why this fits JeloCare
 
@@ -294,7 +296,8 @@ clinical inference and may not become a commercial ranking signal.
 
 ## Phased implementation
 
-No phase is commissioned by this ADR.
+Phase 2 is implemented by the manual assisted-procurement release. The other
+phases remain separately gated.
 
 1. **Contracts and prototypes:** decide commercial/legal roles, state and data
    ownership, quote evidence, consent, retention, abuse limits, and route
@@ -333,8 +336,8 @@ each choice and evidence before implementation:
 | Merchant of record                   | Which party sells or acts as agent at each step and what the customer receipt and terms disclose.                                                                                              |
 | Tax treatment                        | Which observed retailer taxes and JeloCare obligations apply, who calculates them, and how uncertainty is presented.                                                                           |
 | Chargebacks and refunds              | Eligibility, authority, timelines, partial outcomes, evidence, customer communication, and operational reversal.                                                                               |
-| Retention and expiry                 | Exact durations and deletion rules for baskets, abandoned requests, addresses, contact data, consent, guest capabilities, quotes, payment evidence, events, and audit.                         |
-| Data schema and migration            | Owner-isolated order, quote, event, consent, capability, and idempotency structures; least-privilege roles; rollout; compatibility; audit; and rollback. No migration is reserved by this ADR. |
+| Retention and expiry                 | Implemented for this phase: browser baskets persist locally until cleared; order sessions last 30 days; recovery capabilities last 20 minutes and are one-time; quotes carry operator-set expiries; order records retain for 365 days. Payment evidence remains future. |
+| Data schema and migration            | Implemented in `db/migrations/0039_assisted_procurement.sql`: private orders, immutable exact line snapshots, versioned quotes, append-only events, scoped guest sessions, one-time recovery, and least-privilege runtime grants. |
 | Browser automation                   | Retailer terms review, permitted access, rate and session boundaries, evidence capture, operator approval, failure, and kill switch.                                                           |
 | Retailer and courier contracts       | Purchase authority, fulfilment responsibility, stock confirmation, service levels, customer data disclosure, cancellation, evidence, incident response, and termination.                       |
 | Manufacturer fulfilment              | Separate agreement, exact-product authority, quote and delivery duties, data access, and customer disclosure.                                                                                  |
@@ -370,8 +373,9 @@ A commissioned phase must prove, at minimum:
 - a phase-specific rollback rehearsal that preserves audit and already-created
   customer records.
 
-Documentation checks alone are sufficient for this accepted direction because
-it changes no runtime behavior.
+The release verification is code-bearing. Run the focused assisted-procurement
+tests, typecheck, release verifier, migration rehearsal, and the guest browser
+journey described in the assisted-procurement runbook before deployment.
 
 ## Consequences
 

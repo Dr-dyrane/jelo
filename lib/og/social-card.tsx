@@ -277,6 +277,9 @@ export const PUBLIC_SOCIAL_ROUTE_COVERAGE = [
 ] as const;
 
 export const NON_INDEXABLE_ROUTE_COVERAGE = [
+  { family: "/basket", reason: "device-local guest basket" },
+  { family: "/checkout", reason: "private guest checkout" },
+  { family: "/order", reason: "private order status" },
   { family: "/image-audit", reason: "internal catalogue media review" },
   {
     family: "/go",

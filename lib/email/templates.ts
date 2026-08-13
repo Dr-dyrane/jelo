@@ -110,3 +110,39 @@ export function retailerMagicLinkEmail(input: { storeName: string; magicLink: st
     `,
   };
 }
+
+export function assistedOrderRecoveryEmail(input: {
+  name: string;
+  reference: string;
+  statusLink: string;
+}) {
+  const name = escapeHtml(input.name);
+  const reference = escapeHtml(input.reference);
+  const statusLink = escapeHtml(input.statusLink);
+  return {
+    subject: `${input.reference} · Your JeloCare order request`,
+    text: [
+      `Hi ${input.name},`,
+      '',
+      `Your order request ${input.reference} is saved.`,
+      'JeloCare is verifying the exact products, retailer terms, and delivery cost.',
+      '',
+      `Open your private status page: ${input.statusLink}`,
+      '',
+      'This recovery link works once and expires in 20 minutes. You can keep using the status page on this device for 30 days.',
+      'No payment has been taken.',
+    ].join('\n'),
+    html: `
+      <div style="margin:0;background:#fff9f5;padding:40px 20px;color:#201b19;font-family:Arial,sans-serif">
+        <div style="max-width:560px;margin:0 auto;background:#fffdf9;border-radius:28px;padding:40px">
+          <p style="margin:0 0 28px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#6b3b35">JeloCare</p>
+          <h1 style="margin:0 0 18px;font-size:36px;line-height:1.05;font-weight:400">Your request is saved.</h1>
+          <p style="margin:0 0 8px;color:#6f625e;line-height:1.6">Hi ${name}. We’re verifying the exact basket, retailer terms, and delivery cost.</p>
+          <p style="margin:0 0 28px;color:#201b19"><strong>${reference}</strong></p>
+          <a href="${statusLink}" style="display:inline-block;border-radius:999px;background:#201b19;padding:14px 20px;color:#fff;text-decoration:none">Track order request</a>
+          <p style="margin:28px 0 0;color:#8a7d78;font-size:13px;line-height:1.55">This one-time recovery link expires in 20 minutes. No payment has been taken.</p>
+        </div>
+      </div>
+    `,
+  };
+}

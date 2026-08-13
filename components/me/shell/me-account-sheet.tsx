@@ -30,6 +30,7 @@ export type MeAccountHelperItem = {
 };
 
 export const ME_ACCOUNT_HELPER_ITEMS: readonly MeAccountHelperItem[] = [
+  { id: 'orders', label: 'My orders', href: '/me/orders' },
   { id: 'report-price-availability', label: 'Report price or availability', href: '/contribute' },
 ];
 

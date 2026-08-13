@@ -109,6 +109,7 @@ the [Shelf release runbook](./RUNBOOKS.md#release-the-customer-shelf-boundary).
 | `CONSULT_RATE_LIMIT_SECRET`              | Recommended                            | Dedicated server-only HMAC salt for Ask Jelo network keys; otherwise a database URL is used |
 | `COMMUNITY_INTAKE_RATE_LIMIT_SECRET`     | Recommended                            | HMAC salt; otherwise a database URL is used                                                 |
 | `RETAILER_PARTNERSHIP_RATE_LIMIT_SECRET` | Recommended                            | Separate HMAC salt                                                                          |
+| `ASSISTED_ORDER_RATE_LIMIT_SECRET`       | Recommended                            | Separate server-only HMAC salt for guest order create, read, decision, and recovery limits  |
 
 Ask Jelo fails closed in every production-mode runtime when either required
 Upstash REST value is missing or the configured limiter is unavailable. Vercel

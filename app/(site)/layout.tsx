@@ -3,13 +3,14 @@ import { Analytics } from "@vercel/analytics/next";
 import { SiteHeader } from "@/components/navigation/site-header";
 import { ThemeToggle } from "@/components/navigation/theme-toggle";
 import { NavigationMemory } from "@/components/navigation/navigation-memory";
+import { BasketProvider } from "@/components/commerce/basket-provider";
 
 // Public chrome. The html/body shell, fonts, and theme come from the root layout.
 export default function SiteLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <>
+    <BasketProvider>
       <NavigationMemory />
       <SiteHeader />
       {children}
@@ -57,6 +58,6 @@ export default function SiteLayout({
         </div>
       </footer>
       <Analytics />
-    </>
+    </BasketProvider>
   );
 }

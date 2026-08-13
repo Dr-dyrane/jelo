@@ -159,6 +159,18 @@ export function createMeContextSheetModel({
     };
   }
 
+  if (route.kind === 'orders') {
+    return {
+      eyebrow: 'My orders',
+      title: 'Order requests',
+      summary: 'Exact products · one retailer',
+      items: [
+        { id: 'products', label: 'Start a basket', detail: 'Guest-first checkout', href: '/products' },
+        { id: 'prices', label: 'Price watch', detail: 'Observed market prices', href: '/share' },
+      ],
+    };
+  }
+
   if (route.kind === 'consult') {
     return {
       eyebrow: 'Ask Me',

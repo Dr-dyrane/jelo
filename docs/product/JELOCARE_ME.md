@@ -194,18 +194,25 @@ next executable slice live only in the
 [JeloCare Me production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md). In short,
 Shelf persistence, Routine persistence, private product requests, complete
 Explore, member-Product OTP continuation, and the global report helper now ship.
-The deterministic authenticated Ask adapter also ships. User-controlled
-canonical Concerns, true AI wording, account-keyed Ask rate limits, contextual
-discovery, request operating closure and rate limits,
-refill/basket decisions, notifications, and public community follow only through
-their recorded gates. The current catalogue snapshot is evidence, never a
-hard-coded limit.
+The deterministic authenticated Ask adapter also ships. Guest-first manual
+assisted procurement ships with signed-in order history under `/me/orders`.
+User-controlled canonical Concerns, true AI wording, account-keyed Ask rate
+limits, contextual discovery, refill timing decisions, notifications, and
+public community follow only through their recorded gates. The current
+catalogue snapshot is evidence, never a hard-coded limit.
 
-## Future basket timing intelligence
+## Assisted procurement and future basket timing intelligence
+
+The guest-first Basket, one-retailer Checkout, private Order status, recovery,
+manual Operations quote, and signed-in `/me/orders` history ship under
+[ADR 0016](../adr/0016-retailer-scoped-assisted-procurement.md). The basket
+stores no account or contact details; checkout creates the canonical private
+order. Payment and retailer checkout do not ship.
 
 JeloCare may eventually support an evidence-bound decision about when and where
-to buy a basket of care products. This capability is not shipped, and this
-contract does not commission a route, prediction, monitor, or notification.
+to buy a basket of care products. That timing and forecast capability is not
+shipped, and this contract does not commission a prediction, monitor, or
+notification.
 Its dependency and release gates are owned by
 [Phase 6 of the production roadmap](./JELOCARE_ME_PRODUCTION_ROADMAP.md#phase-6--refill-timing-and-basket-optimisation).
 If a customer proceeds from comparison into assisted procurement, the accepted
@@ -220,11 +227,11 @@ delivery location needed for a retailer-specific quote. The payable quote must
 show product subtotal, retailer service or fulfilment fee, retailer tax actually
 observed, JeloCare service fee, and delivery as separate components; unknown is
 never zero. Exact products are never silently substituted, and any material
-change requires a new quote and explicit approval. Manual staff quoting is the
-first operating path. Guest order recovery, Operations workflow, payment,
-WhatsApp transport, browser assistance, fulfilment partners, and every other
-runtime dependency remain gated by ADR 0016 rather than being commissioned by
-this future timing section.
+change requires a new quote and explicit approval. Manual staff quoting, guest
+order recovery, and the Operations queue are the current operating path.
+Payment, automated WhatsApp transport, browser assistance, fulfilment partners,
+and every downstream retailer action remain gated by ADR 0016 rather than being
+commissioned by this future timing section.
 
 For example, a customer may need exact products A, B, C, and D. Their preferred
 retailer usually carries all four, but currently has only A and B while another

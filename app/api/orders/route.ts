@@ -1,0 +1,75 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { getAuthSubject } from '@/lib/auth/subject';
+import { hasTransactionalEmailConfig, sendAssistedOrderRecovery } from '@/lib/email/mailer';
+import { readBoundedJson, sameSiteRequest } from '@/lib/community-intake/request-security';
+import { createAssistedOrderSchema } from '@/lib/commerce/assisted-procurement-schema';
+import { requestAssistedOrder, AssistedOrderInputError } from '@/lib/commerce/assisted-procurement-service';
+import {
+  allowAssistedOrderAction,
+  assistedOrderCookieMaxAge,
+  assistedOrderCookieName,
+} from '@/lib/commerce/assisted-procurement-security';
+
+export const runtime = 'nodejs';
+
+function publicOrigin(request: NextRequest) {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL;
+  return configured && /^https?:\/\//.test(configured) ? configured : request.nextUrl.origin;
+}
+
+export async function POST(request: NextRequest) {
+  if (!sameSiteRequest(request)) return NextResponse.json({ error: 'Request not allowed.' }, { status: 403 });
+  if (!await allowAssistedOrderAction(request, 'create')) {
+    return NextResponse.json({ error: 'Please wait before trying again.' }, { status: 429 });
+  }
+  try {
+    const input = createAssistedOrderSchema.parse(await readBoundedJson(request));
+    const identity = await getAuthSubject();
+    const created = await requestAssistedOrder(input, identity?.subject ?? null);
+    const recoveryUrl = new URL('/api/orders/recover', publicOrigin(request));
+    recoveryUrl.searchParams.set('token', created.recoverySecret);
+
+    let emailDelivery: 'sent' | 'unavailable' | 'failed' = 'unavailable';
+    if (hasTransactionalEmailConfig()) {
+      try {
+        await sendAssistedOrderRecovery({
+          to: input.contactEmail,
+          name: input.contactName,
+          reference: created.order.reference,
+          statusLink: recoveryUrl.toString(),
+        });
+        emailDelivery = 'sent';
+      } catch (error) {
+        console.error('Assisted order recovery delivery failed.', error instanceof Error ? error.message : 'unknown');
+        emailDelivery = 'failed';
+      }
+    }
+
+    const response = NextResponse.json({
+      reference: created.order.reference,
+      state: created.order.state,
+      statusUrl: '/order',
+      emailDelivery,
+    }, { status: 201 });
+    response.headers.set('Cache-Control', 'private, no-store');
+    response.cookies.set({
+      name: assistedOrderCookieName,
+      value: created.sessionSecret,
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+      maxAge: assistedOrderCookieMaxAge,
+    });
+    return response;
+  } catch (error) {
+    const message = error instanceof AssistedOrderInputError
+      ? error.code === 'stock'
+        ? 'One item is no longer listed in stock. Review your basket.'
+        : 'That exact one-retailer basket is no longer available. Review your basket.'
+      : error instanceof Error && error.message === 'payload_too_large'
+        ? 'That request is too large.'
+        : 'Check the order details and try again.';
+    return NextResponse.json({ error: message }, { status: 400 });
+  }
+}

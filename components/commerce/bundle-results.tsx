@@ -1,10 +1,13 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ShoppingBag } from "lucide-react";
+import { useRouter } from "next/navigation";
 import type { BundleOffer } from "@/lib/commerce/bundle-finder";
 import { ProductCard } from "@/components/products/product-card";
 import type { PickerProduct } from "./bundle-product-picker";
 import styles from "./bundle-finder.module.css";
+import { useBasket } from "./basket-provider";
+import { CHECKOUT_RETAILER_STORAGE_KEY } from "@/lib/commerce/basket";
 
 const formatNaira = new Intl.NumberFormat("en-NG", {
   style: "currency",
@@ -54,6 +57,8 @@ function BundleRow({
   productsBySlug: Map<string, PickerProduct>;
 }) {
   const isLowest = rank === 1;
+  const basket = useBasket();
+  const router = useRouter();
 
   return (
     <article className={styles.resultCard}>
@@ -104,6 +109,14 @@ function BundleRow({
           );
         })}
       </div>
+      <footer className={styles.procurementFooter}>
+        <p><ShoppingBag size={17} aria-hidden="true" /> Request this exact basket from one retailer.</p>
+        <button type="button" onClick={() => {
+          basket.replace(bundle.offers.map(offer => ({ slug: offer.productSlug, quantity: 1 })));
+          localStorage.setItem(CHECKOUT_RETAILER_STORAGE_KEY, bundle.retailer);
+          router.push('/checkout');
+        }}>Checkout with {bundle.retailer} <ArrowRight size={17} aria-hidden="true" /></button>
+      </footer>
     </article>
   );
 }

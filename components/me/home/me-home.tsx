@@ -75,6 +75,8 @@ import {
 import type { CustomerShelfActionResult } from '@/lib/customer/shelf-service';
 import type { CustomerProductRequestPresentationViewModel } from '@/lib/customer/product-request-model';
 import type { ProductPanelData, ProductPanelTab } from '@/lib/catalogue/product-panel-model';
+import type { AssistedOrderCustomerView } from '@/lib/commerce/assisted-procurement-model';
+import { MemberOrdersView } from '@/components/me/orders/member-orders-view';
 import styles from './me-home.module.css';
 
 const EMPTY_PRODUCTS: readonly CustomerPortalProduct[] = [];
@@ -236,6 +238,9 @@ function routeState(route: MePortalRoute, viewModel: CustomerPortalViewModel, ho
       ?? viewModel.routine.length;
     return { routeKey: '/me/routine', currentHref: resolveMeActiveParentHref(route), page: 'routine' as MeWorkspacePage, detail: count(stepCount, 'saved step') };
   }
+  if (route.kind === 'orders') {
+    return { routeKey: '/me/orders', currentHref: resolveMeActiveParentHref(route), page: 'orders' as MeWorkspacePage, detail: 'Private orders' };
+  }
   if (route.kind === 'consult') {
     return { routeKey: '/me/consult', currentHref: resolveMeActiveParentHref(route), page: 'consult' as MeWorkspacePage, detail: 'My care' };
   }
@@ -333,6 +338,7 @@ function MePortalView({
   productPanelData,
   productRequestOutcome,
   productRequestPresentation,
+  orders,
 }: {
   viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
@@ -344,6 +350,7 @@ function MePortalView({
   productPanelData?: ProductPanelData;
   productRequestOutcome?: string;
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
+  orders?: AssistedOrderCustomerView[];
 }) {
   const router = useRouter();
   const resolvedViewModel = viewModel
@@ -684,6 +691,7 @@ function MePortalView({
               mutationOutcome={productRequestOutcome}
             />
           ) : null}
+          {route.kind === 'orders' ? <MemberOrdersView orders={orders ?? []} /> : null}
           {route.kind === 'consult' ? (
             <ConsultView
               viewModel={portalViewModel}
@@ -729,6 +737,7 @@ export function MePortal({
   productPanelData,
   productRequestOutcome,
   productRequestPresentation,
+  orders,
 }: {
   viewModel?: CustomerPortalViewModel;
   homeModel?: CustomerHomeReadModel;
@@ -740,6 +749,7 @@ export function MePortal({
   productPanelData?: ProductPanelData;
   productRequestOutcome?: string;
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
+  orders?: AssistedOrderCustomerView[];
 }) {
   const routeKey = route.kind === 'product'
     ? `/me/product/${route.slug}`
@@ -763,6 +773,7 @@ export function MePortal({
         productPanelData={productPanelData}
         productRequestOutcome={productRequestOutcome}
         productRequestPresentation={productRequestPresentation}
+        orders={orders}
       />
     </WorkspaceDockProvider>
   );

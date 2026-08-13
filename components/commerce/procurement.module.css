@@ -1,0 +1,106 @@
+.page {
+  min-height: 100vh;
+  padding: clamp(8rem, 13vw, 11rem) max(1.1rem, 4vw) clamp(5rem, 9vw, 8rem);
+  background: linear-gradient(135deg, var(--wash-a), var(--wash-hero));
+}
+
+.pageHeader {
+  max-width: 88rem;
+  margin: 0 auto clamp(2.5rem, 5vw, 4.5rem);
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.pageHeader h1,
+.empty h1,
+.checkoutForm h1 {
+  margin: 0.35rem 0 0;
+  max-width: 13ch;
+  font-size: clamp(3.2rem, 7vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.pageHeader > p { max-width: 33rem; color: var(--muted); line-height: 1.65; }
+.basketLayout,
+.checkoutLayout { max-width: 88rem; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(21rem, 0.65fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: start; }
+.basketProducts,
+.retailerChoice,
+.checkoutSummary,
+.checkoutForm { border-radius: 2rem; background: color-mix(in srgb, var(--paper) 88%, transparent); }
+.basketProducts { padding: clamp(1.25rem, 3vw, 2.5rem); }
+.sectionHeading { margin-bottom: 1.5rem; display: flex; align-items: end; justify-content: space-between; gap: 1rem; }
+.sectionHeading h2,
+.retailerChoice h2,
+.checkoutSummary h2 { margin: 0.3rem 0 0; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 0.98; letter-spacing: -0.04em; }
+.sectionHeading > span { color: var(--muted); font-size: 0.82rem; }
+.productGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.quantity { display: inline-flex; align-items: center; gap: 0.5rem; }
+.quantity button { width: 2.25rem; height: 2.25rem; display: grid; place-items: center; border: 0; border-radius: 999px; background: var(--paper); color: var(--ink); cursor: pointer; }
+.quantity span { min-width: 1.2rem; text-align: center; font-weight: 700; }
+.retailerChoice { position: sticky; top: 6.2rem; padding: clamp(1.5rem, 3vw, 2.5rem); }
+.muted,
+.checkoutForm > div > p,
+.finePrint { color: var(--muted); line-height: 1.65; }
+.retailerOptions { margin: 1.5rem 0; padding: 0; display: grid; gap: 0.65rem; border: 0; }
+.retailerOptions label { position: relative; padding: 1rem; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.75rem; border-radius: 1.1rem; background: color-mix(in srgb, var(--ink) 5%, transparent); cursor: pointer; }
+.retailerOptions label[data-selected="true"] { background: var(--ink); color: var(--paper); }
+.retailerOptions small { margin-top: 0.15rem; display: block; color: currentColor; opacity: 0.68; }
+.retailerOptions b { white-space: nowrap; }
+.retailerOptions em { position: absolute; inset: 0.45rem 0.55rem auto auto; color: var(--rose); font-size: 0.6rem; font-style: normal; text-transform: uppercase; letter-spacing: 0.1em; transform: translateY(-100%); }
+.assurance { margin: 1.2rem 0; padding: 1rem; display: flex; gap: 0.75rem; border-radius: 1rem; background: color-mix(in srgb, var(--rose) 23%, transparent); }
+.assurance p { margin: 0; line-height: 1.45; }
+.primaryAction,
+.empty a { min-height: 3.25rem; width: 100%; padding: 0 1.2rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem; border: 0; border-radius: 999px; background: var(--ink); color: var(--paper); font: inherit; font-weight: 650; text-decoration: none; cursor: pointer; }
+.primaryAction:disabled { opacity: 0.45; cursor: not-allowed; }
+.noMatch { margin: 1.5rem 0; padding: 1rem; border-radius: 1rem; background: color-mix(in srgb, var(--rose) 18%, transparent); }
+.noMatch p { margin-bottom: 0; color: var(--muted); }
+.empty,
+.loading { max-width: 54rem; margin: 0 auto; padding: clamp(2rem, 5vw, 4.5rem); border-radius: 2rem; background: var(--paper); }
+.empty p { color: var(--muted); }
+.empty a { margin-top: 1.5rem; width: fit-content; }
+.checkoutSummary { position: sticky; top: 6.2rem; padding: clamp(1.5rem, 3vw, 2.5rem); }
+.checkoutSummary dl { margin: 2rem 0; }
+.checkoutSummary dl div { padding: 0.85rem 0; display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+.checkoutSummary dt { line-height: 1.35; }
+.checkoutSummary small { color: var(--muted); }
+.checkoutSummary dd { margin: 0; white-space: nowrap; font-weight: 700; }
+.observedTotal { padding-top: 1.2rem !important; border: 0 !important; font-size: 1.05rem; }
+.quoteSteps { display: grid; gap: 0.7rem; }
+.quoteSteps span { display: flex; align-items: center; gap: 0.5rem; color: var(--muted); }
+.checkoutForm { padding: clamp(1.5rem, 4vw, 3.5rem); }
+.checkoutForm h1 { max-width: 10ch; font-size: clamp(3rem, 6vw, 6.2rem); }
+.fieldGrid { margin: 2rem 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.fieldGrid label { display: grid; gap: 0.45rem; }
+.fieldGrid label > span { font-size: 0.75rem; font-weight: 650; text-transform: uppercase; letter-spacing: 0.08em; }
+.fieldGrid input,
+.fieldGrid textarea { width: 100%; min-height: 3.2rem; padding: 0.8rem 0.95rem; border: 0; border-radius: 0.9rem; background: color-mix(in srgb, var(--ink) 6%, var(--paper)); color: var(--ink); font: inherit; }
+.fieldGrid textarea { min-height: 6rem; resize: vertical; }
+.fullField { grid-column: 1 / -1; }
+.checkField { margin: 0.9rem 0; display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 0.7rem; color: var(--muted); line-height: 1.45; }
+.checkField input { margin-top: 0.2rem; }
+.checkoutForm .primaryAction { margin-top: 1.4rem; }
+.error { color: #9f2f39; font-weight: 650; }
+.honeypot { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; opacity: 0 !important; pointer-events: none !important; }
+
+@media (max-width: 840px) {
+  .pageHeader { display: block; }
+  .pageHeader > p { margin-top: 1rem; }
+  .basketLayout,
+  .checkoutLayout { grid-template-columns: 1fr; }
+  .retailerChoice,
+  .checkoutSummary { position: static; }
+}
+
+@media (max-width: 620px) {
+  .page { padding-inline: 1rem; }
+  .productGrid,
+  .fieldGrid { grid-template-columns: 1fr; }
+  .fullField { grid-column: auto; }
+  .basketProducts,
+  .retailerChoice,
+  .checkoutSummary,
+  .checkoutForm { border-radius: 1.4rem; }
+}

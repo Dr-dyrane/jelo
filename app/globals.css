@@ -530,6 +530,12 @@ textarea {
   flex-direction: column;
   justify-content: center;
 }
+.product-purchase-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
 .product-story h1 {
   font-size: clamp(3.8rem, 7vw, 7rem);
   line-height: 0.85;

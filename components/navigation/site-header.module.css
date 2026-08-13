@@ -23,6 +23,33 @@
     opacity 0.2s ease;
 }
 
+.basketTrigger {
+  position: relative;
+  width: 2.65rem;
+  height: 2.65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: currentColor;
+}
+
+.basketCount {
+  position: absolute;
+  inset: -0.05rem -0.12rem auto auto;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  padding: 0 0.24rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--rose);
+  color: var(--ink);
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 /* Hide header when mobile search is focused — gives search bar room at top */
 @media (max-width: 640px) {
   :global(body[data-search-active="true"]) .header {

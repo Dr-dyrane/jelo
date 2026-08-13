@@ -11,6 +11,7 @@ export const ME_RELEASED_WORKSPACE_NAVIGATION = ME_WORKSPACE_NAVIGATION;
 
 export type MeWorkspaceTab = typeof ME_WORKSPACE_NAVIGATION[number]['id'];
 export type MeWorkspacePage = MeWorkspaceTab
+  | 'orders'
   | 'consult'
   | 'product'
   | 'shelf-add'
@@ -22,6 +23,7 @@ type MePrimaryRoute = {
 }[MeWorkspaceTab];
 export type MePortalRoute =
   | MePrimaryRoute
+  | { kind: 'orders' }
   | { kind: 'consult' }
   | { kind: 'not-found' }
   | { kind: 'shelf-add' }
@@ -43,6 +45,7 @@ export function resolveMeProductOrigin(from: unknown): MeProductOrigin {
 
 export function resolveMeActiveParentHref(route: MePortalRoute): string {
   if (route.kind === 'consult') return ME_PRIMARY_HREFS.home;
+  if (route.kind === 'orders') return ME_PRIMARY_HREFS.home;
   if (route.kind === 'not-found') return ME_PRIMARY_HREFS.explore;
   if (route.kind === 'shelf-add' || route.kind === 'shelf-request') return ME_PRIMARY_HREFS.shelf;
   if (route.kind === 'product') return ME_PRIMARY_HREFS[route.origin];
@@ -52,6 +55,7 @@ export function resolveMeActiveParentHref(route: MePortalRoute): string {
 export function createMeStackBack(route: MePortalRoute) {
   if (
     route.kind !== 'consult'
+    && route.kind !== 'orders'
     && route.kind !== 'product'
     && route.kind !== 'shelf-add'
     && route.kind !== 'shelf-request'
@@ -71,6 +75,7 @@ export const ME_PORTAL_SURFACES = {
   explore: { layer: 'primary', route: '/me/explore', parent: 'explore', eyebrow: 'Explore', title: 'My next product.' },
   shelf: { layer: 'primary', route: '/me/shelf', parent: 'shelf', eyebrow: 'My products', title: 'My Shelf.' },
   routine: { layer: 'primary', route: '/me/routine', parent: 'routine', eyebrow: 'My Routine', title: 'My Routine.' },
+  orders: { layer: 'stack', route: '/me/orders', parent: 'home', eyebrow: 'My orders', title: 'Track every request.' },
   consult: { layer: 'stack', route: '/me/consult', parent: 'home', eyebrow: 'Ask Me', title: 'My concern.' },
   product: { layer: 'stack', route: '/me/product/[slug]', parent: 'origin', eyebrow: null, title: null },
   'shelf-add': { layer: 'stack', route: '/me/shelf/add', parent: 'shelf', eyebrow: 'My Shelf', title: 'Find it first.' },
@@ -89,6 +94,7 @@ export const ME_WORKSPACE_FABS = {
   explore: { ownerId: 'me-explore-search', label: 'Search products', action: 'focus-search' },
   shelf: { ownerId: 'me-shelf-add', label: 'Add to your Shelf', action: 'navigate', href: '/me/shelf/add' },
   routine: { ownerId: 'me-routine-add', label: 'Create routine', action: 'open-routine-builder' },
+  orders: { ownerId: 'me-orders-shop', label: 'Start a basket', action: 'navigate', href: '/products' },
   consult: { ownerId: 'me-consult-search', label: 'Search your care', action: 'focus-search' },
   product: { ownerId: 'me-product-find-store', label: 'Find a store', action: 'open-product-prices' },
   'shelf-add': { ownerId: 'me-shelf-add-search', label: 'Search exact catalogue', action: 'focus-search' },
@@ -102,6 +108,7 @@ export const ME_WORKSPACE_FABS = {
 }>;
 
 const STACK_PAGE_LABELS = {
+  orders: 'Orders',
   consult: 'Ask Me',
   product: 'Product',
   'shelf-add': 'Add product',

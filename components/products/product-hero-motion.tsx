@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import { Stamp } from "@/components/motion/stamp";
 
 type ProductHeroMotionProps = {
@@ -19,6 +19,7 @@ type ProductHeroMotionProps = {
   storeCount: number;
   sizeSelector: ReactNode;
   quickPanel: ReactNode;
+  basketAction: ReactNode;
   concernLinks: ReactNode;
   image: ReactNode;
 };
@@ -45,6 +46,7 @@ export function ProductHeroMotion({
   storeCount,
   sizeSelector,
   quickPanel,
+  basketAction,
   concernLinks,
   image,
 }: ProductHeroMotionProps) {
@@ -125,7 +127,10 @@ export function ProductHeroMotion({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease, delay: 0.36 }}
         >
-          {quickPanel}
+          <div className="product-purchase-actions">
+            <Fragment key="basket-action">{basketAction}</Fragment>
+            <Fragment key="quick-panel">{quickPanel}</Fragment>
+          </div>
         </motion.div>
         {concernLinks ? (
           <motion.div

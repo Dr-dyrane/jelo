@@ -31,6 +31,8 @@ export const customerCapabilities = {
   customerConcerns: false,
   /** Authenticated Ask Me reuses the deterministic public safety and guidance authority. */
   authenticatedGuidance: true,
+  /** Guest-first, one-retailer assisted procurement with manual verified quotes. */
+  assistedProcurement: true,
   /** Notifications are not shipped. */
   notifications: false,
   /** Basket/refill timing decisions are not shipped. */
