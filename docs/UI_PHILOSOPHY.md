@@ -257,3 +257,43 @@ goes empty while real data exists for a different store. See
 `lib/share/product-trends.ts` (`fullSnapshots`, `retailersWithHistory`,
 `priceRepresentativeHasHistory`, `offersWithHistory`) for the reference
 implementation.
+
+### 9. Commerce pages share the site's visual language, not a separate one
+
+**Symptom:** The checkout and order-status pages had excessive top padding,
+a gradient background that no other page used, a cramped form column, and
+oversized transactional headings that felt disconnected from the rest of
+JeloCare.
+
+**Root cause:** The commerce pages were built with their own padding scale,
+background treatment, and heading sizes rather than inheriting from the
+shared site layout. A separate "transactional" visual language emerged
+organically and diverged from the calm, clear, human baseline.
+
+**Rule:** Commerce pages (`/checkout`, `/order`, `/basket`) must use the same
+padding scale, background, and heading hierarchy as the rest of the site.
+The checkout form is the wider left column; the order summary is the narrower
+sticky right column. Order-status headings use the same scale as product and
+concern pages. No commerce-only gradient backgrounds. See
+`components/commerce/procurement.module.css` and
+`components/commerce/order-status.module.css`.
+
+### 10. Progressive checkout: controlled state, not ref reads
+
+**Symptom:** The Continue button stayed disabled even after the user filled
+in all required fields. The form's `onChange` handler did not reliably update
+React state under the tested interaction path, so validation never saw the
+new values.
+
+**Root cause:** The initial progressive checkout used a form-level `onChange`
+and read `formRef.current` during render to calculate the `disabled` prop.
+React refs are not reactive — reading them during render does not trigger a
+re-render when the underlying DOM value changes. ESLint also flagged the
+ref access as "Cannot access refs during render."
+
+**Rule:** Progressive checkout steps must use controlled field state with
+per-field `onChange` handlers that call `updateField(name, value)`. The
+`fields` state object drives both validation and the Continue button's
+`disabled` prop. Never read `formRef.current` during render. Event-time
+validation on submit is still allowed, but the live `disabled` state must
+be derived from controlled state. See `components/commerce/procurement-basket.tsx`.

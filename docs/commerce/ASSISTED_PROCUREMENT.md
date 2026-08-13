@@ -36,6 +36,44 @@ purchasing agent. No payment is taken in this release.
 The state and cost contract is defined by
 [ADR 0016](../adr/0016-retailer-scoped-assisted-procurement.md).
 
+## Progressive checkout intake
+
+`/checkout` uses a three-step progressive intake instead of a single long form.
+Each step is gated by validation before the customer can continue, and the
+progress bar reflects the current step (0%, 50%, 100%).
+
+### Step flow
+
+1. **Contact** — name, email, and optional WhatsApp consent. Validation
+   requires a non-empty name and a valid email before Continue is enabled.
+2. **Delivery** — address, city, and optional delivery notes. Validation
+   requires non-empty address and city.
+3. **Review** — shows the full order summary with product images, retailer,
+   prices, and entered contact/delivery details. The customer submits the
+   quote request from this step.
+
+### State management
+
+- Each field has its own `onChange` handler that calls `updateField(name, value)`.
+- Controlled `fields` state drives both validation and the Continue button's
+  `disabled` prop. The form does not read refs during render.
+- The Back button returns to the previous step without clearing entered data.
+- The selected retailer is persisted to `localStorage` under
+  `CHECKOUT_RETAILER_STORAGE_KEY` so that navigating away and returning
+  preserves the shopper's retailer choice across the basket, checkout, and
+  product pages.
+
+### Layout
+
+- The checkout form is the wider left column; the order summary is the
+  narrower sticky right column. This prioritises data entry while keeping
+  the order visible.
+- Commerce pages use the same padding scale as the rest of the site (no
+  separate gradient background or oversized top padding).
+- The order-status page (`/order`) uses the same visual treatment as the
+  broader site design, with a reduced heading scale that matches product
+  and concern pages.
+
 ## Data and authority
 
 - The basket is versioned local storage and contains only product slugs and
