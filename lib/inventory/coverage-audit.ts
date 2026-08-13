@@ -26,6 +26,7 @@ const limitedAvailabilitySlugs = new Set([
   "lush-hair-mentholated-conditioner",
   "naturium-retinol-complex-cream-1-7oz",
   "naturium-intense-overnight-sleeping-cream-1-7oz",
+  "benton-honest-cleansing-foam-150g",
 ]);
 
 /**
