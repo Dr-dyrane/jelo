@@ -64,6 +64,8 @@ test("public basket action stays visible on content pages and leaves basket flow
   assert.match(component, /basket\.totalQuantity === 0/);
   assert.match(component, /"\/basket", "\/checkout", "\/order", "\/sign-in"/);
   assert.match(component, /product\.quantity/);
+  assert.match(component, /Basket full\. Your basket holds up to \$\{BASKET_MAX_PRODUCTS\} products/);
+  assert.match(component, /role=\{productLimitReached \? "status" : undefined\}/);
   assert.match(component, /SafeProductImage/);
   assert.match(styles, /position:\s*fixed/);
   assert.match(styles, /env\(safe-area-inset-bottom\)/);

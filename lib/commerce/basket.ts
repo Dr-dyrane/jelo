@@ -6,6 +6,17 @@ export const BASKET_MAX_PRODUCTS = 4;
 export const BASKET_MAX_QUANTITY = 10;
 
 export type BasketItem = { slug: string; quantity: number };
+export type BasketAddOutcome = 'added' | 'quantity_increased' | 'product_limit_reached';
+
+export function basketAddOutcome(
+  items: readonly BasketItem[],
+  slug: string,
+): BasketAddOutcome {
+  if (items.some(item => item.slug === slug)) return 'quantity_increased';
+  return items.length >= BASKET_MAX_PRODUCTS
+    ? 'product_limit_reached'
+    : 'added';
+}
 
 export function normaliseBasketItems(value: unknown): BasketItem[] {
   if (!Array.isArray(value)) return [];

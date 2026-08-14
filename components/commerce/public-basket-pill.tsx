@@ -8,6 +8,7 @@ import { SafeProductImage } from "@/components/products/safe-product-image";
 import { useBasket } from "@/components/commerce/basket-provider";
 import type { BasketPreviewProduct } from "@/lib/commerce/basket-preview";
 import { buildBasketPreview } from "@/lib/commerce/basket-preview";
+import { BASKET_MAX_PRODUCTS } from "@/lib/commerce/basket";
 import styles from "./public-basket-pill.module.css";
 
 const hiddenRoutes = ["/basket", "/checkout", "/order", "/sign-in"];
@@ -38,13 +39,17 @@ export function PublicBasketPill({
   const productSummary = preview
     .map((product) => `${product.brand} ${product.name}, ${product.quantity}`)
     .join("; ");
+  const productLimitReached = basket.notice === "product_limit_reached";
+  const basketLabel = productLimitReached
+    ? `Basket full. Your basket holds up to ${BASKET_MAX_PRODUCTS} products. View basket to replace one.`
+    : `View basket, ${basket.totalQuantity} ${itemLabel}. ${productSummary}`;
 
   return (
     <aside className={styles.positioner} aria-label="Current basket">
       <Link
         className={styles.pill}
         href="/basket"
-        aria-label={`View basket, ${basket.totalQuantity} ${itemLabel}. ${productSummary}`}
+        aria-label={basketLabel}
       >
         <span className={styles.avatars} aria-hidden="true">
           {preview.map((product) => (
@@ -54,10 +59,17 @@ export function PublicBasketPill({
             </span>
           ))}
         </span>
-        <span className={styles.copy}>
-          <strong>Basket</strong>
+        <span
+          className={styles.copy}
+          role={productLimitReached ? "status" : undefined}
+          aria-live={productLimitReached ? "polite" : undefined}
+          aria-atomic={productLimitReached ? "true" : undefined}
+        >
+          <strong>{productLimitReached ? "Basket full" : "Basket"}</strong>
           <small>
-            {basket.totalQuantity} {itemLabel}
+            {productLimitReached
+              ? `Review ${BASKET_MAX_PRODUCTS} products`
+              : `${basket.totalQuantity} ${itemLabel}`}
           </small>
         </span>
         <span className={styles.icon} aria-hidden="true">

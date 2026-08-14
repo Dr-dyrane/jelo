@@ -30,6 +30,7 @@ export function AddToBasketButton({
   const basket = useBasket();
   const router = useRouter();
   const [added, setAdded] = useState(false);
+  const [limitReached, setLimitReached] = useState(false);
   const inBasket = basket.items.some((item) => item.slug === slug);
   const storedRetailer = basket.ready
     ? localStorage.getItem(CHECKOUT_RETAILER_STORAGE_KEY)
@@ -60,6 +61,23 @@ export function AddToBasketButton({
     );
   }
 
+  if (limitReached && basket.notice === "product_limit_reached") {
+    return (
+      <Link
+        className={iconOnly
+          ? `${styles.basketLink} ${styles.iconButton}`
+          : styles.basketLink}
+        href="/basket"
+        aria-label={iconOnly
+          ? `Basket full. Review basket before adding ${productName}`
+          : undefined}
+      >
+        <ShoppingBag size={18} aria-hidden="true" />
+        {iconOnly ? null : "Basket full · Review"}
+      </Link>
+    );
+  }
+
   if (!retailer && storedRetailer) {
     if (iconOnly) return null;
     return (
@@ -81,7 +99,11 @@ export function AddToBasketButton({
       aria-label={iconOnly ? `Add ${productName} to basket` : undefined}
       data-added={added ? "true" : "false"}
       onClick={() => {
-        basket.add(slug);
+        const outcome = basket.add(slug);
+        if (outcome === "product_limit_reached") {
+          setLimitReached(true);
+          return;
+        }
         localStorage.setItem(CHECKOUT_RETAILER_STORAGE_KEY, retailer.name);
         setAdded(true);
         if (redirectToStore) {

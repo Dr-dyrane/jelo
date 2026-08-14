@@ -5,23 +5,29 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useState,
   useSyncExternalStore,
 } from 'react';
 import {
   addBasketItem,
   BASKET_EVENT,
   BASKET_STORAGE_KEY,
+  basketAddOutcome,
   basketQuantity,
   normaliseBasketItems,
   setBasketItemQuantity,
+  type BasketAddOutcome,
   type BasketItem,
 } from '@/lib/commerce/basket';
+
+type BasketNotice = 'product_limit_reached' | null;
 
 type BasketContextValue = {
   items: BasketItem[];
   totalQuantity: number;
   ready: boolean;
-  add: (slug: string) => void;
+  notice: BasketNotice;
+  add: (slug: string) => BasketAddOutcome;
   setQuantity: (slug: string, quantity: number) => void;
   remove: (slug: string) => void;
   clear: () => void;
@@ -61,23 +67,36 @@ function subscribeToHydration() {
 export function BasketProvider({ children }: { children: React.ReactNode }) {
   const items = useSyncExternalStore(subscribeToBasket, readStoredBasket, () => EMPTY_BASKET);
   const ready = useSyncExternalStore(subscribeToHydration, () => true, () => false);
+  const [notice, setNotice] = useState<BasketNotice>(null);
 
   const replace = useCallback((nextItems: BasketItem[]) => {
     const normalised = normaliseBasketItems(nextItems);
     localStorage.setItem(BASKET_STORAGE_KEY, JSON.stringify(normalised));
     window.dispatchEvent(new Event(BASKET_EVENT));
+    setNotice(null);
   }, []);
+
+  const add = useCallback((slug: string): BasketAddOutcome => {
+    const outcome = basketAddOutcome(items, slug);
+    if (outcome === 'product_limit_reached') {
+      setNotice(outcome);
+      return outcome;
+    }
+    replace(addBasketItem(items, slug));
+    return outcome;
+  }, [items, replace]);
 
   const value = useMemo<BasketContextValue>(() => ({
     items,
     totalQuantity: basketQuantity(items),
     ready,
-    add: slug => replace(addBasketItem(items, slug)),
+    notice,
+    add,
     setQuantity: (slug, quantity) => replace(setBasketItemQuantity(items, slug, quantity)),
     remove: slug => replace(items.filter(item => item.slug !== slug)),
     clear: () => replace([]),
     replace,
-  }), [items, ready, replace]);
+  }), [add, items, notice, ready, replace]);
 
   return <BasketContext.Provider value={value}>{children}</BasketContext.Provider>;
 }

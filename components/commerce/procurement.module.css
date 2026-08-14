@@ -304,6 +304,15 @@
   background: var(--wine);
   transition: width 0.3s ease;
 }
+.draftStatus {
+  width: fit-content;
+  margin: 0;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--rose) 18%, transparent);
+  color: var(--muted);
+  font-size: 0.76rem;
+}
 .stepContent {
   align-self: start;
   animation: step-in 0.28s ease;

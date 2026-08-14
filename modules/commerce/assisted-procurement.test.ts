@@ -10,6 +10,7 @@ import {
 import {
   addBasketItem,
   BASKET_MAX_PRODUCTS,
+  basketAddOutcome,
   basketQuantity,
   normaliseBasketItems,
   setBasketItemQuantity,
@@ -44,6 +45,25 @@ test("guest basket is bounded, quantity-aware, and does not require identity", (
   for (const slug of ["gamma", "delta", "epsilon"])
     items = addBasketItem(items, slug);
   assert.equal(items.length, BASKET_MAX_PRODUCTS);
+  assert.equal(basketAddOutcome(items, "zeta"), "product_limit_reached");
+  assert.equal(basketAddOutcome(items, "alpha"), "quantity_increased");
+});
+
+test("a fifth product stays on the current store and announces the basket limit", async () => {
+  const [provider, action] = await Promise.all([
+    readFile("components/commerce/basket-provider.tsx", "utf8"),
+    readFile("components/commerce/add-to-basket-button.tsx", "utf8"),
+  ]);
+  assert.match(provider, /notice: BasketNotice/);
+  assert.match(provider, /setNotice\(outcome\)/);
+  assert.match(action, /Basket full · Review/);
+  assert.match(action, /if \(outcome === "product_limit_reached"\)/);
+  const limitBranch = action.slice(
+    action.indexOf('if (outcome === "product_limit_reached")'),
+    action.indexOf('localStorage.setItem', action.indexOf('if (outcome === "product_limit_reached")')),
+  );
+  assert.match(limitBranch, /return;/);
+  assert.doesNotMatch(limitBranch, /router\.push|setItem/);
 });
 
 test("checkout defaults only before a store is chosen and never silently switches an explicit store", () => {

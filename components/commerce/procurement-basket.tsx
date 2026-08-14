@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Product } from "@/data/products";
 import { ProductCard } from "@/components/products/product-card";
 import { SafeProductImage } from "@/components/products/safe-product-image";
@@ -25,6 +25,12 @@ import {
   CHECKOUT_REQUEST_STORAGE_KEY,
   CHECKOUT_RETAILER_STORAGE_KEY,
 } from "@/lib/commerce/basket";
+import {
+  CHECKOUT_DRAFT_STORAGE_KEY,
+  checkoutDraftSignature,
+  parseCheckoutDraft,
+  serializeCheckoutDraft,
+} from "@/lib/commerce/checkout-draft";
 import styles from "./procurement.module.css";
 import { SmartLocationFields } from "@/components/location/smart-location-fields";
 import type {
@@ -256,6 +262,25 @@ export function CheckoutExperience({
   savedLocations?: readonly SavedCustomerLocation[];
 }) {
   const basket = useBasket();
+  if (!basket.ready)
+    return <div className={styles.loading}>Preparing checkout…</div>;
+  return (
+    <ReadyCheckoutExperience
+      key={JSON.stringify(basket.items)}
+      products={products}
+      savedLocations={savedLocations}
+    />
+  );
+}
+
+function ReadyCheckoutExperience({
+  products,
+  savedLocations,
+}: {
+  products: ProcurementProduct[];
+  savedLocations: readonly SavedCustomerLocation[];
+}) {
+  const basket = useBasket();
   const router = useRouter();
   const productBySlug = useMemo(
     () => new Map(products.map((product) => [product.slug, product])),
@@ -281,22 +306,65 @@ export function CheckoutExperience({
     () => findRetailerBasketOptions(selectedProducts, quantities),
     [quantities, selectedProducts],
   );
-  const [stepIndex, setStepIndex] = useState(0);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
-  const [fields, setFields] = useState<Record<string, string>>({});
-  const [emailNotificationsConsent, setEmailNotificationsConsent] =
-    useState(false);
-  const [whatsappConsent, setWhatsappConsent] = useState(false);
-  const [termsAccepted, setTermsAccepted] = useState(false);
-  const currentStep =
-    checkoutFlow[Math.min(stepIndex, checkoutFlow.length - 1)];
-
-  if (!basket.ready)
-    return <div className={styles.loading}>Preparing checkout…</div>;
   const storedRetailer = localStorage.getItem(CHECKOUT_RETAILER_STORAGE_KEY);
   const chosen = chooseRetailerBasketOption(options, storedRetailer);
   const retailer = chosen?.retailer ?? "";
+  const draftSignature = chosen && selectedProducts.length
+    ? checkoutDraftSignature(retailer, basket.items)
+    : null;
+  const [initialDraft] = useState(() => {
+    if (!draftSignature) return null;
+    try {
+      return parseCheckoutDraft(
+        sessionStorage.getItem(CHECKOUT_DRAFT_STORAGE_KEY),
+        draftSignature,
+      );
+    } catch {
+      return null;
+    }
+  });
+  const [stepIndex, setStepIndex] = useState(() => initialDraft
+    ? checkoutFlow.indexOf(initialDraft.step)
+    : 0);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [fields, setFields] = useState<Record<string, string>>(
+    () => ({ ...initialDraft?.fields }) as Record<string, string>,
+  );
+  const [emailNotificationsConsent, setEmailNotificationsConsent] =
+    useState(initialDraft?.emailNotificationsConsent ?? false);
+  const [whatsappConsent, setWhatsappConsent] = useState(
+    initialDraft?.whatsappConsent ?? false,
+  );
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const draftRestored = Boolean(initialDraft);
+  const currentStep =
+    checkoutFlow[Math.min(stepIndex, checkoutFlow.length - 1)];
+
+  useEffect(() => {
+    if (!draftSignature) return;
+    try {
+      sessionStorage.setItem(
+        CHECKOUT_DRAFT_STORAGE_KEY,
+        serializeCheckoutDraft({
+          signature: draftSignature,
+          step: currentStep,
+          fields,
+          emailNotificationsConsent,
+          whatsappConsent,
+        }),
+      );
+    } catch {
+      // Manual checkout remains complete when session storage is unavailable.
+    }
+  }, [
+    currentStep,
+    draftSignature,
+    emailNotificationsConsent,
+    fields,
+    whatsappConsent,
+  ]);
+
   if (!chosen || !selectedProducts.length) {
     return (
       <section className={styles.empty}>
@@ -408,9 +476,10 @@ export function CheckoutExperience({
       setSubmitting(false);
       return;
     }
-    basket.clear();
-    localStorage.removeItem(CHECKOUT_RETAILER_STORAGE_KEY);
+    sessionStorage.removeItem(CHECKOUT_DRAFT_STORAGE_KEY);
     sessionStorage.removeItem(CHECKOUT_REQUEST_STORAGE_KEY);
+    localStorage.removeItem(CHECKOUT_RETAILER_STORAGE_KEY);
+    basket.clear();
     router.push("/order");
   }
 
@@ -442,6 +511,11 @@ export function CheckoutExperience({
             <span style={{ width: `${progress}%` }} />
           </div>
         </div>
+        {draftRestored ? (
+          <p className={styles.draftStatus} role="status">
+            Saved checkout restored on this tab.
+          </p>
+        ) : null}
 
         <input
           className={styles.honeypot}
