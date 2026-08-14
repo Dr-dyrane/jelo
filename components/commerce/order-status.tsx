@@ -26,6 +26,7 @@ import {
   CUSTOMER_VISIBLE_ORDER_STATES,
   type AssistedOrderCustomerView,
 } from "@/lib/commerce/assisted-procurement-model";
+import { OrderProgress } from "./order-progress";
 import styles from "./order-status.module.css";
 
 const naira = new Intl.NumberFormat("en-NG", {
@@ -170,7 +171,7 @@ export function OrderStatus({
         </div>
       </header>
 
-      <OrderStepper state={order.state} />
+      <OrderProgress state={order.state} events={order.events} />
 
       <div className={styles.layout}>
         <main>
@@ -566,67 +567,5 @@ function QuoteLine({ label, value }: { label: string; value: number | null }) {
       <dt>{label}</dt>
       <dd>{value == null ? "Unknown" : naira.format(value)}</dd>
     </div>
-  );
-}
-
-const STEPPER_STAGES: {
-  states: string[];
-  label: string;
-  icon: typeof Check;
-}[] = [
-  { states: ["requested", "quoting"], label: "Request", icon: PackageCheck },
-  {
-    states: ["awaiting_approval", "needs_response"],
-    label: "Quote",
-    icon: Check,
-  },
-  { states: ["payment_pending"], label: "Pay", icon: CreditCard },
-  {
-    states: ["paid", "procurement", "retailer_confirmed"],
-    label: "Procure",
-    icon: RefreshCw,
-  },
-  { states: ["out_for_delivery", "delivered"], label: "Deliver", icon: Truck },
-];
-
-function OrderStepper({ state }: { state: string }) {
-  const isCancelled =
-    state === "cancelled" || state === "refund_pending" || state === "refunded";
-  if (isCancelled) return null;
-  const currentIndex = STEPPER_STAGES.findIndex((stage) =>
-    stage.states.includes(state),
-  );
-  return (
-    <nav className={styles.stepper} aria-label="Order progress">
-      {STEPPER_STAGES.map((stage, index) => {
-        const Icon = stage.icon;
-        const isComplete = currentIndex > index;
-        const isCurrent = currentIndex === index;
-        return (
-          <div
-            key={stage.label}
-            className={[
-              styles.step,
-              isComplete ? styles.stepComplete : "",
-              isCurrent ? styles.stepCurrent : "",
-            ]
-              .filter(Boolean)
-              .join(" ")}
-          >
-            <span className={styles.stepIcon}>
-              {isComplete ? (
-                <Check size={16} aria-hidden="true" />
-              ) : (
-                <Icon size={16} aria-hidden="true" />
-              )}
-            </span>
-            <span className={styles.stepLabel}>{stage.label}</span>
-            {index < STEPPER_STAGES.length - 1 ? (
-              <span className={styles.stepConnector} />
-            ) : null}
-          </div>
-        );
-      })}
-    </nav>
   );
 }

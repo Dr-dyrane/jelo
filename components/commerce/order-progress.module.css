@@ -1,0 +1,126 @@
+.progress {
+  --progress-accent: var(--wine);
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+  border-radius: 1.25rem;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+}
+.progress[data-exception="true"] {
+  --progress-accent: var(--state-danger);
+}
+.current {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 0.75rem;
+}
+.current > span:last-child {
+  min-width: 0;
+  display: grid;
+  gap: 0.12rem;
+}
+.currentIcon {
+  width: 2.65rem;
+  height: 2.65rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--progress-accent);
+  color: var(--paper);
+}
+.current small {
+  color: var(--progress-accent);
+  font-size: 0.62rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.current strong {
+  font-size: 1.05rem;
+}
+.current p {
+  max-width: 46rem;
+  margin: 0.18rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.progress ol {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  list-style: none;
+}
+.progress li {
+  min-width: 0;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  color: var(--muted);
+  text-align: center;
+}
+.progress li::before {
+  content: "";
+  position: absolute;
+  top: 0.9rem;
+  right: 50%;
+  width: 100%;
+  height: 1px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+}
+.progress li:first-child::before {
+  display: none;
+}
+.progress li[data-status="complete"]::before,
+.progress li[data-status="current"]::before,
+.progress li[data-status="attention"]::before,
+.progress li[data-status="reached"]::before {
+  background: color-mix(in srgb, var(--progress-accent) 58%, transparent);
+}
+.progress li > span {
+  width: 1.8rem;
+  height: 1.8rem;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--paper) 90%, transparent);
+}
+.progress li[data-status="complete"] > span,
+.progress li[data-status="current"] > span,
+.progress li[data-status="attention"] > span {
+  background: var(--progress-accent);
+  color: var(--paper);
+}
+.progress li[data-status="reached"] > span {
+  border: 1px solid var(--progress-accent);
+  color: var(--progress-accent);
+}
+.progress li small {
+  overflow: hidden;
+  font-size: 0.62rem;
+  text-overflow: ellipsis;
+}
+.progress[data-compact="true"] {
+  padding: 0.85rem;
+  gap: 0.75rem;
+}
+.progress[data-compact="true"] .currentIcon {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.progress[data-compact="true"] li small {
+  font-size: 0.58rem;
+}
+
+@media (max-width: 520px) {
+  .progress li small {
+    font-size: 0.55rem;
+  }
+}

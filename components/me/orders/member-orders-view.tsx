@@ -2,6 +2,7 @@
 
 import {
   Check,
+  ChevronDown,
   Clock3,
   Copy,
   CreditCard,
@@ -26,6 +27,7 @@ import {
 import { JELOCARE_WHATSAPP_CONTACT } from "@/lib/commerce/whatsapp-contact";
 import { JELOCARE_BANK_ACCOUNT } from "@/lib/commerce/payment-config";
 import { formatOrderDateTime } from "@/lib/commerce/order-date";
+import { OrderProgress } from "@/components/commerce/order-progress";
 import styles from "./member-orders-view.module.css";
 
 const naira = new Intl.NumberFormat("en-NG", {
@@ -124,7 +126,11 @@ export function MemberOrdersView({
 
                 {isExpanded ? (
                   <div className={styles.orderBody}>
-                    <MemberOrderStepper state={order.state} />
+                    <OrderProgress
+                      state={order.state}
+                      events={order.events}
+                      compact
+                    />
 
                     {/* Product lines */}
                     <div className={styles.lines}>
@@ -525,45 +531,3 @@ const STEPPER_STAGES: {
   },
   { states: ["out_for_delivery", "delivered"], label: "Deliver", icon: Truck },
 ];
-
-function MemberOrderStepper({ state }: { state: string }) {
-  const isCancelled =
-    state === "cancelled" || state === "refund_pending" || state === "refunded";
-  if (isCancelled) return null;
-  const currentIndex = STEPPER_STAGES.findIndex((stage) =>
-    stage.states.includes(state),
-  );
-  return (
-    <nav className={styles.stepper} aria-label="Order progress">
-      {STEPPER_STAGES.map((stage, index) => {
-        const Icon = stage.icon;
-        const isComplete = currentIndex > index;
-        const isCurrent = currentIndex === index;
-        return (
-          <div
-            key={stage.label}
-            className={[
-              styles.step,
-              isComplete ? styles.stepComplete : "",
-              isCurrent ? styles.stepCurrent : "",
-            ]
-              .filter(Boolean)
-              .join(" ")}
-          >
-            <span className={styles.stepIcon}>
-              {isComplete ? (
-                <Check size={14} aria-hidden="true" />
-              ) : (
-                <Icon size={14} aria-hidden="true" />
-              )}
-            </span>
-            <span className={styles.stepLabel}>{stage.label}</span>
-            {index < STEPPER_STAGES.length - 1 ? (
-              <span className={styles.stepConnector} />
-            ) : null}
-          </div>
-        );
-      })}
-    </nav>
-  );
-}

@@ -774,7 +774,7 @@ test("the one-off importer is dry-run by default, redacted, and apply-confirmed"
     /DATABASE_URL_UNPOOLED|POSTGRES_URL_NON_POOLING|process\.env\.(?:DATABASE_URL|POSTGRES_URL)/,
   );
   assert.match(script, /verifyLegacyShelfImportSourceSnapshot\(\)/);
-  assert.match(script, /sql\.begin\('read only', work\)/);
+  assert.match(script, /sql\.begin\(["']read only["'], work\)/);
   assert.match(script, /options\.apply[\s\S]*for update of auth_user/);
   assert.match(script, /options\.apply[\s\S]*for share of version, product/);
   assert.doesNotMatch(script, /for share of version, product, brand/);
@@ -870,9 +870,9 @@ test("the real Shelf role and owner isolation audit is explicit and rolls writes
   assert.match(script, /customer_shelf_import_receipts/);
   assert.match(script, /current_setting\('app\.customer_subject', true\)/);
   assert.match(script, /assertNoPooledSubjectOrVisibleShelfRows/);
-  assert.match(script, /sql\.begin\('read only'/);
+  assert.match(script, /sql\.begin\(["']read only["']/);
   assert.match(script, /transaction\.savepoint/);
-  assert.match(script, /INSUFFICIENT_PRIVILEGE = '42501'/);
+  assert.match(script, /INSUFFICIENT_PRIVILEGE = ["']42501["']/);
   assert.match(script, /visibleToB\[0\]\?\.count !== 0/);
   assert.match(script, /crossOwnerDelete\.length !== 0/);
   assert.match(script, /insert into public\.customer_product_requests/);
