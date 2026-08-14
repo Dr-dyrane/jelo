@@ -85,7 +85,7 @@ test('hour keys use a UTC hour and a fixed deployment environment', () => {
   assert.equal(customerPrivateTelemetryEnvironment('production'), 'production');
   assert.equal(customerPrivateTelemetryEnvironment('preview'), 'preview');
   assert.equal(customerPrivateTelemetryEnvironment('development'), 'development');
-  assert.equal(customerPrivateTelemetryEnvironment(undefined), 'development');
+  assert.equal(customerPrivateTelemetryEnvironment(''), 'development');
   assert.equal(customerPrivateTelemetryEnvironment('staging'), 'development');
   assert.throws(
     () => customerPrivateTelemetryHourKey('staging' as 'production', recordedAt),
