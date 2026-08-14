@@ -3,6 +3,9 @@
 import {
   Check,
   Clock3,
+  Copy,
+  CreditCard,
+  Landmark,
   LockKeyhole,
   MessageCircle,
   PackageCheck,
@@ -14,6 +17,7 @@ import { useEffect, useState } from "react";
 import { SafeProductImage } from "@/components/products/safe-product-image";
 import { OrderNotificationPreference } from "./order-notification-preference";
 import { JELOCARE_WHATSAPP_CONTACT } from "@/lib/commerce/whatsapp-contact";
+import { JELOCARE_BANK_ACCOUNT } from "@/lib/commerce/payment-config";
 import { formatOrderDateTime } from "@/lib/commerce/order-date";
 import {
   CUSTOMER_VISIBLE_ORDER_STATES,
@@ -173,36 +177,39 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
                 <h2>Version {order.quote.version}</h2>
                 <span>{order.quote.status.replaceAll("_", " ")}</span>
               </div>
-              <dl>
-                <QuoteLine
-                  label="Products"
-                  value={order.quote.components.productSubtotalNgn}
-                />
-                <QuoteLine
-                  label="Retailer fee"
-                  value={order.quote.components.retailerFeeNgn}
-                />
-                <QuoteLine
-                  label="Observed tax"
-                  value={order.quote.components.taxNgn}
-                />
-                <QuoteLine
-                  label="JeloCare fee"
-                  value={order.quote.components.jelocareFeeNgn}
-                />
-                <QuoteLine
-                  label="Delivery"
-                  value={order.quote.components.deliveryNgn}
-                />
+              <div className={styles.quoteBreakdown}>
+                <p className={styles.breakdownTitle}>Cost breakdown</p>
+                <dl>
+                  <QuoteLine
+                    label="Products"
+                    value={order.quote.components.productSubtotalNgn}
+                  />
+                  <QuoteLine
+                    label="Retailer fee"
+                    value={order.quote.components.retailerFeeNgn}
+                  />
+                  <QuoteLine
+                    label="Observed tax"
+                    value={order.quote.components.taxNgn}
+                  />
+                  <QuoteLine
+                    label="JeloCare fee"
+                    value={order.quote.components.jelocareFeeNgn}
+                  />
+                  <QuoteLine
+                    label="Delivery"
+                    value={order.quote.components.deliveryNgn}
+                  />
+                </dl>
                 <div className={styles.quoteTotal}>
-                  <dt>Total</dt>
+                  <dt>Total to pay</dt>
                   <dd>
                     {order.quote.totalNgn == null
                       ? "Incomplete"
                       : naira.format(order.quote.totalNgn)}
                   </dd>
                 </div>
-              </dl>
+              </div>
               <p className={styles.quoteExpiry}>
                 Expires {formatOrderDateTime(order.quote.expiresAt)}
               </p>
@@ -211,22 +218,31 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
               ) : null}
               {order.state === "awaiting_approval" &&
               order.quote.status === "awaiting_approval" ? (
-                <div className={styles.decisions}>
-                  <button
-                    type="button"
-                    disabled={decisionPending}
-                    onClick={() => decide("approve")}
-                  >
-                    Approve exact quote
-                  </button>
-                  <button
-                    type="button"
-                    disabled={decisionPending}
-                    onClick={() => decide("decline")}
-                  >
-                    Request a change
-                  </button>
-                </div>
+                <>
+                  <div className={styles.paymentHint}>
+                    <CreditCard size={16} aria-hidden="true" />
+                    <span>
+                      After approval, pay by card, USSD, or bank transfer.
+                      Procurement begins once payment is confirmed.
+                    </span>
+                  </div>
+                  <div className={styles.decisions}>
+                    <button
+                      type="button"
+                      disabled={decisionPending}
+                      onClick={() => decide("approve")}
+                    >
+                      Approve exact quote
+                    </button>
+                    <button
+                      type="button"
+                      disabled={decisionPending}
+                      onClick={() => decide("decline")}
+                    >
+                      Request a change
+                    </button>
+                  </div>
+                </>
               ) : null}
               {order.state === "payment_pending" ? (
                 <PaymentSection
@@ -234,7 +250,7 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
                   onError={(msg) => setError(msg)}
                   onPaid={() => router.refresh()}
                 />
-              ) : null}
+              ) : null}{" "}
             </>
           ) : (
             <div className={styles.quoteWaiting}>
@@ -291,7 +307,7 @@ function PaymentSection({
   onPaid: () => void;
 }) {
   const [pending, setPending] = useState(false);
-  const [showBankTransfer, setShowBankTransfer] = useState(false);
+  const [copied, setCopied] = useState(false);
   const total = order.quote?.totalNgn;
 
   async function payWithPaystack() {
@@ -313,11 +329,20 @@ function PaymentSection({
         setPending(false);
         return;
       }
-      // Redirect to Paystack checkout.
       window.location.assign(data.authorizationUrl);
     } catch {
       onError("Payment could not be started. Please try again.");
       setPending(false);
+    }
+  }
+
+  async function copyAccountNumber() {
+    try {
+      await navigator.clipboard.writeText(JELOCARE_BANK_ACCOUNT.accountNumber);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback: select text manually
     }
   }
 
@@ -342,73 +367,97 @@ function PaymentSection({
     );
   }
 
+  const whatsappConfirmLink = `${JELOCARE_WHATSAPP_CONTACT.href}?text=${encodeURIComponent(
+    `Hello JeloCare, I've paid ${naira.format(total)} for order ${order.reference}. My transfer reference is: `,
+  )}`;
+
   return (
     <div className={styles.paymentSection}>
       <div className={styles.paymentHeader}>
         <Check size={20} aria-hidden="true" />
         <div>
           <strong>Pay {naira.format(total)}</strong>
-          <p>Your quote is approved. Pay securely to begin procurement.</p>
+          <p>Your quote is approved. Pay to begin procurement.</p>
         </div>
       </div>
-      <button
-        type="button"
-        className={styles.payButton}
-        disabled={pending}
-        onClick={payWithPaystack}
-      >
-        {pending
-          ? "Redirecting…"
-          : `Pay ${naira.format(total)} with card or transfer`}
-      </button>
-      <button
-        type="button"
-        className={styles.bankTransferToggle}
-        onClick={() => setShowBankTransfer((v) => !v)}
-      >
-        {showBankTransfer
-          ? "Hide bank transfer details"
-          : "Prefer a direct bank transfer?"}
-      </button>
-      {showBankTransfer ? (
-        <div className={styles.bankTransferInfo}>
-          <p>
-            <strong>Bank transfer to JeloCare</strong>
-          </p>
-          <p>
-            Transfer exactly <strong>{naira.format(total)}</strong> to the
-            JeloCare account below, then message us with your transfer
-            reference. We will confirm and begin procurement.
-          </p>
-          <dl>
-            <div>
-              <dt>Bank</dt>
-              <dd>JeloCare Banking Partner</dd>
-            </div>
-            <div>
-              <dt>Account name</dt>
-              <dd>JeloCare</dd>
-            </div>
-            <div>
-              <dt>Account number</dt>
-              <dd>—</dd>
-            </div>
-            <div>
-              <dt>Amount</dt>
-              <dd>{naira.format(total)}</dd>
-            </div>
-            <div>
-              <dt>Reference</dt>
-              <dd>{order.reference}</dd>
-            </div>
-          </dl>
-          <p className={styles.bankTransferNote}>
-            Use your order reference <strong>{order.reference}</strong> as the
-            transfer narration. Confirmation typically takes a few minutes
-            during business hours.
-          </p>
+
+      <div className={styles.paymentOptions}>
+        <button
+          type="button"
+          className={styles.payButton}
+          disabled={pending}
+          onClick={payWithPaystack}
+        >
+          <CreditCard size={18} aria-hidden="true" />
+          {pending ? "Redirecting…" : `Pay ${naira.format(total)} online`}
+        </button>
+        <p className={styles.payButtonSubtext}>
+          Card, USSD, or bank transfer via Paystack
+        </p>
+      </div>
+
+      <div className={styles.paymentDivider}>
+        <span>or pay by direct bank transfer</span>
+      </div>
+
+      <div className={styles.bankTransferInfo}>
+        <div className={styles.bankTransferHeader}>
+          <Landmark size={18} aria-hidden="true" />
+          <strong>Transfer to JeloCare</strong>
         </div>
-      ) : null}
+        <dl>
+          <div>
+            <dt>Bank</dt>
+            <dd>{JELOCARE_BANK_ACCOUNT.bankName}</dd>
+          </div>
+          <div>
+            <dt>Account name</dt>
+            <dd>{JELOCARE_BANK_ACCOUNT.accountName}</dd>
+          </div>
+          <div className={styles.accountNumberRow}>
+            <dt>Account number</dt>
+            <dd>
+              <span className={styles.accountNumber}>
+                {JELOCARE_BANK_ACCOUNT.accountNumber}
+              </span>
+              <button
+                type="button"
+                className={styles.copyButton}
+                onClick={copyAccountNumber}
+                aria-label="Copy account number"
+              >
+                {copied ? (
+                  <Check size={15} aria-hidden="true" />
+                ) : (
+                  <Copy size={15} aria-hidden="true" />
+                )}
+                {copied ? "Copied" : "Copy"}
+              </button>
+            </dd>
+          </div>
+          <div>
+            <dt>Amount</dt>
+            <dd>{naira.format(total)}</dd>
+          </div>
+          <div>
+            <dt>Reference</dt>
+            <dd>{order.reference}</dd>
+          </div>
+        </dl>
+        <p className={styles.bankTransferNote}>
+          Use <strong>{order.reference}</strong> as the transfer narration so we
+          can match your payment quickly.
+        </p>
+        <a
+          className={styles.confirmPaymentLink}
+          href={whatsappConfirmLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <MessageCircle size={16} aria-hidden="true" />
+          Send payment confirmation on WhatsApp
+        </a>
+      </div>
     </div>
   );
 }
