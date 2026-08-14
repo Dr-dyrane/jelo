@@ -185,8 +185,10 @@
   color: var(--ink);
 }
 .browseRail {
+  --browse-rail-gutter: 4vw;
+
   margin: 2rem -4vw 0;
-  padding: 0.35rem 4vw 1.2rem;
+  padding: 0.35rem var(--browse-rail-gutter) 1.2rem;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(12.5rem, 17vw);
@@ -194,25 +196,35 @@
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--browse-rail-gutter);
   scrollbar-width: none;
   mask-image: linear-gradient(
     90deg,
     transparent 0,
-    #000 3rem,
-    #000 calc(100% - 3rem),
+    #000 var(--browse-rail-gutter),
+    #000 calc(100% - var(--browse-rail-gutter)),
     transparent 100%
   );
 }
 .browseRail::-webkit-scrollbar {
   display: none;
 }
+
+.browseRail > * {
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.browseRail > :last-child {
+  scroll-snap-align: end;
+}
+
 .browseRail a {
   min-height: 8.6rem;
   padding: 1.05rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  scroll-snap-align: start;
   border-radius: 1.55rem;
   background: linear-gradient(145deg, var(--card-2), var(--rose));
   box-shadow: 0 16px 45px rgba(112, 71, 61, 0.07);
@@ -465,12 +477,13 @@
     margin-top: 1.2rem;
   }
   .browseRail {
+    --browse-rail-gutter: 1rem;
+
     margin-right: -1rem;
     margin-left: -1rem;
-    padding-right: 1rem;
-    padding-left: 1rem;
     grid-auto-columns: 72vw;
   }
+
   .stories {
     padding: 0 1rem 3rem;
   }

@@ -536,6 +536,7 @@
     margin-right: -0.85rem;
     padding-left: 0.85rem;
     padding-right: 0.85rem;
+    scroll-padding-inline: 0.85rem;
   }
 
   .selectionBar {

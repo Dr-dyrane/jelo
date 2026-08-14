@@ -114,6 +114,7 @@
     overflow-x: auto;
     overscroll-behavior-inline: contain;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
     scrollbar-width: none;
   }
 
@@ -123,6 +124,10 @@
 
   .rail > * {
     scroll-snap-align: start;
+  }
+
+  .rail > :last-child {
+    scroll-snap-align: end;
   }
 
   .rail :global(.product-visual) {

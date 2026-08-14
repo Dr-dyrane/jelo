@@ -83,6 +83,7 @@
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   scroll-snap-type: inline mandatory;
+  scroll-padding-inline: 4vw;
   scrollbar-width: none;
 }
 
@@ -91,6 +92,10 @@
 .product-rail > * {
   min-width: 0;
   scroll-snap-align: start;
+}
+
+.product-rail > :last-child {
+  scroll-snap-align: end;
 }
 
 .evidence-banner {
@@ -166,6 +171,7 @@
     margin-left: -1rem;
     padding-right: 1rem;
     padding-left: 1rem;
+    scroll-padding-inline: 1rem;
   }
   .evidence-banner { padding: 3rem 1.4rem 0; min-height: 0; }
   .evidence-banner img { height: 19rem; }
