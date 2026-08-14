@@ -21,8 +21,10 @@ function isBasketFlow(pathname: string) {
 
 export function PublicBasketPill({
   products,
+  surface = "public",
 }: {
   products: readonly BasketPreviewProduct[];
+  surface?: "public" | "workspace";
 }) {
   const pathname = usePathname();
   const basket = useBasket();
@@ -45,7 +47,11 @@ export function PublicBasketPill({
     : `View basket, ${basket.totalQuantity} ${itemLabel}. ${productSummary}`;
 
   return (
-    <aside className={styles.positioner} aria-label="Current basket">
+    <aside
+      className={styles.positioner}
+      data-surface={surface}
+      aria-label="Current basket"
+    >
       <Link
         className={styles.pill}
         href="/basket"

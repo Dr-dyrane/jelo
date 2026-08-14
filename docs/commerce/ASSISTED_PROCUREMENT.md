@@ -78,6 +78,9 @@ progress bar reflects the current step (0%, 50%, 100%).
 
 - The basket is versioned local storage and contains only product slugs and
   quantities. It is intentionally guest-first.
+- That same device-local basket remains visible and actionable inside My
+  JeloCare. Signing in or opening My Shelf does not create a second basket;
+  exact Shelf products continue through the existing one-retailer rules.
 - Checkout writes an immutable exact brand/name/size/image/quantity/observed
   offer snapshot. A normalized catalogue identity-version foreign key is added
   when one exists; legacy public products remain orderable through the same

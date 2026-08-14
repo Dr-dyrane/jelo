@@ -2,6 +2,7 @@
 
 import { Info, ShoppingBag } from "lucide-react";
 import { useMemo } from "react";
+import { AddToBasketButton } from "@/components/commerce/add-to-basket-button";
 import { ShelfActionButton } from "@/components/me/shelf/shelf-action-button";
 import { SafeProductImage } from "@/components/products/safe-product-image";
 import type { MeProductOrigin } from "@/components/me/shell/me-shell-model";
@@ -17,6 +18,7 @@ import {
 import type { CustomerShelfActionResult } from "@/lib/customer/shelf-service";
 import type { ShelfActionHandler } from "@/components/me/shelf/me-shelf-state";
 import type { ProductPanelTab } from "@/lib/catalogue/product-panel-model";
+import { retailerShoppingSlug } from "@/lib/commerce/shopping-session";
 import styles from "../home/me-home.module.css";
 
 export function MemberProductView({
@@ -87,6 +89,10 @@ export function MemberProductView({
     ? `Matches your ${matchedConcerns.map((c) => c.name).join(" and ")} concern${matchedConcerns.length === 1 ? "" : "s"}`
     : null;
   const hasPersonalContext = shelfLabel || routineLabel || concernLabel;
+  const shoppingRetailers = product.freshExactRetailerNames.map((name) => ({
+    name,
+    slug: retailerShoppingSlug(name),
+  }));
 
   return (
     <article
@@ -164,6 +170,13 @@ export function MemberProductView({
           ) : null}
           <p className={styles.productUsage}>{product.usage}</p>
           <div className={styles.productActions}>
+            {shoppingRetailers.length ? (
+              <AddToBasketButton
+                slug={product.slug}
+                productName={`${product.brand} ${product.name}`}
+                retailers={shoppingRetailers}
+              />
+            ) : null}
             <div
               className={styles.productEvidenceActions}
               role="group"
