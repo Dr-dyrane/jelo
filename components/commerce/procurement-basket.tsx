@@ -457,11 +457,21 @@ function ReadyCheckoutExperience({
           websiteField: data.get("websiteField"),
         }),
       });
-      const payload = (await response.json()) as { error?: string };
+      const payload = (await response.json()) as {
+        error?: string;
+        emailDelivery?: "sent" | "unavailable" | "failed";
+      };
       if (!response.ok) {
         setError(payload.error ?? "Checkout request could not be saved.");
         setSubmitting(false);
         return;
+      }
+      // Store email delivery status so the order page can show it.
+      if (payload.emailDelivery) {
+        sessionStorage.setItem(
+          "jelocare-order-email-status",
+          payload.emailDelivery,
+        );
       }
     } catch {
       setError(

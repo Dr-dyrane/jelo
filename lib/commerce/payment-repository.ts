@@ -128,6 +128,26 @@ export async function readVerifiedPaymentForOrder(
   return rows.length ? mapPayment(rows[0]) : null;
 }
 
+export async function readPendingPaystackPaymentForOrder(
+  orderId: string,
+): Promise<AssistedOrderPayment | null> {
+  const sql = getPostgresClient();
+  const rows = await sql<PaymentRow[]>`
+    select id, order_id, quote_version, amount_ngn, provider,
+           provider_reference, status, evidence_reference,
+           verified_by_subject,
+           case when verified_at is null then null else verified_at::text end as verified_at,
+           created_at::text, updated_at::text
+    from assisted_order_payments
+    where order_id = ${orderId}
+      and provider = 'paystack'
+      and status = 'pending'
+    order by created_at desc
+    limit 1
+  `;
+  return rows.length ? mapPayment(rows[0]) : null;
+}
+
 /**
  * Mark a payment as verified and transition the order to 'paid'.
  * This is the governed evidence boundary: only this function can move

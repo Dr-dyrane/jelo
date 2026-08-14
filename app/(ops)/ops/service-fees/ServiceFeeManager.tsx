@@ -15,7 +15,8 @@ import styles from "./service-fees.module.css";
 const naira = new Intl.NumberFormat("en-NG", {
   style: "currency",
   currency: "NGN",
-  maximumFractionDigits: 0,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
 
 function describePolicy(policy: ServiceFeePolicy): string {

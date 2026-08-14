@@ -36,6 +36,37 @@
   align-items: center;
   gap: 0.45rem;
 }
+.refreshButton {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+  flex-shrink: 0;
+}
+.refreshButton:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+  color: var(--ink);
+}
+.refreshButton:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.spinning {
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* Success banner */
 .successBanner {
@@ -58,6 +89,12 @@
 .successBanner span {
   font-size: 0.85rem;
   opacity: 0.85;
+}
+.emailStatus {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  opacity: 0.7;
 }
 
 /* Progress stepper */

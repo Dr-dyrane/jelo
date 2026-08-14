@@ -3,6 +3,7 @@ import "server-only";
 import {
   createPayment,
   readPaymentByReference,
+  readPendingPaystackPaymentForOrder,
   verifyPaymentAndMarkOrderPaid,
   updatePaymentStatus,
   type AssistedOrderPayment,
@@ -42,6 +43,31 @@ export async function initiatePaystackPayment(input: {
   }
   if (order.quote.totalNgn == null || order.quote.totalNgn <= 0) {
     throw new Error("Quote total is incomplete.");
+  }
+
+  // Reuse an existing pending Paystack payment for this order instead of
+  // creating a duplicate. This prevents multiple pending charges when a user
+  // clicks "Pay" more than once or returns after a network error.
+  const existing = await readPendingPaystackPaymentForOrder(order.id);
+  if (existing && existing.providerReference) {
+    const existingPayment = await readPaymentByReference(
+      existing.providerReference,
+    );
+    if (existingPayment && existingPayment.status === "pending") {
+      // Re-initialize to get a fresh authorization URL for the same reference.
+      // Paystack allows re-initializing with the same reference.
+      const reinit = await initializePaystackTransaction({
+        amountNgn: order.quote.totalNgn,
+        orderReference: order.reference,
+        customerEmail: order.contactEmail,
+        customerName: order.contactName,
+        callbackUrl: input.callbackUrl,
+      });
+      return {
+        payment: existing,
+        authorizationUrl: reinit.authorizationUrl,
+      };
+    }
   }
 
   const init = await initializePaystackTransaction({

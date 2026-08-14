@@ -45,22 +45,39 @@ export function OrderStatus({
   const router = useRouter();
   const [decisionPending, setDecisionPending] = useState(false);
   const [error, setError] = useState("");
+  const [checking, setChecking] = useState(false);
   const presentation = CUSTOMER_VISIBLE_ORDER_STATES[order.state];
+  const [emailStatus] = useState(() => {
+    if (!isNew) return null;
+    try {
+      const status = sessionStorage.getItem("jelocare-order-email-status");
+      if (status) sessionStorage.removeItem("jelocare-order-email-status");
+      return status as "sent" | "unavailable" | "failed" | null;
+    } catch {
+      return null;
+    }
+  });
+
+  async function checkForUpdates() {
+    setChecking(true);
+    try {
+      const response = await fetch("/api/orders/current", {
+        cache: "no-store",
+      });
+      if (!response.ok) return;
+      const current = (await response.json()) as { revision: number };
+      if (current.revision !== order.revision) router.refresh();
+    } catch {
+      // The status remains visible; the next bounded poll retries.
+    } finally {
+      setChecking(false);
+    }
+  }
 
   useEffect(() => {
-    const interval = window.setInterval(async () => {
-      try {
-        const response = await fetch("/api/orders/current", {
-          cache: "no-store",
-        });
-        if (!response.ok) return;
-        const current = (await response.json()) as { revision: number };
-        if (current.revision !== order.revision) router.refresh();
-      } catch {
-        // The status remains visible; the next bounded poll retries.
-      }
-    }, 15_000);
+    const interval = window.setInterval(() => void checkForUpdates(), 15_000);
     return () => window.clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order.revision, router]);
 
   async function decide(decision: "approve" | "decline") {
@@ -101,6 +118,19 @@ export function OrderStatus({
           <div>
             <strong>Request received.</strong>
             <span>We&apos;ll verify your basket and prepare a quote.</span>
+            {emailStatus === "sent" ? (
+              <span className={styles.emailStatus}>
+                A recovery link was sent to your email.
+              </span>
+            ) : emailStatus === "failed" ? (
+              <span className={styles.emailStatus}>
+                Email delivery failed — save this page URL to return later.
+              </span>
+            ) : emailStatus === "unavailable" ? (
+              <span className={styles.emailStatus}>
+                Save this page URL to return later.
+              </span>
+            ) : null}
           </div>
         </div>
       ) : null}
@@ -124,6 +154,19 @@ export function OrderStatus({
               {order.deliveryState ? `, ${order.deliveryState}` : ""}
             </span>
           ) : null}
+          <button
+            type="button"
+            className={styles.refreshButton}
+            onClick={() => void checkForUpdates()}
+            disabled={checking}
+            aria-label="Check for updates"
+          >
+            <RefreshCw
+              size={16}
+              aria-hidden="true"
+              className={checking ? styles.spinning : undefined}
+            />
+          </button>
         </div>
       </header>
 
