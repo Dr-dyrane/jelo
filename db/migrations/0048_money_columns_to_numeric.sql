@@ -1,3 +1,5 @@
+begin;
+
 -- Change all NGN money columns from integer to numeric(12,2) so that
 -- decimal amounts (e.g. retailer prices with kobo) can be stored and
 -- quoted accurately. integer columns silently truncate or reject decimals.
@@ -43,3 +45,5 @@ alter table service_fee_policies
 -- 6. assisted_order_quotes.service_fee_policy_resolved_ngn
 alter table assisted_order_quotes
   alter column service_fee_policy_resolved_ngn type numeric(12,2) using service_fee_policy_resolved_ngn::numeric(12,2);
+
+commit;
