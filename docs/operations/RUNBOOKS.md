@@ -182,8 +182,8 @@ npm run db:migrations:status
 
 The initial command is read-only and should report `ledger=legacy`, a contiguous
 legacy prefix through `0047_assisted_order_payments.sql`, then `0048`, `0049`,
-and `0050` pending. Any unknown filename, later ledgered row, different first
-pending file, or partially governed shape is a stop condition.
+`0050`, and `0051` pending. Any unknown filename, later ledgered row, different
+first pending file, or partially governed shape is a stop condition.
 
 Convert only that exact legacy table to the immutable checksummed shape:
 
@@ -226,9 +226,14 @@ include all five components. It inserts only a
 executes the migration nor claims the original bytes or actor are known. Any
 missing/different catalog result rolls back the ledger insert.
 
-After both reconciliations, status must show only
-`0050_payment_integrity.sql` pending with checksum
-`1a916728557e7ef9b1d8b8381c30b62811758a0d7e1fbe5ee5a018a54b3e5976`.
+After both reconciliations, status must show exactly these normal pending
+migrations, in order:
+
+- `0050_payment_integrity.sql` with checksum
+  `1a916728557e7ef9b1d8b8381c30b62811758a0d7e1fbe5ee5a018a54b3e5976`;
+- `0051_order_lifecycle.sql` with checksum
+  `3ba4cf213d2d71edc5cd6efc36c0ef52ab2f540494cf9018bba7e48a0476c261`.
+
 Before applying it, reconcile provider evidence until all of its checked-in
 preconditions are true:
 
@@ -252,13 +257,14 @@ npm run db:migrations:status
 npm run db:migrate
 ```
 
-The first run must apply only `0050` and record `runner_atomic` with the exact
-checksum in the same transaction. The second must skip every migration. A
-failure must leave both the `0050` schema body and ledger row absent. Only after
-that result and the payment acceptance audit may release authority repeat the
-same status → initialize → `0048` reconcile → `0049` reconcile → `0050` apply
-sequence on production. There is no migration `0051` in this repair; do not add
-a filler or mark one applied.
+The first run must apply `0050` followed by `0051`; each body and its exact
+`runner_atomic` checksum row must share its own transaction. The second run
+must skip every migration. A failure in either migration must leave that
+migration's schema body and ledger row absent. Only after that result, the
+payment acceptance audit, and the complete lifecycle browser acceptance may
+release authority repeat the same status → initialize → `0048` reconcile →
+`0049` reconcile → `0050` apply → `0051` apply sequence on production. Never
+add a filler migration or mark either normal migration applied.
 
 ### Rehearse a temporary migration and promote unchanged bytes
 

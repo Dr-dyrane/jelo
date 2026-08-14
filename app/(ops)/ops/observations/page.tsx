@@ -19,7 +19,7 @@ import {
 } from '@/lib/moderation/queue-selection';
 import { ObservationsInbox } from './ObservationsInbox';
 import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
-import './observations-shell.module.css';
+import shellStyles from './observations-shell.module.css';
 
 export const dynamic = 'force-dynamic';
 
@@ -55,22 +55,25 @@ export default async function ObservationsQueue({
     : null;
 
   return (
-    <OpsWorkspace title="Observations">
-      {rows.length === 0 ? (
-        <EmptyState
-          title="You’re caught up."
-          body="There’s nothing waiting."
-          action={{ href: '/ops/activity', label: 'View insights' }}
-        />
-      ) : (
-        <ObservationsInbox
-          rows={reviewItems}
-          canDecide={canDecide}
-          canCorrect={canCorrect}
-          initialHasMore={hasMore}
-          initialCursor={nextCursor}
-        />
-      )}
-    </OpsWorkspace>
+    <>
+      <span className={shellStyles.scope} hidden />
+      <OpsWorkspace title="Observations">
+        {rows.length === 0 ? (
+          <EmptyState
+            title="You’re caught up."
+            body="There’s nothing waiting."
+            action={{ href: '/ops/activity', label: 'View insights' }}
+          />
+        ) : (
+          <ObservationsInbox
+            rows={reviewItems}
+            canDecide={canDecide}
+            canCorrect={canCorrect}
+            initialHasMore={hasMore}
+            initialCursor={nextCursor}
+          />
+        )}
+      </OpsWorkspace>
+    </>
   );
 }

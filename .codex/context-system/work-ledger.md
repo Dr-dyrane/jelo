@@ -10,6 +10,36 @@ Production credential-boundary checkpoint: Vercel deployment `dpl_HyFgKwgVXWeHdD
 - Never mix exact SKU identity across size, package form, image, or offer. A visual family may link independently published SKUs; it never merges them.
 - Release passing catalogue cells independently. Do not hold an admitted product for a blocked sibling.
 
+## 2026-08-14 governed order-lifecycle integration checkpoint
+
+- The candidate integrates migration governance, the complete assisted-order
+  lifecycle, and the My JeloCare experience from exact base `01b7fa6`. No
+  production schema, payment, order, push, or deployment mutation has occurred
+  for this checkpoint.
+- A disposable production-derived Neon rehearsal branch
+  `br-tiny-silence-avn734u6` proved the exact governance sequence: legacy ledger
+  through `0047`; guarded initialization; effects-only reconciliation of
+  `0048` and `0049`; atomic application of `0050_payment_integrity.sql` then
+  `0051_order_lifecycle.sql`; immutable status with 52 applied, zero pending,
+  zero drift; and a second all-skip run. The real concurrent payment repository
+  test passed against that branch.
+- The optimized webpack build generated all 397 routes. The full repository
+  suite passed 1,478 tests with four intentional skips before the final
+  Ops-CSS integration correction; the affected Ops contracts, typecheck,
+  documentation check, migration inventory, release verifier, and diff checks
+  pass after integration.
+- A signed-out 390×844 dark-mode journey passed product → Beauty by Daz store
+  → basket → three-step checkout → order request (`201`) → private guest order
+  Step 1/5, with the basket cleared and no browser console error. That journey
+  found and closed a real CSS Modules compile failure in `/ops/orders`; route
+  shell tuning now remains module-scoped and cannot leak across Ops navigation.
+- Authenticated `/ops/orders` and `/me/orders` lifecycle evidence still requires
+  the documented real Neon email-OTP session for an existing allowlisted
+  operator. Never replace that gate with a fabricated cookie or synthetic
+  customer. Production migration follows only after that behavior acceptance,
+  the exact candidate revision is pushed, and production read-only status still
+  matches the rehearsed preconditions.
+
 ## 2026-08-13 private-member credential boundary
 
 - The owned Neon `JeloCare` resource remains available in Neon but is

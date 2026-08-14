@@ -620,7 +620,7 @@ export function InboxContainer<T extends { id: string }>({
           ))}
         </div>
       ) : (
-        <div className={styles.cardGrid} data-ops-collection="default" role="listbox" aria-label={collectionLabel ?? `${itemTypeLabel} queue`}>
+        <div className={`${styles.cardGrid} ${adaptive.collection}`} data-ops-collection="default" role="listbox" aria-label={collectionLabel ?? `${itemTypeLabel} queue`}>
           {optimisticItems.map((item, idx) => renderQueueItem(item, idx))}
         </div>
       )}

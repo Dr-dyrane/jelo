@@ -6,7 +6,7 @@ import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import styles from '@/components/ops/inbox/inbox.module.css';
 import vocabularyStyles from './vocabulary.module.css';
 import { VocabularyDetailSkeleton } from './VocabularyDetailSkeleton';
-import './vocabulary-shell.module.css';
+import shellStyles from './vocabulary-shell.module.css';
 
 function subscribeToDetailPane(onStoreChange: () => void) {
   const observer = new MutationObserver(onStoreChange);
@@ -84,6 +84,7 @@ function SkeletonRow() {
 export default function LoadingVocabulary() {
   return (
     <>
+      <span className={shellStyles.scope} hidden />
       <OpsWorkspace title="Vocabulary">
         <div className={styles.sectionCollection} data-ops-collection="sectioned" role="status" aria-label="Loading vocabulary">
           <section className={styles.collectionSection} data-presentation="feature-shelf" aria-hidden="true">

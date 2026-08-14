@@ -6,7 +6,7 @@ import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import styles from '@/components/ops/inbox/inbox.module.css';
 import observationStyles from './observations.module.css';
 import { ObservationDetailSkeleton } from './ObservationDetailSkeleton';
-import './observations-shell.module.css';
+import shellStyles from './observations-shell.module.css';
 
 function subscribeToDetailPane(onStoreChange: () => void) {
   const observer = new MutationObserver(onStoreChange);
@@ -46,6 +46,7 @@ function SkeletonBlock({ className = '' }: { className?: string }) {
 export default function LoadingObservations() {
   return (
     <>
+      <span className={shellStyles.scope} hidden />
       <OpsWorkspace title="Observations">
         <div className={styles.sectionCollection} data-ops-collection="sectioned" role="status" aria-label="Loading observations">
           <section className={styles.collectionSection} data-presentation="feature-shelf" aria-hidden="true">

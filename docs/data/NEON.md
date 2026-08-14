@@ -150,12 +150,14 @@ inserting an effects-only row. It never executes, rewrites, or repairs domain
 schema.
 
 The observed production discrepancy on 2026-08-14 is: the `0048` and `0049`
-column effects are present without ledger rows, and `0050_payment_integrity.sql`
-is absent. This is an observation, not standing write authority. Follow the
+column effects are present without ledger rows, while the normal atomic
+`0050_payment_integrity.sql` and `0051_order_lifecycle.sql` migrations are
+absent. This is an observation, not standing write authority. Follow the
 [migration repair runbook](../operations/RUNBOOKS.md#reconcile-the-00480049-ledger-gap)
-first on a fresh production-derived rehearsal branch. Do not apply `0050`, add
-a reconciliation row, or initialize production governance until the release
-authority accepts that rehearsal and rechecks the same production status.
+first on a fresh production-derived rehearsal branch. Do not apply `0050` or
+`0051`, add a reconciliation row, or initialize production governance until
+the release authority accepts that rehearsal and rechecks the same production
+status.
 
 ### Temporary migration rehearsal and unchanged-byte promotion
 

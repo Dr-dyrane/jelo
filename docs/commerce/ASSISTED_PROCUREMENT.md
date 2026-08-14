@@ -290,9 +290,11 @@ Operators can trigger a re-verification via:
 
 ### Migration
 
-Migrations `0045_assisted_order_line_verifications.sql` and
-`0046_service_fee_policies.sql` are additive and grant only the application
-runtime role. Apply them through the operator-only, checksummed
+The assisted-procurement schema culminates in
+`0050_payment_integrity.sql` and `0051_order_lifecycle.sql`; both are normal
+atomic migrations and grant only the application runtime permissions required
+by their bounded repositories. Apply the complete checked-in sequence through
+the operator-only, checksummed
 `npm run db:migrate` process after `db:migrations:status` and the required Neon
 rehearsal. Never substitute fragmented `run_sql` calls or a manual ledger row.
 

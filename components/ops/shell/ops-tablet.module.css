@@ -66,7 +66,7 @@
 
 /* Touch and phone shells: same sidebar, floated from the left. */
 @media (max-width: 819px) {
-  :global([data-ops-shell]) {
+  .shell {
     min-height: 100dvh !important;
     padding: 0 !important;
     gap: 0 !important;
@@ -131,7 +131,7 @@
     outline-offset: 2px;
   }
 
-  :global([data-ops-shell][data-sidebar-open='true']) .sidebarLayer {
+  .shell[data-sidebar-open='true'] .sidebarLayer {
     visibility: visible;
     transform: translateX(0);
     transition-delay: 0s;
@@ -151,7 +151,7 @@
     transition: opacity 230ms var(--ease-standard);
   }
 
-  :global([data-ops-shell][data-sidebar-open='true']) .sidebarScrim {
+  .shell[data-sidebar-open='true'] .sidebarScrim {
     opacity: 1;
     pointer-events: auto;
   }

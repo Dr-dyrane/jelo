@@ -10,7 +10,7 @@ from this file after integration instead of turning it into another history.
 ## Integration boundary
 
 - Integration owner: root Codex task.
-- Starting revision: `5d4902db135394bef050c9d7682f72346544c8ac`.
+- Starting revision: `01b7fa640be864a61b2aac98154a249f76d40692`.
 - Release authority: follow the existing `ship-after-gates` contract in the
   work ledger. Database mutation still requires the protected operator gate and
   production-shaped rehearsal.
@@ -21,10 +21,10 @@ from this file after integration instead of turning it into another history.
 
 | Lane | State | Integrated scope | Explicit exclusions |
 | --- | --- | --- | --- |
-| Migration governance | Integrated; release gate pending | Checksummed migration ledger, strict inventory, status/repair/rehearsal/promotion tools, migration docs | Application UI and production mutation before rehearsal |
-| Order lifecycle | Integrated; browser/DB gate pending | Guest/member/Ops lifecycle, notifications, tracking, delivery, returns/refunds, `0051_order_lifecycle.sql` | Other `/me` pages and catalogue evidence |
-| My JeloCare experience | Integrated; browser gate pending | `/me` home, explore, shelf, routine, product, consult, locations/account visual and interaction system | `/me/orders`, payment, schema and migrations |
-| Integration and release | Active | Conflict resolution, broad gates, browser E2E, migration rehearsal evidence, commit/push/deploy | Unrelated catalogue edits and user-owned campaign assets |
+| Migration governance | Integrated; rehearsal passed | Checksummed migration ledger, strict inventory, status/repair/rehearsal/promotion tools, migration docs | Application UI and production mutation before the accepted release revision |
+| Order lifecycle | Integrated; authenticated browser gate pending | Guest/member/Ops lifecycle, notifications, tracking, delivery, returns/refunds, `0051_order_lifecycle.sql` | Other `/me` pages and catalogue evidence |
+| My JeloCare experience | Integrated; release gate pending | `/me` home, explore, shelf, routine, product, consult, locations/account visual and interaction system | `/me/orders`, payment, schema and migrations |
+| Integration and release | Active | Conflict resolution, broad gates, guest browser E2E, migration rehearsal evidence, authenticated Ops/member E2E, commit/push/deploy | Unrelated catalogue edits and user-owned campaign assets |
 
 ## Cross-agent rules
 
@@ -40,4 +40,3 @@ from this file after integration instead of turning it into another history.
    merge. One independent review and one bounded correction are the default.
 7. Devin or another agent must update this table before beginning overlapping
    work. Completed reservations are removed after the release ledger is updated.
-

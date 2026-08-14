@@ -106,14 +106,14 @@ test("queue inspectors use the shared overlay contract and inert every shell pla
   );
   assert.match(
     inbox,
-    /const overlayMounted = \([\s\S]*usesOverlayInspector[\s\S]*detailPortalTarget != null/,
+    /const overlayMounted\s*=\s*[\s\S]*?usesOverlayInspector[\s\S]*?detailPortalTarget != null/,
   );
   assert.match(
     inbox,
     /useOpsOverlay\(\{[\s\S]*open: overlayMounted,[\s\S]*returnFocusRef: lastTriggerRef/,
   );
   assert.match(inbox, /inertTargetSelectors: OPS_OVERLAY_INERT_TARGETS/);
-  assert.match(inbox, /initialFocusSelector: '\[data-ops-inspector-close\]'/);
+  assert.match(inbox, /initialFocusSelector: ["']\[data-ops-inspector-close\]["']/);
   assert.match(inbox, /data-ops-inspector-close/);
   assert.doesNotMatch(inbox, /document\.body\.style\.overflow/);
   assert.doesNotMatch(inbox, /handleOverlayKeyDown/);
@@ -161,10 +161,21 @@ test("Ops native dialogs preserve public defaults while owning the Ops scroll pl
 });
 
 test("Overview context is a touch bottom sheet, compact side sheet, and one-scroll-owner inspector", async () => {
-  const [overviewCss, shellCss] = await Promise.all([
+  const [overviewCss, shellCss, chrome] = await Promise.all([
     readSource("app/(ops)/ops/overview.module.css"),
     readSource("components/ops/shell/ops-tablet.module.css"),
+    readSource("components/ops/shell/OpsChrome.tsx"),
   ]);
+
+  assert.doesNotMatch(
+    overviewCss,
+    /^\s*:global\(\[data-ops-(?:detail|workspace|main|sidebar)/m,
+  );
+  assert.doesNotMatch(
+    shellCss,
+    /^\s*:global\(\[data-ops-(?:shell|workspace|main|detail|sidebar)\][^)]*\)\s*\{/m,
+  );
+  assert.match(chrome, /className=\{`\$\{styles\.container\} \$\{adaptive\.shell\}`\}/);
 
   const touchStart = overviewCss.indexOf("@media (max-width: 819px)");
   const persistentShellStart = overviewCss.indexOf(
@@ -194,4 +205,28 @@ test("Overview context is a touch bottom sheet, compact side sheet, and one-scro
     /\.inspectorContent\s*\{[\s\S]*?overflow:\s*hidden/,
   );
   assert.match(overviewCss, /\.inspectorScroll\s*\{[\s\S]*?overflow-y:\s*auto/);
+});
+
+test("route shell tuning stays locally owned across Ops navigation", async () => {
+  const routes = ["observations", "vocabulary"];
+
+  for (const route of routes) {
+    const [page, loading, shellCss] = await Promise.all([
+      readSource(`app/(ops)/ops/${route}/page.tsx`),
+      readSource(`app/(ops)/ops/${route}/loading.tsx`),
+      readSource(`app/(ops)/ops/${route}/${route}-shell.module.css`),
+    ]);
+
+    assert.match(page, /import shellStyles from ["'].+shell\.module\.css["']/);
+    assert.match(loading, /import shellStyles from ["'].+shell\.module\.css["']/);
+    assert.match(page, /className=\{shellStyles\.scope\}/);
+    assert.match(loading, /className=\{shellStyles\.scope\}/);
+    assert.match(shellCss, /\.scope\s*\{/);
+    assert.match(shellCss, /:global\(\[data-ops-shell\]\):has\(\.scope\)/);
+    const shellLines = shellCss.split("\n");
+    shellLines.forEach((line, index) => {
+      if (!/:global\(\[data-ops-(?:detail|workspace|main|sidebar)/.test(line)) return;
+      assert.match(`${shellLines[index - 1] ?? ""} ${line}`, /:has\(\.scope\)/);
+    });
+  }
 });

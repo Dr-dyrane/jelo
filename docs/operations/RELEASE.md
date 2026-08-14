@@ -126,9 +126,10 @@ The exceptional `0048`/`0049` effects-without-ledger state follows the exact
 [repair runbook](./RUNBOOKS.md#reconcile-the-00480049-ledger-gap). Never use a
 manual insert, a generic mark-applied switch, or the normal runner to infer
 those historical bytes. `0050` remains a normal atomic apply after payment
-evidence preconditions pass. This governance rollout does not consume `0051`;
-coordinate the next genuine schema migration number at integration rather than
-adding a placeholder.
+evidence preconditions pass, followed by the genuine normal
+`0051_order_lifecycle.sql` migration. Require both exact checksums and their
+`runner_atomic` rows before deploying the dependent order-lifecycle code; never
+add a placeholder or manually mark either migration applied.
 
 ## Customer Shelf release checklist
 

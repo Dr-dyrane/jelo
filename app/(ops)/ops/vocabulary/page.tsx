@@ -19,7 +19,7 @@ import { listCatalogueProducts } from '@/lib/catalogue/repository';
 import { EmptyState } from '@/components/ops/state/EmptyState';
 import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
 import { VocabularyInbox } from './VocabularyInbox';
-import './vocabulary-shell.module.css';
+import shellStyles from './vocabulary-shell.module.css';
 
 export const dynamic = 'force-dynamic';
 
@@ -77,23 +77,26 @@ export default async function VocabularyQueue({
     : null;
 
   return (
-    <OpsWorkspace title="Vocabulary">
-      {rows.length === 0 ? (
-        <EmptyState
-          title="You’re caught up."
-          body="There’s nothing waiting."
-          action={{ href: '/ops/activity', label: 'View insights' }}
-        />
-      ) : (
-        <VocabularyInbox
-          rows={reviewItems}
-          targets={targets}
-          canDecide={canDecide}
-          canMap={canMap}
-          initialHasMore={hasMore}
-          initialCursor={nextCursor}
-        />
-      )}
-    </OpsWorkspace>
+    <>
+      <span className={shellStyles.scope} hidden />
+      <OpsWorkspace title="Vocabulary">
+        {rows.length === 0 ? (
+          <EmptyState
+            title="You’re caught up."
+            body="There’s nothing waiting."
+            action={{ href: '/ops/activity', label: 'View insights' }}
+          />
+        ) : (
+          <VocabularyInbox
+            rows={reviewItems}
+            targets={targets}
+            canDecide={canDecide}
+            canMap={canMap}
+            initialHasMore={hasMore}
+            initialCursor={nextCursor}
+          />
+        )}
+      </OpsWorkspace>
+    </>
   );
 }

@@ -255,7 +255,7 @@ export function OpsChrome({
   return (
     <div className={styles.body}>
       <div
-        className={styles.container}
+        className={`${styles.container} ${adaptive.shell}`}
         data-ops-shell
         data-sidebar-open={sidebarOpen ? "true" : "false"}
       >

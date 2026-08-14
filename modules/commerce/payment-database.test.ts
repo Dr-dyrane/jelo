@@ -46,6 +46,7 @@ test(
           total_ngn numeric(12,2) not null,
           issued_at timestamptz not null default (now() - interval '1 hour'),
           expires_at timestamptz not null default (now() + interval '1 day'),
+          approved_at timestamptz default now(),
           primary key (order_id, version)
         );
         create table assisted_order_payments (
