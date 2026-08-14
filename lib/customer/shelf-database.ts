@@ -1,18 +1,20 @@
-import 'server-only';
+import "server-only";
 
-import postgres from 'postgres';
+import postgres from "postgres";
 import {
   CUSTOMER_SHELF_RUNTIME_ROLE,
   isCustomerShelfRoleAttestationSafe,
   type CustomerShelfRoleAttestation,
-} from './shelf-role-attestation';
+} from "./shelf-role-attestation";
 
 let shelfClient: ReturnType<typeof postgres> | undefined;
 
 export function getCustomerShelfPostgresClient() {
   const connectionString = process.env.CUSTOMER_SHELF_DATABASE_URL;
-  if (!/^postgres(?:ql)?:\/\//.test(connectionString ?? '')) {
-    throw new Error('CUSTOMER_SHELF_DATABASE_URL is required for private Shelf access.');
+  if (!/^postgres(?:ql)?:\/\//.test(connectionString ?? "")) {
+    throw new Error(
+      "CUSTOMER_SHELF_DATABASE_URL is required for private Shelf access.",
+    );
   }
   if (!shelfClient) {
     shelfClient = postgres(connectionString!, {
@@ -429,5 +431,5 @@ export async function assertCustomerShelfRlsRole(
     // The caller receives the same fail-closed outcome for configuration,
     // catalogue, permission, and connectivity failures.
   }
-  throw new Error('Customer Shelf database access is unavailable.');
+  throw new Error("Customer Shelf database access is unavailable.");
 }

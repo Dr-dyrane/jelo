@@ -1,48 +1,50 @@
-import { randomUUID } from 'node:crypto';
-import postgres, { type Sql, type TransactionSql } from 'postgres';
+import { randomUUID } from "node:crypto";
+import postgres, { type Sql, type TransactionSql } from "postgres";
 import {
   CUSTOMER_SHELF_RUNTIME_ROLE,
   isCustomerShelfRoleAttestationSafe,
   type CustomerShelfRoleAttestation,
-} from '@/lib/customer/shelf-role-attestation';
+} from "@/lib/customer/shelf-role-attestation";
 
-const EXERCISE_ROLLBACK = '--exercise-rollback';
+const EXERCISE_ROLLBACK = "--exercise-rollback";
 
 class ExpectedAuditRollback extends Error {}
 
-const INSUFFICIENT_PRIVILEGE = '42501';
+const INSUFFICIENT_PRIVILEGE = "42501";
 const ATTESTATION_FALSE_FIELDS = new Set<keyof CustomerShelfRoleAttestation>([
-  'rolinherit',
-  'rolsuper',
-  'rolcreatedb',
-  'rolcreaterole',
-  'rolreplication',
-  'rolbypassrls',
-  'has_role_memberships',
-  'owns_relations',
-  'requests_app_privileges',
-  'images_app_privileges',
-  'mutations_app_privileges',
-  'cleanup_app_privileges',
-  'requests_public_privileges',
-  'images_public_privileges',
-  'mutations_public_privileges',
-  'cleanup_public_privileges',
-  'routines_app_privileges',
-  'routine_steps_app_privileges',
-  'routines_public_privileges',
-  'routine_steps_public_privileges',
-  'research_mentions_shelf_privileges',
-  'research_mentions_public_privileges',
-  'signal_bridge_public_execute',
-  'signal_bridge_app_execute',
-  'signal_bridge_shelf_execute_grant_option',
+  "rolinherit",
+  "rolsuper",
+  "rolcreatedb",
+  "rolcreaterole",
+  "rolreplication",
+  "rolbypassrls",
+  "has_role_memberships",
+  "owns_relations",
+  "requests_app_privileges",
+  "images_app_privileges",
+  "mutations_app_privileges",
+  "cleanup_app_privileges",
+  "requests_public_privileges",
+  "images_public_privileges",
+  "mutations_public_privileges",
+  "cleanup_public_privileges",
+  "routines_app_privileges",
+  "routine_steps_app_privileges",
+  "routines_public_privileges",
+  "routine_steps_public_privileges",
+  "research_mentions_shelf_privileges",
+  "research_mentions_public_privileges",
+  "signal_bridge_public_execute",
+  "signal_bridge_app_execute",
+  "signal_bridge_shelf_execute_grant_option",
 ]);
 
 function customerShelfAuditUrl() {
   const candidate = process.env.CUSTOMER_SHELF_DATABASE_URL;
-  if (!/^postgres(?:ql)?:\/\//.test(candidate ?? '')) {
-    throw new Error('CUSTOMER_SHELF_DATABASE_URL is required for the Shelf role audit.');
+  if (!/^postgres(?:ql)?:\/\//.test(candidate ?? "")) {
+    throw new Error(
+      "CUSTOMER_SHELF_DATABASE_URL is required for the Shelf role audit.",
+    );
   }
   return candidate!;
 }
@@ -438,12 +440,21 @@ async function roleAttestation(sql: Sql | TransactionSql) {
   `;
   if (!isCustomerShelfRoleAttestationSafe(attestation)) {
     const failedFields = attestation
-      ? (Object.entries(attestation) as [keyof CustomerShelfRoleAttestation, boolean][])
-          .filter(([field, value]) => value !== !ATTESTATION_FALSE_FIELDS.has(field))
+      ? (
+          Object.entries(attestation) as [
+            keyof CustomerShelfRoleAttestation,
+            boolean,
+          ][]
+        )
+          .filter(
+            ([field, value]) => value !== !ATTESTATION_FALSE_FIELDS.has(field),
+          )
           .map(([field]) => field)
-      : ['missing_attestation'];
-    console.error(`Customer Shelf role audit failed fields=${failedFields.join(',')}.`);
-    throw new Error('Customer Shelf role audit failed.');
+      : ["missing_attestation"];
+    console.error(
+      `Customer Shelf role audit failed fields=${failedFields.join(",")}.`,
+    );
+    throw new Error("Customer Shelf role audit failed.");
   }
 }
 
@@ -462,17 +473,19 @@ async function expectPrivilegeDenial(
 }
 
 async function assertNoPooledSubjectOrVisibleShelfRows(sql: Sql) {
-  await sql.begin('read only', async transaction => {
+  await sql.begin("read only", async (transaction) => {
     await transaction`select pg_catalog.set_config('search_path', 'pg_catalog, public', true)`;
-    const [state] = await transaction<{
-      customer_subject: string | null;
-      visible_count: number;
-      visible_request_count: number;
-      visible_image_count: number;
-      visible_mutation_count: number;
-      visible_cleanup_count: number;
-      visible_routine_count: number;
-    }[]>`
+    const [state] = await transaction<
+      {
+        customer_subject: string | null;
+        visible_count: number;
+        visible_request_count: number;
+        visible_image_count: number;
+        visible_mutation_count: number;
+        visible_cleanup_count: number;
+        visible_routine_count: number;
+      }[]
+    >`
       select
         nullif(
           pg_catalog.current_setting('app.customer_subject', true),
@@ -504,29 +517,29 @@ async function assertNoPooledSubjectOrVisibleShelfRows(sql: Sql) {
         ) as visible_routine_count
     `;
     if (
-      state?.customer_subject !== null
-      || state.visible_count !== 0
-      || state.visible_request_count !== 0
-      || state.visible_image_count !== 0
-      || state.visible_mutation_count !== 0
-      || state.visible_cleanup_count !== 0
-      || state.visible_routine_count !== 0
+      state?.customer_subject !== null ||
+      state.visible_count !== 0 ||
+      state.visible_request_count !== 0 ||
+      state.visible_image_count !== 0 ||
+      state.visible_mutation_count !== 0 ||
+      state.visible_cleanup_count !== 0 ||
+      state.visible_routine_count !== 0
     ) {
-      throw new Error('Customer Shelf pooled subject reset audit failed.');
+      throw new Error("Customer Shelf pooled subject reset audit failed.");
     }
   });
 }
 
 async function exercisePooledSubjectReset(sql: Sql) {
   const probeOwner = `shelf-role-audit:${randomUUID()}`;
-  await sql.begin('read only', async transaction => {
+  await sql.begin("read only", async (transaction) => {
     await transaction`select pg_catalog.set_config('search_path', 'pg_catalog, public', true)`;
     await transaction`select pg_catalog.set_config('app.customer_subject', ${probeOwner}, true)`;
     const [state] = await transaction<{ customer_subject: string | null }[]>`
       select pg_catalog.current_setting('app.customer_subject', true) as customer_subject
     `;
     if (state?.customer_subject !== probeOwner) {
-      throw new Error('Customer Shelf transaction-local subject audit failed.');
+      throw new Error("Customer Shelf transaction-local subject audit failed.");
     }
   });
   await assertNoPooledSubjectOrVisibleShelfRows(sql);
@@ -538,7 +551,13 @@ async function recordRequestMutation(
     owner: string;
     idempotencyKey: string;
     requestId: string;
-    operation: 'create' | 'update' | 'consent_revoke' | 'submit' | 'withdraw' | 'image_replace';
+    operation:
+      | "create"
+      | "update"
+      | "consent_revoke"
+      | "submit"
+      | "withdraw"
+      | "image_replace";
     fingerprint: string;
     resultRevision: number;
   },
@@ -572,18 +591,20 @@ async function exercisePrivateRequestLifecycle(
   const requestId = randomUUID();
   const createIdempotencyKey = randomUUID();
   const blobPathname = [
-    'customer-product-requests',
-    randomUUID().replaceAll('-', ''),
+    "customer-product-requests",
+    randomUUID().replaceAll("-", ""),
     requestId,
     `${randomUUID()}.webp`,
-  ].join('/');
+  ].join("/");
   const normalizedEntityRef = `custom:audit-${randomUUID()}`;
 
-  const created = await transaction<{
-    id: string;
-    revision: number;
-    photo_identification_consent: boolean;
-  }[]>`
+  const created = await transaction<
+    {
+      id: string;
+      revision: number;
+      photo_identification_consent: boolean;
+    }[]
+  >`
     insert into public.customer_product_requests (
       id,
       owner_subject,
@@ -610,26 +631,32 @@ async function exercisePrivateRequestLifecycle(
     returning id, revision, photo_identification_consent
   `;
   if (
-    created.length !== 1
-    || created[0]?.id !== requestId
-    || created[0].revision !== 0
-    || !created[0].photo_identification_consent
+    created.length !== 1 ||
+    created[0]?.id !== requestId ||
+    created[0].revision !== 0 ||
+    !created[0].photo_identification_consent
   ) {
-    throw new Error('Customer product request create audit failed.');
+    throw new Error("Customer product request create audit failed.");
   }
 
   const createMutation = {
     owner: ownerA,
     idempotencyKey: createIdempotencyKey,
     requestId,
-    operation: 'create' as const,
-    fingerprint: 'a'.repeat(64),
+    operation: "create" as const,
+    fingerprint: "a".repeat(64),
     resultRevision: 0,
   };
-  const firstCreateMutation = await recordRequestMutation(transaction, createMutation);
-  const replayedCreateMutation = await recordRequestMutation(transaction, createMutation);
+  const firstCreateMutation = await recordRequestMutation(
+    transaction,
+    createMutation,
+  );
+  const replayedCreateMutation = await recordRequestMutation(
+    transaction,
+    createMutation,
+  );
   if (firstCreateMutation.length !== 1 || replayedCreateMutation.length !== 0) {
-    throw new Error('Customer product request idempotency audit failed.');
+    throw new Error("Customer product request idempotency audit failed.");
   }
 
   const updated = await transaction<{ revision: number }[]>`
@@ -654,27 +681,29 @@ async function exercisePrivateRequestLifecycle(
     returning revision
   `;
   if (updated[0]?.revision !== 1 || staleUpdate.length !== 0) {
-    throw new Error('Customer product request optimistic update audit failed.');
+    throw new Error("Customer product request optimistic update audit failed.");
   }
   const updateMutation = await recordRequestMutation(transaction, {
     owner: ownerA,
     idempotencyKey: randomUUID(),
     requestId,
-    operation: 'update',
-    fingerprint: 'b'.repeat(64),
+    operation: "update",
+    fingerprint: "b".repeat(64),
     resultRevision: 1,
   });
   if (updateMutation.length !== 1) {
-    throw new Error('Customer product request update mutation audit failed.');
+    throw new Error("Customer product request update mutation audit failed.");
   }
 
-  const insertedImage = await transaction<{
-    request_id: string;
-    media_type: string;
-    byte_size: number;
-    pixel_width: number;
-    pixel_height: number;
-  }[]>`
+  const insertedImage = await transaction<
+    {
+      request_id: string;
+      media_type: string;
+      byte_size: number;
+      pixel_width: number;
+      pixel_height: number;
+    }[]
+  >`
     insert into public.customer_product_request_images (
       request_id,
       owner_subject,
@@ -692,18 +721,18 @@ async function exercisePrivateRequestLifecycle(
       1024,
       640,
       480,
-      ${'c'.repeat(64)}
+      ${"c".repeat(64)}
     )
     returning request_id, media_type, byte_size, pixel_width, pixel_height
   `;
   if (
-    insertedImage[0]?.request_id !== requestId
-    || insertedImage[0].media_type !== 'image/webp'
-    || insertedImage[0].byte_size !== 1024
-    || insertedImage[0].pixel_width !== 640
-    || insertedImage[0].pixel_height !== 480
+    insertedImage[0]?.request_id !== requestId ||
+    insertedImage[0].media_type !== "image/webp" ||
+    insertedImage[0].byte_size !== 1024 ||
+    insertedImage[0].pixel_width !== 640 ||
+    insertedImage[0].pixel_height !== 480
   ) {
-    throw new Error('Customer product request image metadata audit failed.');
+    throw new Error("Customer product request image metadata audit failed.");
   }
   const imageRevision = await transaction<{ revision: number }[]>`
     update public.customer_product_requests
@@ -715,25 +744,27 @@ async function exercisePrivateRequestLifecycle(
     returning revision
   `;
   if (imageRevision[0]?.revision !== 2) {
-    throw new Error('Customer product request image revision audit failed.');
+    throw new Error("Customer product request image revision audit failed.");
   }
   const imageMutation = await recordRequestMutation(transaction, {
     owner: ownerA,
     idempotencyKey: randomUUID(),
     requestId,
-    operation: 'image_replace',
-    fingerprint: 'c'.repeat(64),
+    operation: "image_replace",
+    fingerprint: "c".repeat(64),
     resultRevision: 2,
   });
   if (imageMutation.length !== 1) {
-    throw new Error('Customer product request image mutation audit failed.');
+    throw new Error("Customer product request image mutation audit failed.");
   }
 
-  const consentRevoked = await transaction<{
-    revision: number;
-    photo_identification_consent: boolean;
-    identity_is_preserved: boolean;
-  }[]>`
+  const consentRevoked = await transaction<
+    {
+      revision: number;
+      photo_identification_consent: boolean;
+      identity_is_preserved: boolean;
+    }[]
+  >`
     update public.customer_product_requests
     set photo_identification_consent = false,
         revision = revision + 1,
@@ -750,22 +781,22 @@ async function exercisePrivateRequestLifecycle(
         as identity_is_preserved
   `;
   if (
-    consentRevoked[0]?.revision !== 3
-    || consentRevoked[0].photo_identification_consent
-    || !consentRevoked[0].identity_is_preserved
+    consentRevoked[0]?.revision !== 3 ||
+    consentRevoked[0].photo_identification_consent ||
+    !consentRevoked[0].identity_is_preserved
   ) {
-    throw new Error('Customer product request consent revoke audit failed.');
+    throw new Error("Customer product request consent revoke audit failed.");
   }
   const consentMutation = await recordRequestMutation(transaction, {
     owner: ownerA,
     idempotencyKey: randomUUID(),
     requestId,
-    operation: 'consent_revoke',
-    fingerprint: 'd'.repeat(64),
+    operation: "consent_revoke",
+    fingerprint: "d".repeat(64),
     resultRevision: 3,
   });
   if (consentMutation.length !== 1) {
-    throw new Error('Customer product request consent mutation audit failed.');
+    throw new Error("Customer product request consent mutation audit failed.");
   }
 
   const submitted = await transaction<{ revision: number }[]>`
@@ -781,29 +812,31 @@ async function exercisePrivateRequestLifecycle(
     returning revision
   `;
   if (submitted[0]?.revision !== 4) {
-    throw new Error('Customer product request submit audit failed.');
+    throw new Error("Customer product request submit audit failed.");
   }
   const submitMutation = await recordRequestMutation(transaction, {
     owner: ownerA,
     idempotencyKey: randomUUID(),
     requestId,
-    operation: 'submit',
-    fingerprint: 'e'.repeat(64),
+    operation: "submit",
+    fingerprint: "e".repeat(64),
     resultRevision: 4,
   });
   if (submitMutation.length !== 1) {
-    throw new Error('Customer product request submit mutation audit failed.');
+    throw new Error("Customer product request submit mutation audit failed.");
   }
   await transaction`select public.sync_customer_product_request_research_signal(${requestId})`;
   await transaction`select public.sync_customer_product_request_research_signal(${requestId})`;
 
   await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerB}, true)`;
-  const [ownerBVisibility] = await transaction<{
-    requests: number;
-    images: number;
-    mutations: number;
-    cleanup: number;
-  }[]>`
+  const [ownerBVisibility] = await transaction<
+    {
+      requests: number;
+      images: number;
+      mutations: number;
+      cleanup: number;
+    }[]
+  >`
     select
       (
         select pg_catalog.count(*)::integer
@@ -827,12 +860,12 @@ async function exercisePrivateRequestLifecycle(
       ) as cleanup
   `;
   if (
-    ownerBVisibility?.requests !== 0
-    || ownerBVisibility.images !== 0
-    || ownerBVisibility.mutations !== 0
-    || ownerBVisibility.cleanup !== 0
+    ownerBVisibility?.requests !== 0 ||
+    ownerBVisibility.images !== 0 ||
+    ownerBVisibility.mutations !== 0 ||
+    ownerBVisibility.cleanup !== 0
   ) {
-    throw new Error('Customer product request read isolation audit failed.');
+    throw new Error("Customer product request read isolation audit failed.");
   }
   const crossOwnerRequestUpdate = await transaction<{ id: string }[]>`
     update public.customer_product_requests
@@ -848,12 +881,17 @@ async function exercisePrivateRequestLifecycle(
     returning request_id
   `;
   if (
-    crossOwnerRequestUpdate.length !== 0
-    || crossOwnerImageDelete.length !== 0
+    crossOwnerRequestUpdate.length !== 0 ||
+    crossOwnerImageDelete.length !== 0
   ) {
-    throw new Error('Customer product request mutation isolation audit failed.');
+    throw new Error(
+      "Customer product request mutation isolation audit failed.",
+    );
   }
-  await expectPrivilegeDenial(transaction, 'forged request insert', savepoint => savepoint`
+  await expectPrivilegeDenial(
+    transaction,
+    "forged request insert",
+    (savepoint) => savepoint`
     insert into public.customer_product_requests (
       owner_subject,
       brand,
@@ -867,20 +905,23 @@ async function exercisePrivateRequestLifecycle(
       '10 ml',
       ${`custom:audit-${randomUUID()}`}
     )
-  `);
+  `,
+  );
 
   await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerA}, true)`;
-  const deletedImage = await transaction<{ request_id: string; blob_pathname: string }[]>`
+  const deletedImage = await transaction<
+    { request_id: string; blob_pathname: string }[]
+  >`
     delete from public.customer_product_request_images
     where owner_subject = ${ownerA}
       and request_id = ${requestId}
     returning request_id, blob_pathname
   `;
   if (
-    deletedImage[0]?.request_id !== requestId
-    || deletedImage[0].blob_pathname !== blobPathname
+    deletedImage[0]?.request_id !== requestId ||
+    deletedImage[0].blob_pathname !== blobPathname
   ) {
-    throw new Error('Customer product request image removal audit failed.');
+    throw new Error("Customer product request image removal audit failed.");
   }
   const queuedCleanup = await transaction<{ request_id: string }[]>`
     insert into public.customer_product_request_blob_cleanup (
@@ -891,13 +932,15 @@ async function exercisePrivateRequestLifecycle(
     returning request_id
   `;
   if (queuedCleanup[0]?.request_id !== requestId) {
-    throw new Error('Customer product request cleanup enqueue audit failed.');
+    throw new Error("Customer product request cleanup enqueue audit failed.");
   }
-  const withdrawn = await transaction<{
-    revision: number;
-    lifecycle_state: string;
-    scrubbed: boolean;
-  }[]>`
+  const withdrawn = await transaction<
+    {
+      revision: number;
+      lifecycle_state: string;
+      scrubbed: boolean;
+    }[]
+  >`
     update public.customer_product_requests
     set lifecycle_state = 'withdrawn',
         brand = null,
@@ -929,22 +972,24 @@ async function exercisePrivateRequestLifecycle(
         as scrubbed
   `;
   if (
-    withdrawn[0]?.revision !== 5
-    || withdrawn[0].lifecycle_state !== 'withdrawn'
-    || !withdrawn[0].scrubbed
+    withdrawn[0]?.revision !== 5 ||
+    withdrawn[0].lifecycle_state !== "withdrawn" ||
+    !withdrawn[0].scrubbed
   ) {
-    throw new Error('Customer product request withdrawal scrub audit failed.');
+    throw new Error("Customer product request withdrawal scrub audit failed.");
   }
   const withdrawMutation = await recordRequestMutation(transaction, {
     owner: ownerA,
     idempotencyKey: randomUUID(),
     requestId,
-    operation: 'withdraw',
-    fingerprint: 'f'.repeat(64),
+    operation: "withdraw",
+    fingerprint: "f".repeat(64),
     resultRevision: 5,
   });
   if (withdrawMutation.length !== 1) {
-    throw new Error('Customer product request withdrawal mutation audit failed.');
+    throw new Error(
+      "Customer product request withdrawal mutation audit failed.",
+    );
   }
   await transaction`select public.sync_customer_product_request_research_signal(${requestId})`;
 
@@ -961,16 +1006,21 @@ async function exercisePrivateRequestLifecycle(
       and request_id = ${requestId}
     returning request_id
   `;
-  if (ownerBCleanupVisibility?.cleanup !== 0 || crossOwnerCleanupDelete.length !== 0) {
-    throw new Error('Customer product request cleanup isolation audit failed.');
+  if (
+    ownerBCleanupVisibility?.cleanup !== 0 ||
+    crossOwnerCleanupDelete.length !== 0
+  ) {
+    throw new Error("Customer product request cleanup isolation audit failed.");
   }
 
   await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerA}, true)`;
-  const [withdrawalState] = await transaction<{
-    images: number;
-    cleanup: number;
-    mutations: number;
-  }[]>`
+  const [withdrawalState] = await transaction<
+    {
+      images: number;
+      cleanup: number;
+      mutations: number;
+    }[]
+  >`
     select
       (
         select pg_catalog.count(*)::integer
@@ -992,28 +1042,35 @@ async function exercisePrivateRequestLifecycle(
       ) as mutations
   `;
   if (
-    withdrawalState?.images !== 0
-    || withdrawalState.cleanup !== 1
-    || withdrawalState.mutations !== 6
+    withdrawalState?.images !== 0 ||
+    withdrawalState.cleanup !== 1 ||
+    withdrawalState.mutations !== 6
   ) {
-    throw new Error('Customer product request withdrawal cleanup audit failed.');
+    throw new Error(
+      "Customer product request withdrawal cleanup audit failed.",
+    );
   }
 }
 
-async function assertNoRolledBackOwnerRows(sql: Sql, owners: readonly string[]) {
+async function assertNoRolledBackOwnerRows(
+  sql: Sql,
+  owners: readonly string[],
+) {
   for (const owner of owners) {
-    await sql.begin('read only', async transaction => {
+    await sql.begin("read only", async (transaction) => {
       await transaction`select pg_catalog.set_config('search_path', 'pg_catalog, public', true)`;
       await transaction`select pg_catalog.set_config('app.customer_subject', ${owner}, true)`;
-      const [state] = await transaction<{
-        shelf: number;
-        requests: number;
-        images: number;
-        mutations: number;
-        cleanup: number;
-        routines: number;
-        routine_steps: number;
-      }[]>`
+      const [state] = await transaction<
+        {
+          shelf: number;
+          requests: number;
+          images: number;
+          mutations: number;
+          cleanup: number;
+          routines: number;
+          routine_steps: number;
+        }[]
+      >`
         select
           (select pg_catalog.count(*)::integer from public.customer_shelf_items) as shelf,
           (select pg_catalog.count(*)::integer from public.customer_product_requests) as requests,
@@ -1023,8 +1080,8 @@ async function assertNoRolledBackOwnerRows(sql: Sql, owners: readonly string[]) 
           (select pg_catalog.count(*)::integer from public.customer_routines) as routines,
           (select pg_catalog.count(*)::integer from public.customer_routine_steps) as routine_steps
       `;
-      if (!state || Object.values(state).some(count => count !== 0)) {
-        throw new Error('Customer Shelf rollback verification audit failed.');
+      if (!state || Object.values(state).some((count) => count !== 0)) {
+        throw new Error("Customer Shelf rollback verification audit failed.");
       }
     });
   }
@@ -1035,13 +1092,17 @@ async function exerciseRolledBackIsolation(sql: Sql) {
   const ownerA = `shelf-role-audit:${randomUUID()}`;
   const ownerB = `shelf-role-audit:${randomUUID()}`;
   try {
-    await sql.begin(async transaction => {
+    await sql.begin(async (transaction) => {
       await transaction`select pg_catalog.set_config('search_path', 'pg_catalog, public', true)`;
       await roleAttestation(transaction);
-      await expectPrivilegeDenial(transaction, 'private receipt access', savepoint => savepoint`
+      await expectPrivilegeDenial(
+        transaction,
+        "private receipt access",
+        (savepoint) => savepoint`
         select pg_catalog.count(*)
         from public.customer_shelf_import_receipts
-      `);
+      `,
+      );
       const [identity] = await transaction<{ identity_version_id: string }[]>`
         select version.identity_version_id
         from public.catalogue_product_identity_versions version
@@ -1051,10 +1112,15 @@ async function exerciseRolledBackIsolation(sql: Sql) {
         order by version.identity_version_id
         limit 1
       `;
-      if (!identity) throw new Error('Customer Shelf role audit could not resolve an active identity.');
+      if (!identity)
+        throw new Error(
+          "Customer Shelf role audit could not resolve an active identity.",
+        );
 
       await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerA}, true)`;
-      const firstAdd = await transaction<{ product_identity_version_id: string }[]>`
+      const firstAdd = await transaction<
+        { product_identity_version_id: string }[]
+      >`
         insert into public.customer_shelf_items (
           owner_subject,
           product_identity_version_id,
@@ -1063,8 +1129,11 @@ async function exerciseRolledBackIsolation(sql: Sql) {
         on conflict (owner_subject, product_identity_version_id) do nothing
         returning product_identity_version_id
       `;
-      if (firstAdd.length !== 1) throw new Error('Customer Shelf first add audit failed.');
-      const duplicateAdd = await transaction<{ product_identity_version_id: string }[]>`
+      if (firstAdd.length !== 1)
+        throw new Error("Customer Shelf first add audit failed.");
+      const duplicateAdd = await transaction<
+        { product_identity_version_id: string }[]
+      >`
         insert into public.customer_shelf_items (
           owner_subject,
           product_identity_version_id,
@@ -1073,30 +1142,44 @@ async function exerciseRolledBackIsolation(sql: Sql) {
         on conflict (owner_subject, product_identity_version_id) do nothing
         returning product_identity_version_id
       `;
-      if (duplicateAdd.length !== 0) throw new Error('Customer Shelf duplicate add audit failed.');
+      if (duplicateAdd.length !== 0)
+        throw new Error("Customer Shelf duplicate add audit failed.");
       const visibleToA = await transaction<{ count: number }[]>`
         select pg_catalog.count(*)::integer as count
         from public.customer_shelf_items
         where owner_subject = ${ownerA}
       `;
-      if (visibleToA[0]?.count !== 1) throw new Error('Customer Shelf owner visibility audit failed.');
+      if (visibleToA[0]?.count !== 1)
+        throw new Error("Customer Shelf owner visibility audit failed.");
 
-      await expectPrivilegeDenial(transaction, 'forged owner insert', savepoint => savepoint`
+      await expectPrivilegeDenial(
+        transaction,
+        "forged owner insert",
+        (savepoint) => savepoint`
         insert into public.customer_shelf_items (
           owner_subject,
           product_identity_version_id,
           save_origin
         ) values (${ownerB}, ${identity.identity_version_id}, 'customer')
-      `);
-      await expectPrivilegeDenial(transaction, 'update privilege', savepoint => savepoint`
+      `,
+      );
+      await expectPrivilegeDenial(
+        transaction,
+        "update privilege",
+        (savepoint) => savepoint`
         update public.customer_shelf_items
         set saved_at = saved_at
         where owner_subject = ${ownerA}
           and product_identity_version_id = ${identity.identity_version_id}
-      `);
-      await expectPrivilegeDenial(transaction, 'truncate privilege', savepoint => savepoint`
+      `,
+      );
+      await expectPrivilegeDenial(
+        transaction,
+        "truncate privilege",
+        (savepoint) => savepoint`
         truncate table public.customer_shelf_items
-      `);
+      `,
+      );
 
       await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerB}, true)`;
       const visibleToB = await transaction<{ count: number }[]>`
@@ -1104,29 +1187,37 @@ async function exerciseRolledBackIsolation(sql: Sql) {
         from public.customer_shelf_items
         where owner_subject = ${ownerA}
       `;
-      if (visibleToB[0]?.count !== 0) throw new Error('Customer Shelf isolation audit failed.');
+      if (visibleToB[0]?.count !== 0)
+        throw new Error("Customer Shelf isolation audit failed.");
       const forgedOwnerRows = await transaction<{ count: number }[]>`
         select pg_catalog.count(*)::integer as count
         from public.customer_shelf_items
         where owner_subject = ${ownerB}
       `;
-      if (forgedOwnerRows[0]?.count !== 0) throw new Error('Customer Shelf forged owner isolation audit failed.');
-      const crossOwnerDelete = await transaction<{ product_identity_version_id: string }[]>`
+      if (forgedOwnerRows[0]?.count !== 0)
+        throw new Error("Customer Shelf forged owner isolation audit failed.");
+      const crossOwnerDelete = await transaction<
+        { product_identity_version_id: string }[]
+      >`
         delete from public.customer_shelf_items
         where owner_subject = ${ownerA}
           and product_identity_version_id = ${identity.identity_version_id}
         returning product_identity_version_id
       `;
-      if (crossOwnerDelete.length !== 0) throw new Error('Customer Shelf delete isolation audit failed.');
+      if (crossOwnerDelete.length !== 0)
+        throw new Error("Customer Shelf delete isolation audit failed.");
 
       await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerA}, true)`;
-      const ownerDelete = await transaction<{ product_identity_version_id: string }[]>`
+      const ownerDelete = await transaction<
+        { product_identity_version_id: string }[]
+      >`
         delete from public.customer_shelf_items
         where owner_subject = ${ownerA}
           and product_identity_version_id = ${identity.identity_version_id}
         returning product_identity_version_id
       `;
-      if (ownerDelete.length !== 1) throw new Error('Customer Shelf owner delete audit failed.');
+      if (ownerDelete.length !== 1)
+        throw new Error("Customer Shelf owner delete audit failed.");
 
       await exercisePrivateRequestLifecycle(transaction, ownerA, ownerB);
 
@@ -1137,7 +1228,8 @@ async function exerciseRolledBackIsolation(sql: Sql) {
         values (${routineId}, ${ownerA}, 'Audit routine', 'customer')
         returning id
       `;
-      if (routineInsert.length !== 1) throw new Error('Customer Routine create audit failed.');
+      if (routineInsert.length !== 1)
+        throw new Error("Customer Routine create audit failed.");
       const routineStepInsert = await transaction<{ id: string }[]>`
         insert into public.customer_routine_steps (
           id, routine_id, owner_subject, position, label, instruction, reference_state
@@ -1146,19 +1238,25 @@ async function exerciseRolledBackIsolation(sql: Sql) {
         )
         returning id
       `;
-      if (routineStepInsert.length !== 1) throw new Error('Customer Routine step create audit failed.');
+      if (routineStepInsert.length !== 1)
+        throw new Error("Customer Routine step create audit failed.");
 
-      await expectPrivilegeDenial(transaction, 'forged routine insert', savepoint => savepoint`
+      await expectPrivilegeDenial(
+        transaction,
+        "forged routine insert",
+        (savepoint) => savepoint`
         insert into public.customer_routines (owner_subject, name, origin)
         values (${ownerB}, 'Forged routine', 'customer')
-      `);
+      `,
+      );
       await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerB}, true)`;
       const routinesVisibleToB = await transaction<{ count: number }[]>`
         select pg_catalog.count(*)::integer as count
         from public.customer_routines
         where owner_subject = ${ownerA}
       `;
-      if (routinesVisibleToB[0]?.count !== 0) throw new Error('Customer Routine read isolation audit failed.');
+      if (routinesVisibleToB[0]?.count !== 0)
+        throw new Error("Customer Routine read isolation audit failed.");
       const crossOwnerRoutineUpdate = await transaction<{ id: string }[]>`
         update public.customer_routines
         set name = 'Cross-owner update'
@@ -1166,14 +1264,16 @@ async function exerciseRolledBackIsolation(sql: Sql) {
           and id = ${routineId}
         returning id
       `;
-      if (crossOwnerRoutineUpdate.length !== 0) throw new Error('Customer Routine update isolation audit failed.');
+      if (crossOwnerRoutineUpdate.length !== 0)
+        throw new Error("Customer Routine update isolation audit failed.");
       const crossOwnerRoutineDelete = await transaction<{ id: string }[]>`
         delete from public.customer_routines
         where owner_subject = ${ownerA}
           and id = ${routineId}
         returning id
       `;
-      if (crossOwnerRoutineDelete.length !== 0) throw new Error('Customer Routine delete isolation audit failed.');
+      if (crossOwnerRoutineDelete.length !== 0)
+        throw new Error("Customer Routine delete isolation audit failed.");
 
       await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerA}, true)`;
       const ownerRoutineUpdate = await transaction<{ id: string }[]>`
@@ -1185,21 +1285,24 @@ async function exerciseRolledBackIsolation(sql: Sql) {
           and id = ${routineId}
         returning id
       `;
-      if (ownerRoutineUpdate.length !== 1) throw new Error('Customer Routine owner update audit failed.');
+      if (ownerRoutineUpdate.length !== 1)
+        throw new Error("Customer Routine owner update audit failed.");
       const ownerRoutineDelete = await transaction<{ id: string }[]>`
         delete from public.customer_routines
         where owner_subject = ${ownerA}
           and id = ${routineId}
         returning id
       `;
-      if (ownerRoutineDelete.length !== 1) throw new Error('Customer Routine owner delete audit failed.');
+      if (ownerRoutineDelete.length !== 1)
+        throw new Error("Customer Routine owner delete audit failed.");
       const remainingRoutineSteps = await transaction<{ count: number }[]>`
         select pg_catalog.count(*)::integer as count
         from public.customer_routine_steps
         where owner_subject = ${ownerA}
           and routine_id = ${routineId}
       `;
-      if (remainingRoutineSteps[0]?.count !== 0) throw new Error('Customer Routine cascade audit failed.');
+      if (remainingRoutineSteps[0]?.count !== 0)
+        throw new Error("Customer Routine cascade audit failed.");
       throw new ExpectedAuditRollback();
     });
   } catch (error) {
@@ -1211,28 +1314,35 @@ async function exerciseRolledBackIsolation(sql: Sql) {
 
 async function main() {
   const options = process.argv.slice(2);
-  if (options.some(option => option !== EXERCISE_ROLLBACK)) {
+  if (options.some((option) => option !== EXERCISE_ROLLBACK)) {
     throw new Error(`Only ${EXERCISE_ROLLBACK} is supported.`);
   }
   const sql = postgres(customerShelfAuditUrl(), { max: 1, prepare: false });
   try {
     await roleAttestation(sql);
-    if (options.includes(EXERCISE_ROLLBACK)) await exerciseRolledBackIsolation(sql);
-    console.log(options.includes(EXERCISE_ROLLBACK)
-      ? 'Customer Shelf role and rolled-back owner isolation audit passed.'
-      : 'Customer Shelf role attestation passed.');
+    if (options.includes(EXERCISE_ROLLBACK))
+      await exerciseRolledBackIsolation(sql);
+    console.log(
+      options.includes(EXERCISE_ROLLBACK)
+        ? "Customer Shelf role and rolled-back owner isolation audit passed."
+        : "Customer Shelf role attestation passed.",
+    );
   } finally {
     await sql.end({ timeout: 5 });
   }
 }
 
 main().catch((error: unknown) => {
-  const code = typeof error === 'object' && error && 'code' in error
-    ? String(error.code)
-    : 'unavailable';
-  const routine = typeof error === 'object' && error && 'routine' in error
-    ? String(error.routine)
-    : 'unavailable';
-  console.error(`Customer Shelf role audit failed (code=${code}; routine=${routine}).`);
+  const code =
+    typeof error === "object" && error && "code" in error
+      ? String(error.code)
+      : "unavailable";
+  const routine =
+    typeof error === "object" && error && "routine" in error
+      ? String(error.routine)
+      : "unavailable";
+  console.error(
+    `Customer Shelf role audit failed (code=${code}; routine=${routine}).`,
+  );
   process.exitCode = 1;
 });
