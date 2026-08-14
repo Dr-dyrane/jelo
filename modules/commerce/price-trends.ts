@@ -355,22 +355,22 @@ export function selectCurrentPriceObservations(
     const latest = ordered.at(-1);
     if (!latest) return [];
 
-    // If the latest DB history row matches the snapshot exactly, the DB is
-    // in sync and we can use the history as-is.
-    const latestAt = normalizedTimestamp(latest.observation.observedAt);
-    if (
-      latest.observation.priceMinor === latest.snapshot.priceMinor &&
-      latestAt === latest.snapshot.observedAt
-    ) {
+    // If the latest DB history row matches the snapshot price (even if the
+    // verification date differs), the DB history is accurate for trend
+    // purposes — the price hasn't changed, only the verification date was
+    // refreshed. Return the DB history as-is without appending a synthetic
+    // observation. Appending a synthetic observation at the newer snapshot
+    // date would push `asOf` forward and push real price changes outside
+    // the trend windows.
+    if (latest.observation.priceMinor === latest.snapshot.priceMinor) {
       return ordered.map((entry) => entry.observation);
     }
 
-    // The DB is out of sync with the static catalogue (the common case after
-    // a price update that hasn't been seeded into Neon yet). Append the
+    // The DB price differs from the snapshot price — the static catalogue
+    // has a newer price that hasn't been seeded into Neon yet. Append the
     // snapshot as a synthetic current observation so trends can still be
     // computed from the static catalogue's current price against past DB
-    // history. This prevents the /share page from losing all trend data
-    // every time prices are updated without running the seed script.
+    // history.
     const syntheticId = `snapshot:${latest.snapshot.retailer}:${latest.snapshot.url}`;
     const synthetic: PriceObservation = {
       historyId: syntheticId,
