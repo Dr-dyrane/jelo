@@ -4,7 +4,10 @@ import {
   assertCustomerShelfRlsRole,
   getCustomerShelfPostgresClient,
 } from './shelf-database';
-import { isValidCustomerShelfOwnerSubject } from './shelf-policy';
+import {
+  isValidCustomerShelfIdentityVersionId,
+  isValidCustomerShelfOwnerSubject,
+} from './shelf-policy';
 
 export type CustomerShelfLifecycleState = 'active' | 'merged' | 'retired' | 'superseded';
 export type CustomerShelfSaveOrigin = 'customer' | 'legacy_pages_v1_0';
@@ -52,8 +55,6 @@ type CustomerShelfRow = {
   current_product_published: boolean | null;
 };
 
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
 function requiredOwnerSubject(ownerSubject: string) {
   const value = ownerSubject.trim();
   if (!isValidCustomerShelfOwnerSubject(value)) throw new Error('Customer Shelf owner is unavailable.');
@@ -70,7 +71,7 @@ function requiredSlug(slug: string) {
 
 function requiredIdentityVersionId(identityVersionId: string) {
   const value = identityVersionId.trim();
-  if (!UUID.test(value)) throw new Error('Saved product is unavailable.');
+  if (!isValidCustomerShelfIdentityVersionId(value)) throw new Error('Saved product is unavailable.');
   return value;
 }
 

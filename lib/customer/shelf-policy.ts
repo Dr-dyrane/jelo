@@ -18,11 +18,19 @@ export type CustomerShelfContextResult =
   | { status: 'ready'; items: CustomerShelfRecord[] }
   | { status: 'unavailable'; items: []; message: string };
 
+// Catalogue identity UUIDs are deterministic SHA-256 slices, so PostgreSQL accepts
+// them even when the RFC version/variant nibbles are not 1–5 / 8–b.
+const POSTGRES_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export function isValidCustomerShelfOwnerSubject(ownerSubject: unknown): ownerSubject is string {
   return typeof ownerSubject === 'string'
     && ownerSubject === ownerSubject.trim()
     && ownerSubject.length > 0
     && ownerSubject.length <= 320;
+}
+
+export function isValidCustomerShelfIdentityVersionId(value: unknown): value is string {
+  return typeof value === 'string' && POSTGRES_UUID.test(value);
 }
 
 export function createCustomerShelfService(repository: CustomerShelfRepository) {

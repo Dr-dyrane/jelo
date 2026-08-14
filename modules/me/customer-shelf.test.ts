@@ -11,6 +11,7 @@ import {
 } from '../../lib/customer/portal-model';
 import {
   createCustomerShelfService,
+  isValidCustomerShelfIdentityVersionId,
 } from '../../lib/customer/shelf-policy';
 import type {
   CustomerShelfRecord,
@@ -208,6 +209,14 @@ test('two owners stay isolated and add/remove retries are idempotent', async () 
   assert.equal((await service.remove(ada, versionId)).status, 'removed');
   assert.equal((await service.remove(ada, versionId)).status, 'already_removed');
   assert.equal((await service.read(ada)).items.length, 0);
+});
+
+test('deterministic Postgres UUID identity versions remain removable', () => {
+  assert.equal(
+    isValidCustomerShelfIdentityVersionId('11111111-1111-d111-a111-111111111111'),
+    true,
+  );
+  assert.equal(isValidCustomerShelfIdentityVersionId('not-a-uuid'), false);
 });
 
 test('missing owners and synthetic development fail closed without repository work', async () => {
