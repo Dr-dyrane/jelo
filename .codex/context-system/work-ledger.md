@@ -10,6 +10,18 @@ Production checkpoint before this enrichment release: Vercel deployment `dpl_BLG
 - Never mix exact SKU identity across size, package form, image, or offer. A visual family may link independently published SKUs; it never merges them.
 - Release passing catalogue cells independently. Do not hold an admitted product for a blocked sibling.
 
+## 2026-08-13 Ask abuse-protection checkpoint
+
+- Public Ask remains account-free and retains its existing network limiter key,
+  so this release does not reset or weaken anonymous throttling.
+- A verified member request must pass both the network bucket and a separate
+  account bucket. The account subject is domain-separated and HMAC-pseudonymized
+  before it reaches Redis; raw subjects are not used as keys, logs, snapshots,
+  or response data.
+- Either bucket denial or limiter-provider failure blocks the request. This
+  checkpoint changes no auth, cookie, database, clinical, model, or public-login
+  contract. Authenticated production smoke and private-safe telemetry remain.
+
 ## 2026-08-13 private request capacity checkpoint
 
 - ADR 0012 remains superseded; current private-member work follows accepted
