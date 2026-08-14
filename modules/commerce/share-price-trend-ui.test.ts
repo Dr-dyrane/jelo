@@ -72,11 +72,11 @@ test("share cards carry compact market and exact-store movement without steady n
   assert.match(repository, /where p\.slug = any\(\$\{slugs\}::text\[\]\)/);
   assert.match(
     worthSharing,
-    /getProductsPriceTrends\(products\.map\(product =>/,
+    /getProductsPriceTrends\(\s*products\.map\(\(?product\)? =>/,
   );
   assert.match(
     worthSharing,
-    /priceTrendOfferSnapshot\(offer, 'NG', now, false\)/,
+    /priceTrendOfferSnapshot\(offer, (?:'NG'|"NG"), now, false\)/,
   );
   assert.doesNotMatch(
     worthSharing,
