@@ -547,11 +547,11 @@ query parameter; in particular, remove the provider-generated but unsupported
 `channel_binding=require`. Do not downgrade TLS to make the driver connect.
 
 Before injecting any URL into Vercel, probe the app-role URL through the same
-postgres.js driver. With the candidate URL present only as `DATABASE_URL` in the
+postgres.js driver. With the candidate URL present only as `APP_DATABASE_URL` in the
 protected operator process, run:
 
 ```bash
-node --input-type=module -e 'import postgres from "postgres"; const url=process.env.DATABASE_URL; if (!url) throw new Error("DATABASE_URL is required."); const sql=postgres(url,{max:1,prepare:false}); try { const [role]=await sql`select current_user, session_user`; if (role.current_user !== "jelocare_app_runtime" || role.session_user !== "jelocare_app_runtime") throw new Error("Application runtime role probe failed."); console.log("Application runtime role probe passed."); } finally { await sql.end({timeout:5}); }'
+node --input-type=module -e 'import postgres from "postgres"; const url=process.env.APP_DATABASE_URL; if (!url) throw new Error("APP_DATABASE_URL is required."); const sql=postgres(url,{max:1,prepare:false}); try { const [role]=await sql`select current_user, session_user`; if (role.current_user !== "jelocare_app_runtime" || role.session_user !== "jelocare_app_runtime") throw new Error("Application runtime role probe failed."); console.log("Application runtime role probe passed."); } finally { await sql.end({timeout:5}); }'
 npm run customer:shelf:audit
 ```
 
@@ -563,16 +563,20 @@ attestation. A connection or TLS error is a failed probe, not permission to add
 `POSTGRES_URL` will be retained, apply the same URL rules and independently run
 the app-role probe against it.
 
-Only after both probes pass, add `DATABASE_URL` and
+Only after both probes pass, add `APP_DATABASE_URL` and
 `CUSTOMER_SHELF_DATABASE_URL` through Vercel's protected prompt or dashboard.
-If retained, `POSTGRES_URL` must be another probed app-role URL. Never paste a
-URL into a command argument, source file, ticket, or evidence record.
+Disconnect the owned Neon resource from the Vercel project without deleting the
+resource, then restore only the reviewed Neon Auth variables in their original
+scopes. If retained outside Vercel, `POSTGRES_URL` must be another probed
+app-role URL. Never paste a URL into a command argument, source file, ticket,
+or evidence record.
 
-Remove `MIGRATION_DATABASE_URL`, `JELOCARE_SHELF_IMPORT_OWNER_SUBJECT`, and
-every owner-bearing or reconstructable alias from Production, Preview, and
-Development scopes. This includes old unpooled URLs and split `POSTGRES_*` or
-`PG*` fields. If a provider integration recreates them, reconfigure or remove
-that integration before continuing.
+Remove `DATABASE_URL`, `MIGRATION_DATABASE_URL`,
+`JELOCARE_SHELF_IMPORT_OWNER_SUBJECT`, and every owner-bearing or reconstructable
+alias from Production, Preview, and Development scopes. This includes old
+unpooled URLs and split `POSTGRES_*` or `PG*` fields. If a provider integration
+recreates them, disconnect that integration before continuing. Preview must
+have no app URL, Shelf URL, or Auth cookie secret.
 
 ```bash
 vercel env ls
@@ -582,12 +586,19 @@ Record names and scopes only. The final inventory must prove that Vercel has
 the two restricted, probed runtime URLs and no migration administrator or owner
 alias.
 
-### 6. Deploy, activate, and smoke
+### 6. Invalidate the former owner, deploy, activate, and smoke
 
-Deploy the already verified revision only after the receipt and URL probes pass,
-then wait for the exact Vercel deployment to become `READY`. Vercel verifies,
-builds, and may promote bounded staged public assets; it does not reconcile
-PostgreSQL or run the import.
+Reset or revoke the database-owner credential that Vercel previously held
+before creating the final deployments. Suppress the replacement password,
+retain only the safe operation identity, and wait for Neon to report the
+operation finished. Do not blindly retry an indeterminate reset. Never reconnect
+the Neon resource or restore an owner alias as rollback.
+
+Create fresh Production and Preview deployments from the already verified
+revision only after the receipt and URL probes pass and the owner reset
+finishes. Wait for both exact Vercel deployments to become `READY`. Vercel
+verifies, builds, and may promote bounded staged public assets; it does not
+reconcile PostgreSQL or run the import.
 
 Smoke the exact deployment with the verified launch account: sign in, list the
 five accepted exact products, add and reload one other eligible product, remove
@@ -603,14 +614,12 @@ checked-in deterministic rollback audit when a disposable customer is not
 already authorized. Do not claim full provider-account deletion; it is not
 implemented.
 
-### 7. Rotate the former owner and declare the floor
+Preview must render public routes and keep signed-out `/me` behind the sign-in
+boundary while remaining unable to persist private state: it has no app URL,
+Shelf URL, or Auth cookie secret. A passing Preview build does not grant it
+Production authority.
 
-After the restricted deployment and smoke pass, rotate or revoke the database
-owner credential that Vercel previously held. Update only the protected
-operator secret store, remove any provider integration capable of reconstructing
-the old owner URL, and repeat the environment inventory, runtime attestation,
-and production smoke. Never change a runtime role into an owner or grant it
-`BYPASSRLS` to recover access.
+### 7. Declare the floor
 
 Runtime-role credential rotation is a coordinated protected operation: set the
 new password interactively, replace only that role's Vercel URL through the
@@ -620,8 +629,9 @@ use a bounded maintenance window. Do not change the role name or grants during
 a credential-only rotation.
 
 Record the rollback floor as the first exact application revision proven with
-the restricted roles, together with the ledger through `0037` and the passing
-audit. A failed later application deployment may roll back only to that revision
+the restricted roles, together with the ledger through
+`0046_fix_customer_request_signal_bridge.sql` and the passing audit. A failed
+later application deployment may roll back only to that revision
 or another role-compatible revision. Do not down-migrate, restore an owner URL,
 or delete Shelf rows. The current code has neither an activation flag nor an
 independent recovery-only export/delete path. Disable behavior with a reviewed
@@ -740,24 +750,24 @@ Then trigger a redeployment.
 #### `jelocare_app_runtime` role missing
 
 Migration `0035_runtime_database_roles.sql` expects the role to already exist
-but does not create it. Without it, `applicationDatabaseUrl()` returns
-`undefined` in production because the `DATABASE_URL` username is
-`neondb_owner`, not `jelocare_app_runtime`.
+but does not create it. Without it, the exact-role probe fails and production
+runtime database access remains unavailable.
 
 **Fix:** Create the role in Neon and grant the required privileges (see
 [§1 Rehearse and provision the runtime roles](#1-rehearse-and-provision-the-runtime-roles)
 and migration `0035`).
 
-#### Neon Vercel integration overriding `DATABASE_URL`
+#### Neon resource reconnected to Vercel
 
-The "JeloCare" Neon integration resource auto-generates `DATABASE_URL` with the
-`neondb_owner` role on every deployment, overriding any user-set value.
+Connecting the owned `JeloCare` Neon resource to the Vercel project can recreate
+an owner-bearing `DATABASE_URL`, violating the accepted runtime boundary.
 
-**Fix:** Set `APP_DATABASE_URL` in Vercel Production with the restricted
-`jelocare_app_runtime` URL. `applicationDatabaseUrl()` resolves
-`APP_DATABASE_URL` before `DATABASE_URL`, so the integration override is
-bypassed. See
-[NEON.md § Neon Vercel integration](../data/NEON.md#neon-vercel-integration-and-app_database_url).
+**Fix:** Disconnect the resource from the Vercel project without deleting the
+Neon resource. Restore the reviewed Auth names/scopes explicitly, set
+`APP_DATABASE_URL` in Production with the probed `jelocare_app_runtime` URL,
+remove `DATABASE_URL` and every owner alias, reset the former owner password,
+then create fresh Production and Preview deployments. See
+[NEON.md § Restricted Vercel runtime](../data/NEON.md#restricted-vercel-runtime-and-the-owned-neon-resource).
 
 ### After fixing
 

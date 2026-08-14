@@ -116,8 +116,8 @@ Neon and Vercel resources may be used.
    direct administrator `MIGRATION_DATABASE_URL` and run `npm run
    db:reconcile`. Require the ordered ledger through
    `0034_customer_shelf.sql`, `0035_runtime_database_roles.sql`, and
-   `0036_customer_product_requests.sql`, followed by
-   `0037_customer_routines.sql`, plus the
+   `0036_customer_product_requests.sql`, followed by every ordered migration
+   through `0046_fix_customer_request_signal_bridge.sql` (inclusive), plus the
    reviewed public catalogue and asset-metadata reconciliation required by that
    exact revision. Do not run the Shelf import yet or opt into external
    discovery.
@@ -161,17 +161,24 @@ Neon and Vercel resources may be used.
    URL logs in with exact `current_user = session_user = jelocare_app_runtime`;
    run the read-only Shelf attestation against the Shelf URL. Do not print a URL.
 7. **Configure restricted Vercel runtime environment.** Only after the probes
-   pass, set `DATABASE_URL` to the app-role URL and
-   `CUSTOMER_SHELF_DATABASE_URL` to the Shelf-role URL. If `POSTGRES_URL` is
-   retained, apply the same driver and exact-role requirements. Remove
-   `MIGRATION_DATABASE_URL`, the database-owner URL, unpooled owner aliases,
-   split `POSTGRES_*`/`PG*` owner fields, and the one-off import subject. Verify
-   names and usernames without printing values.
-8. **Deploy and activate.** Push the verified revision and require CI success
-   plus the exact Vercel deployment at `READY`. Vercel may verify, build, and
-   promote reviewed staged public assets; it must not reconcile PostgreSQL or
-   run the import.
-9. **Smoke.** Through the exact production deployment and one verified account,
+   pass, set `APP_DATABASE_URL` to the app-role URL and
+   `CUSTOMER_SHELF_DATABASE_URL` to the Shelf-role URL. Disconnect the owned
+   Neon resource from the Vercel project without deleting the resource, then
+   explicitly restore the reviewed Neon Auth names and scopes. Remove
+   `DATABASE_URL`, `MIGRATION_DATABASE_URL`, the database-owner URL, unpooled
+   owner aliases, split `POSTGRES_*`/`PG*` owner fields, and the one-off import
+   subject. Preview must retain only its reviewed Auth variables: no app URL,
+   Shelf URL, or Auth cookie secret. Verify names, scopes, and usernames without
+   printing values.
+8. **Invalidate the former owner.** Reset or revoke every owner/admin credential
+   that Vercel previously held. Suppress the replacement password, wait for the
+   Neon operation to finish, and do not reconnect the resource or restore an
+   owner alias as rollback.
+9. **Deploy and activate.** Create fresh Production and Preview deployments from
+   the verified revision after the owner reset finishes. Require both exact
+   deployments at `READY`. Vercel may verify, build, and promote reviewed staged
+   public assets; it must not reconcile PostgreSQL or run the import.
+10. **Smoke.** Through the exact production deployment and one verified account,
    prove sign-in, Shelf read/add/reload/remove, missing-product create/edit/
    delete, Routine list/create/update/delete, private-photo owner isolation, JSON export, the clear
    confirmation flow, sign-out isolation, and the public reporting helper. Do
@@ -179,12 +186,9 @@ Neon and Vercel resources may be used.
    result only with an approved disposable account. Confirm Synthetic Amara is
    absent and Concern persistence is absent. Prove another owner cannot read or
    mutate the Shelf or Routine rows through the checked-in deterministic audit.
-10. **Rotate the former owner.** Rotate or revoke every owner/admin credential
-   that Vercel previously held, remove any provider integration that can
-   reconstruct it, and re-run restricted runtime and production smoke checks.
-   Keep only the protected operator copy of `MIGRATION_DATABASE_URL`.
 11. **Declare the rollback floor.** Record the exact compatible application
-    revision, the ledger through `0037`, the two runtime role names, and the
+    revision, the ledger through `0046_fix_customer_request_signal_bridge.sql`,
+    the two runtime role names, and the
     passing audit. Older owner-dependent deployments are no longer rollback
     candidates.
 

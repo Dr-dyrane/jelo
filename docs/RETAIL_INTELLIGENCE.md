@@ -153,7 +153,7 @@ The sync is opt-in (`STATIC_FILE_SYNC_ENABLED=true` + `GITHUB_TOKEN`) and enforc
 - **Field-level updates only** — updates `priceNgn`, `available`, `stock`, `observedAt`, and `expiresAt`. Never touches `url`, `match`, `trust`, `variant`, `size`, or any other field.
 - **Post-update verification** — confirms all requested fields were actually changed before accepting the update.
 
-The cron depends on three production prerequisites: a `CRON_SECRET` of at least 16 characters, the `jelocare_app_runtime` database role provisioned in Neon, and `APP_DATABASE_URL` set in Vercel Production (bypassing the Neon integration's auto-generated `DATABASE_URL`). If any is missing, the cron silently fails. See [Troubleshooting: Inventory cron is not running](./catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running) and [Runbooks: Inventory cron fails](./operations/RUNBOOKS.md#inventory-cron-fails).
+The cron depends on three production prerequisites: a `CRON_SECRET` of at least 16 characters, the `jelocare_app_runtime` database role provisioned in Neon, and `APP_DATABASE_URL` set in Vercel Production while the owner-capable Neon integration remains disconnected. If any is missing, the cron fails closed. See [Troubleshooting: Inventory cron is not running](./catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running) and [Runbooks: Inventory cron fails](./operations/RUNBOOKS.md#inventory-cron-fails).
 
 The scheduled worker may service every configured market. A manual maintenance
 run must pass an explicit two-letter market when its authorization is narrower;

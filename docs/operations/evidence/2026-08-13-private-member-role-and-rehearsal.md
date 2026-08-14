@@ -90,12 +90,50 @@ removed in the server-rendered member state, and produced no new
 intentionally removed by the smoke; the known pre-existing item was restored
 before the final clean proof and remained present afterward.
 
+## Owner-credential boundary and rollback floor
+
+The owned Neon `JeloCare` resource was disconnected from the Vercel `jelo`
+project without deleting the resource. Before the disconnect, protected
+process-only probes proved exact `current_user = session_user =
+jelocare_app_runtime` for the general URL and passed the checked-in read-only
+attestation as exact `jelocare_shelf_runtime` for the Shelf URL. Those two
+restricted URLs were then force-set only in Production. The reviewed Neon Auth
+base/project variables were restored in Production and Preview, while the Auth
+cookie secret remained Production-only.
+
+The final name-and-scope inventory contains `APP_DATABASE_URL` and
+`CUSTOMER_SHELF_DATABASE_URL` only in Production; it contains no
+`DATABASE_URL`, migration URL, unpooled owner alias, or split `POSTGRES_*`/`PG*`
+owner field. Preview contains no application URL, Shelf URL, or Auth cookie
+secret. No connection value is retained in this evidence.
+
+The former `neondb_owner` password was reset through the Neon API after the
+disconnect. The replacement password was suppressed and not retained. Neon
+reported the resulting `apply_config` operation finished, and the role update
+time advanced to `2026-08-14T04:47:31Z`; the reset was not retried.
+
+Fresh source revision `6d204da` deployments were then built without cache:
+
+- Production `dpl_HyFgKwgVXWeHdDWu2KgQR34jcwcC` reached READY and was aliased
+  to `www.jelocare.com`.
+- Preview `dpl_8DtoTk9UeXx4mJMv24AZaqVMyTKj` reached READY with the smaller
+  reviewed environment boundary.
+
+The post-reset Production smoke used the real email-OTP path, reached `/me`,
+read the known owner-scoped CeraVe Shelf item, signed out, and returned to
+`/sign-in?next=/me`. Preview rendered the public home page and redirected a
+signed-out `/me` request to its sign-in boundary. Both exact deployments had
+zero error-level runtime logs during the bounded post-smoke window.
+
+The accepted rollback floor is source revision `6d204da`, migrations through
+`0046`, exact runtime roles `jelocare_app_runtime` and
+`jelocare_shelf_runtime`, and Production deployment
+`dpl_HyFgKwgVXWeHdDWu2KgQR34jcwcC`. Rollback may use only that revision or a
+later role-compatible deployment; it must never reconnect Neon or restore an
+owner alias.
+
 ## Remaining production gates
 
-- Remove the remaining Vercel owner-capable Neon integration alias, preserve
-  the restricted application alias, account for Preview behavior, redeploy,
-  and rotate or revoke the former owner credential through a protected channel.
-- Declare the accepted rollback floor after the credential-boundary release.
 - Close the private-request review-to-resolution operating loop.
 - Collect the minimum private-service SLO window and configure alerts and
   recovery evidence.

@@ -497,17 +497,15 @@ past their expiry, and `/share` price/stock data goes stale. The cron schedule
    raises an exception if not found) but does not create it. The role must be
    provisioned separately via the
    [Shelf release runbook §1](../operations/RUNBOOKS.md#1-rehearse-and-provision-the-runtime-roles).
-   Without it, `applicationDatabaseUrl()` in
-   `lib/database/runtime-database-config.ts` returns `undefined` in production
-   because the `DATABASE_URL` username is `neondb_owner`, not
-   `jelocare_app_runtime`. The cron returns 500 with
+   Without it, the exact-role probe and
+   `applicationDatabaseUrl()` in `lib/database/runtime-database-config.ts`
+   fail closed in production. The cron returns 500 with
    "Runtime database access is unavailable."
 
-3. **Neon Vercel integration overriding `DATABASE_URL`.** The "JeloCare" Neon
-   integration resource auto-generates `DATABASE_URL` with the `neondb_owner`
-   role on every deployment. This system-managed variable overrides any user-set
-   `DATABASE_URL` in the Production environment, so even after setting the
-   correct restricted URL, the integration replaces it.
+3. **Neon resource reconnected to Vercel.** Connecting the owned `JeloCare`
+   Neon resource can recreate an owner-bearing `DATABASE_URL`. Presence of that
+   alias is a credential-boundary failure even when `APP_DATABASE_URL` is also
+   configured.
 
 **Fix:**
 
@@ -524,15 +522,18 @@ past their expiry, and `/share` price/stock data goes stale. The cron schedule
    and migration `0035_runtime_database_roles.sql`).
 
 3. Set `APP_DATABASE_URL` in Vercel Production with the pooled postgres.js URL
-   whose username is exactly `jelocare_app_runtime`:
+   whose username is exactly `jelocare_app_runtime`. Keep the value in the
+   protected prompt/process, require `sslmode=verify-full`, and omit
+   `channel_binding`.
 
-   ```bash
-   echo "postgresql://jelocare_app_runtime:<password>@<pooler-host>/neondb?sslmode=verify-full" | vercel env add APP_DATABASE_URL production
-   ```
+4. Disconnect the Neon resource from the Vercel project without deleting it,
+   remove `DATABASE_URL` and every owner alias, restore only the reviewed Auth
+   names/scopes, reset the former owner credential, and wait for completion.
 
-4. Trigger a redeployment so the new env vars are picked up.
+5. Create fresh Production and Preview deployments so the new boundaries are
+   picked up.
 
-5. Verify with the dry-run probe:
+6. Verify with the dry-run probe:
    ```bash
    fetch('https://www.jelocare.com/api/cron/inventory?dry-run', {
      headers: { Authorization: 'Bearer ' + secret }

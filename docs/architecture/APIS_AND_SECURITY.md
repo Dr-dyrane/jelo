@@ -95,7 +95,7 @@ Ask Jelo is deterministic and does not call a language model.
 ## Known controls to preserve
 
 - `CRON_SECRET` must exist in production and be at least 16 characters. `isAuthorizedCronRequest` rejects shorter secrets, causing the inventory, reconcile-requests, and daily-campaign crons to return 401. See [Troubleshooting: Inventory cron is not running](../catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running).
-- `APP_DATABASE_URL` must be set in Vercel Production with the `jelocare_app_runtime` role. The Neon Vercel integration auto-generates `DATABASE_URL` with the `neondb_owner` role, which `applicationDatabaseUrl()` rejects in production. `APP_DATABASE_URL` takes precedence and bypasses the override. See [NEON.md](../data/NEON.md#neon-vercel-integration-and-app_database_url).
+- `APP_DATABASE_URL` must be set in Vercel Production with the exact `jelocare_app_runtime` role. The owned Neon resource remains disconnected from Vercel, and `DATABASE_URL` plus every owner-bearing compatibility alias must be absent. See [NEON.md](../data/NEON.md#restricted-vercel-runtime-and-the-owned-neon-resource).
 - Non-consult public limiters retain their documented local/failover behavior. Ask Jelo specifically requires Upstash in production and fails closed.
 - The Agentic Mail API token is preferred. SMTP remains a mailbox-password fallback.
 - Magic links expire after 30 days; retailer application retention is 24 months in the current migration.

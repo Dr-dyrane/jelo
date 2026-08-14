@@ -1,14 +1,35 @@
 # JeloCare work ledger
 
 Updated: 2026-08-13
-Current integration base before private Me telemetry: `f91a7df` on `origin/main`
-Production checkpoint before this release: Vercel deployment `dpl_2iAy5rQ92rhHoEVjybqkcLePGThN` READY on `www.jelocare.com`
+Current platform-delivery base at the private-member cutover: `6d204da` on `origin/main`
+Production credential-boundary checkpoint: Vercel deployment `dpl_HyFgKwgVXWeHdDWu2KgQR34jcwcC` READY on `www.jelocare.com`
 
 ## Release authority
 
 - Standing authority is `ship-after-gates`: a bounded cell may commit and push `main` after focused verification, exact-artifact confirmation, and affected-route smoke.
 - Never mix exact SKU identity across size, package form, image, or offer. A visual family may link independently published SKUs; it never merges them.
 - Release passing catalogue cells independently. Do not hold an admitted product for a blocked sibling.
+
+## 2026-08-13 private-member credential boundary
+
+- The owned Neon `JeloCare` resource remains available in Neon but is
+  disconnected from the Vercel project. Vercel cannot recreate its former
+  owner-bearing `DATABASE_URL`.
+- Production contains only the exact probed `jelocare_app_runtime` general URL
+  and separately attested `jelocare_shelf_runtime` Shelf URL. Preview contains
+  neither database URL nor the Production-only Auth cookie secret; reviewed
+  Neon Auth base/project variables remain in Production and Preview.
+- The former `neondb_owner` password was reset with its replacement suppressed;
+  Neon reported the operation finished before the new deployments were built.
+- Fresh Production `dpl_HyFgKwgVXWeHdDWu2KgQR34jcwcC` and Preview
+  `dpl_8DtoTk9UeXx4mJMv24AZaqVMyTKj` deployments reached READY. Real Production
+  email OTP, owner-scoped Shelf read, sign-out isolation, Preview public render,
+  Preview signed-out `/me`, and the bounded zero-error-log check passed.
+- The rollback floor is source `6d204da`, schema ledger through `0046`, and the
+  two named restricted roles. Never reconnect Neon or restore an owner alias to
+  recover an older deployment.
+- Remaining private-member rollout work is the request review-to-resolution
+  operating loop and the minimum private-service SLO/alert/recovery evidence.
 
 ## 2026-08-13 Ask abuse-protection checkpoint
 

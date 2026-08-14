@@ -8,7 +8,7 @@ Neon PostgreSQL is the durable store. Checked-in reviewed data remains a deliber
 
 | Use                           | Variable and database role                                                 | Allowed location                                                    |
 | ----------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| General application runtime   | `APP_DATABASE_URL` (preferred) or `DATABASE_URL` as `jelocare_app_runtime` | Vercel server runtime and local development                         |
+| General application runtime   | `APP_DATABASE_URL` as `jelocare_app_runtime`                             | Vercel server runtime and local development                         |
 | Private Shelf runtime         | `CUSTOMER_SHELF_DATABASE_URL` as `jelocare_shelf_runtime`                  | Vercel server runtime and local development                         |
 | Migrations and reconciliation | `MIGRATION_DATABASE_URL` as a protected administrator                      | Operator workstation or protected release runner only; never Vercel |
 | General runtime compatibility | `POSTGRES_URL` as `jelocare_app_runtime`                                   | Retain only when required; never point it to the owner              |
@@ -24,18 +24,18 @@ statements disabled. In production it fails closed unless the connection URL
 names the exact `jelocare_app_runtime` user. Shelf uses its own attested client;
 migration and reconciliation scripts accept only `MIGRATION_DATABASE_URL`.
 
-### Neon Vercel integration and `APP_DATABASE_URL`
+### Restricted Vercel runtime and the owned Neon resource
 
-The Vercel Neon integration ("JeloCare" resource) auto-generates `DATABASE_URL`
-using the `neondb_owner` role on every deployment. This system-managed variable
-overrides any user-set `DATABASE_URL` in the Production environment, preventing
-the application from connecting via the restricted `jelocare_app_runtime` role.
+The owned Neon `JeloCare` resource is deliberately disconnected from the
+Vercel project. It is not deleted: protected database operators still manage it
+through Neon, while Vercel cannot reconstruct an owner-bearing `DATABASE_URL`.
+Neon Auth base/project variables are configured explicitly in their reviewed
+Production and Preview scopes; the database integration is not their authority.
 
-`APP_DATABASE_URL` is the precedence-first env var that bypasses the integration
-override. `applicationDatabaseUrl()` in `lib/database/runtime-database-config.ts`
-resolves `APP_DATABASE_URL` before `DATABASE_URL` and `POSTGRES_URL`, so the
-restricted runtime credential reaches the application even when the integration
-re-creates `DATABASE_URL` with the owner role.
+`applicationDatabaseUrl()` in `lib/database/runtime-database-config.ts` resolves
+`APP_DATABASE_URL` first. Vercel Production configures only that general-runtime
+URL and the separate Shelf URL. `DATABASE_URL`, owner URLs, unpooled aliases,
+and split `POSTGRES_*`/`PG*` owner fields must be absent from every Vercel scope.
 
 **Production setup:**
 
@@ -43,9 +43,11 @@ re-creates `DATABASE_URL` with the owner role.
    [Runbooks §1](../operations/RUNBOOKS.md#1-rehearse-and-provision-the-runtime-roles)).
 2. Set `APP_DATABASE_URL` in Vercel Production with the pooled postgres.js URL
    whose username is exactly `jelocare_app_runtime`.
-3. The integration-managed `DATABASE_URL` may remain; it is ignored when
-   `APP_DATABASE_URL` is present and valid.
-4. Verify with the dry-run cron probe (see
+3. Confirm the Neon resource is disconnected from the Vercel project and
+   `DATABASE_URL` is absent from every scope.
+4. Configure `CUSTOMER_SHELF_DATABASE_URL` only in Production and keep Preview
+   without either database URL or the Production-only Auth cookie secret.
+5. Verify with the dry-run cron probe (see
    [Inventory cron recovery](../operations/RUNBOOKS.md#inventory-cron-is-not-running)).
 
 The restricted application URLs are consumed by postgres.js. Their query

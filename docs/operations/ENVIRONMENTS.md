@@ -60,8 +60,8 @@ reviewed boundary before a provider credential is added.
 
 | Variable                      | Required                          | Notes                                                                                                                                                                                                                                                      |
 | ----------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `APP_DATABASE_URL`            | Production runtime data features  | Pooled postgres.js URL whose username is exactly `jelocare_app_runtime`; require `sslmode=verify-full` and omit `channel_binding`. Takes precedence over `DATABASE_URL` to bypass the Neon Vercel integration's auto-generated owner-role URL.             |
-| `DATABASE_URL`                | Compatibility only                | The Neon Vercel integration auto-generates this with the `neondb_owner` role, overriding any user-set value in Production. Use `APP_DATABASE_URL` for the restricted runtime credential. In local development, set this to the `jelocare_app_runtime` URL. |
+| `APP_DATABASE_URL`            | Production runtime data features  | Pooled postgres.js URL whose username is exactly `jelocare_app_runtime`; require `sslmode=verify-full` and omit `channel_binding`. This is the only general database URL configured in Vercel Production.                                                        |
+| `DATABASE_URL`                | Not permitted in Vercel           | Must be absent from every Vercel scope because a provider integration can reconstruct it with an owner role. Local development may use this compatibility name only when it resolves to exact `jelocare_app_runtime`.                                      |
 | `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf and Routine runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only                                                                                                              |
 | `POSTGRES_URL`                | Compatibility only                | If retained, it must satisfy the same driver and exact app-role contract, never point to an owner or administrator                                                                                                                                         |
 | `NEON_PROJECT_ID`             | Operator convenience              | Not read by application runtime                                                                                                                                                                                                                            |
@@ -77,6 +77,11 @@ The one-off Shelf import also reads
 `JELOCARE_SHELF_IMPORT_OWNER_SUBJECT`. It belongs only in that protected
 operator process, is never committed or configured in Vercel, and must be
 removed after the receipt-guarded apply.
+
+The owned Neon resource remains available to protected operators, but it must
+not be connected to the Vercel project because that connection can recreate an
+owner-bearing `DATABASE_URL`. Neon Auth variables are configured explicitly in
+their reviewed scopes instead of relying on the database integration.
 
 Delete unused Neon/Vercel compatibility variables. In particular, do not leave
 an owner credential reconstructable from `DATABASE_URL_UNPOOLED`,
