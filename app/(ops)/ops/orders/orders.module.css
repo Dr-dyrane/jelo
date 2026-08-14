@@ -675,6 +675,24 @@
   margin-top: 0.7rem;
   font-size: 1.4rem;
 }
+.feePolicyNote {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+}
+.feeResetButton {
+  border: 0;
+  background: transparent;
+  color: var(--accent-solid);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
 .quoteEvidence {
   display: grid;
   gap: 1rem;

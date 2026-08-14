@@ -41,6 +41,7 @@ import type { AssistedOrderPrivateView } from "@/lib/commerce/assisted-procureme
 import { CUSTOMER_VISIBLE_ORDER_STATES } from "@/lib/commerce/assisted-procurement-model";
 import type { AssistedOrderNotificationDeliverySummary } from "@/lib/commerce/order-notification-model";
 import type { AssistedOrderOperatorAlertSummary } from "@/lib/commerce/order-operator-alert-repository";
+import type { ResolvedServiceFee } from "@/lib/commerce/service-fee-policy";
 import {
   resolveOrderOperationsJourney,
   type OrderOperationsJourneyId,
@@ -69,11 +70,13 @@ export function OrdersQueue({
   notificationDeliveries,
   operatorAlerts,
   canManage,
+  serviceFees,
 }: {
   orders: AssistedOrderPrivateView[];
   notificationDeliveries: AssistedOrderNotificationDeliverySummary[];
   operatorAlerts: AssistedOrderOperatorAlertSummary[];
   canManage: boolean;
+  serviceFees: Map<string, ResolvedServiceFee | null>;
 }) {
   const router = useRouter();
   const [selectedId, setSelectedId] = useState(orders[0]?.id ?? "");
@@ -282,6 +285,7 @@ export function OrdersQueue({
             key={selected.id}
             order={selected}
             disabled={!canManage || pending}
+            serviceFee={serviceFees.get(selected.id) ?? null}
             onSubmit={(input) => run(() => submitOrderQuoteAction(input))}
           />
         ) : null}
@@ -760,10 +764,12 @@ function QuoteForm({
   order,
   disabled,
   onSubmit,
+  serviceFee,
 }: {
   order: AssistedOrderPrivateView;
   disabled: boolean;
   onSubmit: (input: unknown) => void;
+  serviceFee: ResolvedServiceFee | null;
 }) {
   const observed = order.lines.reduce(
     (sum, line) => sum + line.observedUnitPriceNgn * line.quantity,
@@ -783,6 +789,7 @@ function QuoteForm({
   const verifiedRetailerFee =
     verifications.find((v) => v.verifiedRetailerFeeNgn != null)
       ?.verifiedRetailerFeeNgn ?? null;
+  const [feeOverride, setFeeOverride] = useState(false);
   const [step, setStep] = useState(0);
   const [draft, setDraft] = useState({
     productSubtotalNgn:
@@ -790,7 +797,7 @@ function QuoteForm({
     retailerFeeNgn:
       verifiedRetailerFee != null ? String(verifiedRetailerFee) : "",
     taxNgn: verifiedTax != null ? String(verifiedTax) : "",
-    jelocareFeeNgn: "",
+    jelocareFeeNgn: serviceFee ? String(serviceFee.feeNgn) : "",
     deliveryNgn: verifiedDelivery != null ? String(verifiedDelivery) : "",
     evidenceReference: verifications[0]?.verificationMethod
       ? `auto-verified:${verifications[0].verificationMethod}@${new Date(verifications[0].verifiedAt).toISOString().slice(0, 16)}`
@@ -837,8 +844,12 @@ function QuoteForm({
       shortLabel: "JeloCare fee",
       icon: HandCoins,
       label: "What is JeloCare’s service fee?",
-      hint: "This must match the approved service-fee policy.",
-      placeholder: "Enter approved fee",
+      hint: serviceFee
+        ? `Policy "${serviceFee.policyName}": ${serviceFee.calculation}`
+        : "No active policy matched this order. Enter the approved fee manually.",
+      placeholder: serviceFee
+        ? `Policy resolved: ${serviceFee.feeNgn.toLocaleString("en-NG")}`
+        : "Enter approved fee",
     },
     {
       key: "deliveryNgn",
@@ -896,6 +907,8 @@ function QuoteForm({
       jelocareFeeNgn: Number(draft.jelocareFeeNgn),
       deliveryNgn: Number(draft.deliveryNgn),
       expiresAt: new Date(draft.expiresAt).toISOString(),
+      serviceFeePolicyId: serviceFee?.policyId ?? null,
+      serviceFeePolicyResolvedNgn: serviceFee?.feeNgn ?? null,
     });
   }
 
@@ -922,6 +935,7 @@ function QuoteForm({
       {step < questions.length
         ? (() => {
             const question = questions[step];
+            const isFeeStep = question.key === "jelocareFeeNgn";
             return (
               <label className={styles.quoteQuestion}>
                 <span className={styles.quotePrompt}>
@@ -936,14 +950,33 @@ function QuoteForm({
                   min="0"
                   placeholder={question.placeholder}
                   value={draft[question.key]}
-                  onChange={(event) =>
+                  onChange={(event) => {
+                    if (isFeeStep && serviceFee) setFeeOverride(true);
                     setDraft((current) => ({
                       ...current,
                       [question.key]: event.target.value,
-                    }))
-                  }
+                    }));
+                  }}
                   required
                 />
+                {isFeeStep && serviceFee ? (
+                  <small className={styles.feePolicyNote}>
+                    <button
+                      type="button"
+                      className={styles.feeResetButton}
+                      onClick={() => {
+                        setFeeOverride(false);
+                        setDraft((current) => ({
+                          ...current,
+                          jelocareFeeNgn: String(serviceFee.feeNgn),
+                        }));
+                      }}
+                    >
+                      Reset to policy ({naira.format(serviceFee.feeNgn)})
+                    </button>
+                    {feeOverride ? " — overridden from policy" : ""}
+                  </small>
+                ) : null}
               </label>
             );
           })()

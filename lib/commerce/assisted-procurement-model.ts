@@ -172,6 +172,8 @@ export type AssistedOrderQuoteView = {
   issuedAt: string;
   expiresAt: string;
   approvedAt: string | null;
+  serviceFeePolicyId: string | null;
+  serviceFeePolicyResolvedNgn: number | null;
 };
 
 export type AssistedOrderEventView = {

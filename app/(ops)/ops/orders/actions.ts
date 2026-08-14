@@ -108,6 +108,8 @@ export async function submitOrderQuoteAction(
       evidenceReference: parsed.evidenceReference,
       notes: parsed.notes || null,
       expiresAt: parsed.expiresAt,
+      serviceFeePolicyId: parsed.serviceFeePolicyId ?? null,
+      serviceFeePolicyResolvedNgn: parsed.serviceFeePolicyResolvedNgn ?? null,
     });
     if (!order)
       return {

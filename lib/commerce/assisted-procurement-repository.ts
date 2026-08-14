@@ -146,12 +146,16 @@ async function hydrateOrder(
         issued_at: string;
         expires_at: string;
         approved_at: string | null;
+        service_fee_policy_id: string | null;
+        service_fee_policy_resolved_ngn: number | null;
       }[]
     >`
       select id, version, status, product_subtotal_ngn, retailer_fee_ngn, tax_ngn,
              jelocare_fee_ngn, delivery_ngn, total_ngn, evidence_reference, notes,
              issued_at::text, expires_at::text,
-             case when approved_at is null then null else approved_at::text end as approved_at
+             case when approved_at is null then null else approved_at::text end as approved_at,
+             service_fee_policy_id::text as service_fee_policy_id,
+             service_fee_policy_resolved_ngn
       from assisted_order_quotes where order_id = ${row.id}
       order by version desc limit 1
     `,
@@ -216,6 +220,8 @@ async function hydrateOrder(
         issuedAt: quoteRow.issued_at,
         expiresAt: quoteRow.expires_at,
         approvedAt: quoteRow.approved_at,
+        serviceFeePolicyId: quoteRow.service_fee_policy_id,
+        serviceFeePolicyResolvedNgn: quoteRow.service_fee_policy_resolved_ngn,
       }
     : null;
 
@@ -869,6 +875,8 @@ export async function submitAssistedOrderQuote(input: {
   evidenceReference: string;
   notes: string | null;
   expiresAt: string;
+  serviceFeePolicyId?: string | null;
+  serviceFeePolicyResolvedNgn?: number | null;
 }) {
   if (assistedOrderFixtureEnabled()) return submitFixtureQuote(input);
   const sql = getPostgresClient();
@@ -893,12 +901,13 @@ export async function submitAssistedOrderQuote(input: {
       insert into assisted_order_quotes (
         order_id, version, product_subtotal_ngn, retailer_fee_ngn, tax_ngn,
         jelocare_fee_ngn, delivery_ngn, evidence_reference, notes, expires_at,
-        created_by_subject
+        created_by_subject, service_fee_policy_id, service_fee_policy_resolved_ngn
       ) values (
         ${order.id}, ${versionRow.version}, ${input.components.productSubtotalNgn},
         ${input.components.retailerFeeNgn}, ${input.components.taxNgn},
         ${input.components.jelocareFeeNgn}, ${input.components.deliveryNgn},
-        ${input.evidenceReference}, ${input.notes}, ${input.expiresAt}, ${input.operatorSubject}
+        ${input.evidenceReference}, ${input.notes}, ${input.expiresAt}, ${input.operatorSubject},
+        ${input.serviceFeePolicyId ?? null}, ${input.serviceFeePolicyResolvedNgn ?? null}
       )
     `;
     await transaction`
@@ -1057,6 +1066,8 @@ function submitFixtureQuote(input: {
   evidenceReference: string;
   notes: string | null;
   expiresAt: string;
+  serviceFeePolicyId?: string | null;
+  serviceFeePolicyResolvedNgn?: number | null;
 }) {
   const order = fixtureStore().orders.get(input.orderId);
   if (!order || order.revision !== input.revision || order.state !== "quoting")
@@ -1077,6 +1088,8 @@ function submitFixtureQuote(input: {
     issuedAt: new Date().toISOString(),
     expiresAt: input.expiresAt,
     approvedAt: null,
+    serviceFeePolicyId: input.serviceFeePolicyId ?? null,
+    serviceFeePolicyResolvedNgn: input.serviceFeePolicyResolvedNgn ?? null,
   };
   order.state = "awaiting_approval";
   order.revision += 1;

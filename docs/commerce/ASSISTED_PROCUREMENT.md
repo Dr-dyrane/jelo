@@ -118,9 +118,12 @@ progress bar reflects the current step (0%, 50%, 100%).
 2. From a protected operator process, inject the direct administrator URL only
    for `npm run db:migrate`. Migrations `0039_assisted_procurement.sql`,
    `0041_assisted_order_notifications.sql`,
-   `0044_assisted_order_operator_alerts.sql`, and
-   `0045_assisted_order_line_verifications.sql` are additive and grant only the
+   `0044_assisted_order_operator_alerts.sql`,
+   `0045_assisted_order_line_verifications.sql`, and
+   `0046_service_fee_policies.sql` are additive and grant only the
    application runtime role. Never add the admin URL to Vercel or `.env.local`.
+   Alternatively, apply via the Neon MCP `run_sql` tool — see
+   [Neon and data operations](../data/NEON.md#applying-migrations-via-neon-mcp-when-migration_database_url-is-not-available-locally).
 3. Deploy the application revision.
 4. Complete the post-deploy journey below before announcing availability.
 
@@ -252,9 +255,60 @@ Operators can trigger a re-verification via:
 
 ### Migration
 
-Migration `0045_assisted_order_line_verifications.sql` is additive and grants
-only the application runtime role. Apply it through the operator-only
-`npm run db:migrate` process before deploying the application revision.
+Migrations `0045_assisted_order_line_verifications.sql` and
+`0046_service_fee_policies.sql` are additive and grant only the application
+runtime role. Apply them through the operator-only `npm run db:migrate` process
+or the Neon MCP `run_sql` tool (see
+[Neon and data operations](../data/NEON.md#applying-migrations-via-neon-mcp-when-migration_database_url-is-not-available-locally))
+before deploying the application revision.
+
+## Service fee policies
+
+JeloCare service fees are determined by database-stored policies, not manual
+guessing. Each policy can match by retailer, delivery state, or both (null =
+catch-all). The highest-priority active match wins.
+
+### Fee models
+
+| Model          | Description                                           |
+| -------------- | ----------------------------------------------------- |
+| `flat`         | Fixed NGN amount regardless of basket size            |
+| `percentage`   | Percentage of product subtotal, no floor or cap       |
+| `pct_with_cap` | Percentage of product subtotal, clamped to [min, max] |
+
+### Policy resolution
+
+When an operator opens the quote form for an order in `quoting` state, the
+server resolves the applicable policy:
+
+1. Query active policies where `retailer_slug` matches (or is null) AND
+   `delivery_state` matches (or is null).
+2. Order by `priority DESC`.
+3. First match wins.
+4. Calculate the fee from the matched model and the product subtotal.
+5. Pre-fill the JeloCare fee field with the resolved amount.
+
+### Operator override
+
+The operator can still override the resolved fee by editing the field. The
+quote stores both:
+
+- `service_fee_policy_id` — which policy was resolved
+- `service_fee_policy_resolved_ngn` — what the policy suggested
+
+This creates a full audit trail: "policy said X, operator entered Y."
+
+### Policy management
+
+Admins can manage policies at `/ops/service-fees`:
+
+- Create, edit, and deactivate policies
+- Set retailer-specific or state-specific rules
+- Adjust priority (higher = checked first)
+- Preview the fee calculation in the quote form hint
+
+The default seed policy is 5% of product subtotal, floored at 500 NGN, capped
+at 5,000 NGN. Adjust or add retailer-specific policies as needed.
 
 For a local browser journey, use
 `ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE=true`. The fixture is refused in

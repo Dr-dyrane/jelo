@@ -1,0 +1,212 @@
+.manager {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 48rem;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.header > div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.headerIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--ops-accent-subtle);
+  color: var(--ops-accent);
+}
+.header p {
+  margin: 0;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ops-muted, #716764);
+}
+.header strong {
+  font-size: 1.1rem;
+}
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ops-ink);
+  color: var(--ops-workspace);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.addButton:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.error {
+  margin: 0;
+  padding: 0.7rem 1rem;
+  border-radius: 0.6rem;
+  background: color-mix(in srgb, #c04040 12%, transparent);
+  color: #c04040;
+  font-size: 0.85rem;
+}
+.policyList {
+  display: grid;
+  gap: 0.8rem;
+}
+.policyCard {
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  background: var(--ops-surface-subtle);
+  display: grid;
+  gap: 0.6rem;
+}
+.policyCard[data-active="false"] {
+  opacity: 0.6;
+}
+.policyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.policyName {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.policyPriority {
+  font-size: 0.72rem;
+  color: var(--ops-muted, #716764);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.policyDetails {
+  margin: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+.policyDetails > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.policyDetails dt {
+  color: var(--ops-muted, #716764);
+  font-size: 0.78rem;
+}
+.policyDetails dd {
+  margin: 0;
+  font-size: 0.85rem;
+  text-align: right;
+}
+.editButton {
+  justify-self: start;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--ops-ink) 20%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.editButton:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.form {
+  padding: 1.2rem 1.4rem;
+  border-radius: 1rem;
+  background: var(--ops-surface-subtle);
+  display: grid;
+  gap: 0.8rem;
+}
+.form h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.1rem;
+}
+.form label {
+  display: grid;
+  gap: 0.25rem;
+}
+.form label > span {
+  font-size: 0.72rem;
+  color: var(--ops-muted, #716764);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.form input,
+.form select,
+.form textarea {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--ops-ink) 15%, transparent);
+  border-radius: 0.5rem;
+  background: var(--ops-workspace);
+  color: var(--ops-ink);
+  font: inherit;
+  font-size: 0.9rem;
+}
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  outline: 2px solid var(--ops-accent);
+  outline-offset: 1px;
+}
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+.checkboxLabel {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem !important;
+  flex-direction: row !important;
+}
+.checkboxLabel input {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+.checkboxLabel span {
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-size: 0.9rem !important;
+  color: var(--ops-ink) !important;
+}
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+.formActions button {
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.formActions button[type="button"] {
+  background: transparent;
+  color: var(--ops-muted, #716764);
+}
+.formActions button[type="submit"] {
+  background: var(--ops-ink);
+  color: var(--ops-workspace);
+}
+.formActions button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
