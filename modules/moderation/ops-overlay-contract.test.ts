@@ -28,14 +28,29 @@ test('temporary Ops overlays share one complete interaction contract', async () 
 test('the shell navigation overlay preserves its exact trigger and inert planes', async () => {
   const chrome = await readSource('components/ops/shell/OpsChrome.tsx');
 
-  assert.match(chrome, /import \{ useOpsOverlay \} from '\.\/use-ops-overlay'/);
+  assert.match(
+    chrome,
+    /import \{ useOpsOverlay \} from (?:'\.\/use-ops-overlay'|"\.\/use-ops-overlay")/,
+  );
   assert.match(chrome, /sidebarTriggerRef\.current = trigger/);
   assert.match(chrome, /useOpsOverlay\(\{[\s\S]*open: sidebarOpen,[\s\S]*returnFocusRef: sidebarTriggerRef/);
-  assert.match(chrome, /'\[data-ops-workspace\]'/);
-  assert.match(chrome, /'\[data-ops-detail\]'/);
-  assert.match(chrome, /role=\{sidebarOpen \? 'dialog' : undefined\}/);
-  assert.match(chrome, /aria-modal=\{sidebarOpen \? 'true' : undefined\}/);
-  assert.match(chrome, /onClick=\{event => toggleSidebar\(event\.currentTarget\)\}/);
+  assert.match(
+    chrome,
+    /(?:'\[data-ops-workspace\]'|"\[data-ops-workspace\]")/,
+  );
+  assert.match(chrome, /(?:'\[data-ops-detail\]'|"\[data-ops-detail\]")/);
+  assert.match(
+    chrome,
+    /role=\{sidebarOpen \? (?:'dialog'|"dialog") : undefined\}/,
+  );
+  assert.match(
+    chrome,
+    /aria-modal=\{sidebarOpen \? (?:'true'|"true") : undefined\}/,
+  );
+  assert.match(
+    chrome,
+    /onClick=\{(?:event|\(event\)) => toggleSidebar\(event\.currentTarget\)\}/,
+  );
   assert.match(chrome, /className=\{adaptive\.sidebarScrim\}[\s\S]*tabIndex=\{-1\}[\s\S]*aria-hidden="true"/);
   assert.doesNotMatch(chrome, /window\.addEventListener\('keydown'/);
 });
