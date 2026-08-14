@@ -33,6 +33,7 @@
     "db:reconcile": "tsx scripts/reconcile-production-database.ts",
     "customer:shelf:import": "tsx scripts/import-customer-shelf.ts",
     "customer:shelf:audit": "tsx scripts/audit-customer-shelf-rls.ts",
+    "customer:telemetry:report": "tsx scripts/report-customer-telemetry.ts",
     "customer:product-request-blobs:drain": "tsx scripts/drain-customer-product-request-blob-cleanup.ts",
     "db:seed": "tsx scripts/seed-catalogue.ts",
     "db:seed:external": "tsx scripts/seed-external-catalogue.ts",

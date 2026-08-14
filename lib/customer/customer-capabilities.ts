@@ -41,8 +41,8 @@ export const customerCapabilities = {
   basketTiming: false,
   /** Per-owner open-request and active-private-photo limits fail closed. */
   requestLimits: true,
-  /** Private-safe telemetry is not yet implemented. */
-  privateTelemetry: false,
+  /** Private-safe aggregate route-operation telemetry covers authenticated Me. */
+  privateTelemetry: true,
   /** Expired-session recovery is not yet implemented. */
   sessionRecovery: false,
 } as const;

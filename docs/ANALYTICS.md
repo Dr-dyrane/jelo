@@ -20,10 +20,30 @@ We measure behaviour to answer one question: does JeloCare help someone choose b
   production campaign before an aggregate Redis increment. Keys contain only
   Lagos date, public campaign id, and event; they expire after 90 days and have
   no public read endpoint.
+- Authenticated JeloCare Me reads and mutations emit only fixed surface,
+  operation, success/failure, and coarse latency enums. Server-side
+  `next/server` `after` scheduling keeps measurement off the response path.
+  Environment-separated UTC-hour Redis hashes expire no later than 35 days
+  after their hour begins. They contain no owner, account, session, or request
+  identifier and no product, concern,
+  query, routine, location, order, device, referrer, path, URL, or free-text
+  value. No client event or public reader exists. The operator command
+  `npm run customer:telemetry:report` reads only the 672 exact production
+  hashes in the rolling 28-day window and reports aggregate
+  read/write success plus counts by the fixed enums. Preview or development
+  reporting requires explicitly choosing `--environment preview` or
+  `--environment development`.
+  Read success describes the authenticated route operation: thrown errors,
+  non-success API responses, and already-exposed Shelf, Routine, or Location
+  unavailable states count as failures. The current read-model contract
+  collapses an unavailable Concern source to an empty set, so a successfully
+  rendered empty Concern state remains a successful route read rather than a
+  per-source health signal.
 
 The rest of the custom event taxonomy below is still roadmap. Page traffic,
 anonymous contribution starts and completions, outbound attribution, and
-`store_click` plus the two Daily Desk aggregate counters exist now.
+`store_click`, the two Daily Desk aggregate counters, and private-safe Me
+route-operation telemetry exist now.
 
 ## Campaign response
 
@@ -94,6 +114,10 @@ This is a hard boundary, not a preference.
 - No search-query text is stored. Events record counts and modes, never what was typed.
 - Identifiers used for abuse limits are HMACed and short-lived; analytics is aggregate.
 - Concern and Ask Jelo activity is never joined to advertising or retailer targeting. Health-shaped behaviour stays out of commercial signals. See [ADR 0001](./adr/0001-deferred-trust-collections-community-and-stock-alerts.md).
+- Me service counters are global aggregates within a fixed deployment
+  environment and UTC hour. They contain no identity or private payload, have
+  no per-user correlation, and never enter product, advertising, or care
+  ranking.
 - Affiliate and outbound value is a measurement, never an input to ranking, guidance, or safety. A store is never ranked higher because it converts.
 - Honour target-market data-protection duties before collection. Starting reference: [Nigeria Data Protection Act 2023](https://ndpc.gov.ng/wp-content/uploads/2024/03/Nigeria_Data_Protection_Act_2023.pdf).
 
@@ -102,6 +126,9 @@ This is a hard boundary, not a preference.
 - Keep `/go` the only outbound path. Record `store_click` server-side there, deriving `priceRank` from the offer set already resolved for the redirect.
 - Send client events through Vercel Analytics custom events, or a thin typed wrapper, with no free text.
 - Aggregate privately, the same boundary as `npm run community:research:signals`. Do not expose a public analytics endpoint.
+- Keep Me measurement enum-only and server-side. Production reporting defaults
+  to the rolling 28-day production partition; non-production partitions must be
+  selected explicitly and never count toward the production scorecard.
 - Keep Daily Desk counters separate from share selection and every product,
   retailer, offer, care, and advertising ranking input.
 - Keep contribution starts and completions derived from the intake records
@@ -116,6 +143,7 @@ This is a hard boundary, not a preference.
 | Outbound route                | [app/go/route.ts](../app/go/route.ts)                                                                                                |
 | Page analytics                | `@vercel/analytics` in [app/layout.tsx](../app/layout.tsx)                                                                           |
 | Daily Desk aggregate response | `lib/campaigns/campaign-archive.ts`, written by `/api/campaigns/daily-desk/events`                                                   |
+| Private Me route operations   | `lib/customer/private-telemetry.ts`, reported by `npm run customer:telemetry:report`                                               |
 | Anonymous contribution source | `community_intake_attributions`, aggregated by `/ops/signals` and `npm run community:research:signals`                               |
 | Decision measures             | [Product roadmap](./product/ROADMAP.md)                                                                                              |
 | Privacy posture               | [ADR 0001](./adr/0001-deferred-trust-collections-community-and-stock-alerts.md), [community intake](./COMMUNITY_KNOWLEDGE_INTAKE.md) |

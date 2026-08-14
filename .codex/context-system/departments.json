@@ -38,7 +38,7 @@
         "modules/me/<selected-contract>"
       ],
       "canon": [
-        "docs/adr/0013-private-member-experience.md",
+        "docs/adr/0013-founder-led-jelocare-me.md",
         "docs/adr/0014-customer-shelf-data-boundary.md",
         "docs/product/JELOCARE_ME.md",
         "docs/product/JELOCARE_ME_PRODUCTION_ROADMAP.md"

@@ -19,8 +19,24 @@ import { listAssistedOrdersForOwner } from "@/lib/commerce/assisted-procurement-
 import { toAssistedOrderCustomerView } from "@/lib/commerce/assisted-procurement-model";
 import { readAssistedOrderNotificationCenter } from "@/lib/commerce/order-notification-repository";
 import { customerLocationService } from "@/lib/customer/location-service";
+import {
+  measureCustomerPrivateResultOperation,
+  type CustomerPrivateTelemetrySurface,
+} from "@/lib/customer/private-telemetry";
 
 export const dynamic = "force-dynamic";
+
+function measureMeRead<T>(
+  surface: CustomerPrivateTelemetrySurface,
+  read: () => Promise<T>,
+  succeeded: (value: T) => boolean = () => true,
+) {
+  return measureCustomerPrivateResultOperation(
+    { surface, operation: "read" },
+    read,
+    succeeded,
+  );
+}
 
 function parseRoute(
   parts: readonly string[],
@@ -94,16 +110,25 @@ export default async function MeRoutePage({
 
   // Product route uses a route-scoped reader, not the portal-wide loader.
   if (route.kind === "product") {
-    // One exact catalogue lookup — shared by the read model and the panel.
-    const selectedProduct = await findCatalogueProduct(route.slug);
-    if (!selectedProduct) notFound();
-    // One `now` for the entire route — inline reading and panel agree.
-    const now = Date.now();
-    const [productReadModel, productPanelData] = await Promise.all([
-      readMeProduct(customer, selectedProduct, now),
-      readProductPanelData(selectedProduct, now),
-    ]);
-    if (!productReadModel.product) notFound();
+    const { productReadModel, productPanelData } = await measureMeRead(
+      "product",
+      async () => {
+        // One exact catalogue lookup — shared by the read model and the panel.
+        const selectedProduct = await findCatalogueProduct(route.slug);
+        if (!selectedProduct) notFound();
+        // One `now` for the entire route — inline reading and panel agree.
+        const now = Date.now();
+        const [productReadModel, productPanelData] = await Promise.all([
+          readMeProduct(customer, selectedProduct, now),
+          readProductPanelData(selectedProduct, now),
+        ]);
+        if (!productReadModel.product) notFound();
+        return { productReadModel, productPanelData };
+      },
+      ({ productReadModel }) =>
+        productReadModel.shell.shelfAvailable &&
+        productReadModel.shell.routineAvailable,
+    );
     return createElement(MePortal, {
       route,
       productReadModel,
@@ -112,12 +137,24 @@ export default async function MeRoutePage({
   }
 
   if (route.kind === "explore") {
-    const exploreModel = await readMeExplore(customer);
+    const exploreModel = await measureMeRead(
+      "explore",
+      () => readMeExplore(customer),
+      (model) =>
+        model.shelfState.status === "ready" &&
+        model.routineState.status === "ready",
+    );
     return createElement(MePortal, { route, exploreModel });
   }
 
   if (route.kind === "routine") {
-    const routineModel = await readMeRoutine(customer);
+    const routineModel = await measureMeRead(
+      "routine",
+      () => readMeRoutine(customer),
+      (model) =>
+        model.shelfState.status === "ready" &&
+        model.routineState.status === "ready",
+    );
     const productRequestOutcome =
       typeof query.outcome === "string" ? query.outcome : undefined;
     return createElement(MePortal, {
@@ -128,15 +165,28 @@ export default async function MeRoutePage({
   }
 
   if (route.kind === "consult") {
-    const consultModel = await readMeConsult(customer);
+    const consultModel = await measureMeRead(
+      "consult",
+      () => readMeConsult(customer),
+      (model) =>
+        model.shelfState.status === "ready" &&
+        model.routineState.status === "ready",
+    );
     return createElement(MePortal, { route, consultModel });
   }
 
   if (route.kind === "orders") {
-    const [viewModel, orders] = await Promise.all([
-      readCustomerPortal(customer),
-      listAssistedOrdersForOwner(customer.subject),
-    ]);
+    const [viewModel, orders] = await measureMeRead(
+      "orders",
+      () =>
+        Promise.all([
+          readCustomerPortal(customer),
+          listAssistedOrdersForOwner(customer.subject),
+        ]),
+      ([portal]) =>
+        portal.shelfState.status === "ready" &&
+        portal.routineState?.status === "ready",
+    );
     return createElement(MePortal, {
       route,
       viewModel,
@@ -145,21 +195,35 @@ export default async function MeRoutePage({
   }
 
   if (route.kind === "notifications") {
-    const notificationCenter = await readAssistedOrderNotificationCenter(
-      customer.subject,
+    const notificationCenter = await measureMeRead("notifications", () =>
+      readAssistedOrderNotificationCenter(customer.subject),
     );
     return createElement(MePortal, { route, notificationCenter });
   }
 
   if (route.kind === "locations") {
-    const [viewModel, locations] = await Promise.all([
-      readCustomerPortal(customer),
-      customerLocationService.read(customer),
-    ]);
+    const [viewModel, locations] = await measureMeRead(
+      "locations",
+      () =>
+        Promise.all([
+          readCustomerPortal(customer),
+          customerLocationService.read(customer),
+        ]),
+      ([portal, locationRead]) =>
+        portal.shelfState.status === "ready" &&
+        portal.routineState?.status === "ready" &&
+        locationRead.status === "ready",
+    );
     return createElement(MePortal, { route, viewModel, locations });
   }
 
-  const viewModel = await readCustomerPortal(customer);
+  const viewModel = await measureMeRead(
+    "shelf",
+    async () => await readCustomerPortal(customer),
+    (portal) =>
+      portal.shelfState.status === "ready" &&
+      portal.routineState?.status === "ready",
+  );
 
   const productRequestPresentation =
     viewModel.account.synthetic &&

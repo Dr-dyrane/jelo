@@ -1,64 +1,106 @@
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
-import { dirname, extname, relative, resolve } from 'node:path';
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { dirname, extname, relative, resolve } from "node:path";
 
 const repositoryRoot = process.cwd();
-const documentationRoot = resolve(repositoryRoot, 'docs');
-const handbook = resolve(documentationRoot, 'README.md');
+const documentationRoot = resolve(repositoryRoot, "docs");
+const handbook = resolve(documentationRoot, "README.md");
 const entrypoints = [
-  resolve(repositoryRoot, 'README.md'),
-  resolve(repositoryRoot, 'CODEX_HANDOFF.md'),
+  resolve(repositoryRoot, "README.md"),
+  resolve(repositoryRoot, "CODEX_HANDOFF.md"),
   handbook,
 ];
+const contextManifest = resolve(
+  repositoryRoot,
+  ".codex/context-system/departments.json",
+);
 
 function markdownFiles(directory: string): string[] {
   return readdirSync(directory)
     .sort()
-    .flatMap(entry => {
+    .flatMap((entry) => {
       const path = resolve(directory, entry);
       return statSync(path).isDirectory()
         ? markdownFiles(path)
-        : extname(path).toLowerCase() === '.md'
+        : extname(path).toLowerCase() === ".md"
           ? [path]
           : [];
     });
 }
 
 function linkedMarkdownFiles(file: string) {
-  const source = readFileSync(file, 'utf8');
+  const source = readFileSync(file, "utf8");
   const links = source.matchAll(/\[[^\]]+\]\(([^)]+)\)/g);
   const targets = new Set<string>();
 
   for (const match of links) {
     const rawTarget = match[1]?.trim();
-    if (!rawTarget || rawTarget.startsWith('#') || /^[a-z][a-z\d+.-]*:/i.test(rawTarget)) continue;
+    if (
+      !rawTarget ||
+      rawTarget.startsWith("#") ||
+      /^[a-z][a-z\d+.-]*:/i.test(rawTarget)
+    )
+      continue;
 
-    const withoutAnchor = rawTarget.split('#', 1)[0];
-    const decoded = decodeURIComponent(withoutAnchor.replace(/^<|>$/g, ''));
+    const withoutAnchor = rawTarget.split("#", 1)[0];
+    const decoded = decodeURIComponent(withoutAnchor.replace(/^<|>$/g, ""));
     const target = resolve(dirname(file), decoded);
-    if (extname(target).toLowerCase() === '.md') targets.add(target);
+    if (extname(target).toLowerCase() === ".md") targets.add(target);
   }
 
   return [...targets];
 }
 
-const files = [...new Set([...entrypoints, ...markdownFiles(documentationRoot)])];
+const files = [
+  ...new Set([...entrypoints, ...markdownFiles(documentationRoot)]),
+];
 const failures: string[] = [];
+
+try {
+  const manifest = JSON.parse(readFileSync(contextManifest, "utf8")) as {
+    orchestrator?: { readByDefault?: unknown };
+    departments?: Record<string, { canon?: unknown }>;
+  };
+  const configuredPaths = [
+    ...(Array.isArray(manifest.orchestrator?.readByDefault)
+      ? manifest.orchestrator.readByDefault
+      : []),
+    ...Object.values(manifest.departments ?? {}).flatMap((department) =>
+      Array.isArray(department.canon) ? department.canon : [],
+    ),
+  ];
+
+  for (const configuredPath of configuredPaths) {
+    if (typeof configuredPath !== "string" || configuredPath.startsWith("/"))
+      continue;
+    if (!existsSync(resolve(repositoryRoot, configuredPath))) {
+      failures.push(
+        `.codex/context-system/departments.json: missing configured context path ${configuredPath}`,
+      );
+    }
+  }
+} catch {
+  failures.push(".codex/context-system/departments.json: invalid JSON");
+}
 
 for (const file of files) {
   const label = relative(repositoryRoot, file);
-  const source = readFileSync(file, 'utf8');
+  const source = readFileSync(file, "utf8");
 
-  if (source.includes('\r')) failures.push(`${label}: use LF line endings`);
-  if (!source.endsWith('\n')) failures.push(`${label}: add a final newline`);
-  if (source.endsWith('\n\n')) failures.push(`${label}: remove blank lines at EOF`);
+  if (source.includes("\r")) failures.push(`${label}: use LF line endings`);
+  if (!source.endsWith("\n")) failures.push(`${label}: add a final newline`);
+  if (source.endsWith("\n\n"))
+    failures.push(`${label}: remove blank lines at EOF`);
 
-  source.split('\n').forEach((line, index) => {
-    if (/[ \t]+$/.test(line)) failures.push(`${label}:${index + 1}: remove trailing whitespace`);
+  source.split("\n").forEach((line, index) => {
+    if (/[ \t]+$/.test(line))
+      failures.push(`${label}:${index + 1}: remove trailing whitespace`);
   });
 
   for (const target of linkedMarkdownFiles(file)) {
     if (!existsSync(target)) {
-      failures.push(`${label}: broken link to ${relative(repositoryRoot, target)}`);
+      failures.push(
+        `${label}: broken link to ${relative(repositoryRoot, target)}`,
+      );
     }
   }
 }
@@ -76,13 +118,15 @@ while (pending.length > 0) {
 
 for (const file of markdownFiles(documentationRoot)) {
   if (!reachable.has(file)) {
-    failures.push(`${relative(repositoryRoot, file)}: not reachable from docs/README.md`);
+    failures.push(
+      `${relative(repositoryRoot, file)}: not reachable from docs/README.md`,
+    );
   }
 }
 
 if (failures.length > 0) {
   console.error(`Documentation check failed (${failures.length}).`);
-  failures.forEach(failure => console.error(`- ${failure}`));
+  failures.forEach((failure) => console.error(`- ${failure}`));
   process.exitCode = 1;
 } else {
   console.log(`Documentation check passed (${files.length} files).`);

@@ -1,8 +1,8 @@
 # JeloCare work ledger
 
 Updated: 2026-08-13
-Base before the public care UX integration: `d32944a` on `origin/main`
-Production checkpoint before this enrichment release: Vercel deployment `dpl_BLGBfofetUuzPBvFFTtMTovFiXVw` READY on `www.jelocare.com`
+Current integration base before private Me telemetry: `f91a7df` on `origin/main`
+Production checkpoint before this release: Vercel deployment `dpl_2iAy5rQ92rhHoEVjybqkcLePGThN` READY on `www.jelocare.com`
 
 ## Release authority
 
@@ -21,6 +21,25 @@ Production checkpoint before this enrichment release: Vercel deployment `dpl_BLG
 - Either bucket denial or limiter-provider failure blocks the request. This
   checkpoint changes no auth, cookie, database, clinical, model, or public-login
   contract. Authenticated production smoke and private-safe telemetry remain.
+
+## 2026-08-13 private Me telemetry checkpoint
+
+- Authenticated JeloCare Me route reads and mutations now emit only fixed-enum,
+  hourly aggregate counters: surface, operation, success/failure, and a coarse
+  latency bucket. No owner subject, email, session, route parameter, product,
+  query, free text, or private payload is accepted or retained.
+- Counters are separated by deployment environment, expire at the absolute UTC
+  hour plus 35 days, and are written best-effort after the response. Missing or
+  failing telemetry cannot replace a customer result, error, redirect, or
+  recovery state.
+- The operator report reads exact hourly keys for a bounded 1–35 day window;
+  production and 28 days are the defaults. There is no browser event, public
+  telemetry endpoint, or identity-level drill-down.
+- This checkpoint changes no auth, schema, migration, private-data model, or
+  public route. Concern-source outages currently collapse to a route-level
+  empty result and therefore remain successful route renders until that read
+  model exposes source health. Authenticated production observation, alert
+  thresholds, and recovery validation remain separate evidence gates.
 
 ## 2026-08-13 private request capacity checkpoint
 
