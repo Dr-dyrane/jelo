@@ -6,36 +6,37 @@ This is the entry point for product, engineering, data, and operations.
 
 ## Start here
 
-| Need                                                       | Read                                                                                                   |
-| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| Understand what JeloCare is building                       | [North star](./product/NORTH_STAR.md)                                                                  |
-| Choose the next piece of work                              | [Roadmap](./product/ROADMAP.md)                                                                        |
-| Understand the application                                 | [Architecture](./architecture/OVERVIEW.md)                                                             |
-| Review public API and security boundaries                  | [APIs and security](./architecture/APIS_AND_SECURITY.md)                                               |
-| Understand the future customer workspace                   | [JeloCare Me](./product/JELOCARE_ME.md)                                                                |
-| Build or review an interface                               | [Design system](./design/SYSTEM.md)                                                                    |
-| Build or review adaptive workspace chrome                  | [Adaptive workspace dock](./design/ADAPTIVE_WORKSPACE_DOCK.md)                                         |
-| Plan the JeloCare Me consumer experience expansion         | [Me commerce companion direction](./design/ME_COMMERCE_COMPANION_DIRECTION.md)                         |
-| Work on the native operations shell                        | [Operations shell](./design/OPS_SHELL.md)                                                              |
-| Apply the Observations split-view canon                    | [Operations UI canon](./OPS_UI_CANON.md)                                                               |
-| Build or review the queue-level Overview                   | [Operations interface and overview contract](./adr/0010-operations-interface-and-overview-contract.md) |
-| Plan or implement the operations console                   | [Operations console delivery](./operations/console/README.md)                                          |
-| Release a routine verified product quickly                 | [Catalogue fast lane](./catalogue/FAST_LANE.md)                                                        |
-| Prepare exact-SKU image work for an image-capable operator | [Packshot generation handoff](./catalogue/PACKSHOT_GENERATION_HANDOFF.md)                              |
-| Research or operate the full catalogue pipeline            | [Catalogue operations](./catalogue/OPERATIONS.md)                                                      |
-| Run Neon safely                                            | [Neon and data](./data/NEON.md)                                                                        |
-| Operate guest-first assisted procurement                   | [Assisted procurement](./commerce/ASSISTED_PROCUREMENT.md)                                             |
-| Operate smart delivery and private saved locations         | [Smart locations](./commerce/SMART_LOCATIONS.md)                                                       |
-| Operate order-service notifications                        | [Order notifications](./commerce/ORDER_NOTIFICATIONS.md)                                               |
+| Need                                                       | Read                                                                                                                |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Understand what JeloCare is building                       | [North star](./product/NORTH_STAR.md)                                                                               |
+| Choose the next piece of work                              | [Roadmap](./product/ROADMAP.md)                                                                                     |
+| Understand the application                                 | [Architecture](./architecture/OVERVIEW.md)                                                                          |
+| Review public API and security boundaries                  | [APIs and security](./architecture/APIS_AND_SECURITY.md)                                                            |
+| Understand the future customer workspace                   | [JeloCare Me](./product/JELOCARE_ME.md)                                                                             |
+| Build or review an interface                               | [Design system](./design/SYSTEM.md)                                                                                 |
+| Build or review adaptive workspace chrome                  | [Adaptive workspace dock](./design/ADAPTIVE_WORKSPACE_DOCK.md)                                                      |
+| Plan the JeloCare Me consumer experience expansion         | [Me commerce companion direction](./design/ME_COMMERCE_COMPANION_DIRECTION.md)                                      |
+| Work on the native operations shell                        | [Operations shell](./design/OPS_SHELL.md)                                                                           |
+| Apply the Observations split-view canon                    | [Operations UI canon](./OPS_UI_CANON.md)                                                                            |
+| Build or review the queue-level Overview                   | [Operations interface and overview contract](./adr/0010-operations-interface-and-overview-contract.md)              |
+| Plan or implement the operations console                   | [Operations console delivery](./operations/console/README.md)                                                       |
+| Release a routine verified product quickly                 | [Catalogue fast lane](./catalogue/FAST_LANE.md)                                                                     |
+| Prepare exact-SKU image work for an image-capable operator | [Packshot generation handoff](./catalogue/PACKSHOT_GENERATION_HANDOFF.md)                                           |
+| Research or operate the full catalogue pipeline            | [Catalogue operations](./catalogue/OPERATIONS.md)                                                                   |
+| Run Neon safely                                            | [Neon and data](./data/NEON.md)                                                                                     |
+| Operate guest-first assisted procurement                   | [Assisted procurement](./commerce/ASSISTED_PROCUREMENT.md)                                                          |
+| Operate smart delivery and private saved locations         | [Smart locations](./commerce/SMART_LOCATIONS.md)                                                                    |
+| Operate order-service notifications                        | [Order notifications](./commerce/ORDER_NOTIFICATIONS.md)                                                            |
 | Review the current private-member rollout evidence         | [Private member role and rehearsal evidence](./operations/evidence/2026-08-13-private-member-role-and-rehearsal.md) |
-| Plan the bounded Ask Jelo AI lane                          | [Ask Jelo AI Gateway plan](./ai/ASK_JELO_GATEWAY_PLAN.md)                                              |
-| Configure a local, preview, or production environment      | [Environments](./operations/ENVIRONMENTS.md)                                                           |
-| Operate the deterministic daily campaign handoff           | [Daily campaigns](./operations/DAILY_CAMPAIGNS.md)                                                     |
-| Start and test the application                             | [Local development](./operations/LOCAL_DEVELOPMENT.md)                                                 |
-| Commit, deploy, and verify a release                       | [Release process](./operations/RELEASE.md)                                                             |
-| Respond to an operational issue                            | [Runbooks](./operations/RUNBOOKS.md)                                                                   |
-| Hand the repository to another team                        | [Team handoff](./operations/HANDOFF.md)                                                                |
-| Keep the repository understandable                         | [Repository ownership](./REPOSITORY.md)                                                                |
+| Plan the bounded Ask Jelo AI lane                          | [Ask Jelo AI Gateway plan](./ai/ASK_JELO_GATEWAY_PLAN.md)                                                           |
+| Configure a local, preview, or production environment      | [Environments](./operations/ENVIRONMENTS.md)                                                                        |
+| Operate the deterministic daily campaign handoff           | [Daily campaigns](./operations/DAILY_CAMPAIGNS.md)                                                                  |
+| Start and test the application                             | [Local development](./operations/LOCAL_DEVELOPMENT.md)                                                              |
+| Commit, deploy, and verify a release                       | [Release process](./operations/RELEASE.md)                                                                          |
+| Respond to an operational issue                            | [Runbooks](./operations/RUNBOOKS.md)                                                                                |
+| Hand the repository to another team                        | [Team handoff](./operations/HANDOFF.md)                                                                             |
+| Keep the repository understandable                         | [Repository ownership](./REPOSITORY.md)                                                                             |
+| Review archived campaign artwork                           | [Campaign archives](./archive/campaigns/README.md)                                                                  |
 
 ## Product systems
 
