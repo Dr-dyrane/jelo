@@ -66,7 +66,15 @@ function computeStaticProductTrends(
 
   if (!observations.length) return {};
 
-  return { NG: calculatePriceTrends(observations) };
+  // Use the latest observation time as `asOf` instead of the wall clock.
+  // See calculateProductPriceTrends for the rationale.
+  const latestObservedAt = observations
+    .map((o) => Date.parse(o.observedAt))
+    .filter((t) => Number.isFinite(t))
+    .sort((a, b) => b - a)[0];
+  const asOf = latestObservedAt ? new Date(latestObservedAt) : new Date();
+
+  return { NG: calculatePriceTrends(observations, asOf) };
 }
 
 /**
