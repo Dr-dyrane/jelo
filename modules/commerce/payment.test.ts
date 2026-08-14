@@ -182,7 +182,7 @@ test("customer order status shows payment section for payment_pending", async ()
   assert.match(source, /PaymentSection/);
   assert.match(source, /payWithPaystack/);
   assert.match(source, /authorizationUrl/);
-  assert.match(source, /bank transfer/i);
+  assert.match(source, /direct transfer/i);
 });
 
 test("operator OrdersQueue has PaymentVerification component", async () => {
@@ -200,6 +200,6 @@ test("operator OrdersQueue has PaymentVerification component", async () => {
 test("customer-facing state description updated for payment_pending", async () => {
   const mod = await import("../../lib/commerce/assisted-procurement-model");
   const desc = mod.CUSTOMER_VISIBLE_ORDER_STATES.payment_pending;
-  assert.match(desc.detail, /Pay securely/i);
+  assert.match(desc.detail, /Pay to begin/i);
   assert.doesNotMatch(desc.detail, /not yet available/i);
 });
