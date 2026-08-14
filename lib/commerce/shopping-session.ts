@@ -20,7 +20,7 @@ export function chooseShoppingRetailer(
     (retailer) => retailer.name === preferredRetailer,
   );
   if (preferred) return preferred;
-  if (basketHasItems && preferredRetailer) return null;
+  if (basketHasItems) return null;
   return retailers[0] ?? null;
 }
 

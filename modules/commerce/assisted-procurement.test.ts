@@ -116,6 +116,7 @@ test("guest shopping stays with one retailer until the basket explicitly switche
     chooseShoppingRetailer(stores, "Beauty Hut Africa", true),
     stores[1],
   );
+  assert.equal(chooseShoppingRetailer(stores, null, true), null);
   assert.equal(chooseShoppingRetailer(stores, "Another Store", true), null);
   assert.equal(
     shoppingRetailerHref(stores[0]),

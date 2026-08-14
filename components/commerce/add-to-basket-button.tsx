@@ -90,6 +90,15 @@ export function AddToBasketButton({
     );
   }
 
+  if (!retailer && basket.items.length > 0) {
+    if (iconOnly) return null;
+    return (
+      <Link className={styles.basketLink} href="/basket">
+        Review basket store
+      </Link>
+    );
+  }
+
   if (!retailer) return null;
 
   return (

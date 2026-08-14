@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from 'next';
 import { unstable_noStore as noStore } from 'next/cache';
 import type { ReactNode } from 'react';
+import { BasketProvider } from '@/components/commerce/basket-provider';
+import { PublicBasketPill } from '@/components/commerce/public-basket-pill';
 import { MeShelfStateProvider } from '@/components/me/shelf/me-shelf-state';
 import { MeConcernStateProvider } from '@/components/me/consult/me-concern-state';
 import { MeExploreStateProvider } from '@/components/me/explore/me-explore-state';
+import { listCatalogueProducts } from '@/lib/catalogue/repository';
 
 export const viewport: Viewport = {
   viewportFit: 'cover',
@@ -17,13 +20,24 @@ export const metadata: Metadata = {
   twitter: null,
 };
 
-export default function MeLayout({ children }: { children: ReactNode }) {
+export default async function MeLayout({ children }: { children: ReactNode }) {
   noStore();
+  const products = await listCatalogueProducts();
+  const basketProducts = products.map(({ slug, brand, name, image }) => ({
+    slug,
+    brand,
+    name,
+    image,
+  }));
+
   return (
-    <MeShelfStateProvider>
-      <MeConcernStateProvider>
-        <MeExploreStateProvider>{children}</MeExploreStateProvider>
-      </MeConcernStateProvider>
-    </MeShelfStateProvider>
+    <BasketProvider>
+      <MeShelfStateProvider>
+        <MeConcernStateProvider>
+          <MeExploreStateProvider>{children}</MeExploreStateProvider>
+        </MeConcernStateProvider>
+      </MeShelfStateProvider>
+      <PublicBasketPill products={basketProducts} surface="workspace" />
+    </BasketProvider>
   );
 }

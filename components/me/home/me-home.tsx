@@ -39,6 +39,7 @@ import {
 import { MeAccountSheet } from "@/components/me/shell/me-account-sheet";
 import { createMeContextSheetModel } from "@/components/me/shell/me-context-model";
 import { MeContextSheet } from "@/components/me/shell/me-context-sheet";
+import { AddToBasketButton } from "@/components/commerce/add-to-basket-button";
 import {
   createMeStackBack,
   createMeDockContext,
@@ -83,6 +84,7 @@ import {
   flattenCustomerExplore,
 } from "@/lib/customer/explore-model";
 import type { CustomerShelfActionResult } from "@/lib/customer/shelf-service";
+import { retailerShoppingSlug } from "@/lib/commerce/shopping-session";
 import type { CustomerProductRequestPresentationViewModel } from "@/lib/customer/product-request-model";
 import type {
   ProductPanelData,
@@ -400,6 +402,21 @@ function ShelfPage({
                 key={item.identityVersionId}
                 product={item.product}
                 href={memberProductHref(item.product, "shelf")}
+                footer={
+                  item.product.freshExactRetailerNames.length ? (
+                    <AddToBasketButton
+                      slug={item.product.slug}
+                      productName={`${item.product.brand} ${item.product.name}`}
+                      retailers={item.product.freshExactRetailerNames.map(
+                        (name) => ({
+                          name,
+                          slug: retailerShoppingSlug(name),
+                        }),
+                      )}
+                      iconOnly
+                    />
+                  ) : null
+                }
               />
             ) : (
               <UnavailableShelfCard
