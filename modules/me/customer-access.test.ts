@@ -105,7 +105,7 @@ test("signed-out Routine and Product routes carry only canonical continuations t
     productRoute,
     /addCustomerShelf|addCurrentBySlug|save_origin/,
   );
-  assert.match(signInPage, /searchParams\.getAll\('next'\)/);
+  assert.match(signInPage, /searchParams\.getAll\(["']next["']\)/);
   assert.match(signInPage, /requestedContinuations\.length === 1/);
   assert.match(signInPage, /window\.location\.assign\(continuation\)/);
 });
