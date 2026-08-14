@@ -25,55 +25,50 @@ export const CUSTOMER_VISIBLE_ORDER_STATES: Record<
 > = {
   requested: {
     label: "Request received",
-    detail:
-      "JeloCare will verify the exact products, retailer terms, and delivery cost.",
+    detail: "We're verifying exact products and costs.",
   },
   quoting: {
     label: "Checking your basket",
-    detail:
-      "A staff member is confirming each exact item and every cost component.",
+    detail: "Confirming each item and cost component.",
   },
   awaiting_approval: {
     label: "Quote ready",
-    detail:
-      "Review the complete quote. Nothing proceeds until you approve this exact version.",
+    detail: "Review and approve to proceed.",
   },
   needs_response: {
-    label: "Your response is needed",
-    detail:
-      "The quote changed, expired, or needs a decision before work can continue.",
+    label: "Needs your attention",
+    detail: "The quote changed or expired.",
   },
   payment_pending: {
-    label: "Quote approved",
-    detail:
-      "Your approval is recorded. Pay securely via card, bank transfer, or USSD to begin procurement.",
+    label: "Approved",
+    detail: "Pay to begin procurement.",
   },
   paid: {
     label: "Payment confirmed",
-    detail: "Governed payment evidence has been recorded.",
+    detail: "Procurement starting.",
   },
   procurement: {
     label: "Being purchased",
-    detail: "The retailer order is being placed for the exact approved items.",
+    detail: "Ordering from the retailer.",
   },
   retailer_confirmed: {
     label: "Retailer confirmed",
-    detail: "The retailer has accepted the exact order.",
+    detail: "Order accepted.",
   },
   out_for_delivery: {
     label: "Out for delivery",
-    detail: "Dispatch evidence has been recorded.",
+    detail: "On its way.",
   },
-  delivered: { label: "Delivered", detail: "Delivery has been recorded." },
+  delivered: { label: "Delivered", detail: "Complete." },
   cancelled: {
     label: "Cancelled",
-    detail: "No further procurement will proceed.",
+    detail: "No further action.",
   },
   refund_pending: {
     label: "Refund pending",
-    detail: "A governed refund is being reconciled.",
+    detail: "Being reconciled.",
   },
-  refunded: { label: "Refunded", detail: "Refund evidence has been recorded." },
+  refunded: { label: "Refunded", detail: "Complete." },
 };
 
 const TRANSITIONS: Record<AssistedOrderState, readonly AssistedOrderState[]> = {

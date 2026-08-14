@@ -27,7 +27,8 @@ import styles from "./member-orders-view.module.css";
 const naira = new Intl.NumberFormat("en-NG", {
   style: "currency",
   currency: "NGN",
-  maximumFractionDigits: 0,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
 const date = new Intl.DateTimeFormat("en-NG", { dateStyle: "medium" });
 
@@ -198,11 +199,7 @@ export function MemberOrdersView({
                           <>
                             <div className={styles.paymentHint}>
                               <CreditCard size={16} aria-hidden="true" />
-                              <span>
-                                After approval, pay by card, USSD, or bank
-                                transfer. Procurement begins once payment is
-                                confirmed.
-                              </span>
+                              <span>Pay after approval.</span>
                             </div>
                             <div className={styles.decisions}>
                               <button
@@ -210,7 +207,7 @@ export function MemberOrdersView({
                                 disabled={pendingId === order.id}
                                 onClick={() => decide(order, "approve")}
                               >
-                                Approve exact quote
+                                Approve quote
                               </button>
                               <button
                                 type="button"
@@ -274,10 +271,9 @@ export function MemberOrdersView({
       ) : (
         <div className={styles.empty}>
           <PackageCheck size={26} />
-          <h2>No order requests yet.</h2>
+          <h2>No orders yet.</h2>
           <p>
-            A guest basket works without signing in. Signed-in requests appear
-            here automatically.
+            Guest baskets work without signing in. Signed-in orders appear here.
           </p>
           <Link href="/products">Explore products</Link>
         </div>
@@ -350,8 +346,8 @@ function MemberPaymentSection({
   if (total == null) {
     return (
       <div className={styles.paymentBoundary}>
-        <strong>Quote total is incomplete.</strong>
-        <span>Contact JeloCare to resolve before payment.</span>
+        <strong>Quote incomplete.</strong>
+        <span>Contact JeloCare to resolve.</span>
       </div>
     );
   }
@@ -366,7 +362,6 @@ function MemberPaymentSection({
         <Check size={20} aria-hidden="true" />
         <div>
           <strong>Pay {naira.format(total)}</strong>
-          <p>Your quote is approved. Pay to begin procurement.</p>
         </div>
       </div>
 
@@ -378,15 +373,13 @@ function MemberPaymentSection({
           onClick={payWithPaystack}
         >
           <CreditCard size={18} aria-hidden="true" />
-          {pending ? "Redirecting…" : `Pay ${naira.format(total)} online`}
+          {pending ? "Redirecting…" : `Pay ${naira.format(total)}`}
         </button>
-        <p className={styles.payButtonSubtext}>
-          Card, USSD, or bank transfer via Paystack
-        </p>
+        <p className={styles.payButtonSubtext}>Card · USSD · Transfer</p>
       </div>
 
       <div className={styles.paymentDivider}>
-        <span>or pay by direct bank transfer</span>
+        <span>or direct transfer</span>
       </div>
 
       <div className={styles.bankTransferInfo}>
@@ -434,8 +427,7 @@ function MemberPaymentSection({
           </div>
         </dl>
         <p className={styles.bankTransferNote}>
-          Use <strong>{order.reference}</strong> as the transfer narration so we
-          can match your payment quickly.
+          Use <strong>{order.reference}</strong> as narration.
         </p>
         <a
           className={styles.confirmPaymentLink}
@@ -444,7 +436,7 @@ function MemberPaymentSection({
           rel="noopener noreferrer"
         >
           <MessageCircle size={16} aria-hidden="true" />
-          Send payment confirmation on WhatsApp
+          Confirm on WhatsApp
         </a>
       </div>
     </div>

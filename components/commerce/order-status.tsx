@@ -28,7 +28,8 @@ import styles from "./order-status.module.css";
 const naira = new Intl.NumberFormat("en-NG", {
   style: "currency",
   currency: "NGN",
-  maximumFractionDigits: 0,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
 
 export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
@@ -87,7 +88,7 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
     <div className={styles.shell}>
       <header className={styles.hero}>
         <div>
-          <p className="eyebrow">Order request · {order.reference}</p>
+          <p className="eyebrow">{order.reference}</p>
           <h1>{presentation.label}.</h1>
           <p>{presentation.detail}</p>
         </div>
@@ -96,7 +97,7 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
             <PackageCheck size={17} aria-hidden="true" /> {order.retailer}
           </span>
           <span>
-            <Clock3 size={17} aria-hidden="true" /> Updated{" "}
+            <Clock3 size={17} aria-hidden="true" />{" "}
             {formatOrderDateTime(order.updatedAt)}
           </span>
         </div>
@@ -107,13 +108,15 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
           <section className={styles.card} aria-labelledby="order-items-title">
             <div className={styles.cardHeading}>
               <div>
-                <p className="eyebrow">No substitutions</p>
-                <h2 id="order-items-title">Exact products.</h2>
+                <p className="eyebrow">
+                  {order.lines.reduce(
+                    (total, line) => total + line.quantity,
+                    0,
+                  )}{" "}
+                  items
+                </p>
+                <h2 id="order-items-title">Your basket.</h2>
               </div>
-              <span>
-                {order.lines.reduce((total, line) => total + line.quantity, 0)}{" "}
-                items
-              </span>
             </div>
             <div className={styles.lines}>
               {order.lines.map((line) => (
@@ -125,7 +128,7 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
                     <span>{line.brand}</span>
                     <strong>{line.name}</strong>
                     <small>
-                      {line.size} · Quantity {line.quantity}
+                      {line.size} · Qty {line.quantity}
                     </small>
                   </div>
                   <b>
@@ -134,10 +137,6 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
                 </article>
               ))}
             </div>
-            <p className={styles.observedNote}>
-              Observed product prices started this request. The payable amount
-              comes only from a complete, current quote.
-            </p>
           </section>
 
           <section
@@ -146,8 +145,8 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
           >
             <div className={styles.cardHeading}>
               <div>
-                <p className="eyebrow">Canonical record</p>
-                <h2 id="order-history-title">Order history.</h2>
+                <p className="eyebrow">Timeline</p>
+                <h2 id="order-history-title">History.</h2>
               </div>
             </div>
             <ol className={styles.timeline}>
@@ -221,10 +220,7 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
                 <>
                   <div className={styles.paymentHint}>
                     <CreditCard size={16} aria-hidden="true" />
-                    <span>
-                      After approval, pay by card, USSD, or bank transfer.
-                      Procurement begins once payment is confirmed.
-                    </span>
+                    <span>Pay after approval.</span>
                   </div>
                   <div className={styles.decisions}>
                     <button
@@ -232,7 +228,7 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
                       disabled={decisionPending}
                       onClick={() => decide("approve")}
                     >
-                      Approve exact quote
+                      Approve quote
                     </button>
                     <button
                       type="button"
@@ -255,11 +251,8 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
           ) : (
             <div className={styles.quoteWaiting}>
               <RefreshCw size={22} aria-hidden="true" />
-              <h2>Being prepared.</h2>
-              <p>
-                Products, fees, tax, and delivery are each checked. Unknown
-                costs stay unknown.
-              </p>
+              <h2>Preparing your quote.</h2>
+              <p>Each cost component is being verified.</p>
             </div>
           )}
           {error ? (
@@ -284,9 +277,7 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
           </a>
           <div className={styles.privateNote}>
             <LockKeyhole size={16} aria-hidden="true" />
-            <span>
-              This private page is available on this device for 30 days.
-            </span>
+            <span>30 days on this device.</span>
           </div>
           <Link className={styles.continueShopping} href="/products">
             Continue browsing
@@ -360,8 +351,7 @@ function PaymentSection({
       <div className={styles.paymentBoundary}>
         <LockKeyhole size={19} aria-hidden="true" />
         <p>
-          <strong>Quote total is incomplete.</strong> Contact JeloCare to
-          resolve the missing cost component before payment.
+          <strong>Quote incomplete.</strong> Contact JeloCare to resolve.
         </p>
       </div>
     );
@@ -377,7 +367,6 @@ function PaymentSection({
         <Check size={20} aria-hidden="true" />
         <div>
           <strong>Pay {naira.format(total)}</strong>
-          <p>Your quote is approved. Pay to begin procurement.</p>
         </div>
       </div>
 
@@ -389,15 +378,13 @@ function PaymentSection({
           onClick={payWithPaystack}
         >
           <CreditCard size={18} aria-hidden="true" />
-          {pending ? "Redirecting…" : `Pay ${naira.format(total)} online`}
+          {pending ? "Redirecting…" : `Pay ${naira.format(total)}`}
         </button>
-        <p className={styles.payButtonSubtext}>
-          Card, USSD, or bank transfer via Paystack
-        </p>
+        <p className={styles.payButtonSubtext}>Card · USSD · Transfer</p>
       </div>
 
       <div className={styles.paymentDivider}>
-        <span>or pay by direct bank transfer</span>
+        <span>or direct transfer</span>
       </div>
 
       <div className={styles.bankTransferInfo}>
@@ -445,8 +432,7 @@ function PaymentSection({
           </div>
         </dl>
         <p className={styles.bankTransferNote}>
-          Use <strong>{order.reference}</strong> as the transfer narration so we
-          can match your payment quickly.
+          Use <strong>{order.reference}</strong> as narration.
         </p>
         <a
           className={styles.confirmPaymentLink}
@@ -455,7 +441,7 @@ function PaymentSection({
           rel="noopener noreferrer"
         >
           <MessageCircle size={16} aria-hidden="true" />
-          Send payment confirmation on WhatsApp
+          Confirm on WhatsApp
         </a>
       </div>
     </div>

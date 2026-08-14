@@ -43,6 +43,7 @@
   border-radius: 1.6rem;
   background: color-mix(in srgb, var(--paper) 90%, transparent);
   overflow: hidden;
+  transition: background 0.3s ease;
 }
 
 /* Collapsible header */
@@ -59,6 +60,10 @@
   gap: 1rem;
   font: inherit;
   color: inherit;
+  transition: background 0.2s ease;
+}
+.orderToggle:hover {
+  background: color-mix(in srgb, var(--ink) 3%, transparent);
 }
 .orderHeader {
   display: flex;
@@ -98,6 +103,7 @@
   font-weight: 800;
   font-size: 1.1rem;
   white-space: nowrap;
+  transition: opacity 0.2s ease;
 }
 
 /* Expanded body */
@@ -120,6 +126,10 @@
   gap: 0.7rem;
   border-radius: 1rem;
   background: color-mix(in srgb, var(--ink) 5%, transparent);
+  transition: background 0.2s ease;
+}
+.line:hover {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
 }
 .lineImage {
   height: 3.3rem;
@@ -265,6 +275,15 @@
   font: inherit;
   font-weight: 700;
   cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.15s ease;
+}
+.decisions button:hover:not(:disabled) {
+  opacity: 0.88;
+}
+.decisions button:active:not(:disabled) {
+  transform: scale(0.98);
 }
 .decisions button:last-child {
   background: color-mix(in srgb, var(--ink) 8%, transparent);
@@ -318,6 +337,15 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  transition:
+    opacity 0.2s ease,
+    transform 0.15s ease;
+}
+.payButton:hover:not(:disabled) {
+  opacity: 0.9;
+}
+.payButton:active:not(:disabled) {
+  transform: scale(0.98);
 }
 .payButton:disabled {
   opacity: 0.6;
@@ -399,9 +427,13 @@
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 .copyButton:hover {
   background: color-mix(in srgb, var(--ink) 5%, transparent);
+  border-color: color-mix(in srgb, var(--ink) 25%, transparent);
 }
 .bankTransferNote {
   font-size: 0.78rem;
@@ -421,6 +453,7 @@
   font-weight: 600;
   text-decoration: none;
   justify-self: start;
+  transition: background 0.2s ease;
 }
 .confirmPaymentLink:hover {
   background: color-mix(in srgb, #25d366 25%, transparent);
@@ -529,8 +562,21 @@
   }
   .line {
     grid-template-columns: 2.8rem 1fr auto;
+    gap: 0.5rem;
   }
   .lineImage {
     height: 2.8rem;
+  }
+  .lineInfo strong {
+    font-size: 0.85rem;
+  }
+  .linePrice {
+    font-size: 0.82rem;
+  }
+  .quoteTotal dd {
+    font-size: 1.1rem;
+  }
+  .paymentHeader strong {
+    font-size: 1rem;
   }
 }
