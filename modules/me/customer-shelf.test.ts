@@ -346,6 +346,18 @@ test('Shelf role attestation rejects every elevated or indirect authority path',
     mutations_relforcerowsecurity: true,
     cleanup_relrowsecurity: true,
     cleanup_relforcerowsecurity: true,
+    requests_shelf_privileges_exact: true,
+    images_shelf_privileges_exact: true,
+    mutations_shelf_privileges_exact: true,
+    cleanup_shelf_privileges_exact: true,
+    requests_app_privileges: false,
+    images_app_privileges: false,
+    mutations_app_privileges: false,
+    cleanup_app_privileges: false,
+    requests_public_privileges: false,
+    images_public_privileges: false,
+    mutations_public_privileges: false,
+    cleanup_public_privileges: false,
     routines_relrowsecurity: true,
     routines_relforcerowsecurity: true,
     routine_steps_relrowsecurity: true,
@@ -356,14 +368,15 @@ test('Shelf role attestation rejects every elevated or indirect authority path',
     routine_steps_app_privileges: false,
     routines_public_privileges: false,
     routine_steps_public_privileges: false,
-    research_mentions_shelf_select: false,
-    research_mentions_app_request_id_select: false,
-    research_mentions_app_aggregate_select: true,
+    research_mentions_shelf_privileges: false,
+    research_mentions_app_privileges_exact: true,
+    research_mentions_public_privileges: false,
     signal_bridge_is_security_definer: true,
     signal_bridge_search_path_is_pinned: true,
     signal_bridge_public_execute: false,
     signal_bridge_app_execute: false,
     signal_bridge_shelf_execute: true,
+    signal_bridge_shelf_execute_grant_option: false,
   };
   assert.equal(isCustomerShelfRoleAttestationSafe(safe), true);
   assert.equal(isCustomerShelfRoleAttestationSafe(undefined), false);
@@ -381,13 +394,17 @@ test('Shelf role attestation rejects every elevated or indirect authority path',
     'mutations_relforcerowsecurity',
     'cleanup_relrowsecurity',
     'cleanup_relforcerowsecurity',
+    'requests_shelf_privileges_exact',
+    'images_shelf_privileges_exact',
+    'mutations_shelf_privileges_exact',
+    'cleanup_shelf_privileges_exact',
     'routines_relrowsecurity',
     'routines_relforcerowsecurity',
     'routine_steps_relrowsecurity',
     'routine_steps_relforcerowsecurity',
     'routines_shelf_privileges_exact',
     'routine_steps_shelf_privileges_exact',
-    'research_mentions_app_aggregate_select',
+    'research_mentions_app_privileges_exact',
     'signal_bridge_is_security_definer',
     'signal_bridge_search_path_is_pinned',
     'signal_bridge_shelf_execute',
@@ -403,16 +420,45 @@ test('Shelf role attestation rejects every elevated or indirect authority path',
     'rolbypassrls',
     'has_role_memberships',
     'owns_relations',
-    'research_mentions_shelf_select',
-    'research_mentions_app_request_id_select',
+    'requests_app_privileges',
+    'images_app_privileges',
+    'mutations_app_privileges',
+    'cleanup_app_privileges',
+    'requests_public_privileges',
+    'images_public_privileges',
+    'mutations_public_privileges',
+    'cleanup_public_privileges',
+    'research_mentions_shelf_privileges',
+    'research_mentions_public_privileges',
     'signal_bridge_public_execute',
     'signal_bridge_app_execute',
+    'signal_bridge_shelf_execute_grant_option',
     'routines_app_privileges',
     'routine_steps_app_privileges',
     'routines_public_privileges',
     'routine_steps_public_privileges',
   ] as const) {
     assert.equal(isCustomerShelfRoleAttestationSafe({ ...safe, [key]: true }), false, key);
+  }
+
+  const auditSource = readFileSync('scripts/audit-customer-shelf-rls.ts', 'utf8');
+  const runtimeSource = readFileSync('lib/customer/shelf-database.ts', 'utf8');
+  const attestationQuery = (source: string) => source.match(
+    /select\s+current_user = \$\{CUSTOMER_SHELF_RUNTIME_ROLE\}[\s\S]*?where role\.rolname = current_user/,
+  )?.[0]
+    .replace(/\s+/g, ' ')
+    .replace(/\s*([(),])\s*/g, '$1');
+  assert.ok(attestationQuery(auditSource));
+  assert.equal(attestationQuery(auditSource), attestationQuery(runtimeSource));
+  for (const source of [auditSource, runtimeSource]) {
+    assert.match(source, /as requests_shelf_privileges_exact/);
+    assert.match(source, /as images_shelf_privileges_exact/);
+    assert.match(source, /as mutations_shelf_privileges_exact/);
+    assert.match(source, /as cleanup_shelf_privileges_exact/);
+    assert.match(source, /has_table_privilege\(app_role\.oid,[^\n]+, 'MAINTAIN'\)/g);
+    assert.match(source, /as research_mentions_app_privileges_exact/);
+    assert.match(source, /'request_id', 'SELECT'/);
+    assert.match(source, /'EXECUTE WITH GRANT OPTION'/);
   }
 });
 
@@ -597,8 +643,22 @@ test('the real Shelf role and owner isolation audit is explicit and rolls writes
   assert.match(script, /INSUFFICIENT_PRIVILEGE = '42501'/);
   assert.match(script, /visibleToB\[0\]\?\.count !== 0/);
   assert.match(script, /crossOwnerDelete\.length !== 0/);
+  assert.match(script, /insert into public\.customer_product_requests/);
+  assert.match(script, /insert into public\.customer_product_request_mutations/);
+  assert.match(script, /on conflict \(owner_subject, idempotency_key\) do nothing/);
+  assert.match(script, /staleUpdate\.length !== 0/);
+  assert.match(script, /insert into public\.customer_product_request_images/);
+  assert.match(script, /photo_identification_consent = false/);
+  assert.match(script, /lifecycle_state = 'withdrawn'/);
+  assert.match(script, /insert into public\.customer_product_request_blob_cleanup/);
+  assert.match(script, /sync_customer_product_request_research_signal/);
+  assert.match(script, /assertNoRolledBackOwnerRows/);
   assert.match(script, /throw new ExpectedAuditRollback\(\)/);
   assert.match(script, /error instanceof ExpectedAuditRollback/);
   assert.doesNotMatch(script, /for (?:no key )?(?:share|update)/i);
-  assert.doesNotMatch(script, /console\.(?:log|error)\([^\n]*(?:ownerA|ownerB|identity_version_id)/);
+  assert.doesNotMatch(script, /@vercel\/blob/);
+  assert.doesNotMatch(
+    script,
+    /console\.(?:log|error)\([^\n]*(?:ownerA|ownerB|identity_version_id|requestId|blobPathname|normalizedEntityRef)/,
+  );
 });

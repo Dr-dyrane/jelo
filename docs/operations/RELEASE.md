@@ -128,10 +128,16 @@ Neon and Vercel resources may be used.
    catalogue identity versions. On the selected rehearsal branch, run `npm run
    customer:shelf:audit` followed by `npm run customer:shelf:audit --
    --exercise-rollback` to prove exact runtime attestation and rolled-back two-
-   owner isolation. In production, run the read-only attestation; run the
-   rollback exercise only if the release authority explicitly accepts its
-   transient writes and forced rollback. Record counts and pass/fail evidence,
-   never URLs, passwords, mailboxes, or subjects.
+   owner isolation. The attestation must match migration `0036`'s exact Shelf
+   grants, effective app/PUBLIC denials, four-column aggregate mention exposure,
+   and bridge execution boundary. The rollback exercise covers the existing
+   Shelf/Routine flow plus synthetic request create, replay-safe mutation,
+   optimistic update, image metadata, consent revocation, withdrawal scrub,
+   cleanup queue, and cross-owner behavior without calling Blob. In production,
+   run the read-only attestation; run the rollback exercise only if the release
+   authority explicitly accepts its transient writes and forced rollback.
+   Record counts and pass/fail evidence, never URLs, passwords, mailboxes,
+   subjects, request fields, or Blob pathnames.
 4. **Import dry run before activation.** Keep the interactive Shelf revision
    undeployed and its restricted URLs out of Vercel. At the protected operator
    boundary, inject

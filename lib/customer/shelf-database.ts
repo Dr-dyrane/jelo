@@ -60,6 +60,186 @@ export async function assertCustomerShelfRlsRole(
         mutation_relation.relforcerowsecurity as mutations_relforcerowsecurity,
         cleanup_relation.relrowsecurity as cleanup_relrowsecurity,
         cleanup_relation.relforcerowsecurity as cleanup_relforcerowsecurity,
+        coalesce((
+          select pg_catalog.array_agg(
+            privilege.privilege_type || ':' || privilege.is_grantable::text
+            order by privilege.privilege_type
+          )
+          from pg_catalog.aclexplode(coalesce(
+            request_relation.relacl,
+            pg_catalog.acldefault('r', request_relation.relowner)
+          )) privilege
+          where privilege.grantee = role.oid
+        ), array[]::text[]) = array['INSERT:false', 'SELECT:false', 'UPDATE:false']::text[]
+        and not exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = request_relation.oid
+            and privilege.grantee = role.oid
+        ) as requests_shelf_privileges_exact,
+        coalesce((
+          select pg_catalog.array_agg(
+            privilege.privilege_type || ':' || privilege.is_grantable::text
+            order by privilege.privilege_type
+          )
+          from pg_catalog.aclexplode(coalesce(
+            image_relation.relacl,
+            pg_catalog.acldefault('r', image_relation.relowner)
+          )) privilege
+          where privilege.grantee = role.oid
+        ), array[]::text[]) = array['DELETE:false', 'INSERT:false', 'SELECT:false', 'UPDATE:false']::text[]
+        and not exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = image_relation.oid
+            and privilege.grantee = role.oid
+        ) as images_shelf_privileges_exact,
+        coalesce((
+          select pg_catalog.array_agg(
+            privilege.privilege_type || ':' || privilege.is_grantable::text
+            order by privilege.privilege_type
+          )
+          from pg_catalog.aclexplode(coalesce(
+            mutation_relation.relacl,
+            pg_catalog.acldefault('r', mutation_relation.relowner)
+          )) privilege
+          where privilege.grantee = role.oid
+        ), array[]::text[]) = array['INSERT:false', 'SELECT:false']::text[]
+        and not exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = mutation_relation.oid
+            and privilege.grantee = role.oid
+        ) as mutations_shelf_privileges_exact,
+        coalesce((
+          select pg_catalog.array_agg(
+            privilege.privilege_type || ':' || privilege.is_grantable::text
+            order by privilege.privilege_type
+          )
+          from pg_catalog.aclexplode(coalesce(
+            cleanup_relation.relacl,
+            pg_catalog.acldefault('r', cleanup_relation.relowner)
+          )) privilege
+          where privilege.grantee = role.oid
+        ), array[]::text[]) = array['DELETE:false', 'INSERT:false', 'SELECT:false']::text[]
+        and not exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = cleanup_relation.oid
+            and privilege.grantee = role.oid
+        ) as cleanup_shelf_privileges_exact,
+        pg_catalog.has_table_privilege(app_role.oid, request_relation.oid, 'SELECT')
+          or pg_catalog.has_table_privilege(app_role.oid, request_relation.oid, 'INSERT')
+          or pg_catalog.has_table_privilege(app_role.oid, request_relation.oid, 'UPDATE')
+          or pg_catalog.has_table_privilege(app_role.oid, request_relation.oid, 'DELETE')
+          or pg_catalog.has_table_privilege(app_role.oid, request_relation.oid, 'TRUNCATE')
+          or pg_catalog.has_table_privilege(app_role.oid, request_relation.oid, 'REFERENCES')
+          or pg_catalog.has_table_privilege(app_role.oid, request_relation.oid, 'TRIGGER')
+          or pg_catalog.has_table_privilege(app_role.oid, request_relation.oid, 'MAINTAIN')
+          or pg_catalog.has_any_column_privilege(app_role.oid, request_relation.oid, 'SELECT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, request_relation.oid, 'INSERT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, request_relation.oid, 'UPDATE')
+          or pg_catalog.has_any_column_privilege(app_role.oid, request_relation.oid, 'REFERENCES')
+          as requests_app_privileges,
+        pg_catalog.has_table_privilege(app_role.oid, image_relation.oid, 'SELECT')
+          or pg_catalog.has_table_privilege(app_role.oid, image_relation.oid, 'INSERT')
+          or pg_catalog.has_table_privilege(app_role.oid, image_relation.oid, 'UPDATE')
+          or pg_catalog.has_table_privilege(app_role.oid, image_relation.oid, 'DELETE')
+          or pg_catalog.has_table_privilege(app_role.oid, image_relation.oid, 'TRUNCATE')
+          or pg_catalog.has_table_privilege(app_role.oid, image_relation.oid, 'REFERENCES')
+          or pg_catalog.has_table_privilege(app_role.oid, image_relation.oid, 'TRIGGER')
+          or pg_catalog.has_table_privilege(app_role.oid, image_relation.oid, 'MAINTAIN')
+          or pg_catalog.has_any_column_privilege(app_role.oid, image_relation.oid, 'SELECT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, image_relation.oid, 'INSERT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, image_relation.oid, 'UPDATE')
+          or pg_catalog.has_any_column_privilege(app_role.oid, image_relation.oid, 'REFERENCES')
+          as images_app_privileges,
+        pg_catalog.has_table_privilege(app_role.oid, mutation_relation.oid, 'SELECT')
+          or pg_catalog.has_table_privilege(app_role.oid, mutation_relation.oid, 'INSERT')
+          or pg_catalog.has_table_privilege(app_role.oid, mutation_relation.oid, 'UPDATE')
+          or pg_catalog.has_table_privilege(app_role.oid, mutation_relation.oid, 'DELETE')
+          or pg_catalog.has_table_privilege(app_role.oid, mutation_relation.oid, 'TRUNCATE')
+          or pg_catalog.has_table_privilege(app_role.oid, mutation_relation.oid, 'REFERENCES')
+          or pg_catalog.has_table_privilege(app_role.oid, mutation_relation.oid, 'TRIGGER')
+          or pg_catalog.has_table_privilege(app_role.oid, mutation_relation.oid, 'MAINTAIN')
+          or pg_catalog.has_any_column_privilege(app_role.oid, mutation_relation.oid, 'SELECT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, mutation_relation.oid, 'INSERT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, mutation_relation.oid, 'UPDATE')
+          or pg_catalog.has_any_column_privilege(app_role.oid, mutation_relation.oid, 'REFERENCES')
+          as mutations_app_privileges,
+        pg_catalog.has_table_privilege(app_role.oid, cleanup_relation.oid, 'SELECT')
+          or pg_catalog.has_table_privilege(app_role.oid, cleanup_relation.oid, 'INSERT')
+          or pg_catalog.has_table_privilege(app_role.oid, cleanup_relation.oid, 'UPDATE')
+          or pg_catalog.has_table_privilege(app_role.oid, cleanup_relation.oid, 'DELETE')
+          or pg_catalog.has_table_privilege(app_role.oid, cleanup_relation.oid, 'TRUNCATE')
+          or pg_catalog.has_table_privilege(app_role.oid, cleanup_relation.oid, 'REFERENCES')
+          or pg_catalog.has_table_privilege(app_role.oid, cleanup_relation.oid, 'TRIGGER')
+          or pg_catalog.has_table_privilege(app_role.oid, cleanup_relation.oid, 'MAINTAIN')
+          or pg_catalog.has_any_column_privilege(app_role.oid, cleanup_relation.oid, 'SELECT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, cleanup_relation.oid, 'INSERT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, cleanup_relation.oid, 'UPDATE')
+          or pg_catalog.has_any_column_privilege(app_role.oid, cleanup_relation.oid, 'REFERENCES')
+          as cleanup_app_privileges,
+        exists (
+          select 1
+          from pg_catalog.aclexplode(coalesce(
+            request_relation.relacl,
+            pg_catalog.acldefault('r', request_relation.relowner)
+          )) privilege
+          where privilege.grantee = 0
+        ) or exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = request_relation.oid
+            and privilege.grantee = 0
+        ) as requests_public_privileges,
+        exists (
+          select 1
+          from pg_catalog.aclexplode(coalesce(
+            image_relation.relacl,
+            pg_catalog.acldefault('r', image_relation.relowner)
+          )) privilege
+          where privilege.grantee = 0
+        ) or exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = image_relation.oid
+            and privilege.grantee = 0
+        ) as images_public_privileges,
+        exists (
+          select 1
+          from pg_catalog.aclexplode(coalesce(
+            mutation_relation.relacl,
+            pg_catalog.acldefault('r', mutation_relation.relowner)
+          )) privilege
+          where privilege.grantee = 0
+        ) or exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = mutation_relation.oid
+            and privilege.grantee = 0
+        ) as mutations_public_privileges,
+        exists (
+          select 1
+          from pg_catalog.aclexplode(coalesce(
+            cleanup_relation.relacl,
+            pg_catalog.acldefault('r', cleanup_relation.relowner)
+          )) privilege
+          where privilege.grantee = 0
+        ) or exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = cleanup_relation.oid
+            and privilege.grantee = 0
+        ) as cleanup_public_privileges,
         routine_relation.relrowsecurity as routines_relrowsecurity,
         routine_relation.relforcerowsecurity as routines_relforcerowsecurity,
         routine_step_relation.relrowsecurity as routine_steps_relrowsecurity,
@@ -132,24 +312,63 @@ export async function assertCustomerShelfRlsRole(
           where attribute.attrelid = routine_step_relation.oid
             and privilege.grantee = 0
         ) as routine_steps_public_privileges,
-        pg_catalog.has_table_privilege(
-          ${CUSTOMER_SHELF_RUNTIME_ROLE}, mention_relation.oid, 'SELECT'
-        ) as research_mentions_shelf_select,
-        pg_catalog.has_column_privilege(
-          'jelocare_app_runtime', mention_relation.oid, 'request_id', 'SELECT'
-        ) as research_mentions_app_request_id_select,
-        pg_catalog.has_column_privilege(
-          'jelocare_app_runtime', mention_relation.oid, 'task_id', 'SELECT'
+        pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'SELECT')
+          or pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'INSERT')
+          or pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'UPDATE')
+          or pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'DELETE')
+          or pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'TRUNCATE')
+          or pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'REFERENCES')
+          or pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'TRIGGER')
+          or pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'MAINTAIN')
+          or pg_catalog.has_any_column_privilege(role.oid, mention_relation.oid, 'SELECT')
+          or pg_catalog.has_any_column_privilege(role.oid, mention_relation.oid, 'INSERT')
+          or pg_catalog.has_any_column_privilege(role.oid, mention_relation.oid, 'UPDATE')
+          or pg_catalog.has_any_column_privilege(role.oid, mention_relation.oid, 'REFERENCES')
+          as research_mentions_shelf_privileges,
+        not pg_catalog.has_table_privilege(app_role.oid, mention_relation.oid, 'SELECT')
+        and not pg_catalog.has_table_privilege(app_role.oid, mention_relation.oid, 'INSERT')
+        and not pg_catalog.has_table_privilege(app_role.oid, mention_relation.oid, 'UPDATE')
+        and not pg_catalog.has_table_privilege(app_role.oid, mention_relation.oid, 'DELETE')
+        and not pg_catalog.has_table_privilege(app_role.oid, mention_relation.oid, 'TRUNCATE')
+        and not pg_catalog.has_table_privilege(app_role.oid, mention_relation.oid, 'REFERENCES')
+        and not pg_catalog.has_table_privilege(app_role.oid, mention_relation.oid, 'TRIGGER')
+        and not pg_catalog.has_table_privilege(app_role.oid, mention_relation.oid, 'MAINTAIN')
+        and not pg_catalog.has_any_column_privilege(app_role.oid, mention_relation.oid, 'INSERT')
+        and not pg_catalog.has_any_column_privilege(app_role.oid, mention_relation.oid, 'UPDATE')
+        and not pg_catalog.has_any_column_privilege(app_role.oid, mention_relation.oid, 'REFERENCES')
+        and not pg_catalog.has_column_privilege(
+          app_role.oid, mention_relation.oid, 'request_id', 'SELECT'
         )
-        and pg_catalog.has_column_privilege(
-          'jelocare_app_runtime', mention_relation.oid, 'active', 'SELECT'
-        )
-        and pg_catalog.has_column_privilege(
-          'jelocare_app_runtime', mention_relation.oid, 'first_seen_at', 'SELECT'
-        )
-        and pg_catalog.has_column_privilege(
-          'jelocare_app_runtime', mention_relation.oid, 'last_seen_at', 'SELECT'
-        ) as research_mentions_app_aggregate_select,
+        and coalesce((
+          select pg_catalog.array_agg(
+            attribute.attname || ':' || privilege.privilege_type || ':'
+              || privilege.is_grantable::text
+            order by attribute.attname, privilege.privilege_type
+          )
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = mention_relation.oid
+            and privilege.grantee = app_role.oid
+        ), array[]::text[]) = array[
+          'active:SELECT:false',
+          'first_seen_at:SELECT:false',
+          'last_seen_at:SELECT:false',
+          'task_id:SELECT:false'
+        ]::text[] as research_mentions_app_privileges_exact,
+        exists (
+          select 1
+          from pg_catalog.aclexplode(coalesce(
+            mention_relation.relacl,
+            pg_catalog.acldefault('r', mention_relation.relowner)
+          )) privilege
+          where privilege.grantee = 0
+        ) or exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = mention_relation.oid
+            and privilege.grantee = 0
+        ) as research_mentions_public_privileges,
         signal_bridge.prosecdef as signal_bridge_is_security_definer,
         coalesce(signal_bridge.proconfig, array[]::text[])
           @> array['search_path=pg_catalog, public']::text[]
@@ -174,7 +393,12 @@ export async function assertCustomerShelfRlsRole(
           ${CUSTOMER_SHELF_RUNTIME_ROLE},
           signal_bridge.oid,
           'EXECUTE'
-        ) as signal_bridge_shelf_execute
+        ) as signal_bridge_shelf_execute,
+        pg_catalog.has_function_privilege(
+          ${CUSTOMER_SHELF_RUNTIME_ROLE},
+          signal_bridge.oid,
+          'EXECUTE WITH GRANT OPTION'
+        ) as signal_bridge_shelf_execute_grant_option
       from pg_catalog.pg_roles role
       left join pg_catalog.pg_class shelf_relation
         on shelf_relation.oid = pg_catalog.to_regclass('public.customer_shelf_items')
@@ -196,6 +420,8 @@ export async function assertCustomerShelfRlsRole(
         on signal_bridge.oid = pg_catalog.to_regprocedure(
           'public.sync_customer_product_request_research_signal(uuid)'
         )
+      left join pg_catalog.pg_roles app_role
+        on app_role.rolname = 'jelocare_app_runtime'
       where role.rolname = current_user
     `;
     if (isCustomerShelfRoleAttestationSafe(attestation)) return;

@@ -353,7 +353,7 @@ order by grantee, table_schema, table_name, privilege_type;
 
 select grantee, table_schema, table_name, column_name, privilege_type
 from information_schema.role_column_grants
-where grantee = 'jelocare_shelf_runtime'
+where grantee in ('jelocare_app_runtime', 'jelocare_shelf_runtime')
 order by table_schema, table_name, column_name, privilege_type;
 
 select
@@ -383,6 +383,11 @@ where grantee = 'PUBLIC'
   and table_name in (
     'customer_shelf_items',
     'customer_shelf_import_receipts',
+    'customer_product_requests',
+    'customer_product_request_images',
+    'customer_product_request_mutations',
+    'customer_product_request_blob_cleanup',
+    'customer_product_request_research_mentions',
     'customer_routines',
     'customer_routine_steps',
     'schema_migrations'
@@ -406,8 +411,8 @@ private-table access. Migrations `0035`, `0036`, and `0037` grant no default pri
 to either runtime role; review each later table explicitly.
 
 Inject only the protected `CUSTOMER_SHELF_DATABASE_URL` and run the checked-in
-runtime attestation, then its deliberately explicit rolled-back isolation
-exercise:
+runtime attestation, then its deliberately explicit rolled-back lifecycle and
+isolation exercise:
 
 ```bash
 npm run customer:shelf:audit
@@ -416,12 +421,25 @@ npm run customer:shelf:audit -- --exercise-rollback
 
 The first command is read-only and requires the exact current and session role,
 safe role attributes, no outgoing role membership or relation ownership, and
-enabled plus forced RLS. An incoming PostgreSQL 17 creator/administrator edge
-is allowed. The second command inserts Shelf and Routine rows under a random
-synthetic owner, proves owner-A visibility, owner-B invisibility and cross-
-mutation denial, proves owner update/deletion and routine-step cascade, then
-deliberately rolls back the entire transaction. It prints no subject or
-identity and leaves no durable customer row.
+enabled plus forced RLS. It compares the Shelf role's direct migration-`0036`
+table ACLs exactly (including grant options and unexpected PostgreSQL 17
+`MAINTAIN`), rejects any effective app-runtime or PUBLIC access to the four
+owner-private relations, requires exactly the four app-readable aggregate
+mention columns with no private `request_id` or other access, and proves PUBLIC
+and the app runtime cannot execute the pinned bridge while the Shelf runtime
+can execute it without grant option. An incoming PostgreSQL 17
+creator/administrator edge is allowed.
+
+The second command preserves the existing Shelf and Routine exercise and adds
+one private product-request lifecycle under random synthetic owners. It proves
+request create, mutation-key replay, optimistic update, bounded image metadata,
+consent revocation without identity-field change, submit/bridge retry,
+withdrawal scrubbing, cleanup enqueue, owner-A visibility, owner-B invisibility,
+cross-mutation denial, owner mutation/deletion, and routine-step cascade. It
+does not upload or delete a Blob. It deliberately rolls back the entire
+transaction, rechecks both synthetic owners for zero rows, prints no subject,
+identity, request field, or pathname, and leaves no durable customer or
+aggregate-signal row.
 
 Run the read-only command on the selected rehearsal branch and production. Run
 `--exercise-rollback` on the rehearsal branch. In production, run that exercise
