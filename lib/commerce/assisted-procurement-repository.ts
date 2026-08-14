@@ -490,7 +490,7 @@ export async function createAssistedOrder(record: CreateAssistedOrderRecord) {
   return (await readAssistedOrderById(orderId))!;
 }
 
-async function readAssistedOrderById(id: string) {
+export async function readAssistedOrderById(id: string) {
   await expireAssistedOrderQuotes(id);
   if (assistedOrderFixtureEnabled())
     return fixtureStore().orders.get(id) ?? null;

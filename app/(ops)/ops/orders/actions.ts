@@ -192,3 +192,39 @@ export async function reverifyOrderAction(
     };
   }
 }
+
+const manualPaymentSchema = z.object({
+  orderId: z.uuid(),
+  evidenceReference: z.string().trim().min(8).max(1000),
+  providerReference: z.string().trim().max(200).optional(),
+});
+
+export type ManualPaymentResult =
+  { ok: true; delivery: "none" } | { ok: false; error: string };
+
+export async function verifyManualPaymentAction(
+  input: unknown,
+): Promise<ManualPaymentResult> {
+  try {
+    const operator = await requireConsoleOperator();
+    assertCan(operator, "orders.manage");
+    const parsed = manualPaymentSchema.parse(input);
+    const { manuallyVerifyPayment } =
+      await import("@/lib/commerce/payment-service");
+    const result = await manuallyVerifyPayment({
+      orderId: parsed.orderId,
+      operatorSubject: operator.authSubject,
+      evidenceReference: parsed.evidenceReference,
+      providerReference: parsed.providerReference || null,
+    });
+    if (!result.ok) return { ok: false, error: result.error };
+    refresh();
+    return { ok: true, delivery: "none" };
+  } catch {
+    return {
+      ok: false,
+      error:
+        "Could not verify the manual payment. Check the evidence and amount.",
+    };
+  }
+}

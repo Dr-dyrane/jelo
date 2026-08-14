@@ -52,6 +52,7 @@ import {
   reverifyOrderAction,
   submitOrderQuoteAction,
   transitionOrderAction,
+  verifyManualPaymentAction,
 } from "./actions";
 import styles from "./orders.module.css";
 
@@ -307,14 +308,12 @@ export function OrdersQueue({
         ) : null}
 
         {selected.state === "payment_pending" ? (
-          <div className={styles.paymentGate}>
-            <CheckCircle2 size={18} />
-            <p>
-              <strong>Approval recorded.</strong> Paid and procurement remain
-              unavailable until the separate payment-evidence release is
-              accepted.
-            </p>
-          </div>
+          <PaymentVerification
+            order={selected}
+            canManage={canManage}
+            disabled={pending}
+            onSubmit={(input) => run(() => verifyManualPaymentAction(input))}
+          />
         ) : null}
 
         {canManage &&
@@ -1104,5 +1103,79 @@ function QuoteForm({
         </button>
       </footer>
     </form>
+  );
+}
+
+function PaymentVerification({
+  order,
+  canManage,
+  disabled,
+  onSubmit,
+}: {
+  order: AssistedOrderPrivateView;
+  canManage: boolean;
+  disabled: boolean;
+  onSubmit: (input: unknown) => void;
+}) {
+  const [evidence, setEvidence] = useState("");
+  const [providerRef, setProviderRef] = useState("");
+  const total = order.quote?.totalNgn;
+
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    onSubmit({
+      orderId: order.id,
+      evidenceReference: evidence,
+      providerReference: providerRef || undefined,
+    });
+  }
+
+  return (
+    <div className={styles.paymentGate}>
+      <CheckCircle2 size={18} />
+      <p>
+        <strong>Quote approved.</strong> Total: {naira.format(total ?? 0)}. The
+        customer can pay online via the Paystack checkout on their order page,
+        or by direct bank transfer.
+      </p>
+      {canManage ? (
+        <form className={styles.manualPaymentForm} onSubmit={submit}>
+          <p>
+            <strong>Manual bank transfer verification</strong>
+          </p>
+          <small>
+            Record evidence of a direct bank transfer (statement reference,
+            transfer ID, or screenshot description). The amount must match the
+            approved quote total of {naira.format(total ?? 0)}.
+          </small>
+          <label>
+            <span>Evidence reference</span>
+            <input
+              value={evidence}
+              onChange={(e) => setEvidence(e.target.value)}
+              placeholder="e.g. GTBank transfer 20260814-ABC123"
+              required
+              minLength={8}
+              maxLength={1000}
+            />
+          </label>
+          <label>
+            <span>Bank transaction reference (optional)</span>
+            <input
+              value={providerRef}
+              onChange={(e) => setProviderRef(e.target.value)}
+              placeholder="e.g. TST-20260814-001"
+              maxLength={200}
+            />
+          </label>
+          <button
+            type="submit"
+            disabled={disabled || evidence.trim().length < 8}
+          >
+            Mark payment verified
+          </button>
+        </form>
+      ) : null}
+    </div>
   );
 }

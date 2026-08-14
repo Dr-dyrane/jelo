@@ -568,6 +568,59 @@
   margin: 0;
   line-height: 1.45;
 }
+.paymentGate {
+  flex-direction: column;
+  gap: 1rem;
+}
+.manualPaymentForm {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  background: color-mix(in srgb, var(--ops-workspace) 60%, transparent);
+}
+.manualPaymentForm p {
+  margin: 0;
+  font-weight: 700;
+}
+.manualPaymentForm small {
+  color: var(--ops-muted, #716764);
+  line-height: 1.4;
+}
+.manualPaymentForm label {
+  display: grid;
+  gap: 0.25rem;
+}
+.manualPaymentForm label > span {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ops-muted, #716764);
+}
+.manualPaymentForm input {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--ops-ink) 15%, transparent);
+  border-radius: 0.5rem;
+  background: var(--ops-workspace);
+  color: var(--ops-ink);
+  font: inherit;
+  font-size: 0.9rem;
+}
+.manualPaymentForm button {
+  padding: 0.6rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ops-ink);
+  color: var(--ops-workspace);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  justify-self: start;
+}
+.manualPaymentForm button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
 .quoteForm {
   margin-top: 1.4rem;
   padding: 1.2rem;

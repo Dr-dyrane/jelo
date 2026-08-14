@@ -46,7 +46,7 @@ export const CUSTOMER_VISIBLE_ORDER_STATES: Record<
   payment_pending: {
     label: "Quote approved",
     detail:
-      "Your approval is recorded. Payment instructions are not yet available in JeloCare.",
+      "Your approval is recorded. Pay securely via card, bank transfer, or USSD to begin procurement.",
   },
   paid: {
     label: "Payment confirmed",

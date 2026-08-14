@@ -119,8 +119,9 @@ progress bar reflects the current step (0%, 50%, 100%).
    for `npm run db:migrate`. Migrations `0039_assisted_procurement.sql`,
    `0041_assisted_order_notifications.sql`,
    `0044_assisted_order_operator_alerts.sql`,
-   `0045_assisted_order_line_verifications.sql`, and
-   `0046_service_fee_policies.sql` are additive and grant only the
+   `0045_assisted_order_line_verifications.sql`,
+   `0046_service_fee_policies.sql`, and
+   `0047_assisted_order_payments.sql` are additive and grant only the
    application runtime role. Never add the admin URL to Vercel or `.env.local`.
    Alternatively, apply via the Neon MCP `run_sql` tool — see
    [Neon and data operations](../data/NEON.md#applying-migrations-via-neon-mcp-when-migration_database_url-is-not-available-locally).
@@ -366,6 +367,60 @@ With the Ops shell open, the complete local acceptance path is:
 
 Stop there. A successful ADR 0016 test must not expose a paid, procurement,
 retailer-purchase, WhatsApp, or fulfilment action.
+
+## Payment
+
+After a customer approves a quote, the order enters `payment_pending`. The
+customer can pay via Paystack (online checkout) or direct bank transfer.
+
+### Paystack (automatic verification)
+
+1. The customer clicks "Pay" on their private order page.
+2. The server calls `POST /api/orders/current/payment` which initializes a
+   Paystack transaction and returns the authorization URL.
+3. The customer is redirected to Paystack's secure checkout (card, bank
+   transfer, USSD).
+4. Paystack sends a webhook to `POST /api/payments/webhook` with an
+   HMAC-SHA512 signature.
+5. The webhook verifies the signature, then calls the Paystack API to verify
+   the transaction independently.
+6. If the amount matches the approved quote total, the payment is marked
+   `verified` and the order transitions to `paid`.
+
+### Manual bank transfer (operator verification)
+
+1. The customer pays to JeloCare's bank account outside the app.
+2. The operator enters the transfer evidence (statement reference, transfer ID)
+   in the `/ops/orders` payment verification form.
+3. The system creates a `manual_bank_transfer` payment record and verifies it
+   against the approved quote total.
+4. The order transitions to `paid` with the operator's subject recorded as the
+   verifier.
+
+### Governed evidence
+
+An order can only become `paid` when:
+
+- A payment record exists with `status = 'verified'`.
+- The payment amount matches the approved quote total.
+- The payment has an evidence reference (Paystack reference + paid_at, or
+  operator-entered evidence).
+- Only one verified payment is allowed per order (unique index).
+
+A button click, chat reply, or unverified staff note cannot establish the
+`paid` state. The `verifyPaymentAndMarkOrderPaid` function is the only path
+from `payment_pending` to `paid`.
+
+### Environment variables
+
+| Variable                          | Required                       | Description                                       |
+| --------------------------------- | ------------------------------ | ------------------------------------------------- |
+| `PAYSTACK_SECRET_KEY`             | Yes (for online payment)       | Paystack secret key (`sk_...`). Server-only.      |
+| `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY` | Yes (for online payment)       | Paystack public key (`pk_...`). Safe for browser. |
+| `PAYSTACK_WEBHOOK_SECRET`         | Yes (for webhook verification) | Paystack webhook signing secret. Server-only.     |
+
+When Paystack is not configured, the customer sees bank transfer instructions
+and the operator can still verify manual payments.
 
 ## Preserved boundaries
 

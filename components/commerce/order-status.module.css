@@ -243,6 +243,92 @@
   margin: 0;
   line-height: 1.45;
 }
+.paymentSection {
+  margin-top: 1.2rem;
+  padding: 1.2rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--accent, #0a6b5d) 8%, transparent);
+  display: grid;
+  gap: 0.8rem;
+}
+.paymentHeader {
+  display: flex;
+  align-items: start;
+  gap: 0.7rem;
+}
+.paymentHeader p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.paymentHeader strong {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+.payButton {
+  padding: 0.85rem 1.2rem;
+  border: 0;
+  border-radius: 0.8rem;
+  background: var(--accent-solid, #0a6b5d);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+}
+.payButton:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.bankTransferToggle {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.82rem;
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+.bankTransferInfo {
+  padding: 1rem;
+  border-radius: 0.8rem;
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+  display: grid;
+  gap: 0.5rem;
+}
+.bankTransferInfo p {
+  margin: 0;
+  line-height: 1.45;
+  font-size: 0.85rem;
+}
+.bankTransferInfo dl {
+  margin: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+.bankTransferInfo dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.bankTransferInfo dt {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+.bankTransferInfo dd {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.bankTransferNote {
+  font-size: 0.78rem !important;
+  color: var(--muted);
+}
 .quoteWaiting {
   padding: 2rem 0;
 }
