@@ -1,6 +1,6 @@
 # JeloCare work ledger
 
-Updated: 2026-08-09
+Updated: 2026-08-13
 Base before the public care UX integration: `d32944a` on `origin/main`
 Production checkpoint before this enrichment release: Vercel deployment `dpl_BLGBfofetUuzPBvFFTtMTovFiXVw` READY on `www.jelocare.com`
 
@@ -9,6 +9,22 @@ Production checkpoint before this enrichment release: Vercel deployment `dpl_BLG
 - Standing authority is `ship-after-gates`: a bounded cell may commit and push `main` after focused verification, exact-artifact confirmation, and affected-route smoke.
 - Never mix exact SKU identity across size, package form, image, or offer. A visual family may link independently published SKUs; it never merges them.
 - Release passing catalogue cells independently. Do not hold an admitted product for a blocked sibling.
+
+## 2026-08-13 private request capacity checkpoint
+
+- ADR 0012 remains superseded; current private-member work follows accepted
+  ADRs 0013 and 0014 plus the JeloCare Me production roadmap.
+- The customer-experience department now owns the private Me route and
+  owner-isolated mutation boundary. Public browsing, catalogue evidence, Ops
+  authority, and migration credentials remain outside it.
+- Product-request intake is bounded atomically per owner: at most 12 requests
+  may remain open (`draft`, `pending`, `in_review`, or `needs_info`) and at most
+  six request rows may carry an active private photo. Exact catalogue matches
+  resolve before request capacity; photo replacement remains possible at cap;
+  rejected stored Blobs are deleted or durably queued for cleanup.
+- This checkpoint changes no database schema and requires no migration. Its
+  release cell is code, capability truth, focused privacy/security tests,
+  current ADR/product docs, and one integration gate before shipping.
 
 ## 2026-08-11 assisted procurement decision checkpoint
 

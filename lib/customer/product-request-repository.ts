@@ -11,6 +11,12 @@ import type {
   CustomerProductRequest,
   CustomerProductRequestLifecycleState,
 } from './product-request-model';
+import {
+  MAX_ACTIVE_CUSTOMER_PRODUCT_REQUEST_IMAGES,
+  MAX_OPEN_CUSTOMER_PRODUCT_REQUESTS,
+  OPEN_CUSTOMER_PRODUCT_REQUEST_STATES,
+  type CustomerProductRequestLimitKind,
+} from './product-request-limits';
 
 export type CustomerProductRequestIdentityFields = {
   brand: string;
@@ -48,6 +54,7 @@ export type CustomerProductRequestMutationOutcome =
   | { status: 'revision_conflict'; revision: number; lifecycleState: CustomerProductRequestLifecycleState }
   | { status: 'state_conflict'; lifecycleState: CustomerProductRequestLifecycleState }
   | { status: 'idempotency_conflict' }
+  | { status: 'limit_reached'; kind: CustomerProductRequestLimitKind; limit: number }
   | { status: 'not_found' };
 
 type RequestRow = {
@@ -144,6 +151,36 @@ async function configureCustomerTransaction(transaction: TransactionSql, ownerSu
   await transaction`select pg_catalog.set_config('search_path', 'pg_catalog, public', true)`;
   await assertCustomerShelfRlsRole(transaction as ReturnType<typeof getCustomerShelfPostgresClient>);
   await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerSubject}, true)`;
+}
+
+async function lockOwnerProductRequestCapacity(
+  transaction: TransactionSql,
+  ownerSubject: string,
+) {
+  await transaction`
+    select pg_catalog.pg_advisory_xact_lock(
+      pg_catalog.hashtextextended(${'jelocare.product-request-capacity\0' + ownerSubject}, 0::bigint)
+    )
+  `;
+}
+
+async function openRequestCount(transaction: TransactionSql, ownerSubject: string) {
+  const [row] = await transaction<{ count: number }[]>`
+    select pg_catalog.count(*)::int as count
+    from public.customer_product_requests
+    where owner_subject = ${ownerSubject}
+      and lifecycle_state::text = any(${transaction.array([...OPEN_CUSTOMER_PRODUCT_REQUEST_STATES])})
+  `;
+  return row?.count ?? 0;
+}
+
+async function activePhotoCount(transaction: TransactionSql, ownerSubject: string) {
+  const [row] = await transaction<{ count: number }[]>`
+    select pg_catalog.count(*)::int as count
+    from public.customer_product_request_images
+    where owner_subject = ${ownerSubject}
+  `;
+  return row?.count ?? 0;
 }
 
 async function selectRequest(
@@ -421,6 +458,15 @@ export const postgresCustomerProductRequestRepository = {
           return { status: 'matched', canonicalSlug: match.slug, identityVersionId: match.identity_version_id };
         }
         return { status: 'active_catalogue_match', canonicalSlug: match.slug };
+      }
+
+      await lockOwnerProductRequestCapacity(transaction, owner);
+      if (await openRequestCount(transaction, owner) >= MAX_OPEN_CUSTOMER_PRODUCT_REQUESTS) {
+        return {
+          status: 'limit_reached',
+          kind: 'open_requests',
+          limit: MAX_OPEN_CUSTOMER_PRODUCT_REQUESTS,
+        };
       }
 
       const [inserted] = await transaction<{ id: string; revision: number }[]>`
@@ -757,6 +803,39 @@ export const postgresCustomerProductRequestRepository = {
       });
       if (prior) return prior;
 
+      await lockOwnerProductRequestCapacity(transaction, owner);
+      const [current] = await transaction<CurrentStateRow[]>`
+        select revision, lifecycle_state
+        from public.customer_product_requests
+        where owner_subject = ${owner}
+          and id = ${id}
+      `;
+      if (!current) return { status: 'not_found' };
+      if (current.revision !== input.expectedRevision) {
+        return {
+          status: 'revision_conflict',
+          revision: current.revision,
+          lifecycleState: current.lifecycle_state,
+        };
+      }
+      if (current.lifecycle_state === 'published' || current.lifecycle_state === 'withdrawn') {
+        return { status: 'state_conflict', lifecycleState: current.lifecycle_state };
+      }
+
+      const [oldImage] = await transaction<{ blob_pathname: string }[]>`
+        select blob_pathname
+        from public.customer_product_request_images
+        where owner_subject = ${owner}
+          and request_id = ${id}
+      `;
+      if (!oldImage && await activePhotoCount(transaction, owner) >= MAX_ACTIVE_CUSTOMER_PRODUCT_REQUEST_IMAGES) {
+        return {
+          status: 'limit_reached',
+          kind: 'private_photos',
+          limit: MAX_ACTIVE_CUSTOMER_PRODUCT_REQUEST_IMAGES,
+        };
+      }
+
       const [updated] = await transaction<{ revision: number }[]>`
         update public.customer_product_requests
         set revision = revision + 1,
@@ -775,12 +854,6 @@ export const postgresCustomerProductRequestRepository = {
         return raced ?? currentConflict(transaction, owner, id, input.expectedRevision);
       }
 
-      const [oldImage] = await transaction<{ blob_pathname: string }[]>`
-        select blob_pathname
-        from public.customer_product_request_images
-        where owner_subject = ${owner}
-          and request_id = ${id}
-      `;
       await transaction`
         insert into public.customer_product_request_images (
           owner_subject,

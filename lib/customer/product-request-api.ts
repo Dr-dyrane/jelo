@@ -5,6 +5,7 @@ import { getCustomerIdentity } from './access';
 import type { CustomerAccessIdentity } from './access-policy';
 import type { CustomerProductRequestActionResult } from './product-request-service';
 import { isAllowedCommunityRequest } from '@/lib/community-intake/request-origin';
+import { customerProductRequestLimitMessage } from './product-request-limits';
 
 const MAX_JSON_BYTES = 32 * 1024;
 
@@ -74,6 +75,12 @@ export function customerProductRequestActionResponse(
       return NextResponse.json({
         error: 'Mutation key was already used for a different change.',
         code: 'IDEMPOTENCY_CONFLICT',
+      }, { status: 409, headers: privateCustomerApiHeaders() });
+    case 'limit_reached':
+      return NextResponse.json({
+        error: customerProductRequestLimitMessage(result.kind, result.limit),
+        code: result.kind === 'open_requests' ? 'OWNER_REQUEST_LIMIT' : 'OWNER_PHOTO_LIMIT',
+        limit: result.limit,
       }, { status: 409, headers: privateCustomerApiHeaders() });
     case 'not_found':
       return NextResponse.json(

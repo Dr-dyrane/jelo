@@ -169,7 +169,10 @@ while Home previews retain their editorial section composition.
   connection. Production activation remains an operator release, not a Vercel build side
   effect. The protected migrations, role audit, reviewed 5-Shelf/9-request
   import, deployment, and authenticated smoke remain incomplete. Request review
-  closure and per-owner request/upload limits also remain incomplete.
+  closure also remains incomplete. Intake now fails closed at 12 concurrently
+  open requests and six requests with active private photos per owner; replacing
+  an existing photo remains allowed and rejected uploads are deleted or queued
+  for durable cleanup.
 - Routine persistence ships with owner-isolated named routines, 1–20 ordered
   steps, optimistic revision conflicts, and create/update/delete server actions.
   `/me/routine` now reads through its route-scoped model and renders one visual

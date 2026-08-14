@@ -2,9 +2,7 @@
   "version": 1,
   "project": "JeloCare",
   "orchestrator": {
-    "readByDefault": [
-      ".codex/context-system/work-ledger.md"
-    ],
+    "readByDefault": [".codex/context-system/work-ledger.md"],
     "inheritFullHistory": false,
     "maxFilesPerRouteCapsule": 12
   },
@@ -28,6 +26,33 @@
         "Ops implementation",
         "Catalogue evidence and release records unless the route requires a specific product fixture",
         "Full release verification for a local visual adjustment"
+      ]
+    },
+    "customer-experience": {
+      "purpose": "Private JeloCare Me routes, customer-owned Shelf, Routine, product requests, account helpers, and owner-isolated read and mutation boundaries",
+      "owns": [
+        "app/(customer)/me/<selected-route>",
+        "app/api/me/<selected-customer-route>",
+        "components/me/<selected-feature>",
+        "lib/customer/<selected-domain>",
+        "modules/me/<selected-contract>"
+      ],
+      "canon": [
+        "docs/adr/0013-private-member-experience.md",
+        "docs/adr/0014-customer-shelf-data-boundary.md",
+        "docs/product/JELOCARE_ME.md",
+        "docs/product/JELOCARE_ME_PRODUCTION_ROADMAP.md"
+      ],
+      "verification": [
+        "Run the selected private-domain security and capability tests",
+        "Run signed-out and authenticated route smoke when the change affects customer interaction",
+        "Require owner-isolation evidence for every persistence change"
+      ],
+      "exclusions": [
+        "Changing public account-free browsing",
+        "Granting customer or Ops authority over catalogue evidence",
+        "Exposing owner identifiers or private payloads in URLs, logs, analytics, screenshots, or handbacks",
+        "Operator authorization and migration secrets"
       ]
     },
     "ops-experience": {

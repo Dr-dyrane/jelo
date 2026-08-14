@@ -223,6 +223,16 @@ lifecycle state through a dedicated optimistic, idempotent mutation that writes
 no identity field; enabling consent and editing identity remain limited to the
 normal editable lifecycle. This ADR grants no default Ops photo access.
 
+Private request capacity is owner-scoped and serialized inside the same
+database transaction. One owner may keep at most 12 requests in `draft`,
+`pending`, `in_review`, or `needs_info`, and at most six request rows may have an
+active private photo. Exact catalogue matches resolve before the request limit
+and therefore do not create a request. Replacing an existing photo remains
+allowed at photo capacity; a rejected newly stored Blob is deleted immediately
+or entered into the durable cleanup queue. Capacity responses disclose only the
+limit kind and count, use a private no-store response, and never log owner or
+request contents.
+
 Failed Blob deletion remains queued. The protected operator owns the bounded,
 idempotent drain using `MIGRATION_DATABASE_URL` and `BLOB_READ_WRITE_TOKEN`;
 successful Blob deletion removes the exact queue row, while failure retains it

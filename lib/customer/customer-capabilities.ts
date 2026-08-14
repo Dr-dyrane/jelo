@@ -39,8 +39,8 @@ export const customerCapabilities = {
   savedLocations: true,
   /** Basket/refill timing decisions are not shipped. */
   basketTiming: false,
-  /** Per-owner request/upload limits are not yet enforced. */
-  requestLimits: false,
+  /** Per-owner open-request and active-private-photo limits fail closed. */
+  requestLimits: true,
   /** Private-safe telemetry is not yet implemented. */
   privateTelemetry: false,
   /** Expired-session recovery is not yet implemented. */
