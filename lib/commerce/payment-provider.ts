@@ -1,7 +1,9 @@
 import "server-only";
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
+import { ngnToKobo, normalizeKoboAmount } from "./payment-money";
 
 const PAYSTACK_BASE_URL = "https://api.paystack.co";
+const PAYSTACK_REQUEST_TIMEOUT_MS = 10_000;
 
 export function paystackSecretKey(): string | null {
   const key = process.env.PAYSTACK_SECRET_KEY;
@@ -25,8 +27,34 @@ export type PaystackInitResult = {
   accessCode: string;
 };
 
+export class PaystackProviderError extends Error {
+  constructor(
+    message: string,
+    readonly httpStatus: number | null = null,
+  ) {
+    super(message);
+    this.name = "PaystackProviderError";
+  }
+}
+
+export function createPaystackReference(
+  orderReference: string,
+  quoteVersion: number,
+) {
+  const order = orderReference.replace(/^JC-/, "").replace(/[^A-Z0-9]/gi, "");
+  return `JC-${order}-Q${quoteVersion}-${randomBytes(8).toString("hex").toUpperCase()}`;
+}
+
 export type PaystackVerifyResult = {
-  status: "success" | "failed" | "abandoned" | "pending";
+  status:
+    | "success"
+    | "failed"
+    | "abandoned"
+    | "pending"
+    | "ongoing"
+    | "processing"
+    | "queued"
+    | "reversed";
   amountKobo: number;
   currency: string;
   reference: string;
@@ -42,6 +70,7 @@ export type PaystackVerifyResult = {
  */
 export async function initializePaystackTransaction(input: {
   amountNgn: number;
+  reference: string;
   orderReference: string;
   customerEmail: string;
   customerName: string | null;
@@ -50,8 +79,7 @@ export async function initializePaystackTransaction(input: {
   const key = paystackSecretKey();
   if (!key) throw new Error("Paystack is not configured.");
 
-  const reference = `JC-${input.orderReference.replace(/^JC-/, "")}-${Date.now()}`;
-  const amountKobo = Math.round(input.amountNgn * 100);
+  const amountKobo = ngnToKobo(input.amountNgn);
 
   const response = await fetch(`${PAYSTACK_BASE_URL}/transaction/initialize`, {
     method: "POST",
@@ -63,7 +91,7 @@ export async function initializePaystackTransaction(input: {
       email: input.customerEmail,
       amount: amountKobo,
       currency: "NGN",
-      reference,
+      reference: input.reference,
       callback_url: input.callbackUrl,
       metadata: {
         custom_fields: [
@@ -84,12 +112,14 @@ export async function initializePaystackTransaction(input: {
         ],
       },
     }),
+    signal: AbortSignal.timeout(PAYSTACK_REQUEST_TIMEOUT_MS),
   });
 
   if (!response.ok) {
     const body = await response.text().catch(() => "");
-    throw new Error(
+    throw new PaystackProviderError(
       `Paystack initialize failed: ${response.status} ${body.slice(0, 200)}`,
+      response.status,
     );
   }
 
@@ -102,13 +132,38 @@ export async function initializePaystackTransaction(input: {
     };
   };
 
-  if (!data.status || !data.data) {
-    throw new Error("Paystack initialize returned no data.");
+  if (
+    !data.status ||
+    !data.data ||
+    data.data.reference !== input.reference ||
+    typeof data.data.access_code !== "string" ||
+    !data.data.access_code ||
+    typeof data.data.authorization_url !== "string"
+  ) {
+    throw new PaystackProviderError(
+      "Paystack initialize returned invalid data.",
+    );
+  }
+  let authorizationUrl: URL;
+  try {
+    authorizationUrl = new URL(data.data.authorization_url);
+  } catch {
+    throw new PaystackProviderError(
+      "Paystack initialize returned an invalid authorization URL.",
+    );
+  }
+  if (
+    authorizationUrl.protocol !== "https:" ||
+    authorizationUrl.hostname !== "checkout.paystack.com"
+  ) {
+    throw new PaystackProviderError(
+      "Paystack initialize returned an invalid authorization URL.",
+    );
   }
 
   return {
     reference: data.data.reference,
-    authorizationUrl: data.data.authorization_url,
+    authorizationUrl: authorizationUrl.toString(),
     accessCode: data.data.access_code,
   };
 }
@@ -132,13 +187,15 @@ export async function verifyPaystackTransaction(
         Authorization: `Bearer ${key}`,
         "Content-Type": "application/json",
       },
+      signal: AbortSignal.timeout(PAYSTACK_REQUEST_TIMEOUT_MS),
     },
   );
 
   if (!response.ok) {
     const body = await response.text().catch(() => "");
-    throw new Error(
+    throw new PaystackProviderError(
       `Paystack verify failed: ${response.status} ${body.slice(0, 200)}`,
+      response.status,
     );
   }
 
@@ -156,12 +213,48 @@ export async function verifyPaystackTransaction(
   };
 
   if (!data.status || !data.data) {
-    throw new Error("Paystack verify returned no data.");
+    throw new PaystackProviderError("Paystack verify returned no data.");
+  }
+
+  if (
+    typeof data.data.reference !== "string" ||
+    data.data.reference.length < 1 ||
+    data.data.reference.length > 200 ||
+    typeof data.data.currency !== "string" ||
+    data.data.currency.length < 1 ||
+    data.data.currency.length > 10 ||
+    typeof data.data.gateway_response !== "string" ||
+    data.data.gateway_response.length > 500 ||
+    (data.data.paid_at !== null &&
+      (typeof data.data.paid_at !== "string" ||
+        data.data.paid_at.length > 100)) ||
+    (data.data.channel !== null &&
+      (typeof data.data.channel !== "string" || data.data.channel.length > 80))
+  ) {
+    throw new PaystackProviderError(
+      "Paystack verify returned malformed evidence.",
+    );
+  }
+
+  const statuses = [
+    "success",
+    "failed",
+    "abandoned",
+    "pending",
+    "ongoing",
+    "processing",
+    "queued",
+    "reversed",
+  ] as const;
+  if (!statuses.includes(data.data.status as (typeof statuses)[number])) {
+    throw new PaystackProviderError(
+      "Paystack verify returned an invalid status.",
+    );
   }
 
   return {
     status: data.data.status as PaystackVerifyResult["status"],
-    amountKobo: data.data.amount,
+    amountKobo: normalizeKoboAmount(data.data.amount),
     currency: data.data.currency,
     reference: data.data.reference,
     gatewayResponse: data.data.gateway_response,
@@ -178,9 +271,10 @@ export function verifyPaystackWebhookSignature(
   payload: string,
   signature: string,
 ): boolean {
-  const secret = process.env.PAYSTACK_WEBHOOK_SECRET;
+  const secret = paystackSecretKey();
   if (!secret) return false;
   try {
+    if (!/^[a-f\d]{128}$/i.test(signature)) return false;
     const expected = createHmac("sha512", secret).update(payload).digest("hex");
     if (expected.length !== signature.length) return false;
     return timingSafeEqual(

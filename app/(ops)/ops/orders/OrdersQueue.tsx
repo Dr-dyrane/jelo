@@ -41,6 +41,10 @@ import type { AssistedOrderPrivateView } from "@/lib/commerce/assisted-procureme
 import { CUSTOMER_VISIBLE_ORDER_STATES } from "@/lib/commerce/assisted-procurement-model";
 import type { AssistedOrderNotificationDeliverySummary } from "@/lib/commerce/order-notification-model";
 import type { AssistedOrderOperatorAlertSummary } from "@/lib/commerce/order-operator-alert-repository";
+import {
+  boundedPaymentEvidenceText,
+  providerSettlementDate,
+} from "@/lib/commerce/payment-review";
 import type { ResolvedServiceFee } from "@/lib/commerce/service-fee-policy";
 import {
   resolveOrderOperationsJourney,
@@ -1121,14 +1125,50 @@ function PaymentVerification({
 }) {
   const [evidence, setEvidence] = useState("");
   const [providerRef, setProviderRef] = useState("");
+  const [receivedAmount, setReceivedAmount] = useState("");
   const total = order.quote?.totalNgn;
+  const paymentReview = order.paymentReviews?.at(-1);
+  const reviewMetadata = paymentReview?.metadata ?? {};
+  const expectedReference =
+    boundedPaymentEvidenceText(reviewMetadata.expectedReference) ??
+    boundedPaymentEvidenceText(paymentReview?.evidenceReference);
+  const observedReference = boundedPaymentEvidenceText(
+    reviewMetadata.observedReference,
+  );
+  const reviewStatus =
+    typeof reviewMetadata.verificationStatus === "string"
+      ? reviewMetadata.verificationStatus
+      : typeof reviewMetadata.paymentStatus === "string"
+        ? reviewMetadata.paymentStatus
+        : null;
+  const rawReviewPaidAt = boundedPaymentEvidenceText(
+    reviewMetadata.observedPaidAt,
+    100,
+  );
+  const reviewPaidAt = providerSettlementDate(rawReviewPaidAt);
+  const observedCurrency = boundedPaymentEvidenceText(
+    reviewMetadata.observedCurrency,
+    10,
+  );
+  const expectedKobo =
+    typeof reviewMetadata.expectedAmountKobo === "number"
+      ? reviewMetadata.expectedAmountKobo
+      : null;
+  const observedKobo =
+    typeof reviewMetadata.observedAmountKobo === "number"
+      ? reviewMetadata.observedAmountKobo
+      : null;
+  const receivedAmountValid =
+    /^(?:0|[1-9]\d{0,8})(?:\.\d{1,2})?$/.test(receivedAmount) &&
+    Number(receivedAmount) > 0;
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     onSubmit({
       orderId: order.id,
+      receivedAmountNgn: receivedAmount,
       evidenceReference: evidence,
-      providerReference: providerRef || undefined,
+      providerReference: providerRef,
     });
   }
 
@@ -1142,14 +1182,60 @@ function PaymentVerification({
       </p>
       {canManage ? (
         <form className={styles.manualPaymentForm} onSubmit={submit}>
+          {paymentReview ? (
+            <div className={styles.paymentReview} role="alert">
+              <CircleAlert size={17} aria-hidden="true" />
+              <span>
+                <strong>Provider evidence needs review</strong>
+                <small>
+                  {paymentReview.reason ??
+                    "Reconcile this payment in Paystack before proceeding."}
+                </small>
+                {expectedReference ? (
+                  <small>Expected reference · {expectedReference}</small>
+                ) : null}
+                {observedReference &&
+                observedReference !== expectedReference ? (
+                  <small>Observed reference · {observedReference}</small>
+                ) : null}
+                {observedCurrency ? (
+                  <small>
+                    Currency · expected NGN · observed {observedCurrency}
+                  </small>
+                ) : null}
+                {reviewStatus ? <small>Status · {reviewStatus}</small> : null}
+                {expectedKobo != null || observedKobo != null ? (
+                  <small>
+                    Expected · {naira.format((expectedKobo ?? 0) / 100)} ·
+                    Observed · {naira.format((observedKobo ?? 0) / 100)}
+                  </small>
+                ) : null}
+                {reviewPaidAt ? (
+                  <small>Provider paid at · {date.format(reviewPaidAt)}</small>
+                ) : rawReviewPaidAt ? (
+                  <small>Invalid provider settlement timestamp</small>
+                ) : null}
+              </span>
+            </div>
+          ) : null}
           <p>
             <strong>Manual bank transfer verification</strong>
           </p>
           <small>
-            Record evidence of a direct bank transfer (statement reference,
-            transfer ID, or screenshot description). The amount must match the
-            approved quote total of {naira.format(total ?? 0)}.
+            Read the received amount from the bank record. JeloCare compares it
+            with the approved {naira.format(total ?? 0)} total before
+            proceeding.
           </small>
+          <label>
+            <span>Amount received (NGN)</span>
+            <input
+              inputMode="decimal"
+              value={receivedAmount}
+              onChange={(event) => setReceivedAmount(event.target.value)}
+              placeholder="e.g. 27500.00"
+              required
+            />
+          </label>
           <label>
             <span>Evidence reference</span>
             <input
@@ -1162,9 +1248,11 @@ function PaymentVerification({
             />
           </label>
           <label>
-            <span>Bank transaction reference (optional)</span>
+            <span>Bank transaction reference</span>
             <input
               value={providerRef}
+              required
+              minLength={6}
               onChange={(e) => setProviderRef(e.target.value)}
               placeholder="e.g. TST-20260814-001"
               maxLength={200}
@@ -1172,7 +1260,9 @@ function PaymentVerification({
           </label>
           <button
             type="submit"
-            disabled={disabled || evidence.trim().length < 8}
+            disabled={
+              disabled || !receivedAmountValid || evidence.trim().length < 8
+            }
           >
             Mark payment verified
           </button>

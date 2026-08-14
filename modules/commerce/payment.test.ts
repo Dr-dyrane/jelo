@@ -1,205 +1,398 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createHmac } from "node:crypto";
+import { readFile } from "node:fs/promises";
 import {
+  initializePaystackTransaction,
   isPaystackConfigured,
   paystackSecretKey,
+  verifyPaystackTransaction,
   verifyPaystackWebhookSignature,
 } from "../../lib/commerce/payment-provider";
-import * as paymentRepository from "../../lib/commerce/payment-repository";
-import * as paymentService from "../../lib/commerce/payment-service";
+import {
+  mapPaymentRow,
+  type PaymentProvider,
+  type PaymentStatus,
+} from "../../lib/commerce/payment-repository";
+import {
+  ngnToKobo,
+  normalizeKoboAmount,
+  normalizeNgnAmount,
+} from "../../lib/commerce/payment-money";
+import { resolvePaymentOrderAccess } from "../../lib/commerce/payment-order-access";
+import {
+  boundedPaymentEvidenceText,
+  providerSettlementDate,
+} from "../../lib/commerce/payment-review";
+import { successfulEvidenceProblem } from "../../lib/commerce/payment-service";
+import type { AssistedOrderPrivateView } from "../../lib/commerce/assisted-procurement-repository";
 
-test("migration 0047 creates assisted_order_payments with correct structure", async () => {
-  const { readFile } = await import("node:fs/promises");
-  const sql = await readFile(
+function restoreEnvironment(name: string, value: string | undefined) {
+  if (value === undefined) delete process.env[name];
+  else process.env[name] = value;
+}
+
+test("payment migrations establish numeric and idempotency boundaries", async () => {
+  const original = await readFile(
     new URL(
       "../../db/migrations/0047_assisted_order_payments.sql",
       import.meta.url,
     ),
     "utf8",
   );
-  assert.match(sql, /create table assisted_order_payments/);
-  assert.match(sql, /order_id uuid not null references assisted_orders/);
-  assert.match(sql, /quote_version integer not null/);
-  assert.match(sql, /amount_ngn integer not null/);
-  assert.match(sql, /provider text not null check/);
-  assert.match(sql, /paystack.*manual_bank_transfer/);
-  assert.match(sql, /status text not null default 'pending'/);
-  assert.match(sql, /verified/);
-  assert.match(sql, /evidence_reference/);
-  assert.match(sql, /verified_by_subject/);
-  assert.match(sql, /verified_at/);
-  assert.match(sql, /revoke all privileges/);
-  assert.match(sql, /jelocare_app_runtime/);
-  assert.match(sql, /revoke delete/);
-  assert.match(sql, /unique index.*one_verified_per_order/);
-});
-
-test("payment-provider module exports required functions", () => {
-  assert.equal(typeof isPaystackConfigured, "function");
-  assert.equal(typeof paystackSecretKey, "function");
-  assert.equal(typeof verifyPaystackWebhookSignature, "function");
-});
-
-test("payment-repository module exports required functions", () => {
-  assert.equal(typeof paymentRepository.createPayment, "function");
-  assert.equal(typeof paymentRepository.readPaymentByReference, "function");
-  assert.equal(typeof paymentRepository.listPaymentsForOrder, "function");
-  assert.equal(
-    typeof paymentRepository.readVerifiedPaymentForOrder,
-    "function",
+  const numeric = await readFile(
+    new URL(
+      "../../db/migrations/0048_money_columns_to_numeric.sql",
+      import.meta.url,
+    ),
+    "utf8",
   );
-  assert.equal(
-    typeof paymentRepository.verifyPaymentAndMarkOrderPaid,
-    "function",
+  const integrity = await readFile(
+    new URL("../../db/migrations/0050_payment_integrity.sql", import.meta.url),
+    "utf8",
   );
-  assert.equal(typeof paymentRepository.updatePaymentStatus, "function");
+  assert.match(original, /create table assisted_order_payments/);
+  assert.match(
+    original,
+    /unique index assisted_order_payments_one_verified_per_order/,
+  );
+  assert.match(numeric, /amount_ngn type numeric\(12,2\)/);
+  assert.match(
+    integrity,
+    /duplicate active Paystack attempts require provider reconciliation/,
+  );
+  assert.match(integrity, /active_paystack_quote_idx/);
+  assert.match(integrity, /paystack_reference_idx/);
+  assert.match(integrity, /manual_reference_idx/);
+  assert.match(integrity, /pg_input_is_valid/);
+  assert.match(integrity, /'payment_confirmed'/);
+  assert.match(integrity, /'payment_issue'/);
+  assert.match(integrity, /'suppressed'/);
 });
 
-test("payment-service module exports required functions", () => {
-  assert.equal(typeof paymentService.initiatePaystackPayment, "function");
-  assert.equal(typeof paymentService.handlePaystackWebhookEvent, "function");
-  assert.equal(typeof paymentService.manuallyVerifyPayment, "function");
+test("NGN normalization converts decimal text to exact integer kobo", () => {
+  assert.equal(normalizeNgnAmount("0.29"), 0.29);
+  assert.equal(normalizeNgnAmount("123.45"), 123.45);
+  assert.equal(normalizeNgnAmount(123.45), 123.45);
+  assert.equal(normalizeNgnAmount("123.4"), 123.4);
+  assert.equal(ngnToKobo("0.29"), 29);
+  assert.equal(ngnToKobo("123.45"), 12_345);
+  assert.equal(normalizeKoboAmount(12_345), 12_345);
+  assert.throws(() => normalizeNgnAmount("123.456"), /Invalid NGN/);
+  assert.throws(() => normalizeNgnAmount(0.1 + 0.2), /Invalid NGN/);
+  assert.throws(() => normalizeNgnAmount("1e3"), /Invalid NGN/);
+  assert.throws(() => normalizeKoboAmount(12.5), /Invalid kobo/);
 });
 
-test("isPaystackConfigured returns false when no env vars are set", () => {
-  const original = process.env.PAYSTACK_SECRET_KEY;
-  const originalPub = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
+test("Ops payment evidence safely bounds and parses provider values", () => {
+  assert.equal(providerSettlementDate("not-a-date"), null);
+  assert.equal(
+    providerSettlementDate("2026-08-14T10:00:00.000Z")?.toISOString(),
+    "2026-08-14T10:00:00.000Z",
+  );
+  assert.equal(boundedPaymentEvidenceText(` ${"x".repeat(250)} `)?.length, 200);
+});
+
+test("repository mapping normalizes PostgreSQL numeric strings", () => {
+  const payment = mapPaymentRow({
+    id: "payment-id",
+    order_id: "order-id",
+    quote_version: 2,
+    amount_ngn: "123.45",
+    provider: "paystack",
+    provider_reference: "JC-REF",
+    status: "pending",
+    evidence_reference: null,
+    verified_by_subject: null,
+    verified_at: null,
+    provider_metadata: {
+      phase: "ready",
+      reservedAt: "2026-08-14T10:00:00.000Z",
+      authorizationUrl: "https://checkout.paystack.com/access",
+      accessCode: "access",
+      initializedAt: "2026-08-14T10:00:01.000Z",
+    },
+    created_at: "2026-08-14T10:00:00.000Z",
+    updated_at: "2026-08-14T10:00:01.000Z",
+  });
+  assert.equal(payment.amountNgn, 123.45);
+  assert.equal(payment.paystackInitialization?.phase, "ready");
+  assert.equal(
+    payment.paystackInitialization?.authorizationUrl,
+    "https://checkout.paystack.com/access",
+  );
+});
+
+test("signed-in payment uses only the explicitly owned order", async () => {
+  let ownerCalls = 0;
+  let sessionCalls = 0;
+  const ownerOrder = { id: "owned-order" } as AssistedOrderPrivateView;
+  const resolved = await resolvePaymentOrderAccess(
+    {
+      ownerSubject: "customer:one",
+      requestedOrderId: "owned-order",
+      sessionHash: "stale-guest-cookie",
+    },
+    {
+      readForOwner: async (orderId, subject) => {
+        ownerCalls += 1;
+        assert.equal(orderId, "owned-order");
+        assert.equal(subject, "customer:one");
+        return ownerOrder;
+      },
+      readBySession: async () => {
+        sessionCalls += 1;
+        return { id: "guest-order" } as AssistedOrderPrivateView;
+      },
+    },
+  );
+  assert.equal(resolved?.order, ownerOrder);
+  assert.equal(resolved?.surface, "member");
+  assert.equal(ownerCalls, 1);
+  assert.equal(sessionCalls, 0);
+});
+
+test("guest payment stays bound to the session order", async () => {
+  const guestOrder = { id: "guest-order" } as AssistedOrderPrivateView;
+  const readers = {
+    readForOwner: async () => {
+      throw new Error("owner lookup must not run");
+    },
+    readBySession: async () => guestOrder,
+  };
+  const exact = await resolvePaymentOrderAccess(
+    {
+      ownerSubject: null,
+      requestedOrderId: "guest-order",
+      sessionHash: "session",
+    },
+    readers,
+  );
+  assert.equal(exact?.order, guestOrder);
+  assert.equal(exact?.surface, "guest");
+  assert.equal(
+    await resolvePaymentOrderAccess(
+      {
+        ownerSubject: null,
+        requestedOrderId: "different-order",
+        sessionHash: "session",
+      },
+      readers,
+    ),
+    null,
+  );
+});
+
+test("signed-in payment accepts only an exact matching guest capability fallback", async () => {
+  const guestOrder = { id: "guest-order" } as AssistedOrderPrivateView;
+  const readers = {
+    readForOwner: async () => null,
+    readBySession: async () => guestOrder,
+  };
+  const exact = await resolvePaymentOrderAccess(
+    {
+      ownerSubject: "customer:one",
+      requestedOrderId: "guest-order",
+      sessionHash: "guest-capability",
+    },
+    readers,
+  );
+  assert.equal(exact?.order, guestOrder);
+  assert.equal(exact?.surface, "guest");
+  assert.equal(
+    await resolvePaymentOrderAccess(
+      {
+        ownerSubject: "customer:one",
+        requestedOrderId: "different-order",
+        sessionHash: "guest-capability",
+      },
+      readers,
+    ),
+    null,
+  );
+});
+
+test("isPaystackConfigured requires server and public keys", () => {
+  const originalSecret = process.env.PAYSTACK_SECRET_KEY;
+  const originalPublic = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
   delete process.env.PAYSTACK_SECRET_KEY;
   delete process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
   assert.equal(isPaystackConfigured(), false);
-  process.env.PAYSTACK_SECRET_KEY = original;
-  process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY = originalPub;
+  process.env.PAYSTACK_SECRET_KEY = "sk_test_dummykey123";
+  process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY = "pk_test_dummykey123";
+  assert.equal(isPaystackConfigured(), true);
+  restoreEnvironment("PAYSTACK_SECRET_KEY", originalSecret);
+  restoreEnvironment("NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY", originalPublic);
 });
 
-test("paystackSecretKey rejects non-sk prefixed values", () => {
+test("webhook HMAC uses PAYSTACK_SECRET_KEY", () => {
+  const originalSecret = process.env.PAYSTACK_SECRET_KEY;
+  const originalLegacy = process.env.PAYSTACK_WEBHOOK_SECRET;
+  const secret = "sk_test_webhooksecret";
+  process.env.PAYSTACK_SECRET_KEY = secret;
+  process.env.PAYSTACK_WEBHOOK_SECRET = "wrong-legacy-secret";
+  const payload = JSON.stringify({
+    event: "charge.success",
+    data: { reference: "JC-TEST-123" },
+  });
+  const signature = createHmac("sha512", secret).update(payload).digest("hex");
+  assert.equal(verifyPaystackWebhookSignature(payload, signature), true);
+  assert.equal(verifyPaystackWebhookSignature(payload, "bad"), false);
+  restoreEnvironment("PAYSTACK_SECRET_KEY", originalSecret);
+  restoreEnvironment("PAYSTACK_WEBHOOK_SECRET", originalLegacy);
+});
+
+test("Paystack initialization sends and requires the exact reserved reference", async () => {
+  const originalSecret = process.env.PAYSTACK_SECRET_KEY;
+  const originalFetch = globalThis.fetch;
+  process.env.PAYSTACK_SECRET_KEY = "sk_test_exactreference";
+  let postedReference = "";
+  globalThis.fetch = async (_input, init) => {
+    const body = JSON.parse(String(init?.body)) as {
+      reference: string;
+      amount: number;
+    };
+    postedReference = body.reference;
+    assert.equal(body.amount, 12_345);
+    return new Response(
+      JSON.stringify({
+        status: true,
+        data: {
+          reference: body.reference,
+          authorization_url: "https://checkout.paystack.com/access-code",
+          access_code: "access-code",
+        },
+      }),
+      { status: 200, headers: { "content-type": "application/json" } },
+    );
+  };
+  try {
+    const result = await initializePaystackTransaction({
+      amountNgn: 123.45,
+      reference: "JC-ORDER-Q1-EXACT",
+      orderReference: "JC-ORDER",
+      customerEmail: "customer@example.com",
+      customerName: "Customer",
+      callbackUrl: "https://www.jelocare.com/order?payment=return",
+    });
+    assert.equal(postedReference, "JC-ORDER-Q1-EXACT");
+    assert.equal(result.reference, "JC-ORDER-Q1-EXACT");
+    assert.equal(result.accessCode, "access-code");
+  } finally {
+    globalThis.fetch = originalFetch;
+    restoreEnvironment("PAYSTACK_SECRET_KEY", originalSecret);
+  }
+});
+
+test("Paystack verification rejects malformed amounts", async () => {
+  const originalSecret = process.env.PAYSTACK_SECRET_KEY;
+  const originalFetch = globalThis.fetch;
+  process.env.PAYSTACK_SECRET_KEY = "sk_test_verify";
+  globalThis.fetch = async () =>
+    new Response(
+      JSON.stringify({
+        status: true,
+        data: {
+          status: "success",
+          amount: 123.45,
+          currency: "NGN",
+          reference: "JC-REF",
+          gateway_response: "Successful",
+          paid_at: "2026-08-14T10:00:00.000Z",
+          channel: "card",
+        },
+      }),
+      { status: 200, headers: { "content-type": "application/json" } },
+    );
+  try {
+    await assert.rejects(
+      () => verifyPaystackTransaction("JC-REF"),
+      /Invalid kobo/,
+    );
+  } finally {
+    globalThis.fetch = originalFetch;
+    restoreEnvironment("PAYSTACK_SECRET_KEY", originalSecret);
+  }
+});
+
+test("successful evidence requires exact reference, NGN, and paid_at", () => {
+  const valid = {
+    status: "success" as const,
+    amountKobo: 12_345,
+    currency: "NGN",
+    reference: "JC-EXACT",
+    gatewayResponse: "Successful",
+    paidAt: "2026-08-14T10:00:00.000Z",
+    channel: "card",
+  };
+  assert.equal(successfulEvidenceProblem("JC-EXACT", valid), null);
+  assert.equal(
+    successfulEvidenceProblem("JC-OTHER", valid)?.code,
+    "reference-mismatch",
+  );
+  assert.equal(
+    successfulEvidenceProblem("JC-EXACT", { ...valid, currency: "USD" })?.code,
+    "currency-mismatch",
+  );
+  assert.equal(
+    successfulEvidenceProblem("JC-EXACT", { ...valid, paidAt: null })?.code,
+    "missing-settlement-time",
+  );
+});
+
+test("payment provider types remain narrow", () => {
+  const provider: PaymentProvider = "paystack";
+  const status: PaymentStatus = "pending";
+  assert.equal(provider, "paystack");
+  assert.equal(status, "pending");
   const original = process.env.PAYSTACK_SECRET_KEY;
   process.env.PAYSTACK_SECRET_KEY = "invalid-key";
   assert.equal(paystackSecretKey(), null);
-  process.env.PAYSTACK_SECRET_KEY = original;
+  restoreEnvironment("PAYSTACK_SECRET_KEY", original);
 });
 
-test("paystackSecretKey accepts sk-prefixed values", () => {
-  const original = process.env.PAYSTACK_SECRET_KEY;
-  process.env.PAYSTACK_SECRET_KEY = "sk_test_dummykey123";
-  assert.equal(paystackSecretKey(), "sk_test_dummykey123");
-  process.env.PAYSTACK_SECRET_KEY = original;
-});
-
-test("verifyPaystackWebhookSignature returns false for empty signature", () => {
-  const original = process.env.PAYSTACK_WEBHOOK_SECRET;
-  process.env.PAYSTACK_WEBHOOK_SECRET = "test-secret";
-  assert.equal(verifyPaystackWebhookSignature("{}", ""), false);
-  process.env.PAYSTACK_WEBHOOK_SECRET = original;
-});
-
-test("verifyPaystackWebhookSignature returns false when no secret is set", () => {
-  const original = process.env.PAYSTACK_WEBHOOK_SECRET;
-  delete process.env.PAYSTACK_WEBHOOK_SECRET;
-  assert.equal(verifyPaystackWebhookSignature("{}", "abc123"), false);
-  process.env.PAYSTACK_WEBHOOK_SECRET = original;
-});
-
-test("verifyPaystackWebhookSignature validates correct HMAC-SHA512", () => {
-  const original = process.env.PAYSTACK_WEBHOOK_SECRET;
-  const secret = "test-webhook-secret";
-  process.env.PAYSTACK_WEBHOOK_SECRET = secret;
-  const payload = JSON.stringify({
-    event: "charge.success",
-    data: { reference: "JC-TEST-123", status: "success", amount: 500000 },
-  });
-  const expectedSignature = createHmac("sha512", secret)
-    .update(payload)
-    .digest("hex");
-  assert.equal(
-    verifyPaystackWebhookSignature(payload, expectedSignature),
-    true,
-  );
-  process.env.PAYSTACK_WEBHOOK_SECRET = original;
-});
-
-test("verifyPaystackWebhookSignature rejects wrong secret", () => {
-  const original = process.env.PAYSTACK_WEBHOOK_SECRET;
-  process.env.PAYSTACK_WEBHOOK_SECRET = "correct-secret";
-  const payload = '{"event":"charge.success"}';
-  const wrongSignature = createHmac("sha512", "wrong-secret")
-    .update(payload)
-    .digest("hex");
-  assert.equal(verifyPaystackWebhookSignature(payload, wrongSignature), false);
-  process.env.PAYSTACK_WEBHOOK_SECRET = original;
-});
-
-test("payment provider types are correctly exported", () => {
-  const provider: paymentRepository.PaymentProvider = "paystack";
-  const status: paymentRepository.PaymentStatus = "pending";
-  assert.equal(provider, "paystack");
-  assert.equal(status, "pending");
-});
-
-test("manual payment action requires operator access", async () => {
-  const { readFile } = await import("node:fs/promises");
-  const source = await readFile(
+test("Ops manual verification requires independently entered received amount", async () => {
+  const actions = await readFile(
     new URL("../../app/(ops)/ops/orders/actions.ts", import.meta.url),
     "utf8",
   );
-  assert.match(source, /requireConsoleOperator/);
-  assert.match(source, /assertCan/);
-  assert.match(source, /orders\.manage/);
-  assert.match(source, /verifyManualPaymentAction/);
-  assert.match(source, /manuallyVerifyPayment/);
-});
-
-test("webhook endpoint verifies Paystack signature", async () => {
-  const { readFile } = await import("node:fs/promises");
-  const source = await readFile(
-    new URL("../../app/api/payments/webhook/route.ts", import.meta.url),
-    "utf8",
-  );
-  assert.match(source, /verifyPaystackWebhookSignature/);
-  assert.match(source, /x-paystack-signature/);
-  assert.match(source, /handlePaystackWebhookEvent/);
-  assert.match(source, /charge\.success/);
-});
-
-test("payment initiation endpoint checks sameSite and rate limit", async () => {
-  const { readFile } = await import("node:fs/promises");
-  const source = await readFile(
-    new URL("../../app/api/orders/current/payment/route.ts", import.meta.url),
-    "utf8",
-  );
-  assert.match(source, /sameSiteRequest/);
-  assert.match(source, /allowAssistedOrderAction/);
-  assert.match(source, /isPaystackConfigured/);
-  assert.match(source, /initiatePaystackPayment/);
-});
-
-test("customer order status shows payment section for payment_pending", async () => {
-  const { readFile } = await import("node:fs/promises");
-  const source = await readFile(
-    new URL("../../components/commerce/order-status.tsx", import.meta.url),
-    "utf8",
-  );
-  assert.match(source, /PaymentSection/);
-  assert.match(source, /payWithPaystack/);
-  assert.match(source, /authorizationUrl/);
-  assert.match(source, /direct transfer/i);
-});
-
-test("operator OrdersQueue has PaymentVerification component", async () => {
-  const { readFile } = await import("node:fs/promises");
-  const source = await readFile(
+  const queue = await readFile(
     new URL("../../app/(ops)/ops/orders/OrdersQueue.tsx", import.meta.url),
     "utf8",
   );
-  assert.match(source, /PaymentVerification/);
-  assert.match(source, /verifyManualPaymentAction/);
-  assert.match(source, /evidenceReference/);
-  assert.match(source, /Mark payment verified/);
+  assert.match(actions, /requireConsoleOperator/);
+  assert.match(actions, /receivedAmountNgn/);
+  assert.match(queue, /Amount received \(NGN\)/);
+  assert.match(queue, /receivedAmountNgn: receivedAmount/);
+  assert.match(queue, /Bank transaction reference/);
+  assert.match(actions, /providerReference: z\.string\(\)\.trim\(\)\.min\(6\)/);
 });
 
-test("customer-facing state description updated for payment_pending", async () => {
-  const mod = await import("../../lib/commerce/assisted-procurement-model");
-  const desc = mod.CUSTOMER_VISIBLE_ORDER_STATES.payment_pending;
-  assert.match(desc.detail, /Pay to begin/i);
-  assert.doesNotMatch(desc.detail, /not yet available/i);
+test("payment route binds callbacks to member and guest order surfaces", async () => {
+  const route = await readFile(
+    new URL("../../app/api/orders/current/payment/route.ts", import.meta.url),
+    "utf8",
+  );
+  assert.match(route, /resolvePaymentOrderAccess/);
+  assert.match(
+    route,
+    /access\.surface === "member" \? "\/me\/orders" : "\/order"/,
+  );
+  assert.match(route, /PaymentInitializationPendingError/);
+});
+
+test("webhook retries recoverable failures and acknowledges recorded anomalies", async () => {
+  const route = await readFile(
+    new URL("../../app/api/payments/webhook/route.ts", import.meta.url),
+    "utf8",
+  );
+  assert.match(route, /if \(!result\.retryable\)/);
+  assert.match(route, /\{ status: 503 \}/);
+  assert.doesNotMatch(route, /Always return 200/);
+  const service = await readFile(
+    new URL("../../lib/commerce/payment-service.ts", import.meta.url),
+    "utf8",
+  );
+  assert.match(service, /recordPaymentReviewRequired/);
+  assert.match(service, /amount-mismatch/);
 });

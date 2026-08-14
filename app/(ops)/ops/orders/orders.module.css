@@ -583,6 +583,22 @@
   margin: 0;
   font-weight: 700;
 }
+.paymentReview {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding: 0.75rem;
+  border-radius: 0.65rem;
+  background: color-mix(in srgb, #b54848 12%, transparent);
+  color: var(--ops-ink);
+}
+.paymentReview span {
+  display: grid;
+  gap: 0.15rem;
+}
+.paymentReview small {
+  color: inherit;
+}
 .manualPaymentForm small {
   color: var(--ops-muted, #716764);
   line-height: 1.4;

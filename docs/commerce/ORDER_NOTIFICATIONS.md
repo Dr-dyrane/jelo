@@ -1,6 +1,6 @@
 # Order-service notifications
 
-Updated: 2026-08-13
+Updated: 2026-08-14
 
 JeloCare notifications currently mean one narrow thing: private updates about
 an assisted order the customer already created. They are not marketing,
@@ -20,6 +20,10 @@ treatment reminders, refill alerts, price-pressure messages, or campaigns.
 
 The customer can switch email off per order at any time. That immediately
 suppresses unsent email while keeping the private event history intact.
+Verified, failed, and abandoned payment events use the same event-ID
+deduplication. Migration `0050_payment_integrity.sql` adds payment-confirmed and
+payment-issue mappings; its historic backfill is always `suppressed`, so a
+deployment never sends retrospective payment email.
 
 The initial Ops handoff is separate from those customer updates. Migration
 `0044_assisted_order_operator_alerts.sql` creates one durable alert per order

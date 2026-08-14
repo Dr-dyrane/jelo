@@ -18,6 +18,7 @@ import {
   retryAssistedOrderOperatorAlerts,
 } from "@/lib/commerce/order-operator-alert-repository";
 import { verifyAssistedOrder } from "@/lib/commerce/order-verification-service";
+import { normalizeNgnAmount } from "@/lib/commerce/payment-money";
 
 export type OrderActionResult =
   | {
@@ -195,8 +196,11 @@ export async function reverifyOrderAction(
 
 const manualPaymentSchema = z.object({
   orderId: z.uuid(),
+  receivedAmountNgn: z
+    .union([z.string().trim().min(1), z.number()])
+    .transform((value) => normalizeNgnAmount(value)),
   evidenceReference: z.string().trim().min(8).max(1000),
-  providerReference: z.string().trim().max(200).optional(),
+  providerReference: z.string().trim().min(6).max(200),
 });
 
 export type ManualPaymentResult =
@@ -215,7 +219,8 @@ export async function verifyManualPaymentAction(
       orderId: parsed.orderId,
       operatorSubject: operator.authSubject,
       evidenceReference: parsed.evidenceReference,
-      providerReference: parsed.providerReference || null,
+      providerReference: parsed.providerReference,
+      receivedAmountNgn: parsed.receivedAmountNgn,
     });
     if (!result.ok) return { ok: false, error: result.error };
     refresh();

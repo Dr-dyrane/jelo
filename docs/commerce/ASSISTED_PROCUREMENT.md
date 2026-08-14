@@ -1,11 +1,13 @@
 # Assisted procurement operations
 
-Updated: 2026-08-13
+Updated: 2026-08-14
 
 JeloCare ships a guest-first, one-retailer order-request flow. It is a manual
 assisted-procurement service, not retailer checkout and not a marketplace.
 The retailer supplies and fulfils the exact products; JeloCare is the disclosed
-purchasing agent. No payment is taken in this release.
+purchasing agent. Governed Paystack and operator-verified bank payment are
+available only after approval of one exact quote; retailer fulfilment remains
+separately gated.
 
 ## Customer journey
 
@@ -30,8 +32,9 @@ purchasing agent. No payment is taken in this release.
    opted-in email delivery uses the existing transactional mail provider.
 6. The customer approves or declines that exact quote version on `/order` or,
    when signed in, `/me/orders`.
-7. Approval ends at `payment_pending`. Paid, procurement, fulfilment, and refund
-   transitions stay unavailable until their separate governed releases.
+7. Approval enters `payment_pending`. Only exact provider or independently
+   observed bank evidence may advance it to `paid`. Procurement, fulfilment,
+   returns, and refunds stay unavailable until their separate governed releases.
 
 The state and cost contract is defined by
 [ADR 0016](../adr/0016-retailer-scoped-assisted-procurement.md).
@@ -115,18 +118,31 @@ progress bar reflects the current step (0%, 50%, 100%).
 1. Confirm Production has the restricted `APP_DATABASE_URL`, complete Upstash
    REST credentials, transactional email, `NEXT_PUBLIC_SITE_URL`, and a
    dedicated `ASSISTED_ORDER_RATE_LIMIT_SECRET`.
-2. From a protected operator process, inject the direct administrator URL only
+2. Enter a short online-payment maintenance window. Keep
+   `PAYSTACK_SECRET_KEY` configured so signed webhooks can still reconcile, but
+   temporarily remove `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY` and redeploy. This makes
+   the existing `isPaystackConfigured()` gate reject new checkout initiation.
+   Reconcile every already-pending Paystack reference before continuing.
+3. From a protected operator process, inject the direct administrator URL only
    for `npm run db:migrate`. Migrations `0039_assisted_procurement.sql`,
    `0041_assisted_order_notifications.sql`,
    `0044_assisted_order_operator_alerts.sql`,
    `0045_assisted_order_line_verifications.sql`,
-   `0046_service_fee_policies.sql`, and
-   `0047_assisted_order_payments.sql` are additive and grant only the
-   application runtime role. Never add the admin URL to Vercel or `.env.local`.
+   `0046_service_fee_policies.sql`,
+   `0047_assisted_order_payments.sql`,
+   `0048_money_columns_to_numeric.sql`,
+   `0049_fix_remaining_money_columns.sql`, and
+   `0050_payment_integrity.sql` grant only the application runtime role. Migration
+   `0050` is a coordinated boundary, not an independently additive live change:
+   old code initializes Paystack before its database insert, while new code
+   reserves the reference first and depends on the new unique index. Never run
+   it while old code can still initiate payments. Never add the admin URL to
+   Vercel or `.env.local`.
    Alternatively, apply via the Neon MCP `run_sql` tool — see
    [Neon and data operations](../data/NEON.md#applying-migrations-via-neon-mcp-when-migration_database_url-is-not-available-locally).
-3. Deploy the application revision.
-4. Complete the post-deploy journey below before announcing availability.
+4. Deploy the application revision while online initiation remains disabled.
+5. Restore `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY`, redeploy, and complete the
+   post-deploy journey below before announcing availability.
 
 Do not drop the new tables during application rollback. Old application code
 does not use them, while retaining them preserves already-created customer and
@@ -147,7 +163,8 @@ Use a real exact product with at least one fresh eligible retailer offer.
    issuing the quote.
 6. Confirm the guest view refreshes to Quote ready; approve it.
 7. Confirm guest status, Operations, and signed-in ownership where applicable
-   agree on `payment_pending`, with no payment or retailer-purchase control.
+   agree on `payment_pending`. Continue with the separate SQL-backed payment
+   check below; never infer payment success from a redirect.
 8. Use the emailed recovery link once, confirm it opens the same clean order,
    then confirm replay fails. Request a replacement and confirm the older
    unused link fails.
@@ -357,16 +374,18 @@ missing, migration `0039_assisted_procurement.sql` has not been applied; run
 the existing `npm run db:migrate` operator once with the same process-scoped
 administrative URL before continuing.
 
-With the Ops shell open, the complete local acceptance path is:
+With the Ops shell open, the development-fixture acceptance path is:
 
 1. guest product -> basket -> one retailer -> checkout -> `/order`;
 2. `/ops/orders` -> Start quoting -> complete five cost fields, expiry,
    evidence, and customer note -> Issue exact quote;
 3. guest `/order` -> Approve exact quote;
-4. `/ops/orders` -> `QUOTE APPROVED · PAYMENT GATED`.
+4. `/ops/orders` -> the approved payment step.
 
-Stop there. A successful ADR 0016 test must not expose a paid, procurement,
-retailer-purchase, WhatsApp, or fulfilment action.
+Stop there for the in-memory development fixture. Payment records intentionally
+use PostgreSQL even when order fixtures are enabled, so the fixture cannot prove
+`payment_pending` to `paid`. Use a disposable SQL order and Paystack test mode
+for the payment acceptance check; do not manufacture later states with SQL.
 
 ## Payment
 
@@ -376,24 +395,37 @@ customer can pay via Paystack (online checkout) or direct bank transfer.
 ### Paystack (automatic verification)
 
 1. The customer clicks "Pay" on their private order page.
-2. The server calls `POST /api/orders/current/payment` which initializes a
-   Paystack transaction and returns the authorization URL.
-3. The customer is redirected to Paystack's secure checkout (card, bank
+2. The server reserves one active attempt and its exact provider reference in
+   PostgreSQL, initializes that same reference, then persists the returned
+   authorization URL and access code before returning the URL.
+3. A duplicate click reuses only the persisted URL for that attempt. It never
+   initializes another transaction while the first remains live. An incomplete
+   reservation returns a retryable response; once stale, the server verifies
+   the reserved reference with Paystack before it can retire that attempt.
+4. The customer is redirected to Paystack's secure checkout (card, bank
    transfer, USSD).
-4. Paystack sends a webhook to `POST /api/payments/webhook` with an
-   HMAC-SHA512 signature.
-5. The webhook verifies the signature, then calls the Paystack API to verify
+5. Paystack sends a webhook to `POST /api/payments/webhook` with an
+   HMAC-SHA512 signature created with the account secret key.
+6. The webhook verifies the signature, then calls the Paystack API to verify
    the transaction independently.
-6. If the amount matches the approved quote total, the payment is marked
-   `verified` and the order transitions to `paid`.
+7. The returned reference must be exact, currency must be `NGN`, `paid_at` must
+   be valid, and integer kobo must match both the reserved attempt and locked
+   approved quote. Only then is the payment marked `verified` and the order
+   transitioned to `paid` in one transaction.
+8. A recoverable commit mismatch returns non-2xx for provider retry. A permanent
+   evidence anomaly also returns non-2xx and first appends an idempotent
+   `payment_review_required` record visible in Ops; received funds are never
+   mislabeled failed merely because evidence needs review.
 
 ### Manual bank transfer (operator verification)
 
 1. The customer pays to JeloCare's bank account outside the app.
-2. The operator enters the transfer evidence (statement reference, transfer ID)
-   in the `/ops/orders` payment verification form.
-3. The system creates a `manual_bank_transfer` payment record and verifies it
-   against the approved quote total.
+2. The operator independently reads and enters the amount received plus the
+   bank transaction reference and a short evidence description in `/ops/orders`.
+3. One transaction compares that observed amount with the locked approved quote,
+   then creates the verified `manual_bank_transfer` record. A copied or
+   mismatched amount cannot advance the order, and a normalized bank transaction
+   reference cannot be credited to a second order.
 4. The order transitions to `paid` with the operator's subject recorded as the
    verifier.
 
@@ -408,16 +440,34 @@ An order can only become `paid` when:
 - Only one verified payment is allowed per order (unique index).
 
 A button click, chat reply, or unverified staff note cannot establish the
-`paid` state. The `verifyPaymentAndMarkOrderPaid` function is the only path
-from `payment_pending` to `paid`.
+`paid` state. The governed automatic and manual repository transactions are
+the only paths from `payment_pending` to `paid`.
+
+An online payment can only be initialized before the approved quote expires.
+Provider settlement must report a `paid_at` inside that quote's issued-to-expiry
+window. A late successful charge is preserved as provider evidence for Ops
+review and never silently advances or fails the order. When an expired quote has
+no live provider attempt, it safely returns to `needs_response` for a fresh quote.
 
 ### Environment variables
 
-| Variable                          | Required                       | Description                                       |
-| --------------------------------- | ------------------------------ | ------------------------------------------------- |
-| `PAYSTACK_SECRET_KEY`             | Yes (for online payment)       | Paystack secret key (`sk_...`). Server-only.      |
-| `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY` | Yes (for online payment)       | Paystack public key (`pk_...`). Safe for browser. |
-| `PAYSTACK_WEBHOOK_SECRET`         | Yes (for webhook verification) | Paystack webhook signing secret. Server-only.     |
+| Variable                          | Required                 | Description                                       |
+| --------------------------------- | ------------------------ | ------------------------------------------------- |
+| `PAYSTACK_SECRET_KEY`             | Yes (for online payment) | Paystack secret key (`sk_...`). Server-only.      |
+| `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY` | Yes (for online payment) | Paystack public key (`pk_...`). Safe for browser. |
+
+Paystack signs webhooks with `PAYSTACK_SECRET_KEY`; do not configure or depend
+on a separate `PAYSTACK_WEBHOOK_SECRET`.
+
+Repository integration tests require an explicitly disposable writable URL in
+`PAYMENT_INTEGRITY_TEST_DATABASE_URL`. It is test-process-only and must never be
+set in Vercel.
+
+Migration `0050_payment_integrity.sql` deliberately stops if legacy active
+Paystack attempts, malformed ledger rows, or reused manual bank references are
+ambiguous. Reconcile those exact provider records first, record the outcome in
+the governed payment/event path, and rerun the migration; never delete or pick
+a surviving payment row by guesswork.
 
 When Paystack is not configured, the customer sees bank transfer instructions
 and the operator can still verify manual payments.

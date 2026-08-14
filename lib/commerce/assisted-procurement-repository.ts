@@ -28,6 +28,12 @@ export type AssistedOrderPrivateView = AssistedOrderView & {
   contactPhone: string;
   deliveryAddress: string;
   deliveryInstructions: string | null;
+  paymentReviews?: Array<{
+    evidenceReference: string | null;
+    reason: string | null;
+    metadata: Record<string, unknown>;
+    createdAt: string;
+  }>;
 };
 
 export type CreateAssistedOrderRecord = {
@@ -166,10 +172,13 @@ async function hydrateOrder(
         from_state: AssistedOrderState | null;
         to_state: AssistedOrderState;
         reason: string | null;
+        evidence_reference: string | null;
+        metadata: unknown;
         created_at: string;
       }[]
     >`
-      select id, action, from_state, to_state, reason, created_at::text
+      select id, action, from_state, to_state, reason,
+             evidence_reference, metadata, created_at::text
       from assisted_order_events where order_id = ${row.id}
       order by sequence_id
     `,
@@ -276,6 +285,19 @@ async function hydrateOrder(
       reason: event.reason,
       createdAt: event.created_at,
     })),
+    paymentReviews: eventRows
+      .filter((event) => event.action === "payment_review_required")
+      .map((event) => ({
+        evidenceReference: event.evidence_reference,
+        reason: event.reason,
+        metadata:
+          event.metadata &&
+          typeof event.metadata === "object" &&
+          !Array.isArray(event.metadata)
+            ? (event.metadata as Record<string, unknown>)
+            : {},
+        createdAt: event.created_at,
+      })),
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
@@ -817,7 +839,11 @@ export async function listAssistedOrderQueue() {
   const sql = getPostgresClient();
   const rows = await sql.unsafe<OrderRow[]>(`${orderSelect}
     where state not in ('delivered', 'cancelled', 'refunded') and retain_until > now()
-    order by updated_at asc limit 200`);
+    order by exists (
+      select 1 from assisted_order_events review
+      where review.order_id = orders.id
+        and review.action = 'payment_review_required'
+    ) desc, updated_at asc limit 200`);
   return Promise.all(rows.map((row) => hydrateOrder(sql, row)));
 }
 
@@ -849,6 +875,17 @@ export async function transitionAssistedOrderForOperator(input: {
         and state in ${transaction(allowedFrom)} for update
     `;
     if (!order) return null;
+    if (input.toState === "cancelled" && order.state === "payment_pending") {
+      const [activePayment] = await transaction<{ id: string }[]>`
+        select id from assisted_order_payments
+        where order_id = ${order.id}
+          and provider = 'paystack'
+          and status = 'pending'
+        limit 1
+        for update
+      `;
+      if (activePayment) return null;
+    }
     await transaction`
       update assisted_orders set state = ${input.toState}, revision = revision + 1, updated_at = now()
       where id = ${order.id}

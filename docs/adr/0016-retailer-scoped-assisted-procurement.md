@@ -1,6 +1,6 @@
 # ADR 0016: Retailer-scoped assisted procurement
 
-- **Status:** Manual assisted-procurement release implemented; payment and automation gated
+- **Status:** Manual assisted procurement and governed payment implemented; fulfilment and automation gated
 - **Date:** 2026-08-11
 - **Decision owner:** Founder
 - **Extends:** [ADR 0007](0007-internal-moderation-operations-console.md),
@@ -27,9 +27,9 @@ checkout, private order status, one-time recovery, signed-in order history,
 manual Operations quoting, transparent quote approval, and append-only state
 history. Explicitly opted-in order-service email and a private signed-in
 notification inbox mirror customer-visible canonical events; they are not
-marketing and never become order authority. Payment remains deliberately
-closed: approval ends at Payment pending
-until a separate payment-evidence decision is implemented. WhatsApp automation,
+marketing and never become order authority. Governed Paystack and independently
+observed manual-bank evidence may advance an approved exact quote from Payment
+pending to Paid. WhatsApp automation,
 browser automation, retailer checkout, courier connections, and manufacturer
 fulfilment remain future gates.
 
@@ -325,7 +325,7 @@ clinical inference and may not become a commercial ranking signal.
 
 ## Phased implementation
 
-Phase 2 is implemented by the manual assisted-procurement release. The other
+Phase 2 and the payment evidence portion of Phase 3 are implemented. The other
 phases remain separately gated.
 
 1. **Contracts and prototypes:** decide commercial/legal roles, state and data
@@ -337,10 +337,11 @@ phases remain separately gated.
    status, the Ops queue, manual quote entry, transparent approval, and manual
    contact. Payment may remain outside the system until its own gate is
    accepted; the interface must say so truthfully.
-3. **Governed payment and fulfilment:** add a selected provider and accepted
-   merchant, tax, refund, chargeback, evidence, reconciliation, retailer, and
-   courier contracts. Only this phase may make paid and downstream fulfilment
-   states operational.
+3. **Governed payment and fulfilment:** Paystack/manual payment evidence,
+   idempotency, reconciliation, and exact-quote settlement make `paid`
+   operational. Merchant, tax, refund, chargeback, retailer, and courier
+   contracts remain required before downstream fulfilment states become
+   operational.
 4. **Terms-permitted browser drafting:** after manual parity is stable, allow a
    server-side assistant to draft quote evidence for staff approval. It never
    bypasses retailer controls or completes payment.
@@ -356,20 +357,20 @@ phases remain separately gated.
 The following remain explicitly undecided. The future owning lane must record
 each choice and evidence before implementation:
 
-| Gate                                 | Future decision required                                                                                                                                                                       |
-| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Account claiming                     | Whether and how a guest order can be attached to a later verified account without phone-number matching, authority widening, or order duplication.                                             |
-| Automated WhatsApp send and webhooks | Provider, approved templates, consent lifecycle, signature and replay verification, rate limits, delivery failure, inbound-message handling, and retention.                                    |
-| Real-time transport                  | Whether polling is sufficient; if not, the authorization, reconnect, ordering, cache, and failure contract for live updates.                                                                   |
-| Payment provider                     | Provider, payment intent ownership, evidence, idempotency, reconciliation, failure states, and secret handling.                                                                                |
-| Merchant of record                   | Which party sells or acts as agent at each step and what the customer receipt and terms disclose.                                                                                              |
-| Tax treatment                        | Which observed retailer taxes and JeloCare obligations apply, who calculates them, and how uncertainty is presented.                                                                           |
-| Chargebacks and refunds              | Eligibility, authority, timelines, partial outcomes, evidence, customer communication, and operational reversal.                                                                               |
+| Gate                                 | Future decision required                                                                                                                                                                                                                                                |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Account claiming                     | Whether and how a guest order can be attached to a later verified account without phone-number matching, authority widening, or order duplication.                                                                                                                      |
+| Automated WhatsApp send and webhooks | Provider, approved templates, consent lifecycle, signature and replay verification, rate limits, delivery failure, inbound-message handling, and retention.                                                                                                             |
+| Real-time transport                  | Whether polling is sufficient; if not, the authorization, reconnect, ordering, cache, and failure contract for live updates.                                                                                                                                            |
+| Payment provider                     | Provider, payment intent ownership, evidence, idempotency, reconciliation, failure states, and secret handling.                                                                                                                                                         |
+| Merchant of record                   | Which party sells or acts as agent at each step and what the customer receipt and terms disclose.                                                                                                                                                                       |
+| Tax treatment                        | Which observed retailer taxes and JeloCare obligations apply, who calculates them, and how uncertainty is presented.                                                                                                                                                    |
+| Chargebacks and refunds              | Eligibility, authority, timelines, partial outcomes, evidence, customer communication, and operational reversal.                                                                                                                                                        |
 | Retention and expiry                 | Implemented for this phase: browser baskets persist locally until cleared; order sessions last 30 days; recovery capabilities last 20 minutes and are one-time; quotes carry operator-set expiries; order records retain for 365 days. Payment evidence remains future. |
-| Data schema and migration            | Implemented in `db/migrations/0039_assisted_procurement.sql`: private orders, immutable exact line snapshots, versioned quotes, append-only events, scoped guest sessions, one-time recovery, and least-privilege runtime grants. |
-| Browser automation                   | Retailer terms review, permitted access, rate and session boundaries, evidence capture, operator approval, failure, and kill switch.                                                           |
-| Retailer and courier contracts       | Purchase authority, fulfilment responsibility, stock confirmation, service levels, customer data disclosure, cancellation, evidence, incident response, and termination.                       |
-| Manufacturer fulfilment              | Separate agreement, exact-product authority, quote and delivery duties, data access, and customer disclosure.                                                                                  |
+| Data schema and migration            | Implemented in `db/migrations/0039_assisted_procurement.sql`: private orders, immutable exact line snapshots, versioned quotes, append-only events, scoped guest sessions, one-time recovery, and least-privilege runtime grants.                                       |
+| Browser automation                   | Retailer terms review, permitted access, rate and session boundaries, evidence capture, operator approval, failure, and kill switch.                                                                                                                                    |
+| Retailer and courier contracts       | Purchase authority, fulfilment responsibility, stock confirmation, service levels, customer data disclosure, cancellation, evidence, incident response, and termination.                                                                                                |
+| Manufacturer fulfilment              | Separate agreement, exact-product authority, quote and delivery duties, data access, and customer disclosure.                                                                                                                                                           |
 
 No team may fill one of these gaps with a convenient provider default, inferred
 industry practice, hidden fee, fabricated retention period, or speculative

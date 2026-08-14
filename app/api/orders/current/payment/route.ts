@@ -1,18 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { getAuthSubject } from "@/lib/auth/subject";
-import { sameSiteRequest } from "@/lib/community-intake/request-security";
+import {
+  readBoundedJson,
+  sameSiteRequest,
+} from "@/lib/community-intake/request-security";
 import {
   allowAssistedOrderAction,
   orderSessionHashFromRequest,
 } from "@/lib/commerce/assisted-procurement-security";
+import { resolvePaymentOrderAccess } from "@/lib/commerce/payment-order-access";
 import {
-  readAssistedOrderBySession,
-  readAssistedOrderForOwner,
-} from "@/lib/commerce/assisted-procurement-repository";
-import { initiatePaystackPayment } from "@/lib/commerce/payment-service";
-import { isPaystackConfigured } from "@/lib/commerce/payment-provider";
+  initiatePaystackPayment,
+  PaymentInitializationPendingError,
+} from "@/lib/commerce/payment-service";
+import {
+  isPaystackConfigured,
+  PaystackProviderError,
+} from "@/lib/commerce/payment-provider";
 
 export const runtime = "nodejs";
+
+const paymentRequestSchema = z.object({ orderId: z.uuid().optional() });
 
 function publicOrigin(request: NextRequest) {
   const configured = process.env.NEXT_PUBLIC_SITE_URL;
@@ -28,7 +37,7 @@ export async function POST(request: NextRequest) {
       { status: 403 },
     );
   }
-  if (!(await allowAssistedOrderAction(request, "decide"))) {
+  if (!(await allowAssistedOrderAction(request, "payment"))) {
     return NextResponse.json(
       { error: "Please try again shortly." },
       { status: 429 },
@@ -44,38 +53,23 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const identity = await getAuthSubject();
-  const sessionHash = orderSessionHashFromRequest(request);
-
-  // Find the order by session or owner identity.
-  let orderId: string | null = null;
-  if (identity?.subject) {
-    // For signed-in users, we need to find their current order.
-    // The session-based lookup is the primary path; owner-based is secondary.
-    const sessionOrder = sessionHash
-      ? await readAssistedOrderBySession(sessionHash)
-      : null;
-    if (sessionOrder) {
-      orderId = sessionOrder.id;
-    } else {
-      // Try to read by owner — but we need the order ID. The /api/orders/current
-      // endpoint already handles this. For payment initiation, the client
-      // passes the orderId.
-      const body = await request.json().catch(() => ({}));
-      if (body.orderId && typeof body.orderId === "string") {
-        const ownerOrder = await readAssistedOrderForOwner(
-          body.orderId,
-          identity.subject,
-        );
-        if (ownerOrder) orderId = ownerOrder.id;
-      }
-    }
-  } else if (sessionHash) {
-    const sessionOrder = await readAssistedOrderBySession(sessionHash);
-    if (sessionOrder) orderId = sessionOrder.id;
+  let input: z.infer<typeof paymentRequestSchema>;
+  try {
+    input = paymentRequestSchema.parse(await readBoundedJson(request));
+  } catch {
+    return NextResponse.json(
+      { error: "Check the payment request." },
+      { status: 400 },
+    );
   }
 
-  if (!orderId) {
+  const identity = await getAuthSubject();
+  const access = await resolvePaymentOrderAccess({
+    ownerSubject: identity?.subject ?? null,
+    requestedOrderId: input.orderId ?? null,
+    sessionHash: orderSessionHashFromRequest(request),
+  });
+  if (!access) {
     return NextResponse.json(
       { error: "Order session not found." },
       { status: 404 },
@@ -83,18 +77,35 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const callbackUrl = `${publicOrigin(request)}/order`;
+    const callback = new URL(
+      access.surface === "member" ? "/me/orders" : "/order",
+      publicOrigin(request),
+    );
+    callback.searchParams.set("payment", "return");
     const result = await initiatePaystackPayment({
-      orderId,
-      callbackUrl,
+      orderId: access.order.id,
+      callbackUrl: callback.toString(),
     });
     const response = NextResponse.json({
       authorizationUrl: result.authorizationUrl,
       reference: result.payment.providerReference,
+      alreadyPaid: result.alreadyPaid,
     });
     response.headers.set("Cache-Control", "private, no-store");
     return response;
   } catch (error) {
+    if (error instanceof PaymentInitializationPendingError) {
+      return NextResponse.json({ error: error.message }, { status: 409 });
+    }
+    if (error instanceof PaystackProviderError) {
+      return NextResponse.json(
+        {
+          error:
+            "Paystack could not start this payment. Please try again shortly.",
+        },
+        { status: 502 },
+      );
+    }
     const message =
       error instanceof Error ? error.message : "Payment initiation failed.";
     return NextResponse.json({ error: message }, { status: 400 });

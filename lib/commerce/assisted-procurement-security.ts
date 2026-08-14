@@ -1,28 +1,31 @@
-import 'server-only';
+import "server-only";
 
-import { createHash, createHmac, randomBytes } from 'node:crypto';
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
-import type { NextRequest } from 'next/server';
+import { createHash, createHmac, randomBytes } from "node:crypto";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import type { NextRequest } from "next/server";
 
-export const assistedOrderCookieName = 'jelocare_order_session';
+export const assistedOrderCookieName = "jelocare_order_session";
 export const assistedOrderCookieMaxAge = 60 * 60 * 24 * 30;
 export const assistedOrderRecoveryMaxAge = 60 * 20;
 
 export function createOrderSecret() {
-  return randomBytes(32).toString('base64url');
+  return randomBytes(32).toString("base64url");
 }
 
 export function hashOrderSecret(secret: string) {
-  return createHash('sha256').update(secret).digest('hex');
+  return createHash("sha256").update(secret).digest("hex");
 }
 
-export function createOrderRequestFingerprint(requestId: string, canonicalPayload: string) {
-  return createHmac('sha256', requestId).update(canonicalPayload).digest('hex');
+export function createOrderRequestFingerprint(
+  requestId: string,
+  canonicalPayload: string,
+) {
+  return createHmac("sha256", requestId).update(canonicalPayload).digest("hex");
 }
 
 export function createOrderReference() {
-  return `JC-${randomBytes(5).toString('hex').toUpperCase()}`;
+  return `JC-${randomBytes(5).toString("hex").toUpperCase()}`;
 }
 
 export function orderSessionHashFromRequest(request: NextRequest) {
@@ -30,7 +33,8 @@ export function orderSessionHashFromRequest(request: NextRequest) {
   return secret && secret.length >= 32 ? hashOrderSecret(secret) : null;
 }
 
-type AssistedOrderAction = 'create' | 'read' | 'decide' | 'recover' | 'preference';
+type AssistedOrderAction =
+  "create" | "read" | "decide" | "recover" | "preference" | "payment";
 let redis: Redis | null | undefined;
 const limiters = new Map<AssistedOrderAction, Ratelimit>();
 
@@ -47,10 +51,22 @@ function limiterFor(action: AssistedOrderAction) {
   if (cached) return cached;
   const client = redisClient();
   if (!client) return null;
-  const maximum = action === 'create' ? 5 : action === 'recover' ? 10 : action === 'decide' || action === 'preference' ? 20 : 180;
+  const maximum =
+    action === "create"
+      ? 5
+      : action === "recover"
+        ? 10
+        : action === "payment"
+          ? 10
+          : action === "decide" || action === "preference"
+            ? 20
+            : 180;
   const limiter = new Ratelimit({
     redis: client,
-    limiter: Ratelimit.slidingWindow(maximum, action === 'read' ? '1 m' : '1 h'),
+    limiter: Ratelimit.slidingWindow(
+      maximum,
+      action === "read" ? "1 m" : "1 h",
+    ),
     analytics: false,
     prefix: `jelocare:assisted-order:${action}`,
   });
@@ -59,14 +75,16 @@ function limiterFor(action: AssistedOrderAction) {
 }
 
 function networkKey(request: NextRequest) {
-  const forwarded = request.headers.get('x-vercel-forwarded-for')
-    ?? request.headers.get('x-forwarded-for')
-    ?? 'local';
-  const address = forwarded.split(',')[0]?.trim() || 'local';
-  const secret = process.env.ASSISTED_ORDER_RATE_LIMIT_SECRET
-    ?? process.env.DATABASE_URL
-    ?? 'local-development-only';
-  return createHmac('sha256', secret).update(address).digest('hex');
+  const forwarded =
+    request.headers.get("x-vercel-forwarded-for") ??
+    request.headers.get("x-forwarded-for") ??
+    "local";
+  const address = forwarded.split(",")[0]?.trim() || "local";
+  const secret =
+    process.env.ASSISTED_ORDER_RATE_LIMIT_SECRET ??
+    process.env.DATABASE_URL ??
+    "local-development-only";
+  return createHmac("sha256", secret).update(address).digest("hex");
 }
 
 export async function allowAssistedOrderAction(
@@ -74,11 +92,14 @@ export async function allowAssistedOrderAction(
   action: AssistedOrderAction,
 ) {
   const limiter = limiterFor(action);
-  if (!limiter) return process.env.NODE_ENV !== 'production';
+  if (!limiter) return process.env.NODE_ENV !== "production";
   return (await limiter.limit(networkKey(request))).success;
 }
 
 export function assistedOrderFixtureEnabled() {
-  return (process.env.NODE_ENV !== 'production' || Boolean(process.env.NODE_TEST_CONTEXT))
-    && process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE === 'true';
+  return (
+    (process.env.NODE_ENV !== "production" ||
+      Boolean(process.env.NODE_TEST_CONTEXT)) &&
+    process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE === "true"
+  );
 }
