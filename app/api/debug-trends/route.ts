@@ -39,7 +39,7 @@ export async function GET(request: Request) {
         ...snapshot.map((s) => Date.parse(s.observedAt)),
       );
       const historyCutoff = new Date(referenceNow - 90 * 86_400_000);
-      dbRows = await sql`
+      const rawRows = await sql`
         select
           h.id::text as history_id,
           o.id::text as offer_id,
@@ -60,6 +60,7 @@ export async function GET(request: Request) {
           and h.observed_at >= ${historyCutoff}
         order by h.observed_at asc
       `;
+      dbRows = rawRows as unknown[];
     } catch (e) {
       dbError = String(e);
     }
