@@ -32,6 +32,7 @@ export async function GET(request: Request) {
   // Also query DB directly to see what rows exist
   let dbRows: unknown[] = [];
   let dbError: string | undefined;
+  let totalCount: string | undefined;
   if (hasPostgresConfig()) {
     try {
       const sql = getPostgresClient();
@@ -61,6 +62,16 @@ export async function GET(request: Request) {
         order by h.observed_at asc
       `;
       dbRows = rawRows as unknown[];
+
+      // Also check if the table has any rows at all for this product
+      const countRows = await sql`
+        select count(*)::text as cnt
+        from offer_price_history h
+        join offers o on o.id = h.offer_id
+        join products p on p.id = o.product_id
+        where p.slug = ${slug}
+      `;
+      totalCount = (countRows as unknown as Array<{ cnt: string }>)[0]?.cnt;
     } catch (e) {
       dbError = String(e);
     }
@@ -88,6 +99,8 @@ export async function GET(request: Request) {
     dbRowCount: dbRows.length,
     dbRows,
     dbError,
+    totalHistoryCount:
+      typeof totalCount !== "undefined" ? totalCount : undefined,
     trendData: trendData
       ? {
           pointsCount: trendData.points.length,
