@@ -4,6 +4,7 @@ import { products } from '@/data/catalogue';
 import { concerns as knowledgeConcerns } from '@/data/knowledge';
 import type { Market } from '@/data/prices';
 import type { Product } from '@/data/products';
+import { getAuthSubject } from '@/lib/auth/subject';
 import { sameSiteRequest } from '@/lib/community-intake/request-security';
 import { readBoundedConsultJson } from '@/lib/consult/request-body';
 import { checkConsultRateLimit } from '@/lib/consult/security';
@@ -193,7 +194,10 @@ export async function POST(request: Request) {
     return Response.json({ error: 'This request is not allowed.' }, { status: 403 });
   }
 
-  const rateLimit = await checkConsultRateLimit(request);
+  const authIdentity = await getAuthSubject();
+  const rateLimit = await checkConsultRateLimit(request, {
+    accountSubject: authIdentity?.subject,
+  });
   if (!rateLimit.allowed) {
     return Response.json(
       { error: 'Please wait a little before trying again.' },

@@ -16,18 +16,32 @@ type ConsultRateLimitDependencies = {
   environment?: 'development' | 'production' | 'test';
   now?: () => number;
   onProviderError?: () => void;
+  secret?: string;
 };
 
-function networkKey(request: Request) {
+type ConsultRateLimitContext = {
+  accountSubject?: string | null;
+};
+
+function rateLimitSecret() {
+  return process.env.CONSULT_RATE_LIMIT_SECRET
+    ?? process.env.DATABASE_URL
+    ?? process.env.POSTGRES_URL
+    ?? 'local-development-only';
+}
+
+function networkKey(request: Request, secret: string) {
   const forwarded = request.headers.get('x-vercel-forwarded-for')
     ?? request.headers.get('x-forwarded-for')
     ?? 'local';
   const address = forwarded.split(',')[0]?.trim() || 'local';
-  const secret = process.env.CONSULT_RATE_LIMIT_SECRET
-    ?? process.env.DATABASE_URL
-    ?? process.env.POSTGRES_URL
-    ?? 'local-development-only';
   return createHmac('sha256', secret).update(address).digest('hex');
+}
+
+function accountKey(subject: string, secret: string) {
+  return createHmac('sha256', secret)
+    .update(`account\0${subject}`)
+    .digest('hex');
 }
 
 function configuredLimiter(): ConsultLimiter | undefined {
@@ -56,6 +70,7 @@ export type ConsultRateLimitDecision = {
 
 export async function checkConsultRateLimit(
   request: Request,
+  context: ConsultRateLimitContext = {},
   dependencies: ConsultRateLimitDependencies = {},
 ): Promise<ConsultRateLimitDecision> {
   const consultLimiter = dependencies.limiter === undefined
@@ -69,26 +84,49 @@ export async function checkConsultRateLimit(
     };
   }
 
-  try {
-    const result = await consultLimiter.limit(`consult:${networkKey(request)}`);
-    return {
-      allowed: result.success,
-      retryAfterSeconds: Math.max(
-        1,
-        Math.ceil((result.reset - (dependencies.now ?? Date.now)()) / 1000),
-      ),
-    };
-  } catch {
+  const secret = dependencies.secret ?? rateLimitSecret();
+  const identifiers = [`consult:${networkKey(request, secret)}`];
+  if (context.accountSubject) {
+    identifiers.push(`consult:account:${accountKey(context.accountSubject, secret)}`);
+  }
+
+  const results = await Promise.allSettled(
+    identifiers.map(identifier => consultLimiter.limit(identifier)),
+  );
+  const providerFailed = results.some(result => result.status === 'rejected');
+  if (providerFailed) {
     (dependencies.onProviderError ?? (() => {
       console.error('[consult] Configured rate limiter is unavailable.');
     }))();
-    return {
-      allowed: false,
-      retryAfterSeconds: 60,
-    };
   }
+
+  const now = (dependencies.now ?? Date.now)();
+  const fulfilled = results.flatMap(result => (
+    result.status === 'fulfilled' ? [result.value] : []
+  ));
+  const denied = fulfilled.filter(result => !result.success);
+  const applicable = denied.length > 0
+    ? denied
+    : providerFailed
+      ? []
+      : fulfilled;
+  const retryAfterSeconds = Math.max(
+    providerFailed ? 60 : 1,
+    ...applicable.map(result => Math.max(
+      1,
+      Math.ceil((result.reset - now) / 1000),
+    )),
+  );
+
+  return {
+    allowed: !providerFailed && denied.length === 0,
+    retryAfterSeconds,
+  };
 }
 
-export async function allowConsultAction(request: Request) {
-  return (await checkConsultRateLimit(request)).allowed;
+export async function allowConsultAction(
+  request: Request,
+  accountSubject?: string | null,
+) {
+  return (await checkConsultRateLimit(request, { accountSubject })).allowed;
 }
