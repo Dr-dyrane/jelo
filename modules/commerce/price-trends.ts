@@ -1,6 +1,9 @@
 import type { Market } from "@/data/prices";
 import type { Offer } from "@/data/products";
-import { observedMarketPrice } from "./offer-evidence";
+import {
+  observedMarketPrice,
+  observedMarketPriceForTrends,
+} from "./offer-evidence";
 import { isOfferFresh } from "./offer-freshness";
 
 export type PriceObservation = {
@@ -217,8 +220,11 @@ export function priceTrendOfferSnapshot(
   offer: Offer,
   market: Market,
   now: number | Date = Date.now(),
+  requireFresh = true,
 ): PriceTrendOfferSnapshot | null {
-  const price = observedMarketPrice(offer, market, now);
+  const price = requireFresh
+    ? observedMarketPrice(offer, market, now)
+    : observedMarketPriceForTrends(offer, market);
   const observation = offer.priceObservation;
   const observedAt = normalizedTimestamp(observation?.observedAt);
   const priceMinor = market === "US" ? Math.round((price ?? 0) * 100) : price;

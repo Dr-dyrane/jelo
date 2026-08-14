@@ -1,14 +1,17 @@
-import 'server-only';
+import "server-only";
 
-import type { Offer, Product } from '@/data/products';
-import { isOfferFresh } from './offer-freshness';
-import { hasListingEvidence, comparableMarketPrice } from './offer-evidence';
-import { summarizeMarket } from './market-summary';
+import type { Offer, Product } from "@/data/products";
+import { isOfferFresh } from "./offer-freshness";
+import { hasListingEvidence, comparableMarketPrice } from "./offer-evidence";
+import { summarizeMarket } from "./market-summary";
 import {
   compactPriceMovementLabel,
   type ProductPriceTrends,
-} from './price-trends';
-import { hasShareableNgOffer } from './shareable-offer';
+} from "./price-trends";
+import {
+  hasShareableNgOffer,
+  hasTrendEligibleNgOffer,
+} from "./shareable-offer";
 
 // --- Thresholds ---
 
@@ -64,33 +67,31 @@ export type MarketTrendsReadModel = {
 const microtag = (product: Product) => `${product.size} · ${product.category}`;
 
 function servesNg(offer: Offer) {
-  return offer.location.includes('NG') || offer.location.includes('INTL');
+  return offer.location.includes("NG") || offer.location.includes("INTL");
 }
 
 function selectMovements(
   items: Array<{ product: Product; trends: ProductPriceTrends }>,
   now: number | Date,
-  direction: 'down' | 'up',
+  direction: "down" | "up",
   minPercent: number,
   limit: number,
 ): MarketTrendMovement[] {
   const results: MarketTrendMovement[] = [];
 
   for (const { product, trends } of items) {
-    if (!hasShareableNgOffer(product, now)) continue;
-    const movement = [
-      trends.NG?.thirtyDay,
-      trends.NG?.sevenDay,
-    ].find(candidate => (
-      candidate?.direction === direction
-      && Math.abs(candidate.percent) >= minPercent
-      && (candidate.comparableRetailerCount ?? 0) >= 2
-    ));
+    if (!hasTrendEligibleNgOffer(product)) continue;
+    const movement = [trends.NG?.thirtyDay, trends.NG?.sevenDay].find(
+      (candidate) =>
+        candidate?.direction === direction &&
+        Math.abs(candidate.percent) >= minPercent &&
+        (candidate.comparableRetailerCount ?? 0) >= 2,
+    );
     if (!movement) continue;
     const comparableStoreCount = movement.comparableRetailerCount ?? 0;
     const trendLabel = compactPriceMovementLabel(movement);
     if (!trendLabel) continue;
-    const summary = summarizeMarket(product.offers, 'NG', now);
+    const summary = summarizeMarket(product.offers, "NG", now);
     results.push({
       slug: product.slug,
       brand: product.brand,
@@ -107,12 +108,15 @@ function selectMovements(
     });
   }
 
-  return results.sort((a, b) => (
-    Math.abs(b.percent) - Math.abs(a.percent)
-    || b.comparableStoreCount - a.comparableStoreCount
-    || Date.parse(b.observedAt) - Date.parse(a.observedAt)
-    || b.amountNaira - a.amountNaira
-  )).slice(0, limit);
+  return results
+    .sort(
+      (a, b) =>
+        Math.abs(b.percent) - Math.abs(a.percent) ||
+        b.comparableStoreCount - a.comparableStoreCount ||
+        Date.parse(b.observedAt) - Date.parse(a.observedAt) ||
+        b.amountNaira - a.amountNaira,
+    )
+    .slice(0, limit);
 }
 
 function selectOutOfStockAlerts(
@@ -123,18 +127,20 @@ function selectOutOfStockAlerts(
   const alerts: MarketTrendOutOfStock[] = [];
 
   for (const product of products) {
-    const exactOffers = product.offers.filter(offer =>
-      offer.match !== 'search'
-      && servesNg(offer)
-      && hasListingEvidence(offer)
-      && isOfferFresh(offer, now)
+    const exactOffers = product.offers.filter(
+      (offer) =>
+        offer.match !== "search" &&
+        servesNg(offer) &&
+        hasListingEvidence(offer) &&
+        isOfferFresh(offer, now),
     );
     for (const offer of exactOffers) {
       if (!offer.available) {
-        const observedAt = offer.priceObservation?.observedAt
-          ?? offer.listingEvidence?.observedAt
-          ?? offer.checkedAt
-          ?? null;
+        const observedAt =
+          offer.priceObservation?.observedAt ??
+          offer.listingEvidence?.observedAt ??
+          offer.checkedAt ??
+          null;
         alerts.push({
           slug: product.slug,
           brand: product.brand,
@@ -149,11 +155,13 @@ function selectOutOfStockAlerts(
     }
   }
 
-  return alerts.sort((a, b) => {
-    const aTime = a.observedAt ? Date.parse(a.observedAt) : 0;
-    const bTime = b.observedAt ? Date.parse(b.observedAt) : 0;
-    return bTime - aTime;
-  }).slice(0, limit);
+  return alerts
+    .sort((a, b) => {
+      const aTime = a.observedAt ? Date.parse(a.observedAt) : 0;
+      const bTime = b.observedAt ? Date.parse(b.observedAt) : 0;
+      return bTime - aTime;
+    })
+    .slice(0, limit);
 }
 
 // --- Public API ---
@@ -169,16 +177,30 @@ export async function buildMarketTrendsReadModel(
   options: MarketTrendsOptions = {},
 ): Promise<MarketTrendsReadModel> {
   const now = options.now ?? Date.now();
-  const products = (await productsPromise).filter(product => hasShareableNgOffer(product, now));
+  const products = (await productsPromise).filter((product) =>
+    hasTrendEligibleNgOffer(product),
+  );
   const trends = await trendsPromise;
 
-  const items = products.map(product => ({
+  const items = products.map((product) => ({
     product,
     trends: trends.get(product.slug) ?? {},
   }));
 
-  const priceDrops = selectMovements(items, now, 'down', DROP_MIN_PERCENT, DROP_LIMIT);
-  const priceIncreases = selectMovements(items, now, 'up', RISE_MIN_PERCENT, RISE_LIMIT);
+  const priceDrops = selectMovements(
+    items,
+    now,
+    "down",
+    DROP_MIN_PERCENT,
+    DROP_LIMIT,
+  );
+  const priceIncreases = selectMovements(
+    items,
+    now,
+    "up",
+    RISE_MIN_PERCENT,
+    RISE_LIMIT,
+  );
   const outOfStockAlerts = selectOutOfStockAlerts(products, now, OOS_LIMIT);
 
   // Summary stats
@@ -188,18 +210,19 @@ export async function buildMarketTrendsReadModel(
   const storeSet = new Set<string>();
 
   for (const product of products) {
-    const exactOffers = product.offers.filter(offer =>
-      offer.match !== 'search'
-      && servesNg(offer)
-      && hasListingEvidence(offer)
-      && isOfferFresh(offer, now)
+    const exactOffers = product.offers.filter(
+      (offer) =>
+        offer.match !== "search" &&
+        servesNg(offer) &&
+        hasListingEvidence(offer) &&
+        isOfferFresh(offer, now),
     );
     offerCount += exactOffers.length;
     for (const offer of exactOffers) {
       storeSet.add(offer.retailer.trim().toLowerCase());
       if (!offer.available) {
         outOfStockCount += 1;
-      } else if (comparableMarketPrice(offer, 'NG', now) != null) {
+      } else if (comparableMarketPrice(offer, "NG", now) != null) {
         pricedCount += 1;
       }
     }

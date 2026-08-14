@@ -42,7 +42,10 @@ test("share cards carry compact market and exact-store movement without steady n
     data,
     /getProductPriceTrends\(\s*product\.slug,\s*offers\.flatMap/,
   );
-  assert.match(data, /priceTrendOfferSnapshot\(offer, (?:'NG'|"NG"), now\)/);
+  assert.match(
+    data,
+    /priceTrendOfferSnapshot\(offer, (?:'NG'|"NG"), now, false\)/,
+  );
   assert.match(
     data,
     /preferredPriceMovement\(\s*priceTrends\.NG,\s*(?:movement|\(movement\)) =>/,
@@ -71,7 +74,10 @@ test("share cards carry compact market and exact-store movement without steady n
     worthSharing,
     /getProductsPriceTrends\(products\.map\(product =>/,
   );
-  assert.match(worthSharing, /priceTrendOfferSnapshot\(offer, 'NG', now\)/);
+  assert.match(
+    worthSharing,
+    /priceTrendOfferSnapshot\(offer, 'NG', now, false\)/,
+  );
   assert.doesNotMatch(
     worthSharing,
     /Promise\.all\(products\.map\(async product/,

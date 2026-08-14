@@ -21,6 +21,7 @@ export type ShareOffer = {
   priceLabel: string;
   goHref: string;
   when: string;
+  observedAt: string | null;
   isLowest: boolean;
   /** The typical floor price — the verified offer closest to (at or below)
    *  the market median, shown as a third reference point next to lowest and

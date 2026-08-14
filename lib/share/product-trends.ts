@@ -8,7 +8,7 @@ import {
   type PriceObservation,
   type PriceTrendOfferSnapshot,
 } from "@/modules/commerce/price-trends";
-import { isShareableNgOffer } from "@/modules/commerce/shareable-offer";
+import { isTrendEligibleNgOffer } from "@/modules/commerce/shareable-offer";
 import { selectRepresentativeOffers } from "@/modules/commerce/representative-offers";
 
 export type TrendPricePoint = {
@@ -87,7 +87,7 @@ export async function getProductTrendData(
 
   const now = Date.now();
   const offers = product.offers
-    .filter((offer) => isShareableNgOffer(offer, now))
+    .filter((offer) => isTrendEligibleNgOffer(offer))
     .sort((a, b) => (a.priceNgn as number) - (b.priceNgn as number));
   if (offers.length === 0) return null;
 
@@ -103,7 +103,7 @@ export async function getProductTrendData(
   // history belonged to a retailer that had since fallen out of the
   // representative set.
   const fullSnapshots = offers.flatMap((offer) => {
-    const snap = priceTrendOfferSnapshot(offer, "NG", now);
+    const snap = priceTrendOfferSnapshot(offer, "NG", now, false);
     return snap ? [snap] : [];
   });
   const rawObservations = await fetchRawObservations(

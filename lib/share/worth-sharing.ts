@@ -1,16 +1,21 @@
-import 'server-only';
+import "server-only";
 
-import { listCatalogueProducts } from '@/lib/catalogue/repository';
-import { getProductsPriceTrends } from '@/lib/inventory/price-trends';
-import { hasShareableNgOffer, isShareableNgOffer } from '@/modules/commerce/shareable-offer';
+import { listCatalogueProducts } from "@/lib/catalogue/repository";
+import { getProductsPriceTrends } from "@/lib/inventory/price-trends";
+import {
+  hasTrendEligibleNgOffer,
+  isTrendEligibleNgOffer,
+} from "@/modules/commerce/shareable-offer";
 import {
   buildShareSignalReadModel,
   type AggregateProductInterest,
-} from '@/modules/commerce/share-insights';
-import { priceTrendOfferSnapshot } from '@/modules/commerce/price-trends';
+} from "@/modules/commerce/share-insights";
+import { priceTrendOfferSnapshot } from "@/modules/commerce/price-trends";
 
 export type AggregateProductInterestSource = {
-  readProductInterest(productSlugs: readonly string[]): Promise<AggregateProductInterest>;
+  readProductInterest(
+    productSlugs: readonly string[],
+  ): Promise<AggregateProductInterest>;
 };
 
 export type WorthSharingReadOptions = {
@@ -40,20 +45,31 @@ async function readAggregateInterest(
  * provider is therefore neutral unless a future approved aggregate-only source
  * is passed explicitly; provider absence or failure never changes the page.
  */
-export async function getWorthSharingReadModel(options: WorthSharingReadOptions = {}) {
+export async function getWorthSharingReadModel(
+  options: WorthSharingReadOptions = {},
+) {
   const now = options.now ?? Date.now();
-  const products = (await listCatalogueProducts()).filter(product => hasShareableNgOffer(product, now));
+  const products = (await listCatalogueProducts()).filter((product) =>
+    hasTrendEligibleNgOffer(product),
+  );
   const [trends, aggregateInterest] = await Promise.all([
-    getProductsPriceTrends(products.map(product => ({
-      slug: product.slug,
-      snapshot: product.offers.filter(offer => isShareableNgOffer(offer, now)).flatMap(offer => {
-        const snapshot = priceTrendOfferSnapshot(offer, 'NG', now);
-        return snapshot ? [snapshot] : [];
-      }),
-    }))),
-    readAggregateInterest(options.aggregateInterestSource, products.map(product => product.slug)),
+    getProductsPriceTrends(
+      products.map((product) => ({
+        slug: product.slug,
+        snapshot: product.offers
+          .filter((offer) => isTrendEligibleNgOffer(offer))
+          .flatMap((offer) => {
+            const snapshot = priceTrendOfferSnapshot(offer, "NG", now, false);
+            return snapshot ? [snapshot] : [];
+          }),
+      })),
+    ),
+    readAggregateInterest(
+      options.aggregateInterestSource,
+      products.map((product) => product.slug),
+    ),
   ]);
-  const items = products.map(product => ({
+  const items = products.map((product) => ({
     product,
     trends: trends.get(product.slug) ?? {},
   }));

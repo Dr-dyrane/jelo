@@ -9,9 +9,11 @@ import {
   selectRetailerPriceMovement,
   type PriceMovement,
 } from "@/modules/commerce/price-trends";
-import { isShareableNgOffer } from "@/modules/commerce/shareable-offer";
+import { isTrendEligibleNgOffer } from "@/modules/commerce/shareable-offer";
 import { selectRepresentativeOffers } from "@/modules/commerce/representative-offers";
 import { formatCampaignProductSize } from "@/lib/share/campaign-story";
+import { observedStockLabel } from "@/modules/commerce/offer-evidence";
+import { isOfferFresh } from "@/modules/commerce/offer-freshness";
 import type { ShareOffer, SharePriceTrend, ShareView } from "./share-card";
 
 const naira = new Intl.NumberFormat("en-NG", {
@@ -62,7 +64,7 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
 
   const now = Date.now();
   const offers = product.offers
-    .filter((offer) => isShareableNgOffer(offer, now))
+    .filter((offer) => isTrendEligibleNgOffer(offer))
     .sort((a, b) => (a.priceNgn as number) - (b.priceNgn as number));
   if (offers.length === 0) return null;
 
@@ -70,7 +72,7 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
   const priceTrends = await getProductPriceTrends(
     product.slug,
     offers.flatMap((offer) => {
-      const snapshot = priceTrendOfferSnapshot(offer, "NG", now);
+      const snapshot = priceTrendOfferSnapshot(offer, "NG", now, false);
       return snapshot ? [snapshot] : [];
     }),
   );
@@ -105,17 +107,14 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
   const representativeOffers = representative?.unique ?? [];
 
   const shareOffers: ShareOffer[] = representativeOffers.map((offer) => {
-    const stock = offer.priceObservation?.stock;
-    const stockLabel =
-      stock === "low-stock"
-        ? "Low stock"
-        : stock === "out-of-stock"
-          ? "Out of stock"
-          : stock === "in-stock"
-            ? "In stock"
-            : null;
-    const dateLabel = offer.checkedAt
-      ? shortDate.format(new Date(offer.checkedAt))
+    const fresh = isOfferFresh(offer, now);
+    const stockLabel = observedStockLabel(offer, fresh);
+    const observedAtIso =
+      offer.priceObservation?.observedAt ??
+      offer.listingEvidence?.observedAt ??
+      offer.checkedAt;
+    const dateLabel = observedAtIso
+      ? shortDate.format(new Date(observedAtIso))
       : observedDate;
     const isLowest = offer === representative?.lowest;
     const isHighest = offer === representative?.highest;
@@ -124,6 +123,7 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
       priceLabel: naira.format(offer.priceNgn as number),
       goHref: `/go?product=${encodeURIComponent(product.slug)}&retailer=${encodeURIComponent(offer.retailer)}`,
       when: stockLabel ? `${stockLabel} · ${dateLabel}` : dateLabel,
+      observedAt: observedAtIso ?? null,
       isLowest,
       isTypical: offer === representative?.median && !isLowest && !isHighest,
       isMarketplace: Boolean(offer.orderChannels?.includes("marketplace")),
