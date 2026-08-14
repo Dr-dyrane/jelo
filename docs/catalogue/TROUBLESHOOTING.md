@@ -544,3 +544,61 @@ past their expiry, and `/share` price/stock data goes stale. The cron schedule
 **Prevention:** After any Vercel env var change, trigger a redeployment and run
 the dry-run probe. The `CRON_SECRET` length check is enforced by
 `isAuthorizedCronRequest` and tested in `modules/retail-intelligence/cron-auth.test.ts`.
+
+### Share page trend chart shows empty state
+
+**Symptom:** The price-trend card on a share page (e.g.
+`/share/advanced-clinicals-vitamin-c-face-serum-52ml`) renders:
+
+> No two dated observations fall within the selected 1M window.
+
+The chart SVG is absent or shows no series with two or more dated points.
+
+**Root cause:** `getProductPriceHistory` in `lib/inventory/price-trends.ts`
+checked `dbObservations.length > 0` to decide whether to return DB-sourced
+observations or fall back to `computeStaticPriceHistory`. But
+`selectCurrentPriceObservations` always appends `syntheticOnly` observations
+for every current snapshot offer — even when the DB query returns zero history
+rows. So the guard was always true (one synthetic point per retailer),
+preventing the static-history fallback. Each retailer ended up with a single
+observation, no retailer had two dated points, and the chart showed the empty
+state.
+
+This is especially likely when the production `APP_DATABASE_URL` points to a
+different Neon database than the one used for manual data insertion (e.g. via
+the Neon MCP tool). The `offer_price_history` table may have zero rows in
+production even though rows were inserted elsewhere.
+
+**Fix:** The guard now checks `rows.length > 0` (the raw DB query result)
+before returning DB observations:
+
+```ts
+if (rows.length > 0 && dbObservations.length > 0) return dbObservations;
+return computeStaticPriceHistory(slug, snapshot);
+```
+
+When the DB has no real history rows, the function falls back to static history
+anchors from `data/price-history.ts`, which provide the dated points needed for
+the chart.
+
+**Debugging steps for recurrence:**
+
+1. Check the share page for the empty-state class:
+   ```js
+   document.querySelector("section[aria-label*=Price] [class*=noChart]");
+   ```
+2. Verify static history anchors exist in `data/price-history.ts` for the
+   product slug and that their dates fall within the 1M trend window (within
+   ~30 days of the current snapshot `observedAt`).
+3. If adding a temporary debug endpoint to inspect production DB state, remove
+   it before finalising. Check `rows.length` from the
+   `getProductPriceHistory` query, not just `dbObservations.length`.
+4. Confirm the production `APP_DATABASE_URL` points to the same Neon database
+   where history rows were inserted. The Neon MCP project and the Vercel env
+   var may diverge.
+
+**Prevention:** The `rows.length` guard ensures static history is always used
+when the DB has no real data. Static history dates should be kept within the
+1M trend window relative to current offer `observedAt` timestamps. When
+shifting `observedAt` dates in `data/retail-offers.ts`, also shift the
+corresponding anchors in `data/price-history.ts`.
