@@ -13,7 +13,7 @@ import { productSocialCard, publicSocialMetadata } from "@/lib/og/social-card";
 import { selectShareRecommendations } from "@/modules/commerce/share-insights";
 import styles from "./share-card.module.css";
 
-export const revalidate = 3600;
+export const revalidate = 1;
 
 export async function generateMetadata({
   params,
