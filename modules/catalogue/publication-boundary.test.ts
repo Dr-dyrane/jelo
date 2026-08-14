@@ -264,7 +264,7 @@ test("a newly enriched product remains shareable while Neon still has only stale
   );
 
   assert.equal(
-    hasShareableNgOffer(reconciled, new Date("2026-08-09T13:00:00Z")),
+    hasShareableNgOffer(reconciled, new Date("2026-08-14T17:01:00Z")),
     true,
   );
   assert.deepEqual(

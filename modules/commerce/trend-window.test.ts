@@ -34,7 +34,7 @@ test("trend view selects the shortest window with a renderable retailer series",
 test("trend view widens to 3M when the same-retailer anchor is outside 1M", () => {
   const points = [
     point("BuyBetter", "2026-07-08T12:00:00Z", 14_592),
-    point("BuyBetter", "2026-08-08T13:15:00Z", 11_288),
+    point("BuyBetter", "2026-08-14T17:00:00Z", 11_288),
     point("CSi Grocery", "2026-07-08T12:00:00Z", 14_170),
     point("CSi Grocery", "2026-08-08T04:23:18Z", 13_000),
   ];

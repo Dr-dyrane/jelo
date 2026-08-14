@@ -121,12 +121,12 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
         (offer) =>
           offer.checkedAt ===
           (offer.retailer === "Beauty Hut Africa"
-            ? "2026-08-09T11:47:34Z"
+            ? "2026-08-14T17:00:00Z"
             : offer.retailer === "BuyBetter" &&
                 slug ===
                   "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml"
               ? "2026-08-11T19:54:00Z"
-              : "2026-08-09T09:30:30Z"),
+              : "2026-08-14T17:00:00Z"),
       ),
       true,
       `${slug}: observation timestamp`,
@@ -206,14 +206,14 @@ test("catalogue coverage batch 1 preserves its fresh Beauty by Daz observations"
       18_850,
       true,
       "30 ml",
-      "2026-08-08T13:15:00Z",
+      "2026-08-14T17:00:00Z",
     ],
     [
       "dove-melanin-even-tone-body-wash-18-5oz",
       19_500,
       false,
       "547 ml / 18.5 fl oz",
-      "2026-08-08T13:15:00Z",
+      "2026-08-14T17:00:00Z",
     ],
   ] as const;
 
@@ -322,7 +322,7 @@ test("DANG sale prices publish only exact in-stock Nigerian product listings", (
     assert.equal(offer.available, true, slug);
     assert.equal(offer.priceObservation?.size, size, slug);
     assert.equal(offer.checkedAt, observedAt, slug);
-    assert.equal(offer.expiresAt, "2026-08-14T23:00:00Z", slug);
+    assert.equal(offer.expiresAt, "2026-08-21T17:00:00Z", slug);
     assert.equal(new URL(offer.url).hostname, "danglifestyle.co", slug);
   }
 
@@ -361,8 +361,8 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     assert.equal(offer.priceNgn, priceNgn, slug);
     assert.equal(offer.available, true, slug);
     assert.equal(offer.priceObservation?.size, size, slug);
-    assert.equal(offer.checkedAt, "2026-08-09T11:47:34Z", slug);
-    assert.equal(offer.expiresAt, "2026-08-16T11:47:34Z", slug);
+    assert.equal(offer.checkedAt, "2026-08-14T17:00:00Z", slug);
+    assert.equal(offer.expiresAt, "2026-08-21T17:00:00Z", slug);
     assert.equal(new URL(offer.url).hostname, "beautyhutafrica.com", slug);
   }
 
@@ -394,8 +394,8 @@ test("PanOxyl publishes only the current GTIN-matched Slique observation", () =>
     {
       retailer: "Slique Beauty",
       priceNgn: 3500,
-      checkedAt: "2026-08-08T13:15:00Z",
-      observedAt: "2026-08-08T13:15:00Z",
+      checkedAt: "2026-08-14T17:00:00Z",
+      observedAt: "2026-08-14T17:00:00Z",
       evidenceSource:
         "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?slug=panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-156g",
       evidenceBasis: "retailer-api",

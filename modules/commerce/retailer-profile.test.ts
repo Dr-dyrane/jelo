@@ -15,7 +15,7 @@ import {
 import { buildRetailerProfile } from "./retailer-profile";
 import { isShareableNgOffer } from "./shareable-offer";
 
-const now = new Date("2026-08-09T16:00:00Z");
+const now = new Date("2026-08-14T17:01:00Z");
 
 test("every registered retailer has one stable public slug", () => {
   const slugs = nigeriaRetailers.map((retailer) => retailerSlug(retailer.name));

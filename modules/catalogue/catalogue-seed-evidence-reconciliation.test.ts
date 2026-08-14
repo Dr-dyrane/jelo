@@ -39,9 +39,9 @@ test("seed projection admits the Batch 1 offers for dossier-released products", 
   const expected = [
     [
       "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
-      "2026-08-08T13:15:00Z",
+      "2026-08-14T17:00:00Z",
     ],
-    ["dove-melanin-even-tone-body-wash-18-5oz", "2026-08-08T13:15:00Z"],
+    ["dove-melanin-even-tone-body-wash-18-5oz", "2026-08-14T17:00:00Z"],
   ] as const;
   for (const [slug, observedAt] of expected) {
     const product = publishedIntakeProducts.find((item) => item.slug === slug);

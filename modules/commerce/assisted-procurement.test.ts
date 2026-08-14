@@ -207,7 +207,7 @@ test("one-product basket still resolves exact one-retailer choices and quantitie
   const options = findRetailerBasketOptions(
     [product],
     new Map([[product.slug, 3]]),
-    new Date("2026-08-13T12:00:00Z"),
+    new Date("2026-08-14T17:01:00Z"),
   );
   assert.ok(options.length >= 1);
   assert.equal(options[0].quantityTotal, 3);
@@ -298,7 +298,7 @@ test("fixture exercises the canonical guest lifecycle and one-time recovery", as
   const retailer = findRetailerBasketOptions(
     [product],
     new Map([[product.slug, 1]]),
-    new Date("2026-08-13T12:00:00Z"),
+    new Date("2026-08-14T17:01:00Z"),
   )[0]?.retailer;
   assert.ok(retailer);
   const request: CreateAssistedOrderInput = {

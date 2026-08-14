@@ -127,7 +127,7 @@ test("verified Nigerian product matches carry price and check date", () => {
     },
     {
       priceNgn: 3500,
-      checkedAt: "2026-08-08T13:15:00Z",
+      checkedAt: "2026-08-14T17:00:00Z",
       match: "exact",
       available: true,
     },
