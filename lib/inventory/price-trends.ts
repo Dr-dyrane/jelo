@@ -31,16 +31,6 @@ function calculateProductPriceTrends(
 ): ProductPriceTrends {
   const observations = selectCurrentPriceObservations(rows, snapshot);
 
-  // Use the latest observation time as `asOf` instead of the wall clock.
-  // The window calculations (7D, 30D) anchor relative to `asOf`, so using
-  // the wall clock when observations are days old creates a gap where
-  // anchors fall between windows and no movement is detected.
-  const latestObservedAt = observations
-    .map((o) => Date.parse(o.observedAt))
-    .filter((t) => Number.isFinite(t))
-    .sort((a, b) => b - a)[0];
-  const asOf = latestObservedAt ? new Date(latestObservedAt) : new Date();
-
   const result: ProductPriceTrends = {};
   for (const market of ["NG", "US"] as const) {
     const marketOfferIds = new Set(
@@ -50,6 +40,18 @@ function calculateProductPriceTrends(
       marketOfferIds.has(observation.offerId),
     );
     if (!marketObservations.length) continue;
+
+    // Use the latest observation time for this market as `asOf` instead of
+    // the wall clock. The window calculations (7D, 30D) anchor relative to
+    // `asOf`, so using the wall clock when observations are days old creates
+    // a gap where anchors fall between windows and no movement is detected.
+    // Computing per-market avoids synthetic observations from another market
+    // pushing `asOf` forward.
+    const latestObservedAt = marketObservations
+      .map((o) => Date.parse(o.observedAt))
+      .filter((t) => Number.isFinite(t))
+      .sort((a, b) => b - a)[0];
+    const asOf = latestObservedAt ? new Date(latestObservedAt) : new Date();
 
     result[market] = calculatePriceTrends(marketObservations, asOf);
     const offerTrends = calculateOfferPriceTrends(marketObservations, asOf);
