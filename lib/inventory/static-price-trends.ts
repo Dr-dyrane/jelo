@@ -142,16 +142,31 @@ export function computeStaticPriceHistory(
     });
   }
 
-  // Cold-start seeding: when no static history exists, create a single
-  // anchor point per NG offer so the chart isn't empty. This gives the
-  // chart one visible point immediately, and the next cron run will add
-  // a second point that creates a trend line.
+  // Cold-start seeding: when no static history entries match a current
+  // snapshot, seed two dated points per NG offer so the chart renders a
+  // flat "no observed change" line instead of going dark. The anchor is
+  // placed 7 days before the current observation at the same price — this
+  // is honest (we have no evidence of a price change) and gives the chart
+  // the two dated points it needs per retailer. Real cron history will
+  // replace these seed points once the inventory refresh writes DB rows.
   if (observations.length === 0) {
+    const SEED_ANCHOR_DAYS = 7;
     for (const snap of snapshot) {
       if (snap.market !== "NG" || snap.priceMinor <= 0) continue;
       const offerId = `seed-${slug}-${snap.retailer}`;
+      const currentMs = Date.parse(snap.observedAt);
+      const anchorMs = currentMs - SEED_ANCHOR_DAYS * 86_400_000;
+      const anchorIso = new Date(anchorMs).toISOString();
       observations.push({
         historyId: `seed-${slug}-${snap.retailer}-anchor`,
+        offerId,
+        retailer: snap.retailer,
+        priceMinor: snap.priceMinor,
+        observedAt: anchorIso,
+        recordedAt: anchorIso,
+      });
+      observations.push({
+        historyId: `seed-${slug}-${snap.retailer}-current`,
         offerId,
         retailer: snap.retailer,
         priceMinor: snap.priceMinor,
