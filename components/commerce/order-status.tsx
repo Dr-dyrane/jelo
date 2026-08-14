@@ -23,6 +23,7 @@ import { formatOrderDateTime } from "@/lib/commerce/order-date";
 import {
   CUSTOMER_VISIBLE_ORDER_STATES,
   customerOrderEventLabel,
+  customerQuotePresentation,
   type AssistedOrderCustomerView,
 } from "@/lib/commerce/assisted-procurement-model";
 import { OrderProgress } from "./order-progress";
@@ -48,6 +49,7 @@ export function OrderStatus({
   const [error, setError] = useState("");
   const [checking, setChecking] = useState(false);
   const presentation = CUSTOMER_VISIBLE_ORDER_STATES[order.state];
+  const quotePresentation = customerQuotePresentation(order.state);
   const [emailStatus] = useState(() => {
     if (!isNew) return null;
     try {
@@ -269,7 +271,7 @@ export function OrderStatus({
                   />
                 </dl>
                 <div className={styles.quoteTotal}>
-                  <dt>Total to pay</dt>
+                  <dt>{quotePresentation.totalLabel}</dt>
                   <dd>
                     {order.quote.totalNgn == null
                       ? "Incomplete"
@@ -277,9 +279,11 @@ export function OrderStatus({
                   </dd>
                 </div>
               </div>
-              <p className={styles.quoteExpiry}>
-                Expires {formatOrderDateTime(order.quote.expiresAt)}
-              </p>
+              {quotePresentation.showExpiry ? (
+                <p className={styles.quoteExpiry}>
+                  Expires {formatOrderDateTime(order.quote.expiresAt)}
+                </p>
+              ) : null}
               {order.quote.notes ? (
                 <p className={styles.quoteNotes}>{order.quote.notes}</p>
               ) : null}

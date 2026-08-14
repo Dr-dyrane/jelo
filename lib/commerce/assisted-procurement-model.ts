@@ -286,6 +286,30 @@ export function customerOrderEventLabel(event: AssistedOrderEventView) {
   );
 }
 
+export function customerQuotePresentation(state: AssistedOrderState) {
+  if (state === "awaiting_approval") {
+    return { totalLabel: "Quote total", showExpiry: true } as const;
+  }
+  if (state === "payment_pending") {
+    return { totalLabel: "Total to pay", showExpiry: true } as const;
+  }
+  if (
+    [
+      "paid",
+      "procurement",
+      "retailer_confirmed",
+      "out_for_delivery",
+      "delivered",
+    ].includes(state)
+  ) {
+    return { totalLabel: "Paid total", showExpiry: false } as const;
+  }
+  if (state === "refund_pending" || state === "refunded") {
+    return { totalLabel: "Original paid total", showExpiry: false } as const;
+  }
+  return { totalLabel: "Total to pay", showExpiry: true } as const;
+}
+
 export function hasOpenReturnRequest(order: AssistedOrderView) {
   return order.returnRequest?.status === "requested";
 }

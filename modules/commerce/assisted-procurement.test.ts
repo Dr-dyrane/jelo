@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   canTransitionAssistedOrder,
+  customerQuotePresentation,
   quoteIsComplete,
   quoteTotal,
   toAssistedOrderCustomerView,
@@ -169,6 +170,35 @@ test("order state and quote completeness fail closed", () => {
     }),
     true,
   );
+});
+
+test("customer quote totals follow the canonical lifecycle", () => {
+  assert.deepEqual(customerQuotePresentation("awaiting_approval"), {
+    totalLabel: "Quote total",
+    showExpiry: true,
+  });
+  assert.deepEqual(customerQuotePresentation("payment_pending"), {
+    totalLabel: "Total to pay",
+    showExpiry: true,
+  });
+  for (const state of [
+    "paid",
+    "procurement",
+    "retailer_confirmed",
+    "out_for_delivery",
+    "delivered",
+  ] as const) {
+    assert.deepEqual(customerQuotePresentation(state), {
+      totalLabel: "Paid total",
+      showExpiry: false,
+    });
+  }
+  for (const state of ["refund_pending", "refunded"] as const) {
+    assert.deepEqual(customerQuotePresentation(state), {
+      totalLabel: "Original paid total",
+      showExpiry: false,
+    });
+  }
 });
 
 test("one-product basket still resolves exact one-retailer choices and quantities", () => {

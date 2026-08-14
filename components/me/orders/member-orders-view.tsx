@@ -21,6 +21,7 @@ import { OrderNotificationPreference } from "@/components/commerce/order-notific
 import {
   CUSTOMER_VISIBLE_ORDER_STATES,
   customerOrderEventLabel,
+  customerQuotePresentation,
   type AssistedOrderCustomerView,
 } from "@/lib/commerce/assisted-procurement-model";
 import { JELOCARE_WHATSAPP_CONTACT } from "@/lib/commerce/whatsapp-contact";
@@ -106,6 +107,7 @@ export function MemberOrdersView({
         <div className={styles.orders}>
           {orders.map((order) => {
             const status = CUSTOMER_VISIBLE_ORDER_STATES[order.state];
+            const quotePresentation = customerQuotePresentation(order.state);
             const isExpanded = expandedId === order.id;
             return (
               <article key={order.id} className={styles.order}>
@@ -201,7 +203,7 @@ export function MemberOrdersView({
                             />
                           </dl>
                           <div className={styles.quoteTotal}>
-                            <dt>Total to pay</dt>
+                            <dt>{quotePresentation.totalLabel}</dt>
                             <dd>
                               {order.quote.totalNgn == null
                                 ? "Incomplete"
@@ -209,9 +211,11 @@ export function MemberOrdersView({
                             </dd>
                           </div>
                         </div>
-                        <p className={styles.quoteExpiry}>
-                          Expires {formatOrderDateTime(order.quote.expiresAt)}
-                        </p>
+                        {quotePresentation.showExpiry ? (
+                          <p className={styles.quoteExpiry}>
+                            Expires {formatOrderDateTime(order.quote.expiresAt)}
+                          </p>
+                        ) : null}
                         {order.quote.notes ? (
                           <p className={styles.quoteNotes}>
                             {order.quote.notes}
