@@ -30,6 +30,11 @@ export const ASSISTED_ORDER_NOTIFICATION_ACTIONS = {
     title: "Payment was not completed.",
     message: "No payment was confirmed. Your order is still awaiting payment.",
   },
+  procurement_started: {
+    kind: "procurement_update",
+    title: "Your purchase is in progress.",
+    message: "JeloCare is placing the exact approved order with the retailer.",
+  },
   retailer_confirmed: {
     kind: "retailer_confirmed",
     title: "The retailer confirmed your order.",
@@ -45,6 +50,16 @@ export const ASSISTED_ORDER_NOTIFICATION_ACTIONS = {
     kind: "delivered",
     title: "Delivery was recorded.",
     message: "JeloCare recorded delivery for this order.",
+  },
+  return_requested: {
+    kind: "return_update",
+    title: "Your return request was received.",
+    message: "Operations will review the request against the recorded order.",
+  },
+  return_declined: {
+    kind: "return_update",
+    title: "Your return request was reviewed.",
+    message: "Open the private order page to read the recorded decision.",
   },
   refund_pending: {
     kind: "refund_update",

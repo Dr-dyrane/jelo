@@ -6,8 +6,9 @@ JeloCare ships a guest-first, one-retailer order-request flow. It is a manual
 assisted-procurement service, not retailer checkout and not a marketplace.
 The retailer supplies and fulfils the exact products; JeloCare is the disclosed
 purchasing agent. Governed Paystack and operator-verified bank payment are
-available only after approval of one exact quote; retailer fulfilment remains
-separately gated.
+available only after approval of one exact quote. Operations owns the persisted
+manual fulfilment, return-decision, and refund-evidence path; external retailer
+checkout and courier automation remain separately gated.
 
 ## Customer journey
 
@@ -33,8 +34,13 @@ separately gated.
 6. The customer approves or declines that exact quote version on `/order` or,
    when signed in, `/me/orders`.
 7. Approval enters `payment_pending`. Only exact provider or independently
-   observed bank evidence may advance it to `paid`. Procurement, fulfilment,
-   returns, and refunds stay unavailable until their separate governed releases.
+   observed bank evidence may advance it to `paid`.
+8. Operations records one current step at a time: procurement start, exact
+   retailer confirmation, traceable dispatch, and delivery evidence.
+9. After delivery, the guest or signed-in owner may submit one private return
+   request. Operations records an approval or decline. Approval creates a
+   pending full-refund ledger entry linked to the verified payment; the order
+   becomes `refunded` only after governed completion evidence is recorded.
 
 The state and cost contract is defined by
 [ADR 0016](../adr/0016-retailer-scoped-assisted-procurement.md).
@@ -134,8 +140,9 @@ progress bar reflects the current step (0%, 50%, 100%).
    `0046_service_fee_policies.sql`,
    `0047_assisted_order_payments.sql`,
    `0048_money_columns_to_numeric.sql`,
-   `0049_fix_remaining_money_columns.sql`, and
-   `0050_payment_integrity.sql` grant only the application runtime role. Migration
+   `0049_fix_remaining_money_columns.sql`,
+   `0050_payment_integrity.sql`, and `0051_order_lifecycle.sql` grant only the
+   application runtime role. Migration
    `0050` is a coordinated boundary, not an independently additive live change:
    old code initializes Paystack before its database insert, while new code
    reserves the reference first and depends on the new unique index. Never run
@@ -168,16 +175,23 @@ Use a real exact product with at least one fresh eligible retailer offer.
 7. Confirm guest status, Operations, and signed-in ownership where applicable
    agree on `payment_pending`. Continue with the separate SQL-backed payment
    check below; never infer payment success from a redirect.
-8. Use the emailed recovery link once, confirm it opens the same clean order,
-   then confirm replay fails. Request a replacement and confirm the older
-   unused link fails.
-9. Issue another test quote with a short expiry and confirm it becomes
-   `needs_response` with an appended `quote_expired` event.
-10. Repeat once with email updates off and once with them on. Confirm the
+8. After governed payment evidence marks the order `paid`, record procurement,
+   retailer confirmation, dispatch with a tracking reference, and delivery.
+   Confirm `/order`, `/me/orders`, and Operations show the same canonical state.
+9. Submit a return request from the authorized customer surface, approve it in
+   Operations, then record a unique completed refund reference. Confirm the
+   original payment ledger remains verified and unchanged while the order
+   closes as `refunded`.
+10. Use the emailed recovery link once, confirm it opens the same clean order,
+    then confirm replay fails. Request a replacement and confirm the older
+    unused link fails.
+11. Issue another test quote with a short expiry and confirm it becomes
+    `needs_response` with an appended `quote_expired` event.
+12. Repeat once with email updates off and once with them on. Confirm the
     in-app event exists in both cases, only the opted-in order sends email, Ops
     shows the delivery state, failed delivery can be retried, and switching the
     preference off suppresses unsent email immediately.
-11. Confirm the internal order alert is sent to every active operator/admin
+13. Confirm the internal order alert is sent to every active operator/admin
     recipient regardless of the customer email choice. Confirm failed team
     delivery is visible and retryable without changing order state.
 

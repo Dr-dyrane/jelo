@@ -818,6 +818,27 @@
   background: transparent;
   color: var(--ops-workspace);
 }
+.lifecycleChoices {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+.lifecycleChoices button,
+.quoteForm > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.quoteForm .lifecycleRecovery {
+  min-height: auto;
+  padding: 0.25rem;
+  justify-self: start;
+  background: transparent;
+  color: color-mix(in srgb, var(--ops-workspace) 72%, transparent);
+  font-size: 0.78rem;
+}
 .cancel {
   margin-top: 1rem;
   min-height: 2.6rem;
@@ -901,5 +922,8 @@
   .notificationDelivery button {
     grid-column: 2;
     justify-self: start;
+  }
+  .lifecycleChoices {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

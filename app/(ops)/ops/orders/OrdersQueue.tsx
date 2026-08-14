@@ -51,6 +51,7 @@ import {
   type OrderOperationsJourneyId,
 } from "@/lib/commerce/order-operations-journey";
 import {
+  advanceOrderLifecycleAction,
   retryOrderNotificationAction,
   retryOrderOperatorAlertAction,
   reverifyOrderAction,
@@ -265,7 +266,7 @@ export function OrdersQueue({
             <p>
               <Clock3 size={17} /> Next governed step
             </p>
-            <h3>Begin a fresh verification.</h3>
+            <h3>Claim this request and begin verification.</h3>
             <p>
               Check exact products and every cost component. Do not substitute.
             </p>
@@ -281,7 +282,7 @@ export function OrdersQueue({
                 )
               }
             >
-              Start quoting
+              Claim &amp; verify
             </button>
           </div>
         ) : null}
@@ -321,6 +322,23 @@ export function OrdersQueue({
           />
         ) : null}
 
+        {[
+          "paid",
+          "procurement",
+          "retailer_confirmed",
+          "out_for_delivery",
+          "refund_pending",
+        ].includes(selected.state) ||
+        (selected.state === "delivered" &&
+          selected.returnRequest?.status === "requested") ? (
+          <LifecycleDecisionForm
+            key={`${selected.id}:${selected.state}:${selected.revision}`}
+            order={selected}
+            disabled={!canManage || pending}
+            onSubmit={(input) => run(() => advanceOrderLifecycleAction(input))}
+          />
+        ) : null}
+
         {canManage &&
         [
           "requested",
@@ -329,22 +347,21 @@ export function OrdersQueue({
           "needs_response",
           "payment_pending",
         ].includes(selected.state) ? (
-          <button
-            className={styles.cancel}
+          <CancellationRecovery
+            key={`cancel:${selected.id}:${selected.revision}`}
+            order={selected}
             disabled={pending}
-            onClick={() =>
+            onSubmit={(reason) =>
               run(() =>
                 transitionOrderAction({
                   orderId: selected.id,
                   revision: selected.revision,
                   transition: "cancelled",
-                  reason: "Cancelled by Operations.",
+                  reason,
                 }),
               )
             }
-          >
-            <XCircle size={16} /> Cancel order request
-          </button>
+          />
         ) : null}
         {error ? (
           <p className={styles.error} role="alert">
@@ -1108,6 +1125,352 @@ function QuoteForm({
           )}
         </button>
       </footer>
+    </form>
+  );
+}
+
+type LifecycleActionName =
+  | "start_procurement"
+  | "confirm_retailer"
+  | "record_dispatch"
+  | "record_delivery"
+  | "approve_return"
+  | "decline_return"
+  | "complete_refund"
+  | "cancel_and_refund";
+
+function CancellationRecovery({
+  order,
+  disabled,
+  onSubmit,
+}: {
+  order: AssistedOrderPrivateView;
+  disabled: boolean;
+  onSubmit: (reason: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [reason, setReason] = useState("");
+  if (!open) {
+    return (
+      <button
+        className={styles.cancel}
+        type="button"
+        disabled={disabled}
+        onClick={() => setOpen(true)}
+      >
+        <XCircle size={16} aria-hidden="true" /> Cancel order request
+      </button>
+    );
+  }
+  return (
+    <form
+      className={styles.quoteForm}
+      onSubmit={(event) => {
+        event.preventDefault();
+        onSubmit(reason);
+      }}
+    >
+      <div className={styles.quoteQuestion}>
+        <label>
+          <span className={styles.quotePrompt}>
+            <XCircle size={21} aria-hidden="true" /> Why must this request stop?
+          </span>
+          <small>
+            This records a terminal cancellation for {order.reference}. An
+            active Paystack attempt must be reconciled first.
+          </small>
+          <textarea
+            value={reason}
+            onChange={(event) => setReason(event.target.value)}
+            placeholder="Record the specific customer, retailer, evidence, or safety reason"
+            minLength={4}
+            maxLength={1000}
+            required
+          />
+        </label>
+      </div>
+      <div className={styles.quoteNav}>
+        <button
+          className={styles.quoteBack}
+          type="button"
+          onClick={() => setOpen(false)}
+        >
+          <ArrowLeft size={16} aria-hidden="true" /> Keep order open
+        </button>
+        <button disabled={disabled || reason.trim().length < 4} type="submit">
+          Record cancellation
+        </button>
+      </div>
+    </form>
+  );
+}
+
+function LifecycleDecisionForm({
+  order,
+  disabled,
+  onSubmit,
+}: {
+  order: AssistedOrderPrivateView;
+  disabled: boolean;
+  onSubmit: (input: Record<string, unknown>) => void;
+}) {
+  const [reason, setReason] = useState("");
+  const [evidenceReference, setEvidenceReference] = useState("");
+  const [retailerOrderReference, setRetailerOrderReference] = useState("");
+  const [carrier, setCarrier] = useState("");
+  const [trackingReference, setTrackingReference] = useState("");
+  const [trackingUrl, setTrackingUrl] = useState("");
+  const [refundReference, setRefundReference] = useState("");
+  const [mode, setMode] = useState<"progress" | "cancel">("progress");
+  const [returnDecision, setReturnDecision] = useState<
+    "approve_return" | "decline_return" | null
+  >(null);
+
+  const definition: {
+    action: LifecycleActionName;
+    icon: LucideIcon;
+    eyebrow: string;
+    title: string;
+    detail: string;
+    button: string;
+  } =
+    mode === "cancel"
+      ? {
+          action: "cancel_and_refund",
+          icon: RefreshCcw,
+          eyebrow: "Recovery path",
+          title: "Stop procurement and begin a full refund.",
+          detail:
+            "Record why the paid order cannot continue and the evidence supporting the stop.",
+          button: "Cancel and begin refund",
+        }
+      : order.state === "paid"
+        ? {
+            action: "start_procurement",
+            icon: HandCoins,
+            eyebrow: "Purchase",
+            title: "Begin the exact retailer purchase.",
+            detail:
+              "Use the exact retailer links above. Record the governed cart or purchase evidence before progressing.",
+            button: "Start procurement",
+          }
+        : order.state === "procurement"
+          ? {
+              action: "confirm_retailer",
+              icon: Store,
+              eyebrow: "Retailer decision",
+              title: "Has the retailer accepted the exact order?",
+              detail:
+                "Record the retailer order reference and the confirmation evidence. Changed products or costs cannot be accepted here.",
+              button: "Record retailer confirmation",
+            }
+          : order.state === "retailer_confirmed"
+            ? {
+                action: "record_dispatch",
+                icon: Truck,
+                eyebrow: "Dispatch",
+                title: "Record the traceable delivery handoff.",
+                detail:
+                  "Enter the carrier and tracking facts exactly as the retailer or courier supplied them.",
+                button: "Record dispatch",
+              }
+            : order.state === "out_for_delivery"
+              ? {
+                  action: "record_delivery",
+                  icon: PackageCheck,
+                  eyebrow: "Delivery",
+                  title: "What evidence confirms delivery?",
+                  detail:
+                    "Record governed retailer, courier, or customer delivery evidence. A status guess is not sufficient.",
+                  button: "Record delivery",
+                }
+              : order.state === "refund_pending"
+                ? {
+                    action: "complete_refund",
+                    icon: RefreshCcw,
+                    eyebrow: "Refund evidence",
+                    title: `Confirm the ${naira.format(order.refund?.amountNgn ?? 0)} refund.`,
+                    detail:
+                      "The original verified payment remains unchanged. Record the completed refund reference and evidence.",
+                    button: "Record refund complete",
+                  }
+                : {
+                    action: returnDecision ?? "approve_return",
+                    icon: ClipboardCheck,
+                    eyebrow: "Return decision",
+                    title: "Review the customer return request.",
+                    detail:
+                      order.returnRequest?.reason ??
+                      "Read the recorded customer reason before deciding.",
+                    button:
+                      returnDecision === "decline_return"
+                        ? "Record return decision"
+                        : "Approve and begin refund",
+                  };
+  const Icon = definition.icon;
+  const isReturnDecision =
+    order.state === "delivered" && order.returnRequest?.status === "requested";
+  const canCancel = [
+    "paid",
+    "procurement",
+    "retailer_confirmed",
+    "out_for_delivery",
+  ].includes(order.state);
+
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (isReturnDecision && !returnDecision) return;
+    onSubmit({
+      orderId: order.id,
+      revision: order.revision,
+      action: definition.action,
+      reason,
+      evidenceReference,
+      retailerOrderReference: retailerOrderReference || undefined,
+      carrier: carrier || undefined,
+      trackingReference: trackingReference || undefined,
+      trackingUrl: trackingUrl || undefined,
+      refundReference: refundReference || undefined,
+    });
+  }
+
+  return (
+    <form className={styles.quoteForm} onSubmit={submit}>
+      <div className={styles.quoteHeader}>
+        <span className={styles.quoteStepIdentity}>
+          <Icon size={18} aria-hidden="true" />
+          <span>
+            <small>{definition.eyebrow}</small>
+            <strong>One current decision</strong>
+          </span>
+        </span>
+      </div>
+      <div className={styles.quoteQuestion}>
+        <label>
+          <span className={styles.quotePrompt}>{definition.title}</span>
+          <small>{definition.detail}</small>
+        </label>
+
+        {isReturnDecision && !returnDecision ? (
+          <div className={styles.lifecycleChoices}>
+            <button
+              type="button"
+              onClick={() => setReturnDecision("approve_return")}
+            >
+              <Check size={16} aria-hidden="true" /> Approve return
+            </button>
+            <button
+              type="button"
+              onClick={() => setReturnDecision("decline_return")}
+            >
+              <XCircle size={16} aria-hidden="true" /> Decline request
+            </button>
+          </div>
+        ) : (
+          <>
+            {definition.action === "confirm_retailer" ? (
+              <label>
+                <span>Retailer order reference</span>
+                <input
+                  value={retailerOrderReference}
+                  onChange={(event) =>
+                    setRetailerOrderReference(event.target.value)
+                  }
+                  placeholder="Example: RET-482193"
+                  autoComplete="off"
+                />
+              </label>
+            ) : null}
+            {definition.action === "record_dispatch" ? (
+              <>
+                <label>
+                  <span>Carrier or delivery service</span>
+                  <input
+                    value={carrier}
+                    onChange={(event) => setCarrier(event.target.value)}
+                    placeholder="Example: GIG Logistics"
+                    autoComplete="organization"
+                  />
+                </label>
+                <label>
+                  <span>Tracking reference</span>
+                  <input
+                    value={trackingReference}
+                    onChange={(event) =>
+                      setTrackingReference(event.target.value)
+                    }
+                    placeholder="Enter the exact tracking code"
+                    autoComplete="off"
+                  />
+                </label>
+                <label>
+                  <span>Tracking link · optional</span>
+                  <input
+                    type="url"
+                    value={trackingUrl}
+                    onChange={(event) => setTrackingUrl(event.target.value)}
+                    placeholder="https://carrier.example/track/..."
+                    inputMode="url"
+                  />
+                </label>
+              </>
+            ) : null}
+            {definition.action === "complete_refund" ? (
+              <label>
+                <span>Completed refund reference</span>
+                <input
+                  value={refundReference}
+                  onChange={(event) => setRefundReference(event.target.value)}
+                  placeholder="Enter the Paystack or bank refund reference"
+                  autoComplete="off"
+                />
+              </label>
+            ) : null}
+            {["approve_return", "decline_return", "cancel_and_refund"].includes(
+              definition.action,
+            ) ? (
+              <label>
+                <span>Decision reason</span>
+                <textarea
+                  value={reason}
+                  onChange={(event) => setReason(event.target.value)}
+                  placeholder="Record the specific policy and order facts behind this decision"
+                />
+              </label>
+            ) : null}
+            <label>
+              <span>Evidence reference</span>
+              <input
+                value={evidenceReference}
+                onChange={(event) => setEvidenceReference(event.target.value)}
+                placeholder="Retailer URL, receipt, courier proof, or governed staff reference"
+                autoComplete="off"
+              />
+            </label>
+          </>
+        )}
+      </div>
+      {isReturnDecision && returnDecision ? (
+        <button type="button" onClick={() => setReturnDecision(null)}>
+          <ArrowLeft size={16} aria-hidden="true" /> Change decision
+        </button>
+      ) : null}
+      {!isReturnDecision || returnDecision ? (
+        <button disabled={disabled} type="submit">
+          {definition.button} <ArrowRight size={16} aria-hidden="true" />
+        </button>
+      ) : null}
+      {canCancel ? (
+        <button
+          className={styles.lifecycleRecovery}
+          type="button"
+          onClick={() => setMode(mode === "cancel" ? "progress" : "cancel")}
+        >
+          {mode === "cancel"
+            ? "Return to current step"
+            : "Order cannot continue"}
+        </button>
+      ) : null}
     </form>
   );
 }

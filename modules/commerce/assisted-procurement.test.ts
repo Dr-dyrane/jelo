@@ -255,7 +255,7 @@ test("local simulator CSP supports React diagnostics without weakening productio
   );
 });
 
-test("fixture exercises request → quote → guest approval and one-time recovery", async () => {
+test("fixture exercises the canonical guest lifecycle and one-time recovery", async () => {
   process.env.ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE = "true";
   const [{ requestAssistedOrder }, repository, security] = await Promise.all([
     import("@/lib/commerce/assisted-procurement-service"),
@@ -346,6 +346,105 @@ test("fixture exercises request → quote → guest approval and one-time recove
     reason: null,
   });
   assert.equal(approved?.state, "payment_pending");
+
+  const paid = repository.verifyAssistedOrderPaymentDevelopmentFixture({
+    orderId: created.order.id,
+    receivedAmountNgn: approved!.quote!.totalNgn!,
+    providerReference: "FIXTURE-PAYMENT-001",
+    evidenceReference: "fixture-bank-evidence:001",
+    operatorSubject: "operator-1",
+  });
+  assert.equal(paid?.state, "paid");
+  const procurement = await repository.advanceAssistedOrderLifecycleForOperator(
+    {
+      orderId: paid!.id,
+      revision: paid!.revision,
+      operatorSubject: "operator-1",
+      action: "start_procurement",
+      reason: null,
+      evidenceReference: "fixture-retailer-cart:001",
+    },
+  );
+  assert.equal(procurement?.state, "procurement");
+  const confirmed = await repository.advanceAssistedOrderLifecycleForOperator({
+    orderId: procurement!.id,
+    revision: procurement!.revision,
+    operatorSubject: "operator-1",
+    action: "confirm_retailer",
+    reason: null,
+    evidenceReference: "fixture-retailer-confirmation:001",
+    retailerOrderReference: "RETAILER-ORDER-001",
+  });
+  assert.equal(confirmed?.state, "retailer_confirmed");
+  assert.equal(
+    confirmed?.fulfillment.retailerOrderReference,
+    "RETAILER-ORDER-001",
+  );
+  const dispatched = await repository.advanceAssistedOrderLifecycleForOperator({
+    orderId: confirmed!.id,
+    revision: confirmed!.revision,
+    operatorSubject: "operator-1",
+    action: "record_dispatch",
+    reason: null,
+    evidenceReference: "fixture-dispatch-evidence:001",
+    carrier: "Fixture Courier",
+    trackingReference: "TRACK-001",
+    trackingUrl: "https://courier.example/track/TRACK-001",
+  });
+  assert.equal(dispatched?.state, "out_for_delivery");
+  assert.equal(dispatched?.fulfillment.trackingReference, "TRACK-001");
+  const delivered = await repository.advanceAssistedOrderLifecycleForOperator({
+    orderId: dispatched!.id,
+    revision: dispatched!.revision,
+    operatorSubject: "operator-1",
+    action: "record_delivery",
+    reason: null,
+    evidenceReference: "fixture-delivery-evidence:001",
+  });
+  assert.equal(delivered?.state, "delivered");
+  assert.equal(
+    (await repository.listAssistedOrderQueue()).some(
+      (order) => order.id === delivered!.id,
+    ),
+    false,
+  );
+  const returned = await repository.requestAssistedOrderReturn({
+    orderId: delivered!.id,
+    revision: delivered!.revision,
+    sessionHash,
+    reason: "The sealed item arrived damaged and cannot be used.",
+  });
+  assert.equal(returned?.returnRequest?.status, "requested");
+  assert.equal(
+    (await repository.listAssistedOrderQueue()).some(
+      (order) => order.id === returned!.id,
+    ),
+    true,
+  );
+  const refundPending =
+    await repository.advanceAssistedOrderLifecycleForOperator({
+      orderId: returned!.id,
+      revision: returned!.revision,
+      operatorSubject: "operator-1",
+      action: "approve_return",
+      reason: "Damage evidence matches the delivered order.",
+      evidenceReference: "fixture-return-review:001",
+    });
+  assert.equal(refundPending?.state, "refund_pending");
+  assert.equal(refundPending?.returnRequest?.status, "approved");
+  assert.equal(refundPending?.refund?.amountNgn, approved!.quote!.totalNgn);
+  const refunded = await repository.advanceAssistedOrderLifecycleForOperator({
+    orderId: refundPending!.id,
+    revision: refundPending!.revision,
+    operatorSubject: "operator-1",
+    action: "complete_refund",
+    reason: "Full refund settled to the original customer payment path.",
+    evidenceReference: "fixture-refund-evidence:001",
+    refundReference: "FIXTURE-REFUND-001",
+  });
+  assert.equal(refunded?.state, "refunded");
+  assert.equal(refunded?.refund?.status, "refunded");
+  assert.equal(refunded?.events.at(-1)?.action, "refunded");
 
   const recoverySession = security.createOrderSecret();
   const recovered = await repository.exchangeAssistedOrderRecovery(
@@ -602,9 +701,10 @@ test("checkout submits persisted wizard state after earlier steps unmount", asyn
 });
 
 test("the approved WhatsApp support action is public, generic, and capability-free", async () => {
-  const [contact, status] = await Promise.all([
+  const [contact, status, memberOrders] = await Promise.all([
     readFile("lib/commerce/whatsapp-contact.ts", "utf8"),
     readFile("components/commerce/order-status.tsx", "utf8"),
+    readFile("components/me/orders/member-orders-view.tsx", "utf8"),
   ]);
 
   assert.match(contact, /display: '\+234 812 288 7847'/);
@@ -614,4 +714,27 @@ test("the approved WhatsApp support action is public, generic, and capability-fr
   assert.match(status, /href=\{JELOCARE_WHATSAPP_CONTACT\.href\}/);
   assert.match(status, /target="_blank"/);
   assert.match(status, /rel="noopener noreferrer"/);
+  assert.doesNotMatch(status, /wa\.me[^\n]+\?text=|encodeURIComponent/);
+  assert.doesNotMatch(memberOrders, /wa\.me[^\n]+\?text=|encodeURIComponent/);
+});
+
+test("lifecycle migration preserves payment evidence and adds an append-only refund ledger", async () => {
+  const migration = await readFile(
+    "db/migrations/0051_order_lifecycle.sql",
+    "utf8",
+  );
+  assert.match(migration, /create table assisted_order_refunds/);
+  assert.match(
+    migration,
+    /payment_id uuid not null references assisted_order_payments/,
+  );
+  assert.match(migration, /status in \('pending', 'refunded'\)/);
+  assert.match(migration, /completion_evidence_reference/);
+  assert.match(migration, /return_requested/);
+  assert.match(migration, /procurement_started/);
+  assert.doesNotMatch(migration, /update assisted_order_payments/);
+  assert.doesNotMatch(
+    migration,
+    /grant[^;]+assisted_order_refunds[^;]+to public/i,
+  );
 });

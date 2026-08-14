@@ -11,8 +11,6 @@ import {
   PackageCheck,
   RefreshCw,
   Truck,
-  XCircle,
-  RotateCcw,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -24,9 +22,11 @@ import { JELOCARE_BANK_ACCOUNT } from "@/lib/commerce/payment-config";
 import { formatOrderDateTime } from "@/lib/commerce/order-date";
 import {
   CUSTOMER_VISIBLE_ORDER_STATES,
+  customerOrderEventLabel,
   type AssistedOrderCustomerView,
 } from "@/lib/commerce/assisted-procurement-model";
 import { OrderProgress } from "./order-progress";
+import { OrderCurrentAction } from "./order-current-action";
 import styles from "./order-status.module.css";
 
 const naira = new Intl.NumberFormat("en-NG", {
@@ -226,9 +226,7 @@ export function OrderStatus({
                     <Check size={15} aria-hidden="true" />
                   </span>
                   <div>
-                    <strong>
-                      {CUSTOMER_VISIBLE_ORDER_STATES[event.toState].label}
-                    </strong>
+                    <strong>{customerOrderEventLabel(event)}</strong>
                     {event.reason ? <p>{event.reason}</p> : null}
                     <small>{formatOrderDateTime(event.createdAt)}</small>
                   </div>
@@ -317,57 +315,21 @@ export function OrderStatus({
                   onPaid={() => router.refresh()}
                 />
               ) : null}
-              {order.state === "delivered" ? (
-                <div className={styles.stateBadge}>
-                  <Check size={20} aria-hidden="true" />
-                  <strong>Delivered</strong>
-                  <span>Order complete.</span>
-                  <a
-                    className={styles.returnLink}
-                    href={`${JELOCARE_WHATSAPP_CONTACT.href}?text=${encodeURIComponent(
-                      `Hi JeloCare, I have an issue with order ${order.reference}.`,
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <MessageCircle size={15} aria-hidden="true" /> Report an
-                    issue
-                  </a>
-                </div>
-              ) : null}
-              {order.state === "cancelled" ? (
-                <div className={styles.stateBadgeCancelled}>
-                  <XCircle size={20} aria-hidden="true" />
-                  <strong>Cancelled</strong>
-                  <span>No further action.</span>
-                  <Link className={styles.restartLink} href="/products">
-                    <RotateCcw size={15} aria-hidden="true" /> Start a new
-                    basket
-                  </Link>
-                </div>
-              ) : null}
-              {order.state === "refund_pending" ||
-              order.state === "refunded" ? (
-                <div className={styles.stateBadgeRefund}>
-                  <RefreshCw size={20} aria-hidden="true" />
-                  <strong>
-                    {order.state === "refunded" ? "Refunded" : "Refund pending"}
-                  </strong>
-                  <span>
-                    {order.state === "refunded"
-                      ? "Refund complete."
-                      : "Being reconciled."}
-                  </span>
-                </div>
-              ) : null}{" "}
             </>
-          ) : (
+          ) : ["requested", "quoting", "needs_response"].includes(
+              order.state,
+            ) ? (
             <div className={styles.quoteWaiting}>
               <RefreshCw size={22} aria-hidden="true" />
               <h2>Preparing your quote.</h2>
               <p>Each cost component is being verified.</p>
             </div>
-          )}
+          ) : null}
+          <OrderCurrentAction
+            order={order}
+            member={false}
+            onUpdated={() => router.refresh()}
+          />
           {error ? (
             <p className={styles.error} role="alert">
               {error}
@@ -470,10 +432,6 @@ function PaymentSection({
     );
   }
 
-  const whatsappConfirmLink = `${JELOCARE_WHATSAPP_CONTACT.href}?text=${encodeURIComponent(
-    `Hello JeloCare, I've paid ${naira.format(total)} for order ${order.reference}. My transfer reference is: `,
-  )}`;
-
   return (
     <div className={styles.paymentSection}>
       <div className={styles.paymentHeader}>
@@ -549,7 +507,7 @@ function PaymentSection({
         </p>
         <a
           className={styles.confirmPaymentLink}
-          href={whatsappConfirmLink}
+          href={JELOCARE_WHATSAPP_CONTACT.href}
           target="_blank"
           rel="noopener noreferrer"
         >

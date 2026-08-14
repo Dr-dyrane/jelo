@@ -68,7 +68,7 @@ export const CUSTOMER_VISIBLE_ORDER_STATES: Record<
     label: "Refund pending",
     detail: "Being reconciled.",
   },
-  refunded: { label: "Refunded", detail: "Complete." },
+  refunded: { label: "Refunded", detail: "Refund complete. Order closed." },
 };
 
 const TRANSITIONS: Record<AssistedOrderState, readonly AssistedOrderState[]> = {
@@ -81,7 +81,7 @@ const TRANSITIONS: Record<AssistedOrderState, readonly AssistedOrderState[]> = {
   procurement: ["retailer_confirmed", "needs_response", "refund_pending"],
   retailer_confirmed: ["out_for_delivery", "refund_pending"],
   out_for_delivery: ["delivered", "refund_pending"],
-  delivered: [],
+  delivered: ["refund_pending"],
   cancelled: ["refund_pending"],
   refund_pending: ["refunded"],
   refunded: [],
@@ -180,6 +180,30 @@ export type AssistedOrderEventView = {
   createdAt: string;
 };
 
+export type AssistedOrderFulfillmentView = {
+  retailerOrderReference: string | null;
+  carrier: string | null;
+  trackingReference: string | null;
+  trackingUrl: string | null;
+  dispatchedAt: string | null;
+  deliveredAt: string | null;
+};
+
+export type AssistedOrderReturnView = {
+  status: "requested" | "approved" | "declined";
+  reason: string;
+  requestedAt: string;
+  decisionReason: string | null;
+  decidedAt: string | null;
+};
+
+export type AssistedOrderRefundView = {
+  status: "pending" | "refunded";
+  amountNgn: number;
+  initiatedAt: string;
+  completedAt: string | null;
+};
+
 export type AssistedOrderView = {
   id: string;
   reference: string;
@@ -196,6 +220,9 @@ export type AssistedOrderView = {
   lines: AssistedOrderLineView[];
   lineVerifications: AssistedOrderLineVerification[];
   quote: AssistedOrderQuoteView | null;
+  fulfillment: AssistedOrderFulfillmentView;
+  returnRequest: AssistedOrderReturnView | null;
+  refund: AssistedOrderRefundView | null;
   events: AssistedOrderEventView[];
   createdAt: string;
   updatedAt: string;
@@ -222,8 +249,43 @@ export function toAssistedOrderCustomerView(
     lines: order.lines,
     lineVerifications: order.lineVerifications,
     quote: order.quote,
+    fulfillment: order.fulfillment,
+    returnRequest: order.returnRequest,
+    refund: order.refund,
     events: order.events,
     createdAt: order.createdAt,
     updatedAt: order.updatedAt,
   };
+}
+
+const CUSTOMER_EVENT_LABELS: Record<string, string> = {
+  order_requested: "Request received",
+  quoting_started: "Verification started",
+  quote_issued: "Quote ready",
+  quote_approved: "Quote approved",
+  quote_declined: "Change requested",
+  quote_expired: "Quote expired",
+  payment_verified: "Payment confirmed",
+  payment_failed: "Payment needs another try",
+  payment_abandoned: "Payment was not completed",
+  procurement_started: "Purchase started",
+  retailer_confirmed: "Retailer confirmed",
+  out_for_delivery: "Out for delivery",
+  delivered: "Delivered",
+  return_requested: "Return requested",
+  return_declined: "Return request reviewed",
+  refund_pending: "Refund pending",
+  refunded: "Refunded",
+  order_cancelled: "Cancelled",
+};
+
+export function customerOrderEventLabel(event: AssistedOrderEventView) {
+  return (
+    CUSTOMER_EVENT_LABELS[event.action] ??
+    CUSTOMER_VISIBLE_ORDER_STATES[event.toState].label
+  );
+}
+
+export function hasOpenReturnRequest(order: AssistedOrderView) {
+  return order.returnRequest?.status === "requested";
 }

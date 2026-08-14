@@ -5,9 +5,12 @@ import { z } from "zod";
 import { requireConsoleOperator } from "@/lib/moderation/console-access";
 import { assertCan } from "@/lib/moderation/capabilities";
 import {
+  advanceAssistedOrderLifecycleForOperator,
   submitAssistedOrderQuote,
   transitionAssistedOrderForOperator,
+  verifyAssistedOrderPaymentDevelopmentFixture,
 } from "@/lib/commerce/assisted-procurement-repository";
+import { assistedOrderFixtureEnabled } from "@/lib/commerce/assisted-procurement-security";
 import { submitAssistedQuoteSchema } from "@/lib/commerce/assisted-procurement-schema";
 import {
   deliverPendingAssistedOrderNotifications,
@@ -62,6 +65,8 @@ async function deliverOrderUpdate(
 function refresh() {
   revalidatePath("/ops/orders");
   revalidatePath("/ops", "layout");
+  revalidatePath("/order");
+  revalidatePath("/me/orders");
 }
 
 export async function transitionOrderAction(
@@ -71,6 +76,9 @@ export async function transitionOrderAction(
     const operator = await requireConsoleOperator();
     assertCan(operator, "orders.manage");
     const parsed = transitionSchema.parse(input);
+    if (parsed.transition === "cancelled" && parsed.reason.trim().length < 4) {
+      return { ok: false, error: "Record why this order must be cancelled." };
+    }
     const order = await transitionAssistedOrderForOperator({
       orderId: parsed.orderId,
       revision: parsed.revision,
@@ -204,7 +212,8 @@ const manualPaymentSchema = z.object({
 });
 
 export type ManualPaymentResult =
-  { ok: true; delivery: "none" } | { ok: false; error: string };
+  | { ok: true; delivery: "sent" | "pending" | "failed" | "none" }
+  | { ok: false; error: string };
 
 export async function verifyManualPaymentAction(
   input: unknown,
@@ -213,6 +222,24 @@ export async function verifyManualPaymentAction(
     const operator = await requireConsoleOperator();
     assertCan(operator, "orders.manage");
     const parsed = manualPaymentSchema.parse(input);
+    if (assistedOrderFixtureEnabled()) {
+      const order = verifyAssistedOrderPaymentDevelopmentFixture({
+        orderId: parsed.orderId,
+        operatorSubject: operator.authSubject,
+        evidenceReference: parsed.evidenceReference,
+        providerReference: parsed.providerReference,
+        receivedAmountNgn: parsed.receivedAmountNgn,
+      });
+      if (!order) {
+        return {
+          ok: false,
+          error: "The fixture evidence must match the exact approved total.",
+        };
+      }
+      const delivery = await deliverOrderUpdate(order.id);
+      refresh();
+      return delivery;
+    }
     const { manuallyVerifyPayment } =
       await import("@/lib/commerce/payment-service");
     const result = await manuallyVerifyPayment({
@@ -230,6 +257,103 @@ export async function verifyManualPaymentAction(
       ok: false,
       error:
         "Could not verify the manual payment. Check the evidence and amount.",
+    };
+  }
+}
+
+const lifecycleActionSchema = z
+  .object({
+    orderId: z.uuid(),
+    revision: z.number().int().positive(),
+    action: z.enum([
+      "start_procurement",
+      "confirm_retailer",
+      "record_dispatch",
+      "record_delivery",
+      "approve_return",
+      "decline_return",
+      "complete_refund",
+      "cancel_and_refund",
+    ]),
+    reason: z.string().trim().max(1000).optional().default(""),
+    evidenceReference: z.string().trim().min(8).max(1000),
+    retailerOrderReference: z.string().trim().min(4).max(200).optional(),
+    carrier: z.string().trim().min(2).max(120).optional(),
+    trackingReference: z.string().trim().min(3).max(200).optional(),
+    trackingUrl: z
+      .string()
+      .trim()
+      .max(1000)
+      .optional()
+      .transform((value) => value || undefined)
+      .refine(
+        (value) => !value || /^https:\/\//.test(value),
+        "Tracking links must use HTTPS.",
+      ),
+    refundReference: z.string().trim().min(6).max(200).optional(),
+  })
+  .superRefine((value, context) => {
+    const require = (field: keyof typeof value, message: string) => {
+      if (!value[field]) {
+        context.addIssue({
+          code: "custom",
+          path: [field],
+          message,
+        });
+      }
+    };
+    if (value.action === "confirm_retailer") {
+      require("retailerOrderReference", "Enter the retailer order reference.");
+    }
+    if (value.action === "record_dispatch") {
+      require("carrier", "Enter the carrier or retailer delivery service.");
+      require("trackingReference", "Enter the tracking reference.");
+    }
+    if (
+      value.action === "approve_return" ||
+      value.action === "decline_return" ||
+      value.action === "cancel_and_refund"
+    ) {
+      require("reason", "Record the decision reason.");
+    }
+    if (value.action === "complete_refund") {
+      require("refundReference", "Enter the completed refund reference.");
+    }
+  });
+
+export async function advanceOrderLifecycleAction(
+  input: unknown,
+): Promise<OrderActionResult> {
+  try {
+    const operator = await requireConsoleOperator();
+    assertCan(operator, "orders.manage");
+    const parsed = lifecycleActionSchema.parse(input);
+    const order = await advanceAssistedOrderLifecycleForOperator({
+      orderId: parsed.orderId,
+      revision: parsed.revision,
+      operatorSubject: operator.authSubject,
+      action: parsed.action,
+      reason: parsed.reason || null,
+      evidenceReference: parsed.evidenceReference,
+      retailerOrderReference: parsed.retailerOrderReference,
+      carrier: parsed.carrier,
+      trackingReference: parsed.trackingReference,
+      trackingUrl: parsed.trackingUrl ?? null,
+      refundReference: parsed.refundReference,
+    });
+    if (!order) {
+      return {
+        ok: false,
+        error: "This order changed or the required evidence is incomplete.",
+      };
+    }
+    const delivery = await deliverOrderUpdate(order.id);
+    refresh();
+    return delivery;
+  } catch {
+    return {
+      ok: false,
+      error: "Complete the current evidence step and try again.",
     };
   }
 }

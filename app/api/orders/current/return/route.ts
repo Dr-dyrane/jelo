@@ -4,33 +4,36 @@ import {
   readBoundedJson,
   sameSiteRequest,
 } from "@/lib/community-intake/request-security";
-import { customerQuoteDecisionSchema } from "@/lib/commerce/assisted-procurement-schema";
+import { customerReturnRequestSchema } from "@/lib/commerce/assisted-procurement-schema";
 import {
-  decideAssistedOrderQuote,
   readAssistedOrderBySession,
   readAssistedOrderForOwner,
+  requestAssistedOrderReturn,
 } from "@/lib/commerce/assisted-procurement-repository";
 import {
   allowAssistedOrderAction,
   orderSessionHashFromRequest,
 } from "@/lib/commerce/assisted-procurement-security";
+import { deliverPendingAssistedOrderNotifications } from "@/lib/commerce/order-notification-repository";
 
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
-  if (!sameSiteRequest(request))
+  if (!sameSiteRequest(request)) {
     return NextResponse.json(
       { error: "Request not allowed." },
       { status: 403 },
     );
-  if (!(await allowAssistedOrderAction(request, "decide"))) {
+  }
+  if (!(await allowAssistedOrderAction(request, "return"))) {
     return NextResponse.json(
       { error: "Please try again shortly." },
       { status: 429 },
     );
   }
+
   try {
-    const input = customerQuoteDecisionSchema.parse(
+    const input = customerReturnRequestSchema.parse(
       await readBoundedJson(request),
     );
     const identity = await getAuthSubject();
@@ -45,25 +48,32 @@ export async function POST(request: NextRequest) {
     const current =
       ownerOrder ??
       (input.orderId && guestOrder?.id !== input.orderId ? null : guestOrder);
-    if (!current)
+    if (!current) {
       return NextResponse.json(
         { error: "Order session not found." },
         { status: 404 },
       );
-    const order = await decideAssistedOrderQuote({
+    }
+    const order = await requestAssistedOrderReturn({
       orderId: current.id,
+      revision: input.orderRevision,
       sessionHash: ownerOrder ? undefined : sessionHash,
       ownerSubject: ownerOrder ? identity?.subject : undefined,
-      quoteVersion: input.quoteVersion,
-      revision: input.orderRevision,
-      decision: input.decision,
-      reason: input.reason || null,
+      reason: input.reason,
     });
     if (!order) {
       return NextResponse.json(
-        { error: "This quote changed or expired. Refresh before deciding." },
+        { error: "This order changed. Refresh before requesting a return." },
         { status: 409 },
       );
+    }
+    try {
+      await deliverPendingAssistedOrderNotifications({
+        orderId: order.id,
+        limit: 5,
+      });
+    } catch {
+      // The append-only return request remains canonical if email is offline.
     }
     const response = NextResponse.json({
       state: order.state,
@@ -73,7 +83,7 @@ export async function POST(request: NextRequest) {
     return response;
   } catch {
     return NextResponse.json(
-      { error: "Check the decision and try again." },
+      { error: "Explain the return request and try again." },
       { status: 400 },
     );
   }

@@ -12,8 +12,6 @@ import {
   RefreshCw,
   ShoppingBag,
   Truck,
-  XCircle,
-  RotateCcw,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -22,12 +20,14 @@ import { SafeProductImage } from "@/components/products/safe-product-image";
 import { OrderNotificationPreference } from "@/components/commerce/order-notification-preference";
 import {
   CUSTOMER_VISIBLE_ORDER_STATES,
+  customerOrderEventLabel,
   type AssistedOrderCustomerView,
 } from "@/lib/commerce/assisted-procurement-model";
 import { JELOCARE_WHATSAPP_CONTACT } from "@/lib/commerce/whatsapp-contact";
 import { JELOCARE_BANK_ACCOUNT } from "@/lib/commerce/payment-config";
 import { formatOrderDateTime } from "@/lib/commerce/order-date";
 import { OrderProgress } from "@/components/commerce/order-progress";
+import { OrderCurrentAction } from "@/components/commerce/order-current-action";
 import styles from "./member-orders-view.module.css";
 
 const naira = new Intl.NumberFormat("en-NG", {
@@ -49,6 +49,19 @@ export function MemberOrdersView({
   const [expandedId, setExpandedId] = useState<string | null>(
     orders[0]?.id ?? null,
   );
+  const hasActiveOrder = orders.some(
+    (order) =>
+      !["cancelled", "delivered", "refunded"].includes(order.state) ||
+      order.returnRequest?.status === "requested",
+  );
+
+  useEffect(() => {
+    if (!hasActiveOrder) return;
+    const interval = window.setInterval(() => {
+      if (document.visibilityState === "visible") router.refresh();
+    }, 30_000);
+    return () => window.clearInterval(interval);
+  }, [hasActiveOrder, router]);
 
   async function decide(
     order: AssistedOrderCustomerView,
@@ -240,56 +253,14 @@ export function MemberOrdersView({
                             onPaid={() => router.refresh()}
                           />
                         ) : null}
-                        {order.state === "delivered" ? (
-                          <div className={styles.stateBadge}>
-                            <Check size={18} aria-hidden="true" />
-                            <strong>Delivered</strong>
-                            <span>Order complete.</span>
-                            <a
-                              className={styles.returnLink}
-                              href={`${JELOCARE_WHATSAPP_CONTACT.href}?text=${encodeURIComponent(
-                                `Hi JeloCare, I have an issue with order ${order.reference}.`,
-                              )}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <MessageCircle size={14} aria-hidden="true" />{" "}
-                              Report an issue
-                            </a>
-                          </div>
-                        ) : null}
-                        {order.state === "cancelled" ? (
-                          <div className={styles.stateBadgeCancelled}>
-                            <XCircle size={18} aria-hidden="true" />
-                            <strong>Cancelled</strong>
-                            <span>No further action.</span>
-                            <Link
-                              className={styles.restartLink}
-                              href="/products"
-                            >
-                              <RotateCcw size={14} aria-hidden="true" /> New
-                              basket
-                            </Link>
-                          </div>
-                        ) : null}
-                        {order.state === "refund_pending" ||
-                        order.state === "refunded" ? (
-                          <div className={styles.stateBadgeRefund}>
-                            <RefreshCw size={18} aria-hidden="true" />
-                            <strong>
-                              {order.state === "refunded"
-                                ? "Refunded"
-                                : "Refund pending"}
-                            </strong>
-                            <span>
-                              {order.state === "refunded"
-                                ? "Refund complete."
-                                : "Being reconciled."}
-                            </span>
-                          </div>
-                        ) : null}
                       </div>
                     ) : null}
+
+                    <OrderCurrentAction
+                      order={order}
+                      member
+                      onUpdated={() => router.refresh()}
+                    />
 
                     {/* Order history */}
                     <div className={styles.historySection}>
@@ -301,12 +272,7 @@ export function MemberOrdersView({
                               <Check size={15} aria-hidden="true" />
                             </span>
                             <div>
-                              <strong>
-                                {
-                                  CUSTOMER_VISIBLE_ORDER_STATES[event.toState]
-                                    .label
-                                }
-                              </strong>
+                              <strong>{customerOrderEventLabel(event)}</strong>
                               {event.reason ? <p>{event.reason}</p> : null}
                               <small>
                                 {formatOrderDateTime(event.createdAt)}
@@ -412,10 +378,6 @@ function MemberPaymentSection({
     );
   }
 
-  const whatsappConfirmLink = `${JELOCARE_WHATSAPP_CONTACT.href}?text=${encodeURIComponent(
-    `Hello JeloCare, I've paid ${naira.format(total)} for order ${order.reference}. My transfer reference is: `,
-  )}`;
-
   return (
     <div className={styles.paymentSection}>
       <div className={styles.paymentHeader}>
@@ -491,7 +453,7 @@ function MemberPaymentSection({
         </p>
         <a
           className={styles.confirmPaymentLink}
-          href={whatsappConfirmLink}
+          href={JELOCARE_WHATSAPP_CONTACT.href}
           target="_blank"
           rel="noopener noreferrer"
         >

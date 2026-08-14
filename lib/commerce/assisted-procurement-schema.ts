@@ -85,3 +85,9 @@ export const assistedOrderNotificationPreferenceSchema = z.object({
   orderId: z.uuid().optional(),
   enabled: z.boolean(),
 });
+
+export const customerReturnRequestSchema = z.object({
+  orderId: z.uuid().optional(),
+  orderRevision: z.number().int().positive(),
+  reason: z.string().trim().min(10).max(1000),
+});

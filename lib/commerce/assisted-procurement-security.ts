@@ -34,7 +34,13 @@ export function orderSessionHashFromRequest(request: NextRequest) {
 }
 
 type AssistedOrderAction =
-  "create" | "read" | "decide" | "recover" | "preference" | "payment";
+  | "create"
+  | "read"
+  | "decide"
+  | "return"
+  | "recover"
+  | "preference"
+  | "payment";
 let redis: Redis | null | undefined;
 const limiters = new Map<AssistedOrderAction, Ratelimit>();
 
@@ -58,7 +64,9 @@ function limiterFor(action: AssistedOrderAction) {
         ? 10
         : action === "payment"
           ? 10
-          : action === "decide" || action === "preference"
+          : action === "decide" ||
+              action === "return" ||
+              action === "preference"
             ? 20
             : 180;
   const limiter = new Ratelimit({

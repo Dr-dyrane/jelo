@@ -23,6 +23,7 @@ import {
   resetOrderNotificationDevelopmentFixture,
   setOrderNotificationPreferenceDevelopmentFixture,
 } from "./order-notification-repository";
+import { ngnToKobo, normalizeNgnAmount } from "./payment-money";
 
 export type AssistedOrderPrivateView = AssistedOrderView & {
   contactPhone: string;
@@ -92,6 +93,8 @@ function fixtureStore() {
         { orderId: string; expiresAt: number; consumed: boolean }
       >;
       requests: Map<string, { orderId: string; fingerprint: string }>;
+      paymentReferences: Set<string>;
+      refundReferences: Set<string>;
     };
   };
   scope.__jelocareAssistedOrders ??= {
@@ -99,7 +102,11 @@ function fixtureStore() {
     sessions: new Map(),
     recoveries: new Map(),
     requests: new Map(),
+    paymentReferences: new Set(),
+    refundReferences: new Set(),
   };
+  scope.__jelocareAssistedOrders.paymentReferences ??= new Set();
+  scope.__jelocareAssistedOrders.refundReferences ??= new Set();
   return scope.__jelocareAssistedOrders;
 }
 
@@ -111,6 +118,8 @@ export function resetAssistedProcurementDevelopmentFixture() {
   store.sessions.clear();
   store.recoveries.clear();
   store.requests.clear();
+  store.paymentReferences.clear();
+  store.refundReferences.clear();
   resetOrderNotificationDevelopmentFixture();
 }
 
@@ -118,44 +127,45 @@ async function hydrateOrder(
   sql: Sql,
   row: OrderRow,
 ): Promise<AssistedOrderPrivateView> {
-  const [lineRows, quoteRows, eventRows, verificationRows] = await Promise.all([
-    sql<
-      {
-        product_slug: string;
-        product_brand: string;
-        product_name: string;
-        product_size: string;
-        product_image: string;
-        quantity: number;
-        observed_unit_price_ngn: number;
-        observed_listing_url: string;
-      }[]
-    >`
+  const [lineRows, quoteRows, eventRows, verificationRows, refundRows] =
+    await Promise.all([
+      sql<
+        {
+          product_slug: string;
+          product_brand: string;
+          product_name: string;
+          product_size: string;
+          product_image: string;
+          quantity: number;
+          observed_unit_price_ngn: number;
+          observed_listing_url: string;
+        }[]
+      >`
       select product_slug, product_brand, product_name, product_size, product_image,
              quantity, observed_unit_price_ngn, observed_listing_url
       from assisted_order_lines where order_id = ${row.id}
       order by created_at, id
     `,
-    sql<
-      {
-        id: string;
-        version: number;
-        status: AssistedOrderQuoteView["status"];
-        product_subtotal_ngn: number | null;
-        retailer_fee_ngn: number | null;
-        tax_ngn: number | null;
-        jelocare_fee_ngn: number | null;
-        delivery_ngn: number | null;
-        total_ngn: number | null;
-        evidence_reference: string;
-        notes: string | null;
-        issued_at: string;
-        expires_at: string;
-        approved_at: string | null;
-        service_fee_policy_id: string | null;
-        service_fee_policy_resolved_ngn: number | null;
-      }[]
-    >`
+      sql<
+        {
+          id: string;
+          version: number;
+          status: AssistedOrderQuoteView["status"];
+          product_subtotal_ngn: number | null;
+          retailer_fee_ngn: number | null;
+          tax_ngn: number | null;
+          jelocare_fee_ngn: number | null;
+          delivery_ngn: number | null;
+          total_ngn: number | null;
+          evidence_reference: string;
+          notes: string | null;
+          issued_at: string;
+          expires_at: string;
+          approved_at: string | null;
+          service_fee_policy_id: string | null;
+          service_fee_policy_resolved_ngn: number | null;
+        }[]
+      >`
       select id, version, status, product_subtotal_ngn, retailer_fee_ngn, tax_ngn,
              jelocare_fee_ngn, delivery_ngn, total_ngn, evidence_reference, notes,
              issued_at::text, expires_at::text,
@@ -165,39 +175,39 @@ async function hydrateOrder(
       from assisted_order_quotes where order_id = ${row.id}
       order by version desc limit 1
     `,
-    sql<
-      {
-        id: string;
-        action: string;
-        from_state: AssistedOrderState | null;
-        to_state: AssistedOrderState;
-        reason: string | null;
-        evidence_reference: string | null;
-        metadata: unknown;
-        created_at: string;
-      }[]
-    >`
+      sql<
+        {
+          id: string;
+          action: string;
+          from_state: AssistedOrderState | null;
+          to_state: AssistedOrderState;
+          reason: string | null;
+          evidence_reference: string | null;
+          metadata: unknown;
+          created_at: string;
+        }[]
+      >`
       select id, action, from_state, to_state, reason,
              evidence_reference, metadata, created_at::text
       from assisted_order_events where order_id = ${row.id}
       order by sequence_id
     `,
-    sql<
-      {
-        verified_unit_price_ngn: number | null;
-        verified_inventory_status: string | null;
-        verified_product_subtotal_ngn: number | null;
-        verified_delivery_ngn: number | null;
-        verified_tax_ngn: number | null;
-        verified_retailer_fee_ngn: number | null;
-        verified_total_ngn: number | null;
-        verification_method: string;
-        verification_confidence: number;
-        verification_delivery_note: string | null;
-        verification_error: string | null;
-        verified_at: string;
-      }[]
-    >`
+      sql<
+        {
+          verified_unit_price_ngn: number | null;
+          verified_inventory_status: string | null;
+          verified_product_subtotal_ngn: number | null;
+          verified_delivery_ngn: number | null;
+          verified_tax_ngn: number | null;
+          verified_retailer_fee_ngn: number | null;
+          verified_total_ngn: number | null;
+          verification_method: string;
+          verification_confidence: number;
+          verification_delivery_note: string | null;
+          verification_error: string | null;
+          verified_at: string;
+        }[]
+      >`
       select verified_unit_price_ngn, verified_inventory_status,
              verified_product_subtotal_ngn, verified_delivery_ngn,
              verified_tax_ngn, verified_retailer_fee_ngn, verified_total_ngn,
@@ -208,9 +218,53 @@ async function hydrateOrder(
       where order_id = ${row.id} and is_latest = true
       order by created_at, id
     `,
-  ]);
+      sql<
+        {
+          status: "pending" | "refunded";
+          amount_ngn: string | number;
+          initiated_at: string;
+          completed_at: string | null;
+        }[]
+      >`
+      select status, amount_ngn, initiated_at::text,
+             case when completed_at is null then null else completed_at::text end as completed_at
+      from assisted_order_refunds
+      where order_id = ${row.id}
+      order by created_at desc
+      limit 1
+    `,
+    ]);
 
   const quoteRow = quoteRows[0];
+  const metadataFor = (action: string) => {
+    const value = [...eventRows]
+      .reverse()
+      .find((event) => event.action === action)?.metadata;
+    return value && typeof value === "object" && !Array.isArray(value)
+      ? (value as Record<string, unknown>)
+      : {};
+  };
+  const textValue = (value: unknown) =>
+    typeof value === "string" && value.trim() ? value : null;
+  const retailerConfirmation = metadataFor("retailer_confirmed");
+  const dispatch = metadataFor("out_for_delivery");
+  const deliveryEvent = [...eventRows]
+    .reverse()
+    .find((event) => event.action === "delivered");
+  const returnRequestEvent = [...eventRows]
+    .reverse()
+    .find((event) => event.action === "return_requested");
+  const returnDecisionEvent = returnRequestEvent
+    ? eventRows.find(
+        (event) =>
+          event.created_at >= returnRequestEvent.created_at &&
+          (event.action === "return_declined" ||
+            (event.action === "refund_pending" &&
+              (event.metadata as Record<string, unknown> | null)?.source ===
+                "customer_return")),
+      )
+    : undefined;
+  const refundRow = refundRows[0];
   const quote: AssistedOrderQuoteView | null = quoteRow
     ? {
         id: quoteRow.id,
@@ -277,6 +331,42 @@ async function hydrateOrder(
       }),
     ),
     quote,
+    fulfillment: {
+      retailerOrderReference: textValue(
+        retailerConfirmation.retailerOrderReference,
+      ),
+      carrier: textValue(dispatch.carrier),
+      trackingReference: textValue(dispatch.trackingReference),
+      trackingUrl: textValue(dispatch.trackingUrl),
+      dispatchedAt:
+        [...eventRows]
+          .reverse()
+          .find((event) => event.action === "out_for_delivery")?.created_at ??
+        null,
+      deliveredAt: deliveryEvent?.created_at ?? null,
+    },
+    returnRequest: returnRequestEvent
+      ? {
+          status:
+            returnDecisionEvent?.action === "return_declined"
+              ? "declined"
+              : returnDecisionEvent?.action === "refund_pending"
+                ? "approved"
+                : "requested",
+          reason: returnRequestEvent.reason ?? "Return requested.",
+          requestedAt: returnRequestEvent.created_at,
+          decisionReason: returnDecisionEvent?.reason ?? null,
+          decidedAt: returnDecisionEvent?.created_at ?? null,
+        }
+      : null,
+    refund: refundRow
+      ? {
+          status: refundRow.status,
+          amountNgn: normalizeNgnAmount(refundRow.amount_ngn),
+          initiatedAt: refundRow.initiated_at,
+          completedAt: refundRow.completed_at,
+        }
+      : null,
     events: eventRows.map<AssistedOrderEventView>((event) => ({
       id: event.id,
       action: event.action,
@@ -829,16 +919,437 @@ export async function decideAssistedOrderQuote(input: {
   return updatedId ? readAssistedOrderById(updatedId) : null;
 }
 
+export async function requestAssistedOrderReturn(input: {
+  orderId: string;
+  revision: number;
+  sessionHash?: string;
+  ownerSubject?: string;
+  reason: string;
+}) {
+  const reason = input.reason.trim();
+  if (reason.length < 10 || reason.length > 1000) return null;
+  if (assistedOrderFixtureEnabled()) {
+    const store = fixtureStore();
+    const order = store.orders.get(input.orderId);
+    const ownerOwns = Boolean(
+      input.ownerSubject && order?.ownerSubject === input.ownerSubject,
+    );
+    const sessionOwns = Boolean(
+      input.sessionHash && store.sessions.get(input.sessionHash) === order?.id,
+    );
+    if (
+      !order ||
+      (!ownerOwns && !sessionOwns) ||
+      order.state !== "delivered" ||
+      order.revision !== input.revision ||
+      order.returnRequest
+    ) {
+      return null;
+    }
+    const now = new Date().toISOString();
+    order.returnRequest = {
+      status: "requested",
+      reason,
+      requestedAt: now,
+      decisionReason: null,
+      decidedAt: null,
+    };
+    return appendFixtureLifecycleEvent(order, {
+      action: "return_requested",
+      fromState: "delivered",
+      toState: "delivered",
+      reason,
+    });
+  }
+
+  const sql = getPostgresClient();
+  const id = await sql.begin(async (transaction) => {
+    const [order] = await transaction<{ id: string }[]>`
+      select orders.id
+      from assisted_orders orders
+      left join assisted_order_guest_sessions session
+        on session.order_id = orders.id
+        and session.token_hash = ${input.sessionHash ?? ""}
+        and session.expires_at > now() and session.revoked_at is null
+      where orders.id = ${input.orderId}
+        and orders.revision = ${input.revision}
+        and orders.state = 'delivered'
+        and (
+          (${input.ownerSubject ?? null}::text is not null
+            and orders.owner_subject = ${input.ownerSubject ?? null})
+          or session.order_id is not null
+        )
+      for update of orders
+    `;
+    if (!order) return null;
+    const [latestReturn] = await transaction<{ action: string }[]>`
+      select action from assisted_order_events
+      where order_id = ${order.id}
+        and action in ('return_requested', 'return_declined', 'refund_pending')
+      order by sequence_id desc limit 1
+    `;
+    if (latestReturn) return null;
+    await transaction`
+      update assisted_orders set revision = revision + 1, updated_at = now()
+      where id = ${order.id} and state = 'delivered'
+    `;
+    await transaction`
+      insert into assisted_order_events (
+        order_id, actor_kind, actor_reference, action, from_state, to_state,
+        reason, metadata
+      ) values (
+        ${order.id}, ${input.ownerSubject ? "customer" : "guest"},
+        ${input.ownerSubject ?? null}, 'return_requested', 'delivered',
+        'delivered', ${reason}, '{}'::jsonb
+      )
+    `;
+    return order.id;
+  });
+  return id ? readAssistedOrderById(id) : null;
+}
+
+export type AssistedOrderLifecycleAction =
+  | "start_procurement"
+  | "confirm_retailer"
+  | "record_dispatch"
+  | "record_delivery"
+  | "approve_return"
+  | "decline_return"
+  | "complete_refund"
+  | "cancel_and_refund";
+
+export type AssistedOrderLifecycleInput = {
+  orderId: string;
+  revision: number;
+  operatorSubject: string;
+  action: AssistedOrderLifecycleAction;
+  reason: string | null;
+  evidenceReference: string;
+  retailerOrderReference?: string;
+  carrier?: string;
+  trackingReference?: string;
+  trackingUrl?: string | null;
+  refundReference?: string;
+};
+
+const LIFECYCLE_TRANSITIONS: Record<
+  Exclude<
+    AssistedOrderLifecycleAction,
+    | "approve_return"
+    | "decline_return"
+    | "complete_refund"
+    | "cancel_and_refund"
+  >,
+  {
+    from: AssistedOrderState;
+    to: AssistedOrderState;
+    event: string;
+  }
+> = {
+  start_procurement: {
+    from: "paid",
+    to: "procurement",
+    event: "procurement_started",
+  },
+  confirm_retailer: {
+    from: "procurement",
+    to: "retailer_confirmed",
+    event: "retailer_confirmed",
+  },
+  record_dispatch: {
+    from: "retailer_confirmed",
+    to: "out_for_delivery",
+    event: "out_for_delivery",
+  },
+  record_delivery: {
+    from: "out_for_delivery",
+    to: "delivered",
+    event: "delivered",
+  },
+};
+
+function lifecycleMetadata(input: AssistedOrderLifecycleInput) {
+  if (input.action === "confirm_retailer") {
+    return { retailerOrderReference: input.retailerOrderReference };
+  }
+  if (input.action === "record_dispatch") {
+    return {
+      carrier: input.carrier,
+      trackingReference: input.trackingReference,
+      trackingUrl: input.trackingUrl ?? null,
+    };
+  }
+  return {};
+}
+
+function lifecycleInputIsComplete(input: AssistedOrderLifecycleInput) {
+  if (input.evidenceReference.trim().length < 8) return false;
+  if (
+    input.action === "confirm_retailer" &&
+    (input.retailerOrderReference?.trim().length ?? 0) < 4
+  ) {
+    return false;
+  }
+  if (
+    input.action === "record_dispatch" &&
+    ((input.carrier?.trim().length ?? 0) < 2 ||
+      (input.trackingReference?.trim().length ?? 0) < 3 ||
+      (input.trackingUrl != null && !/^https:\/\//.test(input.trackingUrl)))
+  ) {
+    return false;
+  }
+  if (
+    ["approve_return", "decline_return", "cancel_and_refund"].includes(
+      input.action,
+    ) &&
+    (input.reason?.trim().length ?? 0) < 4
+  ) {
+    return false;
+  }
+  return !(
+    input.action === "complete_refund" &&
+    (input.refundReference?.trim().length ?? 0) < 6
+  );
+}
+
+export async function advanceAssistedOrderLifecycleForOperator(
+  input: AssistedOrderLifecycleInput,
+) {
+  if (!lifecycleInputIsComplete(input)) return null;
+  if (assistedOrderFixtureEnabled()) return advanceFixtureLifecycle(input);
+  const sql = getPostgresClient();
+  const id = await sql.begin(async (transaction) => {
+    const [order] = await transaction<
+      { id: string; state: AssistedOrderState }[]
+    >`
+      select id, state from assisted_orders
+      where id = ${input.orderId} and revision = ${input.revision}
+      for update
+    `;
+    if (!order) return null;
+
+    if (input.action in LIFECYCLE_TRANSITIONS) {
+      const transition =
+        LIFECYCLE_TRANSITIONS[
+          input.action as keyof typeof LIFECYCLE_TRANSITIONS
+        ];
+      if (order.state !== transition.from) return null;
+      await transaction`
+        update assisted_orders
+        set state = ${transition.to}, revision = revision + 1, updated_at = now()
+        where id = ${order.id} and state = ${transition.from}
+      `;
+      await transaction`
+        insert into assisted_order_events (
+          order_id, actor_kind, actor_reference, action, from_state, to_state,
+          reason, evidence_reference, metadata
+        ) values (
+          ${order.id}, 'operator', ${input.operatorSubject}, ${transition.event},
+          ${transition.from}, ${transition.to}, ${input.reason},
+          ${input.evidenceReference}, ${transaction.json(lifecycleMetadata(input))}
+        )
+      `;
+      return order.id;
+    }
+
+    if (input.action === "decline_return") {
+      if (order.state !== "delivered") return null;
+      const [openReturn] = await transaction<{ id: string }[]>`
+        select id from assisted_order_events
+        where order_id = ${order.id} and action = 'return_requested'
+          and not exists (
+            select 1 from assisted_order_events decision
+            where decision.order_id = ${order.id}
+              and decision.sequence_id > assisted_order_events.sequence_id
+              and decision.action in ('return_declined', 'refund_pending')
+          )
+        order by sequence_id desc limit 1
+      `;
+      if (!openReturn) return null;
+      await transaction`
+        update assisted_orders set revision = revision + 1, updated_at = now()
+        where id = ${order.id} and state = 'delivered'
+      `;
+      await transaction`
+        insert into assisted_order_events (
+          order_id, actor_kind, actor_reference, action, from_state, to_state,
+          reason, evidence_reference, metadata
+        ) values (
+          ${order.id}, 'operator', ${input.operatorSubject}, 'return_declined',
+          'delivered', 'delivered', ${input.reason}, ${input.evidenceReference},
+          ${transaction.json({ source: "customer_return" })}
+        )
+      `;
+      return order.id;
+    }
+
+    if (input.action === "complete_refund") {
+      if (order.state !== "refund_pending") return null;
+      const refundReference = input.refundReference;
+      if (!refundReference) return null;
+      const [refund] = await transaction<{ id: string }[]>`
+        update assisted_order_refunds
+        set status = 'refunded', completion_reference = ${refundReference},
+            completion_evidence_reference = ${input.evidenceReference},
+            completed_by_subject = ${input.operatorSubject}, completed_at = now(),
+            updated_at = now()
+        where order_id = ${order.id} and status = 'pending'
+        returning id
+      `;
+      if (!refund) return null;
+      await transaction`
+        update assisted_orders
+        set state = 'refunded', revision = revision + 1, updated_at = now()
+        where id = ${order.id} and state = 'refund_pending'
+      `;
+      await transaction`
+        insert into assisted_order_events (
+          order_id, actor_kind, actor_reference, action, from_state, to_state,
+          reason, evidence_reference, metadata
+        ) values (
+          ${order.id}, 'operator', ${input.operatorSubject}, 'refunded',
+          'refund_pending', 'refunded', ${input.reason}, ${input.evidenceReference},
+          ${transaction.json({ refundId: refund.id, refundReference })}
+        )
+      `;
+      return order.id;
+    }
+
+    const source =
+      input.action === "approve_return"
+        ? "customer_return"
+        : "operator_cancellation";
+    const allowedCancellationStates: AssistedOrderState[] = [
+      "paid",
+      "procurement",
+      "retailer_confirmed",
+      "out_for_delivery",
+    ];
+    if (
+      (input.action === "approve_return" && order.state !== "delivered") ||
+      (input.action === "cancel_and_refund" &&
+        !allowedCancellationStates.includes(order.state))
+    ) {
+      return null;
+    }
+    if (input.action === "approve_return") {
+      const [openReturn] = await transaction<{ id: string }[]>`
+        select id from assisted_order_events
+        where order_id = ${order.id} and action = 'return_requested'
+          and not exists (
+            select 1 from assisted_order_events decision
+            where decision.order_id = ${order.id}
+              and decision.sequence_id > assisted_order_events.sequence_id
+              and decision.action in ('return_declined', 'refund_pending')
+          )
+        order by sequence_id desc limit 1
+      `;
+      if (!openReturn) return null;
+    }
+    const [payment] = await transaction<
+      { id: string; amount_ngn: string | number }[]
+    >`
+      select id, amount_ngn from assisted_order_payments
+      where order_id = ${order.id} and status = 'verified'
+      limit 1 for update
+    `;
+    if (!payment) return null;
+    const [refund] = await transaction<{ id: string }[]>`
+      insert into assisted_order_refunds (
+        order_id, payment_id, amount_ngn, source, reason,
+        initiated_evidence_reference, initiated_by_subject
+      ) values (
+        ${order.id}, ${payment.id}, ${payment.amount_ngn}, ${source},
+        ${input.reason}, ${input.evidenceReference}, ${input.operatorSubject}
+      ) on conflict (order_id) do nothing returning id
+    `;
+    if (!refund) return null;
+    await transaction`
+      update assisted_orders
+      set state = 'refund_pending', revision = revision + 1, updated_at = now()
+      where id = ${order.id} and state = ${order.state}
+    `;
+    await transaction`
+      insert into assisted_order_events (
+        order_id, actor_kind, actor_reference, action, from_state, to_state,
+        reason, evidence_reference, metadata
+      ) values (
+        ${order.id}, 'operator', ${input.operatorSubject}, 'refund_pending',
+        ${order.state}, 'refund_pending', ${input.reason},
+        ${input.evidenceReference},
+        ${transaction.json({ source, refundId: refund.id, amountNgn: payment.amount_ngn })}
+      )
+    `;
+    return order.id;
+  });
+  return id ? readAssistedOrderById(id) : null;
+}
+
+export function verifyAssistedOrderPaymentDevelopmentFixture(input: {
+  orderId: string;
+  receivedAmountNgn: number;
+  providerReference: string;
+  evidenceReference: string;
+  operatorSubject: string;
+}) {
+  if (!assistedOrderFixtureEnabled()) {
+    throw new Error("Development fixture is not enabled.");
+  }
+  const store = fixtureStore();
+  const order = store.orders.get(input.orderId);
+  const amountNgn = normalizeNgnAmount(input.receivedAmountNgn);
+  const providerReference = input.providerReference.trim().toUpperCase();
+  if (
+    !order ||
+    order.state !== "payment_pending" ||
+    order.quote?.status !== "approved" ||
+    order.quote.totalNgn == null ||
+    ngnToKobo(order.quote.totalNgn) !== ngnToKobo(amountNgn) ||
+    providerReference.length < 6 ||
+    input.evidenceReference.trim().length < 8 ||
+    store.paymentReferences.has(providerReference)
+  ) {
+    return null;
+  }
+  store.paymentReferences.add(providerReference);
+  return appendFixtureLifecycleEvent(order, {
+    action: "payment_verified",
+    fromState: "payment_pending",
+    toState: "paid",
+    reason: "Governed fixture payment evidence matched the approved quote.",
+  });
+}
+
 export async function listAssistedOrderQueue() {
   await expireAssistedOrderQuotes();
   if (assistedOrderFixtureEnabled()) {
-    return Array.from(fixtureStore().orders.values()).sort((a, b) =>
-      a.updatedAt.localeCompare(b.updatedAt),
-    );
+    return Array.from(fixtureStore().orders.values())
+      .filter(
+        (order) =>
+          !["delivered", "cancelled", "refunded"].includes(order.state) ||
+          order.returnRequest?.status === "requested",
+      )
+      .sort((a, b) => a.updatedAt.localeCompare(b.updatedAt));
   }
   const sql = getPostgresClient();
   const rows = await sql.unsafe<OrderRow[]>(`${orderSelect}
-    where state not in ('delivered', 'cancelled', 'refunded') and retain_until > now()
+    where (
+      state not in ('delivered', 'cancelled', 'refunded')
+      or (
+        state = 'delivered'
+        and exists (
+          select 1 from assisted_order_events requested_return
+          where requested_return.order_id = orders.id
+            and requested_return.action = 'return_requested'
+            and not exists (
+              select 1 from assisted_order_events return_decision
+              where return_decision.order_id = orders.id
+                and return_decision.sequence_id > requested_return.sequence_id
+                and return_decision.action in ('return_declined', 'refund_pending')
+            )
+        )
+      )
+    ) and retain_until > now()
     order by exists (
       select 1 from assisted_order_events review
       where review.order_id = orders.id
@@ -854,6 +1365,9 @@ export async function transitionAssistedOrderForOperator(input: {
   toState: "quoting" | "cancelled";
   reason: string | null;
 }) {
+  if (input.toState === "cancelled" && (input.reason?.trim().length ?? 0) < 4) {
+    return null;
+  }
   if (assistedOrderFixtureEnabled()) return transitionFixtureOrder(input);
   const sql = getPostgresClient();
   const id = await sql.begin(async (transaction) => {
@@ -1016,6 +1530,16 @@ function createFixtureOrder(
     })),
     lineVerifications: [],
     quote: null,
+    fulfillment: {
+      retailerOrderReference: null,
+      carrier: null,
+      trackingReference: null,
+      trackingUrl: null,
+      dispatchedAt: null,
+      deliveredAt: null,
+    },
+    returnRequest: null,
+    refund: null,
     events: [
       {
         id: randomUUID(),
@@ -1041,6 +1565,150 @@ function createFixtureOrder(
     consumed: false,
   });
   return order;
+}
+
+function appendFixtureLifecycleEvent(
+  order: AssistedOrderPrivateView,
+  input: {
+    action: string;
+    fromState: AssistedOrderState;
+    toState: AssistedOrderState;
+    reason: string | null;
+  },
+) {
+  const createdAt = new Date().toISOString();
+  const eventId = randomUUID();
+  order.state = input.toState;
+  order.revision += 1;
+  order.updatedAt = createdAt;
+  order.events.push({
+    id: eventId,
+    action: input.action,
+    fromState: input.fromState,
+    toState: input.toState,
+    reason: input.reason,
+    createdAt,
+  });
+  recordOrderNotificationDevelopmentFixture({
+    orderId: order.id,
+    orderReference: order.reference,
+    retailer: order.retailer,
+    ownerSubject: order.ownerSubject,
+    contactEmail: order.contactEmail,
+    contactName: order.contactName,
+    emailEnabled: order.emailNotificationsConsent,
+    eventId,
+    action: input.action,
+    createdAt,
+  });
+  return order;
+}
+
+function advanceFixtureLifecycle(input: AssistedOrderLifecycleInput) {
+  const store = fixtureStore();
+  const order = store.orders.get(input.orderId);
+  if (!order || order.revision !== input.revision) return null;
+
+  if (input.action in LIFECYCLE_TRANSITIONS) {
+    const transition =
+      LIFECYCLE_TRANSITIONS[input.action as keyof typeof LIFECYCLE_TRANSITIONS];
+    if (order.state !== transition.from) return null;
+    if (input.action === "confirm_retailer") {
+      order.fulfillment.retailerOrderReference =
+        input.retailerOrderReference ?? null;
+    }
+    if (input.action === "record_dispatch") {
+      order.fulfillment.carrier = input.carrier ?? null;
+      order.fulfillment.trackingReference = input.trackingReference ?? null;
+      order.fulfillment.trackingUrl = input.trackingUrl ?? null;
+      order.fulfillment.dispatchedAt = new Date().toISOString();
+    }
+    if (input.action === "record_delivery") {
+      order.fulfillment.deliveredAt = new Date().toISOString();
+    }
+    return appendFixtureLifecycleEvent(order, {
+      action: transition.event,
+      fromState: transition.from,
+      toState: transition.to,
+      reason: input.reason,
+    });
+  }
+
+  if (input.action === "decline_return") {
+    if (
+      order.state !== "delivered" ||
+      order.returnRequest?.status !== "requested"
+    ) {
+      return null;
+    }
+    order.returnRequest.status = "declined";
+    order.returnRequest.decisionReason = input.reason;
+    order.returnRequest.decidedAt = new Date().toISOString();
+    return appendFixtureLifecycleEvent(order, {
+      action: "return_declined",
+      fromState: "delivered",
+      toState: "delivered",
+      reason: input.reason,
+    });
+  }
+
+  if (input.action === "complete_refund") {
+    const refundReference = input.refundReference?.trim().toUpperCase();
+    if (
+      order.state !== "refund_pending" ||
+      order.refund?.status !== "pending" ||
+      !refundReference ||
+      store.refundReferences.has(refundReference)
+    ) {
+      return null;
+    }
+    store.refundReferences.add(refundReference);
+    order.refund.status = "refunded";
+    order.refund.completedAt = new Date().toISOString();
+    return appendFixtureLifecycleEvent(order, {
+      action: "refunded",
+      fromState: "refund_pending",
+      toState: "refunded",
+      reason: input.reason,
+    });
+  }
+
+  const allowedCancellationStates: AssistedOrderState[] = [
+    "paid",
+    "procurement",
+    "retailer_confirmed",
+    "out_for_delivery",
+  ];
+  const customerReturn = input.action === "approve_return";
+  if (
+    (customerReturn &&
+      (order.state !== "delivered" ||
+        order.returnRequest?.status !== "requested")) ||
+    (input.action === "cancel_and_refund" &&
+      !allowedCancellationStates.includes(order.state)) ||
+    (input.action !== "approve_return" && input.action !== "cancel_and_refund")
+  ) {
+    return null;
+  }
+  if (order.quote?.totalNgn == null || order.refund) return null;
+  const fromState = order.state;
+  if (customerReturn && order.returnRequest) {
+    order.returnRequest.status = "approved";
+    order.returnRequest.decisionReason = input.reason;
+    order.returnRequest.decidedAt = new Date().toISOString();
+  }
+  order.refund = {
+    status: "pending",
+    amountNgn: order.quote.totalNgn,
+    initiatedAt: new Date().toISOString(),
+    completedAt: null,
+  };
+  return appendFixtureLifecycleEvent(order, {
+    action: "refund_pending",
+    fromState,
+    toState: "refund_pending",
+    reason: input.reason,
+  });
 }
 
 function transitionFixtureOrder(input: {

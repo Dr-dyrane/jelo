@@ -1,6 +1,6 @@
 # ADR 0016: Retailer-scoped assisted procurement
 
-- **Status:** Manual assisted procurement and governed payment implemented; fulfilment and automation gated
+- **Status:** Manual assisted procurement, governed payment, fulfilment, returns, and refunds implemented; external automation gated
 - **Date:** 2026-08-11
 - **Decision owner:** Founder
 - **Extends:** [ADR 0007](0007-internal-moderation-operations-console.md),
@@ -29,9 +29,10 @@ history. Explicitly opted-in order-service email and a private signed-in
 notification inbox mirror customer-visible canonical events; they are not
 marketing and never become order authority. Governed Paystack and independently
 observed manual-bank evidence may advance an approved exact quote from Payment
-pending to Paid. WhatsApp automation,
-browser automation, retailer checkout, courier connections, and manufacturer
-fulfilment remain future gates.
+pending to Paid. Authorized Operations staff then record procurement, retailer
+confirmation, dispatch, delivery, return decisions, and refund evidence against
+that same order. WhatsApp automation, browser automation, retailer checkout,
+courier connections, and manufacturer fulfilment remain future gates.
 
 ## Why this fits JeloCare
 

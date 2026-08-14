@@ -25,6 +25,11 @@ deduplication. Migration `0050_payment_integrity.sql` adds payment-confirmed and
 payment-issue mappings; its historic backfill is always `suppressed`, so a
 deployment never sends retrospective payment email.
 
+Migration `0051_order_lifecycle.sql` adds event-derived updates for procurement
+start and customer return requests or decisions. Existing retailer confirmation,
+dispatch, delivery, refund-pending, and refunded mappings remain canonical. A
+notification never advances fulfilment or proves a refund.
+
 The initial Ops handoff is separate from those customer updates. Migration
 `0044_assisted_order_operator_alerts.sql` creates one durable alert per order
 and one deduplicated delivery per active operator/admin recipient. It does not
