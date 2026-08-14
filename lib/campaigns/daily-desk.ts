@@ -25,7 +25,7 @@ const acceptedCampaignSchema = z.object({
   offerEvidence: z
     .array(
       z.object({
-        priceNgn: z.number().int().positive().max(100_000_000),
+        priceNgn: z.number().positive().max(100_000_000),
       }),
     )
     .min(1)

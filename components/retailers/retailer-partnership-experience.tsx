@@ -735,9 +735,10 @@ export function RetailerPartnershipExperience({
                 <span className={styles.partnershipMoney}>
                   <b>₦</b>
                   <input
-                    inputMode="numeric"
+                    inputMode="decimal"
                     type="number"
                     min="100"
+                    step="0.01"
                     max="100000000"
                     value={draft.samplePriceNgn ?? ""}
                     onChange={(event) =>

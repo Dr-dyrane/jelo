@@ -46,7 +46,7 @@ test("verified Nigerian observations use exact secure product pages", () => {
       ),
       false,
     );
-    assert.ok(Number.isInteger(offer.priceNgn) && offer.priceNgn! > 0);
+    assert.ok(Number.isFinite(offer.priceNgn) && offer.priceNgn! > 0);
     assert.ok(offer.checkedAt && !Number.isNaN(Date.parse(offer.checkedAt)));
     assert.ok(
       registered.has(offer.retailer),

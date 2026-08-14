@@ -113,7 +113,7 @@ export function quoteTotal(
   const values = Object.values(components);
   if (
     values.some(
-      (value) => value == null || !Number.isInteger(value) || value < 0,
+      (value) => value == null || !Number.isFinite(value) || value < 0,
     )
   )
     return null;
