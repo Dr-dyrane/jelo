@@ -611,3 +611,65 @@ single source of truth for chart rendering. Do not add more fallback
 layers to the history pipeline — the guarantee handles all cases. If
 real history data becomes available (via cron or manual insertion), it
 automatically takes precedence over seeded points.
+
+### Market trends shows 0 price drops and almost no increases
+
+**Symptom:** The `/share` market-trends page shows 0 price drops and
+only 1-2 price increases out of 158 products, despite the static price
+history containing 143 matched entries with real price changes.
+
+**Root cause:** Three compounding issues:
+
+1. **Static history dates fall in the trend-window gap.** The 7-day
+   window looks for anchors 7-14 days before `asOf`. The 30-day window
+   looks for anchors 30-45 days before `asOf`. There is a gap between
+   14 and 30 days. Static history dates at `2026-07-16` were 29 days
+   before `asOf = 2026-08-14`, falling in this gap. Both windows
+   excluded all 143 anchors, so no movements were detected.
+
+2. **`asOf` defaults to the wall clock.** `calculatePriceTrends` used
+   `new Date()` as `asOf`, but observations can be days old. This
+   shifted both windows forward, pushing real anchors outside. The fix
+   uses the latest observation time as `asOf` instead.
+
+3. **Synthetic observations push `asOf` forward.** When the DB's latest
+   price matches the snapshot price but the verification date differs,
+   `selectCurrentPriceObservations` appended a synthetic observation at
+   the newer snapshot date. This pushed `asOf` forward and pushed real
+   anchors outside the windows. The fix returns the DB history as-is
+   when the price matches, without appending a synthetic observation.
+
+**Fix:**
+
+1. Shift static history dates in `data/price-history.ts` to fall within
+   the 30-day window. For `asOf` around 2026-08-14, dates at
+   `2026-07-14` fall within `[2026-06-30, 2026-07-15]`.
+
+2. Compute `asOf` from the latest observation time, not the wall clock,
+   in `calculateProductPriceTrends` (`lib/inventory/price-trends.ts`).
+
+3. In `selectCurrentPriceObservations`
+   (`modules/commerce/price-trends.ts`), return the DB history as-is
+   when the latest DB price matches the snapshot price, without
+   appending a synthetic observation at the newer verification date.
+
+**Debugging steps for recurrence:**
+
+1. Run a local script that calls `getMarketTrendsReadModel()` and
+   checks `priceDrops.length` and `priceIncreases.length`.
+2. If both are 0, check the static history dates in
+   `data/price-history.ts` against the trend windows:
+   - 7-day window: `[asOf - 14d, asOf - 7d]`
+   - 30-day window: `[asOf - 45d, asOf - 30d]`
+3. If the dates fall in the gap between 14 and 30 days, shift them to
+   fall within the 30-day window.
+4. Check that `asOf` is computed from the latest observation, not the
+   wall clock.
+5. Check that synthetic observations are not appended when the DB price
+   matches the snapshot price.
+
+**Prevention:** When updating offer verification dates (e.g. during
+re-verification), ensure static history dates remain within the 30-day
+trend window relative to the new `asOf`. The 30-day window requires
+anchors to be 30-45 days before `asOf`, so static history dates should
+be approximately 31-32 days before the expected `asOf`.
