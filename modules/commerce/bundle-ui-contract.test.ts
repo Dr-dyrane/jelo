@@ -62,6 +62,10 @@ test("bundle route styles are locally owned", async () => {
     styles,
     /@media \(min-width: 901px\)[\s\S]*?grid-auto-columns:\s*max\(15rem, calc\(23\.53% - 1\.13rem\)\)/,
   );
+  assert.match(
+    styles,
+    /\.selected\s*\{[\s\S]*?min-width:\s*0;[\s\S]*?max-width:\s*100%;/,
+  );
   assert.doesNotMatch(
     globalCss,
     /\.bundle-(?:page|hero|finder|picker|row|empty)/,

@@ -291,6 +291,8 @@
 }
 
 .selected {
+  min-width: 0;
+  max-width: 100%;
   margin-top: clamp(2.5rem, 5vw, 5rem);
 }
 
