@@ -116,9 +116,10 @@ progress bar reflects the current step (0%, 50%, 100%).
    REST credentials, transactional email, `NEXT_PUBLIC_SITE_URL`, and a
    dedicated `ASSISTED_ORDER_RATE_LIMIT_SECRET`.
 2. From a protected operator process, inject the direct administrator URL only
-   for `npm run db:migrate`. Migrations `0039_assisted_procurement.sql` and
-   `0041_assisted_order_notifications.sql` and
-   `0044_assisted_order_operator_alerts.sql` are additive and grant only the
+   for `npm run db:migrate`. Migrations `0039_assisted_procurement.sql`,
+   `0041_assisted_order_notifications.sql`,
+   `0044_assisted_order_operator_alerts.sql`, and
+   `0045_assisted_order_line_verifications.sql` are additive and grant only the
    application runtime role. Never add the admin URL to Vercel or `.env.local`.
 3. Deploy the application revision.
 4. Complete the post-deploy journey below before announcing availability.
@@ -161,10 +162,99 @@ Use a real exact product with at least one fresh eligible retailer offer.
 ```bash
 node --import tsx --test \
   modules/commerce/assisted-procurement.test.ts \
+  modules/commerce/order-verification.test.ts \
   modules/me/me-shell-contract.test.ts
 npm run typecheck
 npm run verify:release
 ```
+
+## Automated order verification
+
+When a customer submits an order, JeloCare runs an automated verification pass
+in the background (using Next.js `after()`) for every order line. This fetches
+fresh price, stock, delivery, and full cost-breakdown data so operators see
+pre-filled verification data instead of manually browsing every retailer.
+
+### Extraction chain
+
+For each order line, the verification tries (in order):
+
+1. **Woo Cart API** — for known WooCommerce retailers, adds the product to a
+   fresh cart and reads the cart totals. This gives the full breakdown:
+   product subtotal, delivery, tax, retailer fee, and total. It simulates a
+   purchase up to the payment step without actually paying.
+2. **Woo Store API** — if the cart API fails, falls back to the product API
+   for price and stock only (no delivery breakdown).
+3. **HTTP fetch + structured extraction + AI cart extraction** — for non-Woo
+   stores, fetches the product page HTML, runs structured extraction for
+   price/stock, then asks the AI Gateway to extract delivery, tax, and fee
+   information from the page HTML.
+4. **Playwright browser cart simulation** — for blocked sites (e.g. Jumia with
+   Cloudflare), uses a headless browser to fetch the page, then runs the same
+   structured + AI extraction.
+5. **Manual fallback** — if all automated methods fail, the line is marked as
+   needing manual verification. The operator sees the error and can browse the
+   retailer manually.
+
+### AI Gateway cart extraction
+
+The AI Gateway is asked to extract the following from the retailer page HTML:
+
+- Product subtotal (NGN)
+- Delivery fee (NGN)
+- Tax (NGN)
+- Retailer fee/service charge (NGN)
+- Total amount (NGN)
+- Stock status
+- Unit price (NGN)
+- Delivery note (free text)
+
+The AI is prompted with the product name, size, quantity, and delivery
+location. It returns only structured fields and is instructed not to guess.
+
+### Data storage
+
+Verification results are stored in `assisted_order_line_verifications`
+(migration `0045`). One row per line per attempt. The latest verification per
+line (`is_latest = true`) is what the operator sees. Older attempts are
+retained for audit.
+
+### Operator UI
+
+The operator orders queue (`/ops/orders`) shows:
+
+- A verification panel per order with status (pending, partial, complete,
+  failed), method, confidence, and aggregated breakdown.
+- A "Re-verify" button to trigger a fresh verification pass.
+- Pre-filled quote form fields when verification data is available. The
+  operator can still adjust any value before issuing the quote.
+
+### Background trigger
+
+Order creation (`POST /api/orders`) uses Next.js `after()` to run the
+verification after the customer's HTTP response is sent. This does not block
+the customer's checkout experience. The verification runs sequentially per line
+to avoid rate-limiting retailer APIs.
+
+### Operator-triggered re-verification
+
+Operators can trigger a re-verification via:
+
+- The "Re-verify" button in the orders queue UI.
+- `POST /api/orders/{id}/verify` (operator-only, same-site).
+
+### Environment variables
+
+| Variable                        | Required | Notes                                                                                                       |
+| ------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| `INVENTORY_AI_EXTRACTION`       | No       | Set to `true` to enable AI Gateway extraction. Without it, only structured extraction and Woo API are used. |
+| `INVENTORY_AI_EXTRACTION_MODEL` | No       | The AI Gateway model ID for extraction. Required if AI extraction is enabled.                               |
+
+### Migration
+
+Migration `0045_assisted_order_line_verifications.sql` is additive and grants
+only the application runtime role. Apply it through the operator-only
+`npm run db:migrate` process before deploying the application revision.
 
 For a local browser journey, use
 `ASSISTED_PROCUREMENT_DEVELOPMENT_FIXTURE=true`. The fixture is refused in

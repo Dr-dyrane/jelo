@@ -11,6 +11,7 @@ import {
 import type {
   AssistedOrderEventView,
   AssistedOrderLineView,
+  AssistedOrderLineVerification,
   AssistedOrderQuoteComponents,
   AssistedOrderQuoteView,
   AssistedOrderState,
@@ -111,7 +112,7 @@ async function hydrateOrder(
   sql: Sql,
   row: OrderRow,
 ): Promise<AssistedOrderPrivateView> {
-  const [lineRows, quoteRows, eventRows] = await Promise.all([
+  const [lineRows, quoteRows, eventRows, verificationRows] = await Promise.all([
     sql<
       {
         product_slug: string;
@@ -168,6 +169,32 @@ async function hydrateOrder(
       from assisted_order_events where order_id = ${row.id}
       order by sequence_id
     `,
+    sql<
+      {
+        verified_unit_price_ngn: number | null;
+        verified_inventory_status: string | null;
+        verified_product_subtotal_ngn: number | null;
+        verified_delivery_ngn: number | null;
+        verified_tax_ngn: number | null;
+        verified_retailer_fee_ngn: number | null;
+        verified_total_ngn: number | null;
+        verification_method: string;
+        verification_confidence: number;
+        verification_delivery_note: string | null;
+        verification_error: string | null;
+        verified_at: string;
+      }[]
+    >`
+      select verified_unit_price_ngn, verified_inventory_status,
+             verified_product_subtotal_ngn, verified_delivery_ngn,
+             verified_tax_ngn, verified_retailer_fee_ngn, verified_total_ngn,
+             verification_method, verification_confidence,
+             verification_delivery_note, verification_error,
+             verified_at::text as verified_at
+      from assisted_order_line_verifications
+      where order_id = ${row.id} and is_latest = true
+      order by created_at, id
+    `,
   ]);
 
   const quoteRow = quoteRows[0];
@@ -218,6 +245,22 @@ async function hydrateOrder(
       observedUnitPriceNgn: line.observed_unit_price_ngn,
       observedListingUrl: line.observed_listing_url,
     })),
+    lineVerifications: verificationRows.map<AssistedOrderLineVerification>(
+      (v) => ({
+        verifiedUnitPriceNgn: v.verified_unit_price_ngn,
+        verifiedInventoryStatus: v.verified_inventory_status,
+        verifiedProductSubtotalNgn: v.verified_product_subtotal_ngn,
+        verifiedDeliveryNgn: v.verified_delivery_ngn,
+        verifiedTaxNgn: v.verified_tax_ngn,
+        verifiedRetailerFeeNgn: v.verified_retailer_fee_ngn,
+        verifiedTotalNgn: v.verified_total_ngn,
+        verificationMethod: v.verification_method,
+        verificationConfidence: v.verification_confidence,
+        verificationDeliveryNote: v.verification_delivery_note,
+        verificationError: v.verification_error,
+        verifiedAt: v.verified_at,
+      }),
+    ),
     quote,
     events: eventRows.map<AssistedOrderEventView>((event) => ({
       id: event.id,
@@ -925,6 +968,7 @@ function createFixtureOrder(
       observedUnitPriceNgn: line.observedUnitPriceNgn,
       observedListingUrl: line.observedListingUrl,
     })),
+    lineVerifications: [],
     quote: null,
     events: [
       {
