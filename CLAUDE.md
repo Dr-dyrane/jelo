@@ -19,21 +19,18 @@ what a validator merely allows.
 
 ## Applying database migrations
 
-The local environment does **not** carry `MIGRATION_DATABASE_URL`, so
-`npm run db:migrate` will fail locally. Apply migrations to production Neon
-through the **Neon MCP server** (`devin/mcp-server-neon`):
+The checked-in migration runner is the only normal application path. It takes
+the advisory lock and commits each migration body with its ledger row in one
+database transaction. Never split a migration into separately auto-committed
+MCP statements and never insert a ledger row by hand.
 
-1. The JeloCare production project is `spring-field-93817903` (named `JeloCare`,
-   under the Vercel-managed org `org-tiny-silence-96254522`).
-2. Use `run_sql` to apply each `CREATE TABLE` / `CREATE INDEX` / `REVOKE` /
-   `GRANT` statement individually — `run_sql` auto-commits each call, so do not
-   pass `begin` or `commit` as separate statements.
-3. Verify the new table via `information_schema.columns`.
-4. Record the ledger row so the local runner skips it later:
-   `INSERT INTO schema_migrations (filename, applied_at) VALUES (...);`
-
-Full details in [Neon and data operations](./docs/data/NEON.md#applying-migrations-via-neon-mcp-when-migration_database_url-is-not-available-locally).
-Apply migrations **before** deploying code that depends on the new schema.
+When `MIGRATION_DATABASE_URL` is not stored locally, use the authenticated Neon
+CLI as the protected process-only source for the direct `neondb_owner` URL,
+remove the postgres.js-incompatible `channel_binding` parameter, and pass the
+result only to `npm run db:migrate` or the documented reconciliation operator.
+Do not print, persist, or place the URL in a command argument. Apply migrations
+**before** deploying dependent code. Full details live in
+[Neon and data operations](./docs/data/NEON.md#protected-agent-migration-when-no-local-admin-url-exists).
 
 ## Continuous product loop
 

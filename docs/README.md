@@ -27,6 +27,7 @@ This is the entry point for product, engineering, data, and operations.
 | Operate guest-first assisted procurement                   | [Assisted procurement](./commerce/ASSISTED_PROCUREMENT.md)                                             |
 | Operate smart delivery and private saved locations         | [Smart locations](./commerce/SMART_LOCATIONS.md)                                                       |
 | Operate order-service notifications                        | [Order notifications](./commerce/ORDER_NOTIFICATIONS.md)                                               |
+| Review the current private-member rollout evidence         | [Private member role and rehearsal evidence](./operations/evidence/2026-08-13-private-member-role-and-rehearsal.md) |
 | Plan the bounded Ask Jelo AI lane                          | [Ask Jelo AI Gateway plan](./ai/ASK_JELO_GATEWAY_PLAN.md)                                              |
 | Configure a local, preview, or production environment      | [Environments](./operations/ENVIRONMENTS.md)                                                           |
 | Operate the deterministic daily campaign handoff           | [Daily campaigns](./operations/DAILY_CAMPAIGNS.md)                                                     |

@@ -1,7 +1,7 @@
 # JeloCare Me production roadmap
 
 Updated: 2026-08-13
-Status: Shelf, Routine, bounded private requests, complete Explore, member-Product OTP, global report helper, deterministic authenticated Ask with dual network/account abuse protection, opt-in order-service notifications, and private-safe aggregate service telemetry ship. Protected activation, request operating closure, authenticated production evidence, SLO observation, alerts, and recovery remain.
+Status: Shelf, Routine, bounded private requests, complete Explore, member-Product OTP, global report helper, deterministic authenticated Ask with dual network/account abuse protection, opt-in order-service notifications, and private-safe aggregate service telemetry ship. The protected migrations, restricted Shelf-role attestation, reviewed import, and forced-rollback rehearsal are complete; owner-alias removal, request operating closure, authenticated production evidence, SLO observation, alerts, and recovery remain. See the [13 August role and rehearsal evidence](../operations/evidence/2026-08-13-private-member-role-and-rehearsal.md).
 
 This is the canonical delivery roadmap from the shipped JeloCare Me foundation
 to production completeness. [JeloCare Me](./JELOCARE_ME.md) remains the canon

@@ -114,41 +114,42 @@ The runner:
 
 Do not run two manual migration operators against the same database.
 
-### Applying migrations via Neon MCP (when `MIGRATION_DATABASE_URL` is not available locally)
+### Protected agent migration when no local admin URL exists
 
-The local environment does not carry the admin `MIGRATION_DATABASE_URL`
-credential. When an agent session needs to apply a migration and the local
-runner cannot connect, use the **Neon MCP server** instead:
+The local dotenv files deliberately do not contain `MIGRATION_DATABASE_URL`.
+That does not authorize splitting a migration across auto-committed MCP calls:
+doing so can leave a partial schema, and manually inserting `schema_migrations`
+would falsely attest atomic application. The checked-in runner remains the only
+normal migration path.
 
-1. **Find the project.** Call `list_projects` on the `devin/mcp-server-neon`
-   server. The JeloCare production project is named `JeloCare` under the
-   Vercel-managed organization (`org-tiny-silence-96254522`). The project ID
-   is `spring-field-93817903`.
-2. **Verify the target.** Run a read-only `run_sql` query to confirm the
-   expected tables exist and the new migration's table does not yet:
-   ```sql
-   SELECT table_name FROM information_schema.tables
-   WHERE table_name LIKE 'assisted_order%' ORDER BY table_name;
-   ```
-3. **Apply each statement individually.** The `run_sql` tool executes a single
-   statement. Split the migration `begin`/`commit` block into individual
-   `CREATE TABLE`, `CREATE INDEX`, `REVOKE`, and `GRANT` statements and run
-   each one through `run_sql` against the same project ID. Do **not** pass
-   `begin` or `commit` as separate statements — `run_sql` auto-commits each
-   call.
-4. **Verify the result.** Re-run the `information_schema.columns` query to
-   confirm the new table has the expected columns, indexes, and grants.
-5. **Record the ledger row.** Insert a row into `schema_migrations` so the
-   local runner does not re-apply the migration later:
-   ```sql
-   INSERT INTO schema_migrations (filename, applied_at)
-   VALUES ('0045_assisted_order_line_verifications.sql', now())
-   ON CONFLICT (filename) DO NOTHING;
-   ```
+On the founder's authenticated operator workstation, resolve the intended
+project and branch by name, then keep the direct owner URL in process memory
+only. The command text contains no credential and shell tracing must remain off:
 
-This path is the standard way agent sessions apply additive migrations to
-production Neon. It does not require the admin URL to be present locally and
-keeps the credential boundary intact.
+```bash
+set +x
+migration_url="$(neonctl connection-string main \
+  --project-id spring-field-93817903 \
+  --role-name neondb_owner \
+  --database-name neondb \
+  --ssl verify-full)"
+migration_url="${migration_url/&channel_binding=require/}"
+
+if [[ "$migration_url" == *-pooler.* || "$migration_url" == *channel_binding* ]]; then
+  unset migration_url
+  echo "Protected migration URL validation failed."
+  exit 1
+fi
+
+MIGRATION_DATABASE_URL="$migration_url" npm run db:migrate
+unset migration_url
+```
+
+The runner acquires its advisory lock, unwraps the checked-in outer transaction,
+executes the body and records the filename in the same database transaction.
+Use `npm run db:reconcile` instead only when the release explicitly includes
+the reviewed public-data reconciliation. Neon MCP remains suitable for bounded
+read-only inspection; it is not a substitute for this atomic write path.
 
 A production release normally uses the ordered wrapper instead of invoking
 individual steps:

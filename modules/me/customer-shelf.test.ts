@@ -662,3 +662,26 @@ test('the real Shelf role and owner isolation audit is explicit and rolls writes
     /console\.(?:log|error)\([^\n]*(?:ownerA|ownerB|identity_version_id|requestId|blobPathname|normalizedEntityRef)/,
   );
 });
+
+test('the request-signal bridge uses PostgreSQL GREATEST as a SQL expression', () => {
+  const migration = readFileSync(
+    'db/migrations/0046_fix_customer_request_signal_bridge.sql',
+    'utf8',
+  );
+  assert.match(
+    migration,
+    /create or replace function public\.sync_customer_product_request_research_signal/,
+  );
+  assert.match(migration, /set signal_count = greatest\(signal_count - 1, 0\)/);
+  assert.doesNotMatch(migration, /pg_catalog\.greatest/);
+  assert.match(migration, /security definer/);
+  assert.match(migration, /set search_path = pg_catalog, public/);
+  assert.match(
+    migration,
+    /revoke all privileges on function public\.sync_customer_product_request_research_signal\(uuid\)\s+from public, jelocare_app_runtime/,
+  );
+  assert.match(
+    migration,
+    /grant execute on function public\.sync_customer_product_request_research_signal\(uuid\)\s+to jelocare_shelf_runtime/,
+  );
+});
