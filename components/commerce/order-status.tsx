@@ -10,6 +10,9 @@ import {
   MessageCircle,
   PackageCheck,
   RefreshCw,
+  Truck,
+  XCircle,
+  RotateCcw,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -102,6 +105,8 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
           </span>
         </div>
       </header>
+
+      <OrderStepper state={order.state} />
 
       <div className={styles.layout}>
         <main>
@@ -246,6 +251,38 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
                   onError={(msg) => setError(msg)}
                   onPaid={() => router.refresh()}
                 />
+              ) : null}
+              {order.state === "delivered" ? (
+                <div className={styles.stateBadge}>
+                  <Check size={20} aria-hidden="true" />
+                  <strong>Delivered</strong>
+                  <span>Order complete.</span>
+                </div>
+              ) : null}
+              {order.state === "cancelled" ? (
+                <div className={styles.stateBadgeCancelled}>
+                  <XCircle size={20} aria-hidden="true" />
+                  <strong>Cancelled</strong>
+                  <span>No further action.</span>
+                  <Link className={styles.restartLink} href="/products">
+                    <RotateCcw size={15} aria-hidden="true" /> Start a new
+                    basket
+                  </Link>
+                </div>
+              ) : null}
+              {order.state === "refund_pending" ||
+              order.state === "refunded" ? (
+                <div className={styles.stateBadgeRefund}>
+                  <RefreshCw size={20} aria-hidden="true" />
+                  <strong>
+                    {order.state === "refunded" ? "Refunded" : "Refund pending"}
+                  </strong>
+                  <span>
+                    {order.state === "refunded"
+                      ? "Refund complete."
+                      : "Being reconciled."}
+                  </span>
+                </div>
               ) : null}{" "}
             </>
           ) : (
@@ -454,5 +491,67 @@ function QuoteLine({ label, value }: { label: string; value: number | null }) {
       <dt>{label}</dt>
       <dd>{value == null ? "Unknown" : naira.format(value)}</dd>
     </div>
+  );
+}
+
+const STEPPER_STAGES: {
+  states: string[];
+  label: string;
+  icon: typeof Check;
+}[] = [
+  { states: ["requested", "quoting"], label: "Request", icon: PackageCheck },
+  {
+    states: ["awaiting_approval", "needs_response"],
+    label: "Quote",
+    icon: Check,
+  },
+  { states: ["payment_pending"], label: "Pay", icon: CreditCard },
+  {
+    states: ["paid", "procurement", "retailer_confirmed"],
+    label: "Procure",
+    icon: RefreshCw,
+  },
+  { states: ["out_for_delivery", "delivered"], label: "Deliver", icon: Truck },
+];
+
+function OrderStepper({ state }: { state: string }) {
+  const isCancelled =
+    state === "cancelled" || state === "refund_pending" || state === "refunded";
+  if (isCancelled) return null;
+  const currentIndex = STEPPER_STAGES.findIndex((stage) =>
+    stage.states.includes(state),
+  );
+  return (
+    <nav className={styles.stepper} aria-label="Order progress">
+      {STEPPER_STAGES.map((stage, index) => {
+        const Icon = stage.icon;
+        const isComplete = currentIndex > index;
+        const isCurrent = currentIndex === index;
+        return (
+          <div
+            key={stage.label}
+            className={[
+              styles.step,
+              isComplete ? styles.stepComplete : "",
+              isCurrent ? styles.stepCurrent : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+          >
+            <span className={styles.stepIcon}>
+              {isComplete ? (
+                <Check size={16} aria-hidden="true" />
+              ) : (
+                <Icon size={16} aria-hidden="true" />
+              )}
+            </span>
+            <span className={styles.stepLabel}>{stage.label}</span>
+            {index < STEPPER_STAGES.length - 1 ? (
+              <span className={styles.stepConnector} />
+            ) : null}
+          </div>
+        );
+      })}
+    </nav>
   );
 }

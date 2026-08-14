@@ -8,7 +8,11 @@ import {
   Landmark,
   MessageCircle,
   PackageCheck,
+  RefreshCw,
   ShoppingBag,
+  Truck,
+  XCircle,
+  RotateCcw,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -120,6 +124,8 @@ export function MemberOrdersView({
 
                 {isExpanded ? (
                   <div className={styles.orderBody}>
+                    <MemberOrderStepper state={order.state} />
+
                     {/* Product lines */}
                     <div className={styles.lines}>
                       {order.lines.map((line) => (
@@ -227,6 +233,43 @@ export function MemberOrdersView({
                             onError={(msg) => setError(msg)}
                             onPaid={() => router.refresh()}
                           />
+                        ) : null}
+                        {order.state === "delivered" ? (
+                          <div className={styles.stateBadge}>
+                            <Check size={18} aria-hidden="true" />
+                            <strong>Delivered</strong>
+                            <span>Order complete.</span>
+                          </div>
+                        ) : null}
+                        {order.state === "cancelled" ? (
+                          <div className={styles.stateBadgeCancelled}>
+                            <XCircle size={18} aria-hidden="true" />
+                            <strong>Cancelled</strong>
+                            <span>No further action.</span>
+                            <Link
+                              className={styles.restartLink}
+                              href="/products"
+                            >
+                              <RotateCcw size={14} aria-hidden="true" /> New
+                              basket
+                            </Link>
+                          </div>
+                        ) : null}
+                        {order.state === "refund_pending" ||
+                        order.state === "refunded" ? (
+                          <div className={styles.stateBadgeRefund}>
+                            <RefreshCw size={18} aria-hidden="true" />
+                            <strong>
+                              {order.state === "refunded"
+                                ? "Refunded"
+                                : "Refund pending"}
+                            </strong>
+                            <span>
+                              {order.state === "refunded"
+                                ? "Refund complete."
+                                : "Being reconciled."}
+                            </span>
+                          </div>
                         ) : null}
                       </div>
                     ) : null}
@@ -449,5 +492,67 @@ function QuoteLine({ label, value }: { label: string; value: number | null }) {
       <dt>{label}</dt>
       <dd>{value == null ? "Unknown" : naira.format(value)}</dd>
     </div>
+  );
+}
+
+const STEPPER_STAGES: {
+  states: string[];
+  label: string;
+  icon: typeof Check;
+}[] = [
+  { states: ["requested", "quoting"], label: "Request", icon: PackageCheck },
+  {
+    states: ["awaiting_approval", "needs_response"],
+    label: "Quote",
+    icon: Check,
+  },
+  { states: ["payment_pending"], label: "Pay", icon: CreditCard },
+  {
+    states: ["paid", "procurement", "retailer_confirmed"],
+    label: "Procure",
+    icon: RefreshCw,
+  },
+  { states: ["out_for_delivery", "delivered"], label: "Deliver", icon: Truck },
+];
+
+function MemberOrderStepper({ state }: { state: string }) {
+  const isCancelled =
+    state === "cancelled" || state === "refund_pending" || state === "refunded";
+  if (isCancelled) return null;
+  const currentIndex = STEPPER_STAGES.findIndex((stage) =>
+    stage.states.includes(state),
+  );
+  return (
+    <nav className={styles.stepper} aria-label="Order progress">
+      {STEPPER_STAGES.map((stage, index) => {
+        const Icon = stage.icon;
+        const isComplete = currentIndex > index;
+        const isCurrent = currentIndex === index;
+        return (
+          <div
+            key={stage.label}
+            className={[
+              styles.step,
+              isComplete ? styles.stepComplete : "",
+              isCurrent ? styles.stepCurrent : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+          >
+            <span className={styles.stepIcon}>
+              {isComplete ? (
+                <Check size={14} aria-hidden="true" />
+              ) : (
+                <Icon size={14} aria-hidden="true" />
+              )}
+            </span>
+            <span className={styles.stepLabel}>{stage.label}</span>
+            {index < STEPPER_STAGES.length - 1 ? (
+              <span className={styles.stepConnector} />
+            ) : null}
+          </div>
+        );
+      })}
+    </nav>
   );
 }
