@@ -569,17 +569,25 @@ different Neon database than the one used for manual data insertion (e.g. via
 the Neon MCP tool). The `offer_price_history` table may have zero rows in
 production even though rows were inserted elsewhere.
 
-**Fix:** The guard now checks `rows.length > 0` (the raw DB query result)
-before returning DB observations:
+**Fix:** The guard now checks for real (non-synthetic) observations before
+returning DB-sourced data:
 
 ```ts
-if (rows.length > 0 && dbObservations.length > 0) return dbObservations;
+const hasRealObservation = dbObservations.some(
+  (obs) =>
+    !obs.historyId.startsWith("snapshot-only:") &&
+    !obs.historyId.startsWith("snapshot:"),
+);
+if (hasRealObservation) return dbObservations;
 return computeStaticPriceHistory(slug, snapshot);
 ```
 
-When the DB has no real history rows, the function falls back to static history
-anchors from `data/price-history.ts`, which provide the dated points needed for
-the chart.
+When all DB observations are synthetic (the DB rows belong to old
+retailers/URLs that no longer match the current offers), the function
+falls back to `computeStaticPriceHistory`. The static fallback also seeds
+two dated points per retailer (anchor 7 days before the current
+observation at the same price) when no static history entries match the
+current offers, rendering a flat "no observed change" line.
 
 **Debugging steps for recurrence:**
 
