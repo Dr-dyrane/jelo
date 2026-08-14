@@ -9,7 +9,9 @@ import {
 // handler is the SOLE deliverer of the operator sign-in code — it renders and
 // sends JeloCare's own branded OTP mail. `send.otp` is a BLOCKING event: the
 // auth flow pauses until we return 2xx (or the timeout expires), so we await the
-// send and only 2xx on success; a non-2xx makes Neon retry (up to 3 attempts).
+// send and only 2xx on success. Neon retries network failures, 408, 429, and
+// 5xx responses up to three attempts inside its delivery window; other 4xx
+// responses are terminal.
 //
 // Requests are authenticated by an EdDSA (Ed25519) detached-JWS signature — the
 // asymmetric signature IS the auth (only Neon holds the private key), verified
@@ -139,8 +141,8 @@ export async function POST(request: Request): Promise<Response> {
   try {
     await sendOperatorOtp({ to: email, code, type: otpType });
   } catch (error) {
-    // Non-2xx so Neon retries; on final failure the user sees an auth error
-    // rather than silently receiving no code.
+    // A temporary 502 is retryable by Neon; on final failure the user sees an
+    // auth error rather than silently receiving no code.
     console.error("auth-hook send.otp delivery failed", error);
     return Response.json({ error: "send_failed" }, { status: 502 });
   }

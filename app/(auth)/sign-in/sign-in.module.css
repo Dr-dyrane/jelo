@@ -92,15 +92,24 @@
   .button:hover:not(:disabled) { transform: none; }
 }
 
-/* Code step. The quiet "Sent to …" line sits just under the headline; the code
+/* Code step. The quiet "Check …" line sits just under the headline; the code
    input reads as a field of digits, not a password box. */
 .meta {
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
   gap: .6rem;
-  margin: -1rem 0 1.4rem;
+  margin: -1rem 0 .55rem;
   color: var(--muted);
   font-size: .85rem;
+  overflow-wrap: anywhere;
+}
+
+.guidance {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+  font-size: .85rem;
+  line-height: 1.5;
 }
 
 .link,
@@ -113,6 +122,7 @@
   color: var(--wine);
 }
 .link { font-size: .85rem; text-decoration: underline; text-underline-offset: 2px; }
+.link:disabled { opacity: .5; cursor: default; }
 .link:focus-visible,
 .resend:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; border-radius: 4px; }
 

@@ -13,8 +13,10 @@ recipient and verifies within 90 seconds. Record a redacted, dated operator
 receipt before making a historical delivery-health claim in this handbook.
 
 Latest evidence: the
-[2026-08-14 production canary](./evidence/2026-08-14-auth-email-canary.md)
-failed because no message arrived within the required window.
+[2026-08-14 production canaries](./evidence/2026-08-14-auth-email-canary.md)
+preserve an initial 90-second failure, its confirmed Hostinger queue-incident
+cause, and a recovery pass that reached Gmail in about five seconds and opened
+the authenticated `/me` route.
 
 The implementation first shipped in `928ade7a` (`Add the Neon Auth send.otp
 webhook for branded OTP emails`) and the duplicate-conscious API-to-SMTP
@@ -47,6 +49,7 @@ must be deployed and verified before the webhook is enabled.
 
 | Responsibility                              | Enforcing source                                           |
 | ------------------------------------------- | ---------------------------------------------------------- |
+| Sign-in, cooldown, and newest-code guidance | `app/(auth)/sign-in/page.tsx`                              |
 | Signed Neon webhook and health probe        | `app/api/auth-hooks/route.ts`                              |
 | JeloCare OTP subject, text, and inline HTML | `lib/email/templates.ts`                                   |
 | Provider selection and sender identity      | `lib/email/mailer.ts`                                      |
@@ -215,6 +218,14 @@ Hostinger does not expose a send-idempotency contract. Do not manually resend
 during a canary or incident investigation. A future durable event ledger would
 need to bind `X-Neon-Event-Id` before claiming end-to-end exactly-once delivery.
 
+The sign-in UI adds a separate customer-side safety boundary. A synchronous
+single-flight guard prevents rapid taps from starting two requests before React
+renders the busy state. After an accepted request, resend remains unavailable
+for 60 seconds. If a customer deliberately resends after that wait, JeloCare
+clears the old digits and tells them to use the newest code. The UI says
+**Check your inbox**, not **Code sent**, because provider acceptance is not
+mailbox receipt.
+
 Return 2xx only after the configured transport accepts the message. Return a
 non-2xx response when delivery cannot be accepted so the sign-in UI does not
 silently claim success.
@@ -247,18 +258,41 @@ The canary passes only when the email is received and usable within 90 seconds.
 A Hostinger API 2xx, webhook 200, SMTP success, `Delivering` row, or eventual
 arrival after the OTP expires is a failure, not a partial pass.
 
+## Provider incidents and the delivery SLO
+
+Check [Hostinger status](https://statuspage.hostinger.com/) early whenever an
+accepted message does not arrive. Preserve the provider incident URL and exact
+UTC timestamps, then use the recipient's original headers to identify where the
+message waited. The visible email `Date` header is not a delivery timestamp;
+compare every `Received` hop.
+
+The 2026-08-14 failure is the reference example. Hostinger accepted the OTP,
+held it for roughly 43 minutes during its official
+[degraded-email incident](https://statuspage.hostinger.com/incidents/zrcqt2jy3pt9),
+then released it; MailChannels and Gmail completed their legs in seconds. The
+correct response was to avoid an ambiguous SMTP resend, wait for the provider
+queue to recover, and run one fresh canary.
+
+Hostinger's own troubleshooting guidance says ordinary messages can take up to
+15 minutes. JeloCare's 90-second OTP requirement is intentionally stricter, so
+Hostinger configuration alone cannot guarantee it. If delayed canaries recur
+outside an acknowledged incident, use a separately approved transactional-auth
+provider with send idempotency and delivery-event telemetry. Do not create an
+automatic cross-provider resend for an already accepted OTP.
+
 ## Troubleshooting map
 
-| Evidence                                           | Meaning                                                            | Next action                                                                       |
-| -------------------------------------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| Health probe is false                              | App configuration is absent or unrecognized                        | Check variable names and scopes; redeploy                                         |
-| Webhook 401                                        | Signature, timestamp, JWKS origin, or raw-body verification failed | Recheck the exact Auth branch and `NEON_AUTH_BASE_URL`; never bypass verification |
-| Webhook 502 with no Hostinger send                 | Provider lookup or acceptance failed                               | Check token type, mailbox scope, sender identity, and generic server error code   |
-| Hostinger Access says incorrect password           | SMTP credential is invalid                                         | Rotate the mailbox/app password and update the secret out of band                 |
-| Hostinger accepts but Outbound stays `Delivering`  | Provider queue has not completed                                   | Do not send SMTP fallback; collect timestamps and escalate to Hostinger           |
-| Same-domain mail is fast but external mail is late | External relay, reputation, or receiving-domain path is failing    | Check SPF/DKIM/DMARC, delivery detail, and provider support                       |
-| Message arrives after ten minutes                  | The authentication journey failed                                  | Treat as incident even if the provider later says delivered                       |
-| Two codes arrive                                   | Retry or manual resend duplicated the event                        | Stop retries and correlate Neon attempt/event IDs with provider timestamps        |
+| Evidence                                           | Meaning                                                            | Next action                                                                                 |
+| -------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| Hostinger status reports degraded email            | Provider-wide queueing may delay otherwise valid mail              | Do not resend the accepted event; record the incident and run a fresh canary after recovery |
+| Health probe is false                              | App configuration is absent or unrecognized                        | Check variable names and scopes; redeploy                                                   |
+| Webhook 401                                        | Signature, timestamp, JWKS origin, or raw-body verification failed | Recheck the exact Auth branch and `NEON_AUTH_BASE_URL`; never bypass verification           |
+| Webhook 502 with no Hostinger send                 | Provider lookup or acceptance failed                               | Check token type, mailbox scope, sender identity, and generic server error code             |
+| Hostinger Access says incorrect password           | SMTP credential is invalid                                         | Rotate the mailbox/app password and update the secret out of band                           |
+| Hostinger accepts but Outbound stays `Delivering`  | Provider queue has not completed                                   | Do not send SMTP fallback; collect timestamps and escalate to Hostinger                     |
+| Same-domain mail is fast but external mail is late | External relay, reputation, or receiving-domain path is failing    | Check SPF/DKIM/DMARC, delivery detail, and provider support                                 |
+| Message arrives after ten minutes                  | The authentication journey failed                                  | Treat as incident even if the provider later says delivered                                 |
+| Two codes arrive                                   | Retry or manual resend duplicated the event                        | Stop retries and correlate Neon attempt/event IDs with provider timestamps                  |
 
 ## Safe rollback
 
@@ -278,4 +312,6 @@ webhook without recording the exact branch, deployment, and canary result.
 - [Hostinger Agentic Mail](https://www.hostinger.com/support/how-to-use-agentic-mail-in-hpanel/)
 - [Hostinger Mail API](https://api.mail.hostinger.com/)
 - [Hostinger delivery logs](https://www.hostinger.com/support/6404796-how-to-check-delivery-logs-for-hostinger-email/)
+- [Hostinger email-service status](https://statuspage.hostinger.com/)
+- [Hostinger delayed-email guidance](https://www.hostinger.com/support/4768099-what-to-do-if-hostinger-emails-are-not-working/)
 - [Hostinger SMTP settings](https://support.hostinger.com/en/articles/1575756-how-to-get-email-account-configuration-details-for-hostinger-email)

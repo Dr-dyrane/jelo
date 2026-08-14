@@ -67,7 +67,7 @@ test('operator access changes are admin-only, guarded, and separately audited', 
   assert.doesNotMatch(signInUrl, /NEXT_PUBLIC_SITE_URL|process\.env|localhost|vercel\.app/);
   assert.match(signInPage, /emailOtp\.sendVerificationOtp/);
   assert.match(signInPage, /signIn\.emailOtp/);
-  assert.match(signInPage, /window\.location\.assign\('\/ops'\)/);
+  assert.match(signInPage, /window\.location\.assign\(["']\/ops["']\)/);
   assert.match(mailer, /operatorInvitationEmail\(\{\s*email: input\.to,/);
   assert.match(templates, /Invited email: \$\{input\.email\}/);
   assert.match(templates, /const email = escapeHtml\(input\.email\)/);

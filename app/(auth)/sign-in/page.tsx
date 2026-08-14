@@ -1,8 +1,13 @@
 'use client';
 
-import { Suspense, type FormEvent, useState } from 'react';
+import { Suspense, type FormEvent, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { authClient } from '@/lib/auth/client';
+import {
+  OTP_RESEND_COOLDOWN_MS,
+  otpResendSeconds,
+  otpSignInErrorMessage,
+} from '@/lib/auth/otp-sign-in';
 import { resolveSignInContinuation, resolveSignInIntent } from '@/lib/auth/sign-in-intent';
 import styles from './sign-in.module.css';
 
@@ -26,26 +31,57 @@ function SignInForm() {
   const [code, setCode] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const [resendAvailableAt, setResendAvailableAt] = useState<number | null>(null);
+  const [resendSeconds, setResendSeconds] = useState(0);
+  const sendInFlight = useRef(false);
+  const verifyInFlight = useRef(false);
 
-  function interpret(err: unknown, fallback: string): string {
-    const status = (err as { status?: number } | null)?.status;
-    if (status === 404) return 'Sign-in is not switched on yet. Try again shortly.';
-    if (status === 429) return 'Too many attempts. Wait a moment, then try again.';
-    return fallback;
-  }
+  useEffect(() => {
+    if (phase !== 'code' || resendAvailableAt === null) return;
+
+    let timeoutId: number | undefined;
+    const updateCountdown = () => {
+      const seconds = otpResendSeconds(resendAvailableAt);
+      setResendSeconds(seconds);
+      if (seconds > 0) timeoutId = window.setTimeout(updateCountdown, 1000);
+    };
+    updateCountdown();
+    return () => {
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
+  }, [phase, resendAvailableAt]);
 
   async function requestCode(): Promise<void> {
+    const normalizedEmail = email.trim();
+    const isResend = phase === 'code';
+    if (!normalizedEmail || sendInFlight.current || verifyInFlight.current) return;
+    if (isResend && resendAvailableAt !== null && Date.now() < resendAvailableAt) return;
+
+    sendInFlight.current = true;
     setBusy(true);
     setError('');
     try {
-      const { error: err } = await authClient.emailOtp.sendVerificationOtp({ email: email.trim(), type: 'sign-in' });
+      const { error: err } = await authClient.emailOtp.sendVerificationOtp({
+        email: normalizedEmail,
+        type: 'sign-in',
+      });
       if (err) throw err;
+      const availableAt = Date.now() + OTP_RESEND_COOLDOWN_MS;
       setCode('');
+      setNotice(
+        isResend
+          ? 'A new code was requested. Use the newest code.'
+          : 'Enter the newest code from your inbox.',
+      );
+      setResendAvailableAt(availableAt);
+      setResendSeconds(otpResendSeconds(availableAt));
       setPhase('code');
     } catch (err) {
       console.error('otp-send', err);
-      setError(interpret(err, 'Could not send the code. Try again in a moment.'));
+      setError(otpSignInErrorMessage(err, 'send'));
     } finally {
+      sendInFlight.current = false;
       setBusy(false);
     }
   }
@@ -53,12 +89,16 @@ function SignInForm() {
   async function verifyCode(event?: FormEvent, targetCode?: string): Promise<void> {
     if (event) event.preventDefault();
     const finalCode = (targetCode ?? code).trim();
-    if (finalCode.length < 6 || busy) return;
+    if (finalCode.length !== 6 || sendInFlight.current || verifyInFlight.current) return;
 
+    verifyInFlight.current = true;
     setBusy(true);
     setError('');
     try {
-      const { error: err } = await authClient.signIn.emailOtp({ email: email.trim(), otp: finalCode });
+      const { error: err } = await authClient.signIn.emailOtp({
+        email: email.trim(),
+        otp: finalCode,
+      });
       if (err) throw err;
       // Full navigation so the destination's verified server-session guard runs.
       if (continuation === '/ops') {
@@ -68,10 +108,16 @@ function SignInForm() {
       window.location.assign(continuation);
     } catch (err) {
       console.error('otp-verify', err);
-      setError(interpret(err, 'That code did not match. Check it and try again.'));
+      setError(otpSignInErrorMessage(err, 'verify'));
+    } finally {
+      verifyInFlight.current = false;
       setBusy(false);
     }
   }
+
+  const codeGuidance = resendSeconds > 0
+    ? notice
+    : 'Nothing yet? Check spam, then request a new code.';
 
   return (
     <main className={styles.shell}>
@@ -93,7 +139,7 @@ function SignInForm() {
               disabled={busy}
             />
             <button type="submit" className={styles.button} disabled={busy || !email.trim()}>
-              {busy ? 'Sending…' : 'Continue'}
+              {busy ? 'Requesting…' : 'Continue'}
             </button>
             {error ? <p role="alert" className={styles.error}>{error}</p> : null}
           </form>
@@ -101,15 +147,24 @@ function SignInForm() {
           <form onSubmit={verifyCode}>
             <h1 className={styles.h1}>Enter your code.</h1>
             <p className={styles.meta}>
-              Sent to {email}
+              Check {email}
               <button
                 type="button"
                 className={styles.link}
-                onClick={() => { setPhase('email'); setCode(''); setError(''); }}
+                onClick={() => {
+                  setPhase('email');
+                  setCode('');
+                  setError('');
+                  setNotice('');
+                  setResendAvailableAt(null);
+                  setResendSeconds(0);
+                }}
+                disabled={busy}
               >
                 Change
               </button>
             </p>
+            <p id="otp-guidance" className={styles.guidance}>{codeGuidance}</p>
             <input
               type="text"
               inputMode="numeric"
@@ -120,21 +175,26 @@ function SignInForm() {
               onChange={event => {
                 const nextVal = event.target.value.replace(/\D/g, '').slice(0, 6);
                 setCode(nextVal);
-                if (nextVal.length === 6 && !busy) {
-                  void verifyCode(undefined, nextVal);
-                }
+                setError('');
+                if (nextVal.length === 6) void verifyCode(undefined, nextVal);
               }}
               placeholder="000000"
               aria-label="Six-digit code"
+              aria-describedby={error ? 'otp-guidance otp-error' : 'otp-guidance'}
               className={`${styles.input} ${styles.otp}`}
               disabled={busy}
             />
             <button type="submit" className={styles.button} disabled={busy || code.length < 6}>
               {busy ? 'Verifying…' : 'Verify'}
             </button>
-            {error ? <p role="alert" className={styles.error}>{error}</p> : null}
-            <button type="button" className={styles.resend} onClick={() => void requestCode()} disabled={busy}>
-              Resend code
+            {error ? <p id="otp-error" role="alert" className={styles.error}>{error}</p> : null}
+            <button
+              type="button"
+              className={styles.resend}
+              onClick={() => void requestCode()}
+              disabled={busy || resendSeconds > 0}
+            >
+              {resendSeconds > 0 ? `Resend in ${resendSeconds}s` : 'Resend code'}
             </button>
           </form>
         )}
@@ -143,7 +203,7 @@ function SignInForm() {
         </p>
       </div>
       <p role="status" aria-live="polite" className={styles.srStatus}>
-        {busy ? 'Working…' : phase === 'code' ? 'Code sent. Enter it to continue.' : ''}
+        {busy ? 'Working…' : phase === 'code' ? codeGuidance : ''}
       </p>
     </main>
   );
