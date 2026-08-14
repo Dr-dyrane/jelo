@@ -1,6 +1,6 @@
 # JeloCare handbook
 
-Updated: 2026-08-08
+Updated: 2026-08-14
 
 This is the entry point for product, engineering, data, and operations.
 
@@ -30,6 +30,7 @@ This is the entry point for product, engineering, data, and operations.
 | Review the current private-member rollout evidence         | [Private member role and rehearsal evidence](./operations/evidence/2026-08-13-private-member-role-and-rehearsal.md) |
 | Plan the bounded Ask Jelo AI lane                          | [Ask Jelo AI Gateway plan](./ai/ASK_JELO_GATEWAY_PLAN.md)                                                           |
 | Configure a local, preview, or production environment      | [Environments](./operations/ENVIRONMENTS.md)                                                                        |
+| Configure and verify JeloCare-branded authentication email | [Custom authentication email](./operations/CUSTOM_AUTH_EMAIL.md)                                                    |
 | Operate the deterministic daily campaign handoff           | [Daily campaigns](./operations/DAILY_CAMPAIGNS.md)                                                                  |
 | Start and test the application                             | [Local development](./operations/LOCAL_DEVELOPMENT.md)                                                              |
 | Commit, deploy, and verify a release                       | [Release process](./operations/RELEASE.md)                                                                          |

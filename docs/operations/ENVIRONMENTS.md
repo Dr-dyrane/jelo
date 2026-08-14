@@ -56,6 +56,19 @@ Ask Jelo is deterministic and currently has no model provider or model-selection
 environment variable. Any future language-only lane requires a separate
 reviewed boundary before a provider credential is added.
 
+### Neon Auth
+
+| Variable                  | Required   | Notes                                                                                             |
+| ------------------------- | ---------- | ------------------------------------------------------------------------------------------------- |
+| `NEON_AUTH_BASE_URL`      | Production | Server-only Managed Better Auth origin; also supplies the webhook JWKS origin                     |
+| `NEON_AUTH_COOKIE_SECRET` | Production | Stable server-only random secret of at least 32 bytes; never copy the Production value to Preview |
+
+Production Auth also requires the email OTP plugin, the trusted domain
+`https://www.jelocare.com`, and localhost disabled. Preview remains
+deny-by-default unless it receives a deliberately provisioned Auth branch,
+separate secrets, and the canary described in
+[Custom authentication email](./CUSTOM_AUTH_EMAIL.md).
+
 ### PostgreSQL
 
 | Variable                      | Required                          | Notes                                                                                                                                                                                                                 |
@@ -161,6 +174,10 @@ provider only after four characters; the UI states this boundary and shows the
 correct attribution next to the field.
 
 ### Email
+
+The end-to-end Hostinger and Neon Auth setup, signed-webhook boundary, rollout
+order, 90-second production canary, and troubleshooting evidence are owned by
+[Custom authentication email](./CUSTOM_AUTH_EMAIL.md).
 
 | Variable                        | Required               | Notes                                                         |
 | ------------------------------- | ---------------------- | ------------------------------------------------------------- |

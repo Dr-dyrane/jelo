@@ -1335,6 +1335,10 @@ Activity outcome totals intentionally retain all product resolution cycles.
 
 ## Retailer application email fails
 
+For initial Hostinger and Neon Auth setup, read
+[Custom authentication email](./CUSTOM_AUTH_EMAIL.md). This runbook starts
+after the signed webhook and provider configuration exist.
+
 1. Confirm the application saved before retrying email.
 2. Check `GET /api/auth-hooks`; `emailDeliveryConfigured` confirms only that a
    recognized provider credential is present. It does not prove authentication,
