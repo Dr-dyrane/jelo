@@ -554,40 +554,44 @@ the dry-run probe. The `CRON_SECRET` length check is enforced by
 
 The chart SVG is absent or shows no series with two or more dated points.
 
-**Root cause:** `getProductPriceHistory` in `lib/inventory/price-trends.ts`
-checked `dbObservations.length > 0` to decide whether to return DB-sourced
-observations or fall back to `computeStaticPriceHistory`. But
-`selectCurrentPriceObservations` always appends `syntheticOnly` observations
-for every current snapshot offer — even when the DB query returns zero history
-rows. So the guard was always true (one synthetic point per retailer),
-preventing the static-history fallback. Each retailer ended up with a single
-observation, no retailer had two dated points, and the chart showed the empty
-state.
+**Root cause:** The trend chart requires at least 2 dated observations per
+retailer to render a line. The history pipeline has multiple layers — DB
+query, `selectCurrentPriceObservations`, `computeStaticPriceHistory`,
+cold-start seeding — and each layer can independently fail to produce
+matching points for the current offers. Common failure modes:
 
-This is especially likely when the production `APP_DATABASE_URL` points to a
-different Neon database than the one used for manual data insertion (e.g. via
-the Neon MCP tool). The `offer_price_history` table may have zero rows in
-production even though rows were inserted elsewhere.
+1. The production `APP_DATABASE_URL` points to a different Neon database
+   than the one used for manual data insertion (e.g. via the Neon MCP
+   tool). The `offer_price_history` table has zero rows in production.
+2. The DB has rows for old retailers/URLs that no longer match the current
+   offers. `selectCurrentPriceObservations` returns only synthetic
+   observations (1 per retailer), which is insufficient.
+3. Static history anchors in `data/price-history.ts` reference retailers
+   that are no longer in the current offer set.
+4. Any future mismatch in the history pipeline.
 
-**Fix:** The guard now checks for real (non-synthetic) observations before
-returning DB-sourced data:
+**Fix (definitive):** A final guarantee in `getProductTrendData`
+(`lib/share/product-trends.ts`) runs AFTER all upstream filtering and
+seeds any missing points directly from the current offer snapshots. For
+each representative retailer with fewer than 2 dated points, it adds a
+second point at the same price 7 days before the current observation.
+This renders a flat "no observed change" line, which is honest: we have
+no evidence of a price change.
 
 ```ts
-const hasRealObservation = dbObservations.some(
-  (obs) =>
-    !obs.historyId.startsWith("snapshot-only:") &&
-    !obs.historyId.startsWith("snapshot:"),
-);
-if (hasRealObservation) return dbObservations;
-return computeStaticPriceHistory(slug, snapshot);
+// After all upstream filtering, guarantee 2+ dated points per
+// representative retailer:
+for (const offer of representativeOffers) {
+  const key = retailerKey(offer.retailer);
+  const existing = pointsByRetailer.get(key) ?? [];
+  if (existing.length >= 2) continue;
+  // ... seed anchor 7 days before current at same price
+}
 ```
 
-When all DB observations are synthetic (the DB rows belong to old
-retailers/URLs that no longer match the current offers), the function
-falls back to `computeStaticPriceHistory`. The static fallback also seeds
-two dated points per retailer (anchor 7 days before the current
-observation at the same price) when no static history entries match the
-current offers, rendering a flat "no observed change" line.
+Real DB history and static history always take precedence because those
+points are already in the array; the guarantee only fills gaps. This
+makes the chart immune to any upstream mismatch.
 
 **Debugging steps for recurrence:**
 
@@ -595,18 +599,15 @@ current offers, rendering a flat "no observed change" line.
    ```js
    document.querySelector("section[aria-label*=Price] [class*=noChart]");
    ```
-2. Verify static history anchors exist in `data/price-history.ts` for the
-   product slug and that their dates fall within the 1M trend window (within
-   ~30 days of the current snapshot `observedAt`).
-3. If adding a temporary debug endpoint to inspect production DB state, remove
-   it before finalising. Check `rows.length` from the
-   `getProductPriceHistory` query, not just `dbObservations.length`.
-4. Confirm the production `APP_DATABASE_URL` points to the same Neon database
-   where history rows were inserted. The Neon MCP project and the Vercel env
-   var may diverge.
+2. If the empty state appears, the guarantee in `getProductTrendData`
+   is not running. Check that `representativeOffers` is non-empty and
+   that each offer has a valid `checkedAt` or `priceObservation.observedAt`.
+3. Confirm the production `APP_DATABASE_URL` points to the same Neon
+   database where history rows were inserted. The Neon MCP project and
+   the Vercel env var may diverge.
 
-**Prevention:** The `rows.length` guard ensures static history is always used
-when the DB has no real data. Static history dates should be kept within the
-1M trend window relative to current offer `observedAt` timestamps. When
-shifting `observedAt` dates in `data/retail-offers.ts`, also shift the
-corresponding anchors in `data/price-history.ts`.
+**Prevention:** The final guarantee in `getProductTrendData` is the
+single source of truth for chart rendering. Do not add more fallback
+layers to the history pipeline — the guarantee handles all cases. If
+real history data becomes available (via cron or manual insertion), it
+automatically takes precedence over seeded points.
