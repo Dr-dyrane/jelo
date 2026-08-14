@@ -72,12 +72,26 @@ subsequently skipped `0045` and applied `0046` with its ledger row.
 The runbook now explicitly forbids splitting a migration into auto-committed
 MCP statements or manually adding a ledger row during normal operation.
 
+## Authenticated member smoke
+
+One isolated production smoke completed through the real email-OTP flow. It
+covered a temporary Shelf add and reload, temporary Routine create/update and
+delete, Shelf export initiation, an explicit dismissal of the clear-Shelf
+confirmation, sign-out, and the signed-out `/me` redirect. The known
+pre-existing Shelf item remained after the clean clear-cancel proof.
+
+The first temporary Shelf removal exposed an application validation defect:
+deterministic catalogue identity UUIDs can contain version and variant nibbles
+outside the RFC 1-5 subset. Commit `517f59d` changed only that input validator,
+and production deployment `dpl_J3AhyZhFTNoKc6XfTAmTNsStKM68` reached READY on
+the public aliases. The same temporary item then removed successfully, stayed
+removed in the server-rendered member state, and produced no new
+`Customer Shelf removal unavailable` runtime log. No launch Shelf item was
+intentionally removed by the smoke; the known pre-existing item was restored
+before the final clean proof and remained present afterward.
+
 ## Remaining production gates
 
-- Complete one isolated, real email-OTP member smoke: sign in, temporary Shelf
-  add/reload/remove, temporary Routine create/update/delete, export, cancel the
-  clear flow, sign out, and verify signed-out recovery. Do not clear the
-  imported launch Shelf.
 - Remove the remaining Vercel owner-capable Neon integration alias, preserve
   the restricted application alias, account for Preview behavior, redeploy,
   and rotate or revoke the former owner credential through a protected channel.
