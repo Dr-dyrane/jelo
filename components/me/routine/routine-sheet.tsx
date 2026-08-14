@@ -14,7 +14,7 @@ import styles from './routine-manager.module.css';
 
 export const OPEN_ROUTINE_BUILDER_EVENT = 'jelocare:open-routine-builder';
 
-type StepDraft = { label: string; instruction: string };
+type StepDraft = { sourceStepId?: string; label: string; instruction: string };
 
 const TIME_PRESETS = [
   { id: 'morning', label: 'Morning' },
@@ -29,14 +29,24 @@ function emptyStep(): StepDraft {
 }
 
 function stepsFromRoutine(routine: CustomerPortalSavedRoutine): StepDraft[] {
-  return routine.steps.map(step => ({ label: step.label, instruction: step.instruction }));
+  return routine.steps.map(step => ({
+    sourceStepId: step.id,
+    label: step.label,
+    instruction: step.instruction,
+  }));
 }
 
 function stepsToSerialized(steps: StepDraft[]): string {
   return serializeCustomerRoutineSteps(
     steps
-      .filter(step => step.label.trim())
-      .map(step => ({ label: step.label.trim(), instruction: step.instruction.trim() })),
+      // Existing steps stay in the payload even when their label is cleared,
+      // so validation fails safely instead of treating an empty edit as delete.
+      .filter(step => step.sourceStepId || step.label.trim())
+      .map(step => ({
+        ...(step.sourceStepId ? { sourceStepId: step.sourceStepId } : {}),
+        label: step.label.trim(),
+        instruction: step.instruction.trim(),
+      })),
   );
 }
 

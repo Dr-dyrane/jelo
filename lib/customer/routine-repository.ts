@@ -5,8 +5,15 @@ import {
   assertCustomerShelfRlsRole,
   getCustomerShelfPostgresClient,
 } from './shelf-database';
-import type { CustomerRoutineInput } from './routine-input';
-import { parseCustomerRoutineInput } from './routine-input';
+import type {
+  CustomerRoutineInput,
+  CustomerRoutineStepWrite,
+} from './routine-input';
+import {
+  bindCustomerRoutineStepReferences,
+  parseCustomerRoutineInput,
+  serializeCustomerRoutineSteps,
+} from './routine-input';
 import { isValidCustomerShelfOwnerSubject } from './shelf-policy';
 
 export type CustomerRoutineOrigin = 'customer' | 'legacy_pages_v1_0';
@@ -70,6 +77,13 @@ type RoutineStepRow = {
   current_product_published: boolean | null;
 };
 
+type RoutineStepReferenceRow = {
+  source_step_id: string;
+  reference_state: CustomerRoutineStepReferenceState;
+  product_identity_version_id: string | null;
+  product_request_id: string | null;
+};
+
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 function requiredOwnerSubject(ownerSubject: string) {
@@ -98,12 +112,18 @@ function requiredRevision(revision: number) {
 }
 
 function requiredInput(input: CustomerRoutineInput) {
-  return parseCustomerRoutineInput(
+  const stepSourceFormat = input.stepSourceFormat ?? 'structured';
+  if (stepSourceFormat !== 'legacy' && stepSourceFormat !== 'structured') {
+    throw new Error('Routine step source format is invalid.');
+  }
+  const parsed = parseCustomerRoutineInput(
     input.name,
-    input.steps.map(step => (
-      step.instruction ? `${step.label} | ${step.instruction}` : step.label
-    )).join('\n'),
+    serializeCustomerRoutineSteps(input.steps),
   );
+  return {
+    ...parsed,
+    stepSourceFormat,
+  };
 }
 
 async function prepareOwnerTransaction(transaction: TransactionSql, owner: string) {
@@ -116,9 +136,9 @@ async function insertCustomerSteps(
   transaction: TransactionSql,
   owner: string,
   routineId: string,
-  input: CustomerRoutineInput,
+  steps: readonly CustomerRoutineStepWrite[],
 ) {
-  for (const [index, step] of input.steps.entries()) {
+  for (const [index, step] of steps.entries()) {
     await transaction`
       insert into public.customer_routine_steps (
         routine_id,
@@ -126,14 +146,18 @@ async function insertCustomerSteps(
         position,
         label,
         instruction,
-        reference_state
+        reference_state,
+        product_identity_version_id,
+        product_request_id
       ) values (
         ${routineId},
         ${owner},
         ${index + 1},
         ${step.label},
         ${step.instruction},
-        'none'
+        ${step.referenceState},
+        ${step.productIdentityVersionId},
+        ${step.productRequestId}
       )
     `;
   }
@@ -300,6 +324,12 @@ export const postgresCustomerRoutineRepository: CustomerRoutineRepository = {
   async create(ownerSubject, unsafeInput) {
     const owner = requiredOwnerSubject(ownerSubject);
     const input = requiredInput(unsafeInput);
+    const steps = bindCustomerRoutineStepReferences(
+      input.steps,
+      [],
+      input.stepSourceFormat,
+    );
+    if (!steps) throw new Error('Routine step sources are unavailable.');
     const sql = getCustomerShelfPostgresClient();
     return sql.begin(async transaction => {
       await prepareOwnerTransaction(transaction, owner);
@@ -309,7 +339,7 @@ export const postgresCustomerRoutineRepository: CustomerRoutineRepository = {
         returning id
       `;
       if (!routine) throw new Error('Routine could not be created.');
-      await insertCustomerSteps(transaction, owner, routine.id, input);
+      await insertCustomerSteps(transaction, owner, routine.id, steps);
       return routine.id;
     });
   },
@@ -322,6 +352,39 @@ export const postgresCustomerRoutineRepository: CustomerRoutineRepository = {
     const sql = getCustomerShelfPostgresClient();
     return sql.begin(async transaction => {
       await prepareOwnerTransaction(transaction, owner);
+      const current = await transaction<{ id: string }[]>`
+        select id
+        from public.customer_routines
+        where owner_subject = ${owner}
+          and id = ${id}
+          and revision = ${revision}
+        for update
+      `;
+      if (!current[0]) return 'conflict';
+
+      const sourceReferences = await transaction<RoutineStepReferenceRow[]>`
+        select
+          step.id as source_step_id,
+          step.reference_state,
+          step.product_identity_version_id,
+          step.product_request_id
+        from public.customer_routine_steps step
+        where step.owner_subject = ${owner}
+          and step.routine_id = ${id}
+        for update
+      `;
+      const steps = bindCustomerRoutineStepReferences(
+        input.steps,
+        sourceReferences.map(reference => ({
+          sourceStepId: reference.source_step_id,
+          referenceState: reference.reference_state,
+          productIdentityVersionId: reference.product_identity_version_id,
+          productRequestId: reference.product_request_id,
+        })),
+        input.stepSourceFormat,
+      );
+      if (!steps) return 'conflict';
+
       const updated = await transaction<{ id: string }[]>`
         update public.customer_routines
         set name = ${input.name},
@@ -338,7 +401,7 @@ export const postgresCustomerRoutineRepository: CustomerRoutineRepository = {
         where owner_subject = ${owner}
           and routine_id = ${id}
       `;
-      await insertCustomerSteps(transaction, owner, id, input);
+      await insertCustomerSteps(transaction, owner, id, steps);
       return 'updated';
     });
   },
