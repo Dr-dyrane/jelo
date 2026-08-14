@@ -132,15 +132,34 @@ export function reconcilePublishedCatalogue(
  * An explicit checked-in release is already bound to a verified dossier and is
  * therefore allowed to appear before its optional database projection exists.
  * Legacy/static products keep the older database-intersection behavior.
+ *
+ * Reference-only releases carry no exact offers in the dossier (by design), so
+ * products that have no Neon projection would appear with zero offers even when
+ * the verified static catalogue has fresh retailer evidence. The optional
+ * `staticProducts` argument lets the caller bridge that gap by merging the
+ * static offers into the dossier-released product when no database projection
+ * supplies them.
  */
 export function mergeDossierReleasedCatalogue(
   reconciledProducts: readonly Product[],
   dossierReleasedProducts: readonly Product[],
   slug?: string,
+  staticProducts?: readonly Product[],
 ) {
   const seen = new Set(reconciledProducts.map((product) => product.slug));
-  const additions = dossierReleasedProducts.filter(
-    (product) => (!slug || product.slug === slug) && !seen.has(product.slug),
-  );
+  const staticBySlug = staticProducts
+    ? new Map(staticProducts.map((product) => [product.slug, product]))
+    : new Map();
+  const additions = dossierReleasedProducts
+    .filter(
+      (product) => (!slug || product.slug === slug) && !seen.has(product.slug),
+    )
+    .map((product) => {
+      const staticProduct = staticBySlug.get(product.slug);
+      if (staticProduct && staticProduct.offers.length > 0) {
+        return { ...product, offers: staticProduct.offers };
+      }
+      return product;
+    });
   return [...reconciledProducts, ...additions];
 }

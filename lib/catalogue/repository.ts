@@ -205,6 +205,7 @@ async function queryProducts(slug?: string) {
     reconcilePublishedCatalogue(rows.map(mapRow), staticProducts),
     publishedIntakeProducts,
     slug,
+    staticProducts,
   );
 }
 
