@@ -17,6 +17,24 @@ release record contains, which fixtures move — read the last product commit
 `lib/catalogue/*.ts`, and it shows what the lane actually permits rather than
 what a validator merely allows.
 
+## Applying database migrations
+
+The local environment does **not** carry `MIGRATION_DATABASE_URL`, so
+`npm run db:migrate` will fail locally. Apply migrations to production Neon
+through the **Neon MCP server** (`devin/mcp-server-neon`):
+
+1. The JeloCare production project is `spring-field-93817903` (named `JeloCare`,
+   under the Vercel-managed org `org-tiny-silence-96254522`).
+2. Use `run_sql` to apply each `CREATE TABLE` / `CREATE INDEX` / `REVOKE` /
+   `GRANT` statement individually — `run_sql` auto-commits each call, so do not
+   pass `begin` or `commit` as separate statements.
+3. Verify the new table via `information_schema.columns`.
+4. Record the ledger row so the local runner skips it later:
+   `INSERT INTO schema_migrations (filename, applied_at) VALUES (...);`
+
+Full details in [Neon and data operations](./docs/data/NEON.md#applying-migrations-via-neon-mcp-when-migration_database_url-is-not-available-locally).
+Apply migrations **before** deploying code that depends on the new schema.
+
 ## Continuous product loop
 
 Product work is a continuous release loop, not a one-product consultation.
