@@ -60,7 +60,10 @@ test("a fifth product stays on the current store and announces the basket limit"
   assert.match(action, /if \(outcome === "product_limit_reached"\)/);
   const limitBranch = action.slice(
     action.indexOf('if (outcome === "product_limit_reached")'),
-    action.indexOf('localStorage.setItem', action.indexOf('if (outcome === "product_limit_reached")')),
+    action.indexOf(
+      "localStorage.setItem",
+      action.indexOf('if (outcome === "product_limit_reached")'),
+    ),
   );
   assert.match(limitBranch, /return;/);
   assert.doesNotMatch(limitBranch, /router\.push|setItem/);
@@ -97,9 +100,9 @@ test("basket and checkout require customer re-selection when a stored retailer l
     "utf8",
   );
   assert.match(source, /Choose a new retailer\./);
-  assert.match(source, /will not switch stores without you/);
+  assert.match(source, /no longer has every item in stock/);
   assert.match(source, /disabled=\{!option\.allInStock\}/);
-  assert.match(source, /selected retailer must still list every exact item in stock/);
+  assert.match(source, /retailer must still list every item in stock/);
   assert.match(source, /disabled=\{!chosen \|\| !chosen\.allInStock\}/);
 });
 
