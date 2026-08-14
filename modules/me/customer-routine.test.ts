@@ -4,6 +4,7 @@ import test from "node:test";
 import type { CustomerAccessIdentity } from "../../lib/customer/access-policy";
 import { LEGACY_SHELF_IMPORT_MANIFEST } from "../../lib/customer/legacy-shelf-import-manifest";
 import {
+  bindCustomerRoutineStepReferences,
   parseCustomerRoutineInput,
   serializeCustomerRoutineSteps,
   type CustomerRoutineInput,
@@ -106,15 +107,17 @@ test("routine inputs normalize bounded line-based steps", () => {
   );
   assert.deepEqual(parsed, {
     name: "Morning",
+    stepSourceFormat: "legacy",
     steps: [
       { label: "Cleanse", instruction: "Brief, gentle cleanse." },
       { label: "Moisturize", instruction: "Light hydration." },
     ],
   });
-  assert.equal(
-    serializeCustomerRoutineSteps(parsed.steps),
-    "Cleanse | Brief, gentle cleanse.\nMoisturize | Light hydration.",
-  );
+  const serialized = serializeCustomerRoutineSteps(parsed.steps);
+  assert.deepEqual(parseCustomerRoutineInput("Morning", serialized), {
+    ...parsed,
+    stepSourceFormat: "structured",
+  });
   assert.throws(() => parseCustomerRoutineInput("", "Cleanse"));
   assert.throws(() => parseCustomerRoutineInput("Routine", ""));
   assert.throws(() =>
@@ -122,6 +125,159 @@ test("routine inputs normalize bounded line-based steps", () => {
       "Routine",
       Array.from({ length: 21 }, () => "Step").join("\n"),
     ),
+  );
+});
+
+test("structured routine inputs round-trip bounded source step IDs and reject ambiguity", () => {
+  const sourceStepId = "11111111-1111-4111-8111-111111111111";
+  const serialized = serializeCustomerRoutineSteps([
+    { sourceStepId, label: "  Cleanse  ", instruction: "  Gently.  " },
+    { label: "Moisturize", instruction: "" },
+  ]);
+  assert.deepEqual(parseCustomerRoutineInput("Morning", serialized), {
+    name: "Morning",
+    stepSourceFormat: "structured",
+    steps: [
+      { sourceStepId, label: "Cleanse", instruction: "Gently." },
+      { label: "Moisturize", instruction: "" },
+    ],
+  });
+
+  assert.throws(() => parseCustomerRoutineInput("Morning", JSON.stringify([
+    { sourceStepId, label: "Cleanse", instruction: "" },
+    { sourceStepId: sourceStepId.toUpperCase(), label: "Repeat", instruction: "" },
+  ])));
+  assert.throws(() => parseCustomerRoutineInput("Morning", JSON.stringify([
+    { sourceStepId: "not-a-uuid", label: "Cleanse", instruction: "" },
+  ])));
+  assert.throws(() => parseCustomerRoutineInput("Morning", JSON.stringify([
+    { sourceStepId, label: "Cleanse", instruction: "", ownerSubject: "other" },
+  ])));
+  assert.throws(() => parseCustomerRoutineInput("Morning", "[" + " ".repeat(16_384)));
+});
+
+test("authoritative Routine references survive edits while new steps remain unreferenced", () => {
+  const catalogueStepId = "11111111-1111-4111-8111-111111111111";
+  const requestStepId = "22222222-2222-4222-8222-222222222222";
+  const unresolvedStepId = "33333333-3333-4333-8333-333333333333";
+  const productIdentityVersionId = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
+  const productRequestId = "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb";
+  const input = parseCustomerRoutineInput("Morning", serializeCustomerRoutineSteps([
+    { sourceStepId: requestStepId, label: "Pending product", instruction: "Second" },
+    { sourceStepId: catalogueStepId, label: "Exact product", instruction: "First" },
+    { sourceStepId: unresolvedStepId, label: "Reviewed text", instruction: "Third" },
+    { label: "New plain step", instruction: "Fourth" },
+  ]));
+  const references = [
+    {
+      sourceStepId: catalogueStepId,
+      referenceState: "catalogue" as const,
+      productIdentityVersionId,
+      productRequestId: null,
+    },
+    {
+      sourceStepId: requestStepId,
+      referenceState: "product_request" as const,
+      productIdentityVersionId: null,
+      productRequestId,
+    },
+    {
+      sourceStepId: unresolvedStepId,
+      referenceState: "unresolved" as const,
+      productIdentityVersionId: null,
+      productRequestId: null,
+    },
+  ];
+
+  assert.deepEqual(
+    bindCustomerRoutineStepReferences(
+      input.steps,
+      references,
+      input.stepSourceFormat,
+    ),
+    [
+      {
+        sourceStepId: requestStepId,
+        label: "Pending product",
+        instruction: "Second",
+        referenceState: "product_request",
+        productIdentityVersionId: null,
+        productRequestId,
+      },
+      {
+        sourceStepId: catalogueStepId,
+        label: "Exact product",
+        instruction: "First",
+        referenceState: "catalogue",
+        productIdentityVersionId,
+        productRequestId: null,
+      },
+      {
+        sourceStepId: unresolvedStepId,
+        label: "Reviewed text",
+        instruction: "Third",
+        referenceState: "unresolved",
+        productIdentityVersionId: null,
+        productRequestId: null,
+      },
+      {
+        label: "New plain step",
+        instruction: "Fourth",
+        referenceState: "none",
+        productIdentityVersionId: null,
+        productRequestId: null,
+      },
+    ],
+  );
+
+  const foreignStep = parseCustomerRoutineInput("Morning", serializeCustomerRoutineSteps([
+    { sourceStepId: "44444444-4444-4444-8444-444444444444", label: "Foreign", instruction: "" },
+  ]));
+  assert.equal(
+    bindCustomerRoutineStepReferences(
+      foreignStep.steps,
+      references,
+      foreignStep.stepSourceFormat,
+    ),
+    null,
+  );
+});
+
+test("legacy Routine updates cannot erase stored references but structured replacement remains explicit", () => {
+  const sourceStepId = "11111111-1111-4111-8111-111111111111";
+  const references = [{
+    sourceStepId,
+    referenceState: "catalogue" as const,
+    productIdentityVersionId: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+    productRequestId: null,
+  }];
+  const legacy = parseCustomerRoutineInput("Morning", "Cleanse | Gently.");
+  assert.equal(
+    bindCustomerRoutineStepReferences(
+      legacy.steps,
+      references,
+      legacy.stepSourceFormat,
+    ),
+    null,
+  );
+
+  const structured = parseCustomerRoutineInput(
+    "Morning",
+    serializeCustomerRoutineSteps([{ label: "Replacement", instruction: "" }]),
+  );
+  assert.deepEqual(
+    bindCustomerRoutineStepReferences(
+      structured.steps,
+      references,
+      structured.stepSourceFormat,
+    ),
+    [{
+      label: "Replacement",
+      instruction: "",
+      referenceState: "none",
+      productIdentityVersionId: null,
+      productRequestId: null,
+    }],
   );
 });
 
@@ -284,4 +440,36 @@ test("routine actions derive the owner and the importer commits receipt counts a
     importer,
     /console\.(?:log|error)\([^\n]*(?:ownerSubject|routineId|stepId)/,
   );
+});
+
+test("Routine edits bind source steps inside the exact owner transaction before rewriting", () => {
+  const actions = readFileSync("app/(customer)/me/actions.ts", "utf8");
+  const sheet = readFileSync("components/me/routine/routine-sheet.tsx", "utf8");
+  const repository = readFileSync("lib/customer/routine-repository.ts", "utf8");
+
+  assert.match(sheet, /sourceStepId: step\.id/);
+  assert.match(sheet, /step\.sourceStepId \? \{ sourceStepId: step\.sourceStepId \}/);
+  assert.match(sheet, /\.filter\(step => step\.sourceStepId \|\| step\.label\.trim\(\)\)/);
+  assert.match(actions, /formData\.get\(["']steps["']\)/);
+  assert.match(
+    repository,
+    /select id[\s\S]*where owner_subject = \$\{owner\}[\s\S]*and id = \$\{id\}[\s\S]*and revision = \$\{revision\}[\s\S]*for update/,
+  );
+  assert.match(
+    repository,
+    /step\.id as source_step_id[\s\S]*step\.owner_subject = \$\{owner\}[\s\S]*step\.routine_id = \$\{id\}[\s\S]*for update/,
+  );
+  assert.match(repository, /if \(!steps\) return ['"]conflict['"]/);
+  assert.match(repository, /\$\{step\.referenceState\}/);
+  assert.match(repository, /\$\{step\.productIdentityVersionId\}/);
+  assert.match(repository, /\$\{step\.productRequestId\}/);
+  assert.doesNotMatch(repository, /\$\{step\.instruction\},\s*['"]none['"]/);
+
+  const routineLock = repository.indexOf("select id\n        from public.customer_routines");
+  const referenceLock = repository.indexOf("step.id as source_step_id");
+  const routineUpdate = repository.indexOf("update public.customer_routines");
+  const stepDelete = repository.indexOf("delete from public.customer_routine_steps");
+  assert.ok(routineLock !== -1 && routineLock < referenceLock);
+  assert.ok(referenceLock < routineUpdate);
+  assert.ok(routineUpdate < stepDelete);
 });
