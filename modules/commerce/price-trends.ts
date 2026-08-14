@@ -449,8 +449,15 @@ function movementForWindow(
   days: 7 | 30,
   asOf: Date,
 ): PriceMovement | null {
-  const cutoff = asOf.getTime() - days * 86_400_000;
-  const toleranceDays = days === 7 ? 7 : 15;
+  // The 7-day window looks for anchors 7-14 days before `asOf`.
+  // The 30-day window looks for anchors 14-45 days before `asOf`.
+  // The 30-day cutoff is set to 14 days (not 30) so there is no gap
+  // between the two windows — any anchor older than 7 days is eligible
+  // for a 30-day comparison. This prevents movements from disappearing
+  // when anchors fall in the previous 16-day gap between 14 and 30 days.
+  const cutoffDays = days === 7 ? 7 : 14;
+  const toleranceDays = days === 7 ? 7 : 31;
+  const cutoff = asOf.getTime() - cutoffDays * 86_400_000;
   const oldestAnchor = cutoff - toleranceDays * 86_400_000;
   const freshestCurrent = asOf.getTime() - 8 * 86_400_000;
   const grouped = new Map<string, PriceObservation[]>();
