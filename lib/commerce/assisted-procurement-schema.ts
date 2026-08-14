@@ -43,7 +43,7 @@ export type CreateAssistedOrderInput = z.infer<
   typeof createAssistedOrderSchema
 >;
 
-const moneyComponent = z.number().int().min(0).max(100_000_000);
+const moneyComponent = z.number().min(0).max(100_000_000);
 
 export const submitAssistedQuoteSchema = z.object({
   orderId: z.uuid(),
@@ -57,7 +57,7 @@ export const submitAssistedQuoteSchema = z.object({
   notes: z.string().trim().max(1000).optional().default(""),
   expiresAt: z.iso.datetime(),
   serviceFeePolicyId: z.uuid().nullable().optional(),
-  serviceFeePolicyResolvedNgn: z.number().int().min(0).nullable().optional(),
+  serviceFeePolicyResolvedNgn: z.number().min(0).nullable().optional(),
 });
 
 export const customerQuoteDecisionSchema = z.object({

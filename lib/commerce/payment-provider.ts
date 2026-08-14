@@ -51,7 +51,7 @@ export async function initializePaystackTransaction(input: {
   if (!key) throw new Error("Paystack is not configured.");
 
   const reference = `JC-${input.orderReference.replace(/^JC-/, "")}-${Date.now()}`;
-  const amountKobo = input.amountNgn * 100;
+  const amountKobo = Math.round(input.amountNgn * 100);
 
   const response = await fetch(`${PAYSTACK_BASE_URL}/transaction/initialize`, {
     method: "POST",

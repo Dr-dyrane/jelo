@@ -85,7 +85,7 @@ export async function handlePaystackWebhookEvent(input: {
   const verification = await verifyPaystackTransaction(input.reference);
 
   if (verification.status === "success") {
-    const amountNgn = Math.round(verification.amountKobo / 100);
+    const amountNgn = verification.amountKobo / 100;
     const verified = await verifyPaymentAndMarkOrderPaid({
       paymentId: payment.id,
       evidenceReference: `paystack:${verification.reference}:${verification.paidAt ?? ""}`,

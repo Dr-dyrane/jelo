@@ -20,10 +20,10 @@ const policySchema = z.object({
   retailerSlug: z.string().trim().max(120).nullable().optional(),
   deliveryState: z.string().trim().max(60).nullable().optional(),
   feeModel: feeModelEnum,
-  flatFeeNgn: z.number().int().min(0).nullable().optional(),
+  flatFeeNgn: z.number().min(0).nullable().optional(),
   percentageRate: z.number().min(0).max(100).nullable().optional(),
-  minFeeNgn: z.number().int().min(0).nullable().optional(),
-  maxFeeNgn: z.number().int().min(0).nullable().optional(),
+  minFeeNgn: z.number().min(0).nullable().optional(),
+  maxFeeNgn: z.number().min(0).nullable().optional(),
   priority: z.number().int().min(0).max(1000).default(0),
   notes: z.string().trim().max(1000).nullable().optional(),
 });

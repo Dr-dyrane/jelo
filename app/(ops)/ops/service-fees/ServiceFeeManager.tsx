@@ -260,7 +260,8 @@ function PolicyForm({
           <input
             type="number"
             min="0"
-            inputMode="numeric"
+            step="0.01"
+            inputMode="decimal"
             value={form.flatFeeNgn}
             onChange={(e) => setForm({ ...form, flatFeeNgn: e.target.value })}
             placeholder="e.g. 1000"
@@ -293,7 +294,8 @@ function PolicyForm({
                 <input
                   type="number"
                   min="0"
-                  inputMode="numeric"
+                  step="0.01"
+                  inputMode="decimal"
                   value={form.minFeeNgn}
                   onChange={(e) =>
                     setForm({ ...form, minFeeNgn: e.target.value })
@@ -307,7 +309,8 @@ function PolicyForm({
                 <input
                   type="number"
                   min="0"
-                  inputMode="numeric"
+                  step="0.01"
+                  inputMode="decimal"
                   value={form.maxFeeNgn}
                   onChange={(e) =>
                     setForm({ ...form, maxFeeNgn: e.target.value })

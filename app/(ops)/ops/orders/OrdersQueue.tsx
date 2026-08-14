@@ -872,7 +872,7 @@ function QuoteForm({
   const canContinue =
     step < questions.length
       ? draft[questions[step].key] !== "" &&
-        Number.isInteger(Number(draft[questions[step].key])) &&
+        Number.isFinite(Number(draft[questions[step].key])) &&
         Number(draft[questions[step].key]) >= 0
       : step === questions.length
         ? draft.evidenceReference.trim().length >= 8
@@ -944,9 +944,10 @@ function QuoteForm({
                 <small>{question.hint}</small>
                 <input
                   autoFocus
-                  inputMode="numeric"
+                  inputMode="decimal"
                   type="number"
                   min="0"
+                  step="0.01"
                   placeholder={question.placeholder}
                   value={draft[question.key]}
                   onChange={(event) => {
