@@ -235,8 +235,8 @@ const listCatalogueProductsCached = unstable_cache(
       return await neonRepository.listPublished();
     } catch (error) {
       console.error(
-        "Neon catalogue unavailable; using verified static fallback.",
-        error,
+        "catalogue_neon_fallback: listPublished — using verified static fallback.",
+        error instanceof Error ? error.message : "unknown",
       );
       return staticRepository.listPublished();
     }
@@ -258,8 +258,8 @@ async function listCatalogueProductsUncached() {
     return await neonRepository.listPublished();
   } catch (error) {
     console.error(
-      "Neon catalogue unavailable; using verified static fallback.",
-      error,
+      "catalogue_neon_fallback: listPublished — using verified static fallback.",
+      error instanceof Error ? error.message : "unknown",
     );
     return staticRepository.listPublished();
   }
@@ -286,8 +286,8 @@ const findCatalogueProductCached = unstable_cache(
       return await neonRepository.findBySlug(slug);
     } catch (error) {
       console.error(
-        "Neon product lookup unavailable; using verified static fallback.",
-        error,
+        `catalogue_neon_fallback: findBySlug(${slug}) — using verified static fallback.`,
+        error instanceof Error ? error.message : "unknown",
       );
       return staticRepository.findBySlug(slug);
     }
@@ -307,8 +307,8 @@ async function findCatalogueProductUncached(slug: string) {
     return await neonRepository.findBySlug(slug);
   } catch (error) {
     console.error(
-      "Neon product lookup unavailable; using verified static fallback.",
-      error,
+      `catalogue_neon_fallback: findBySlug(${slug}) — using verified static fallback.`,
+      error instanceof Error ? error.message : "unknown",
     );
     return staticRepository.findBySlug(slug);
   }

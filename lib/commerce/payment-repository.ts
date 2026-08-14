@@ -904,3 +904,31 @@ export async function recordPaymentReviewRequired(
     return updated ? mapPaymentRow(updated) : null;
   });
 }
+
+/**
+ * Marks pending Paystack payment attempts as "abandoned" when they have been
+ * stuck in pending status for longer than the staleness threshold (default 24
+ * hours). This prevents stale reservations from accumulating when customers
+ * abandon the payment flow without completing it.
+ *
+ * The reservation system handles short-lived staleness (2-minute grace period)
+ * when the customer returns to retry. This cleanup handles the long tail of
+ * customers who never return, keeping the payment table clean and ensuring
+ * operators don't see stale pending payments in their dashboards.
+ *
+ * Returns the number of payments marked as abandoned.
+ */
+export async function abandonStalePendingPayments(
+  stalenessHours = 24,
+): Promise<number> {
+  const sql = getPostgresClient();
+  const rows = await sql<{ id: string }[]>`
+    update assisted_order_payments
+    set status = 'abandoned', updated_at = now()
+    where status = 'pending'
+      and provider = 'paystack'
+      and created_at < now() - (${stalenessHours} * interval '1 hour')
+    returning id
+  `;
+  return rows.length;
+}

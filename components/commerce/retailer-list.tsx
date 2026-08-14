@@ -32,6 +32,7 @@ import {
   observedDeliveryFee,
   observedStockLabel,
   observedMarketPrice,
+  observedMarketPriceForTrends,
 } from "@/modules/commerce/offer-evidence";
 import type {
   PriceMovement,
@@ -210,7 +211,9 @@ export function RetailerList({
 
   function renderOfferRow(offer: Offer, index: number) {
     const fresh = isOfferFresh(offer);
-    const price = observedMarketPrice(offer, market);
+    const price = fresh
+      ? observedMarketPrice(offer, market)
+      : observedMarketPriceForTrends(offer, market);
     const checked = shortDate(
       offer.priceObservation?.observedAt ??
         offer.listingEvidence?.observedAt ??

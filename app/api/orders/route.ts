@@ -70,6 +70,24 @@ export async function POST(request: NextRequest) {
         console.log(
           `Order verification ${created.order.reference}: ${summary.verifiedCount}/${summary.lineCount} lines verified, ${summary.failedCount} need manual.`,
         );
+        // When every line fails automated verification, re-alert operators
+        // so the order doesn't sit silently in "requested" waiting for manual
+        // intervention. The initial alert tells them a new order arrived;
+        // this re-delivery signals that automated price/stock checks could
+        // not confirm any line and manual quoting is required.
+        if (summary.lineCount > 0 && summary.verifiedCount === 0) {
+          console.warn(
+            `Order ${created.order.reference}: all ${summary.lineCount} lines failed automated verification. Manual quoting required.`,
+          );
+          await deliverAssistedOrderOperatorAlerts({
+            orderId: created.order.id,
+          }).catch((error) => {
+            console.error(
+              "Operator re-alert for verification failure could not be delivered.",
+              error instanceof Error ? error.message : "unknown",
+            );
+          });
+        }
       } catch (error) {
         console.error(
           "Order verification failed.",

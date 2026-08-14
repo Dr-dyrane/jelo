@@ -1,8 +1,12 @@
-import type { Market } from '@/data/prices';
-import type { Offer } from '@/data/products';
-import { buildMarketReading, type MarketReading } from './market-reading';
-import { isOfferFresh } from './offer-freshness';
-import { comparableMarketPrice, hasListingEvidence } from './offer-evidence';
+import type { Market } from "@/data/prices";
+import type { Offer } from "@/data/products";
+import { buildMarketReading, type MarketReading } from "./market-reading";
+import { isOfferFresh } from "./offer-freshness";
+import {
+  comparableMarketPrice,
+  comparableMarketPriceForTrends,
+  hasListingEvidence,
+} from "./offer-evidence";
 
 /**
  * Normalized retailer identity key: trim + case-fold.
@@ -58,22 +62,29 @@ export type ProductMarketSnapshot = {
 };
 
 function servesMarket(offer: Offer, market: Market) {
-  return offer.location.includes(market) || offer.location.includes('INTL');
+  return offer.location.includes(market) || offer.location.includes("INTL");
 }
 
 function median(values: number[], market: Market): number | null {
   if (!values.length) return null;
   const mid = Math.floor(values.length / 2);
-  const value = values.length % 2 ? values[mid] : (values[mid - 1] + values[mid]) / 2;
-  return market === 'NG' ? Math.round(value) : Number(value.toFixed(2));
+  const value =
+    values.length % 2 ? values[mid] : (values[mid - 1] + values[mid]) / 2;
+  return market === "NG" ? Math.round(value) : Number(value.toFixed(2));
 }
 
-function buildPanelExtras(offers: readonly Offer[], market: Market, now: number | Date): MarketPanelExtras {
-  const exact = offers.filter(offer =>
-    offer.match !== 'search'
-    && servesMarket(offer, market)
-    && hasListingEvidence(offer)
-    && isOfferFresh(offer, now),
+function buildPanelExtras(
+  offers: readonly Offer[],
+  market: Market,
+  now: number | Date,
+  requireFresh = true,
+): MarketPanelExtras {
+  const exact = offers.filter(
+    (offer) =>
+      offer.match !== "search" &&
+      servesMarket(offer, market) &&
+      hasListingEvidence(offer) &&
+      (!requireFresh || isOfferFresh(offer, now)),
   );
 
   // Group by normalized retailer identity. For each retailer, select the
@@ -82,26 +93,37 @@ function buildPanelExtras(offers: readonly Offer[], market: Market, now: number 
   const byRetailer = new Map<string, { offer: Offer; price: number | null }>();
   for (const offer of exact) {
     const key = retailerKey(offer);
-    const price = offer.available ? comparableMarketPrice(offer, market, now) : null;
+    const price = offer.available
+      ? requireFresh
+        ? comparableMarketPrice(offer, market, now)
+        : comparableMarketPriceForTrends(offer, market)
+      : null;
     const existing = byRetailer.get(key);
-    if (!existing || (price != null && (existing.price == null || price < existing.price))) {
+    if (
+      !existing ||
+      (price != null && (existing.price == null || price < existing.price))
+    ) {
       byRetailer.set(key, { offer, price });
     }
   }
 
-  const uniquePricedStores = [...byRetailer.values()].filter(entry => entry.price != null);
+  const uniquePricedStores = [...byRetailer.values()].filter(
+    (entry) => entry.price != null,
+  );
   const priced = uniquePricedStores
-    .map(entry => entry.price as number)
+    .map((entry) => entry.price as number)
     .sort((a, b) => a - b);
 
   const lowestPrice = priced[0] ?? null;
-  const highestPrice = priced.length > 1 ? priced[priced.length - 1] ?? null : null;
+  const highestPrice =
+    priced.length > 1 ? (priced[priced.length - 1] ?? null) : null;
   const typicalPrice = priced.length > 1 ? median(priced, market) : null;
-  const savings = lowestPrice != null && highestPrice != null && highestPrice > lowestPrice
-    ? market === 'NG'
-      ? Math.round(highestPrice - lowestPrice)
-      : Number((highestPrice - lowestPrice).toFixed(2))
-    : null;
+  const savings =
+    lowestPrice != null && highestPrice != null && highestPrice > lowestPrice
+      ? market === "NG"
+        ? Math.round(highestPrice - lowestPrice)
+        : Number((highestPrice - lowestPrice).toFixed(2))
+      : null;
 
   const uniqueListingStoreCount = byRetailer.size;
   const uniquePricedStoreCount = priced.length;
@@ -109,10 +131,19 @@ function buildPanelExtras(offers: readonly Offer[], market: Market, now: number 
   const averageTrust = exact.length
     ? exact.reduce((total, offer) => total + offer.trust, 0) / exact.length
     : 0;
-  const priceCoverage = uniqueListingStoreCount ? uniquePricedStoreCount / uniqueListingStoreCount : 0;
-  const checkedCount = exact.filter(o => o.priceObservation?.observedAt ?? o.listingEvidence?.observedAt).length;
+  const priceCoverage = uniqueListingStoreCount
+    ? uniquePricedStoreCount / uniqueListingStoreCount
+    : 0;
+  const checkedCount = exact.filter(
+    (o) => o.priceObservation?.observedAt ?? o.listingEvidence?.observedAt,
+  ).length;
   const checkCoverage = exact.length ? checkedCount / exact.length : 0;
-  const confidence = Math.min(Math.round(priceCoverage * 50 + checkCoverage * 25 + (averageTrust / 100) * 25), 100);
+  const confidence = Math.min(
+    Math.round(
+      priceCoverage * 50 + checkCoverage * 25 + (averageTrust / 100) * 25,
+    ),
+    100,
+  );
 
   return {
     lowestPrice,
@@ -132,19 +163,25 @@ function buildPanelExtras(offers: readonly Offer[], market: Market, now: number 
  * state) derive from the same `buildMarketReading` foundation with one
  * injected `now`. Panel extras (median, savings, coverage) are additional
  * facts that do not contradict the reading.
+ *
+ * When `requireFresh` is false, stale-but-evidence-backed offers are
+ * included. This is used for product panel display where showing a stale
+ * observed price with a "Checked 14 Jul" label is more useful than
+ * hiding all pricing information.
  */
 export function buildProductMarketSnapshot(
   offers: readonly Offer[],
   now: number | Date = Date.now(),
+  requireFresh = true,
 ): ProductMarketSnapshot {
   return {
     NG: {
-      reading: buildMarketReading(offers, 'NG', now),
-      extras: buildPanelExtras(offers, 'NG', now),
+      reading: buildMarketReading(offers, "NG", now, requireFresh),
+      extras: buildPanelExtras(offers, "NG", now, requireFresh),
     },
     US: {
-      reading: buildMarketReading(offers, 'US', now),
-      extras: buildPanelExtras(offers, 'US', now),
+      reading: buildMarketReading(offers, "US", now, requireFresh),
+      extras: buildPanelExtras(offers, "US", now, requireFresh),
     },
   };
 }

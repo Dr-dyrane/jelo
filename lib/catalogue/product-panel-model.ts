@@ -86,7 +86,7 @@ export async function readProductPanelData(
     productSlug: product.slug,
     productName: product.name,
     offers: product.offers,
-    marketSnapshot: buildProductMarketSnapshot(product.offers, now),
+    marketSnapshot: buildProductMarketSnapshot(product.offers, now, false),
     priceTrends,
     careNote,
     usage: product.usage,

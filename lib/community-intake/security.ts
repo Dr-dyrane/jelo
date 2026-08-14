@@ -76,15 +76,31 @@ function networkKey(request: NextRequest) {
   return createHmac("sha256", secret).update(address).digest("hex");
 }
 
+export type CommunityRateLimitResult = {
+  allowed: boolean;
+  /** Seconds until the rate limit resets, when known. */
+  retryAfterSeconds: number | null;
+};
+
 export async function allowCommunityAction(
   request: NextRequest,
   action: CommunityAction,
   draftId?: string,
-) {
+): Promise<CommunityRateLimitResult> {
   const limiter = limiterFor(action);
-  if (!limiter) return process.env.NODE_ENV !== "production";
+  if (!limiter) {
+    // No Redis configured — allow in development, deny in production.
+    return {
+      allowed: process.env.NODE_ENV !== "production",
+      retryAfterSeconds: null,
+    };
+  }
   const result = await limiter.limit(
     `${networkKey(request)}${draftId ? `:${draftId}` : ""}`,
   );
-  return result.success;
+  // Upstash provides `reset` as milliseconds since epoch; convert to seconds.
+  const retryAfterSeconds = result.reset
+    ? Math.max(1, Math.ceil((result.reset - Date.now()) / 1000))
+    : null;
+  return { allowed: result.success, retryAfterSeconds };
 }

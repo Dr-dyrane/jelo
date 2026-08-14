@@ -1,7 +1,11 @@
 import type { Market } from "@/data/prices";
 import type { Offer } from "@/data/products";
 import { isOfferFresh } from "./offer-freshness";
-import { comparableMarketPrice, hasListingEvidence } from "./offer-evidence";
+import {
+  comparableMarketPrice,
+  comparableMarketPriceForTrends,
+  hasListingEvidence,
+} from "./offer-evidence";
 
 /**
  * Discriminated union market reading for one product.
@@ -87,33 +91,49 @@ function servesMarket(offer: Offer, market: Market) {
  * The single eligible set: exact match, serving the market, fresh,
  * with listing evidence present. This is the foundation for every
  * market-reading field — priced and listing-only both derive from it.
+ *
+ * When `requireFresh` is false, the freshness gate is skipped. This is used
+ * for product panel display where stale-but-evidence-backed offers should
+ * still show their last observed price with a "Check stock" label, rather
+ * than hiding all pricing information. The freshness label still reflects
+ * the actual observation date so shoppers know the price may not be current.
  */
 function eligibleListingOffers(
   offers: readonly Offer[],
   market: Market,
   now: number | Date,
+  requireFresh = true,
 ): readonly Offer[] {
   return offers.filter(
     (offer) =>
       offer.match !== "search" &&
       servesMarket(offer, market) &&
       hasListingEvidence(offer) &&
-      isOfferFresh(offer, now),
+      (!requireFresh || isOfferFresh(offer, now)),
   );
 }
 
 /**
  * The priced subset: eligible listing offers that are in stock
  * and have a comparable current price for the market.
+ *
+ * When `requireFresh` is false, uses `comparableMarketPriceForTrends` which
+ * does not require freshness — the price is still real and evidence-backed,
+ * just not guaranteed to be currently actionable.
  */
 function eligiblePricedOffers(
   offers: readonly Offer[],
   market: Market,
   now: number | Date,
+  requireFresh = true,
 ): readonly Offer[] {
-  return eligibleListingOffers(offers, market, now)
+  return eligibleListingOffers(offers, market, now, requireFresh)
     .filter((offer) => offer.available)
-    .filter((offer) => comparableMarketPrice(offer, market, now) != null);
+    .filter((offer) =>
+      requireFresh
+        ? comparableMarketPrice(offer, market, now) != null
+        : comparableMarketPriceForTrends(offer, market) != null,
+    );
 }
 
 /**
@@ -189,19 +209,35 @@ export function freshnessLabelFor(
  *
  * Price, store count, freshness, and basis all derive from the same
  * filtered offers. The caller injects `now` for deterministic tests.
+ *
+ * When `requireFresh` is false, stale-but-evidence-backed offers are
+ * included. The freshness label still reflects the actual observation
+ * date, so shoppers can see when the price was last verified. This is
+ * used for product panel display where showing a stale price with
+ * "Checked 14 Jul" is more useful than hiding all pricing.
  */
 export function buildMarketReading(
   offers: readonly Offer[],
   market: Market,
   now: number | Date = Date.now(),
+  requireFresh = true,
 ): MarketReading {
-  const listingOffers = eligibleListingOffers(offers, market, now);
-  const pricedOffers = eligiblePricedOffers(offers, market, now);
+  const listingOffers = eligibleListingOffers(
+    offers,
+    market,
+    now,
+    requireFresh,
+  );
+  const pricedOffers = eligiblePricedOffers(offers, market, now, requireFresh);
 
   if (pricedOffers.length > 0) {
     const retailers = uniqueRetailers(pricedOffers);
     const prices = pricedOffers
-      .map((offer) => comparableMarketPrice(offer, market, now))
+      .map((offer) =>
+        requireFresh
+          ? comparableMarketPrice(offer, market, now)
+          : comparableMarketPriceForTrends(offer, market),
+      )
       .filter((price): price is number => price != null)
       .sort((a, b) => a - b);
     const lowestPrice = prices[0] ?? null;

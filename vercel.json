@@ -10,6 +10,10 @@
       "schedule": "37 4 * * *"
     },
     {
+      "path": "/api/cron/reconcile-payments",
+      "schedule": "47 4 * * *"
+    },
+    {
       "path": "/api/cron/daily-campaign",
       "schedule": "0 7 * * *"
     }

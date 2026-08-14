@@ -109,6 +109,18 @@ export async function runDailyCampaign(
     recentProductSlugs,
   });
   if (selection.status === "no-candidate") {
+    // Log when no campaign candidate is available so operators can detect
+    // systemic issues (e.g., all offers expired, all products in cooldown).
+    // Without this, no-candidate days are completely silent — no email is
+    // sent and no error is thrown, making it hard to distinguish "nothing
+    // to send" from "the pipeline is broken."
+    console.warn(
+      `Daily campaign: no candidate selected. ${selection.rejectedCandidates.length} products rejected.`,
+      selection.rejectedCandidates.map((c) => ({
+        slug: c.slug,
+        blocker: c.blocker,
+      })),
+    );
     return {
       status: selection.status,
       checkedAt: selection.checkedAt,
