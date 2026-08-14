@@ -40,6 +40,10 @@ data/catalogue-intake-assets/**/*.avif
 # temporary preview images used during packshot sourcing
 .tmp-preview/
 
+# SQL drafts are rehearsal-only. Promote exact verified bytes with the checked-in
+# migration promotion operator before they can enter the canonical runner.
+.migration-rehearsal/
+
 # system files
 .DS_Store
 

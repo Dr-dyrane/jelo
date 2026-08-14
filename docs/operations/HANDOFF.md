@@ -1,6 +1,6 @@
 # Team handoff
 
-Updated: 2026-07-27
+Updated: 2026-08-14
 
 This checklist transfers operating knowledge without transferring assumptions.
 
@@ -52,7 +52,9 @@ The outgoing team should provide:
 - CI status for the current commit;
 - current catalogue pipeline report;
 - recent inventory and price audits;
-- pending migrations;
+- read-only `npm run db:migrations:status` output: ledger shape, immutable
+  state, pending filenames/checksums, and non-atomic provenance requiring
+  explicit repair;
 - active incidents and temporary controls;
 - current product candidate and its next blocker;
 - community moderation and retailer application queue sizes;

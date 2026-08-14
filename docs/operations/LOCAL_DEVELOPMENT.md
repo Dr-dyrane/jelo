@@ -1,6 +1,6 @@
 # Local development
 
-Updated: 2026-07-23
+Updated: 2026-08-14
 
 ## First run
 
@@ -51,6 +51,7 @@ remain explicit protected operator jobs.
 | Public packshot | `npm run catalogue:publication:images:verify` and `npm run assets:verify` |
 | Product or offer data | `npm run inventory:audit` and `npm run inventory:prices` |
 | Ingredient data | `npm run clinical:audit` |
+| Migration SQL or runner | `npm run db:migrations:validate` plus focused `modules/release/migration-*.test.ts`; database status/apply still requires the protected operator workflow |
 | Packshot Python operator | `npm run catalogue:packshot:tool:check` |
 | Community intake | Relevant `modules/community-intake/*.test.ts` plus API interaction |
 | Retailer partnership | Route, repository, email rendering, magic-link, and responsive journey checks |

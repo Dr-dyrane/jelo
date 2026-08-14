@@ -6,12 +6,13 @@ Neon PostgreSQL is the durable store. Checked-in reviewed data remains a deliber
 
 ## Connection roles
 
-| Use                           | Variable and database role                                                 | Allowed location                                                    |
-| ----------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| General application runtime   | `APP_DATABASE_URL` as `jelocare_app_runtime`                             | Vercel server runtime and local development                         |
-| Private Shelf runtime         | `CUSTOMER_SHELF_DATABASE_URL` as `jelocare_shelf_runtime`                  | Vercel server runtime and local development                         |
-| Migrations and reconciliation | `MIGRATION_DATABASE_URL` as a protected administrator                      | Operator workstation or protected release runner only; never Vercel |
-| General runtime compatibility | `POSTGRES_URL` as `jelocare_app_runtime`                                   | Retain only when required; never point it to the owner              |
+| Use                           | Variable and database role                                             | Allowed location                                                    |
+| ----------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| General application runtime   | `APP_DATABASE_URL` as `jelocare_app_runtime`                           | Vercel server runtime and local development                         |
+| Private Shelf runtime         | `CUSTOMER_SHELF_DATABASE_URL` as `jelocare_shelf_runtime`              | Vercel server runtime and local development                         |
+| Migrations and reconciliation | `MIGRATION_DATABASE_URL` as a protected administrator                  | Operator workstation or protected release runner only; never Vercel |
+| Temporary migration rehearsal | `MIGRATION_REHEARSAL_DATABASE_URL` as a protected branch administrator | Verified disposable `rehearsal/...` branch process only             |
+| General runtime compatibility | `POSTGRES_URL` as `jelocare_app_runtime`                               | Retain only when required; never point it to the owner              |
 
 Never expose a PostgreSQL connection string through a `NEXT_PUBLIC_` variable.
 Never put the database owner or another migration-capable credential in Vercel,
@@ -72,7 +73,7 @@ be `jelocare_app_runtime`, and the read-only Shelf audit must attest
 | Retailer partnerships     | `retailer_partnership_applications`, `retailer_partnership_events`                                                               |
 | Operations                | `moderation_operators`, append-only `moderation_audit_log` (`event_sequence` is causal order; `created_at` is presentation time) |
 | Customer Shelf            | `customer_shelf_items`; private one-off `customer_shelf_import_receipts`                                                         |
-| Migration history         | `schema_migrations`                                                                                                              |
+| Migration history         | Append-only, checksummed `schema_migrations` with execution provenance                                                           |
 
 The ordered files in `db/migrations/` are authoritative.
 
@@ -83,7 +84,10 @@ causal order across overlapping transactions.
 
 ## Migrations
 
-Create the next zero-padded file. Do not edit an applied migration.
+Create the next contiguous zero-padded file. Do not edit an applied migration.
+`npm run db:migrations:validate` rejects malformed names, gaps, and duplicate
+versions before any connection opens. The only duplicate accepted is the exact,
+digest-pinned historical `0046` pair; it cannot be copied, extended, or edited.
 
 Each migration should:
 
@@ -97,24 +101,81 @@ Each migration should:
 Run from the protected operator boundary:
 
 ```bash
+npm run db:migrations:status
 npm run db:migrate
 ```
 
 Inject `MIGRATION_DATABASE_URL` from the protected secret channel into that
-process without placing its value in command history. Vercel does not run this
-command.
+process without placing its value in command history. `status` opens a
+PostgreSQL `READ ONLY` transaction, reports applied/pending/drift state and
+checksums, and exits `2` when ledger repair or drift blocks apply. It creates no
+table, lock, or ledger row. Vercel runs neither command.
 
 The runner:
 
 1. acquires a PostgreSQL advisory lock;
-2. creates `schema_migrations` if needed;
-3. sorts `.sql` files by filename;
-4. skips recorded files;
-5. executes each unwrapped migration body and records its ledger row in the same
-   database transaction;
+2. creates the governed ledger only when no ledger and no durable `public`
+   relations exist, and refuses an existing schema without history, a legacy
+   ledger, or a partially governed ledger;
+3. validates contiguous versions, canonical names, canonical order, and the
+   digest-pinned historical `0046` exception before SQL runs;
+4. requires existing ledger rows to be an immutable checksummed prefix of the
+   checked-in bytes;
+5. executes each unwrapped migration body and records version, immutable order,
+   SHA-256, database role, timestamps, and `runner_atomic` provenance in the
+   same database transaction; and
 6. rolls back a failed transaction before releasing the lock.
 
+The ledger rejects `UPDATE`, `DELETE`, and `TRUNCATE`. Its checksum meaning is
+explicit: `runner_atomic` attests the exact executed bytes;
+`legacy_filename_record` binds current canonical bytes but cannot prove the
+bytes used by the old runner; `schema_effect_reconciliation` attests only the
+checked catalog effects and deliberately leaves execution time null. Never
+describe the latter two as exact-byte execution.
+
 Do not run two manual migration operators against the same database.
+
+### Legacy ledger repair and effects-only reconciliation
+
+`npm run db:migrations:repair` is the only exceptional ledger writer. It
+requires the direct protected administrator URL, takes the same advisory lock,
+and has no general-purpose "mark applied" option. Governance initialization
+works only on the exact old `(filename, applied_at)` table and preserves those
+rows with `legacy_filename_record` provenance. Effects reconciliation is
+restricted to checked-in contracts for `0048_money_columns_to_numeric.sql` and
+`0049_fix_remaining_money_columns.sql`, must target the first pending file, and
+requires the operator to confirm the canonical SHA-256. It verifies every
+required `numeric(12,2)` catalog result plus the generated quote total before
+inserting an effects-only row. It never executes, rewrites, or repairs domain
+schema.
+
+The observed production discrepancy on 2026-08-14 is: the `0048` and `0049`
+column effects are present without ledger rows, and `0050_payment_integrity.sql`
+is absent. This is an observation, not standing write authority. Follow the
+[migration repair runbook](../operations/RUNBOOKS.md#reconcile-the-00480049-ledger-gap)
+first on a fresh production-derived rehearsal branch. Do not apply `0050`, add
+a reconciliation row, or initialize production governance until the release
+authority accepts that rehearsal and rechecks the same production status.
+
+### Temporary migration rehearsal and unchanged-byte promotion
+
+Draft SQL belongs under ignored `.migration-rehearsal/`, which the canonical
+runner never reads. `db:migrations:rehearse` accepts only the separate
+`MIGRATION_REHEARSAL_DATABASE_URL`, rejects every Vercel environment and a
+simultaneously present `MIGRATION_DATABASE_URL`, requires a
+`rehearsal/...` Neon project/branch identity plus explicit disposable-branch
+confirmation, and uses authenticated read-only Neon API calls to require a
+non-default, non-protected child whose enabled read-write endpoint matches the
+URL. It then applies the draft as the single next version through the same
+atomic runner. Use a production-derived Neon branch: Neon documents branches as
+isolated copy-on-write environments with distinct connection strings in its
+[branching workflow primer](https://neon.com/docs/get-started-with-neon/workflow-primer).
+
+After first-run and idempotent-rerun evidence passes, promote with
+`db:migrations:promote -- --source=... --confirm-checksum=...`. The promoter
+uses an exclusive byte-for-byte copy, fails if the canonical destination
+exists, and re-hashes the result. Do not paste or reformat rehearsed SQL into
+`db/migrations/`; promotion is the bytes boundary.
 
 ### Protected agent migration when no local admin URL exists
 
@@ -143,6 +204,7 @@ if [[ "$migration_url" == *-pooler.* || "$migration_url" == *channel_binding* ]]
   exit 1
 fi
 
+MIGRATION_DATABASE_URL="$migration_url" npm run db:migrations:status
 MIGRATION_DATABASE_URL="$migration_url" npm run db:migrate
 unset migration_url
 ```
@@ -215,8 +277,8 @@ Then:
 1. confirm the intended Neon project and branch outside the connection string;
 2. inject the direct, non-pooled `MIGRATION_DATABASE_URL` only into the protected
    operator process;
-3. inspect the migration ledger;
-4. run the smallest migration or reconciliation operator;
+3. run `npm run db:migrations:status` and require a clean immutable prefix;
+4. run the smallest normal migration or the exact confirmed repair operator;
 5. audit the affected domain with restricted runtime credentials; and
 6. remove the administrator secret from the process and verify the application
    through the repository boundary.

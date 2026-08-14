@@ -1,6 +1,6 @@
 # Operational runbooks
 
-Updated: 2026-08-08
+Updated: 2026-08-14
 
 Lead with evidence. Preserve data. Prefer a forward repair.
 
@@ -148,6 +148,170 @@ Community and retailer intake should return a temporary unavailable response rat
 The migration runner accepts only a direct, non-pooled
 `MIGRATION_DATABASE_URL` supplied at the protected operator boundary. Do not
 fall back to a Vercel runtime URL or copy the administrator URL into Vercel.
+
+### Reconcile the 0048/0049 ledger gap
+
+Production was observed on 2026-08-14 with the schema effects of
+`0048_money_columns_to_numeric.sql` and
+`0049_fix_remaining_money_columns.sql` present but neither filename in the old
+ledger; `0050_payment_integrity.sql` was absent. Re-observe before acting. The
+sequence below is an exceptional append-only ledger repair, not permission to
+rerun `0048`/`0049`, bless arbitrary SQL, or edit domain data.
+
+Prerequisites:
+
+1. Use the exact candidate application revision and require `npm run
+db:migrations:validate` to pass.
+2. Resolve the intended Neon project, branch ID, branch name, parent, and
+   protected/default state without printing a connection string. Create a fresh
+   `rehearsal/...` child from production and prove it is non-primary and
+   disposable before opening its direct administrator URL.
+3. Run every step first on that production-derived branch. The output may
+   retain filenames, SHA-256 values, counts, and the non-secret repair
+   reference only. Do not retain URLs, payment rows, subjects, or provider
+   evidence.
+4. Production requires the recorded rehearsal result plus explicit release
+   authority for the exact project, branch, revision, and repair reference.
+
+With the selected branch's direct URL present only as
+`MIGRATION_DATABASE_URL`, inspect first:
+
+```bash
+npm run db:migrations:status
+```
+
+The initial command is read-only and should report `ledger=legacy`, a contiguous
+legacy prefix through `0047_assisted_order_payments.sql`, then `0048`, `0049`,
+and `0050` pending. Any unknown filename, later ledgered row, different first
+pending file, or partially governed shape is a stop condition.
+
+Convert only that exact legacy table to the immutable checksummed shape:
+
+```bash
+npm run db:migrations:repair -- \
+  --initialize-governance \
+  --reference=migration-ledger-repair-20260814 \
+  --confirm=initialize-checksummed-ledger
+npm run db:migrations:status
+```
+
+This transaction adds governance metadata and append-only triggers. Existing
+rows receive `legacy_filename_record`: their checksums bind the current
+canonical files but do not claim those were the historical execution bytes.
+Require `ledger=governed`, `immutable=true`, and `0048` as the first pending
+file.
+
+Reconcile the two observed effects in order, using the hashes printed by the
+offline validator/status command and pinned below for this revision:
+
+```bash
+npm run db:migrations:repair -- \
+  --reconcile=0048_money_columns_to_numeric.sql \
+  --confirm-checksum=f86ec32e35b4b76b8b5942f5009e59ea9d7a919fe59300b7bb2f7cce219c06d2 \
+  --reference=migration-ledger-repair-20260814
+npm run db:migrations:status
+
+npm run db:migrations:repair -- \
+  --reconcile=0049_fix_remaining_money_columns.sql \
+  --confirm-checksum=fa26472740a688ec8acf41e7e3919bcb2d358e512b109e58b2cb4a5ebc528a6f \
+  --reference=migration-ledger-repair-20260814
+npm run db:migrations:status
+```
+
+Each repair takes the migration advisory lock and a serializable transaction,
+requires the target to be first pending, and checks every named column as
+`numeric(12,2)`. The `0048` verifier also requires the generated quote total to
+include all five components. It inserts only a
+`schema_effect_reconciliation` ledger row with null execution time; it neither
+executes the migration nor claims the original bytes or actor are known. Any
+missing/different catalog result rolls back the ledger insert.
+
+After both reconciliations, status must show only
+`0050_payment_integrity.sql` pending with checksum
+`1a916728557e7ef9b1d8b8381c30b62811758a0d7e1fbe5ee5a018a54b3e5976`.
+Before applying it, reconcile provider evidence until all of its checked-in
+preconditions are true:
+
+- at most one pending Paystack attempt exists per order and quote;
+- every pending Paystack attempt has a nonblank reference, a `reserved` or
+  `ready` phase, valid reservation time, and—when ready—authorization/access
+  metadata plus a valid initialization time;
+- Paystack references are unique, as are normalized verified manual-transfer
+  references; and
+- verified rows have verification time and evidence reference, every Paystack
+  row has a reference, and every verified manual transfer has a nonblank
+  reference.
+
+Never choose a surviving payment attempt or invent provider evidence merely to
+make the migration pass. Resolve ambiguity against the payment provider under
+the payment-integrity runbook. Then, on the rehearsal branch:
+
+```bash
+npm run db:migrate
+npm run db:migrations:status
+npm run db:migrate
+```
+
+The first run must apply only `0050` and record `runner_atomic` with the exact
+checksum in the same transaction. The second must skip every migration. A
+failure must leave both the `0050` schema body and ledger row absent. Only after
+that result and the payment acceptance audit may release authority repeat the
+same status → initialize → `0048` reconcile → `0049` reconcile → `0050` apply
+sequence on production. There is no migration `0051` in this repair; do not add
+a filler or mark one applied.
+
+### Rehearse a temporary migration and promote unchanged bytes
+
+Use this for a not-yet-canonical next migration. The ignored draft directory is
+outside the production runner's enumeration:
+
+```bash
+mkdir -p .migration-rehearsal
+$EDITOR .migration-rehearsal/NNNN_exact_name.sql
+```
+
+Create a fresh production-derived `rehearsal/...` Neon branch, verify its ID,
+name, parent, and non-protected status with `neonctl branches list`, and derive
+only that branch's direct administrator URL. Keep `MIGRATION_DATABASE_URL`
+unset. With the URL in process memory as `MIGRATION_REHEARSAL_DATABASE_URL`, run
+the exact draft twice:
+
+```bash
+npm run db:migrations:rehearse -- \
+  --source=.migration-rehearsal/NNNN_exact_name.sql \
+  --project-id=spring-field-93817903 \
+  --branch-id=br-verified-rehearsal-id \
+  --branch-name=rehearsal/exact-name-20260814 \
+  --confirm-target=non-production-disposable-branch
+npm run db:migrations:rehearse -- \
+  --source=.migration-rehearsal/NNNN_exact_name.sql \
+  --project-id=spring-field-93817903 \
+  --branch-id=br-verified-rehearsal-id \
+  --branch-name=rehearsal/exact-name-20260814 \
+  --confirm-target=non-production-disposable-branch
+```
+
+Before PostgreSQL opens, the command uses the authenticated Neon CLI for
+read-only control-plane attestation: the branch must match the project, ID, and
+name; have a parent; be non-default and non-protected; and own the enabled
+read-write endpoint named by the URL. It also rejects Vercel, a simultaneously
+present production migration URL, non-`rehearsal/...` names, noncontiguous
+versions, and malformed transaction wrappers. Record its printed SHA-256. The
+first run must apply and the second must skip that same filename/hash. After the
+schema/data acceptance checks pass, promote by confirmed hash:
+
+```bash
+npm run db:migrations:promote -- \
+  --source=.migration-rehearsal/NNNN_exact_name.sql \
+  --confirm-checksum=the-printed-64-character-sha256
+cmp .migration-rehearsal/NNNN_exact_name.sql db/migrations/NNNN_exact_name.sql
+npm run db:migrations:validate
+```
+
+Promotion fails if the destination exists, copies without transformation, and
+re-hashes the destination. Never retype, paste, run a formatter over, or edit
+the promoted migration. If review changes one byte, it is a new unrehearsed
+digest: return it to the temporary path and rehearse again before production.
 
 Rehearsal evidence for the `0031_community_research_task_shape.sql` rollout
 (2026-08-02 UTC): production-fresh Neon branch

@@ -1,6 +1,6 @@
 # Release process
 
-Updated: 2026-08-03
+Updated: 2026-08-14
 
 Release small, auditable changes. A push is not complete until CI and the exact production deployment are verified.
 
@@ -55,7 +55,10 @@ npm run build
 `verify:release` is the shared, non-building preflight for CI and production.
 It runs lint, typecheck, all Node tests, documentation checks, catalogue
 publication and research checks, publication image verification, and canonical
-asset verification. Run every additional domain gate touched by the change.
+asset verification. It also runs the offline migration inventory validator, so
+malformed names, version gaps, new duplicates, changed historical `0046` bytes,
+and invalid outer transaction wrappers block CI without opening a database.
+Run every additional domain gate touched by the change.
 Private research packet and retained response integrity is deliberately separate:
 run `npm run verify:research-integrity` for research changes. CI runs it as an
 independent check, but Vercel production deploys do not, so unrelated mutable
@@ -95,6 +98,37 @@ reconciliation. Those are explicit protected operator jobs completed before a
 dependent application deployment. Preview and local builds stay on the fast
 Next-only path. CI runs the shared preflight explicitly and does not mutate
 external state.
+
+## Database migration release gate
+
+For every release that depends on new schema:
+
+1. Run `npm run db:migrations:validate` offline.
+2. Run `npm run db:migrations:status` against the fresh production-derived
+   rehearsal branch. It is transaction-enforced read-only. Stop on a legacy,
+   mutable, unknown, checksum-drifted, or out-of-order ledger.
+3. Apply through `npm run db:migrate`, run the domain acceptance checks, run
+   status, then run migrate again and require an all-skip result. The migration
+   body and its `runner_atomic` checksum row must share one transaction under
+   the advisory lock.
+4. If a temporary next migration was rehearsed, promote it only through
+   `npm run db:migrations:promote` with the rehearsal SHA-256. Review changes to
+   any byte invalidate the rehearsal.
+5. Record the branch identity, revision, filenames, SHA-256 values, ledger
+   provenance, and pass/fail results—not connection strings, database rows, or
+   operator credentials.
+6. Re-run read-only status on production. Release authority must approve the
+   exact target and evidence before the protected operator repeats the apply.
+7. Deploy the dependent application only after the production ledger and
+   domain audit pass. Vercel remains unable to migrate or reconcile.
+
+The exceptional `0048`/`0049` effects-without-ledger state follows the exact
+[repair runbook](./RUNBOOKS.md#reconcile-the-00480049-ledger-gap). Never use a
+manual insert, a generic mark-applied switch, or the normal runner to infer
+those historical bytes. `0050` remains a normal atomic apply after payment
+evidence preconditions pass. This governance rollout does not consume `0051`;
+coordinate the next genuine schema migration number at integration rather than
+adding a placeholder.
 
 ## Customer Shelf release checklist
 
@@ -161,7 +195,7 @@ customer:shelf:audit` followed by `npm run customer:shelf:audit --
    URL logs in with exact `current_user = session_user = jelocare_app_runtime`;
    run the read-only Shelf attestation against the Shelf URL. Do not print a URL.
 7. **Configure restricted Vercel runtime environment.** Only after the probes
-   pass, set `DATABASE_URL` to the app-role URL and
+   pass, set `APP_DATABASE_URL` to the app-role URL and
    `CUSTOMER_SHELF_DATABASE_URL` to the Shelf-role URL. If `POSTGRES_URL` is
    retained, apply the same driver and exact-role requirements. Remove
    `MIGRATION_DATABASE_URL`, the database-owner URL, unpooled owner aliases,

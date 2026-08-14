@@ -23,11 +23,14 @@ test('Vercel builds cannot migrate, seed, or opt into external discovery', async
   const source = await readFile('scripts/vercel-build.ts', 'utf8');
   for (const forbidden of [
     'db:migrate',
+    'db:migrations:repair',
+    'db:migrations:rehearse',
     'db:seed',
     'db:seed:external',
     'assets:product:seed',
     'assets:editorial:seed',
     'MIGRATION_DATABASE_URL',
+    'MIGRATION_REHEARSAL_DATABASE_URL',
     'SKIP_DATABASE_MIGRATIONS',
     'SEED_EXTERNAL_CATALOGUE_ON_BUILD',
   ]) {

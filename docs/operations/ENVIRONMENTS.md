@@ -73,6 +73,18 @@ migrations and explicit database reconciliation, then removes it. Do not save
 it in `.env.local`, Vercel, source, command history, logs, screenshots, or a
 release evidence file.
 
+`MIGRATION_REHEARSAL_DATABASE_URL` is the separate direct administrator URL for
+the verified disposable Neon branch used by
+`npm run db:migrations:rehearse`. It is also process-only and never belongs in
+Vercel or dotenv. The rehearsal command refuses to start when
+`MIGRATION_DATABASE_URL`, `VERCEL`, or `VERCEL_ENV` is present; requires the
+verified project ID, `br-...` branch ID, a `rehearsal/...` branch name, and
+exact non-production confirmation; attests the child/protected/default/endpoint
+state through authenticated read-only Neon API calls; and reads draft SQL only
+from ignored `.migration-rehearsal/`. This separation is a fail-closed operator
+gate, not a substitute for confirming the branch parent and protected/default
+state in Neon before resolving the URL.
+
 The one-off Shelf import also reads
 `JELOCARE_SHELF_IMPORT_OWNER_SUBJECT`. It belongs only in that protected
 operator process, is never committed or configured in Vercel, and must be
@@ -197,7 +209,7 @@ active whenever `playwright-core` is installed in the deployment. The
 `@playwright/browser-chromium` package provides the Chromium binary at build
 time.
 
-Vercel builds have no database-migration or seed switch. They verify, build,
+Vercel builds have no database-migration, rehearsal, repair, or seed switch. They verify, build,
 and may perform bounded staged public-asset promotion only. All PostgreSQL
 migrations, reconciliation, and private product-request Blob cleanup are
 explicit protected operator jobs. The daily campaign configuration and
@@ -212,6 +224,8 @@ activation sequence are documented in
 
 - Restricted application secrets belong in Vercel Production. The database
   owner and `MIGRATION_DATABASE_URL` explicitly do not.
+- `MIGRATION_REHEARSAL_DATABASE_URL` belongs only to the bounded local
+  rehearsal process and must never coexist with production migration authority.
 - Preview secrets belong in Preview only when the feature is safe to exercise there.
 - Local application-runtime values stay in `.env.local`; protected operator
   values such as `MIGRATION_DATABASE_URL` do not.

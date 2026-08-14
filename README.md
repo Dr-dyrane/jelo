@@ -64,11 +64,19 @@ See [docs/INFRASTRUCTURE.md](docs/INFRASTRUCTURE.md) for environment variables, 
 
 The application reads products through `lib/catalogue/repository.ts`. It supports a Neon adapter while preserving the verified static catalogue as a production fallback.
 
-Run the first schema migration with an unpooled Neon connection:
+Validate the canonical migration inventory offline, then inspect and apply from
+the protected operator boundary with a direct, non-pooled Neon connection:
 
 ```bash
+npm run db:migrations:validate
+npm run db:migrations:status
 npm run db:migrate
 ```
+
+The status command is read-only. Migration application is advisory-locked and
+records exact-byte checksums atomically; it never runs in Vercel. Legacy ledger
+repair and production-shaped rehearsal are documented in
+[`docs/operations/RUNBOOKS.md`](docs/operations/RUNBOOKS.md#reconcile-the-00480049-ledger-gap).
 
 Seed the current TypeScript catalogue into the normalized Neon tables:
 
