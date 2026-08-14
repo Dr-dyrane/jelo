@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "medik8-advanced-night-restore-50ml",
-    "candidateFingerprint": "8eed90b3cc91d8d5e2057a1d77d9683a791ef2db6e4e72eca629cdcc39bcc227",
+    "candidateFingerprint": "f523acee4cc6b639923b0ba2f967fccf60687961a1c9016cff8564ed59e36f51",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -168,11 +168,7 @@
           "identityReviewer": "JeloCare catalogue identity review",
           "artReviewedAt": "2026-08-04T14:04:30Z",
           "artReviewer": "Codex visual audit",
-          "surfaces": [
-            "peach",
-            "pink",
-            "dark"
-          ],
+          "surfaces": ["peach", "pink", "dark"],
           "surfaceReviewSha256": "c8fa5827910ecbdd2c912f48578b2547ae1314f9d8ae0892d0a815d4c9a9c451",
           "packagingIntact": true,
           "labelVariantSizeUnchanged": true,
@@ -200,14 +196,14 @@
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-04T14:29:10Z"
+      "approvedAt": "2026-08-14T14:27:00Z"
     },
-    "dossierFingerprint": "b90bbb63ce80019bd6d45b2eef68c9d209fb13abd293c25b7632fe28998fa47e"
+    "dossierFingerprint": "96eff1c7fd8c0b8aad055b80c8c14b8de4699db01c2565a7f2242d9df8e63e82"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "medik8-advanced-night-restore-50ml",
-    "dossierFingerprint": "b90bbb63ce80019bd6d45b2eef68c9d209fb13abd293c25b7632fe28998fa47e",
+    "dossierFingerprint": "96eff1c7fd8c0b8aad055b80c8c14b8de4699db01c2565a7f2242d9df8e63e82",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -216,16 +212,16 @@
       "category": "Face",
       "routineStep": "Moisturize",
       "displayLine": "Night moisturiser for a final evening hydration step.",
-      "usage": "Apply after serums to intact skin in the evening. Avoid direct eye contact and stop if persistent irritation occurs.",
+      "usage": "Apply after serums to intact skin in the evening. Avoid direct eye contact and store below 25°C.",
       "manufacturerDirectionsUrl": "https://www.medik8.com/products/advanced-night-restore",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-04T14:29:15Z"
+      "reviewedAt": "2026-08-14T14:27:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-04T14:29:20Z"
+      "publishedAt": "2026-08-14T14:27:00Z"
     },
-    "releaseFingerprint": "5035db72861ee91fff8aa41ee51d415e7b44a52bcdf45659fe73b9c0912e3b5d"
+    "releaseFingerprint": "c2d85ccb8f07373582cddebb15717590dc330b6a31003a711870b15e1d4e669b"
   }
 }

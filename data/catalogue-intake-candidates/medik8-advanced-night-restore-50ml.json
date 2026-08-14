@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-04T14:04:30Z",
+  "updatedAt": "2026-08-14T14:28:16Z",
   "origin": {
     "kind": "community-aggregate-packet",
     "packetId": "0b989660e889bc33e4629610",
@@ -110,7 +110,7 @@
           "retailer": "Teeka4",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
-          "observedAt": "2026-08-04T12:50:30Z",
+          "observedAt": "2026-08-14T14:28:16Z",
           "observedTitle": "Medik8 Advance Night Restore 50ml",
           "reviewedTitleAlias": "Medik8 Night Restore",
           "observedSize": "50 ml",
@@ -120,16 +120,16 @@
           "stock": "in-stock",
           "evidence": {
             "schemaVersion": 1,
-            "method": "reviewed-browser-accessibility-exact-offer-field-extraction",
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
             "responseUrl": "https://teeka4.com/shop/medik8-advance-night-restore-50ml/",
-            "responseSha256": "5b6305ca1818b46301773afbc3c13145cb87854f2a09f34c68e4816b03817afd",
-            "responseDigestScope": "rendered-accessibility-tree",
+            "responseSha256": "7de100ef2bbbe98c486f038502f935c876824285aa21116b6f78eace834bfc5e",
+            "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 8571,
-            "retrievedAt": "2026-08-04T12:50:30Z",
+            "responseByteSize": 366354,
+            "retrievedAt": "2026-08-14T14:28:16Z",
             "browserCapture": {
-              "surface": "Codex in-app browser",
+              "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
               "pageTitle": "Buy Original Medik8 Advance Night Restore 50ml in Nigeria | Teeka4"
             },
@@ -137,39 +137,39 @@
               "gtin": {
                 "label": "GTIN",
                 "value": "818625024444",
-                "locator": "Bound official catalogue identity snapshot",
+                "locator": "Reviewed official catalogue identity",
                 "sourceText": "Official catalogue identity GTIN 818625024444",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "Medik8 Advance Night Restore 50ml",
-                "locator": "Rendered accessibility heading level 1",
+                "locator": "h1 and page title",
                 "sourceText": "Medik8 Advance Night Restore 50ml"
               },
               "size": {
-                "value": "50 ml",
-                "locator": "Rendered accessibility product heading size suffix",
+                "value": "50ml",
+                "locator": "Product name in h1",
                 "sourceText": "Medik8 Advance Night Restore 50ml"
               },
               "packageVersion": {
-                "value": "Advanced Night Restore™ 50 ml jar",
-                "locator": "Rendered listing image matched to the official current package",
-                "sourceText": "Advanced Night Restore™ 50 ml jar"
+                "value": "Medik8 Advanced Night Restore 50ml",
+                "locator": "Product name",
+                "sourceText": "Medik8 Advance Night Restore 50ml"
               },
               "price": {
                 "value": 103867,
                 "currency": "NGN",
-                "locator": "Rendered accessibility product price",
-                "sourceText": "₦103,867.00"
+                "locator": "Rendered price text / JSON-LD",
+                "sourceText": "103867.00"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "Rendered accessibility availability status",
-                "sourceText": "In stock"
+                "locator": "Stock text / JSON-LD availability",
+                "sourceText": "http://schema.org/InStock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-08-04T12:51:00Z"
+            "reviewedAt": "2026-08-14T14:28:16Z"
           }
         }
       ],

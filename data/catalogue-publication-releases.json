@@ -124,30 +124,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "benton-honest-cleansing-foam-150g",
-      "dossierFingerprint": "9c41484a3e425f0e7ed500aa4d704f1f32b1d966f67d11f21c44de573ed384c3",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Cleanse",
-        "displayLine": "Rinse-off facial cleansing foam · 150 g",
-        "usage": "Lather a small amount with water, massage gently over damp facial skin, then rinse with lukewarm water. Avoid the eye area.",
-        "manufacturerDirectionsUrl": "https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-02T18:49:30Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-02T18:50:00Z"
-      },
-      "releaseFingerprint": "4626a47f90b1b01c4158ee3cb61af0ccd39d514478311b17001d00b6e022b7bf"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
       "dossierFingerprint": "38b55d1a088adc5c31aaf91f14b694b731d228de25ed5b41d1f3a89d629fdb7e",
       "exposure": "public-catalogue",
@@ -217,30 +193,6 @@
         "publishedAt": "2026-08-04T13:20:15Z"
       },
       "releaseFingerprint": "0c16f35acb7baf522f4ee30d02167e9ec121e265cd9d7b49a62fe8502e1dd48e"
-    },
-    {
-      "schemaVersion": 2,
-      "candidateId": "medik8-advanced-night-restore-50ml",
-      "dossierFingerprint": "b90bbb63ce80019bd6d45b2eef68c9d209fb13abd293c25b7632fe28998fa47e",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Moisturize",
-        "displayLine": "Night moisturiser for a final evening hydration step.",
-        "usage": "Apply after serums to intact skin in the evening. Avoid direct eye contact and stop if persistent irritation occurs.",
-        "manufacturerDirectionsUrl": "https://www.medik8.com/products/advanced-night-restore",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-04T14:29:15Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-04T14:29:20Z"
-      },
-      "releaseFingerprint": "5035db72861ee91fff8aa41ee51d415e7b44a52bcdf45659fe73b9c0912e3b5d"
     },
     {
       "schemaVersion": 2,
@@ -3364,30 +3316,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
-      "dossierFingerprint": "f757f7274f3c4e92252224eca7dc8203acb3c466a42b7f692a7d5239c3e6d93c",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Treat",
-        "displayLine": "Azelaic acid cream · 50 ml",
-        "usage": "Apply a thin layer to clean, dry skin in the evening. Start two nights a week and build as tolerated. Follow with moisturiser. Use SPF 30+ in the daytime. Avoid the eye area and stop if burning or a persistent rash develops.",
-        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-09T20:01:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-09T20:02:00Z"
-      },
-      "releaseFingerprint": "23e89c2af2e67974363251c928c43ee6266f2240dd1735fe43e110cc01c76f70"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
       "dossierFingerprint": "5c5b4553f345d411287d2cb0e4a505fa62076da7d2b3435c2b8a54021b31a649",
       "exposure": "public-catalogue",
@@ -3457,6 +3385,78 @@
         "publishedAt": "2026-08-09T20:22:45Z"
       },
       "releaseFingerprint": "aa36a7afcd511ad88335ec2c3fce1b194369e6a0388811b008c4889841f444cb"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "benton-honest-cleansing-foam-150g",
+      "dossierFingerprint": "b8b77b6326fb720028666d49292d33532621348b1cefecf67560ec7f8b52dae2",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Cleanse",
+        "displayLine": "Rinse-off facial cleansing foam · 150 g",
+        "usage": "Lather a small amount with water, massage gently over damp facial skin, then rinse thoroughly. Use morning and evening as the first step of a skincare routine.",
+        "manufacturerDirectionsUrl": "https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-14T14:27:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-14T14:27:00Z"
+      },
+      "releaseFingerprint": "e57aea0cb801781dcc38813004be2e1247400bb66493f10c7e56970ef940a291"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "medik8-advanced-night-restore-50ml",
+      "dossierFingerprint": "96eff1c7fd8c0b8aad055b80c8c14b8de4699db01c2565a7f2242d9df8e63e82",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "Night moisturiser for a final evening hydration step.",
+        "usage": "Apply after serums to intact skin in the evening. Avoid direct eye contact and store below 25°C.",
+        "manufacturerDirectionsUrl": "https://www.medik8.com/products/advanced-night-restore",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-14T14:27:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-14T14:27:00Z"
+      },
+      "releaseFingerprint": "c2d85ccb8f07373582cddebb15717590dc330b6a31003a711870b15e1d4e669b"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+      "dossierFingerprint": "2c2da01cc1c1336b9fdba1c4973bc5b875fd4e9d40d5bb09898dd81ae2bd5881",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Azelaic acid cream · 50 ml",
+        "usage": "Apply a thin layer to clean, dry skin in the evening. Start two nights a week and increase as tolerated.",
+        "manufacturerDirectionsUrl": "https://ninelessshop.com/products/a-control-azelaic-acid-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-14T14:27:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-14T14:27:00Z"
+      },
+      "releaseFingerprint": "855b723ee28908665883c0bbf09556e8cbe1afcc73579e3e97fad2dd6ef11f7d"
     }
   ]
 }

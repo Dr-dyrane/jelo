@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "publicationStatus": "private-research-only",
-  "updatedAt": "2026-08-09T20:02:00Z",
+  "updatedAt": "2026-08-14T14:28:16Z",
   "origin": {
     "kind": "static-research-packet",
     "packetId": "533c74704d64dbc2fcf85770",
@@ -11,9 +11,7 @@
   "candidate": {
     "id": "nineless-a-control-azelaic-acid-cream-50ml",
     "brand": "NINELESS",
-    "brandAliases": [
-      "NINE LESS"
-    ],
+    "brandAliases": ["NINE LESS"],
     "name": "A-Control Azelaic Acid Cream",
     "variant": "A-Control Azelaic Acid Cream",
     "size": "50 ml",
@@ -200,7 +198,7 @@
           "retailer": "Bismid Cosmetics Abuja",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://bismidcosmeticsabuja.com/product/nineless-a-control-azelaic-acid-cream/",
-          "observedAt": "2026-08-06T23:35:22Z",
+          "observedAt": "2026-08-14T14:28:16Z",
           "observedTitle": "Nineless A-Control Azelaic Acid Cream",
           "observedSize": "50 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -213,11 +211,11 @@
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://bismidcosmeticsabuja.com/product/nineless-a-control-azelaic-acid-cream/",
             "responseUrl": "https://bismidcosmeticsabuja.com/product/nineless-a-control-azelaic-acid-cream/",
-            "responseSha256": "8b6e792e44e1362b74486fdba79168f8fb4ba09ea7dfc032d69707bd7c1375ba",
+            "responseSha256": "7d3b46cc8817e50698cd2531d14e0ead8f097e8cbd64f71493dce7fabccb59d0",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 365301,
-            "retrievedAt": "2026-08-06T23:35:22Z",
+            "responseByteSize": 365033,
+            "retrievedAt": "2026-08-14T14:28:16Z",
             "browserCapture": {
               "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
@@ -227,46 +225,46 @@
               "gtin": {
                 "label": "GTIN",
                 "value": "8809875270189",
-                "locator": "Bound composite catalogue identity snapshot",
+                "locator": "Reviewed official catalogue identity",
                 "sourceText": "Official catalogue identity GTIN 8809875270189",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "Nineless A-Control Azelaic Acid Cream",
-                "locator": "Rendered DOM h1 product heading",
+                "locator": "h1 and page title",
                 "sourceText": "Nineless A-Control Azelaic Acid Cream"
               },
               "size": {
-                "value": "50 ml",
-                "locator": "Rendered DOM page title size suffix",
-                "sourceText": "Nineless A-Control Azelaic Acid Cream 50ml"
+                "value": "50ml",
+                "locator": "Product name in h1",
+                "sourceText": "Nineless A-Control Azelaic Acid Cream"
               },
               "packageVersion": {
-                "value": "NINELESS A-Control Azelaic Acid Cream 50ml",
-                "locator": "Rendered product gallery primary image",
-                "sourceText": "NINELESS A-Control Azelaic Acid Cream 50ml tube/pump package"
+                "value": "Nineless A-Control Azelaic Acid Cream 50ml",
+                "locator": "Product name",
+                "sourceText": "Nineless A-Control Azelaic Acid Cream"
               },
               "price": {
                 "value": 17000,
                 "currency": "NGN",
-                "locator": "Rendered DOM product price",
-                "sourceText": "₦17,000.00"
+                "locator": "Rendered price text / JSON-LD",
+                "sourceText": "17000.00"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "Rendered DOM availability status",
+                "locator": "Stock text / JSON-LD availability",
                 "sourceText": "15 in stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-08-06T23:36:00Z"
+            "reviewedAt": "2026-08-14T14:28:16Z"
           }
         },
         {
           "retailer": "Sonavine Beauty",
           "retailerStatus": "directory-listed",
           "listingUrl": "https://sonavinebeauty.com/product/nineless-a-control-azelaic-acid-cream-50ml/",
-          "observedAt": "2026-08-06T23:35:46Z",
+          "observedAt": "2026-08-14T14:28:16Z",
           "observedTitle": "Nineless A-Control Azelaic Acid Cream 50ml",
           "observedSize": "50 ml",
           "observedGtinBasis": "exact-variant-and-size",
@@ -279,11 +277,11 @@
             "method": "reviewed-browser-dom-exact-offer-field-extraction",
             "listingUrl": "https://sonavinebeauty.com/product/nineless-a-control-azelaic-acid-cream-50ml/",
             "responseUrl": "https://sonavinebeauty.com/product/nineless-a-control-azelaic-acid-cream-50ml/",
-            "responseSha256": "9530ef9838a90ca48a19bed4083c654d612527129233ac0dce0456c219802a5c",
+            "responseSha256": "1f6d0aa5465b9747c503bb0554b3a536e9dfe3eba700b920f464f8781f5c73ad",
             "responseDigestScope": "rendered-dom-outerhtml",
             "responseMimeType": "text/html",
-            "responseByteSize": 294968,
-            "retrievedAt": "2026-08-06T23:35:46Z",
+            "responseByteSize": 294980,
+            "retrievedAt": "2026-08-14T14:28:16Z",
             "browserCapture": {
               "surface": "Playwright MCP browser",
               "documentReadyState": "complete",
@@ -293,39 +291,39 @@
               "gtin": {
                 "label": "GTIN",
                 "value": "8809875270189",
-                "locator": "Bound composite catalogue identity snapshot",
+                "locator": "Reviewed official catalogue identity",
                 "sourceText": "Official catalogue identity GTIN 8809875270189",
                 "responseRole": "official-identity-correlation"
               },
               "title": {
                 "value": "Nineless A-Control Azelaic Acid Cream 50ml",
-                "locator": "Rendered DOM page title",
+                "locator": "h1 and page title",
                 "sourceText": "Nineless A-Control Azelaic Acid Cream 50ml"
               },
               "size": {
-                "value": "50 ml",
-                "locator": "Rendered DOM page title size suffix",
+                "value": "50ml",
+                "locator": "Product name in h1",
                 "sourceText": "Nineless A-Control Azelaic Acid Cream 50ml"
               },
               "packageVersion": {
-                "value": "NINELESS A-Control Azelaic Acid Cream 50ml",
-                "locator": "Rendered product gallery primary image",
-                "sourceText": "NINELESS A-Control Azelaic Acid Cream 50ml tube/pump package"
+                "value": "Nineless A-Control Azelaic Acid Cream 50ml",
+                "locator": "Product name",
+                "sourceText": "Nineless A-Control Azelaic Acid Cream 50ml"
               },
               "price": {
                 "value": 17500,
                 "currency": "NGN",
-                "locator": "Rendered DOM product price",
-                "sourceText": "₦17,500.00"
+                "locator": "Rendered price text / JSON-LD",
+                "sourceText": "17500.00"
               },
               "stock": {
                 "value": "in-stock",
-                "locator": "Rendered DOM availability status",
+                "locator": "Stock text / JSON-LD availability",
                 "sourceText": "In stock"
               }
             },
             "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-08-06T23:36:00Z"
+            "reviewedAt": "2026-08-14T14:28:16Z"
           }
         }
       ],
@@ -340,9 +338,7 @@
           "priceNgn": 13500,
           "stock": "out-of-stock",
           "disposition": "excluded-from-exact-comparison",
-          "exclusionReasons": [
-            "listing-no-longer-current"
-          ],
+          "exclusionReasons": ["listing-no-longer-current"],
           "evidence": {
             "schemaVersion": 1,
             "method": "reviewed-retailer-observation",
@@ -389,9 +385,7 @@
           "priceNgn": 11150,
           "stock": "out-of-stock",
           "disposition": "excluded-from-exact-comparison",
-          "exclusionReasons": [
-            "listing-no-longer-current"
-          ],
+          "exclusionReasons": ["listing-no-longer-current"],
           "evidence": {
             "schemaVersion": 1,
             "method": "reviewed-retailer-observation",

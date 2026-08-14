@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "benton-honest-cleansing-foam-150g",
-    "candidateFingerprint": "e877941a8bd78b559af50cf16b9db6905ca572e3203058eaa13ef0d4ad73ffd6",
+    "candidateFingerprint": "9f5bb272d524fa5ab5fdc228dd74e54456c23ad4c69c7e3ac7ffce1851904148",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -57,12 +57,7 @@
               "sourceText": "Search terms barcode, ean, gtin and upc returned 0 matches in the complete rendered DOM outerHTML.",
               "absenceProof": {
                 "searchScope": "complete-rendered-dom-outerhtml",
-                "searchedTerms": [
-                  "barcode",
-                  "ean",
-                  "gtin",
-                  "upc"
-                ],
+                "searchedTerms": ["barcode", "ean", "gtin", "upc"],
                 "matchStrategy": "whole-word",
                 "caseInsensitive": true,
                 "matchCount": 0
@@ -248,14 +243,14 @@
     "approval": {
       "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-02T18:49:00Z"
+      "approvedAt": "2026-08-14T14:27:00Z"
     },
-    "dossierFingerprint": "9c41484a3e425f0e7ed500aa4d704f1f32b1d966f67d11f21c44de573ed384c3"
+    "dossierFingerprint": "b8b77b6326fb720028666d49292d33532621348b1cefecf67560ec7f8b52dae2"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "benton-honest-cleansing-foam-150g",
-    "dossierFingerprint": "9c41484a3e425f0e7ed500aa4d704f1f32b1d966f67d11f21c44de573ed384c3",
+    "dossierFingerprint": "b8b77b6326fb720028666d49292d33532621348b1cefecf67560ec7f8b52dae2",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -264,16 +259,16 @@
       "category": "Face",
       "routineStep": "Cleanse",
       "displayLine": "Rinse-off facial cleansing foam · 150 g",
-      "usage": "Lather a small amount with water, massage gently over damp facial skin, then rinse with lukewarm water. Avoid the eye area.",
+      "usage": "Lather a small amount with water, massage gently over damp facial skin, then rinse thoroughly. Use morning and evening as the first step of a skincare routine.",
       "manufacturerDirectionsUrl": "https://bentoncosmetics.com/product/benton-honest-cleansing-foam-150g/697",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-02T18:49:30Z"
+      "reviewedAt": "2026-08-14T14:27:00Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-02T18:50:00Z"
+      "publishedAt": "2026-08-14T14:27:00Z"
     },
-    "releaseFingerprint": "4626a47f90b1b01c4158ee3cb61af0ccd39d514478311b17001d00b6e022b7bf"
+    "releaseFingerprint": "e57aea0cb801781dcc38813004be2e1247400bb66493f10c7e56970ef940a291"
   }
 }
