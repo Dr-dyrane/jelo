@@ -12,6 +12,10 @@ not describe custom email as healthy until a production canary reaches the
 recipient and verifies within 90 seconds. Record a redacted, dated operator
 receipt before making a historical delivery-health claim in this handbook.
 
+Latest evidence: the
+[2026-08-14 production canary](./evidence/2026-08-14-auth-email-canary.md)
+failed because no message arrived within the required window.
+
 The implementation first shipped in `928ade7a` (`Add the Neon Auth send.otp
 webhook for branded OTP emails`) and the duplicate-conscious API-to-SMTP
 resilience path shipped in `395b05aa` (`fix(email): add duplicate-safe delivery
@@ -51,10 +55,13 @@ must be deployed and verified before the webhook is enabled.
 | Required environment names                  | `.env.example` and [Environments](./ENVIRONMENTS.md#email) |
 | Incident response                           | [Runbooks](./RUNBOOKS.md#retailer-application-email-fails) |
 
-The template uses inline styles because email clients do not share the web
-application's CSS runtime. Escape every value inserted into HTML. Never add an
-OTP, recipient, provider response, or private link to logs, screenshots, test
-fixtures, or committed documentation.
+The OTP template is a complete email document with a presentation-table shell,
+inline light-mode fallbacks, explicit dark-mode overrides, system font stacks,
+and a narrow-screen layout. Email clients do not share the web application's
+CSS runtime, so do not replace those fallbacks with application classes or CSS
+variables. Escape every value inserted into HTML. Never add an OTP, recipient,
+provider response, or private link to logs, screenshots, test fixtures, or
+committed documentation.
 
 ## Provider setup
 

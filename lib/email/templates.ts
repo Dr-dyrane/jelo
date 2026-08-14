@@ -31,6 +31,7 @@ const OTP_COPY: Record<string, { headline: string; lead: string; subject: string
 export function operatorOtpEmail(input: { code: string; type?: string }) {
   const copy = OTP_COPY[input.type ?? 'sign-in'] ?? OTP_COPY['sign-in'];
   const code = escapeHtml(input.code);
+  const title = escapeHtml(copy.subject);
   return {
     subject: copy.subject,
     text: [
@@ -38,19 +39,59 @@ export function operatorOtpEmail(input: { code: string; type?: string }) {
       '',
       `Code: ${input.code}`,
       '',
-      'This code expires in 10 minutes. If you did not request it, ignore this email.',
+      'Expires in 10 minutes. Never share this code. If you did not request it, ignore this email.',
     ].join('\n'),
-    html: `
-      <div style="margin:0;background:#fff9f5;padding:40px 20px;color:#201b19;font-family:Arial,sans-serif">
-        <div style="max-width:560px;margin:0 auto;background:#fffdf9;border-radius:28px;padding:40px">
-          <p style="margin:0 0 28px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#6b3b35">JeloCare</p>
-          <h1 style="margin:0 0 14px;font-size:36px;line-height:1.05;font-weight:400">${copy.headline}</h1>
-          <p style="margin:0 0 28px;color:#6f625e;line-height:1.6">${copy.lead}</p>
-          <div style="border-radius:18px;background:#f6ece7;padding:22px 22px;text-align:center;font-size:34px;font-weight:600;letter-spacing:.3em;padding-left:calc(22px + .3em);color:#201b19">${code}</div>
-          <p style="margin:28px 0 0;color:#8a7d78;font-size:13px;line-height:1.55">This code expires in 10 minutes. If you did not request it, ignore this email.</p>
-        </div>
-      </div>
-    `,
+    html: `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
+    <title>${title}</title>
+    <style>
+      :root { color-scheme: light dark; supported-color-schemes: light dark; }
+      @media only screen and (max-width: 480px) {
+        .email-shell { padding: 20px 12px !important; }
+        .email-card-content { padding: 28px 22px !important; }
+        .email-title { font-size: 32px !important; }
+        .otp-panel { padding: 18px 10px !important; }
+        .otp-code { font-size: 30px !important; letter-spacing: .22em !important; padding-left: .22em !important; }
+      }
+      @media (prefers-color-scheme: dark) {
+        body, .email-shell { background-color: #000000 !important; color: #fff7f4 !important; }
+        .email-card { background-color: #171214 !important; }
+        .email-eyebrow { color: #ff9aa5 !important; }
+        .email-lead, .email-note, .otp-label { color: #c6b0ad !important; }
+        .email-title, .otp-code { color: #fff7f4 !important; }
+        .otp-panel { background-color: #21171b !important; }
+      }
+    </style>
+  </head>
+  <body style="margin:0;padding:0;background-color:#fff9f5;color:#201b19">
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">Use the secure code inside to continue. It expires in 10 minutes.</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fff9f5" class="email-shell" style="width:100%;margin:0;background-color:#fff9f5;padding:32px 16px;color:#201b19;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fffdf9" class="email-card" style="width:100%;max-width:560px;margin:0 auto;background-color:#fffdf9;border-radius:28px;border-collapse:separate">
+            <tr>
+              <td class="email-card-content" style="padding:40px">
+                <p class="email-eyebrow" style="margin:0 0 28px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#6b3b35">JeloCare</p>
+                <h1 class="email-title" style="margin:0 0 14px;color:#201b19;font-family:Georgia,'Times New Roman',serif;font-size:36px;line-height:1.05;font-weight:400">${copy.headline}</h1>
+                <p class="email-lead" style="margin:0 0 28px;color:#6f625e;font-size:16px;line-height:1.6">${copy.lead}</p>
+                <p class="otp-label" style="margin:0 0 8px;color:#7a6b66;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase">Your code</p>
+                <div class="otp-panel" style="border-radius:18px;background-color:#f6ece7;padding:22px 12px;text-align:center">
+                  <code class="otp-code" dir="ltr" style="display:inline-block;padding-left:.3em;color:#201b19;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono',monospace;font-size:34px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:.3em;line-height:1.2;white-space:nowrap">${code}</code>
+                </div>
+                <p class="email-note" style="margin:28px 0 0;color:#7a6b66;font-size:13px;line-height:1.55">Expires in 10 minutes. Never share this code. If you did not request it, ignore this email.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`,
   };
 }
 
