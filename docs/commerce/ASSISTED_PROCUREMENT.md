@@ -147,9 +147,9 @@ progress bar reflects the current step (0%, 50%, 100%).
    old code initializes Paystack before its database insert, while new code
    reserves the reference first and depends on the new unique index. Never run
    it while old code can still initiate payments. Never add the admin URL to
-   Vercel or `.env.local`.
-   Alternatively, apply via the Neon MCP `run_sql` tool — see
-   [Neon and data operations](../data/NEON.md#applying-migrations-via-neon-mcp-when-migration_database_url-is-not-available-locally).
+   Vercel or `.env.local`. The checked-in atomic runner is the only normal
+   write path. Neon MCP may inspect the target read-only; it must not execute
+   migration fragments or manually write the ledger.
 4. Deploy the application revision while online initiation remains disabled.
 5. Restore `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY`, redeploy, and complete the
    post-deploy journey below before announcing availability.
@@ -292,10 +292,9 @@ Operators can trigger a re-verification via:
 
 Migrations `0045_assisted_order_line_verifications.sql` and
 `0046_service_fee_policies.sql` are additive and grant only the application
-runtime role. Apply them through the operator-only `npm run db:migrate` process
-or the Neon MCP `run_sql` tool (see
-[Neon and data operations](../data/NEON.md#applying-migrations-via-neon-mcp-when-migration_database_url-is-not-available-locally))
-before deploying the application revision.
+runtime role. Apply them through the operator-only, checksummed
+`npm run db:migrate` process after `db:migrations:status` and the required Neon
+rehearsal. Never substitute fragmented `run_sql` calls or a manual ledger row.
 
 ## Service fee policies
 
@@ -397,12 +396,18 @@ With the Ops shell open, the development-fixture acceptance path is:
 2. `/ops/orders` -> Start quoting -> complete five cost fields, expiry,
    evidence, and customer note -> Issue exact quote;
 3. guest `/order` -> Approve exact quote;
-4. `/ops/orders` -> the approved payment step.
+4. `/ops/orders` -> record fixture payment evidence matching the exact approved
+   total, then start procurement;
+5. record the retailer confirmation, dispatch/tracking reference, and delivery;
+6. guest `/order` -> submit a private return request;
+7. `/ops/orders` -> approve or decline it; for approval, record one unique
+   refund completion reference and confirm the order closes as refunded.
 
-Stop there for the in-memory development fixture. Payment records intentionally
-use PostgreSQL even when order fixtures are enabled, so the fixture cannot prove
-`payment_pending` to `paid`. Use a disposable SQL order and Paystack test mode
-for the payment acceptance check; do not manufacture later states with SQL.
+The fixture transition is explicitly development-gated and exercises the same
+state/access/event/notification rules without contacting Paystack or writing
+customer data. It is interaction evidence, not provider settlement evidence.
+Production payment acceptance still requires a disposable SQL order and
+Paystack test mode; never manufacture production lifecycle state with SQL.
 
 ## Payment
 
