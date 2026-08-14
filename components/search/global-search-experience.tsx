@@ -36,6 +36,9 @@ const resultOrder = [
   "category",
 ] as const;
 
+/** Debounce delay for URL sync during live typing (ms). */
+const URL_SYNC_DEBOUNCE_MS = 350;
+
 function resultLabel(type: GlobalSearchEntry["type"]) {
   return globalSearchTypeLabels[type];
 }
@@ -50,7 +53,6 @@ export function GlobalSearchExperience({
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState(initialQuery);
-  const [submittedQuery, setSubmittedQuery] = useState(initialQuery.trim());
   const [filter, setFilter] = useState<GlobalSearchFilter>(initialFilter);
   const [recent, setRecent] = useState<string[]>([]);
 
@@ -68,9 +70,13 @@ export function GlobalSearchExperience({
       window.removeEventListener("jelocare:focus-global-search", focusSearch);
   }, []);
 
+  // Live search — results update as the user types. The search is entirely
+  // client-side against an in-memory index (~200 entries), so this is fast
+  // enough to run on every keystroke without debouncing the computation.
+  const trimmedQuery = query.trim();
   const results = useMemo(
-    () => searchGlobalIndex(entries, submittedQuery, filter),
-    [entries, filter, submittedQuery],
+    () => searchGlobalIndex(entries, trimmedQuery, filter),
+    [entries, filter, trimmedQuery],
   );
   const groupedResults = useMemo(
     () =>
@@ -80,31 +86,40 @@ export function GlobalSearchExperience({
       }),
     [results],
   );
-  const isResultsPhase = Boolean(submittedQuery);
+  const isResultsPhase = Boolean(trimmedQuery);
 
-  function updateUrl(nextQuery: string, nextFilter: GlobalSearchFilter) {
-    const params = new URLSearchParams();
-    if (nextQuery) params.set("q", nextQuery);
-    if (nextFilter !== "all") params.set("type", nextFilter);
-    router.push(params.size ? `/search?${params}` : "/search", {
-      scroll: false,
-    });
-  }
+  // Debounced URL sync — keeps the URL shareable and the back button working
+  // without pushing a new history entry on every keystroke. Uses replace()
+  // so typing doesn't flood browser history; explicit submit uses push()
+  // to create a back-button entry.
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const params = new URLSearchParams();
+      if (trimmedQuery) params.set("q", trimmedQuery);
+      if (filter !== "all") params.set("type", filter);
+      const nextUrl = params.size ? `/search?${params}` : "/search";
+      router.replace(nextUrl, { scroll: false });
+    }, URL_SYNC_DEBOUNCE_MS);
+    return () => window.clearTimeout(timer);
+  }, [trimmedQuery, filter, router]);
 
   function submitSearch(value = query) {
     const next = value.trim();
     if (!next) {
-      setSubmittedQuery("");
-      updateUrl("", filter);
+      setQuery("");
       inputRef.current?.focus();
       return;
     }
     setQuery(next);
-    setSubmittedQuery(next);
     if (searchGlobalIndex(entries, next, filter).length) {
       setRecent(recordRecentSearch(window.localStorage, next));
     }
-    updateUrl(next, filter);
+    // Immediate URL push on explicit submit so the back button returns to
+    // the results page rather than the previous debounced state.
+    const params = new URLSearchParams();
+    params.set("q", next);
+    if (filter !== "all") params.set("type", filter);
+    router.push(`/search?${params}`, { scroll: false });
   }
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -114,18 +129,15 @@ export function GlobalSearchExperience({
 
   function selectFilter(next: GlobalSearchFilter) {
     setFilter(next);
-    updateUrl(submittedQuery, next);
   }
 
   function clearQuery() {
     setQuery("");
-    setSubmittedQuery("");
-    updateUrl("", filter);
     inputRef.current?.focus();
   }
 
   function rememberClick(entry: GlobalSearchEntry) {
-    const value = submittedQuery || entry.label;
+    const value = trimmedQuery || entry.label;
     setRecent(recordRecentSearch(window.localStorage, value));
   }
 
@@ -246,8 +258,8 @@ export function GlobalSearchExperience({
               <p className="eyebrow">Results</p>
               <h2 id="search-results-heading">
                 {results.length
-                  ? `Matches for “${submittedQuery}”`
-                  : `No match for “${submittedQuery}”`}
+                  ? `Matches for “${trimmedQuery}”`
+                  : `No match for “${trimmedQuery}”`}
               </h2>
             </div>
             <p role="status" aria-live="polite">
@@ -287,7 +299,6 @@ export function GlobalSearchExperience({
                 type="button"
                 onClick={() => {
                   setFilter("all");
-                  updateUrl(submittedQuery, "all");
                 }}
               >
                 Search all result types
@@ -301,7 +312,7 @@ export function GlobalSearchExperience({
               <h3>Continue in the catalogue.</h3>
             </div>
             <Link
-              href={`/products?q=${encodeURIComponent(submittedQuery)}#all-products`}
+              href={`/products?q=${encodeURIComponent(trimmedQuery)}#all-products`}
             >
               Refine products <ArrowRight size={17} aria-hidden="true" />
             </Link>
