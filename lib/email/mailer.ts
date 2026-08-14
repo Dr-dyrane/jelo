@@ -1,10 +1,12 @@
-import 'server-only';
+import "server-only";
 
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 import {
+  isSafeHostingerMailApiFallback,
   resolveHostingerMailboxResourceId,
   sendHostingerMailViaApi,
-} from './hostinger-mail-api';
+} from "./hostinger-mail-api";
+import { deliverWithSmtpFallback } from "./delivery-strategy";
 import {
   assistedOrderRecoveryEmail,
   assistedOrderOperatorAlertEmail,
@@ -12,29 +14,38 @@ import {
   operatorInvitationEmail,
   operatorOtpEmail,
   retailerMagicLinkEmail,
-} from './templates';
+} from "./templates";
 
 function mailAddress() {
-  return process.env.EMAIL_FROM_ADDRESS ?? 'hello@jelocare.com';
+  return process.env.EMAIL_FROM_ADDRESS ?? "hello@jelocare.com";
 }
 
 function usableSecret(value: string | undefined) {
-  return Boolean(value && value !== '[SENSITIVE]');
+  return Boolean(value && value !== "[SENSITIVE]");
 }
 
-type EmailProvider = 'hostinger-api' | 'hostinger-smtp';
+type EmailProvider = "hostinger-api" | "hostinger-smtp";
 
 function emailProvider(): EmailProvider | null {
-  const configured = process.env.EMAIL_PROVIDER?.trim().toLocaleLowerCase('en');
-  if (configured === 'hostinger-api' || configured === 'hostinger-mail-api'
-    || configured === 'hostinger-agentic' || configured === 'hostinger') {
-    return usableSecret(process.env.EMAIL_API_TOKEN) ? 'hostinger-api' : null;
+  const configured = process.env.EMAIL_PROVIDER?.trim().toLocaleLowerCase("en");
+  if (
+    configured === "hostinger-api" ||
+    configured === "hostinger-mail-api" ||
+    configured === "hostinger-agentic" ||
+    configured === "hostinger"
+  ) {
+    if (usableSecret(process.env.EMAIL_API_TOKEN)) return "hostinger-api";
+    return usableSecret(process.env.EMAIL_SMTP_PASSWORD)
+      ? "hostinger-smtp"
+      : null;
   }
-  if (configured === 'hostinger-smtp') {
-    return usableSecret(process.env.EMAIL_SMTP_PASSWORD) ? 'hostinger-smtp' : null;
+  if (configured === "hostinger-smtp") {
+    return usableSecret(process.env.EMAIL_SMTP_PASSWORD)
+      ? "hostinger-smtp"
+      : null;
   }
-  if (usableSecret(process.env.EMAIL_API_TOKEN)) return 'hostinger-api';
-  if (usableSecret(process.env.EMAIL_SMTP_PASSWORD)) return 'hostinger-smtp';
+  if (usableSecret(process.env.EMAIL_API_TOKEN)) return "hostinger-api";
+  if (usableSecret(process.env.EMAIL_SMTP_PASSWORD)) return "hostinger-smtp";
   return null;
 }
 
@@ -44,7 +55,7 @@ export function hasTransactionalEmailConfig() {
 
 function smtpTransporter() {
   return nodemailer.createTransport({
-    host: 'smtp.hostinger.com',
+    host: "smtp.hostinger.com",
     port: 465,
     secure: true,
     auth: {
@@ -56,11 +67,13 @@ function smtpTransporter() {
 
 function displayName() {
   const configured = process.env.EMAIL_FROM?.trim();
-  if (!configured) return 'JeloCare';
-  const bracket = configured.lastIndexOf('<');
-  return (bracket > 0 ? configured.slice(0, bracket) : configured)
-    .trim()
-    .replace(/^["']|["']$/g, '') || 'JeloCare';
+  if (!configured) return "JeloCare";
+  const bracket = configured.lastIndexOf("<");
+  return (
+    (bracket > 0 ? configured.slice(0, bracket) : configured)
+      .trim()
+      .replace(/^["']|["']$/g, "") || "JeloCare"
+  );
 }
 
 let mailboxResourceId: Promise<string> | null = null;
@@ -69,37 +82,58 @@ function hostingerMailboxResourceId(apiToken: string) {
   mailboxResourceId ??= resolveHostingerMailboxResourceId({
     apiToken,
     fromAddress: mailAddress(),
-  }).catch(error => {
+  }).catch((error) => {
     mailboxResourceId = null;
     throw error;
   });
   return mailboxResourceId;
 }
 
-async function deliver(to: string, message: { subject: string; text: string; html: string }) {
+async function deliver(
+  to: string,
+  message: { subject: string; text: string; html: string },
+) {
   const provider = emailProvider();
-  if (!provider) throw new Error('transactional_email_not_configured');
+  if (!provider) throw new Error("transactional_email_not_configured");
 
-  if (provider === 'hostinger-api') {
-    const apiToken = process.env.EMAIL_API_TOKEN!;
-    return sendHostingerMailViaApi({
-      apiToken,
-      mailboxResourceId: await hostingerMailboxResourceId(apiToken),
+  const sendSmtp = () =>
+    smtpTransporter().sendMail({
+      from: process.env.EMAIL_FROM ?? `JeloCare <${mailAddress()}>`,
       to,
-      displayName: displayName(),
+      replyTo: process.env.EMAIL_REPLY_TO ?? mailAddress(),
       subject: message.subject,
       text: message.text,
       html: message.html,
     });
+
+  if (provider === "hostinger-smtp") {
+    return deliverWithSmtpFallback({
+      sendSmtp,
+      canFallbackFromApi: isSafeHostingerMailApiFallback,
+    });
   }
 
-  return smtpTransporter().sendMail({
-    from: process.env.EMAIL_FROM ?? `JeloCare <${mailAddress()}>`,
-    to,
-    replyTo: process.env.EMAIL_REPLY_TO ?? mailAddress(),
-    subject: message.subject,
-    text: message.text,
-    html: message.html,
+  const apiToken = process.env.EMAIL_API_TOKEN!;
+  return deliverWithSmtpFallback({
+    sendApi: async () =>
+      sendHostingerMailViaApi({
+        apiToken,
+        mailboxResourceId: await hostingerMailboxResourceId(apiToken),
+        to,
+        displayName: displayName(),
+        subject: message.subject,
+        text: message.text,
+        html: message.html,
+      }),
+    sendSmtp: usableSecret(process.env.EMAIL_SMTP_PASSWORD)
+      ? sendSmtp
+      : undefined,
+    canFallbackFromApi: isSafeHostingerMailApiFallback,
+    onApiFallback: () => {
+      console.warn(
+        "Transactional email API did not accept delivery; using configured SMTP fallback.",
+      );
+    },
   });
 }
 
@@ -150,13 +184,26 @@ export async function sendAlertEmail(input: {
 
 // Used by the Neon Auth send.otp webhook (app/api/auth-hooks) to deliver the
 // operator sign-in code through JeloCare's own branded transport.
-export async function sendOperatorOtp(input: { to: string; code: string; type?: string }) {
-  return deliver(input.to, operatorOtpEmail({ code: input.code, type: input.type }));
+export async function sendOperatorOtp(input: {
+  to: string;
+  code: string;
+  type?: string;
+}) {
+  return deliver(
+    input.to,
+    operatorOtpEmail({ code: input.code, type: input.type }),
+  );
 }
 
-export async function sendOperatorInvitation(input: { to: string; signInLink: string }) {
-  return deliver(input.to, operatorInvitationEmail({
-    email: input.to,
-    signInLink: input.signInLink,
-  }));
+export async function sendOperatorInvitation(input: {
+  to: string;
+  signInLink: string;
+}) {
+  return deliver(
+    input.to,
+    operatorInvitationEmail({
+      email: input.to,
+      signInLink: input.signInLink,
+    }),
+  );
 }

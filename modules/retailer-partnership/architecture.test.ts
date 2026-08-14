@@ -30,6 +30,10 @@ test("retailer partnerships stay private until a deliberate catalogue review", a
     "utf8",
   );
   const mailer = await readFile(path.join(root, "lib/email/mailer.ts"), "utf8");
+  const authHook = await readFile(
+    path.join(root, "app/api/auth-hooks/route.ts"),
+    "utf8",
+  );
 
   assert.match(migration, /retailer_partnership_applications/);
   assert.match(migration, /contact_consent_at/);
@@ -49,4 +53,14 @@ test("retailer partnerships stay private until a deliberate catalogue review", a
   assert.match(mailer, /smtp\.hostinger\.com/);
   assert.match(mailer, /EMAIL_API_TOKEN/);
   assert.match(mailer, /sendHostingerMailViaApi/);
+  assert.match(
+    mailer,
+    /sendSmtp:\s*usableSecret\(process\.env\.EMAIL_SMTP_PASSWORD\)/,
+  );
+  assert.match(mailer, /isSafeHostingerMailApiFallback/);
+  assert.match(
+    authHook,
+    /emailDeliveryConfigured:\s*hasTransactionalEmailConfig\(\)/,
+  );
+  assert.doesNotMatch(authHook, /EMAIL_(?:API_TOKEN|SMTP_PASSWORD)/);
 });

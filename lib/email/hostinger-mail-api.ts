@@ -1,4 +1,4 @@
-const hostingerMailApiOrigin = 'https://api.mail.hostinger.com';
+const hostingerMailApiOrigin = "https://api.mail.hostinger.com";
 
 type Fetcher = typeof fetch;
 
@@ -13,16 +13,33 @@ type AccountResponse = {
   };
 };
 
+export class HostingerMailApiError extends Error {
+  constructor(
+    code: string,
+    public readonly deliveryAttempted: boolean,
+    public readonly safeToFallback: boolean,
+  ) {
+    super(code);
+    this.name = "HostingerMailApiError";
+  }
+}
+
+export function isSafeHostingerMailApiFallback(error: unknown) {
+  return error instanceof HostingerMailApiError && error.safeToFallback;
+}
+
 function mailboxesFromResponse(value: unknown): Mailbox[] {
-  if (!value || typeof value !== 'object') return [];
+  if (!value || typeof value !== "object") return [];
   const mailboxes = (value as AccountResponse).data?.mailboxes;
   if (!Array.isArray(mailboxes)) return [];
-  return mailboxes.flatMap(mailbox => {
-    if (!mailbox || typeof mailbox !== 'object') return [];
-    const resourceId = 'resourceId' in mailbox ? mailbox.resourceId : null;
-    const address = 'address' in mailbox ? mailbox.address : null;
-    return typeof resourceId === 'string' && resourceId.length > 0
-      && typeof address === 'string' && address.length > 0
+  return mailboxes.flatMap((mailbox) => {
+    if (!mailbox || typeof mailbox !== "object") return [];
+    const resourceId = "resourceId" in mailbox ? mailbox.resourceId : null;
+    const address = "address" in mailbox ? mailbox.address : null;
+    return typeof resourceId === "string" &&
+      resourceId.length > 0 &&
+      typeof address === "string" &&
+      address.length > 0
       ? [{ resourceId, address }]
       : [];
   });
@@ -30,7 +47,7 @@ function mailboxesFromResponse(value: unknown): Mailbox[] {
 
 async function responseJson(response: Response) {
   try {
-    return await response.json() as unknown;
+    return (await response.json()) as unknown;
   } catch {
     return null;
   }
@@ -42,20 +59,42 @@ export async function resolveHostingerMailboxResourceId(input: {
   fetcher?: Fetcher;
 }) {
   const fetcher = input.fetcher ?? fetch;
-  const response = await fetcher(`${hostingerMailApiOrigin}/api/v1/me`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization: `Bearer ${input.apiToken}`,
-    },
-    cache: 'no-store',
-  });
-  if (!response.ok) throw new Error(`hostinger_mail_account_${response.status}`);
+  let response: Response;
+  try {
+    response = await fetcher(`${hostingerMailApiOrigin}/api/v1/me`, {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        authorization: `Bearer ${input.apiToken}`,
+      },
+      cache: "no-store",
+    });
+  } catch {
+    // Mailbox discovery cannot have accepted a message, so SMTP is safe here.
+    throw new HostingerMailApiError(
+      "hostinger_mail_account_unavailable",
+      false,
+      true,
+    );
+  }
+  if (!response.ok) {
+    throw new HostingerMailApiError(
+      `hostinger_mail_account_${response.status}`,
+      false,
+      true,
+    );
+  }
 
-  const expected = input.fromAddress.trim().toLocaleLowerCase('en');
-  const mailbox = mailboxesFromResponse(await responseJson(response))
-    .find(candidate => candidate.address.toLocaleLowerCase('en') === expected);
-  if (!mailbox) throw new Error('hostinger_mailbox_not_available');
+  const expected = input.fromAddress.trim().toLocaleLowerCase("en");
+  const mailbox = mailboxesFromResponse(await responseJson(response)).find(
+    (candidate) => candidate.address.toLocaleLowerCase("en") === expected,
+  );
+  if (!mailbox)
+    throw new HostingerMailApiError(
+      "hostinger_mailbox_not_available",
+      false,
+      true,
+    );
   return mailbox.resourceId;
 }
 
@@ -70,24 +109,44 @@ export async function sendHostingerMailViaApi(input: {
   fetcher?: Fetcher;
 }) {
   const fetcher = input.fetcher ?? fetch;
-  const response = await fetcher(
-    `${hostingerMailApiOrigin}/api/v1/mailboxes/${encodeURIComponent(input.mailboxResourceId)}/send`,
-    {
-      method: 'POST',
-      headers: {
-        accept: 'application/json',
-        authorization: `Bearer ${input.apiToken}`,
-        'content-type': 'application/json',
+  let response: Response;
+  try {
+    response = await fetcher(
+      `${hostingerMailApiOrigin}/api/v1/mailboxes/${encodeURIComponent(input.mailboxResourceId)}/send`,
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          authorization: `Bearer ${input.apiToken}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          to: [input.to],
+          displayName: input.displayName,
+          subject: input.subject,
+          text: input.text,
+          html: input.html,
+        }),
+        cache: "no-store",
       },
-      body: JSON.stringify({
-        to: [input.to],
-        displayName: input.displayName,
-        subject: input.subject,
-        text: input.text,
-        html: input.html,
-      }),
-      cache: 'no-store',
-    },
-  );
-  if (!response.ok) throw new Error(`hostinger_mail_send_${response.status}`);
+    );
+  } catch {
+    // A network failure after POST begins has an uncertain acceptance state.
+    throw new HostingerMailApiError(
+      "hostinger_mail_send_uncertain",
+      true,
+      false,
+    );
+  }
+  if (!response.ok) {
+    const explicitClientRejection =
+      response.status >= 400 &&
+      response.status < 500 &&
+      response.status !== 408;
+    throw new HostingerMailApiError(
+      `hostinger_mail_send_${response.status}`,
+      true,
+      explicitClientRejection,
+    );
+  }
 }

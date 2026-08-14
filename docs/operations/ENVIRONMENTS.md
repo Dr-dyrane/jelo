@@ -58,14 +58,14 @@ reviewed boundary before a provider credential is added.
 
 ### PostgreSQL
 
-| Variable                      | Required                          | Notes                                                                                                                                                                                                                                                      |
-| ----------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `APP_DATABASE_URL`            | Production runtime data features  | Pooled postgres.js URL whose username is exactly `jelocare_app_runtime`; require `sslmode=verify-full` and omit `channel_binding`. This is the only general database URL configured in Vercel Production.                                                        |
-| `DATABASE_URL`                | Not permitted in Vercel           | Must be absent from every Vercel scope because a provider integration can reconstruct it with an owner role. Local development may use this compatibility name only when it resolves to exact `jelocare_app_runtime`.                                      |
-| `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf and Routine runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only                                                                                                              |
-| `POSTGRES_URL`                | Compatibility only                | If retained, it must satisfy the same driver and exact app-role contract, never point to an owner or administrator                                                                                                                                         |
-| `NEON_PROJECT_ID`             | Operator convenience              | Not read by application runtime                                                                                                                                                                                                                            |
-| `CRON_SECRET`                 | Production cron endpoints         | Bearer token for `/api/cron/inventory`, `/api/cron/reconcile-requests`, and `/api/cron/daily-campaign`. Must be at least 16 characters; `isAuthorizedCronRequest` rejects shorter secrets.                                                                 |
+| Variable                      | Required                          | Notes                                                                                                                                                                                                                 |
+| ----------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `APP_DATABASE_URL`            | Production runtime data features  | Pooled postgres.js URL whose username is exactly `jelocare_app_runtime`; require `sslmode=verify-full` and omit `channel_binding`. This is the only general database URL configured in Vercel Production.             |
+| `DATABASE_URL`                | Not permitted in Vercel           | Must be absent from every Vercel scope because a provider integration can reconstruct it with an owner role. Local development may use this compatibility name only when it resolves to exact `jelocare_app_runtime`. |
+| `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf and Routine runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only                                                                         |
+| `POSTGRES_URL`                | Compatibility only                | If retained, it must satisfy the same driver and exact app-role contract, never point to an owner or administrator                                                                                                    |
+| `NEON_PROJECT_ID`             | Operator convenience              | Not read by application runtime                                                                                                                                                                                       |
+| `CRON_SECRET`                 | Production cron endpoints         | Bearer token for `/api/cron/inventory`, `/api/cron/reconcile-requests`, and `/api/cron/daily-campaign`. Must be at least 16 characters; `isAuthorizedCronRequest` rejects shorter secrets.                            |
 
 `MIGRATION_DATABASE_URL` is deliberately not a Vercel environment variable. A
 protected operator process injects one direct, non-pooled administrator URL for
@@ -164,9 +164,9 @@ correct attribution next to the field.
 
 | Variable                        | Required               | Notes                                                         |
 | ------------------------------- | ---------------------- | ------------------------------------------------------------- |
-| `EMAIL_PROVIDER`                | Retailer magic links   | `hostinger-api` preferred; `hostinger-smtp` fallback          |
+| `EMAIL_PROVIDER`                | Transactional email    | `hostinger-api` preferred; `hostinger-smtp` selects SMTP only |
 | `EMAIL_API_TOKEN`               | Hostinger API delivery | Mailbox-scoped Agentic Mail token                             |
-| `EMAIL_SMTP_PASSWORD`           | SMTP fallback only     | Mailbox password, never an API token                          |
+| `EMAIL_SMTP_PASSWORD`           | SMTP resilience        | Mailbox password, never an API token                          |
 | `EMAIL_FROM_ADDRESS`            | Recommended            | Auth username; defaults to `hello@jelocare.com`               |
 | `EMAIL_FROM`                    | Recommended            | Display sender                                                |
 | `EMAIL_REPLY_TO`                | Recommended            | Reply destination                                             |
@@ -176,7 +176,14 @@ correct attribution next to the field.
 Create the API token under hPanel → Emails → the domain → Agentic mail → API.
 The mailer resolves the configured sender against `/api/v1/me` before sending.
 A general Hostinger account API token is not a mail token, and a mail API token
-is not an SMTP password.
+is not an SMTP password. When API delivery is preferred and both credentials
+are present, a failed mailbox lookup or explicit API client rejection falls
+back once to SMTP. A network interruption, timeout, or provider 5xx after the
+send begins is ambiguous and remains fail-closed to preserve one-email
+semantics. A Hostinger API 2xx proves only provider acceptance, not mailbox
+receipt; it must not trigger SMTP fallback. `GET /api/auth-hooks` exposes only
+the configuration-presence boolean `emailDeliveryConfigured`; it never tests
+delivery or identifies a provider or credential.
 
 ### Scheduled and release operations
 

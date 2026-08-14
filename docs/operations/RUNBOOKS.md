@@ -1336,13 +1336,24 @@ Activity outcome totals intentionally retain all product resolution cycles.
 ## Retailer application email fails
 
 1. Confirm the application saved before retrying email.
-2. Check `EMAIL_PROVIDER`, sender address, and Production/Preview scope.
-3. For `hostinger-api`, confirm `EMAIL_API_TOKEN` is a mailbox-scoped Agentic
+2. Check `GET /api/auth-hooks`; `emailDeliveryConfigured` confirms only that a
+   recognized provider credential is present. It does not prove authentication,
+   provider acceptance, queue completion, or mailbox receipt, and exposes no
+   provider or credential detail.
+3. Check `EMAIL_PROVIDER`, sender address, and Production/Preview scope.
+   `hostinger-api` uses a configured SMTP mailbox password automatically only
+   when the API failure proves that no message was accepted.
+4. For `hostinger-api`, confirm `EMAIL_API_TOKEN` is a mailbox-scoped Agentic
    Mail token and that `/api/v1/me` includes the sender.
-4. For `hostinger-smtp`, confirm `EMAIL_SMTP_PASSWORD` is the mailbox password,
-   not an API token.
-5. Use the resend endpoint only within its rate limit.
-6. Do not print the private link or token in logs.
+5. Confirm `EMAIL_SMTP_PASSWORD` is the mailbox password, not an API token,
+   when SMTP-only or API-first resilience is expected.
+6. Use the resend endpoint only within its rate limit. Do not retry an
+   ambiguous API network, timeout, or 5xx send as SMTP; that could duplicate a
+   message already accepted by the provider. A Hostinger 2xx is also accepted,
+   even if the delivery log still says `Delivering`; inspect the delivery log
+   or recipient mailbox rather than sending a second copy.
+7. Do not print the private link, OTP, token, password, or provider exception in
+   logs.
 
 The application can remain saved even when delivery reports `failed` or `unavailable`.
 
