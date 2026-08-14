@@ -685,6 +685,10 @@ test("Ask Me is route-scoped and reuses one reviewed guidance authority with opt
   const route = readFileSync("app/(customer)/me/[...route]/page.ts", "utf8");
   const home = readFileSync("components/me/home/me-home.tsx", "utf8");
   const view = readFileSync("components/me/consult/consult-view.tsx", "utf8");
+  const routeCss = readFileSync(
+    "components/me/consult/consult-view.module.css",
+    "utf8",
+  );
   const experience = readFileSync(
     "components/consult/consult-experience.tsx",
     "utf8",
@@ -704,6 +708,7 @@ test("Ask Me is route-scoped and reuses one reviewed guidance authority with opt
   assert.match(view, /<ConsultExperience/);
   assert.match(view, /memberContext=\{memberContext\}/);
   assert.doesNotMatch(view, /aria-current/);
+  assert.doesNotMatch(routeCss, /aria-current/);
   assert.doesNotMatch(view, /fetch\(|assessClinicalRoutine|\/api\/consult/);
   assert.match(
     experience,

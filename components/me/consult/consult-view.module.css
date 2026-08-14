@@ -50,10 +50,6 @@
   font-size: 0.76rem;
 }
 
-.phases li[aria-current="step"] {
-  color: var(--ink);
-}
-
 .phases span {
   color: var(--wine);
   font-variant-numeric: tabular-nums;
