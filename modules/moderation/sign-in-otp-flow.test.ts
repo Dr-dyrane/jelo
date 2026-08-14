@@ -38,9 +38,10 @@ test("OTP sign-in prevents duplicate requests and makes resend deliberate", asyn
 });
 
 test("OTP sign-in is truthful, autofill-friendly, and quietly recoverable", async () => {
-  const [page, css] = await Promise.all([
+  const [page, css, layout] = await Promise.all([
     readSource("app/(auth)/sign-in/page.tsx"),
     readSource("app/(auth)/sign-in/sign-in.module.css"),
+    readSource("app/(auth)/layout.tsx"),
   ]);
 
   assert.match(page, /Check \{email\}/);
@@ -62,4 +63,6 @@ test("OTP sign-in is truthful, autofill-friendly, and quietly recoverable", asyn
   assert.match(page, /aria-describedby=\{/);
   assert.match(css, /\.meta[\s\S]*flex-wrap:\s*wrap/);
   assert.match(css, /\.guidance[\s\S]*line-height:\s*1\.5/);
+  assert.match(layout, /Sign in · JeloCare["']/);
+  assert.doesNotMatch(layout, /Sign in · JeloCare Ops/);
 });

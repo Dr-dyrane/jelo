@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Sign in · JeloCare Ops' },
+  title: { absolute: 'Sign in · JeloCare' },
   robots: { index: false, follow: false },
   openGraph: null,
   twitter: null,
