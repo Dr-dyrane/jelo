@@ -435,7 +435,7 @@ export async function readPendingPaystackPaymentForOrder(
     order by created_at desc
     limit 1
   `;
-  return rows.length ? mapPayment(rows[0]) : null;
+  return rows.length ? mapPaymentRow(rows[0]) : null;
 }
 
 /**
