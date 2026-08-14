@@ -35,9 +35,9 @@ export function SmartLocationFields({
   const [status, setStatus] = useState<
     "idle" | "loading" | "ready" | "unavailable"
   >("idle");
-  const [provider, setProvider] = useState<"geoapify" | "openstreetmap" | null>(
-    null,
-  );
+  const [provider, setProvider] = useState<
+    "geoapify" | "mapbox" | "openstreetmap" | null
+  >(null);
   const [focused, setFocused] = useState(false);
   const citySuggestions = nigeriaCitySuggestions(value.state);
   const open = focused && suggestions.length > 0;
@@ -66,7 +66,7 @@ export function SmartLocationFields({
         });
         const payload = (await response.json()) as {
           suggestions?: LocationSuggestion[];
-          provider?: "geoapify" | "openstreetmap";
+          provider?: "geoapify" | "mapbox" | "openstreetmap";
         };
         if (controller.signal.aborted) return;
         const next =
@@ -264,8 +264,12 @@ export function SmartLocationFields({
 
       <p className={styles.attribution}>
         Suggestions send the typed location to{" "}
-        {provider === "openstreetmap" ? "OpenStreetMap" : "Geoapify"} and are
-        not saved by JeloCare until you submit.{" "}
+        {provider === "openstreetmap"
+          ? "OpenStreetMap"
+          : provider === "mapbox"
+            ? "Mapbox"
+            : "Geoapify"}{" "}
+        and are not saved by JeloCare until you submit.{" "}
         {provider === "openstreetmap" ? (
           <a
             href="https://www.openstreetmap.org/copyright"
@@ -273,6 +277,14 @@ export function SmartLocationFields({
             rel="noreferrer"
           >
             © OpenStreetMap contributors
+          </a>
+        ) : provider === "mapbox" ? (
+          <a
+            href="https://www.mapbox.com/about/maps/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            © Mapbox
           </a>
         ) : (
           <a href="https://www.geoapify.com/" target="_blank" rel="noreferrer">

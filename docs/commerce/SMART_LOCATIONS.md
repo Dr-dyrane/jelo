@@ -18,23 +18,28 @@ saved-location row.
 
 ## Provider decision
 
-JeloCare tries Geoapify Address Autocomplete first, then falls back to
-OpenStreetMap Nominatim, through `POST /api/locations/suggest`:
+JeloCare tries three providers in order through `POST /api/locations/suggest`:
+Geoapify → Mapbox → OpenStreetMap Nominatim.
 
-- `GEOAPIFY_API_KEY` is server-only and never appears in browser JavaScript;
-- provider requests are filtered to `countrycode:ng`;
+- `GEOAPIFY_API_KEY` and `MAPBOX_TOKEN` are server-only and never appear in
+  browser JavaScript;
+- provider requests are filtered to Nigeria (`countrycode:ng` or equivalent);
 - client requests wait 500 ms after typing and begin at four characters;
 - the shared Upstash boundary allows at most 4 Geoapify requests/second,
-  1 Nominatim request/second, and 30 requests/minute per hashed network;
+  10 Mapbox requests/second, 1 Nominatim request/second, and 30
+  requests/minute per hashed network;
 - provider and route responses use `no-store`; and
 - the interface shows the correct attribution for whichever provider served
-  the suggestions ("Powered by Geoapify" or "© OpenStreetMap contributors").
+  the suggestions ("Powered by Geoapify", "© Mapbox", or
+  "© OpenStreetMap contributors").
 
 Geoapify's published free plan currently includes 3,000 credits/day, permits
 limited commercial use without a card, allows up to 5 requests/second, and
-provides no free-plan SLA. When Geoapify is unconfigured, fails, or returns no
-results, the route falls back to OpenStreetMap Nominatim — a keyless public
-geocoder that requires attribution and limits clients to 1 request/second.
+provides no free-plan SLA. Mapbox's free tier includes 50,000 geocoding
+requests/month with a proper autocomplete API and no SLA. When both are
+unconfigured, fail, or return no results, the route falls back to OpenStreetMap
+Nominatim — a keyless public geocoder that requires attribution and limits
+clients to 1 request/second.
 
 Neither provider is an availability dependency. A missing key, quota, timeout,
 provider error, or rate limit leaves manual address, state, city, and postcode

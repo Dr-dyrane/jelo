@@ -5,6 +5,7 @@ import type { CustomerAccessIdentity } from "../../lib/customer/access-policy";
 import { createCustomerLocationService } from "../../lib/customer/location-service";
 import type { CustomerLocationRepository } from "../../lib/customer/location-repository";
 import { mapGeoapifySuggestions } from "../../lib/location/geoapify";
+import { mapMapboxSuggestions } from "../../lib/location/mapbox";
 import { mapNominatimSuggestions } from "../../lib/location/nominatim";
 import type { SavedCustomerLocation } from "../../lib/location/model";
 import {
@@ -208,7 +209,10 @@ test("saved-location migration and UI preserve the private/manual-fallback bound
   assert.match(fields, /role="combobox"/);
   assert.match(fields, /aria-activedescendant/);
   assert.match(fields, /Keep typing manually/);
-  assert.match(fields, /Powered by Geoapify|OpenStreetMap contributors/);
+  assert.match(
+    fields,
+    /Powered by Geoapify|OpenStreetMap contributors|© Mapbox/,
+  );
 });
 
 test("Nominatim mapping keeps only complete Nigerian suggestions and removes duplicates", () => {
@@ -259,12 +263,65 @@ test("Nominatim mapping keeps only complete Nigerian suggestions and removes dup
   ]);
 });
 
-test("the provider orchestrator tries Geoapify first and falls back to OpenStreetMap", async () => {
+test("Mapbox mapping keeps only complete Nigerian suggestions and removes duplicates", () => {
+  const suggestions = mapMapboxSuggestions({
+    features: [
+      {
+        id: "address-123",
+        place_name: "12 Adeola Odeku Street, Victoria Island, Lagos, Nigeria",
+        text: "12 Adeola Odeku Street",
+        address: "12 Adeola Odeku Street",
+        context: [
+          { locality: "Victoria Island" },
+          { place: "Lagos" },
+          { region: "Lagos" },
+          { postcode: "101241" },
+          { country: { iso_alpha_2: "NG", name: "Nigeria" } },
+        ],
+      },
+      {
+        id: "address-456",
+        place_name: "12 Adeola Odeku Street, Victoria Island, Lagos, Nigeria",
+        text: "12 Adeola Odeku Street",
+        address: "12 Adeola Odeku Street",
+        context: [
+          { locality: "Victoria Island" },
+          { place: "Lagos" },
+          { region: "Lagos State" },
+          { country: { iso_alpha_2: "NG", name: "Nigeria" } },
+        ],
+      },
+      {
+        id: "address-789",
+        place_name: "Independence Avenue, Accra, Ghana",
+        text: "Independence Avenue",
+        context: [
+          { place: "Accra" },
+          { region: "Greater Accra" },
+          { country: { iso_alpha_2: "GH", name: "Ghana" } },
+        ],
+      },
+    ],
+  });
+  assert.deepEqual(suggestions, [
+    {
+      id: "address-123",
+      label: "12 Adeola Odeku Street, Victoria Island, Lagos, Nigeria",
+      address: "12 Adeola Odeku Street",
+      city: "Victoria Island",
+      state: "Lagos",
+      postalCode: "101241",
+    },
+  ]);
+});
+
+test("the provider orchestrator tries Geoapify, then Mapbox, then OpenStreetMap", async () => {
   const provider = await import("../../lib/location/provider");
   assert.match(
     provider.suggestNigerianLocations.toString(),
     /geoapify|Geoapify/,
   );
+  assert.match(provider.suggestNigerianLocations.toString(), /mapbox|Mapbox/i);
   assert.match(
     provider.suggestNigerianLocations.toString(),
     /nominatim|Nominatim|openstreetmap/i,

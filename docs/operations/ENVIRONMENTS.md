@@ -127,18 +127,18 @@ remain compatibility values and are not used by the current runtime.
 
 ### Location suggestions
 
-| Variable           | Required                       | Notes                                                                                                                                                                                             |
-| ------------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GEOAPIFY_API_KEY` | Smart address suggestions only | Server-only Geoapify key. Never prefix with `NEXT_PUBLIC`. Without it, JeloCare falls back to OpenStreetMap Nominatim. Both checkout and `/me/locations` retain complete manual entry regardless. |
+| Variable           | Required                       | Notes                                                                                                                                                                                                          |
+| ------------------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GEOAPIFY_API_KEY` | Smart address suggestions only | Server-only Geoapify key. Never prefix with `NEXT_PUBLIC`. Without it, JeloCare falls back to Mapbox, then OpenStreetMap Nominatim. Both checkout and `/me/locations` retain complete manual entry regardless. |
+| `MAPBOX_TOKEN`     | Smart address suggestions only | Server-only Mapbox access token. Never prefix with `NEXT_PUBLIC`. Tried after Geoapify and before OpenStreetMap Nominatim. Without it, JeloCare falls back to Nominatim.                                       |
 
 The address-suggestion route is same-site, Nigeria-filtered, no-store, and
-bounded by the shared Upstash runtime. When `GEOAPIFY_API_KEY` is set, JeloCare
-tries Geoapify first (free plan: 3,000 credits/day, 5 req/s, attribution
-required, no SLA). If Geoapify is unconfigured, fails, or returns no results,
-the route falls back to OpenStreetMap Nominatim (keyless, attribution required,
-1 req/s usage policy). JeloCare rate-limits Geoapify to 4 req/s and Nominatim
+bounded by the shared Upstash runtime. The provider chain is:
+Geoapify → Mapbox → OpenStreetMap Nominatim. Each provider is tried only when
+configured; if it fails or returns no results, the next is attempted.
+JeloCare rate-limits Geoapify to 4 req/s, Mapbox to 10 req/s, and Nominatim
 to 1 req/s, limits each network to 30 requests per minute, and debounces
-typing. Exceeding or losing both providers reduces convenience but never
+typing. Exceeding or losing all providers reduces convenience but never
 blocks checkout. Typed address fragments leave JeloCare for the active
 provider only after four characters; the UI states this boundary and shows the
 correct attribution next to the field.

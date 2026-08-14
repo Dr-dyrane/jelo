@@ -7,6 +7,7 @@ import { Redis } from "@upstash/redis";
 let redis: Redis | undefined;
 let networkLimiter: Ratelimit | undefined;
 let geoapifyLimiter: Ratelimit | undefined;
+let mapboxLimiter: Ratelimit | undefined;
 let nominatimLimiter: Ratelimit | undefined;
 
 function configuredRedis() {
@@ -48,6 +49,13 @@ export async function allowLocationSuggestion(request: Request) {
     analytics: false,
     prefix: "jelocare:location-suggest:geoapify",
   });
+  // Mapbox free tier allows 600 requests/minute.
+  mapboxLimiter ??= new Ratelimit({
+    redis: client,
+    limiter: Ratelimit.slidingWindow(10, "1 s"),
+    analytics: false,
+    prefix: "jelocare:location-suggest:mapbox",
+  });
   // Nominatim usage policy requires max 1 request per second.
   nominatimLimiter ??= new Ratelimit({
     redis: client,
@@ -56,14 +64,18 @@ export async function allowLocationSuggestion(request: Request) {
     prefix: "jelocare:location-suggest:nominatim",
   });
   try {
-    const [network, geoapify, nominatim] = await Promise.all([
+    const [network, geoapify, mapbox, nominatim] = await Promise.all([
       networkLimiter.limit(networkKey(request)),
       geoapifyLimiter.limit("geoapify-free-plan"),
+      mapboxLimiter.limit("mapbox-free-tier"),
       nominatimLimiter.limit("nominatim-public"),
     ]);
     // Allow if the network bucket has capacity and at least one provider
     // bucket is available. The orchestrator will try the available provider.
-    return network.success && (geoapify.success || nominatim.success);
+    return (
+      network.success &&
+      (geoapify.success || mapbox.success || nominatim.success)
+    );
   } catch {
     console.error("[location] Configured rate limiter is unavailable.");
     return false;
