@@ -35,7 +35,13 @@ const naira = new Intl.NumberFormat("en-NG", {
   maximumFractionDigits: 2,
 });
 
-export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
+export function OrderStatus({
+  order,
+  isNew = false,
+}: {
+  order: AssistedOrderCustomerView;
+  isNew?: boolean;
+}) {
   const router = useRouter();
   const [decisionPending, setDecisionPending] = useState(false);
   const [error, setError] = useState("");
@@ -89,6 +95,15 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
 
   return (
     <div className={styles.shell}>
+      {isNew ? (
+        <div className={styles.successBanner} role="status">
+          <Check size={20} aria-hidden="true" />
+          <div>
+            <strong>Request received.</strong>
+            <span>We&apos;ll verify your basket and prepare a quote.</span>
+          </div>
+        </div>
+      ) : null}
       <header className={styles.hero}>
         <div>
           <p className="eyebrow">{order.reference}</p>
@@ -103,6 +118,12 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
             <Clock3 size={17} aria-hidden="true" />{" "}
             {formatOrderDateTime(order.updatedAt)}
           </span>
+          {order.deliveryCity ? (
+            <span>
+              <Truck size={17} aria-hidden="true" /> {order.deliveryCity}
+              {order.deliveryState ? `, ${order.deliveryState}` : ""}
+            </span>
+          ) : null}
         </div>
       </header>
 
@@ -257,6 +278,17 @@ export function OrderStatus({ order }: { order: AssistedOrderCustomerView }) {
                   <Check size={20} aria-hidden="true" />
                   <strong>Delivered</strong>
                   <span>Order complete.</span>
+                  <a
+                    className={styles.returnLink}
+                    href={`${JELOCARE_WHATSAPP_CONTACT.href}?text=${encodeURIComponent(
+                      `Hi JeloCare, I have an issue with order ${order.reference}.`,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MessageCircle size={15} aria-hidden="true" /> Report an
+                    issue
+                  </a>
                 </div>
               ) : null}
               {order.state === "cancelled" ? (

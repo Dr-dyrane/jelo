@@ -239,6 +239,17 @@ export function MemberOrdersView({
                             <Check size={18} aria-hidden="true" />
                             <strong>Delivered</strong>
                             <span>Order complete.</span>
+                            <a
+                              className={styles.returnLink}
+                              href={`${JELOCARE_WHATSAPP_CONTACT.href}?text=${encodeURIComponent(
+                                `Hi JeloCare, I have an issue with order ${order.reference}.`,
+                              )}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <MessageCircle size={14} aria-hidden="true" />{" "}
+                              Report an issue
+                            </a>
                           </div>
                         ) : null}
                         {order.state === "cancelled" ? (

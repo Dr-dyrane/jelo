@@ -45,7 +45,8 @@ export type ProcurementProduct = Pick<
 const naira = new Intl.NumberFormat("en-NG", {
   style: "currency",
   currency: "NGN",
-  maximumFractionDigits: 0,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
 
 export function ProcurementBasket({
@@ -93,10 +94,7 @@ export function ProcurementBasket({
 
   const storedRetailer = localStorage.getItem(CHECKOUT_RETAILER_STORAGE_KEY);
   const preferredRetailer = selectedRetailer || storedRetailer;
-  const chosen = chooseRetailerBasketOption(
-    options,
-    preferredRetailer,
-  );
+  const chosen = chooseRetailerBasketOption(options, preferredRetailer);
   const retailer = chosen?.retailer ?? "";
 
   return (
@@ -166,18 +164,14 @@ export function ProcurementBasket({
         <p className="eyebrow">One retailer</p>
         <h2 id="retailer-choice-title">Choose where JeloCare checks.</h2>
         <p className={styles.muted}>
-          These are observed product totals—not final checkout quotes. Delivery
-          and fees are verified after your address.
+          Observed totals — delivery and fees are verified after your address.
         </p>
         {options.length ? (
           <>
             {preferredRetailer && !chosen ? (
               <div className={styles.retailerChange} role="status">
                 <strong>Choose a new retailer.</strong>
-                <p>
-                  {preferredRetailer} no longer has every exact item listed in
-                  stock. JeloCare will not switch stores without you.
-                </p>
+                <p>{preferredRetailer} no longer has every item in stock.</p>
               </div>
             ) : null}
             <fieldset className={styles.retailerOptions}>
@@ -185,7 +179,9 @@ export function ProcurementBasket({
               {options.map((option, index) => (
                 <label
                   key={option.retailer}
-                  data-selected={retailer === option.retailer ? "true" : "false"}
+                  data-selected={
+                    retailer === option.retailer ? "true" : "false"
+                  }
                 >
                   <input
                     type="radio"
@@ -219,16 +215,15 @@ export function ProcurementBasket({
           <div className={styles.noMatch}>
             <strong>No one-retailer match.</strong>
             <p>
-              Remove one product or choose another. JeloCare will not silently
-              split an order.
+              Remove a product or choose another. We won&apos;t split an order.
             </p>
           </div>
         )}
         <div className={styles.assurance}>
           <ShieldCheck size={19} aria-hidden="true" />
           <p>
-            <strong>No payment now.</strong> You approve one complete, verified
-            quote before anything proceeds.
+            <strong>No payment now.</strong> Approve one verified quote before
+            anything proceeds.
           </p>
         </div>
         <button
@@ -309,9 +304,10 @@ function ReadyCheckoutExperience({
   const storedRetailer = localStorage.getItem(CHECKOUT_RETAILER_STORAGE_KEY);
   const chosen = chooseRetailerBasketOption(options, storedRetailer);
   const retailer = chosen?.retailer ?? "";
-  const draftSignature = chosen && selectedProducts.length
-    ? checkoutDraftSignature(retailer, basket.items)
-    : null;
+  const draftSignature =
+    chosen && selectedProducts.length
+      ? checkoutDraftSignature(retailer, basket.items)
+      : null;
   const [initialDraft] = useState(() => {
     if (!draftSignature) return null;
     try {
@@ -323,16 +319,17 @@ function ReadyCheckoutExperience({
       return null;
     }
   });
-  const [stepIndex, setStepIndex] = useState(() => initialDraft
-    ? checkoutFlow.indexOf(initialDraft.step)
-    : 0);
+  const [stepIndex, setStepIndex] = useState(() =>
+    initialDraft ? checkoutFlow.indexOf(initialDraft.step) : 0,
+  );
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [fields, setFields] = useState<Record<string, string>>(
     () => ({ ...initialDraft?.fields }) as Record<string, string>,
   );
-  const [emailNotificationsConsent, setEmailNotificationsConsent] =
-    useState(initialDraft?.emailNotificationsConsent ?? false);
+  const [emailNotificationsConsent, setEmailNotificationsConsent] = useState(
+    initialDraft?.emailNotificationsConsent ?? false,
+  );
   const [whatsappConsent, setWhatsappConsent] = useState(
     initialDraft?.whatsappConsent ?? false,
   );
@@ -370,10 +367,7 @@ function ReadyCheckoutExperience({
       <section className={styles.empty}>
         <p className="eyebrow">Checkout</p>
         <h1>Your basket needs another look.</h1>
-        <p>
-          Your selected retailer must still list every exact item in stock.
-          Review the basket and choose the store yourself if anything changed.
-        </p>
+        <p>Your retailer must still list every item in stock.</p>
         <Link href="/basket">
           Return to basket <ArrowRight size={17} aria-hidden="true" />
         </Link>
@@ -480,7 +474,7 @@ function ReadyCheckoutExperience({
     sessionStorage.removeItem(CHECKOUT_REQUEST_STORAGE_KEY);
     localStorage.removeItem(CHECKOUT_RETAILER_STORAGE_KEY);
     basket.clear();
-    router.push("/order");
+    router.push("/order?new=1");
   }
 
   const updateField = (name: string, value: string) =>
@@ -530,10 +524,7 @@ function ReadyCheckoutExperience({
             <div className={styles.stepPanel}>
               <p className="eyebrow">Step 1 of 3</p>
               <h1>How can JeloCare reach you?</h1>
-              <p>
-                No account required. We use these details only for this order
-                request.
-              </p>
+              <p>No account required.</p>
               <div className={styles.fieldGrid}>
                 <label>
                   <span>Name</span>
@@ -642,10 +633,7 @@ function ReadyCheckoutExperience({
                     setEmailNotificationsConsent(event.target.checked)
                   }
                 />
-                <span>
-                  Email me when my verified quote or order status changes. I can
-                  turn this off at any time.
-                </span>
+                <span>Email me quote and status updates.</span>
               </label>
               <label className={styles.checkField}>
                 <input
@@ -654,10 +642,7 @@ function ReadyCheckoutExperience({
                   checked={whatsappConsent}
                   onChange={(event) => setWhatsappConsent(event.target.checked)}
                 />
-                <span>
-                  JeloCare may contact this number on WhatsApp about this order.
-                  I can continue without WhatsApp.
-                </span>
+                <span>JeloCare may WhatsApp me about this order.</span>
               </label>
             </div>
           ) : null}
@@ -667,23 +652,8 @@ function ReadyCheckoutExperience({
               <p className="eyebrow">Step 3 of 3</p>
               <h1>Ready to request your quote?</h1>
               <p className={styles.finePrint}>
-                No payment is taken. Unknown delivery, tax, or fees cannot be
-                treated as zero.
+                No payment now. You approve the final quote.
               </p>
-              <div className={styles.quoteSteps}>
-                <span>
-                  <Check size={16} aria-hidden="true" /> Submit this exact
-                  basket
-                </span>
-                <span>
-                  <Check size={16} aria-hidden="true" /> Staff verifies every
-                  cost
-                </span>
-                <span>
-                  <Check size={16} aria-hidden="true" /> You approve the final
-                  quote
-                </span>
-              </div>
               <label className={styles.checkField}>
                 <input
                   type="checkbox"
@@ -692,11 +662,7 @@ function ReadyCheckoutExperience({
                   checked={termsAccepted}
                   onChange={(e) => setTermsAccepted(e.target.checked)}
                 />
-                <span>
-                  I understand this is an order request, not payment. The
-                  retailer supplies the products and I must approve the complete
-                  quote.
-                </span>
+                <span>I understand this is a quote request, not payment.</span>
               </label>
             </div>
           ) : null}
@@ -772,13 +738,13 @@ function ReadyCheckoutExperience({
         </dl>
         <div className={styles.quoteSteps}>
           <span>
-            <Check size={16} aria-hidden="true" /> Submit this exact basket
+            <Check size={16} aria-hidden="true" /> Submit basket
           </span>
           <span>
-            <Check size={16} aria-hidden="true" /> Staff verifies every cost
+            <Check size={16} aria-hidden="true" /> We verify costs
           </span>
           <span>
-            <Check size={16} aria-hidden="true" /> You approve the final quote
+            <Check size={16} aria-hidden="true" /> You approve quote
           </span>
         </div>
       </aside>

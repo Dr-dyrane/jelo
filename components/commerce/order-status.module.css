@@ -37,6 +37,29 @@
   gap: 0.45rem;
 }
 
+/* Success banner */
+.successBanner {
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1.2rem, 3vw, 2rem);
+  border-radius: 1.6rem;
+  background: color-mix(in srgb, #22c55e 10%, transparent);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #15803d;
+}
+.successBanner svg {
+  flex-shrink: 0;
+}
+.successBanner strong {
+  display: block;
+  font-size: 1rem;
+}
+.successBanner span {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
 /* Progress stepper */
 .stepper {
   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
@@ -152,6 +175,24 @@
 .stateBadgeRefund span {
   font-size: 0.82rem;
   opacity: 0.85;
+}
+.returnLink {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.returnLink:hover {
+  background: color-mix(in srgb, var(--ink) 15%, transparent);
 }
 .restartLink {
   margin-top: 0.5rem;
