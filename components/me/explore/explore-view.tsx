@@ -1,14 +1,17 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Search, SlidersHorizontal, X } from 'lucide-react';
-import { useRef, useState } from 'react';
-import { ShelfActionButton } from '@/components/me/shelf/shelf-action-button';
-import { ProductCard, type ProductCardContext } from '@/components/products/product-card';
-import { useControlledDialog } from '@/components/ui/use-controlled-dialog';
-import { ME_PORTAL_SURFACES } from '@/components/me/shell/me-shell-model';
-import type { CustomerPortalViewModel } from '@/lib/customer/portal-model';
-import type { ShelfActionHandler } from '@/components/me/shelf/me-shelf-state';
+import Link from "next/link";
+import { Check, Search, SlidersHorizontal, X } from "lucide-react";
+import { useRef, useState } from "react";
+import { ShelfActionButton } from "@/components/me/shelf/shelf-action-button";
+import {
+  ProductCard,
+  type ProductCardContext,
+} from "@/components/products/product-card";
+import { useControlledDialog } from "@/components/ui/use-controlled-dialog";
+import { ME_PORTAL_SURFACES } from "@/components/me/shell/me-shell-model";
+import type { CustomerPortalViewModel } from "@/lib/customer/portal-model";
+import type { ShelfActionHandler } from "@/components/me/shelf/me-shelf-state";
 import {
   clearCustomerExploreFilters,
   countCustomerExploreFilters,
@@ -16,10 +19,11 @@ import {
   type CustomerExploreFilterState,
   type CustomerExploreProjection,
   flattenCustomerExplore,
-} from '@/lib/customer/explore-model';
-import styles from '../home/me-home.module.css';
+} from "@/lib/customer/explore-model";
+import styles from "../home/me-home.module.css";
+import routeStyles from "./explore-view.module.css";
 
-type ProductSource = 'home' | 'explore' | 'shelf' | 'routine';
+type ProductSource = "home" | "explore" | "shelf" | "routine";
 function memberProductHref(product: { slug: string }, source?: ProductSource) {
   const pathname = `/me/product/${product.slug}`;
   return source ? `${pathname}?from=${source}` : pathname;
@@ -51,29 +55,62 @@ function SearchField({
   );
 }
 
-function ExploreFilterSelect({
+function ExploreFilterGroup({
   label,
   value,
+  allValue = "",
   allLabel,
   options,
   onChange,
 }: {
   label: string;
   value: string;
+  allValue?: string;
   allLabel: string;
   options: readonly { value: string; label: string }[];
   onChange: (value: string) => void;
 }) {
   return (
-    <label className={styles.filterField}>
-      <span>{label}</span>
-      <select value={value} onChange={(event) => onChange(event.target.value)}>
-        <option value="">{allLabel}</option>
-        {options.map(option => (
-          <option key={option.value} value={option.value}>{option.label}</option>
+    <div
+      className={routeStyles.filterGroup}
+      role="group"
+      aria-label={`${label} filter`}
+    >
+      <span className={routeStyles.filterLabel}>{label}</span>
+      <div className={routeStyles.filterChoices}>
+        <button
+          type="button"
+          className={
+            value === allValue
+              ? routeStyles.filterChoiceActive
+              : routeStyles.filterChoice
+          }
+          aria-pressed={value === allValue}
+          onClick={() => onChange(allValue)}
+        >
+          {value === allValue ? <Check size={13} aria-hidden="true" /> : null}
+          {allLabel}
+        </button>
+        {options.map((option) => (
+          <button
+            key={option.value}
+            type="button"
+            className={
+              value === option.value
+                ? routeStyles.filterChoiceActive
+                : routeStyles.filterChoice
+            }
+            aria-pressed={value === option.value}
+            onClick={() => onChange(option.value)}
+          >
+            {value === option.value ? (
+              <Check size={13} aria-hidden="true" />
+            ) : null}
+            {option.label}
+          </button>
         ))}
-      </select>
-    </label>
+      </div>
+    </div>
   );
 }
 
@@ -105,7 +142,9 @@ function ExploreFilterSheet({
 
   const close = () => {
     onClose();
-    window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
+    window.requestAnimationFrame(() =>
+      triggerRef.current?.focus({ preventScroll: true }),
+    );
   };
   const update = <Key extends keyof CustomerExploreFilterState>(
     key: Key,
@@ -121,84 +160,93 @@ function ExploreFilterSheet({
       onCancel={handleCancel}
       onClick={handleBackdropClick}
     >
-      <div className={styles.filterSheet}>
+      <div className={`${styles.filterSheet} ${routeStyles.filterSheet}`}>
         <header className={styles.filterSheetHeader}>
           <div>
             <p className={styles.eyebrow}>Your catalogue</p>
             <h2 id="me-explore-filter-title">Smart filters</h2>
-            <p>{visibleCount} of {totalCount} exact products</p>
+            <p>
+              {visibleCount} of {totalCount} exact products
+            </p>
           </div>
           <button type="button" aria-label="Close filters" onClick={close}>
             <X size={20} aria-hidden="true" />
           </button>
         </header>
 
-        <div className={styles.filterGrid}>
-          <ExploreFilterSelect
+        <div className={routeStyles.filterGroups}>
+          <ExploreFilterGroup
             label="Category"
             value={filters.category}
             allLabel="All categories"
-            options={options.categories.map(value => ({ value, label: value }))}
-            onChange={(value) => update('category', value)}
+            options={options.categories.map((value) => ({
+              value,
+              label: value,
+            }))}
+            onChange={(value) => update("category", value)}
           />
-          <ExploreFilterSelect
+          <ExploreFilterGroup
             label="Routine step"
             value={filters.step}
             allLabel="All steps"
-            options={options.steps.map(value => ({ value, label: value }))}
-            onChange={(value) => update('step', value)}
+            options={options.steps.map((value) => ({ value, label: value }))}
+            onChange={(value) => update("step", value)}
           />
-          <ExploreFilterSelect
+          <ExploreFilterGroup
             label="Brand"
             value={filters.brand}
             allLabel="All brands"
-            options={options.brands.map(value => ({ value, label: value }))}
-            onChange={(value) => update('brand', value)}
+            options={options.brands.map((value) => ({ value, label: value }))}
+            onChange={(value) => update("brand", value)}
           />
-          <label className={styles.filterField}>
-            <span>Shelf</span>
-            <select
-              value={filters.shelf}
-              onChange={(event) => update(
-                'shelf',
-                event.target.value as CustomerExploreFilterState['shelf'],
-              )}
-            >
-              <option value="all">Any Shelf state</option>
-              <option value="on">On your Shelf</option>
-              <option value="off">Not on your Shelf</option>
-            </select>
-          </label>
-          <label className={styles.filterField}>
-            <span>Routine</span>
-            <select
-              value={filters.routine}
-              onChange={(event) => update(
-                'routine',
-                event.target.value as CustomerExploreFilterState['routine'],
-              )}
-            >
-              <option value="all">Any routine state</option>
-              <option value="in">In your routine</option>
-              <option value="out">Not in your routine</option>
-            </select>
-          </label>
+          <ExploreFilterGroup
+            label="Shelf"
+            value={filters.shelf}
+            allValue="all"
+            allLabel="Any Shelf state"
+            options={[
+              { value: "on", label: "On your Shelf" },
+              { value: "off", label: "Not on your Shelf" },
+            ]}
+            onChange={(value) =>
+              update("shelf", value as CustomerExploreFilterState["shelf"])
+            }
+          />
+          <ExploreFilterGroup
+            label="Routine"
+            value={filters.routine}
+            allValue="all"
+            allLabel="Any routine state"
+            options={[
+              { value: "in", label: "In your routine" },
+              { value: "out", label: "Not in your routine" },
+            ]}
+            onChange={(value) =>
+              update("routine", value as CustomerExploreFilterState["routine"])
+            }
+          />
           {options.concerns.length ? (
-            <ExploreFilterSelect
+            <ExploreFilterGroup
               label="My concern"
               value={filters.concernSlug}
               allLabel="All concern support"
-              options={options.concerns.map(concern => ({ value: concern.slug, label: concern.name }))}
-              onChange={(value) => update('concernSlug', value)}
+              options={options.concerns.map((concern) => ({
+                value: concern.slug,
+                label: concern.name,
+              }))}
+              onChange={(value) => update("concernSlug", value)}
             />
           ) : null}
           {options.retailers.length ? (
-            <ExploreFilterSelect
+            <ExploreFilterGroup
               label="My store"
               value={filters.retailerName}
               allLabel="All fresh exact stores"
-              options={options.retailers.map(value => ({ value, label: value }))}
-              onChange={(value) => update('retailerName', value)}
+              options={options.retailers.map((value) => ({
+                value,
+                label: value,
+              }))}
+              onChange={(value) => update("retailerName", value)}
             />
           ) : null}
         </div>
@@ -209,9 +257,11 @@ function ExploreFilterSheet({
             disabled={!activeCount}
             onClick={() => onChange(clearCustomerExploreFilters())}
           >
-            Clear filters{activeCount ? ` · ${activeCount}` : ''}
+            Clear filters{activeCount ? ` · ${activeCount}` : ""}
           </button>
-          <button type="button" onClick={close}>Show {visibleCount} products</button>
+          <button type="button" onClick={close}>
+            Show {visibleCount} products
+          </button>
         </footer>
       </div>
     </dialog>
@@ -241,34 +291,54 @@ export function ExploreView({
   const visibleProducts = flattenCustomerExplore(projection);
   const activeCount = countCustomerExploreFilters(filters);
   const activeFilters = [
-    filters.search ? { key: 'search' as const, label: `Search: ${filters.search}` } : null,
-    filters.category ? { key: 'category' as const, label: filters.category } : null,
-    filters.step ? { key: 'step' as const, label: filters.step } : null,
-    filters.brand ? { key: 'brand' as const, label: filters.brand } : null,
-    filters.shelf !== 'all' ? {
-      key: 'shelf' as const,
-      label: filters.shelf === 'on' ? 'On your Shelf' : 'Not on your Shelf',
-    } : null,
-    filters.routine !== 'all' ? {
-      key: 'routine' as const,
-      label: filters.routine === 'in' ? 'In your routine' : 'Not in your routine',
-    } : null,
-    filters.concernSlug ? {
-      key: 'concernSlug' as const,
-      label: filterOptions.concerns.find(concern => concern.slug === filters.concernSlug)?.name
-        ?? filters.concernSlug,
-    } : null,
-    filters.retailerName ? { key: 'retailerName' as const, label: filters.retailerName } : null,
+    filters.search
+      ? { key: "search" as const, label: `Search: ${filters.search}` }
+      : null,
+    filters.category
+      ? { key: "category" as const, label: filters.category }
+      : null,
+    filters.step ? { key: "step" as const, label: filters.step } : null,
+    filters.brand ? { key: "brand" as const, label: filters.brand } : null,
+    filters.shelf !== "all"
+      ? {
+          key: "shelf" as const,
+          label: filters.shelf === "on" ? "On your Shelf" : "Not on your Shelf",
+        }
+      : null,
+    filters.routine !== "all"
+      ? {
+          key: "routine" as const,
+          label:
+            filters.routine === "in"
+              ? "In your routine"
+              : "Not in your routine",
+        }
+      : null,
+    filters.concernSlug
+      ? {
+          key: "concernSlug" as const,
+          label:
+            filterOptions.concerns.find(
+              (concern) => concern.slug === filters.concernSlug,
+            )?.name ?? filters.concernSlug,
+        }
+      : null,
+    filters.retailerName
+      ? { key: "retailerName" as const, label: filters.retailerName }
+      : null,
   ].filter((filter): filter is NonNullable<typeof filter> => Boolean(filter));
 
-  const clearFilter = (key: typeof activeFilters[number]['key']) => {
-    if (key === 'shelf') onFiltersChange({ ...filters, shelf: 'all' });
-    else if (key === 'routine') onFiltersChange({ ...filters, routine: 'all' });
-    else onFiltersChange({ ...filters, [key]: '' });
+  const clearFilter = (key: (typeof activeFilters)[number]["key"]) => {
+    if (key === "shelf") onFiltersChange({ ...filters, shelf: "all" });
+    else if (key === "routine") onFiltersChange({ ...filters, routine: "all" });
+    else onFiltersChange({ ...filters, [key]: "" });
   };
 
   return (
-    <section className={`${styles.routePage} ${styles.explorePage}`} aria-labelledby="me-explore-title">
+    <section
+      className={`${styles.routePage} ${styles.explorePage} ${routeStyles.page}`}
+      aria-labelledby="me-explore-title"
+    >
       <div className={styles.exploreDiscovery}>
         <div className={`${styles.routeHeading} ${styles.exploreHeading}`}>
           <p className={styles.eyebrow}>{surface.eyebrow}</p>
@@ -285,25 +355,32 @@ export function ExploreView({
             ref={filterTriggerRef}
             type="button"
             className={styles.exploreFilterTrigger}
-            aria-label={`Open filters${activeCount ? `, ${activeCount} active` : ''}`}
+            aria-label={`Open filters${activeCount ? `, ${activeCount} active` : ""}`}
             aria-haspopup="dialog"
             aria-controls="me-explore-filter-sheet"
             aria-expanded={filterOpen}
             onClick={() => setFilterOpen(true)}
           >
             <SlidersHorizontal size={18} aria-hidden="true" />
-            {activeCount ? <span className={styles.exploreFilterBadge} aria-hidden="true">{activeCount}</span> : null}
+            {activeCount ? (
+              <span className={styles.exploreFilterBadge} aria-hidden="true">
+                {activeCount}
+              </span>
+            ) : null}
           </button>
         </div>
-        <div className={styles.exploreCategoryRail} aria-label="Product categories">
+        <div
+          className={styles.exploreCategoryRail}
+          aria-label="Product categories"
+        >
           <button
             type="button"
             aria-pressed={!filters.category}
-            onClick={() => onFiltersChange({ ...filters, category: '' })}
+            onClick={() => onFiltersChange({ ...filters, category: "" })}
           >
             All
           </button>
-          {filterOptions.categories.map(category => (
+          {filterOptions.categories.map((category) => (
             <button
               key={category}
               type="button"
@@ -315,15 +392,27 @@ export function ExploreView({
           ))}
         </div>
         {activeFilters.length ? (
-          <div className={styles.exploreActiveFilters} aria-label="Active filters">
-            {activeFilters.map(filter => (
-              <button key={filter.key} type="button" onClick={() => clearFilter(filter.key)}>
+          <div
+            className={styles.exploreActiveFilters}
+            aria-label="Active filters"
+          >
+            {activeFilters.map((filter) => (
+              <button
+                key={filter.key}
+                type="button"
+                onClick={() => clearFilter(filter.key)}
+              >
                 <span>{filter.label}</span>
                 <X size={13} aria-hidden="true" />
-                <span className={styles.visuallyHidden}>Remove {filter.label} filter</span>
+                <span className={styles.visuallyHidden}>
+                  Remove {filter.label} filter
+                </span>
               </button>
             ))}
-            <button type="button" onClick={() => onFiltersChange(clearCustomerExploreFilters())}>
+            <button
+              type="button"
+              onClick={() => onFiltersChange(clearCustomerExploreFilters())}
+            >
               Clear all
             </button>
           </div>
@@ -331,23 +420,30 @@ export function ExploreView({
       </div>
       <div className={styles.exploreToolbar}>
         <p role="status" aria-live="polite">
-          <strong>{visibleProducts.length}</strong> of {projection.eligibleCount} products
+          <strong>{visibleProducts.length}</strong> of{" "}
+          {projection.eligibleCount} products
         </p>
       </div>
 
       {visibleProducts.length ? (
         <div className={styles.exploreSections}>
           {projection.sections.map((section) => {
-            const headingId = `me-explore-${section.id.replace(':', '-')}`;
+            const headingId = `me-explore-${section.id.replace(":", "-")}`;
             return (
-              <section key={section.id} className={styles.exploreSection} aria-labelledby={headingId}>
+              <section
+                key={section.id}
+                className={styles.exploreSection}
+                aria-labelledby={headingId}
+              >
                 <header className={styles.exploreSectionHeading}>
                   <h2 id={headingId}>{section.title}</h2>
                   <p>{section.description}</p>
                 </header>
-                <div className="product-grid">
+                <div className={`product-grid ${routeStyles.productGrid}`}>
                   {section.products.map((entry) => {
-                    const shelfItem = viewModel.shelf.find(item => item.product?.slug === entry.product.slug);
+                    const shelfItem = viewModel.shelf.find(
+                      (item) => item.product?.slug === entry.product.slug,
+                    );
                     const cardContext: ProductCardContext = {
                       onShelf: entry.onShelf,
                       inRoutine: entry.inRoutine,
@@ -358,16 +454,18 @@ export function ExploreView({
                       <ProductCard
                         key={entry.product.slug}
                         product={entry.product}
-                        href={memberProductHref(entry.product, 'explore')}
+                        href={memberProductHref(entry.product, "explore")}
                         context={cardContext}
-                        footer={viewModel.shelfState.status === 'ready' ? (
-                          <ShelfActionButton
-                            productSlug={entry.product.slug}
-                            saved={Boolean(shelfItem)}
-                            placement="explore"
-                            onAction={shelfAction}
-                          />
-                        ) : null}
+                        footer={
+                          viewModel.shelfState.status === "ready" ? (
+                            <ShelfActionButton
+                              productSlug={entry.product.slug}
+                              saved={Boolean(shelfItem)}
+                              placement="explore"
+                              onAction={shelfAction}
+                            />
+                          ) : null
+                        }
                       />
                     );
                   })}

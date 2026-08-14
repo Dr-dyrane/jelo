@@ -1,13 +1,14 @@
-'use client';
+"use client";
 
-import { useMemo, type RefObject } from 'react';
+import { useMemo, type RefObject } from "react";
 import {
   ConsultExperience,
   type MemberConsultContext,
-} from '@/components/consult/consult-experience';
-import type { CustomerPortalViewModel } from '@/lib/customer/portal-model';
-import { ME_PORTAL_SURFACES } from '@/components/me/shell/me-shell-model';
-import styles from '../home/me-home.module.css';
+} from "@/components/consult/consult-experience";
+import type { CustomerPortalViewModel } from "@/lib/customer/portal-model";
+import { ME_PORTAL_SURFACES } from "@/components/me/shell/me-shell-model";
+import styles from "../home/me-home.module.css";
+import routeStyles from "./consult-view.module.css";
 
 export function ConsultView({
   viewModel,
@@ -18,7 +19,10 @@ export function ConsultView({
 }) {
   const surface = ME_PORTAL_SURFACES.consult;
   const memberContext = useMemo<MemberConsultContext>(() => {
-    const products = new Map<string, { slug: string; brand: string; name: string }>();
+    const products = new Map<
+      string,
+      { slug: string; brand: string; name: string }
+    >();
 
     viewModel.shelf.forEach((item) => {
       if (item.product) {
@@ -55,20 +59,45 @@ export function ConsultView({
       })),
       products: [...products.values()],
     };
-  }, [viewModel.concerns, viewModel.routine, viewModel.routines, viewModel.shelf]);
+  }, [
+    viewModel.concerns,
+    viewModel.routine,
+    viewModel.routines,
+    viewModel.shelf,
+  ]);
 
   return (
-    <section className={`${styles.routePage} ${styles.stackPage}`} aria-labelledby="me-consult-title">
-      <div className={`${styles.routeHeading} ${styles.consultRouteHeading}`}>
-        <p className={styles.eyebrow}>{surface.eyebrow}</p>
-        <h1 id="me-consult-title">Ask about my care.</h1>
-        <p>Reviewed guidance with private context only when you choose it.</p>
-      </div>
-      <div className={styles.memberConsultExperience}>
-        <ConsultExperience
-          memberContext={memberContext}
-          externalComposerRef={composerRef}
-        />
+    <section
+      className={`${styles.routePage} ${styles.stackPage} ${routeStyles.page}`}
+      aria-labelledby="me-consult-title"
+    >
+      <div className={routeStyles.layout}>
+        <header className={routeStyles.intro}>
+          <p className={styles.eyebrow}>{surface.eyebrow}</p>
+          <h1 id="me-consult-title">Ask about my care.</h1>
+          <p>Reviewed guidance uses private context only when you choose it.</p>
+          <ol className={routeStyles.phases} aria-label="Ask Me journey">
+            {["Describe", "Clarify", "Guide", "Continue"].map(
+              (phase, index) => (
+                <li key={phase} aria-current={index === 0 ? "step" : undefined}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  {phase}
+                </li>
+              ),
+            )}
+          </ol>
+          <p className={routeStyles.privacy}>
+            Session-only · no transcript is saved.
+          </p>
+        </header>
+        <div
+          className={`${styles.memberConsultExperience} ${routeStyles.experience}`}
+        >
+          <ConsultExperience
+            memberContext={memberContext}
+            externalComposerRef={composerRef}
+          />
+        </div>
       </div>
     </section>
   );

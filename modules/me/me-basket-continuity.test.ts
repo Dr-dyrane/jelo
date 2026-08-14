@@ -28,14 +28,14 @@ test("My JeloCare carries the device basket without creating a second store", as
 });
 
 test("exact Shelf products add to the existing retailer-scoped basket", async () => {
-  const [portal, product] = await Promise.all([
-    source("components/me/home/me-home.tsx"),
+  const [shelf, product] = await Promise.all([
+    source("components/me/shelf/shelf-view.tsx"),
     source("components/me/product/member-product-view.tsx"),
   ]);
 
-  assert.match(portal, /item\.product\.freshExactRetailerNames\.length/);
-  assert.match(portal, /<AddToBasketButton/);
-  assert.match(portal, /iconOnly/);
+  assert.match(shelf, /item\.product\.freshExactRetailerNames\.length/);
+  assert.match(shelf, /<AddToBasketButton/);
+  assert.match(shelf, /iconOnly/);
   assert.match(product, /product\.freshExactRetailerNames\.map/);
   assert.match(product, /<AddToBasketButton/);
   assert.match(product, /retailerShoppingSlug\(name\)/);

@@ -25,6 +25,8 @@
   display: flex;
   width: min(390px, calc(100vw - 32px));
   flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 24px;
   border-radius: 34px;
   background: color-mix(in srgb, var(--paper) 96%, transparent);
@@ -32,7 +34,10 @@
   backdrop-filter: blur(22px) saturate(1.08);
   -webkit-backdrop-filter: blur(22px) saturate(1.08);
   animation: sheet-in 220ms cubic-bezier(0.32, 0.72, 0, 1);
+  scrollbar-width: none;
 }
+
+.sheet::-webkit-scrollbar { display: none; }
 
 .heading,
 .identity,
@@ -150,21 +155,35 @@
   text-decoration: none;
 }
 
-.helpers a > span {
-  display: grid;
+.helperLead {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   min-width: 0;
-  gap: 4px;
 }
 
-.helpers a > span strong,
-.helpers a > span small {
+.helperIcon {
+  display: grid;
+  width: 2.25rem;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--peach) 58%, transparent);
+  color: var(--wine);
+}
+
+.helperCopy { display: grid; min-width: 0; gap: 4px; }
+
+.helperCopy strong,
+.helperCopy small {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.helpers a > span strong { font-size: 0.82rem; font-weight: 600; }
-.helpers a > span small { color: var(--muted); font-size: 0.7rem; }
+.helperCopy strong { font-size: 0.82rem; font-weight: 600; }
+.helperCopy small { color: var(--muted); font-size: 0.7rem; }
 
 .lifecycle {
   display: grid;
@@ -237,7 +256,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    max-height: min(76dvh, 650px);
+    max-height: min(86dvh, 760px);
     padding: 22px 20px max(22px, env(safe-area-inset-bottom));
     border-radius: 32px 32px 0 0;
     animation-name: sheet-up;

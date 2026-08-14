@@ -259,6 +259,7 @@ test("the complete portal surface vocabulary is concise, personal, and route-own
     "components/me/routine/routine-view.tsx",
     "utf8",
   );
+  const shelfView = readFileSync("components/me/shelf/shelf-view.tsx", "utf8");
   const consultView = readFileSync(
     "components/me/consult/consult-view.tsx",
     "utf8",
@@ -282,7 +283,7 @@ test("the complete portal surface vocabulary is concise, personal, and route-own
   }
   assert.match(homeView, /ME_PORTAL_SURFACES\.home/);
   assert.match(exploreView, /ME_PORTAL_SURFACES\.explore/);
-  assert.match(home, /ME_PORTAL_SURFACES\.shelf/);
+  assert.match(shelfView, /ME_PORTAL_SURFACES\.shelf/);
   assert.match(routineView, /ME_PORTAL_SURFACES\.routine/);
   assert.match(consultView, /ME_PORTAL_SURFACES\.consult/);
   assert.match(productView, /shelfContextLabel/);
@@ -292,17 +293,25 @@ test("the complete portal surface vocabulary is concise, personal, and route-own
 });
 
 test("standalone saved-product lists expand without widening mobile cards", () => {
-  const home = readFileSync("components/me/home/me-home.tsx", "utf8");
+  const shelf = readFileSync("components/me/shelf/shelf-view.tsx", "utf8");
+  const shelfStyles = readFileSync(
+    "components/me/shelf/shelf-view.module.css",
+    "utf8",
+  );
   const dock = readFileSync(
     "components/me/shell/me-workspace-dock.tsx",
     "utf8",
   );
-  assert.match(home, /className="product-grid"/);
+  assert.match(shelf, /`product-grid \$\{styles\.collection\}`/);
   assert.match(dock, /ShelvingUnit/);
   assert.match(dock, /ClockFading as RotateCwFadingClock/);
   assert.doesNotMatch(dock, /LibraryBig/);
-  assert.match(home, /<ShelvingUnit size=\{24\}/);
-  assert.doesNotMatch(home, /LibraryBig/);
+  assert.match(shelf, /<ShelvingUnit size=\{24\}/);
+  assert.doesNotMatch(shelf, /LibraryBig/);
+  assert.match(
+    shelfStyles,
+    /@media \(min-width: 1720px\)[\s\S]*grid-template-columns: repeat\(4,/,
+  );
 });
 
 test("Me context stays truthful and expands into useful route shortcuts", () => {
@@ -613,6 +622,10 @@ test("Explore is route-scoped and keeps private discovery state inside the Me la
     "utf8",
   );
   const css = readFileSync("components/me/home/me-home.module.css", "utf8");
+  const routeCss = readFileSync(
+    "components/me/explore/explore-view.module.css",
+    "utf8",
+  );
 
   assert.match(layout, /<MeExploreStateProvider>/);
   assert.match(home, /shellViewModelFromExplore/);
@@ -625,8 +638,18 @@ test("Explore is route-scoped and keeps private discovery state inside the Me la
   assert.match(explore, /aria-label="Product categories"/);
   assert.match(explore, /aria-label="Active filters"/);
   assert.match(explore, />Request a missing product</);
-  assert.match(explore, />In your routine</);
+  assert.match(explore, /["']In your routine["']/);
+  assert.doesNotMatch(explore, /<select/);
+  assert.match(
+    explore,
+    /role="group"[\s\S]*aria-label=\{`\$\{label\} filter`\}/,
+  );
+  assert.match(explore, /aria-pressed=\{value === option\.value\}/);
   assert.match(css, /\.exploreSearchRow[\s\S]*position: sticky/);
+  assert.match(
+    routeCss,
+    /@media \(min-width: 1540px\)[\s\S]*grid-template-columns: repeat\(4,/,
+  );
 });
 
 test("Routine is route-scoped, visual once, and edits through its builder", () => {
@@ -898,6 +921,14 @@ test("HomeView wires the shelf rail through the CSS module, not a global class",
   assert.doesNotMatch(homeView, /className="product-rail feedShelfRail"/);
 });
 
+test("large-screen Home keeps market movements in a four-column reading", () => {
+  const styles = readFileSync("components/me/home/me-home.module.css", "utf8");
+  assert.match(
+    styles,
+    /@media \(min-width: 1200px\)[\s\S]*\.marketTrendsGrid,[\s\S]*\.marketTrendsOosList \{[\s\S]*grid-template-columns: repeat\(4,/,
+  );
+});
+
 test("the ultra-narrow section-heading rule exists and stacks headings vertically", () => {
   const styles = readFileSync("components/me/home/me-home.module.css", "utf8");
   assert.match(
@@ -962,6 +993,7 @@ test("account avatar owns one accessible extensible modal sheet", () => {
   assert.match(sheet, /role="dialog"/);
   assert.match(sheet, /aria-modal="true"/);
   assert.match(sheet, /aria-labelledby="me-account-sheet-title"/);
+  assert.doesNotMatch(sheet, /if \(!open\) return null/);
   assert.match(modalHook, /element\.showModal\(\)/);
   assert.match(sheet, /onCancel=\{handleCancel\}/);
   assert.match(sheet, /initialFocusRef: closeRef/);
@@ -988,6 +1020,9 @@ test("account avatar owns one accessible extensible modal sheet", () => {
   assert.doesNotMatch(sheet, /href:\s*[['"]"]\/(privacy|help|settings)/i);
   assert.match(sheetStyles, /min-height: 48px/);
   assert.match(sheetStyles, /width: 44px/);
+  assert.match(sheetStyles, /overflow-y: auto/);
+  assert.match(sheet, /Order updates you chose/);
+  assert.match(sheet, /Private request history/);
   assert.match(sheetStyles, /@media \(max-width: 620px\)/);
   assert.match(sheetStyles, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(sheetStyles, /prefers-reduced-transparency: reduce/);
@@ -1041,6 +1076,7 @@ test("Member Product renders a truthful market reading with price, stores, and f
 
 test("unavailable Shelf states fail closed while synthetic state stays explicitly preview-only", () => {
   const home = readFileSync("components/me/home/me-home.tsx", "utf8");
+  const shelf = readFileSync("components/me/shelf/shelf-view.tsx", "utf8");
   const productView = readFileSync(
     "components/me/product/member-product-view.tsx",
     "utf8",
@@ -1058,9 +1094,12 @@ test("unavailable Shelf states fail closed while synthetic state stays explicitl
     "utf8",
   );
 
-  assert.match(home, /viewModel\.shelfState\.status === ["']ready["'] \? \(/);
+  assert.match(
+    shelf,
+    /viewModel\.shelfState\.status === ["']unavailable["'] \? \(/,
+  );
   assert.match(productView, /shelfAvailable/);
-  assert.match(home, /["']Shelf unavailable["']/);
+  assert.match(shelf, /["']Shelf unavailable["']/);
   assert.match(home, /Preview Shelf · Resets on reload\./);
   assert.match(button, /onAction[\s\S]*\? await onAction\(mutation\)/);
   assert.match(previewState, /scope: 'preview-only'/);
@@ -1225,6 +1264,22 @@ test("Member Product view renders freshness with a time element", () => {
   assert.match(view, /<time dateTime=\{reading\.observedAt\}>/);
   // Listing-only uses "observed listing" language.
   assert.match(view, /observed listing/);
+});
+
+test("Member Product keeps care evidence visible before the detail sheet", () => {
+  const home = readFileSync("components/me/home/me-home.tsx", "utf8");
+  const view = readFileSync(
+    "components/me/product/member-product-view.tsx",
+    "utf8",
+  );
+  const css = readFileSync("components/me/home/me-home.module.css", "utf8");
+
+  assert.match(home, /panelData=\{productPanelData\}/);
+  assert.match(view, /panelData\?: ProductPanelData/);
+  assert.match(view, /Understand it before you choose it\./);
+  assert.match(view, /panelData\.careNote/);
+  assert.match(view, /panelData\.ingredients\.slice\(0, 6\)/);
+  assert.match(css, /\.productCareDetails/);
 });
 
 test("Personal context is inline text, not filled badges", () => {

@@ -3,11 +3,16 @@
 import Link from "next/link";
 import {
   ArrowRight,
+  Bell,
   CircleUserRound,
   Download,
+  Flag,
   LogOut,
+  MapPin,
+  PackageCheck,
   Trash2,
   X,
+  type LucideIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition, type RefObject } from "react";
@@ -31,17 +36,39 @@ import styles from "./me-account-sheet.module.css";
 export type MeAccountHelperItem = {
   id: string;
   label: string;
+  description: string;
   href: string;
+  icon: LucideIcon;
 };
 
 export const ME_ACCOUNT_HELPER_ITEMS: readonly MeAccountHelperItem[] = [
-  { id: "notifications", label: "Notifications", href: "/me/notifications" },
-  { id: "orders", label: "My orders", href: "/me/orders" },
-  { id: "locations", label: "Saved locations", href: "/me/locations" },
+  {
+    id: "notifications",
+    label: "Notifications",
+    description: "Order updates you chose",
+    href: "/me/notifications",
+    icon: Bell,
+  },
+  {
+    id: "orders",
+    label: "My orders",
+    description: "Private request history",
+    href: "/me/orders",
+    icon: PackageCheck,
+  },
+  {
+    id: "locations",
+    label: "Saved locations",
+    description: "Delivery and billing",
+    href: "/me/locations",
+    icon: MapPin,
+  },
   {
     id: "report-price-availability",
     label: "Report price or availability",
+    description: "Send public catalogue evidence",
     href: "/contribute",
+    icon: Flag,
   },
 ];
 
@@ -159,8 +186,6 @@ export function MeAccountSheet({
     setLifecycleFeedback("Preview Shelf exported.");
   }
 
-  if (!open) return null;
-
   return (
     <dialog
       id="me-account-sheet"
@@ -212,11 +237,23 @@ export function MeAccountSheet({
 
         {ME_ACCOUNT_HELPER_ITEMS.length ? (
           <nav className={styles.helpers} aria-label="Account helpers">
-            {ME_ACCOUNT_HELPER_ITEMS.map((item) => (
-              <Link key={item.id} href={item.href} onClick={onClose}>
-                {item.label} <ArrowRight size={18} aria-hidden="true" />
-              </Link>
-            ))}
+            {ME_ACCOUNT_HELPER_ITEMS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link key={item.id} href={item.href} onClick={onClose}>
+                  <span className={styles.helperLead}>
+                    <span className={styles.helperIcon} aria-hidden="true">
+                      <Icon size={18} strokeWidth={1.6} />
+                    </span>
+                    <span className={styles.helperCopy}>
+                      <strong>{item.label}</strong>
+                      <small>{item.description}</small>
+                    </span>
+                  </span>
+                  <ArrowRight size={18} aria-hidden="true" />
+                </Link>
+              );
+            })}
           </nav>
         ) : null}
 

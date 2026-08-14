@@ -8,7 +8,6 @@ import {
   MessageCircleQuestion,
   PackagePlus,
   Search,
-  ShelvingUnit,
   ShoppingBag,
 } from "lucide-react";
 import {
@@ -20,16 +19,11 @@ import {
   type FocusEvent,
 } from "react";
 import {
-  PrivateProductRequestShelf,
   ProductRequestAddPage,
   ProductRequestDetailPage,
 } from "@/components/me/product-requests/product-request-experience";
-import {
-  useMeShelfState,
-  type ShelfActionHandler,
-} from "@/components/me/shelf/me-shelf-state";
+import { useMeShelfState } from "@/components/me/shelf/me-shelf-state";
 import { useMeConcernState } from "@/components/me/consult/me-concern-state";
-import { ProductCard } from "@/components/products/product-card";
 import { ProductQuickPanelSheet } from "@/components/products/product-quick-panel";
 import {
   WorkspaceDockProvider,
@@ -39,11 +33,9 @@ import {
 import { MeAccountSheet } from "@/components/me/shell/me-account-sheet";
 import { createMeContextSheetModel } from "@/components/me/shell/me-context-model";
 import { MeContextSheet } from "@/components/me/shell/me-context-sheet";
-import { AddToBasketButton } from "@/components/commerce/add-to-basket-button";
 import {
   createMeStackBack,
   createMeDockContext,
-  ME_PORTAL_SURFACES,
   ME_WORKSPACE_FABS,
   resolveMeActiveParentHref,
   resolveMeHeaderHidden,
@@ -62,10 +54,6 @@ import { ExploreView } from "@/components/me/explore/explore-view";
 import { useMeExploreState } from "@/components/me/explore/me-explore-state";
 import { RoutineView } from "@/components/me/routine/routine-view";
 import { OPEN_ROUTINE_BUILDER_EVENT } from "@/components/me/routine/routine-sheet";
-import {
-  memberProductHref,
-  UnavailableShelfCard,
-} from "@/components/me/home/shared-views";
 import type {
   CustomerPortalProduct,
   CustomerPortalViewModel,
@@ -84,7 +72,6 @@ import {
   flattenCustomerExplore,
 } from "@/lib/customer/explore-model";
 import type { CustomerShelfActionResult } from "@/lib/customer/shelf-service";
-import { retailerShoppingSlug } from "@/lib/commerce/shopping-session";
 import type { CustomerProductRequestPresentationViewModel } from "@/lib/customer/product-request-model";
 import type {
   ProductPanelData,
@@ -97,6 +84,7 @@ import { MemberNotificationsView } from "@/components/me/notifications/member-no
 import type { AssistedOrderNotificationCenter } from "@/lib/commerce/order-notification-model";
 import type { CustomerLocationReadResult } from "@/lib/customer/location-service";
 import { MemberLocationsView } from "@/components/me/locations/member-locations-view";
+import { ShelfView } from "@/components/me/shelf/shelf-view";
 import styles from "./me-home.module.css";
 
 const EMPTY_PRODUCTS: readonly CustomerPortalProduct[] = [];
@@ -366,84 +354,6 @@ function routeState(
     page: "product" as MeWorkspacePage,
     detail: "Details",
   };
-}
-
-function ShelfPage({
-  viewModel,
-  productRequestOutcome,
-  productRequestPresentation,
-  shelfAction,
-  onShelfMutation,
-}: {
-  viewModel: CustomerPortalViewModel;
-  productRequestOutcome?: string;
-  productRequestPresentation?: CustomerProductRequestPresentationViewModel;
-  shelfAction?: ShelfActionHandler;
-  onShelfMutation: (result: CustomerShelfActionResult) => void;
-}) {
-  const surface = ME_PORTAL_SURFACES.shelf;
-  return (
-    <section className={styles.routePage} aria-labelledby="me-shelf-title">
-      <div className={styles.routeHeading}>
-        <p className={styles.eyebrow}>{surface.eyebrow}</p>
-        <h1 id="me-shelf-title">{surface.title}</h1>
-      </div>
-      {viewModel.shelfState.status === "unavailable" ? (
-        <div className={styles.emptyAction} role="status">
-          <ShelvingUnit size={24} strokeWidth={1.5} aria-hidden="true" />
-          <p>{viewModel.shelfState.message}</p>
-          <Link href="/me/shelf">Try again</Link>
-        </div>
-      ) : viewModel.shelf.length ? (
-        <div className="product-grid">
-          {viewModel.shelf.map((item) =>
-            item.product ? (
-              <ProductCard
-                key={item.identityVersionId}
-                product={item.product}
-                href={memberProductHref(item.product, "shelf")}
-                footer={
-                  item.product.freshExactRetailerNames.length ? (
-                    <AddToBasketButton
-                      slug={item.product.slug}
-                      productName={`${item.product.brand} ${item.product.name}`}
-                      retailers={item.product.freshExactRetailerNames.map(
-                        (name) => ({
-                          name,
-                          slug: retailerShoppingSlug(name),
-                        }),
-                      )}
-                      iconOnly
-                    />
-                  ) : null
-                }
-              />
-            ) : (
-              <UnavailableShelfCard
-                key={item.identityVersionId}
-                item={item}
-                shelfAction={shelfAction}
-                onSettled={onShelfMutation}
-              />
-            ),
-          )}
-        </div>
-      ) : (
-        <div className={styles.emptyAction}>
-          <ShelvingUnit size={24} strokeWidth={1.5} aria-hidden="true" />
-          <p>Nothing saved yet.</p>
-          <Link href="/me/explore">Explore products</Link>
-        </div>
-      )}
-      {viewModel.shelfState.status === "ready" ? (
-        <PrivateProductRequestShelf
-          synthetic={viewModel.account.synthetic}
-          initialRequests={productRequestPresentation?.requests}
-          mutationOutcome={productRequestOutcome}
-        />
-      ) : null}
-    </section>
-  );
 }
 
 function MePortalView({
@@ -846,7 +756,7 @@ function MePortalView({
             />
           ) : null}
           {route.kind === "shelf" ? (
-            <ShelfPage
+            <ShelfView
               viewModel={portalViewModel}
               productRequestOutcome={productRequestOutcome}
               productRequestPresentation={productRequestPresentation}
@@ -902,6 +812,7 @@ function MePortalView({
             <MemberProductView
               product={product}
               productReadModel={productReadModel}
+              panelData={productPanelData}
               viewModel={portalViewModel}
               origin={route.origin}
               shelfAction={shelfState.shelfAction}

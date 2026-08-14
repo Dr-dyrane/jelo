@@ -37,7 +37,8 @@ export function HomeView({
   const { greeting, askEntry, routineSection, shelfSection, priceEvidenceSection, attentionSection, concernProducts, firstTime, exploreEntry, marketTrendsSection: marketTrends } = homeModel;
 
   return (
-    <>
+    <div className={styles.homeFeed}>
+      <div className={styles.homeOpening}>
       {/* 0. First-time welcome — warm onboarding prompt when shelf, routine, and concerns are all empty */}
       {firstTime ? (
         <section className={styles.firstTimeWelcome} aria-label="Welcome to JeloCare">
@@ -68,10 +69,12 @@ export function HomeView({
           <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </section>
+      </div>
 
+      <div className={styles.homeContinuity}>
       {/* 3. Continue your Routine — compact preview of next 3–4 steps */}
       {routineSection.state.status === 'unavailable' ? (
-        <section className={styles.feedSection} role="status" aria-label="Routine unavailable">
+        <section className={`${styles.feedSection} ${styles.routinePreviewSection}`} role="status" aria-label="Routine unavailable">
           <div className={styles.feedUnavailable}>
             <ClockPlus size={20} strokeWidth={1.5} aria-hidden="true" />
             <p>{routineSection.state.message}</p>
@@ -79,7 +82,7 @@ export function HomeView({
           </div>
         </section>
       ) : routineSection.visible ? (
-        <section className={styles.feedSection} aria-labelledby="me-routine-preview-title" data-provenance={routineSection.provenance ?? undefined}>
+        <section className={`${styles.feedSection} ${styles.routinePreviewSection}`} aria-labelledby="me-routine-preview-title" data-provenance={routineSection.provenance ?? undefined}>
           <div className={styles.feedSectionHeading}>
             <h2 id="me-routine-preview-title">Continue your routine</h2>
             <Link className={styles.feedSectionLink} href={'/me/routine'}>Open routine <ArrowRight size={14} aria-hidden="true" /></Link>
@@ -121,7 +124,7 @@ export function HomeView({
 
       {/* 4. Recently saved products — brought closer to first viewport */}
       {shelfSection.state.status === 'unavailable' ? (
-        <section className={styles.feedSection} role="status" aria-label="Shelf unavailable">
+        <section className={`${styles.feedSection} ${styles.shelfPreviewSection}`} role="status" aria-label="Shelf unavailable">
           <div className={styles.feedUnavailable}>
             <ShelvingUnit size={20} strokeWidth={1.5} aria-hidden="true" />
             <p>{shelfSection.state.message}</p>
@@ -129,7 +132,7 @@ export function HomeView({
           </div>
         </section>
       ) : shelfSection.visible ? (
-        <section className={styles.feedSection} aria-labelledby="me-shelf-preview-title">
+        <section className={`${styles.feedSection} ${styles.shelfPreviewSection}`} aria-labelledby="me-shelf-preview-title">
           <div className={styles.feedSectionHeading}>
             <h2 id="me-shelf-preview-title">Recently saved</h2>
             <Link className={styles.feedSectionLink} href={'/me/shelf'}>Open shelf <ArrowRight size={14} aria-hidden="true" /></Link>
@@ -153,6 +156,7 @@ export function HomeView({
           </div>
         </section>
       ) : null}
+      </div>
 
       {/* 4b. For your concerns — products reviewed for saved concerns, not yet saved */}
       {concernProducts.visible ? (
@@ -236,7 +240,7 @@ export function HomeView({
           <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </section>
-    </>
+    </div>
   );
 }
 

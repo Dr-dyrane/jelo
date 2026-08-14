@@ -292,7 +292,7 @@ test("unavailable Shelf rows retain their immutable removal action and accessibl
     "components/me/home/shared-views.tsx",
     "utf8",
   );
-  const home = readFileSync("components/me/home/me-home.tsx", "utf8");
+  const shelf = readFileSync("components/me/shelf/shelf-view.tsx", "utf8");
   const button = readFileSync(
     "components/me/shelf/shelf-action-button.tsx",
     "utf8",
@@ -302,7 +302,7 @@ test("unavailable Shelf rows retain their immutable removal action and accessibl
     /function UnavailableShelfCard\([\s\S]*shelfItem=\{item\}/,
   );
   assert.match(
-    home,
+    shelf,
     /<UnavailableShelfCard[\s\S]*shelfAction=\{shelfAction\}[\s\S]*onSettled=\{onShelfMutation\}/,
   );
   assert.match(button, /identityVersionId: shelfItem\.identityVersionId/);

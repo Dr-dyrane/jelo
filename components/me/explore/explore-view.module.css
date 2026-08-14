@@ -1,0 +1,119 @@
+.page {
+  width: min(100%, 1600px);
+  margin-inline: auto;
+}
+
+.filterSheet {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.filterGroups {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.filterGroup {
+  display: grid;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.filterLabel {
+  padding-left: 0.2rem;
+  color: var(--wine);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.filterChoices {
+  display: flex;
+  max-height: 9.5rem;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.15rem 0.2rem 0.35rem;
+  scrollbar-width: thin;
+}
+
+.filterChoice,
+.filterChoiceActive {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 0.85rem;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cream) 68%, var(--paper));
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.filterChoiceActive {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.filterChoice:focus-visible,
+.filterChoiceActive:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 2px;
+}
+
+@media (min-width: 1540px) {
+  .productGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .filterSheet {
+    padding-bottom: max(1.4rem, env(safe-area-inset-bottom));
+  }
+
+  .filterGroups {
+    gap: 1.35rem;
+  }
+
+  .filterChoices {
+    flex-wrap: nowrap;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.55rem;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .filterChoices::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filterChoice,
+  .filterChoiceActive {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .filterChoice {
+    background: var(--paper);
+  }
+}
+
+@media (forced-colors: active) {
+  .filterChoice,
+  .filterChoiceActive {
+    border: 1px solid ButtonText;
+  }
+}

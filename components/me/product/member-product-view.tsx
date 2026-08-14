@@ -17,13 +17,17 @@ import {
 } from "@/lib/customer/product-shelf-context";
 import type { CustomerShelfActionResult } from "@/lib/customer/shelf-service";
 import type { ShelfActionHandler } from "@/components/me/shelf/me-shelf-state";
-import type { ProductPanelTab } from "@/lib/catalogue/product-panel-model";
+import type {
+  ProductPanelData,
+  ProductPanelTab,
+} from "@/lib/catalogue/product-panel-model";
 import { retailerShoppingSlug } from "@/lib/commerce/shopping-session";
 import styles from "../home/me-home.module.css";
 
 export function MemberProductView({
   product,
   productReadModel,
+  panelData,
   viewModel,
   origin,
   shelfAction,
@@ -34,6 +38,7 @@ export function MemberProductView({
 }: {
   product: CustomerPortalProduct;
   productReadModel?: CustomerProductReadModel;
+  panelData?: ProductPanelData;
   viewModel: CustomerPortalViewModel;
   origin: MeProductOrigin;
   shelfAction?: ShelfActionHandler;
@@ -221,6 +226,43 @@ export function MemberProductView({
           </div>
         </div>
       </div>
+
+      {panelData ? (
+        <section
+          className={styles.productCareDetails}
+          aria-labelledby="me-product-care-title"
+        >
+          <header className={styles.productCareHeading}>
+            <p className={styles.eyebrow}>Care notes</p>
+            <h2 id="me-product-care-title">
+              Understand it before you choose it.
+            </h2>
+          </header>
+          <div className={styles.productCareGrid}>
+            <section>
+              <span>How it fits</span>
+              <p>{panelData.careNote}</p>
+            </section>
+            <section>
+              <span>How to use</span>
+              <p>{panelData.usage}</p>
+            </section>
+            <section>
+              <span>Key ingredients</span>
+              {panelData.ingredients.length ? (
+                <ul>
+                  {panelData.ingredients.slice(0, 6).map((ingredient) => (
+                    <li key={ingredient.id}>{ingredient.label}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>More formula evidence is needed.</p>
+              )}
+              <small>Ingredient evidence is not the complete formula.</small>
+            </section>
+          </div>
+        </section>
+      ) : null}
     </article>
   );
 }
