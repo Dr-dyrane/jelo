@@ -703,6 +703,7 @@ test("Ask Me is route-scoped and reuses one reviewed guidance authority with opt
   assert.match(home, /consultComposerRef/);
   assert.match(view, /<ConsultExperience/);
   assert.match(view, /memberContext=\{memberContext\}/);
+  assert.doesNotMatch(view, /aria-current/);
   assert.doesNotMatch(view, /fetch\(|assessClinicalRoutine|\/api\/consult/);
   assert.match(
     experience,

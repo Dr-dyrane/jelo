@@ -79,7 +79,7 @@ export function ConsultView({
           <ol className={routeStyles.phases} aria-label="Ask Me journey">
             {["Describe", "Clarify", "Guide", "Continue"].map(
               (phase, index) => (
-                <li key={phase} aria-current={index === 0 ? "step" : undefined}>
+                <li key={phase}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   {phase}
                 </li>
