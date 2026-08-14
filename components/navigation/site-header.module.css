@@ -473,6 +473,12 @@
   .links .memberLink {
     padding: 0 0.5rem;
   }
+
+  /* Hide Daily desk from the primary nav on tablet widths.
+     It remains accessible via the mobile menu and footer. */
+  .links .utilityLink[href="/lagos"] {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
