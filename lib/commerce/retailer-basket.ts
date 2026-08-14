@@ -7,10 +7,12 @@ export function chooseRetailerBasketOption(
   options: readonly RetailerBasketOption[],
   preferredRetailer?: string | null,
 ): RetailerBasketOption | undefined {
-  const preferred = options.find(
-    option => option.retailer === preferredRetailer && option.allInStock,
-  );
-  return preferred ?? options.find(option => option.allInStock);
+  if (preferredRetailer) {
+    return options.find(
+      option => option.retailer === preferredRetailer && option.allInStock,
+    );
+  }
+  return options.find(option => option.allInStock);
 }
 
 export function findRetailerBasketOptions(

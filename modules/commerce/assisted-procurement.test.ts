@@ -46,7 +46,7 @@ test("guest basket is bounded, quantity-aware, and does not require identity", (
   assert.equal(items.length, BASKET_MAX_PRODUCTS);
 });
 
-test("checkout defaults to an in-stock retailer instead of a cheaper recheck", () => {
+test("checkout defaults only before a store is chosen and never silently switches an explicit store", () => {
   const options = [
     {
       retailer: "Recheck",
@@ -66,11 +66,21 @@ test("checkout defaults to an in-stock retailer instead of a cheaper recheck", (
     },
   ];
   assert.equal(chooseRetailerBasketOption(options)?.retailer, "Ready");
-  assert.equal(
-    chooseRetailerBasketOption(options, "Recheck")?.retailer,
-    "Ready",
-  );
+  assert.equal(chooseRetailerBasketOption(options, "Recheck"), undefined);
+  assert.equal(chooseRetailerBasketOption(options, "Missing"), undefined);
   assert.equal(chooseRetailerBasketOption(options, "Ready")?.retailer, "Ready");
+});
+
+test("basket and checkout require customer re-selection when a stored retailer loses an exact listing", async () => {
+  const source = await readFile(
+    "components/commerce/procurement-basket.tsx",
+    "utf8",
+  );
+  assert.match(source, /Choose a new retailer\./);
+  assert.match(source, /will not switch stores without you/);
+  assert.match(source, /disabled=\{!option\.allInStock\}/);
+  assert.match(source, /selected retailer must still list every exact item in stock/);
+  assert.match(source, /disabled=\{!chosen \|\| !chosen\.allInStock\}/);
 });
 
 test("guest shopping stays with one retailer until the basket explicitly switches", () => {

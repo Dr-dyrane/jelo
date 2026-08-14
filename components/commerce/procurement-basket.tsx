@@ -86,9 +86,10 @@ export function ProcurementBasket({
   }
 
   const storedRetailer = localStorage.getItem(CHECKOUT_RETAILER_STORAGE_KEY);
+  const preferredRetailer = selectedRetailer || storedRetailer;
   const chosen = chooseRetailerBasketOption(
     options,
-    selectedRetailer || storedRetailer,
+    preferredRetailer,
   );
   const retailer = chosen?.retailer ?? "";
 
@@ -163,39 +164,51 @@ export function ProcurementBasket({
           and fees are verified after your address.
         </p>
         {options.length ? (
-          <fieldset className={styles.retailerOptions}>
-            <legend className="sr-only">Choose one retailer</legend>
-            {options.map((option, index) => (
-              <label
-                key={option.retailer}
-                data-selected={retailer === option.retailer ? "true" : "false"}
-              >
-                <input
-                  type="radio"
-                  name="retailer"
-                  value={option.retailer}
-                  checked={retailer === option.retailer}
-                  onChange={() => {
-                    setSelectedRetailer(option.retailer);
-                    localStorage.setItem(
-                      CHECKOUT_RETAILER_STORAGE_KEY,
-                      option.retailer,
-                    );
-                  }}
-                />
-                <span>
-                  <strong>{option.retailer}</strong>
-                  <small>
-                    {option.allInStock
-                      ? "All exact items listed in stock"
-                      : "An item needs rechecking"}
-                  </small>
-                </span>
-                <b>{naira.format(option.combinedTotal)}</b>
-                {index === 0 ? <em>Lowest observed</em> : null}
-              </label>
-            ))}
-          </fieldset>
+          <>
+            {preferredRetailer && !chosen ? (
+              <div className={styles.retailerChange} role="status">
+                <strong>Choose a new retailer.</strong>
+                <p>
+                  {preferredRetailer} no longer has every exact item listed in
+                  stock. JeloCare will not switch stores without you.
+                </p>
+              </div>
+            ) : null}
+            <fieldset className={styles.retailerOptions}>
+              <legend className="sr-only">Choose one retailer</legend>
+              {options.map((option, index) => (
+                <label
+                  key={option.retailer}
+                  data-selected={retailer === option.retailer ? "true" : "false"}
+                >
+                  <input
+                    type="radio"
+                    name="retailer"
+                    value={option.retailer}
+                    checked={retailer === option.retailer}
+                    disabled={!option.allInStock}
+                    onChange={() => {
+                      setSelectedRetailer(option.retailer);
+                      localStorage.setItem(
+                        CHECKOUT_RETAILER_STORAGE_KEY,
+                        option.retailer,
+                      );
+                    }}
+                  />
+                  <span>
+                    <strong>{option.retailer}</strong>
+                    <small>
+                      {option.allInStock
+                        ? "All exact items listed in stock"
+                        : "An item needs rechecking"}
+                    </small>
+                  </span>
+                  <b>{naira.format(option.combinedTotal)}</b>
+                  {index === 0 ? <em>Lowest observed</em> : null}
+                </label>
+              ))}
+            </fieldset>
+          </>
         ) : (
           <div className={styles.noMatch}>
             <strong>No one-retailer match.</strong>
@@ -289,7 +302,10 @@ export function CheckoutExperience({
       <section className={styles.empty}>
         <p className="eyebrow">Checkout</p>
         <h1>Your basket needs another look.</h1>
-        <p>Choose exact products and one retailer before checkout.</p>
+        <p>
+          Your selected retailer must still list every exact item in stock.
+          Review the basket and choose the store yourself if anything changed.
+        </p>
         <Link href="/basket">
           Return to basket <ArrowRight size={17} aria-hidden="true" />
         </Link>

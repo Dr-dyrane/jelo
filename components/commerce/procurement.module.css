@@ -188,6 +188,17 @@
   border-radius: 1rem;
   background: color-mix(in srgb, var(--rose) 18%, transparent);
 }
+.retailerChange {
+  margin: 1.25rem 0 0.75rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--rose) 18%, transparent);
+}
+.retailerChange p {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
 .noMatch p {
   margin-bottom: 0;
   color: var(--muted);
