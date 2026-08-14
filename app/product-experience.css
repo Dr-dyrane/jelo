@@ -378,8 +378,10 @@
   gap: 0.25rem;
 }
 .market-summary > span > small {
-  color: var(--muted);
-  font-size: 0.64rem;
+  color: var(--ink);
+  opacity: 0.58;
+  font-size: 0.7rem;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
