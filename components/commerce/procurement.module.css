@@ -141,11 +141,15 @@
 .retailerOptions em {
   position: absolute;
   inset: 0.45rem 0.55rem auto auto;
-  color: var(--rose);
+  padding: 0.2rem 0.5rem;
+  color: var(--ink);
+  background: var(--rose);
   font-size: 0.6rem;
   font-style: normal;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  border-radius: 999px;
   transform: translateY(-100%);
 }
 .assurance {
