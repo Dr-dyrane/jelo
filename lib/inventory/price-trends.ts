@@ -222,14 +222,19 @@ export async function getProductPriceHistory(
       order by h.observed_at asc, h.created_at asc, h.id asc
     `;
     const dbObservations = selectCurrentPriceObservations(rows, snapshot);
-    // When the DB has real history rows, use the full observation set
-    // (which may include synthetic current observations appended to DB
-    // history). When the DB has no history rows at all, fall back to
-    // static history so the trend chart shows dated price points instead
-    // of a single snapshot-only observation per retailer.
-    if (rows.length > 0 && dbObservations.length > 0) return dbObservations;
-    // DB has no history for this product; fall back to static history
-    // so the trend chart still shows price points.
+    // Only use DB observations when at least one real (non-synthetic)
+    // observation was matched to a current snapshot. When all observations
+    // are synthetic (snapshot-only or snapshot:), the DB rows belong to
+    // old retailers/URLs that no longer match the current offers — fall
+    // back to static history so the trend chart shows dated price points.
+    const hasRealObservation = dbObservations.some(
+      (obs) =>
+        !obs.historyId.startsWith("snapshot-only:") &&
+        !obs.historyId.startsWith("snapshot:"),
+    );
+    if (hasRealObservation) return dbObservations;
+    // DB has no matching history for the current offers; fall back to
+    // static history so the trend chart still shows price points.
     return computeStaticPriceHistory(slug, snapshot);
   } catch (error) {
     console.error(
