@@ -108,13 +108,13 @@ Neon and Vercel resources may be used.
 
 1. **Provision.** On the intended production database, create
    `jelocare_app_runtime` and `jelocare_shelf_runtime` as `LOGIN NOINHERIT
-   NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS` with
+NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS` with
    `PASSWORD NULL`. Set two independent passwords interactively through the
    protected secret channel; never place either password in SQL, source,
    history, logs, or evidence.
 2. **Migrate and reconcile.** From the protected operator boundary, inject the
    direct administrator `MIGRATION_DATABASE_URL` and run `npm run
-   db:reconcile`. Require the ordered ledger through
+db:reconcile`. Require the ordered ledger through
    `0034_customer_shelf.sql`, `0035_runtime_database_roles.sql`, and
    `0036_customer_product_requests.sql`, followed by
    `0037_customer_routines.sql`, plus the
@@ -126,12 +126,18 @@ Neon and Vercel resources may be used.
    neither runtime belongs to another role or owns a relation, grants and
    denials, forced RLS, denial with missing subject context, and the reconciled
    catalogue identity versions. On the selected rehearsal branch, run `npm run
-   customer:shelf:audit` followed by `npm run customer:shelf:audit --
-   --exercise-rollback` to prove exact runtime attestation and rolled-back two-
-   owner isolation. In production, run the read-only attestation; run the
-   rollback exercise only if the release authority explicitly accepts its
-   transient writes and forced rollback. Record counts and pass/fail evidence,
-   never URLs, passwords, mailboxes, or subjects.
+customer:shelf:audit` followed by `npm run customer:shelf:audit --
+--exercise-rollback` to prove exact runtime attestation and rolled-back two-
+   owner isolation. The attestation must match migration `0036`'s exact Shelf
+   grants, effective app/PUBLIC denials, four-column aggregate mention exposure,
+   and bridge execution boundary. The rollback exercise covers the existing
+   Shelf/Routine flow plus synthetic request create, replay-safe mutation,
+   optimistic update, image metadata, consent revocation, withdrawal scrub,
+   cleanup queue, and cross-owner behavior without calling Blob. In production,
+   run the read-only attestation; run the rollback exercise only if the release
+   authority explicitly accepts its transient writes and forced rollback.
+   Record counts and pass/fail evidence, never URLs, passwords, mailboxes,
+   subjects, request fields, or Blob pathnames.
 4. **Import dry run before activation.** Keep the interactive Shelf revision
    undeployed and its restricted URLs out of Vercel. At the protected operator
    boundary, inject
@@ -174,9 +180,9 @@ Neon and Vercel resources may be used.
    absent and Concern persistence is absent. Prove another owner cannot read or
    mutate the Shelf or Routine rows through the checked-in deterministic audit.
 10. **Rotate the former owner.** Rotate or revoke every owner/admin credential
-   that Vercel previously held, remove any provider integration that can
-   reconstruct it, and re-run restricted runtime and production smoke checks.
-   Keep only the protected operator copy of `MIGRATION_DATABASE_URL`.
+    that Vercel previously held, remove any provider integration that can
+    reconstruct it, and re-run restricted runtime and production smoke checks.
+    Keep only the protected operator copy of `MIGRATION_DATABASE_URL`.
 11. **Declare the rollback floor.** Record the exact compatible application
     revision, the ledger through `0037`, the two runtime role names, and the
     passing audit. Older owner-dependent deployments are no longer rollback
