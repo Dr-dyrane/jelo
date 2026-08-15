@@ -619,6 +619,25 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigerian wellness pharmacy with a skincare catalogue and Naira pricing.",
   },
   {
+    name: "Loja Glamourosa",
+    homepage: "https://www.lojaglamourosa.com/ng/en/",
+    market: "NG",
+    kind: "retailer",
+    trust: 80,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-15T09:09:00Z",
+      sourceUrl:
+        "https://www.lojaglamourosa.com/ng/en/benton-honest-cleansing-foam---150ml-8809540510251",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query) =>
+      `https://www.lojaglamourosa.com/ng/en/search?search=${encodeURIComponent(query)}`,
+    note: "International retailer with a Nigeria storefront, NGN pricing, direct product pages and shipping to Nigeria in 72 work hours.",
+  },
+  {
     name: "AGT Plaza",
     homepage: "https://www.agtplaza.com/",
     market: "NG",

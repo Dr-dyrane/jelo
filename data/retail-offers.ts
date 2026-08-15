@@ -2055,6 +2055,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "150 g",
       { observedAt: "2026-08-12T04:50:00Z", expiresAt: "2026-08-19T04:50:00Z" },
     ),
+    exactNg(
+      "Loja Glamourosa",
+      "https://www.lojaglamourosa.com/ng/en/benton-honest-cleansing-foam---150ml-8809540510251",
+      80,
+      20682,
+      "BENTON Honest Cleansing Foam - 150ml",
+      "150 g",
+      {
+        observedAt: "2026-08-15T09:09:00Z",
+        expiresAt: "2026-08-22T09:09:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
   ],
   "dr-teals-nourish-protect-coconut-oil-body-wash-710ml": [
     exactNg(
