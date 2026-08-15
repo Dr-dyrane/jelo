@@ -729,10 +729,29 @@ export async function processNextInventoryRefreshJob(
   if (!job) return undefined;
 
   try {
+    // Track which fetch layers were attempted and their outcomes so that
+    // when all layers fail, the error message identifies the failing layer
+    // instead of reporting a generic "all strategies failed" message.
+    const layerOutcomes: Array<{ layer: string; outcome: string }> = [];
+
     // Try the Woo Store API first for known Woo retailers — it's more reliable
     // than HTML scraping and gives structured price/stock data directly.
-    let observation =
-      (await fetchWooStoreApi(job.url)) ?? (await fetchRetailerPage(job.url));
+    let observation = await fetchWooStoreApi(job.url);
+    if (!observation) {
+      if (wooHostFromUrl(job.url)) {
+        layerOutcomes.push({
+          layer: "woo-store-api",
+          outcome: "no match or error",
+        });
+      }
+      observation = await fetchRetailerPage(job.url);
+      if (!observation) {
+        layerOutcomes.push({
+          layer: "http-fetch",
+          outcome: "no extraction or error",
+        });
+      }
+    }
 
     // Cache the browser fetch result so we don't launch the browser twice
     // (once for structured extraction, once for AI extraction fallback).
@@ -757,6 +776,14 @@ export async function processNextInventoryRefreshJob(
           responseUrl: browserResult.responseUrl,
           verificationMethod: "retailer_page",
         };
+        if (!observation) {
+          layerOutcomes.push({
+            layer: "browser-fetch",
+            outcome: "no extraction",
+          });
+        }
+      } else {
+        layerOutcomes.push({ layer: "browser-fetch", outcome: "fetch failed" });
       }
     }
 
@@ -811,15 +838,26 @@ export async function processNextInventoryRefreshJob(
             adapterKey: "ai-gateway-extraction",
             responseUrl: urlForAi,
           };
+        } else {
+          layerOutcomes.push({ layer: "ai-gateway", outcome: "no extraction" });
         }
+      } else if (!htmlForAi) {
+        layerOutcomes.push({
+          layer: "ai-gateway",
+          outcome: "no html available",
+        });
       }
     }
 
     if (!observation) {
+      const layerDetail =
+        layerOutcomes.length > 0
+          ? layerOutcomes.map((o) => `${o.layer}=${o.outcome}`).join("; ")
+          : "no layers attempted";
       const settlement = await failJob(
         job,
         new Error(
-          "All fetch strategies failed (Woo API, HTTP, browser, AI extraction).",
+          `All fetch strategies failed. Layers attempted: ${layerDetail}.`,
         ),
       );
       return {

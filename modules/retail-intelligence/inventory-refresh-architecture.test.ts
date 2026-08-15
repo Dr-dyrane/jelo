@@ -158,10 +158,8 @@ test("the cron stops claims before maxDuration and invalidates only after succes
 test("the refresh worker tries the Woo Store API before HTML scraping", () => {
   assert.match(worker, /WOO_API_HOSTS/);
   assert.match(worker, /fetchWooStoreApi/);
-  assert.match(
-    worker,
-    /await fetchWooStoreApi\(\s*job\.url,?\s*\)\s*\)\s*\?\?\s*\(?\s*await fetchRetailerPage\(\s*job\.url,?\s*\)/,
-  );
+  assert.match(worker, /await fetchWooStoreApi\(job\.url\)/);
+  assert.match(worker, /await fetchRetailerPage\(job\.url\)/);
   assert.match(worker, /wp-json\/wc\/store\/v1\/products\?slug=/);
 });
 
