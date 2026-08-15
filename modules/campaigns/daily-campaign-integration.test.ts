@@ -9,13 +9,13 @@ const root = process.cwd();
 
 test("a fixed current snapshot produces one dossier-bound deterministic draft", async () => {
   const result = await selectDailyCampaign({
-    now: new Date("2026-08-13T07:00:00Z"),
+    now: new Date("2026-08-15T07:02:00Z"),
   });
   assert.equal(result.status, "selected");
   if (result.status !== "selected") return;
 
   const { draft } = result;
-  assert.match(draft.campaignId, /^2026-08-13-[a-z0-9-]+-price-/);
+  assert.match(draft.campaignId, /^2026-08-15-[a-z0-9-]+-price-/);
   assert.ok(draft.offerEvidence.length > 0);
   assert.ok(draft.offerEvidence.every((offer) => offer.priceNgn > 0));
   assert.ok(
@@ -38,7 +38,7 @@ test("a fixed current snapshot produces one dossier-bound deterministic draft", 
 
 test("the reminder email presents one minimal draft without tracking", async () => {
   const result = await selectDailyCampaign({
-    now: new Date("2026-08-13T07:00:00Z"),
+    now: new Date("2026-08-15T07:02:00Z"),
   });
   assert.equal(result.status, "selected");
   if (result.status !== "selected") return;
