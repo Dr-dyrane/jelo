@@ -181,13 +181,15 @@ while Home previews retain their editorial section composition.
   Concerns remain unshipped and appear only in the local Synthetic Amara preview.
 - Ask Me submits to the same deterministic, reviewed safety and guidance
   authority as public `/consult`; it creates no second recommendation engine
-  and makes zero model calls. Saved Concerns and exact products from Shelf or
-  Routine are excluded by default, may be included only through explicit
-  per-session controls, are previewed before submission, and are never saved as
-  a transcript. Product context contributes only canonical verified ingredient
-  identifiers after the server revalidates each exact slug. Unknown Concern or
-  product slugs are ignored. Public `/consult` remains account-free and keeps
-  its existing request-protection authority.
+  and uses the same optional clarification-focus classifier. The classifier
+  runs only after deterministic safety selects clarification, returns no prose,
+  and fails back to the original reviewed questions. Saved Concerns and exact
+  products from Shelf or Routine are excluded by default, may be included only
+  through explicit per-session controls, are previewed before submission, and
+  are never saved as a transcript. Product context contributes only canonical
+  verified ingredient identifiers after the server revalidates each exact
+  slug. Unknown Concern or product slugs are ignored. Public `/consult` remains
+  account-free and keeps its existing request-protection authority.
 
 ## Production progression
 

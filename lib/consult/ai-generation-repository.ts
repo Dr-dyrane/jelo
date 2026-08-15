@@ -22,6 +22,7 @@ function generationReference() {
 
 export async function createConsultAiGeneration(input: {
   modelId: string;
+  schemaVersion: number;
   inputSha256: string;
   inputCharacterCount: number;
   deterministicOutcome: ConsultAiOutcome;
@@ -32,7 +33,7 @@ export async function createConsultAiGeneration(input: {
       public_reference, lane, schema_version, model_id, input_sha256,
       input_character_count, deterministic_outcome
     ) values (
-      ${generationReference()}, 'intake_shadow', 1, ${input.modelId}, ${input.inputSha256},
+      ${generationReference()}, 'intake_shadow', ${input.schemaVersion}, ${input.modelId}, ${input.inputSha256},
       ${input.inputCharacterCount}, ${input.deterministicOutcome}
     )
     returning id, public_reference

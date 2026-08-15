@@ -4,13 +4,13 @@ This document is the source of truth for provisioned platform services, environm
 
 ## Runtime map
 
-| Concern | Service | Role |
-| --- | --- | --- |
-| Public media | Vercel Blob | Canonical product, brand, editorial and campaign assets |
-| Durable data | Neon PostgreSQL | Catalogue, offers, clinical metadata and asset records |
-| Runtime flags | Vercel Edge Config | Feature flags, campaigns, maintenance state and rollout controls |
-| Cache | Upstash Redis | Search, rate-limit and short-lived computed data |
-| Monitoring | Vercel Observability and Analytics | Requests, functions, compute, traffic and product analytics |
+| Concern       | Service                            | Role                                                             |
+| ------------- | ---------------------------------- | ---------------------------------------------------------------- |
+| Public media  | Vercel Blob                        | Canonical product, brand, editorial and campaign assets          |
+| Durable data  | Neon PostgreSQL                    | Catalogue, offers, clinical metadata and asset records           |
+| Runtime flags | Vercel Edge Config                 | Feature flags, campaigns, maintenance state and rollout controls |
+| Cache         | Upstash Redis                      | Search, rate-limit and short-lived computed data                 |
+| Monitoring    | Vercel Observability and Analytics | Requests, functions, compute, traffic and product analytics      |
 
 ## Rules
 
@@ -226,10 +226,14 @@ Upstash.
 URL is a compatibility fallback, but production should set the dedicated value
 so network identifiers are not coupled to database credential rotation.
 
-Ask Jelo has no current model runtime or AI Gateway dependency. A future
-language-only lane must be introduced through a separate reviewed architecture,
-privacy, abuse-cost, and safety boundary before any provider credential is
-added.
+Ask Jelo has one optional AI Gateway dependency: after deterministic safety and
+care resolution selects the clarification branch, Gateway may classify one
+missing-detail enum. JeloCare owns the displayed question and every care
+decision. The cell uses the existing 64 KiB request bound and production-fail-
+closed limiter, a strict 220-token schema, an eight-second timeout, no SDK
+retry, one allowlisted fallback, zero-data-retention and no-training routing,
+and a digest-only 30-day audit row. Disabling
+`ASK_JELO_AI_INTAKE_SHADOW` restores the unchanged deterministic path.
 
 ## Environment coverage
 

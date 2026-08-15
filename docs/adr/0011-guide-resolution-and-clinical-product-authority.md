@@ -104,18 +104,20 @@ guide, care actions, uncertainty, timing, and eligible products. Internal
 differential IDs, alternative scores, matching reasons, prompt text, and model
 diagnostics are not public UI data.
 
-Ask Jelo currently makes no model calls. Any future language-only lane requires
-a separate reviewed boundary; it cannot choose a condition path, authorize a
-product, change urgency, or invent care.
+Ask Jelo may call the bounded AI Gateway intake classifier only after
+deterministic code has selected clarification. The model returns a
+missing-detail enum and cannot supply displayed prose. Condition paths,
+products, urgency, and care remain outside the model. Any future language-only
+lane still requires a separate reviewed boundary.
 
 ## Lane contract
 
-| Lane | Owns | Must preserve |
-| --- | --- | --- |
-| `consult-safety-p0` | Ask Jelo routing, care projection, medication context, API response and regression tests | Same-site and rate-limit controls, emergency precedence, non-diagnostic voice, zero products/model calls for condition paths |
-| `catalogue-guide-resolution` | Product-search guide suggestions, exact-guide ranking, no-result handoff, query-param resolution and tests | Direct-product eligibility boundary, public catalogue projection privacy, community intake trust boundary |
-| `concern-urgency-ui` | Guide urgency metadata, static concern composition, source parity and rendering tests | Stable guide slugs/routes, `productTerms: []` for condition patterns, inclusive observable language |
-| `catalogue-product-lane` | Product evidence, release dossiers, prices and packshots | This ADR's authority rules; catalogue growth does not wait for unrelated guide UI work |
+| Lane                         | Owns                                                                                                       | Must preserve                                                                                                                |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `consult-safety-p0`          | Ask Jelo routing, care projection, medication context, API response and regression tests                   | Same-site and rate-limit controls, emergency precedence, non-diagnostic voice, zero products/model calls for condition paths |
+| `catalogue-guide-resolution` | Product-search guide suggestions, exact-guide ranking, no-result handoff, query-param resolution and tests | Direct-product eligibility boundary, public catalogue projection privacy, community intake trust boundary                    |
+| `concern-urgency-ui`         | Guide urgency metadata, static concern composition, source parity and rendering tests                      | Stable guide slugs/routes, `productTerms: []` for condition patterns, inclusive observable language                          |
+| `catalogue-product-lane`     | Product evidence, release dossiers, prices and packshots                                                   | This ADR's authority rules; catalogue growth does not wait for unrelated guide UI work                                       |
 
 These lanes may run in parallel only while their owned paths remain disjoint.
 Any shared clinical contract change is reconciled through one integration pass

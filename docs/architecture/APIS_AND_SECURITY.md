@@ -84,13 +84,18 @@ attestation, import, retention, and the honest rollback floor are owned by
 
 ## Ask Jelo boundary
 
-Ask Jelo is deterministic and does not call a language model.
+Ask Jelo keeps deterministic care authority and has one optional language-model
+classification call.
 
 - The server decides whether the journey can continue.
 - Condition routes return a canonical, reviewed guide and no products.
 - Everyday-care routes may return only products that pass reviewed concern, body-area and routine-step authority.
+- Only a deterministic clarification outcome may call AI Gateway. The model can
+  select one missing-detail enum; reviewed server copy turns it into a question.
+  Failures return the original deterministic clarification.
 - The public response contains presentation data only. Clinical rules, scores, internal evidence identifiers and recommendation diagnostics stay server-side.
-- Any future language-model wording lane requires a separate reviewed safety, privacy, abuse and cost boundary before implementation.
+- Any model wording lane still requires a separate reviewed safety, privacy,
+  abuse and cost boundary before implementation.
 
 ## Known controls to preserve
 

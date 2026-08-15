@@ -84,7 +84,8 @@ Discovery and frozen bulk data
 
 ## Clinical boundary
 
-The consult route is fully deterministic.
+The consult route keeps deterministic safety, care, guide, and product
+authority.
 
 - Safety stops return zero products.
 - Insufficient detail returns deterministic clarification.
@@ -92,11 +93,13 @@ The consult route is fully deterministic.
 - Ordinary-care products require matching canonical concern, reviewed use, area, and requested product step.
 - Displayed care, pattern, routine, product selection, and referral copy is built deterministically.
 - Concern condition-patterns never supply product terms.
-- No current route calls a model or requires an AI Gateway credential.
+- Only an already-resolved clarification path may call AI Gateway to select a
+  missing-detail enum. JeloCare renders the reviewed question; disabled or
+  failed model calls fall back to the original deterministic clarification.
 
 Any future model-backed language lane needs a separate reviewed boundary. It
 must not choose guides or products, change urgency, create care, or receive
-authority that currently belongs to deterministic code and reviewed data.
+authority that belongs to deterministic code and reviewed data.
 
 See [Ask Jelo](../ASK_JELO_EXPERIENCE.md), [concern knowledge](../CONCERN_KNOWLEDGE.md), and [ingredient review](../INGREDIENT_REVIEW.md).
 

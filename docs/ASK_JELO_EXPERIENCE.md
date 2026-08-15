@@ -30,16 +30,21 @@ Ask Jelo is a guided education canvas, not a chat transcript, diagnosis tool, or
 A red flag replaces the normal journey with a concise care action and returns
 zero products.
 
-The current Ask Jelo route is fully deterministic. Every path makes zero model
-calls: safety and condition paths project reviewed guidance, everyday-care
-paths use reviewed product authority, and unclear descriptions ask for more
-detail.
+The current Ask Jelo care authority is fully deterministic. Safety and
+condition paths project reviewed guidance, everyday-care paths use reviewed
+product authority, and unclear descriptions ask for more detail. Only that last
+branch may call Vercel AI Gateway to classify which neutral detail is missing.
+The model returns an enum; JeloCare renders the reviewed question. With the
+flag off or on any model, persistence, timeout, or schema failure, the original
+deterministic questions are returned.
 
 ## Authenticated My JeloCare adapter
 
 `/me/consult` renders the same `ConsultExperience` and submits to the same
 reviewed `/api/consult` safety and guidance authority as public `/consult`. It
-does not create a second engine, call a model, or persist a transcript.
+does not create a second engine or persist a transcript. The optional
+clarification classifier follows the same privacy and safety boundary on both
+surfaces.
 
 Private member context is always excluded initially. A customer may explicitly
 include saved Concern references or exact products currently on Shelf or in a
@@ -76,7 +81,7 @@ directed-care path handles that description without ordinary-care products.
 
 ## Launch safety contract
 
-- Emergency, condition-guide, ordinary-care, clarification, and referral copy is deterministic.
+- Emergency, condition-guide, ordinary-care, clarification, and referral copy is deterministic; the optional model selects only a clarification-focus enum.
 - Serious working patterns surface their pharmacist, primary-care, or dermatology referral before clarification.
 - A person under 18, including age stated in prose, stops before product guidance.
 - Submitted allergies or medicines stop before product guidance because JeloCare does not evaluate allergy or medicine interactions.
@@ -85,12 +90,13 @@ directed-care path handles that description without ordinary-care products.
   canonical source links, and session-only check-in fields. Rule identifiers,
   scores, ingredient internals, and recommendation diagnostics stay server-side.
 
-There is no current model-selection or AI Gateway runtime. Any future
-language-only lane requires a separate reviewed architecture decision,
-abuse-cost controls, privacy review, regression evidence, and a contract that
-keeps guide resolution, product authority, urgency, and displayed care outside
-the model. The bounded implementation sequence and credential/model boundary
-are recorded in the [Ask Jelo AI Gateway plan](./ai/ASK_JELO_GATEWAY_PLAN.md).
+The active AI Gateway cell is limited to clarification-focus classification.
+It uses the existing production-fail-closed consult limiter, bounded input and
+output, a two-model allowlist, zero-data-retention and no-training routing, and
+an audited digest-only generation record. Guide resolution, product authority,
+urgency, and displayed care remain outside the model. The exact rollback,
+credential, model, cost, and failure boundaries are recorded in the
+[Ask Jelo AI Gateway plan](./ai/ASK_JELO_GATEWAY_PLAN.md).
 
 The initial red-flag vocabulary follows public guidance from [NHS anaphylaxis](https://www.nhs.uk/conditions/anaphylaxis/), [AAD Rash 101](https://www.aad.org/public/everyday-care/itchy-skin/rash/rash-101), and [NHS vision loss](https://www.nhs.uk/conditions/vision-loss/). These references support emergency action for breathing or throat/tongue symptoms and prompt in-person care for relevant swelling, eye symptoms, rapid spread, blistering, pain, or fever. The checked phrase corpus remains deliberately conservative and must expand through qualified review.
 

@@ -65,16 +65,16 @@ The outgoing team should provide:
 
 Keep these lanes independent:
 
-| Lane | Owns |
-| --- | --- |
-| Product and design | Journeys, copy, accessibility, visual contract |
-| Catalogue research | Identity, care, offer, rights, and candidate evidence |
-| Media | Exact-SKU package integrity, transparency, Blob publication |
-| Clinical | Evidence, deterministic Ask Jelo rules, concern parity, recommendation eligibility |
-| Retail operations | Retailer registry, refresh, price history, confidence |
-| Community operations | Moderation and research signals |
-| Partnerships | Private retailer applications and verification |
-| Platform | Next.js, Neon, Vercel, Redis, email, CI, security |
+| Lane                 | Owns                                                                               |
+| -------------------- | ---------------------------------------------------------------------------------- |
+| Product and design   | Journeys, copy, accessibility, visual contract                                     |
+| Catalogue research   | Identity, care, offer, rights, and candidate evidence                              |
+| Media                | Exact-SKU package integrity, transparency, Blob publication                        |
+| Clinical             | Evidence, deterministic Ask Jelo rules, concern parity, recommendation eligibility |
+| Retail operations    | Retailer registry, refresh, price history, confidence                              |
+| Community operations | Moderation and research signals                                                    |
+| Partnerships         | Private retailer applications and verification                                     |
+| Platform             | Next.js, Neon, Vercel, Redis, email, CI, security                                  |
 
 One lane may inform another. It must not silently publish through it.
 
@@ -102,7 +102,9 @@ A change is complete when:
 
 If those answers are unclear, the handoff is not complete.
 
-Ask Jelo has no current model runtime or AI Gateway access requirement. Do not
-add provider credentials as a handoff shortcut. Any future language-only lane
+Ask Jelo has one bounded AI Gateway clarification classifier. Vercel
+deployments use project OIDC; do not add a browser key or provider credential as
+a handoff shortcut. The model may select only a missing-detail enum after
+deterministic safety has selected clarification. Any future language-only lane
 needs a separate reviewed architecture decision and must preserve deterministic
 guide, product-authority, urgency, care, privacy, and abuse-cost boundaries.
