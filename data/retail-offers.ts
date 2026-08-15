@@ -1191,7 +1191,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       13495,
       "SOME BY MI AHA BHA PHA 30 Days Miracle Toner",
       "150 ml",
-      { available: false, stock: "out-of-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
     ),
     exactNg(
       "Perona Beauty",
@@ -1289,7 +1294,13 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       7999,
       "ANUA Niacinamide 10% + TXA 4% Serum New Version",
       "30 ml",
-      { sellerName: "Smile Time", sellerScore: 92, priceComparison: "exclude" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        sellerName: "Smile Time",
+        sellerScore: 92,
+        priceComparison: "exclude",
+      },
     ),
     exactNg(
       "BuyBetter",
@@ -1531,7 +1542,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       10400,
       "B Lab Matcha Hydrating Real Sun Screen SPF50+ PA++++",
       "50 ml",
-      { available: false, stock: "out-of-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
     ),
     exactNg(
       "Nihet Beauty",
@@ -1569,7 +1585,13 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       2000,
       "Mediana Leave-In Conditioning Milk",
       "250 ml",
-      { sellerName: "Jeto", sellerScore: 88, priceComparison: "exclude" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        sellerName: "Jeto",
+        sellerScore: 88,
+        priceComparison: "exclude",
+      },
     ),
     {
       retailer: "Slique Beauty",
@@ -1626,6 +1648,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Disaar Argan Oil Body Oil Gel Deep Moisturizing Skin Care",
       "200 ml",
       {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
         sellerName: "Christodel Global Services",
         sellerScore: 88,
         stock: "low-stock",
@@ -1795,7 +1819,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       10500,
       "The Ordinary Azelaic Acid Suspension 10%",
       "30 ml",
-      { available: false },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+      },
     ),
     exactNg(
       "Deoset",
@@ -1905,7 +1933,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       12500,
       "COSRX Advanced Snail 96 Mucin Power Essence",
       "100 ml",
-      { available: false, stock: "out-of-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
     ),
     exactNg(
       "Lux Beauty",
@@ -4363,7 +4396,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       12800,
       "Aqua Rich Hydrate + Protect Body Lotion (Ceramide) 500ml",
       "500 ml",
-      { stock: "low-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        stock: "low-stock",
+      },
     ),
     exactNg(
       "Kadimez Essentials",
@@ -4453,7 +4490,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       17738,
       "De La Cruz Acne Treatment With 10% Sulfur Ointment 2.6 oz 73.7g",
       "73.7 g",
-      { available: false, stock: "out-of-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
     ),
     exactNg(
       "Perona Beauty",
@@ -4566,7 +4608,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       12685,
       "SheaMoisture Jamaican Black Castor Oil Strengthen & Restore Shampoo 384ml",
       "384 ml",
-      { available: false, stock: "out-of-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
     ),
     exactNg(
       "Perfect Trust Beauty",
@@ -4613,7 +4660,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       13223,
       "SheaMoisture Raw Shea Butter Deep Moisturizing Conditioner 384ml",
       "384 ml",
-      { stock: "low-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        stock: "low-stock",
+      },
     ),
     exactNg(
       "Jumia",
@@ -4622,7 +4673,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       35400,
       "Shea Moisture Raw Shea Butter Deep Moisturizing Conditioner 384ml",
       "384 ml",
-      { stock: "low-stock", priceComparison: "exclude" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        stock: "low-stock",
+        priceComparison: "exclude",
+      },
     ),
     exactNg(
       "Perfect Trust Beauty",
@@ -4646,7 +4702,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       7950,
       "Tresemme Keratin Smooth Weightless Conditioner 828ml",
       "828 ml",
-      { available: false, stock: "out-of-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
     ),
     exactNg(
       "BuyBetter",
@@ -4655,7 +4716,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       9138,
       "TRESemme Keratin Smooth Weightless Conditioner 828ml",
       "828 ml",
-      { available: false, stock: "out-of-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
     ),
     exactNg(
       "Perfect Trust Beauty",
@@ -4700,7 +4766,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       37088,
       "Prequel Gleanser + Glycolic Acid Cleanser 400ml",
       "400 ml",
-      { available: false, stock: "out-of-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
     ),
     exactNg(
       "Nihet Beauty",
@@ -4733,7 +4804,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       35690,
       "AMIKA The Kure Conditioner 275ml",
       "275 ml",
-      { available: false, stock: "out-of-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
     ),
   ],
   "facefacts-enhance-gel-cream-cleanser-150ml": [
@@ -4744,7 +4820,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       6900,
       "FaceFacts Enhance Gel Cream Cleanser 150ml",
       "150 ml",
-      { available: false, stock: "out-of-stock" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+        stock: "out-of-stock",
+      },
     ),
     exactNg(
       "Perona Beauty",
