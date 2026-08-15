@@ -7205,6 +7205,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
+    exactNg(
+      "BuyBetter",
+      "https://buybetter.ng/product/naturium-retinol-complex-cream-50ml/",
+      97,
+      43968,
+      "NATURIUM -Retinol Complex Cream 50ml",
+      "1.7 fl oz / 50 mL",
+      {
+        observedAt: "2026-08-15T06:31:00Z",
+        expiresAt: "2026-08-22T06:31:00Z",
+        stock: "out-of-stock",
+        available: false,
+      },
+    ),
   ],
   "naturium-phyto-glow-lip-balm-clear-0-34oz": [
     exactNg(
@@ -7321,6 +7335,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-13T11:00:00Z",
         expiresAt: "2026-08-20T11:00:00Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+    exactNg(
+      "Konga Health",
+      "https://www.konga.com/product/estelin-vitamin-c-turmeric-face-oil-6443148",
+      80,
+      4900,
+      "Estelin Vitamin C Turmeric Face Oil",
+      "30 ml",
+      {
+        observedAt: "2026-08-15T06:30:00Z",
+        expiresAt: "2026-08-22T06:30:00Z",
         stock: "in-stock",
         available: true,
       },
