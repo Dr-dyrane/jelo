@@ -9,6 +9,7 @@ import {
   type ArchivedCampaign,
   type CampaignRunMode,
 } from "@/lib/campaigns/campaign-archive";
+import { sendCampaignNoCandidateAlertIfNeeded } from "@/lib/campaigns/campaign-alerting";
 import { dailyCampaignEmail } from "@/lib/campaigns/campaign-email";
 import {
   CAMPAIGN_COOLDOWN_DAYS,
@@ -34,6 +35,7 @@ type RunnerDependencies = {
   reserveDelivery: typeof reserveCampaignDelivery;
   send: typeof sendAlertEmail;
   recordOutcome: typeof recordCampaignDeliveryOutcome;
+  alertNoCandidate: typeof sendCampaignNoCandidateAlertIfNeeded;
 };
 
 const defaultDependencies: RunnerDependencies = {
@@ -46,6 +48,7 @@ const defaultDependencies: RunnerDependencies = {
   reserveDelivery: reserveCampaignDelivery,
   send: sendAlertEmail,
   recordOutcome: recordCampaignDeliveryOutcome,
+  alertNoCandidate: sendCampaignNoCandidateAlertIfNeeded,
 };
 
 export type DailyCampaignRunResult =
@@ -120,6 +123,13 @@ export async function runDailyCampaign(
         slug: c.slug,
         blocker: c.blocker,
       })),
+    );
+    // Send an operator alert so a no-candidate day is visible without
+    // inspecting logs. The alert includes a blocker breakdown so operators
+    // can distinguish expected cooldowns from systemic issues.
+    await dependencies.alertNoCandidate(
+      selection.checkedAt,
+      selection.rejectedCandidates,
     );
     return {
       status: selection.status,

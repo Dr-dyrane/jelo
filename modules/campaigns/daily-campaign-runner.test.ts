@@ -158,6 +158,7 @@ function dependencies(overrides: Record<string, unknown> = {}) {
     }),
     send: async () => undefined,
     recordOutcome: async () => `${archive.runPath}/delivery-accepted.json`,
+    alertNoCandidate: async () => undefined,
     ...overrides,
   };
 }
@@ -227,4 +228,74 @@ test("a test run sends only after reservation and records provider acceptance", 
     "sent:owner@example.com",
     "recorded:accepted",
   ]);
+});
+
+test("no-candidate triggers the alert with rejection details", async () => {
+  let alertCalls = 0;
+  let alertCheckedAt: string | null = null;
+  let alertCount: number | null = null;
+
+  const result = await runDailyCampaign(
+    {
+      mode: "production",
+      iteration: 1,
+      requestOrigin: "https://www.jelocare.com",
+    },
+    dependencies({
+      select: async () => ({
+        status: "no-candidate" as const,
+        checkedAt: "2026-08-17T07:01:00.000Z",
+        rejectedCandidates: [
+          { slug: "product-a", blocker: "sent-within-14-day-cooldown" },
+          { slug: "product-b", blocker: "live-product-dossier-identity-drift" },
+        ],
+      }),
+      alertNoCandidate: async (
+        checkedAt: string,
+        rejected: readonly { slug: string; blocker: string }[],
+      ) => {
+        alertCalls += 1;
+        alertCheckedAt = checkedAt;
+        alertCount = rejected.length;
+      },
+    }),
+  );
+
+  assert.equal(result.status, "no-candidate");
+  assert.equal(alertCalls, 1);
+  assert.equal(alertCheckedAt, "2026-08-17T07:01:00.000Z");
+  assert.equal(alertCount, 2);
+});
+
+test("no-candidate does not resolve recipient or send email", async () => {
+  let recipientCalls = 0;
+  let sendCalls = 0;
+
+  const result = await runDailyCampaign(
+    {
+      mode: "production",
+      iteration: 1,
+      requestOrigin: "https://www.jelocare.com",
+    },
+    dependencies({
+      select: async () => ({
+        status: "no-candidate" as const,
+        checkedAt: "2026-08-17T07:01:00.000Z",
+        rejectedCandidates: [
+          { slug: "product-a", blocker: "sent-within-14-day-cooldown" },
+        ],
+      }),
+      resolveRecipient: async () => {
+        recipientCalls += 1;
+        return recipient;
+      },
+      send: async () => {
+        sendCalls += 1;
+      },
+    }),
+  );
+
+  assert.equal(result.status, "no-candidate");
+  assert.equal(recipientCalls, 0);
+  assert.equal(sendCalls, 0);
 });
