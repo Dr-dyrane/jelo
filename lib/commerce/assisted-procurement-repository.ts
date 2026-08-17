@@ -1393,7 +1393,7 @@ export async function transitionAssistedOrderForOperator(input: {
       const [activePayment] = await transaction<{ id: string }[]>`
         select id from assisted_order_payments
         where order_id = ${order.id}
-          and provider = 'paystack'
+          and provider = 'stripe'
           and status = 'pending'
         limit 1
         for update

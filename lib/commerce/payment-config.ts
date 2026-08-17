@@ -1,6 +1,6 @@
 /**
  * JeloCare manual bank transfer details.
- * Used in the customer-facing payment section when Paystack is unavailable
+ * Used in the customer-facing payment section when Stripe is unavailable
  * or the customer prefers a direct bank transfer.
  */
 export const JELOCARE_BANK_ACCOUNT = {

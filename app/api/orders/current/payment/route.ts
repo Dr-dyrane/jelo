@@ -11,13 +11,13 @@ import {
 } from "@/lib/commerce/assisted-procurement-security";
 import { resolvePaymentOrderAccess } from "@/lib/commerce/payment-order-access";
 import {
-  initiatePaystackPayment,
+  initiateStripePayment,
   PaymentInitializationPendingError,
 } from "@/lib/commerce/payment-service";
 import {
-  isPaystackConfigured,
-  PaystackProviderError,
-} from "@/lib/commerce/payment-provider";
+  isStripeConfigured,
+  StripeProviderError,
+} from "@/lib/commerce/stripe-provider";
 
 export const runtime = "nodejs";
 
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
       { status: 429 },
     );
   }
-  if (!isPaystackConfigured()) {
+  if (!isStripeConfigured()) {
     return NextResponse.json(
       {
         error:
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       publicOrigin(request),
     );
     callback.searchParams.set("payment", "return");
-    const result = await initiatePaystackPayment({
+    const result = await initiateStripePayment({
       orderId: access.order.id,
       callbackUrl: callback.toString(),
     });
@@ -97,11 +97,11 @@ export async function POST(request: NextRequest) {
     if (error instanceof PaymentInitializationPendingError) {
       return NextResponse.json({ error: error.message }, { status: 409 });
     }
-    if (error instanceof PaystackProviderError) {
+    if (error instanceof StripeProviderError) {
       return NextResponse.json(
         {
           error:
-            "Paystack could not start this payment. Please try again shortly.",
+            "Stripe could not start this payment. Please try again shortly.",
         },
         { status: 502 },
       );

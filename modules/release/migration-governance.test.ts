@@ -56,12 +56,12 @@ function governedRow(migration: MigrationDefinition): MigrationLedgerRow {
 
 test("checked-in migrations have contiguous strict names and one pinned legacy duplicate", async () => {
   const inventory = buildMigrationInventory(await checkedInSources());
-  assert.equal(inventory.length, 52);
+  assert.equal(inventory.length, 53);
   assert.equal(inventory[0]?.filename, "0001_catalogue_foundation.sql");
-  assert.equal(inventory.at(-1)?.filename, "0051_order_lifecycle.sql");
+  assert.equal(inventory.at(-1)?.filename, "0052_stripe_payment_provider.sql");
   assert.equal(
     inventory.at(-1)?.checksumSha256,
-    "3ba4cf213d2d71edc5cd6efc36c0ef52ab2f540494cf9018bba7e48a0476c261",
+    "e3eb11cbbe2304775e6e21d8f6029a9b7ec076665afded1f7ea3433fc4e4d707",
   );
   assert.deepEqual(
     inventory

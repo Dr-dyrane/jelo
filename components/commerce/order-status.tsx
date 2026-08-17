@@ -380,7 +380,7 @@ function PaymentSection({
   const [copied, setCopied] = useState(false);
   const total = order.quote?.totalNgn;
 
-  async function payWithPaystack() {
+  async function payWithStripe() {
     if (!total) return;
     setPending(true);
     onError("");
@@ -416,11 +416,11 @@ function PaymentSection({
     }
   }
 
-  // After returning from Paystack, the order may have been marked paid
+  // After returning from Stripe, the order may have been marked paid
   // by the webhook. Refresh to check.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.has("reference") || params.has("trxref")) {
+    if (params.has("session_id") || params.has("payment")) {
       onPaid();
     }
   }, [onPaid]);
@@ -450,7 +450,7 @@ function PaymentSection({
           type="button"
           className={styles.payButton}
           disabled={pending}
-          onClick={payWithPaystack}
+          onClick={payWithStripe}
         >
           <CreditCard size={18} aria-hidden="true" />
           {pending ? "Redirecting…" : `Pay ${naira.format(total)}`}

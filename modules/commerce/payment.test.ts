@@ -3,12 +3,12 @@ import assert from "node:assert/strict";
 import { createHmac } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import {
-  initializePaystackTransaction,
-  isPaystackConfigured,
-  paystackSecretKey,
-  verifyPaystackTransaction,
-  verifyPaystackWebhookSignature,
-} from "../../lib/commerce/payment-provider";
+  createStripeCheckoutSession,
+  isStripeConfigured,
+  stripeSecretKey,
+  retrieveStripeCheckoutSession,
+  verifyStripeWebhookSignature,
+} from "../../lib/commerce/stripe-provider";
 import {
   mapPaymentRow,
   type PaymentProvider,
@@ -51,6 +51,13 @@ test("payment migrations establish numeric and idempotency boundaries", async ()
     new URL("../../db/migrations/0050_payment_integrity.sql", import.meta.url),
     "utf8",
   );
+  const stripe = await readFile(
+    new URL(
+      "../../db/migrations/0052_stripe_payment_provider.sql",
+      import.meta.url,
+    ),
+    "utf8",
+  );
   assert.match(original, /create table assisted_order_payments/);
   assert.match(
     original,
@@ -68,6 +75,10 @@ test("payment migrations establish numeric and idempotency boundaries", async ()
   assert.match(integrity, /'payment_confirmed'/);
   assert.match(integrity, /'payment_issue'/);
   assert.match(integrity, /'suppressed'/);
+  assert.match(stripe, /provider_check/);
+  assert.match(stripe, /'stripe'/);
+  assert.match(stripe, /active_stripe_quote_idx/);
+  assert.match(stripe, /stripe_reference_idx/);
 });
 
 test("NGN normalization converts decimal text to exact integer kobo", () => {
@@ -99,7 +110,7 @@ test("repository mapping normalizes PostgreSQL numeric strings", () => {
     order_id: "order-id",
     quote_version: 2,
     amount_ngn: "123.45",
-    provider: "paystack",
+    provider: "stripe",
     provider_reference: "JC-REF",
     status: "pending",
     evidence_reference: null,
@@ -108,18 +119,56 @@ test("repository mapping normalizes PostgreSQL numeric strings", () => {
     provider_metadata: {
       phase: "ready",
       reservedAt: "2026-08-14T10:00:00.000Z",
-      authorizationUrl: "https://checkout.paystack.com/access",
-      accessCode: "access",
+      checkoutUrl: "https://checkout.stripe.com/c/pay/cs_test",
+      providerSessionId: "cs_test_123",
       initializedAt: "2026-08-14T10:00:01.000Z",
     },
     created_at: "2026-08-14T10:00:00.000Z",
     updated_at: "2026-08-14T10:00:01.000Z",
   });
   assert.equal(payment.amountNgn, 123.45);
-  assert.equal(payment.paystackInitialization?.phase, "ready");
+  assert.equal(payment.providerInitialization?.phase, "ready");
   assert.equal(
-    payment.paystackInitialization?.authorizationUrl,
+    payment.providerInitialization?.checkoutUrl,
+    "https://checkout.stripe.com/c/pay/cs_test",
+  );
+  assert.equal(
+    payment.providerInitialization?.providerSessionId,
+    "cs_test_123",
+  );
+});
+
+test("repository mapping handles legacy Paystack metadata format", () => {
+  const payment = mapPaymentRow({
+    id: "payment-id",
+    order_id: "order-id",
+    quote_version: 1,
+    amount_ngn: "99.99",
+    provider: "paystack",
+    provider_reference: "JC-LEGACY",
+    status: "verified",
+    evidence_reference: "paystack:JC-LEGACY:2026-01-01T00:00:00.000Z",
+    verified_by_subject: null,
+    verified_at: "2026-01-01T00:00:00.000Z",
+    provider_metadata: {
+      phase: "ready",
+      reservedAt: "2026-01-01T00:00:00.000Z",
+      authorizationUrl: "https://checkout.paystack.com/access",
+      accessCode: "access-code",
+      initializedAt: "2026-01-01T00:00:01.000Z",
+    },
+    created_at: "2026-01-01T00:00:00.000Z",
+    updated_at: "2026-01-01T00:00:01.000Z",
+  });
+  assert.equal(payment.provider, "paystack");
+  assert.equal(payment.providerInitialization?.phase, "ready");
+  assert.equal(
+    payment.providerInitialization?.checkoutUrl,
     "https://checkout.paystack.com/access",
+  );
+  assert.equal(
+    payment.providerInitialization?.providerSessionId,
+    "access-code",
   );
 });
 
@@ -212,118 +261,116 @@ test("signed-in payment accepts only an exact matching guest capability fallback
   );
 });
 
-test("isPaystackConfigured requires server and public keys", () => {
-  const originalSecret = process.env.PAYSTACK_SECRET_KEY;
-  const originalPublic = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
-  delete process.env.PAYSTACK_SECRET_KEY;
-  delete process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
-  assert.equal(isPaystackConfigured(), false);
-  process.env.PAYSTACK_SECRET_KEY = "sk_test_dummykey123";
-  process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY = "pk_test_dummykey123";
-  assert.equal(isPaystackConfigured(), true);
-  restoreEnvironment("PAYSTACK_SECRET_KEY", originalSecret);
-  restoreEnvironment("NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY", originalPublic);
+test("isStripeConfigured requires server key", () => {
+  const originalSecret = process.env.STRIPE_SECRET_KEY;
+  delete process.env.STRIPE_SECRET_KEY;
+  assert.equal(isStripeConfigured(), false);
+  process.env.STRIPE_SECRET_KEY = "sk_test_dummykey123";
+  assert.equal(isStripeConfigured(), true);
+  restoreEnvironment("STRIPE_SECRET_KEY", originalSecret);
 });
 
-test("webhook HMAC uses PAYSTACK_SECRET_KEY", () => {
-  const originalSecret = process.env.PAYSTACK_SECRET_KEY;
-  const originalLegacy = process.env.PAYSTACK_WEBHOOK_SECRET;
-  const secret = "sk_test_webhooksecret";
-  process.env.PAYSTACK_SECRET_KEY = secret;
-  process.env.PAYSTACK_WEBHOOK_SECRET = "wrong-legacy-secret";
+test("webhook HMAC uses STRIPE_WEBHOOK_SECRET with t and v1 format", () => {
+  const originalSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const secret = "whsec_test_webhooksecret";
+  process.env.STRIPE_WEBHOOK_SECRET = secret;
   const payload = JSON.stringify({
-    event: "charge.success",
-    data: { reference: "JC-TEST-123" },
+    type: "checkout.session.completed",
+    data: { object: { metadata: { reference: "JC-TEST-123" } } },
   });
-  const signature = createHmac("sha512", secret).update(payload).digest("hex");
-  assert.equal(verifyPaystackWebhookSignature(payload, signature), true);
-  assert.equal(verifyPaystackWebhookSignature(payload, "bad"), false);
-  restoreEnvironment("PAYSTACK_SECRET_KEY", originalSecret);
-  restoreEnvironment("PAYSTACK_WEBHOOK_SECRET", originalLegacy);
+  const timestamp = Math.floor(Date.now() / 1000);
+  const signedPayload = `${timestamp}.${payload}`;
+  const signature = createHmac("sha256", secret)
+    .update(signedPayload)
+    .digest("hex");
+  const header = `t=${timestamp},v1=${signature}`;
+  assert.equal(verifyStripeWebhookSignature(payload, header), true);
+  assert.equal(verifyStripeWebhookSignature(payload, "bad"), false);
+  assert.equal(verifyStripeWebhookSignature(payload, "t=0,v1=bad"), false);
+  restoreEnvironment("STRIPE_WEBHOOK_SECRET", originalSecret);
 });
 
-test("Paystack initialization sends and requires the exact reserved reference", async () => {
-  const originalSecret = process.env.PAYSTACK_SECRET_KEY;
+test("Stripe checkout session creation sends form-encoded body with NGN kobo", async () => {
+  const originalSecret = process.env.STRIPE_SECRET_KEY;
   const originalFetch = globalThis.fetch;
-  process.env.PAYSTACK_SECRET_KEY = "sk_test_exactreference";
-  let postedReference = "";
+  process.env.STRIPE_SECRET_KEY = "sk_test_exactreference";
+  let postedBody = "";
   globalThis.fetch = async (_input, init) => {
-    const body = JSON.parse(String(init?.body)) as {
-      reference: string;
-      amount: number;
-    };
-    postedReference = body.reference;
-    assert.equal(body.amount, 12_345);
+    postedBody = String(init?.body);
+    const params = new URLSearchParams(postedBody);
+    assert.equal(params.get("mode"), "payment");
+    assert.equal(params.get("currency"), "ngn");
+    assert.equal(params.get("line_items[0][price_data][unit_amount]"), "12345");
+    assert.equal(params.get("line_items[0][price_data][currency]"), "ngn");
+    assert.equal(params.get("metadata[reference]"), "JC-ORDER-Q1-EXACT");
     return new Response(
       JSON.stringify({
-        status: true,
-        data: {
-          reference: body.reference,
-          authorization_url: "https://checkout.paystack.com/access-code",
-          access_code: "access-code",
-        },
+        id: "cs_test_123",
+        url: "https://checkout.stripe.com/c/pay/cs_test_123",
+        payment_intent: "pi_test_123",
+        status: "open",
       }),
       { status: 200, headers: { "content-type": "application/json" } },
     );
   };
   try {
-    const result = await initializePaystackTransaction({
+    const result = await createStripeCheckoutSession({
       amountNgn: 123.45,
       reference: "JC-ORDER-Q1-EXACT",
       orderReference: "JC-ORDER",
       customerEmail: "customer@example.com",
       customerName: "Customer",
-      callbackUrl: "https://www.jelocare.com/order?payment=return",
+      successUrl:
+        "https://www.jelocare.com/order?payment=return&session_id={CHECKOUT_SESSION_ID}",
+      cancelUrl: "https://www.jelocare.com/order?payment=cancelled",
     });
-    assert.equal(postedReference, "JC-ORDER-Q1-EXACT");
-    assert.equal(result.reference, "JC-ORDER-Q1-EXACT");
-    assert.equal(result.accessCode, "access-code");
+    assert.equal(result.sessionId, "cs_test_123");
+    assert.equal(result.url, "https://checkout.stripe.com/c/pay/cs_test_123");
   } finally {
     globalThis.fetch = originalFetch;
-    restoreEnvironment("PAYSTACK_SECRET_KEY", originalSecret);
+    restoreEnvironment("STRIPE_SECRET_KEY", originalSecret);
   }
 });
 
-test("Paystack verification rejects malformed amounts", async () => {
-  const originalSecret = process.env.PAYSTACK_SECRET_KEY;
+test("Stripe session retrieval rejects malformed amounts", async () => {
+  const originalSecret = process.env.STRIPE_SECRET_KEY;
   const originalFetch = globalThis.fetch;
-  process.env.PAYSTACK_SECRET_KEY = "sk_test_verify";
+  process.env.STRIPE_SECRET_KEY = "sk_test_verify";
   globalThis.fetch = async () =>
     new Response(
       JSON.stringify({
-        status: true,
-        data: {
-          status: "success",
-          amount: 123.45,
-          currency: "NGN",
-          reference: "JC-REF",
-          gateway_response: "Successful",
-          paid_at: "2026-08-14T10:00:00.000Z",
-          channel: "card",
-        },
+        id: "cs_test_123",
+        status: "complete",
+        payment_status: "paid",
+        amount_total: 123.45,
+        currency: "ngn",
+        payment_intent: "pi_test_123",
+        metadata: { reference: "JC-REF" },
+        created: Math.floor(Date.now() / 1000),
       }),
       { status: 200, headers: { "content-type": "application/json" } },
     );
   try {
     await assert.rejects(
-      () => verifyPaystackTransaction("JC-REF"),
+      () => retrieveStripeCheckoutSession("cs_test_123"),
       /Invalid kobo/,
     );
   } finally {
     globalThis.fetch = originalFetch;
-    restoreEnvironment("PAYSTACK_SECRET_KEY", originalSecret);
+    restoreEnvironment("STRIPE_SECRET_KEY", originalSecret);
   }
 });
 
 test("successful evidence requires exact reference, NGN, and paid_at", () => {
   const valid = {
-    status: "success" as const,
-    amountKobo: 12_345,
-    currency: "NGN",
+    status: "complete" as const,
+    paymentStatus: "paid" as const,
+    amountTotalKobo: 12_345,
+    currency: "ngn",
+    sessionId: "cs_test_123",
+    paymentIntentId: "pi_test_123",
     reference: "JC-EXACT",
-    gatewayResponse: "Successful",
     paidAt: "2026-08-14T10:00:00.000Z",
-    channel: "card",
   };
   assert.equal(successfulEvidenceProblem("JC-EXACT", valid), null);
   assert.equal(
@@ -331,7 +378,7 @@ test("successful evidence requires exact reference, NGN, and paid_at", () => {
     "reference-mismatch",
   );
   assert.equal(
-    successfulEvidenceProblem("JC-EXACT", { ...valid, currency: "USD" })?.code,
+    successfulEvidenceProblem("JC-EXACT", { ...valid, currency: "usd" })?.code,
     "currency-mismatch",
   );
   assert.equal(
@@ -341,14 +388,14 @@ test("successful evidence requires exact reference, NGN, and paid_at", () => {
 });
 
 test("payment provider types remain narrow", () => {
-  const provider: PaymentProvider = "paystack";
+  const provider: PaymentProvider = "stripe";
   const status: PaymentStatus = "pending";
-  assert.equal(provider, "paystack");
+  assert.equal(provider, "stripe");
   assert.equal(status, "pending");
-  const original = process.env.PAYSTACK_SECRET_KEY;
-  process.env.PAYSTACK_SECRET_KEY = "invalid-key";
-  assert.equal(paystackSecretKey(), null);
-  restoreEnvironment("PAYSTACK_SECRET_KEY", original);
+  const original = process.env.STRIPE_SECRET_KEY;
+  process.env.STRIPE_SECRET_KEY = "invalid-key";
+  assert.equal(stripeSecretKey(), null);
+  restoreEnvironment("STRIPE_SECRET_KEY", original);
 });
 
 test("Ops manual verification requires independently entered received amount", async () => {

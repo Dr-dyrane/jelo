@@ -6,8 +6,8 @@ import {
   createAndVerifyManualPayment,
   expireApprovedQuoteAfterPaymentClosed,
   recordPaymentReviewRequired,
-  recordPaystackPaymentInitialization,
-  reservePaystackPaymentAttempt,
+  recordStripePaymentInitialization,
+  reserveStripePaymentAttempt,
   updatePaymentStatus,
   verifyPaymentAndMarkOrderPaid,
 } from "../../lib/commerce/payment-repository";
@@ -68,10 +68,10 @@ test(
           on assisted_order_payments (order_id) where status = 'verified';
         create unique index one_active_paystack_quote
           on assisted_order_payments (order_id, quote_version)
-          where provider = 'paystack' and status = 'pending';
+          where provider = 'stripe' and status = 'pending';
         create unique index one_paystack_reference
           on assisted_order_payments (provider_reference)
-          where provider = 'paystack' and provider_reference is not null;
+          where provider = 'stripe' and provider_reference is not null;
         create unique index one_manual_reference
           on assisted_order_payments (lower(btrim(provider_reference)))
           where provider = 'manual_bank_transfer' and status = 'verified';
@@ -102,7 +102,7 @@ test(
       `;
 
       const [first, replay] = await Promise.all([
-        reservePaystackPaymentAttempt(
+        reserveStripePaymentAttempt(
           {
             orderId,
             quoteVersion: 1,
@@ -112,7 +112,7 @@ test(
           },
           concurrentSql,
         ),
-        reservePaystackPaymentAttempt(
+        reserveStripePaymentAttempt(
           {
             orderId,
             quoteVersion: 1,
@@ -130,22 +130,22 @@ test(
         replay.payment.providerReference,
       );
 
-      const initialized = await recordPaystackPaymentInitialization(
+      const initialized = await recordStripePaymentInitialization(
         {
           paymentId: first.payment.id,
           providerReference: first.payment.providerReference!,
-          authorizationUrl: "https://checkout.paystack.com/access",
-          accessCode: "access",
+          checkoutUrl: "https://checkout.stripe.com/c/pay/cs_test",
+          providerSessionId: "cs_test_123",
           initializedAt: "2026-08-14T10:00:01.000Z",
         },
         sql,
       );
-      assert.equal(initialized?.paystackInitialization?.phase, "ready");
+      assert.equal(initialized?.providerInitialization?.phase, "ready");
 
       const verified = await verifyPaymentAndMarkOrderPaid(
         {
           paymentId: first.payment.id,
-          evidenceReference: "paystack:JC-ONE:2026-08-14T10:01:00.000Z",
+          evidenceReference: "stripe:JC-ONE:2026-08-14T10:01:00.000Z",
           evidenceMetadata: {
             currency: "NGN",
             paidAt: "2026-08-14T10:01:00.000Z",
@@ -162,7 +162,7 @@ test(
       const duplicate = await verifyPaymentAndMarkOrderPaid(
         {
           paymentId: first.payment.id,
-          evidenceReference: "paystack:duplicate",
+          evidenceReference: "stripe:duplicate",
           evidenceMetadata: {},
           verifiedBySubject: null,
           receivedAmountKobo: 12_345,
@@ -192,7 +192,7 @@ test(
           order_id, version, status, currency, total_ngn
         ) values (${autoMismatchOrderId}, 1, 'approved', 'NGN', 500.00)
       `;
-      const autoMismatchAttempt = await reservePaystackPaymentAttempt(
+      const autoMismatchAttempt = await reserveStripePaymentAttempt(
         {
           orderId: autoMismatchOrderId,
           quoteVersion: 1,
@@ -205,7 +205,7 @@ test(
       const autoMismatch = await verifyPaymentAndMarkOrderPaid(
         {
           paymentId: autoMismatchAttempt.payment.id,
-          evidenceReference: "paystack:wrong-kobo",
+          evidenceReference: "stripe:wrong-kobo",
           evidenceMetadata: {},
           verifiedBySubject: null,
           receivedAmountKobo: 49_999,
@@ -233,10 +233,10 @@ test(
         },
         sql,
       );
-      assert.deepEqual(mixedChannel, { ok: false, reason: "active_paystack" });
+      assert.deepEqual(mixedChannel, { ok: false, reason: "active_stripe" });
       const reviewInput = {
         paymentId: autoMismatchAttempt.payment.id,
-        evidenceReference: "paystack-review:JC-AUTO-MISMATCH:amount-mismatch",
+        evidenceReference: "stripe-review:JC-AUTO-MISMATCH:amount-mismatch",
         reason: "Paystack reported a successful charge for a different amount.",
         metadata: { expectedAmountKobo: 50_000, observedAmountKobo: 49_999 },
       };
@@ -330,7 +330,7 @@ test(
           now() - interval '1 hour', now() + interval '1 hour'
         )
       `;
-      const lateAttempt = await reservePaystackPaymentAttempt(
+      const lateAttempt = await reserveStripePaymentAttempt(
         {
           orderId: lateOrderId,
           quoteVersion: 1,
@@ -344,7 +344,7 @@ test(
         verifyPaymentAndMarkOrderPaid(
           {
             paymentId: lateAttempt.payment.id,
-            evidenceReference: "paystack:late",
+            evidenceReference: "stripe:late",
             evidenceMetadata: {},
             verifiedBySubject: null,
             receivedAmountKobo: 70_000,
@@ -379,7 +379,7 @@ test(
         )
       `;
       await assert.rejects(
-        reservePaystackPaymentAttempt(
+        reserveStripePaymentAttempt(
           {
             orderId: expiredOrderId,
             quoteVersion: 1,
@@ -423,7 +423,7 @@ test(
           now() - interval '1 hour', now() + interval '1 hour'
         )
       `;
-      const expiredActiveAttempt = await reservePaystackPaymentAttempt(
+      const expiredActiveAttempt = await reserveStripePaymentAttempt(
         {
           orderId: expiredActiveOrderId,
           quoteVersion: 1,
@@ -441,7 +441,7 @@ test(
         {
           paymentId: expiredActiveAttempt.payment.id,
           status: "abandoned",
-          evidenceReference: "paystack:expired-active:not-found",
+          evidenceReference: "stripe:expired-active:not-found",
         },
         sql,
       );
@@ -481,7 +481,7 @@ test(
         ) values (${raceOrderId}, 1, 'approved', 'NGN', 900.00)
       `;
       const [reservationRace, manualRace] = await Promise.allSettled([
-        reservePaystackPaymentAttempt(
+        reserveStripePaymentAttempt(
           {
             orderId: raceOrderId,
             quoteVersion: 1,
@@ -508,7 +508,7 @@ test(
       >`
         select orders.state,
                count(payment.id) filter (
-                 where payment.provider = 'paystack' and payment.status = 'pending'
+                 where payment.provider = 'stripe' and payment.status = 'pending'
                )::int as pending_paystack,
                count(payment.id) filter (where payment.status = 'verified')::int as verified
         from assisted_orders orders
@@ -527,7 +527,7 @@ test(
         assert.equal(raceInvariant.verified, 0);
         assert.deepEqual(
           manualRace.status === "fulfilled" ? manualRace.value : null,
-          { ok: false, reason: "active_paystack" },
+          { ok: false, reason: "active_stripe" },
         );
       }
     } finally {

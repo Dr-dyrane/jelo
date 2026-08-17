@@ -1,13 +1,14 @@
 # Assisted procurement operations
 
-Updated: 2026-08-14
+Updated: 2026-08-16
 
 JeloCare ships a guest-first, one-retailer order-request flow. It is a manual
 assisted-procurement service, not retailer checkout and not a marketplace.
 The retailer supplies and fulfils the exact products; JeloCare is the disclosed
-purchasing agent. Governed Paystack and operator-verified bank payment are
-available only after approval of one exact quote. Operations owns the persisted
-manual fulfilment, return-decision, and refund-evidence path; external retailer
+purchasing agent. Governed Stripe Checkout and operator-verified bank payment
+are available only after approval of one exact quote. Operations owns the
+persisted manual fulfilment, return-decision, and refund-evidence path; external
+retailer
 checkout and courier automation remain separately gated.
 
 ## Customer journey
@@ -127,11 +128,10 @@ progress bar reflects the current step (0%, 50%, 100%).
 1. Confirm Production has the restricted `APP_DATABASE_URL`, complete Upstash
    REST credentials, transactional email, `NEXT_PUBLIC_SITE_URL`, and a
    dedicated `ASSISTED_ORDER_RATE_LIMIT_SECRET`.
-2. Enter a short online-payment maintenance window. Keep
-   `PAYSTACK_SECRET_KEY` configured so signed webhooks can still reconcile, but
-   temporarily remove `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY` and redeploy. This makes
-   the existing `isPaystackConfigured()` gate reject new checkout initiation.
-   Reconcile every already-pending Paystack reference before continuing.
+2. Enter a short online-payment maintenance window. Remove
+   `STRIPE_SECRET_KEY` and redeploy. This makes the `isStripeConfigured()`
+   gate reject new checkout initiation. Reconcile every already-pending
+   Stripe session before continuing.
 3. From a protected operator process, inject the direct administrator URL only
    for `npm run db:migrate`. Migrations `0039_assisted_procurement.sql`,
    `0041_assisted_order_notifications.sql`,
@@ -141,18 +141,18 @@ progress bar reflects the current step (0%, 50%, 100%).
    `0047_assisted_order_payments.sql`,
    `0048_money_columns_to_numeric.sql`,
    `0049_fix_remaining_money_columns.sql`,
-   `0050_payment_integrity.sql`, and `0051_order_lifecycle.sql` grant only the
-   application runtime role. Migration
-   `0050` is a coordinated boundary, not an independently additive live change:
-   old code initializes Paystack before its database insert, while new code
-   reserves the reference first and depends on the new unique index. Never run
-   it while old code can still initiate payments. Never add the admin URL to
-   Vercel or `.env.local`. The checked-in atomic runner is the only normal
-   write path. Neon MCP may inspect the target read-only; it must not execute
-   migration fragments or manually write the ledger.
+   `0050_payment_integrity.sql`, `0051_order_lifecycle.sql`, and
+   `0052_stripe_payment_provider.sql` grant only the application runtime role.
+   Migration `0050` is a coordinated boundary, not an independently additive
+   live change: old code initializes Paystack before its database insert, while
+   new code reserves the reference first and depends on the new unique index.
+   Never run it while old code can still initiate payments. Never add the admin
+   URL to Vercel or `.env.local`. The checked-in atomic runner is the only
+   normal write path. Neon MCP may inspect the target read-only; it must not
+   execute migration fragments or manually write the ledger.
 4. Deploy the application revision while online initiation remains disabled.
-5. Restore `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY`, redeploy, and complete the
-   post-deploy journey below before announcing availability.
+5. Restore `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET`, redeploy, and
+   complete the post-deploy journey below before announcing availability.
 
 Do not drop the new tables during application rollback. Old application code
 does not use them, while retaining them preserves already-created customer and
@@ -475,13 +475,14 @@ no live provider attempt, it safely returns to `needs_response` for a fresh quot
 
 ### Environment variables
 
-| Variable                          | Required                 | Description                                       |
-| --------------------------------- | ------------------------ | ------------------------------------------------- |
-| `PAYSTACK_SECRET_KEY`             | Yes (for online payment) | Paystack secret key (`sk_...`). Server-only.      |
-| `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY` | Yes (for online payment) | Paystack public key (`pk_...`). Safe for browser. |
+| Variable                | Required                 | Description                                               |
+| ----------------------- | ------------------------ | --------------------------------------------------------- |
+| `STRIPE_SECRET_KEY`     | Yes (for online payment) | Stripe secret key (`sk_...`). Server-only.                |
+| `STRIPE_WEBHOOK_SECRET` | Yes (for webhook verify) | Stripe webhook signing secret (`whsec_...`). Server-only. |
 
-Paystack signs webhooks with `PAYSTACK_SECRET_KEY`; do not configure or depend
-on a separate `PAYSTACK_WEBHOOK_SECRET`.
+Stripe signs webhooks with a separate `STRIPE_WEBHOOK_SECRET` (not the API key).
+The `Stripe-Signature` header carries `t=timestamp,v1=HMAC-SHA256` which the
+webhook route verifies with replay-attack tolerance.
 
 Repository integration tests require an explicitly disposable writable URL in
 `PAYMENT_INTEGRITY_TEST_DATABASE_URL`. It is test-process-only and must never be
@@ -493,7 +494,11 @@ ambiguous. Reconcile those exact provider records first, record the outcome in
 the governed payment/event path, and rerun the migration; never delete or pick
 a surviving payment row by guesswork.
 
-When Paystack is not configured, the customer sees bank transfer instructions
+Migration `0052_stripe_payment_provider.sql` adds `stripe` as a valid provider
+alongside the legacy `paystack` and `manual_bank_transfer`. New payments use
+Stripe Checkout; historical Paystack rows remain valid for audit.
+
+When Stripe is not configured, the customer sees bank transfer instructions
 and the operator can still verify manual payments.
 
 ## Preserved boundaries

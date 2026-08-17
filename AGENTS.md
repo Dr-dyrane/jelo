@@ -29,18 +29,18 @@ prevent conflicts and lost work, follow these rules.
 These files are frequently edited by multiple agents. Check for
 conflicts before touching them:
 
-| Area            | Files                                                                                                                | Last agent               |
-| --------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| Order UI        | `components/commerce/order-status.tsx`, `order-current-action*`, `order-progress*`                                  | Shared lifecycle contract |
-| Member orders   | `components/me/orders/member-orders-view.tsx`, `member-orders-view.module.css`                                       | Shared lifecycle contract |
-| Basket/checkout | `components/commerce/procurement-basket.tsx`, `procurement.module.css`                                               | Devin                    |
-| Payment service | `lib/commerce/payment-service.ts`, `payment-repository.ts`, `payment-provider.ts`                                    | Codex (integrity system) |
-| Payment route   | `app/api/orders/current/payment/route.ts`                                                                            | Codex                    |
-| Operator orders | `app/(ops)/ops/orders/OrdersQueue.tsx`, `orders.module.css`, `actions.ts`                                            | Shared                   |
-| Shelf/RLS audit | `scripts/audit-customer-shelf-rls.ts`, `lib/customer/shelf-role-attestation.ts`                                      | Codex                    |
-| Me telemetry    | `lib/customer/private-telemetry.ts`                                                                                  | Codex                    |
-| Migrations      | `db/migrations/**`, `lib/database/migration-*`, `scripts/*migration*`                                                | Platform delivery       |
-| Navbar          | `components/navigation/site-header.tsx`, `site-header.module.css`                                                    | Devin                    |
+| Area            | Files                                                                              | Last agent                |
+| --------------- | ---------------------------------------------------------------------------------- | ------------------------- |
+| Order UI        | `components/commerce/order-status.tsx`, `order-current-action*`, `order-progress*` | Shared lifecycle contract |
+| Member orders   | `components/me/orders/member-orders-view.tsx`, `member-orders-view.module.css`     | Shared lifecycle contract |
+| Basket/checkout | `components/commerce/procurement-basket.tsx`, `procurement.module.css`             | Devin                     |
+| Payment service | `lib/commerce/payment-service.ts`, `payment-repository.ts`, `stripe-provider.ts`   | Devin (Stripe migration)  |
+| Payment route   | `app/api/orders/current/payment/route.ts`                                          | Devin (Stripe migration)  |
+| Operator orders | `app/(ops)/ops/orders/OrdersQueue.tsx`, `orders.module.css`, `actions.ts`          | Shared                    |
+| Shelf/RLS audit | `scripts/audit-customer-shelf-rls.ts`, `lib/customer/shelf-role-attestation.ts`    | Codex                     |
+| Me telemetry    | `lib/customer/private-telemetry.ts`                                                | Codex                     |
+| Migrations      | `db/migrations/**`, `lib/database/migration-*`, `scripts/*migration*`              | Platform delivery         |
+| Navbar          | `components/navigation/site-header.tsx`, `site-header.module.css`                  | Devin                     |
 
 ## Migration governance
 

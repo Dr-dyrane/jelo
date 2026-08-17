@@ -5,8 +5,8 @@ import {
   expireApprovedQuoteAfterPaymentClosed,
   readPaymentByReference,
   recordPaymentReviewRequired,
-  recordPaystackPaymentInitialization,
-  reservePaystackPaymentAttempt,
+  recordStripePaymentInitialization,
+  reserveStripePaymentAttempt,
   updatePaymentStatus,
   verifyPaymentAndMarkOrderPaid,
   PaymentSettlementOutsideQuoteWindowError,
@@ -14,13 +14,13 @@ import {
   type AssistedOrderPayment,
 } from "./payment-repository";
 import {
-  createPaystackReference,
-  initializePaystackTransaction,
-  isPaystackConfigured,
-  PaystackProviderError,
-  verifyPaystackTransaction,
-  type PaystackVerifyResult,
-} from "./payment-provider";
+  createStripeReference,
+  createStripeCheckoutSession,
+  isStripeConfigured,
+  StripeProviderError,
+  retrieveStripeCheckoutSession,
+  type StripeSessionVerifyResult,
+} from "./stripe-provider";
 import { ngnToKobo, normalizeNgnAmount } from "./payment-money";
 import { readAssistedOrderById } from "./assisted-procurement-repository";
 import { deliverPendingAssistedOrderNotifications } from "./order-notification-repository";
@@ -43,18 +43,18 @@ export class PaymentInitializationPendingError extends Error {
 
 export function successfulEvidenceProblem(
   expectedReference: string,
-  verification: PaystackVerifyResult,
+  verification: StripeSessionVerifyResult,
 ) {
   if (verification.reference !== expectedReference) {
     return {
       code: "reference-mismatch",
-      reason: "Paystack returned a different transaction reference.",
+      reason: "Stripe returned a different session reference.",
     };
   }
-  if (verification.currency !== "NGN") {
+  if (verification.currency !== "ngn") {
     return {
       code: "currency-mismatch",
-      reason: "Paystack returned a non-NGN transaction.",
+      reason: "Stripe returned a non-NGN session.",
     };
   }
   if (
@@ -63,21 +63,22 @@ export function successfulEvidenceProblem(
   ) {
     return {
       code: "missing-settlement-time",
-      reason: "Paystack returned no valid settlement time.",
+      reason: "Stripe returned no valid settlement time.",
     };
   }
   return null;
 }
 
-function providerEvidence(verification: PaystackVerifyResult) {
+function providerEvidence(verification: StripeSessionVerifyResult) {
   return {
     verificationStatus: verification.status,
+    paymentStatus: verification.paymentStatus,
     observedReference: verification.reference,
-    observedAmountKobo: verification.amountKobo,
+    observedAmountKobo: verification.amountTotalKobo,
     observedCurrency: verification.currency,
     observedPaidAt: verification.paidAt,
-    channel: verification.channel,
-    gatewayResponse: verification.gatewayResponse,
+    sessionId: verification.sessionId,
+    paymentIntentId: verification.paymentIntentId,
   };
 }
 
@@ -90,7 +91,7 @@ async function recordProviderReview(input: {
   const reference = input.payment.providerReference ?? input.payment.id;
   const recorded = await recordPaymentReviewRequired({
     paymentId: input.payment.id,
-    evidenceReference: `paystack-review:${reference}:${input.code}`,
+    evidenceReference: `stripe-review:${reference}:${input.code}`,
     reason: input.reason,
     metadata: {
       paymentStatus: input.payment.status,
@@ -113,31 +114,33 @@ async function deliverPaymentUpdate(orderId: string) {
   }
 }
 
-async function reconcileSuccessfulPaystackPayment(input: {
+async function reconcileSuccessfulStripePayment(input: {
   payment: AssistedOrderPayment;
-  verification: PaystackVerifyResult;
+  verification: StripeSessionVerifyResult;
 }) {
   const reference = input.payment.providerReference;
   if (!reference) return null;
   const problem = successfulEvidenceProblem(reference, input.verification);
   if (problem) return null;
-  if (ngnToKobo(input.payment.amountNgn) !== input.verification.amountKobo) {
+  if (
+    ngnToKobo(input.payment.amountNgn) !== input.verification.amountTotalKobo
+  ) {
     return null;
   }
 
   const verified = await verifyPaymentAndMarkOrderPaid({
     paymentId: input.payment.id,
-    evidenceReference: `paystack:${reference}:${input.verification.paidAt}`,
+    evidenceReference: `stripe:${reference}:${input.verification.paidAt}`,
     evidenceMetadata: {
       reference,
-      amountKobo: input.verification.amountKobo,
+      sessionId: input.verification.sessionId,
+      paymentIntentId: input.verification.paymentIntentId,
+      amountKobo: input.verification.amountTotalKobo,
       currency: input.verification.currency,
       paidAt: input.verification.paidAt,
-      channel: input.verification.channel,
-      gatewayResponse: input.verification.gatewayResponse,
     },
     verifiedBySubject: null,
-    receivedAmountKobo: input.verification.amountKobo,
+    receivedAmountKobo: input.verification.amountTotalKobo,
     paidAt: input.verification.paidAt!,
   });
   if (verified) await deliverPaymentUpdate(verified.orderId);
@@ -156,19 +159,26 @@ async function initializeReservedAttempt(input: {
   if (!reference)
     throw new Error("The payment attempt has no provider reference.");
 
-  const initialized = await initializePaystackTransaction({
+  const successUrl = `${input.callbackUrl}&session_id={CHECKOUT_SESSION_ID}`;
+  const cancelUrl = input.callbackUrl.replace(
+    "payment=return",
+    "payment=cancelled",
+  );
+
+  const initialized = await createStripeCheckoutSession({
     amountNgn: input.amountNgn,
     reference,
     orderReference: input.orderReference,
     customerEmail: input.customerEmail,
     customerName: input.customerName,
-    callbackUrl: input.callbackUrl,
+    successUrl,
+    cancelUrl,
   });
-  const persisted = await recordPaystackPaymentInitialization({
+  const persisted = await recordStripePaymentInitialization({
     paymentId: input.payment.id,
     providerReference: reference,
-    authorizationUrl: initialized.authorizationUrl,
-    accessCode: initialized.accessCode,
+    checkoutUrl: initialized.url,
+    providerSessionId: initialized.sessionId,
     initializedAt: new Date().toISOString(),
   });
   if (!persisted) {
@@ -178,7 +188,7 @@ async function initializeReservedAttempt(input: {
   }
   return {
     payment: persisted,
-    authorizationUrl: initialized.authorizationUrl,
+    authorizationUrl: initialized.url,
     alreadyPaid: false,
   };
 }
@@ -191,18 +201,21 @@ async function reconcileExpiredActiveAttempt(input: {
   const reference = payment.providerReference;
   if (!reference) throw new PaymentInitializationPendingError();
 
-  let verification: PaystackVerifyResult;
+  const sessionId = payment.providerInitialization?.providerSessionId;
+  if (!sessionId) throw new PaymentInitializationPendingError();
+
+  let verification: StripeSessionVerifyResult;
   try {
-    verification = await verifyPaystackTransaction(reference);
+    verification = await retrieveStripeCheckoutSession(sessionId);
   } catch (error) {
-    if (!(error instanceof PaystackProviderError) || error.httpStatus !== 404) {
+    if (!(error instanceof StripeProviderError) || error.httpStatus !== 404) {
       throw error;
     }
     const retired = await updatePaymentStatus({
       paymentId: payment.id,
       status: "abandoned",
-      evidenceReference: `paystack:${reference}:not-found-after-expiry`,
-      reason: "Paystack had no transaction for the expired quote attempt.",
+      evidenceReference: `stripe:${reference}:not-found-after-expiry`,
+      reason: "Stripe had no session for the expired quote attempt.",
     });
     if (!retired) throw new PaymentInitializationPendingError();
     const expired = await expireApprovedQuoteAfterPaymentClosed({
@@ -215,9 +228,9 @@ async function reconcileExpiredActiveAttempt(input: {
     throw new Error("The approved quote expired. Request a fresh quote.");
   }
 
-  if (verification.status === "success") {
+  if (verification.paymentStatus === "paid") {
     try {
-      const verified = await reconcileSuccessfulPaystackPayment({
+      const verified = await reconcileSuccessfulStripePayment({
         payment,
         verification,
       });
@@ -246,17 +259,14 @@ async function reconcileExpiredActiveAttempt(input: {
   }
 
   if (
-    verification.status === "failed" ||
-    verification.status === "abandoned" ||
-    verification.status === "reversed"
+    verification.status === "expired" ||
+    verification.paymentStatus === "unpaid"
   ) {
-    const status =
-      verification.status === "reversed" ? "failed" : verification.status;
     const retired = await updatePaymentStatus({
       paymentId: payment.id,
-      status,
-      evidenceReference: `paystack:${reference}:${verification.status}:after-expiry`,
-      reason: `Paystack reports ${verification.status} after quote expiry.`,
+      status: "abandoned",
+      evidenceReference: `stripe:${reference}:${verification.status}:after-expiry`,
+      reason: `Stripe session is ${verification.status} after quote expiry.`,
     });
     if (!retired) throw new PaymentInitializationPendingError();
     const expired = await expireApprovedQuoteAfterPaymentClosed({
@@ -291,13 +301,13 @@ async function reserveAndInitialize(input: {
   callbackUrl: string;
 }): Promise<PaymentInitResult> {
   const reservedAt = new Date().toISOString();
-  let reservation: Awaited<ReturnType<typeof reservePaystackPaymentAttempt>>;
+  let reservation: Awaited<ReturnType<typeof reserveStripePaymentAttempt>>;
   try {
-    reservation = await reservePaystackPaymentAttempt({
+    reservation = await reserveStripePaymentAttempt({
       orderId: input.orderId,
       quoteVersion: input.quoteVersion,
       amountNgn: input.amountNgn,
-      providerReference: createPaystackReference(
+      providerReference: createStripeReference(
         input.orderReference,
         input.quoteVersion,
       ),
@@ -319,17 +329,17 @@ async function reserveAndInitialize(input: {
     });
   }
 
-  const initialization = reservation.payment.paystackInitialization;
+  const initialization = reservation.payment.providerInitialization;
   if (
     initialization?.phase === "ready" &&
-    initialization.authorizationUrl &&
+    initialization.checkoutUrl &&
     initialization.initializedAt &&
     Date.now() - Date.parse(initialization.initializedAt) <
       READY_ATTEMPT_RECHECK_MS
   ) {
     return {
       payment: reservation.payment,
-      authorizationUrl: initialization.authorizationUrl,
+      authorizationUrl: initialization.checkoutUrl,
       alreadyPaid: false,
     };
   }
@@ -348,16 +358,19 @@ async function reserveAndInitialize(input: {
   const reference = reservation.payment.providerReference;
   if (!reference) throw new PaymentInitializationPendingError();
 
-  let verification: PaystackVerifyResult;
+  const sessionId = initialization?.providerSessionId;
+  if (!sessionId) throw new PaymentInitializationPendingError();
+
+  let verification: StripeSessionVerifyResult;
   try {
-    verification = await verifyPaystackTransaction(reference);
+    verification = await retrieveStripeCheckoutSession(sessionId);
   } catch (error) {
-    if (error instanceof PaystackProviderError && error.httpStatus === 404) {
+    if (error instanceof StripeProviderError && error.httpStatus === 404) {
       const abandoned = await updatePaymentStatus({
         paymentId: reservation.payment.id,
         status: "abandoned",
-        evidenceReference: `paystack:${reference}:not-found`,
-        reason: "Paystack had no transaction for the stale reserved reference.",
+        evidenceReference: `stripe:${reference}:not-found`,
+        reason: "Stripe had no session for the stale reserved reference.",
       });
       if (!abandoned) throw new PaymentInitializationPendingError();
       return reserveAndInitialize(input);
@@ -365,10 +378,10 @@ async function reserveAndInitialize(input: {
     throw error;
   }
 
-  if (verification.status === "success") {
+  if (verification.paymentStatus === "paid") {
     let verified: AssistedOrderPayment | null;
     try {
-      verified = await reconcileSuccessfulPaystackPayment({
+      verified = await reconcileSuccessfulStripePayment({
         payment: reservation.payment,
         verification,
       });
@@ -396,19 +409,16 @@ async function reserveAndInitialize(input: {
   }
 
   if (
-    verification.status === "failed" ||
-    verification.status === "abandoned" ||
-    verification.status === "reversed"
+    verification.status === "expired" ||
+    verification.paymentStatus === "unpaid"
   ) {
-    const retiredStatus =
-      verification.status === "reversed" ? "failed" : verification.status;
     const retired = await updatePaymentStatus({
       paymentId: reservation.payment.id,
-      status: retiredStatus,
-      evidenceReference: `paystack:${reference}:${verification.status}`,
+      status: "abandoned",
+      evidenceReference: `stripe:${reference}:${verification.status}`,
       reason:
-        verification.status === "reversed"
-          ? "Paystack reports that the transaction was reversed."
+        verification.status === "expired"
+          ? "Stripe reports that the checkout session expired."
           : undefined,
     });
     if (!retired) throw new PaymentInitializationPendingError();
@@ -416,10 +426,10 @@ async function reserveAndInitialize(input: {
     return reserveAndInitialize(input);
   }
 
-  if (initialization?.phase === "ready" && initialization.authorizationUrl) {
+  if (initialization?.phase === "ready" && initialization.checkoutUrl) {
     return {
       payment: reservation.payment,
-      authorizationUrl: initialization.authorizationUrl,
+      authorizationUrl: initialization.checkoutUrl,
       alreadyPaid: false,
     };
   }
@@ -428,7 +438,7 @@ async function reserveAndInitialize(input: {
     payment: reservation.payment,
     code: "initialization-incomplete",
     reason:
-      "The reserved Paystack transaction is live but no reusable checkout URL was persisted.",
+      "The reserved Stripe session is live but no reusable checkout URL was persisted.",
     metadata: {
       ...providerEvidence(verification),
     },
@@ -438,15 +448,15 @@ async function reserveAndInitialize(input: {
 }
 
 /**
- * Initialize exactly one DB-reserved Paystack attempt for the approved quote.
- * Repeat requests reuse the persisted authorization URL for that same attempt.
+ * Initialize exactly one DB-reserved Stripe attempt for the approved quote.
+ * Repeat requests reuse the persisted checkout URL for that same attempt.
  */
-export async function initiatePaystackPayment(input: {
+export async function initiateStripePayment(input: {
   orderId: string;
   callbackUrl: string;
 }): Promise<PaymentInitResult> {
-  if (!isPaystackConfigured()) {
-    throw new Error("Paystack is not configured.");
+  if (!isStripeConfigured()) {
+    throw new Error("Stripe is not configured.");
   }
 
   const order = await readAssistedOrderById(input.orderId);
@@ -470,16 +480,16 @@ export async function initiatePaystackPayment(input: {
   });
 }
 
-export type PaystackWebhookHandling = {
+export type StripeWebhookHandling = {
   handled: boolean;
   retryable: boolean;
   reason: string;
 };
 
-/** Verify provider evidence and idempotently reconcile one Paystack event. */
-export async function handlePaystackWebhookEvent(input: {
+/** Verify provider evidence and idempotently reconcile one Stripe event. */
+export async function handleStripeWebhookEvent(input: {
   reference: string;
-}): Promise<PaystackWebhookHandling> {
+}): Promise<StripeWebhookHandling> {
   const payment = await readPaymentByReference(input.reference);
   if (!payment) {
     return {
@@ -493,12 +503,21 @@ export async function handlePaystackWebhookEvent(input: {
     return { handled: true, retryable: false, reason: "Already verified." };
   }
 
-  const verification = await verifyPaystackTransaction(input.reference);
+  const sessionId = payment.providerInitialization?.providerSessionId;
+  if (!sessionId) {
+    return {
+      handled: false,
+      retryable: false,
+      reason: "Payment has no Stripe session to verify.",
+    };
+  }
+
+  const verification = await retrieveStripeCheckoutSession(sessionId);
   if (verification.reference !== input.reference) {
     await recordProviderReview({
       payment,
       code: "reference-mismatch",
-      reason: "Paystack returned a different transaction reference.",
+      reason: "Stripe returned a different session reference.",
       metadata: providerEvidence(verification),
     });
     return {
@@ -508,7 +527,7 @@ export async function handlePaystackWebhookEvent(input: {
     };
   }
 
-  if (verification.status === "success") {
+  if (verification.paymentStatus === "paid") {
     const problem = successfulEvidenceProblem(input.reference, verification);
     if (problem) {
       await recordProviderReview({
@@ -521,11 +540,11 @@ export async function handlePaystackWebhookEvent(input: {
       });
       return { handled: false, retryable: false, reason: problem.reason };
     }
-    if (ngnToKobo(payment.amountNgn) !== verification.amountKobo) {
+    if (ngnToKobo(payment.amountNgn) !== verification.amountTotalKobo) {
       await recordProviderReview({
         payment,
         code: "amount-mismatch",
-        reason: "Paystack reported a successful charge for a different amount.",
+        reason: "Stripe reported a successful payment for a different amount.",
         metadata: {
           ...providerEvidence(verification),
         },
@@ -541,7 +560,7 @@ export async function handlePaystackWebhookEvent(input: {
         payment,
         code: "late-success-after-local-close",
         reason:
-          "Paystack reported a successful charge after the local attempt was already closed.",
+          "Stripe reported a successful payment after the local attempt was already closed.",
         metadata: providerEvidence(verification),
       });
       return {
@@ -552,7 +571,7 @@ export async function handlePaystackWebhookEvent(input: {
     }
     let verified: AssistedOrderPayment | null;
     try {
-      verified = await reconcileSuccessfulPaystackPayment({
+      verified = await reconcileSuccessfulStripePayment({
         payment,
         verification,
       });
@@ -580,7 +599,7 @@ export async function handlePaystackWebhookEvent(input: {
         payment,
         code: "commit-mismatch",
         reason:
-          "Verified Paystack evidence could not be matched to the current approved order state.",
+          "Verified Stripe evidence could not be matched to the current approved order state.",
         metadata: {
           ...providerEvidence(verification),
         },
@@ -599,19 +618,16 @@ export async function handlePaystackWebhookEvent(input: {
   }
 
   if (
-    verification.status === "failed" ||
-    verification.status === "abandoned" ||
-    verification.status === "reversed"
+    verification.status === "expired" ||
+    verification.paymentStatus === "unpaid"
   ) {
-    const retiredStatus =
-      verification.status === "reversed" ? "failed" : verification.status;
     const updated = await updatePaymentStatus({
       paymentId: payment.id,
-      status: retiredStatus,
-      evidenceReference: `paystack:${verification.reference}:${verification.status}`,
+      status: "abandoned",
+      evidenceReference: `stripe:${verification.sessionId}:${verification.status}`,
       reason:
-        verification.status === "reversed"
-          ? "Paystack reports that the transaction was reversed."
+        verification.status === "expired"
+          ? "Stripe reports that the checkout session expired."
           : undefined,
     });
     if (!updated) {
@@ -675,11 +691,11 @@ export async function manuallyVerifyPayment(input: {
   });
 
   if (!verification.ok) {
-    if (verification.reason === "active_paystack") {
+    if (verification.reason === "active_stripe") {
       return {
         ok: false,
         error:
-          "An online Paystack attempt is still active. Reconcile it before recording a bank transfer.",
+          "An online Stripe attempt is still active. Reconcile it before recording a bank transfer.",
       };
     }
     if (verification.reason === "reference_reused") {

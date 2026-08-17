@@ -330,7 +330,7 @@ function MemberPaymentSection({
   const [copied, setCopied] = useState(false);
   const total = order.quote?.totalNgn;
 
-  async function payWithPaystack() {
+  async function payWithStripe() {
     if (!total) return;
     setPending(true);
     onError("");
@@ -368,7 +368,7 @@ function MemberPaymentSection({
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.has("reference") || params.has("trxref")) {
+    if (params.has("session_id") || params.has("payment")) {
       onPaid();
     }
   }, [onPaid]);
@@ -396,7 +396,7 @@ function MemberPaymentSection({
           type="button"
           className={styles.payButton}
           disabled={pending}
-          onClick={payWithPaystack}
+          onClick={payWithStripe}
         >
           <CreditCard size={18} aria-hidden="true" />
           {pending ? "Redirecting…" : `Pay ${naira.format(total)}`}

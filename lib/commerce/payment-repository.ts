@@ -8,14 +8,14 @@ import {
   normalizeNgnAmount,
 } from "./payment-money";
 
-export type PaymentProvider = "paystack" | "manual_bank_transfer";
+export type PaymentProvider = "paystack" | "stripe" | "manual_bank_transfer";
 export type PaymentStatus = "pending" | "verified" | "failed" | "abandoned";
 
-export type PaystackInitialization = {
+export type ProviderInitialization = {
   phase: "reserved" | "ready";
   reservedAt: string;
-  authorizationUrl: string | null;
-  accessCode: string | null;
+  checkoutUrl: string | null;
+  providerSessionId: string | null;
   initializedAt: string | null;
 };
 
@@ -30,7 +30,7 @@ export type AssistedOrderPayment = {
   evidenceReference: string | null;
   verifiedBySubject: string | null;
   verifiedAt: string | null;
-  paystackInitialization: PaystackInitialization | null;
+  providerInitialization: ProviderInitialization | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -70,7 +70,7 @@ export class PaymentQuoteExpiredWithActiveAttemptError extends Error {
     readonly expiresAt: string,
   ) {
     super(
-      "The approved quote expired while its Paystack attempt remained active.",
+      "The approved quote expired while its Stripe attempt remained active.",
     );
     this.name = "PaymentQuoteExpiredWithActiveAttemptError";
   }
@@ -83,7 +83,7 @@ const paymentColumns = `
   provider_metadata, created_at::text, updated_at::text
 `;
 
-function paystackInitialization(value: unknown): PaystackInitialization | null {
+function providerInitialization(value: unknown): ProviderInitialization | null {
   if (!value || typeof value !== "object" || Array.isArray(value)) return null;
   const metadata = value as Record<string, unknown>;
   if (
@@ -95,12 +95,18 @@ function paystackInitialization(value: unknown): PaystackInitialization | null {
   return {
     phase: metadata.phase,
     reservedAt: metadata.reservedAt,
-    authorizationUrl:
-      typeof metadata.authorizationUrl === "string"
-        ? metadata.authorizationUrl
-        : null,
-    accessCode:
-      typeof metadata.accessCode === "string" ? metadata.accessCode : null,
+    checkoutUrl:
+      typeof metadata.checkoutUrl === "string"
+        ? metadata.checkoutUrl
+        : typeof metadata.authorizationUrl === "string"
+          ? metadata.authorizationUrl
+          : null,
+    providerSessionId:
+      typeof metadata.providerSessionId === "string"
+        ? metadata.providerSessionId
+        : typeof metadata.accessCode === "string"
+          ? metadata.accessCode
+          : null,
     initializedAt:
       typeof metadata.initializedAt === "string"
         ? metadata.initializedAt
@@ -120,7 +126,7 @@ export function mapPaymentRow(row: PaymentRow): AssistedOrderPayment {
     evidenceReference: row.evidence_reference,
     verifiedBySubject: row.verified_by_subject,
     verifiedAt: row.verified_at,
-    paystackInitialization: paystackInitialization(row.provider_metadata),
+    providerInitialization: providerInitialization(row.provider_metadata),
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
@@ -150,7 +156,7 @@ export async function createPayment(
   return mapPaymentRow(row);
 }
 
-export async function reservePaystackPaymentAttempt(
+export async function reserveStripePaymentAttempt(
   input: {
     orderId: string;
     quoteVersion: number;
@@ -193,7 +199,7 @@ export async function reservePaystackPaymentAttempt(
         from assisted_order_payments
         where order_id = ${payable.order_id}
           and quote_version = ${payable.quote_version}
-          and provider = 'paystack'
+          and provider = 'stripe'
           and status = 'pending'
         limit 1
         for update
@@ -235,11 +241,11 @@ export async function reservePaystackPaymentAttempt(
         provider_metadata
       ) values (
         ${payable.order_id}, ${payable.quote_version}, ${amountNgn},
-        'paystack', ${input.providerReference},
+        'stripe', ${input.providerReference},
         ${transaction.json({ phase: "reserved", reservedAt: input.reservedAt })}
       )
       on conflict (order_id, quote_version)
-        where provider = 'paystack' and status = 'pending'
+        where provider = 'stripe' and status = 'pending'
       do nothing
       returning ${transaction.unsafe(paymentColumns)}
     `;
@@ -256,7 +262,7 @@ export async function reservePaystackPaymentAttempt(
       from assisted_order_payments
       where order_id = ${input.orderId}
         and quote_version = ${input.quoteVersion}
-        and provider = 'paystack'
+        and provider = 'stripe'
         and status = 'pending'
       limit 1
       for update
@@ -337,7 +343,7 @@ export async function expireApprovedQuoteAfterPaymentClosed(
       ) values (
         ${input.orderId}, 'system', null, 'quote_expired',
         'payment_pending', 'needs_response', ${input.quoteVersion},
-        'Approved quote expired after its Paystack attempt closed.', null,
+        'Approved quote expired after its Stripe attempt closed.', null,
         ${transaction.json({ paymentId: input.paymentId, paymentStatus: payment.status })}
       )
     `;
@@ -345,12 +351,12 @@ export async function expireApprovedQuoteAfterPaymentClosed(
   });
 }
 
-export async function recordPaystackPaymentInitialization(
+export async function recordStripePaymentInitialization(
   input: {
     paymentId: string;
     providerReference: string;
-    authorizationUrl: string;
-    accessCode: string;
+    checkoutUrl: string;
+    providerSessionId: string;
     initializedAt: string;
   },
   database?: PaymentDatabase,
@@ -361,14 +367,14 @@ export async function recordPaystackPaymentInitialization(
     set provider_metadata = coalesce(provider_metadata, '{}'::jsonb) || ${sql.json(
       {
         phase: "ready",
-        authorizationUrl: input.authorizationUrl,
-        accessCode: input.accessCode,
+        checkoutUrl: input.checkoutUrl,
+        providerSessionId: input.providerSessionId,
         initializedAt: input.initializedAt,
       },
     )},
         updated_at = now()
     where id = ${input.paymentId}
-      and provider = 'paystack'
+      and provider = 'stripe'
       and provider_reference = ${input.providerReference}
       and status = 'pending'
     returning ${sql.unsafe(paymentColumns)}
@@ -384,7 +390,8 @@ export async function readPaymentByReference(
   const rows = await sql<PaymentRow[]>`
     select ${sql.unsafe(paymentColumns)}
     from assisted_order_payments
-    where provider = 'paystack' and provider_reference = ${providerReference}
+    where provider_reference = ${providerReference}
+      and provider in ('stripe', 'paystack')
     limit 1
   `;
   return rows.length ? mapPaymentRow(rows[0]) : null;
@@ -418,7 +425,7 @@ export async function readVerifiedPaymentForOrder(
   return rows.length ? mapPaymentRow(rows[0]) : null;
 }
 
-export async function readPendingPaystackPaymentForOrder(
+export async function readPendingStripePaymentForOrder(
   orderId: string,
 ): Promise<AssistedOrderPayment | null> {
   const sql = getPostgresClient();
@@ -427,10 +434,11 @@ export async function readPendingPaystackPaymentForOrder(
            provider_reference, status, evidence_reference,
            verified_by_subject,
            case when verified_at is null then null else verified_at::text end as verified_at,
+           provider_metadata,
            created_at::text, updated_at::text
     from assisted_order_payments
     where order_id = ${orderId}
-      and provider = 'paystack'
+      and provider = 'stripe'
       and status = 'pending'
     order by created_at desc
     limit 1
@@ -607,7 +615,7 @@ export async function createAndVerifyManualPayment(
   | {
       ok: false;
       reason:
-        | "active_paystack"
+        | "active_stripe"
         | "amount_mismatch"
         | "reference_reused"
         | "not_payable";
@@ -637,16 +645,16 @@ export async function createAndVerifyManualPayment(
       return { ok: false, reason: "not_payable" as const };
     }
 
-    const [activePaystack] = await transaction<{ id: string }[]>`
+    const [activeStripe] = await transaction<{ id: string }[]>`
       select id from assisted_order_payments
       where order_id = ${order.id}
-        and provider = 'paystack'
+        and provider = 'stripe'
         and status = 'pending'
       limit 1
       for update
     `;
-    if (activePaystack) {
-      return { ok: false, reason: "active_paystack" as const };
+    if (activeStripe) {
+      return { ok: false, reason: "active_stripe" as const };
     }
 
     const [quote] = await transaction<
@@ -906,7 +914,7 @@ export async function recordPaymentReviewRequired(
 }
 
 /**
- * Marks pending Paystack payment attempts as "abandoned" when they have been
+ * Marks pending Stripe payment attempts as "abandoned" when they have been
  * stuck in pending status for longer than the staleness threshold (default 24
  * hours). This prevents stale reservations from accumulating when customers
  * abandon the payment flow without completing it.
@@ -926,7 +934,7 @@ export async function abandonStalePendingPayments(
     update assisted_order_payments
     set status = 'abandoned', updated_at = now()
     where status = 'pending'
-      and provider = 'paystack'
+      and provider = 'stripe'
       and created_at < now() - (${stalenessHours} * interval '1 hour')
     returning id
   `;

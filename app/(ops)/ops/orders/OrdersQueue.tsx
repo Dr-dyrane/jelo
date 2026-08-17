@@ -1177,7 +1177,7 @@ function CancellationRecovery({
           </span>
           <small>
             This records a terminal cancellation for {order.reference}. An
-            active Paystack attempt must be reconciled first.
+            active Stripe attempt must be reconciled first.
           </small>
           <textarea
             value={reason}
@@ -1421,7 +1421,7 @@ function LifecycleDecisionForm({
                 <input
                   value={refundReference}
                   onChange={(event) => setRefundReference(event.target.value)}
-                  placeholder="Enter the Paystack or bank refund reference"
+                  placeholder="Enter the Stripe or bank refund reference"
                   autoComplete="off"
                 />
               </label>
@@ -1540,8 +1540,8 @@ function PaymentVerification({
       <CheckCircle2 size={18} />
       <p>
         <strong>Quote approved.</strong> Total: {naira.format(total ?? 0)}. The
-        customer can pay online via the Paystack checkout on their order page,
-        or by direct bank transfer.
+        customer can pay online via the Stripe checkout on their order page, or
+        by direct bank transfer.
       </p>
       {canManage ? (
         <form className={styles.manualPaymentForm} onSubmit={submit}>
@@ -1552,7 +1552,7 @@ function PaymentVerification({
                 <strong>Provider evidence needs review</strong>
                 <small>
                   {paymentReview.reason ??
-                    "Reconcile this payment in Paystack before proceeding."}
+                    "Reconcile this payment in Stripe before proceeding."}
                 </small>
                 {expectedReference ? (
                   <small>Expected reference · {expectedReference}</small>
