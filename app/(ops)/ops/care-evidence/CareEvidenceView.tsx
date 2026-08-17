@@ -141,11 +141,12 @@ export function CareEvidenceView({
                     </Link>
                     <span className={styles.outcomeSummary}>
                       {outcomeBreakdown(product.outcomeSummary)}
-                      {ratioLabel(ratio) ? (
-                        <span className={styles.ratio}>
-                          {ratioLabel(ratio)}
-                        </span>
-                      ) : null}
+                      {(() => {
+                        const label = ratioLabel(ratio);
+                        return label ? (
+                          <span className={styles.ratio}>{label}</span>
+                        ) : null;
+                      })()}
                     </span>
                   </li>
                 );
