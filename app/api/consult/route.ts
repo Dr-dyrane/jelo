@@ -11,6 +11,7 @@ import {
   clarificationQuestionsFromProposal,
   runConsultIntakeShadow,
 } from "@/lib/consult/ai-intake-shadow";
+import { inferConcerns } from "@/lib/clinical/concern-lexicon";
 import {
   marketProductPrice,
   marketRetailerLinks,
@@ -118,31 +119,6 @@ function responseMeta<T extends Record<string, unknown>>(
   legacyClient: boolean,
 ) {
   return legacyClient ? { ...meta, concerns: [] as string[] } : meta;
-}
-
-const concernLexicon: Record<string, string[]> = {
-  acne: ["acne", "pimple", "breakout", "bumps", "whitehead", "blackhead"],
-  blackheads: ["blackhead", "clogged", "congestion"],
-  oiliness: ["oily", "oiliness", "greasy", "shine"],
-  hyperpigmentation: [
-    "dark mark",
-    "dark spot",
-    "pigmentation",
-    "uneven tone",
-    "melasma",
-  ],
-  sensitivity: ["sensitive", "burning", "stinging", "irritated", "redness"],
-  dryness: ["dry", "flaky", "scaly", "tight"],
-  barrier: ["barrier", "over-exfoliated", "damaged skin"],
-  dandruff: ["dandruff", "flaky scalp", "itchy scalp"],
-  "dry hair": ["dry hair", "brittle hair", "frizz"],
-};
-
-function inferConcerns(query: string) {
-  const normalized = query.toLowerCase();
-  return Object.entries(concernLexicon)
-    .filter(([, terms]) => terms.some((term) => normalized.includes(term)))
-    .map(([concern]) => concern);
 }
 
 function publicProduct(product: Product, market: Market) {

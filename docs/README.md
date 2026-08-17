@@ -38,6 +38,8 @@ This is the entry point for product, engineering, data, and operations.
 | Hand the repository to another team                        | [Team handoff](./operations/HANDOFF.md)                                                                             |
 | Keep the repository understandable                         | [Repository ownership](./REPOSITORY.md)                                                                             |
 | Review archived campaign artwork                           | [Campaign archives](./archive/campaigns/README.md)                                                                  |
+| Assess Apple-readiness and strategic positioning           | [Apple-readiness assessment](./strategy/APPLE_READINESS_ASSESSMENT.md)                                              |
+| Trace the data-to-wisdom pathway and integrity spine       | [Data-to-wisdom pathway](./strategy/DATA_TO_WISDOM_PATHWAY.md)                                                      |
 
 ## Product systems
 
