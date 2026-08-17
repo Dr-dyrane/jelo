@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   Activity,
   BookOpen,
+  ClipboardCheck,
   Eye,
   GitFork,
   HandCoins,
@@ -211,6 +212,12 @@ export function OpsChrome({
     { href: "/ops", label: "Queue overview", icon: Home, count: null },
     { href: "/ops/activity", label: "Insights", icon: History, count: null },
     { href: "/ops/signals", label: "Signals", icon: Activity, count: null },
+    {
+      href: "/ops/care-evidence",
+      label: "Care evidence",
+      icon: ClipboardCheck,
+      count: null,
+    },
   ];
 
   const manageItems =

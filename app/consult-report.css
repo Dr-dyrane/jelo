@@ -870,3 +870,95 @@ html[data-theme="dark"] .report-next-step button {
     transform: none;
   }
 }
+
+/* Differential transparency in the pattern panel */
+.pattern-differential {
+  margin-top: 1.4rem;
+  display: grid;
+  gap: 0.7rem;
+}
+.pattern-confidence {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+.pattern-alternatives {
+  margin: 0;
+  color: #c9b8b3;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+.pattern-supporting {
+  display: grid;
+  gap: 0.4rem;
+}
+.pattern-supporting span {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #b8a6a1;
+}
+.pattern-supporting ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+.pattern-supporting li {
+  color: #d6c5c0;
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+/* Outcome recording in the timeline card */
+.outcome-prompt {
+  margin-top: 1.2rem;
+  display: grid;
+  gap: 0.6rem;
+}
+.outcome-prompt-label {
+  font-size: 0.72rem;
+  color: #d7c5bf;
+}
+.outcome-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.outcome-buttons button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.55rem 0.85rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.outcome-buttons button:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.outcome-buttons button:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 2px;
+}
+.outcome-recorded {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--rose);
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+.outcome-recorded svg {
+  flex: 0 0 auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .outcome-buttons button {
+    transition: none;
+  }
+}

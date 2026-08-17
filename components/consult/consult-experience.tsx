@@ -9,6 +9,7 @@ import {
   Check,
   Clock3,
   Eraser,
+  Heart,
   LoaderCircle,
   MessageCircleMore,
   Moon,
@@ -99,6 +100,9 @@ type TimelineRecord = {
   market: "NG" | "US";
   recommendedProductSlugs: string[];
   followUpAt: string;
+  outcome?: string;
+  outcomeNote?: string;
+  outcomeRecordedAt?: string;
 };
 type CareIntent = { concernSlugs: string[]; labels: string[] };
 export type MemberConsultContext = {
@@ -111,6 +115,13 @@ type Consultation = {
   guide?: Guide;
   careIntent?: CareIntent;
   timeline?: TimelineRecord;
+  differential?: {
+    confidence: "low" | "moderate" | "high";
+    primaryLabel: string | null;
+    primaryConfidence: number | null;
+    alternatives: { label: string; confidence: number }[];
+    supporting: string[];
+  };
   meta: {
     market: "NG" | "US";
     ordinaryCare?: boolean;
@@ -193,6 +204,25 @@ function mergeTimeline(current: TimelineRecord[], record?: TimelineRecord) {
     24,
   );
 }
+const outcomeOptions: {
+  value: string;
+  label: string;
+}[] = [
+  { value: "love-it", label: "Love it" },
+  { value: "helped", label: "Helped" },
+  { value: "unsure", label: "Not sure" },
+  { value: "didnt-help", label: "Didn't help" },
+];
+function outcomeLabel(value: string) {
+  return (
+    outcomeOptions.find((option) => option.value === value)?.label ?? value
+  );
+}
+function confidenceLabel(confidence: "low" | "moderate" | "high") {
+  if (confidence === "high") return "High confidence";
+  if (confidence === "moderate") return "Moderate confidence";
+  return "Low confidence";
+}
 function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
@@ -272,6 +302,33 @@ function isCareIntent(value: unknown): value is CareIntent {
     isStringArray(value.labels)
   );
 }
+function isDifferential(value: unknown): value is Consultation["differential"] {
+  if (!isObject(value)) return false;
+  if (
+    value.confidence !== "low" &&
+    value.confidence !== "moderate" &&
+    value.confidence !== "high"
+  )
+    return false;
+  if (value.primaryLabel !== null && typeof value.primaryLabel !== "string")
+    return false;
+  if (
+    value.primaryConfidence !== null &&
+    typeof value.primaryConfidence !== "number"
+  )
+    return false;
+  if (!Array.isArray(value.alternatives)) return false;
+  if (
+    !value.alternatives.every(
+      (alt) =>
+        isObject(alt) &&
+        typeof alt.label === "string" &&
+        typeof alt.confidence === "number",
+    )
+  )
+    return false;
+  return isStringArray(value.supporting);
+}
 function isConsultationPayload(value: unknown): value is Consultation {
   if (!isObject(value) || !isObject(value.report) || !isObject(value.meta))
     return false;
@@ -291,7 +348,8 @@ function isConsultationPayload(value: unknown): value is Consultation {
     (value.meta.market === "NG" || value.meta.market === "US") &&
     (value.timeline === undefined || isTimelineRecord(value.timeline)) &&
     (value.guide === undefined || isGuide(value.guide)) &&
-    (value.careIntent === undefined || isCareIntent(value.careIntent))
+    (value.careIntent === undefined || isCareIntent(value.careIntent)) &&
+    (value.differential === undefined || isDifferential(value.differential))
   );
 }
 function normalizedCopy(value: string) {
@@ -330,7 +388,10 @@ export function ConsultExperience({
   const resultRegionRef = useRef<HTMLElement>(null);
   const localComposerRef = useRef<HTMLTextAreaElement>(null);
   const composerRef = externalComposerRef ?? localComposerRef;
-  const [sharedContext, setSharedContext] = useState({ concerns: false, products: false });
+  const [sharedContext, setSharedContext] = useState({
+    concerns: false,
+    products: false,
+  });
   const {
     dialogRef: profileDialog,
     triggerRef: profileTrigger,
@@ -395,14 +456,16 @@ export function ConsultExperience({
     setSubmittedQuery(query);
     const patient = profilePayload(profile);
     const priorTimeline = timeline.slice(0, 8);
-    const selectedMemberContext = memberContext ? {
-      concernSlugs: sharedContext.concerns
-        ? memberContext.concerns.map(concern => concern.slug)
-        : [],
-      productSlugs: sharedContext.products
-        ? memberContext.products.map(product => product.slug)
-        : [],
-    } : undefined;
+    const selectedMemberContext = memberContext
+      ? {
+          concernSlugs: sharedContext.concerns
+            ? memberContext.concerns.map((concern) => concern.slug)
+            : [],
+          productSlugs: sharedContext.products
+            ? memberContext.products.map((product) => product.slug)
+            : [],
+        }
+      : undefined;
     try {
       const response = await fetch("/api/consult", {
         method: "POST",
@@ -467,6 +530,21 @@ export function ConsultExperience({
     setError("");
     setStatus("Your previous description is ready to edit.");
     focusComposer();
+  }
+  function recordOutcome(outcome: string) {
+    if (!result?.timeline) return;
+    const record = result.timeline;
+    setTimeline((current) =>
+      current.map((item) =>
+        item.id === record.id
+          ? {
+              ...item,
+              outcome,
+              outcomeRecordedAt: new Date().toISOString(),
+            }
+          : item,
+      ),
+    );
   }
 
   if (result) {
@@ -575,6 +653,31 @@ export function ConsultExperience({
                 : "A possible pattern."}
             </h3>
             <p>{result.report.pattern}</p>
+            {result.differential ? (
+              <div className="pattern-differential">
+                <span className="pattern-confidence">
+                  {confidenceLabel(result.differential.confidence)}
+                </span>
+                {result.differential.alternatives.length ? (
+                  <p className="pattern-alternatives">
+                    Other patterns considered:{" "}
+                    {result.differential.alternatives
+                      .map((alt) => alt.label)
+                      .join(", ")}
+                  </p>
+                ) : null}
+                {result.differential.supporting.length ? (
+                  <div className="pattern-supporting">
+                    <span>What matched</span>
+                    <ul>
+                      {result.differential.supporting.map((reason) => (
+                        <li key={reason}>{reason}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
             {displayedConcerns.length ? (
               <div className="concern-chips">
                 {displayedConcerns.map((concern) => (
@@ -619,6 +722,40 @@ export function ConsultExperience({
                 This guide can support another comparison while this page stays
                 open.
               </p>
+              {(() => {
+                const currentRecord = timeline.find(
+                  (item) => item.id === result.timeline?.id,
+                );
+                const recordedOutcome = currentRecord?.outcome;
+                if (recordedOutcome) {
+                  return (
+                    <div className="outcome-recorded">
+                      <Heart size={14} aria-hidden="true" />
+                      <span>
+                        You said this{" "}
+                        {outcomeLabel(recordedOutcome).toLowerCase()}. Thanks
+                        for sharing.
+                      </span>
+                    </div>
+                  );
+                }
+                return (
+                  <div className="outcome-prompt">
+                    <span className="outcome-prompt-label">Did this help?</span>
+                    <div className="outcome-buttons">
+                      {outcomeOptions.map((option) => (
+                        <button
+                          key={option.value}
+                          type="button"
+                          onClick={() => recordOutcome(option.value)}
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
             <div className="timeline-meta">
               <span>Follow-up</span>
@@ -651,9 +788,11 @@ export function ConsultExperience({
                   <article className="consult-product" key={product.slug}>
                     <Link
                       className="consult-product-image"
-                      href={memberContext
-                        ? `/me/product/${product.slug}?from=home`
-                        : `/products/${product.slug}`}
+                      href={
+                        memberContext
+                          ? `/me/product/${product.slug}?from=home`
+                          : `/products/${product.slug}`
+                      }
                       aria-label={`View ${product.brand} ${product.name}`}
                     >
                       <SafeProductImage
@@ -676,9 +815,13 @@ export function ConsultExperience({
                     <div className="consult-product-copy">
                       <p className="eyebrow">{product.brand}</p>
                       <h4>
-                        <Link href={memberContext
-                          ? `/me/product/${product.slug}?from=home`
-                          : `/products/${product.slug}`}>
+                        <Link
+                          href={
+                            memberContext
+                              ? `/me/product/${product.slug}?from=home`
+                              : `/products/${product.slug}`
+                          }
+                        >
                           {product.name}
                         </Link>
                       </h4>
@@ -833,11 +976,16 @@ export function ConsultExperience({
         </div>
       ) : null}
       {memberContext ? (
-        <section className="member-consult-context" aria-labelledby="member-consult-context-title">
+        <section
+          className="member-consult-context"
+          aria-labelledby="member-consult-context-title"
+        >
           <div className="member-consult-context-heading">
             <div>
               <p className="eyebrow">Private context</p>
-              <h3 id="member-consult-context-title">Choose what Ask Me may use.</h3>
+              <h3 id="member-consult-context-title">
+                Choose what Ask Me may use.
+              </h3>
             </div>
             <span>Session only</span>
           </div>
@@ -846,48 +994,71 @@ export function ConsultExperience({
               type="button"
               aria-pressed={sharedContext.concerns}
               disabled={!memberContext.concerns.length || busy}
-              onClick={() => setSharedContext(current => ({
-                ...current,
-                concerns: !current.concerns,
-              }))}
+              onClick={() =>
+                setSharedContext((current) => ({
+                  ...current,
+                  concerns: !current.concerns,
+                }))
+              }
             >
               <span>
                 <strong>My concerns</strong>
-                <small>{memberContext.concerns.length
-                  ? `${memberContext.concerns.length} saved`
-                  : 'Nothing saved'}</small>
+                <small>
+                  {memberContext.concerns.length
+                    ? `${memberContext.concerns.length} saved`
+                    : "Nothing saved"}
+                </small>
               </span>
-              {sharedContext.concerns ? <Check size={17} aria-hidden="true" /> : null}
+              {sharedContext.concerns ? (
+                <Check size={17} aria-hidden="true" />
+              ) : null}
             </button>
             <button
               type="button"
               aria-pressed={sharedContext.products}
               disabled={!memberContext.products.length || busy}
-              onClick={() => setSharedContext(current => ({
-                ...current,
-                products: !current.products,
-              }))}
+              onClick={() =>
+                setSharedContext((current) => ({
+                  ...current,
+                  products: !current.products,
+                }))
+              }
             >
               <span>
                 <strong>My current products</strong>
-                <small>{memberContext.products.length
-                  ? `${memberContext.products.length} exact product${memberContext.products.length === 1 ? '' : 's'}`
-                  : 'Nothing saved or in Routine'}</small>
+                <small>
+                  {memberContext.products.length
+                    ? `${memberContext.products.length} exact product${memberContext.products.length === 1 ? "" : "s"}`
+                    : "Nothing saved or in Routine"}
+                </small>
               </span>
-              {sharedContext.products ? <Check size={17} aria-hidden="true" /> : null}
+              {sharedContext.products ? (
+                <Check size={17} aria-hidden="true" />
+              ) : null}
             </button>
           </div>
           {sharedContext.concerns || sharedContext.products ? (
-            <div className="member-consult-context-preview" aria-label="Context Ask Me may use">
-              {sharedContext.concerns ? memberContext.concerns.map(concern => (
-                <span key={`concern-${concern.slug}`}>{concern.name}</span>
-              )) : null}
-              {sharedContext.products ? memberContext.products.map(product => (
-                <span key={`product-${product.slug}`}>{product.brand} {product.name}</span>
-              )) : null}
+            <div
+              className="member-consult-context-preview"
+              aria-label="Context Ask Me may use"
+            >
+              {sharedContext.concerns
+                ? memberContext.concerns.map((concern) => (
+                    <span key={`concern-${concern.slug}`}>{concern.name}</span>
+                  ))
+                : null}
+              {sharedContext.products
+                ? memberContext.products.map((product) => (
+                    <span key={`product-${product.slug}`}>
+                      {product.brand} {product.name}
+                    </span>
+                  ))
+                : null}
             </div>
           ) : (
-            <p className="member-consult-context-empty">Nothing from My JeloCare is included unless you choose it.</p>
+            <p className="member-consult-context-empty">
+              Nothing from My JeloCare is included unless you choose it.
+            </p>
           )}
         </section>
       ) : null}

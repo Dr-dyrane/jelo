@@ -392,6 +392,18 @@ export async function POST(request: Request) {
     report: buildDeterministicConditionGuideReport(clinical, concernGuide),
     products: [],
     guide: concernGuide,
+    differential: {
+      confidence: clinical.differential.confidence,
+      primaryLabel: clinical.differential.primary?.label ?? null,
+      primaryConfidence: clinical.differential.primary?.confidence ?? null,
+      alternatives: clinical.differential.alternatives
+        .slice(0, 2)
+        .map((alt) => ({
+          label: alt.label,
+          confidence: alt.confidence,
+        })),
+      supporting: clinical.differential.primary?.supporting.slice(0, 3) ?? [],
+    },
     ...timelinePayload({
       concernSlugs: [concernGuide.slug],
       market,
