@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { campaignProductIdentityMatchesEvidence } from "@/lib/campaigns/daily-campaign";
 import {
   buildCampaignCopy,
   chooseEligibleSignal,
@@ -86,5 +87,47 @@ test("the publication projection resolves exact identity and reviewed artwork", 
   assert.equal(
     publishedCampaignProductEvidence("not-a-published-product"),
     null,
+  );
+});
+
+test("campaign identity accepts reviewed brand aliases without weakening exact product fields", () => {
+  const evidence = publishedCampaignProductEvidence(
+    "dang-hydra-glow-sun-protection-gel-60ml",
+  );
+  assert.ok(evidence);
+  const aliasEvidence = { ...evidence, brand: "Dang! Lifestyle Inc." };
+
+  const product = {
+    brand: "DANG! Lifestyle",
+    name: evidence.name,
+    size: evidence.size,
+    image: evidence.finalImage.url,
+  };
+
+  assert.notEqual(product.brand, aliasEvidence.brand);
+  assert.equal(
+    campaignProductIdentityMatchesEvidence(product, aliasEvidence),
+    true,
+  );
+  assert.equal(
+    campaignProductIdentityMatchesEvidence(
+      { ...product, name: `${product.name} reformulated` },
+      aliasEvidence,
+    ),
+    false,
+  );
+  assert.equal(
+    campaignProductIdentityMatchesEvidence(
+      { ...product, size: "50 ml" },
+      aliasEvidence,
+    ),
+    false,
+  );
+  assert.equal(
+    campaignProductIdentityMatchesEvidence(
+      { ...product, image: "https://example.com/unreviewed-packshot.png" },
+      aliasEvidence,
+    ),
+    false,
   );
 });

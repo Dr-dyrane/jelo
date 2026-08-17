@@ -1,5 +1,6 @@
 import "server-only";
 
+import { canonicalBrandName } from "@/data/brand-canonical-names";
 import { findCatalogueProduct } from "@/lib/catalogue/repository";
 import {
   buildCampaignTrendStory,
@@ -123,12 +124,12 @@ function storyPath(slug: string, story: CampaignStoryChoice) {
   return `/share/${encodeURIComponent(slug)}/story?${query.toString()}`;
 }
 
-function exactIdentityMatches(
+export function campaignProductIdentityMatchesEvidence(
   product: { brand: string; name: string; size: string; image: string },
   evidence: NonNullable<ReturnType<typeof publishedCampaignProductEvidence>>,
 ) {
   return (
-    product.brand === evidence.brand &&
+    canonicalBrandName(product.brand) === canonicalBrandName(evidence.brand) &&
     product.name === evidence.name &&
     product.size === evidence.size &&
     product.image === evidence.finalImage.url
@@ -187,7 +188,7 @@ export async function selectDailyCampaign(input: {
       });
       continue;
     }
-    if (!exactIdentityMatches(product, evidence)) {
+    if (!campaignProductIdentityMatchesEvidence(product, evidence)) {
       rejectedCandidates.push({
         slug: signal.slug,
         blocker: "live-product-dossier-identity-drift",
