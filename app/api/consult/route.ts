@@ -24,6 +24,7 @@ import {
 import {
   createConsultTimelineRecord,
   type ConsultTimelineRecord,
+  summarizeTimelineOutcomes,
 } from "@/modules/clinical/consult-timeline";
 import { assessOrdinaryCareIntent } from "@/modules/clinical/core/care-intent";
 import { assessClinicalRoutine } from "@/modules/clinical/core/engine";
@@ -58,6 +59,9 @@ const timelineRecordBaseSchema = z.object({
 const timelineRecordV2InputSchema = timelineRecordBaseSchema.extend({
   schemaVersion: z.literal(2),
   concernSlugs: z.array(z.string().max(120)).max(12),
+  outcome: z.enum(["love-it", "helped", "unsure", "didnt-help"]).optional(),
+  outcomeNote: z.string().trim().max(280).optional(),
+  outcomeRecordedAt: z.string().datetime().optional(),
 });
 
 const legacyTimelineRecordV1InputSchema = timelineRecordBaseSchema.extend({
@@ -98,11 +102,11 @@ type TimelineRecordInput = z.infer<typeof timelineRecordInputSchema>;
 function normalizeTimelineRecord(
   record: TimelineRecordInput,
 ): ConsultTimelineRecord {
-  return {
+  const base = {
     id: record.id,
-    schemaVersion: 2,
+    schemaVersion: 2 as const,
     createdAt: record.createdAt,
-    assessmentType: "consultation",
+    assessmentType: "consultation" as const,
     concernSlugs: [
       ...new Set(
         record.schemaVersion === 2 ? record.concernSlugs : record.concerns,
@@ -112,6 +116,16 @@ function normalizeTimelineRecord(
     recommendedProductSlugs: [...new Set(record.recommendedProductSlugs)],
     followUpAt: record.followUpAt,
   };
+
+  if (record.schemaVersion === 2 && record.outcome) {
+    return {
+      ...base,
+      outcome: record.outcome,
+      outcomeNote: record.outcomeNote,
+      outcomeRecordedAt: record.outcomeRecordedAt,
+    };
+  }
+  return base;
 }
 
 function responseMeta<T extends Record<string, unknown>>(
@@ -166,6 +180,7 @@ async function clarificationResponse(input: {
   query: string;
   questions: string[];
   market: Market;
+  priorOutcomes?: ReturnType<typeof summarizeTimelineOutcomes>;
 }) {
   const intake = await runConsultIntakeShadow({
     query: input.query,
@@ -182,6 +197,7 @@ async function clarificationResponse(input: {
     meta: {
       market: input.market,
       needsClarification: true,
+      priorOutcomes: input.priorOutcomes,
     },
   });
 }
@@ -242,6 +258,7 @@ export async function POST(request: Request) {
   } = parsed.data;
   const legacyClient = clientSchemaVersion !== 2;
   const priorTimeline = priorTimelineInput.map(normalizeTimelineRecord);
+  const outcomeSummary = summarizeTimelineOutcomes(priorTimeline);
   const sharedConcernSlugs = (memberContext?.concernSlugs ?? []).filter(
     (slug) => reviewedConcernSlugs.has(slug),
   );
@@ -297,6 +314,8 @@ export async function POST(request: Request) {
         market,
         safetyInterrupt: true,
         safetyLevel: safety.level,
+        priorOutcomes:
+          outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
       },
     });
   }
@@ -347,6 +366,8 @@ export async function POST(request: Request) {
         {
           market,
           ordinaryCare: true,
+          priorOutcomes:
+            outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
         },
         legacyClient,
       ),
@@ -369,6 +390,8 @@ export async function POST(request: Request) {
       query,
       questions,
       market,
+      priorOutcomes:
+        outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
     });
   }
 
@@ -385,6 +408,8 @@ export async function POST(request: Request) {
       query,
       questions,
       market,
+      priorOutcomes:
+        outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
     });
   }
 
@@ -413,6 +438,8 @@ export async function POST(request: Request) {
       {
         market,
         guideOnly: true,
+        priorOutcomes:
+          outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
       },
       legacyClient,
     ),

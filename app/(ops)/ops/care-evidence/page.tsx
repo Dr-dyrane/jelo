@@ -1,5 +1,7 @@
 import { OpsWorkspace } from "@/components/ops/workspace/OpsWorkspace";
 import { listCatalogueProducts } from "@/lib/catalogue/repository";
+import { getPostgresClient } from "@/lib/db/postgres";
+import { getCommunityOutcomeCounts } from "@/lib/clinical/care-evidence-queries";
 import { requireConsoleOperator } from "@/lib/moderation/console-access";
 import {
   careStateLabel,
@@ -50,13 +52,8 @@ export default async function CareEvidencePage() {
   await requireConsoleOperator();
   const products = await listCatalogueProducts();
   const productSlugs = products.map((product) => product.slug);
-  // Community outcomes aggregation from the database will be wired here once
-  // the outcome-count query is available. For now the empty map means every
-  // insufficient_data product lands in "awaiting evidence".
-  const communityOutcomes = new Map<
-    string,
-    { loveIt: number; helped: number; unsure: number; didntHelp: number }
-  >();
+  const sql = getPostgresClient();
+  const communityOutcomes = await getCommunityOutcomeCounts(sql, productSlugs);
   const signals = identifyCareEvidenceSignals(productSlugs, communityOutcomes);
   const groups = groupSignals(signals);
 
