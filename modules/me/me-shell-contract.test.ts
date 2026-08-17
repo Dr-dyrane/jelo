@@ -712,7 +712,7 @@ test("Ask Me is route-scoped and reuses one reviewed guidance authority with opt
   assert.doesNotMatch(view, /fetch\(|assessClinicalRoutine|\/api\/consult/);
   assert.match(
     experience,
-    /useState\(\{ concerns: false, products: false \}\)/,
+    /useState\(\{[\s\S]*concerns:\s*false,[\s\S]*products:\s*false,[\s\S]*\}\)/,
   );
   assert.match(
     experience,
