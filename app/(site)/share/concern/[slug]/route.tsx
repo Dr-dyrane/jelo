@@ -14,12 +14,6 @@ const fullDate = new Intl.DateTimeFormat("en-GB", {
   timeZone: "Africa/Lagos",
 });
 
-const naira = new Intl.NumberFormat("en-NG", {
-  style: "currency",
-  currency: "NGN",
-  maximumFractionDigits: 0,
-});
-
 export function generateStaticParams() {
   return concerns.map((c) => ({ slug: c.slug }));
 }
@@ -76,7 +70,6 @@ type StoryProduct = {
   name: string;
   size: string;
   image: string;
-  priceNgn: number | null;
 };
 
 /**
@@ -228,54 +221,6 @@ function ProductCarousel({ products }: { products: StoryProduct[] }) {
           />
         ) : null}
       </div>
-
-      {/* Product labels below carousel */}
-      <div
-        style={{
-          position: "absolute",
-          left: 80,
-          right: 80,
-          top: centerTop + centerSize + 20,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 6,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "Manrope",
-            fontSize: 28,
-            fontWeight: 600,
-            color: "#fffaf4",
-            textAlign: "center",
-          }}
-        >
-          {center.brand}
-        </span>
-        <span
-          style={{
-            fontFamily: "Manrope",
-            fontSize: 22,
-            color: "rgba(255,250,244,.68)",
-            textAlign: "center",
-          }}
-        >
-          {center.name} · {center.size}
-        </span>
-        {center.priceNgn ? (
-          <span
-            style={{
-              fontFamily: "Manrope",
-              fontSize: 30,
-              fontWeight: 600,
-              color: "#ff7417",
-            }}
-          >
-            {naira.format(center.priceNgn)}
-          </span>
-        ) : null}
-      </div>
     </div>
   );
 }
@@ -413,23 +358,6 @@ function ConcernStory({
         ))}
       </div>
 
-      {/* "Guidance, not a diagnosis" — small, above product carousel */}
-      <span
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 760,
-          textAlign: "center",
-          fontFamily: "Manrope",
-          fontSize: 18,
-          color: "#ff7417",
-          fontWeight: 600,
-        }}
-      >
-        Guidance, not a diagnosis.
-      </span>
-
       {/* Product carousel — the visual hero */}
       <ProductCarousel products={products} />
 
@@ -479,18 +407,11 @@ export async function GET(
 
     for (const product of candidateProducts.slice(0, 3)) {
       const imageSrc = await loadImage(absoluteImage(product.image));
-      const lowestOffer = product.offers
-        .filter(
-          (o): o is typeof o & { priceNgn: number } =>
-            o.available && typeof o.priceNgn === "number" && o.priceNgn > 0,
-        )
-        .sort((a, b) => a.priceNgn - b.priceNgn)[0];
       storyProducts.push({
         brand: product.brand,
         name: product.name,
         size: product.size,
         image: imageSrc ?? "",
-        priceNgn: lowestOffer ? lowestOffer.priceNgn : null,
       });
     }
   }
