@@ -134,13 +134,6 @@ export default async function LagosDailyDeskPage() {
             <Link href="/order" className={styles.guideCta}>
               Start an order <ArrowRight size={15} aria-hidden="true" />
             </Link>
-            <a
-              href="/share/guide/order"
-              download
-              className={styles.concernCardDownload}
-            >
-              <Download size={14} aria-hidden="true" /> Story card
-            </a>
           </div>
         </div>
         <OrderPhoneMockup />
@@ -159,13 +152,6 @@ export default async function LagosDailyDeskPage() {
             <Link href="/bundle" className={styles.guideCta}>
               Build a bundle <ArrowRight size={15} aria-hidden="true" />
             </Link>
-            <a
-              href="/share/guide/bundle"
-              download
-              className={styles.concernCardDownload}
-            >
-              <Download size={14} aria-hidden="true" /> Story card
-            </a>
           </div>
         </div>
         <BundlePhoneMockup />
