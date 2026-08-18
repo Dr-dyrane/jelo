@@ -56,6 +56,7 @@ test("daily sun protection separates the direct match from reviewed context", ()
   assert.deepEqual(
     references.map((candidate) => candidate.slug),
     [
+      "b-lab-matcha-hydrating-real-sunscreen",
       "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz",
       "eucerin-oil-control-sun-gel-cream-spf50-50ml",
     ],
@@ -93,16 +94,16 @@ test("concern links separate supportive products from pharmacist-review context"
 
 test("ordinary concern coverage keeps the audited two-tier catalogue matrix", () => {
   const expected = [
-    ["acne-breakouts", 0, 13, 91],
-    ["dark-spots", 0, 7, 97],
-    ["sensitive-barrier", 3, 1, 100],
-    ["dry-dehydrated-skin", 5, 2, 97],
-    ["dry-rough-body-skin", 6, 2, 35],
+    ["acne-breakouts", 0, 15, 89],
+    ["dark-spots", 0, 8, 96],
+    ["sensitive-barrier", 3, 2, 99],
+    ["dry-dehydrated-skin", 5, 3, 96],
+    ["dry-rough-body-skin", 6, 5, 32],
     ["sweat-body-odour", 1, 0, 42],
-    ["oily-congested-skin", 3, 2, 99],
-    ["daily-sun-protection", 1, 1, 102],
-    ["dandruff-itchy-scalp", 0, 1, 10],
-    ["dry-frizzy-hair", 5, 1, 5],
+    ["oily-congested-skin", 3, 4, 97],
+    ["daily-sun-protection", 1, 2, 101],
+    ["dandruff-itchy-scalp", 0, 2, 9],
+    ["dry-frizzy-hair", 5, 4, 2],
   ];
 
   const actual = concerns.filter(isProductMatchConcern).map((item) => {
@@ -128,7 +129,7 @@ test("ordinary concern coverage keeps the audited two-tier catalogue matrix", ()
 test("server concern payload keeps only exact reviewed ordinary-concern links", () => {
   const linked = productsWithReviewedConcernLinks(catalogueProducts, concerns);
 
-  assert.equal(linked.length, 46);
+  assert.equal(linked.length, 57);
   assert.equal(
     linked.every((candidate) =>
       concerns.some((item) => productReferencesConcern(candidate, item)),
@@ -166,10 +167,10 @@ test("multi-concern rankings deduplicate products inside each care tier", () => 
     ["oily-congested-skin", "daily-sun-protection"],
   );
 
-  assert.equal(reviewedContext.length, 18);
+  assert.equal(reviewedContext.length, 21);
   assert.equal(
     new Set(reviewedContext.map((item) => item.product.slug)).size,
-    18,
+    21,
   );
   assert.deepEqual(
     reviewedContext.find(
@@ -186,7 +187,7 @@ test("a zero-direct concern retains pharmacist-reviewed context", () => {
   assert.equal(rankProductsForConcerns(linked, concerns, selected).length, 0);
   assert.equal(
     rankReviewedContextForConcerns(linked, concerns, selected).length,
-    13,
+    15,
   );
 });
 

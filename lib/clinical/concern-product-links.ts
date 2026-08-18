@@ -11,6 +11,27 @@ export type ConcernSummary = {
   kind: "concern" | "condition-pattern";
 };
 
+function toSummary(c: (typeof concerns)[number]): ConcernSummary {
+  return {
+    slug: c.slug,
+    name: c.name,
+    area: c.area,
+    summary: c.summary,
+    kind: c.kind,
+  };
+}
+
+/**
+ * All 58 concerns as summaries, everyday concerns first then
+ * condition patterns. Used as a fallback when a product has no
+ * linked concerns so the /lagos rail always has content.
+ */
+export function allConcernSummaries(): ConcernSummary[] {
+  const everyday = concerns.filter((c) => c.kind === "concern");
+  const patterns = concerns.filter((c) => c.kind === "condition-pattern");
+  return [...everyday, ...patterns].map(toSummary);
+}
+
 /**
  * Find all concerns linked to a product slug through the reviewed
  * product care manifest. A concern is linked when the product's
@@ -35,11 +56,5 @@ export function concernsLinkedToProduct(productSlug: string): ConcernSummary[] {
   const everyday = linked.filter((c) => c.kind === "concern");
   const patterns = linked.filter((c) => c.kind === "condition-pattern");
 
-  return [...everyday, ...patterns].map((c) => ({
-    slug: c.slug,
-    name: c.name,
-    area: c.area,
-    summary: c.summary,
-    kind: c.kind,
-  }));
+  return [...everyday, ...patterns].map(toSummary);
 }

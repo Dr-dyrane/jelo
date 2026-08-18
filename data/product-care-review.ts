@@ -27,23 +27,50 @@ const reviewedAt = "2026-07-22";
 export const reviewedProductCareManifest = {
   "skin-by-zaron-vitamin-c-body-lotion-500ml": {
     productSlug: "skin-by-zaron-vitamin-c-body-lotion-500ml",
-    careState: "insufficient_data",
-    approvedUses: [],
-    evidenceSourceUrls: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "body-hydration-review",
+        label: "Body hydration review",
+        concernIds: ["body dryness", "body hydration"],
+        concernSlugs: ["dry-rough-body-skin"],
+      },
+    ],
+    evidenceSourceUrls: [
+      "https://skinbyzaron.com/product/vitamin-c-body-lotion/",
+    ],
     reviewedAt,
   },
   "cosrx-salicylic-acid-daily-gentle-cleanser": {
     productSlug: "cosrx-salicylic-acid-daily-gentle-cleanser",
-    careState: "insufficient_data",
-    approvedUses: [],
-    evidenceSourceUrls: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "salicylic-acid-cleanser-review",
+        label: "Salicylic-acid cleanser review",
+        concernIds: ["acne", "blackheads", "whiteheads", "oiliness"],
+        concernSlugs: ["acne-breakouts", "oily-congested-skin"],
+      },
+    ],
+    evidenceSourceUrls: [
+      "https://cosrx.com/products/salicylic-acid-daily-gentle-cleanser",
+    ],
     reviewedAt,
   },
   "some-by-mi-aha-bha-pha-miracle-toner": {
     productSlug: "some-by-mi-aha-bha-pha-miracle-toner",
-    careState: "insufficient_data",
-    approvedUses: [],
-    evidenceSourceUrls: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "aha-bha-pha-toner-review",
+        label: "AHA/BHA/PHA toner review",
+        concernIds: ["blackheads", "whiteheads", "pores", "texture"],
+        concernSlugs: ["acne-breakouts", "oily-congested-skin"],
+      },
+    ],
+    evidenceSourceUrls: [
+      "https://somebymi.com/product/aha-bha-pha-30-days-miracle-toner/513/",
+    ],
     reviewedAt,
   },
   "anua-niacinamide-10-txa-4-serum": {
@@ -64,64 +91,141 @@ export const reviewedProductCareManifest = {
   },
   "face-facts-wonder-cream-fragrance-free": {
     productSlug: "face-facts-wonder-cream-fragrance-free",
-    careState: "insufficient_data",
-    approvedUses: [],
-    evidenceSourceUrls: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "barrier-support-review",
+        label: "Barrier-support review",
+        concernIds: ["sensitivity", "dryness", "barrier"],
+        concernSlugs: ["sensitive-barrier", "dry-dehydrated-skin"],
+      },
+    ],
+    evidenceSourceUrls: [
+      "https://facefacts.com/products/wonder-cream-fragrance-free",
+    ],
     reviewedAt,
   },
   "face-facts-bright-clear-face-cream": {
     productSlug: "face-facts-bright-clear-face-cream",
-    careState: "insufficient_data",
-    approvedUses: [],
-    evidenceSourceUrls: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "brightening-cream-review",
+        label: "Brightening cream review",
+        concernIds: ["hyperpigmentation", "dark spots"],
+        concernSlugs: ["dark-spots"],
+      },
+    ],
+    evidenceSourceUrls: [
+      "https://facefacts.com/products/bright-clear-face-cream",
+    ],
     reviewedAt,
   },
   "b-lab-matcha-hydrating-real-sunscreen": {
     productSlug: "b-lab-matcha-hydrating-real-sunscreen",
-    careState: "insufficient_data",
-    approvedUses: [],
-    evidenceSourceUrls: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "daily-sunscreen-review",
+        label: "Daily sunscreen review",
+        concernIds: [
+          "daily sun protection",
+          "sunscreen",
+          "broad-spectrum SPF 30",
+        ],
+        concernSlugs: ["daily-sun-protection"],
+      },
+    ],
+    evidenceSourceUrls: [
+      "https://www.blabkorea.com/product/matcha-hydrating-real-sunscreen-spf50-pa/603/category/77/display/1/",
+    ],
     reviewedAt,
   },
   "dove-moroccan-argan-oil-beauty-bar": {
     productSlug: "dove-moroccan-argan-oil-beauty-bar",
-    careState: "insufficient_data",
-    approvedUses: [],
-    evidenceSourceUrls: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "body-cleansing-review",
+        label: "Body cleansing review",
+        concernIds: ["body dryness", "body hydration"],
+        concernSlugs: ["dry-rough-body-skin"],
+      },
+    ],
+    evidenceSourceUrls: [
+      "https://www.dove.com/us/en/products/dry-oil-beauty-bar-with-moroccan-argan-oil.html",
+    ],
     reviewedAt,
   },
   "miracle-natural-hair-anti-dandruff-shampoo": {
     productSlug: "miracle-natural-hair-anti-dandruff-shampoo",
-    careState: "insufficient_data",
-    approvedUses: [],
-    evidenceSourceUrls: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "anti-dandruff-shampoo-review",
+        label: "Anti-dandruff shampoo review",
+        concernIds: ["dandruff", "itch", "dry scalp"],
+        concernSlugs: ["dandruff-itchy-scalp"],
+      },
+    ],
+    evidenceSourceUrls: [
+      "https://www.agtplaza.com/products/miracle-shampoo-natural-hair-anti-dandruff-anti-itch-with-castor-oil-400ml-ugm41a",
+    ],
     reviewedAt,
   },
   "lush-hair-mentholated-conditioner": {
     productSlug: "lush-hair-mentholated-conditioner",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "hair-conditioning-review",
+        label: "Hair conditioning review",
+        concernIds: ["dry hair", "tangles", "frizz"],
+        concernSlugs: ["dry-frizzy-hair"],
+      },
+    ],
     evidenceSourceUrls: [],
     reviewedAt,
   },
   "mediana-leave-in-conditioning-milk": {
     productSlug: "mediana-leave-in-conditioning-milk",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "leave-in-conditioning-review",
+        label: "Leave-in conditioning review",
+        concernIds: ["dry hair", "tangles", "frizz"],
+        concernSlugs: ["dry-frizzy-hair"],
+      },
+    ],
     evidenceSourceUrls: [],
     reviewedAt,
   },
   "kuza-indian-hemp-hair-scalp-treatment": {
     productSlug: "kuza-indian-hemp-hair-scalp-treatment",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "hair-scalp-treatment-review",
+        label: "Hair and scalp treatment review",
+        concernIds: ["dry hair", "dry scalp", "frizz"],
+        concernSlugs: ["dry-frizzy-hair", "dandruff-itchy-scalp"],
+      },
+    ],
     evidenceSourceUrls: [],
     reviewedAt,
   },
   "disaar-argan-oil-body-oil-gel": {
     productSlug: "disaar-argan-oil-body-oil-gel",
-    careState: "insufficient_data",
-    approvedUses: [],
+    careState: "pharmacist_review",
+    approvedUses: [
+      {
+        id: "body-moisture-review",
+        label: "Body moisture review",
+        concernIds: ["body dryness", "body hydration"],
+        concernSlugs: ["dry-rough-body-skin"],
+      },
+    ],
     evidenceSourceUrls: [],
     reviewedAt,
   },

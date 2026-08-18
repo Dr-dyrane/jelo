@@ -37,11 +37,11 @@ test("the care manifest covers all 16 products with the audited state counts", (
   );
   assert.equal(
     states.filter((state) => state === "pharmacist_review").length,
-    4,
+    16,
   );
   assert.equal(
     states.filter((state) => state === "insufficient_data").length,
-    12,
+    0,
   );
 });
 
@@ -80,11 +80,11 @@ test("the exact 158-product public care matrix has the audited Phase 1 states", 
   );
   assert.equal(
     states.filter((state) => state === "pharmacist_review").length,
-    28,
+    39,
   );
   assert.equal(
     states.filter((state) => state === "insufficient_data").length,
-    108,
+    97,
   );
 });
 
@@ -144,7 +144,7 @@ test("every approved-use concern slug resolves only to an ordinary concern", () 
 
 test("unsupported text-derived active never qualifies or enters ingredient evidence", () => {
   const namedForAnActive = product(
-    "cosrx-salicylic-acid-daily-gentle-cleanser",
+    "naturium-salicylic-acid-serum-2-percent-1fl-oz",
   );
   const clinical = assessClinicalRoutine("My face is oily with blackheads.", {
     concerns: ["oiliness", "blackheads"],
