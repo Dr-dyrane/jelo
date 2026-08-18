@@ -16,83 +16,155 @@ type GuideDefinition = {
   screens: ScreenDef[];
 };
 
-/* ── Shared style constants ── */
+/* ── Design tokens (match the page exactly) ── */
 
 const CREAM = "#fbf3ed";
 const PEACH = "#f4d4c5";
+const ROSE = "#e8bbb4";
 const INK = "#2d211f";
 const WINE = "#6b3b35";
+const WINE_DARK = "#4a2823";
 const MUTED = "#7a6b66";
+const WHITE60 = "rgba(255,255,255,0.6)";
 const WHITE70 = "rgba(255,255,255,0.7)";
-const WHITE42 = "rgba(255,255,255,0.42)";
+const ON_CREAM = "#fff7f4";
+const PINK_ACCENT = "#ff9aa5";
 const BORDER = "rgba(107,59,53,0.12)";
+const BORDER_LIGHT = "rgba(107,59,53,0.08)";
+const SEARCH_BG = "rgba(107,59,53,0.08)";
 
-const PHONE_W = 440;
-const PHONE_H = 640;
-const BEZEL = 14;
-const SCREEN_RADIUS = 36;
-const FRAME_RADIUS = 48;
+/* Phone dimensions — 9:19.5 aspect ratio like iPhone 17 */
+const PHONE_W = 420;
+const PHONE_H = 910; // 420 * 19.5/9
+const BEZEL = 7;
+const SCREEN_RADIUS = 40;
+const FRAME_RADIUS = 50;
 
-/* ── Reusable screen elements ── */
+/* ── Phone frame with titanium finish ── */
 
-function StatusBar() {
+function Phone({ screen }: { screen: React.ReactNode }) {
   return (
     <div
       style={{
+        width: PHONE_W,
+        height: PHONE_H,
+        borderRadius: FRAME_RADIUS,
+        background: "linear-gradient(145deg, #2a2a2e 0%, #1a1a1e 100%)",
+        padding: BEZEL,
         display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "0 24px",
-        height: 28,
-        flexShrink: 0,
+        flexDirection: "column",
+        position: "relative",
+        boxShadow:
+          "0 30px 60px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08)",
       }}
     >
-      <span
-        style={{
-          fontFamily: "Manrope",
-          fontSize: 15,
-          fontWeight: 600,
-          color: INK,
-        }}
-      >
-        9:41
-      </span>
-      <span
-        style={{
-          fontFamily: "Manrope",
-          fontSize: 11,
-          color: MUTED,
-          letterSpacing: "2px",
-        }}
-      >
-        5G
-      </span>
-    </div>
-  );
-}
-
-function DynamicIsland() {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        paddingTop: 10,
-        height: 44,
-        flexShrink: 0,
-      }}
-    >
+      {/* Side buttons — left */}
       <div
         style={{
-          width: 120,
-          height: 30,
-          borderRadius: 15,
-          background: "#000",
+          position: "absolute",
+          left: -2,
+          top: 250,
+          width: 3,
+          height: 120,
+          borderRadius: 2,
+          background: "#1a1a1e",
         }}
       />
+      {/* Side buttons — right top */}
+      <div
+        style={{
+          position: "absolute",
+          right: -2,
+          top: 200,
+          width: 3,
+          height: 80,
+          borderRadius: 2,
+          background: "#1a1a1e",
+        }}
+      />
+      {/* Side buttons — right bottom */}
+      <div
+        style={{
+          position: "absolute",
+          right: -2,
+          top: 320,
+          width: 3,
+          height: 80,
+          borderRadius: 2,
+          background: "#1a1a1e",
+        }}
+      />
+      {/* Screen */}
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: SCREEN_RADIUS,
+          background: `linear-gradient(180deg, ${CREAM} 0%, ${PEACH} 100%)`,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        {/* Dynamic Island */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: 12,
+            height: 48,
+            flexShrink: 0,
+          }}
+        >
+          <div
+            style={{
+              width: 130,
+              height: 34,
+              borderRadius: 17,
+              background: "#000",
+            }}
+          />
+        </div>
+        {/* Status bar */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "0 28px 4px",
+            height: 32,
+            flexShrink: 0,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "Manrope",
+              fontSize: 16,
+              fontWeight: 600,
+              color: INK,
+            }}
+          >
+            9:41
+          </span>
+          <span
+            style={{
+              fontFamily: "Manrope",
+              fontSize: 11,
+              color: MUTED,
+              letterSpacing: "2px",
+            }}
+          >
+            5G
+          </span>
+        </div>
+        {screen}
+      </div>
     </div>
   );
 }
+
+/* ── Shared screen elements ── */
 
 function TabBar({ active }: { active: string }) {
   const tabs = ["Products", "Basket", "Me"];
@@ -102,9 +174,9 @@ function TabBar({ active }: { active: string }) {
         display: "flex",
         justifyContent: "space-around",
         alignItems: "center",
-        height: 36,
+        padding: "10px 0",
+        borderTop: `1px solid ${BORDER_LIGHT}`,
         flexShrink: 0,
-        borderTop: `1px solid ${BORDER}`,
       }}
     >
       {tabs.map((tab) => (
@@ -112,8 +184,8 @@ function TabBar({ active }: { active: string }) {
           key={tab}
           style={{
             fontFamily: "Manrope",
-            fontSize: 11,
-            fontWeight: 600,
+            fontSize: 12,
+            fontWeight: tab === active ? 600 : 500,
             color: tab === active ? INK : MUTED,
           }}
         >
@@ -128,38 +200,43 @@ function ProductTile({
   brand,
   name,
   price,
-  bg,
+  dark,
 }: {
   brand: string;
   name: string;
   price: string;
-  bg: string;
+  dark?: boolean;
 }) {
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        borderRadius: 16,
-        background: WHITE70,
-        overflow: "hidden",
+        gap: 4,
+        padding: 6,
+        borderRadius: 14,
+        background: dark ? INK : WHITE60,
       }}
     >
-      <div style={{ height: 80, background: bg }} />
+      {/* Product image placeholder */}
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          padding: "8px 10px",
+          width: 160,
+          height: 160,
+          borderRadius: 10,
+          background: dark
+            ? `linear-gradient(135deg, ${WINE} 0%, ${WINE_DARK} 100%)`
+            : `linear-gradient(135deg, ${PEACH} 0%, ${ROSE} 100%)`,
         }}
-      >
+      />
+      <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <span
           style={{
             fontFamily: "Manrope",
             fontSize: 10,
             fontWeight: 600,
-            color: WINE,
+            color: dark ? ON_CREAM : INK,
+            textTransform: "uppercase",
             letterSpacing: "0.5px",
           }}
         >
@@ -169,8 +246,8 @@ function ProductTile({
           style={{
             fontFamily: "Manrope",
             fontSize: 11,
-            fontWeight: 600,
-            color: INK,
+            color: dark ? "rgba(255,247,244,0.7)" : MUTED,
+            lineHeight: 1.2,
           }}
         >
           {name}
@@ -180,7 +257,7 @@ function ProductTile({
             fontFamily: "Manrope",
             fontSize: 12,
             fontWeight: 600,
-            color: INK,
+            color: dark ? PINK_ACCENT : WINE,
           }}
         >
           {price}
@@ -197,17 +274,17 @@ function PrimaryButton({ label }: { label: string }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: 36,
-        borderRadius: 18,
+        padding: "10px 16px",
+        borderRadius: 999,
         background: INK,
       }}
     >
       <span
         style={{
           fontFamily: "Manrope",
-          fontSize: 12,
+          fontSize: 13,
           fontWeight: 600,
-          color: "#fff",
+          color: ON_CREAM,
         }}
       >
         {label}
@@ -217,26 +294,24 @@ function PrimaryButton({ label }: { label: string }) {
 }
 
 function CheckIcon() {
-  // Draw a checkmark with two rotated divs since ✓ char isn't in the font
   return (
     <div
       style={{
-        width: 56,
-        height: 56,
-        borderRadius: 28,
+        width: 64,
+        height: 64,
+        borderRadius: 32,
         background: INK,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        position: "relative",
       }}
     >
       <div
         style={{
-          width: 20,
-          height: 10,
-          borderBottom: `3px solid #fff`,
-          borderLeft: `3px solid #fff`,
+          width: 22,
+          height: 12,
+          borderBottom: `3px solid ${ON_CREAM}`,
+          borderLeft: `3px solid ${ON_CREAM}`,
           transform: "rotate(-45deg) translate(2px, -2px)",
         }}
       />
@@ -251,7 +326,8 @@ function ProgressSteps({ doneCount }: { doneCount: number }) {
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: 10,
+        gap: 12,
+        width: "100%",
       }}
     >
       {steps.map((step, i) => (
@@ -261,18 +337,19 @@ function ProgressSteps({ doneCount }: { doneCount: number }) {
         >
           <div
             style={{
-              width: 14,
-              height: 14,
-              borderRadius: 7,
-              background: i < doneCount ? INK : BORDER,
+              width: 16,
+              height: 16,
+              borderRadius: 8,
+              background: i < doneCount ? INK : "transparent",
+              border: i < doneCount ? "none" : `1px solid ${BORDER}`,
               flexShrink: 0,
             }}
           />
           <span
             style={{
               fontFamily: "Manrope",
-              fontSize: 12,
-              fontWeight: 600,
+              fontSize: 13,
+              fontWeight: i < doneCount ? 600 : 500,
               color: i < doneCount ? INK : MUTED,
             }}
           >
@@ -280,41 +357,6 @@ function ProgressSteps({ doneCount }: { doneCount: number }) {
           </span>
         </div>
       ))}
-    </div>
-  );
-}
-
-/* ── Phone frame wrapper ── */
-
-function Phone({ screen }: { screen: React.ReactNode }) {
-  return (
-    <div
-      style={{
-        width: PHONE_W,
-        height: PHONE_H,
-        borderRadius: FRAME_RADIUS,
-        background: "#1a1a1a",
-        padding: BEZEL,
-        display: "flex",
-        flexDirection: "column",
-        boxShadow: "0 30px 60px rgba(0,0,0,0.5)",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: SCREEN_RADIUS,
-          background: `linear-gradient(180deg, ${CREAM} 0%, ${PEACH} 100%)`,
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-        }}
-      >
-        <DynamicIsland />
-        <StatusBar />
-        {screen}
-      </div>
     </div>
   );
 }
@@ -331,20 +373,23 @@ function OrderBrowseScreen() {
         minHeight: 0,
       }}
     >
+      {/* Title + search */}
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-          padding: "8px 24px 12px",
+          gap: 8,
+          padding: "8px 28px 12px",
           flexShrink: 0,
         }}
       >
         <span
           style={{
             fontFamily: "Italiana",
-            fontSize: 28,
+            fontSize: 32,
             color: INK,
-            lineHeight: 1.1,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
           }}
         >
           Products
@@ -353,62 +398,42 @@ function OrderBrowseScreen() {
           style={{
             display: "flex",
             alignItems: "center",
-            height: 28,
-            borderRadius: 14,
-            background: WHITE42,
-            marginTop: 8,
-            paddingLeft: 12,
+            height: 32,
+            borderRadius: 16,
+            background: SEARCH_BG,
+            paddingLeft: 14,
           }}
         >
-          <span style={{ fontFamily: "Manrope", fontSize: 11, color: MUTED }}>
+          <span style={{ fontFamily: "Manrope", fontSize: 12, color: MUTED }}>
             Search skincare...
           </span>
         </div>
       </div>
+      {/* Product grid */}
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
           gap: 8,
-          padding: "0 24px",
+          padding: "0 28px",
           flex: 1,
           alignContent: "flex-start",
         }}
       >
-        <div style={{ width: 170, display: "flex" }}>
-          <ProductTile
-            brand="COSRX"
-            name="Cleanser"
-            price="12,500"
-            bg="#e8d5c8"
-          />
+        <div style={{ width: 171, display: "flex" }}>
+          <ProductTile brand="COSRX" name="Cleanser" price="12,500" />
         </div>
-        <div style={{ width: 170, display: "flex" }}>
-          <ProductTile
-            brand="Anua"
-            name="Niacinamide"
-            price="18,900"
-            bg="#d4c5e0"
-          />
+        <div style={{ width: 171, display: "flex" }}>
+          <ProductTile brand="Anua" name="Niacinamide" price="18,900" dark />
         </div>
-        <div style={{ width: 170, display: "flex" }}>
-          <ProductTile
-            brand="PanOxyl"
-            name="Benzoyl Wash"
-            price="15,300"
-            bg="#c8dce8"
-          />
+        <div style={{ width: 171, display: "flex" }}>
+          <ProductTile brand="PanOxyl" name="Benzoyl Wash" price="15,300" />
         </div>
-        <div style={{ width: 170, display: "flex" }}>
-          <ProductTile
-            brand="Dove"
-            name="Argan Bar"
-            price="4,500"
-            bg="#e8d8c8"
-          />
+        <div style={{ width: 171, display: "flex" }}>
+          <ProductTile brand="Dove" name="Argan Bar" price="4,500" dark />
         </div>
       </div>
-      <div style={{ display: "flex", padding: "8px 24px 12px", flexShrink: 0 }}>
+      <div style={{ padding: "0 28px", flexShrink: 0, display: "flex" }}>
         <TabBar active="Products" />
       </div>
     </div>
@@ -425,32 +450,35 @@ function OrderProductScreen() {
         minHeight: 0,
       }}
     >
+      {/* Product hero image */}
       <div
         style={{
-          height: 180,
-          background: "linear-gradient(135deg, #e8d5c8, #d4b8a8)",
-          margin: "0 24px",
-          borderRadius: 16,
+          width: 350,
+          height: 292,
+          background: `linear-gradient(135deg, ${PEACH} 0%, ${ROSE} 100%)`,
+          margin: "0 28px",
+          borderRadius: 18,
           flexShrink: 0,
         }}
       />
+      {/* Product info */}
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: 4,
-          padding: "12px 24px 0",
+          gap: 6,
+          padding: "16px 28px 0",
           flexShrink: 0,
         }}
       >
         <span
           style={{
             fontFamily: "Manrope",
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 600,
             color: WINE,
-            letterSpacing: "1px",
             textTransform: "uppercase",
+            letterSpacing: "1px",
           }}
         >
           COSRX
@@ -458,7 +486,7 @@ function OrderProductScreen() {
         <span
           style={{
             fontFamily: "Manrope",
-            fontSize: 14,
+            fontSize: 16,
             fontWeight: 600,
             color: INK,
             lineHeight: 1.3,
@@ -466,21 +494,21 @@ function OrderProductScreen() {
         >
           Salicylic Acid Daily Gentle Cleanser
         </span>
-        <span style={{ fontFamily: "Manrope", fontSize: 11, color: MUTED }}>
+        <span style={{ fontFamily: "Manrope", fontSize: 12, color: MUTED }}>
           150 ml
         </span>
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 8,
+            gap: 10,
             marginTop: 4,
           }}
         >
           <span
             style={{
               fontFamily: "Manrope",
-              fontSize: 18,
+              fontSize: 22,
               fontWeight: 600,
               color: INK,
             }}
@@ -490,7 +518,7 @@ function OrderProductScreen() {
           <span
             style={{
               fontFamily: "Manrope",
-              fontSize: 12,
+              fontSize: 14,
               color: MUTED,
               textDecoration: "line-through",
             }}
@@ -502,29 +530,36 @@ function OrderProductScreen() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 6,
+            gap: 8,
             marginTop: 4,
           }}
         >
           <div
-            style={{ width: 8, height: 8, borderRadius: 4, background: WINE }}
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: 4,
+              background: INK,
+              flexShrink: 0,
+            }}
           />
-          <span style={{ fontFamily: "Manrope", fontSize: 11, color: MUTED }}>
+          <span style={{ fontFamily: "Manrope", fontSize: 12, color: MUTED }}>
             3 Nigerian stores
           </span>
         </div>
       </div>
+      {/* CTA */}
       <div
         style={{
-          display: "flex",
-          padding: "12px 24px 12px",
+          padding: "16px 28px 12px",
           flexShrink: 0,
           marginTop: "auto",
+          display: "flex",
         }}
       >
         <PrimaryButton label="Add to basket" />
       </div>
-      <div style={{ display: "flex", padding: "0 24px 12px", flexShrink: 0 }}>
+      <div style={{ padding: "0 28px", flexShrink: 0, display: "flex" }}>
         <TabBar active="Products" />
       </div>
     </div>
@@ -541,42 +576,53 @@ function OrderBasketScreen() {
         minHeight: 0,
       }}
     >
-      <div style={{ display: "flex", padding: "8px 24px 12px", flexShrink: 0 }}>
+      <div
+        style={{
+          display: "flex",
+          padding: "8px 28px 16px",
+          flexShrink: 0,
+        }}
+      >
         <span
           style={{
             fontFamily: "Italiana",
-            fontSize: 28,
+            fontSize: 32,
             color: INK,
-            lineHeight: 1.1,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
           }}
         >
           Your basket
         </span>
       </div>
+      {/* Basket item */}
       <div
         style={{
           display: "flex",
-          gap: 12,
-          padding: "0 24px",
+          gap: 14,
+          alignItems: "center",
+          padding: "0 28px",
           flexShrink: 0,
         }}
       >
         <div
           style={{
-            width: 56,
-            height: 56,
-            borderRadius: 12,
-            background: "linear-gradient(135deg, #e8d5c8, #d4b8a8)",
+            width: 64,
+            height: 64,
+            borderRadius: 14,
+            background: `linear-gradient(135deg, ${PEACH} 0%, ${ROSE} 100%)`,
             flexShrink: 0,
           }}
         />
-        <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
           <span
             style={{
               fontFamily: "Manrope",
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 600,
-              color: WINE,
+              color: INK,
+              textTransform: "uppercase",
+              letterSpacing: "0.5px",
             }}
           >
             COSRX
@@ -584,9 +630,8 @@ function OrderBasketScreen() {
           <span
             style={{
               fontFamily: "Manrope",
-              fontSize: 12,
-              fontWeight: 600,
-              color: INK,
+              fontSize: 13,
+              color: MUTED,
             }}
           >
             Salicylic Acid Cleanser
@@ -594,38 +639,39 @@ function OrderBasketScreen() {
           <span
             style={{
               fontFamily: "Manrope",
-              fontSize: 13,
+              fontSize: 14,
               fontWeight: 600,
-              color: INK,
+              color: WINE,
             }}
           >
             NGN 12,500
           </span>
         </div>
       </div>
+      {/* Divider */}
       <div
         style={{
           height: 1,
           background: BORDER,
-          margin: "16px 24px",
+          margin: "20px 28px",
           flexShrink: 0,
         }}
       />
+      {/* Total */}
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "0 24px",
+          padding: "0 28px",
           flexShrink: 0,
         }}
       >
         <span
           style={{
             fontFamily: "Manrope",
-            fontSize: 14,
-            fontWeight: 600,
-            color: INK,
+            fontSize: 16,
+            color: MUTED,
           }}
         >
           Total
@@ -633,7 +679,7 @@ function OrderBasketScreen() {
         <span
           style={{
             fontFamily: "Manrope",
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: 600,
             color: INK,
           }}
@@ -641,17 +687,18 @@ function OrderBasketScreen() {
           NGN 12,500
         </span>
       </div>
+      {/* CTA */}
       <div
         style={{
-          display: "flex",
-          padding: "16px 24px 12px",
+          padding: "20px 28px 12px",
           flexShrink: 0,
           marginTop: "auto",
+          display: "flex",
         }}
       >
         <PrimaryButton label="Request quote" />
       </div>
-      <div style={{ display: "flex", padding: "0 24px 12px", flexShrink: 0 }}>
+      <div style={{ padding: "0 28px", flexShrink: 0, display: "flex" }}>
         <TabBar active="Basket" />
       </div>
     </div>
@@ -667,17 +714,18 @@ function OrderConfirmScreen() {
         alignItems: "center",
         justifyContent: "center",
         flex: 1,
-        gap: 16,
-        padding: "0 24px",
+        gap: 20,
+        padding: "0 28px",
       }}
     >
       <CheckIcon />
       <span
         style={{
           fontFamily: "Italiana",
-          fontSize: 24,
+          fontSize: 28,
           color: INK,
           textAlign: "center",
+          letterSpacing: "-0.02em",
         }}
       >
         Order confirmed
@@ -685,7 +733,7 @@ function OrderConfirmScreen() {
       <span
         style={{
           fontFamily: "Manrope",
-          fontSize: 12,
+          fontSize: 13,
           color: MUTED,
           textAlign: "center",
           lineHeight: 1.5,
@@ -694,10 +742,10 @@ function OrderConfirmScreen() {
         We are procuring your product from the retailer.
       </span>
       <ProgressSteps doneCount={2} />
-      <div style={{ width: 200, marginTop: 8, display: "flex" }}>
+      <div style={{ width: 220, marginTop: 8, display: "flex" }}>
         <PrimaryButton label="Track order" />
       </div>
-      <div style={{ display: "flex", width: "100%", marginTop: 8 }}>
+      <div style={{ width: "100%", marginTop: 8, display: "flex" }}>
         <TabBar active="Me" />
       </div>
     </div>
@@ -720,28 +768,23 @@ function BundlePickScreen() {
         style={{
           display: "flex",
           flexDirection: "column",
-          padding: "8px 24px 12px",
+          gap: 4,
+          padding: "8px 28px 12px",
           flexShrink: 0,
         }}
       >
         <span
           style={{
             fontFamily: "Italiana",
-            fontSize: 28,
+            fontSize: 32,
             color: INK,
-            lineHeight: 1.1,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
           }}
         >
           Build a bundle
         </span>
-        <span
-          style={{
-            fontFamily: "Manrope",
-            fontSize: 11,
-            color: MUTED,
-            marginTop: 2,
-          }}
-        >
+        <span style={{ fontFamily: "Manrope", fontSize: 12, color: MUTED }}>
           Pick products from any store
         </span>
       </div>
@@ -750,45 +793,25 @@ function BundlePickScreen() {
           display: "flex",
           flexWrap: "wrap",
           gap: 8,
-          padding: "0 24px",
+          padding: "0 28px",
           flex: 1,
           alignContent: "flex-start",
         }}
       >
-        <div style={{ width: 170, display: "flex" }}>
-          <ProductTile
-            brand="COSRX"
-            name="Cleanser"
-            price="12,500"
-            bg="#e8d5c8"
-          />
+        <div style={{ width: 171, display: "flex" }}>
+          <ProductTile brand="COSRX" name="Cleanser" price="12,500" dark />
         </div>
-        <div style={{ width: 170, display: "flex" }}>
-          <ProductTile
-            brand="Anua"
-            name="Niacinamide"
-            price="18,900"
-            bg="#d4c5e0"
-          />
+        <div style={{ width: 171, display: "flex" }}>
+          <ProductTile brand="Anua" name="Niacinamide" price="18,900" />
         </div>
-        <div style={{ width: 170, display: "flex" }}>
-          <ProductTile
-            brand="B.LAB"
-            name="Sunscreen"
-            price="9,800"
-            bg="#c8e8d5"
-          />
+        <div style={{ width: 171, display: "flex" }}>
+          <ProductTile brand="B.LAB" name="Sunscreen" price="9,800" dark />
         </div>
-        <div style={{ width: 170, display: "flex" }}>
-          <ProductTile
-            brand="Dove"
-            name="Body Bar"
-            price="4,500"
-            bg="#e8d8c8"
-          />
+        <div style={{ width: 171, display: "flex" }}>
+          <ProductTile brand="Dove" name="Body Bar" price="4,500" />
         </div>
       </div>
-      <div style={{ display: "flex", padding: "8px 24px 12px", flexShrink: 0 }}>
+      <div style={{ padding: "0 28px", flexShrink: 0, display: "flex" }}>
         <TabBar active="Basket" />
       </div>
     </div>
@@ -810,13 +833,20 @@ function BundleRoutineScreen() {
         minHeight: 0,
       }}
     >
-      <div style={{ display: "flex", padding: "8px 24px 12px", flexShrink: 0 }}>
+      <div
+        style={{
+          display: "flex",
+          padding: "8px 28px 16px",
+          flexShrink: 0,
+        }}
+      >
         <span
           style={{
             fontFamily: "Italiana",
-            fontSize: 28,
+            fontSize: 32,
             color: INK,
-            lineHeight: 1.1,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
           }}
         >
           Your routine
@@ -826,8 +856,8 @@ function BundleRoutineScreen() {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: 10,
-          padding: "0 24px",
+          gap: 12,
+          padding: "0 28px",
           flex: 1,
         }}
       >
@@ -837,17 +867,17 @@ function BundleRoutineScreen() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 12,
-              padding: 12,
+              gap: 14,
+              padding: 14,
               borderRadius: 16,
-              background: WHITE70,
+              background: WHITE60,
             }}
           >
             <div
               style={{
-                width: 32,
-                height: 32,
-                borderRadius: 16,
+                width: 36,
+                height: 36,
+                borderRadius: 18,
                 background: INK,
                 display: "flex",
                 alignItems: "center",
@@ -858,19 +888,19 @@ function BundleRoutineScreen() {
               <span
                 style={{
                   fontFamily: "Manrope",
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: 600,
-                  color: "#fff",
+                  color: ON_CREAM,
                 }}
               >
                 {step.num}
               </span>
             </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <span
                 style={{
                   fontFamily: "Manrope",
-                  fontSize: 13,
+                  fontSize: 15,
                   fontWeight: 600,
                   color: INK,
                 }}
@@ -878,7 +908,7 @@ function BundleRoutineScreen() {
                 {step.label}
               </span>
               <span
-                style={{ fontFamily: "Manrope", fontSize: 11, color: MUTED }}
+                style={{ fontFamily: "Manrope", fontSize: 12, color: MUTED }}
               >
                 {step.brand}
               </span>
@@ -890,7 +920,7 @@ function BundleRoutineScreen() {
         style={{
           height: 1,
           background: BORDER,
-          margin: "8px 24px",
+          margin: "12px 28px",
           flexShrink: 0,
         }}
       />
@@ -899,17 +929,17 @@ function BundleRoutineScreen() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "0 24px",
+          padding: "0 28px",
           flexShrink: 0,
         }}
       >
-        <span style={{ fontFamily: "Manrope", fontSize: 13, color: MUTED }}>
+        <span style={{ fontFamily: "Manrope", fontSize: 14, color: MUTED }}>
           3 products
         </span>
         <span
           style={{
             fontFamily: "Manrope",
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: 600,
             color: INK,
           }}
@@ -919,15 +949,15 @@ function BundleRoutineScreen() {
       </div>
       <div
         style={{
-          display: "flex",
-          padding: "12px 24px 12px",
+          padding: "16px 28px 12px",
           flexShrink: 0,
           marginTop: "auto",
+          display: "flex",
         }}
       >
         <PrimaryButton label="Get single quote" />
       </div>
-      <div style={{ display: "flex", padding: "0 24px 12px", flexShrink: 0 }}>
+      <div style={{ padding: "0 28px", flexShrink: 0, display: "flex" }}>
         <TabBar active="Basket" />
       </div>
     </div>
@@ -949,13 +979,20 @@ function BundleQuoteScreen() {
         minHeight: 0,
       }}
     >
-      <div style={{ display: "flex", padding: "8px 24px 12px", flexShrink: 0 }}>
+      <div
+        style={{
+          display: "flex",
+          padding: "8px 28px 16px",
+          flexShrink: 0,
+        }}
+      >
         <span
           style={{
             fontFamily: "Italiana",
-            fontSize: 28,
+            fontSize: 32,
             color: INK,
-            lineHeight: 1.1,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
           }}
         >
           Bundle quote
@@ -965,26 +1002,26 @@ function BundleQuoteScreen() {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: 0,
-          padding: "0 24px",
+          padding: "0 28px",
           flex: 1,
         }}
       >
-        {items.map((item) => (
+        {items.map((item, i) => (
           <div
             key={item.name}
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              padding: "10px 0",
-              borderBottom: `1px solid ${BORDER}`,
+              padding: "14px 0",
+              borderBottom:
+                i < items.length - 1 ? `1px solid ${BORDER}` : "none",
             }}
           >
             <span
               style={{
                 fontFamily: "Manrope",
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: 600,
                 color: INK,
               }}
@@ -994,9 +1031,9 @@ function BundleQuoteScreen() {
             <span
               style={{
                 fontFamily: "Manrope",
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: 600,
-                color: INK,
+                color: WINE,
               }}
             >
               {item.price}
@@ -1006,19 +1043,26 @@ function BundleQuoteScreen() {
       </div>
       <div
         style={{
+          height: 1,
+          background: BORDER,
+          margin: "8px 28px",
+          flexShrink: 0,
+        }}
+      />
+      <div
+        style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "8px 24px",
+          padding: "0 28px",
           flexShrink: 0,
         }}
       >
         <span
           style={{
             fontFamily: "Manrope",
-            fontSize: 14,
-            fontWeight: 600,
-            color: INK,
+            fontSize: 16,
+            color: MUTED,
           }}
         >
           Total
@@ -1026,7 +1070,7 @@ function BundleQuoteScreen() {
         <span
           style={{
             fontFamily: "Manrope",
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: 600,
             color: INK,
           }}
@@ -1038,22 +1082,34 @@ function BundleQuoteScreen() {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 6,
-          padding: "0 24px 12px",
+          gap: 8,
+          padding: "8px 28px 12px",
           flexShrink: 0,
         }}
       >
         <div
-          style={{ width: 8, height: 8, borderRadius: 4, background: WINE }}
+          style={{
+            width: 8,
+            height: 8,
+            borderRadius: 4,
+            background: INK,
+            flexShrink: 0,
+          }}
         />
-        <span style={{ fontFamily: "Manrope", fontSize: 11, color: MUTED }}>
+        <span style={{ fontFamily: "Manrope", fontSize: 12, color: MUTED }}>
           One delivery. One return window.
         </span>
       </div>
-      <div style={{ display: "flex", padding: "0 24px 12px", flexShrink: 0 }}>
+      <div
+        style={{
+          padding: "0 28px 12px",
+          flexShrink: 0,
+          display: "flex",
+        }}
+      >
         <PrimaryButton label="Order bundle" />
       </div>
-      <div style={{ display: "flex", padding: "0 24px 12px", flexShrink: 0 }}>
+      <div style={{ padding: "0 28px", flexShrink: 0, display: "flex" }}>
         <TabBar active="Basket" />
       </div>
     </div>
@@ -1069,17 +1125,18 @@ function BundleConfirmScreen() {
         alignItems: "center",
         justifyContent: "center",
         flex: 1,
-        gap: 16,
-        padding: "0 24px",
+        gap: 20,
+        padding: "0 28px",
       }}
     >
       <CheckIcon />
       <span
         style={{
           fontFamily: "Italiana",
-          fontSize: 24,
+          fontSize: 28,
           color: INK,
           textAlign: "center",
+          letterSpacing: "-0.02em",
         }}
       >
         Bundle ordered
@@ -1087,7 +1144,7 @@ function BundleConfirmScreen() {
       <span
         style={{
           fontFamily: "Manrope",
-          fontSize: 12,
+          fontSize: 13,
           color: MUTED,
           textAlign: "center",
           lineHeight: 1.5,
@@ -1096,10 +1153,10 @@ function BundleConfirmScreen() {
         3 products procured from 2 stores. One delivery.
       </span>
       <ProgressSteps doneCount={2} />
-      <div style={{ width: 200, marginTop: 8, display: "flex" }}>
+      <div style={{ width: 220, marginTop: 8, display: "flex" }}>
         <PrimaryButton label="Track bundle" />
       </div>
-      <div style={{ display: "flex", width: "100%", marginTop: 8 }}>
+      <div style={{ width: "100%", marginTop: 8, display: "flex" }}>
         <TabBar active="Me" />
       </div>
     </div>
@@ -1154,7 +1211,7 @@ function GuideStory({ guide }: { guide: GuideDefinition }) {
         color: "#fffaf4",
       }}
     >
-      {/* JeloCare mark + title */}
+      {/* Header — JeloCare mark + eyebrow */}
       <div
         style={{
           display: "flex",
@@ -1195,16 +1252,17 @@ function GuideStory({ guide }: { guide: GuideDefinition }) {
       <div
         style={{
           display: "flex",
-          padding: "8px 80px 0",
+          padding: "12px 80px 0",
           flexShrink: 0,
         }}
       >
         <span
           style={{
             fontFamily: "Italiana",
-            fontSize: 56,
+            fontSize: 64,
             color: "#fffaf4",
             lineHeight: 1.1,
+            letterSpacing: "-0.03em",
           }}
         >
           {guide.title}
@@ -1217,7 +1275,7 @@ function GuideStory({ guide }: { guide: GuideDefinition }) {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
-          gap: 24,
+          gap: 30,
           padding: "40px 80px",
           flex: 1,
           alignContent: "center",
