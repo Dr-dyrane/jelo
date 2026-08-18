@@ -14,6 +14,12 @@ const fullDate = new Intl.DateTimeFormat("en-GB", {
   timeZone: "Africa/Lagos",
 });
 
+const naira = new Intl.NumberFormat("en-NG", {
+  style: "currency",
+  currency: "NGN",
+  maximumFractionDigits: 0,
+});
+
 export function generateStaticParams() {
   return concerns.map((c) => ({ slug: c.slug }));
 }
@@ -50,12 +56,12 @@ function Chip({
       style={{
         display: "flex",
         alignItems: "center",
-        padding: "10px 22px",
+        padding: "8px 18px",
         borderRadius: 999,
         background,
         color,
         fontFamily: "Manrope",
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 400,
         whiteSpace: "nowrap",
       }}
@@ -73,80 +79,203 @@ type StoryProduct = {
   priceNgn: number | null;
 };
 
-function ProductRow({ product }: { product: StoryProduct }) {
-  const naira = new Intl.NumberFormat("en-NG", {
-    style: "currency",
-    currency: "NGN",
-    maximumFractionDigits: 0,
-  });
+/**
+ * Campaign-style product carousel — one product centered with radial
+ * gradient glow, two flanking products smaller and dimmer. This is the
+ * visual hero of the card, matching the campaign price/trend cards.
+ */
+function ProductCarousel({ products }: { products: StoryProduct[] }) {
+  if (products.length === 0) return null;
+
+  // Center product is always index 0 (highest priority match).
+  const center = products[0]!;
+  const left = products[1];
+  const right = products[2];
+
+  const centerSize = 520;
+  const sideSize = 320;
+  const centerTop = 980;
+  const sideTop = 1060;
+
+  // Center product position
+  const centerLeft = (1080 - centerSize) / 2;
+
+  // Side product positions
+  const leftLeft = 40;
+  const rightLeft = 1080 - sideSize - 40;
+
   return (
     <div
       style={{
+        position: "absolute",
+        inset: 0,
         display: "flex",
-        alignItems: "center",
-        gap: 16,
       }}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={product.image}
-        alt=""
-        width={72}
-        height={72}
-        style={{
-          width: 72,
-          height: 72,
-          objectFit: "contain",
-          borderRadius: 12,
-          background: "rgba(255,255,255,.06)",
-        }}
-      />
+      {/* Glow behind center product */}
       <div
         style={{
+          position: "absolute",
+          left: (1080 - 760) / 2,
+          top: centerTop - 60,
+          width: 760,
+          height: 700,
+          borderRadius: 999,
+          background:
+            "radial-gradient(ellipse at center, rgba(255,117,35,.30) 0%, rgba(153,59,25,.14) 38%, rgba(44,16,9,.06) 58%, rgba(0,0,0,0) 74%)",
+        }}
+      />
+      {/* Ground shadow */}
+      <div
+        style={{
+          position: "absolute",
+          left: (1080 - 520) / 2,
+          top: centerTop + centerSize - 30,
+          width: 520,
+          height: 120,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(ellipse at center, rgba(0,0,0,.72) 0%, rgba(0,0,0,.42) 48%, rgba(0,0,0,0) 76%)",
+        }}
+      />
+
+      {/* Left product (smaller, dimmer) */}
+      {left ? (
+        <div
+          style={{
+            position: "absolute",
+            left: leftLeft,
+            top: sideTop,
+            width: sideSize,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            opacity: 0.5,
+          }}
+        >
+          {left.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={left.image}
+              alt=""
+              width={sideSize}
+              height={sideSize}
+              style={{
+                width: sideSize,
+                height: sideSize,
+                objectFit: "contain",
+              }}
+            />
+          ) : null}
+        </div>
+      ) : null}
+
+      {/* Right product (smaller, dimmer) */}
+      {right ? (
+        <div
+          style={{
+            position: "absolute",
+            left: rightLeft,
+            top: sideTop,
+            width: sideSize,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            opacity: 0.5,
+          }}
+        >
+          {right.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={right.image}
+              alt=""
+              width={sideSize}
+              height={sideSize}
+              style={{
+                width: sideSize,
+                height: sideSize,
+                objectFit: "contain",
+              }}
+            />
+          ) : null}
+        </div>
+      ) : null}
+
+      {/* Center product (hero) */}
+      <div
+        style={{
+          position: "absolute",
+          left: centerLeft,
+          top: centerTop,
+          width: centerSize,
           display: "flex",
           flexDirection: "column",
-          gap: 2,
-          flex: 1,
-          minWidth: 0,
+          alignItems: "center",
+        }}
+      >
+        {center.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={center.image}
+            alt=""
+            width={centerSize}
+            height={centerSize}
+            style={{
+              width: centerSize,
+              height: centerSize,
+              objectFit: "contain",
+            }}
+          />
+        ) : null}
+      </div>
+
+      {/* Product labels below carousel */}
+      <div
+        style={{
+          position: "absolute",
+          left: 80,
+          right: 80,
+          top: centerTop + centerSize + 20,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 6,
         }}
       >
         <span
           style={{
             fontFamily: "Manrope",
-            fontSize: 20,
+            fontSize: 28,
             fontWeight: 600,
             color: "#fffaf4",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
+            textAlign: "center",
           }}
         >
-          {product.brand}
+          {center.brand}
         </span>
-        <span
-          style={{
-            fontFamily: "Manrope",
-            fontSize: 18,
-            color: "rgba(255,250,244,.72)",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {product.name} · {product.size}
-        </span>
-      </div>
-      {product.priceNgn ? (
         <span
           style={{
             fontFamily: "Manrope",
             fontSize: 22,
-            fontWeight: 600,
-            color: "#ff7417",
-            whiteSpace: "nowrap",
+            color: "rgba(255,250,244,.68)",
+            textAlign: "center",
           }}
         >
-          {naira.format(product.priceNgn)}
+          {center.name} · {center.size}
         </span>
-      ) : null}
+        {center.priceNgn ? (
+          <span
+            style={{
+              fontFamily: "Manrope",
+              fontSize: 30,
+              fontWeight: 600,
+              color: "#ff7417",
+            }}
+          >
+            {naira.format(center.priceNgn)}
+          </span>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -160,8 +289,8 @@ function ConcernStory({
   products: StoryProduct[];
   reviewedAtLabel: string;
 }) {
-  const topSignals = concern.signals.slice(0, 4);
-  const topIngredients = concern.ingredients.slice(0, 4);
+  const topSignals = concern.signals.slice(0, 3);
+  const topIngredients = concern.ingredients.slice(0, 3);
 
   return (
     <div
@@ -172,7 +301,7 @@ function ConcernStory({
         display: "flex",
         overflow: "hidden",
         background:
-          "radial-gradient(circle at 50% 38%, #1a1218 0%, #0d0a0e 40%, #050405 72%, #000 100%)",
+          "radial-gradient(circle at 50% 42%, #1a1218 0%, #0d0a0e 40%, #050405 72%, #000 100%)",
         color: "#fffaf4",
       }}
     >
@@ -182,7 +311,7 @@ function ConcernStory({
           position: "absolute",
           left: 120,
           right: 120,
-          top: 200,
+          top: 180,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -203,175 +332,106 @@ function ConcernStory({
         </span>
       </div>
 
-      {/* Headline */}
+      {/* Headline — compact, ad-style */}
       <div
         style={{
           position: "absolute",
           left: 120,
           right: 120,
-          top: 330,
+          top: 290,
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
         }}
       >
         <span
           style={{
             fontFamily: "Italiana",
-            fontSize: 72,
+            fontSize: 80,
             fontWeight: 400,
             color: "#fffaf4",
-            lineHeight: 1.1,
+            lineHeight: 1.05,
           }}
         >
           {concern.name}
         </span>
         <span
           style={{
-            marginTop: 16,
+            marginTop: 14,
             fontFamily: "Manrope",
-            fontSize: 26,
-            color: "rgba(255,250,244,.76)",
-            lineHeight: 1.4,
+            fontSize: 24,
+            color: "rgba(255,250,244,.72)",
+            lineHeight: 1.35,
           }}
         >
           {concern.summary}
         </span>
-        <span
-          style={{
-            marginTop: 10,
-            fontFamily: "Manrope",
-            fontSize: 20,
-            color: "#ff7417",
-            fontWeight: 600,
-          }}
-        >
-          Guidance, not a diagnosis.
-        </span>
       </div>
 
-      {/* What it looks like */}
+      {/* Signal chips — compact row */}
       <div
         style={{
           position: "absolute",
           left: 120,
           right: 120,
-          top: 620,
+          top: 540,
           display: "flex",
-          flexDirection: "column",
-          gap: 16,
+          flexWrap: "wrap",
+          gap: 8,
+          justifyContent: "center",
         }}
       >
-        <span
-          style={{
-            fontFamily: "Manrope",
-            fontSize: 18,
-            fontWeight: 600,
-            letterSpacing: "1.5px",
-            textTransform: "uppercase",
-            color: "rgba(255,250,244,.52)",
-          }}
-        >
-          What it looks like
-        </span>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 10,
-          }}
-        >
-          {topSignals.map((signal) => (
-            <Chip key={signal}>{signal}</Chip>
-          ))}
-        </div>
+        {topSignals.map((signal) => (
+          <Chip key={signal}>{signal}</Chip>
+        ))}
       </div>
 
-      {/* What may help */}
+      {/* Ingredient chips — compact row, orange */}
       <div
         style={{
           position: "absolute",
           left: 120,
           right: 120,
-          top: 830,
+          top: 640,
           display: "flex",
-          flexDirection: "column",
-          gap: 16,
+          flexWrap: "wrap",
+          gap: 8,
+          justifyContent: "center",
         }}
       >
-        <span
-          style={{
-            fontFamily: "Manrope",
-            fontSize: 18,
-            fontWeight: 600,
-            letterSpacing: "1.5px",
-            textTransform: "uppercase",
-            color: "rgba(255,250,244,.52)",
-          }}
-        >
-          What may help
-        </span>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 10,
-          }}
-        >
-          {topIngredients.map((ingredient) => (
-            <Chip
-              key={ingredient}
-              color="#ff9a4a"
-              background="rgba(255,117,35,.12)"
-            >
-              {ingredient.length > 42
-                ? `${ingredient.slice(0, 40)}…`
-                : ingredient}
-            </Chip>
-          ))}
-        </div>
+        {topIngredients.map((ingredient) => (
+          <Chip
+            key={ingredient}
+            color="#ff9a4a"
+            background="rgba(255,117,35,.12)"
+          >
+            {ingredient.length > 36
+              ? `${ingredient.slice(0, 34)}…`
+              : ingredient}
+          </Chip>
+        ))}
       </div>
 
-      {/* Products */}
-      {products.length > 0 ? (
-        <div
-          style={{
-            position: "absolute",
-            left: 120,
-            right: 120,
-            top: 1040,
-            display: "flex",
-            flexDirection: "column",
-            gap: 18,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "Manrope",
-              fontSize: 18,
-              fontWeight: 600,
-              letterSpacing: "1.5px",
-              textTransform: "uppercase",
-              color: "rgba(255,250,244,.52)",
-            }}
-          >
-            Find on JeloCare
-          </span>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 14,
-            }}
-          >
-            {products.map((product) => (
-              <ProductRow
-                key={product.brand + product.name}
-                product={product}
-              />
-            ))}
-          </div>
-        </div>
-      ) : null}
+      {/* "Guidance, not a diagnosis" — small, above product carousel */}
+      <span
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: 760,
+          textAlign: "center",
+          fontFamily: "Manrope",
+          fontSize: 18,
+          color: "#ff7417",
+          fontWeight: 600,
+        }}
+      >
+        Guidance, not a diagnosis.
+      </span>
+
+      {/* Product carousel — the visual hero */}
+      <ProductCarousel products={products} />
 
       {/* Footer */}
       <div
@@ -379,13 +439,13 @@ function ConcernStory({
           position: "absolute",
           left: 120,
           right: 120,
-          bottom: 120,
+          bottom: 100,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          color: "rgba(255,250,244,.56)",
+          color: "rgba(255,250,244,.52)",
           fontFamily: "Manrope",
-          fontSize: 21,
+          fontSize: 20,
         }}
       >
         <span>jelocare.com/concerns/{concern.slug}</span>
@@ -409,7 +469,7 @@ export async function GET(
 
   // Resolve matched products with their images and lowest prices.
   // Condition patterns have no product matches — the card renders without
-  // the product section, which is the correct behaviour for clinical
+  // the product carousel, which is the correct behaviour for clinical
   // patterns where product recommendations would be inappropriate.
   const storyProducts: StoryProduct[] = [];
   if (concern.kind === "concern") {
