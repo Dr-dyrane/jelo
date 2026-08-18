@@ -441,13 +441,7 @@ test("stale PanOxyl Teeka and Lux routes cannot leak through base offers", () =>
 
   assert.deepEqual(
     merged.map((offer) => offer.retailer),
-    [
-      "Slique Beauty",
-      "Holly's Wellness",
-      "BuyBetter",
-      "Rehmie",
-      "Perona Beauty",
-    ],
+    ["Slique Beauty", "Holly's Wellness", "Rehmie"],
   );
   assert.equal(merged[0]?.brandAuthorizationEvidence, undefined);
 });
