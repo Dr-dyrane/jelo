@@ -1,12 +1,12 @@
 .page,
 .emptyPage {
   min-height: 100svh;
-  padding: clamp(7rem, 12vw, 10rem) 4vw clamp(4rem, 8vw, 7rem);
 }
 
 .page {
   display: grid;
   gap: clamp(3rem, 8vw, 7rem);
+  overflow: hidden;
   background:
     radial-gradient(
       100% 62% at 88% 0%,
@@ -16,23 +16,36 @@
     var(--cream);
 }
 
-/* ── Shared section container ── */
-/* Every section uses the same horizontal bounds. */
+/* ── Section rhythm ── */
+/* Full-bleed sections go edge-to-edge. Padded sections inset. */
 
+/* Full-bleed section (price story, concern rail) */
+.bleed {
+  padding: clamp(4rem, 8vw, 7rem) 4vw;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* Padded section (guide mockups) */
 .section {
   width: min(100%, 88rem);
   margin: 0 auto;
+  padding: clamp(2rem, 4vw, 4rem) 0;
   display: grid;
   gap: clamp(2rem, 5vw, 4rem);
 }
 
-/* ── 01 Price story ── */
+/* ── 01 Price story (full-bleed) ── */
 
 .intro {
   display: flex;
   align-items: end;
   justify-content: space-between;
   gap: 2rem;
+  max-width: 88rem;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .kicker,
@@ -63,6 +76,9 @@
 }
 
 .feature {
+  max-width: 88rem;
+  margin: 0 auto;
+  width: 100%;
   display: grid;
   grid-template-columns: minmax(16rem, 25rem) minmax(0, 1fr);
   align-items: center;
@@ -163,7 +179,9 @@
 }
 
 .boundary {
-  max-width: 36rem;
+  max-width: 88rem;
+  margin: 0 auto;
+  width: 100%;
   color: var(--muted);
   font-size: 0.68rem;
   line-height: 1.65;
@@ -178,6 +196,7 @@
 .emptyPage {
   display: grid;
   place-items: center;
+  padding: clamp(7rem, 12vw, 10rem) 4vw clamp(4rem, 8vw, 7rem);
   background:
     radial-gradient(
       70% 50% at 50% 25%,
@@ -246,11 +265,22 @@
   }
 }
 
-/* ── 02 Concern guides (featured + rail) ── */
+/* ── 02 Concern guides (full-bleed with inset header + edge-to-edge rail) ── */
+
+.concernSection {
+  padding: clamp(2rem, 4vw, 4rem) 0;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
 
 .concernHeader {
+  width: min(100%, 88rem);
+  margin: 0 auto;
+  padding: 0 4vw;
   display: grid;
   gap: 0.5rem;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
 }
 
 .concernHeading {
@@ -270,8 +300,11 @@
   line-height: 1.6;
 }
 
-/* Featured concern */
+/* Featured concern — inset */
 .concernFeatured {
+  width: min(100%, 88rem);
+  margin: 0 auto clamp(1.5rem, 4vw, 2.5rem);
+  padding: 0 4vw;
   display: grid;
   grid-template-columns: minmax(14rem, 22rem) minmax(0, 1fr);
   gap: clamp(1.5rem, 4vw, 3rem);
@@ -354,14 +387,14 @@
   transform: translateY(-2px);
 }
 
-/* Rail of remaining concerns */
+/* Rail — edge-to-edge bleed */
 .concernRail {
   display: flex;
   gap: clamp(0.75rem, 2vw, 1.25rem);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 0.75rem;
+  padding: 0 4vw 0.75rem;
 }
 
 .concernCard {
@@ -457,7 +490,7 @@
   }
 }
 
-/* ── 03/04 Guide sections with 3D iPhone mockups ── */
+/* ── 03/04 Guide sections (padded) ── */
 
 .guideCopy {
   display: grid;

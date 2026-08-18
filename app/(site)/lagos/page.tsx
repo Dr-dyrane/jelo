@@ -63,8 +63,8 @@ export default async function LagosDailyDeskPage() {
 
   return (
     <main className={styles.page}>
-      {/* 01 — Price story */}
-      <section className={styles.section}>
+      {/* 01 — Price story (full-bleed) */}
+      <section className={styles.bleed}>
         <header className={styles.intro}>
           <div>
             <p className={styles.kicker}>Lagos</p>
@@ -118,10 +118,10 @@ export default async function LagosDailyDeskPage() {
         </div>
       </section>
 
-      {/* 02 — Concern guides (rail) */}
+      {/* 02 — Concern guides (full-bleed header + edge-to-edge rail) */}
       <ConcernSection productSlug={desk.product.slug} />
 
-      {/* 03 — How to order (3D iPhone zigzag) */}
+      {/* 03 — How to order (padded) */}
       <section className={styles.section}>
         <div className={styles.guideCopy}>
           <p className={styles.kicker}>How to order</p>
@@ -146,7 +146,7 @@ export default async function LagosDailyDeskPage() {
         <OrderPhoneMockup />
       </section>
 
-      {/* 04 — How to bundle (3D iPhone zigzag) */}
+      {/* 04 — How to bundle (padded) */}
       <section className={styles.section}>
         <div className={styles.guideCopy}>
           <p className={styles.kicker}>How to bundle</p>
@@ -176,6 +176,7 @@ export default async function LagosDailyDeskPage() {
 
 /**
  * Section 02 — Concern guides as featured + rail.
+ * Full-bleed section with inset header/featured and edge-to-edge rail.
  */
 function ConcernSection({ productSlug }: { productSlug: string }) {
   const linked = concernsLinkedToProduct(productSlug);
@@ -188,7 +189,7 @@ function ConcernSection({ productSlug }: { productSlug: string }) {
   if (!featured) return null;
 
   return (
-    <section className={styles.section}>
+    <section className={styles.concernSection}>
       <div className={styles.concernHeader}>
         <p className={styles.kicker}>
           {isLinked ? "Skin guides for this product" : "Skin guides"}
@@ -201,7 +202,7 @@ function ConcernSection({ productSlug }: { productSlug: string }) {
         </p>
       </div>
 
-      {/* Featured concern */}
+      {/* Featured concern — inset */}
       <div className={styles.concernFeatured}>
         <Link
           href={`/concerns/${featured.slug}`}
@@ -238,7 +239,7 @@ function ConcernSection({ productSlug }: { productSlug: string }) {
         </div>
       </div>
 
-      {/* Rail of remaining concerns */}
+      {/* Rail — edge-to-edge */}
       <div className={styles.concernRail}>
         {rest.map((concern) => (
           <article key={concern.slug} className={styles.concernCard}>
