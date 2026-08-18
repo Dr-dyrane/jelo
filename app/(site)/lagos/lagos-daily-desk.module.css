@@ -261,63 +261,57 @@
   line-height: 1.6;
 }
 
-.concernGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
-  gap: 1rem;
+.concernRail {
+  display: flex;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
 }
 
 .concernCard {
+  flex: 0 0 auto;
+  width: clamp(12rem, 22vw, 16rem);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1.5rem;
-  border-radius: 1.5rem;
-  background: rgba(255, 253, 249, 0.7);
-  box-shadow: 0 12px 36px rgba(112, 71, 61, 0.06);
+  gap: 0.6rem;
+  scroll-snap-align: start;
 }
 
-.concernCardLink {
-  display: grid;
-  gap: 0.35rem;
+.concernCardImage {
+  display: block;
+  overflow: hidden;
+  border-radius: clamp(0.8rem, 1.5vw, 1.2rem);
+  background: #050505;
+  box-shadow: var(--shadow);
   text-decoration: none;
 }
 
-.concernCardArea {
-  color: var(--wine);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+.concernCardImage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
 }
 
-.concernCardName {
-  color: var(--ink);
-  font-family: var(--font-display), serif;
-  font-size: 1.4rem;
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
-.concernCardSummary {
-  color: var(--muted);
-  font-size: 0.78rem;
-  line-height: 1.55;
+.concernCardImage:hover img {
+  transform: scale(1.03);
 }
 
 .concernCardDownload {
-  width: max-content;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
-  padding: 0.5rem 0.85rem;
+  padding: 0.55rem 0.9rem;
   border-radius: 999px;
   background: var(--accent-solid);
   color: var(--on-accent);
   font-size: 0.72rem;
   font-weight: 600;
   text-decoration: none;
+  text-align: center;
   transition: transform 0.2s ease;
 }
 
@@ -326,7 +320,11 @@
 }
 
 @media (max-width: 760px) {
-  .concernGrid {
-    grid-template-columns: 1fr;
+  .concernRail {
+    padding-bottom: 0.75rem;
+  }
+
+  .concernCard {
+    width: 11rem;
   }
 }

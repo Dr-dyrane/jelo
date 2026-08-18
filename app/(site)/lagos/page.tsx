@@ -130,25 +130,28 @@ function ConcernCards({ productSlug }: { productSlug: string }) {
           Downloadable story cards you can save and share.
         </p>
       </div>
-      <div className={styles.concernGrid}>
+      <div className={styles.concernRail}>
         {linked.map((concern) => (
           <article key={concern.slug} className={styles.concernCard}>
             <Link
               href={`/concerns/${concern.slug}`}
-              className={styles.concernCardLink}
+              className={styles.concernCardImage}
             >
-              <span className={styles.concernCardArea}>{concern.area}</span>
-              <span className={styles.concernCardName}>{concern.name}</span>
-              <span className={styles.concernCardSummary}>
-                {concern.summary}
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/share/concern/${concern.slug}`}
+                alt={`${concern.name} — skin guide story card`}
+                width={540}
+                height={960}
+                loading="lazy"
+              />
             </Link>
             <a
               href={`/share/concern/${concern.slug}`}
               download
               className={styles.concernCardDownload}
             >
-              <Download size={14} aria-hidden="true" /> Story card
+              <Download size={14} aria-hidden="true" /> {concern.name}
             </a>
           </article>
         ))}
