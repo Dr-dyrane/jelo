@@ -8,6 +8,7 @@ import {
   allConcernSummaries,
 } from "@/lib/clinical/concern-product-links";
 import { publicSocialMetadata, staticSocialCard } from "@/lib/og/social-card";
+import { OrderPhoneMockup, BundlePhoneMockup } from "./iphone-mockup";
 import styles from "./lagos-daily-desk.module.css";
 
 export const revalidate = 300;
@@ -45,7 +46,7 @@ export default async function LagosDailyDeskPage() {
     return (
       <main className={styles.emptyPage}>
         <section className={styles.emptyState}>
-          <p className={styles.kicker}>Lagos daily desk</p>
+          <p className={styles.kicker}>Lagos</p>
           <p className={styles.date}>{displayDate(desk.date)}</p>
           <h1>Today&apos;s note is being checked.</h1>
           <p>
@@ -65,7 +66,7 @@ export default async function LagosDailyDeskPage() {
       {/* 01 — Price story */}
       <header className={styles.intro}>
         <div>
-          <p className={styles.kicker}>Lagos daily desk</p>
+          <p className={styles.kicker}>Lagos</p>
           <h1>One useful price note.</h1>
         </div>
         <time className={styles.date} dateTime={desk.date}>
@@ -115,44 +116,70 @@ export default async function LagosDailyDeskPage() {
         </p>
       </div>
 
-      {/* 02 — Concern guides (featured + grid) */}
+      {/* 02 — Concern guides (rail) */}
       <ConcernSection productSlug={desk.product.slug} />
 
-      {/* 03 — How to order */}
-      <GuideSection
-        kicker="How to order"
-        heading="Four steps."
-        intro="Find a product, add it to your basket, request a quote, and pay securely. We handle procurement and delivery."
-        guideSlug="order"
-        guideLabel="Order guide"
-        ctaHref="/order"
-        ctaLabel="Start an order"
-      />
+      {/* 03 — How to order (3D iPhone zigzag) */}
+      <section className={styles.guideSection}>
+        <div className={styles.guideCopy}>
+          <p className={styles.kicker}>How to order</p>
+          <h2 className={styles.guideHeading}>Four steps.</h2>
+          <p className={styles.guideIntro}>
+            Find a product. Add it to your basket. Request a quote. Pay
+            securely. We handle procurement and delivery.
+          </p>
+          <div className={styles.guideActions}>
+            <Link href="/order" className={styles.guideCta}>
+              Start an order <ArrowRight size={15} aria-hidden="true" />
+            </Link>
+            <a
+              href="/share/guide/order"
+              download
+              className={styles.concernCardDownload}
+            >
+              <Download size={14} aria-hidden="true" /> Story card
+            </a>
+          </div>
+        </div>
+        <OrderPhoneMockup />
+      </section>
 
-      {/* 04 — How to bundle */}
-      <GuideSection
-        kicker="How to bundle"
-        heading="One routine."
-        intro="Pick products from different retailers, build a compatible bundle, and get a single quote for everything."
-        guideSlug="bundle"
-        guideLabel="Bundle guide"
-        ctaHref="/bundle"
-        ctaLabel="Build a bundle"
-      />
+      {/* 04 — How to bundle (3D iPhone zigzag) */}
+      <section className={styles.guideSection}>
+        <div className={styles.guideCopy}>
+          <p className={styles.kicker}>How to bundle</p>
+          <h2 className={styles.guideHeading}>One routine.</h2>
+          <p className={styles.guideIntro}>
+            Pick products from different retailers. Build a compatible bundle.
+            Get a single quote for everything. One payment, one delivery.
+          </p>
+          <div className={styles.guideActions}>
+            <Link href="/bundle" className={styles.guideCta}>
+              Build a bundle <ArrowRight size={15} aria-hidden="true" />
+            </Link>
+            <a
+              href="/share/guide/bundle"
+              download
+              className={styles.concernCardDownload}
+            >
+              <Download size={14} aria-hidden="true" /> Story card
+            </a>
+          </div>
+        </div>
+        <BundlePhoneMockup />
+      </section>
     </main>
   );
 }
 
 /**
- * Section 02 — Concern guides as featured + grid editorial.
- * One large featured concern card + a responsive grid of the rest.
+ * Section 02 — Concern guides as featured + rail.
  */
 function ConcernSection({ productSlug }: { productSlug: string }) {
   const linked = concernsLinkedToProduct(productSlug);
   const all = linked.length > 0 ? linked : allConcernSummaries();
   const isLinked = linked.length > 0;
 
-  // Featured = first concern (either product-linked or the first everyday concern)
   const featured = all[0];
   const rest = all.slice(1);
 
@@ -172,7 +199,7 @@ function ConcernSection({ productSlug }: { productSlug: string }) {
         </p>
       </div>
 
-      {/* Featured concern — large editorial tile */}
+      {/* Featured concern */}
       <div className={styles.concernFeatured}>
         <Link
           href={`/concerns/${featured.slug}`}
@@ -209,8 +236,8 @@ function ConcernSection({ productSlug }: { productSlug: string }) {
         </div>
       </div>
 
-      {/* Grid of remaining concerns */}
-      <div className={styles.concernGrid}>
+      {/* Rail of remaining concerns */}
+      <div className={styles.concernRail}>
         {rest.map((concern) => (
           <article key={concern.slug} className={styles.concernCard}>
             <Link
@@ -240,60 +267,6 @@ function ConcernSection({ productSlug }: { productSlug: string }) {
           </article>
         ))}
       </div>
-    </section>
-  );
-}
-
-/**
- * Section 03/04 — Guide mockup with iPhone 17 device frame.
- * Shows the guide PNG and provides a download button + CTA.
- */
-function GuideSection({
-  kicker,
-  heading,
-  intro,
-  guideSlug,
-  guideLabel,
-  ctaHref,
-  ctaLabel,
-}: {
-  kicker: string;
-  heading: string;
-  intro: string;
-  guideSlug: string;
-  guideLabel: string;
-  ctaHref: string;
-  ctaLabel: string;
-}) {
-  return (
-    <section className={styles.guideSection}>
-      <div className={styles.guideCopy}>
-        <p className={styles.kicker}>{kicker}</p>
-        <h2 className={styles.guideHeading}>{heading}</h2>
-        <p className={styles.guideIntro}>{intro}</p>
-        <div className={styles.guideActions}>
-          <Link href={ctaHref} className={styles.guideCta}>
-            {ctaLabel} <ArrowRight size={15} aria-hidden="true" />
-          </Link>
-          <a
-            href={`/share/guide/${guideSlug}`}
-            download
-            className={styles.concernCardDownload}
-          >
-            <Download size={14} aria-hidden="true" /> {guideLabel}
-          </a>
-        </div>
-      </div>
-      <figure className={styles.guideFrame}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`/share/guide/${guideSlug}`}
-          alt={`${guideLabel} — iPhone mockup`}
-          width={540}
-          height={960}
-          loading="lazy"
-        />
-      </figure>
     </section>
   );
 }

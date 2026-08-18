@@ -6,7 +6,7 @@
 
 .page {
   display: grid;
-  gap: clamp(2.5rem, 6vw, 5rem);
+  gap: clamp(3rem, 8vw, 7rem);
   background:
     radial-gradient(
       100% 62% at 88% 0%,
@@ -15,6 +15,8 @@
     ),
     var(--cream);
 }
+
+/* ── 01 Price story ── */
 
 .intro {
   display: flex;
@@ -36,10 +38,10 @@
 .intro h1 {
   margin: 0.55rem 0 0;
   font-family: var(--font-display), serif;
-  font-size: clamp(3rem, 7.5vw, 6.5rem);
+  font-size: clamp(3.5rem, 9vw, 8rem);
   font-weight: 400;
-  line-height: 0.86;
-  letter-spacing: -0.04em;
+  line-height: 0.84;
+  letter-spacing: -0.045em;
 }
 
 .date {
@@ -110,7 +112,8 @@
 }
 
 .action,
-.guideLink {
+.guideLink,
+.guideCta {
   min-height: 3rem;
   display: inline-flex;
   align-items: center;
@@ -121,6 +124,7 @@
   color: var(--on-accent);
   font-size: 0.78rem;
   font-weight: 600;
+  text-decoration: none;
   transition: transform 0.2s ease;
 }
 
@@ -130,7 +134,8 @@
 }
 
 .action:hover,
-.guideLink:hover {
+.guideLink:hover,
+.guideCta:hover {
   transform: translateY(-2px);
 }
 
@@ -159,6 +164,8 @@
 .boundary p + p {
   margin-top: 0.45rem;
 }
+
+/* ── Empty state ── */
 
 .emptyPage {
   display: grid;
@@ -231,7 +238,7 @@
   }
 }
 
-/* ── Section 02: Concern guides (featured + grid) ── */
+/* ── 02 Concern guides (featured + rail) ── */
 
 .concernSection {
   width: min(100%, 72rem);
@@ -248,10 +255,10 @@
 .concernHeading {
   margin: 0.3rem 0 0;
   font-family: var(--font-display), serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 400;
-  line-height: 0.9;
-  letter-spacing: -0.03em;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
   text-wrap: balance;
 }
 
@@ -262,7 +269,7 @@
   line-height: 1.6;
 }
 
-/* Featured concern — large editorial tile */
+/* Featured concern */
 .concernFeatured {
   display: grid;
   grid-template-columns: minmax(14rem, 22rem) minmax(0, 1fr);
@@ -346,17 +353,23 @@
   transform: translateY(-2px);
 }
 
-/* Grid of remaining concerns */
-.concernGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr));
+/* Rail of remaining concerns */
+.concernRail {
+  display: flex;
   gap: clamp(0.75rem, 2vw, 1.25rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.75rem;
 }
 
 .concernCard {
+  flex: 0 0 auto;
+  width: clamp(10rem, 18vw, 13rem);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  scroll-snap-align: start;
 }
 
 .concernCardImage {
@@ -438,18 +451,18 @@
     max-width: none;
   }
 
-  .concernGrid {
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr));
+  .concernCard {
+    width: 9rem;
   }
 }
 
-/* ── Sections 03/04: Guide mockups ── */
+/* ── 03/04 Guide sections with 3D iPhone mockups ── */
 
 .guideSection {
-  width: min(100%, 72rem);
+  width: min(100%, 88rem);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(14rem, 22rem);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
   gap: clamp(2rem, 6vw, 5rem);
   align-items: center;
 }
@@ -463,10 +476,10 @@
 .guideHeading {
   margin: 0.3rem 0 0;
   font-family: var(--font-display), serif;
-  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-size: clamp(3rem, 7vw, 6rem);
   font-weight: 400;
-  line-height: 0.88;
-  letter-spacing: -0.04em;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
   text-wrap: balance;
 }
 
@@ -486,50 +499,16 @@
 }
 
 .guideCta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
   padding: 0.7rem 1.1rem;
-  border-radius: 999px;
-  background: var(--accent-solid);
-  color: var(--on-accent);
-  font-size: 0.76rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: transform 0.2s ease;
 }
 
-.guideCta:hover {
-  transform: translateY(-2px);
-}
-
-.guideFrame {
-  margin: 0;
-  overflow: hidden;
-  border-radius: clamp(1rem, 2vw, 1.5rem);
-  background: #050505;
-  box-shadow: var(--shadow);
-}
-
-.guideFrame img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .guideSection {
     grid-template-columns: 1fr;
-    gap: clamp(1.5rem, 4vw, 2.5rem);
+    gap: clamp(2rem, 5vw, 3rem);
   }
 
   .guideCopy {
     order: 1;
-  }
-
-  .guideFrame {
-    order: 2;
-    width: min(100%, 22rem);
-    margin: 0 auto;
   }
 }
