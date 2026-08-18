@@ -15,9 +15,7 @@ const fullDate = new Intl.DateTimeFormat("en-GB", {
 });
 
 export function generateStaticParams() {
-  return concerns
-    .filter((c) => c.kind === "concern")
-    .map((c) => ({ slug: c.slug }));
+  return concerns.map((c) => ({ slug: c.slug }));
 }
 
 function JeloCareMark() {
@@ -403,33 +401,38 @@ export async function GET(
 ) {
   const { slug } = await params;
   const concern = concernBySlug(slug);
-  if (!concern || concern.kind !== "concern") {
+  if (!concern) {
     return new Response("Concern not found.", { status: 404 });
   }
 
   const fonts = await loadOgFonts();
 
-  // Resolve matched products with their images and lowest prices
-  const allProducts = await listCatalogueProducts();
-  const linked = productsLinkedToConcern(allProducts, concern);
-  const candidateProducts = [...linked.supportive, ...linked.reviewedContext];
-
+  // Resolve matched products with their images and lowest prices.
+  // Condition patterns have no product matches — the card renders without
+  // the product section, which is the correct behaviour for clinical
+  // patterns where product recommendations would be inappropriate.
   const storyProducts: StoryProduct[] = [];
-  for (const product of candidateProducts.slice(0, 3)) {
-    const imageSrc = await loadImage(absoluteImage(product.image));
-    const lowestOffer = product.offers
-      .filter(
-        (o): o is typeof o & { priceNgn: number } =>
-          o.available && typeof o.priceNgn === "number" && o.priceNgn > 0,
-      )
-      .sort((a, b) => a.priceNgn - b.priceNgn)[0];
-    storyProducts.push({
-      brand: product.brand,
-      name: product.name,
-      size: product.size,
-      image: imageSrc ?? "",
-      priceNgn: lowestOffer ? lowestOffer.priceNgn : null,
-    });
+  if (concern.kind === "concern") {
+    const allProducts = await listCatalogueProducts();
+    const linked = productsLinkedToConcern(allProducts, concern);
+    const candidateProducts = [...linked.supportive, ...linked.reviewedContext];
+
+    for (const product of candidateProducts.slice(0, 3)) {
+      const imageSrc = await loadImage(absoluteImage(product.image));
+      const lowestOffer = product.offers
+        .filter(
+          (o): o is typeof o & { priceNgn: number } =>
+            o.available && typeof o.priceNgn === "number" && o.priceNgn > 0,
+        )
+        .sort((a, b) => a.priceNgn - b.priceNgn)[0];
+      storyProducts.push({
+        brand: product.brand,
+        name: product.name,
+        size: product.size,
+        image: imageSrc ?? "",
+        priceNgn: lowestOffer ? lowestOffer.priceNgn : null,
+      });
+    }
   }
 
   const reviewedAtLabel = fullDate.format(new Date(concern.reviewedAt));

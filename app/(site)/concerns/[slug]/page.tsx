@@ -77,15 +77,13 @@ export default async function ConcernPage({
             ? "Add another concern"
             : "Browse concerns"}
         </Link>
-        {concern.kind === "concern" ? (
-          <a
-            className="concern-combine"
-            href={`/share/concern/${concern.slug}`}
-            download
-          >
-            <Download size={16} aria-hidden="true" /> Story card
-          </a>
-        ) : null}
+        <a
+          className="concern-combine"
+          href={`/share/concern/${concern.slug}`}
+          download
+        >
+          <Download size={16} aria-hidden="true" /> Story card
+        </a>
       </header>
 
       {/* 2. Why it matters — urgent escalation content prominent and visually distinct */}

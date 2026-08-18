@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { DailyDeskMeasurement } from "@/components/campaigns/daily-desk-measurement";
 import { getDailyDeskReadModel } from "@/lib/campaigns/daily-desk";
+import { concernsLinkedToProduct } from "@/lib/clinical/concern-product-links";
 import { publicSocialMetadata, staticSocialCard } from "@/lib/og/social-card";
 import styles from "./lagos-daily-desk.module.css";
 
@@ -110,6 +111,48 @@ export default async function LagosDailyDeskPage() {
           a product is genuine.
         </p>
       </div>
+
+      <ConcernCards productSlug={desk.product.slug} />
     </main>
+  );
+}
+
+function ConcernCards({ productSlug }: { productSlug: string }) {
+  const linked = concernsLinkedToProduct(productSlug).slice(0, 3);
+  if (linked.length === 0) return null;
+
+  return (
+    <section className={styles.concernSection}>
+      <div className={styles.concernHeader}>
+        <p className={styles.kicker}>Skin guides for this product</p>
+        <h2 className={styles.concernHeading}>What it helps with.</h2>
+        <p className={styles.concernIntro}>
+          Downloadable story cards you can save and share.
+        </p>
+      </div>
+      <div className={styles.concernGrid}>
+        {linked.map((concern) => (
+          <article key={concern.slug} className={styles.concernCard}>
+            <Link
+              href={`/concerns/${concern.slug}`}
+              className={styles.concernCardLink}
+            >
+              <span className={styles.concernCardArea}>{concern.area}</span>
+              <span className={styles.concernCardName}>{concern.name}</span>
+              <span className={styles.concernCardSummary}>
+                {concern.summary}
+              </span>
+            </Link>
+            <a
+              href={`/share/concern/${concern.slug}`}
+              download
+              className={styles.concernCardDownload}
+            >
+              <Download size={14} aria-hidden="true" /> Story card
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
