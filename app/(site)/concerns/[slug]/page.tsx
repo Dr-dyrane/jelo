@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Layers3 } from "lucide-react";
+import { ArrowRight, BookOpen, Download, Layers3 } from "lucide-react";
 import { notFound } from "next/navigation";
 import { concerns, concernBySlug } from "@/data/knowledge";
 import { ProductRail } from "@/components/products/product-grid";
@@ -77,6 +77,15 @@ export default async function ConcernPage({
             ? "Add another concern"
             : "Browse concerns"}
         </Link>
+        {concern.kind === "concern" ? (
+          <a
+            className="concern-combine"
+            href={`/share/concern/${concern.slug}`}
+            download
+          >
+            <Download size={16} aria-hidden="true" /> Story card
+          </a>
+        ) : null}
       </header>
 
       {/* 2. Why it matters — urgent escalation content prominent and visually distinct */}
