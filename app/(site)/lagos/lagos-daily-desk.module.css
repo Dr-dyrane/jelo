@@ -16,6 +16,16 @@
     var(--cream);
 }
 
+/* ── Shared section container ── */
+/* Every section uses the same horizontal bounds. */
+
+.section {
+  width: min(100%, 88rem);
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
 /* ── 01 Price story ── */
 
 .intro {
@@ -53,8 +63,6 @@
 }
 
 .feature {
-  width: min(100%, 72rem);
-  margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(16rem, 25rem) minmax(0, 1fr);
   align-items: center;
@@ -239,13 +247,6 @@
 }
 
 /* ── 02 Concern guides (featured + rail) ── */
-
-.concernSection {
-  width: min(100%, 72rem);
-  margin: 0 auto;
-  display: grid;
-  gap: clamp(1.5rem, 4vw, 2.5rem);
-}
 
 .concernHeader {
   display: grid;
@@ -458,15 +459,6 @@
 
 /* ── 03/04 Guide sections with 3D iPhone mockups ── */
 
-.guideSection {
-  width: min(100%, 88rem);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-  gap: clamp(2rem, 6vw, 5rem);
-  align-items: center;
-}
-
 .guideCopy {
   display: grid;
   gap: 0.75rem;
@@ -502,8 +494,15 @@
   padding: 0.7rem 1.1rem;
 }
 
+/* Guide section uses a 2-column grid (copy + phones) */
+.section:has(.guideCopy) {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
 @media (max-width: 900px) {
-  .guideSection {
+  .section:has(.guideCopy) {
     grid-template-columns: 1fr;
     gap: clamp(2rem, 5vw, 3rem);
   }

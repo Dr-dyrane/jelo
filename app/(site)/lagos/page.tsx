@@ -64,63 +64,65 @@ export default async function LagosDailyDeskPage() {
   return (
     <main className={styles.page}>
       {/* 01 — Price story */}
-      <header className={styles.intro}>
-        <div>
-          <p className={styles.kicker}>Lagos</p>
-          <h1>One useful price note.</h1>
-        </div>
-        <time className={styles.date} dateTime={desk.date}>
-          {displayDate(desk.date)}
-        </time>
-      </header>
-
-      <article className={styles.feature}>
-        <figure className={styles.storyFrame}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={desk.image.url}
-            alt={`${desk.product.brand} ${desk.product.name} daily price story`}
-            width={desk.image.width}
-            height={desk.image.height}
-          />
-        </figure>
-
-        <section className={styles.note}>
-          <p className={styles.noteLabel}>Today&apos;s price context</p>
-          <h2>{desk.copy.headline}</h2>
-          <p className={styles.productLine}>{desk.copy.productLine}</p>
-          <p className={styles.priceLine}>{desk.copy.priceLine}</p>
-          <DailyDeskMeasurement
-            campaignId={desk.campaignId}
-            actionUrl={desk.actionUrl}
-            actionLabel={desk.copy.action}
-            className={styles.action}
-          />
-          <div className={styles.evidenceNote}>
-            <p>{desk.copy.disclaimer}</p>
-            <p>
-              {desk.evidence.offerCount} current Nigerian
-              {desk.evidence.offerCount === 1 ? " listing" : " listings"} ·
-              checked{" "}
-              {checkedFormatter.format(new Date(desk.evidence.dataCheckedAt))}
-            </p>
+      <section className={styles.section}>
+        <header className={styles.intro}>
+          <div>
+            <p className={styles.kicker}>Lagos</p>
+            <h1>One useful price note.</h1>
           </div>
-        </section>
-      </article>
+          <time className={styles.date} dateTime={desk.date}>
+            {displayDate(desk.date)}
+          </time>
+        </header>
 
-      <div className={styles.boundary}>
-        <p>{desk.evidence.boundary}</p>
-        <p>
-          Price context, not a sale or suitability claim. A listing is not proof
-          a product is genuine.
-        </p>
-      </div>
+        <article className={styles.feature}>
+          <figure className={styles.storyFrame}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={desk.image.url}
+              alt={`${desk.product.brand} ${desk.product.name} daily price story`}
+              width={desk.image.width}
+              height={desk.image.height}
+            />
+          </figure>
+
+          <section className={styles.note}>
+            <p className={styles.noteLabel}>Today&apos;s price context</p>
+            <h2>{desk.copy.headline}</h2>
+            <p className={styles.productLine}>{desk.copy.productLine}</p>
+            <p className={styles.priceLine}>{desk.copy.priceLine}</p>
+            <DailyDeskMeasurement
+              campaignId={desk.campaignId}
+              actionUrl={desk.actionUrl}
+              actionLabel={desk.copy.action}
+              className={styles.action}
+            />
+            <div className={styles.evidenceNote}>
+              <p>{desk.copy.disclaimer}</p>
+              <p>
+                {desk.evidence.offerCount} current Nigerian
+                {desk.evidence.offerCount === 1 ? " listing" : " listings"} ·
+                checked{" "}
+                {checkedFormatter.format(new Date(desk.evidence.dataCheckedAt))}
+              </p>
+            </div>
+          </section>
+        </article>
+
+        <div className={styles.boundary}>
+          <p>{desk.evidence.boundary}</p>
+          <p>
+            Price context, not a sale or suitability claim. A listing is not
+            proof a product is genuine.
+          </p>
+        </div>
+      </section>
 
       {/* 02 — Concern guides (rail) */}
       <ConcernSection productSlug={desk.product.slug} />
 
       {/* 03 — How to order (3D iPhone zigzag) */}
-      <section className={styles.guideSection}>
+      <section className={styles.section}>
         <div className={styles.guideCopy}>
           <p className={styles.kicker}>How to order</p>
           <h2 className={styles.guideHeading}>Four steps.</h2>
@@ -145,7 +147,7 @@ export default async function LagosDailyDeskPage() {
       </section>
 
       {/* 04 — How to bundle (3D iPhone zigzag) */}
-      <section className={styles.guideSection}>
+      <section className={styles.section}>
         <div className={styles.guideCopy}>
           <p className={styles.kicker}>How to bundle</p>
           <h2 className={styles.guideHeading}>One routine.</h2>
@@ -186,7 +188,7 @@ function ConcernSection({ productSlug }: { productSlug: string }) {
   if (!featured) return null;
 
   return (
-    <section className={styles.concernSection}>
+    <section className={styles.section}>
       <div className={styles.concernHeader}>
         <p className={styles.kicker}>
           {isLinked ? "Skin guides for this product" : "Skin guides"}
