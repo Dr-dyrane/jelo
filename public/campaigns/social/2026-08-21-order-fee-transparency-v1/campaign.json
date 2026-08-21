@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-21-order-fee-transparency-v1",
+  "status": "draft",
+  "createdAt": "2026-08-21T15:01:19Z",
+  "dataCheckedAt": "2026-08-21T15:01:19Z",
+  "objective": "Announce that customers can request orders through JeloCare while making the pre-approval quote breakdown explicit.",
+  "sourceTruth": {
+    "repositoryCommit": "972dd4a9a7da15f5269a7d36a8f53707d6f61dd3",
+    "repositoryState": "Evidence read from the current main revision; no live order, customer, retailer, price, stock, or payment data is represented.",
+    "adr": {
+      "path": "docs/adr/0016-retailer-scoped-assisted-procurement.md",
+      "evidence": "The customer approves the exact retailer, products, quote, fees, and delivery terms before payment; every quote separates product subtotal, retailer fee when charged, JeloCare service fee, and delivery; an unknown component prevents a final payable total."
+    },
+    "guestOrderUi": {
+      "path": "components/commerce/order-status.tsx",
+      "evidence": "At Quote ready, the customer-visible Cost breakdown presents the order costs and total before the same state offers Approve quote and says Pay after approval."
+    },
+    "memberOrderUi": {
+      "path": "components/me/orders/member-orders-view.tsx",
+      "evidence": "The signed-in order view repeats the same cost breakdown and approval-before-payment sequence."
+    },
+    "checkoutUi": {
+      "path": "components/commerce/procurement-basket.tsx",
+      "evidence": "Checkout requests a verified quote and explicitly takes no payment at request time; the customer approves the final quote later."
+    },
+    "operationsUi": {
+      "path": "app/(ops)/ops/orders/OrdersQueue.tsx",
+      "evidence": "Operations enters and reviews the product and service costs before issuing the exact quote."
+    },
+    "lifecycleUi": {
+      "path": "components/commerce/order-progress.tsx",
+      "evidence": "The canonical visible sequence is Request, Quote, Approve, Payment, Delivery."
+    }
+  },
+  "offerEvidence": [],
+  "careBoundary": "Service-level ordering and quote-presentation copy only. No product, price, retailer, stock, savings, delivery-time, authenticity, medical, payment-success, or fulfilment-outcome claim.",
+  "claimBoundary": {
+    "proven": "A complete customer quote separates products, retailer fee, JeloCare fee, delivery, and total before approval; payment follows approval.",
+    "qualification": "The pre-request checkout shows only an observed product total. The complete fee breakdown appears later when Operations issues the verified quote. Unknown components remain unknown and prevent a final payable total.",
+    "notClaimed": [
+      "that observed catalogue prices are final checkout prices",
+      "that every retailer charges a fee",
+      "that stock, delivery speed, savings, or payment success is guaranteed",
+      "that JeloCare holds retailer inventory"
+    ]
+  },
+  "copy": {
+    "eyebrow": "ORDERING IS NOW AVAILABLE",
+    "headline": ["Order with every", "cost in view."],
+    "body": [
+      "Your verified quote separates each cost",
+      "before you approve or pay."
+    ],
+    "quoteEyebrow": "VERIFIED QUOTE",
+    "quoteState": "QUOTE READY",
+    "quoteTitle": "Cost breakdown",
+    "quoteLines": ["Products", "Retailer fee", "JeloCare fee", "Delivery"],
+    "quoteTotal": "Quote total",
+    "quoteNote": "Exact amounts appear as separate lines in your quote.",
+    "sequence": ["REQUEST", "QUOTE", "APPROVE", "PAYMENT", "DELIVERY"],
+    "action": "Start with an exact product",
+    "actionHint": "Use the JeloCare link",
+    "embeddedUrl": null,
+    "caption": "Now you can order through JeloCare—with the full cost in view. Your verified quote separates products, retailer fee, JeloCare service fee, delivery, and total before you approve or pay. Start with an exact product: https://www.jelocare.com/products",
+    "targetPath": "/products",
+    "targetUrl": "https://www.jelocare.com/products"
+  },
+  "sourceAsset": {
+    "path": "source/immersive-master-field-imagegen.png",
+    "sha256": "1470edab84b6b8065d36223f1a0a61e0574e9b7dfad09a7a7d2322fd3fe6f272",
+    "generationRoute": "built-in-imagegen",
+    "role": "Text-free campaign master field; deterministic SVG composition provides all visible copy and quote structure.",
+    "prompt": "Use case: ads-marketing\nAsset type: text-free master background for a JeloCare WhatsApp Status campaign, vertical 9:16\nPrimary request: create a quiet, premium, immersive abstract studio field that suggests clarity and transparency through light passing across layered clear glass edges\nScene/backdrop: deep near-black and graphite seamless field with a restrained wine-red glow in the lower middle and very subtle warm peach refractions\nSubject: a few large, elegant, translucent glass planes and soft curved light bands, fully abstract; they should frame rather than occupy the center\nStyle/medium: photorealistic premium materials study, Apple-grade restraint, sophisticated editorial product lighting, not a literal product scene\nComposition/framing: vertical story composition; generous uninterrupted negative space across the upper 40%; calm central safe region for later deterministic copy and UI composition; subtle material interest behind the lower middle; no focal object\nLighting/mood: controlled soft studio edge light, rich blacks, subtle warm glow, calm and trustworthy\nColor palette: near-black, graphite, muted oxblood/wine, restrained blush-peach highlights, tiny warm-white reflections\nMaterials/textures: smoked glass, clear glass edge refraction, matte seamless backdrop, faint atmospheric bloom\nText: none\nConstraints: absolutely no text, letters, words, numbers, symbols, logos, brand marks, currency, receipt, price tag, QR code, product packaging, cosmetic products, people, hands, phones, screens, interface elements, buttons, cards, watermarks, or platform chrome; keep all important texture away from the outer 120px-equivalent side margins and leave the top and bottom safe areas visually calm\nAvoid: neon cyberpunk, sci-fi, busy decoration, literal ecommerce imagery, multiple objects, hard lens flares, fake UI, visible typography"
+  },
+  "creativeDirection": {
+    "format": "1080x1920 WhatsApp Status",
+    "mode": "dark",
+    "safeAreas": {
+      "topPx": 220,
+      "sidePx": 120,
+      "bottomPx": 300
+    },
+    "embeddedUrls": false,
+    "note": "Service-level visual only; quote labels mirror the current customer and Operations UI without displaying invented amounts."
+  },
+  "creative": [
+    {
+      "mode": "dark",
+      "path": "01-order-fee-transparency-whatsapp-status.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "3ffaa5316634d7df7995b7b9586b63fc766dc3ab3f7689ac67257f52c94a4b1b",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-svg-composition"
+    }
+  ],
+  "channels": ["whatsapp-status"],
+  "publication": []
+}

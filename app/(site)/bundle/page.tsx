@@ -62,8 +62,8 @@ export default async function BundlePage({
           <p className="eyebrow">Bundle Finder</p>
           <h1 id="bundle-title">Build one basket.</h1>
           <p className={styles.heroLead}>
-            Choose 2–4 products. Compare retailers with an exact Nigerian
-            listing for every item.
+            Choose 2–4 products. See the real one-retailer baskets available,
+            then request one verified quote.
           </p>
         </div>
       </section>

@@ -4,7 +4,6 @@ import type { LucideIcon } from "lucide-react";
 import {
   ArrowRight,
   Download,
-  ExternalLink,
   PackageCheck,
   ReceiptText,
   Search,
@@ -13,8 +12,20 @@ import {
   WalletCards,
 } from "lucide-react";
 import { DailyDeskMeasurement } from "@/components/campaigns/daily-desk-measurement";
+import {
+  ProductCard,
+  type ProductCardProduct,
+} from "@/components/products/product-card";
 import { getDailyDeskReadModel } from "@/lib/campaigns/daily-desk";
-import { concernsLinkedToProduct } from "@/lib/clinical/concern-product-links";
+import { listCatalogueProducts } from "@/lib/catalogue/repository";
+import {
+  allConcernSummaries,
+  concernsLinkedToProduct,
+} from "@/lib/clinical/concern-product-links";
+import {
+  findBundleStores,
+  findBuyTogetherSuggestions,
+} from "@/lib/commerce/bundle-finder";
 import { publicSocialMetadata, staticSocialCard } from "@/lib/og/social-card";
 import {
   lagosCommerceJourneys,
@@ -54,7 +65,19 @@ const journeyIcons: Record<LagosJourneyIcon, LucideIcon> = {
   payment: WalletCards,
   delivery: PackageCheck,
   products: ShoppingBasket,
-  listings: ExternalLink,
+};
+
+const priceFormatter = new Intl.NumberFormat("en-NG", {
+  style: "currency",
+  currency: "NGN",
+  maximumFractionDigits: 0,
+});
+
+type LagosJourneyPreview = {
+  label: string;
+  detail: string;
+  products: ProductCardProduct[];
+  retailer?: string;
 };
 
 function displayDate(date: string) {
@@ -82,6 +105,13 @@ export default async function LagosDailyDeskPage() {
       </main>
     );
   }
+
+  const catalogue = await listCatalogueProducts();
+  const commercePreviews = buildCommercePreviews(
+    desk.product.slug,
+    catalogue,
+    new Date(desk.evidence.dataCheckedAt),
+  );
 
   return (
     <main className={styles.page}>
@@ -144,13 +174,23 @@ export default async function LagosDailyDeskPage() {
       <ConcernSection productSlug={desk.product.slug} />
 
       {lagosCommerceJourneys.map((journey) => (
-        <CommerceJourney key={journey.id} journey={journey} />
+        <CommerceJourney
+          key={journey.id}
+          journey={journey}
+          preview={commercePreviews[journey.id]}
+        />
       ))}
     </main>
   );
 }
 
-function CommerceJourney({ journey }: { journey: LagosJourney }) {
+function CommerceJourney({
+  journey,
+  preview,
+}: {
+  journey: LagosJourney;
+  preview?: LagosJourneyPreview;
+}) {
   return (
     <section className={styles.section} aria-labelledby={`${journey.id}-title`}>
       <div className={styles.guideCopy}>
@@ -172,6 +212,7 @@ function CommerceJourney({ journey }: { journey: LagosJourney }) {
           <span>{journey.previewLabel}</span>
           <small>{journey.steps.length} steps</small>
         </div>
+        {preview ? <JourneyExample preview={preview} /> : null}
         <ol
           className={styles.journeyList}
           aria-label={`${journey.previewLabel} steps`}
@@ -197,25 +238,67 @@ function CommerceJourney({ journey }: { journey: LagosJourney }) {
   );
 }
 
+function JourneyExample({ preview }: { preview: LagosJourneyPreview }) {
+  return (
+    <div className={styles.journeyExample}>
+      <div className={styles.journeyExampleCopy}>
+        <p>{preview.label}</p>
+        <span>{preview.detail}</span>
+      </div>
+      <div
+        className={`${styles.journeyProducts} ${
+          preview.products.length === 1 ? styles.singleProduct : ""
+        }`}
+      >
+        {preview.products.map((product) => (
+          <ProductCard
+            key={product.slug}
+            product={product}
+            density="compact"
+            context={
+              preview.retailer
+                ? { retailerNames: [preview.retailer] }
+                : undefined
+            }
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /**
  * Section 02 — Concern guides as featured + rail.
  * Full-bleed section with inset header/featured and edge-to-edge rail.
  */
 function ConcernSection({ productSlug }: { productSlug: string }) {
   const linked = concernsLinkedToProduct(productSlug);
+  const isProductSpecific = linked.length > 0;
+  const guides = isProductSpecific
+    ? linked
+    : allConcernSummaries()
+        .filter((concern) => concern.kind === "concern")
+        .slice(0, 10);
+  const featured = guides[0];
+  const rest = guides.slice(1);
 
-  if (linked.length === 0) return null;
-
-  const featured = linked[0];
-  const rest = linked.slice(1);
+  if (!featured) return null;
 
   return (
     <section className={styles.concernSection}>
       <div className={styles.concernHeader}>
-        <p className={styles.kicker}>Skin guides for this product</p>
-        <h2 className={styles.concernHeading}>What it helps with.</h2>
+        <p className={styles.kicker}>
+          {isProductSpecific ? "Reviewed product links" : "Skin guides"}
+        </p>
+        <h2 className={styles.concernHeading}>
+          {isProductSpecific
+            ? "Explore its reviewed uses."
+            : "Browse common concerns."}
+        </h2>
         <p className={styles.concernIntro}>
-          Downloadable story cards you can save and share.
+          {isProductSpecific
+            ? "Only uses linked through the reviewed product record."
+            : "General guides—not claims about today’s product."}
         </p>
       </div>
 
@@ -289,4 +372,77 @@ function ConcernSection({ productSlug }: { productSlug: string }) {
       </div>
     </section>
   );
+}
+
+function buildCommercePreviews(
+  productSlug: string,
+  catalogue: Awaited<ReturnType<typeof listCatalogueProducts>>,
+  checkedAt: Date,
+): Partial<Record<LagosJourney["id"], LagosJourneyPreview>> {
+  const target = catalogue.find((product) => product.slug === productSlug);
+  if (!target) return {};
+
+  const order: LagosJourneyPreview = {
+    label: "Today’s exact product",
+    detail: "Open the real product page, then choose a listed retailer.",
+    products: [
+      {
+        slug: target.slug,
+        brand: target.brand,
+        name: target.name,
+        size: target.size,
+        image: target.image,
+        offers: target.offers,
+      },
+    ],
+  };
+
+  const suggestions = findBuyTogetherSuggestions(
+    target,
+    catalogue,
+    checkedAt,
+    catalogue.length,
+  );
+
+  for (const suggestion of suggestions) {
+    const companion = catalogue.find(
+      (product) => product.slug === suggestion.product.slug,
+    );
+    if (!companion) continue;
+    const match = findBundleStores([target, companion], checkedAt).bundles.find(
+      (bundle) => bundle.allInStock,
+    );
+    if (!match) continue;
+
+    const offerBySlug = new Map(
+      match.offers.map((offer) => [offer.productSlug, offer]),
+    );
+    const products = [target, companion].flatMap((product) => {
+      const offer = offerBySlug.get(product.slug);
+      if (!offer) return [];
+      return [
+        {
+          slug: product.slug,
+          brand: product.brand,
+          name: product.name,
+          size: product.size,
+          image: product.image,
+          priceLabel: priceFormatter.format(offer.priceNgn),
+        },
+      ];
+    });
+    if (products.length !== 2) continue;
+
+    return {
+      order,
+      bundle: {
+        label: `One-store example · ${match.retailer}`,
+        detail: `${products.length} exact products · ${priceFormatter.format(match.combinedTotal)} listed product total. Delivery and service fee are checked in the quote.`,
+        products,
+        retailer: match.retailer,
+      },
+    };
+  }
+
+  return { order };
 }

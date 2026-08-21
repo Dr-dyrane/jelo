@@ -24,9 +24,12 @@ test("bundle route reuses public product cards and the catalogue search ranker",
   assert.match(results, /priceLabel: formatNaira\.format\(offer\.priceNgn\)/);
   assert.match(client, /role="status" aria-live="polite"/);
   assert.match(client, /Clear selection/);
-  assert.match(client, /<details className=\{styles\.explainer\}>/);
-  assert.match(client, /<summary>How Bundle Finder works<\/summary>/);
+  assert.match(picker, /<span>01<\/span> Products/);
+  assert.match(client, /<span>02<\/span> One-retailer baskets/);
+  assert.match(results, /<span>03<\/span>[\s\S]*Request[\s\S]*quote/);
+  assert.doesNotMatch(client, /<details|How Bundle Finder works/);
   assert.doesNotMatch(page, /<ol className=\{styles\.steps\}/);
+  assert.match(page, /See the real one-retailer baskets available/);
 });
 
 test("bundle copy stays within verified product-price evidence", async () => {
@@ -34,12 +37,21 @@ test("bundle copy stays within verified product-price evidence", async () => {
     source("app/(site)/bundle/page.tsx"),
     source("components/commerce/bundle-finder-client.tsx"),
     source("components/commerce/bundle-results.tsx"),
+    source("lib/og/social-card.tsx"),
   ]);
   const ui = files.join("\n");
 
   assert.match(ui, /Exact listed prices only/);
   assert.match(ui, /Product totals exclude delivery/);
   assert.match(ui, /Prices may change/);
+  assert.match(ui, /Review details, then request a verified quote/);
+  assert.match(ui, /Continue with \{bundle\.retailer\}/);
+  assert.match(ui, /bundle\.allInStock \? \(/);
+  assert.match(ui, /Availability changed/);
+  assert.match(ui, /cannot continue as one basket right now/);
+  assert.match(ui, /basket\.replace/);
+  assert.match(ui, /CHECKOUT_RETAILER_STORAGE_KEY/);
+  assert.match(ui, /router\.push\("\/checkout"\)/);
   assert.doesNotMatch(ui, /save on delivery fees/i);
   assert.doesNotMatch(ui, /one shipment/i);
   assert.doesNotMatch(ui, /cheapest combined/i);
@@ -73,7 +85,8 @@ test("bundle route styles are locally owned", async () => {
     styles,
     /@media \(max-width: 640px\)[\s\S]*?\.hero\s*\{[\s\S]*?padding:\s*1\.8rem 1rem 1\.6rem;/,
   );
-  assert.match(styles, /\.explainer\s*\{/);
+  assert.match(styles, /\.stageLabel\s*\{/);
+  assert.doesNotMatch(styles, /\.explainer\s*\{/);
   assert.doesNotMatch(
     globalCss,
     /\.bundle-(?:page|hero|finder|picker|row|empty)/,

@@ -110,12 +110,41 @@ function BundleRow({
         })}
       </div>
       <footer className={styles.procurementFooter}>
-        <p><ShoppingBag size={17} aria-hidden="true" /> Request this exact basket from one retailer.</p>
-        <button type="button" onClick={() => {
-          basket.replace(bundle.offers.map(offer => ({ slug: offer.productSlug, quantity: 1 })));
-          localStorage.setItem(CHECKOUT_RETAILER_STORAGE_KEY, bundle.retailer);
-          router.push('/checkout');
-        }}>Checkout with {bundle.retailer} <ArrowRight size={17} aria-hidden="true" /></button>
+        {bundle.allInStock ? (
+          <>
+            <div className={styles.handoffCopy}>
+              <p className={styles.stageLabel}>
+                <span>03</span> <ShoppingBag size={17} aria-hidden="true" />
+                Request quote
+              </p>
+              <p>Review details, then request a verified quote.</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                basket.replace(
+                  bundle.offers.map((offer) => ({
+                    slug: offer.productSlug,
+                    quantity: 1,
+                  })),
+                );
+                localStorage.setItem(
+                  CHECKOUT_RETAILER_STORAGE_KEY,
+                  bundle.retailer,
+                );
+                router.push("/checkout");
+              }}
+            >
+              Continue with {bundle.retailer}{" "}
+              <ArrowRight size={17} aria-hidden="true" />
+            </button>
+          </>
+        ) : (
+          <div className={styles.handoffCopy} role="note">
+            <p className={styles.unavailableLabel}>Availability changed</p>
+            <p>This retailer cannot continue as one basket right now.</p>
+          </div>
+        )}
       </footer>
     </article>
   );

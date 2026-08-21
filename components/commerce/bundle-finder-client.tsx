@@ -118,30 +118,14 @@ export function BundleFinderClient({
         />
       </div>
 
-      <details className={styles.explainer}>
-        <summary>How Bundle Finder works</summary>
-        <ol className={styles.steps}>
-          <li>
-            <span>01</span>
-            <strong>Choose products</strong>
-          </li>
-          <li>
-            <span>02</span>
-            <strong>Compare one retailer</strong>
-          </li>
-          <li>
-            <span>03</span>
-            <strong>Open exact listings</strong>
-          </li>
-        </ol>
-      </details>
-
       {hasEnoughProducts ? (
         initialResult.bundles.length > 0 ? (
           <>
             <div className={styles.resultsHeading}>
               <div>
-                <p className="eyebrow">Retailer matches</p>
+                <p className={styles.stageLabel}>
+                  <span>02</span> One-retailer baskets
+                </p>
                 <h2>
                   {initialResult.bundles.length} retailer
                   {initialResult.bundles.length === 1 ? "" : "s"} list every

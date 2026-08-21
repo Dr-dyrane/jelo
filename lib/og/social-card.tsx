@@ -5,7 +5,7 @@ import { products } from "@/data/catalogue";
 import { concernBySlug } from "@/data/knowledge";
 import { ingredientSeedBySlug } from "@/data/product-ingredients";
 import type { Product } from "@/data/products";
-import { OG_SIZE } from "@/lib/og/assets";
+import { OG_SIZE } from "@/lib/og/constants";
 
 export const SITE_ORIGIN = "https://www.jelocare.com";
 
@@ -194,14 +194,14 @@ const staticCards = {
   bundle: {
     request: { kind: "bundle" },
     eyebrow: "Bundle Finder · JeloCare",
-    title: "Buy together, save on delivery.",
+    title: "One basket. One retailer.",
     description:
-      "Find stores that stock all your products so you can buy them in one shipment.",
-    detail: "One shipment. One delivery fee.",
+      "Choose 2–4 products and compare stores with exact listings for every item.",
+    detail: "Exact listings. Verified quote before payment.",
     metaTitle: "Bundle Finder",
     metaDescription:
-      "Find stores where you can buy multiple skincare products together in one shipment and save on delivery fees.",
-    alt: "JeloCare Bundle Finder — buy multiple products in one shipment",
+      "Choose 2–4 products and compare one-retailer baskets before requesting a verified quote.",
+    alt: "JeloCare Bundle Finder — one exact basket from one retailer",
     theme: "light",
   },
 } satisfies Partial<Record<SocialCardKind, SocialCardModel>>;

@@ -1,11 +1,5 @@
 export type LagosJourneyIcon =
-  | "browse"
-  | "retailer"
-  | "quote"
-  | "payment"
-  | "delivery"
-  | "products"
-  | "listings";
+  "browse" | "retailer" | "quote" | "payment" | "delivery" | "products";
 
 export type LagosJourney = {
   id: "order" | "bundle";
@@ -35,8 +29,9 @@ export const lagosCommerceJourneys = [
     steps: [
       {
         icon: "browse",
-        title: "Browse exact products",
-        description: "Start with a product and its current Nigerian listings.",
+        title: "Open an exact product",
+        description:
+          "Start on the real product page and see its listed stores.",
       },
       {
         icon: "retailer",
@@ -44,19 +39,19 @@ export const lagosCommerceJourneys = [
         description: "Every item in the order stays with the same store.",
       },
       {
+        icon: "products",
+        title: "Keep shopping that store",
+        description: "Add other exact items without splitting the basket.",
+      },
+      {
         icon: "quote",
-        title: "Request a verified quote",
-        description: "Products, fees and delivery are checked together.",
+        title: "Review and request quote",
+        description: "Products, delivery and service fee are shown together.",
       },
       {
         icon: "payment",
-        title: "Approve, then pay",
-        description: "Nothing proceeds until you approve the complete quote.",
-      },
-      {
-        icon: "delivery",
-        title: "Track delivery",
-        description: "Follow procurement, dispatch and delivery in one order.",
+        title: "Approve, pay and track",
+        description: "Approve first, then follow the order through delivery.",
       },
     ],
   },
@@ -72,18 +67,30 @@ export const lagosCommerceJourneys = [
     steps: [
       {
         icon: "products",
-        title: "Choose products",
+        title: "Choose 2–4 products",
         description: "Add two to four exact catalogue products.",
       },
       {
         icon: "retailer",
-        title: "Compare one retailer",
-        description: "See stores that list every selected item.",
+        title: "See common retailers",
+        description: "Only stores listing every selected item appear.",
       },
       {
-        icon: "listings",
-        title: "Open exact listings",
-        description: "Check the current product pages before you continue.",
+        icon: "retailer",
+        title: "Choose one exact basket",
+        description:
+          "Compare the real products and listed total store by store.",
+      },
+      {
+        icon: "quote",
+        title: "Request a verified quote",
+        description:
+          "Review delivery and service fee before anything proceeds.",
+      },
+      {
+        icon: "payment",
+        title: "Approve, pay and track",
+        description: "Approve first, then follow the order through delivery.",
       },
     ],
   },

@@ -71,6 +71,9 @@ export function BundleProductPicker({
 
   return (
     <div className={styles.picker}>
+      <p className={styles.stageLabel}>
+        <span>01</span> Products
+      </p>
       <label className={styles.searchLabel} htmlFor="bundle-product-search">
         Find a product
       </label>

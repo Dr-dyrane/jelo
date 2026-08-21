@@ -37,81 +37,6 @@
   line-height: 1.7;
 }
 
-.explainer {
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 1.25rem;
-  background: var(--paper);
-}
-
-.explainer summary {
-  min-height: 2.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  color: var(--ink);
-  font-size: 0.78rem;
-  font-weight: 650;
-  cursor: pointer;
-  list-style: none;
-}
-
-.explainer summary::-webkit-details-marker {
-  display: none;
-}
-
-.explainer summary:focus-visible {
-  border-radius: 0.7rem;
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 3px;
-}
-
-.explainer summary::after {
-  content: "+";
-  color: var(--wine);
-  font-size: 1.2rem;
-  font-weight: 400;
-}
-
-.explainer[open] summary::after {
-  content: "−";
-}
-
-.steps {
-  margin: 0;
-  padding: 0.75rem 0 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.55rem;
-  list-style: none;
-}
-
-.steps li {
-  min-height: 5.8rem;
-  padding: 1rem 1.15rem;
-  display: grid;
-  grid-template-columns: 2.4rem minmax(0, 1fr);
-  gap: 0.8rem;
-  align-items: end;
-  border-radius: 1.35rem;
-  background: color-mix(in srgb, var(--paper) 62%, transparent);
-}
-
-.steps span {
-  color: var(--wine);
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-}
-
-.steps strong {
-  font-family: var(--font-display), serif;
-  font-size: clamp(1.45rem, 2.4vw, 2.2rem);
-  font-weight: 400;
-  line-height: 1;
-}
-
 .workspace {
   min-width: 0;
   padding: clamp(2rem, 3vw, 3.25rem) 4vw clamp(6rem, 10vw, 10rem);
@@ -168,6 +93,24 @@
   padding: clamp(1rem, 2vw, 1.5rem);
   border-radius: 1.9rem;
   background: var(--surface-2);
+}
+
+.stageLabel {
+  margin: 0 0 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.stageLabel span {
+  color: var(--wine);
+  font-variant-numeric: tabular-nums;
 }
 
 .searchLabel {
@@ -374,6 +317,10 @@
   margin-top: clamp(5rem, 9vw, 9rem);
 }
 
+.resultsHeading .stageLabel {
+  margin-bottom: 0;
+}
+
 .resultsHeading h2 {
   max-width: 12ch;
   font-size: clamp(3.5rem, 6vw, 6rem);
@@ -527,17 +474,6 @@
     font-size: clamp(3.7rem, 18vw, 5rem);
   }
 
-  .steps li {
-    min-height: 7rem;
-    padding: 0.75rem;
-    grid-template-columns: 1fr;
-    align-content: space-between;
-  }
-
-  .steps strong {
-    font-size: 1.25rem;
-  }
-
   .workspace {
     padding: 2rem 1rem 6rem;
   }
@@ -606,11 +542,24 @@
   gap: 1rem;
 }
 
-.procurementFooter p {
+.handoffCopy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.handoffCopy .stageLabel {
   margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
+  color: var(--ink);
+}
+
+.unavailableLabel {
+  margin: 0;
+  color: var(--wine);
+  font-weight: 650;
+}
+
+.handoffCopy > p:last-child {
+  margin: 0;
   color: var(--muted);
   font-size: 0.78rem;
 }

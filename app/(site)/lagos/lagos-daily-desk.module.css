@@ -581,6 +581,49 @@
   font: inherit;
 }
 
+.journeyExample {
+  padding: clamp(0.85rem, 2vw, 1.25rem);
+  display: grid;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--paper) 54%, transparent);
+}
+
+.journeyExampleCopy {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.journeyExampleCopy p,
+.journeyExampleCopy span {
+  margin: 0;
+}
+
+.journeyExampleCopy p {
+  color: var(--wine);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.journeyExampleCopy span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.journeyProducts {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.singleProduct {
+  grid-template-columns: minmax(0, 18rem);
+}
+
 .journeyList {
   margin: 0;
   padding: clamp(0.85rem, 2vw, 1.25rem);
@@ -671,5 +714,10 @@
     width: 2.75rem;
     height: 2.75rem;
     border-radius: 0.9rem;
+  }
+
+  .journeyProducts,
+  .singleProduct {
+    grid-template-columns: 1fr;
   }
 }
