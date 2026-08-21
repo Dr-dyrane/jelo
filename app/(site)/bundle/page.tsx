@@ -66,20 +66,6 @@ export default async function BundlePage({
             listing for every item.
           </p>
         </div>
-        <ol className={styles.steps} aria-label="How Bundle Finder works">
-          <li>
-            <span>01</span>
-            <strong>Choose products</strong>
-          </li>
-          <li>
-            <span>02</span>
-            <strong>Compare one retailer</strong>
-          </li>
-          <li>
-            <span>03</span>
-            <strong>Open exact listings</strong>
-          </li>
-        </ol>
       </section>
 
       <section

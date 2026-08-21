@@ -1,11 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Download } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+  ArrowRight,
+  Download,
+  ExternalLink,
+  PackageCheck,
+  ReceiptText,
+  Search,
+  ShoppingBasket,
+  Store,
+  WalletCards,
+} from "lucide-react";
 import { DailyDeskMeasurement } from "@/components/campaigns/daily-desk-measurement";
 import { getDailyDeskReadModel } from "@/lib/campaigns/daily-desk";
 import { concernsLinkedToProduct } from "@/lib/clinical/concern-product-links";
 import { publicSocialMetadata, staticSocialCard } from "@/lib/og/social-card";
-import { OrderPhoneMockup, BundlePhoneMockup } from "./iphone-mockup";
+import {
+  lagosCommerceJourneys,
+  type LagosJourney,
+  type LagosJourneyIcon,
+} from "./lagos-journeys";
 import styles from "./lagos-daily-desk.module.css";
 
 export const revalidate = 300;
@@ -31,6 +46,16 @@ const checkedFormatter = new Intl.DateTimeFormat("en-NG", {
   hour12: false,
   timeZoneName: "short",
 });
+
+const journeyIcons: Record<LagosJourneyIcon, LucideIcon> = {
+  browse: Search,
+  retailer: Store,
+  quote: ReceiptText,
+  payment: WalletCards,
+  delivery: PackageCheck,
+  products: ShoppingBasket,
+  listings: ExternalLink,
+};
 
 function displayDate(date: string) {
   return dateFormatter.format(new Date(`${date}T12:00:00+01:00`));
@@ -118,42 +143,57 @@ export default async function LagosDailyDeskPage() {
       {/* 02 — Concern guides (full-bleed header + edge-to-edge rail) */}
       <ConcernSection productSlug={desk.product.slug} />
 
-      {/* 03 — How to order (padded) */}
-      <section className={styles.section}>
-        <div className={styles.guideCopy}>
-          <p className={styles.kicker}>How to order</p>
-          <h2 className={styles.guideHeading}>Four steps.</h2>
-          <p className={styles.guideIntro}>
-            Find a product. Add it to your basket. Request a quote. Pay
-            securely. We handle procurement and delivery.
-          </p>
-          <div className={styles.guideActions}>
-            <Link href="/order" className={styles.guideCta}>
-              Start an order <ArrowRight size={15} aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-        <OrderPhoneMockup />
-      </section>
-
-      {/* 04 — How to bundle (padded) */}
-      <section className={styles.section}>
-        <div className={styles.guideCopy}>
-          <p className={styles.kicker}>How to bundle</p>
-          <h2 className={styles.guideHeading}>One routine.</h2>
-          <p className={styles.guideIntro}>
-            Pick products from different retailers. Build a compatible bundle.
-            Get a single quote for everything. One payment, one delivery.
-          </p>
-          <div className={styles.guideActions}>
-            <Link href="/bundle" className={styles.guideCta}>
-              Build a bundle <ArrowRight size={15} aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-        <BundlePhoneMockup />
-      </section>
+      {lagosCommerceJourneys.map((journey) => (
+        <CommerceJourney key={journey.id} journey={journey} />
+      ))}
     </main>
+  );
+}
+
+function CommerceJourney({ journey }: { journey: LagosJourney }) {
+  return (
+    <section className={styles.section} aria-labelledby={`${journey.id}-title`}>
+      <div className={styles.guideCopy}>
+        <p className={styles.kicker}>{journey.eyebrow}</p>
+        <h2 className={styles.guideHeading} id={`${journey.id}-title`}>
+          {journey.heading}
+        </h2>
+        <p className={styles.guideIntro}>{journey.intro}</p>
+        <div className={styles.guideActions}>
+          <Link href={journey.href} className={styles.guideCta}>
+            {journey.cta} <ArrowRight size={15} aria-hidden="true" />
+          </Link>
+        </div>
+      </div>
+
+      <div className={styles.journeyPreview}>
+        <div className={styles.journeyBar} aria-hidden="true">
+          <span />
+          <span>{journey.previewLabel}</span>
+          <small>{journey.steps.length} steps</small>
+        </div>
+        <ol
+          className={styles.journeyList}
+          aria-label={`${journey.previewLabel} steps`}
+        >
+          {journey.steps.map((step, index) => {
+            const Icon = journeyIcons[step.icon];
+            return (
+              <li className={styles.journeyStep} key={step.title}>
+                <span className={styles.journeyIcon}>
+                  <Icon size={19} strokeWidth={1.7} aria-hidden="true" />
+                </span>
+                <span className={styles.journeyStepCopy}>
+                  <small>{String(index + 1).padStart(2, "0")}</small>
+                  <strong>{step.title}</strong>
+                  <span>{step.description}</span>
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </section>
   );
 }
 

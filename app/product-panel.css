@@ -337,16 +337,22 @@
   .product-page {
     padding-bottom: 5.8rem;
   }
+  .product-quick-action-region {
+    min-height: 3.84rem;
+    margin: 0.8rem 0 1.6rem;
+  }
   .product-quick-actions {
-    position: fixed;
-    z-index: 42;
-    inset: auto 1rem calc(0.7rem + env(safe-area-inset-bottom));
     margin: 0;
     padding: 0.42rem;
     border-radius: 999px;
     background: rgba(255, 250, 246, 0.72);
     box-shadow: 0 18px 55px rgba(45, 33, 31, 0.2);
     backdrop-filter: blur(24px) saturate(145%);
+  }
+  .product-quick-actions[data-floating="true"] {
+    position: fixed;
+    z-index: 42;
+    inset: auto 1rem calc(0.7rem + env(safe-area-inset-bottom));
   }
   .product-quick-actions button {
     min-width: 0;

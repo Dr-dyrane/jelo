@@ -4,11 +4,7 @@
 }
 
 .hero {
-  padding: clamp(5rem, 9vw, 8rem) 4vw clamp(3.5rem, 6vw, 5.5rem);
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(22rem, 0.8fr);
-  gap: clamp(3rem, 7vw, 8rem);
-  align-items: end;
+  padding: clamp(2rem, 3vw, 3.5rem) 4vw clamp(2rem, 3vw, 3rem);
   background:
     radial-gradient(
       circle at 84% 18%,
@@ -25,9 +21,9 @@
 
 .heroCopy h1 {
   max-width: 9ch;
-  margin: 0.9rem 0 1.5rem;
+  margin: 0.8rem 0 1.15rem;
   font-family: var(--font-display), serif;
-  font-size: clamp(5.5rem, 11vw, 11rem);
+  font-size: clamp(5rem, 9vw, 9rem);
   font-weight: 400;
   line-height: 0.76;
   letter-spacing: -0.055em;
@@ -41,10 +37,53 @@
   line-height: 1.7;
 }
 
+.explainer {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: var(--paper);
+}
+
+.explainer summary {
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 650;
+  cursor: pointer;
+  list-style: none;
+}
+
+.explainer summary::-webkit-details-marker {
+  display: none;
+}
+
+.explainer summary:focus-visible {
+  border-radius: 0.7rem;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.explainer summary::after {
+  content: "+";
+  color: var(--wine);
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.explainer[open] summary::after {
+  content: "−";
+}
+
 .steps {
   margin: 0;
-  padding: 0;
+  padding: 0.75rem 0 0;
   display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.55rem;
   list-style: none;
 }
@@ -75,7 +114,7 @@
 
 .workspace {
   min-width: 0;
-  padding: clamp(4.5rem, 8vw, 8rem) 4vw clamp(6rem, 10vw, 10rem);
+  padding: clamp(2rem, 3vw, 3.25rem) 4vw clamp(6rem, 10vw, 10rem);
   overflow: hidden;
   background: var(--paper);
 }
@@ -115,7 +154,7 @@
 
 .finder {
   min-width: 0;
-  margin-top: clamp(2.5rem, 5vw, 5rem);
+  margin-top: clamp(1.25rem, 2vw, 2rem);
 }
 
 .pickerSection {
@@ -474,10 +513,6 @@
 }
 
 @media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
-
   .heroCopy h1 {
     max-width: 12ch;
   }
@@ -485,15 +520,11 @@
 
 @media (max-width: 640px) {
   .hero {
-    padding: 5.5rem 1rem 3rem;
+    padding: 1.8rem 1rem 1.6rem;
   }
 
   .heroCopy h1 {
-    font-size: clamp(4.8rem, 23vw, 7rem);
-  }
-
-  .steps {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    font-size: clamp(3.7rem, 18vw, 5rem);
   }
 
   .steps li {
@@ -508,7 +539,7 @@
   }
 
   .workspace {
-    padding: 4.5rem 1rem 6rem;
+    padding: 2rem 1rem 6rem;
   }
 
   .sectionHeading,
@@ -519,7 +550,7 @@
 
   .sectionHeading h2,
   .resultsHeading h2 {
-    font-size: clamp(3.6rem, 18vw, 5rem);
+    font-size: clamp(2.9rem, 14vw, 4.2rem);
   }
 
   .sectionHeading > p,
@@ -579,9 +610,9 @@
   margin: 0;
   display: flex;
   align-items: center;
-  gap: .45rem;
+  gap: 0.45rem;
   color: var(--muted);
-  font-size: .78rem;
+  font-size: 0.78rem;
 }
 
 .procurementFooter button {
@@ -589,17 +620,22 @@
   padding: 0 1rem;
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
   border: 0;
   border-radius: 999px;
   background: var(--ink);
   color: var(--paper);
   font: inherit;
-  font-size: .8rem;
+  font-size: 0.8rem;
   cursor: pointer;
 }
 
 @media (max-width: 680px) {
-  .procurementFooter { align-items: stretch; flex-direction: column; }
-  .procurementFooter button { justify-content: center; }
+  .procurementFooter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .procurementFooter button {
+    justify-content: center;
+  }
 }

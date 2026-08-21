@@ -6,17 +6,18 @@ Shareable cards let a reader pass on a specific piece of JeloCare — a product'
 
 ## Surfaces
 
-| Route | Shows | Data |
-| --- | --- | --- |
-| `/share` | "Worth sharing" index: price gaps, recent drops, guide topics | `lib/share/worth-sharing.ts` + `modules/commerce/share-insights.ts` |
-| `/share/[slug]` | A product's observed Nigerian prices (lowest, spread, offers) | `app/share/[slug]/share-data.ts` (`buildShareData`) |
-| `/share/ingredient/[slug]` | A source-checked ingredient card | `data/product-ingredients.ts` (`ingredientSeedBySlug`) |
+| Route                      | Shows                                                         | Data                                                                |
+| -------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `/share`                   | "Worth sharing" index: price gaps, recent drops, guide topics | `lib/share/worth-sharing.ts` + `modules/commerce/share-insights.ts` |
+| `/share/[slug]`            | A product's observed Nigerian prices (lowest, spread, offers) | `app/share/[slug]/share-data.ts` (`buildShareData`)                 |
+| `/share/ingredient/[slug]` | A source-checked ingredient card                              | `data/product-ingredients.ts` (`ingredientSeedBySlug`)              |
+| `/share/concern/[slug]`    | A downloadable, source-reviewed concern guide story           | `data/knowledge.ts` + reviewed concern-product links                |
 
 Products, prices, and ingredients ship; **routines** are the remaining imagined card.
 
 ## The shareable gate
 
-A product can make a price card only when it has an offer that `summarizeMarket` would count as *priced*: exact (not a search result), NG, in stock, evidence-bound, fresh, and comparison-eligible (not `priceComparison: 'exclude'`). This single predicate — `isShareableNgOffer` / `hasShareableNgOffer` in `modules/commerce/shareable-offer.ts`, gating on `comparableMarketPrice` — is shared by `buildShareData`, the share index, the product panel's Share affordance, and the OG `generateStaticParams`. Because it is one gate, a share card's lowest and spread always agree with the product page, and a marketplace price the catalogue excluded never surfaces as the "lowest".
+A product can make a price card only when it has an offer that `summarizeMarket` would count as _priced_: exact (not a search result), NG, in stock, evidence-bound, fresh, and comparison-eligible (not `priceComparison: 'exclude'`). This single predicate — `isShareableNgOffer` / `hasShareableNgOffer` in `modules/commerce/shareable-offer.ts`, gating on `comparableMarketPrice` — is shared by `buildShareData`, the share index, the product panel's Share affordance, and the OG `generateStaticParams`. Because it is one gate, a share card's lowest and spread always agree with the product page, and a marketplace price the catalogue excluded never surfaces as the "lowest".
 
 Price movement has a second, stricter binding. Every trend snapshot carries the rendered market, retailer, URL, price, currency, observation time, observed variant, and observed size. History is admitted only when the current database offer and the latest history endpoint match that complete snapshot. A static/Neon mismatch, partial refresh, sibling SKU, duplicate store series, or changed listing therefore hides the arrow instead of pairing movement with the wrong displayed price.
 
@@ -39,3 +40,6 @@ Private `/me` and `/ops` layouts are explicit noindex/no-store boundaries and se
 - Never invent a number or a claim. Price cards carry "Prices change. A listing is not proof it is genuine."; ingredient and concern cards carry "education, not a diagnosis".
 - The `/share` index ranks by evidence-bound facts, never popularity or clicks. Recent drops lead the queue and rank by percentage movement, then distinct-retailer evidence, freshness and naira impact. A 30-day window is preferred only when it passes the public evidence threshold; otherwise a valid seven-day window may lead. The visible signal stays compact (`↓ 8% · 30d`); unsupported or flat movement stays quiet.
 - Concern (health-shaped) topics stay a separate lane from the commercial cards.
+- Concern story summaries and reviewed signal/guidance cues render at story-safe
+  type sizes in one naturally flowing stack. The renderer wraps complete cue
+  text instead of truncating it or placing fixed rows on top of each other.

@@ -26,8 +26,8 @@ function JeloCareMark() {
         alignItems: "baseline",
         color: "#fffaf4",
         fontFamily: "Manrope",
-        fontSize: 40,
-        letterSpacing: "-1.6px",
+        fontSize: 44,
+        letterSpacing: "-1.8px",
       }}
     >
       <span style={{ fontWeight: 600 }}>Jelo</span>
@@ -38,8 +38,8 @@ function JeloCareMark() {
 
 function Chip({
   children,
-  color = "rgba(255,250,244,.84)",
-  background = "rgba(255,255,255,.08)",
+  color = "rgba(255,250,244,.96)",
+  background = "rgba(255,255,255,.12)",
 }: {
   children: string;
   color?: string;
@@ -50,14 +50,17 @@ function Chip({
       style={{
         display: "flex",
         alignItems: "center",
-        padding: "8px 18px",
+        justifyContent: "center",
+        maxWidth: "100%",
+        padding: "11px 22px",
         borderRadius: 999,
         background,
         color,
         fontFamily: "Manrope",
-        fontSize: 20,
-        fontWeight: 400,
-        whiteSpace: "nowrap",
+        fontSize: 28,
+        fontWeight: 500,
+        lineHeight: 1.25,
+        textAlign: "center",
       }}
     >
       {children}
@@ -143,7 +146,7 @@ function ProductCarousel({ products }: { products: StoryProduct[] }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            opacity: 0.5,
+            opacity: 0.64,
           }}
         >
           {left.image ? (
@@ -174,7 +177,7 @@ function ProductCarousel({ products }: { products: StoryProduct[] }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            opacity: 0.5,
+            opacity: 0.64,
           }}
         >
           {right.image ? (
@@ -236,12 +239,14 @@ function ConcernStory({
 }) {
   const topSignals = concern.signals.slice(0, 3);
   const topIngredients = concern.ingredients.slice(0, 3);
+  const titleSize =
+    concern.name.length > 32 ? 70 : concern.name.length > 22 ? 78 : 88;
 
   return (
     <div
       style={{
-        width: "100%",
-        height: "100%",
+        width: CAMPAIGN_STORY_SIZE.width,
+        height: CAMPAIGN_STORY_SIZE.height,
         position: "relative",
         display: "flex",
         overflow: "hidden",
@@ -254,9 +259,9 @@ function ConcernStory({
       <div
         style={{
           position: "absolute",
-          left: 120,
-          right: 120,
-          top: 180,
+          left: 100,
+          right: 100,
+          top: 160,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -266,23 +271,23 @@ function ConcernStory({
         <span
           style={{
             fontFamily: "Manrope",
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: 600,
             letterSpacing: "2.8px",
             textTransform: "uppercase",
-            color: "rgba(255,250,244,.64)",
+            color: "rgba(255,250,244,.82)",
           }}
         >
           {concern.area} guide
         </span>
       </div>
 
-      {/* Headline — compact, ad-style */}
+      {/* Headline and evidence cues flow together so long, reviewed copy never overlaps. */}
       <div
         style={{
           position: "absolute",
-          left: 120,
-          right: 120,
+          left: 100,
+          right: 100,
           top: 290,
           display: "flex",
           flexDirection: "column",
@@ -293,7 +298,7 @@ function ConcernStory({
         <span
           style={{
             fontFamily: "Italiana",
-            fontSize: 80,
+            fontSize: titleSize,
             fontWeight: 400,
             color: "#fffaf4",
             lineHeight: 1.05,
@@ -303,59 +308,60 @@ function ConcernStory({
         </span>
         <span
           style={{
-            marginTop: 14,
+            marginTop: 18,
+            maxWidth: 820,
             fontFamily: "Manrope",
-            fontSize: 24,
-            color: "rgba(255,250,244,.72)",
-            lineHeight: 1.35,
+            fontSize: 32,
+            color: "rgba(255,250,244,.86)",
+            lineHeight: 1.4,
           }}
         >
           {concern.summary}
         </span>
-      </div>
-
-      {/* Signal chips — compact row */}
-      <div
-        style={{
-          position: "absolute",
-          left: 120,
-          right: 120,
-          top: 540,
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 8,
-          justifyContent: "center",
-        }}
-      >
-        {topSignals.map((signal) => (
-          <Chip key={signal}>{signal}</Chip>
-        ))}
-      </div>
-
-      {/* Ingredient chips — compact row, orange */}
-      <div
-        style={{
-          position: "absolute",
-          left: 120,
-          right: 120,
-          top: 640,
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 8,
-          justifyContent: "center",
-        }}
-      >
-        {topIngredients.map((ingredient) => (
-          <Chip
-            key={ingredient}
-            color="#ff9a4a"
-            background="rgba(255,117,35,.12)"
+        <div
+          style={{
+            width: "100%",
+            marginTop: 48,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 18,
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 12,
+              justifyContent: "center",
+            }}
           >
-            {ingredient.length > 36
-              ? `${ingredient.slice(0, 34)}…`
-              : ingredient}
-          </Chip>
-        ))}
+            {topSignals.map((signal) => (
+              <Chip key={signal}>{signal}</Chip>
+            ))}
+          </div>
+
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 12,
+              justifyContent: "center",
+            }}
+          >
+            {topIngredients.map((ingredient) => (
+              <Chip
+                key={ingredient}
+                color="#ffae68"
+                background="rgba(255,117,35,.18)"
+              >
+                {ingredient}
+              </Chip>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Product carousel — the visual hero */}
@@ -365,15 +371,18 @@ function ConcernStory({
       <div
         style={{
           position: "absolute",
-          left: 120,
-          right: 120,
-          bottom: 100,
+          left: 100,
+          right: 100,
+          bottom: 82,
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-between",
-          color: "rgba(255,250,244,.52)",
+          gap: 8,
+          color: "rgba(255,250,244,.72)",
           fontFamily: "Manrope",
-          fontSize: 20,
+          fontSize: 22,
+          lineHeight: 1.35,
+          textAlign: "center",
         }}
       >
         <span>jelocare.com/concerns/{concern.slug}</span>

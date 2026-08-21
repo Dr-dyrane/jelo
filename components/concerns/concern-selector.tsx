@@ -24,6 +24,12 @@ import type { Concern } from "@/data/knowledge";
 import type { Product } from "@/data/products";
 import { ProductCard } from "@/components/products/product-card";
 import {
+  buildConcernDirectory,
+  concernIsOutsideInitialDirectory,
+  INITIAL_CONCERN_DIRECTORY_COUNT,
+  type ConcernAreaFilter,
+} from "./concern-directory";
+import {
   isProductMatchConcern,
   rankProductsForConcerns,
   rankReviewedContextForConcerns,
@@ -65,26 +71,22 @@ export function ConcernSelector({
     previous: string[];
   } | null>(null);
   const [query, setQuery] = useState("");
-  const [area, setArea] = useState<"All" | Concern["area"]>("All");
+  const [area, setArea] = useState<ConcernAreaFilter>("All");
+  const [directoryExpanded, setDirectoryExpanded] = useState(false);
   const resultsRef = useRef<HTMLElement>(null);
 
-  const visibleConcerns = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
-    return concerns.filter((concern) => {
-      if (area !== "All" && concern.area !== area) return false;
-      if (!normalized) return true;
-      return [
-        concern.name,
-        concern.area,
-        concern.summary,
-        ...concern.signals,
-        ...concern.ingredients,
-      ]
-        .join(" ")
-        .toLowerCase()
-        .includes(normalized);
-    });
-  }, [area, concerns, query]);
+  const directory = useMemo(
+    () =>
+      buildConcernDirectory({
+        concerns,
+        query,
+        area,
+        expanded: directoryExpanded,
+        selectedSlugs: selected,
+      }),
+    [area, concerns, directoryExpanded, query, selected],
+  );
+  const { displayedConcerns, visibleConcerns } = directory;
 
   const careCleared = useMemo(
     () => rankProductsForConcerns(products, concerns, selected),
@@ -113,6 +115,9 @@ export function ConcernSelector({
   function toggle(slug: string) {
     const concern = concerns.find((item) => item.slug === slug);
     const active = selected.includes(slug);
+    if (concernIsOutsideInitialDirectory(concerns, slug)) {
+      setDirectoryExpanded(true);
+    }
     const next = active
       ? selected.filter((item) => item !== slug)
       : [...selected, slug];
@@ -184,25 +189,49 @@ export function ConcernSelector({
 
         <div className={styles.directoryStatus}>
           <p role="status" aria-live="polite">
-            <strong>{visibleConcerns.length}</strong>{" "}
-            {visibleConcerns.length === 1 ? "guide" : "guides"} shown
+            <strong>{displayedConcerns.length}</strong>
+            {displayedConcerns.length < visibleConcerns.length
+              ? ` of ${visibleConcerns.length}`
+              : ""}{" "}
+            {displayedConcerns.length === 1 ? "guide" : "guides"} shown
           </p>
-          {query || area !== "All" ? (
-            <button
-              type="button"
-              onClick={() => {
-                setQuery("");
-                setArea("All");
-              }}
-            >
-              Clear
-            </button>
-          ) : null}
+          <div className={styles.directoryStatusActions}>
+            {!query &&
+            area === "All" &&
+            !directory.hasHiddenSelection &&
+            visibleConcerns.length > INITIAL_CONCERN_DIRECTORY_COUNT ? (
+              <button
+                type="button"
+                aria-controls="concern-directory"
+                aria-expanded={directoryExpanded}
+                onClick={() => setDirectoryExpanded((current) => !current)}
+              >
+                {directoryExpanded
+                  ? `Show first ${INITIAL_CONCERN_DIRECTORY_COUNT}`
+                  : `Browse all ${visibleConcerns.length}`}
+              </button>
+            ) : null}
+            {query || area !== "All" ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery("");
+                  setArea("All");
+                }}
+              >
+                Clear
+              </button>
+            ) : null}
+          </div>
         </div>
 
-        {visibleConcerns.length ? (
-          <div className={styles.rail} aria-label="Select concerns">
-            {visibleConcerns.map((concern) => {
+        {displayedConcerns.length ? (
+          <div
+            className={styles.rail}
+            id="concern-directory"
+            aria-label="Select concerns"
+          >
+            {displayedConcerns.map((concern) => {
               const index = concerns.findIndex(
                 (item) => item.slug === concern.slug,
               );

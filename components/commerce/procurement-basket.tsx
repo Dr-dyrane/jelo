@@ -19,6 +19,7 @@ import { SafeProductImage } from "@/components/products/safe-product-image";
 import {
   chooseRetailerBasketOption,
   findRetailerBasketOptions,
+  type RetailerBasketOption,
 } from "@/lib/commerce/retailer-basket";
 import { useBasket } from "./basket-provider";
 import {
@@ -76,6 +77,7 @@ export function ProcurementBasket({
     [quantities, selectedProducts],
   );
   const [selectedRetailer, setSelectedRetailer] = useState("");
+  const [showMoreStores, setShowMoreStores] = useState(false);
 
   if (!basket.ready)
     return <div className={styles.loading}>Opening your basket…</div>;
@@ -96,6 +98,57 @@ export function ProcurementBasket({
   const preferredRetailer = selectedRetailer || storedRetailer;
   const chosen = chooseRetailerBasketOption(options, preferredRetailer);
   const retailer = chosen?.retailer ?? "";
+  const alternativeOptions = chosen
+    ? options.filter((option) => option.retailer !== chosen.retailer)
+    : options;
+  const visibleAlternatives = showMoreStores
+    ? alternativeOptions
+    : alternativeOptions.slice(0, 2);
+  const hiddenAlternativeCount =
+    alternativeOptions.length - visibleAlternatives.length;
+
+  function selectRetailer(option: RetailerBasketOption) {
+    setSelectedRetailer(option.retailer);
+    setShowMoreStores(false);
+    localStorage.setItem(CHECKOUT_RETAILER_STORAGE_KEY, option.retailer);
+  }
+
+  function retailerOption(option: RetailerBasketOption) {
+    const isSelected = retailer === option.retailer;
+    const isLowest = options[0]?.retailer === option.retailer;
+
+    return (
+      <label
+        key={option.retailer}
+        data-selected={isSelected ? "true" : "false"}
+      >
+        <input
+          type="radio"
+          name="retailer"
+          value={option.retailer}
+          checked={isSelected}
+          disabled={!option.allInStock}
+          onChange={() => selectRetailer(option)}
+        />
+        <span>
+          <strong>{option.retailer}</strong>
+          <small>
+            {option.allInStock
+              ? "All exact items listed in stock"
+              : "An item needs rechecking"}
+          </small>
+        </span>
+        <b>{naira.format(option.combinedTotal)}</b>
+        {isLowest ? <em>Lowest observed</em> : null}
+      </label>
+    );
+  }
+
+  function continueToCheckout() {
+    if (!chosen) return;
+    localStorage.setItem(CHECKOUT_RETAILER_STORAGE_KEY, chosen.retailer);
+    router.push("/checkout");
+  }
 
   return (
     <div className={styles.basketLayout}>
@@ -162,9 +215,11 @@ export function ProcurementBasket({
         aria-labelledby="retailer-choice-title"
       >
         <p className="eyebrow">One retailer</p>
-        <h2 id="retailer-choice-title">Choose where JeloCare checks.</h2>
+        <h2 id="retailer-choice-title">
+          {chosen ? `Continue with ${chosen.retailer}.` : "Choose one store."}
+        </h2>
         <p className={styles.muted}>
-          Observed totals — delivery and fees are verified after your address.
+          Delivery and fees are verified after your address.
         </p>
         {options.length ? (
           <>
@@ -174,42 +229,63 @@ export function ProcurementBasket({
                 <p>{preferredRetailer} no longer has every item in stock.</p>
               </div>
             ) : null}
-            <fieldset className={styles.retailerOptions}>
-              <legend className="sr-only">Choose one retailer</legend>
-              {options.map((option, index) => (
-                <label
-                  key={option.retailer}
-                  data-selected={
-                    retailer === option.retailer ? "true" : "false"
-                  }
+            {chosen ? (
+              <fieldset
+                className={`${styles.retailerOptions} ${styles.selectedRetailerOption}`}
+              >
+                <legend className="sr-only">Selected retailer</legend>
+                {retailerOption(chosen)}
+              </fieldset>
+            ) : null}
+
+            <button
+              type="button"
+              className={styles.primaryAction}
+              disabled={!chosen || !chosen.allInStock}
+              onClick={continueToCheckout}
+            >
+              Continue to checkout <ArrowRight size={17} aria-hidden="true" />
+            </button>
+
+            <div className={styles.assurance}>
+              <ShieldCheck size={19} aria-hidden="true" />
+              <p>
+                <strong>No payment now.</strong> Approve the verified quote
+                first.
+              </p>
+            </div>
+
+            {alternativeOptions.length ? (
+              <section
+                className={styles.alternativeStores}
+                aria-labelledby="alternative-stores-title"
+              >
+                <div className={styles.alternativeHeading}>
+                  <h3 id="alternative-stores-title">Other stores</h3>
+                  <span>{alternativeOptions.length}</span>
+                </div>
+                <fieldset
+                  className={styles.retailerOptions}
+                  id="basket-alternative-stores"
                 >
-                  <input
-                    type="radio"
-                    name="retailer"
-                    value={option.retailer}
-                    checked={retailer === option.retailer}
-                    disabled={!option.allInStock}
-                    onChange={() => {
-                      setSelectedRetailer(option.retailer);
-                      localStorage.setItem(
-                        CHECKOUT_RETAILER_STORAGE_KEY,
-                        option.retailer,
-                      );
-                    }}
-                  />
-                  <span>
-                    <strong>{option.retailer}</strong>
-                    <small>
-                      {option.allInStock
-                        ? "All exact items listed in stock"
-                        : "An item needs rechecking"}
-                    </small>
-                  </span>
-                  <b>{naira.format(option.combinedTotal)}</b>
-                  {index === 0 ? <em>Lowest observed</em> : null}
-                </label>
-              ))}
-            </fieldset>
+                  <legend className="sr-only">Choose another retailer</legend>
+                  {visibleAlternatives.map(retailerOption)}
+                </fieldset>
+                {hiddenAlternativeCount > 0 || showMoreStores ? (
+                  <button
+                    type="button"
+                    className={styles.moreStores}
+                    aria-expanded={showMoreStores}
+                    aria-controls="basket-alternative-stores"
+                    onClick={() => setShowMoreStores((visible) => !visible)}
+                  >
+                    {showMoreStores
+                      ? "Show fewer stores"
+                      : `More stores (${hiddenAlternativeCount})`}
+                  </button>
+                ) : null}
+              </section>
+            ) : null}
           </>
         ) : (
           <div className={styles.noMatch}>
@@ -219,28 +295,6 @@ export function ProcurementBasket({
             </p>
           </div>
         )}
-        <div className={styles.assurance}>
-          <ShieldCheck size={19} aria-hidden="true" />
-          <p>
-            <strong>No payment now.</strong> Approve one verified quote before
-            anything proceeds.
-          </p>
-        </div>
-        <button
-          type="button"
-          className={styles.primaryAction}
-          disabled={!chosen || !chosen.allInStock}
-          onClick={() => {
-            if (!chosen) return;
-            localStorage.setItem(
-              CHECKOUT_RETAILER_STORAGE_KEY,
-              chosen.retailer,
-            );
-            router.push("/checkout");
-          }}
-        >
-          Continue to checkout <ArrowRight size={17} aria-hidden="true" />
-        </button>
       </aside>
     </div>
   );

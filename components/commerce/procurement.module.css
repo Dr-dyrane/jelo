@@ -81,8 +81,8 @@
   gap: 0.5rem;
 }
 .quantity button {
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
   display: grid;
   place-items: center;
   border: 0;
@@ -139,8 +139,8 @@
   white-space: nowrap;
 }
 .retailerOptions em {
-  position: absolute;
-  inset: 0.45rem 0.55rem auto auto;
+  grid-column: 2 / -1;
+  justify-self: end;
   padding: 0.2rem 0.5rem;
   color: var(--ink);
   background: var(--rose);
@@ -150,7 +150,52 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   border-radius: 999px;
-  transform: translateY(-100%);
+}
+.selectedRetailerOption {
+  margin: 1rem 0 0.85rem;
+}
+.selectedRetailerOption label {
+  box-shadow: 0 1rem 2.6rem color-mix(in srgb, var(--ink) 12%, transparent);
+}
+.alternativeStores {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+}
+.alternativeHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.alternativeHeading h3 {
+  margin: 0;
+  font-size: 0.86rem;
+}
+.alternativeHeading span {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+.alternativeStores .retailerOptions {
+  margin: 0.8rem 0;
+}
+.moreStores {
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+.primaryAction:focus-visible,
+.moreStores:focus-visible,
+.quantity button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
 }
 .assurance {
   margin: 1.2rem 0;
@@ -491,6 +536,9 @@
   .checkoutSummary {
     position: static;
   }
+  .basketLayout .retailerChoice {
+    order: -1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -504,7 +552,16 @@
 
 @media (max-width: 620px) {
   .page {
-    padding-inline: 1rem;
+    padding: 4.25rem 1rem 5rem;
+  }
+  .pageHeader {
+    margin-bottom: 0.9rem;
+  }
+  .pageHeader > p {
+    display: none;
+  }
+  .pageHeader h1 {
+    font-size: 2.2rem;
   }
   .productGrid,
   .fieldGrid {

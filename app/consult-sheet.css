@@ -96,6 +96,7 @@
 }
 
 .prompt-row button:focus-visible,
+.consult-disclosure summary:focus-visible,
 .profile-trigger:focus-visible,
 .consult-form .consult-clear:focus-visible,
 .profile-head button:focus-visible,
@@ -266,6 +267,75 @@
   line-height: 1.5;
 }
 
+.consult-disclosure {
+  margin-top: 0.7rem;
+  overflow: hidden;
+  border-radius: 1.3rem;
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
+}
+
+.consult-disclosure summary {
+  min-height: 4.5rem;
+  padding: 0.9rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+}
+
+.consult-disclosure summary::-webkit-details-marker {
+  display: none;
+}
+
+.consult-disclosure summary > span:first-child {
+  min-width: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.consult-disclosure summary strong {
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.consult-disclosure summary small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.consult-disclosure-action {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--wine);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.consult-disclosure-action svg {
+  transition: transform 0.2s ease;
+}
+
+.consult-disclosure[open] .consult-disclosure-action svg {
+  transform: rotate(90deg);
+}
+
+.consult-disclosure .consult-empty {
+  padding: clamp(1.3rem, 3vw, 2.3rem) clamp(0.35rem, 2vw, 1.25rem) 1.4rem;
+}
+
+.consult-disclosure .consult-empty h2 {
+  font-size: clamp(2.35rem, 5vw, 4.25rem);
+}
+
 .consult-spinner {
   animation: consult-spin 0.8s linear infinite;
 }
@@ -278,7 +348,7 @@
 
 .profile-trigger {
   width: 100%;
-  margin: 1rem 0;
+  margin: 0.7rem 0 0;
   padding: 1rem 1.2rem;
   display: flex;
   align-items: center;
@@ -292,7 +362,7 @@
 }
 
 .member-consult-context {
-  margin: 1rem 0;
+  margin: 0 0.55rem 0.55rem;
   padding: clamp(1rem, 2.5vw, 1.35rem);
   border-radius: 1.5rem;
   background: color-mix(in srgb, var(--peach) 58%, var(--paper));
@@ -551,11 +621,17 @@
   }
 
   .consult-empty {
-    padding: 2.3rem 0.25rem 1.4rem;
+    padding: 1.4rem 0.25rem 1rem;
   }
 
   .consult-empty h2 {
-    font-size: clamp(2.45rem, 12vw, 3.8rem);
+    font-size: clamp(2.25rem, 10vw, 3.25rem);
+  }
+
+  .consult-disclosure summary,
+  .profile-trigger {
+    min-height: 4.25rem;
+    padding: 0.8rem 0.9rem;
   }
 
   .prompt-row {
@@ -640,6 +716,9 @@
   }
   .consult-spinner {
     animation: none;
+  }
+  .consult-disclosure-action svg {
+    transition: none;
   }
 }
 

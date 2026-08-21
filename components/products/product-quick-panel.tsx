@@ -394,8 +394,41 @@ export function ProductQuickPanelSheet({
 export function ProductQuickPanel(data: ProductPanelData) {
   const dialogId = useId();
   const openerRef = useRef<HTMLElement | null>(null);
+  const actionRegionRef = useRef<HTMLDivElement | null>(null);
   const [tab, setTab] = useState<ProductPanelTab>("buy");
   const [open, setOpen] = useState(false);
+  const [actionsFloating, setActionsFloating] = useState(false);
+
+  useEffect(() => {
+    const actionRegion = actionRegionRef.current;
+    if (!actionRegion || typeof IntersectionObserver === "undefined") return;
+
+    const mobileQuery = window.matchMedia("(max-width: 620px)");
+    let observer: IntersectionObserver | null = null;
+
+    const observeActionRegion = () => {
+      observer?.disconnect();
+      setActionsFloating(false);
+      if (!mobileQuery.matches) return;
+
+      observer = new IntersectionObserver(([entry]) => {
+        const viewportTop = entry.rootBounds?.top ?? 0;
+        setActionsFloating(
+          !entry.isIntersecting &&
+            entry.boundingClientRect.bottom <= viewportTop,
+        );
+      });
+      observer.observe(actionRegion);
+    };
+
+    observeActionRegion();
+    mobileQuery.addEventListener("change", observeActionRegion);
+
+    return () => {
+      observer?.disconnect();
+      mobileQuery.removeEventListener("change", observeActionRegion);
+    };
+  }, []);
 
   function openPanel(nextTab: ProductPanelTab, opener: HTMLButtonElement) {
     openerRef.current = opener;
@@ -405,25 +438,31 @@ export function ProductQuickPanel(data: ProductPanelData) {
 
   return (
     <>
-      <div className="product-quick-actions" aria-label="Product actions">
-        <button
-          type="button"
-          onClick={(event) => openPanel("buy", event.currentTarget)}
-          aria-haspopup="dialog"
-          aria-controls={dialogId}
-          aria-expanded={open && tab === "buy"}
+      <div className="product-quick-action-region" ref={actionRegionRef}>
+        <div
+          className="product-quick-actions"
+          data-floating={actionsFloating ? "true" : "false"}
+          aria-label="Product actions"
         >
-          <ShoppingBag size={18} aria-hidden="true" /> Find a store
-        </button>
-        <button
-          type="button"
-          onClick={(event) => openPanel("details", event.currentTarget)}
-          aria-haspopup="dialog"
-          aria-controls={dialogId}
-          aria-expanded={open && tab === "details"}
-        >
-          <Info size={18} aria-hidden="true" /> Details
-        </button>
+          <button
+            type="button"
+            onClick={(event) => openPanel("buy", event.currentTarget)}
+            aria-haspopup="dialog"
+            aria-controls={dialogId}
+            aria-expanded={open && tab === "buy"}
+          >
+            <ShoppingBag size={18} aria-hidden="true" /> Find a store
+          </button>
+          <button
+            type="button"
+            onClick={(event) => openPanel("details", event.currentTarget)}
+            aria-haspopup="dialog"
+            aria-controls={dialogId}
+            aria-expanded={open && tab === "details"}
+          >
+            <Info size={18} aria-hidden="true" /> Details
+          </button>
+        </div>
       </div>
 
       <ProductQuickPanelSheet

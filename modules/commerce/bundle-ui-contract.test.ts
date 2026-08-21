@@ -24,6 +24,9 @@ test("bundle route reuses public product cards and the catalogue search ranker",
   assert.match(results, /priceLabel: formatNaira\.format\(offer\.priceNgn\)/);
   assert.match(client, /role="status" aria-live="polite"/);
   assert.match(client, /Clear selection/);
+  assert.match(client, /<details className=\{styles\.explainer\}>/);
+  assert.match(client, /<summary>How Bundle Finder works<\/summary>/);
+  assert.doesNotMatch(page, /<ol className=\{styles\.steps\}/);
 });
 
 test("bundle copy stays within verified product-price evidence", async () => {
@@ -66,6 +69,11 @@ test("bundle route styles are locally owned", async () => {
     styles,
     /\.selected\s*\{[\s\S]*?min-width:\s*0;[\s\S]*?max-width:\s*100%;/,
   );
+  assert.match(
+    styles,
+    /@media \(max-width: 640px\)[\s\S]*?\.hero\s*\{[\s\S]*?padding:\s*1\.8rem 1rem 1\.6rem;/,
+  );
+  assert.match(styles, /\.explainer\s*\{/);
   assert.doesNotMatch(
     globalCss,
     /\.bundle-(?:page|hero|finder|picker|row|empty)/,

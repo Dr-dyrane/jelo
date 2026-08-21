@@ -51,6 +51,25 @@ test("the public wrapper keeps its two familiar triggers and delegates to the co
   assert.match(component, /onClose=\{\(\) => setOpen\(false\)\}/);
 });
 
+test("mobile product actions float only after their in-flow region passes above the viewport", () => {
+  assert.match(component, /className="product-quick-action-region"/);
+  assert.match(component, /new IntersectionObserver/);
+  assert.match(component, /entry\.boundingClientRect\.bottom <= viewportTop/);
+  assert.match(
+    component,
+    /data-floating=\{actionsFloating \? "true" : "false"\}/,
+  );
+  assert.match(
+    panelStyles,
+    /\.product-quick-actions\[data-floating="true"\]\s*\{[\s\S]*?position:\s*fixed;/,
+  );
+  const inFlowActionBlock = panelStyles.match(
+    /@media \(max-width: 620px\)[\s\S]*?\.product-quick-actions\s*\{([^}]+)\}/,
+  )?.[1];
+  assert.ok(inFlowActionBlock);
+  assert.doesNotMatch(inFlowActionBlock, /position:\s*fixed/);
+});
+
 test("one server read model owns evidence and the public page consumes it", () => {
   assert.match(
     model,

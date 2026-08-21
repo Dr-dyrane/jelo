@@ -387,6 +387,7 @@ export function ConsultExperience({
   const reduce = useReducedMotion();
   const resultRegionRef = useRef<HTMLElement>(null);
   const localComposerRef = useRef<HTMLTextAreaElement>(null);
+  const examplesRef = useRef<HTMLDetailsElement>(null);
   const composerRef = externalComposerRef ?? localComposerRef;
   const [sharedContext, setSharedContext] = useState({
     concerns: false,
@@ -429,6 +430,7 @@ export function ConsultExperience({
     setStatus(
       "Example added. Add or change any detail before creating your guide.",
     );
+    if (examplesRef.current) examplesRef.current.open = false;
     focusComposer();
   }
 
@@ -932,135 +934,255 @@ export function ConsultExperience({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
     >
-      {!memberContext ? (
-        <div className="consult-empty">
-          <div className="consult-orb">
-            <Sparkles size={24} aria-hidden="true" />
-          </div>
-          <p className="eyebrow">A useful description</p>
-          <h2>
-            {timeline.length
-              ? "What would you like to check next?"
-              : "Start with what you can see or feel."}
-          </h2>
-          <p>
-            {timeline.length
-              ? "Share what changed, what helped, or what you want to understand next."
-              : "Mention where it is, how it feels, and when you first noticed it."}
-          </p>
-          <div
-            className="prompt-row"
-            role="group"
-            aria-label="Example descriptions"
+      <form
+        className="consult-form"
+        aria-busy={busy}
+        onSubmit={(event) => {
+          event.preventDefault();
+          submit(input);
+        }}
+      >
+        <div className="consult-composer-head">
+          <label htmlFor="consult-description">What are you noticing?</label>
+          <span>Private to this visit</span>
+        </div>
+        <div className="consult-compose-row">
+          <textarea
+            id="consult-description"
+            ref={composerRef}
+            value={input}
+            onChange={(event) => {
+              setInput(event.target.value);
+              setError("");
+              setStatus("");
+            }}
+            onKeyDown={(event) => {
+              if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+                event.preventDefault();
+                submit(input);
+              }
+            }}
+            placeholder="For example: It is itchy around my jaw and began last week…"
+            rows={4}
+            disabled={busy}
+          />
+          <button
+            className="consult-submit"
+            type="submit"
+            disabled={!input.trim() || busy}
           >
-            {prompts.map((prompt) => (
-              <button
-                key={prompt.label}
-                type="button"
-                disabled={busy}
-                aria-pressed={input === prompt.text}
-                onClick={() => choosePrompt(prompt.text)}
-              >
-                <span>{prompt.label}</span>
-                <strong>{prompt.text}</strong>
-                <ArrowRight size={15} aria-hidden="true" />
-              </button>
-            ))}
-          </div>
-          {timeline.length ? (
-            <p className="timeline-note">
-              <CalendarClock size={14} /> {timeline.length} guide
-              {timeline.length === 1 ? "" : "s"} in this visit.
-            </p>
+            {busy ? (
+              <LoaderCircle
+                className="consult-spinner"
+                size={18}
+                aria-hidden="true"
+              />
+            ) : (
+              <Sparkles size={18} aria-hidden="true" />
+            )}
+            {busy ? "Creating guide…" : "Create my guide"}
+          </button>
+        </div>
+        <div className="consult-composer-foot">
+          <span>Press Ctrl or ⌘ + Enter to create your guide.</span>
+          {input && !busy ? (
+            <button
+              className="consult-clear"
+              type="button"
+              onClick={() => {
+                setInput("");
+                setError("");
+                setStatus("Description cleared.");
+                focusComposer();
+              }}
+            >
+              <Eraser size={14} aria-hidden="true" /> Clear
+            </button>
           ) : null}
         </div>
+      </form>
+      <p className="sr-only" role="status" aria-live="polite">
+        {status}
+      </p>
+      {busy ? (
+        <div className="consult-progress">
+          <LoaderCircle
+            className="consult-spinner"
+            size={16}
+            aria-hidden="true"
+          />
+          Reading your description and safety context…
+        </div>
+      ) : null}
+      {error ? (
+        <div className="consult-error" role="alert" aria-live="assertive">
+          <strong>We couldn’t create your guide.</strong>
+          <span>
+            {error} Your description is still here so you can try again.
+          </span>
+        </div>
+      ) : null}
+      <p className="consult-note">
+        <ShieldAlert size={14} aria-hidden="true" /> Urgent or worsening
+        symptoms need in-person care.
+      </p>
+      {!memberContext ? (
+        <details className="consult-disclosure" ref={examplesRef}>
+          <summary>
+            <span>
+              <strong>Need an example?</strong>
+              <small>See four clear descriptions</small>
+            </span>
+            <span className="consult-disclosure-action">
+              Open <ArrowRight size={16} aria-hidden="true" />
+            </span>
+          </summary>
+          <div className="consult-empty">
+            <div className="consult-orb">
+              <Sparkles size={24} aria-hidden="true" />
+            </div>
+            <p className="eyebrow">A useful description</p>
+            <h2>
+              {timeline.length
+                ? "What would you like to check next?"
+                : "Start with what you can see or feel."}
+            </h2>
+            <p>
+              {timeline.length
+                ? "Share what changed, what helped, or what you want to understand next."
+                : "Mention where it is, how it feels, and when you first noticed it."}
+            </p>
+            <div
+              className="prompt-row"
+              role="group"
+              aria-label="Example descriptions"
+            >
+              {prompts.map((prompt) => (
+                <button
+                  key={prompt.label}
+                  type="button"
+                  disabled={busy}
+                  aria-pressed={input === prompt.text}
+                  onClick={() => choosePrompt(prompt.text)}
+                >
+                  <span>{prompt.label}</span>
+                  <strong>{prompt.text}</strong>
+                  <ArrowRight size={15} aria-hidden="true" />
+                </button>
+              ))}
+            </div>
+            {timeline.length ? (
+              <p className="timeline-note">
+                <CalendarClock size={14} /> {timeline.length} guide
+                {timeline.length === 1 ? "" : "s"} in this visit.
+              </p>
+            ) : null}
+          </div>
+        </details>
       ) : null}
       {memberContext ? (
-        <section
-          className="member-consult-context"
-          aria-labelledby="member-consult-context-title"
-        >
-          <div className="member-consult-context-heading">
-            <div>
-              <p className="eyebrow">Private context</p>
-              <h3 id="member-consult-context-title">
-                Choose what Ask Me may use.
-              </h3>
+        <details className="consult-disclosure member-context-disclosure">
+          <summary>
+            <span>
+              <strong>Use my JeloCare context</strong>
+              <small>
+                {sharedContext.concerns || sharedContext.products
+                  ? "Review what is included"
+                  : "Nothing included unless you choose it"}
+              </small>
+            </span>
+            <span className="consult-disclosure-action">
+              Choose <ArrowRight size={16} aria-hidden="true" />
+            </span>
+          </summary>
+          <section
+            className="member-consult-context"
+            aria-labelledby="member-consult-context-title"
+          >
+            <div className="member-consult-context-heading">
+              <div>
+                <p className="eyebrow">Private context</p>
+                <h3 id="member-consult-context-title">
+                  Choose what Ask Me may use.
+                </h3>
+              </div>
+              <span>Session only</span>
             </div>
-            <span>Session only</span>
-          </div>
-          <div className="member-consult-context-options">
-            <button
-              type="button"
-              aria-pressed={sharedContext.concerns}
-              disabled={!memberContext.concerns.length || busy}
-              onClick={() =>
-                setSharedContext((current) => ({
-                  ...current,
-                  concerns: !current.concerns,
-                }))
-              }
-            >
-              <span>
-                <strong>My concerns</strong>
-                <small>
-                  {memberContext.concerns.length
-                    ? `${memberContext.concerns.length} saved`
-                    : "Nothing saved"}
-                </small>
-              </span>
-              {sharedContext.concerns ? (
-                <Check size={17} aria-hidden="true" />
-              ) : null}
-            </button>
-            <button
-              type="button"
-              aria-pressed={sharedContext.products}
-              disabled={!memberContext.products.length || busy}
-              onClick={() =>
-                setSharedContext((current) => ({
-                  ...current,
-                  products: !current.products,
-                }))
-              }
-            >
-              <span>
-                <strong>My current products</strong>
-                <small>
-                  {memberContext.products.length
-                    ? `${memberContext.products.length} exact product${memberContext.products.length === 1 ? "" : "s"}`
-                    : "Nothing saved or in Routine"}
-                </small>
-              </span>
-              {sharedContext.products ? (
-                <Check size={17} aria-hidden="true" />
-              ) : null}
-            </button>
-          </div>
-          {sharedContext.concerns || sharedContext.products ? (
-            <div
-              className="member-consult-context-preview"
-              aria-label="Context Ask Me may use"
-            >
-              {sharedContext.concerns
-                ? memberContext.concerns.map((concern) => (
-                    <span key={`concern-${concern.slug}`}>{concern.name}</span>
-                  ))
-                : null}
-              {sharedContext.products
-                ? memberContext.products.map((product) => (
-                    <span key={`product-${product.slug}`}>
-                      {product.brand} {product.name}
-                    </span>
-                  ))
-                : null}
+            <div className="member-consult-context-options">
+              <button
+                type="button"
+                aria-pressed={sharedContext.concerns}
+                disabled={!memberContext.concerns.length || busy}
+                onClick={() =>
+                  setSharedContext((current) => ({
+                    ...current,
+                    concerns: !current.concerns,
+                  }))
+                }
+              >
+                <span>
+                  <strong>My concerns</strong>
+                  <small>
+                    {memberContext.concerns.length
+                      ? `${memberContext.concerns.length} saved`
+                      : "Nothing saved"}
+                  </small>
+                </span>
+                {sharedContext.concerns ? (
+                  <Check size={17} aria-hidden="true" />
+                ) : null}
+              </button>
+              <button
+                type="button"
+                aria-pressed={sharedContext.products}
+                disabled={!memberContext.products.length || busy}
+                onClick={() =>
+                  setSharedContext((current) => ({
+                    ...current,
+                    products: !current.products,
+                  }))
+                }
+              >
+                <span>
+                  <strong>My current products</strong>
+                  <small>
+                    {memberContext.products.length
+                      ? `${memberContext.products.length} exact product${memberContext.products.length === 1 ? "" : "s"}`
+                      : "Nothing saved or in Routine"}
+                  </small>
+                </span>
+                {sharedContext.products ? (
+                  <Check size={17} aria-hidden="true" />
+                ) : null}
+              </button>
             </div>
-          ) : (
-            <p className="member-consult-context-empty">
-              Nothing from My JeloCare is included unless you choose it.
-            </p>
-          )}
-        </section>
+            {sharedContext.concerns || sharedContext.products ? (
+              <div
+                className="member-consult-context-preview"
+                aria-label="Context Ask Me may use"
+              >
+                {sharedContext.concerns
+                  ? memberContext.concerns.map((concern) => (
+                      <span key={`concern-${concern.slug}`}>
+                        {concern.name}
+                      </span>
+                    ))
+                  : null}
+                {sharedContext.products
+                  ? memberContext.products.map((product) => (
+                      <span key={`product-${product.slug}`}>
+                        {product.brand} {product.name}
+                      </span>
+                    ))
+                  : null}
+              </div>
+            ) : (
+              <p className="member-consult-context-empty">
+                Nothing from My JeloCare is included unless you choose it.
+              </p>
+            )}
+          </section>
+        </details>
       ) : null}
       <button
         className="profile-trigger"
@@ -1206,98 +1328,6 @@ export function ConsultExperience({
           </footer>
         </div>
       </dialog>
-      <form
-        className="consult-form"
-        aria-busy={busy}
-        onSubmit={(event) => {
-          event.preventDefault();
-          submit(input);
-        }}
-      >
-        <div className="consult-composer-head">
-          <label htmlFor="consult-description">What are you noticing?</label>
-          <span>Private to this visit</span>
-        </div>
-        <div className="consult-compose-row">
-          <textarea
-            id="consult-description"
-            ref={composerRef}
-            value={input}
-            onChange={(event) => {
-              setInput(event.target.value);
-              setError("");
-              setStatus("");
-            }}
-            onKeyDown={(event) => {
-              if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
-                event.preventDefault();
-                submit(input);
-              }
-            }}
-            placeholder="For example: It is itchy around my jaw and began last week…"
-            rows={4}
-            disabled={busy}
-          />
-          <button
-            className="consult-submit"
-            type="submit"
-            disabled={!input.trim() || busy}
-          >
-            {busy ? (
-              <LoaderCircle
-                className="consult-spinner"
-                size={18}
-                aria-hidden="true"
-              />
-            ) : (
-              <Sparkles size={18} aria-hidden="true" />
-            )}
-            {busy ? "Creating guide…" : "Create my guide"}
-          </button>
-        </div>
-        <div className="consult-composer-foot">
-          <span>Press Ctrl or ⌘ + Enter to create your guide.</span>
-          {input && !busy ? (
-            <button
-              className="consult-clear"
-              type="button"
-              onClick={() => {
-                setInput("");
-                setError("");
-                setStatus("Description cleared.");
-                focusComposer();
-              }}
-            >
-              <Eraser size={14} aria-hidden="true" /> Clear
-            </button>
-          ) : null}
-        </div>
-      </form>
-      <p className="sr-only" role="status" aria-live="polite">
-        {status}
-      </p>
-      {busy ? (
-        <div className="consult-progress">
-          <LoaderCircle
-            className="consult-spinner"
-            size={16}
-            aria-hidden="true"
-          />
-          Reading your description and safety context…
-        </div>
-      ) : null}
-      {error ? (
-        <div className="consult-error" role="alert" aria-live="assertive">
-          <strong>We couldn’t create your guide.</strong>
-          <span>
-            {error} Your description is still here so you can try again.
-          </span>
-        </div>
-      ) : null}
-      <p className="consult-note">
-        <ShieldAlert size={14} aria-hidden="true" /> Urgent or worsening
-        symptoms need in-person care.
-      </p>
     </motion.section>
   );
 }
