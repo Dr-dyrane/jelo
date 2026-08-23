@@ -60,6 +60,7 @@ type AcceptedCampaign = z.infer<typeof acceptedCampaignSchema>;
 export type DailyDeskReady = {
   status: "ready";
   date: string;
+  recency: "current-day" | "previous-day";
   campaignId: string;
   product: AcceptedCampaign["product"];
   copy: AcceptedCampaign["copy"];
@@ -80,6 +81,7 @@ export type DailyDeskReadModel =
 export function projectAcceptedCampaignForDailyDesk(
   source: string,
   date: string,
+  recency: DailyDeskReady["recency"] = "current-day",
 ): DailyDeskReady | null {
   try {
     const parsed = acceptedCampaignSchema.safeParse(JSON.parse(source));
@@ -92,6 +94,7 @@ export function projectAcceptedCampaignForDailyDesk(
     return {
       status: "ready",
       date,
+      recency,
       campaignId: campaign.campaignId,
       product: campaign.product,
       copy: campaign.copy,
@@ -116,6 +119,12 @@ const defaultDependencies: DailyDeskDependencies = {
   readAcceptedCampaign: acceptedProductionCampaignJsonForDate,
 };
 
+function previousCalendarDate(date: string) {
+  const middayUtc = Date.parse(`${date}T12:00:00Z`);
+  if (!Number.isFinite(middayUtc)) throw new Error("daily_desk_date_invalid");
+  return new Date(middayUtc - 86_400_000).toISOString().slice(0, 10);
+}
+
 export async function getDailyDeskReadModel(
   input: { now?: Date | number } = {},
   dependencies: DailyDeskDependencies = defaultDependencies,
@@ -124,12 +133,25 @@ export async function getDailyDeskReadModel(
   const date = lagosDateKey(now);
   try {
     const source = await dependencies.readAcceptedCampaign(date);
-    if (!source) return { status: "no-campaign", date };
+    if (source) {
+      return (
+        projectAcceptedCampaignForDailyDesk(source, date) ?? {
+          status: "unavailable",
+          date,
+        }
+      );
+    }
+
+    const previousDate = previousCalendarDate(date);
+    const previousSource =
+      await dependencies.readAcceptedCampaign(previousDate);
+    if (!previousSource) return { status: "no-campaign", date };
     return (
-      projectAcceptedCampaignForDailyDesk(source, date) ?? {
-        status: "unavailable",
-        date,
-      }
+      projectAcceptedCampaignForDailyDesk(
+        previousSource,
+        previousDate,
+        "previous-day",
+      ) ?? { status: "unavailable", date }
     );
   } catch {
     return { status: "unavailable", date };

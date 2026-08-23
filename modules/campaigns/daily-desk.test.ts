@@ -57,6 +57,7 @@ function acceptedRecord(overrides: Record<string, unknown> = {}) {
 test("the Daily Desk projects only a current accepted share-ready campaign", () => {
   const result = projectAcceptedCampaignForDailyDesk(acceptedRecord(), date);
   assert.equal(result?.status, "ready");
+  assert.equal(result?.recency, "current-day");
   assert.equal(result?.campaignId, campaignId);
   assert.equal(
     result?.actionUrl,
@@ -125,6 +126,42 @@ test("missing or unreadable accepted records become bounded fallback states", as
     },
   );
   assert.deepEqual(unavailable, { status: "unavailable", date });
+});
+
+test("the previous accepted Desk bridges only the next Lagos calendar day", async () => {
+  const requestedDates: string[] = [];
+  const result = await getDailyDeskReadModel(
+    { now: new Date("2026-08-14T01:00:00Z") },
+    {
+      readAcceptedCampaign: async (requestedDate) => {
+        requestedDates.push(requestedDate);
+        return requestedDate === date ? acceptedRecord() : null;
+      },
+    },
+  );
+
+  assert.deepEqual(requestedDates, ["2026-08-14", "2026-08-13"]);
+  assert.equal(result.status, "ready");
+  if (result.status !== "ready") return;
+  assert.equal(result.date, "2026-08-13");
+  assert.equal(result.recency, "previous-day");
+  assert.equal(result.campaignId, campaignId);
+});
+
+test("a malformed current-day record fails closed instead of carrying yesterday", async () => {
+  const requestedDates: string[] = [];
+  const result = await getDailyDeskReadModel(
+    { now: new Date("2026-08-14T01:00:00Z") },
+    {
+      readAcceptedCampaign: async (requestedDate) => {
+        requestedDates.push(requestedDate);
+        return requestedDate === "2026-08-14" ? "not-json" : acceptedRecord();
+      },
+    },
+  );
+
+  assert.deepEqual(requestedDates, ["2026-08-14"]);
+  assert.deepEqual(result, { status: "unavailable", date: "2026-08-14" });
 });
 
 test("aggregate keys contain only date, public campaign identity, and event", () => {

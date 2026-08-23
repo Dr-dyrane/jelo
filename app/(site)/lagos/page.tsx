@@ -111,6 +111,7 @@ export default async function LagosDailyDeskPage() {
   }
 
   const catalogue = await listCatalogueProducts();
+  const carriedForward = desk.recency === "previous-day";
   const commercePreviews = buildCommercePreviews(
     desk.product.slug,
     catalogue,
@@ -143,7 +144,11 @@ export default async function LagosDailyDeskPage() {
           </figure>
 
           <section className={styles.note}>
-            <p className={styles.noteLabel}>Today&apos;s price context</p>
+            <p className={styles.noteLabel}>
+              {carriedForward
+                ? "Latest accepted price context"
+                : "Today's price context"}
+            </p>
             <h2>{desk.copy.headline}</h2>
             <p className={styles.productLine}>{desk.copy.productLine}</p>
             <p className={styles.priceLine}>{desk.copy.priceLine}</p>
@@ -156,9 +161,10 @@ export default async function LagosDailyDeskPage() {
             <div className={styles.evidenceNote}>
               <p>{desk.copy.disclaimer}</p>
               <p>
-                {desk.evidence.offerCount} current Nigerian
-                {desk.evidence.offerCount === 1 ? " listing" : " listings"} ·
-                checked{" "}
+                {desk.evidence.offerCount}
+                {carriedForward ? " Nigerian" : " current Nigerian"}
+                {desk.evidence.offerCount === 1 ? " listing" : " listings"}
+                {carriedForward ? " at last review" : ""} · checked{" "}
                 {checkedFormatter.format(new Date(desk.evidence.dataCheckedAt))}
               </p>
             </div>
@@ -166,7 +172,10 @@ export default async function LagosDailyDeskPage() {
         </article>
 
         <div className={styles.boundary}>
-          <p>{desk.evidence.boundary}</p>
+          <p>
+            {carriedForward ? "Accepted at that check: " : ""}
+            {desk.evidence.boundary}
+          </p>
           <p>
             Price context, not a sale or suitability claim. A listing is not
             proof a product is genuine.

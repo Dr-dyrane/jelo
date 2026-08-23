@@ -66,6 +66,14 @@ ready evidence boundary, unverified asset, or non-deterministic creative shows
 a non-price skin-guide state instead. Delivery details, recipient markers,
 operator data, rejected candidates, and campaign captions are not projected.
 
+At the Lagos calendar rollover, the page may carry forward only the immediately
+previous day's accepted production Desk until the current day's accepted Desk
+exists. It keeps the original campaign date and checked-at time visible and is
+labelled as the latest accepted price context, not today's context. Listing and
+evidence copy is explicitly framed as the state at that last review rather than
+as a current-price claim. A malformed current record never falls back, and
+records older than the previous Lagos calendar day are never reused.
+
 The page records only two private aggregate counters: `view` and
 `compare_click`. The write-only route accepts the current public campaign id
 after a same-site and bounded-body check. It does not read or store cookies,
