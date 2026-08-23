@@ -26,7 +26,6 @@ const ALERT_RECIPIENT =
   process.env.INVENTORY_ALERT_EMAIL ??
   "hello@jelocare.com";
 
-const NO_CANDIDATE_WARNING_THRESHOLD = 1;
 const NO_CANDIDATE_CRITICAL_THRESHOLD = 120;
 
 /**
@@ -41,10 +40,6 @@ function shouldAlert(
   checkedAt: string,
   rejectedCandidates: readonly RejectedCandidate[],
 ): NoCandidateAlertPayload | undefined {
-  if (rejectedCandidates.length < NO_CANDIDATE_WARNING_THRESHOLD) {
-    return undefined;
-  }
-
   const blockerBreakdown: Record<string, number> = {};
   for (const candidate of rejectedCandidates) {
     blockerBreakdown[candidate.blocker] =
@@ -61,7 +56,10 @@ function shouldAlert(
   return {
     event: "daily_campaign_no_candidate",
     severity,
-    message: `Daily campaign found no eligible candidate. ${rejectedCandidates.length} products were rejected.`,
+    message:
+      rejectedCandidates.length === 0
+        ? "Daily campaign found no eligible candidate and the ranked pool was empty."
+        : `Daily campaign found no eligible candidate. ${rejectedCandidates.length} products were rejected.`,
     checkedAt,
     rejectedCandidateCount: rejectedCandidates.length,
     blockerBreakdown,

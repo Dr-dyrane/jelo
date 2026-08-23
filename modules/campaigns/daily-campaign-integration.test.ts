@@ -15,7 +15,13 @@ test("a fixed current snapshot produces one dossier-bound deterministic draft", 
   if (result.status !== "selected") return;
 
   const { draft } = result;
+  assert.equal(draft.campaignKind, "market-plus-editorial");
+  if (draft.campaignKind !== "market-plus-editorial") return;
   assert.match(draft.campaignId, /^2026-08-15-[a-z0-9-]+-price-/);
+  assert.equal(draft.product.brand, "Advanced Clinicals");
+  assert.notEqual(draft.product.brand, "DANG! Lifestyle");
+  assert.ok(draft.selection.catalogueProductCount >= 150);
+  assert.ok(draft.selection.freshPriceCandidateCount > 1);
   assert.ok(draft.offerEvidence.length > 0);
   assert.ok(draft.offerEvidence.every((offer) => offer.priceNgn > 0));
   assert.ok(
@@ -42,6 +48,8 @@ test("the reminder email presents one complete responsive Daily Three packet", a
   });
   assert.equal(result.status, "selected");
   if (result.status !== "selected") return;
+  assert.equal(result.draft.campaignKind, "market-plus-editorial");
+  if (result.draft.campaignKind !== "market-plus-editorial") return;
 
   const email = dailyCampaignEmail({
     mode: "test",
@@ -102,7 +110,7 @@ test("the reminder email presents one complete responsive Daily Three packet", a
   });
   assert.equal(
     email.subject,
-    "[TEST] Today’s JeloCare packet · Proof, Use, Remember",
+    "[TEST] Today’s JeloCare packet · Market, Useful, Relatable",
   );
   assert.match(email.html, /^<!doctype html>/);
   assert.match(email.html, /<html lang="en">/);
@@ -112,21 +120,21 @@ test("the reminder email presents one complete responsive Daily Three packet", a
   assert.match(email.html, /@media only screen and \(max-width: 480px\)/);
   assert.match(email.html, /role="presentation"/);
   assert.match(email.html, /width="620"/);
-  assert.equal(email.html.match(/01 \/ Proof/g)?.length, 1);
-  assert.equal(email.html.match(/02 \/ Use/g)?.length, 1);
-  assert.equal(email.html.match(/03 \/ Remember/g)?.length, 1);
+  assert.equal(email.html.match(/01 \/ Market/g)?.length, 1);
+  assert.equal(email.html.match(/02 \/ Useful/g)?.length, 1);
+  assert.equal(email.html.match(/03 \/ Relatable/g)?.length, 1);
   assert.equal(email.html.match(/width="504" height="896"/g)?.length, 3);
   assert.equal(email.html.match(/object-fit:contain/g)?.length, 3);
   assert.equal(email.html.match(/>Download story</g)?.length, 3);
-  assert.equal(email.html.match(/>Open JeloCare</g)?.length, 3);
+  assert.equal(email.html.match(/class="secondary-action"/g)?.length, 3);
   assert.match(
     email.html,
     /Three JeloCare drafts are ready to review\. Nothing has been published\./,
   );
   assert.match(email.html, /Draft packet · Review before posting\./);
-  assert.match(email.text, /01 Proof[\s\S]*02 Use[\s\S]*03 Remember/);
+  assert.match(email.text, /01 Market[\s\S]*02 Useful[\s\S]*03 Relatable/);
   assert.equal(email.text.match(/Download story:/g)?.length, 3);
-  assert.equal(email.text.match(/Open JeloCare:/g)?.length, 3);
+  assert.equal(email.text.match(/https:\/\/www\.jelocare\.com/g) != null, true);
   assert.doesNotMatch(email.html, /tracking|pixel|email\.opened|utm_/i);
   assert.doesNotMatch(email.html, /@font-face|fonts\.googleapis/i);
   assert.ok(Buffer.byteLength(email.html, "utf8") < 80_000);
@@ -138,6 +146,8 @@ test("the Daily Three email escapes campaign copy and rejects unsafe URLs", asyn
   });
   assert.equal(result.status, "selected");
   if (result.status !== "selected") return;
+  assert.equal(result.draft.campaignKind, "market-plus-editorial");
+  if (result.draft.campaignKind !== "market-plus-editorial") return;
 
   const archive = {
     mode: "test" as const,
@@ -191,12 +201,21 @@ test("the Daily Three email escapes campaign copy and rejects unsafe URLs", asyn
   };
   const draft = {
     ...result.draft,
-    copy: {
-      ...result.draft.copy,
-      headline: '<script>alert("headline")</script>',
-      productLine: "PRODUCT & <unsafe>",
-      priceLine: '₦12,000 "today"',
-      caption: "Compare <now> & review.",
+    creativePlan: {
+      ...result.draft.creativePlan,
+      packet: [
+        {
+          ...result.draft.creativePlan.packet[0],
+          pillar: {
+            ...result.draft.creativePlan.packet[0].pillar,
+            headline: '<script>alert("headline")</script>',
+            body: "PRODUCT & <unsafe>",
+            caption: "Compare <now> & review.",
+          },
+        },
+        result.draft.creativePlan.packet[1],
+        result.draft.creativePlan.packet[2],
+      ] as typeof result.draft.creativePlan.packet,
     },
   };
   const email = dailyCampaignEmail({
@@ -298,6 +317,7 @@ test("the protected cron and immutable archive preserve activation boundaries", 
   assert.match(archive, /new Redis/);
   assert.match(archive, /\{ nx: true \}/);
   assert.match(archive, /acceptedProductionIndex/);
+  assert.match(archive, /dailyDeskEligible !== false/);
   assert.match(archive, /allowOverwrite: false/);
   assert.match(archive, /delivery-intent/);
   assert.match(archive, /delivery-accepted/);

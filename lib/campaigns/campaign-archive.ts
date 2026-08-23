@@ -34,6 +34,7 @@ export type ArchivedCampaignPacket = readonly [
 
 export type ArchivedCampaign = {
   mode: CampaignRunMode;
+  dailyDeskEligible?: boolean;
   runPath: string;
   image: ArchivedCampaignImage<"proof">;
   packetImages: ArchivedCampaignPacket;
@@ -267,7 +268,8 @@ export async function archiveCampaign(input: {
   async function storePacketImage<Index extends 0 | 1 | 2>(index: Index) {
     const rendered = input.rendered[index];
     const role = campaignPacketRoles[index];
-    const imageName = `${input.draft.product.slug}-${input.draft.creativePlan.storyKind}-${role}-${rendered.sha256.slice(0, 16)}.png`;
+    const subject = input.draft.product?.slug ?? "jelocare-daily";
+    const imageName = `${subject}-${input.draft.creativePlan.storyKind}-${role}-${rendered.sha256.slice(0, 16)}.png`;
     const imagePath = `${runPath}/${imageName}`;
     const image = await putPublicImage(imagePath, rendered);
     return {
@@ -344,6 +346,7 @@ export async function archiveCampaign(input: {
 
   return {
     mode: input.mode,
+    dailyDeskEligible: input.draft.dailyDeskEligible,
     runPath,
     image: packetImages[0],
     packetImages,
@@ -440,7 +443,11 @@ export async function recordCampaignDeliveryOutcome(input: {
         : {}),
     }),
   );
-  if (input.state === "accepted" && input.archive.mode === "production") {
+  if (
+    input.state === "accepted" &&
+    input.archive.mode === "production" &&
+    input.archive.dailyDeskEligible !== false
+  ) {
     const score = Date.parse(input.recordedAt);
     if (!Number.isFinite(score))
       throw new Error("campaign_delivery_time_invalid");

@@ -2,8 +2,14 @@ import "server-only";
 
 import { createHash } from "node:crypto";
 import sharp from "sharp";
+import { ImageResponse } from "next/og";
 import { GET as renderCampaignStoryRoute } from "@/app/(site)/share/[slug]/story/route";
-import type { DailyCampaignDraft } from "@/lib/campaigns/daily-campaign";
+import type {
+  DailyCampaignDraft,
+  DailyMarketCampaignDraft,
+} from "@/lib/campaigns/daily-campaign";
+import { ReviewPillarStory } from "@/lib/campaigns/daily-packet/review-pillar-story";
+import { loadOgFonts } from "@/lib/og/assets";
 
 const MAX_PACKSHOT_BYTES = 12 * 1024 * 1024;
 const MAX_STORY_BYTES = 12 * 1024 * 1024;
@@ -19,7 +25,7 @@ export type RenderedCampaignStory<
   width: 1080;
   height: 1920;
   contentType: "image/png";
-  sourceAssetVerified: true;
+  sourceAssetVerified: true | null;
   renderUrl: string;
 };
 
@@ -44,7 +50,7 @@ async function boundedResponseBytes(response: Response, maximum: number) {
 }
 
 async function verifySourceAsset(
-  draft: DailyCampaignDraft,
+  draft: DailyMarketCampaignDraft,
   fetcher: typeof fetch,
 ) {
   const controller = new AbortController();
@@ -85,7 +91,9 @@ export async function renderDailyCampaignStory(input: {
     throw new Error("campaign_render_origin_invalid");
   }
 
-  await verifySourceAsset(input.draft, fetcher);
+  if (input.draft.campaignKind === "market-plus-editorial") {
+    await verifySourceAsset(input.draft, fetcher);
+  }
 
   const plans = input.draft.creativePlan.packet;
   if (
@@ -98,12 +106,26 @@ export async function renderDailyCampaignStory(input: {
 
   async function renderPlan<Role extends CampaignPacketRole>(plan: {
     role: Role;
+    renderKind: "product-story" | "review-pillar";
     renderPath: string;
+    pillar: (typeof plans)[number]["pillar"];
   }): Promise<RenderedCampaignStory<Role>> {
     const renderUrl = new URL(plan.renderPath, origin).toString();
-    const response = await renderCampaignStoryRoute(new Request(renderUrl), {
-      params: Promise.resolve({ slug: input.draft.product.slug }),
-    });
+    const response =
+      plan.renderKind === "product-story"
+        ? await renderCampaignStoryRoute(new Request(renderUrl), {
+            params: Promise.resolve({
+              slug:
+                input.draft.campaignKind === "market-plus-editorial"
+                  ? input.draft.product.slug
+                  : "",
+            }),
+          })
+        : new ImageResponse(<ReviewPillarStory pillar={plan.pillar} />, {
+            width: input.draft.creativePlan.width,
+            height: input.draft.creativePlan.height,
+            fonts: await loadOgFonts(),
+          });
     if (!response.ok) {
       throw new Error(`campaign_story_render_${response.status}`);
     }
@@ -127,7 +149,7 @@ export async function renderDailyCampaignStory(input: {
       width: 1080,
       height: 1920,
       contentType: "image/png",
-      sourceAssetVerified: true,
+      sourceAssetVerified: plan.renderKind === "product-story" ? true : null,
       renderUrl,
     };
   }

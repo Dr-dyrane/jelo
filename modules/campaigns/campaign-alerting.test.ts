@@ -1,15 +1,15 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import {
-  sendCampaignNoCandidateAlertIfNeeded,
-  type NoCandidateAlertPayload,
-} from "@/lib/campaigns/campaign-alerting";
+import { sendCampaignNoCandidateAlertIfNeeded } from "@/lib/campaigns/campaign-alerting";
 
 const checkedAt = "2026-08-17T07:01:00.000Z";
 
-test("no alert when zero candidates were rejected", async () => {
+test("an empty ranked pool still raises a visible warning", async () => {
   const alert = await sendCampaignNoCandidateAlertIfNeeded(checkedAt, []);
-  assert.equal(alert, undefined);
+  assert.ok(alert);
+  assert.equal(alert.severity, "warning");
+  assert.equal(alert.rejectedCandidateCount, 0);
+  assert.match(alert.message, /ranked pool was empty/i);
 });
 
 test("warning alert when a small number of candidates were rejected", async () => {

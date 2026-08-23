@@ -49,7 +49,8 @@ export async function getWorthSharingReadModel(
   options: WorthSharingReadOptions = {},
 ) {
   const now = options.now ?? Date.now();
-  const products = (await listCatalogueProducts()).filter((product) =>
+  const catalogue = await listCatalogueProducts();
+  const products = catalogue.filter((product) =>
     hasTrendEligibleNgOffer(product),
   );
   const [trends, aggregateInterest] = await Promise.all([
@@ -73,5 +74,9 @@ export async function getWorthSharingReadModel(
     product,
     trends: trends.get(product.slug) ?? {},
   }));
-  return buildShareSignalReadModel(items, now, aggregateInterest);
+  return {
+    ...buildShareSignalReadModel(items, now, aggregateInterest),
+    catalogueProductCount: catalogue.length,
+    priceEligibleProductCount: products.length,
+  };
 }

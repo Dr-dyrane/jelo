@@ -1,6 +1,6 @@
 # Daily campaign handoff
 
-Updated: 2026-08-22
+Updated: 2026-08-23
 
 The daily campaign lane prepares one evidence-bound review packet and privately
 emails it to the three configured campaign operators. It does not post to
@@ -24,10 +24,47 @@ Use a new bounded iteration for a materially changed preview or test. Retrying
 the same iteration after a delivery intent exists is deliberately suppressed;
 Hostinger does not provide a send-idempotency contract.
 
-## Evidence and rotation
+## Daily deliverable
 
-The selector reads the current `/share` ranked pool. It does not use clicks,
-campaign engagement, paid attribution, store ordering, or customer data.
+Every successful run prepares exactly three independent 1080 × 1920 review
+drafts:
+
+1. **Market** — one exact current product price or price movement when every
+   evidence gate passes.
+2. **Useful** — one rotating, factual JeloCare service or care-navigation
+   explanation, such as the bundle finder, guest shopping, fee transparency,
+   concerns or My JeloCare.
+3. **Relatable** — one restrained, brand-safe observation about the shopping or
+   care experience. This is the controlled meme lane: no person is targeted,
+   no diagnosis or outcome is implied, and no product or price fact is invented.
+
+The internal archive roles remain `proof`, `use`, and `remember` for historical
+record compatibility. Operator-facing language is Market, Useful, Relatable.
+The three drafts are not cosmetic variants of one product.
+
+When no product passes the fresh-price gates, the run still creates a complete
+packet. With zero fresh candidates, Market says **“No fresh price. No price
+claim.”** If fresh candidates exist but cooldown or publication checks block all
+of them, Market instead says **“No price story today.”** Both states record the
+catalogue coverage that was checked and contain no product, retailer or price
+claim. Useful and Relatable continue their deterministic rotation. This
+fallback is never eligible for the public Lagos Daily Desk.
+
+## Evidence, catalogue coverage and rotation
+
+The selector starts from the complete current public catalogue, then reads the
+current `/share` ranked pool. Every brand and product is considered; DANG (or
+any other brand) has no preference or hard-coded slot. The operator email shows
+both the total public catalogue count and the number of fresh price candidates
+so a narrow evidence pool cannot look like a brand decision.
+
+“All products are considered” does not mean “all products may show a price.” A
+current price is permitted only for a product with current evidence. Products
+with stale, missing, ambiguous or identity-drifted evidence remain in the
+catalogue but cannot become the Market creative until the inventory workflow
+re-verifies them. The campaign lane never refreshes or mutates catalogue prices.
+It does not use clicks, campaign engagement, paid attribution, store ordering,
+or customer data.
 
 A product passes only when:
 
@@ -39,13 +76,11 @@ A product passes only when:
 - no accepted production delivery used the product during the previous 14
   days.
 
-The existing Next/OG story route renders three deterministic 1080 × 1920 dark
-masters from the same exact product and offer evidence:
-
-1. **Proof** — the current price range or same-retailer trend.
-2. **Use** — the product inside JeloCare's current mobile comparison interface.
-3. **Remember** — a restrained market-note treatment that keeps the observed
-   price context memorable without implying a transaction or saving.
+The existing product story route renders the evidence-bound Market master. A
+separate deterministic Next/OG editorial renderer creates Useful and Relatable
+from a reviewed rotation bank. The production cron performs no generative-AI
+copy or image work, so the reviewed wording and geometry do not drift between
+runs.
 
 The campaign lane verifies PNG type, geometry and SHA-256 for every creative
 before archiving the packet. It does not run browser automation or generative
@@ -57,8 +92,10 @@ image creation inside the daily production cron.
 campaign. It never reads preview or test runs. The projection resolves the
 accepted-production index for the current `Africa/Lagos` calendar date and
 publishes only the product identity, campaign copy, exact `/share/<slug>` CTA,
-verified **Proof** image, evidence count, evidence boundary, and checked-at
-time. The Use and Remember creatives remain in the private operator packet.
+verified **Market** image, evidence count, evidence boundary, and checked-at
+time. Useful and Relatable remain in the private operator packet. An editorial
+fallback delivery is deliberately excluded from the accepted-production Daily
+Desk index, so a no-price day cannot masquerade as public price evidence.
 
 The projection fails closed. A missing ledger, missing accepted campaign,
 invalid action URL, stale campaign date, non-positive offer price, non-share-
@@ -92,7 +129,7 @@ The campaign trail uses the stores already attached to the project:
   checksum manifest, recipient-specific delivery intents, and recipient-
   specific accepted/failed outcomes. `SET NX` is the one-send reservation; a
   scored accepted-production index drives the 14-day rotation and authorizes
-  the minimal `/lagos` Proof projection. Separate aggregate Daily Desk counters
+  the minimal `/lagos` Market projection. Separate aggregate Daily Desk counters
   retain only date, public campaign id, and event kind.
 
 Redis keys and records contain source facts, evidence boundary, copy and
@@ -114,7 +151,8 @@ are never exposed to one another.
    active operator mailboxes in `CAMPAIGN_DAILY_OPERATOR_EMAILS_JSON`, set
    `CAMPAIGN_DAILY_ENABLED=true`, and deploy the changed environment.
 6. Verify the next run reports three accepted private deliveries, each mailbox
-   receives exactly one packet, and `/lagos` still projects only Proof.
+   receives exactly one packet, and `/lagos` still projects only an evidence-
+   eligible Market creative.
 
 Changing an environment variable affects only a subsequent deployment. Never
 put recipient addresses, credentials, Blob/Redis tokens, or raw recipient

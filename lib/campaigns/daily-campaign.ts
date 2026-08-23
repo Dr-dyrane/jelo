@@ -21,6 +21,11 @@ import {
 } from "@/lib/campaigns/product-evidence";
 import { isShareableNgOffer } from "@/modules/commerce/shareable-offer";
 import type { ShareSignal } from "@/modules/commerce/share-insights";
+import {
+  dailyEditorialPillars,
+  claimSafeMarketPillar,
+  type CampaignPillar,
+} from "@/lib/campaigns/daily-campaign-editorial";
 
 export type DailyCampaignOfferEvidence = {
   retailer: string;
@@ -31,20 +36,57 @@ export type DailyCampaignOfferEvidence = {
   checkedAt: string | null;
 };
 
-export type DailyCampaignDraft = {
-  schemaVersion: 1;
+type CampaignPacketPlan = readonly [
+  {
+    role: "proof";
+    renderKind: "product-story" | "review-pillar";
+    renderPath: string;
+    pillar: CampaignPillar;
+  },
+  {
+    role: "use";
+    renderKind: "review-pillar";
+    renderPath: string;
+    pillar: CampaignPillar;
+  },
+  {
+    role: "remember";
+    renderKind: "review-pillar";
+    renderPath: string;
+    pillar: CampaignPillar;
+  },
+];
+
+type DailyCampaignSelectionDetails = {
+  source: "live-share-ranked-pool";
+  signalKind: "drop" | "gap" | "fresh" | null;
+  evidenceRank: number | null;
+  recentProductCooldownDays: number;
+  catalogueProductCount: number;
+  freshPriceCandidateCount: number;
+  rejectedCandidates: Array<{ slug: string; blocker: string }>;
+};
+
+type DailyCampaignDraftBase = {
   campaignId: string;
   status: "draft";
   createdAt: string;
   dataCheckedAt: string;
   objective: string;
-  selection: {
-    source: "live-share-ranked-pool";
-    signalKind: "drop" | "gap" | "fresh";
-    evidenceRank: number;
-    recentProductCooldownDays: number;
-    rejectedCandidates: Array<{ slug: string; blocker: string }>;
-  };
+  selection: DailyCampaignSelectionDetails;
+  offerEvidence: DailyCampaignOfferEvidence[];
+  evidenceBoundary: string;
+  careBoundary: string;
+  copy: CampaignCopy;
+  channels: ["whatsapp-status", "instagram-stories", "snapchat"];
+  actionUrl: string;
+  publication: [];
+};
+
+export type DailyMarketCampaignDraft = DailyCampaignDraftBase & {
+  schemaVersion: 1;
+  campaignKind: "market-plus-editorial";
+  dailyDeskEligible: true;
   product: {
     slug: string;
     brand: string;
@@ -77,16 +119,31 @@ export type DailyCampaignDraft = {
     storyKind: "price" | "trend";
     trendWindow: "7d" | "1m" | null;
     renderPath: string;
-    packet: readonly [
-      { role: "proof"; renderPath: string },
-      { role: "use"; renderPath: string },
-      { role: "remember"; renderPath: string },
-    ];
+    packet: CampaignPacketPlan;
   };
-  channels: ["whatsapp-status", "instagram-stories", "snapchat"];
-  actionUrl: string;
-  publication: [];
 };
+
+export type DailyEditorialFallbackDraft = DailyCampaignDraftBase & {
+  schemaVersion: 2;
+  campaignKind: "editorial-fallback";
+  dailyDeskEligible: false;
+  product: null;
+  sourceAsset: null;
+  publicationEvidence: null;
+  creativePlan: {
+    mode: "dark";
+    width: 1080;
+    height: 1920;
+    generationRoute: "deterministic-next-og-story";
+    storyKind: "editorial";
+    trendWindow: null;
+    renderPath: string;
+    packet: CampaignPacketPlan;
+  };
+};
+
+export type DailyCampaignDraft =
+  DailyMarketCampaignDraft | DailyEditorialFallbackDraft;
 
 export type DailyCampaignSelection =
   | { status: "selected"; draft: DailyCampaignDraft }
@@ -134,18 +191,120 @@ function storyPath(
   return `/share/${encodeURIComponent(slug)}/story?${query.toString()}`;
 }
 
-function campaignPacketPlan(slug: string, proofStory: CampaignStoryChoice) {
+function editorialRenderPath(dateKey: string, role: CampaignPillar["role"]) {
+  return `/campaigns/daily/${dateKey}/${role}`;
+}
+
+function campaignPacketPlan(
+  slug: string,
+  proofStory: CampaignStoryChoice,
+  now: Date,
+  marketPillar: CampaignPillar,
+) {
+  const dateKey = lagosDateKey(now);
+  const [useful, relatable] = dailyEditorialPillars(now);
   return [
-    { role: "proof", renderPath: storyPath(slug, proofStory) },
+    {
+      role: "proof",
+      renderKind: "product-story",
+      renderPath: storyPath(slug, proofStory),
+      pillar: marketPillar,
+    },
     {
       role: "use",
-      renderPath: storyPath(slug, { kind: "price", window: null }, "use"),
+      renderKind: "review-pillar",
+      renderPath: editorialRenderPath(dateKey, "use"),
+      pillar: useful,
     },
     {
       role: "remember",
-      renderPath: storyPath(slug, { kind: "price", window: null }, "remember"),
+      renderKind: "review-pillar",
+      renderPath: editorialRenderPath(dateKey, "remember"),
+      pillar: relatable,
     },
   ] as const;
+}
+
+export function buildEditorialFallbackCampaign(input: {
+  now: Date;
+  checkedAt: string;
+  catalogueProductCount: number;
+  priceEligibleProductCount: number;
+  freshPriceCandidateCount: number;
+  rejectedCandidates: Array<{ slug: string; blocker: string }>;
+}): DailyEditorialFallbackDraft {
+  const dateKey = lagosDateKey(input.now);
+  const market = claimSafeMarketPillar(input);
+  const [useful, relatable] = dailyEditorialPillars(input.now);
+  const packet: CampaignPacketPlan = [
+    {
+      role: "proof",
+      renderKind: "review-pillar",
+      renderPath: editorialRenderPath(dateKey, "proof"),
+      pillar: market,
+    },
+    {
+      role: "use",
+      renderKind: "review-pillar",
+      renderPath: editorialRenderPath(dateKey, "use"),
+      pillar: useful,
+    },
+    {
+      role: "remember",
+      renderKind: "review-pillar",
+      renderPath: editorialRenderPath(dateKey, "remember"),
+      pillar: relatable,
+    },
+  ];
+  return {
+    schemaVersion: 2,
+    campaignKind: "editorial-fallback",
+    dailyDeskEligible: false,
+    campaignId: `${dateKey}-editorial-review-packet`,
+    status: "draft",
+    createdAt: input.checkedAt,
+    dataCheckedAt: input.checkedAt,
+    objective: "daily market integrity, useful guidance and relatable reach",
+    selection: {
+      source: "live-share-ranked-pool",
+      signalKind: null,
+      evidenceRank: null,
+      recentProductCooldownDays: cooldownDays,
+      catalogueProductCount: input.catalogueProductCount,
+      freshPriceCandidateCount: input.freshPriceCandidateCount,
+      rejectedCandidates: input.rejectedCandidates,
+    },
+    product: null,
+    sourceAsset: null,
+    publicationEvidence: null,
+    offerEvidence: [],
+    evidenceBoundary:
+      "Full public catalogue checked. No product price is shown without fresh, exact, evidence-bound Nigerian listing evidence.",
+    careBoundary:
+      "Service guidance and brand-safe observation only. No diagnosis or suitability claim.",
+    copy: {
+      headline: market.headline,
+      productLine: "FULL-CATALOGUE MARKET CHECK",
+      priceLine: "No current price claim today.",
+      action: market.action,
+      disclaimer: "Evidence before urgency.",
+      caption: market.caption,
+      embeddedUrl: null,
+    },
+    creativePlan: {
+      mode: "dark",
+      width: 1080,
+      height: 1920,
+      generationRoute: "deterministic-next-og-story",
+      storyKind: "editorial",
+      trendWindow: null,
+      renderPath: packet[0].renderPath,
+      packet,
+    },
+    channels: ["whatsapp-status", "instagram-stories", "snapchat"],
+    actionUrl: market.actionUrl,
+    publication: [],
+  };
 }
 
 export function campaignProductIdentityMatchesEvidence(
@@ -232,7 +391,17 @@ export async function selectDailyCampaign(input: {
 
   const checkedAt = nowDate.toISOString();
   if (!selected) {
-    return { status: "no-candidate", checkedAt, rejectedCandidates };
+    return {
+      status: "selected",
+      draft: buildEditorialFallbackCampaign({
+        now: nowDate,
+        checkedAt,
+        catalogueProductCount: signals.catalogueProductCount,
+        priceEligibleProductCount: signals.priceEligibleProductCount,
+        freshPriceCandidateCount: signals.rankedPool.length,
+        rejectedCandidates,
+      }),
+    };
   }
 
   const displaySize = formatCampaignProductSize(
@@ -303,11 +472,26 @@ export async function selectDailyCampaign(input: {
     .sort((left, right) => timestamp(right) - timestamp(left))[0];
   const dateKey = lagosDateKey(nowDate);
   const purpose = story.kind === "trend" ? "price-movement" : "price-context";
+  const marketPillar: CampaignPillar = {
+    role: "proof",
+    kind: "market",
+    label: "Market",
+    eyebrow: "Today’s market check",
+    headline: copy.headline,
+    body: `${copy.productLine}. ${copy.priceLine}.`,
+    action: copy.action,
+    actionUrl,
+    caption: copy.caption,
+    footerNote: "Exact product. Fresh Nigerian listings. Prices can change.",
+    evidenceNote: `${offerEvidence.length} fresh, exact Nigerian ${offerEvidence.length === 1 ? "listing" : "listings"}. Prices change.`,
+  };
 
   return {
     status: "selected",
     draft: {
       schemaVersion: 1,
+      campaignKind: "market-plus-editorial",
+      dailyDeskEligible: true,
       campaignId: `${dateKey}-${selected.product.slug}-${purpose}`,
       status: "draft",
       createdAt: checkedAt,
@@ -318,6 +502,8 @@ export async function selectDailyCampaign(input: {
         signalKind: selected.signal.kind,
         evidenceRank: selected.rank,
         recentProductCooldownDays: cooldownDays,
+        catalogueProductCount: signals.catalogueProductCount,
+        freshPriceCandidateCount: signals.rankedPool.length,
         rejectedCandidates,
       },
       product: {
@@ -349,7 +535,12 @@ export async function selectDailyCampaign(input: {
         storyKind: story.kind,
         trendWindow: story.window,
         renderPath: storyPath(selected.product.slug, story),
-        packet: campaignPacketPlan(selected.product.slug, story),
+        packet: campaignPacketPlan(
+          selected.product.slug,
+          story,
+          nowDate,
+          marketPillar,
+        ),
       },
       channels: ["whatsapp-status", "instagram-stories", "snapchat"],
       actionUrl,
