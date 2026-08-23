@@ -23,7 +23,6 @@ type NoCandidateAlertPayload = {
 
 const ALERT_RECIPIENT =
   process.env.CAMPAIGN_ALERT_EMAIL ??
-  process.env.CAMPAIGN_DAILY_OPERATOR_EMAIL ??
   process.env.INVENTORY_ALERT_EMAIL ??
   "hello@jelocare.com";
 

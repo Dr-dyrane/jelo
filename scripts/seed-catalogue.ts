@@ -4,7 +4,7 @@ import { canonicalBrandName } from "../data/brand-canonical-names";
 import { isPublishedIntakeProduct } from "../data/published-intake-products";
 import productAssets from "../data/product-assets.json";
 import publicCatalogueSearchProjectionJson from "../data/public-catalogue-search.json";
-import { mergeRetailOffers } from "../data/retail-offers";
+import { materializeRetailOffersForCatalogueSeed } from "../data/retail-offers";
 import {
   ingredientSeeds,
   verifiedProductIngredients,
@@ -434,7 +434,10 @@ async function main() {
         // Reapply the idempotent verified-offer projection here so dossier-
         // released intake products receive newly admitted retailer evidence as
         // well as the legacy reviewed catalogue records merged in data/catalogue.
-        for (const offer of mergeRetailOffers(product, product.offers)) {
+        for (const offer of materializeRetailOffersForCatalogueSeed(
+          product,
+          product.offers,
+        )) {
           const retailerSlug = slugify(offer.retailer);
           const [retailer] = await tx<{ id: string }[]>`
           insert into retailers (slug, name, trust_score)
@@ -465,6 +468,9 @@ async function main() {
             const lastVerifiedAt = observationDate(
               offer.listingEvidence?.observedAt ?? offer.checkedAt,
             );
+            const verificationExpiresAt = offer.expiresAt
+              ? observationDate(offer.expiresAt)
+              : new Date(lastVerifiedAt.getTime() + 7 * 24 * 60 * 60 * 1000);
             const verificationMethod =
               offer.listingEvidence?.basis === "retailer-api"
                 ? "api"
@@ -514,7 +520,7 @@ async function main() {
               ${offer.available}, ${priceMinor},
               ${currencyCode}, ${checkedAt},
               ${inventoryStatus}, ${verificationMethod}, ${verificationNote},
-              ${lastVerifiedAt}, ${lastVerifiedAt}::timestamptz + interval '7 days', ${offer.match ?? "exact"},
+              ${lastVerifiedAt}, ${verificationExpiresAt}, ${offer.match ?? "exact"},
               ${offer.inventoryQuantity ?? null}, ${offer.sellerName ?? null},
               ${offer.sellerScore ?? null}, ${offer.officialStore ?? false},
               ${offer.priceObservation?.variant ?? null},

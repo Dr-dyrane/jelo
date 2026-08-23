@@ -11,7 +11,12 @@ const seed = readFileSync(
 );
 
 test("newer protected seed evidence must be exact and pass publication scope checks", () => {
-  assert.match(seed, /mergeRetailOffers\(product, product\.offers\)/);
+  assert.match(
+    seed,
+    /materializeRetailOffersForCatalogueSeed\([\s\S]*product,[\s\S]*product\.offers/,
+  );
+  assert.match(seed, /const verificationExpiresAt = offer\.expiresAt/);
+  assert.match(seed, /\$\{lastVerifiedAt\}, \$\{verificationExpiresAt\}/);
   assert.match(
     seed,
     /\["api", "retailer_page"\]\.includes\(verificationMethod\)/,

@@ -77,6 +77,11 @@ export type DailyCampaignDraft = {
     storyKind: "price" | "trend";
     trendWindow: "7d" | "1m" | null;
     renderPath: string;
+    packet: readonly [
+      { role: "proof"; renderPath: string },
+      { role: "use"; renderPath: string },
+      { role: "remember"; renderPath: string },
+    ];
   };
   channels: ["whatsapp-status", "instagram-stories", "snapchat"];
   actionUrl: string;
@@ -118,10 +123,29 @@ function objective(signal: ShareSignal, story: CampaignStoryChoice) {
   return "current Nigerian price reference";
 }
 
-function storyPath(slug: string, story: CampaignStoryChoice) {
+function storyPath(
+  slug: string,
+  story: CampaignStoryChoice,
+  variant?: "use" | "remember",
+) {
   const query = new URLSearchParams({ kind: story.kind });
   if (story.window) query.set("window", story.window);
+  if (variant) query.set("variant", variant);
   return `/share/${encodeURIComponent(slug)}/story?${query.toString()}`;
+}
+
+function campaignPacketPlan(slug: string, proofStory: CampaignStoryChoice) {
+  return [
+    { role: "proof", renderPath: storyPath(slug, proofStory) },
+    {
+      role: "use",
+      renderPath: storyPath(slug, { kind: "price", window: null }, "use"),
+    },
+    {
+      role: "remember",
+      renderPath: storyPath(slug, { kind: "price", window: null }, "remember"),
+    },
+  ] as const;
 }
 
 export function campaignProductIdentityMatchesEvidence(
@@ -325,6 +349,7 @@ export async function selectDailyCampaign(input: {
         storyKind: story.kind,
         trendWindow: story.window,
         renderPath: storyPath(selected.product.slug, story),
+        packet: campaignPacketPlan(selected.product.slug, story),
       },
       channels: ["whatsapp-status", "instagram-stories", "snapchat"],
       actionUrl,

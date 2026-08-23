@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { productBySlug as findStaticProductBySlug } from '@/data/catalogue';
+import type { Product } from '@/data/products';
 import { findCatalogueProduct } from '@/lib/catalogue/repository';
 import { findRetailerBasketOptions } from './retailer-basket';
 import type { CreateAssistedOrderInput } from './assisted-procurement-schema';
@@ -22,18 +23,28 @@ export class AssistedOrderInputError extends Error {
   }
 }
 
+type AssistedOrderRequestDependencies = {
+  resolveProduct: (slug: string) => Product | undefined | Promise<Product | undefined>;
+  now: number | Date;
+};
+
 export async function requestAssistedOrder(
   input: CreateAssistedOrderInput,
   ownerSubject: string | null,
+  dependencyOverrides: Partial<AssistedOrderRequestDependencies> = {},
 ) {
-  const products = await Promise.all(input.lines.map(line => assistedOrderFixtureEnabled()
-    ? findStaticProductBySlug(line.slug)
-    : findCatalogueProduct(line.slug)));
+  const resolveProduct = dependencyOverrides.resolveProduct ?? (assistedOrderFixtureEnabled()
+    ? findStaticProductBySlug
+    : findCatalogueProduct);
+  const products = await Promise.all(input.lines.map(line => resolveProduct(line.slug)));
   if (products.some(product => !product)) throw new AssistedOrderInputError('products');
   const exactProducts = products.filter((product): product is NonNullable<typeof product> => Boolean(product));
   const quantityBySlug = new Map(input.lines.map(line => [line.slug, line.quantity]));
-  const retailerOption = findRetailerBasketOptions(exactProducts, quantityBySlug)
-    .find(option => option.retailer === input.retailer);
+  const retailerOption = findRetailerBasketOptions(
+    exactProducts,
+    quantityBySlug,
+    dependencyOverrides.now ?? Date.now(),
+  ).find(option => option.retailer === input.retailer);
   if (!retailerOption) throw new AssistedOrderInputError('retailer');
   if (!retailerOption.allInStock) throw new AssistedOrderInputError('stock');
 

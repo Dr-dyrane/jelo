@@ -1,8 +1,18 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { campaignDeliveryIntentKey } from "@/lib/campaigns/campaign-archive";
+import {
+  campaignDeliveryIntentKey,
+  campaignDeliveryOutcomeKey,
+  type ArchivedCampaignImage,
+  type ArchivedCampaignPacket,
+} from "@/lib/campaigns/campaign-archive";
 import type { DailyCampaignDraft } from "@/lib/campaigns/daily-campaign";
 import { runDailyCampaign } from "@/lib/campaigns/daily-campaign-runner";
+import type {
+  CampaignPacketRole,
+  RenderedCampaignPacket,
+  RenderedCampaignStory,
+} from "@/lib/campaigns/campaign-render";
 
 const now = new Date("2026-08-13T07:00:00Z");
 
@@ -70,33 +80,74 @@ const draft: DailyCampaignDraft = {
     storyKind: "price",
     trendWindow: null,
     renderPath: "/share/exact-product/story?kind=price",
+    packet: [
+      {
+        role: "proof",
+        renderPath: "/share/exact-product/story?kind=price&campaignRole=proof",
+      },
+      {
+        role: "use",
+        renderPath: "/share/exact-product/story?kind=price&campaignRole=use",
+      },
+      {
+        role: "remember",
+        renderPath:
+          "/share/exact-product/story?kind=price&campaignRole=remember",
+      },
+    ],
   },
   channels: ["whatsapp-status", "instagram-stories", "snapchat"],
   actionUrl: "https://www.jelocare.com/share/exact-product",
   publication: [],
 };
 
-const rendered = {
-  bytes: Buffer.from("png"),
-  sha256: "d".repeat(64),
-  width: 1080 as const,
-  height: 1920 as const,
-  contentType: "image/png" as const,
-  sourceAssetVerified: true as const,
-  renderUrl: "https://preview.example/share/exact-product/story?kind=price",
-};
+function renderedStory<Role extends CampaignPacketRole>(
+  role: Role,
+  digest: string,
+): RenderedCampaignStory<Role> {
+  return {
+    role,
+    bytes: Buffer.from(`png-${role}`),
+    sha256: digest.repeat(64),
+    width: 1080 as const,
+    height: 1920 as const,
+    contentType: "image/png" as const,
+    sourceAssetVerified: true as const,
+    renderUrl: `https://preview.example/share/exact-product/story?kind=price&campaignRole=${role}`,
+  };
+}
+
+const rendered: RenderedCampaignPacket = [
+  renderedStory("proof", "d"),
+  renderedStory("use", "f"),
+  renderedStory("remember", "a"),
+] as const;
+
+function archivedImage<Role extends CampaignPacketRole>(
+  story: RenderedCampaignStory<Role>,
+): ArchivedCampaignImage<Role> {
+  return {
+    role: story.role,
+    path: `campaigns/tests/2026-08-13/run/v1/${story.role}.png`,
+    url: `https://blob.example/${story.role}.png`,
+    downloadUrl: `https://blob.example/${story.role}.png?download=1`,
+    sha256: story.sha256,
+    width: 1080 as const,
+    height: 1920 as const,
+  };
+}
+
+const packetImages: ArchivedCampaignPacket = [
+  archivedImage(rendered[0]),
+  archivedImage(rendered[1]),
+  archivedImage(rendered[2]),
+];
 
 const archive = {
   mode: "test" as const,
   runPath: "campaigns/tests/2026-08-13/run/v1",
-  image: {
-    path: "campaigns/tests/2026-08-13/run/v1/story.png",
-    url: "https://blob.example/story.png",
-    downloadUrl: "https://blob.example/story.png?download=1",
-    sha256: rendered.sha256,
-    width: 1080 as const,
-    height: 1920 as const,
-  },
+  image: packetImages[0],
+  packetImages,
   campaignRecordKey: "jelocare:campaigns:v1:test:run:v1:campaign",
   checksumKey: "jelocare:campaigns:v1:test:run:v1:checksum",
 };
@@ -110,6 +161,16 @@ const recipient = {
     recipientKey: "e".repeat(64),
   },
 };
+
+const operatorRecipients = ["a", "b", "c"].map((key, index) => ({
+  kind: "operator" as const,
+  email: `operator-${index + 1}@example.com`,
+  displayName: `Operator ${index + 1}`,
+  record: {
+    kind: "operator" as const,
+    recipientKey: key.repeat(64),
+  },
+}));
 
 test("production delivery intent is one atomic slot per WAT date", () => {
   const first = {
@@ -131,16 +192,36 @@ test("production delivery intent is one atomic slot per WAT date", () => {
   };
 
   assert.equal(
-    campaignDeliveryIntentKey(first),
-    campaignDeliveryIntentKey(nextCandidate),
+    campaignDeliveryIntentKey(first, operatorRecipients[0]!.record),
+    campaignDeliveryIntentKey(nextCandidate, operatorRecipients[0]!.record),
   );
   assert.notEqual(
-    campaignDeliveryIntentKey(first),
-    campaignDeliveryIntentKey(tomorrow),
+    campaignDeliveryIntentKey(first, operatorRecipients[0]!.record),
+    campaignDeliveryIntentKey(tomorrow, operatorRecipients[0]!.record),
   );
-  assert.equal(
-    campaignDeliveryIntentKey(archive),
-    `${archive.campaignRecordKey}:delivery-intent`,
+  assert.notEqual(
+    campaignDeliveryIntentKey(first, operatorRecipients[0]!.record),
+    campaignDeliveryIntentKey(first, operatorRecipients[1]!.record),
+  );
+  assert.match(
+    campaignDeliveryIntentKey(archive, recipient.record),
+    new RegExp(`^${archive.campaignRecordKey}:delivery-intent:[0-9a-f]{64}$`),
+  );
+  assert.match(
+    campaignDeliveryOutcomeKey(archive, "accepted", recipient.record),
+    new RegExp(`^${archive.campaignRecordKey}:delivery-accepted:[0-9a-f]{64}$`),
+  );
+  assert.notEqual(
+    campaignDeliveryOutcomeKey(
+      archive,
+      "accepted",
+      operatorRecipients[0]!.record,
+    ),
+    campaignDeliveryOutcomeKey(
+      archive,
+      "accepted",
+      operatorRecipients[1]!.record,
+    ),
   );
 });
 
@@ -151,7 +232,7 @@ function dependencies(overrides: Record<string, unknown> = {}) {
     select: async () => ({ status: "selected" as const, draft }),
     render: async () => rendered,
     archive: async () => archive,
-    resolveRecipient: async () => recipient,
+    resolveRecipients: async () => [recipient],
     reserveDelivery: async () => ({
       reserved: true as const,
       key: `${archive.campaignRecordKey}:delivery-intent`,
@@ -169,9 +250,9 @@ test("preview archives the exact story but cannot resolve or send email", async 
   const result = await runDailyCampaign(
     { mode: "preview", iteration: 1, requestOrigin: "https://preview.example" },
     dependencies({
-      resolveRecipient: async () => {
+      resolveRecipients: async () => {
         recipientCalls += 1;
-        return recipient;
+        return [recipient];
       },
       send: async () => {
         sendCalls += 1;
@@ -179,6 +260,13 @@ test("preview archives the exact story but cannot resolve or send email", async 
     }),
   );
   assert.equal(result.status, "preview-ready");
+  if (result.status === "preview-ready") {
+    assert.deepEqual(
+      result.packetImages.map((image) => image.role),
+      ["proof", "use", "remember"],
+    );
+    assert.equal(result.image, result.packetImages[0]);
+  }
   assert.equal(recipientCalls, 0);
   assert.equal(sendCalls, 0);
 });
@@ -198,6 +286,15 @@ test("an existing delivery intent suppresses a duplicate Hostinger send", async 
     }),
   );
   assert.equal(result.status, "duplicate-suppressed");
+  if (result.status === "duplicate-suppressed") {
+    assert.deepEqual(result.delivery, {
+      recipientCount: 1,
+      recipientKinds: ["test"],
+      acceptedCount: 0,
+      duplicateSuppressedCount: 1,
+      failedCount: 0,
+    });
+  }
   assert.equal(sendCalls, 0);
 });
 
@@ -223,11 +320,119 @@ test("a test run sends only after reservation and records provider acceptance", 
     }),
   );
   assert.equal(result.status, "accepted");
+  if (result.status === "accepted") {
+    assert.deepEqual(result.delivery, {
+      recipientCount: 1,
+      recipientKinds: ["test"],
+      acceptedCount: 1,
+      duplicateSuppressedCount: 0,
+      failedCount: 0,
+    });
+  }
   assert.deepEqual(events, [
     "reserved",
     "sent:owner@example.com",
     "recorded:accepted",
   ]);
+});
+
+test("production attempts all three private recipients and fails after sibling outcomes", async () => {
+  const sent: string[] = [];
+  const outcomes: Array<{
+    recipientKey: string;
+    state: string;
+    errorCode?: string;
+  }> = [];
+
+  await assert.rejects(
+    runDailyCampaign(
+      {
+        mode: "production",
+        iteration: 1,
+        requestOrigin: "https://www.jelocare.com",
+      },
+      dependencies({
+        resolveRecipients: async () => operatorRecipients,
+        send: async ({ to }: { to: string }) => {
+          sent.push(to);
+          if (to === "operator-2@example.com") {
+            throw new Error("provider-temporarily-unavailable");
+          }
+        },
+        recordOutcome: async ({
+          recipient: record,
+          state,
+          errorCode,
+        }: {
+          recipient: { recipientKey: string };
+          state: string;
+          errorCode?: string;
+        }) => {
+          outcomes.push({
+            recipientKey: record.recipientKey,
+            state,
+            errorCode,
+          });
+          return `${archive.runPath}/delivery-${state}.json`;
+        },
+      }),
+    ),
+    /campaign_delivery_batch_failed_1_of_3/,
+  );
+
+  assert.deepEqual(sent, [
+    "operator-1@example.com",
+    "operator-2@example.com",
+    "operator-3@example.com",
+  ]);
+  assert.deepEqual(
+    outcomes.map((outcome) => outcome.state),
+    ["accepted", "failed", "accepted"],
+  );
+  assert.equal(
+    new Set(outcomes.map((outcome) => outcome.recipientKey)).size,
+    3,
+  );
+  assert.equal(outcomes[1]?.errorCode, "campaign_email_send_failed");
+  assert.equal(outcomes[0]?.errorCode, undefined);
+  assert.equal(outcomes[2]?.errorCode, undefined);
+});
+
+test("production resumes unsent siblings without resending a reserved recipient", async () => {
+  const sent: string[] = [];
+  const result = await runDailyCampaign(
+    {
+      mode: "production",
+      iteration: 1,
+      requestOrigin: "https://www.jelocare.com",
+    },
+    dependencies({
+      resolveRecipients: async () => operatorRecipients,
+      reserveDelivery: async ({
+        recipient: record,
+      }: {
+        recipient: { recipientKey: string };
+      }) => ({
+        reserved:
+          record.recipientKey !== operatorRecipients[0]!.record.recipientKey,
+        key: `${archive.campaignRecordKey}:delivery-intent:${record.recipientKey}`,
+      }),
+      send: async ({ to }: { to: string }) => {
+        sent.push(to);
+      },
+    }),
+  );
+
+  assert.equal(result.status, "accepted");
+  if (result.status !== "accepted") return;
+  assert.deepEqual(sent, ["operator-2@example.com", "operator-3@example.com"]);
+  assert.deepEqual(result.delivery, {
+    recipientCount: 3,
+    recipientKinds: ["operator"],
+    acceptedCount: 2,
+    duplicateSuppressedCount: 1,
+    failedCount: 0,
+  });
 });
 
 test("no-candidate triggers the alert with rejection details", async () => {
@@ -285,9 +490,9 @@ test("no-candidate does not resolve recipient or send email", async () => {
           { slug: "product-a", blocker: "sent-within-14-day-cooldown" },
         ],
       }),
-      resolveRecipient: async () => {
+      resolveRecipients: async () => {
         recipientCalls += 1;
-        return recipient;
+        return [recipient];
       },
       send: async () => {
         sendCalls += 1;

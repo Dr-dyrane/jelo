@@ -1,5 +1,11 @@
 import { ImageResponse } from "next/og";
 import { buildShareData, type ShareData } from "../share-data";
+import { MarketNoteStory } from "@/lib/campaigns/daily-packet/market-note-story";
+import { MobileComparisonStory } from "@/lib/campaigns/daily-packet/mobile-comparison-story";
+import {
+  CampaignAmount,
+  JeloCareMark,
+} from "@/lib/campaigns/daily-packet/og-primitives";
 import {
   buildCampaignTrendStory,
   CAMPAIGN_STORY_SIZE,
@@ -40,6 +46,7 @@ const shortDate = new Intl.DateTimeFormat("en-GB", {
 });
 
 type StoryKind = "price" | "trend";
+type StoryVariant = "use" | "remember";
 
 function observedLabel(value: string | null) {
   if (!value) return "Observed recently";
@@ -47,24 +54,6 @@ function observedLabel(value: string | null) {
   return Number.isNaN(date.valueOf())
     ? "Observed recently"
     : `Observed ${fullDate.format(date)}`;
-}
-
-function JeloCareMark() {
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "baseline",
-        color: "#fffaf4",
-        fontFamily: "Manrope",
-        fontSize: 40,
-        letterSpacing: "-1.6px",
-      }}
-    >
-      <span style={{ fontWeight: 600 }}>Jelo</span>
-      <span style={{ fontWeight: 400, opacity: 0.9 }}>Care</span>
-    </div>
-  );
 }
 
 function StoryFooter({ observedAt }: { observedAt: string | null }) {
@@ -86,75 +75,6 @@ function StoryFooter({ observedAt }: { observedAt: string | null }) {
       <span>Prices change.</span>
       <span>{observedLabel(observedAt)}</span>
     </div>
-  );
-}
-
-function CampaignAmount({
-  value,
-  color = "#fffaf4",
-  fontSize,
-  fontWeight = 600,
-  letterSpacing = "-1px",
-}: {
-  value: string;
-  color?: string;
-  fontSize: number;
-  fontWeight?: 400 | 600;
-  letterSpacing?: string;
-}) {
-  const hasNaira = value.trim().startsWith("₦");
-  const amount = hasNaira ? value.trim().replace(/^₦\s*/, "") : value;
-  const strokeHeight = Math.max(2, Math.round(fontSize * 0.045));
-
-  return (
-    <span
-      style={{
-        display: "flex",
-        alignItems: "center",
-        color,
-        fontFamily: "Manrope",
-        fontSize,
-        fontWeight,
-        letterSpacing,
-        lineHeight: 1,
-      }}
-    >
-      {hasNaira ? (
-        <span
-          style={{
-            position: "relative",
-            width: Math.round(fontSize * 0.74),
-            height: fontSize,
-            display: "flex",
-            alignItems: "center",
-            marginRight: Math.round(fontSize * 0.035),
-          }}
-        >
-          <span style={{ fontSize, fontWeight, lineHeight: 1 }}>N</span>
-          <span
-            style={{
-              position: "absolute",
-              left: -1,
-              top: Math.round(fontSize * 0.36),
-              width: Math.round(fontSize * 0.77),
-              height: strokeHeight,
-              background: color,
-            }}
-          />
-          <span
-            style={{
-              position: "absolute",
-              left: -1,
-              top: Math.round(fontSize * 0.52),
-              width: Math.round(fontSize * 0.77),
-              height: strokeHeight,
-              background: color,
-            }}
-          />
-        </span>
-      ) : null}
-      <span>{amount}</span>
-    </span>
   );
 }
 
@@ -772,6 +692,15 @@ export async function GET(
   if (kind !== "price" && kind !== "trend") {
     return errorResponse("Choose a price or trend story.", 400);
   }
+  const requestedVariant = searchParams.get("variant");
+  if (
+    requestedVariant !== null &&
+    requestedVariant !== "use" &&
+    requestedVariant !== "remember"
+  ) {
+    return errorResponse("Choose a valid campaign story variant.", 400);
+  }
+  const variant = requestedVariant as StoryVariant | null;
   const requestedWindow = searchParams.get("window");
   if (
     kind === "trend" &&
@@ -803,7 +732,11 @@ export async function GET(
   }
 
   const body =
-    kind === "price" ? (
+    variant === "use" ? (
+      <MobileComparisonStory data={shareData} packshotSrc={packshotSrc} />
+    ) : variant === "remember" ? (
+      <MarketNoteStory data={shareData} packshotSrc={packshotSrc} />
+    ) : kind === "price" ? (
       <PriceStory data={shareData} packshotSrc={packshotSrc} />
     ) : (
       <TrendStory
@@ -817,7 +750,11 @@ export async function GET(
         windowKey={windowKey}
       />
     );
-  const fileName = `${slug}-${kind}-story.png`.replace(/[^a-z0-9._-]+/gi, "-");
+  const fileName =
+    `${slug}-${kind}${variant ? `-${variant}` : ""}-story.png`.replace(
+      /[^a-z0-9._-]+/gi,
+      "-",
+    );
 
   return new ImageResponse(body, {
     ...CAMPAIGN_STORY_SIZE,

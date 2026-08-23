@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { products as staticProducts } from "@/data/catalogue";
+import { mergeRetailOffers } from "@/data/retail-offers";
 import type { Offer, Product } from "@/data/products";
 import {
   mergeDossierReleasedCatalogue,
@@ -235,11 +236,16 @@ test("the newest exact observation wins for the same retailer and market", () =>
 });
 
 test("a newly enriched product remains shareable while Neon still has only stale offers", () => {
-  const approved = staticProducts.find(
+  const staticProduct = staticProducts.find(
     (product) =>
       product.slug === "aqua-rich-licorice-mulberry-body-wash-1000ml",
   );
-  assert.ok(approved);
+  assert.ok(staticProduct);
+  const asOf = new Date("2026-08-14T17:01:00Z");
+  const approved = {
+    ...staticProduct,
+    offers: mergeRetailOffers(staticProduct, staticProduct.offers, asOf),
+  };
 
   const stalePersisted = exactOffer({
     retailer: "Stale retailer",
@@ -263,10 +269,7 @@ test("a newly enriched product remains shareable while Neon still has only stale
     [approved],
   );
 
-  assert.equal(
-    hasShareableNgOffer(reconciled, new Date("2026-08-14T17:01:00Z")),
-    true,
-  );
+  assert.equal(hasShareableNgOffer(reconciled, asOf), true);
   assert.deepEqual(
     reconciled.offers
       .filter((offer) =>

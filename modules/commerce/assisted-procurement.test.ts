@@ -26,6 +26,22 @@ import {
 } from "@/lib/commerce/shopping-session";
 import type { CreateAssistedOrderInput } from "@/lib/commerce/assisted-procurement-schema";
 import { productBySlug } from "@/data/catalogue";
+import { mergeRetailOffers } from "@/data/retail-offers";
+
+const assistedProcurementFixtureAsOf = new Date("2026-08-14T17:01:00Z");
+
+function productWithHistoricalOffers(slug: string) {
+  const product = productBySlug(slug);
+  if (!product) return undefined;
+  return {
+    ...product,
+    offers: mergeRetailOffers(
+      product,
+      product.offers,
+      assistedProcurementFixtureAsOf,
+    ),
+  };
+}
 
 test("guest basket is bounded, quantity-aware, and does not require identity", () => {
   const normalised = normaliseBasketItems([
@@ -202,12 +218,14 @@ test("customer quote totals follow the canonical lifecycle", () => {
 });
 
 test("one-product basket still resolves exact one-retailer choices and quantities", () => {
-  const product = productBySlug("aqua-rich-licorice-mulberry-body-wash-1000ml");
+  const product = productWithHistoricalOffers(
+    "aqua-rich-licorice-mulberry-body-wash-1000ml",
+  );
   assert.ok(product);
   const options = findRetailerBasketOptions(
     [product],
     new Map([[product.slug, 3]]),
-    new Date("2026-08-14T17:01:00Z"),
+    assistedProcurementFixtureAsOf,
   );
   assert.ok(options.length >= 1);
   assert.equal(options[0].quantityTotal, 3);
@@ -293,12 +311,14 @@ test("fixture exercises the canonical guest lifecycle and one-time recovery", as
     import("@/lib/commerce/assisted-procurement-security"),
   ]);
   repository.resetAssistedProcurementDevelopmentFixture();
-  const product = productBySlug("aqua-rich-licorice-mulberry-body-wash-1000ml");
+  const product = productWithHistoricalOffers(
+    "aqua-rich-licorice-mulberry-body-wash-1000ml",
+  );
   assert.ok(product);
   const retailer = findRetailerBasketOptions(
     [product],
     new Map([[product.slug, 1]]),
-    new Date("2026-08-14T17:01:00Z"),
+    assistedProcurementFixtureAsOf,
   )[0]?.retailer;
   assert.ok(retailer);
   const request: CreateAssistedOrderInput = {
@@ -317,7 +337,13 @@ test("fixture exercises the canonical guest lifecycle and one-time recovery", as
     termsAccepted: true,
     websiteField: "",
   };
-  const created = await requestAssistedOrder(request, null);
+  const requestFixtureOrder = (fixtureRequest: CreateAssistedOrderInput) =>
+    requestAssistedOrder(fixtureRequest, null, {
+      resolveProduct: async (slug) =>
+        slug === product.slug ? product : undefined,
+      now: assistedProcurementFixtureAsOf,
+    });
+  const created = await requestFixtureOrder(request);
   const customerView = toAssistedOrderCustomerView(created.order);
   for (const privateField of [
     "ownerSubject",
@@ -329,13 +355,13 @@ test("fixture exercises the canonical guest lifecycle and one-time recovery", as
   ]) {
     assert.equal(Object.hasOwn(customerView, privateField), false);
   }
-  const retried = await requestAssistedOrder(request, null);
+  const retried = await requestFixtureOrder(request);
   assert.equal(retried.order.id, created.order.id);
   await assert.rejects(
-    requestAssistedOrder(
-      { ...request, deliveryAddress: "2 Changed Street" },
-      null,
-    ),
+    requestFixtureOrder({
+      ...request,
+      deliveryAddress: "2 Changed Street",
+    }),
     /order_idempotency_conflict/,
   );
   const sessionHash = security.hashOrderSecret(retried.sessionSecret);

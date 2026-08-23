@@ -18,7 +18,8 @@ import {
 import { renderDailyCampaignStory } from "@/lib/campaigns/campaign-render";
 import {
   campaignDailyEnabled,
-  resolveCampaignRecipient,
+  resolveCampaignRecipients,
+  type CampaignRecipient,
 } from "@/lib/campaigns/campaign-recipient";
 import {
   selectDailyCampaign,
@@ -31,7 +32,7 @@ type RunnerDependencies = {
   select: typeof selectDailyCampaign;
   render: typeof renderDailyCampaignStory;
   archive: typeof archiveCampaign;
-  resolveRecipient: typeof resolveCampaignRecipient;
+  resolveRecipients: typeof resolveCampaignRecipients;
   reserveDelivery: typeof reserveCampaignDelivery;
   send: typeof sendAlertEmail;
   recordOutcome: typeof recordCampaignDeliveryOutcome;
@@ -44,7 +45,7 @@ const defaultDependencies: RunnerDependencies = {
   select: selectDailyCampaign,
   render: renderDailyCampaignStory,
   archive: archiveCampaign,
-  resolveRecipient: resolveCampaignRecipient,
+  resolveRecipients: resolveCampaignRecipients,
   reserveDelivery: reserveCampaignDelivery,
   send: sendAlertEmail,
   recordOutcome: recordCampaignDeliveryOutcome,
@@ -66,31 +67,29 @@ export type DailyCampaignRunResult =
       evidenceBoundary: string;
       channels: readonly string[];
       image: ArchivedCampaign["image"];
+      packetImages: ArchivedCampaign["packetImages"];
       campaignRecordKey: string;
     }
   | {
       status: "duplicate-suppressed";
       campaignId: string;
-      deliveryIntentKey: string;
+      delivery: CampaignDeliverySummary;
     }
   | {
       status: "accepted";
       campaignId: string;
-      recipientKind: "test" | "operator";
       image: ArchivedCampaign["image"];
-      deliveryRecordKey: string;
+      packetImages: ArchivedCampaign["packetImages"];
+      delivery: CampaignDeliverySummary;
     };
 
-function boundedErrorCode(cause: unknown) {
-  const source = cause instanceof Error ? cause.message : "campaign-run-failed";
-  return (
-    source
-      .toLowerCase()
-      .replace(/[^a-z0-9_-]+/g, "-")
-      .replace(/^-+|-+$/g, "")
-      .slice(0, 80) || "campaign-run-failed"
-  );
-}
+type CampaignDeliverySummary = {
+  recipientCount: number;
+  recipientKinds: readonly CampaignRecipient["kind"][];
+  acceptedCount: number;
+  duplicateSuppressedCount: number;
+  failedCount: number;
+};
 
 export async function runDailyCampaign(
   input: {
@@ -159,57 +158,117 @@ export async function runDailyCampaign(
       evidenceBoundary: selection.draft.evidenceBoundary,
       channels: selection.draft.channels,
       image: archive.image,
+      packetImages: archive.packetImages,
       campaignRecordKey: archive.campaignRecordKey,
     };
   }
 
-  const recipient = await dependencies.resolveRecipient(input.mode);
-  const intent = await dependencies.reserveDelivery({
-    archive,
-    recipient: recipient.record,
-    createdAt: now.toISOString(),
-  });
-  if (!intent.reserved) {
+  const recipients = await dependencies.resolveRecipients(input.mode);
+  const expectedRecipientCount = input.mode === "test" ? 1 : 3;
+  const expectedRecipientKind = input.mode === "test" ? "test" : "operator";
+  if (
+    recipients.length !== expectedRecipientCount ||
+    recipients.some((recipient) => recipient.kind !== expectedRecipientKind)
+  ) {
+    throw new Error("campaign_recipient_batch_invalid");
+  }
+  const recipientKinds = [
+    ...new Set(recipients.map((recipient) => recipient.kind)),
+  ].sort() as CampaignRecipient["kind"][];
+  let acceptedCount = 0;
+  let duplicateSuppressedCount = 0;
+  let failedCount = 0;
+
+  for (const recipient of recipients) {
+    let intent: Awaited<ReturnType<typeof reserveCampaignDelivery>>;
+    try {
+      intent = await dependencies.reserveDelivery({
+        archive,
+        recipient: recipient.record,
+        createdAt: now.toISOString(),
+      });
+    } catch {
+      failedCount += 1;
+      continue;
+    }
+    if (!intent.reserved) {
+      duplicateSuppressedCount += 1;
+      continue;
+    }
+
+    let sendFailed = false;
+    try {
+      await dependencies.send({
+        to: recipient.email,
+        ...dailyCampaignEmail({
+          mode: input.mode,
+          draft: selection.draft,
+          archive,
+          recipient,
+        }),
+      });
+    } catch {
+      sendFailed = true;
+    }
+
+    if (sendFailed) {
+      failedCount += 1;
+      try {
+        await dependencies.recordOutcome({
+          archive,
+          state: "failed",
+          recordedAt: dependencies.now().toISOString(),
+          recipient: recipient.record,
+          errorCode: "campaign_email_send_failed",
+        });
+      } catch {
+        // The immutable delivery intent remains the retry authority even when
+        // recording the provider failure is unavailable.
+      }
+      continue;
+    }
+
+    try {
+      await dependencies.recordOutcome({
+        archive,
+        state: "accepted",
+        recordedAt: dependencies.now().toISOString(),
+        recipient: recipient.record,
+      });
+      acceptedCount += 1;
+    } catch {
+      // Provider acceptance without a durable outcome is indeterminate. Keep
+      // the intent reserved and do not risk a duplicate resend.
+      failedCount += 1;
+    }
+  }
+
+  const delivery: CampaignDeliverySummary = {
+    recipientCount: recipients.length,
+    recipientKinds,
+    acceptedCount,
+    duplicateSuppressedCount,
+    failedCount,
+  };
+  if (failedCount > 0) {
+    throw new Error(
+      `campaign_delivery_batch_failed_${failedCount}_of_${recipients.length}`,
+    );
+  }
+  if (acceptedCount === 0) {
     return {
       status: "duplicate-suppressed",
       campaignId: selection.draft.campaignId,
-      deliveryIntentKey: intent.key,
+      delivery,
     };
   }
 
-  try {
-    await dependencies.send({
-      to: recipient.email,
-      ...dailyCampaignEmail({
-        mode: input.mode,
-        draft: selection.draft,
-        archive,
-        recipient,
-      }),
-    });
-  } catch (cause) {
-    await dependencies.recordOutcome({
-      archive,
-      state: "failed",
-      recordedAt: dependencies.now().toISOString(),
-      recipient: recipient.record,
-      errorCode: boundedErrorCode(cause),
-    });
-    throw cause;
-  }
-
-  const deliveryRecordKey = await dependencies.recordOutcome({
-    archive,
-    state: "accepted",
-    recordedAt: dependencies.now().toISOString(),
-    recipient: recipient.record,
-  });
   return {
     status: "accepted",
     campaignId: selection.draft.campaignId,
-    recipientKind: recipient.kind,
     image: archive.image,
-    deliveryRecordKey,
+    packetImages: archive.packetImages,
+    delivery,
   };
 }
 

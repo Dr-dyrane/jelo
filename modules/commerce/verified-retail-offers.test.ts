@@ -1,12 +1,17 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { reviewedProductRecords } from "@/data/catalogue";
-import { mergeRetailOffers, verifiedRetailOffers } from "@/data/retail-offers";
+import {
+  materializeRetailOffersForCatalogueSeed,
+  mergeRetailOffers,
+  verifiedRetailOffers,
+} from "@/data/retail-offers";
 import { nigeriaRetailers } from "@/data/retailers";
 import {
   hasCompletePriceObservation,
   hasListingEvidence,
 } from "./offer-evidence";
+import { isOfferFresh } from "./offer-freshness";
 
 const searchRouteMarkers = [
   "?s=",
@@ -55,9 +60,36 @@ test("verified Nigerian observations use exact secure product pages", () => {
   }
 });
 
+test("catalogue seed retains expired exact URLs for refresh without making them current", () => {
+  const product = reviewedProductRecords.find(
+    (candidate) =>
+      candidate.slug === "cosrx-salicylic-acid-daily-gentle-cleanser",
+  );
+  assert.ok(product);
+  const afterExpiry = new Date("2026-08-23T00:00:00Z");
+  const publicOffers = mergeRetailOffers(product, product.offers, afterExpiry);
+  const seedOffers = materializeRetailOffersForCatalogueSeed(
+    product,
+    product.offers,
+  );
+  assert.equal(
+    publicOffers.some(
+      (offer) =>
+        offer.retailer === "Beauty by Daz" && isOfferFresh(offer, afterExpiry),
+    ),
+    false,
+  );
+  const retained = seedOffers.find(
+    (offer) => offer.retailer === "Beauty by Daz" && offer.priceNgn != null,
+  );
+  assert.ok(retained);
+  assert.equal(isOfferFresh(retained, afterExpiry), false);
+});
+
 test("at least thirteen catalogue products have reliable exact Nigerian price evidence", () => {
+  const asOf = new Date("2026-08-14T17:01:00Z");
   const priced = reviewedProductRecords.filter((product) =>
-    product.offers.some(
+    mergeRetailOffers(product, product.offers, asOf).some(
       (offer) =>
         offer.location.includes("NG") &&
         offer.match === "exact" &&
@@ -437,6 +469,7 @@ test("stale PanOxyl Teeka and Lux routes cannot leak through base offers", () =>
         location: ["NG"],
       },
     ],
+    new Date("2026-08-19T00:00:00Z"),
   );
 
   assert.deepEqual(

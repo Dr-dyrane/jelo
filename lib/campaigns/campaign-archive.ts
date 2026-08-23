@@ -9,21 +9,34 @@ import {
   type HeadBlobResult,
 } from "@vercel/blob";
 import type { DailyCampaignDraft } from "@/lib/campaigns/daily-campaign";
-import type { RenderedCampaignStory } from "@/lib/campaigns/campaign-render";
+import type {
+  CampaignPacketRole,
+  RenderedCampaignPacket,
+} from "@/lib/campaigns/campaign-render";
 
 export type CampaignRunMode = "preview" | "test" | "production";
+
+export type ArchivedCampaignImage<Role extends CampaignPacketRole> = {
+  role: Role;
+  path: string;
+  url: string;
+  downloadUrl: string;
+  sha256: string;
+  width: 1080;
+  height: 1920;
+};
+
+export type ArchivedCampaignPacket = readonly [
+  ArchivedCampaignImage<"proof">,
+  ArchivedCampaignImage<"use">,
+  ArchivedCampaignImage<"remember">,
+];
 
 export type ArchivedCampaign = {
   mode: CampaignRunMode;
   runPath: string;
-  image: {
-    path: string;
-    url: string;
-    downloadUrl: string;
-    sha256: string;
-    width: 1080;
-    height: 1920;
-  };
+  image: ArchivedCampaignImage<"proof">;
+  packetImages: ArchivedCampaignPacket;
   campaignRecordKey: string;
   checksumKey: string;
 };
@@ -40,6 +53,7 @@ const dailyDeskAggregatePrefix = `${ledgerPrefix}:daily-desk:aggregate`;
 const dailyDeskRatePrefix = `${ledgerPrefix}:daily-desk:rate`;
 const dailyDeskAggregateRetentionSeconds = 90 * 24 * 60 * 60;
 const dailyDeskRateLimitPerMinute = 500;
+const campaignPacketRoles = ["proof", "use", "remember"] as const;
 let redis: Redis | undefined;
 
 export type DailyDeskAggregateEvent = "view" | "compare_click";
@@ -52,11 +66,31 @@ function productionCampaignDate(archive: ArchivedCampaign) {
   return date;
 }
 
-export function campaignDeliveryIntentKey(archive: ArchivedCampaign) {
-  if (archive.mode !== "production") {
-    return `${archive.campaignRecordKey}:delivery-intent`;
+function safeRecipientKey(recipient: CampaignDeliveryRecipientRecord) {
+  if (!/^[0-9a-f]{64}$/.test(recipient.recipientKey)) {
+    throw new Error("campaign_recipient_key_invalid");
   }
-  return `${ledgerPrefix}:production:${productionCampaignDate(archive)}:delivery-intent`;
+  return recipient.recipientKey;
+}
+
+export function campaignDeliveryIntentKey(
+  archive: ArchivedCampaign,
+  recipient: CampaignDeliveryRecipientRecord,
+) {
+  const recipientKey = safeRecipientKey(recipient);
+  if (archive.mode !== "production") {
+    return `${archive.campaignRecordKey}:delivery-intent:${recipientKey}`;
+  }
+  return `${ledgerPrefix}:production:${productionCampaignDate(archive)}:delivery-intent:${recipientKey}`;
+}
+
+export function campaignDeliveryOutcomeKey(
+  archive: ArchivedCampaign,
+  state: "accepted" | "failed",
+  recipient: CampaignDeliveryRecipientRecord,
+) {
+  const suffix = state === "accepted" ? "delivery-accepted" : "delivery-failed";
+  return `${archive.campaignRecordKey}:${suffix}:${safeRecipientKey(recipient)}`;
 }
 
 async function acceptedProductionRecordForDate(date: string) {
@@ -70,6 +104,17 @@ async function acceptedProductionRecordForDate(date: string) {
     { byScore: true, offset: 0, count: 1 },
   );
   return records[0] ?? null;
+}
+
+async function claimProductionCampaignForDate(archive: ArchivedCampaign) {
+  const date = productionCampaignDate(archive);
+  const key = `${ledgerPrefix}:production:${date}:campaign`;
+  const campaignRecordKey = archive.campaignRecordKey;
+  const stored = await campaignLedger().set(key, campaignRecordKey, {
+    nx: true,
+  });
+  if (stored === "OK") return true;
+  return (await campaignLedger().get<string>(key)) === campaignRecordKey;
 }
 
 export async function acceptedProductionCampaignJsonForDate(date: string) {
@@ -168,7 +213,7 @@ function campaignLedger() {
 
 async function putPublicImage(
   pathname: string,
-  rendered: RenderedCampaignStory,
+  rendered: RenderedCampaignPacket[number],
 ): Promise<HeadBlobResult> {
   try {
     const stored = await put(pathname, rendered.bytes, {
@@ -208,14 +253,49 @@ export async function archiveCampaign(input: {
   mode: CampaignRunMode;
   iteration: number;
   draft: DailyCampaignDraft;
-  rendered: RenderedCampaignStory;
+  rendered: RenderedCampaignPacket;
 }): Promise<ArchivedCampaign> {
   const iteration = safeIteration(input.iteration);
   const date = input.draft.campaignId.slice(0, 10);
   const runPath = `${runPrefix(input.mode)}/${date}/${input.draft.campaignId}/v${iteration}`;
-  const imageName = `${input.draft.product.slug}-${input.draft.creativePlan.storyKind}-${input.rendered.sha256.slice(0, 16)}.png`;
-  const imagePath = `${runPath}/${imageName}`;
-  const image = await putPublicImage(imagePath, input.rendered);
+  for (const [index, role] of campaignPacketRoles.entries()) {
+    if (input.rendered[index]?.role !== role) {
+      throw new Error("campaign_packet_role_order_invalid");
+    }
+  }
+
+  async function storePacketImage<Index extends 0 | 1 | 2>(index: Index) {
+    const rendered = input.rendered[index];
+    const role = campaignPacketRoles[index];
+    const imageName = `${input.draft.product.slug}-${input.draft.creativePlan.storyKind}-${role}-${rendered.sha256.slice(0, 16)}.png`;
+    const imagePath = `${runPath}/${imageName}`;
+    const image = await putPublicImage(imagePath, rendered);
+    return {
+      role,
+      imageName,
+      rendered,
+      archived: {
+        role,
+        path: imagePath,
+        url: image.url,
+        downloadUrl: image.downloadUrl,
+        sha256: rendered.sha256,
+        width: rendered.width,
+        height: rendered.height,
+      },
+    };
+  }
+
+  const [proof, use, remember] = await Promise.all([
+    storePacketImage(0),
+    storePacketImage(1),
+    storePacketImage(2),
+  ]);
+  const packetImages: ArchivedCampaignPacket = [
+    proof.archived,
+    use.archived,
+    remember.archived,
+  ];
   const recordPrefix = `${ledgerPrefix}:${input.mode}:${input.draft.campaignId}:v${iteration}`;
   const campaignRecordKey = `${recordPrefix}:campaign`;
   const checksumKey = `${recordPrefix}:checksum`;
@@ -224,38 +304,49 @@ export async function archiveCampaign(input: {
     creative: [
       {
         mode: input.draft.creativePlan.mode,
-        path: imagePath,
-        url: image.url,
-        downloadUrl: image.downloadUrl,
-        width: input.rendered.width,
-        height: input.rendered.height,
-        sha256: input.rendered.sha256,
+        path: proof.archived.path,
+        url: proof.archived.url,
+        downloadUrl: proof.archived.downloadUrl,
+        width: proof.rendered.width,
+        height: proof.rendered.height,
+        sha256: proof.rendered.sha256,
         generationRoute: input.draft.creativePlan.generationRoute,
-        renderUrl: input.rendered.renderUrl,
-        sourceAssetVerified: input.rendered.sourceAssetVerified,
+        renderUrl: proof.rendered.renderUrl,
+        sourceAssetVerified: proof.rendered.sourceAssetVerified,
       },
     ],
+    packet: [proof, use, remember].map(({ archived, rendered }) => ({
+      role: archived.role,
+      path: archived.path,
+      url: archived.url,
+      downloadUrl: archived.downloadUrl,
+      width: archived.width,
+      height: archived.height,
+      sha256: archived.sha256,
+      generationRoute: input.draft.creativePlan.generationRoute,
+      renderUrl: rendered.renderUrl,
+      sourceAssetVerified: rendered.sourceAssetVerified,
+    })),
   };
 
   await Promise.all([
     putLedgerImmutable(campaignRecordKey, jsonBytes(campaignRecord)),
     putLedgerImmutable(
       checksumKey,
-      Buffer.from(`${input.rendered.sha256}  ${imageName}\n`, "utf8"),
+      Buffer.from(
+        [proof, use, remember]
+          .map(({ archived, imageName }) => `${archived.sha256}  ${imageName}`)
+          .join("\n") + "\n",
+        "utf8",
+      ),
     ),
   ]);
 
   return {
     mode: input.mode,
     runPath,
-    image: {
-      path: imagePath,
-      url: image.url,
-      downloadUrl: image.downloadUrl,
-      sha256: input.rendered.sha256,
-      width: input.rendered.width,
-      height: input.rendered.height,
-    },
+    image: packetImages[0],
+    packetImages,
     campaignRecordKey,
     checksumKey,
   };
@@ -297,14 +388,18 @@ export async function reserveCampaignDelivery(input: {
   recipient: CampaignDeliveryRecipientRecord;
   createdAt: string;
 }) {
-  const key = campaignDeliveryIntentKey(input.archive);
-  if (
-    input.archive.mode === "production" &&
-    (await acceptedProductionRecordForDate(
+  const key = campaignDeliveryIntentKey(input.archive, input.recipient);
+  if (input.archive.mode === "production") {
+    const acceptedCampaign = await acceptedProductionRecordForDate(
       productionCampaignDate(input.archive),
-    ))
-  ) {
-    return { reserved: false, key } as const;
+    );
+    if (
+      (acceptedCampaign &&
+        acceptedCampaign !== input.archive.campaignRecordKey) ||
+      !(await claimProductionCampaignForDate(input.archive))
+    ) {
+      return { reserved: false, key } as const;
+    }
   }
   const body = jsonBytes({
     schemaVersion: 1,
@@ -327,9 +422,11 @@ export async function recordCampaignDeliveryOutcome(input: {
   const safeError = input.errorCode
     ?.replace(/[^a-z0-9_-]+/gi, "-")
     .slice(0, 80);
-  const suffix =
-    input.state === "accepted" ? "delivery-accepted" : "delivery-failed";
-  const key = `${input.archive.campaignRecordKey}:${suffix}`;
+  const key = campaignDeliveryOutcomeKey(
+    input.archive,
+    input.state,
+    input.recipient,
+  );
   await putLedgerImmutable(
     key,
     jsonBytes({

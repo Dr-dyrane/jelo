@@ -179,16 +179,17 @@ The end-to-end Hostinger and Neon Auth setup, signed-webhook boundary, rollout
 order, 90-second production canary, and troubleshooting evidence are owned by
 [Custom authentication email](./CUSTOM_AUTH_EMAIL.md).
 
-| Variable                        | Required               | Notes                                                         |
-| ------------------------------- | ---------------------- | ------------------------------------------------------------- |
-| `EMAIL_PROVIDER`                | Transactional email    | `hostinger-api` preferred; `hostinger-smtp` selects SMTP only |
-| `EMAIL_API_TOKEN`               | Hostinger API delivery | Mailbox-scoped Agentic Mail token                             |
-| `EMAIL_SMTP_PASSWORD`           | SMTP resilience        | Mailbox password, never an API token                          |
-| `EMAIL_FROM_ADDRESS`            | Recommended            | Auth username; defaults to `hello@jelocare.com`               |
-| `EMAIL_FROM`                    | Recommended            | Display sender                                                |
-| `EMAIL_REPLY_TO`                | Recommended            | Reply destination                                             |
-| `CAMPAIGN_TEST_EMAIL`           | Campaign test only     | Explicit test mailbox; never written to campaign records      |
-| `CAMPAIGN_DAILY_OPERATOR_EMAIL` | Campaign production    | Must resolve to exactly one active `moderation_operators` row |
+| Variable                              | Required               | Notes                                                                                    |
+| ------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------- |
+| `EMAIL_PROVIDER`                      | Transactional email    | `hostinger-api` preferred; `hostinger-smtp` selects SMTP only                            |
+| `EMAIL_API_TOKEN`                     | Hostinger API delivery | Mailbox-scoped Agentic Mail token                                                        |
+| `EMAIL_SMTP_PASSWORD`                 | SMTP resilience        | Mailbox password, never an API token                                                     |
+| `EMAIL_FROM_ADDRESS`                  | Recommended            | Auth username; defaults to `hello@jelocare.com`                                          |
+| `EMAIL_FROM`                          | Recommended            | Display sender                                                                           |
+| `EMAIL_REPLY_TO`                      | Recommended            | Reply destination                                                                        |
+| `CAMPAIGN_TEST_EMAIL`                 | Campaign test only     | Explicit test mailbox; never written to campaign records                                 |
+| `CAMPAIGN_DAILY_OPERATOR_EMAILS_JSON` | Campaign production    | JSON array of exactly three unique mailboxes; each must be an active moderation operator |
+| `CAMPAIGN_ALERT_EMAIL`                | Campaign alerts        | Optional single Ops mailbox for no-candidate alerts                                      |
 
 Create the API token under hPanel → Emails → the domain → Agentic mail → API.
 The mailer resolves the configured sender against `/api/v1/me` before sending.
@@ -204,12 +205,13 @@ delivery or identifies a provider or credential.
 
 ### Scheduled and release operations
 
-| Variable                        | Required                | Notes                                                     |
-| ------------------------------- | ----------------------- | --------------------------------------------------------- |
-| `CRON_SECRET`                   | Production              | Bearer secret for every `/api/cron/*` route               |
-| `CAMPAIGN_DAILY_ENABLED`        | Daily campaign          | Exact `true` activates delivery; every other value is off |
-| `CAMPAIGN_TEST_EMAIL`           | Protected campaign test | Test-only destination                                     |
-| `CAMPAIGN_DAILY_OPERATOR_EMAIL` | Campaign production     | Exact active operator mailbox; no fallback recipient      |
+| Variable                              | Required                | Notes                                                                                    |
+| ------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------- |
+| `CRON_SECRET`                         | Production              | Bearer secret for every `/api/cron/*` route                                              |
+| `CAMPAIGN_DAILY_ENABLED`              | Daily campaign          | Exact `true` activates delivery; every other value is off                                |
+| `CAMPAIGN_TEST_EMAIL`                 | Protected campaign test | Test-only destination                                                                    |
+| `CAMPAIGN_DAILY_OPERATOR_EMAILS_JSON` | Campaign production     | Exactly three unique active operator mailboxes; separate private deliveries, no fallback |
+| `CAMPAIGN_ALERT_EMAIL`                | Campaign alerts         | Optional no-candidate alert destination                                                  |
 
 ### Inventory refresh sync
 

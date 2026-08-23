@@ -12,6 +12,7 @@ import {
   retailerBySlug,
   retailerSlug,
 } from "@/data/retailers";
+import { mergeRetailOffers } from "@/data/retail-offers";
 import { buildRetailerProfile } from "./retailer-profile";
 import { isShareableNgOffer } from "./shareable-offer";
 
@@ -28,7 +29,11 @@ test("every registered retailer has one stable public slug", () => {
 test("retailer profiles expose only that store current exact Nigerian offers", () => {
   const beautyHut = retailerBySlug("beauty-hut-africa");
   assert.ok(beautyHut);
-  const profile = buildRetailerProfile(beautyHut, products, now);
+  const historicalProducts = products.map((product) => ({
+    ...product,
+    offers: mergeRetailOffers(product, product.offers, now),
+  }));
+  const profile = buildRetailerProfile(beautyHut, historicalProducts, now);
 
   assert.ok(profile.productCount >= 13);
   assert.ok(profile.latestObservedAt);

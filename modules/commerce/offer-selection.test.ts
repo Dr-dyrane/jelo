@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { products } from "@/data/catalogue";
 import type { Offer } from "@/data/products";
+import { mergeRetailOffers } from "@/data/retail-offers";
 import { rankOffers } from "@/modules/commerce/offer-selection";
 
 test("Nigeria ranks an available exact offer above search and unavailable routes", () => {
@@ -135,10 +136,18 @@ test("verified Nigerian product matches carry price and check date", () => {
 });
 
 test("known size mismatches stay removed from the exact comparison", () => {
-  const product = products.find(
+  const currentProduct = products.find(
     (item) => item.slug === "cerave-foaming-facial-cleanser",
   );
-  assert.ok(product);
+  assert.ok(currentProduct);
+  const product = {
+    ...currentProduct,
+    offers: mergeRetailOffers(
+      currentProduct,
+      currentProduct.offers,
+      new Date("2026-08-14T17:01:00Z"),
+    ),
+  };
   assert.equal(
     product.offers.some((offer) => offer.retailer === "Care to Beauty"),
     false,

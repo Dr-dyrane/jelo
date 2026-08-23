@@ -7582,13 +7582,15 @@ export function mergeRetailOffers(
   product: Pick<Product, "slug" | "name" | "size">,
   offers: Offer[],
   now: number | Date = Date.now(),
+  options: { includeExpired?: boolean } = {},
 ) {
   const excluded = new Set(excludedRetailers[product.slug] ?? []);
   const merged = new Map<string, Offer>();
 
   for (const offer of offers) {
     if (excluded.has(offer.retailer)) continue;
-    if (offer.expiresAt && !isOfferFresh(offer, now)) continue;
+    if (!options.includeExpired && offer.expiresAt && !isOfferFresh(offer, now))
+      continue;
     merged.set(offer.retailer, {
       ...offer,
       match: offer.match ?? (isSearchRoute(offer.url) ? "search" : "exact"),
@@ -7596,10 +7598,25 @@ export function mergeRetailOffers(
   }
 
   for (const offer of verifiedRetailOffers[product.slug] ?? []) {
-    if (offer.expiresAt && !isOfferFresh(offer, now)) continue;
+    if (!options.includeExpired && offer.expiresAt && !isOfferFresh(offer, now))
+      continue;
     merged.set(offer.retailer, offer);
   }
   return [...merged.values()].map((offer) =>
     materializeOfferEvidence(product, offer),
   );
+}
+
+/**
+ * Database reconciliation retains expired reviewed observations as history so
+ * the refresh queue can verify their exact URLs again. Shopper-facing reads
+ * still use `mergeRetailOffers` and the normal freshness boundary.
+ */
+export function materializeRetailOffersForCatalogueSeed(
+  product: Pick<Product, "slug" | "name" | "size">,
+  offers: Offer[],
+) {
+  return mergeRetailOffers(product, offers, Date.now(), {
+    includeExpired: true,
+  });
 }

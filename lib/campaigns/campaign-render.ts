@@ -8,7 +8,12 @@ import type { DailyCampaignDraft } from "@/lib/campaigns/daily-campaign";
 const MAX_PACKSHOT_BYTES = 12 * 1024 * 1024;
 const MAX_STORY_BYTES = 12 * 1024 * 1024;
 
-export type RenderedCampaignStory = {
+export type CampaignPacketRole = "proof" | "use" | "remember";
+
+export type RenderedCampaignStory<
+  Role extends CampaignPacketRole = CampaignPacketRole,
+> = {
+  role: Role;
   bytes: Buffer;
   sha256: string;
   width: 1080;
@@ -17,6 +22,14 @@ export type RenderedCampaignStory = {
   sourceAssetVerified: true;
   renderUrl: string;
 };
+
+export type RenderedCampaignPacket = readonly [
+  RenderedCampaignStory<"proof">,
+  RenderedCampaignStory<"use">,
+  RenderedCampaignStory<"remember">,
+];
+
+const packetRoles = ["proof", "use", "remember"] as const;
 
 async function boundedResponseBytes(response: Response, maximum: number) {
   const length = Number(response.headers.get("content-length") ?? 0);
@@ -65,7 +78,7 @@ export async function renderDailyCampaignStory(input: {
   draft: DailyCampaignDraft;
   requestOrigin: string;
   fetcher?: typeof fetch;
-}): Promise<RenderedCampaignStory> {
+}): Promise<RenderedCampaignPacket> {
   const fetcher = input.fetcher ?? fetch;
   const origin = new URL(input.requestOrigin);
   if (origin.protocol !== "https:" && origin.hostname !== "localhost") {
@@ -74,36 +87,54 @@ export async function renderDailyCampaignStory(input: {
 
   await verifySourceAsset(input.draft, fetcher);
 
-  const renderUrl = new URL(
-    input.draft.creativePlan.renderPath,
-    origin,
-  ).toString();
-  const response = await renderCampaignStoryRoute(new Request(renderUrl), {
-    params: Promise.resolve({ slug: input.draft.product.slug }),
-  });
-  if (!response.ok) {
-    throw new Error(`campaign_story_render_${response.status}`);
-  }
-  if (response.headers.get("content-type")?.split(";")[0] !== "image/png") {
-    throw new Error("campaign_story_render_wrong_type");
-  }
-  const bytes = await boundedResponseBytes(response, MAX_STORY_BYTES);
-  const metadata = await sharp(bytes, { animated: false }).metadata();
+  const plans = input.draft.creativePlan.packet;
   if (
-    metadata.format !== "png" ||
-    metadata.width !== input.draft.creativePlan.width ||
-    metadata.height !== input.draft.creativePlan.height
+    plans.length !== packetRoles.length ||
+    plans.some((plan, index) => plan.role !== packetRoles[index]) ||
+    plans[0].renderPath !== input.draft.creativePlan.renderPath
   ) {
-    throw new Error("campaign_story_render_wrong_geometry");
+    throw new Error("campaign_packet_plan_invalid");
   }
 
-  return {
-    bytes,
-    sha256: createHash("sha256").update(bytes).digest("hex"),
-    width: 1080,
-    height: 1920,
-    contentType: "image/png",
-    sourceAssetVerified: true,
-    renderUrl,
-  };
+  async function renderPlan<Role extends CampaignPacketRole>(plan: {
+    role: Role;
+    renderPath: string;
+  }): Promise<RenderedCampaignStory<Role>> {
+    const renderUrl = new URL(plan.renderPath, origin).toString();
+    const response = await renderCampaignStoryRoute(new Request(renderUrl), {
+      params: Promise.resolve({ slug: input.draft.product.slug }),
+    });
+    if (!response.ok) {
+      throw new Error(`campaign_story_render_${response.status}`);
+    }
+    if (response.headers.get("content-type")?.split(";")[0] !== "image/png") {
+      throw new Error("campaign_story_render_wrong_type");
+    }
+    const bytes = await boundedResponseBytes(response, MAX_STORY_BYTES);
+    const metadata = await sharp(bytes, { animated: false }).metadata();
+    if (
+      metadata.format !== "png" ||
+      metadata.width !== input.draft.creativePlan.width ||
+      metadata.height !== input.draft.creativePlan.height
+    ) {
+      throw new Error("campaign_story_render_wrong_geometry");
+    }
+
+    return {
+      role: plan.role,
+      bytes,
+      sha256: createHash("sha256").update(bytes).digest("hex"),
+      width: 1080,
+      height: 1920,
+      contentType: "image/png",
+      sourceAssetVerified: true,
+      renderUrl,
+    };
+  }
+
+  return Promise.all([
+    renderPlan(plans[0]),
+    renderPlan(plans[1]),
+    renderPlan(plans[2]),
+  ]);
 }

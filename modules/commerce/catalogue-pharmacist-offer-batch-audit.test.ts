@@ -268,9 +268,14 @@ test("the admitted evidence projects exactly once and rejected or pending stores
     assert.equal(projected[0]?.priceObservation?.stock, offer.stock.status);
     assert.equal(projected[0]?.listingEvidence?.sourceUrl, offer.finalUrl);
 
-    const publicOffer = productBySlug(product.candidateId)?.offers.find(
-      (candidate) => candidate.retailer === offer.retailer.displayName,
-    );
+    const publicProduct = productBySlug(product.candidateId);
+    const publicOffer = publicProduct
+      ? mergeRetailOffers(
+          publicProduct,
+          publicProduct.offers,
+          new Date(offer.observedAt),
+        ).find((candidate) => candidate.retailer === offer.retailer.displayName)
+      : undefined;
     assert.ok(
       publicOffer,
       `${offer.observationId} must reach the public catalogue read model`,

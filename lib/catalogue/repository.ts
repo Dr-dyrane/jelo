@@ -5,7 +5,11 @@ import { products as staticProducts } from "@/data/catalogue";
 import { canonicalBrandName } from "@/data/brand-canonical-names";
 import { getReviewedProductCare } from "@/data/product-care-review";
 import { publishedIntakeProducts } from "@/data/published-intake-products";
-import type { Offer, Product } from "@/data/products";
+import type { Product } from "@/data/products";
+import {
+  materializeCurrentPersistedOffers,
+  type PersistedCatalogueOffer,
+} from "@/lib/catalogue/persisted-offers";
 import {
   mergeDossierReleasedCatalogue,
   reconcilePublishedCatalogue,
@@ -17,17 +21,11 @@ import {
   type CatalogueIdentityVersionRecord,
 } from "@/lib/catalogue/product-identity-resolver";
 import { getPostgresClient, hasPostgresConfig } from "@/lib/db/postgres";
-import {
-  materializePersistedOfferEvidence,
-  type PersistedOfferEvidence,
-} from "@/modules/commerce/offer-evidence";
 
 export type CatalogueRepository = {
   listPublished(): Promise<Product[]>;
   findBySlug(slug: string): Promise<Product | undefined>;
 };
-
-type PersistedProductOffer = Offer & PersistedOfferEvidence;
 
 type ProductRow = {
   slug: string;
@@ -45,7 +43,7 @@ type ProductRow = {
   concerns: string[] | null;
   skin_types: string[] | null;
   ingredient_ids: string[] | null;
-  offers: PersistedProductOffer[] | null;
+  offers: PersistedCatalogueOffer[] | null;
 };
 
 function normalizeProductBrand(product: Product): Product {
@@ -82,25 +80,7 @@ function mapRow(row: ProductRow): Product {
     usage: row.usage,
     evidence: row.evidence,
     verifiedIngredientIds: row.ingredient_ids ?? [],
-    offers: (row.offers ?? []).map((persistedOffer) => {
-      const {
-        verificationMethod,
-        lastVerifiedAt,
-        inventoryStatus,
-        observedTitle,
-        observedSize,
-        canonicalUrl,
-        ...offer
-      } = persistedOffer;
-      return materializePersistedOfferEvidence(row, offer, {
-        verificationMethod,
-        lastVerifiedAt,
-        inventoryStatus,
-        observedTitle,
-        observedSize,
-        canonicalUrl,
-      });
-    }),
+    offers: materializeCurrentPersistedOffers(row, row.offers ?? []),
   };
 }
 

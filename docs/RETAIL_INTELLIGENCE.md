@@ -142,6 +142,12 @@ Page-wide purchase copy is not stock evidence. Every refresh records the adapter
 
 Production queues and checks a bounded set of exact offers once each day, starting 24 hours before their verification window expires. The cron route is bearer-authenticated, ignores store-search URLs and uses the existing locked job queue so overlapping requests cannot claim the same offer. Public price and availability claims honor both the seven-day maximum and the shorter confidence-based expiry recorded by the worker.
 
+Catalogue reconciliation retains expired reviewed offers as non-current history
+instead of dropping their exact URLs. They remain excluded by the public
+freshness gate, but the inventory queue can claim and re-verify them after a
+product is first projected into Neon. This prevents newly reconciled products
+from becoming permanently unreachable by the refresh worker.
+
 ## Static file sync
 
 After each cron run, refreshed offers are synced back to `data/retail-offers.ts` via the GitHub Contents API. This keeps the static seed data in sync with the live database so that re-seeding does not reintroduce stale prices.
