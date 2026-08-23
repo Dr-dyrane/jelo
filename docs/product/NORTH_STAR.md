@@ -1,8 +1,22 @@
 # Product north star
 
-Updated: 2026-07-23
+Updated: 2026-08-23
 
 JeloCare should be the first place people in Nigeria check before buying skincare.
+
+## Current gap (2026-08-23)
+
+JeloCare is not yet meeting its own standard. The catalogue has 158 public
+products, but only 60 (38%) have Nigerian offers. 98 products show no price,
+no stores, and no comparison. The daily price story is unavailable because no
+product has a fresh, shareable offer. The inventory cron that should keep
+evidence current has not been running reliably. See the
+[product roadmap](./ROADMAP.md#catalogue-and-evidence-debt-2026-08-23) for the
+detailed recovery plan.
+
+This is an evidence problem, not a code problem. The platform, publication
+gate, share cards, and assisted-commerce flow all work. What is missing is the
+fresh Nigerian retail evidence that makes them useful.
 
 It is not an open marketplace, inventory-first retailer, diagnosis service, or
 generic chatbot. It is an evidence-led care platform that may act as a

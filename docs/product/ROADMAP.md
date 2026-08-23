@@ -1,8 +1,78 @@
 # Product roadmap
 
-Updated: 2026-08-05
+Updated: 2026-08-23
 
 The roadmap is ordered by dependency, not novelty.
+
+## Catalogue and evidence debt (2026-08-23)
+
+JeloCare is behind on products, offers, and trends. The cron jobs that should
+keep offer evidence fresh have not been running reliably. The catalogue, daily
+campaign, and price-story surfaces all depend on fresh evidence, and the
+absence of it is now visible to customers.
+
+### Current state (2026-08-23)
+
+- **158 public catalogue products**, but only **60 have any Nigerian offers**
+  (38%). **98 products (62%) have zero offers** and cannot show a price, store
+  count, or market summary.
+- **144 intake candidates** all have `publicationScope: "neutral-reference"` —
+  none have bound exact Nigerian offers through the intake pipeline. Offers
+  exist only through the separate enrichment/snapshot path.
+- **47 Naturium products** (the largest brand cohort) have **zero offers**.
+  15 other brands also have zero offers, including Medik8, eos, ESTELIN, ABIB,
+  L'Occitane, Fenty Skin, amika, e.l.f., Neutrogena, Aveeno, Saltair, Anessa,
+  Beauty of Joseon, Replenix, and Benton.
+- Of the 60 products with offers, **46 have exactly 2 offers** and only **8
+  have 3+ offers**. The target of ~3 trustworthy stores per product is met for
+  only 5% of the catalogue.
+- **6 products have only 1 offer** — a single-store monopoly with no comparison.
+- The **Daily Desk is unavailable** — the campaign selector finds no eligible
+  product with a fresh, shareable Nigerian offer. The `/lagos` page shows the
+  "Today's note is being checked" fallback state.
+- **8 tests fail** when offers are stale (PanOxyl, Holly's Wellness, Rehmie
+  routes leaking or missing) — these are data-freshness failures, not code bugs.
+- The **inventory cron** (`/api/cron/inventory`) is configured but the offers
+  it should refresh are not being re-verified. The `last_verified_at` field is
+  absent from the snapshot offer model, so freshness cannot be assessed from
+  the public read model alone.
+
+### What failed
+
+1. **Inventory cron stopped producing fresh offers.** The cron endpoint returns
+   401 without the correct `CRON_SECRET`, and there is no evidence that Vercel's
+   scheduled invocation has been running successfully. The Neon database may
+   have stale or expired offer verifications with no active refresh jobs.
+2. **Daily campaign cron finds no eligible candidate.** Every product is
+   rejected with `no-fresh-shareable-ng-offer` or `sent-within-14-day-cooldown`.
+   The campaign lane correctly fails closed, but the root cause is the missing
+   fresh offer evidence.
+3. **Offer enrichment stalled.** The 98 products without offers were never
+   enriched through the browser-capture or retailer-adapter path. The research
+   queue has 48 items, but none have been promoted to candidates with bound
+   offers.
+4. **Trend and price-history data is absent.** Without fresh observations,
+   the trend engine has no comparison windows and the Daily Desk cannot show
+   price movement.
+
+### Recovery plan
+
+1. **Verify the inventory cron is running.** Check Vercel cron settings, the
+   `CRON_SECRET` environment variable, and the Neon `inventory_refresh_jobs`
+   table. Probe `/api/cron/inventory?dry-run` with the correct credential.
+2. **Re-verify stale offers.** Use the Playwright MCP browser-capture workflow
+   to refresh offers for the 60 products that have them, starting with the
+   products that have only 1-2 offers.
+3. **Enrich zero-offer products.** Prioritise the 47 Naturium products and
+   other zero-offer brands. Use the fast-lane re-verification workflow.
+4. **Expand offer breadth.** For products with 1-2 offers, find additional
+   Nigerian retailers to reach the ~3-store target.
+5. **Resume the daily campaign.** Once fresh offers exist, the campaign
+   selector should find eligible products and the Daily Desk should return to
+   its ready state.
+6. **Monitor cron health.** The inventory cron should enqueue due offers on
+   every run. If the backlog grows, investigate retailer adapter failures,
+   rate limiting, or database connectivity.
 
 ## Now
 

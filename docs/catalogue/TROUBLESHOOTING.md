@@ -1,6 +1,6 @@
 # Catalogue troubleshooting — errors and fixes
 
-Updated: 2026-08-13
+Updated: 2026-08-23
 
 A running log of errors encountered during catalogue intake, release, offer
 binding, and market trends work. Each entry documents the symptom, root cause,
@@ -673,3 +673,68 @@ re-verification), ensure static history dates remain within the 30-day
 trend window relative to the new `asOf`. The 30-day window requires
 anchors to be 30-45 days before `asOf`, so static history dates should
 be approximately 31-32 days before the expected `asOf`.
+
+## Inventory cron failure — stale offers and campaign blackout (2026-08-23)
+
+**Symptom:** The Lagos Daily Desk (`/lagos`) shows the "Today's note is being
+checked" fallback. The daily campaign selector rejects every product with
+`no-fresh-shareable-ng-offer`. 98 of 158 catalogue products have zero Nigerian
+offers. 8 tests fail with stale retailer offer data (PanOxyl, Holly's Wellness,
+Rehmie routes).
+
+**Root cause:** The inventory cron (`/api/cron/inventory`) stopped producing
+fresh offer verifications. The cron endpoint requires `CRON_SECRET` and there is
+no evidence that Vercel's scheduled invocation has been running successfully.
+The Neon `inventory_refresh_jobs` table may have no recent jobs, and the
+`offers` table may have expired verifications with no active refresh.
+
+The daily campaign cron (`/api/cron/daily-campaign`) is running but correctly
+fails closed because no product has a fresh, shareable Nigerian offer. This is
+the intended behaviour — the campaign lane never invents a price — but the root
+cause is the missing fresh evidence from the inventory cron.
+
+**Impact:**
+
+- 98 products (62%) have zero offers and cannot show prices, stores, or
+  comparisons.
+- 47 Naturium products (the largest brand cohort) have zero offers.
+- 15 other brands have zero offers (Medik8, eos, ESTELIN, ABIB, L'Occitane,
+  Fenty Skin, amika, e.l.f., Neutrogena, Aveeno, Saltair, Anessa, Beauty of
+  Joseon, Replenix, Benton).
+- 46 products with offers have only 2 offers (below the ~3-store target).
+- Only 8 products have 3+ offers.
+- The Daily Desk is unavailable — no price story for customers.
+- Trend and price-history data is absent — no comparison windows.
+- 8 tests fail with stale retailer data.
+
+**Fix:**
+
+1. Verify the inventory cron is running:
+
+   ```bash
+   curl -s -H "Authorization: Bearer $CRON_SECRET" \
+     "https://www.jelocare.com/api/cron/inventory?dry-run"
+   ```
+   - 401: `CRON_SECRET` is missing or wrong. Check Vercel environment variables.
+   - 500: `APP_DATABASE_URL` or `jelocare_app_runtime` role is missing.
+   - 200 with `backlog.due > 0`: The cron is operational; offers are queued.
+
+2. Check the Neon `inventory_refresh_jobs` table:
+
+   ```sql
+   SELECT status, count(*) FROM inventory_refresh_jobs GROUP BY status;
+   SELECT max(last_verified_at) FROM offers WHERE match_kind = 'exact';
+   ```
+
+3. Re-verify stale offers using the Playwright MCP browser-capture workflow
+   (see the fast lane re-verification section).
+
+4. Enrich zero-offer products through the retailer-adapter or browser-capture
+   path, starting with the 47 Naturium products.
+
+5. Resume the daily campaign once fresh offers exist.
+
+**Prevention:** Monitor the inventory cron backlog and stale-offer count. The
+cron sends email alerts when offers fail all retries, when zero completions
+occur, when the backlog grows beyond 60, or when stale offers accumulate beyond 35. Ensure these alerts reach an operator who can investigate retailer adapter
+failures, rate limiting, or database connectivity.

@@ -1,6 +1,6 @@
 # Operational runbooks
 
-Updated: 2026-08-14
+Updated: 2026-08-23
 
 Lead with evidence. Preserve data. Prefer a forward repair.
 
@@ -954,6 +954,16 @@ then create fresh Production and Preview deployments. See
    SELECT count(*) FILTER (WHERE last_verified_at >= now() - interval '1 hour') as just_verified
    FROM offers WHERE match_kind = 'exact' AND url ~* '^https://';
    ```
+
+### Incident: 2026-08-23 — inventory cron blackout
+
+The inventory cron stopped producing fresh offer verifications. The daily
+campaign selector rejected every product with `no-fresh-shareable-ng-offer`.
+The Lagos Daily Desk showed the "Today's note is being checked" fallback.
+98 of 158 catalogue products had zero Nigerian offers. 8 tests failed with
+stale retailer data. See
+[Troubleshooting: inventory cron failure](../catalogue/TROUBLESHOOTING.md#inventory-cron-failure--stale-offers-and-campaign-blackout-2026-08-23)
+for the full diagnosis and recovery plan.
 
 ### Runtime diagnosis
 

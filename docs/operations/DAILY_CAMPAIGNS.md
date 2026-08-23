@@ -157,3 +157,18 @@ are never exposed to one another.
 Changing an environment variable affects only a subsequent deployment. Never
 put recipient addresses, credentials, Blob/Redis tokens, or raw recipient
 identifiers in source, logs, campaign records, or screenshots.
+
+## Current state (2026-08-23)
+
+The daily campaign is running but **finds no eligible candidate**. Every
+product is rejected with `no-fresh-shareable-ng-offer` or
+`sent-within-14-day-cooldown`. The Lagos Daily Desk shows the "Today's note is
+being checked" fallback.
+
+This is not a campaign bug — the selector correctly fails closed when no
+product has fresh, shareable Nigerian offer evidence. The root cause is the
+inventory cron blackout. See the
+[product roadmap](../product/ROADMAP.md#catalogue-and-evidence-debt-2026-08-23)
+and the
+[troubleshooting entry](../catalogue/TROUBLESHOOTING.md#inventory-cron-failure--stale-offers-and-campaign-blackout-2026-08-23)
+for the recovery plan.
