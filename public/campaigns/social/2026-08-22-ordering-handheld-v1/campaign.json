@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-22-ordering-handheld-v1",
+  "status": "draft",
+  "createdAt": "2026-08-22T21:11:30.854Z",
+  "dataCheckedAt": "2026-08-21T18:10:00-07:00",
+  "objective": "Demonstrate JeloCare's one-retailer basket and quote-first ordering model through a premium photographic handheld-phone campaign proof.",
+  "sourceTruth": {
+    "repositoryCommit": "9106a0a8581fcc6ca73c428a60ac3fc2774e80d9",
+    "simulatorEvidence": "Exact JeloCare basket screen captured in a fresh iPhone 17 Pro Max simulator using the development-only assisted-procurement fixture. No real customer data, payment, email, or WhatsApp send.",
+    "visualSystem": "Photographic hand-and-phone master generated without UI or text; exact JeloCare UI and visible campaign copy were composited deterministically."
+  },
+  "product": {
+    "slug": "aqua-rich-ceramide-body-lotion-500ml",
+    "brand": "Aqua Rich",
+    "name": "Hydrate + Protect Body Lotion",
+    "size": "500 ml",
+    "identifier": {
+      "kind": "gtin",
+      "value": "4897073187549"
+    }
+  },
+  "sourceAsset": {
+    "path": "source/handheld-phone-chroma-imagegen.png",
+    "sha256": "c6fbe46d953a2213d1627e44e590d986942cd6f4119c3ef6e471665043f41624",
+    "generationRoute": "built-in-imagegen",
+    "promptBoundary": "Text-free, logo-free dark-skinned hand holding a generic front-facing phone with a chroma screen on a deep black-cherry field."
+  },
+  "interfaceEvidence": {
+    "path": "../2026-08-21-ordering-how-it-works-carousel-v1/source/iphone-04-review-basket.webp",
+    "sha256": "5d84ed8611db51dc74032ce5f345799a635a42e1443e583f55613fe5b1b32c70"
+  },
+  "careBoundary": "Ordering workflow only. No suitability, treatment, diagnosis, authenticity, saving, stock guarantee, or clinical outcome claim.",
+  "copy": {
+    "headline": "One basket. One clear quote.",
+    "productLine": null,
+    "priceLine": null,
+    "action": "Browse products",
+    "disclaimer": "Products, delivery and fees are verified before quote approval. No payment is taken during the request.",
+    "embeddedUrl": null
+  },
+  "creative": [
+    {
+      "mode": "dark",
+      "path": "01-one-basket-clear-quote.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "0522ac03492bff2214c12d179ee1a114ed3dc337fc4442787247bfa639e938ee",
+      "generationRoute": "built-in-imagegen-photographic-master-plus-deterministic-exact-screen-composite"
+    }
+  ],
+  "channels": ["whatsapp-status", "instagram-stories", "snapchat"],
+  "publication": []
+}

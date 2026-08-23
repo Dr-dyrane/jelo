@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-21-ordering-how-it-works-carousel-v1",
+  "status": "draft",
+  "createdAt": "2026-08-21T17:29:54.342Z",
+  "dataCheckedAt": "2026-08-21T18:10:00-07:00",
+  "objective": "Show the complete JeloCare guest ordering request flow in eight readable, real-product steps for the Daily Desk and social story channels.",
+  "sourceTruth": {
+    "repositoryCommit": "9106a0a8581fcc6ca73c428a60ac3fc2774e80d9",
+    "simulatorEvidence": "Fresh iPhone 17 Pro Max simulator. Development-only assisted-procurement fixture, synthetic guest identity and address, no real customer data, payment, email, or WhatsApp send.",
+    "basketEvidence": "Aqua Rich Hydrate + Protect Body Lotion 500 ml and Advanced Clinicals Vitamin C Face Serum at CSi Grocery; exact one-retailer basket observed during capture."
+  },
+  "product": {
+    "slug": "aqua-rich-ceramide-body-lotion-500ml",
+    "brand": "Aqua Rich",
+    "name": "Hydrate + Protect Body Lotion",
+    "size": "500 ml",
+    "identifier": {
+      "kind": "gtin",
+      "value": "4897073187549"
+    }
+  },
+  "sourceAsset": {
+    "path": "../2026-08-13-aqua-rich-guest-shopping-flow-v1/source/approved-packshot.png",
+    "sha256": "684207f5bc33db699ee8fb3042d969cf2f88108d337449ece70a849683a6dd93"
+  },
+  "careBoundary": "Ordering workflow and product identity only. No suitability, treatment, diagnosis, authenticity, sale, saving, stock guarantee, or outcome claim.",
+  "copy": {
+    "headline": "Order in eight swipes.",
+    "action": "Start with the exact product",
+    "disclaimer": "Prices, availability, delivery and fees are verified before quote approval. No payment is taken during the request.",
+    "embeddedUrl": null
+  },
+  "background": {
+    "path": "../2026-08-13-aqua-rich-guest-shopping-flow-v1/source/immersive-master-field-imagegen.png",
+    "sha256": "4996271c8314d85775ea9c0cddd28d397a925ba6bf36d3427eae9f4dad5d0f26",
+    "generationRoute": "reused-built-in-imagegen-background",
+    "promptBoundary": "Text-free near-black, wine, peach and porcelain campaign field; no product, phone, people, logo, UI or claims."
+  },
+  "simulator": {
+    "device": "JeloCare Ordering Carousel 2026-08-21",
+    "model": "iPhone 17 Pro Max",
+    "os": "iOS 26.5",
+    "udid": "B826258E-7DA0-43E4-8F7A-50629CE37D1C"
+  },
+  "simulatorSources": [
+    {
+      "path": "source/iphone-01-product.webp",
+      "sha256": "8b3bdb55595010cac44615b848d90c79adbba750b34f1943af0c30d2f7eae1d7"
+    },
+    {
+      "path": "source/iphone-02-start-shopping.webp",
+      "sha256": "74b490ba7bfde44402f053daa147e16f211f95737cdca41fb2d9da62b79122cb"
+    },
+    {
+      "path": "source/iphone-03-keep-shopping.webp",
+      "sha256": "1db11cef8a42c4fc3ff8c7b022dddea37edd8ae99f459f1229e2288db28a55f1"
+    },
+    {
+      "path": "source/iphone-04-review-basket.webp",
+      "sha256": "5d84ed8611db51dc74032ce5f345799a635a42e1443e583f55613fe5b1b32c70"
+    },
+    {
+      "path": "source/iphone-05-contact.webp",
+      "sha256": "d6877fb8b13a83dfe123b122ed0bf0a6305c18acd8b936c64c34be1435b353d0"
+    },
+    {
+      "path": "source/iphone-06-delivery.webp",
+      "sha256": "05bed732e98d5559d7816df715710940ee3215c52605edfe6e1c1b8034771d22"
+    },
+    {
+      "path": "source/iphone-07-review-request.webp",
+      "sha256": "b003497d1647e12abd6ce177a6b1e8d469c70a5d40b8307d07b8935893ea9c3c"
+    },
+    {
+      "path": "source/iphone-08-request-received.webp",
+      "sha256": "3eb07b0352821bd250a347994419543c0c2120454aa0ae6aed3ee80a8a33cac2"
+    }
+  ],
+  "creative": [
+    {
+      "mode": "dark",
+      "sequence": 1,
+      "path": "01-exact-product-story.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "efb9d4c35a345d90a94a12357f207a5943667feceb4eae8bc333101205bc71f7",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 2,
+      "path": "02-start-shopping-story.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "6d5a1cbcb0cb1f8c8c44300cba0e310ac484f6c42b3d5ff964e3cef59be80302",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 3,
+      "path": "03-keep-shopping-story.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "c982c0ba696c559b855347295900c517d38fc04b87461c229ffd0f7923c3605d",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 4,
+      "path": "04-review-basket-story.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "62c8ed5e2e2abea8f2db1908ea3191b8ef8e4ed1eebaa1251af78ac3e7122f5d",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 5,
+      "path": "05-contact-story.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "de60a3eaa1e729bc1ea3273a7b03e83af2925d225a69371a72e790297560f9aa",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 6,
+      "path": "06-delivery-story.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "b807e27c945047f24aa5764636f43b7bcfe730478c2cd8b893fa76526d001d0c",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 7,
+      "path": "07-review-request-story.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "c5b0cbe28ae6e1e190fa1c985862e86e49822be1f617e2473d75706e65f1c00a",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    },
+    {
+      "mode": "dark",
+      "sequence": 8,
+      "path": "08-request-received-story.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "6644c366d206d06b0cc6258310398ba7825cae57f9d750e72d9e33a8ed4e713c",
+      "generationRoute": "built-in-imagegen-background-plus-deterministic-sharp-composition"
+    }
+  ],
+  "contactSheet": {
+    "path": "contact-sheet.jpg",
+    "sha256": "7418011716cd779464dc51b5988ede06e40d69296f30bbd9981bf4b38a277916"
+  },
+  "channels": [
+    "daily-desk",
+    "whatsapp-status",
+    "instagram-stories",
+    "snapchat"
+  ],
+  "publication": []
+}

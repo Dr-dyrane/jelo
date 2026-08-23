@@ -12,6 +12,7 @@ import {
   WalletCards,
 } from "lucide-react";
 import { DailyDeskMeasurement } from "@/components/campaigns/daily-desk-measurement";
+import { OrderStoryCarousel } from "@/components/campaigns/order-story-carousel";
 import {
   ProductCard,
   type ProductCardProduct,
@@ -89,19 +90,22 @@ export default async function LagosDailyDeskPage() {
 
   if (desk.status !== "ready") {
     return (
-      <main className={styles.emptyPage}>
-        <section className={styles.emptyState}>
-          <p className={styles.kicker}>Lagos</p>
-          <p className={styles.date}>{displayDate(desk.date)}</p>
-          <h1>Today&apos;s note is being checked.</h1>
-          <p>
-            We only put a price story here after its product, source and current
-            Nigerian listing evidence pass review.
-          </p>
-          <Link className={styles.guideLink} href="/concerns">
-            Explore skin guides <ArrowRight size={16} aria-hidden="true" />
-          </Link>
+      <main className={styles.page}>
+        <section className={styles.emptyPage}>
+          <div className={styles.emptyState}>
+            <p className={styles.kicker}>Lagos</p>
+            <p className={styles.date}>{displayDate(desk.date)}</p>
+            <h1>Today&apos;s note is being checked.</h1>
+            <p>
+              We only put a price story here after its product, source and
+              current Nigerian listing evidence pass review.
+            </p>
+            <Link className={styles.guideLink} href="/concerns">
+              Explore skin guides <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
         </section>
+        <OrderStoryCarousel />
       </main>
     );
   }
@@ -173,13 +177,17 @@ export default async function LagosDailyDeskPage() {
       {/* 02 — Concern guides (full-bleed header + edge-to-edge rail) */}
       <ConcernSection productSlug={desk.product.slug} />
 
-      {lagosCommerceJourneys.map((journey) => (
-        <CommerceJourney
-          key={journey.id}
-          journey={journey}
-          preview={commercePreviews[journey.id]}
-        />
-      ))}
+      {lagosCommerceJourneys.map((journey) =>
+        journey.id === "order" ? (
+          <OrderStoryCarousel key={journey.id} />
+        ) : (
+          <CommerceJourney
+            key={journey.id}
+            journey={journey}
+            preview={commercePreviews[journey.id]}
+          />
+        ),
+      )}
     </main>
   );
 }
