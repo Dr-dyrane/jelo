@@ -69,6 +69,12 @@ export async function GET(request: Request) {
       revalidatePath(`/products/${slug}`);
       revalidatePath(`/share/${slug}`);
     }
+  } else {
+    // Even when no offers were refreshed in this run, the database may have
+    // been updated externally (e.g. price corrections). Revalidate the shared
+    // catalogue tag so stale ISR results do not persist until the natural
+    // revalidate window expires.
+    revalidateTag("catalogue", { expire: 0 });
   }
 
   const backlog = await getInventoryRefreshBacklogSummary();
