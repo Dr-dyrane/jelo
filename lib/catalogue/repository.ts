@@ -186,6 +186,7 @@ async function queryProducts(slug?: string) {
     publishedIntakeProducts,
     slug,
     staticProducts,
+    rows.map(mapRow),
   );
 }
 

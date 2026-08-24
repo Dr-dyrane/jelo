@@ -145,10 +145,14 @@ export function mergeDossierReleasedCatalogue(
   dossierReleasedProducts: readonly Product[],
   slug?: string,
   staticProducts?: readonly Product[],
+  persistedProducts?: readonly Product[],
 ) {
   const seen = new Set(reconciledProducts.map((product) => product.slug));
   const staticBySlug = staticProducts
     ? new Map(staticProducts.map((product) => [product.slug, product]))
+    : new Map();
+  const persistedBySlug = persistedProducts
+    ? new Map(persistedProducts.map((product) => [product.slug, product]))
     : new Map();
   const additions = dossierReleasedProducts
     .filter(
@@ -158,6 +162,12 @@ export function mergeDossierReleasedCatalogue(
       const staticProduct = staticBySlug.get(product.slug);
       if (staticProduct && staticProduct.offers.length > 0) {
         return { ...product, offers: staticProduct.offers };
+      }
+      // Fall back to fresh Neon offers when the product is not in the static
+      // catalogue but has live, verified offers in the database.
+      const persistedProduct = persistedBySlug.get(product.slug);
+      if (persistedProduct && persistedProduct.offers.length > 0) {
+        return { ...product, offers: persistedProduct.offers };
       }
       return product;
     });
