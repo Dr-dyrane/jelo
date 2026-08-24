@@ -89,7 +89,7 @@ export async function GET(request: Request) {
 
       const row = rows[0];
       if (row) {
-        const rawOffers = row.offers as Record<string, unknown>[];
+        const rawOffers = (row.offers ?? []) as unknown[];
         const product = { name: "Test", size: "30 ml" };
         const materialized = materializeCurrentPersistedOffers(
           product,
@@ -100,18 +100,21 @@ export async function GET(request: Request) {
           isPublished: row.is_published,
           rawOfferCount: rawOffers.length,
           materializedOfferCount: materialized.length,
-          offers: rawOffers.map((o) => ({
-            retailer: o.retailer,
-            priceNgn: o.priceNgn,
-            match: o.match,
-            available: o.available,
-            verificationMethod: o.verificationMethod,
-            lastVerifiedAt: o.lastVerifiedAt,
-            checkedAt: o.checkedAt,
-            expiresAt: o.expiresAt,
-            observedTitle: o.observedTitle,
-            observedSize: o.observedSize,
-          })),
+          offers: rawOffers.map((o) => {
+            const offer = o as Record<string, unknown>;
+            return {
+              retailer: offer.retailer,
+              priceNgn: offer.priceNgn,
+              match: offer.match,
+              available: offer.available,
+              verificationMethod: offer.verificationMethod,
+              lastVerifiedAt: offer.lastVerifiedAt,
+              checkedAt: offer.checkedAt,
+              expiresAt: offer.expiresAt,
+              observedTitle: offer.observedTitle,
+              observedSize: offer.observedSize,
+            };
+          }),
           materialized: materialized.map((o) => ({
             retailer: o.retailer,
             fresh: isOfferFresh(o),
