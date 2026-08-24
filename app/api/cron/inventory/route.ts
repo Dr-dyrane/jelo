@@ -1,4 +1,4 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import {
   enqueueDueInventoryOffers,
   getInventoryRefreshBacklogSummary,
@@ -64,6 +64,7 @@ export async function GET(request: Request) {
     revalidatePath("/concerns");
     revalidatePath("/concerns/[slug]", "page");
     revalidatePath("/share");
+    revalidateTag("catalogue", { expire: 0 });
     for (const slug of run.affectedProductSlugs) {
       revalidatePath(`/products/${slug}`);
       revalidatePath(`/share/${slug}`);
