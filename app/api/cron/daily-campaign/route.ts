@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { runDailyCampaign } from "@/lib/campaigns/daily-campaign-runner";
 import { campaignDailyEnabled } from "@/lib/campaigns/campaign-recipient";
 import { isAuthorizedCronRequest } from "@/modules/retail-intelligence/cron-auth";
@@ -67,6 +68,12 @@ export async function GET(request: Request) {
         campaignId: "campaignId" in result ? result.campaignId : null,
       }),
     );
+    if (
+      runMode === "production" &&
+      (result.status === "accepted" || result.status === "duplicate-suppressed")
+    ) {
+      revalidatePath("/lagos");
+    }
     return Response.json(result, {
       headers: { "Cache-Control": "no-store", "X-Robots-Tag": "noindex" },
     });
