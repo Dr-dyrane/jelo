@@ -3,6 +3,7 @@ import "server-only";
 import { createHmac } from "node:crypto";
 import { Redis } from "@upstash/redis";
 import {
+  BlobError,
   BlobPreconditionFailedError,
   head,
   put,
@@ -231,7 +232,10 @@ async function putPublicImage(
       cacheControl: "public",
     };
   } catch (error) {
-    if (!(error instanceof BlobPreconditionFailedError)) throw error;
+    const isAlreadyExists =
+      error instanceof BlobPreconditionFailedError ||
+      (error instanceof BlobError && /already exists/i.test(error.message));
+    if (!isAlreadyExists) throw error;
     const existing = await head(pathname);
     if (existing.size !== rendered.bytes.length) {
       throw new Error("campaign_archive_existing_image_mismatch");
