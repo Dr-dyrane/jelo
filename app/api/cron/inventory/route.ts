@@ -72,8 +72,14 @@ export async function GET(request: Request) {
   } else {
     // Even when no offers were refreshed in this run, the database may have
     // been updated externally (e.g. price corrections). Revalidate the shared
-    // catalogue tag so stale ISR results do not persist until the natural
-    // revalidate window expires.
+    // catalogue tag and all product/share paths so stale ISR results do not
+    // persist until the natural revalidate window expires.
+    revalidatePath("/");
+    revalidatePath("/products");
+    revalidatePath("/products/[slug]", "page");
+    revalidatePath("/concerns");
+    revalidatePath("/concerns/[slug]", "page");
+    revalidatePath("/share");
     revalidateTag("catalogue", { expire: 0 });
   }
 
