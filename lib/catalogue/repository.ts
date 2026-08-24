@@ -182,7 +182,10 @@ async function queryProducts(slug?: string) {
   `;
 
   return mergeDossierReleasedCatalogue(
-    reconcilePublishedCatalogue(rows.map(mapRow), staticProducts),
+    reconcilePublishedCatalogue(
+      rows.map(mapRow),
+      staticProducts.map(normalizeProductBrand),
+    ),
     publishedIntakeProducts,
     slug,
     staticProducts,
