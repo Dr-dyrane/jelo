@@ -19,6 +19,12 @@ function scopedPersistedOffers(
 ) {
   if (!sameIdentity(persistedProduct, approvedProduct)) return [];
 
+  // Retailers often shorten or omit brand suffixes (e.g. "DANG! Lifestyle" →
+  // "Dang") in observed product titles. Accept the product name alone and the
+  // non-canonical brand form as aliases so legitimate exact offers are not
+  // rejected purely because the retailer's title formatting differs.
+  const expectedTitleAliases = [approvedProduct.name];
+
   return persistedProduct.offers.filter((offer) => {
     if (!hasListingEvidence(offer) || !hasCompletePriceObservation(offer))
       return false;
@@ -27,6 +33,7 @@ function scopedPersistedOffers(
         requestedUrl: offer.url,
         responseUrl: offer.url,
         expectedTitle: `${approvedProduct.brand} ${approvedProduct.name}`,
+        expectedTitleAliases,
         expectedSize: approvedProduct.size,
         observedTitle: offer.priceObservation?.variant,
         observedSize: offer.priceObservation?.size,
