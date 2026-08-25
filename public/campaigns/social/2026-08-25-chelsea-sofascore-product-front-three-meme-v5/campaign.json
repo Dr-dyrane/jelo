@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-25-chelsea-sofascore-product-front-three-meme-v5",
+  "status": "approved",
+  "approvedAt": "2026-08-25T18:29:47Z",
+  "createdAt": "2026-08-25T17:58:32Z",
+  "dataCheckedAt": "2026-08-25T17:58:32Z",
+  "objective": "trend-led awareness using the user-supplied SofaScore front-three crop as the setup and an exact three-product JeloCare routine as the reveal",
+  "evidence": [
+    {
+      "kind": "user-supplied-sofascore-screenshot",
+      "path": "source/sofascore-chelsea-front-three-user-supplied.png",
+      "claim": "The supplied crop visibly contains only Joao Pedro, Rogers, and Palmer with their SofaScore ratings"
+    },
+    {
+      "kind": "catalogue-release",
+      "path": "data/catalogue-intake-assets/cerave-foaming-facial-cleanser/packshot-v3-9997d844ef7cef928bc36682bf038bf44ad7ba2e589a461ac7019b74816a49d9.png",
+      "claim": "Active approved 2000x2000 packshot for CeraVe Foaming Facial Cleanser, 236 ml"
+    },
+    {
+      "kind": "catalogue-release",
+      "path": "data/catalogue-intake-assets/dang-azelaic-acid-serum-30ml/packshot-v2-4042aa08f87c067d2d930d05f0f631f9175eb7e40beac8f112bf5c264f234b33.png",
+      "claim": "Active approved 2000x2000 packshot for DANG Azelaic Acid Serum, 30 ml"
+    },
+    {
+      "kind": "catalogue-release",
+      "path": "data/catalogue-intake-assets/la-roche-posay-anthelios-uvmune-400-oil-control-fluid/packshot-v2-561fc98be60cacbb.png",
+      "claim": "Active approved 2000x2000 packshot for La Roche-Posay Anthelios UVMune 400 Oil Control Fluid SPF50+, 50 ml"
+    },
+    {
+      "kind": "canonical-brand-identity",
+      "path": "public/icons/jelocare-icon-1024.png",
+      "claim": "Canonical JeloCare bottle-and-drop app icon used as the social avatar"
+    }
+  ],
+  "sourceAsset": {
+    "kind": "user-supplied-sofascore-screenshot",
+    "path": "source/sofascore-chelsea-front-three-user-supplied.png",
+    "sha256": "c21b9dd8c9ac16b7b82b0c7d90a98770032c768c0cdfecbf217c651558cc3399"
+  },
+  "identityAsset": {
+    "kind": "canonical-jelocare-app-icon",
+    "sourcePath": "public/icons/jelocare-icon-1024.png",
+    "path": "source/jelocare-avatar.png",
+    "sha256": "94e17c58bf3c6283f6ce9b9941c9086ec0407a5db7c20fde8f46dcb7e68f7992"
+  },
+  "badgeAsset": {
+    "kind": "user-supplied-platform-like-badge",
+    "path": "source/verified-badge-user-supplied.png",
+    "sha256": "4f0b8bc66cabe6d16188833fabd28a350cbe4204ad898b3d99c5f637497e576f"
+  },
+  "products": [
+    {
+      "slug": "cerave-foaming-facial-cleanser",
+      "brand": "CeraVe",
+      "name": "Foaming Facial Cleanser",
+      "size": "236 ml",
+      "creativeRole": "Cleanse",
+      "sourcePath": "source/cerave-foaming-facial-cleanser-236ml.png",
+      "sourceSha256": "9997d844ef7cef928bc36682bf038bf44ad7ba2e589a461ac7019b74816a49d9"
+    },
+    {
+      "slug": "dang-azelaic-acid-serum-30ml",
+      "brand": "DANG",
+      "name": "Azelaic Acid Serum",
+      "size": "30 ml",
+      "creativeRole": "Treat",
+      "sourcePath": "source/dang-azelaic-acid-serum-30ml.png",
+      "sourceSha256": "4042aa08f87c067d2d930d05f0f631f9175eb7e40beac8f112bf5c264f234b33"
+    },
+    {
+      "slug": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+      "brand": "La Roche-Posay",
+      "name": "Anthelios UVMune 400 Oil Control Fluid SPF50+",
+      "size": "50 ml",
+      "creativeRole": "Protect",
+      "sourcePath": "source/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-50ml.png",
+      "sourceSha256": "561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced"
+    }
+  ],
+  "copy": {
+    "post": "Chelsea finally found their front three.",
+    "visualTurn": "We found yours.",
+    "caption": "Chelsea found theirs. We found yours. 😭\n\nCleanse. Treat. Protect.",
+    "priceLine": null,
+    "embeddedUrl": null,
+    "visibleDisclaimer": null
+  },
+  "creative": [
+    {
+      "mode": "light",
+      "path": "final/chelsea-sofascore-product-front-three-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "e1365f44f4396526c6ccef8312d5d16ab19885413fe62f03f0e98f622e8e885f",
+      "generationRoute": "deterministic-svg-with-canonical-jelocare-avatar-user-supplied-sofascore-crop-and-approved-packshots"
+    }
+  ],
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "category-transplant",
+    "setup": "Chelsea finally found their front three.",
+    "punchline": "We found yours.",
+    "culturalCue": "Chelsea front-three formation",
+    "fictionalDialogue": false
+  },
+  "platformTreatment": "Original X-like JeloCare post identity inside the 4:5 creative; the publishing platform supplies the outer Instagram or WhatsApp chrome.",
+  "simulationDisclosure": "The JeloCare account header, badge, and ellipsis are campaign-designed interface styling, not a captured platform post or evidence of platform verification.",
+  "channels": ["instagram-feed", "whatsapp-status"],
+  "publication": []
+}
