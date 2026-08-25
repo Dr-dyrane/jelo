@@ -254,6 +254,73 @@ async function putLedgerImmutable(key: string, bytes: Buffer) {
   }
 }
 
+type StoredCampaignRecord = {
+  campaignId: string;
+  dailyDeskEligible?: boolean;
+  creative?: Array<{
+    path: string;
+    url: string;
+    downloadUrl: string;
+    sha256: string;
+    width: number;
+    height: number;
+  }>;
+  packet?: Array<{
+    role: CampaignPacketRole;
+    path: string;
+    url: string;
+    downloadUrl: string;
+    sha256: string;
+    width: number;
+    height: number;
+  }>;
+};
+
+function archivedCampaignFromStoredRecord(
+  mode: CampaignRunMode,
+  iteration: number,
+  stored: StoredCampaignRecord,
+): ArchivedCampaign {
+  const date = stored.campaignId.slice(0, 10);
+  const runPath = `${runPrefix(mode)}/${date}/${stored.campaignId}/v${iteration}`;
+  const recordPrefix = `${ledgerPrefix}:${mode}:${stored.campaignId}:v${iteration}`;
+  const campaignRecordKey = `${recordPrefix}:campaign`;
+  const checksumKey = `${recordPrefix}:checksum`;
+
+  const packet = stored.packet ?? [];
+  if (packet.length < 3) {
+    throw new Error("campaign_archive_existing_record_incomplete");
+  }
+  const packetImages = packet.slice(0, 3) as unknown as ArchivedCampaignPacket;
+
+  return {
+    mode,
+    dailyDeskEligible: stored.dailyDeskEligible,
+    runPath,
+    image: packetImages[0],
+    packetImages,
+    campaignRecordKey,
+    checksumKey,
+  };
+}
+
+async function readExistingArchive(
+  mode: CampaignRunMode,
+  iteration: number,
+  campaignId: string,
+): Promise<ArchivedCampaign | null> {
+  const recordPrefix = `${ledgerPrefix}:${mode}:${campaignId}:v${iteration}`;
+  const campaignRecordKey = `${recordPrefix}:campaign`;
+  const existing = await campaignLedger().get<string>(campaignRecordKey);
+  if (!existing) return null;
+  try {
+    const parsed = JSON.parse(existing) as StoredCampaignRecord;
+    return archivedCampaignFromStoredRecord(mode, iteration, parsed);
+  } catch {
+    return null;
+  }
+}
+
 export async function archiveCampaign(input: {
   mode: CampaignRunMode;
   iteration: number;
@@ -263,6 +330,30 @@ export async function archiveCampaign(input: {
   const iteration = safeIteration(input.iteration);
   const date = input.draft.campaignId.slice(0, 10);
   const runPath = `${runPrefix(input.mode)}/${date}/${input.draft.campaignId}/v${iteration}`;
+
+  // Idempotency: if this campaign was already archived (e.g. a previous cron
+  // run archived successfully but failed during delivery, and Vercel retried),
+  // return the existing archive instead of re-rendering and re-writing. This
+  // prevents campaign_archive_immutable_record_mismatch on retries where
+  // underlying offer data may have changed between the original archive and
+  // the retry.
+  const existing = await readExistingArchive(
+    input.mode,
+    iteration,
+    input.draft.campaignId,
+  );
+  if (existing) {
+    console.info(
+      JSON.stringify({
+        event: "campaign_archive_already_exists",
+        mode: input.mode,
+        campaignId: input.draft.campaignId,
+        iteration,
+      }),
+    );
+    return existing;
+  }
+
   for (const [index, role] of campaignPacketRoles.entries()) {
     if (input.rendered[index]?.role !== role) {
       throw new Error("campaign_packet_role_order_invalid");

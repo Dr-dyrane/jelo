@@ -290,6 +290,76 @@ function dependencies(overrides: Record<string, unknown> = {}) {
   };
 }
 
+test("a retry after a failed delivery reuses the existing archive and resumes unsent recipients", async () => {
+  let archiveCalls = 0;
+  const sent: string[] = [];
+
+  // First run: archive succeeds, delivery fails for one recipient
+  await assert.rejects(
+    runDailyCampaign(
+      {
+        mode: "production",
+        iteration: 1,
+        requestOrigin: "https://www.jelocare.com",
+      },
+      dependencies({
+        resolveRecipients: async () => operatorRecipients,
+        archive: async () => {
+          archiveCalls += 1;
+          return archive;
+        },
+        send: async ({ to }: { to: string }) => {
+          sent.push(to);
+          if (to === "operator-2@example.com") {
+            throw new Error("provider-temporarily-unavailable");
+          }
+        },
+      }),
+    ),
+    /campaign_delivery_batch_failed_1_of_3/,
+  );
+
+  // Second run (retry): archive is called again (idempotent at the archive
+  // level — returns existing record instead of throwing), delivery resumes
+  // for the previously-failed recipient without resending the accepted one.
+  const retryResult = await runDailyCampaign(
+    {
+      mode: "production",
+      iteration: 1,
+      requestOrigin: "https://www.jelocare.com",
+    },
+    dependencies({
+      resolveRecipients: async () => operatorRecipients,
+      archive: async () => {
+        archiveCalls += 1;
+        return archive;
+      },
+      reserveDelivery: async ({
+        recipient: record,
+      }: {
+        recipient: { recipientKey: string };
+      }) => ({
+        reserved:
+          record.recipientKey !== operatorRecipients[0]!.record.recipientKey,
+        key: `${archive.campaignRecordKey}:delivery-intent:${record.recipientKey}`,
+      }),
+      send: async ({ to }: { to: string }) => {
+        sent.push(to);
+      },
+    }),
+  );
+
+  assert.equal(retryResult.status, "accepted");
+  assert.equal(archiveCalls, 2);
+  assert.deepEqual(sent, [
+    "operator-1@example.com",
+    "operator-2@example.com",
+    "operator-3@example.com",
+    "operator-2@example.com",
+    "operator-3@example.com",
+  ]);
+});
+
 test("preview archives the exact story but cannot resolve or send email", async () => {
   let recipientCalls = 0;
   let sendCalls = 0;
