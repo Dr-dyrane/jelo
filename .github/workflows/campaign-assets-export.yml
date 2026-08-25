@@ -1,0 +1,38 @@
+name: Campaign Asset Export
+
+on:
+  push:
+    branches:
+      - campaign-assets-export-20260825
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Collect approved campaign assets
+        run: |
+          mkdir -p campaign-assets/products campaign-assets/people campaign-assets/fonts
+          cp public/products/anua/anua-niacinamide-10-txa-4-serum-transparent-v3.png campaign-assets/products/anua-serum.png
+          cp public/products/cosrx/cosrx-salicylic-acid-daily-gentle-cleanser-transparent-v2.png campaign-assets/products/cosrx-cleanser.png
+          cp public/products/face-facts/face-facts-wonder-cream-fragrance-free-transparent-v2.png campaign-assets/products/face-facts-wonder-cream.png
+          cp public/products/cerave/cerave-blemish-control-cleanser-transparent-v2.png campaign-assets/products/cerave-cleanser.png
+          cp public/editorial/people/morning-care-lagos-v1.webp campaign-assets/people/morning-care-lagos.webp
+          cp public/editorial/people/consult-self-check-v1.webp campaign-assets/people/consult-self-check.webp
+          cp public/editorial/people/concerns-together-v1.webp campaign-assets/people/concerns-together.webp
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/google/fonts/main/ofl/italiana/Italiana-Regular.ttf -o campaign-assets/fonts/Italiana-Regular.ttf
+          curl -L --fail --silent --show-error 'https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/Manrope%5Bwght%5D.ttf' -o campaign-assets/fonts/Manrope-Variable.ttf
+
+      - name: Upload campaign source bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: campaign-assets
+          path: campaign-assets
+          if-no-files-found: error
+          retention-days: 1
