@@ -275,6 +275,7 @@ function dependencies(overrides: Record<string, unknown> = {}) {
   return {
     now: () => now,
     recentSlugs: async () => new Set<string>(),
+    recentBrands: async () => new Set<string>(),
     select: async () => ({ status: "selected" as const, draft }),
     render: async () => rendered,
     archive: async () => archive,
@@ -619,4 +620,44 @@ test("no-candidate does not resolve recipient or send email", async () => {
   assert.equal(result.status, "no-candidate");
   assert.equal(recipientCalls, 0);
   assert.equal(sendCalls, 0);
+});
+
+test("brand cooldown passes recent brands to selection so the same brand cannot dominate consecutive days", async () => {
+  let receivedBrands: ReadonlySet<string> | null = null;
+  let receivedSlugs: ReadonlySet<string> | null = null;
+
+  await runDailyCampaign(
+    {
+      mode: "preview",
+      iteration: 1,
+      requestOrigin: "https://www.jelocare.com",
+    },
+    dependencies({
+      recentSlugs: async () => new Set<string>(["old-slug"]),
+      recentBrands: async () => new Set<string>(["DANG! Lifestyle", "COSRX"]),
+      select: async (input: {
+        recentProductSlugs: ReadonlySet<string>;
+        recentBrands: ReadonlySet<string>;
+      }) => {
+        receivedSlugs = input.recentProductSlugs;
+        receivedBrands = input.recentBrands;
+        return { status: "selected" as const, draft };
+      },
+    }),
+  );
+
+  assert.ok(receivedSlugs !== null, "recentProductSlugs was not passed");
+  assert.ok(receivedBrands !== null, "recentBrands was not passed");
+  assert.ok(
+    (receivedSlugs as Set<string>).has("old-slug"),
+    "recentProductSlugs should contain old-slug",
+  );
+  assert.ok(
+    (receivedBrands as Set<string>).has("DANG! Lifestyle"),
+    "recentBrands should contain DANG! Lifestyle",
+  );
+  assert.ok(
+    (receivedBrands as Set<string>).has("COSRX"),
+    "recentBrands should contain COSRX",
+  );
 });

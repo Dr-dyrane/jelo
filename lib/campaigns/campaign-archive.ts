@@ -481,6 +481,36 @@ export async function recentProductionCampaignSlugs(input: {
   return slugs;
 }
 
+export async function recentProductionCampaignBrands(input: {
+  now: Date;
+  cooldownDays: number;
+}) {
+  const cutoff = input.now.valueOf() - input.cooldownDays * 86_400_000;
+  const records = await campaignLedger().zrange<string[]>(
+    acceptedProductionIndex,
+    "+inf",
+    cutoff,
+    { byScore: true, rev: true, offset: 0, count: 60 },
+  );
+  const brands = new Set<string>();
+
+  for (const campaignRecordKey of records) {
+    try {
+      const source = await campaignLedger().get<string>(campaignRecordKey);
+      if (!source) continue;
+      const parsed = JSON.parse(source) as {
+        product?: { brand?: unknown };
+      };
+      if (typeof parsed.product?.brand === "string") {
+        brands.add(parsed.product.brand);
+      }
+    } catch {
+      // A corrupt historical record is ignored for rotation.
+    }
+  }
+  return brands;
+}
+
 export async function reserveCampaignDelivery(input: {
   archive: ArchivedCampaign;
   recipient: CampaignDeliveryRecipientRecord;

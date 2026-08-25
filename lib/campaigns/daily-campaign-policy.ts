@@ -2,6 +2,7 @@ import type { ShareSignal } from "@/modules/commerce/share-insights";
 
 export const CAMPAIGN_TIME_ZONE = "Africa/Lagos";
 export const CAMPAIGN_COOLDOWN_DAYS = 14;
+export const CAMPAIGN_BRAND_COOLDOWN_DAYS = 7;
 
 const naira = new Intl.NumberFormat("en-NG", {
   style: "currency",

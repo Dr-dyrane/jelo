@@ -12,6 +12,7 @@ import {
   buildCampaignCopy,
   campaignStoryChoice,
   lagosDateKey,
+  CAMPAIGN_BRAND_COOLDOWN_DAYS,
   type CampaignCopy,
   type CampaignStoryChoice,
 } from "@/lib/campaigns/daily-campaign-policy";
@@ -322,6 +323,7 @@ export function campaignProductIdentityMatchesEvidence(
 export async function selectDailyCampaign(input: {
   now?: number | Date;
   recentProductSlugs?: ReadonlySet<string>;
+  recentBrands?: ReadonlySet<string>;
 }): Promise<DailyCampaignSelection> {
   const now = input.now ?? Date.now();
   const nowDate = typeof now === "number" ? new Date(now) : now;
@@ -329,6 +331,7 @@ export async function selectDailyCampaign(input: {
   if (!Number.isFinite(nowMs)) throw new Error("campaign_invalid_clock");
 
   const recentProductSlugs = input.recentProductSlugs ?? new Set<string>();
+  const recentBrands = input.recentBrands ?? new Set<string>();
   const signals = await getWorthSharingReadModel({ now: nowDate });
   const rejectedCandidates: Array<{ slug: string; blocker: string }> = [];
 
@@ -348,6 +351,13 @@ export async function selectDailyCampaign(input: {
       rejectedCandidates.push({
         slug: signal.slug,
         blocker: `sent-within-${cooldownDays}-day-cooldown`,
+      });
+      continue;
+    }
+    if (recentBrands.has(signal.brand)) {
+      rejectedCandidates.push({
+        slug: signal.slug,
+        blocker: `brand-sent-within-${CAMPAIGN_BRAND_COOLDOWN_DAYS}-day-cooldown`,
       });
       continue;
     }

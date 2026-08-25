@@ -3,6 +3,7 @@ import "server-only";
 import { sendAlertEmail } from "@/lib/email/mailer";
 import {
   archiveCampaign,
+  recentProductionCampaignBrands,
   recentProductionCampaignSlugs,
   recordCampaignDeliveryOutcome,
   reserveCampaignDelivery,
@@ -12,6 +13,7 @@ import {
 import { sendCampaignNoCandidateAlertIfNeeded } from "@/lib/campaigns/campaign-alerting";
 import { dailyCampaignEmail } from "@/lib/campaigns/campaign-email";
 import {
+  CAMPAIGN_BRAND_COOLDOWN_DAYS,
   CAMPAIGN_COOLDOWN_DAYS,
   lagosDateKey,
 } from "@/lib/campaigns/daily-campaign-policy";
@@ -29,6 +31,7 @@ import {
 type RunnerDependencies = {
   now: () => Date;
   recentSlugs: typeof recentProductionCampaignSlugs;
+  recentBrands: typeof recentProductionCampaignBrands;
   select: typeof selectDailyCampaign;
   render: typeof renderDailyCampaignStory;
   archive: typeof archiveCampaign;
@@ -42,6 +45,7 @@ type RunnerDependencies = {
 const defaultDependencies: RunnerDependencies = {
   now: () => new Date(),
   recentSlugs: recentProductionCampaignSlugs,
+  recentBrands: recentProductionCampaignBrands,
   select: selectDailyCampaign,
   render: renderDailyCampaignStory,
   archive: archiveCampaign,
@@ -102,13 +106,20 @@ export async function runDailyCampaign(
   const now = dependencies.now();
   if (!Number.isFinite(now.valueOf()))
     throw new Error("campaign_invalid_clock");
-  const recentProductSlugs = await dependencies.recentSlugs({
-    now,
-    cooldownDays: CAMPAIGN_COOLDOWN_DAYS,
-  });
+  const [recentProductSlugs, recentBrands] = await Promise.all([
+    dependencies.recentSlugs({
+      now,
+      cooldownDays: CAMPAIGN_COOLDOWN_DAYS,
+    }),
+    dependencies.recentBrands({
+      now,
+      cooldownDays: CAMPAIGN_BRAND_COOLDOWN_DAYS,
+    }),
+  ]);
   const selection: DailyCampaignSelection = await dependencies.select({
     now,
     recentProductSlugs,
+    recentBrands,
   });
   if (selection.status === "no-candidate") {
     // Log when no campaign candidate is available so operators can detect
