@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-25-chelsea-sofascore-product-front-three-x-v1",
+  "status": "published",
+  "approvedAt": "2026-08-25T18:29:47Z",
+  "publishedAt": "2026-08-26T01:34:29.000Z",
+  "createdAt": "2026-08-25T18:29:47Z",
+  "dataCheckedAt": "2026-08-25T18:29:47Z",
+  "objective": "organic X trend response using the user-supplied Chelsea front-three crop as setup and JeloCare's exact three-product routine as the reveal",
+  "evidence": [
+    {
+      "kind": "approved-campaign-derivative",
+      "path": "../2026-08-25-chelsea-sofascore-product-front-three-meme-v5/campaign.json",
+      "claim": "Approved identities, product roles, source hashes, and visual hierarchy"
+    }
+  ],
+  "copy": {
+    "post": "Chelsea finally found their front three.",
+    "visualTurn": "We found yours.",
+    "caption": null,
+    "priceLine": null,
+    "embeddedUrl": null,
+    "visibleDisclaimer": null
+  },
+  "creative": [
+    {
+      "mode": "light",
+      "path": "final/chelsea-sofascore-product-front-three-x.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "a47c9c1ad083c597df115304f4b7c8aec874879e32582fe0e5a4abf45ef02a11",
+      "generationRoute": "deterministic-svg-derived-from-approved-v5-sources-without-simulated-platform-chrome"
+    }
+  ],
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "category-transplant",
+    "setup": "Chelsea finally found their front three.",
+    "punchline": "We found yours.",
+    "culturalCue": "Chelsea front-three formation",
+    "fictionalDialogue": false
+  },
+  "platformTreatment": "Native X post text and account chrome with one clean 4:5 attachment; no simulated account identity in the creative.",
+  "rightsTreatment": "User supplied the SofaScore crop and explicitly directed its use in this organic editorial meme post; the asset is not cleared for paid amplification.",
+  "claimBoundary": "The phrase 'We found yours.' is a football-format editorial reveal of the cleanse, treat, protect sequence, not a personalized product recommendation or suitability claim.",
+  "channels": ["x-organic"],
+  "publication": [
+    {
+      "channel": "x",
+      "account": "@jelocare",
+      "statusId": "2092425418775392714",
+      "url": "https://x.com/jelocare/status/2092425418775392714",
+      "publishedAt": "2026-08-26T01:34:29.000Z",
+      "audience": "public-organic",
+      "spend": null,
+      "evidencePath": "evidence/x-post-live.png",
+      "evidenceSha256": "4898781ae2113a5c505576c3a55ddf1a6c44edfc768584f16899188d127d2b12"
+    }
+  ]
+}

@@ -1,0 +1,374 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-25-instagram-foundation-v1",
+  "status": "published",
+  "approvedAt": "2026-08-25T21:14:38Z",
+  "publishedAt": "2026-08-25T22:19:26.089Z",
+  "createdAt": "2026-08-25T21:15:42.824Z",
+  "dataCheckedAt": "2026-08-25T21:15:42.824Z",
+  "objective": "Give @usejelocare a credible, attractive Instagram front door through three evergreen pinned posts and a coherent Highlight cover system.",
+  "sourceTruth": {
+    "repositoryCommit": "afd643af78d8ab053943738c13d4af56695114cc",
+    "interfaceEvidence": "Current public JeloCare /bundle and /consult surfaces captured on 2026-08-25 at a 430 × 947 CSS-pixel mobile viewport and 2× device scale. Captures contain no browser chrome, private customer data, form submission, order, payment, email, or WhatsApp send.",
+    "catalogueEvidence": "The start post uses released, dossier-backed 2000 × 2000 product packshots for CeraVe Foaming Facial Cleanser, DANG! Lifestyle Azelaic Acid Serum, and La Roche-Posay Anthelios UVMune 400 Oil Control Fluid SPF50+.",
+    "visualSystem": "Deterministic Sharp/SVG compositions using JeloCare's embedded Italiana and Manrope fonts, canonical warm palette, real UI captures, and exact released product assets. No generated people, stock model, fake social chrome, fake badge, or price claim."
+  },
+  "sourceAssets": [
+    {
+      "path": "source/jelocare-avatar.png",
+      "sha256": "94e17c58bf3c6283f6ce9b9941c9086ec0407a5db7c20fde8f46dcb7e68f7992"
+    },
+    {
+      "path": "source/jelocare-bundle-mobile.png",
+      "sha256": "959b5e6e090ccebcdc6d06409abcedb9cc5ff68fffb20d818e11fc736a7d4e0f"
+    },
+    {
+      "path": "source/jelocare-consult-mobile.png",
+      "sha256": "c3ad571df38f561192781d36b4fa50b36f2b5f27c26193dae19d0bfccbe19bb0"
+    },
+    {
+      "path": "source/cerave-foaming-facial-cleanser-236ml.png",
+      "sha256": "9997d844ef7cef928bc36682bf038bf44ad7ba2e589a461ac7019b74816a49d9"
+    },
+    {
+      "path": "source/dang-azelaic-acid-serum-30ml.png",
+      "sha256": "4042aa08f87c067d2d930d05f0f631f9175eb7e40beac8f112bf5c264f234b33"
+    },
+    {
+      "path": "source/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-50ml.png",
+      "sha256": "561fc98be60cacbb6217af9dd0251e11a688164246088c477a19e9b11a05dced"
+    }
+  ],
+  "products": [
+    {
+      "slug": "cerave-foaming-facial-cleanser",
+      "brand": "CeraVe",
+      "name": "Foaming Facial Cleanser",
+      "size": "236 ml",
+      "sourcePath": "source/cerave-foaming-facial-cleanser-236ml.png",
+      "rights": "campaign-ready catalogue publication dossier"
+    },
+    {
+      "slug": "dang-azelaic-acid-serum-30ml",
+      "brand": "DANG! Lifestyle",
+      "name": "Azelaic Acid Serum",
+      "size": "30 ml",
+      "sourcePath": "source/dang-azelaic-acid-serum-30ml.png",
+      "rights": "campaign-ready catalogue publication dossier"
+    },
+    {
+      "slug": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+      "brand": "La Roche-Posay",
+      "name": "Anthelios UVMune 400 Oil Control Fluid SPF50+",
+      "size": "50 ml",
+      "sourcePath": "source/la-roche-posay-anthelios-uvmune-400-oil-control-fluid-50ml.png",
+      "rights": "campaign-ready catalogue publication dossier"
+    }
+  ],
+  "offerEvidence": [],
+  "careBoundary": "Evergreen product discovery, comparison workflow, and sourced care guidance only. No price, saving, stock, authenticity, suitability, diagnosis, treatment or outcome claim.",
+  "copy": {
+    "start": {
+      "visibleHeadline": "Products. Prices. Clear context.",
+      "visibleSupport": "For Nigerian skincare shoppers.",
+      "caption": "Products, listed prices, and clear care context for Nigerian skincare shoppers.\n\nStart here: https://www.jelocare.com"
+    },
+    "compareOrder": {
+      "visibleHeadline": "One basket. One clear quote.",
+      "visibleSupport": "Choose products. See real one-retailer baskets.",
+      "caption": "Choose 2–4 products. See the real one-retailer baskets available, then request one verified quote.\n\nNo payment is taken when you request a quote.\n\nBuild a basket: https://www.jelocare.com/bundle"
+    },
+    "ask": {
+      "visibleHeadline": "Tell us what you notice.",
+      "visibleSupport": "A sourced care guide—not a diagnosis.",
+      "caption": "Describe what you notice in your own words. JeloCare helps you build a sourced care guide—not a diagnosis.\n\nAsk JeloCare: https://www.jelocare.com/consult\n\nUrgent or worsening symptoms need in-person care."
+    },
+    "highlightTitles": [
+      "START",
+      "SHOP",
+      "PRICES",
+      "ASK",
+      "CONCERNS",
+      "PRODUCTS",
+      "STORES",
+      "FAQ"
+    ]
+  },
+  "captionAsset": {
+    "path": "CAPTIONS.md",
+    "sha256": "744dbe1e610a22076bd211c4ce6a1319b98e14a55257f375058d722f214c0fd1"
+  },
+  "creative": [
+    {
+      "kind": "instagram-feed",
+      "path": "final/01-start-here-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "fda2ae62ce7afeb2c6689dbd2362ceb880c73ca67a4e0f6fc9384f9bc5e00557",
+      "generationRoute": "deterministic-sharp-svg-with-exact-brand-assets-and-real-site-surfaces"
+    },
+    {
+      "kind": "instagram-feed",
+      "path": "final/02-compare-order-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "953367b8c9457a976707307a72515a3915a11b6ad5ac27b55674f206dbf93f35",
+      "generationRoute": "deterministic-sharp-svg-with-exact-brand-assets-and-real-site-surfaces"
+    },
+    {
+      "kind": "instagram-feed",
+      "path": "final/03-ask-jelocare-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "a41fef0455a62251d342a005aea2d9f56ae7fd1e7f6dc5f8f881f791ac7d951b",
+      "generationRoute": "deterministic-sharp-svg-with-exact-brand-assets-and-real-site-surfaces"
+    },
+    {
+      "kind": "instagram-highlight-cover",
+      "label": "START",
+      "path": "final/highlights/01-start.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "3555220bcd44edc42d786af75bac01c73f3f30ae70d393d760d1994209382c53",
+      "generationRoute": "deterministic-sharp-svg-with-canonical-jelocare-identity-and-service-icons"
+    },
+    {
+      "kind": "instagram-highlight-cover",
+      "label": "SHOP",
+      "path": "final/highlights/02-shop.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "5803db69ba8b6a5e85891c494e70dda0a4144ef5003816440c383c01a54b7378",
+      "generationRoute": "deterministic-sharp-svg-with-canonical-jelocare-identity-and-service-icons"
+    },
+    {
+      "kind": "instagram-highlight-cover",
+      "label": "PRICES",
+      "path": "final/highlights/03-prices.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "73cec56dd0c933a780d7f1ae47531e0255168830d7d07599cdd729e8176c19f3",
+      "generationRoute": "deterministic-sharp-svg-with-canonical-jelocare-identity-and-service-icons"
+    },
+    {
+      "kind": "instagram-highlight-cover",
+      "label": "ASK",
+      "path": "final/highlights/04-ask.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "53aa340e77197b31be8a44d424979def5c51125aa408bf32d89fca553cb5b002",
+      "generationRoute": "deterministic-sharp-svg-with-canonical-jelocare-identity-and-service-icons"
+    },
+    {
+      "kind": "instagram-highlight-cover",
+      "label": "CONCERNS",
+      "path": "final/highlights/05-concerns.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "714a00bfe95897275ddf1f3b99bc46037e972f9b31a754d1d0216cc60cb7d599",
+      "generationRoute": "deterministic-sharp-svg-with-canonical-jelocare-identity-and-service-icons"
+    },
+    {
+      "kind": "instagram-highlight-cover",
+      "label": "PRODUCTS",
+      "path": "final/highlights/06-products.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "616dff7acc2fe72a2c7566375b0f7009b29d4f8cdf9fe1094c660cef7b104d77",
+      "generationRoute": "deterministic-sharp-svg-with-canonical-jelocare-identity-and-service-icons"
+    },
+    {
+      "kind": "instagram-highlight-cover",
+      "label": "STORES",
+      "path": "final/highlights/07-stores.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "4131251a93bc29d8708102916329a4065e0875a4e38cb630a9f067240d7cc82f",
+      "generationRoute": "deterministic-sharp-svg-with-canonical-jelocare-identity-and-service-icons"
+    },
+    {
+      "kind": "instagram-highlight-cover",
+      "label": "FAQ",
+      "path": "final/highlights/08-faq.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "cee3b9ed19c07a1c8e13432b4af6ffac432a57c8d24463251d79d959ebae0caf",
+      "generationRoute": "deterministic-sharp-svg-with-canonical-jelocare-identity-and-service-icons"
+    }
+  ],
+  "previews": [
+    {
+      "path": "preview/pinned-row-full.png",
+      "sha256": "1814f7b446e1d32c809866066b6c23e2d6b407500e22c313da8c3150a6e88bab"
+    },
+    {
+      "path": "preview/pinned-row-square-crop.png",
+      "sha256": "7a14abed43d145caa2b805060c0242779c1d6487c2f263f46a798d17da5e435d"
+    },
+    {
+      "path": "preview/highlight-circle-contact-sheet.png",
+      "sha256": "aafe1bc77099be76347fc0db0bd68916cdce84b40f3a311dafca786b16433866"
+    }
+  ],
+  "channels": ["instagram-feed", "instagram-stories"],
+  "profileArrangement": {
+    "desiredPinnedOrder": [
+      "final/01-start-here-feed.png",
+      "final/02-compare-order-feed.png",
+      "final/03-ask-jelocare-feed.png"
+    ],
+    "status": "live-verified",
+    "checkedAt": "2026-08-25T23:36:19Z",
+    "publicProfileUrl": "https://www.instagram.com/usejelocare/",
+    "evidence": "Verified on the live @usejelocare profile in Instagram mobile and web: the three foundation posts are pinned in the intended Start, Compare, Ask order; all eight custom-cover Highlights are present in the intended order; and the public links modal exposes all five approved JeloCare destinations.",
+    "profileLinks": [
+      {
+        "label": "Products",
+        "url": "https://www.jelocare.com/products"
+      },
+      {
+        "label": "Price watch",
+        "url": "https://www.jelocare.com/share"
+      },
+      {
+        "label": "Bundle finder",
+        "url": "https://www.jelocare.com/bundle"
+      },
+      {
+        "label": "Order with JeloCare",
+        "url": "https://www.jelocare.com/basket"
+      },
+      {
+        "label": "Ask JeloCare",
+        "url": "https://www.jelocare.com/consult"
+      }
+    ],
+    "highlightOrder": [
+      "START",
+      "SHOP",
+      "PRICES",
+      "ASK",
+      "CONCERNS",
+      "PRODUCTS",
+      "STORES",
+      "FAQ"
+    ]
+  },
+  "publication": [
+    {
+      "channel": "instagram-feed",
+      "asset": "final/01-start-here-feed.png",
+      "publishedAt": "2026-08-25T22:15:40.095Z",
+      "externalId": "Dcer7o4ElRb",
+      "publicUrl": "https://www.instagram.com/usejelocare/p/Dcer7o4ElRb/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare Instagram profile"
+    },
+    {
+      "channel": "instagram-feed",
+      "asset": "final/02-compare-order-feed.png",
+      "publishedAt": "2026-08-25T22:17:34.016Z",
+      "externalId": "DcesH71EouA",
+      "publicUrl": "https://www.instagram.com/usejelocare/p/DcesH71EouA/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare Instagram profile"
+    },
+    {
+      "channel": "instagram-feed",
+      "asset": "final/03-ask-jelocare-feed.png",
+      "publishedAt": "2026-08-25T22:19:26.089Z",
+      "externalId": "DcesV_FEhwh",
+      "publicUrl": "https://www.instagram.com/usejelocare/p/DcesV_FEhwh/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare Instagram profile"
+    },
+    {
+      "channel": "instagram-highlight",
+      "asset": "final/highlights/01-start.png",
+      "sourceStoryCampaignId": "2026-08-25-instagram-founding-grid-v1",
+      "sourceStoryAsset": "final/highlight-starters/01-start-story.png",
+      "publishedAt": "2026-08-25T23:31:28Z",
+      "externalId": "18086692934469978",
+      "publicUrl": "https://www.instagram.com/stories/highlights/18086692934469978/",
+      "spend": null,
+      "audienceSummary": "Public START Highlight on @usejelocare"
+    },
+    {
+      "channel": "instagram-highlight",
+      "asset": "final/highlights/02-shop.png",
+      "sourceStoryCampaignId": "2026-08-25-instagram-founding-grid-v1",
+      "sourceStoryAsset": "final/highlight-starters/02-shop-story.png",
+      "publishedAt": "2026-08-25T23:30:46Z",
+      "externalId": "18406463089084135",
+      "publicUrl": "https://www.instagram.com/stories/highlights/18406463089084135/",
+      "spend": null,
+      "audienceSummary": "Public SHOP Highlight on @usejelocare"
+    },
+    {
+      "channel": "instagram-highlight",
+      "asset": "final/highlights/03-prices.png",
+      "sourceStoryCampaignId": "2026-08-25-instagram-founding-grid-v1",
+      "sourceStoryAsset": "final/highlight-starters/03-prices-story.png",
+      "publishedAt": "2026-08-25T23:29:58Z",
+      "externalId": "17873608932566079",
+      "publicUrl": "https://www.instagram.com/stories/highlights/17873608932566079/",
+      "spend": null,
+      "audienceSummary": "Public PRICES Highlight on @usejelocare"
+    },
+    {
+      "channel": "instagram-highlight",
+      "asset": "final/highlights/04-ask.png",
+      "sourceStoryCampaignId": "2026-08-25-instagram-founding-grid-v1",
+      "sourceStoryAsset": "final/highlight-starters/04-ask-story.png",
+      "publishedAt": "2026-08-25T23:29:01Z",
+      "externalId": "18112876015814155",
+      "publicUrl": "https://www.instagram.com/stories/highlights/18112876015814155/",
+      "spend": null,
+      "audienceSummary": "Public ASK Highlight on @usejelocare"
+    },
+    {
+      "channel": "instagram-highlight",
+      "asset": "final/highlights/05-concerns.png",
+      "sourceStoryCampaignId": "2026-08-25-instagram-founding-grid-v1",
+      "sourceStoryAsset": "final/highlight-starters/05-concerns-story.png",
+      "publishedAt": "2026-08-25T23:28:17Z",
+      "externalId": "18480157402108105",
+      "publicUrl": "https://www.instagram.com/stories/highlights/18480157402108105/",
+      "spend": null,
+      "audienceSummary": "Public CONCERNS Highlight on @usejelocare"
+    },
+    {
+      "channel": "instagram-highlight",
+      "asset": "final/highlights/06-products.png",
+      "sourceStoryCampaignId": "2026-08-25-instagram-founding-grid-v1",
+      "sourceStoryAsset": "final/highlight-starters/06-products-story.png",
+      "publishedAt": "2026-08-25T23:27:26Z",
+      "externalId": "18109423955602362",
+      "publicUrl": "https://www.instagram.com/stories/highlights/18109423955602362/",
+      "spend": null,
+      "audienceSummary": "Public PRODUCTS Highlight on @usejelocare"
+    },
+    {
+      "channel": "instagram-highlight",
+      "asset": "final/highlights/07-stores.png",
+      "sourceStoryCampaignId": "2026-08-25-instagram-founding-grid-v1",
+      "sourceStoryAsset": "final/highlight-starters/07-stores-story.png",
+      "publishedAt": "2026-08-25T23:26:30Z",
+      "externalId": "17895317823598645",
+      "publicUrl": "https://www.instagram.com/stories/highlights/17895317823598645/",
+      "spend": null,
+      "audienceSummary": "Public STORES Highlight on @usejelocare"
+    },
+    {
+      "channel": "instagram-highlight",
+      "asset": "final/highlights/08-faq.png",
+      "sourceStoryCampaignId": "2026-08-25-instagram-founding-grid-v1",
+      "sourceStoryAsset": "final/highlight-starters/08-faq-story.png",
+      "publishedAt": "2026-08-25T23:25:14Z",
+      "externalId": "17956276806217345",
+      "publicUrl": "https://www.instagram.com/stories/highlights/17956276806217345/",
+      "spend": null,
+      "audienceSummary": "Public FAQ Highlight on @usejelocare"
+    }
+  ]
+}

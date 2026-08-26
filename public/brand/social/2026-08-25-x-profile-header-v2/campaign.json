@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-25-x-profile-header-v2",
+  "assetClass": "permanent-brand-profile-header",
+  "status": "draft",
+  "approvedAt": null,
+  "createdAt": "2026-08-25T19:23:38Z",
+  "dataCheckedAt": "2026-08-25T19:23:38Z",
+  "objective": "establish a timeless, premium JeloCare identity on X without turning the profile header into a campaign or service explainer",
+  "evidence": [
+    {
+      "kind": "product-north-star",
+      "path": "docs/product/NORTH_STAR.md",
+      "claim": "JeloCare should be the first place Nigerians check before buying skincare"
+    },
+    {
+      "kind": "design-system",
+      "path": "docs/design/SYSTEM.md",
+      "claim": "Warm editorial colour, restrained hierarchy, and premium simplicity are established JeloCare visual principles"
+    },
+    {
+      "kind": "platform-guidance",
+      "url": "https://business.x.com/content/dam/business-twitter/resources/x-downloadable-guides/build-your-presence-on-x-one-sheet.pdf",
+      "claim": "X recommends a profile header that showcases the company, product, service, or location as part of a complete brand profile"
+    }
+  ],
+  "benchmark": {
+    "checkedAt": "2026-08-25T19:23:38Z",
+    "profiles": [
+      "https://x.com/aesopskincare",
+      "https://x.com/TheOrdinary",
+      "https://x.com/RareBeauty",
+      "https://x.com/CeraVe",
+      "https://x.com/fentybeauty",
+      "https://x.com/ouraring",
+      "https://x.com/Headspace"
+    ],
+    "finding": "Permanent premium headers rely on one recognisable visual system with little or no copy; campaign, price, service-list, and launch language were intentionally excluded."
+  },
+  "sourceAsset": {
+    "kind": "built-in-imagegen-brand-environment",
+    "path": "source/quiet-signal-imagegen.png",
+    "sha256": "200275d9243ee05ef38de3bf742c41996c523d8dc09ac9273a4c6b53f71e367e",
+    "generationPrompt": "Use case: logo-brand\nAsset type: permanent JeloCare X profile brand header, designed for an exact 3:1 panoramic crop\n\nPrimary request: create a timeless, ultra-minimal brand environment for JeloCare using one ownable visual gesture—not an advertisement and not a campaign poster.\n\nScene/backdrop: a deep black-cherry to oxblood architectural field with subtle real material texture, like matte lacquer, smoked glass, and fine-grain paper. Introduce one elegant blush-and-warm-cream light aperture shaped only by negative space into a restrained elongated droplet curve, positioned center-right. The gesture should feel abstract and sophisticated, never like a literal icon or bottle.\n\nStyle/medium: premium contemporary brand art direction; photographic material realism; understated and highly finished; quiet enough to live as a permanent profile header.\n\nComposition/framing: ultra-wide 3:1 panorama. Keep the left 40% calm, dark, and nearly empty for avatar overlap. Place the single luminous material gesture inside the central crop-safe area so it survives both desktop and narrow mobile X crops. Generous negative space, asymmetric balance, no focal element touching an edge.\n\nLighting/mood: low, sculptural edge light; restrained blush glow; rich shadows; intelligent, calm, confident.\n\nColor palette: black cherry, oxblood, espresso, muted coral-blush, warm cream highlights.\n\nMaterials/textures: matte lacquer, softly frosted glass, subtle paper grain; believable depth and controlled reflections.\n\nConstraints: image only; one abstract visual gesture; no literal brand mark; no campaign hierarchy; no extra decoration.\n\nAvoid: all words and letters, logos, bottles, skincare products, people, skin, faces, hands, prices, retailer marks, badges, UI, icons, plinths, flowers, ingredients, sparkles, marble, neon, generic gradient wallpaper, obvious AI swirls, watermark."
+  },
+  "identityAsset": {
+    "kind": "canonical-jelocare-app-icon",
+    "sourcePath": "public/icons/jelocare-icon-1024.png",
+    "path": "source/jelocare-avatar.png",
+    "sha256": "94e17c58bf3c6283f6ce9b9941c9086ec0407a5db7c20fde8f46dcb7e68f7992",
+    "usage": "crop previews only; the permanent header intentionally does not repeat the avatar or wordmark"
+  },
+  "copy": {
+    "visibleText": null,
+    "embeddedUrl": null,
+    "visibleDisclaimer": null
+  },
+  "creative": [
+    {
+      "mode": "dark",
+      "path": "final/jelocare-x-brand-header.png",
+      "width": 1500,
+      "height": 500,
+      "sha256": "cbc8370ea1de7b23582f0767dfb2aea432c310b5014c9f6a69a2c796f77d6b7e",
+      "generationRoute": "built-in-imagegen-brand-environment-plus-deterministic-crop"
+    }
+  ],
+  "previews": [
+    {
+      "viewport": "desktop",
+      "path": "preview/jelocare-x-brand-desktop.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "305836ab61019efa8c272540cefed92d19dc2b85b8163429e3a9d7230303302a"
+    },
+    {
+      "viewport": "mobile-conservative-crop",
+      "path": "preview/jelocare-x-brand-mobile.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "d9985b805e8aedcf9d727c536d95160861033ead39b29dc5f0e654d970a76820"
+    }
+  ],
+  "cropPolicy": {
+    "artboard": "1500x500",
+    "testedViews": ["desktop", "mobile-conservative-crop"],
+    "result": "The luminous gesture remains visible while the lower-left stays quiet beneath the profile avatar."
+  },
+  "qualityGate": {
+    "status": "pass",
+    "criteria": [
+      "permanent brand identity rather than campaign treatment",
+      "no synthetic person or testimonial implication",
+      "desktop and mobile crop survival",
+      "profile-avatar clearance",
+      "premium minimal finish",
+      "no copy, logo duplication, price, retailer, badge, or product claim"
+    ]
+  },
+  "channels": ["x-profile-header"],
+  "publication": [],
+  "internalDisclosure": "The selected material environment was generated with the built-in image-generation tool. It contains no person, product, price, claim, retailer, testimonial, or simulated platform evidence."
+}

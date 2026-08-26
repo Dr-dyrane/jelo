@@ -1,0 +1,463 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-25-instagram-founding-grid-v1",
+  "status": "published",
+  "createdAt": "2026-08-25T22:03:06.637Z",
+  "dataCheckedAt": "2026-08-25T21:38:23Z",
+  "timelyCreativeExpiresAt": "2026-08-26T09:32:02Z",
+  "objective": "Complete @usejelocare's nine-post founding grid, eight useful Highlight starters, and a 7–10 day publication sequence without synthetic people, stale checkout prices, or unsupported care claims.",
+  "channels": [
+    "instagram-feed",
+    "instagram-reels",
+    "instagram-stories",
+    "instagram-profile"
+  ],
+  "sourceTruth": {
+    "repositoryCommit": "afd643af78d8ab053943738c13d4af56695114cc",
+    "marketEvidence": "Fresh JeloCare story render checked 2026-08-25T21:38:22Z: ANUA Niacinamide 10% + TXA 4% Serum, four observed stores, ₦7,999 lowest, ₦36,225 highest, ₦28,226 spread, observed 24 Aug 2026.",
+    "productEvidence": "Released CeraVe Foaming Facial Cleanser 236 ml dossier and canonical 2000×2000 packshot. No Nigerian offer is claimed.",
+    "concernEvidence": "Fresh sensitive-barrier concern story checked 2026-08-25T21:38:23Z; guidance and urgent-care boundary are preserved.",
+    "interfaceEvidence": "Real JeloCare public Bundle Finder, guest ordering and Ask JeloCare surfaces. The completed Ask capture uses a non-sensitive demonstration prompt and no member record.",
+    "humourEvidence": "Rights-clean owned UI adaptation of a currently active Nigerian social return-to-source reaction pattern; no third-party clip, celebrity likeness or copied caption."
+  },
+  "careBoundary": "Guidance, not diagnosis. No personal suitability, treatment, outcome, authenticity or endorsement claim. Urgent boundaries stay visible where relevant.",
+  "sourceAssets": [
+    {
+      "path": "source/anua-niacinamide-10-txa-4-serum.png",
+      "sha256": "225e3a52fd9b2f4a092a3c8b970e608d13246e0e2187677fb71b1f2350e4b669"
+    },
+    {
+      "path": "source/anua-price-story.png",
+      "sha256": "9bbd49acb1dffb42c3fcffddc0e30a16908f73360641f68161cf1d23430fd342"
+    },
+    {
+      "path": "source/cerave-foaming-facial-cleanser-236ml.png",
+      "sha256": "9997d844ef7cef928bc36682bf038bf44ad7ba2e589a461ac7019b74816a49d9"
+    },
+    {
+      "path": "source/sensitive-barrier-story.png",
+      "sha256": "ea09a42d41f6db920373e653a756cd4f4083981b8ffedee6b1503a6d17abb1a7"
+    },
+    {
+      "path": "source/jelocare-bundle-mobile.png",
+      "sha256": "959b5e6e090ccebcdc6d06409abcedb9cc5ff68fffb20d818e11fc736a7d4e0f"
+    },
+    {
+      "path": "source/jelocare-consult-intake.png",
+      "sha256": "c3ad571df38f561192781d36b4fa50b36f2b5f27c26193dae19d0bfccbe19bb0"
+    },
+    {
+      "path": "source/ask-jelocare-result.jpg",
+      "sha256": "f61101bf85c61253e727508e0e750b9439bae4c5c337a1ca7d3b016f232214cf"
+    },
+    {
+      "path": "source/ask-jelocare-result-guide-crop.jpg",
+      "sha256": "7d38f7b4a44cbbc3b47ad140f5a3e2a86dadd1d9cbc45ac84b4779300467ce22"
+    },
+    {
+      "path": "source/order-01-exact-product-story.jpg",
+      "sha256": "efb9d4c35a345d90a94a12357f207a5943667feceb4eae8bc333101205bc71f7"
+    },
+    {
+      "path": "source/order-02-start-shopping-story.jpg",
+      "sha256": "6d5a1cbcb0cb1f8c8c44300cba0e310ac484f6c42b3d5ff964e3cef59be80302"
+    },
+    {
+      "path": "source/order-03-keep-shopping-story.jpg",
+      "sha256": "c982c0ba696c559b855347295900c517d38fc04b87461c229ffd0f7923c3605d"
+    },
+    {
+      "path": "source/order-05-contact-story.jpg",
+      "sha256": "de60a3eaa1e729bc1ea3273a7b03e83af2925d225a69371a72e790297560f9aa"
+    },
+    {
+      "path": "source/order-06-delivery-story.jpg",
+      "sha256": "b807e27c945047f24aa5764636f43b7bcfe730478c2cd8b893fa76526d001d0c"
+    }
+  ],
+  "feedCreative": [
+    {
+      "kind": "instagram-feed",
+      "path": "final/04-market-proof-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "800c35e2fd2dc2d51db155ece542a738da5e92519fed95f4896e5a4e43051e3d"
+    },
+    {
+      "kind": "instagram-feed",
+      "path": "final/05-product-file-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "e339cde3e7c9fe0a070ad6b9cc1d4579aab078d715fb7e5711a3b92a76ed4ec2"
+    },
+    {
+      "kind": "instagram-feed",
+      "path": "final/06-sensitive-barrier-guide-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "32dcee10e18f3df574e8e133e137197f59ca4ef6b77e745d1bac29d848f5c9c3"
+    },
+    {
+      "kind": "instagram-feed",
+      "path": "final/07-bundle-ordering-reel-cover.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "66a11dadcc680ec8c70aa9fbd01f19dc7210c14a36bfeaad5d05c973772a236d"
+    },
+    {
+      "kind": "instagram-feed",
+      "path": "final/08-ask-jelocare-demo-01-intake-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "19bb4b77131add49c2bc45b67e038c236f8b1d87870957f9b43d8b7e8e2dc5ab"
+    },
+    {
+      "kind": "instagram-feed",
+      "path": "final/08-ask-jelocare-demo-02-guide-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "e9f1e47e8471235b2bf60fedebfcb4bc3b7564d4ea6f30bac2d9b9e02beb3067"
+    },
+    {
+      "kind": "instagram-feed",
+      "path": "final/09-timely-meme-01-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "905909d68d14c123e67fc39543f2010a7eee69583212b5aa0a2f8b8aa21f1ce4"
+    },
+    {
+      "kind": "instagram-feed",
+      "path": "final/09-timely-meme-02-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "373abfe90b736f74017ed67284732c832b2ba2cadb7eaa6a4270f5c3b79b97ba"
+    }
+  ],
+  "highlightStarters": [
+    {
+      "kind": "instagram-story",
+      "path": "final/highlight-starters/01-start-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "05b85c0cd18ccd1053fcb3a0a26690b10dda386d56124c6cd3763cc44b4a7ca5"
+    },
+    {
+      "kind": "instagram-story",
+      "path": "final/highlight-starters/02-shop-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "4e033443a15cbb7c13927fd99017bf462e46a4554a5d30575c05dd5ca99907f1"
+    },
+    {
+      "kind": "instagram-story",
+      "path": "final/highlight-starters/03-prices-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "1ee7f126e394396f7a727a9d122822bb891fcdfeecfc63c2c16308c53797d29f"
+    },
+    {
+      "kind": "instagram-story",
+      "path": "final/highlight-starters/04-ask-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "12fb5fe256c4f31557e19ae1c1e73d1dc6cb6d144629007cdbb9f474311aeca6"
+    },
+    {
+      "kind": "instagram-story",
+      "path": "final/highlight-starters/05-concerns-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "6b27b280a3133fe1bd25fe48948309f61503070010eaa69d5003db071250e0ea"
+    },
+    {
+      "kind": "instagram-story",
+      "path": "final/highlight-starters/06-products-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "98d99ca2c7f70f2680f3e3a786ddbe7a7d6d1ff0f756ffebf064c680b3af1bb0"
+    },
+    {
+      "kind": "instagram-story",
+      "path": "final/highlight-starters/07-stores-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "68267bbeb1b60cbe0bbcf6f23898ef6440119e798aa3d4608b375727e32d53e3"
+    },
+    {
+      "kind": "instagram-story",
+      "path": "final/highlight-starters/08-faq-story.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "cf0382a1722effd69ccbc1c295184e32bb3df4471aa16707338d8bbdac79fdbc"
+    }
+  ],
+  "reelFrames": [
+    {
+      "path": "final/reel-frames/bundle-01.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "ad87a0b13181049fb0ae546a26d788cea8dac2cd1ece3c965980aaa0ee9b52ed"
+    },
+    {
+      "path": "final/reel-frames/bundle-02.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "0b48c0ae555273ea760282a51acccf2f881351e7ab020b47608cec0e9e6024b8"
+    },
+    {
+      "path": "final/reel-frames/bundle-03.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "de5db289fc17b1a6b998e786a48e768832733ed97d2686788130a3a1e16e4d59"
+    },
+    {
+      "path": "final/reel-frames/bundle-04.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "943eeb5fb557346790e6f2d473ac361edb93510bc4cc3b88d95e783099fb8eeb"
+    },
+    {
+      "path": "final/reel-frames/bundle-05.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "0b5d4f50259e0baecd5400dff7c390569cb2725e68aee9c101817c85f28eda7d"
+    },
+    {
+      "path": "final/reel-frames/bundle-06.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "bbd7695b9e14b0d767ecafd8beed8682ef13e475539314a69d232b95db7897d7"
+    },
+    {
+      "path": "final/reel-frames/meme-01.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "fd4d1029149d14fa1c02983aebcf10b818a87eb236f6cbb0a9e28014e4de7b10"
+    },
+    {
+      "path": "final/reel-frames/meme-02.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "bb3797b7b61aa8d8e902f829bc91d7d60c9da1d95b4c8da486b974978735cfd0"
+    },
+    {
+      "path": "final/reel-frames/meme-03.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "7f59fe4a4fde435cf8d05923131e6c2bcee78e9d9baf79edae74bc8785f46d68"
+    }
+  ],
+  "videoCreative": [
+    {
+      "kind": "instagram-reel",
+      "path": "final/07-bundle-ordering-reel.mp4",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 236854,
+      "sha256": "3b312f0c613686c17fc35232bb2f100c17647c4482b866e17fdd94fc58e85396",
+      "audio": false
+    },
+    {
+      "kind": "instagram-reel",
+      "path": "final/09-timely-meme-reel.mp4",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 92725,
+      "sha256": "25278c3a642ab272908801652dbc308d86b51118957d04b9c0d52fea310eec1f",
+      "audio": false
+    }
+  ],
+  "profileLinks": [
+    ["Products", "https://www.jelocare.com/products"],
+    ["Price watch", "https://www.jelocare.com/share"],
+    ["Bundle finder", "https://www.jelocare.com/bundle"],
+    ["Order with JeloCare", "https://www.jelocare.com/basket"],
+    ["Ask JeloCare", "https://www.jelocare.com/consult"]
+  ],
+  "profileSetup": {
+    "status": "live-verified",
+    "checkedAt": "2026-08-25T23:36:19Z",
+    "publicProfileUrl": "https://www.instagram.com/usejelocare/",
+    "foundationCampaignId": "2026-08-25-instagram-foundation-v1",
+    "pinnedPostOrder": ["Start here", "Compare and order", "Ask JeloCare"],
+    "highlightOrder": [
+      "START",
+      "SHOP",
+      "PRICES",
+      "ASK",
+      "CONCERNS",
+      "PRODUCTS",
+      "STORES",
+      "FAQ"
+    ],
+    "evidence": "Live Instagram mobile and web verification passed. The profile exposes the intended three-pin foundation, all eight custom-cover Highlights in order, and all five approved links. Detailed external IDs and timestamps are recorded in the foundation campaign."
+  },
+  "mobileHandoff": {
+    "path": "handoff/day-1",
+    "files": [
+      {
+        "path": "handoff/day-1/01-pinned-posts/01-start-here-feed.png",
+        "sha256": "fda2ae62ce7afeb2c6689dbd2362ceb880c73ca67a4e0f6fc9384f9bc5e00557"
+      },
+      {
+        "path": "handoff/day-1/01-pinned-posts/02-compare-order-feed.png",
+        "sha256": "953367b8c9457a976707307a72515a3915a11b6ad5ac27b55674f206dbf93f35"
+      },
+      {
+        "path": "handoff/day-1/01-pinned-posts/03-ask-jelocare-feed.png",
+        "sha256": "a41fef0455a62251d342a005aea2d9f56ae7fd1e7f6dc5f8f881f791ac7d951b"
+      },
+      {
+        "path": "handoff/day-1/02-highlight-stories/01-start-story.png",
+        "sha256": "05b85c0cd18ccd1053fcb3a0a26690b10dda386d56124c6cd3763cc44b4a7ca5"
+      },
+      {
+        "path": "handoff/day-1/02-highlight-stories/02-shop-story.png",
+        "sha256": "4e033443a15cbb7c13927fd99017bf462e46a4554a5d30575c05dd5ca99907f1"
+      },
+      {
+        "path": "handoff/day-1/02-highlight-stories/03-prices-story.png",
+        "sha256": "1ee7f126e394396f7a727a9d122822bb891fcdfeecfc63c2c16308c53797d29f"
+      },
+      {
+        "path": "handoff/day-1/02-highlight-stories/04-ask-story.png",
+        "sha256": "12fb5fe256c4f31557e19ae1c1e73d1dc6cb6d144629007cdbb9f474311aeca6"
+      },
+      {
+        "path": "handoff/day-1/02-highlight-stories/05-concerns-story.png",
+        "sha256": "6b27b280a3133fe1bd25fe48948309f61503070010eaa69d5003db071250e0ea"
+      },
+      {
+        "path": "handoff/day-1/02-highlight-stories/06-products-story.png",
+        "sha256": "98d99ca2c7f70f2680f3e3a786ddbe7a7d6d1ff0f756ffebf064c680b3af1bb0"
+      },
+      {
+        "path": "handoff/day-1/02-highlight-stories/07-stores-story.png",
+        "sha256": "68267bbeb1b60cbe0bbcf6f23898ef6440119e798aa3d4608b375727e32d53e3"
+      },
+      {
+        "path": "handoff/day-1/02-highlight-stories/08-faq-story.png",
+        "sha256": "cf0382a1722effd69ccbc1c295184e32bb3df4471aa16707338d8bbdac79fdbc"
+      },
+      {
+        "path": "handoff/day-1/03-highlight-covers/01-start.png",
+        "sha256": "3555220bcd44edc42d786af75bac01c73f3f30ae70d393d760d1994209382c53"
+      },
+      {
+        "path": "handoff/day-1/03-highlight-covers/02-shop.png",
+        "sha256": "5803db69ba8b6a5e85891c494e70dda0a4144ef5003816440c383c01a54b7378"
+      },
+      {
+        "path": "handoff/day-1/03-highlight-covers/03-prices.png",
+        "sha256": "73cec56dd0c933a780d7f1ae47531e0255168830d7d07599cdd729e8176c19f3"
+      },
+      {
+        "path": "handoff/day-1/03-highlight-covers/04-ask.png",
+        "sha256": "53aa340e77197b31be8a44d424979def5c51125aa408bf32d89fca553cb5b002"
+      },
+      {
+        "path": "handoff/day-1/03-highlight-covers/05-concerns.png",
+        "sha256": "714a00bfe95897275ddf1f3b99bc46037e972f9b31a754d1d0216cc60cb7d599"
+      },
+      {
+        "path": "handoff/day-1/03-highlight-covers/06-products.png",
+        "sha256": "616dff7acc2fe72a2c7566375b0f7009b29d4f8cdf9fe1094c660cef7b104d77"
+      },
+      {
+        "path": "handoff/day-1/03-highlight-covers/07-stores.png",
+        "sha256": "4131251a93bc29d8708102916329a4065e0875a4e38cb630a9f067240d7cc82f"
+      },
+      {
+        "path": "handoff/day-1/03-highlight-covers/08-faq.png",
+        "sha256": "cee3b9ed19c07a1c8e13432b4af6ffac432a57c8d24463251d79d959ebae0caf"
+      },
+      {
+        "path": "handoff/day-1/README.md",
+        "sha256": "d34a3a37fe06c4253ae3ae3fa62d7e47a6fd6deaa82b69cd00214dd5611beaba"
+      }
+    ]
+  },
+  "publication": [
+    {
+      "channel": "instagram-story",
+      "asset": "final/highlight-starters/01-start-story.png",
+      "publishedAt": "2026-08-25T23:19:55Z",
+      "externalId": null,
+      "publicUrl": "https://www.instagram.com/stories/usejelocare/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare Story sequence"
+    },
+    {
+      "channel": "instagram-story",
+      "asset": "final/highlight-starters/02-shop-story.png",
+      "publishedAt": "2026-08-25T23:19:55Z",
+      "externalId": null,
+      "publicUrl": "https://www.instagram.com/stories/usejelocare/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare Story sequence"
+    },
+    {
+      "channel": "instagram-story",
+      "asset": "final/highlight-starters/03-prices-story.png",
+      "publishedAt": "2026-08-25T23:19:55Z",
+      "externalId": null,
+      "publicUrl": "https://www.instagram.com/stories/usejelocare/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare Story sequence"
+    },
+    {
+      "channel": "instagram-story",
+      "asset": "final/highlight-starters/04-ask-story.png",
+      "publishedAt": "2026-08-25T23:19:55Z",
+      "externalId": null,
+      "publicUrl": "https://www.instagram.com/stories/usejelocare/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare Story sequence"
+    },
+    {
+      "channel": "instagram-story",
+      "asset": "final/highlight-starters/05-concerns-story.png",
+      "publishedAt": "2026-08-25T23:19:55Z",
+      "externalId": null,
+      "publicUrl": "https://www.instagram.com/stories/usejelocare/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare Story sequence"
+    },
+    {
+      "channel": "instagram-story",
+      "asset": "final/highlight-starters/06-products-story.png",
+      "publishedAt": "2026-08-25T23:19:55Z",
+      "externalId": null,
+      "publicUrl": "https://www.instagram.com/stories/usejelocare/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare Story sequence"
+    },
+    {
+      "channel": "instagram-story",
+      "asset": "final/highlight-starters/07-stores-story.png",
+      "publishedAt": "2026-08-25T23:19:55Z",
+      "externalId": null,
+      "publicUrl": "https://www.instagram.com/stories/usejelocare/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare Story sequence"
+    },
+    {
+      "channel": "instagram-story",
+      "asset": "final/highlight-starters/08-faq-story.png",
+      "publishedAt": "2026-08-25T23:19:55Z",
+      "externalId": null,
+      "publicUrl": "https://www.instagram.com/stories/usejelocare/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare Story sequence"
+    },
+    {
+      "channel": "instagram-profile",
+      "asset": "handoff/day-1",
+      "publishedAt": "2026-08-25T23:31:28Z",
+      "externalId": "usejelocare",
+      "publicUrl": "https://www.instagram.com/usejelocare/",
+      "spend": null,
+      "audienceSummary": "Public @usejelocare profile foundation; future founding-grid posts remain unpublished"
+    }
+  ]
+}

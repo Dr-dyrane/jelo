@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-25-x-reply-desk-v1",
+  "status": "draft",
+  "createdAt": "2026-08-26T03:31:30Z",
+  "dataCheckedAt": "2026-08-26T14:08:00Z",
+  "objective": "Build a checked queue of natural, useful JeloCare replies to current Nigerian beauty and shopping conversations, with a reaction-media and reuse-rights decision attached to every candidate.",
+  "channels": ["x-organic"],
+  "operatingBoundary": "Read-only scouting and drafting. No reply, like, repost, follow, download, cross-platform clip, or publication is authorized by this record.",
+  "ownedMotionAudit": {
+    "checkedAt": "2026-08-26T03:31:30Z",
+    "filesReviewed": [
+      "../2026-08-25-instagram-founding-grid-v1/final/07-bundle-ordering-reel.mp4",
+      "../2026-08-25-instagram-founding-grid-v1/final/09-timely-meme-reel.mp4"
+    ],
+    "result": "No existing owned motion matches the Teeka4 phone-stare reaction. The bundle Reel is instructional; the timely meme Reel is a product-price comparison sequence. Neither should be forced into this reply."
+  },
+  "selectionRules": [
+    "The source conversation must be public, current, culturally relevant, and safe for a young Nigerian skincare-shopping brand to enter.",
+    "The reply must either help, make the existing joke better, or do both; it must not force a sales line into an unrelated conversation.",
+    "Reaction media must add a second beat rather than restate the copy.",
+    "A GIF available in X's native picker may be embedded on X, but it is not automatically cleared for download, reposting, paid amplification, or an Instagram or WhatsApp clip.",
+    "Cross-platform clipping stays blocked until the motion is owned, explicitly licensed, or replaced with an original JeloCare asset."
+  ],
+  "candidates": [
+    {
+      "id": "teeka4-site-down-product-search",
+      "priority": 3,
+      "state": "retired",
+      "target": {
+        "url": "https://x.com/pam_isdatchicc/status/2092314645805617583",
+        "account": "@pam_isdatchicc",
+        "publishedAt": "2026-08-25T18:14:00Z",
+        "observedText": "Teeka4’s website has been down for the longest. I’m losing my patience, I will blame her when I spend this money.",
+        "engagementSnapshot": {
+          "replies": 3,
+          "reposts": 0,
+          "likes": 7,
+          "views": 233,
+          "checkedAt": "2026-08-26T14:08:00Z"
+        }
+      },
+      "fit": "The original shopper friction fit JeloCare, but the live thread is now resolved: another user recommended Beauty by Daz and the shopper replied that she would check it. Entering afterward would feel late and promotional.",
+      "retirementReason": "Resolved by the conversation before JeloCare entered; do not reply or build a bespoke clip for this post.",
+      "reply": "What are we buying? 👀 We can help check which Nigerian stores list the exact product.",
+      "mediaPlan": {
+        "purpose": "A familiar phone-stare reaction makes the invitation feel conversational and gives the reply a visual second beat.",
+        "xNativeOption": {
+          "searchQuery": "nigerian reaction",
+          "pickerLabel": "Paw Paw Reaction GIF",
+          "giphyId": "2JeQO72XbrQk4wNdbp",
+          "visual": "PawPaw looks down at a phone with a serious, curious expression.",
+          "usage": "Embed through X's native GIF picker only; do not download or re-upload."
+        },
+        "ownedClipAlternative": "A 3–4 second JeloCare screen recording: the search field receives the exact product name, then matching Nigerian store cards appear. End before any unverified price or stock claim.",
+        "xReplyReady": false,
+        "crossPlatformClipReady": false,
+        "clipBlocker": "The native GIF has not been cleared for download or cross-platform reuse; create the owned JeloCare motion alternative first."
+      },
+      "claimBoundary": "Offer only to check current listed products across Nigerian stores after the shopper identifies the exact product."
+    },
+    {
+      "id": "redmi-skincare-budget-trend",
+      "priority": 1,
+      "state": "watchlist",
+      "target": {
+        "url": "https://x.com/marvo_sneh_/status/2092238277638012932",
+        "account": "@marvo_sneh_",
+        "publishedAt": "2026-08-25T13:10:00Z",
+        "observedText": "When she’s a 10/10 but her skincare is more expensive than my redmi phone",
+        "engagementSnapshot": {
+          "replies": 26,
+          "reposts": 35,
+          "likes": 58,
+          "views": 641,
+          "checkedAt": "2026-08-26T03:31:30Z"
+        }
+      },
+      "fit": "An active Nigerian skincare-cost meme with recognisably Nigerian replies. It is useful for familiarity rather than conversion, so the brand should join the joke without correcting or pitching at the author.",
+      "reply": "Redmi don enter skincare budget meeting by force 😭",
+      "mediaPlan": {
+        "purpose": "A compact side-eye reaction extends the absurdity without competing with the line.",
+        "xNativeOption": {
+          "searchQuery": "nigerian reaction",
+          "pickerLabel": "Paw Paw Reaction GIF",
+          "giphyId": "zIZldEXyyo64qOIgvb",
+          "visual": "PawPaw gives a sceptical side-eye.",
+          "usage": "Embed through X's native GIF picker only; do not download or re-upload."
+        },
+        "ownedClipAlternative": "An original 3-second JeloCare motion card: a Redmi silhouette slides into a basket labelled 'skincare budget meeting', then immediately slides back out. Keep it logo-light and meme-first.",
+        "xReplyReady": true,
+        "crossPlatformClipReady": false,
+        "clipBlocker": "The native GIF and the source post's GIF are not cleared for JeloCare cross-platform clipping."
+      },
+      "claimBoundary": "No product, price, saving, relationship, or care claim."
+    },
+    {
+      "id": "nigeria-skincare-school-fees",
+      "priority": 2,
+      "state": "watchlist",
+      "target": {
+        "url": "https://x.com/midnight_shnack/status/2090914095876685950",
+        "account": "@midnight_shnack",
+        "publishedAt": "2026-08-21",
+        "observedText": "Lmaoo Nigeria is crazily expensive omg !! Buying skincare today and it’s like I’m paying a child’s school fees 😭😭",
+        "engagementSnapshot": {
+          "replies": 1,
+          "reposts": 0,
+          "likes": 9,
+          "views": 254,
+          "checkedAt": "2026-08-26T14:08:00Z"
+        }
+      },
+      "fit": "Strong Nigerian price-friction setup and an easy invitation to inspect the exact basket, but it is older than the two candidates above.",
+      "reply": "School fees without the PTA meeting is wicked 😭 Which products are in the basket? Let’s check it before next term starts.",
+      "mediaPlan": {
+        "purpose": "A stunned calculation reaction completes the school-fees metaphor and makes the help offer feel lighter.",
+        "xNativeOption": {
+          "searchQuery": "nigerian reaction",
+          "pickerLabel": "Paw Paw Reaction GIF",
+          "giphyId": "0yXjVvEM2VWUX2CWpE",
+          "visual": "PawPaw stares in disbelief as if checking the total again.",
+          "usage": "Embed through X's native GIF picker only; do not download or re-upload."
+        },
+        "ownedClipAlternative": "A 3-second JeloCare basket-total animation: three product cards enter, a mock total flips to 'school fees?', then the JeloCare comparison view replaces it. Use no live price until rechecked.",
+        "xReplyReady": true,
+        "crossPlatformClipReady": false,
+        "clipBlocker": "The native GIF is not cleared for off-X reuse, and any comparison result would require a fresh catalogue check."
+      },
+      "claimBoundary": "Do not state or imply a saving until the exact products, sizes, listings, and current timestamps are checked."
+    }
+  ],
+  "publication": []
+}
