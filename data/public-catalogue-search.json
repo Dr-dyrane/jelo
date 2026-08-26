@@ -147,6 +147,15 @@
       "source": "dossier-release"
     },
     {
+      "slug": "axis-y-vegan-collagen-eye-serum-10ml",
+      "brand": "AXIS-Y",
+      "name": "Vegan Collagen Eye Serum",
+      "size": "10 ml / 0.33 fl oz",
+      "category": "Face",
+      "approvedGtin": "8809634610881",
+      "source": "dossier-release"
+    },
+    {
       "slug": "b-lab-matcha-hydrating-real-sunscreen",
       "brand": "B.LAB",
       "name": "Matcha Hydrating Real Sunscreen SPF50+ PA++++",
@@ -675,6 +684,24 @@
       "size": "50 ml",
       "category": "Face",
       "approvedGtin": "3600542453110",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "good-molecules-hyaluronic-acid-serum-30ml",
+      "brand": "Good Molecules",
+      "name": "Hyaluronic Acid Serum",
+      "size": "30 ml / 1 oz",
+      "category": "Face",
+      "approvedGtin": "810019610462",
+      "source": "dossier-release"
+    },
+    {
+      "slug": "good-molecules-niacinamide-serum-30ml",
+      "brand": "Good Molecules",
+      "name": "Niacinamide Serum",
+      "size": "30 ml / 1 oz",
+      "category": "Face",
+      "approvedGtin": "810019610530",
       "source": "dossier-release"
     },
     {
@@ -1414,6 +1441,15 @@
       "category": "Face",
       "approvedGtin": null,
       "source": "reviewed-catalogue"
+    },
+    {
+      "slug": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+      "brand": "The Ordinary",
+      "name": "Glycolic Acid 7% Exfoliating Toner",
+      "size": "240 ml",
+      "category": "Face",
+      "approvedGtin": "769915234060",
+      "source": "dossier-release"
     },
     {
       "slug": "tresemme-keratin-smooth-weightless-conditioner-828ml",

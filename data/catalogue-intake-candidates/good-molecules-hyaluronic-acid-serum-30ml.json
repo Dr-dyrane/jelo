@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-26T22:15:00Z",
+  "origin": {
+    "kind": "community-aggregate-packet",
+    "packetId": "3ee695ecb36c2fc7fb6de69c",
+    "reportSha256": "0d3c971c14c181d7f9bd7b366afab8fe81333dc18314ec9da6de8f01578f5f41"
+  },
+  "candidate": {
+    "id": "good-molecules-hyaluronic-acid-serum-30ml",
+    "brand": "Good Molecules",
+    "name": "Hyaluronic Acid Serum",
+    "variant": "Good Molecules Hyaluronic Acid Serum",
+    "size": "30 ml / 1 oz",
+    "category": "Face care",
+    "reason": "Adds the exact current 30 ml Good Molecules hyaluronic acid serum identified by the brand's official GTIN and official product media.",
+    "priority": "important",
+    "gapIds": ["hyaluronic-acid-serum", "hydration-support"],
+    "demandEvidenceUrls": [
+      "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml"
+    ],
+    "identity": {
+      "gtin": "810019610462",
+      "officialProductUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+      "checkedAt": "2026-08-26T22:00:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Current blue 30 ml dropper bottle and carton",
+      "officialEvidence": {
+        "url": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+        "observedGtin": "810019610462",
+        "observedVariant": "Good Molecules Hyaluronic Acid Serum",
+        "observedSize": "30 ml / 1 oz",
+        "observedPackageVersion": "Current blue 30 ml dropper bottle and carton",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/good-molecules-hyaluronic-acid-serum-30ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "good-molecules-hyaluronic-acid-serum-30ml",
+          "sourceUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+          "responseUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "retrievedAt": "2026-08-26T22:00:00Z",
+          "fields": {
+            "gtin": {
+              "value": "810019610462",
+              "locator": "Rendered official manufacturer GTIN field: Rendered official manufacturer GTIN field: Rendered official product JSON-LD gtin",
+              "sourceText": "\"gtin\": \"810019610462\""
+            },
+            "variant": {
+              "value": "Good Molecules Hyaluronic Acid Serum",
+              "locator": "Rendered official product JSON-LD name",
+              "sourceText": "Good Molecules Hyaluronic Acid Serum 30ml"
+            },
+            "size": {
+              "value": "30 ml / 1 oz",
+              "locator": "Rendered official product name and product-detail size",
+              "sourceText": "Good Molecules Hyaluronic Acid Serum 30ml; 30 ml / 1 oz"
+            },
+            "packageVersion": {
+              "value": "Current blue 30 ml dropper bottle and carton",
+              "locator": "Official current pack media visually reviewed with the exact product page",
+              "sourceText": "https://dy6g3i6a1660s.cloudfront.net/ha5SsVcDzQ7REWpHugXsUQlgCWA/orig.jpg"
+            }
+          },
+          "sourceResponseSha256": "05c63105674fed182c7bb786de6f3484e6bd8beb34e6bf2b01fde2906dd6aff2",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 177411,
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Good Molecules Hyaluronic Acid Serum 30ml | Good Molecules"
+          },
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-26T22:00:00Z"
+        },
+        "snapshotSha256": "4622a7533b5ff74c5983a40599fdcbb932625c0ec0ae8a0ff9aa29975f3a99b1",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1606,
+        "retrievedAt": "2026-08-26T22:00:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "A lightweight hyaluronic acid cosmetic serum intended to support surface hydration.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Cosmetic hydration support only. Apply to slightly damp skin and follow with moisturiser; stop if irritation occurs. It does not diagnose or treat persistent dryness, eczema, allergy, or infection.",
+      "manufacturerEvidenceUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-26T22:00:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+      "sourceUrl": "https://dy6g3i6a1660s.cloudfront.net/ha5SsVcDzQ7REWpHugXsUQlgCWA/orig.jpg",
+      "sourceAssetSha256": "118b55c9d6cee2e3c5b91bfd068f5bd7df184abdc55e8ff07b81b01c15de4712",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 375154,
+      "sourceAssetWidth": 2400,
+      "sourceAssetHeight": 2400,
+      "sourceAssetRetrievedAt": "2026-08-26T22:00:00Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/good-molecules/good-molecules-hyaluronic-acid-serum-30ml/packshot-v1-3dc5a3a8e2a14ad8.png",
+      "publicImageSha256": "3dc5a3a8e2a14ad821daca59d10c7a7d5ad1a254b74fc7f3a2c74fc67a9ad222",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 1007064,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-26T22:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

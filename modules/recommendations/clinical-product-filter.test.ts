@@ -63,7 +63,7 @@ test("every dossier-released product has an explicit post-publication care decis
   );
 });
 
-test("the exact 158-product public care matrix has the audited Phase 1 states", () => {
+test("the exact 162-product public care matrix has the audited Phase 1 states", () => {
   const publicSlugs = publicProducts.map((item) => item.slug);
   const publicReviews = publicSlugs.map((slug) => {
     const review = getReviewedProductCare(slug);
@@ -72,8 +72,8 @@ test("the exact 158-product public care matrix has the audited Phase 1 states", 
   });
   const states = publicReviews.map((review) => review.careState) as string[];
 
-  assert.equal(publicSlugs.length, 158);
-  assert.equal(new Set(publicSlugs).size, 158);
+  assert.equal(publicSlugs.length, 162);
+  assert.equal(new Set(publicSlugs).size, 162);
   assert.equal(
     states.filter((state) => state === "supportive_eligible").length,
     22,
@@ -84,7 +84,7 @@ test("the exact 158-product public care matrix has the audited Phase 1 states", 
   );
   assert.equal(
     states.filter((state) => state === "insufficient_data").length,
-    97,
+    101,
   );
 });
 

@@ -3457,6 +3457,102 @@
         "publishedAt": "2026-08-14T14:27:00Z"
       },
       "releaseFingerprint": "855b723ee28908665883c0bbf09556e8cbe1afcc73579e3e97fad2dd6ef11f7d"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+      "dossierFingerprint": "0db542753cf57dd66f2591a5a57796be846778c03b4ec6be31604fffbb1e9aae",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Hydrating peptide eye serum",
+        "usage": "Apply a small amount around the eye area and pat gently until absorbed, morning and night.",
+        "manufacturerDirectionsUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-26T22:16:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-26T22:16:30Z"
+      },
+      "releaseFingerprint": "de4ce3494344afd18a52e54f47aeb22006a347d5c00a54fad7ae4be0a02b5097"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "good-molecules-hyaluronic-acid-serum-30ml",
+      "dossierFingerprint": "bdf8cff53109ffe9267ecd8f0c0d1ffcd997af632edbdaab0eb40ff5e437e807",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "Lightweight hydration serum",
+        "usage": "Apply a few drops to damp, cleansed skin before moisturiser, morning or night.",
+        "manufacturerDirectionsUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-26T22:16:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-26T22:16:30Z"
+      },
+      "releaseFingerprint": "5283550a0f73425468ac39b152ebb6ff00cf959665264b178a8f8fc75a058432"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "good-molecules-niacinamide-serum-30ml",
+      "dossierFingerprint": "b5efc032e17dc2093d5f201eaac2c196a2260350f827ea374f336a81c42c2535",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Treat",
+        "displayLine": "10% niacinamide serum",
+        "usage": "Apply a few drops to cleansed skin before oils, moisturisers, and creams, morning or night.",
+        "manufacturerDirectionsUrl": "https://www.goodmolecules.com/s/good-molecules-niacinamide-serum-30ml",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-26T22:16:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-26T22:16:30Z"
+      },
+      "releaseFingerprint": "e3830d7315ca47bd15001b567225c9d4337ca5d618754ab5e02a7ca8cf58aaa9"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+      "dossierFingerprint": "f0c4c3eca8dfb7321e1c319e07e143071a6d3b54ec53d15c710ea2fa69594886",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Exfoliate",
+        "displayLine": "7% glycolic acid toner",
+        "usage": "Use in the evening no more than once daily after cleansing; avoid sensitive, peeling, or compromised skin and the eye area.",
+        "manufacturerDirectionsUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-26T22:16:00Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-26T22:16:30Z"
+      },
+      "releaseFingerprint": "7cd992f3d889ce4e088b0c0e1b393012aff5e18d6e20928b4b35bc9dcf896fc3"
     }
   ]
 }

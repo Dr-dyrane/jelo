@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-26T22:00:00Z",
+  "origin": {
+    "kind": "community-aggregate-packet",
+    "packetId": "71ee5e62503e9bb621aa2c4a",
+    "reportSha256": "0d3c971c14c181d7f9bd7b366afab8fe81333dc18314ec9da6de8f01578f5f41"
+  },
+  "candidate": {
+    "id": "cerave-sa-smoothing-cream-177ml",
+    "brand": "CeraVe",
+    "name": "SA Smoothing Cream",
+    "variant": "SA Smoothing Cream Tube",
+    "size": "177 ml",
+    "category": "Body care",
+    "reason": "Adds the exact UK 177 ml tube identified by CeraVe's official GTIN and size-specific pack media.",
+    "priority": "important",
+    "gapIds": ["rough-bumpy-body-skin", "salicylic-acid-body-moisturiser"],
+    "demandEvidenceUrls": [
+      "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube"
+    ],
+    "identity": {
+      "gtin": "3337875684095",
+      "officialProductUrl": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+      "checkedAt": "2026-08-26T22:00:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Current white 177 ml tube with blue SA Smoothing Cream panel",
+      "officialEvidence": {
+        "url": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+        "observedGtin": "3337875684095",
+        "observedVariant": "SA Smoothing Cream Tube",
+        "observedSize": "177 ml",
+        "observedPackageVersion": "Current white 177 ml tube with blue SA Smoothing Cream panel",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/cerave-sa-smoothing-cream-177ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "cerave-sa-smoothing-cream-177ml",
+          "sourceUrl": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+          "responseUrl": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "retrievedAt": "2026-08-26T22:00:00Z",
+          "fields": {
+            "gtin": {
+              "value": "3337875684095",
+              "locator": "Rendered official product JSON-LD sku and mpn",
+              "sourceText": "\"sku\": \"3337875684095\", \"mpn\": \"3337875684095\""
+            },
+            "variant": {
+              "value": "SA Smoothing Cream Tube",
+              "locator": "Rendered official product JSON-LD name",
+              "sourceText": "SA Smoothing Cream Tube"
+            },
+            "size": {
+              "value": "177 ml",
+              "locator": "Rendered official product image path",
+              "sourceText": "sa-smoothing-cream-tube-177ml"
+            },
+            "packageVersion": {
+              "value": "Current white 177 ml tube with blue SA Smoothing Cream panel",
+              "locator": "Official current pack media visually reviewed with the exact product page",
+              "sourceText": "https://www.cerave.co.uk/-/media/project/loreal/brand-sites/cerave/emea/uk/products/latest-packshot-images-for-uk-products/sa-smoothing-cream-tube-177ml/sa-smoothing-cream-5-lg.jpg"
+            }
+          },
+          "sourceResponseSha256": "9b40c08a9f05e999ead5f19535587458fc99d78dfccd3c99c281377e779bf037",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 200011,
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Sa Smoothing Body Cream Tube | Keratosis Pilaris | CeraVe UK"
+          },
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-26T22:00:00Z"
+        },
+        "snapshotSha256": "8a17cf13a25ff4ab1f87b0ab2f1c13d7dba5f821545f21f1549480983e44f681",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1584,
+        "retrievedAt": "2026-08-26T22:00:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "A fragrance-free body moisturising cream with salicylic acid, 10% urea, niacinamide, and ceramides for rough and bumpy skin.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Body-care support only; do not use on the face or broken skin. Stop if irritation occurs. Persistent painful, inflamed, infected, or rapidly changing skin needs clinical review.",
+      "manufacturerEvidenceUrl": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-26T22:00:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+      "sourceUrl": "https://www.cerave.co.uk/-/media/project/loreal/brand-sites/cerave/emea/uk/products/latest-packshot-images-for-uk-products/sa-smoothing-cream-tube-177ml/sa-smoothing-cream-5-lg.jpg",
+      "sourceAssetSha256": "a22c42af43481ccd08ead8d9d0b3bba51eafda507c19d2f6708d2536c2433c73",
+      "sourceAssetMimeType": "image/jpeg",
+      "sourceAssetByteSize": 68601,
+      "sourceAssetWidth": 700,
+      "sourceAssetHeight": 875,
+      "sourceAssetRetrievedAt": "2026-08-26T22:00:00Z"
+    }
+  }
+}

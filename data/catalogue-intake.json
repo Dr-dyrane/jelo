@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-14T14:28:16Z",
+  "updatedAt": "2026-08-26T22:15:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -12749,6 +12749,128 @@
       }
     },
     {
+      "id": "axis-y-vegan-collagen-eye-serum-10ml",
+      "brand": "AXIS-Y",
+      "name": "Vegan Collagen Eye Serum",
+      "variant": "Vegan Collagen Eye Serum",
+      "size": "10 ml / 0.33 fl oz",
+      "category": "Face care",
+      "reason": "Adds the exact 10 ml AXIS-Y eye serum bound to the brand's current GTIN and official pack image.",
+      "priority": "exploratory",
+      "gapIds": ["eye-area-hydration", "peptide-eye-serum"],
+      "demandEvidenceUrls": [
+        "https://www.axis-y.com/products/vegan-collagen-eye-serum"
+      ],
+      "identity": {
+        "gtin": "8809634610881",
+        "officialProductUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+        "checkedAt": "2026-08-26T22:00:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current cream 10 ml applicator tube with green band",
+        "officialEvidence": {
+          "url": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+          "observedGtin": "8809634610881",
+          "observedVariant": "Vegan Collagen Eye Serum",
+          "observedSize": "10 ml / 0.33 fl oz",
+          "observedPackageVersion": "Current cream 10 ml applicator tube with green band",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/axis-y-vegan-collagen-eye-serum-10ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+            "sourceUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+            "responseUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "retrievedAt": "2026-08-26T22:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "8809634610881",
+                "locator": "Rendered official manufacturer GTIN field: Rendered official manufacturer GTIN field: Rendered official Shopify product JSON-LD selected offer gtin13",
+                "sourceText": "\"gtin13\": 8809634610881"
+              },
+              "variant": {
+                "value": "Vegan Collagen Eye Serum",
+                "locator": "Rendered official Shopify product JSON-LD name",
+                "sourceText": "Vegan Collagen Eye Serum"
+              },
+              "size": {
+                "value": "10 ml / 0.33 fl oz",
+                "locator": "Rendered official product detail size",
+                "sourceText": "10 ml / 0.33 fl oz"
+              },
+              "packageVersion": {
+                "value": "Current cream 10 ml applicator tube with green band",
+                "locator": "Official current pack media visually reviewed with the exact product page",
+                "sourceText": "https://cdn.shopify.com/s/files/1/0578/0157/2530/files/db141381d270518f659b3697105fac02.png?v=1781505663"
+              }
+            },
+            "sourceResponseSha256": "9682374467acd5ea0c34e54f2b39935954eec83213bd0ae19a603dc60cf8fc54",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 200068,
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "AXIS-Y Vegan Collagen Eye Serum | Dark Circles & Fine Lines"
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-26T22:00:00Z"
+          },
+          "snapshotSha256": "eaaf1e7bd15a3814c4c01bff5fa3964a0f05e3d26dfbc65d4ef82e5612ff438b",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1562,
+          "retrievedAt": "2026-08-26T22:00:00Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "A lightweight eye-area cosmetic serum with vegan collagen, peptides, and hyaluronic acid for hydration and the appearance of tired skin.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic eye-area care only. Keep out of the eyes, patch test first, and stop if irritation occurs. Persistent swelling, pain, sudden darkening, or vision symptoms need clinical review.",
+        "manufacturerEvidenceUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-26T22:00:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+        "sourceUrl": "https://cdn.shopify.com/s/files/1/0578/0157/2530/files/db141381d270518f659b3697105fac02.png?v=1781505663",
+        "sourceAssetSha256": "bc1ebcd5ccc2401f74591c652a348e725612b676b34d51911a95e5e0b99e1be2",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 279590,
+        "sourceAssetWidth": 1200,
+        "sourceAssetHeight": 1500,
+        "sourceAssetRetrievedAt": "2026-08-26T22:00:00Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/axis-y/axis-y-vegan-collagen-eye-serum-10ml/packshot-v1-9e0756fd53c4bdd6.png",
+        "publicImageSha256": "9e0756fd53c4bdd691e9592cdb660456dd2fc8cadcb2067a4e359c8cfaeec070",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 488865,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-26T22:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
       "id": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
       "brand": "Beauty Formulas",
       "brandAliases": ["BEAUTY FORMULA", "Beauty Formula"],
@@ -13804,6 +13926,114 @@
           "generatedAt": "2026-08-09T19:58:00Z",
           "recordSha256": "df2ef401c82f8a27377efbf4ece72f5aea626e3dbd845b6ecd3589af36abad53"
         }
+      }
+    },
+    {
+      "id": "cerave-sa-smoothing-cream-177ml",
+      "brand": "CeraVe",
+      "name": "SA Smoothing Cream",
+      "variant": "SA Smoothing Cream Tube",
+      "size": "177 ml",
+      "category": "Body care",
+      "reason": "Adds the exact UK 177 ml tube identified by CeraVe's official GTIN and size-specific pack media.",
+      "priority": "important",
+      "gapIds": ["rough-bumpy-body-skin", "salicylic-acid-body-moisturiser"],
+      "demandEvidenceUrls": [
+        "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube"
+      ],
+      "identity": {
+        "gtin": "3337875684095",
+        "officialProductUrl": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+        "checkedAt": "2026-08-26T22:00:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current white 177 ml tube with blue SA Smoothing Cream panel",
+        "officialEvidence": {
+          "url": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+          "observedGtin": "3337875684095",
+          "observedVariant": "SA Smoothing Cream Tube",
+          "observedSize": "177 ml",
+          "observedPackageVersion": "Current white 177 ml tube with blue SA Smoothing Cream panel",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/cerave-sa-smoothing-cream-177ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "cerave-sa-smoothing-cream-177ml",
+            "sourceUrl": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+            "responseUrl": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "retrievedAt": "2026-08-26T22:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "3337875684095",
+                "locator": "Rendered official product JSON-LD sku and mpn",
+                "sourceText": "\"sku\": \"3337875684095\", \"mpn\": \"3337875684095\""
+              },
+              "variant": {
+                "value": "SA Smoothing Cream Tube",
+                "locator": "Rendered official product JSON-LD name",
+                "sourceText": "SA Smoothing Cream Tube"
+              },
+              "size": {
+                "value": "177 ml",
+                "locator": "Rendered official product image path",
+                "sourceText": "sa-smoothing-cream-tube-177ml"
+              },
+              "packageVersion": {
+                "value": "Current white 177 ml tube with blue SA Smoothing Cream panel",
+                "locator": "Official current pack media visually reviewed with the exact product page",
+                "sourceText": "https://www.cerave.co.uk/-/media/project/loreal/brand-sites/cerave/emea/uk/products/latest-packshot-images-for-uk-products/sa-smoothing-cream-tube-177ml/sa-smoothing-cream-5-lg.jpg"
+              }
+            },
+            "sourceResponseSha256": "9b40c08a9f05e999ead5f19535587458fc99d78dfccd3c99c281377e779bf037",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 200011,
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Sa Smoothing Body Cream Tube | Keratosis Pilaris | CeraVe UK"
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-26T22:00:00Z"
+          },
+          "snapshotSha256": "8a17cf13a25ff4ab1f87b0ab2f1c13d7dba5f821545f21f1549480983e44f681",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1584,
+          "retrievedAt": "2026-08-26T22:00:00Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "A fragrance-free body moisturising cream with salicylic acid, 10% urea, niacinamide, and ceramides for rough and bumpy skin.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Body-care support only; do not use on the face or broken skin. Stop if irritation occurs. Persistent painful, inflamed, infected, or rapidly changing skin needs clinical review.",
+        "manufacturerEvidenceUrl": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-26T22:00:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://www.cerave.co.uk/skincare/moisturisers/sa-smoothing-cream-tube",
+        "sourceUrl": "https://www.cerave.co.uk/-/media/project/loreal/brand-sites/cerave/emea/uk/products/latest-packshot-images-for-uk-products/sa-smoothing-cream-tube-177ml/sa-smoothing-cream-5-lg.jpg",
+        "sourceAssetSha256": "a22c42af43481ccd08ead8d9d0b3bba51eafda507c19d2f6708d2536c2433c73",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 68601,
+        "sourceAssetWidth": 700,
+        "sourceAssetHeight": 875,
+        "sourceAssetRetrievedAt": "2026-08-26T22:00:00Z"
       }
     },
     {
@@ -18266,6 +18496,250 @@
         "manualSourceOutputQa": true,
         "artReviewedAt": "2026-08-08T18:50:00Z",
         "artReviewer": "Codex independent catalogue media recheck",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "good-molecules-hyaluronic-acid-serum-30ml",
+      "brand": "Good Molecules",
+      "name": "Hyaluronic Acid Serum",
+      "variant": "Good Molecules Hyaluronic Acid Serum",
+      "size": "30 ml / 1 oz",
+      "category": "Face care",
+      "reason": "Adds the exact current 30 ml Good Molecules hyaluronic acid serum identified by the brand's official GTIN and official product media.",
+      "priority": "important",
+      "gapIds": ["hyaluronic-acid-serum", "hydration-support"],
+      "demandEvidenceUrls": [
+        "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml"
+      ],
+      "identity": {
+        "gtin": "810019610462",
+        "officialProductUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+        "checkedAt": "2026-08-26T22:00:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current blue 30 ml dropper bottle and carton",
+        "officialEvidence": {
+          "url": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+          "observedGtin": "810019610462",
+          "observedVariant": "Good Molecules Hyaluronic Acid Serum",
+          "observedSize": "30 ml / 1 oz",
+          "observedPackageVersion": "Current blue 30 ml dropper bottle and carton",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/good-molecules-hyaluronic-acid-serum-30ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "good-molecules-hyaluronic-acid-serum-30ml",
+            "sourceUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+            "responseUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "retrievedAt": "2026-08-26T22:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "810019610462",
+                "locator": "Rendered official manufacturer GTIN field: Rendered official manufacturer GTIN field: Rendered official product JSON-LD gtin",
+                "sourceText": "\"gtin\": \"810019610462\""
+              },
+              "variant": {
+                "value": "Good Molecules Hyaluronic Acid Serum",
+                "locator": "Rendered official product JSON-LD name",
+                "sourceText": "Good Molecules Hyaluronic Acid Serum 30ml"
+              },
+              "size": {
+                "value": "30 ml / 1 oz",
+                "locator": "Rendered official product name and product-detail size",
+                "sourceText": "Good Molecules Hyaluronic Acid Serum 30ml; 30 ml / 1 oz"
+              },
+              "packageVersion": {
+                "value": "Current blue 30 ml dropper bottle and carton",
+                "locator": "Official current pack media visually reviewed with the exact product page",
+                "sourceText": "https://dy6g3i6a1660s.cloudfront.net/ha5SsVcDzQ7REWpHugXsUQlgCWA/orig.jpg"
+              }
+            },
+            "sourceResponseSha256": "05c63105674fed182c7bb786de6f3484e6bd8beb34e6bf2b01fde2906dd6aff2",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 177411,
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Good Molecules Hyaluronic Acid Serum 30ml | Good Molecules"
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-26T22:00:00Z"
+          },
+          "snapshotSha256": "4622a7533b5ff74c5983a40599fdcbb932625c0ec0ae8a0ff9aa29975f3a99b1",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1606,
+          "retrievedAt": "2026-08-26T22:00:00Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "A lightweight hyaluronic acid cosmetic serum intended to support surface hydration.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic hydration support only. Apply to slightly damp skin and follow with moisturiser; stop if irritation occurs. It does not diagnose or treat persistent dryness, eczema, allergy, or infection.",
+        "manufacturerEvidenceUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-26T22:00:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+        "sourceUrl": "https://dy6g3i6a1660s.cloudfront.net/ha5SsVcDzQ7REWpHugXsUQlgCWA/orig.jpg",
+        "sourceAssetSha256": "118b55c9d6cee2e3c5b91bfd068f5bd7df184abdc55e8ff07b81b01c15de4712",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 375154,
+        "sourceAssetWidth": 2400,
+        "sourceAssetHeight": 2400,
+        "sourceAssetRetrievedAt": "2026-08-26T22:00:00Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/good-molecules/good-molecules-hyaluronic-acid-serum-30ml/packshot-v1-3dc5a3a8e2a14ad8.png",
+        "publicImageSha256": "3dc5a3a8e2a14ad821daca59d10c7a7d5ad1a254b74fc7f3a2c74fc67a9ad222",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 1007064,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-26T22:15:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "good-molecules-niacinamide-serum-30ml",
+      "brand": "Good Molecules",
+      "name": "Niacinamide Serum",
+      "variant": "Good Molecules Niacinamide Serum",
+      "size": "30 ml / 1 oz",
+      "category": "Face care",
+      "reason": "Adds the exact current 30 ml Good Molecules niacinamide serum identified by the brand's official GTIN and official product media.",
+      "priority": "important",
+      "gapIds": ["niacinamide-serum", "oil-balance-support"],
+      "demandEvidenceUrls": [
+        "https://www.goodmolecules.com/s/good-molecules-niacinamide-serum-30ml"
+      ],
+      "identity": {
+        "gtin": "810019610530",
+        "officialProductUrl": "https://www.goodmolecules.com/s/good-molecules-niacinamide-serum-30ml",
+        "checkedAt": "2026-08-26T22:00:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current yellow 30 ml dropper bottle and carton",
+        "officialEvidence": {
+          "url": "https://www.goodmolecules.com/s/good-molecules-niacinamide-serum-30ml",
+          "observedGtin": "810019610530",
+          "observedVariant": "Good Molecules Niacinamide Serum",
+          "observedSize": "30 ml / 1 oz",
+          "observedPackageVersion": "Current yellow 30 ml dropper bottle and carton",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/good-molecules-niacinamide-serum-30ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "good-molecules-niacinamide-serum-30ml",
+            "sourceUrl": "https://www.goodmolecules.com/s/good-molecules-niacinamide-serum-30ml",
+            "responseUrl": "https://www.goodmolecules.com/s/good-molecules-niacinamide-serum-30ml",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "retrievedAt": "2026-08-26T22:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "810019610530",
+                "locator": "Rendered official manufacturer GTIN field: Rendered official manufacturer GTIN field: Rendered official product JSON-LD gtin",
+                "sourceText": "\"gtin\": \"810019610530\""
+              },
+              "variant": {
+                "value": "Good Molecules Niacinamide Serum",
+                "locator": "Rendered official product JSON-LD name",
+                "sourceText": "Good Molecules Niacinamide Serum 30ml"
+              },
+              "size": {
+                "value": "30 ml / 1 oz",
+                "locator": "Rendered official product name and product-detail size",
+                "sourceText": "Good Molecules Niacinamide Serum 30ml; 30 ml / 1 oz"
+              },
+              "packageVersion": {
+                "value": "Current yellow 30 ml dropper bottle and carton",
+                "locator": "Official current pack media visually reviewed with the exact product page",
+                "sourceText": "https://dy6g3i6a1660s.cloudfront.net/p90xlt9pdd9gS1ksBxHGWwlgCWA/orig.jpg"
+              }
+            },
+            "sourceResponseSha256": "00c54e452f16402c83375e04fa065fc07dd485c1212f01229f58663db257e88e",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 166108,
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Good Molecules Niacinamide Serum 30ml | Good Molecules"
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-26T22:00:00Z"
+          },
+          "snapshotSha256": "34de9c2a17e8a183f8b0a5293e4000f7aae04bce48789eaee80c2048b9f4a465",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1580,
+          "retrievedAt": "2026-08-26T22:00:00Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "A lightweight 10% niacinamide cosmetic serum for the appearance of uneven tone, texture, and visible pores.",
+        "careTier": "daily-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Cosmetic supportive care only. Introduce gradually, avoid the eye area, stop if irritation occurs, and do not treat persistent or painful skin changes as a catalogue problem.",
+        "manufacturerEvidenceUrl": "https://www.goodmolecules.com/s/good-molecules-niacinamide-serum-30ml",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://www.goodmolecules.com/s/good-molecules-niacinamide-serum-30ml",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-26T22:00:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://www.goodmolecules.com/s/good-molecules-niacinamide-serum-30ml",
+        "sourceUrl": "https://dy6g3i6a1660s.cloudfront.net/p90xlt9pdd9gS1ksBxHGWwlgCWA/orig.jpg",
+        "sourceAssetSha256": "2add816aac2c016fa3147acb516da0a9cf0b25f732cea72c653db0a111ca3a12",
+        "sourceAssetMimeType": "image/jpeg",
+        "sourceAssetByteSize": 374720,
+        "sourceAssetWidth": 2400,
+        "sourceAssetHeight": 2400,
+        "sourceAssetRetrievedAt": "2026-08-26T22:00:00Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/good-molecules/good-molecules-niacinamide-serum-30ml/packshot-v1-39522d1d19ec4c38.png",
+        "publicImageSha256": "39522d1d19ec4c38af974738d8a8b59b049a0c79905c54b3e907492015dd34a7",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 1057274,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-26T22:15:00Z",
+        "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
       }
     },
@@ -28366,6 +28840,128 @@
         "packagingInvented": false,
         "manualSourceOutputQa": true,
         "artReviewedAt": "2026-07-28T14:19:00Z",
+        "artReviewer": "Codex visual audit",
+        "presentationQuality": "magazine-ready"
+      }
+    },
+    {
+      "id": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+      "brand": "The Ordinary",
+      "name": "Glycolic Acid 7% Exfoliating Toner",
+      "variant": "Glycolic Acid 7% Exfoliating Toner",
+      "size": "240 ml",
+      "category": "Face care",
+      "reason": "Adds the exact selected 240 ml variant; the rendered official variant binds GTIN 769915234060 and the returned official 240 ml variation media.",
+      "priority": "important",
+      "gapIds": ["aha-toner", "surface-exfoliation"],
+      "demandEvidenceUrls": [
+        "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml"
+      ],
+      "identity": {
+        "gtin": "769915234060",
+        "officialProductUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+        "checkedAt": "2026-08-26T22:00:00Z",
+        "basis": "official-brand",
+        "packageVersion": "Current selected 240 ml clear bottle with white dispensing cap",
+        "officialEvidence": {
+          "url": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+          "observedGtin": "769915234060",
+          "observedVariant": "Glycolic Acid 7% Exfoliating Toner",
+          "observedSize": "240 ml",
+          "observedPackageVersion": "Current selected 240 ml clear bottle with white dispensing cap",
+          "snapshotKind": "canonical-extraction",
+          "snapshotPath": "data/catalogue-identity-evidence/the-ordinary-glycolic-acid-7-exfoliating-toner-240ml.json",
+          "canonicalExtraction": {
+            "schemaVersion": 4,
+            "candidateId": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+            "sourceUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+            "responseUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "retrievedAt": "2026-08-26T22:00:00Z",
+            "fields": {
+              "gtin": {
+                "value": "769915234060",
+                "locator": "Rendered official manufacturer GTIN field: Rendered official manufacturer GTIN field: Rendered selected variant header data-pid",
+                "sourceText": "Official selected manufacturer GTIN 769915234060 in <div class=\"product-header js-product-header\" data-pid=\"769915234060\">"
+              },
+              "variant": {
+                "value": "Glycolic Acid 7% Exfoliating Toner",
+                "locator": "Rendered official product heading",
+                "sourceText": "Glycolic Acid 7% Exfoliating Toner"
+              },
+              "size": {
+                "value": "240 ml",
+                "locator": "Rendered selected size control and querystring",
+                "sourceText": "data-attr-value=\"int240ml\"; 240ml; dwvar_100418_size=240ml"
+              },
+              "packageVersion": {
+                "value": "Current selected 240 ml clear bottle with white dispensing cap",
+                "locator": "Official current pack media visually reviewed with the exact product page",
+                "sourceText": "https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw7d9b7362/Images/products/The%20Ordinary/rdn-glycolic-acid-7pct-exfoliating-toner-100ml.png?sw=1200&sh=1200&sm=fit"
+              }
+            },
+            "sourceResponseSha256": "5e0752473bf6a40a55b764fc2099eae440e6519bddd874472bc0ba502c167f0e",
+            "sourceResponseMimeType": "text/html",
+            "sourceResponseByteSize": 200146,
+            "method": "reviewed-browser-dom-identity-field-extraction",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Glycolic Acid 7% Exfoliating Toner | The Ordinary"
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-26T22:00:00Z"
+          },
+          "snapshotSha256": "3a76600d80e97870c912b6cf2a5a68291b4555d015bc6e9e16cb35cd5b14b687",
+          "snapshotMimeType": "application/json",
+          "snapshotByteSize": 1896,
+          "retrievedAt": "2026-08-26T22:00:00Z"
+        }
+      },
+      "care": {
+        "status": "reviewed",
+        "formulaArchetype": "A 7% glycolic-acid leave-on exfoliating toner intended to support smoother-looking texture and more even-looking tone.",
+        "careTier": "targeted-care",
+        "reviewScope": "catalogue-supportive-care",
+        "advisoryBoundary": "Targeted cosmetic exfoliation only. Use no more than once daily in the evening, avoid sensitive, peeling, or compromised skin and the eye area, and use daytime sun protection. Stop if irritation occurs.",
+        "manufacturerEvidenceUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+        "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+        "evidenceUrls": [
+          "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+          "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+        ],
+        "reviewedAt": "2026-08-26T22:00:00Z",
+        "reviewer": "JeloCare catalogue evidence review"
+      },
+      "nigeria": {
+        "regulatoryStatus": "pending",
+        "exactOffers": [],
+        "excludedObservations": []
+      },
+      "asset": {
+        "rightsStatus": "documented",
+        "origin": "official-brand-media",
+        "role": "packshot",
+        "rightsUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+        "sourceUrl": "https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw7d9b7362/Images/products/The%20Ordinary/rdn-glycolic-acid-7pct-exfoliating-toner-100ml.png?sw=1200&sh=1200&sm=fit",
+        "sourceAssetSha256": "ff659e01d7cfffc8cabff736244ec52121c7c36e251bb6d22fdd4d463a638fa4",
+        "sourceAssetMimeType": "image/png",
+        "sourceAssetByteSize": 208770,
+        "sourceAssetWidth": 1200,
+        "sourceAssetHeight": 1200,
+        "sourceAssetRetrievedAt": "2026-08-26T22:00:00Z",
+        "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/the-ordinary/the-ordinary-glycolic-acid-7-exfoliating-toner-240ml/packshot-v1-a8b3d9ca6975ba04.png",
+        "publicImageSha256": "a8b3d9ca6975ba04dd73cba825e0032966e4936f1a827d8ef490d15e79fe7fb5",
+        "publicImageMimeType": "image/png",
+        "publicImageByteSize": 486158,
+        "width": 2000,
+        "height": 2000,
+        "packaging": "intact",
+        "backgroundTreatment": "source-pixel-isolation",
+        "labelVariantSizeUnchanged": true,
+        "packagingInvented": false,
+        "manualSourceOutputQa": true,
+        "artReviewedAt": "2026-08-26T22:15:00Z",
         "artReviewer": "Codex visual audit",
         "presentationQuality": "magazine-ready"
       }

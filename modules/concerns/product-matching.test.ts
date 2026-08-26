@@ -94,14 +94,14 @@ test("concern links separate supportive products from pharmacist-review context"
 
 test("ordinary concern coverage keeps the audited two-tier catalogue matrix", () => {
   const expected = [
-    ["acne-breakouts", 0, 15, 89],
-    ["dark-spots", 0, 8, 96],
-    ["sensitive-barrier", 3, 2, 99],
-    ["dry-dehydrated-skin", 5, 3, 96],
+    ["acne-breakouts", 0, 15, 93],
+    ["dark-spots", 0, 8, 100],
+    ["sensitive-barrier", 3, 2, 103],
+    ["dry-dehydrated-skin", 5, 3, 100],
     ["dry-rough-body-skin", 6, 5, 32],
     ["sweat-body-odour", 1, 0, 42],
-    ["oily-congested-skin", 3, 4, 97],
-    ["daily-sun-protection", 1, 2, 101],
+    ["oily-congested-skin", 3, 4, 101],
+    ["daily-sun-protection", 1, 2, 105],
     ["dandruff-itchy-scalp", 0, 2, 9],
     ["dry-frizzy-hair", 5, 4, 2],
   ];

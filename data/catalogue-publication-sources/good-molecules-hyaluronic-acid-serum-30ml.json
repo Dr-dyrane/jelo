@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "good-molecules-hyaluronic-acid-serum-30ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "good-molecules-hyaluronic-acid-serum-30ml",
+    "candidateFingerprint": "1e87dfd3136401237076269e6d7458a1f3a5442bb0be7cb3e8d5378c51037660",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "810019610462",
+      "brand": "Good Molecules",
+      "name": "Hyaluronic Acid Serum",
+      "variant": "Good Molecules Hyaluronic Acid Serum",
+      "size": "30 ml / 1 oz",
+      "packageVersion": "Current blue 30 ml dropper bottle and carton",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+      "officialIdentity": {
+        "url": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+        "observedGtin": "810019610462",
+        "observedVariant": "Good Molecules Hyaluronic Acid Serum",
+        "observedSize": "30 ml / 1 oz",
+        "observedPackageVersion": "Current blue 30 ml dropper bottle and carton",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/good-molecules-hyaluronic-acid-serum-30ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "good-molecules-hyaluronic-acid-serum-30ml",
+          "sourceUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+          "responseUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "retrievedAt": "2026-08-26T22:00:00Z",
+          "fields": {
+            "gtin": {
+              "value": "810019610462",
+              "locator": "Rendered official manufacturer GTIN field: Rendered official manufacturer GTIN field: Rendered official product JSON-LD gtin",
+              "sourceText": "\"gtin\": \"810019610462\""
+            },
+            "variant": {
+              "value": "Good Molecules Hyaluronic Acid Serum",
+              "locator": "Rendered official product JSON-LD name",
+              "sourceText": "Good Molecules Hyaluronic Acid Serum 30ml"
+            },
+            "size": {
+              "value": "30 ml / 1 oz",
+              "locator": "Rendered official product name and product-detail size",
+              "sourceText": "Good Molecules Hyaluronic Acid Serum 30ml; 30 ml / 1 oz"
+            }
+          },
+          "sourceResponseSha256": "05c63105674fed182c7bb786de6f3484e6bd8beb34e6bf2b01fde2906dd6aff2",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 177411,
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Good Molecules Hyaluronic Acid Serum 30ml | Good Molecules"
+          },
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-26T22:00:00Z"
+        },
+        "snapshotSha256": "4622a7533b5ff74c5983a40599fdcbb932625c0ec0ae8a0ff9aa29975f3a99b1",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1606,
+        "retrievedAt": "2026-08-26T22:00:00Z"
+      },
+      "checkedAt": "2026-08-26T22:00:00Z",
+      "demandEvidenceUrls": [
+        "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "A lightweight hyaluronic acid cosmetic serum intended to support surface hydration.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Cosmetic hydration support only. Apply to slightly damp skin and follow with moisturiser; stop if irritation occurs. It does not diagnose or treat persistent dryness, eczema, allergy, or infection.",
+      "manufacturerEvidenceUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-26T22:00:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+      "sourceAsset": {
+        "url": "https://dy6g3i6a1660s.cloudfront.net/ha5SsVcDzQ7REWpHugXsUQlgCWA/orig.jpg",
+        "sha256": "118b55c9d6cee2e3c5b91bfd068f5bd7df184abdc55e8ff07b81b01c15de4712",
+        "mimeType": "image/jpeg",
+        "byteSize": 375154,
+        "width": 2400,
+        "height": 2400,
+        "retrievedAt": "2026-08-26T22:00:00Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "good-molecules-hyaluronic-acid-serum-30ml",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://dy6g3i6a1660s.cloudfront.net/ha5SsVcDzQ7REWpHugXsUQlgCWA/orig.jpg",
+          "sha256": "118b55c9d6cee2e3c5b91bfd068f5bd7df184abdc55e8ff07b81b01c15de4712",
+          "byteSize": 375154,
+          "width": 2400,
+          "height": 2400,
+          "retrievedAt": "2026-08-26T22:00:00Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "00810019610462"
+          },
+          "officialProductUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "3dc5a3a8e2a14ad821daca59d10c7a7d5ad1a254b74fc7f3a2c74fc67a9ad222",
+          "generatedAt": "2026-08-26T22:11:59Z",
+          "inferredComponentCount": 2,
+          "retainedComponentCount": 2,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "3dc5a3a8e2a14ad821daca59d10c7a7d5ad1a254b74fc7f3a2c74fc67a9ad222",
+          "byteSize": 1007064,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-26T22:14:30Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-26T22:15:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaces": ["peach", "pink", "dark"],
+          "surfaceReviewSha256": "61fc17b1b2173f67ef3a40841952e8dfafe0410b12e7471a0e8bb6bb61fbd3de",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/good-molecules/good-molecules-hyaluronic-acid-serum-30ml/packshot-v1-3dc5a3a8e2a14ad8.png",
+      "sha256": "3dc5a3a8e2a14ad821daca59d10c7a7d5ad1a254b74fc7f3a2c74fc67a9ad222",
+      "mimeType": "image/png",
+      "byteSize": 1007064,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-26T22:15:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-26T22:15:30Z"
+    },
+    "dossierFingerprint": "bdf8cff53109ffe9267ecd8f0c0d1ffcd997af632edbdaab0eb40ff5e437e807"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "good-molecules-hyaluronic-acid-serum-30ml",
+    "dossierFingerprint": "bdf8cff53109ffe9267ecd8f0c0d1ffcd997af632edbdaab0eb40ff5e437e807",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Lightweight hydration serum",
+      "usage": "Apply a few drops to damp, cleansed skin before moisturiser, morning or night.",
+      "manufacturerDirectionsUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-26T22:16:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-26T22:16:30Z"
+    },
+    "releaseFingerprint": "5283550a0f73425468ac39b152ebb6ff00cf959665264b178a8f8fc75a058432"
+  }
+}

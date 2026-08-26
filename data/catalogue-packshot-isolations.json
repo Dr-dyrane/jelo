@@ -5594,5 +5594,241 @@
       "labelVariantSizeUnchanged": true,
       "magazineReady": true
     }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "good-molecules-niacinamide-serum-30ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://dy6g3i6a1660s.cloudfront.net/p90xlt9pdd9gS1ksBxHGWwlgCWA/orig.jpg",
+      "sha256": "2add816aac2c016fa3147acb516da0a9cf0b25f732cea72c653db0a111ca3a12",
+      "byteSize": 374720,
+      "width": 2400,
+      "height": 2400,
+      "retrievedAt": "2026-08-26T22:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00810019610530"
+      },
+      "officialProductUrl": "https://www.goodmolecules.com/s/good-molecules-niacinamide-serum-30ml"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "39522d1d19ec4c38af974738d8a8b59b049a0c79905c54b3e907492015dd34a7",
+      "generatedAt": "2026-08-26T22:14:10Z",
+      "inferredComponentCount": 4,
+      "retainedComponentCount": 4,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "39522d1d19ec4c38af974738d8a8b59b049a0c79905c54b3e907492015dd34a7",
+      "byteSize": 1057274,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-26T22:14:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-26T22:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "c2d1161b4e313ea71fa6527f08ec0780a6226ee1e17bf7207b4359f069328f0e",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "good-molecules-hyaluronic-acid-serum-30ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://dy6g3i6a1660s.cloudfront.net/ha5SsVcDzQ7REWpHugXsUQlgCWA/orig.jpg",
+      "sha256": "118b55c9d6cee2e3c5b91bfd068f5bd7df184abdc55e8ff07b81b01c15de4712",
+      "byteSize": 375154,
+      "width": 2400,
+      "height": 2400,
+      "retrievedAt": "2026-08-26T22:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00810019610462"
+      },
+      "officialProductUrl": "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "3dc5a3a8e2a14ad821daca59d10c7a7d5ad1a254b74fc7f3a2c74fc67a9ad222",
+      "generatedAt": "2026-08-26T22:11:59Z",
+      "inferredComponentCount": 2,
+      "retainedComponentCount": 2,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "3dc5a3a8e2a14ad821daca59d10c7a7d5ad1a254b74fc7f3a2c74fc67a9ad222",
+      "byteSize": 1007064,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-26T22:14:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-26T22:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "61fc17b1b2173f67ef3a40841952e8dfafe0410b12e7471a0e8bb6bb61fbd3de",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://cdn.shopify.com/s/files/1/0578/0157/2530/files/db141381d270518f659b3697105fac02.png?v=1781505663",
+      "sha256": "bc1ebcd5ccc2401f74591c652a348e725612b676b34d51911a95e5e0b99e1be2",
+      "byteSize": 279590,
+      "width": 1200,
+      "height": 1500,
+      "retrievedAt": "2026-08-26T22:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "08809634610881"
+      },
+      "officialProductUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "9e0756fd53c4bdd691e9592cdb660456dd2fc8cadcb2067a4e359c8cfaeec070",
+      "generatedAt": "2026-08-26T22:12:06Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "9e0756fd53c4bdd691e9592cdb660456dd2fc8cadcb2067a4e359c8cfaeec070",
+      "byteSize": 488865,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-26T22:14:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-26T22:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "356b4ab6bb173546479bb1c4604185dbb65d46a8753c055fbead55580b0a2fd9",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "candidateId": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+    "publicationScope": "catalogue-publication",
+    "source": {
+      "url": "https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw7d9b7362/Images/products/The%20Ordinary/rdn-glycolic-acid-7pct-exfoliating-toner-100ml.png?sw=1200&sh=1200&sm=fit",
+      "sha256": "ff659e01d7cfffc8cabff736244ec52121c7c36e251bb6d22fdd4d463a638fa4",
+      "byteSize": 208770,
+      "width": 1200,
+      "height": 1200,
+      "retrievedAt": "2026-08-26T22:00:00Z"
+    },
+    "identity": {
+      "canonicalIdentifier": {
+        "kind": "gtin",
+        "value": "00769915234060"
+      },
+      "officialProductUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml"
+    },
+    "processing": {
+      "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+      "packageRgbOrigin": "identity-master-source-pixels-only",
+      "tool": "rembg alpha mask over source RGB pixels",
+      "model": "isnet-general-use",
+      "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+      "provider": "CPUExecutionProvider",
+      "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+      "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+    },
+    "audit": {
+      "sha256": "a8b3d9ca6975ba04dd73cba825e0032966e4936f1a827d8ef490d15e79fe7fb5",
+      "generatedAt": "2026-08-26T22:12:12Z",
+      "inferredComponentCount": 1,
+      "retainedComponentCount": 1,
+      "removedComponentCount": 0,
+      "removedForegroundFraction": 0,
+      "componentReviewRequired": false,
+      "sourceEdgeContactFraction": 0
+    },
+    "output": {
+      "sha256": "a8b3d9ca6975ba04dd73cba825e0032966e4936f1a827d8ef490d15e79fe7fb5",
+      "byteSize": 486158,
+      "mimeType": "image/png",
+      "width": 2000,
+      "height": 2000,
+      "hasAlpha": true
+    },
+    "review": {
+      "identityReviewedAt": "2026-08-26T22:14:30Z",
+      "identityReviewer": "JeloCare catalogue identity review",
+      "artReviewedAt": "2026-08-26T22:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "surfaces": ["peach", "pink", "dark"],
+      "surfaceReviewSha256": "2016b9f8c05effee58fe52d4c29f3e940dfc9014b5c7ebc6073295a6e2fd1436",
+      "packagingIntact": true,
+      "labelVariantSizeUnchanged": true,
+      "magazineReady": true
+    }
   }
 ]

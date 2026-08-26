@@ -2027,6 +2027,46 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: "2026-08-09",
   },
+  "good-molecules-niacinamide-serum-30ml": {
+    productSlug: "good-molecules-niacinamide-serum-30ml",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://www.goodmolecules.com/s/good-molecules-niacinamide-serum-30ml",
+      "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+    ],
+    reviewedAt: "2026-08-26",
+  },
+  "good-molecules-hyaluronic-acid-serum-30ml": {
+    productSlug: "good-molecules-hyaluronic-acid-serum-30ml",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://www.goodmolecules.com/s/good-molecules-hyaluronic-acid-serum-30ml",
+      "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+    ],
+    reviewedAt: "2026-08-26",
+  },
+  "axis-y-vegan-collagen-eye-serum-10ml": {
+    productSlug: "axis-y-vegan-collagen-eye-serum-10ml",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+      "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+    ],
+    reviewedAt: "2026-08-26",
+  },
+  "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml": {
+    productSlug: "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+      "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots",
+    ],
+    reviewedAt: "2026-08-26",
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

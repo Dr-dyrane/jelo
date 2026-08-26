@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "private-research-only",
+  "updatedAt": "2026-08-26T22:15:00Z",
+  "origin": {
+    "kind": "community-aggregate-packet",
+    "packetId": "4060893b8854560c1f8bb6dd",
+    "reportSha256": "0d3c971c14c181d7f9bd7b366afab8fe81333dc18314ec9da6de8f01578f5f41"
+  },
+  "candidate": {
+    "id": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+    "brand": "The Ordinary",
+    "name": "Glycolic Acid 7% Exfoliating Toner",
+    "variant": "Glycolic Acid 7% Exfoliating Toner",
+    "size": "240 ml",
+    "category": "Face care",
+    "reason": "Adds the exact selected 240 ml variant; the rendered official variant binds GTIN 769915234060 and the returned official 240 ml variation media.",
+    "priority": "important",
+    "gapIds": ["aha-toner", "surface-exfoliation"],
+    "demandEvidenceUrls": [
+      "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml"
+    ],
+    "identity": {
+      "gtin": "769915234060",
+      "officialProductUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+      "checkedAt": "2026-08-26T22:00:00Z",
+      "basis": "official-brand",
+      "packageVersion": "Current selected 240 ml clear bottle with white dispensing cap",
+      "officialEvidence": {
+        "url": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+        "observedGtin": "769915234060",
+        "observedVariant": "Glycolic Acid 7% Exfoliating Toner",
+        "observedSize": "240 ml",
+        "observedPackageVersion": "Current selected 240 ml clear bottle with white dispensing cap",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/the-ordinary-glycolic-acid-7-exfoliating-toner-240ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+          "sourceUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+          "responseUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "retrievedAt": "2026-08-26T22:00:00Z",
+          "fields": {
+            "gtin": {
+              "value": "769915234060",
+              "locator": "Rendered official manufacturer GTIN field: Rendered official manufacturer GTIN field: Rendered selected variant header data-pid",
+              "sourceText": "Official selected manufacturer GTIN 769915234060 in <div class=\"product-header js-product-header\" data-pid=\"769915234060\">"
+            },
+            "variant": {
+              "value": "Glycolic Acid 7% Exfoliating Toner",
+              "locator": "Rendered official product heading",
+              "sourceText": "Glycolic Acid 7% Exfoliating Toner"
+            },
+            "size": {
+              "value": "240 ml",
+              "locator": "Rendered selected size control and querystring",
+              "sourceText": "data-attr-value=\"int240ml\"; 240ml; dwvar_100418_size=240ml"
+            },
+            "packageVersion": {
+              "value": "Current selected 240 ml clear bottle with white dispensing cap",
+              "locator": "Official current pack media visually reviewed with the exact product page",
+              "sourceText": "https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw7d9b7362/Images/products/The%20Ordinary/rdn-glycolic-acid-7pct-exfoliating-toner-100ml.png?sw=1200&sh=1200&sm=fit"
+            }
+          },
+          "sourceResponseSha256": "5e0752473bf6a40a55b764fc2099eae440e6519bddd874472bc0ba502c167f0e",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 200146,
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "Glycolic Acid 7% Exfoliating Toner | The Ordinary"
+          },
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-26T22:00:00Z"
+        },
+        "snapshotSha256": "3a76600d80e97870c912b6cf2a5a68291b4555d015bc6e9e16cb35cd5b14b687",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1896,
+        "retrievedAt": "2026-08-26T22:00:00Z"
+      }
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "A 7% glycolic-acid leave-on exfoliating toner intended to support smoother-looking texture and more even-looking tone.",
+      "careTier": "targeted-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Targeted cosmetic exfoliation only. Use no more than once daily in the evening, avoid sensitive, peeling, or compromised skin and the eye area, and use daytime sun protection. Stop if irritation occurs.",
+      "manufacturerEvidenceUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-26T22:00:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "excludedObservations": []
+    },
+    "asset": {
+      "rightsStatus": "documented",
+      "origin": "official-brand-media",
+      "role": "packshot",
+      "rightsUrl": "https://theordinary.com/en-gb/glycolic-acid-7-exfoliating-toner-100418.html?dwvar_100418_size=240ml",
+      "sourceUrl": "https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw7d9b7362/Images/products/The%20Ordinary/rdn-glycolic-acid-7pct-exfoliating-toner-100ml.png?sw=1200&sh=1200&sm=fit",
+      "sourceAssetSha256": "ff659e01d7cfffc8cabff736244ec52121c7c36e251bb6d22fdd4d463a638fa4",
+      "sourceAssetMimeType": "image/png",
+      "sourceAssetByteSize": 208770,
+      "sourceAssetWidth": 1200,
+      "sourceAssetHeight": 1200,
+      "sourceAssetRetrievedAt": "2026-08-26T22:00:00Z",
+      "publicImageUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/the-ordinary/the-ordinary-glycolic-acid-7-exfoliating-toner-240ml/packshot-v1-a8b3d9ca6975ba04.png",
+      "publicImageSha256": "a8b3d9ca6975ba04dd73cba825e0032966e4936f1a827d8ef490d15e79fe7fb5",
+      "publicImageMimeType": "image/png",
+      "publicImageByteSize": 486158,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "artReviewedAt": "2026-08-26T22:15:00Z",
+      "artReviewer": "Codex visual audit",
+      "presentationQuality": "magazine-ready"
+    }
+  }
+}

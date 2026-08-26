@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+  "dossier": {
+    "schemaVersion": 8,
+    "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+    "candidateFingerprint": "18e44c1a96e08b0b62266a27b03b54bfd59d3e0113e4815531273a32024c3498",
+    "exposure": "private-only",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "not-published",
+    "recommendationEligible": false,
+    "identity": {
+      "gtin": "8809634610881",
+      "brand": "AXIS-Y",
+      "name": "Vegan Collagen Eye Serum",
+      "variant": "Vegan Collagen Eye Serum",
+      "size": "10 ml / 0.33 fl oz",
+      "packageVersion": "Current cream 10 ml applicator tube with green band",
+      "category": "Face care"
+    },
+    "sourceEvidence": {
+      "basis": "official-brand",
+      "officialProductUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+      "officialIdentity": {
+        "url": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+        "observedGtin": "8809634610881",
+        "observedVariant": "Vegan Collagen Eye Serum",
+        "observedSize": "10 ml / 0.33 fl oz",
+        "observedPackageVersion": "Current cream 10 ml applicator tube with green band",
+        "snapshotKind": "canonical-extraction",
+        "snapshotPath": "data/catalogue-identity-evidence/axis-y-vegan-collagen-eye-serum-10ml.json",
+        "canonicalExtraction": {
+          "schemaVersion": 4,
+          "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+          "sourceUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+          "responseUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "retrievedAt": "2026-08-26T22:00:00Z",
+          "fields": {
+            "gtin": {
+              "value": "8809634610881",
+              "locator": "Rendered official manufacturer GTIN field: Rendered official manufacturer GTIN field: Rendered official Shopify product JSON-LD selected offer gtin13",
+              "sourceText": "\"gtin13\": 8809634610881"
+            },
+            "variant": {
+              "value": "Vegan Collagen Eye Serum",
+              "locator": "Rendered official Shopify product JSON-LD name",
+              "sourceText": "Vegan Collagen Eye Serum"
+            },
+            "size": {
+              "value": "10 ml / 0.33 fl oz",
+              "locator": "Rendered official product detail size",
+              "sourceText": "10 ml / 0.33 fl oz"
+            }
+          },
+          "sourceResponseSha256": "9682374467acd5ea0c34e54f2b39935954eec83213bd0ae19a603dc60cf8fc54",
+          "sourceResponseMimeType": "text/html",
+          "sourceResponseByteSize": 200068,
+          "method": "reviewed-browser-dom-identity-field-extraction",
+          "browserCapture": {
+            "surface": "Codex in-app browser",
+            "documentReadyState": "complete",
+            "pageTitle": "AXIS-Y Vegan Collagen Eye Serum | Dark Circles & Fine Lines"
+          },
+          "reviewer": "JeloCare catalogue evidence review",
+          "reviewedAt": "2026-08-26T22:00:00Z"
+        },
+        "snapshotSha256": "eaaf1e7bd15a3814c4c01bff5fa3964a0f05e3d26dfbc65d4ef82e5612ff438b",
+        "snapshotMimeType": "application/json",
+        "snapshotByteSize": 1562,
+        "retrievedAt": "2026-08-26T22:00:00Z"
+      },
+      "checkedAt": "2026-08-26T22:00:00Z",
+      "demandEvidenceUrls": [
+        "https://www.axis-y.com/products/vegan-collagen-eye-serum"
+      ]
+    },
+    "care": {
+      "status": "reviewed",
+      "formulaArchetype": "A lightweight eye-area cosmetic serum with vegan collagen, peptides, and hyaluronic acid for hydration and the appearance of tired skin.",
+      "careTier": "daily-care",
+      "reviewScope": "catalogue-supportive-care",
+      "advisoryBoundary": "Cosmetic eye-area care only. Keep out of the eyes, patch test first, and stop if irritation occurs. Persistent swelling, pain, sudden darkening, or vision symptoms need clinical review.",
+      "manufacturerEvidenceUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+      "independentClinicalGuidanceUrl": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "evidenceUrls": [
+        "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+        "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+      ],
+      "reviewedAt": "2026-08-26T22:00:00Z",
+      "reviewer": "JeloCare catalogue evidence review"
+    },
+    "nigeria": {
+      "marketRoute": "reference-only",
+      "regulatoryStatus": "pending",
+      "exactOffers": [],
+      "brandSellerAuthorizationEvidence": []
+    },
+    "rights": {
+      "status": "documented",
+      "origin": "official-brand-media",
+      "evidenceUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+      "sourceAsset": {
+        "url": "https://cdn.shopify.com/s/files/1/0578/0157/2530/files/db141381d270518f659b3697105fac02.png?v=1781505663",
+        "sha256": "bc1ebcd5ccc2401f74591c652a348e725612b676b34d51911a95e5e0b99e1be2",
+        "mimeType": "image/png",
+        "byteSize": 279590,
+        "width": 1200,
+        "height": 1500,
+        "retrievedAt": "2026-08-26T22:00:00Z"
+      },
+      "isolationRecord": {
+        "schemaVersion": 1,
+        "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+        "publicationScope": "catalogue-publication",
+        "source": {
+          "url": "https://cdn.shopify.com/s/files/1/0578/0157/2530/files/db141381d270518f659b3697105fac02.png?v=1781505663",
+          "sha256": "bc1ebcd5ccc2401f74591c652a348e725612b676b34d51911a95e5e0b99e1be2",
+          "byteSize": 279590,
+          "width": 1200,
+          "height": 1500,
+          "retrievedAt": "2026-08-26T22:00:00Z"
+        },
+        "identity": {
+          "canonicalIdentifier": {
+            "kind": "gtin",
+            "value": "08809634610881"
+          },
+          "officialProductUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum"
+        },
+        "processing": {
+          "pipelineVersion": "exact-sku-source-pixel-isolation-v3",
+          "packageRgbOrigin": "identity-master-source-pixels-only",
+          "tool": "rembg alpha mask over source RGB pixels",
+          "model": "isnet-general-use",
+          "modelSha256": "60920e99c45464f2ba57bee2ad08c919a52bbf852739e96947fbb4358c0d964a",
+          "provider": "CPUExecutionProvider",
+          "runtimeLockPath": "scripts/requirements-packshots.lock.txt",
+          "runtimeLockSha256": "2d1aa42c51632e4466779be5c327ddc56cc5ab631e77e4627a8939b245babd05"
+        },
+        "audit": {
+          "sha256": "9e0756fd53c4bdd691e9592cdb660456dd2fc8cadcb2067a4e359c8cfaeec070",
+          "generatedAt": "2026-08-26T22:12:06Z",
+          "inferredComponentCount": 1,
+          "retainedComponentCount": 1,
+          "removedComponentCount": 0,
+          "removedForegroundFraction": 0,
+          "componentReviewRequired": false,
+          "sourceEdgeContactFraction": 0
+        },
+        "output": {
+          "sha256": "9e0756fd53c4bdd691e9592cdb660456dd2fc8cadcb2067a4e359c8cfaeec070",
+          "byteSize": 488865,
+          "mimeType": "image/png",
+          "width": 2000,
+          "height": 2000,
+          "hasAlpha": true
+        },
+        "review": {
+          "identityReviewedAt": "2026-08-26T22:14:30Z",
+          "identityReviewer": "JeloCare catalogue identity review",
+          "artReviewedAt": "2026-08-26T22:15:00Z",
+          "artReviewer": "Codex visual audit",
+          "surfaces": ["peach", "pink", "dark"],
+          "surfaceReviewSha256": "356b4ab6bb173546479bb1c4604185dbb65d46a8753c055fbead55580b0a2fd9",
+          "packagingIntact": true,
+          "labelVariantSizeUnchanged": true,
+          "magazineReady": true
+        }
+      }
+    },
+    "finalImage": {
+      "role": "packshot",
+      "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/axis-y/axis-y-vegan-collagen-eye-serum-10ml/packshot-v1-9e0756fd53c4bdd6.png",
+      "sha256": "9e0756fd53c4bdd691e9592cdb660456dd2fc8cadcb2067a4e359c8cfaeec070",
+      "mimeType": "image/png",
+      "byteSize": 488865,
+      "width": 2000,
+      "height": 2000,
+      "packaging": "intact",
+      "backgroundTreatment": "source-pixel-isolation",
+      "labelVariantSizeUnchanged": true,
+      "packagingInvented": false,
+      "manualSourceOutputQa": true,
+      "presentationQuality": "magazine-ready",
+      "reviewedAt": "2026-08-26T22:15:00Z",
+      "reviewer": "Codex visual audit"
+    },
+    "approval": {
+      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "reviewer": "JeloCare catalogue publication reviewer",
+      "approvedAt": "2026-08-26T22:15:30Z"
+    },
+    "dossierFingerprint": "0db542753cf57dd66f2591a5a57796be846778c03b4ec6be31604fffbb1e9aae"
+  },
+  "release": {
+    "schemaVersion": 2,
+    "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+    "dossierFingerprint": "0db542753cf57dd66f2591a5a57796be846778c03b4ec6be31604fffbb1e9aae",
+    "exposure": "public-catalogue",
+    "publicationScope": "neutral-reference",
+    "publicationStatus": "published",
+    "recommendationEligible": false,
+    "presentation": {
+      "category": "Face",
+      "routineStep": "Treat",
+      "displayLine": "Hydrating peptide eye serum",
+      "usage": "Apply a small amount around the eye area and pat gently until absorbed, morning and night.",
+      "manufacturerDirectionsUrl": "https://www.axis-y.com/products/vegan-collagen-eye-serum",
+      "reviewer": "JeloCare catalogue presentation reviewer",
+      "reviewedAt": "2026-08-26T22:16:00Z"
+    },
+    "publication": {
+      "scope": "exact-dossier-presentation-publication",
+      "reviewer": "JeloCare catalogue release reviewer",
+      "publishedAt": "2026-08-26T22:16:30Z"
+    },
+    "releaseFingerprint": "de4ce3494344afd18a52e54f47aeb22006a347d5c00a54fad7ae4be0a02b5097"
+  }
+}
