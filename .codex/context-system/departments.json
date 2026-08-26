@@ -4,7 +4,29 @@
   "orchestrator": {
     "readByDefault": [".codex/context-system/work-ledger.md"],
     "inheritFullHistory": false,
-    "maxFilesPerRouteCapsule": 12
+    "maxFilesPerRouteCapsule": 12,
+    "rotationGuards": {
+      "capsuleApproxTokens": 1500,
+      "handbackApproxTokens": 500,
+      "maxApproxContextTokens": 60000,
+      "maxModelTurns": 20,
+      "maxElapsedMinutes": 90,
+      "rotateWhenPrimaryDepartmentChanges": true
+    },
+    "lifecycle": {
+      "standingAuthority": "create a clean successor and archive the predecessor after acknowledgment",
+      "onRotationGuard": [
+        "finish or pause at the next safe boundary",
+        "write a compact handback and update the work ledger",
+        "create a clean task in this project without inheriting the predecessor transcript",
+        "obtain the successor acknowledgment before archiving the predecessor"
+      ],
+      "never": [
+        "abandon unfinished work because a guard was reached",
+        "fork or copy the predecessor transcript",
+        "archive the predecessor before successor acknowledgment"
+      ]
+    }
   },
   "departments": {
     "public-experience": {

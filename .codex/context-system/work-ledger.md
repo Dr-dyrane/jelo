@@ -1,8 +1,30 @@
 # JeloCare work ledger
 
-Updated: 2026-08-13
+Updated: 2026-08-26
 Current platform-delivery base at the private-member cutover: `6d204da` on `origin/main`
 Production credential-boundary checkpoint: Vercel deployment `dpl_HyFgKwgVXWeHdDWu2KgQR34jcwcC` READY on `www.jelocare.com`
+
+## 2026-08-26 orchestrator rotation checkpoint
+
+- Current shared-checkout base is `0e432059` on `main`, aligned with
+  `origin/main` when this checkpoint was recorded.
+- Preserve the active user-owned X reply-desk boundary exactly as local,
+  uncommitted work: `public/campaigns/social/2026-08-25-x-reply-desk-v1/CANDIDATES.md`,
+  `SHA256SUMS`, and `campaign.json`. Nothing in this rotation authorizes external
+  publication or staging those files.
+- The user-facing orchestrator is routing-only. It reads this ledger and one
+  selected department entry, dispatches bounded clean work, and retains only
+  current base, dirty boundaries, active work, up to five recent outcomes, and
+  blockers. It must not perform long browser, research, implementation, or
+  release work itself.
+- Rotate at the first guard reached: approximately 60,000 context tokens,
+  20 model turns, 90 elapsed minutes, or a change of primary department.
+  Capsules stay at or below approximately 1,500 tokens; worker handbacks stay
+  at or below approximately 500 tokens.
+- A guard requires a safe-boundary handback, ledger update, clean successor in
+  the same project, and successor acknowledgment before predecessor archival.
+  Never fork the predecessor history, abandon unfinished work, or make the
+  successor depend on an archived transcript.
 
 ## Release authority
 
