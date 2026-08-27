@@ -12,6 +12,7 @@ import crystalRetinal6ReleaseSource from "@/data/catalogue-publication-sources/m
 import fentyReleaseSource from "@/data/catalogue-publication-sources/fenty-skin-butta-drop-fenty-fresh-standard-200ml.json";
 import loccitane250ReleaseSource from "@/data/catalogue-publication-sources/loccitane-almond-softening-shower-oil-250ml.json";
 import audit from "@/data/retailer-verification/catalogue-pharmacist-offer-batch-2026-08-04.json";
+import waveOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-1-2026-08-27.json";
 import { mergeRetailOffers, verifiedRetailOffers } from "@/data/retail-offers";
 import { nigeriaRetailers } from "@/data/retailers";
 import {
@@ -254,6 +255,31 @@ test("the admitted evidence projects exactly once and rejected or pending stores
       continue;
     }
 
+    const refreshedProduct = waveOneAudit.products.find(
+      (candidate) => candidate.candidateId === product.candidateId,
+    );
+    if (refreshedProduct) {
+      const refreshedOffer = refreshedProduct.offers.find(
+        (candidate) => candidate.retailer === offer.retailer.displayName,
+      );
+      if (!refreshedOffer) {
+        assert.deepEqual(projected, [], offer.observationId);
+        assert.ok(
+          refreshedProduct.notProjected.some(
+            (candidate) => candidate.retailer === offer.retailer.displayName,
+          ),
+          `${offer.observationId} needs an explicit refresh disposition`,
+        );
+        continue;
+      }
+      assert.equal(projected.length, 1, offer.observationId);
+      assert.equal(projected[0]?.url, refreshedOffer.url);
+      assert.equal(projected[0]?.priceNgn, refreshedOffer.priceNgn);
+      assert.equal(projected[0]?.checkedAt, refreshedOffer.checkedAt);
+      assert.equal(projected[0]?.expiresAt, refreshedOffer.expiresAt);
+      continue;
+    }
+
     assert.ok(registered.has(offer.retailer.displayName), offer.observationId);
     assert.equal(projected.length, 1, offer.observationId);
     assert.equal(projected[0]?.url, offer.finalUrl);
@@ -477,16 +503,13 @@ test("explicitly expiring projections disappear from merged public offers", () =
     name: product.canonicalIdentity.name,
     size: product.canonicalIdentity.size,
   };
-  const beforeExpiry = mergeRetailOffers(
-    productKey,
-    [],
-    new Date("2026-08-14T23:59:59Z"),
+  const rhemaOffer = verifiedRetailOffers[product.candidateId].find(
+    (offer) => offer.retailer === "Rhema Beauty Shop",
   );
-  const atExpiry = mergeRetailOffers(
-    productKey,
-    [],
-    new Date("2026-08-21T17:00:01Z"),
-  );
+  assert.ok(rhemaOffer?.expiresAt);
+  const expiry = Date.parse(rhemaOffer.expiresAt);
+  const beforeExpiry = mergeRetailOffers(productKey, [], new Date(expiry - 1));
+  const atExpiry = mergeRetailOffers(productKey, [], new Date(expiry + 1));
   assert.equal(
     beforeExpiry.some((offer) => offer.retailer === "Rhema Beauty Shop"),
     true,
@@ -503,7 +526,7 @@ test("explicitly expiring projections disappear from merged public offers", () =
   const mergedIncoming = mergeRetailOffers(
     productKey,
     [incoming],
-    new Date("2026-08-21T17:00:01Z"),
+    new Date(Date.parse(incoming.expiresAt!) + 1),
   );
   assert.equal(
     mergedIncoming.some((offer) => offer.retailer === incoming.retailer),

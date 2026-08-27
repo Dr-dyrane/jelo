@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { reviewedProductRecords } from "@/data/catalogue";
+import waveOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-1-2026-08-27.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -20,6 +21,37 @@ const searchRouteMarkers = [
   "/catalog/?q=",
   "/catalogsearch/",
 ];
+
+test("catalogue offer refresh wave 1 reconciles exact browser evidence to projections", () => {
+  const projected = waveOneAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveOneAudit.summary.productsReviewed, 4);
+  assert.equal(projected.length, 12);
+  for (const product of waveOneAudit.products) {
+    assert.equal(product.offers.length, 3, product.candidateId);
+    for (const evidence of product.offers) {
+      const offer = verifiedRetailOffers[product.candidateId]?.find(
+        (candidate) => candidate.url === evidence.url,
+      );
+      assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+      assert.equal(offer.retailer, evidence.retailer);
+      assert.equal(offer.priceNgn, evidence.priceNgn);
+      assert.equal(offer.available, true);
+      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assert.equal(offer.priceObservation?.size, product.identity.size);
+      assert.equal(offer.checkedAt, evidence.checkedAt);
+      assert.equal(offer.expiresAt, evidence.expiresAt);
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize >= 200_000);
+      assert.equal(
+        Date.parse(evidence.expiresAt) - Date.parse(evidence.checkedAt),
+        7 * 24 * 60 * 60 * 1000,
+      );
+    }
+  }
+});
 
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
