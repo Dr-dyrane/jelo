@@ -2947,25 +2947,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
     ),
   ],
-  "nizoral-ad-ketoconazole-shampoo": [
-    exactNg(
-      "Konga Health",
-      "https://www.konga.com/product/nizoral-anti-dandruff-shampoo-with-1-ketoconazole-fresh-scent-200ml-7025754?cid=5534",
-      80,
-      12000,
-      "Nizoral Anti-Dandruff Shampoo with 1% Ketoconazole, Fresh Scent",
-      "200 ml",
-      {
-        observedAt: "2026-08-27T21:27:26Z",
-        expiresAt: "2026-09-03T21:27:26Z",
-        stock: "in-stock",
-        available: true,
-        inventoryQuantity: 18,
-        sellerName: "Teemu Enterprises",
-        verificationMethod: "api",
-      },
-    ),
-  ],
   "skin-by-zaron-vitamin-c-body-wash-650ml": [
     exactNg(
       "BuyBetter",

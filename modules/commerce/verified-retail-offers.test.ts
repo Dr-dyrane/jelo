@@ -199,8 +199,8 @@ test("catalogue offer refresh wave 5 projects exact legacy cells and isolates ne
   );
 
   assert.equal(waveFiveAudit.summary.productsReviewed, 7);
-  assert.equal(waveFiveAudit.summary.productsReleased, 4);
-  assert.equal(projected.length, 7);
+  assert.equal(waveFiveAudit.summary.productsReleased, 3);
+  assert.equal(projected.length, 6);
   assert.equal(waveFiveAudit.scheduledOwner.manifestRecurringOwner, null);
   assert.deepEqual(
     waveFiveAudit.blockedProducts.map((product) => product.candidateId),
@@ -211,6 +211,14 @@ test("catalogue offer refresh wave 5 projects exact legacy cells and isolates ne
     ],
   );
   assert.equal(waveFiveAudit.carriedIdentityBlockers.length, 6);
+  assert.deepEqual(
+    waveFiveAudit.notReleasedProducts.map((product) => product.candidateId),
+    ["nizoral-ad-ketoconazole-shampoo"],
+  );
+  assert.equal(
+    verifiedRetailOffers["nizoral-ad-ketoconazole-shampoo"],
+    undefined,
+  );
   for (const product of waveFiveAudit.products) {
     assert.equal(
       verifiedRetailOffers[product.candidateId]?.filter(

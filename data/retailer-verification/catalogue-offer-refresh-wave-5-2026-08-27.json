@@ -25,10 +25,11 @@
   },
   "summary": {
     "productsReviewed": 7,
-    "productsReleased": 4,
+    "productsReleased": 3,
     "productsBlocked": 3,
-    "offersAdmitted": 7,
-    "offersProjected": 7
+    "productsNotReleased": 1,
+    "offersAdmitted": 6,
+    "offersProjected": 6
   },
   "products": [
     {
@@ -221,43 +222,31 @@
         },
         { "retailer": "Deoset", "reason": "current-page-access-blocked-406" }
       ]
-    },
+    }
+  ],
+  "notReleasedProducts": [
     {
       "candidateId": "nizoral-ad-ketoconazole-shampoo",
-      "identity": {
-        "gtin": null,
-        "variant": "Anti-Dandruff Shampoo with Ketoconazole 1%, Fresh Scent",
-        "size": "200 ml",
-        "packageVersion": "Nizoral Anti-Dandruff Ketoconazole 1% 7 fl oz / 200 ml bottle and carton"
+      "observedIdentity": "Nizoral Anti-Dandruff Shampoo with Ketoconazole 1%, Fresh Scent, 7 fl oz / 200 ml bottle and carton",
+      "evidence": {
+        "retailer": "Konga Health",
+        "sellerName": "Teemu Enterprises",
+        "url": "https://www.konga.com/product/nizoral-anti-dandruff-shampoo-with-1-ketoconazole-fresh-scent-200ml-7025754?cid=5534",
+        "priceNgn": 12000,
+        "stock": "in-stock",
+        "inventoryQuantity": 18,
+        "checkedAt": "2026-08-27T21:27:26Z",
+        "evidenceMethod": "live-konga-graphql-and-reviewed-image",
+        "responseSha256": "b4bacfb5d0883896d3b6d3ee54213a7cda59e7ea4e36dfdaae7b5b2877b7d6c8",
+        "responseByteSize": 1875,
+        "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/R/Z/172118_1785665442.jpg",
+        "packageImageSha256": "02cde248615e27e946e878db9c0ebde7e2e44d254754180197926972d3176e9b",
+        "packageImageByteSize": 49695,
+        "officialIdentityUrl": "https://nizoral.com/",
+        "officialPackageImageSha256": "93b4d23db377165fcddd0f06dc9c086191aa2b347e7cf28e11043ffabba2087f"
       },
-      "offers": [
-        {
-          "retailer": "Konga Health",
-          "sellerName": "Teemu Enterprises",
-          "url": "https://www.konga.com/product/nizoral-anti-dandruff-shampoo-with-1-ketoconazole-fresh-scent-200ml-7025754?cid=5534",
-          "priceNgn": 12000,
-          "stock": "in-stock",
-          "inventoryQuantity": 18,
-          "checkedAt": "2026-08-27T21:27:26Z",
-          "expiresAt": "2026-09-03T21:27:26Z",
-          "evidenceMethod": "live-konga-graphql-and-reviewed-image",
-          "responseSha256": "b4bacfb5d0883896d3b6d3ee54213a7cda59e7ea4e36dfdaae7b5b2877b7d6c8",
-          "responseByteSize": 1875,
-          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/R/Z/172118_1785665442.jpg",
-          "packageImageSha256": "02cde248615e27e946e878db9c0ebde7e2e44d254754180197926972d3176e9b",
-          "packageImageByteSize": 49695,
-          "officialIdentityUrl": "https://nizoral.com/",
-          "officialPackageImageUrl": "https://nizoral.com/wp-content/uploads/2024/02/NIZ_Carton_7oz_21902_051822_OT_2.png",
-          "officialPackageImageSha256": "93b4d23db377165fcddd0f06dc9c086191aa2b347e7cf28e11043ffabba2087f",
-          "officialPackageImageByteSize": 310141
-        }
-      ],
-      "notProjected": [
-        {
-          "retailer": "Konga Health / maleeqberry",
-          "reason": "duplicate-marketplace-retailer-offer-outside-projection"
-        }
-      ]
+      "blocker": "The public product and share routes return 404 and the SKU is absent from the explicit publication release projection; no offer was projected.",
+      "nextAction": "Request catalogue publication scope before any public release or offer projection."
     }
   ],
   "blockedProducts": [
