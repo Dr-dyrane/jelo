@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-26-confydens6-alarm-app-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-26T21:00:50.221Z",
+  "dataCheckedAt": "2026-08-26T21:00:50.221Z",
+  "objective": "join a Nigerian founder conversation with a concise non-promotional reaction reply and retain a performance baseline",
+  "sourcePost": {
+    "url": "https://x.com/Confydens6/status/2092502153810083949",
+    "handle": "@Confydens6",
+    "observedText": "A perfume founder said an overnight customer message woke her when alarms normally would not, then invited guesses and future orders.",
+    "visibleEngagementBeforeReply": {
+      "replies": 2,
+      "reposts": 12,
+      "likes": 44,
+      "bookmarks": 3,
+      "views": 1567
+    }
+  },
+  "copy": {
+    "post": "Alarm app don lose its job 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "native-x-gif",
+    "pickerLabel": "Confused Mr Funny GIF by Amazon Prime Video",
+    "recognisableSubject": "Sabinus / Mr Funny",
+    "rightsBoundary": "X-only native GIF; not downloaded, archived or cleared for cross-platform reuse."
+  },
+  "careBoundary": "No product, price, retailer, savings, suitability or clinical claim.",
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-26T21:00:50.221Z",
+      "externalId": "2092718937612148931",
+      "publicUrl": "https://x.com/jelocare/status/2092718937612148931",
+      "replyTo": "https://x.com/Confydens6/status/2092502153810083949",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @Confydens6"
+    }
+  ],
+  "measurement": {
+    "initialObservedAt": "2026-08-26T21:00:50.221Z",
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 0
+    },
+    "note": "Recheck later from the public reply; do not infer performance from the source account's totals."
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-hustleorbeg-morning-attendance-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-27T08:38:20.454Z",
+  "dataCheckedAt": "2026-08-27T08:38:46Z",
+  "objective": "extend a Nigerian skincare joke with a concise second beat and a JeloCare-owned reaction card",
+  "sourcePost": {
+    "url": "https://x.com/Hustleorbeg7/status/2092879056114962667",
+    "handle": "@Hustleorbeg7",
+    "observedText": "Jokes that using women's body lotion and face cream made accountability leave his body.",
+    "visibleEngagementBeforeReply": {
+      "replies": 18,
+      "reposts": 45,
+      "likes": 63,
+      "bookmarks": 1,
+      "views": 532
+    }
+  },
+  "copy": {
+    "post": "HR don approve am 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "jelocare-owned-reaction-card",
+    "path": "hustleorbeg-morning-attendance-card.png",
+    "sha256": "ec350a87bbe5468b836a1c0c0c8ce87000f06af5f911e12e6e3afb9dc888b3bb",
+    "dimensions": {
+      "width": 1080,
+      "height": 1350
+    },
+    "provenance": "Deterministic JeloCare-owned fictional office-attendance card created for this reply.",
+    "rightsBoundary": "No third-party social screenshot, identity, footage, GIF or other source asset was reused. The card makes no product, price, clinical, stock or suitability claim."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-27T08:38:20.454Z",
+      "externalId": "2092894470211801438",
+      "publicUrl": "https://x.com/jelocare/status/2092894470211801438",
+      "replyTo": "https://x.com/Hustleorbeg7/status/2092879056114962667",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @Hustleorbeg7"
+    }
+  ],
+  "measurement": {
+    "initialObservedAt": "2026-08-27T08:38:46Z",
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 0
+    },
+    "sourceAfterPublication": {
+      "replies": 19,
+      "reposts": 45,
+      "likes": 63,
+      "views": 532
+    },
+    "mechanism": "Category transplant: the lotion joke is recast as a fictional HR attendance system, letting the card supply a coherent second beat.",
+    "note": "Recheck the public reply later. Source totals are context, not evidence that the reaction card caused engagement or conversion."
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-jennygodswill-glow-routine-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-27T08:57:27.456Z",
+  "dataCheckedAt": "2026-08-27T08:57:36Z",
+  "objective": "join a positive Nigerian hygiene-routine conversation with an approving, skincare-adjacent joke and recognisable native media",
+  "sourcePost": {
+    "url": "https://x.com/jennygodswill/status/2092877171974865238",
+    "handle": "@jennygodswill",
+    "observedText": "Approvingly presents a man's 30-minute hygiene routine.",
+    "visibleEngagementBeforeReply": {
+      "replies": 64,
+      "reposts": 140,
+      "likes": 157,
+      "bookmarks": 28,
+      "views": 2813
+    }
+  },
+  "copy": {
+    "post": "Glow no go maintain itself 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "native-x-gif",
+    "pickerLabel": "Sola Sobowale Respect GIF by King of Boys",
+    "recognisableSubject": "Sola Sobowale",
+    "rightsBoundary": "X-only native GIF; not downloaded, archived, edited or cleared for cross-platform reuse."
+  },
+  "careBoundary": "The reply implies a beauty outcome as humour but makes no product, price, suitability, clinical, duration or guaranteed-result claim.",
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-27T08:57:27.456Z",
+      "externalId": "2092899281086869747",
+      "publicUrl": "https://x.com/jelocare/status/2092899281086869747",
+      "replyTo": "https://x.com/jennygodswill/status/2092877171974865238",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @jennygodswill"
+    }
+  ],
+  "measurement": {
+    "initialObservedAt": "2026-08-27T08:57:36Z",
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 65,
+      "reposts": 140,
+      "likes": 157,
+      "views": 2839
+    },
+    "note": "Recheck later from the public reply. Source totals are observational context and not evidence that the reply caused engagement."
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "outcome-coded-approval",
+    "setup": "The source positively presents a long men's hygiene routine.",
+    "punchline": "The routine is justified through the implied work of maintaining a glow, while the native respect GIF supplies approval.",
+    "culturalCue": "no go",
+    "fictionalDialogue": false
+  }
+}

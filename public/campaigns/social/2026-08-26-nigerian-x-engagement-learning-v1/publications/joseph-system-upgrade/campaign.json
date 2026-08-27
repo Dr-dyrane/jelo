@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-26-joseph-system-upgrade-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-26T21:22:38.118Z",
+  "dataCheckedAt": "2026-08-26T21:22:38.118Z",
+  "objective": "join a current Nigerian shopping conversation with a concise, non-promotional reaction reply and retain a performance baseline",
+  "sourcePost": {
+    "url": "https://x.com/eleoguofficial/status/2092686777786011964",
+    "handle": "@eleoguofficial",
+    "observedText": "The author described buying skincare, shoes and clothing together, and said the total was under NGN 70,000.",
+    "visibleEngagementBeforeReply": {
+      "replies": 6,
+      "reposts": 3,
+      "likes": 16,
+      "bookmarks": 1,
+      "views": 280
+    },
+    "claimBoundary": "The reply does not endorse the stated total, product authenticity, condition, suitability or skincare combination."
+  },
+  "copy": {
+    "post": "This was not shopping. Na full system upgrade 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "native-x-gif",
+    "pickerLabel": "Burna Boy Dancing GIF by Big Brother Naija",
+    "recognisableSubject": "Burna Boy",
+    "rightsBoundary": "X-only native GIF; not downloaded, archived, edited or cleared for cross-platform reuse."
+  },
+  "careBoundary": "No product, price, authenticity, retailer, savings, suitability or clinical claim.",
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-26T21:22:38.118Z",
+      "externalId": "2092724423329825248",
+      "publicUrl": "https://x.com/jelocare/status/2092724423329825248",
+      "replyTo": "https://x.com/eleoguofficial/status/2092686777786011964",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @eleoguofficial"
+    }
+  ],
+  "measurement": {
+    "initialObservedAt": "2026-08-26T21:22:38.118Z",
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 0
+    },
+    "sourceAfterPublication": {
+      "replies": 7,
+      "reposts": 3,
+      "likes": 16,
+      "views": 284
+    },
+    "liveVerification": {
+      "checkedAt": "2026-08-26T21:24:03Z",
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 2
+    },
+    "note": "Recheck later from the public reply; source totals are observational context and not a prediction of reply performance."
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "category-transplant",
+    "setup": "One shopping trip spans skincare, footwear and clothing.",
+    "punchline": "The mixed haul is renamed as a complete system upgrade, while the native Burna Boy GIF supplies the celebration.",
+    "culturalCue": "na",
+    "fictionalDialogue": false
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-saucekiki-price-skin-final-say-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-27T09:41:46.589Z",
+  "dataCheckedAt": "2026-08-27T09:41:46.589Z",
+  "objective": "test a fast-moving Nigerian beauty reply opening with an active author, an easy comeback, and locally recognisable native media",
+  "sourcePost": {
+    "url": "https://x.com/SauceKiki/status/2092887106506903994",
+    "handle": "@SauceKiki",
+    "observedText": "A beauty discussion contrasting product price and how well a person's skin responds.",
+    "visibleEngagementBeforeReply": {
+      "replies": 10,
+      "reposts": 21,
+      "likes": 33,
+      "bookmarks": 1,
+      "views": 674
+    },
+    "liveOpeningEvidence": "The author had visibly replied to multiple people, the conversation was still moving, and no duplicate JeloCare reply was seen at the action-time check."
+  },
+  "copy": {
+    "post": "Price can hype it. Your skin still gets final say 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "native-x-gif",
+    "pickerLabel": "Evil Eye Stare GIF by King of Boys",
+    "recognisableSubject": "Sola Sobowale",
+    "rightsBoundary": "X-only native GIF; not downloaded, archived, edited or cleared for cross-platform reuse."
+  },
+  "careBoundary": "No product, price, saving, retailer, stock, authenticity, suitability, diagnosis, treatment or clinical outcome claim.",
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-27T09:41:46.589Z",
+      "externalId": "2092910434299101558",
+      "publicUrl": "https://x.com/jelocare/status/2092910434299101558",
+      "replyTo": "https://x.com/SauceKiki/status/2092887106506903994",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @SauceKiki"
+    }
+  ],
+  "measurement": {
+    "initialObservedAt": "2026-08-27T09:41:46.589Z",
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 0
+    },
+    "sourceAfterPublication": {
+      "replies": 11
+    },
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "A short category contrast accepts the source tension and leaves an easy opinion comeback; the recognisable GIF supplies the skeptical judgment.",
+    "note": "Judge the reply only from its own checkpoint measurements. Source totals are context, not evidence that JeloCare caused engagement."
+  }
+}

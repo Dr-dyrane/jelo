@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-pamilerin-body-lotion-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-27T08:33:49.744Z",
+  "dataCheckedAt": "2026-08-27T08:34:14Z",
+  "objective": "answer a high-response Nigerian scent prompt with one concise product-category opinion and an evidence-bound JeloCare product card",
+  "sourcePost": {
+    "url": "https://x.com/Pamilerin/status/2092863334265589946",
+    "handle": "@Pamilerin",
+    "observedText": "One thing that smells good but is not perfume.",
+    "visibleEngagementBeforeReply": {
+      "replies": 124,
+      "reposts": 117,
+      "likes": 281,
+      "bookmarks": 2,
+      "views": 20485
+    }
+  },
+  "copy": {
+    "post": "Body lotion. No debate 😭",
+    "embeddedUrl": null
+  },
+  "product": {
+    "candidateId": "facefacts-vitamin-c-body-lotion-400ml",
+    "brand": "FACE FACTS",
+    "name": "Vitamin C Body Lotion",
+    "size": "400 ml",
+    "selectionBoundary": "The reviewed catalogue formula contains fragrance. The reply does not claim a universal scent preference, clinical benefit or suitability for every person."
+  },
+  "offerEvidence": {
+    "shareUrl": "https://www.jelocare.com/share/facefacts-vitamin-c-body-lotion-400ml",
+    "retailer": "Allure Beauty",
+    "priceNgn": 8000,
+    "stock": "in-stock",
+    "observedDate": "2026-08-27",
+    "boundary": "One current listing only. The card states current price and does not claim a comparison, saving, discount, authenticity or retailer endorsement."
+  },
+  "media": {
+    "kind": "jelocare-owned-product-price-card",
+    "path": "facefacts-vitamin-c-body-lotion-price-story.png",
+    "sha256": "9bf1b89e1c5226e7fe9eb4bdc1e244b6465401cb52941b03499668bda1b03dd7",
+    "dimensions": {
+      "width": 1080,
+      "height": 1920
+    },
+    "provenance": "JeloCare deterministic price-story surface using the approved exact-SKU packshot. The broken one-store header was replaced with a deterministic text overlay while the packshot and remaining card were preserved.",
+    "rightsBoundary": "JeloCare-owned card treatment and approved exact-SKU packshot. No third-party social screenshot, identity, footage or GIF was reused."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-27T08:33:49.744Z",
+      "externalId": "2092893334771741000",
+      "publicUrl": "https://x.com/jelocare/status/2092893334771741000",
+      "replyTo": "https://x.com/Pamilerin/status/2092863334265589946",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @Pamilerin"
+    }
+  ],
+  "measurement": {
+    "initialObservedAt": "2026-08-27T08:34:14Z",
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 0
+    },
+    "sourceAfterPublication": {
+      "replies": 127,
+      "reposts": 117,
+      "likes": 281,
+      "views": 20485
+    },
+    "note": "Recheck the public reply later. Source totals are context, not evidence that the product card caused engagement or conversion."
+  }
+}
