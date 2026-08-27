@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-6-2026-08-27",
+  "scope": "Four independent released exact-SKU cells: three admitted and one evidence-blocked",
+  "reviewedAt": "2026-08-27T21:56:00Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-browser-dom-live-html-and-reviewed-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-03T21:55:17.433Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-27T16:17:26.113Z",
+    "latestObservedRun": {
+      "queued": 14,
+      "processed": 12,
+      "completed": 3,
+      "retrying": 9,
+      "failed": 0,
+      "activeBacklog": 10,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or processing was performed. Wave 6 excludes every product in the affected populations from the latest three observed production runs."
+  },
+  "summary": {
+    "productsReviewed": 4,
+    "productsReleased": 3,
+    "productsBlocked": 1,
+    "offersAdmitted": 6,
+    "offersProjected": 6
+  },
+  "products": [
+    {
+      "candidateId": "face-facts-wonder-cream-fragrance-free",
+      "identity": {
+        "gtin": null,
+        "variant": "Wonder Cream Fragrance Free",
+        "size": "50 ml",
+        "packageVersion": "Face Facts Wonder Cream Fragrance Free 50 ml / 1.69 fl oz white jar and pink-white carton"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/face-facts-wonder-cream-fragrance-free/",
+          "priceNgn": 7350,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:53:10.126Z",
+          "expiresAt": "2026-09-03T21:53:10.126Z",
+          "evidenceMethod": "reviewed-browser-dom-and-live-html",
+          "responseSha256": "97eeb89a24fb395281cf8c984dd1c3488ebd425b6ebf5aa4ada9034146366540",
+          "responseByteSize": 388978,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/12/Screenshot-at-.png",
+          "packageImageSha256": "f3f1cfca8656ce94058cf42919608a0a0dfa6f98086ea4e8441522c5115b2886",
+          "packageImageByteSize": 213891
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/face-facts-wonder-cream-fragrance-free-50ml-copy/",
+          "priceNgn": 7700,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:53:54.787Z",
+          "expiresAt": "2026-09-03T21:53:54.787Z",
+          "evidenceMethod": "reviewed-browser-dom-and-live-html",
+          "responseSha256": "aae64189842cbb462cc2fe7cb49499d17f801c112543fea424d6d8d70af245e7",
+          "responseByteSize": 354619,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/10/39163-150FaceFacts_WonderCreamUnfragranced_1800x1800-1536x1536.webp",
+          "packageImageSha256": "cf67f399d8a6685cbdc6f6f17567edbefff347965aa4f9a3552d56aa0de6c3cd",
+          "packageImageByteSize": 40702
+        }
+      ]
+    },
+    {
+      "candidateId": "face-facts-bright-clear-face-cream",
+      "identity": {
+        "gtin": null,
+        "variant": "Bright + Clear Face Cream",
+        "size": "75 ml",
+        "packageVersion": "Face Facts Bright + Clear Face Cream 75 ml / 2.53 fl oz yellow-white tube and carton"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/treatment/face-facts-bright-clear-face-cream-75ml/",
+          "priceNgn": 7500,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:54:06.700Z",
+          "expiresAt": "2026-09-03T21:54:06.700Z",
+          "evidenceMethod": "reviewed-browser-dom-and-live-html",
+          "responseSha256": "a613efd65c9a1b7dafd7ae8ebc116b86d17c83120a354dac8489602180d9cbc4",
+          "responseByteSize": 248800,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2024/08/face-facts-bright-clear-cream.jpg",
+          "packageImageSha256": "cabe6aef7dfb245dcdec51ccb9b9d35980915ed28a0c68dd05f980e72f257c17",
+          "packageImageByteSize": 31585
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/face-facts-bright-clear-face-cream-75ml/",
+          "priceNgn": 7900,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:53:35.810Z",
+          "expiresAt": "2026-09-03T21:53:35.810Z",
+          "evidenceMethod": "reviewed-browser-dom-and-live-html",
+          "responseSha256": "972db34d58dab281f2d764d051df9c17b73cc0b3a71f4752184ffdc4a0dd796b",
+          "responseByteSize": 384715,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/08/face-facts_387858.jpg",
+          "packageImageSha256": "cabe6aef7dfb245dcdec51ccb9b9d35980915ed28a0c68dd05f980e72f257c17",
+          "packageImageByteSize": 31585
+        }
+      ]
+    },
+    {
+      "candidateId": "panoxyl-acne-foaming-wash-10-benzoyl-peroxide",
+      "identity": {
+        "gtin": null,
+        "variant": "Acne Foaming Wash 10% Benzoyl Peroxide Maximum Strength",
+        "size": "156 g",
+        "packageVersion": "PanOxyl Acne Foaming Wash 10% Benzoyl Peroxide Maximum Strength 5.5 oz / 156 g white-blue squeeze tube"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength/",
+          "priceNgn": 16500,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:55:02.856Z",
+          "expiresAt": "2026-09-03T21:55:02.856Z",
+          "evidenceMethod": "reviewed-browser-dom-and-live-html",
+          "responseSha256": "395729054a5816089917b862630cd7f53ee4e661fcb6565936df31d808ee5039",
+          "responseByteSize": 389705,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/10-1.jpg",
+          "packageImageSha256": "2f92554618bf96b03c6d63b64913dae049b93eed7ce05e9874c95efa2a53ff1a",
+          "packageImageByteSize": 33595
+        },
+        {
+          "retailer": "Rehmie",
+          "url": "https://rehmie.com.ng/p/panoxyl-acne-foaming-wash-10-benzoyl-peroxide-156g-696550",
+          "priceNgn": 25740,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:55:17.433Z",
+          "expiresAt": "2026-09-03T21:55:17.433Z",
+          "evidenceMethod": "reviewed-browser-dom-and-live-html",
+          "responseSha256": "6873a00537a22b9e778098f937ab6871e1d13e32cb746f7bac70fffa122dd85c",
+          "responseByteSize": 1368205,
+          "packageImageUrl": "https://cdn.rehmie.com.ng/1dbe67a0934dec1e692f805e0bbac138.jpg",
+          "packageImageSha256": "b476c715324663d0fd2e75414cb5c34675460d40a3f7cbe3e674bc3ba51d6a16",
+          "packageImageByteSize": 19035
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "BuyBetter",
+          "reason": "current exact 156 g listing is out of stock"
+        }
+      ]
+    }
+  ],
+  "blockedProducts": [
+    {
+      "candidateId": "lush-hair-mentholated-conditioner",
+      "releasedPackage": "Rinse Me Out Mentholated Conditioner 370 ml bottle",
+      "observedPackage": "The official product title, handle, and image alt bind 370 ml, but the current official structured description states 370 G and the reviewed front image exposes no visible volume.",
+      "evidence": {
+        "retailer": "Lush Hair Nigeria",
+        "url": "https://nigeria.lushhairafrica.com/products/mentholated-conditioner-370ml",
+        "priceNgn": 1687,
+        "stock": "low-stock",
+        "inventoryQuantity": 55,
+        "checkedAt": "2026-08-27T21:54:42.770Z",
+        "responseSha256": "d5eb1627b2a62506a7cff1a898c3e83521c199a3db9477706a5fbdeeddd4a8ce",
+        "responseByteSize": 381938,
+        "packageImageUrl": "https://cdn.shopify.com/s/files/1/0791/5978/7745/files/26451_7ca2d10503cf413b262130540e2df7dd.png?v=1766145282",
+        "packageImageSha256": "ac5f523de5252bde38355b1a7adee11be3a59e9acd5bd253cf2050e08b044907",
+        "packageImageByteSize": 27127
+      },
+      "blocker": "The current official source conflicts on 370 ml versus 370 g, and the package front does not resolve the unit.",
+      "nextAction": "Require an official package back-panel or manufacturer record that explicitly proves 370 ml; do not normalize 370 g to 370 ml."
+    }
+  ],
+  "carriedIdentityBlockers": [
+    "naturium-vitamin-c-complex-serum-1fl-oz",
+    "naturium-niacinamide-serum-12-percent-1fl-oz",
+    "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+    "naturium-retinol-complex-serum-1fl-oz",
+    "naturium-niacinamide-gel-cream-5-1-7oz",
+    "naturium-glow-getter-multi-oil-body-scrub-8oz",
+    "dove-moroccan-argan-oil-beauty-bar",
+    "b-lab-matcha-hydrating-real-sunscreen",
+    "kuza-indian-hemp-hair-scalp-treatment"
+  ]
+}

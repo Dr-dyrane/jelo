@@ -6,6 +6,7 @@ import waveTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-w
 import waveThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-3-2026-08-27.json";
 import waveFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-4-2026-08-27.json";
 import waveFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-5-2026-08-27.json";
+import waveSixAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-6-2026-08-27.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -226,6 +227,57 @@ test("catalogue offer refresh wave 5 projects exact legacy cells and isolates ne
           offer.available !== false &&
           Boolean(offer.expiresAt) &&
           Date.parse(offer.expiresAt!) >= Date.parse(waveFiveAudit.reviewedAt),
+      ).length,
+      product.offers.length,
+      product.candidateId,
+    );
+    for (const evidence of product.offers) {
+      const offer = verifiedRetailOffers[product.candidateId]?.find(
+        (candidate) => candidate.url === evidence.url,
+      );
+      assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+      assert.equal(offer.retailer, evidence.retailer);
+      assert.equal(offer.priceNgn, evidence.priceNgn);
+      assert.equal(offer.available, true);
+      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assert.equal(offer.priceObservation?.size, product.identity.size);
+      assert.equal(offer.checkedAt, evidence.checkedAt);
+      assert.equal(offer.expiresAt, evidence.expiresAt);
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize > 0);
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+      assert.equal(
+        Date.parse(evidence.expiresAt) - Date.parse(evidence.checkedAt),
+        7 * 24 * 60 * 60 * 1000,
+      );
+    }
+  }
+});
+
+test("catalogue offer refresh wave 6 projects exact package cells and blocks a unit conflict", () => {
+  const projected = waveSixAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveSixAudit.summary.productsReviewed, 4);
+  assert.equal(waveSixAudit.summary.productsReleased, 3);
+  assert.equal(projected.length, 6);
+  assert.equal(waveSixAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.equal(waveSixAudit.scheduledOwner.latestObservedRun.due, 0);
+  assert.equal(waveSixAudit.scheduledOwner.latestObservedRun.processing, 0);
+  assert.deepEqual(
+    waveSixAudit.blockedProducts.map((product) => product.candidateId),
+    ["lush-hair-mentholated-conditioner"],
+  );
+  assert.equal(waveSixAudit.carriedIdentityBlockers.length, 9);
+  for (const product of waveSixAudit.products) {
+    assert.equal(
+      verifiedRetailOffers[product.candidateId]?.filter(
+        (offer) =>
+          offer.available !== false &&
+          Boolean(offer.expiresAt) &&
+          Date.parse(offer.expiresAt!) >= Date.parse(waveSixAudit.reviewedAt),
       ).length,
       product.offers.length,
       product.candidateId,
@@ -677,7 +729,7 @@ test("PanOxyl publishes only the current GTIN-matched Slique observation", () =>
   assert.equal(offers[4]?.retailer, "Perona Beauty");
 });
 
-test("stale PanOxyl Teeka and Lux routes cannot leak through base offers", () => {
+test("stale PanOxyl Teeka and Lux routes cannot leak through refreshed offers", () => {
   const merged = mergeRetailOffers(
     {
       slug: "panoxyl-acne-foaming-wash-10-benzoyl-peroxide",
@@ -702,12 +754,12 @@ test("stale PanOxyl Teeka and Lux routes cannot leak through base offers", () =>
         location: ["NG"],
       },
     ],
-    new Date("2026-08-19T00:00:00Z"),
+    new Date("2026-08-28T00:00:00Z"),
   );
 
   assert.deepEqual(
     merged.map((offer) => offer.retailer),
-    ["Slique Beauty", "Holly's Wellness", "Rehmie"],
+    ["Slique Beauty", "Rehmie", "Perona Beauty"],
   );
   assert.equal(merged[0]?.brandAuthorizationEvidence, undefined);
 });

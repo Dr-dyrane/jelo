@@ -1299,6 +1299,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       7350,
       "Face Facts Wonder Cream Fragrance Free",
       "50 ml",
+      {
+        observedAt: "2026-08-27T21:53:10.126Z",
+        expiresAt: "2026-09-03T21:53:10.126Z",
+        stock: "in-stock",
+        available: true,
+      },
     ),
     exactNg(
       "Teeka4",
@@ -1307,6 +1313,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       7700,
       "FaceFacts Wonder Cream Fragrance Free",
       "50 ml",
+      {
+        observedAt: "2026-08-27T21:53:54.787Z",
+        expiresAt: "2026-09-03T21:53:54.787Z",
+        stock: "in-stock",
+        available: true,
+      },
     ),
     exactNg(
       "Jumia",
@@ -1359,6 +1371,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       7500,
       "FaceFacts Bright + Clear Face Cream",
       "75 ml",
+      {
+        observedAt: "2026-08-27T21:54:06.700Z",
+        expiresAt: "2026-09-03T21:54:06.700Z",
+        stock: "in-stock",
+        available: true,
+      },
     ),
     exactNg(
       "Perona Beauty",
@@ -1367,6 +1385,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       7900,
       "Face Facts Bright + Clear Face Cream",
       "75 ml",
+      {
+        observedAt: "2026-08-27T21:53:35.810Z",
+        expiresAt: "2026-09-03T21:53:35.810Z",
+        stock: "in-stock",
+        available: true,
+      },
     ),
     exactNg(
       "Jumia",
@@ -2004,9 +2028,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Acne Foaming Wash 10% Benzoyl Peroxide - 156g",
       "156 g",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
+        observedAt: "2026-08-27T21:55:17.433Z",
+        expiresAt: "2026-09-03T21:55:17.433Z",
         stock: "in-stock",
+        available: true,
       },
     ),
     exactNg(
@@ -2017,9 +2042,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Acne Foaming Wash Benzoyl Peroxide 10% | 5.5oz",
       "156 g",
       {
-        observedAt: "2026-08-11T14:10:00Z",
-        expiresAt: "2026-08-18T14:10:00Z",
+        observedAt: "2026-08-27T21:55:02.856Z",
+        expiresAt: "2026-09-03T21:55:02.856Z",
         stock: "in-stock",
+        available: true,
       },
     ),
   ],
