@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-4-2026-08-27",
+  "scope": "Eight independent released Naturium exact-SKU cells: three admitted and five identity-blocked",
+  "reviewedAt": "2026-08-27T21:07:00Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-browser-dom-live-retailer-api-and-reviewed-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-03T21:06:42.000Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "impact": "No manual enqueue, claim, or processing was performed. Wave 4 excludes every product in the active or retry population observed in production logs."
+  },
+  "summary": {
+    "productsReviewed": 8,
+    "productsReleased": 3,
+    "productsBlocked": 5,
+    "offersAdmitted": 5,
+    "offersProjected": 5
+  },
+  "products": [
+    {
+      "candidateId": "naturium-kp-body-scrub-mask-8oz",
+      "identity": {
+        "gtin": "810120260044",
+        "variant": "KP Body Scrub & Mask",
+        "size": "8 oz / 226 g",
+        "packageVersion": "KP Body Scrub & Mask 8 oz / 226 g tube"
+      },
+      "offers": [
+        {
+          "retailer": "The Beauty Prism",
+          "url": "https://thebeautyprismng.com/shop/naturium-kp-body-scrub-mask-226g/",
+          "priceNgn": 40000,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:04:57.789Z",
+          "expiresAt": "2026-09-03T21:04:57.789Z",
+          "evidenceMethod": "reviewed-browser-dom-and-direct-html",
+          "responseSha256": "f6a14385fbabbb7e90085b6b175d84fbe292ab16779da264683e035b1f08a983",
+          "responseByteSize": 310385,
+          "packageImageSha256": "bd4e25dcca15377ba8d74f252d1aa2b3aba379c7587f034382b8625f9b75fa04",
+          "packageImageByteSize": 2186
+        },
+        {
+          "retailer": "MakeupAlleyNG",
+          "url": "https://makeupalleyng.com/products/naturium-kp-body-scrub",
+          "priceNgn": 44000,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:06:42.000Z",
+          "expiresAt": "2026-09-03T21:06:42.000Z",
+          "evidenceMethod": "live-shopify-product-json-and-reviewed-image",
+          "responseSha256": "531ddf4808b89b234f5ca386739abb95c16e18a977369934dfebcbb3d92592a4",
+          "responseByteSize": 2154,
+          "packageImageSha256": "95a3fadd7d7b2bda86039bbbd851b06cc8de5987df7bd9be89f212d6e07de327",
+          "packageImageByteSize": 10914
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Nihet Beauty",
+          "reason": "eligible-price-outlier-outside-two-offer-projection"
+        },
+        {
+          "retailer": "Jumia",
+          "reason": "seller-and-full-package-identity-unavailable"
+        },
+        { "retailer": "Derma Essentials", "reason": "out-of-stock" },
+        {
+          "retailer": "Reys Beauty Shelf",
+          "reason": "stale-listing-not-reverified-as-current"
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-retinaldehyde-cream-serum-0-05-1-7oz",
+      "identity": {
+        "gtin": "810120260013",
+        "variant": "Retinaldehyde Cream Serum 0.05%",
+        "size": "1.7 fl oz / 50 mL",
+        "packageVersion": "Retinaldehyde Cream Serum 0.05% 1.7 fl oz / 50 mL tube"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/naturium-retinaldehyde-cream-serum-0-05-50ml-1-7fl/",
+          "priceNgn": 45000,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:04:46.217Z",
+          "expiresAt": "2026-09-03T21:04:46.217Z",
+          "evidenceMethod": "live-woocommerce-store-api-and-reviewed-image",
+          "responseSha256": "56ea2123feeca4703b76f26174bcc8768394492547b3844b55024308d13100c1",
+          "responseByteSize": 5387,
+          "packageImageSha256": "d2ce74cdaa6d0557a59d05d7062d34537383e04e2e669527d963d9e35fd92535",
+          "packageImageByteSize": 40686
+        }
+      ],
+      "notProjected": [
+        { "retailer": "MakeupAlleyNG", "reason": "out-of-stock" },
+        {
+          "retailer": "HelloBeauty NG",
+          "reason": "stale-listing-not-reverified-as-current"
+        },
+        {
+          "retailer": "Jumia and Konga Health",
+          "reason": "no-current-exact-result"
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-retinaldehyde-cream-serum-0-10-1-7oz",
+      "identity": {
+        "gtin": "810120260471",
+        "variant": "Retinaldehyde Cream Serum 0.10%",
+        "size": "1.7 fl oz / 50 mL",
+        "packageVersion": "Retinaldehyde Cream Serum 0.10% 1.7 fl oz / 50 mL tube"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/naturium-retinaldehyde-cream-serum-0-10-50ml-1-7fl/",
+          "priceNgn": 46999,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:04:49.230Z",
+          "expiresAt": "2026-09-03T21:04:49.230Z",
+          "evidenceMethod": "live-woocommerce-store-api-and-reviewed-image",
+          "responseSha256": "82a61fb2e7015e6ab5db6eaad825572617a6dfc0264e53ec7e509d636c1ee2d1",
+          "responseByteSize": 5281,
+          "packageImageSha256": "ec3d9db167468901504c4173f9fa4f2b3894a388cd4b71d5c455b78b97302760",
+          "packageImageByteSize": 41199
+        },
+        {
+          "retailer": "MakeupAlleyNG",
+          "url": "https://makeupalleyng.com/products/naturium-retinaldehyde-cream-serum-0-15",
+          "priceNgn": 71000,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:06:42.000Z",
+          "expiresAt": "2026-09-03T21:06:42.000Z",
+          "evidenceMethod": "live-shopify-product-json-and-reviewed-image",
+          "responseSha256": "c8851991d133237fd9c16c6d6ffe0280709ae4ddcca5c617736b47cdda0c4065",
+          "responseByteSize": 6823,
+          "packageImageSha256": "6dedde75857a47642dd9f429d9ef85082cecd08f0a8431cc159dd5f7848dc958",
+          "packageImageByteSize": 49561
+        }
+      ],
+      "notProjected": [
+        { "retailer": "Derma Essentials", "reason": "out-of-stock" },
+        {
+          "retailer": "Shadremmy Beauty",
+          "reason": "current-page-access-blocked-403"
+        },
+        {
+          "retailer": "Jumia and Konga Health",
+          "reason": "no-current-exact-result"
+        }
+      ]
+    }
+  ],
+  "blockedProducts": [
+    {
+      "candidateId": "naturium-vitamin-c-complex-serum-1fl-oz",
+      "releasedPackage": "Vitamin C Complex Serum 1.0 fl oz / 30 mL dropper bottle",
+      "observedPackage": "Current exact-size retailer images show capped airless pump packaging.",
+      "blocker": "Released package contract conflicts with current package evidence; no offer admitted.",
+      "nextAction": "Canonical package identity review before a fresh offer projection."
+    },
+    {
+      "candidateId": "naturium-niacinamide-serum-12-percent-1fl-oz",
+      "releasedPackage": "Niacinamide Serum 12% Plus Zinc 2% 1.0 fl oz / 30 mL dropper bottle",
+      "observedPackage": "Current exact-size retailer images show capped airless pump packaging.",
+      "blocker": "Released package contract conflicts with current package evidence; no offer admitted.",
+      "nextAction": "Canonical package identity review before a fresh offer projection."
+    },
+    {
+      "candidateId": "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+      "releasedPackage": "Salicylic Acid Serum 2% 1.0 fl oz / 30 mL dropper bottle",
+      "observedPackage": "Current exact-size retailer images show capped pump packaging; several known listings are also out of stock.",
+      "blocker": "Released package contract conflicts with current package evidence; no offer admitted.",
+      "nextAction": "Canonical package identity review before a fresh offer projection."
+    },
+    {
+      "candidateId": "naturium-retinol-complex-serum-1fl-oz",
+      "releasedPackage": "Retinol Complex Serum 1.0 fl oz / 30 mL dropper bottle",
+      "observedPackage": "Current exact-size retailer images show capped airless pump packaging.",
+      "blocker": "Released package contract conflicts with current package evidence; no offer admitted.",
+      "nextAction": "Canonical package identity review before a fresh offer projection."
+    },
+    {
+      "candidateId": "naturium-niacinamide-gel-cream-5-1-7oz",
+      "releasedPackage": "Niacinamide Gel Cream 5% 1.7 oz / 50 mL tube",
+      "observedPackage": "Current listings and package image use 1.7 oz / 50 g; one retailer exposes a different GTIN and jar package.",
+      "blocker": "Mass-versus-volume and package identity conflict; no offer admitted.",
+      "nextAction": "Canonical exact-SKU identity review before a fresh offer projection."
+    }
+  ],
+  "carriedBlockers": [
+    {
+      "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+      "blocker": "Released 226 mL identity conflicts with current 8 oz / 226 g package evidence; Wave 3 blocker remains open."
+    }
+  ]
+}

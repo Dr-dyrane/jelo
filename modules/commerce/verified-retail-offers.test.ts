@@ -4,6 +4,7 @@ import { reviewedProductRecords } from "@/data/catalogue";
 import waveOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-1-2026-08-27.json";
 import waveTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-2-2026-08-27.json";
 import waveThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-3-2026-08-27.json";
+import waveFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-4-2026-08-27.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -134,6 +135,55 @@ test("catalogue offer refresh wave 3 releases admitted cells and fails the unit-
           evidence.evidenceMethod,
         ),
       );
+      assert.equal(
+        Date.parse(evidence.expiresAt) - Date.parse(evidence.checkedAt),
+        7 * 24 * 60 * 60 * 1000,
+      );
+    }
+  }
+});
+
+test("catalogue offer refresh wave 4 projects exact tube cells and blocks package drift", () => {
+  const projected = waveFourAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveFourAudit.summary.productsReviewed, 8);
+  assert.equal(waveFourAudit.summary.productsReleased, 3);
+  assert.equal(projected.length, 5);
+  assert.equal(waveFourAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.deepEqual(
+    waveFourAudit.blockedProducts.map((product) => product.candidateId),
+    [
+      "naturium-vitamin-c-complex-serum-1fl-oz",
+      "naturium-niacinamide-serum-12-percent-1fl-oz",
+      "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+      "naturium-retinol-complex-serum-1fl-oz",
+      "naturium-niacinamide-gel-cream-5-1-7oz",
+    ],
+  );
+  for (const product of waveFourAudit.products) {
+    assert.equal(
+      verifiedRetailOffers[product.candidateId]?.length,
+      product.offers.length,
+      product.candidateId,
+    );
+    for (const evidence of product.offers) {
+      const offer = verifiedRetailOffers[product.candidateId]?.find(
+        (candidate) => candidate.url === evidence.url,
+      );
+      assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+      assert.equal(offer.retailer, evidence.retailer);
+      assert.equal(offer.priceNgn, evidence.priceNgn);
+      assert.equal(offer.available, true);
+      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assert.equal(offer.priceObservation?.size, product.identity.size);
+      assert.equal(offer.checkedAt, evidence.checkedAt);
+      assert.equal(offer.expiresAt, evidence.expiresAt);
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize > 0);
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
       assert.equal(
         Date.parse(evidence.expiresAt) - Date.parse(evidence.checkedAt),
         7 * 24 * 60 * 60 * 1000,
