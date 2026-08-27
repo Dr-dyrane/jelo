@@ -3,6 +3,7 @@ import test from "node:test";
 import { reviewedProductRecords } from "@/data/catalogue";
 import waveOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-1-2026-08-27.json";
 import waveTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-2-2026-08-27.json";
+import waveThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-3-2026-08-27.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -63,6 +64,52 @@ test("catalogue offer refresh wave 2 projects only current exact-SKU evidence", 
   assert.equal(projected.length, 10);
   assert.equal(waveTwoAudit.scheduledOwner.manifestRecurringOwner, null);
   for (const product of waveTwoAudit.products) {
+    assert.equal(
+      verifiedRetailOffers[product.candidateId]?.length,
+      product.offers.length,
+      product.candidateId,
+    );
+    for (const evidence of product.offers) {
+      const offer = verifiedRetailOffers[product.candidateId]?.find(
+        (candidate) => candidate.url === evidence.url,
+      );
+      assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+      assert.equal(offer.retailer, evidence.retailer);
+      assert.equal(offer.priceNgn, evidence.priceNgn);
+      assert.equal(offer.available, true);
+      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assert.equal(offer.priceObservation?.size, product.identity.size);
+      assert.equal(offer.checkedAt, evidence.checkedAt);
+      assert.equal(offer.expiresAt, evidence.expiresAt);
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize > 0);
+      assert.ok(
+        ["reviewed-browser-dom", "live-woocommerce-store-api"].includes(
+          evidence.evidenceMethod,
+        ),
+      );
+      assert.equal(
+        Date.parse(evidence.expiresAt) - Date.parse(evidence.checkedAt),
+        7 * 24 * 60 * 60 * 1000,
+      );
+    }
+  }
+});
+
+test("catalogue offer refresh wave 3 releases admitted cells and fails the unit-mismatched cell closed", () => {
+  const projected = waveThreeAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveThreeAudit.summary.productsReviewed, 4);
+  assert.equal(waveThreeAudit.summary.productsReleased, 3);
+  assert.equal(projected.length, 9);
+  assert.equal(waveThreeAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.deepEqual(
+    waveThreeAudit.blockedProducts.map((product) => product.candidateId),
+    ["naturium-glow-getter-multi-oil-body-scrub-8oz"],
+  );
+  for (const product of waveThreeAudit.products) {
     assert.equal(
       verifiedRetailOffers[product.candidateId]?.length,
       product.offers.length,

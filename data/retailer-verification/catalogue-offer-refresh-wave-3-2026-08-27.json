@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-3-2026-08-27",
+  "scope": "Four independent released Naturium body-care exact-SKU offer cells; three admitted and one blocked",
+  "reviewedAt": "2026-08-27T20:44:00Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-browser-dom-live-retailer-store-api-and-reviewed-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-03T20:43:55.990Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "impact": "No manual enqueue, claim, or processing was performed. Wave 3 excludes every product in the active or retry population observed in production logs."
+  },
+  "summary": {
+    "productsReviewed": 4,
+    "productsReleased": 3,
+    "productsBlocked": 1,
+    "offersAdmitted": 9,
+    "offersProjected": 9
+  },
+  "products": [
+    {
+      "candidateId": "naturium-glow-getter-body-oil-100ml",
+      "identity": {
+        "gtin": "810120261089",
+        "variant": "The Glow Getter Body Oil",
+        "size": "3.4 fl oz / 100 mL",
+        "packageVersion": "The Glow Getter Body Oil 3.4 fl oz / 100 mL bottle",
+        "packageEvidence": "Rhema listing image reviewed: bottle and carton both show The Glow Getter Body Oil and 3.4 FL OZ / 100 ML."
+      },
+      "offers": [
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-the-glow-getter-body-oil-100ml/",
+          "priceNgn": 59500,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T20:43:18.105Z",
+          "expiresAt": "2026-09-03T20:43:18.105Z",
+          "evidenceMethod": "live-woocommerce-store-api",
+          "responseSha256": "4b31389ecbb4d2b61e149f1a26719a0494a8e18e534c665e3ed58f70c19795dc",
+          "responseByteSize": 11534
+        },
+        {
+          "retailer": "Kadimez Essentials",
+          "url": "https://kadimezessentials.com/product/naturium-the-glow-getter-body-oil-100ml/",
+          "priceNgn": 55500,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T20:43:19.625Z",
+          "expiresAt": "2026-09-03T20:43:19.625Z",
+          "evidenceMethod": "live-woocommerce-store-api",
+          "responseSha256": "484bc279bd462556a4d0b1c35f87ca1ddff9d0a3411ebdef7dddd845fe947870",
+          "responseByteSize": 10790
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/naturium-the-glow-getter-body-oil-100ml/",
+          "priceNgn": 60000,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T20:43:20.895Z",
+          "expiresAt": "2026-09-03T20:43:20.895Z",
+          "evidenceMethod": "live-woocommerce-store-api",
+          "responseSha256": "1dcf3848a0ecac788793a93d28a331fd484729dd56f943f26e5a44b10cc37e69",
+          "responseByteSize": 3932
+        }
+      ],
+      "notProjected": [
+        { "retailer": "BuyBetter", "reason": "out-of-stock" },
+        { "retailer": "Deoset", "reason": "exact-size-omitted" },
+        {
+          "retailer": "Sonavine Beauty",
+          "reason": "current-page-access-blocked"
+        },
+        {
+          "retailer": "Jumia",
+          "reason": "eligible-but-outside-three-offer-projection"
+        },
+        {
+          "retailer": "Konga Health",
+          "reason": "eligible-but-outside-three-offer-projection"
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-bio-lipid-restoring-body-lotion-14oz",
+      "identity": {
+        "gtin": "850010792804",
+        "variant": "Bio-Lipid Restoring Body Lotion",
+        "size": "14 fl oz / 414 mL",
+        "packageVersion": "Bio-Lipid Restoring Body Lotion 14 fl oz / 414 mL pump bottle",
+        "packageEvidence": "Deoset listing image reviewed: pump bottle shows Bio-Lipid Restoring Body Lotion and 14 FL OZ / 414 ML."
+      },
+      "offers": [
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/naturium-bio-lipid-restoring-body-lotion/",
+          "priceNgn": 42000,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T20:43:55.990Z",
+          "expiresAt": "2026-09-03T20:43:55.990Z",
+          "evidenceMethod": "live-woocommerce-store-api",
+          "responseSha256": "a51d64de07bc01cb8f951f051fd1f6fe71491129945742fc3f02caa91c10e6d5",
+          "responseByteSize": 5975
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-bio-lipid-body-lotion-414ml/",
+          "priceNgn": 45000,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T20:43:39.207Z",
+          "expiresAt": "2026-09-03T20:43:39.207Z",
+          "evidenceMethod": "live-woocommerce-store-api",
+          "responseSha256": "110cb7c6869959c204194dd4fba439c691eed52fb14f3d67bcb531ca836adaa6",
+          "responseByteSize": 11902
+        },
+        {
+          "retailer": "Kadimez Essentials",
+          "url": "https://kadimezessentials.com/product/naturium-bio-lipid-restoring-body-lotion-414ml/",
+          "priceNgn": 43500,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T20:43:42.337Z",
+          "expiresAt": "2026-09-03T20:43:42.337Z",
+          "evidenceMethod": "live-woocommerce-store-api",
+          "responseSha256": "ff4535e05b44f0fd1b1e4d54c32df9ac48d1ed7252c27bead6d5d0a9ab2b38fe",
+          "responseByteSize": 6966
+        }
+      ],
+      "notProjected": [
+        { "retailer": "Teeka4", "reason": "hard-reject-unrelated-product-url" },
+        {
+          "retailer": "Perona Beauty",
+          "reason": "official-variant-token-omitted"
+        },
+        {
+          "retailer": "Jumia",
+          "reason": "eligible-but-outside-three-offer-projection"
+        },
+        {
+          "retailer": "Konga Health",
+          "reason": "eligible-but-outside-three-offer-projection"
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-smoother-glycolic-acid-body-lotion-8oz",
+      "identity": {
+        "gtin": "810120260235",
+        "variant": "The Smoother Glycolic Acid Body Lotion",
+        "size": "8 fl oz / 234 mL",
+        "packageVersion": "The Smoother Glycolic Acid Body Lotion 8 fl oz / 234 mL pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-the-smoother-glycolic-acid-body-lotion/",
+          "priceNgn": 59125,
+          "stock": "low-stock",
+          "inventoryQuantity": 1,
+          "checkedAt": "2026-08-27T20:39:56.519Z",
+          "expiresAt": "2026-09-03T20:39:56.519Z",
+          "evidenceMethod": "reviewed-browser-dom",
+          "responseSha256": "ba202395827de3b1317024a6494d8e892c87202301fa55841994103f8db3c9cc",
+          "responseByteSize": 200085
+        },
+        {
+          "retailer": "Sonavine Beauty",
+          "url": "https://sonavinebeauty.com/product/naturium-the-smoother-glycolic-body-lotion-234ml-8oz/",
+          "priceNgn": 48500,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T20:39:59.228Z",
+          "expiresAt": "2026-09-03T20:39:59.228Z",
+          "evidenceMethod": "reviewed-browser-dom",
+          "responseSha256": "a6835253658683a45c53d13e96616942ee9ecae5b60d4f74cf52581bd63e916c",
+          "responseByteSize": 200021
+        },
+        {
+          "retailer": "Kadimez Essentials",
+          "url": "https://kadimezessentials.com/product/naturium-the-smoother-glycolic-acid-body-lotion-234ml/",
+          "priceNgn": 45500,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T20:40:01.549Z",
+          "expiresAt": "2026-09-03T20:40:01.549Z",
+          "evidenceMethod": "reviewed-browser-dom",
+          "responseSha256": "c17682a9f6e618f7c7f11297bd60a7d601a8e4dc97674c02093710927eb3c140",
+          "responseByteSize": 200132
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Deoset",
+          "reason": "eligible-but-outside-three-offer-projection"
+        },
+        {
+          "retailer": "The Beauty Prism",
+          "reason": "eligible-but-outside-three-offer-projection"
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "reason": "eligible-but-outside-three-offer-projection"
+        },
+        { "retailer": "Jumia", "reason": "exact-size-and-package-omitted" }
+      ]
+    }
+  ],
+  "blockedProducts": [
+    {
+      "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+      "gtin": "810120263076",
+      "releasedIdentity": "The Glow Getter Multi-Oil Body Scrub 8 oz / 226 mL jar",
+      "observedPackage": "The Glow Getter Multi-Oil Body Scrub 8 oz / 226 g jar",
+      "blocker": "Current retailer text and reviewed package image use 226 g, which conflicts with the released 226 mL identity. No offer was admitted.",
+      "nextAction": "Review and correct the canonical exact-SKU size identity before a fresh offer projection.",
+      "checkedAt": "2026-08-27T20:43:50.419Z",
+      "evidence": {
+        "retailer": "Deoset",
+        "url": "https://deoset.com/product/naturium-the-glow-getter-multi-oil-body-scrub/",
+        "priceNgn": 52500,
+        "stock": "in-stock",
+        "responseSha256": "eed1508581d993a66caf42c2342f101081b0d75d1a261d5bc3a6d94bda9b82ea",
+        "responseByteSize": 4067
+      },
+      "alsoRejected": [
+        {
+          "retailer": "Sonavine Beauty",
+          "reason": "226-g-package-conflicts-with-released-226-mL-identity"
+        },
+        {
+          "retailer": "The Beauty Prism",
+          "reason": "226-g-package-conflicts-with-released-226-mL-identity"
+        },
+        {
+          "retailer": "Jumia",
+          "reason": "226-g-package-conflicts-with-released-226-mL-identity"
+        },
+        {
+          "retailer": "Konga Health",
+          "reason": "226-g-package-conflicts-with-released-226-mL-identity"
+        }
+      ]
+    }
+  ],
+  "commonZeroResultRetailers": [
+    "Choices Beauty",
+    "Beauty Hut Africa",
+    "Slique Beauty"
+  ],
+  "commonZeroResultReason": "Live exact-query WooCommerce Store API returned HTTP 200 with an empty JSON array for every Wave 3 SKU."
+}
