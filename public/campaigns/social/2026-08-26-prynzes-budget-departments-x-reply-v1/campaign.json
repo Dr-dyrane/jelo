@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-26-prynzes-budget-departments-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-26T18:38:53Z",
+  "dataCheckedAt": "2026-08-26T18:38:53Z",
+  "objective": "join a Nigerian budgeting conversation with a non-promotional reaction reply",
+  "sourcePost": {
+    "url": "https://x.com/prynzes_j/status/2092373694781788384",
+    "handle": "@prynzes_j",
+    "observedText": "Asked for Yagi sample-sale prices while balancing rent, birthday, graduation, skincare and makeup expenses.",
+    "visibleEngagementBeforeReply": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 364
+    }
+  },
+  "copy": {
+    "post": "This budget has five departments and one salary 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "native-x-gif",
+    "pickerLabel": "Empty Pockets Payday GIF by Maxis",
+    "rightsBoundary": "X-only native GIF; not downloaded, archived or cleared for cross-platform reuse."
+  },
+  "careBoundary": "No product, price, retailer, savings, suitability or clinical claim.",
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-26T18:38:53Z",
+      "externalId": "2092683157502083425",
+      "publicUrl": "https://x.com/jelocare/status/2092683157502083425",
+      "replyTo": "https://x.com/prynzes_j/status/2092373694781788384",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @prynzes_j"
+    }
+  ]
+}

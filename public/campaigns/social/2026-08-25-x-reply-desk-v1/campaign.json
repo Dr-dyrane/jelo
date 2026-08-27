@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "campaignId": "2026-08-25-x-reply-desk-v1",
-  "status": "draft",
+  "status": "published",
   "createdAt": "2026-08-26T03:31:30Z",
-  "dataCheckedAt": "2026-08-26T14:08:00Z",
+  "dataCheckedAt": "2026-08-26T15:28:39Z",
   "objective": "Build a checked queue of natural, useful JeloCare replies to current Nigerian beauty and shopping conversations, with a reaction-media and reuse-rights decision attached to every candidate.",
   "channels": ["x-organic"],
-  "operatingBoundary": "Read-only scouting and drafting. No reply, like, repost, follow, download, cross-platform clip, or publication is authorized by this record.",
+  "operatingBoundary": "The record now reconciles two replies already published on X. No new reply, like, repost, follow, download, cross-platform publication, or paid action is authorized by this record.",
   "ownedMotionAudit": {
-    "checkedAt": "2026-08-26T03:31:30Z",
+    "checkedAt": "2026-08-26T14:50:18Z",
     "filesReviewed": [
       "../2026-08-25-instagram-founding-grid-v1/final/07-bundle-ordering-reel.mp4",
       "../2026-08-25-instagram-founding-grid-v1/final/09-timely-meme-reel.mp4"
     ],
-    "result": "No existing owned motion matches the Teeka4 phone-stare reaction. The bundle Reel is instructional; the timely meme Reel is a product-price comparison sequence. Neither should be forced into this reply."
+    "result": "The existing Reels do not match these reactions. Cross-platform clip production is paused while the desk concentrates on finding stronger live hooks and comment openings."
   },
   "selectionRules": [
     "The source conversation must be public, current, culturally relevant, and safe for a young Nigerian skincare-shopping brand to enter.",
@@ -60,20 +60,59 @@
       "claimBoundary": "Offer only to check current listed products across Nigerian stores after the shopper identifies the exact product."
     },
     {
+      "id": "skincare-wow-rent-data",
+      "priority": 2,
+      "state": "published",
+      "target": {
+        "url": "https://x.com/Adesolaaaaa_/status/2092280127367352717",
+        "account": "@Adesolaaaaa_",
+        "publishedAt": "2026-08-25T15:57:09.000Z",
+        "observedText": "Skincare is expensive o. Wow. 😭",
+        "engagementSnapshot": {
+          "replies": 1,
+          "reposts": 0,
+          "likes": 4,
+          "views": 114,
+          "checkedAt": "2026-08-26T14:50:18Z"
+        }
+      },
+      "fit": "The reply extends the author's price shock and offers a useful exact-product comparison next step, but its two beats are less compressed than the Redmi line.",
+      "reply": "That “wow” is the bottle joining rent and data 😭 Which product? Let’s see who else carries it.",
+      "replyPublication": {
+        "url": "https://x.com/jelocare/status/2092486421663891590",
+        "statusId": "2092486421663891590",
+        "publishedAt": "2026-08-26T05:36:54.000Z",
+        "engagementSnapshot": {
+          "replies": 0,
+          "reposts": 0,
+          "likes": 0,
+          "views": 2,
+          "checkedAt": "2026-08-26T14:50:18Z"
+        }
+      },
+      "mediaPlan": {
+        "xNativeUsage": "PawPaw reaction GIF embedded through X's native picker; do not download or re-upload.",
+        "xReplyReady": false,
+        "crossPlatformClipReady": false,
+        "clipBlocker": "The native GIF is not cleared for off-X reuse, and the two-beat copy is weaker than the selected Redmi mechanism."
+      },
+      "claimBoundary": "Offer only to compare current listings after the shopper supplies the exact product."
+    },
+    {
       "id": "redmi-skincare-budget-trend",
       "priority": 1,
-      "state": "watchlist",
+      "state": "published",
       "target": {
         "url": "https://x.com/marvo_sneh_/status/2092238277638012932",
         "account": "@marvo_sneh_",
-        "publishedAt": "2026-08-25T13:10:00Z",
+        "publishedAt": "2026-08-25T13:10:51.000Z",
         "observedText": "When she’s a 10/10 but her skincare is more expensive than my redmi phone",
         "engagementSnapshot": {
-          "replies": 26,
-          "reposts": 35,
-          "likes": 58,
-          "views": 641,
-          "checkedAt": "2026-08-26T03:31:30Z"
+          "replies": 27,
+          "reposts": 37,
+          "likes": 63,
+          "views": 710,
+          "checkedAt": "2026-08-26T14:50:18Z"
         }
       },
       "fit": "An active Nigerian skincare-cost meme with recognisably Nigerian replies. It is useful for familiarity rather than conversion, so the brand should join the joke without correcting or pitching at the author.",
@@ -87,17 +126,28 @@
           "visual": "PawPaw gives a sceptical side-eye.",
           "usage": "Embed through X's native GIF picker only; do not download or re-upload."
         },
-        "ownedClipAlternative": "An original 3-second JeloCare motion card: a Redmi silhouette slides into a basket labelled 'skincare budget meeting', then immediately slides back out. Keep it logo-light and meme-first.",
-        "xReplyReady": true,
+        "xReplyReady": false,
         "crossPlatformClipReady": false,
-        "clipBlocker": "The native GIF and the source post's GIF are not cleared for JeloCare cross-platform clipping."
+        "clipBlocker": "Clip production paused by editorial direction; continue scouting hooks and comment openings first."
+      },
+      "replyPublication": {
+        "url": "https://x.com/jelocare/status/2092481121070260484",
+        "statusId": "2092481121070260484",
+        "publishedAt": "2026-08-26T05:15:50.000Z",
+        "engagementSnapshot": {
+          "replies": 0,
+          "reposts": 0,
+          "likes": 0,
+          "views": 5,
+          "checkedAt": "2026-08-26T14:50:18Z"
+        }
       },
       "claimBoundary": "No product, price, saving, relationship, or care claim."
     },
     {
       "id": "nigeria-skincare-school-fees",
       "priority": 2,
-      "state": "watchlist",
+      "state": "retired",
       "target": {
         "url": "https://x.com/midnight_shnack/status/2090914095876685950",
         "account": "@midnight_shnack",
@@ -111,7 +161,8 @@
           "checkedAt": "2026-08-26T14:08:00Z"
         }
       },
-      "fit": "Strong Nigerian price-friction setup and an easy invitation to inspect the exact basket, but it is older than the two candidates above.",
+      "fit": "Strong Nigerian price-friction setup, but the 21 Aug source is now stale and should not receive a late brand reply.",
+      "retirementReason": "Source is stale; reconsider the mechanism only from a fresh conversation and rights-clean owned motion.",
       "reply": "School fees without the PTA meeting is wicked 😭 Which products are in the basket? Let’s check it before next term starts.",
       "mediaPlan": {
         "purpose": "A stunned calculation reaction completes the school-fees metaphor and makes the help offer feel lighter.",
@@ -123,12 +174,102 @@
           "usage": "Embed through X's native GIF picker only; do not download or re-upload."
         },
         "ownedClipAlternative": "A 3-second JeloCare basket-total animation: three product cards enter, a mock total flips to 'school fees?', then the JeloCare comparison view replaces it. Use no live price until rechecked.",
-        "xReplyReady": true,
+        "xReplyReady": false,
         "crossPlatformClipReady": false,
         "clipBlocker": "The native GIF is not cleared for off-X reuse, and any comparison result would require a fresh catalogue check."
       },
       "claimBoundary": "Do not state or imply a saving until the exact products, sizes, listings, and current timestamps are checked."
+    },
+    {
+      "id": "repeat-buy-one-is-doing-too-much",
+      "priority": 1,
+      "state": "draft-hook",
+      "target": {
+        "url": "https://x.com/SauceKiki/status/2092152867071139851",
+        "account": "@SauceKiki",
+        "publishedAtDisplay": "12:31 AM · Aug 25, 2026",
+        "observedText": "Ladies , what’s that one skincare product you’ll buy again and again ?",
+        "engagementSnapshot": {
+          "replies": 49,
+          "reposts": 68,
+          "likes": 94,
+          "bookmarks": 14,
+          "views": 59431,
+          "checkedAt": "2026-08-26T15:28:39Z"
+        }
+      },
+      "fit": "A large, active Nigerian skincare prompt whose word 'one' leaves a natural opening for the audience to recognise that they rebuy several products. The thread is already product-led, so JeloCare can sound human without forcing a sales message.",
+      "reply": "The “one” in this question is doing too much 😭",
+      "hookMechanism": "understatement plus self-recognition",
+      "existingReplyCheck": "No visible reply used this line or the same 'one is unrealistic' turn at the checked time.",
+      "publicationReady": false,
+      "claimBoundary": "No product, price, saving, suitability, clinical, or retailer claim."
+    },
+    {
+      "id": "budget-five-departments",
+      "priority": 2,
+      "state": "watchlist-hook",
+      "target": {
+        "url": "https://x.com/prynzes_j/status/2092373694781788384",
+        "account": "@prynzes_j",
+        "publishedAtDisplay": "17h at review",
+        "observedText": "Abeg what are the prices of the Yagi sample sale? the prices need to make sense. I just paid my rent deposit and I have a birthday and graduation to finance. I also just ran out of skincare and due a makeup restock.",
+        "engagementSnapshot": {
+          "replies": 0,
+          "reposts": 0,
+          "likes": 0,
+          "views": 228,
+          "checkedAt": "2026-08-26T15:28:39Z"
+        }
+      },
+      "fit": "The crowded budget creates a coherent workplace metaphor, but the source currently has weak distribution.",
+      "reply": "This budget has five departments and one salary 😭",
+      "hookMechanism": "category transplant into office structure",
+      "publicationReady": false,
+      "claimBoundary": "No price, affordability, product, retailer, or financial-advice claim."
+    },
+    {
+      "id": "routine-clocked-out-at-gt",
+      "priority": 3,
+      "state": "watchlist-hook",
+      "target": {
+        "url": "https://x.com/nifsss/status/2092463651840008697",
+        "account": "@nifsss",
+        "publishedAtDisplay": "11h at review",
+        "observedText": "All the skincare I applied don melt finish for GT.",
+        "engagementSnapshot": {
+          "replies": 0,
+          "reposts": 0,
+          "likes": 0,
+          "views": 65,
+          "checkedAt": "2026-08-26T15:28:39Z"
+        }
+      },
+      "fit": "The post already supplies Nigerian cadence and a visible consequence; the reply adds a compact workplace rule without mocking the person or making a care claim. Reach is currently small.",
+      "reply": "Routine clocked out before you did 😭",
+      "hookMechanism": "visible consequence plus category transplant",
+      "publicationReady": false,
+      "claimBoundary": "No product-performance, weather, clinical, or outcome claim."
     }
   ],
-  "publication": []
+  "publication": [
+    {
+      "channel": "x-reply",
+      "sourceUrl": "https://x.com/marvo_sneh_/status/2092238277638012932",
+      "publishedAt": "2026-08-26T05:15:50.000Z",
+      "externalId": "2092481121070260484",
+      "publicUrl": "https://x.com/jelocare/status/2092481121070260484",
+      "spend": null,
+      "audienceSummary": "Public organic X reply"
+    },
+    {
+      "channel": "x-reply",
+      "sourceUrl": "https://x.com/Adesolaaaaa_/status/2092280127367352717",
+      "publishedAt": "2026-08-26T05:36:54.000Z",
+      "externalId": "2092486421663891590",
+      "publicUrl": "https://x.com/jelocare/status/2092486421663891590",
+      "spend": null,
+      "audienceSummary": "Public organic X reply"
+    }
+  ]
 }

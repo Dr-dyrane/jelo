@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-26-teegav-chelsea-front-three-routine-v1",
+  "status": "draft",
+  "createdAt": "2026-08-26T18:14:47Z",
+  "dataCheckedAt": "2026-08-26T18:14:47Z",
+  "objective": "reply to a Chelsea-supporting Nigerian creator asking for a simple affordable skincare starting routine using a category-level front-three meme",
+  "sourcePost": {
+    "url": "https://x.com/teegav_official/status/2092663971702792393",
+    "handle": "@teegav_official",
+    "observedText": "Asked to be plugged to a skincare routine that will not finish his money, then joked that people should buy what he sells so he can afford it.",
+    "checkedAt": "2026-08-26T18:14:47Z"
+  },
+  "evidence": [
+    {
+      "kind": "user-supplied-sofascore-screenshot",
+      "path": "../2026-08-25-chelsea-sofascore-product-front-three-meme-v5/source/sofascore-chelsea-front-three-user-supplied.png",
+      "claim": "The supplied crop visibly contains Chelsea's front three and is reused only as the user-approved meme setup."
+    },
+    {
+      "kind": "canonical-brand-identity",
+      "path": "../2026-08-25-chelsea-sofascore-product-front-three-meme-v5/source/jelocare-avatar.png",
+      "claim": "Canonical JeloCare avatar used without simulated handle, verification badge, or platform chrome."
+    }
+  ],
+  "careBoundary": "Category-level starter routine only. No diagnosis, treatment, product-suitability, price, stock, savings, or clinical claim.",
+  "copy": {
+    "post": "Cleanser. Moisturiser. Sunscreen. Front three sorted 😭",
+    "visualSetup": "Chelsea finally found their front three.",
+    "visualTurn": "Your own front three:",
+    "routine": ["Cleanser", "Moisturiser", "Sunscreen"],
+    "embeddedUrl": null,
+    "visibleHandle": null
+  },
+  "creative": [
+    {
+      "mode": "light",
+      "path": "final/teegav-chelsea-front-three-routine-feed.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "660c42644c726b01b7121603b0f7c6004f8e1c5010076f469d42f421471693b0",
+      "generationRoute": "deterministic-svg-with-canonical-jelocare-avatar-and-user-supplied-sofascore-crop"
+    }
+  ],
+  "meme": {
+    "mechanism": "category-transplant",
+    "setup": "Chelsea finally found their front three.",
+    "punchline": "A three-step skincare starting lineup.",
+    "culturalCue": "Chelsea front-three formation",
+    "fictionalDialogue": false
+  },
+  "rights": "Do not reuse player identities or the SofaScore crop outside this bounded derivative. Do not imply endorsement by Chelsea, the players, SofaScore, or the source account.",
+  "channels": ["x-reply"],
+  "publication": []
+}

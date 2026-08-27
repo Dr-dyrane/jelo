@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-26-nifsss-water-resistant-spf-guide-v2",
+  "status": "draft",
+  "createdAt": "2026-08-26T19:33:57Z",
+  "dataCheckedAt": "2026-08-26T19:33:57Z",
+  "objective": "give a concise, non-banter durability cue in response to skincare wearing off during a hot event",
+  "sourcePost": {
+    "url": "https://x.com/nifsss/status/2092463651840008697",
+    "handle": "@nifsss",
+    "observedText": "All the skincare I applied don melt finish for GT.",
+    "visibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 73
+    }
+  },
+  "careBoundary": "General sun-protection education only. Water resistance is a product-label category, not a promise that skincare cannot wipe off. Reapplication remains necessary after sweating. No exact product, price, stock, savings, suitability or clinical claim.",
+  "copy": {
+    "post": "Try a water-resistant sunscreen next time.",
+    "headline": "For hot, sweaty days: Choose a water-resistant sunscreen.",
+    "labelCue": "Look for the words ‘Water resistant’ on the product label.",
+    "disclaimer": "Reapply after sweating.",
+    "embeddedUrl": null,
+    "visibleHandle": null
+  },
+  "creative": [
+    {
+      "mode": "light-guide",
+      "path": "final/hot-day-water-resistant-spf-guide.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "927ca022a898ca13fe06d648d0be0407e93647a94e73c72f493fade4239c848e",
+      "generationRoute": "deterministic-svg"
+    }
+  ],
+  "rights": "Original JeloCare typographic artwork with no third-party media.",
+  "channels": ["x-reply"],
+  "publication": []
+}

@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-26-nifsss-eucerin-water-resistant-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-26T19:48:16Z",
+  "dataCheckedAt": "2026-08-26T19:58:39Z",
+  "objective": "answer a hot-event skincare joke with one useful exact-product suggestion, a current Nigerian listing, and restrained JeloCare identity",
+  "sourcePost": {
+    "url": "https://x.com/nifsss/status/2092463651840008697",
+    "handle": "@nifsss",
+    "observedText": "All the skincare I applied don melt finish for GT.",
+    "lastVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 73
+    },
+    "lastCheckedAt": "2026-08-26T19:33:57Z"
+  },
+  "product": {
+    "slug": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+    "brand": "Eucerin",
+    "name": "Oil Control Sun Gel-Cream Dry Touch SPF 50+",
+    "size": "50 ml",
+    "identifier": {
+      "kind": "gtin",
+      "value": "8850029013671"
+    },
+    "catalogueUrl": "https://www.jelocare.com/products/eucerin-oil-control-sun-gel-cream-spf50-50ml",
+    "shareUrl": "https://www.jelocare.com/share/eucerin-oil-control-sun-gel-cream-spf50-50ml"
+  },
+  "sourceAsset": {
+    "url": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/eucerin/eucerin-oil-control-sun-gel-cream-spf50-50ml/packshot-v1-5e28c36ad2199126.png",
+    "localPath": "source/approved-packshot.png",
+    "sha256": "5e28c36ad21991263a3c7e4142d508ada05dd97097bbb0ef57308f18b62138e2"
+  },
+  "claimEvidence": {
+    "manufacturerUrl": "https://www.eucerin.co.uk/products/sun-protection/sun-gel-creme-dry-touch-spf-50plus",
+    "observedClaim": "The exact 50 ml face product is described as both sweat-resistant and water-resistant.",
+    "manufacturerDirections": "Reapply regularly, especially after swimming, sweating, or towel-drying.",
+    "checkedAt": "2026-08-26T19:47:43Z"
+  },
+  "offerEvidence": [
+    {
+      "retailer": "Shadremmy Beauty",
+      "listingUrl": "https://shadremmybeauty.com/product/eucerin-oil-control-sun-gel-cream-50ml-1/",
+      "priceNgn": 20500,
+      "stock": "in-stock",
+      "inventoryQuantity": 25,
+      "observedTitle": "EUCERIN OIL CONTROL SUN GEL CREAM, 50ML",
+      "observedSize": "50 ml",
+      "observedGtin": "8850029013671",
+      "observedDate": "2026-08-26",
+      "checkedAt": "2026-08-26T19:58:39Z",
+      "verificationRoute": "fresh in-app browser exact-product page"
+    }
+  ],
+  "excludedOfferEvidence": [
+    {
+      "retailer": "Beauty by Daz",
+      "listingUrl": "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
+      "priceNgn": 19100,
+      "stock": "out-of-stock",
+      "checkedAt": "2026-08-26T19:58:39Z",
+      "reason": "The exact page showed Out of stock during the fresh browser check."
+    }
+  ],
+  "careBoundary": "Product durability is a manufacturer-described water- and sweat-resistance property, not a promise that the full skincare routine cannot melt or wipe off. Reapplication remains necessary after swimming, sweating, or towel-drying. No price, stock, saving, authenticity, suitability, or clinical outcome claim is made in the creative.",
+  "copy": {
+    "reply": "No worry, we found a water-resistant one 😭",
+    "headline": "WATER + SWEAT RESISTANT.",
+    "productLine": "EUCERIN · Oil Control Sun Gel-Cream Dry Touch SPF 50+ · 50 ml · Protect",
+    "disclaimer": "Reapply after sweating.",
+    "embeddedUrl": null,
+    "visibleHandle": null
+  },
+  "creative": [
+    {
+      "mode": "selected-current-price-story",
+      "path": "final/eucerin-current-price-story-2026-08-26-v2.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "42328d78004d4a64c6d34fb7c50853604b7615d074c02d5ba4449bcd893e36ae",
+      "generationRoute": "deterministic-svg-composite"
+    },
+    {
+      "mode": "alternate-no-price-durability-card",
+      "path": "final/eucerin-water-resistant-x-reply.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "b4740f647e3c779c5016bcf9e44c5686db3c17aa0d9824d83f91c35291e32847",
+      "generationRoute": "deterministic-svg-composite"
+    }
+  ],
+  "rejectedCreative": [
+    {
+      "path": "final/eucerin-current-price-story.png",
+      "sha256": "a96876c8dedbf7203d6ce456742aacb794157bab2da93fa03bde441801cd6dad",
+      "reason": "Single-store layout duplicated the same price as if it were a comparison and collided with the product line."
+    }
+  ],
+  "rights": "Uses JeloCare's existing approved exact-SKU catalogue packshot unchanged inside original JeloCare typographic artwork. No source-post identity, screenshot, footage, or media is reproduced.",
+  "channels": ["x-reply"],
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-26T20:05:00Z",
+      "externalId": "2092705129770504602",
+      "publicUrl": "https://x.com/jelocare/status/2092705129770504602",
+      "replyToUrl": "https://x.com/nifsss/status/2092463651840008697",
+      "creativePath": "final/eucerin-current-price-story-2026-08-26-v2.png",
+      "creativeSha256": "42328d78004d4a64c6d34fb7c50853604b7615d074c02d5ba4449bcd893e36ae",
+      "spend": null,
+      "audienceSummary": "Public X reply to @nifsss"
+    }
+  ]
+}

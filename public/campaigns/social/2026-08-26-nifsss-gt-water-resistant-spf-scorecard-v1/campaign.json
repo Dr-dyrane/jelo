@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-26-nifsss-gt-water-resistant-spf-scorecard-v1",
+  "status": "draft",
+  "createdAt": "2026-08-26T19:31:31Z",
+  "dataCheckedAt": "2026-08-26T19:31:31Z",
+  "objective": "answer a Nigerian event-heat skincare joke with a compact, non-product-specific durability cue",
+  "sourcePost": {
+    "url": "https://x.com/nifsss/status/2092463651840008697",
+    "handle": "@nifsss",
+    "observedText": "All the skincare I applied don melt finish for GT.",
+    "visibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 73
+    }
+  },
+  "careBoundary": "General sun-protection education only. Water resistance is a label category, not a promise that skincare cannot wipe off. Reapplication remains necessary after sweating. No product, price, stock, savings, suitability or clinical claim.",
+  "copy": {
+    "post": "Routine clocked out before you did 😭",
+    "score": "GT 1 — 0 ROUTINE",
+    "visualTurn": "Rematch? YOUR LAST STEP: WATER-RESISTANT SPF",
+    "disclaimer": "Reapply after sweating.",
+    "embeddedUrl": null,
+    "visibleHandle": null
+  },
+  "creative": [
+    {
+      "mode": "heat-scorecard",
+      "path": "final/gt-water-resistant-spf-scorecard.png",
+      "width": 1080,
+      "height": 1350,
+      "sha256": "3c485297702455acfa0d69710479c7fd84adbb4aae6e6dd640f5138d8ac766f9",
+      "generationRoute": "deterministic-svg"
+    }
+  ],
+  "rights": "Original JeloCare typographic artwork with no third-party media.",
+  "channels": ["x-reply"],
+  "publication": []
+}

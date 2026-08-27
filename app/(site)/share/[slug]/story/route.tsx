@@ -152,6 +152,25 @@ function ProductStage({
   );
 }
 
+export function buildPriceStoryLayout(view: {
+  offers: readonly { priceLabel: string }[];
+  spreadLabel: string | null;
+}) {
+  const lowest = view.offers[0]?.priceLabel ?? "—";
+  const highest = view.offers.at(-1)?.priceLabel ?? lowest;
+  const hasComparison = Boolean(
+    view.spreadLabel &&
+    view.offers.length >= 2 &&
+    new Set(view.offers.map((offer) => offer.priceLabel)).size >= 2,
+  );
+  return {
+    lowest,
+    highest,
+    hasComparison,
+    headlineAmount: hasComparison ? view.spreadLabel : null,
+  };
+}
+
 function PriceStory({
   data,
   packshotSrc,
@@ -160,9 +179,8 @@ function PriceStory({
   packshotSrc: string;
 }) {
   const { view } = data;
-  const lowest = view.offers[0]?.priceLabel ?? "—";
-  const highest = view.offers.at(-1)?.priceLabel ?? lowest;
-  const hasGap = Boolean(view.spreadLabel && view.offers.length >= 2);
+  const { lowest, highest, hasComparison, headlineAmount } =
+    buildPriceStoryLayout(view);
 
   return (
     <div
@@ -223,34 +241,34 @@ function PriceStory({
             letterSpacing: "-2px",
           }}
         >
-          {hasGap ? "Same product." : "Current price."}
+          {hasComparison ? "Same product." : "Current price."}
         </span>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "baseline",
-            marginTop: 10,
-            fontFamily: "Manrope",
-            fontSize: 64,
-            letterSpacing: "-3px",
-          }}
-        >
-          <CampaignAmount
-            value={hasGap ? view.spreadLabel! : lowest}
-            color="#ff7417"
-            fontSize={64}
-            letterSpacing="-3px"
-          />
-          {hasGap ? (
+        {headlineAmount ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              marginTop: 10,
+              fontFamily: "Manrope",
+              fontSize: 64,
+              letterSpacing: "-3px",
+            }}
+          >
+            <CampaignAmount
+              value={headlineAmount}
+              color="#ff7417"
+              fontSize={64}
+              letterSpacing="-3px"
+            />
             <span style={{ marginLeft: 18, fontWeight: 400 }}>apart.</span>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
 
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            marginTop: 52,
+            marginTop: hasComparison ? 52 : 42,
             fontFamily: "Manrope",
             fontSize: 22,
             letterSpacing: ".2px",
@@ -277,7 +295,7 @@ function PriceStory({
           }}
         >
           <CampaignAmount value={lowest} fontSize={53} letterSpacing="-1.8px" />
-          {hasGap ? (
+          {hasComparison ? (
             <>
               <div
                 style={{
@@ -314,7 +332,7 @@ function PriceStory({
             color: "rgba(255,250,244,.76)",
           }}
         >
-          {hasGap ? "Compare current prices" : "See the current listing"}
+          {hasComparison ? "Compare current prices" : "See the current listing"}
         </span>
       </div>
 

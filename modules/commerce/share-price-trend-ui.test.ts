@@ -2,6 +2,43 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import { buildPriceStoryLayout } from "@/app/(site)/share/[slug]/story/route";
+
+test("price-story download uses comparison mode only for distinct prices", () => {
+  assert.deepEqual(
+    buildPriceStoryLayout({
+      offers: [{ priceLabel: "₦20,500" }],
+      spreadLabel: null,
+    }),
+    {
+      lowest: "₦20,500",
+      highest: "₦20,500",
+      hasComparison: false,
+      headlineAmount: null,
+    },
+  );
+
+  assert.equal(
+    buildPriceStoryLayout({
+      offers: [{ priceLabel: "₦20,500" }, { priceLabel: "₦20,500" }],
+      spreadLabel: "₦0",
+    }).hasComparison,
+    false,
+  );
+
+  assert.deepEqual(
+    buildPriceStoryLayout({
+      offers: [{ priceLabel: "₦20,500" }, { priceLabel: "₦24,000" }],
+      spreadLabel: "₦3,500",
+    }),
+    {
+      lowest: "₦20,500",
+      highest: "₦24,000",
+      hasComparison: true,
+      headlineAmount: "₦3,500",
+    },
+  );
+});
 
 test("share cards carry compact market and exact-store movement without steady noise", async () => {
   const root = process.cwd();
@@ -129,4 +166,7 @@ test("share cards carry compact market and exact-store movement without steady n
     trendStory,
     /Two dated observations are needed for time movement\./,
   );
+  assert.match(trendStory, /value=\{headlineAmount\}/);
+  assert.doesNotMatch(trendStory, /view\.spreadLabel! : lowest/);
+  assert.match(data, /offers\.length >= 2 && highest > lowest/);
 });

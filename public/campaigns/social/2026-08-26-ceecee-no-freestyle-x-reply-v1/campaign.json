@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-26-ceecee-no-freestyle-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-26T21:11:49.628Z",
+  "dataCheckedAt": "2026-08-26T21:10:34.000Z",
+  "objective": "join a current Nigerian perfume-shopping conversation with a concise, non-promotional reaction reply and retain a performance baseline",
+  "sourcePost": {
+    "url": "https://x.com/Ceecee_Yargata/status/2092612438243914111",
+    "handle": "@Ceecee_Yargata",
+    "observedText": "A wife said her husband made a specific designer-perfume request for his birthday after she had planned a different fragrance, then reacted to the loss of surprise freedom.",
+    "visibleEngagementBeforeReply": {
+      "replies": 2,
+      "reposts": 2,
+      "likes": 13,
+      "views": 472
+    }
+  },
+  "copy": {
+    "post": "First request, no room for freestyle 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "native-x-gif",
+    "pickerLabel": "Shocked Funke Akindele GIF by Amazon Prime Video",
+    "recognisableSubject": "Funke Akindele",
+    "rightsBoundary": "X-only native GIF; not downloaded, archived, edited or cleared for cross-platform reuse."
+  },
+  "careBoundary": "No product, price, retailer, savings, suitability or clinical claim.",
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-26T21:11:49.628Z",
+      "externalId": "2092721703365550547",
+      "publicUrl": "https://x.com/jelocare/status/2092721703365550547",
+      "replyTo": "https://x.com/Ceecee_Yargata/status/2092612438243914111",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @Ceecee_Yargata"
+    }
+  ],
+  "measurement": {
+    "initialObservedAt": "2026-08-26T21:11:49.628Z",
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 0
+    },
+    "sourceAfterPublication": {
+      "replies": 3,
+      "reposts": 2,
+      "likes": 13,
+      "views": 476
+    },
+    "note": "Recheck later from the public reply; source totals are observational context and not a prediction of reply performance."
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "reaction",
+    "setup": "A first specific birthday request removes the giver's freedom to improvise.",
+    "punchline": "The request is reframed as a no-freestyle instruction, while the native Funke Akindele GIF supplies the reaction.",
+    "culturalCue": null,
+    "fictionalDialogue": false
+  }
+}

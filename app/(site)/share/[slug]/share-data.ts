@@ -88,7 +88,8 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
   );
   const lowest = offers[0].priceNgn as number;
   const highest = offers[offers.length - 1].priceNgn as number;
-  const spread = offers.length >= 2 ? highest - lowest : null;
+  const spread =
+    offers.length >= 2 && highest > lowest ? highest - lowest : null;
   const observedIso =
     summary.lastCheckedAt ??
     offers[0].checkedAt ??

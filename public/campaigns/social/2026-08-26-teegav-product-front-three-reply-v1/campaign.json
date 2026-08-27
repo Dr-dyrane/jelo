@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-26-teegav-product-front-three-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-26T18:19:31Z",
+  "dataCheckedAt": "2026-08-26T18:19:31Z",
+  "objective": "reply to a Chelsea-supporting Nigerian creator asking for a skincare routine, using the approved product-specific front-three creative without a simulated account handle",
+  "sourcePost": {
+    "url": "https://x.com/teegav_official/status/2092663971702792393",
+    "handle": "@teegav_official",
+    "observedText": "Asked to be plugged to a skincare routine that will not finish his money, then joked that people should buy what he sells so he can afford it.",
+    "checkedAt": "2026-08-26T18:19:31Z"
+  },
+  "sourceCreative": {
+    "path": "../2026-08-25-chelsea-sofascore-product-front-three-meme-v5/final/chelsea-sofascore-product-front-three-feed.png",
+    "sha256": "e1365f44f4396526c6ccef8312d5d16ab19885413fe62f03f0e98f622e8e885f",
+    "edit": "crop only: remove the simulated JeloCare account header while preserving all approved creative content"
+  },
+  "products": [
+    {
+      "slug": "cerave-foaming-facial-cleanser",
+      "brand": "CeraVe",
+      "name": "Foaming Facial Cleanser",
+      "size": "236 ml",
+      "creativeRole": "Cleanse"
+    },
+    {
+      "slug": "dang-azelaic-acid-serum-30ml",
+      "brand": "DANG",
+      "name": "Azelaic Acid Serum",
+      "size": "30 ml",
+      "creativeRole": "Treat"
+    },
+    {
+      "slug": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+      "brand": "La Roche-Posay",
+      "name": "Anthelios UVMune 400 Oil Control Fluid SPF50+",
+      "size": "50 ml",
+      "creativeRole": "Protect"
+    }
+  ],
+  "careBoundary": "Product-specific creative is retained from the previously approved campaign. Do not describe the treatment as a moisturiser or make price, affordability, suitability, stock, savings, authenticity, or clinical claims.",
+  "copy": {
+    "post": "Cleanse. Treat. Protect. Front three sorted 😭",
+    "visualSetup": "Chelsea finally found their front three.",
+    "visualTurn": "We found yours.",
+    "embeddedUrl": null,
+    "visibleHandle": null
+  },
+  "creative": [
+    {
+      "mode": "light",
+      "path": "final/teegav-product-front-three-reply.png",
+      "width": 1080,
+      "height": 1190,
+      "sha256": "f1603c2bf47c29a7c333a5570d452c706d52eeb3a1908fc111f596eec8a4bda8",
+      "generationRoute": "deterministic-crop-of-approved-product-front-three-creative"
+    }
+  ],
+  "rights": "The SofaScore crop remains bounded to this user-approved derivative. Do not imply endorsement by Chelsea, the players, SofaScore, the products, or the source account.",
+  "channels": ["x-reply"],
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-26T18:21:52Z",
+      "externalId": "2092678899486675435",
+      "publicUrl": "https://x.com/jelocare/status/2092678899486675435",
+      "replyTo": "https://x.com/teegav_official/status/2092663971702792393",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @teegav_official"
+    }
+  ]
+}
