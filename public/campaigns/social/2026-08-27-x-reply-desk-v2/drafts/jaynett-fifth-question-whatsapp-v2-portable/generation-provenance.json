@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "recordId": "2026-08-27-jaynett-fifth-question-editorial-generation-provenance-v1",
+  "sourceTaskId": "01a044a4-550c-7083-8763-d4f4d6945d4a",
+  "provenanceBoundary": "Image generation is non-deterministic. These prompts document how the concept was made but cannot reproduce identical pixels. The observed pass-2 source and final export are frozen by SHA-256 only; their third-party pixels are not stored in Git without documented rightsholder permission. The deterministic recipe becomes portable when a rights-cleared input matching the recorded source hash is supplied.",
+  "inputAssets": [
+    {
+      "role": "attached skincare meme",
+      "repositoryPath": null,
+      "repositoryStored": false,
+      "observedSha256": "5a12fb2aae7e14bc7ea6346b78b668f2ad9f2e5677cf551d6c5f69ef1302b04b",
+      "sourceUrl": "https://x.com/_ViralCats_/status/2081622449720893474",
+      "rightsBoundary": "Watermarked third-party media with user authorization for the recorded native X reply only; no cross-platform licence was independently verified."
+    },
+    {
+      "role": "canonical JeloCare avatar reference",
+      "path": "../../../../../icons/jelocare-icon-1024.png",
+      "sha256": "94e17c58bf3c6283f6ce9b9941c9086ec0407a5db7c20fde8f46dcb7e68f7992"
+    }
+  ],
+  "generationPasses": [
+    {
+      "pass": 1,
+      "tool": "image_gen.imagegen",
+      "startedAt": "2026-08-27T20:46:07.833Z",
+      "completedAt": "2026-08-27T20:46:49.541Z",
+      "toolResultId": "exec-cf79fa52-7e2c-4dbd-976b-1a79e5ab4026",
+      "inputMode": {
+        "numLastImagesToInclude": 1,
+        "meaning": "the user-attached watermarked skincare meme was the sole image input"
+      },
+      "prompt": "Use case: compositing.\nAsset type: private editorial concept preview for a 1080 x 1920 vertical social-story clip.\nInput image: the attached skincare cat meme is the edit target and must remain visually unchanged, including its existing caption and @Viral Cats watermark; do not redraw or modify it.\nPrimary request: extend the composition into a clean black, publisher-style social thread. Above the meme, show a compact source post and JeloCare reply, then place the complete attached meme beneath the reply as the hero media.\nSource identity and copy, verbatim:\n\"Jaynett 🦋\" followed by a small blue verification badge, then \"@wunmisznn\"\n\"Instead of asking people why they are single, ask them these questions instead:\n~ Do you need some money?\n~ Should I take you on a vacation?\n~ Should I help you get a scholarship?\n~ Should I buy you lunch?\n~ Should I restock your skincare?\n~ What’s bothering you at the moment?\nYou’re welcome.\"\nReply identity and copy, verbatim:\n\"JeloCare\" followed by a small blue verification badge, then \"@jelocare\"\n\"That fifth question? Please ask with your card in hand 😭\"\nComposition: source post first, a thin muted connector line, JeloCare reply second, attached meme directly below. Dense enough to fit but comfortably readable on a phone.\nStyle: social-native editorial crop inspired by clean Nigerian publisher thread slides, not a glossy advertisement.\nConstraints: no timestamps, no reply/repost/like/view counts, no action icons, no platform logo, no Grok/menu controls, no floating compose button, no URLs, no extra labels, no additional branding. Keep the JeloCare identity secondary to the joke. Do not invent engagement or imply the reply was actually published. This is a clearly simulated private concept preview.",
+      "output": {
+        "repositoryPath": null,
+        "repositoryStored": false,
+        "width": 941,
+        "height": 1672,
+        "observedSha256": "0887070f4df73880e114c1f3e4f3278dc55f1c4fced5f61c8daea28b33920e53"
+      }
+    },
+    {
+      "pass": 2,
+      "tool": "image_gen.imagegen",
+      "startedAt": "2026-08-27T20:47:06.963Z",
+      "completedAt": "2026-08-27T20:47:48.155Z",
+      "toolResultId": "exec-342b3cd5-634f-4383-8347-eaa178ec5675",
+      "referencedInputs": [
+        "generated concept pass 1 with observed SHA-256 0887070f4df73880e114c1f3e4f3278dc55f1c4fced5f61c8daea28b33920e53",
+        "../../../../../icons/jelocare-icon-1024.png"
+      ],
+      "prompt": "Use case: precise-object-edit.\nImage 1 is the edit target. Image 2 is the exact canonical JeloCare avatar reference.\nMake only these two identity corrections:\n1. Replace the photorealistic woman profile image beside Jaynett with a simple dark circular identity token containing one centered blue butterfly symbol. It must not depict or imply a real person.\n2. Replace the blue-and-white JeloCare profile image with the exact coral-gradient dropper-bottle icon from Image 2, cropped as a circle without changing its colors or geometry.\nPreserve everything else in Image 1 exactly: all wording, spellings, line breaks, verification marks, handles, black layout, connector lines, attached skincare cat meme, @Viral Cats watermark, dimensions, spacing, and absence of timestamps/action icons/counts/platform logo. Do not add or remove any other element. Keep this as a simulated private concept preview.",
+      "output": {
+        "repositoryPath": null,
+        "repositoryStored": false,
+        "width": 941,
+        "height": 1672,
+        "observedSha256": "a9fd47e10a1aa60b4bcf65838da3c39ce351f106e8b5e8a550aef7c81e23774c",
+        "acceptedAsLockedRendererSource": true,
+        "archiveBlocker": "contains third-party media without repository reuse permission"
+      }
+    }
+  ],
+  "historicalApprovedPreview": {
+    "repositoryPath": null,
+    "repositoryStored": false,
+    "width": 900,
+    "height": 1600,
+    "observedSha256": "2a74b972b49dc5e13956d875f37effcc05dd06b773dfc83a6e3d9057c04578b4",
+    "provenance": "User-supplied resized derivative of pass 2. The exact clipboard/UI resize encoder was not observed, so this remains a locked historical preview rather than the portable build target."
+  },
+  "portableExport": {
+    "renderer": "../../tools/reply-thread-clip/render.mjs",
+    "config": null,
+    "engine": "sharp@0.34.5",
+    "repositoryPath": null,
+    "repositoryStored": false,
+    "width": 1080,
+    "height": 1920,
+    "observedSha256": "6b5ae00ea30bf1f86dfb3d8039e42ef5fba6f45cd841148a6c4afc0e8b4d4c80",
+    "layoutRecipe": {
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "background": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "alpha": 1
+        }
+      },
+      "input": {
+        "observedSha256": "a9fd47e10a1aa60b4bcf65838da3c39ce351f106e8b5e8a550aef7c81e23774c",
+        "width": 941,
+        "height": 1672
+      },
+      "layer": {
+        "kind": "image",
+        "resize": {
+          "width": 1080,
+          "height": 1920,
+          "fit": "cover",
+          "position": "centre"
+        },
+        "position": {
+          "left": 0,
+          "top": 0
+        }
+      },
+      "output": {
+        "kind": "poster-png"
+      }
+    },
+    "unlockCondition": "supply a rights-cleared input with the recorded pass-2 hash or intentionally approve a new rights-clean source and output hash"
+  }
+}

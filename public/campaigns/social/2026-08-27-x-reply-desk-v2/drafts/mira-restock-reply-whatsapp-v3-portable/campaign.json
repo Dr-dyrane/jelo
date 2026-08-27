@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-mira-restock-reply-whatsapp-editorial-v3-portable",
+  "status": "draft",
+  "createdAt": "2026-08-27T21:15:24Z",
+  "dataCheckedAt": "2026-08-27T20:31:32.322Z",
+  "objective": "replace the machine-specific Mira clipping build with a declarative, repository-pinned renderer while preserving the accepted poster and GIF bytes exactly",
+  "supersedesForPortability": "../mira-restock-reply-whatsapp-v2-editorial/campaign.json",
+  "sourcePost": {
+    "url": "https://x.com/theBigMira_/status/2092997991879561232",
+    "handle": "@theBigMira_",
+    "observedText": "I was supposed to restock some of my skincare products today but it’s raining and I can’t drive in the rain 😭😭"
+  },
+  "sourceReply": {
+    "url": "https://x.com/jelocare/status/2093070662944628842",
+    "handle": "@jelocare",
+    "observedText": "The last two drops: “Madam abeg, we no agree for overtime o” 😭"
+  },
+  "portableBuild": {
+    "renderer": "../../tools/reply-thread-clip/render.mjs",
+    "config": "reply-thread-clip.json",
+    "engine": "sharp@0.34.5",
+    "pathsResolveRelativeToConfig": true,
+    "verification": "--check renders in memory and verifies committed output hashes"
+  },
+  "creative": [
+    {
+      "kind": "animated-whatsapp-status",
+      "path": "mira-restock-thread-whatsapp-status-v3.gif",
+      "width": 1080,
+      "height": 1920,
+      "frames": 3,
+      "frameDelaysMs": [900, 1100, 1300],
+      "loop": 0,
+      "sha256": "78c29ce933ce79695c94664bf87d2ad0f1b0a106605f33e299294d88b7380e6b",
+      "byteIdenticalToV2": true
+    },
+    {
+      "kind": "static-review-poster",
+      "path": "mira-restock-thread-whatsapp-poster-v3.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "5ccf68e39032d99664ebfea5726694bebafb056c30ce49d0cb166bac02959c15",
+      "byteIdenticalToV2": true
+    }
+  ],
+  "sourceAssets": [
+    {
+      "kind": "user-provided-live-thread-reference",
+      "path": "../mira-restock-reply-whatsapp-v2-editorial/reference-thread-capture.png",
+      "sha256": "5496f55cfb4980bf3a0c816f228318c88e3ded0676b75d0df5d6fcb734686e6e"
+    },
+    {
+      "kind": "jelocare-owned-animated-reaction",
+      "path": "../../publications/mira-last-two-drops-overtime/mira-last-two-drops-watermarked.gif",
+      "sha256": "fb3a51b2f6406baf8eeaa191ad7cc9c9ca880648a870ddcd7d921fe8e11cf191"
+    },
+    {
+      "kind": "portable-render-config",
+      "path": "reply-thread-clip.json",
+      "sha256": "d7edca876d1faadfb19aaaa4425f2122cd5ac94ef99315e3577e6a6c0e49e8d5"
+    }
+  ],
+  "rightsBoundary": {
+    "status": "permission-required-before-cross-platform-publication",
+    "note": "The treatment reproduces Mira's public X avatar, handle and wording. Native X visibility does not grant cross-platform reuse rights. Obtain the account holder's permission before WhatsApp publication, or replace the source identity and wording with a rights-clean paraphrased treatment. The JeloCare reply and animation are owned assets."
+  },
+  "claimBoundary": "The creative makes no product, price, stock, retailer, suitability, care-outcome or clinical claim. It deliberately omits engagement metrics.",
+  "channels": ["whatsapp-status"],
+  "publication": []
+}

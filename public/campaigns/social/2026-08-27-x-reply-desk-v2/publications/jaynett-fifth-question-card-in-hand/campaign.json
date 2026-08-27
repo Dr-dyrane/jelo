@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-jaynett-fifth-question-card-in-hand-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-27T21:06:40.142Z",
+  "dataCheckedAt": "2026-08-27T21:06:46.883Z",
+  "objective": "join a public relationship-advice thread by isolating its skincare-restock question and adding a visual joke about the cost of skincare",
+  "sourcePost": {
+    "url": "https://x.com/wunmisznn/status/2093013773015474193",
+    "handle": "@wunmisznn",
+    "displayName": "Jaynett 🦋",
+    "observedText": "Instead of asking people why they are single, ask them these questions instead:\n~ Do you need some money?\n~ Should I take you on a vacation?\n~ Should I help you get a scholarship?\n~ Should I buy you lunch?\n~ Should I restock your skincare?\n~ What’s bothering you at the moment?\nYou’re welcome.",
+    "visibleEngagementAtPublication": {
+      "replies": 19,
+      "reposts": 27,
+      "likes": 31,
+      "bookmarks": 3,
+      "views": 580
+    },
+    "visibleEngagementCheckedAt": "2026-08-27T21:06:40.142Z",
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-27T21:05:53.550Z",
+      "result": "no-results"
+    }
+  },
+  "copy": {
+    "post": "That fifth question? Please ask with your card in hand 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "user-supplied-watermarked-third-party-image",
+    "repositoryPath": null,
+    "repositoryStored": false,
+    "observedSha256": "5a12fb2aae7e14bc7ea6346b78b668f2ad9f2e5677cf551d6c5f69ef1302b04b",
+    "dimensions": {
+      "width": 959,
+      "height": 1080
+    },
+    "sourceUrl": "https://x.com/_ViralCats_/status/2081622449720893474",
+    "sourceHandle": "@_ViralCats_",
+    "sourceCheckedAt": "2026-08-27T21:01:12.943Z",
+    "sourceObservedText": "Skincare? More like scamcare. 😾 #catmeme #catmemes #meme #memes #funny #funnymemes #ViralCats #cats #cat #skincare",
+    "sourceVisibleEngagement": {
+      "replies": 3,
+      "reposts": 5,
+      "likes": 52,
+      "bookmarks": 3,
+      "views": 1985
+    },
+    "watermarkObserved": "@Viral Cats",
+    "userAuthorization": {
+      "authorizedAt": "2026-08-27T21:02:49.980Z",
+      "scope": "use this exact supplied image in the approved native X reply"
+    },
+    "rightsBoundary": "The visible watermark preserves attribution but is not a reuse licence. Dyrane explicitly authorized this one native X upload; no independent rightsholder permission or compatible licence was verified, so the bytes are not archived in Git. Do not treat this record as authority for repository storage, WhatsApp, Instagram, advertising, paid distribution, editing, removal of the watermark, or another post."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-27T21:06:40.142Z",
+      "externalId": "2093082785930260642",
+      "publicUrl": "https://x.com/jelocare/status/2093082785930260642",
+      "replyTo": "https://x.com/wunmisznn/status/2093013773015474193",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @wunmisznn"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "confirmedAt": "2026-08-27T21:06:09.126Z",
+    "confirmedUnit": "same target, exact approved copy, and exact supplied watermarked image"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-27T21:06:46.883Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": true,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": null
+    }
+  },
+  "mechanism": "The source offers generous questions to ask instead of interrogating single people; JeloCare isolates the fifth, skincare-restock question, and the meme supplies the financial consequence rather than restating the copy.",
+  "claimBoundary": "The reply makes no product, price, stock, retailer, suitability, care-outcome or clinical claim. Visible source metrics are time-stamped context only and are not evidence that JeloCare caused engagement or conversion."
+}

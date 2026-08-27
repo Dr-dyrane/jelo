@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-jaynett-fifth-question-whatsapp-editorial-v2-portable",
+  "status": "draft",
+  "createdAt": "2026-08-27T21:15:24Z",
+  "dataCheckedAt": "2026-08-27T21:06:46.883Z",
+  "objective": "preserve the exact method, hashes and rights gate for the approved Jaynett and JeloCare thread treatment without archiving unlicensed third-party pixels",
+  "sourcePost": {
+    "url": "https://x.com/wunmisznn/status/2093013773015474193",
+    "handle": "@wunmisznn",
+    "observedText": "Instead of asking people why they are single, ask them these questions instead:\n~ Do you need some money?\n~ Should I take you on a vacation?\n~ Should I help you get a scholarship?\n~ Should I buy you lunch?\n~ Should I restock your skincare?\n~ What’s bothering you at the moment?\nYou’re welcome."
+  },
+  "sourceReply": {
+    "url": "https://x.com/jelocare/status/2093082785930260642",
+    "handle": "@jelocare",
+    "observedText": "That fifth question? Please ask with your card in hand 😭",
+    "publishedAt": "2026-08-27T21:06:40.142Z",
+    "liveVerifiedAt": "2026-08-27T21:06:46.883Z"
+  },
+  "editorialTreatment": {
+    "kept": [
+      "exact observed source display name, handle and wording",
+      "exact published JeloCare display name, handle and reply",
+      "complete source-marked skincare meme and its @Viral Cats watermark"
+    ],
+    "removed": [
+      "post and reply ages",
+      "Grok and overflow controls",
+      "reply, repost, like, view, bookmark and share action rows",
+      "all X engagement counts",
+      "platform logo and floating compose button"
+    ],
+    "identityTreatment": "Jaynett is represented by a non-photographic butterfly token; JeloCare uses the canonical repository avatar.",
+    "truthBoundary": "This is a generated editorial treatment based on an exchange that was later published. It is not a live X screenshot and cannot be used as evidence of platform state."
+  },
+  "creative": [
+    {
+      "kind": "historical-approved-preview",
+      "repositoryPath": null,
+      "repositoryStored": false,
+      "width": 900,
+      "height": 1600,
+      "observedSha256": "2a74b972b49dc5e13956d875f37effcc05dd06b773dfc83a6e3d9057c04578b4",
+      "generationRoute": "user-supplied resized derivative of the accepted identity-corrected generated concept; exact resize encoder not observed",
+      "archiveBlocker": "contains the third-party @Viral Cats image without documented rightsholder permission for repository or cross-platform reuse"
+    },
+    {
+      "kind": "portable-whatsapp-status-poster",
+      "repositoryPath": null,
+      "repositoryStored": false,
+      "width": 1080,
+      "height": 1920,
+      "observedSha256": "6b5ae00ea30bf1f86dfb3d8039e42ef5fba6f45cd841148a6c4afc0e8b4d4c80",
+      "generationRoute": "deterministic reply-thread-clip/v1 export from the observed identity-corrected concept using sharp@0.34.5",
+      "archiveBlocker": "the locked source and output contain the third-party @Viral Cats image; preserve hashes and recipe only until compatible permission is documented"
+    }
+  ],
+  "sourceAssets": [
+    {
+      "kind": "generated-concept-pass-1",
+      "repositoryPath": null,
+      "repositoryStored": false,
+      "observedSha256": "0887070f4df73880e114c1f3e4f3278dc55f1c4fced5f61c8daea28b33920e53"
+    },
+    {
+      "kind": "accepted-identity-corrected-renderer-source",
+      "repositoryPath": null,
+      "repositoryStored": false,
+      "observedSha256": "a9fd47e10a1aa60b4bcf65838da3c39ce351f106e8b5e8a550aef7c81e23774c"
+    },
+    {
+      "kind": "generation-provenance",
+      "path": "generation-provenance.json"
+    }
+  ],
+  "repositoryArchive": {
+    "pixelAssetsStored": false,
+    "storedEvidence": [
+      "exact source and reply URLs/copy/timestamps",
+      "all observed asset hashes and dimensions",
+      "both image-generation prompts and result IDs",
+      "deterministic 1080x1920 layout recipe"
+    ],
+    "unlockCondition": "document compatible rightsholder permission for repository storage and the intended cross-platform reuse, then supply an input matching the recorded pass-2 SHA-256 or make a rights-clean replacement"
+  },
+  "rightsBoundary": {
+    "status": "blocked-rightsholder-permission-required",
+    "note": "Dyrane authorized the source-marked meme for the recorded native X reply, not for Git storage, WhatsApp or another channel. The slide also reproduces Jaynett's public identity and wording. Native X visibility and a visible watermark do not grant repository or cross-platform reuse rights. Obtain account-holder/rightsholder permission or replace those elements with rights-clean original treatment before storing or publishing the pixels."
+  },
+  "claimBoundary": "The creative makes no product, price, stock, retailer, suitability, care-outcome or clinical claim. It deliberately omits engagement metrics.",
+  "channels": ["whatsapp-status"],
+  "publication": []
+}
