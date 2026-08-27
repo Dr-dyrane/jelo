@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-mira-restock-reply-whatsapp-editorial-v2",
+  "status": "draft",
+  "createdAt": "2026-08-27T20:39:41Z",
+  "dataCheckedAt": "2026-08-27T20:31:32.322Z",
+  "objective": "turn the live Mira skincare-restock exchange into a clean WhatsApp Status thread: recognizable source and reply copy, no X engagement chrome, and JeloCare's owned animated reply as the hero",
+  "sourcePost": {
+    "url": "https://x.com/theBigMira_/status/2092997991879561232",
+    "handle": "@theBigMira_",
+    "observedText": "I was supposed to restock some of my skincare products today but it’s raining and I can’t drive in the rain 😭😭",
+    "visibleEngagementAtCapture": {
+      "replies": 3,
+      "reposts": 4,
+      "likes": 13,
+      "bookmarks": 0,
+      "views": 1906
+    }
+  },
+  "sourceReply": {
+    "url": "https://x.com/jelocare/status/2093070662944628842",
+    "handle": "@jelocare",
+    "observedText": "The last two drops: “Madam abeg, we no agree for overtime o” 😭",
+    "visibleEngagementAtCapture": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 5
+    }
+  },
+  "publisherMechanismStudy": [
+    {
+      "publisher": "YabaLeftOnline",
+      "url": "https://www.instagram.com/yabaleftonline/p/Dci77FDjGiu/",
+      "checkedAt": "2026-08-27T20:35:40Z",
+      "observedMechanism": "preserves recognizable post and reply identity and wording while omitting source-platform timestamps, action controls and engagement counts from the slide",
+      "assetReused": false
+    },
+    {
+      "publisher": "YabaLeftOnline",
+      "url": "https://www.instagram.com/yabaleftonline/p/DcjWGyeMwz1/",
+      "checkedAt": "2026-08-27T20:35:40Z",
+      "observedMechanism": "uses a clean author-and-copy screenshot without the X metrics or action bar",
+      "assetReused": false
+    },
+    {
+      "publisher": "Instablog9ja",
+      "url": "https://www.instagram.com/instablog9ja/p/DcjlKmDDDvK/",
+      "checkedAt": "2026-08-27T20:35:40Z",
+      "observedMechanism": "rebuilds the source into a publication-owned headline card rather than retaining social-platform chrome",
+      "assetReused": false
+    }
+  ],
+  "editorialTreatment": {
+    "kept": [
+      "source avatar, display name, verification mark, handle and exact observed wording",
+      "JeloCare avatar, display name, verification mark, handle and exact published reply",
+      "JeloCare-owned animated reply GIF with its embedded watermark"
+    ],
+    "removed": [
+      "post and reply ages",
+      "Grok and overflow controls",
+      "reply, repost, like, view, bookmark and share action rows",
+      "all visible X engagement counts",
+      "floating blue compose button"
+    ],
+    "publisherAssetReuse": "none; only layout mechanisms were studied"
+  },
+  "creative": [
+    {
+      "kind": "animated-whatsapp-status",
+      "path": "mira-restock-thread-whatsapp-status-v2.gif",
+      "width": 1080,
+      "height": 1920,
+      "frames": 3,
+      "frameDelaysMs": [900, 1100, 1300],
+      "loop": 0,
+      "sha256": "78c29ce933ce79695c94664bf87d2ad0f1b0a106605f33e299294d88b7380e6b",
+      "generationRoute": "deterministic Sharp reconstruction from the user-provided live X thread capture plus the existing JeloCare-owned GIF"
+    },
+    {
+      "kind": "static-review-poster",
+      "path": "mira-restock-thread-whatsapp-poster-v2.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "5ccf68e39032d99664ebfea5726694bebafb056c30ce49d0cb166bac02959c15",
+      "generationRoute": "first-frame review export from the animated composition"
+    }
+  ],
+  "sourceAssets": [
+    {
+      "kind": "user-provided-live-thread-reference",
+      "path": "reference-thread-capture.png",
+      "sha256": "5496f55cfb4980bf3a0c816f228318c88e3ded0676b75d0df5d6fcb734686e6e"
+    },
+    {
+      "kind": "jelocare-owned-animated-reaction",
+      "path": "../../publications/mira-last-two-drops-overtime/mira-last-two-drops-watermarked.gif",
+      "sha256": "fb3a51b2f6406baf8eeaa191ad7cc9c9ca880648a870ddcd7d921fe8e11cf191"
+    },
+    {
+      "kind": "deterministic-build-script",
+      "path": "build.mjs",
+      "sha256": "96c707ea0aed9279cfa150486a5177549fa4243da11d0e5efcc909b6a463bdd8"
+    }
+  ],
+  "rightsBoundary": {
+    "status": "permission-required-before-cross-platform-publication",
+    "note": "The treatment reproduces Mira's public X avatar, handle and wording. Native X visibility does not grant cross-platform reuse rights. Obtain the account holder's permission before WhatsApp publication, or replace the source identity and wording with a rights-clean paraphrased treatment. The JeloCare reply and animated reaction are owned assets. No Instablog9ja or YabaLeftOnline wording, screenshots, identities, comments, footage, audio or media are reused."
+  },
+  "claimBoundary": "The creative makes no product, price, stock, retailer, suitability, care-outcome or clinical claim. Source engagement figures remain evidence in this record only and are deliberately absent from the artwork.",
+  "channels": ["whatsapp-status"],
+  "publication": []
+}

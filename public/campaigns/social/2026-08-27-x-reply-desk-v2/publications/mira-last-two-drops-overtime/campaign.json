@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-mira-last-two-drops-overtime-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-27T20:18:29.083Z",
+  "dataCheckedAt": "2026-08-27T20:19:11.462Z",
+  "objective": "extend a rain-delayed skincare restock observation with product personification and a JeloCare-owned animated reaction",
+  "sourcePost": {
+    "url": "https://x.com/theBigMira_/status/2092997991879561232",
+    "handle": "@theBigMira_",
+    "observedText": "She planned to restock skincare products but said the rain prevented her from driving.",
+    "visibleEngagementBeforeReply": {
+      "replies": 2,
+      "reposts": 4,
+      "likes": 13,
+      "bookmarks": 0,
+      "views": 1872
+    }
+  },
+  "copy": {
+    "post": "The last two drops: “Madam abeg, we no agree for overtime o” 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "jelocare-owned-animated-reaction",
+    "path": "mira-last-two-drops-watermarked.gif",
+    "sha256": "fb3a51b2f6406baf8eeaa191ad7cc9c9ca880648a870ddcd7d921fe8e11cf191",
+    "dimensions": {
+      "width": 512,
+      "height": 768
+    },
+    "frames": 3,
+    "provenance": "Original three-panel fictional skincare-drop storyboard generated for JeloCare, precisely edited to add a JeloCare watermark to each panel, then mechanically converted into a looping GIF.",
+    "rightsBoundary": "No third-party screenshot, identity, footage, audio, GIF, product packshot, comment or source media was reused. The animation makes no product, price, stock, suitability or clinical claim."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-27T20:18:29.083Z",
+      "externalId": "2093070662944628842",
+      "publicUrl": "https://x.com/jelocare/status/2093070662944628842",
+      "replyTo": "https://x.com/theBigMira_/status/2092997991879561232",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @theBigMira_"
+    }
+  ],
+  "correction": {
+    "deletedExternalId": "2093069812566290468",
+    "deletedPublicUrl": "https://x.com/jelocare/status/2093069812566290468",
+    "reason": "The first publication omitted the required JeloCare watermark. It was deleted after explicit replacement confirmation and republished with the watermarked GIF.",
+    "visibleEngagementAtDeletion": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 3
+    }
+  },
+  "measurement": {
+    "initialObservedAt": "2026-08-27T20:19:11.462Z",
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0
+    },
+    "sourceAfterPublication": {
+      "replies": 3,
+      "reposts": 4,
+      "likes": 13,
+      "views": 1872
+    },
+    "mechanism": "Product personification plus a familiar overtime boundary turns the final drops into workers resisting extra duty; the three-panel loop supplies setup, protest and reaction.",
+    "note": "The source reply count includes the corrected JeloCare reply. Recheck later; source totals are context, not evidence that this reply caused engagement or conversion."
+  }
+}
