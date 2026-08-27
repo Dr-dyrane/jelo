@@ -1016,7 +1016,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
-
     exactNg(
       "Lux Beauty",
       "https://www.luxbeautyng.com/product/cosrx-salicylic-acid-daily-gentle-cleanser/",
@@ -1024,9 +1023,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       9850,
       "COSRX Salicylic Acid Daily Gentle Cleanser",
       "150 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+      },
     ),
-
     exactNg(
       "Deoset",
       "https://deoset.com/product/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/",
@@ -1041,7 +1042,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
-
     exactNg(
       "CSi Grocery",
       "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/cosrx-salicylic-acid-daily-gentle-cleanser/",
@@ -1050,14 +1050,13 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic Acid Daily Gentle Cleanser – 150ml",
       "150 ml",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
+        observedAt: "2026-08-27T21:27:25Z",
+        expiresAt: "2026-09-03T21:27:25Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 5,
       },
     ),
-
     exactNg(
       "BuyBetter",
       "https://buybetter.ng/product/cosrx-salicylic-acid-daily-gentle-cleanser/",
@@ -1072,7 +1071,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
-
     exactNg(
       "Teeka4",
       "https://teeka4.com/shop/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/",
@@ -1087,7 +1085,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: false,
       },
     ),
-
     exactNg(
       "Medplus",
       "https://medplusnig.com/product/cosrx-salicylic-acid-daily-cleanser-150m-O1Ne5k",
@@ -1102,7 +1099,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
-
     exactNg(
       "Perona Beauty",
       "https://peronabeauty.com/product/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/",
@@ -1111,13 +1107,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic Acid Daily Gentle Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
+        observedAt: "2026-08-27T21:27:25Z",
+        expiresAt: "2026-09-03T21:27:25Z",
         stock: "in-stock",
         available: true,
       },
     ),
-
     exactNg(
       "Rhema Beauty Shop",
       "https://rhemabeautyshop.com/shop/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/",
@@ -1132,7 +1127,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         available: true,
       },
     ),
-
     exactNg(
       "Care to Beauty",
       "https://www.caretobeauty.com/ng/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/",
@@ -1804,7 +1798,28 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       22000,
       "Azelaic Acid Suspension 10%",
       "30 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-27T21:24:36Z",
+        expiresAt: "2026-09-03T21:24:36Z",
+        stock: "in-stock",
+        available: true,
+        verificationMethod: "api",
+      },
+    ),
+    exactNg(
+      "MakeupAlleyNG",
+      "https://makeupalleyng.com/products/the-ordinary-azelaic-acid-suspension-10",
+      92,
+      34500,
+      "The Ordinary Azelaic Acid Suspension 10% 30ml",
+      "30 ml",
+      {
+        observedAt: "2026-08-27T21:24:36Z",
+        expiresAt: "2026-09-03T21:24:36Z",
+        stock: "in-stock",
+        available: true,
+        verificationMethod: "api",
+      },
     ),
     exactNg(
       "Perona Beauty",
@@ -2885,7 +2900,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       16780,
       "Skin by Zaron Vitamin C Body Lotion",
       "500 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+      },
     ),
     exactNg(
       "Deoset",
@@ -2894,7 +2912,25 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       16600,
       "SKIN BY ZARON -VITAMIN C (Brightening & Moisturizing) Body Lotion 500ml",
       "500 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+      },
+    ),
+    exactNg(
+      "BuyBetter",
+      "https://buybetter.ng/product/skin-by-zaron-vitamin-c-brightening-and-moisturizing-body-lotion-500ml/",
+      97,
+      14800,
+      "Skin By Zaron Vitamin C Brightening and Moisturizing Body Lotion 500ml",
+      "500 ml",
+      {
+        observedAt: "2026-08-27T21:21:08.156Z",
+        expiresAt: "2026-09-03T21:21:08.156Z",
+        stock: "low-stock",
+        available: true,
+        inventoryQuantity: 10,
+      },
     ),
     exactNg(
       "Perona Beauty",
@@ -2903,7 +2939,31 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       17000,
       "Skin By Zaron Vitamin C Brightening/Moisturizing Body Lotion",
       "500 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-27T21:21:14.157Z",
+        expiresAt: "2026-09-03T21:21:14.157Z",
+        stock: "in-stock",
+        available: true,
+      },
+    ),
+  ],
+  "nizoral-ad-ketoconazole-shampoo": [
+    exactNg(
+      "Konga Health",
+      "https://www.konga.com/product/nizoral-anti-dandruff-shampoo-with-1-ketoconazole-fresh-scent-200ml-7025754?cid=5534",
+      80,
+      12000,
+      "Nizoral Anti-Dandruff Shampoo with 1% Ketoconazole, Fresh Scent",
+      "200 ml",
+      {
+        observedAt: "2026-08-27T21:27:26Z",
+        expiresAt: "2026-09-03T21:27:26Z",
+        stock: "in-stock",
+        available: true,
+        inventoryQuantity: 18,
+        sellerName: "Teemu Enterprises",
+        verificationMethod: "api",
+      },
     ),
   ],
   "skin-by-zaron-vitamin-c-body-wash-650ml": [

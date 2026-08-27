@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-5-2026-08-27",
+  "scope": "Seven independent released exact-SKU cells: four admitted and three evidence-blocked",
+  "reviewedAt": "2026-08-27T21:28:00Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-browser-dom-live-retailer-api-and-reviewed-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-03T21:27:26Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRun": {
+      "queued": 14,
+      "processed": 12,
+      "completed": 3,
+      "retrying": 9,
+      "failed": 0,
+      "activeBacklog": 10
+    },
+    "impact": "No manual enqueue, claim, or processing was performed. Wave 5 excludes every product in the active or retry population observed in production logs."
+  },
+  "summary": {
+    "productsReviewed": 7,
+    "productsReleased": 4,
+    "productsBlocked": 3,
+    "offersAdmitted": 7,
+    "offersProjected": 7
+  },
+  "products": [
+    {
+      "candidateId": "skin-by-zaron-vitamin-c-body-lotion-500ml",
+      "identity": {
+        "gtin": "6908137011095",
+        "variant": "Vitamin C Brightening/Moisturizing Body Lotion",
+        "size": "500 ml",
+        "packageVersion": "Skin By Zaron Vitamin C Body Lotion 500 ml / 17.60 fl oz bottle"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/skin-by-zaron-vitamin-c-brightening-and-moisturizing-body-lotion-500ml/",
+          "priceNgn": 14800,
+          "stock": "low-stock",
+          "inventoryQuantity": 10,
+          "checkedAt": "2026-08-27T21:21:08.156Z",
+          "expiresAt": "2026-09-03T21:21:08.156Z",
+          "evidenceMethod": "reviewed-browser-dom-and-json-ld",
+          "responseSha256": "bbdda62aee4f00986b82a93d1e1d3d131c3432696b05c23564e7f690eec86c01",
+          "responseByteSize": 562338,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/tmpxmcqourp_5872c9f90a-2.png",
+          "packageImageSha256": "44c378b9e5f8d4eb5424be6fe32e31d631ae3bbde315d1ec5aa4a13c3cba186a",
+          "packageImageByteSize": 326371
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/skin-by-zaron-vitamin-c-body-lotion/",
+          "priceNgn": 17000,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:21:14.157Z",
+          "expiresAt": "2026-09-03T21:21:14.157Z",
+          "evidenceMethod": "reviewed-browser-dom-and-json-ld",
+          "responseSha256": "cb5f86357573c7537426990645311a8a8cf7ea7f2883929ac312f5efab090c1e",
+          "responseByteSize": 394309,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/07/zareon-vit_798065.jpg",
+          "packageImageSha256": "23f55c9baf78896b9072f19eefccfe1557e7f8b72d9032d1136521f350635cbc",
+          "packageImageByteSize": 23828
+        }
+      ],
+      "notProjected": [
+        { "retailer": "Deoset", "reason": "current-stale-url-returns-502" },
+        {
+          "retailer": "Nihet Beauty",
+          "reason": "eligible-price-outlier-outside-two-offer-projection"
+        },
+        {
+          "retailer": "Muna Cosmetics",
+          "reason": "eligible-outside-two-offer-projection"
+        },
+        {
+          "retailer": "CSi Grocery",
+          "reason": "eligible-outside-two-offer-projection"
+        },
+        {
+          "retailer": "ShopTESA",
+          "reason": "eligible-outside-two-offer-projection"
+        },
+        {
+          "retailer": "Konga Health",
+          "reason": "eligible-outside-two-offer-projection"
+        }
+      ]
+    },
+    {
+      "candidateId": "the-ordinary-azelaic-acid-suspension-10",
+      "identity": {
+        "gtin": null,
+        "variant": "Azelaic Acid Suspension 10%",
+        "size": "30 ml",
+        "packageVersion": "The Ordinary Azelaic Acid Suspension 10% 30 ml silver-grey squeeze tube"
+      },
+      "offers": [
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/the-ordinary-azelaic-acid-suspension-10-30ml/",
+          "priceNgn": 22000,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:24:36Z",
+          "expiresAt": "2026-09-03T21:24:36Z",
+          "evidenceMethod": "live-woocommerce-store-api-and-reviewed-image",
+          "responseSha256": "6ca6ccab2418ef320b6f8a48a719ab76f34b1aba0fa0df86ec0e135656ce0797",
+          "responseByteSize": 7416,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2023/10/rdn-azelaic-acid-suspension-10pct-30ml-1.webp",
+          "packageImageSha256": "6c2bd8f6bf78aaf680568eaa57648599c50bf43506d0b0eeb0a8dbbf0b8410bb",
+          "packageImageByteSize": 172370
+        },
+        {
+          "retailer": "MakeupAlleyNG",
+          "url": "https://makeupalleyng.com/products/the-ordinary-azelaic-acid-suspension-10",
+          "priceNgn": 34500,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:24:36Z",
+          "expiresAt": "2026-09-03T21:24:36Z",
+          "evidenceMethod": "live-shopify-product-json-and-reviewed-image",
+          "responseSha256": "41e2ed2cf1212fb7b187014339d0d07f46d47010a10f224304377a53dfea4d78",
+          "responseByteSize": 5287,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0637/3199/0641/files/IMG_0349_60a5bbb1-4d76-412f-ace7-5b8d31234132.jpg?v=1765210132",
+          "packageImageSha256": "706bdeb0bb187cb2a9c815ba0fb4edd2bfa791067b3bd2c6a5826ef8c2a8eb9a",
+          "packageImageByteSize": 12193
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Konga Health",
+          "reason": "eligible-marketplace-offer-outside-two-offer-projection"
+        },
+        {
+          "retailer": "Nectar Beauty Hub",
+          "reason": "eligible-outside-two-offer-projection"
+        },
+        {
+          "retailer": "The SkinHookup NG",
+          "reason": "eligible-outside-two-offer-projection"
+        },
+        {
+          "retailer": "Kly Cosmetics",
+          "reason": "eligible-outside-two-offer-projection"
+        },
+        {
+          "retailer": "SB Beauty",
+          "reason": "eligible-outside-two-offer-projection"
+        },
+        { "retailer": "Beauty by Daz", "reason": "out-of-stock" }
+      ]
+    },
+    {
+      "candidateId": "cosrx-salicylic-acid-daily-gentle-cleanser",
+      "identity": {
+        "gtin": "8809416471112",
+        "variant": "Salicylic Acid Daily Gentle Cleanser",
+        "size": "150 ml",
+        "packageVersion": "COSRX Salicylic Acid Daily Gentle Cleanser 150 ml / 5.07 fl oz white tube"
+      },
+      "offers": [
+        {
+          "retailer": "CSi Grocery",
+          "url": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/cosrx-salicylic-acid-daily-gentle-cleanser/",
+          "priceNgn": 10200,
+          "stock": "in-stock",
+          "inventoryQuantity": 5,
+          "checkedAt": "2026-08-27T21:27:25Z",
+          "expiresAt": "2026-09-03T21:27:25Z",
+          "evidenceMethod": "reviewed-live-html-and-image",
+          "responseSha256": "d3177514470b95c788c562d98741988aff26a9b56ea15fdae5061321613b80e1",
+          "responseByteSize": 460781,
+          "packageImageUrl": "https://www.csigrocery.com/wp-content/uploads/2026/05/Joshua-Product-images.png",
+          "packageImageSha256": "b8721bf360e349a03ed193c09f194e67ad6222682eaf557e8689770a1ed1d695",
+          "packageImageByteSize": 63234
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/",
+          "priceNgn": 10900,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-27T21:27:25Z",
+          "expiresAt": "2026-09-03T21:27:25Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-image",
+          "responseSha256": "fce64b1ef5ddf115119de63798b724f16f33f4fcfdc68c9cf20ec1879311ba85",
+          "responseByteSize": 434141,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/Cosrx-Salicylic-Acid-Daily-Gentle-Cleanser-150ml.jpg",
+          "packageImageSha256": "838d3df91e55ef19c173957f0621127c744c3f1a9ddce90d1672604b689da3ea",
+          "packageImageByteSize": 17107
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Medplus",
+          "reason": "eligible-outside-two-offer-projection"
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "reason": "eligible-outside-two-offer-projection"
+        },
+        {
+          "retailer": "Slique Beauty",
+          "reason": "provisional-retailer-outside-projection"
+        },
+        { "retailer": "Beauty by Daz", "reason": "out-of-stock" },
+        { "retailer": "Teeka4", "reason": "out-of-stock" },
+        { "retailer": "Care to Beauty", "reason": "visible-dom-out-of-stock" },
+        {
+          "retailer": "BuyBetter",
+          "reason": "redirects-to-wrong-50-ml-product"
+        },
+        {
+          "retailer": "Lux Beauty",
+          "reason": "current-page-access-blocked-403"
+        },
+        { "retailer": "Deoset", "reason": "current-page-access-blocked-406" }
+      ]
+    },
+    {
+      "candidateId": "nizoral-ad-ketoconazole-shampoo",
+      "identity": {
+        "gtin": null,
+        "variant": "Anti-Dandruff Shampoo with Ketoconazole 1%, Fresh Scent",
+        "size": "200 ml",
+        "packageVersion": "Nizoral Anti-Dandruff Ketoconazole 1% 7 fl oz / 200 ml bottle and carton"
+      },
+      "offers": [
+        {
+          "retailer": "Konga Health",
+          "sellerName": "Teemu Enterprises",
+          "url": "https://www.konga.com/product/nizoral-anti-dandruff-shampoo-with-1-ketoconazole-fresh-scent-200ml-7025754?cid=5534",
+          "priceNgn": 12000,
+          "stock": "in-stock",
+          "inventoryQuantity": 18,
+          "checkedAt": "2026-08-27T21:27:26Z",
+          "expiresAt": "2026-09-03T21:27:26Z",
+          "evidenceMethod": "live-konga-graphql-and-reviewed-image",
+          "responseSha256": "b4bacfb5d0883896d3b6d3ee54213a7cda59e7ea4e36dfdaae7b5b2877b7d6c8",
+          "responseByteSize": 1875,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/R/Z/172118_1785665442.jpg",
+          "packageImageSha256": "02cde248615e27e946e878db9c0ebde7e2e44d254754180197926972d3176e9b",
+          "packageImageByteSize": 49695,
+          "officialIdentityUrl": "https://nizoral.com/",
+          "officialPackageImageUrl": "https://nizoral.com/wp-content/uploads/2024/02/NIZ_Carton_7oz_21902_051822_OT_2.png",
+          "officialPackageImageSha256": "93b4d23db377165fcddd0f06dc9c086191aa2b347e7cf28e11043ffabba2087f",
+          "officialPackageImageByteSize": 310141
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Konga Health / maleeqberry",
+          "reason": "duplicate-marketplace-retailer-offer-outside-projection"
+        }
+      ]
+    }
+  ],
+  "blockedProducts": [
+    {
+      "candidateId": "dove-moroccan-argan-oil-beauty-bar",
+      "releasedPackage": "Dry Oil Beauty Bar with Moroccan Argan Oil 4 x 100 g",
+      "observedPackage": "Teeka4 and Hermosa exact 4 x 100 g listings are out of stock; Amela exact pack exposes no availability; Coco Rosey current image is 4 x 90 g.",
+      "blocker": "No current exact 4 x 100 g offer has provable in-stock availability.",
+      "nextAction": "Reverify an exact 4 x 100 g listing with explicit current stock; reject smaller packs."
+    },
+    {
+      "candidateId": "b-lab-matcha-hydrating-real-sunscreen",
+      "releasedPackage": "Matcha Hydrating Real Sunscreen SPF50+ PA++++ 50 ml tube",
+      "observedPackage": "Nihet omits size; Skin Bank exact 50 ml is out of stock; Perona is blocked; Beauty by Daz retains a package conflict.",
+      "blocker": "No current in-stock listing binds the exact 50 ml package.",
+      "nextAction": "Find a current Nigerian listing whose title or package evidence explicitly binds 50 ml."
+    },
+    {
+      "candidateId": "kuza-indian-hemp-hair-scalp-treatment",
+      "releasedPackage": "100% Indian Hemp Hair & Scalp Treatment 7.7 oz / 218 g jar",
+      "observedPackage": "Current Konga listing and image are 8 oz / 226 g.",
+      "blocker": "Released 7.7 oz / 218 g identity conflicts with the current 8 oz / 226 g package.",
+      "nextAction": "Find a current exact 7.7 oz / 218 g seller or route the identity through canonical review; do not round units."
+    }
+  ],
+  "carriedIdentityBlockers": [
+    "naturium-vitamin-c-complex-serum-1fl-oz",
+    "naturium-niacinamide-serum-12-percent-1fl-oz",
+    "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+    "naturium-retinol-complex-serum-1fl-oz",
+    "naturium-niacinamide-gel-cream-5-1-7oz",
+    "naturium-glow-getter-multi-oil-body-scrub-8oz"
+  ]
+}

@@ -5,6 +5,7 @@ import waveOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-w
 import waveTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-2-2026-08-27.json";
 import waveThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-3-2026-08-27.json";
 import waveFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-4-2026-08-27.json";
+import waveFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-5-2026-08-27.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -165,6 +166,59 @@ test("catalogue offer refresh wave 4 projects exact tube cells and blocks packag
   for (const product of waveFourAudit.products) {
     assert.equal(
       verifiedRetailOffers[product.candidateId]?.length,
+      product.offers.length,
+      product.candidateId,
+    );
+    for (const evidence of product.offers) {
+      const offer = verifiedRetailOffers[product.candidateId]?.find(
+        (candidate) => candidate.url === evidence.url,
+      );
+      assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+      assert.equal(offer.retailer, evidence.retailer);
+      assert.equal(offer.priceNgn, evidence.priceNgn);
+      assert.equal(offer.available, true);
+      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assert.equal(offer.priceObservation?.size, product.identity.size);
+      assert.equal(offer.checkedAt, evidence.checkedAt);
+      assert.equal(offer.expiresAt, evidence.expiresAt);
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize > 0);
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+      assert.equal(
+        Date.parse(evidence.expiresAt) - Date.parse(evidence.checkedAt),
+        7 * 24 * 60 * 60 * 1000,
+      );
+    }
+  }
+});
+
+test("catalogue offer refresh wave 5 projects exact legacy cells and isolates new blockers", () => {
+  const projected = waveFiveAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveFiveAudit.summary.productsReviewed, 7);
+  assert.equal(waveFiveAudit.summary.productsReleased, 4);
+  assert.equal(projected.length, 7);
+  assert.equal(waveFiveAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.deepEqual(
+    waveFiveAudit.blockedProducts.map((product) => product.candidateId),
+    [
+      "dove-moroccan-argan-oil-beauty-bar",
+      "b-lab-matcha-hydrating-real-sunscreen",
+      "kuza-indian-hemp-hair-scalp-treatment",
+    ],
+  );
+  assert.equal(waveFiveAudit.carriedIdentityBlockers.length, 6);
+  for (const product of waveFiveAudit.products) {
+    assert.equal(
+      verifiedRetailOffers[product.candidateId]?.filter(
+        (offer) =>
+          offer.available !== false &&
+          Boolean(offer.expiresAt) &&
+          Date.parse(offer.expiresAt!) >= Date.parse(waveFiveAudit.reviewedAt),
+      ).length,
       product.offers.length,
       product.candidateId,
     );
