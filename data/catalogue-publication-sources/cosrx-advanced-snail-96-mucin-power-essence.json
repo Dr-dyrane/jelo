@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
-    "candidateFingerprint": "df5d19e57e36caaa64bcf92cd1617fccf85c14f6cdbb68346893c438a4b3bbd3",
+    "candidateFingerprint": "1b4f5a9f0219173bac0e4d9af012619038894f94d4e912d9747499908f415423",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -308,14 +308,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-28T16:28:05Z"
+      "approvedAt": "2026-08-28T16:46:05Z"
     },
-    "dossierFingerprint": "443d7eed1600448763dfeec063c84e6e52f6305cbe10f3c0416a84c2d5865575"
+    "dossierFingerprint": "65acb0d7764001896ff71923047fb811e81d4e3d2e6d118142f0e732e8341315"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
-    "dossierFingerprint": "443d7eed1600448763dfeec063c84e6e52f6305cbe10f3c0416a84c2d5865575",
+    "dossierFingerprint": "65acb0d7764001896ff71923047fb811e81d4e3d2e6d118142f0e732e8341315",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -327,13 +327,13 @@
       "usage": "Pat onto damp skin after cleansing and before moisturizer.",
       "manufacturerDirectionsUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-28T16:28:06Z"
+      "reviewedAt": "2026-08-28T16:46:06Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-28T16:28:07Z"
+      "publishedAt": "2026-08-28T16:46:07Z"
     },
-    "releaseFingerprint": "c7fedc6a6983456f28241cae8776bd74ae7e0e69a58fb6353059bfa3a1728316"
+    "releaseFingerprint": "685a77b89eb9e97c1592f7149191bfa3d72865b719a0b3ea8dd757dff34cf60c"
   }
 }

@@ -1938,6 +1938,20 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   "cosrx-advanced-snail-96-mucin-power-essence": [
     exactNg(
+      "Beauty by Daz",
+      "https://beautybydaz.com/shop/face/oils-serum/cosrx-advanced-snail-96-mucin-power-essence/",
+      100,
+      12500,
+      "Cosrx Advanced Snail 96 Mucin Power Essence",
+      "100 ml / 3.38 fl oz",
+      {
+        observedAt: "2026-08-28T16:45:53.960Z",
+        expiresAt: "2026-09-04T16:45:53.960Z",
+        available: true,
+        stock: "in-stock",
+      },
+    ),
+    exactNg(
       "Perona Beauty",
       "https://peronabeauty.com/product/cosrx-advanced-snail-96-mucin-power-essence/",
       86,
@@ -1979,6 +1993,32 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
+    {
+      retailer: "Lux Beauty",
+      url: "https://www.luxbeautyng.com/product/cosrx-snail-mucin-96-power-repairing-essence/",
+      trust: 96,
+      available: false,
+      priceNgn: 12400,
+      checkedAt: "2026-08-28T16:45:53.949Z",
+      expiresAt: "2026-09-04T16:45:53.949Z",
+      match: "exact",
+      priceComparison: "exclude",
+      listingEvidence: {
+        observedAt: "2026-08-28T16:45:53.949Z",
+        sourceUrl:
+          "https://www.luxbeautyng.com/product/cosrx-snail-mucin-96-power-repairing-essence/",
+        basis: "retailer-page",
+      },
+      priceObservation: {
+        observedAt: "2026-08-28T16:45:53.949Z",
+        variant:
+          "Access denied; exact product state not currently re-verifiable",
+        size: "100 ml",
+        stock: "unknown",
+        landedCost: "unknown",
+      },
+      location: ["NG"],
+    },
   ],
   "panoxyl-acne-foaming-wash-10-benzoyl-peroxide": [
     {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-28T16:28:00Z",
+  "updatedAt": "2026-08-28T16:46:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -14528,6 +14528,66 @@
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
         "exactOffers": [
+          {
+            "retailer": "Beauty by Daz",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://beautybydaz.com/shop/face/oils-serum/cosrx-advanced-snail-96-mucin-power-essence/",
+            "observedAt": "2026-08-28T16:45:53.960Z",
+            "observedTitle": "Cosrx Advanced Snail 96 Mucin Power Essence",
+            "observedSize": "100 ml / 3.38 fl oz",
+            "observedGtinBasis": "exact-variant-and-size",
+            "retailerSku": "209-1-byd",
+            "priceNgn": 12500,
+            "stock": "in-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://beautybydaz.com/shop/face/oils-serum/cosrx-advanced-snail-96-mucin-power-essence/",
+              "responseUrl": "https://beautybydaz.com/shop/face/oils-serum/cosrx-advanced-snail-96-mucin-power-essence/",
+              "responseSha256": "1631bdd6d677557c9697b8f9d65be9989d3713666aae222307191c8c52d86935",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 200052,
+              "retrievedAt": "2026-08-28T16:45:53.960Z",
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "8809416470009",
+                  "locator": "Bound official COSRX catalogue identity",
+                  "sourceText": "Official catalogue identity GTIN 8809416470009",
+                  "responseRole": "official-identity-correlation"
+                },
+                "title": {
+                  "value": "Cosrx Advanced Snail 96 Mucin Power Essence",
+                  "locator": "Rendered product heading",
+                  "sourceText": "Cosrx Advanced Snail 96 Mucin Power Essence"
+                },
+                "size": {
+                  "value": "100 ml / 3.38 fl oz",
+                  "locator": "Exact product pack image and official identity correlation",
+                  "sourceText": "100 ml / 3.38 fl oz"
+                },
+                "price": {
+                  "value": 12500,
+                  "currency": "NGN",
+                  "locator": "Rendered product price",
+                  "sourceText": "₦12,500.00"
+                },
+                "stock": {
+                  "value": "in-stock",
+                  "locator": "Rendered availability and purchase controls",
+                  "sourceText": "IN STOCK; ADD TO CART; BUY NOW"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-28T16:46:00Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "Cosrx Advanced Snail 96 Mucin Power Essence"
+              }
+            }
+          },
           {
             "retailer": "Perona Beauty",
             "retailerStatus": "directory-listed",

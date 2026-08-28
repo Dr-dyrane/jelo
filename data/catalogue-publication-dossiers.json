@@ -33577,7 +33577,7 @@
     {
       "schemaVersion": 8,
       "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
-      "candidateFingerprint": "df5d19e57e36caaa64bcf92cd1617fccf85c14f6cdbb68346893c438a4b3bbd3",
+      "candidateFingerprint": "1b4f5a9f0219173bac0e4d9af012619038894f94d4e912d9747499908f415423",
       "exposure": "private-only",
       "publicationScope": "neutral-reference",
       "publicationStatus": "not-published",
@@ -33881,9 +33881,9 @@
       "approval": {
         "scope": "exact-identity-source-care-retail-rights-and-final-image",
         "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-28T16:28:05Z"
+        "approvedAt": "2026-08-28T16:46:05Z"
       },
-      "dossierFingerprint": "443d7eed1600448763dfeec063c84e6e52f6305cbe10f3c0416a84c2d5865575"
+      "dossierFingerprint": "65acb0d7764001896ff71923047fb811e81d4e3d2e6d118142f0e732e8341315"
     }
   ]
 }
