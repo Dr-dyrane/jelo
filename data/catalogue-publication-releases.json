@@ -3532,30 +3532,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
-      "dossierFingerprint": "81bc8bc1438521b2c92d6194577199a64f2c0321e9851f009b03120e05188c24",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Moisturize",
-        "displayLine": "92% snail mucin gel-cream for lightweight daily hydration.",
-        "usage": "After cleansing and toning, apply a small amount evenly over the face and gently pat to aid absorption. In the morning, follow with sunscreen.",
-        "manufacturerDirectionsUrl": "https://www.cosrx.com/products/advanced-snail-92-all-in-one-cream",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-28T16:24:03Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-28T16:24:04Z"
-      },
-      "releaseFingerprint": "fe4a93176e8099975980ad4d300f7760959976e893f6c079175acd92e76f8ad4"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
       "dossierFingerprint": "65acb0d7764001896ff71923047fb811e81d4e3d2e6d118142f0e732e8341315",
       "exposure": "public-catalogue",
@@ -3577,6 +3553,30 @@
         "publishedAt": "2026-08-28T16:46:07Z"
       },
       "releaseFingerprint": "685a77b89eb9e97c1592f7149191bfa3d72865b719a0b3ea8dd757dff34cf60c"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
+      "dossierFingerprint": "8ba3a1ca121dd1547ac54266729ecc950954f801e3a49f9fafe4bf1269d27d3e",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "92% snail mucin gel-cream for lightweight daily hydration.",
+        "usage": "After cleansing and toning, apply a small amount evenly over the face and gently pat to aid absorption. In the morning, follow with sunscreen.",
+        "manufacturerDirectionsUrl": "https://www.cosrx.com/products/advanced-snail-92-all-in-one-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-28T17:50:02Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-28T17:50:03Z"
+      },
+      "releaseFingerprint": "fa3bd075fcfea0af05a623a3f0f23a2d2f6c348fc173346788f7b8d8597f7c2e"
     }
   ]
 }
