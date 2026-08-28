@@ -1999,18 +1999,18 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       trust: 96,
       available: false,
       priceNgn: 12400,
-      checkedAt: "2026-08-28T16:45:53.949Z",
-      expiresAt: "2026-09-04T16:45:53.949Z",
+      checkedAt: "2026-08-28T16:56:24.587Z",
+      expiresAt: "2026-09-04T16:56:24.587Z",
       match: "exact",
       priceComparison: "exclude",
       listingEvidence: {
-        observedAt: "2026-08-28T16:45:53.949Z",
+        observedAt: "2026-08-28T16:56:24.587Z",
         sourceUrl:
           "https://www.luxbeautyng.com/product/cosrx-snail-mucin-96-power-repairing-essence/",
         basis: "retailer-page",
       },
       priceObservation: {
-        observedAt: "2026-08-28T16:45:53.949Z",
+        observedAt: "2026-08-28T16:56:24.587Z",
         variant:
           "Access denied; exact product state not currently re-verifiable",
         size: "100 ml",
