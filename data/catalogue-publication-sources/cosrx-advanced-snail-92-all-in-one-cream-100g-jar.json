@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
-    "candidateFingerprint": "291cb924cbb74220dee2c4259d3342ed86a7d5fa3564b7fc79ac3aa452b02943",
+    "candidateFingerprint": "5aed6ce3a010729fc4eb556f1661a6a37f1f38e00104ea26016db958f18d8791",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -111,73 +111,6 @@
       "regulatoryStatus": "pending",
       "tierAIdentityEvidenceUrl": "https://www.cosrx.com/products/advanced-snail-92-all-in-one-cream",
       "exactOffers": [
-        {
-          "retailer": "BuyBetter",
-          "retailerStatus": "directory-listed",
-          "listingUrl": "https://buybetter.ng/product/cosrx-advanced-snail-92-all-in-one-cream-100g/",
-          "observedAt": "2026-08-28T17:49:34.486Z",
-          "observedTitle": "COSRX Advanced Snail 92 All In One Cream 100G",
-          "observedSize": "100 g / 3.52 oz",
-          "observedGtin": "8809416470016",
-          "observedGtinBasis": "explicit-gtin",
-          "observedPackageVersion": "Jar / 100 g",
-          "retailerSku": "BB-C-328941",
-          "priceNgn": 12800,
-          "stock": "low-stock",
-          "evidence": {
-            "schemaVersion": 1,
-            "method": "reviewed-browser-dom-exact-offer-field-extraction",
-            "listingUrl": "https://buybetter.ng/product/cosrx-advanced-snail-92-all-in-one-cream-100g/",
-            "responseUrl": "https://buybetter.ng/product/cosrx-advanced-snail-92-all-in-one-cream-100g/",
-            "responseSha256": "02338537d47527560f3865eb908c4447c5e0fc9d751f44df58dcf0ff44169fe3",
-            "responseDigestScope": "rendered-dom-outerhtml",
-            "responseMimeType": "text/html",
-            "responseByteSize": 200201,
-            "retrievedAt": "2026-08-28T17:49:34.486Z",
-            "fields": {
-              "gtin": {
-                "label": "GTIN",
-                "value": "8809416470016",
-                "locator": "Rendered Product JSON-LD gtin",
-                "sourceText": "GTIN 8809416470016",
-                "responseRole": "listing-response"
-              },
-              "title": {
-                "value": "COSRX Advanced Snail 92 All In One Cream 100G",
-                "locator": "Rendered product heading",
-                "sourceText": "COSRX Advanced Snail 92 All In One Cream 100G"
-              },
-              "size": {
-                "value": "100 g / 3.52 oz",
-                "locator": "Rendered heading, Size/Volume attribute, and exact GTIN-bound jar listing",
-                "sourceText": "100G; Size/Volume 100g; exact front pack 100 g / 3.52 OZ"
-              },
-              "packageVersion": {
-                "value": "Jar / 100 g",
-                "locator": "Exact GTIN-bound product gallery and 100 g listing",
-                "sourceText": "Jar / 100 g"
-              },
-              "price": {
-                "value": 12800,
-                "currency": "NGN",
-                "locator": "Rendered Product JSON-LD Offer price",
-                "sourceText": "NGN 12800.00"
-              },
-              "stock": {
-                "value": "low-stock",
-                "locator": "Rendered availability status",
-                "sourceText": "Only 3 left"
-              }
-            },
-            "reviewer": "JeloCare catalogue evidence review",
-            "reviewedAt": "2026-08-28T17:50:00Z",
-            "browserCapture": {
-              "surface": "Codex in-app browser",
-              "documentReadyState": "complete",
-              "pageTitle": "COSRX Snail 92 All In One Cream | Face Moisturizer | BuyBetter"
-            }
-          }
-        },
         {
           "retailer": "Beauty by Daz",
           "retailerStatus": "directory-listed",
@@ -534,14 +467,14 @@
     "approval": {
       "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-28T18:01:01Z"
+      "approvedAt": "2026-08-28T18:51:00Z"
     },
-    "dossierFingerprint": "a5b3260878209d20dafd01c33e6f027fa2166c891ffec4a04f343f5429497622"
+    "dossierFingerprint": "5dab5176c46f798036e893ca9ba5b467f0018eef83e8124fe5b4910d6432573b"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
-    "dossierFingerprint": "a5b3260878209d20dafd01c33e6f027fa2166c891ffec4a04f343f5429497622",
+    "dossierFingerprint": "5dab5176c46f798036e893ca9ba5b467f0018eef83e8124fe5b4910d6432573b",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -553,13 +486,13 @@
       "usage": "After cleansing and toning, apply a small amount evenly over the face and gently pat to aid absorption. In the morning, follow with sunscreen.",
       "manufacturerDirectionsUrl": "https://www.cosrx.com/products/advanced-snail-92-all-in-one-cream",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-28T18:01:02Z"
+      "reviewedAt": "2026-08-28T18:51:10Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-28T18:01:03Z"
+      "publishedAt": "2026-08-28T18:51:20Z"
     },
-    "releaseFingerprint": "29efc2d0a2cb0e8f06521681ca7168d88e00c08d871069dd3aa46d873edb7159"
+    "releaseFingerprint": "fb2bd02dfb61ddd4c24562c16d6c58426f1ac59d464e3a093152539d6b0cf6db"
   }
 }
