@@ -1,6 +1,6 @@
 {
   "schemaVersion": 8,
-  "updatedAt": "2026-08-28T17:50:00Z",
+  "updatedAt": "2026-08-28T18:01:00Z",
   "candidates": [
     {
       "id": "keracare-dry-itchy-scalp-conditioner-950ml",
@@ -14158,7 +14158,8 @@
             "observedAt": "2026-08-28T17:49:34.486Z",
             "observedTitle": "COSRX Advanced Snail 92 All In One Cream 100G",
             "observedSize": "100 g / 3.52 oz",
-            "observedGtinBasis": "exact-variant-and-size",
+            "observedGtin": "8809416470016",
+            "observedGtinBasis": "explicit-gtin",
             "observedPackageVersion": "Jar / 100 g",
             "retailerSku": "BB-C-328941",
             "priceNgn": 12800,
@@ -14178,7 +14179,8 @@
                   "label": "GTIN",
                   "value": "8809416470016",
                   "locator": "Rendered Product JSON-LD gtin",
-                  "sourceText": "8809416470016"
+                  "sourceText": "GTIN 8809416470016",
+                  "responseRole": "listing-response"
                 },
                 "title": {
                   "value": "COSRX Advanced Snail 92 All In One Cream 100G",
@@ -14204,7 +14206,7 @@
                 "stock": {
                   "value": "low-stock",
                   "locator": "Rendered availability status",
-                  "sourceText": "Only 3 left, hurry"
+                  "sourceText": "Only 3 left"
                 }
               },
               "reviewer": "JeloCare catalogue evidence review",

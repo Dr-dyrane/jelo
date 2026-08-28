@@ -3557,7 +3557,7 @@
     {
       "schemaVersion": 2,
       "candidateId": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
-      "dossierFingerprint": "8ba3a1ca121dd1547ac54266729ecc950954f801e3a49f9fafe4bf1269d27d3e",
+      "dossierFingerprint": "a5b3260878209d20dafd01c33e6f027fa2166c891ffec4a04f343f5429497622",
       "exposure": "public-catalogue",
       "publicationScope": "neutral-reference",
       "publicationStatus": "published",
@@ -3569,14 +3569,14 @@
         "usage": "After cleansing and toning, apply a small amount evenly over the face and gently pat to aid absorption. In the morning, follow with sunscreen.",
         "manufacturerDirectionsUrl": "https://www.cosrx.com/products/advanced-snail-92-all-in-one-cream",
         "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-28T17:50:02Z"
+        "reviewedAt": "2026-08-28T18:01:02Z"
       },
       "publication": {
         "scope": "exact-dossier-presentation-publication",
         "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-28T17:50:03Z"
+        "publishedAt": "2026-08-28T18:01:03Z"
       },
-      "releaseFingerprint": "fa3bd075fcfea0af05a623a3f0f23a2d2f6c348fc173346788f7b8d8597f7c2e"
+      "releaseFingerprint": "29efc2d0a2cb0e8f06521681ca7168d88e00c08d871069dd3aa46d873edb7159"
     }
   ]
 }

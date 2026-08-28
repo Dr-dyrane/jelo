@@ -33419,7 +33419,7 @@
     {
       "schemaVersion": 8,
       "candidateId": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
-      "candidateFingerprint": "c75a257671eba4e217ddc5c32a94ebbe69242f93c9896eb1124dbbb34f342ba6",
+      "candidateFingerprint": "291cb924cbb74220dee2c4259d3342ed86a7d5fa3564b7fc79ac3aa452b02943",
       "exposure": "private-only",
       "publicationScope": "neutral-reference",
       "publicationStatus": "not-published",
@@ -33526,6 +33526,73 @@
         "regulatoryStatus": "pending",
         "tierAIdentityEvidenceUrl": "https://www.cosrx.com/products/advanced-snail-92-all-in-one-cream",
         "exactOffers": [
+          {
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/cosrx-advanced-snail-92-all-in-one-cream-100g/",
+            "observedAt": "2026-08-28T17:49:34.486Z",
+            "observedTitle": "COSRX Advanced Snail 92 All In One Cream 100G",
+            "observedSize": "100 g / 3.52 oz",
+            "observedGtin": "8809416470016",
+            "observedGtinBasis": "explicit-gtin",
+            "observedPackageVersion": "Jar / 100 g",
+            "retailerSku": "BB-C-328941",
+            "priceNgn": 12800,
+            "stock": "low-stock",
+            "evidence": {
+              "schemaVersion": 1,
+              "method": "reviewed-browser-dom-exact-offer-field-extraction",
+              "listingUrl": "https://buybetter.ng/product/cosrx-advanced-snail-92-all-in-one-cream-100g/",
+              "responseUrl": "https://buybetter.ng/product/cosrx-advanced-snail-92-all-in-one-cream-100g/",
+              "responseSha256": "02338537d47527560f3865eb908c4447c5e0fc9d751f44df58dcf0ff44169fe3",
+              "responseDigestScope": "rendered-dom-outerhtml",
+              "responseMimeType": "text/html",
+              "responseByteSize": 200201,
+              "retrievedAt": "2026-08-28T17:49:34.486Z",
+              "fields": {
+                "gtin": {
+                  "label": "GTIN",
+                  "value": "8809416470016",
+                  "locator": "Rendered Product JSON-LD gtin",
+                  "sourceText": "GTIN 8809416470016",
+                  "responseRole": "listing-response"
+                },
+                "title": {
+                  "value": "COSRX Advanced Snail 92 All In One Cream 100G",
+                  "locator": "Rendered product heading",
+                  "sourceText": "COSRX Advanced Snail 92 All In One Cream 100G"
+                },
+                "size": {
+                  "value": "100 g / 3.52 oz",
+                  "locator": "Rendered heading, Size/Volume attribute, and exact GTIN-bound jar listing",
+                  "sourceText": "100G; Size/Volume 100g; exact front pack 100 g / 3.52 OZ"
+                },
+                "packageVersion": {
+                  "value": "Jar / 100 g",
+                  "locator": "Exact GTIN-bound product gallery and 100 g listing",
+                  "sourceText": "Jar / 100 g"
+                },
+                "price": {
+                  "value": 12800,
+                  "currency": "NGN",
+                  "locator": "Rendered Product JSON-LD Offer price",
+                  "sourceText": "NGN 12800.00"
+                },
+                "stock": {
+                  "value": "low-stock",
+                  "locator": "Rendered availability status",
+                  "sourceText": "Only 3 left"
+                }
+              },
+              "reviewer": "JeloCare catalogue evidence review",
+              "reviewedAt": "2026-08-28T17:50:00Z",
+              "browserCapture": {
+                "surface": "Codex in-app browser",
+                "documentReadyState": "complete",
+                "pageTitle": "COSRX Snail 92 All In One Cream | Face Moisturizer | BuyBetter"
+              }
+            }
+          },
           {
             "retailer": "Beauty by Daz",
             "retailerStatus": "directory-listed",
@@ -33882,9 +33949,9 @@
       "approval": {
         "scope": "exact-identity-source-care-retail-rights-and-final-image",
         "reviewer": "JeloCare catalogue publication reviewer",
-        "approvedAt": "2026-08-28T17:50:01Z"
+        "approvedAt": "2026-08-28T18:01:01Z"
       },
-      "dossierFingerprint": "8ba3a1ca121dd1547ac54266729ecc950954f801e3a49f9fafe4bf1269d27d3e"
+      "dossierFingerprint": "a5b3260878209d20dafd01c33e6f027fa2166c891ffec4a04f343f5429497622"
     }
   ]
 }
