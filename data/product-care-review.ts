@@ -2067,6 +2067,16 @@ export const publishedProductCareManifest = {
     ],
     reviewedAt: "2026-08-26",
   },
+  "cosrx-advanced-snail-92-all-in-one-cream-100g-jar": {
+    productSlug: "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
+    careState: "insufficient_data",
+    approvedUses: [],
+    evidenceSourceUrls: [
+      "https://www.cosrx.com/products/advanced-snail-92-all-in-one-cream",
+      "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+    ],
+    reviewedAt: "2026-08-28",
+  },
 } as const satisfies Record<string, ReviewedProductCare>;
 
 const careBySlug = {

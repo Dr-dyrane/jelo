@@ -1132,5 +1132,22 @@
     "height": 2000,
     "hasAlpha": true,
     "contentHash": "a8b3d9ca6975ba04dd73cba825e0032966e4936f1a827d8ef490d15e79fe7fb5"
+  },
+  {
+    "id": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar-packshot-v1",
+    "active": true,
+    "candidateId": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
+    "publicationBrandSlug": "cosrx",
+    "destination": "publication",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/0513/3775/6828/files/5_bc6986a1-1b85-42ce-b761-6bc4acbb07a3.png?v=1757571879",
+    "localPath": "data/catalogue-intake-assets/cosrx-advanced-snail-92-all-in-one-cream-100g-jar/packshot-v1-1b2100cce005880a406cd45da9f3e52023606e4dd68649c320de10d1721601f6.png",
+    "blobPath": "products/cosrx/cosrx-advanced-snail-92-all-in-one-cream-100g-jar/packshot-v1-1b2100cce005880a.png",
+    "blobUrl": "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/cosrx/cosrx-advanced-snail-92-all-in-one-cream-100g-jar/packshot-v1-1b2100cce005880a.png",
+    "contentType": "image/png",
+    "byteSize": 1353816,
+    "width": 2000,
+    "height": 2000,
+    "hasAlpha": true,
+    "contentHash": "1b2100cce005880a406cd45da9f3e52023606e4dd68649c320de10d1721601f6"
   }
 ]

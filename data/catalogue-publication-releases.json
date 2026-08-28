@@ -1492,30 +1492,6 @@
     },
     {
       "schemaVersion": 2,
-      "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
-      "dossierFingerprint": "d7ecf70c5c23d9bc219c5c3afe04e6d698fd59a02c02df3f7242b103760f8fac",
-      "exposure": "public-catalogue",
-      "publicationScope": "neutral-reference",
-      "publicationStatus": "published",
-      "recommendationEligible": false,
-      "presentation": {
-        "category": "Face",
-        "routineStep": "Essence",
-        "displayLine": "Hydrate · recover",
-        "usage": "Pat onto damp skin after cleansing and before moisturizer.",
-        "manufacturerDirectionsUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
-        "reviewer": "JeloCare catalogue presentation reviewer",
-        "reviewedAt": "2026-08-07T22:58:00Z"
-      },
-      "publication": {
-        "scope": "exact-dossier-presentation-publication",
-        "reviewer": "JeloCare catalogue release reviewer",
-        "publishedAt": "2026-08-07T22:59:00Z"
-      },
-      "releaseFingerprint": "3dfcaaff0c5c5806066468fe4b60011042d05f443e4e7ddd34527baeaecebfc9"
-    },
-    {
-      "schemaVersion": 2,
       "candidateId": "dove-go-fresh-cucumber-green-tea-spray",
       "dossierFingerprint": "08fec6dbaed10118f3feba2b8613c01f908a2d42ab94e2fab5e7227cb0f2fa18",
       "exposure": "public-catalogue",
@@ -3553,6 +3529,54 @@
         "publishedAt": "2026-08-26T22:16:30Z"
       },
       "releaseFingerprint": "7cd992f3d889ce4e088b0c0e1b393012aff5e18d6e20928b4b35bc9dcf896fc3"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
+      "dossierFingerprint": "81bc8bc1438521b2c92d6194577199a64f2c0321e9851f009b03120e05188c24",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Moisturize",
+        "displayLine": "92% snail mucin gel-cream for lightweight daily hydration.",
+        "usage": "After cleansing and toning, apply a small amount evenly over the face and gently pat to aid absorption. In the morning, follow with sunscreen.",
+        "manufacturerDirectionsUrl": "https://www.cosrx.com/products/advanced-snail-92-all-in-one-cream",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-28T16:24:03Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-28T16:24:04Z"
+      },
+      "releaseFingerprint": "fe4a93176e8099975980ad4d300f7760959976e893f6c079175acd92e76f8ad4"
+    },
+    {
+      "schemaVersion": 2,
+      "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
+      "dossierFingerprint": "443d7eed1600448763dfeec063c84e6e52f6305cbe10f3c0416a84c2d5865575",
+      "exposure": "public-catalogue",
+      "publicationScope": "neutral-reference",
+      "publicationStatus": "published",
+      "recommendationEligible": false,
+      "presentation": {
+        "category": "Face",
+        "routineStep": "Essence",
+        "displayLine": "Hydrate · recover",
+        "usage": "Pat onto damp skin after cleansing and before moisturizer.",
+        "manufacturerDirectionsUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
+        "reviewer": "JeloCare catalogue presentation reviewer",
+        "reviewedAt": "2026-08-28T16:28:06Z"
+      },
+      "publication": {
+        "scope": "exact-dossier-presentation-publication",
+        "reviewer": "JeloCare catalogue release reviewer",
+        "publishedAt": "2026-08-28T16:28:07Z"
+      },
+      "releaseFingerprint": "c7fedc6a6983456f28241cae8776bd74ae7e0e69a58fb6353059bfa3a1728316"
     }
   ]
 }

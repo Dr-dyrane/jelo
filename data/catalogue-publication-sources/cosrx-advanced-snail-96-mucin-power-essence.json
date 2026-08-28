@@ -4,7 +4,7 @@
   "dossier": {
     "schemaVersion": 8,
     "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
-    "candidateFingerprint": "a091690ed685e550df7b6866532f9a3ccc1d6f9434ee7990c76ec49c6f9aa2a9",
+    "candidateFingerprint": "df5d19e57e36caaa64bcf92cd1617fccf85c14f6cdbb68346893c438a4b3bbd3",
     "exposure": "private-only",
     "publicationScope": "neutral-reference",
     "publicationStatus": "not-published",
@@ -90,9 +90,129 @@
       "reviewer": "JeloCare catalogue evidence review"
     },
     "nigeria": {
-      "marketRoute": "reference-only",
+      "marketRoute": "tier-a",
       "regulatoryStatus": "pending",
-      "exactOffers": [],
+      "tierAIdentityEvidenceUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
+      "exactOffers": [
+        {
+          "retailer": "Perona Beauty",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://peronabeauty.com/product/cosrx-advanced-snail-96-mucin-power-essence/",
+          "observedAt": "2026-08-28T16:17:28.478Z",
+          "observedTitle": "Cosrx Advanced Snail 96 Mucin Power Essence",
+          "observedSize": "100 ml / 3.38 fl oz",
+          "observedGtinBasis": "exact-variant-and-size",
+          "priceNgn": 14500,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://peronabeauty.com/product/cosrx-advanced-snail-96-mucin-power-essence/",
+            "responseUrl": "https://peronabeauty.com/product/cosrx-advanced-snail-96-mucin-power-essence/",
+            "responseSha256": "e5821e04db8e3a99ceb8a62a50c1b364890dcab73da739943bf3ced9aa59d8e7",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 523041,
+            "retrievedAt": "2026-08-28T16:17:28.478Z",
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "8809416470009",
+                "locator": "Bound official COSRX catalogue identity",
+                "sourceText": "Official catalogue identity GTIN 8809416470009",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Cosrx Advanced Snail 96 Mucin Power Essence",
+                "locator": "Rendered product heading",
+                "sourceText": "Cosrx Advanced Snail 96 Mucin Power Essence"
+              },
+              "size": {
+                "value": "100 ml / 3.38 fl oz",
+                "locator": "Exact product pack image and official identity correlation",
+                "sourceText": "100 ml / 3.38 fl oz"
+              },
+              "price": {
+                "value": 14500,
+                "currency": "NGN",
+                "locator": "Rendered unit product price and JSON-LD offer",
+                "sourceText": "NGN14,500"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered availability and JSON-LD offer",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-28T16:22:30Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy Original Cosrx Advanced Snail 96 Mucin Power Essence - In Lagos, Nigeria"
+            }
+          }
+        },
+        {
+          "retailer": "CSi Grocery",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://www.csigrocery.com/shop/skincare/face/cosrx-advanced-snail-96-mucin-power/",
+          "observedAt": "2026-08-28T16:18:39.623Z",
+          "observedTitle": "Cosrx Advanced Snail 96 Mucin Power Essence – 100ml / 3.38 Fl Oz",
+          "observedSize": "100 ml / 3.38 fl oz",
+          "observedGtinBasis": "exact-variant-and-size",
+          "priceNgn": 16000,
+          "stock": "in-stock",
+          "evidence": {
+            "schemaVersion": 1,
+            "method": "reviewed-browser-dom-exact-offer-field-extraction",
+            "listingUrl": "https://www.csigrocery.com/shop/skincare/face/cosrx-advanced-snail-96-mucin-power/",
+            "responseUrl": "https://www.csigrocery.com/shop/skincare/face/cosrx-advanced-snail-96-mucin-power/",
+            "responseSha256": "a79d8d1b7a6dcb710c067eafcb8ff3c97ef58ad8153a6c491f1d99e8161b51e7",
+            "responseDigestScope": "rendered-dom-outerhtml",
+            "responseMimeType": "text/html",
+            "responseByteSize": 507068,
+            "retrievedAt": "2026-08-28T16:18:39.623Z",
+            "fields": {
+              "gtin": {
+                "label": "GTIN",
+                "value": "8809416470009",
+                "locator": "Bound official COSRX catalogue identity",
+                "sourceText": "Official catalogue identity GTIN 8809416470009",
+                "responseRole": "official-identity-correlation"
+              },
+              "title": {
+                "value": "Cosrx Advanced Snail 96 Mucin Power Essence – 100ml / 3.38 Fl Oz",
+                "locator": "Rendered product heading",
+                "sourceText": "Cosrx Advanced Snail 96 Mucin Power Essence – 100ml / 3.38 Fl Oz"
+              },
+              "size": {
+                "value": "100 ml / 3.38 fl oz",
+                "locator": "Rendered product heading",
+                "sourceText": "100ml / 3.38 Fl Oz"
+              },
+              "price": {
+                "value": 16000,
+                "currency": "NGN",
+                "locator": "Rendered product price",
+                "sourceText": "₦16,000.00"
+              },
+              "stock": {
+                "value": "in-stock",
+                "locator": "Rendered product availability",
+                "sourceText": "In stock"
+              }
+            },
+            "reviewer": "JeloCare catalogue evidence review",
+            "reviewedAt": "2026-08-28T16:22:30Z",
+            "browserCapture": {
+              "surface": "Codex in-app browser",
+              "documentReadyState": "complete",
+              "pageTitle": "Buy Cosrx Advanced Snail 96 Mucin Power Essence"
+            }
+          }
+        }
+      ],
       "brandSellerAuthorizationEvidence": []
     },
     "rights": {
@@ -160,11 +280,7 @@
           "identityReviewer": "JeloCare catalogue identity review",
           "artReviewedAt": "2026-08-07T22:58:00Z",
           "artReviewer": "Devin visual audit",
-          "surfaces": [
-            "peach",
-            "pink",
-            "dark"
-          ],
+          "surfaces": ["peach", "pink", "dark"],
           "surfaceReviewSha256": "28285caf618710ee4e3207c1d8fed1782e984cfb32c36095fc6d46b5a3418d0a",
           "packagingIntact": true,
           "labelVariantSizeUnchanged": true,
@@ -190,16 +306,16 @@
       "reviewer": "Devin visual audit"
     },
     "approval": {
-      "scope": "exact-identity-source-care-rights-and-final-image-reference-only",
+      "scope": "exact-identity-source-care-retail-rights-and-final-image",
       "reviewer": "JeloCare catalogue publication reviewer",
-      "approvedAt": "2026-08-07T22:58:00Z"
+      "approvedAt": "2026-08-28T16:28:05Z"
     },
-    "dossierFingerprint": "d7ecf70c5c23d9bc219c5c3afe04e6d698fd59a02c02df3f7242b103760f8fac"
+    "dossierFingerprint": "443d7eed1600448763dfeec063c84e6e52f6305cbe10f3c0416a84c2d5865575"
   },
   "release": {
     "schemaVersion": 2,
     "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
-    "dossierFingerprint": "d7ecf70c5c23d9bc219c5c3afe04e6d698fd59a02c02df3f7242b103760f8fac",
+    "dossierFingerprint": "443d7eed1600448763dfeec063c84e6e52f6305cbe10f3c0416a84c2d5865575",
     "exposure": "public-catalogue",
     "publicationScope": "neutral-reference",
     "publicationStatus": "published",
@@ -211,13 +327,13 @@
       "usage": "Pat onto damp skin after cleansing and before moisturizer.",
       "manufacturerDirectionsUrl": "https://www.cosrx.com/products/advanced-snail-96-mucin-power-essence",
       "reviewer": "JeloCare catalogue presentation reviewer",
-      "reviewedAt": "2026-08-07T22:58:00Z"
+      "reviewedAt": "2026-08-28T16:28:06Z"
     },
     "publication": {
       "scope": "exact-dossier-presentation-publication",
       "reviewer": "JeloCare catalogue release reviewer",
-      "publishedAt": "2026-08-07T22:59:00Z"
+      "publishedAt": "2026-08-28T16:28:07Z"
     },
-    "releaseFingerprint": "3dfcaaff0c5c5806066468fe4b60011042d05f443e4e7ddd34527baeaecebfc9"
+    "releaseFingerprint": "c7fedc6a6983456f28241cae8776bd74ae7e0e69a58fb6353059bfa3a1728316"
   }
 }
