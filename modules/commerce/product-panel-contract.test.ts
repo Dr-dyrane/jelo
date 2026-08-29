@@ -91,3 +91,11 @@ test("one server read model owns evidence and the public page consumes it", () =
   assert.match(productPage, /readProductPanelData\(product\)/);
   assert.match(productPage, /<ProductQuickPanel \{\.\.\.panelData\} \/>/);
 });
+
+test("public product routes reject slugs outside the checked-in publication set", () => {
+  assert.match(productPage, /export const dynamicParams = false;/);
+  assert.match(
+    productPage,
+    /return staticProducts\.map\(\(product\) => \(\{ slug: product\.slug \}\)\);/,
+  );
+});

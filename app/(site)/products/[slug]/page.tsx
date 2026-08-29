@@ -31,6 +31,7 @@ import {
 import { productMatchesConcern } from "@/modules/concerns/product-matching";
 
 export const revalidate = 3600;
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return staticProducts.map((product) => ({ slug: product.slug }));
