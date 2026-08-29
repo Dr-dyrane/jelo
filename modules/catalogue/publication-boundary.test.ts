@@ -241,7 +241,7 @@ test("a newly enriched product remains shareable while Neon still has only stale
       product.slug === "aqua-rich-licorice-mulberry-body-wash-1000ml",
   );
   assert.ok(staticProduct);
-  const asOf = new Date("2026-08-14T17:01:00Z");
+  const asOf = new Date("2026-08-29T23:31:00Z");
   const approved = {
     ...staticProduct,
     offers: mergeRetailOffers(staticProduct, staticProduct.offers, asOf),
@@ -273,10 +273,10 @@ test("a newly enriched product remains shareable while Neon still has only stale
   assert.deepEqual(
     reconciled.offers
       .filter((offer) =>
-        ["BuyBetter", "Perona Beauty"].includes(offer.retailer),
+        ["Perona Beauty", "Konga Health"].includes(offer.retailer),
       )
       .map((offer) => offer.retailer),
-    ["BuyBetter", "Perona Beauty"],
+    ["Perona Beauty", "Konga Health"],
   );
 });
 

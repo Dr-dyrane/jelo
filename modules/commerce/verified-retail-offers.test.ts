@@ -8,6 +8,7 @@ import waveFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-
 import waveFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-5-2026-08-27.json";
 import waveSixAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-6-2026-08-27.json";
 import waveSevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-7-2026-08-29.json";
+import waveEightAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-8-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -353,6 +354,57 @@ test("catalogue offer refresh wave 7 updates exact COSRX cells and rejects the r
   }
 });
 
+test("catalogue offer refresh wave 8 releases exact Aqua Rich cells without normalizing blocked siblings", () => {
+  const projected = waveEightAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveEightAudit.summary.productsReviewed, 2);
+  assert.equal(waveEightAudit.summary.productsReleased, 2);
+  assert.equal(waveEightAudit.summary.offersReviewed, 5);
+  assert.equal(waveEightAudit.summary.offersAdmitted, 3);
+  assert.equal(waveEightAudit.summary.offersBlocked, 2);
+  assert.equal(projected.length, 3);
+  assert.equal(
+    waveEightAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    0,
+  );
+  assert.deepEqual(
+    waveEightAudit.blockedCells.map((cell) => cell.retailer),
+    ["CSi Grocery", "TOS Nigeria"],
+  );
+  assert.equal(waveEightAudit.carriedProductBlockers.length, 10);
+  assert.equal(
+    verifiedRetailOffers[
+      "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml"
+    ]?.some((offer) => offer.retailer === "TOS Nigeria"),
+    false,
+  );
+
+  for (const product of waveEightAudit.products) {
+    const offers = verifiedRetailOffers[product.candidateId] ?? [];
+    for (const evidence of product.offers) {
+      const offer = offers.find((candidate) => candidate.url === evidence.url);
+      assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+      assert.equal(offer.retailer, evidence.retailer);
+      assert.equal(offer.priceNgn, evidence.priceNgn);
+      assert.equal(offer.available, true);
+      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assert.equal(offer.priceObservation?.size, product.identity.size);
+      assert.equal(offer.checkedAt, evidence.checkedAt);
+      assert.equal(offer.expiresAt, evidence.expiresAt);
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize > 0);
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+      assert.equal(
+        Date.parse(evidence.expiresAt) - Date.parse(evidence.checkedAt),
+        7 * 24 * 60 * 60 * 1000,
+      );
+    }
+  }
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -508,7 +560,6 @@ test("the zero-depth enrichment wave publishes exact offers across its cohort", 
     "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml": [
       ["CSi Grocery", 12000, "1000 ml"],
       ["Nihet Beauty", 21000, "1000 ml"],
-      ["TOS Nigeria", 10800, "1000 ml"],
     ],
     "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz": [
       ["Nihet Beauty", 75850, "1.7 fl oz / 50 ml"],

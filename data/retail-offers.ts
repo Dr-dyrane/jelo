@@ -83,8 +83,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract)",
       "1000 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-29T23:29:57.085Z",
+        expiresAt: "2026-09-05T23:29:57.085Z",
       },
     ),
     exactNg(
@@ -95,8 +95,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Bright + Glow Licorice & Mulberry Root Body Gel Wash - 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-29T23:29:59.459Z",
+        expiresAt: "2026-09-05T23:29:59.459Z",
         stock: "in-stock",
         available: true,
       },
@@ -123,20 +123,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Bright + Balance Body Gel Wash",
       "1000 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-      },
-    ),
-    exactNg(
-      "TOS Nigeria",
-      "https://tosnigeria.com/shop/aqua-rich-bright-balance-body-gel-wash-1000ml/",
-      78,
-      10800,
-      "Bright + Balance Body Gel Wash",
-      "1000 ml",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-29T23:30:01.891Z",
+        expiresAt: "2026-09-05T23:30:01.891Z",
       },
     ),
   ],
