@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-7-2026-08-29",
+  "scope": "Five independent COSRX Salicylic Acid Daily Gentle Cleanser cells: four exact 150 ml offers admitted and one redirected 50 ml mismatch blocked",
+  "reviewedAt": "2026-08-29T23:13:00Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-browser-dom-live-html-and-reviewed-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-05T23:12:10.197Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19.123Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The latest retry set is terminal and the backlog is empty."
+  },
+  "summary": {
+    "productsReviewed": 1,
+    "productsReleased": 1,
+    "offersReviewed": 5,
+    "offersAdmitted": 4,
+    "offersBlocked": 1,
+    "offersProjected": 4
+  },
+  "products": [
+    {
+      "candidateId": "cosrx-salicylic-acid-daily-gentle-cleanser",
+      "identity": {
+        "gtin": null,
+        "variant": "Salicylic Acid Daily Gentle Cleanser",
+        "size": "150 ml",
+        "packageVersion": "COSRX Salicylic Acid Daily Gentle Cleanser 150 ml / 5.07 fl oz white squeeze tube with red label and black flip cap"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/cosrx-salicylic-acid-cleanser/",
+          "priceNgn": 8500,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-29T23:11:53.633Z",
+          "expiresAt": "2026-09-05T23:11:53.633Z",
+          "evidenceMethod": "reviewed-browser-dom-and-live-html",
+          "responseSha256": "d907dd4d99b2916931fabadb1a9c7bbbc6610d39446db622cc0a121c9aef95fb",
+          "responseByteSize": 287283,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/07/Cosrc20salicylic20acid20cleanser.jpg",
+          "packageImageSha256": "1bd8953e90a7b754783872ed0e6512214a492b8037d399b42b51528416612874",
+          "packageImageByteSize": 32119
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/",
+          "priceNgn": 9900,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-29T23:12:00.355Z",
+          "expiresAt": "2026-09-05T23:12:00.355Z",
+          "evidenceMethod": "reviewed-browser-dom-and-live-html",
+          "responseSha256": "084f16fa209a31129bea22a8fb7053b7af275138c309e8b041fdf3f8a7c2c655",
+          "responseByteSize": 140463,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2023/10/Cosrx-Salicylic-Resize_500x.jpg",
+          "packageImageSha256": "a7f7a785debb07fd65482e6f4ea7a4baf577e400c85b9797ca36e5ee5b55c155",
+          "packageImageByteSize": 9270
+        },
+        {
+          "retailer": "Medplus",
+          "url": "https://medplusnig.com/product/cosrx-salicylic-acid-daily-cleanser-150m-O1Ne5k",
+          "priceNgn": 13500,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-29T23:12:08.642Z",
+          "expiresAt": "2026-09-05T23:12:08.642Z",
+          "evidenceMethod": "reviewed-browser-dom-live-html-and-reviewed-listing-image",
+          "responseSha256": "478be1c6ff4aebe9b4c6d79f7f6ab05f23aa559c1a379bc23fbb8b62ad073e8a",
+          "responseByteSize": 315136,
+          "packageImageUrl": "https://commercefiles.lon1.cdn.digitaloceanspaces.com/product/thumbnail/2024-07-11-668f42cb0a09a.webp",
+          "packageImageSha256": "b8ff8fca66bf3579f15ff1d0caf53a8db47edc2fd2502404467553a4f189c1a3",
+          "packageImageByteSize": 8660
+        },
+        {
+          "retailer": "Care to Beauty",
+          "url": "https://www.caretobeauty.com/ng/cosrx-salicylic-acid-daily-gentle-cleanser-150ml/",
+          "priceNgn": 17168.14,
+          "stock": "in-stock",
+          "checkedAt": "2026-08-29T23:12:10.197Z",
+          "expiresAt": "2026-09-05T23:12:10.197Z",
+          "evidenceMethod": "reviewed-browser-dom-and-live-html",
+          "responseSha256": "bac41f5b86be9c1af4a29cf82a23b2551a745a6ccb49386a74c07fad46906cc2",
+          "responseByteSize": 355518,
+          "packageImageUrl": "https://www.caretobeauty.com/cdn-cgi/image/w=1200,h=1200,f=auto/media/catalog/product/c/o/cosrx-salicylic-acid-daily-gentle-cleanser-150ml.jpg",
+          "packageImageSha256": "6c18be4dc27f5d7dffcd0f694bbb4f062afccd827061786e3ea6a854099a1ecb",
+          "packageImageByteSize": 27603
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "BuyBetter",
+          "requestedUrl": "https://buybetter.ng/product/cosrx-salicylic-acid-daily-gentle-cleanser/",
+          "responseUrl": "https://buybetter.ng/product/cosrx-salicylic-acid-daily-gentle-cleanser-50ml-2/",
+          "observedTitle": "COSRX Salicylic Acid Daily Gentle Cleanser 50ml",
+          "observedSize": "50 ml",
+          "stock": "out-of-stock",
+          "priceNgn": 3225,
+          "checkedAt": "2026-08-29T23:12:02.028Z",
+          "responseSha256": "cd2168c97d384bd62e6ceec9b2fb083b9337da361f6119c5e8888f6fda9b97fc",
+          "responseByteSize": 568547,
+          "reason": "The released product is 150 ml, but the former exact route now redirects to an out-of-stock 50 ml listing. The size mismatch is not normalized and the stale 150 ml offer is removed."
+        }
+      ]
+    }
+  ],
+  "carriedProductBlockers": [
+    "naturium-vitamin-c-complex-serum-1fl-oz",
+    "naturium-niacinamide-serum-12-percent-1fl-oz",
+    "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+    "naturium-retinol-complex-serum-1fl-oz",
+    "naturium-niacinamide-gel-cream-5-1-7oz",
+    "naturium-glow-getter-multi-oil-body-scrub-8oz",
+    "dove-moroccan-argan-oil-beauty-bar",
+    "b-lab-matcha-hydrating-real-sunscreen",
+    "kuza-indian-hemp-hair-scalp-treatment",
+    "lush-hair-mentholated-conditioner"
+  ]
+}

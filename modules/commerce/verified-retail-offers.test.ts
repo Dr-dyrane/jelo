@@ -7,6 +7,7 @@ import waveThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh
 import waveFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-4-2026-08-27.json";
 import waveFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-5-2026-08-27.json";
 import waveSixAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-6-2026-08-27.json";
+import waveSevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-7-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -224,6 +225,7 @@ test("catalogue offer refresh wave 5 projects exact legacy cells and isolates ne
     assert.equal(
       verifiedRetailOffers[product.candidateId]?.filter(
         (offer) =>
+          product.offers.some((evidence) => evidence.url === offer.url) &&
           offer.available !== false &&
           Boolean(offer.expiresAt) &&
           Date.parse(offer.expiresAt!) >= Date.parse(waveFiveAudit.reviewedAt),
@@ -303,6 +305,51 @@ test("catalogue offer refresh wave 6 projects exact package cells and blocks a u
         7 * 24 * 60 * 60 * 1000,
       );
     }
+  }
+});
+
+test("catalogue offer refresh wave 7 updates exact COSRX cells and rejects the redirected 50 ml sibling", () => {
+  const product = waveSevenAudit.products[0];
+  assert.ok(product);
+  assert.equal(waveSevenAudit.summary.productsReviewed, 1);
+  assert.equal(waveSevenAudit.summary.productsReleased, 1);
+  assert.equal(waveSevenAudit.summary.offersReviewed, 5);
+  assert.equal(waveSevenAudit.summary.offersAdmitted, 4);
+  assert.equal(waveSevenAudit.summary.offersBlocked, 1);
+  assert.equal(
+    waveSevenAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    0,
+  );
+  assert.equal(waveSevenAudit.scheduledOwner.latestObservedRun.due, 0);
+  assert.equal(waveSevenAudit.scheduledOwner.latestObservedRun.processing, 0);
+  assert.equal(waveSevenAudit.carriedProductBlockers.length, 10);
+
+  const projected = verifiedRetailOffers[product.candidateId] ?? [];
+  assert.equal(
+    projected.some((offer) => offer.retailer === "BuyBetter"),
+    false,
+  );
+  assert.equal(product.notProjected[0]?.observedSize, "50 ml");
+  assert.match(product.notProjected[0]?.reason ?? "", /150 ml.*50 ml/);
+
+  for (const evidence of product.offers) {
+    const offer = projected.find((candidate) => candidate.url === evidence.url);
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, true);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+    assert.equal(
+      Date.parse(evidence.expiresAt) - Date.parse(evidence.checkedAt),
+      7 * 24 * 60 * 60 * 1000,
+    );
   }
 });
 
