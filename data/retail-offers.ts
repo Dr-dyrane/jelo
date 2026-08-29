@@ -137,8 +137,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dew-Glow Moisturizer SPF 50",
       "1.7 fl oz / 50 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-29T23:49:23.320Z",
+        expiresAt: "2026-09-05T23:49:23.320Z",
       },
     ),
     exactNg(
@@ -149,11 +149,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Dew-Glow Moisturizer SPF50",
       "1.7 fl oz / 50 ml",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
-        stock: "in-stock",
-        available: true,
-        inventoryQuantity: 2,
+        observedAt: "2026-08-29T23:49:23.320Z",
+        expiresAt: "2026-09-05T23:49:23.320Z",
+        stock: "out-of-stock",
+        available: false,
       },
     ),
     exactNg(
@@ -164,9 +163,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Dew-Glow Moisturizer SPF 50",
       "1.7 fl oz / 50 ml",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
-        stock: "in-stock",
+        observedAt: "2026-08-29T23:49:23.320Z",
+        expiresAt: "2026-09-05T23:49:23.320Z",
+        stock: "out-of-stock",
+        available: false,
       },
     ),
   ],
@@ -179,8 +179,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Multi-Peptide Eye Cream",
       "0.5 fl oz / 15 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-29T23:49:23.320Z",
+        expiresAt: "2026-09-05T23:49:23.320Z",
       },
     ),
     exactNg(
@@ -198,20 +198,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
     ),
     exactNg(
-      "BabesQuarters",
-      "https://babesquarters.ng/product/naturium-multi-peptide-eye-cream/",
-      78,
-      25000,
-      "Naturium Multi Peptide Eye Cream",
-      "0.5 fl oz / 15 ml",
-      {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
-        available: false,
-        stock: "out-of-stock",
-      },
-    ),
-    exactNg(
       "Essentials Hub",
       "https://essentialshub.com/product/naturium-multi-peptide-eye-cream/",
       76,
@@ -219,8 +205,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Multi Peptide Eye Cream",
       "0.5 fl oz / 15 ml",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
+        observedAt: "2026-08-29T23:49:23.320Z",
+        expiresAt: "2026-09-05T23:49:23.320Z",
       },
     ),
   ],
@@ -277,8 +263,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Glow Serum : Propolis + Niacinamide",
       "30 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-29T23:49:23.320Z",
+        expiresAt: "2026-09-05T23:49:23.320Z",
+        stock: "low-stock",
         inventoryQuantity: 3,
       },
     ),
@@ -289,16 +276,22 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       19500,
       "Glow Serum : Propolis + Niacinamide",
       "30 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-29T23:49:23.320Z",
+        expiresAt: "2026-09-05T23:49:23.320Z",
+      },
     ),
     exactNg(
       "Rhema Beauty Shop",
       "https://rhemabeautyshop.com/shop/beauty-of-joseon-glow-serumpropolis-niacinamide-serum/",
       86,
-      20425,
+      19404,
       "Glow Serum : Propolis + Niacinamide",
       "30 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-29T23:49:23.320Z",
+        expiresAt: "2026-09-05T23:49:23.320Z",
+      },
     ),
   ],
   "eos-coconut-waters-body-wash-473ml": [

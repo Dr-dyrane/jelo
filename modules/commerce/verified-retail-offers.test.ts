@@ -9,6 +9,7 @@ import waveFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-
 import waveSixAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-6-2026-08-27.json";
 import waveSevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-7-2026-08-29.json";
 import waveEightAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-8-2026-08-29.json";
+import waveNineAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-9-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -405,6 +406,67 @@ test("catalogue offer refresh wave 8 releases exact Aqua Rich cells without norm
   }
 });
 
+test("catalogue offer refresh wave 9 releases exact product cells and preserves current out-of-stock truth", () => {
+  const projected = waveNineAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveNineAudit.matrix.unit, "exact product SKU");
+  assert.equal(waveNineAudit.matrix.before, 23);
+  assert.equal(waveNineAudit.matrix.after, 26);
+  assert.equal(waveNineAudit.matrix.total, 162);
+  assert.equal(waveNineAudit.summary.productsReviewed, 3);
+  assert.equal(waveNineAudit.summary.productsReleased, 3);
+  assert.equal(waveNineAudit.summary.offersReviewed, 10);
+  assert.equal(waveNineAudit.summary.offersAdmitted, 8);
+  assert.equal(waveNineAudit.summary.shopperActiveOffers, 6);
+  assert.equal(waveNineAudit.summary.outOfStockObservations, 2);
+  assert.equal(waveNineAudit.summary.offersBlocked, 2);
+  assert.equal(projected.length, 8);
+  assert.equal(waveNineAudit.scheduledOwner.latestObservedRun.activeBacklog, 0);
+  assert.deepEqual(
+    waveNineAudit.blockedCells.map((cell) => cell.retailer),
+    ["Jumia", "BabesQuarters"],
+  );
+  assert.equal(waveNineAudit.carriedProductBlockers.length, 10);
+
+  const eyeOffers =
+    verifiedRetailOffers["naturium-multi-peptide-eye-cream-0-5oz"] ?? [];
+  assert.equal(
+    eyeOffers.some((offer) => offer.retailer === "BabesQuarters"),
+    false,
+  );
+  const staleJumia = eyeOffers.find((offer) => offer.retailer === "Jumia");
+  assert.ok(staleJumia);
+  assert.equal(
+    isOfferFresh(staleJumia, new Date(waveNineAudit.reviewedAt)),
+    false,
+  );
+
+  for (const product of waveNineAudit.products) {
+    const offers = verifiedRetailOffers[product.candidateId] ?? [];
+    for (const evidence of product.offers) {
+      const offer = offers.find((candidate) => candidate.url === evidence.url);
+      assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+      assert.equal(offer.retailer, evidence.retailer);
+      assert.equal(offer.priceNgn, evidence.priceNgn);
+      assert.equal(offer.available, evidence.available);
+      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assert.equal(offer.priceObservation?.size, product.identity.size);
+      assert.equal(offer.checkedAt, evidence.checkedAt);
+      assert.equal(offer.expiresAt, evidence.expiresAt);
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize > 0);
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+      assert.equal(
+        Date.parse(evidence.expiresAt) - Date.parse(evidence.checkedAt),
+        7 * 24 * 60 * 60 * 1000,
+      );
+    }
+  }
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -499,7 +561,7 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
     "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml": [
       ["BuyBetter", 13500],
       ["Kadimez Essentials", 19500],
-      ["Rhema Beauty Shop", 20425],
+      ["Rhema Beauty Shop", 19404],
     ],
     "eos-coconut-waters-body-wash-473ml": [
       ["Teeka4", 18500],
@@ -536,13 +598,15 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
       offers.every(
         (offer) =>
           offer.checkedAt ===
-          (offer.retailer === "Beauty Hut Africa"
-            ? "2026-08-14T17:00:00Z"
-            : offer.retailer === "BuyBetter" &&
-                slug ===
-                  "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml"
-              ? "2026-08-11T19:54:00Z"
-              : "2026-08-14T17:00:00Z"),
+          (slug === "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml"
+            ? "2026-08-29T23:49:23.320Z"
+            : offer.retailer === "Beauty Hut Africa"
+              ? "2026-08-14T17:00:00Z"
+              : offer.retailer === "BuyBetter" &&
+                  slug ===
+                    "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml"
+                ? "2026-08-11T19:54:00Z"
+                : "2026-08-14T17:00:00Z"),
       ),
       true,
       `${slug}: observation timestamp`,
@@ -583,13 +647,11 @@ test("the zero-depth enrichment wave publishes exact offers across its cohort", 
     assert.equal(
       offers.every(
         (offer) =>
-          offer.available &&
           offer.match === "exact" &&
-          offer.priceObservation?.stock === "in-stock" &&
           Date.parse(offer.expiresAt ?? "") > Date.parse(offer.checkedAt ?? ""),
       ),
       true,
-      `${slug}: exact fresh in-stock evidence`,
+      `${slug}: exact reviewed evidence`,
     );
   }
 });
