@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-25-2026-08-29",
+  "reviewer": "JeloCare catalogue evidence review",
+  "reviewedAt": "2026-08-30T04:51:34.000Z",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T04:51:34.000Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The scheduled owner retained its queued retries while this disjoint manual exact-SKU review proceeded."
+  },
+  "scope": "Current Nigerian retailer checks across five independently evaluated exact product SKUs",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 89,
+    "after": 93,
+    "total": 162
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 4,
+    "productsBlocked": 1,
+    "offersReviewed": 28,
+    "offersAdmitted": 13,
+    "shopperActiveOffers": 11,
+    "outOfStockObservations": 2,
+    "offersBlocked": 15,
+    "offersProjected": 17
+  },
+  "products": [
+    {
+      "candidateId": "abib-clear-spot-serum-7-325-30ml",
+      "identity": {
+        "gtin": "8800280693693",
+        "variant": "ABIB Clear spot serum 7.325 pump",
+        "size": "30 ml / 1.01 fl oz",
+        "packageVersion": "Current single 30 ml pump package"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/abib-azelaic-acid-7-sea-moss-0-325-serum-30ml/",
+          "priceNgn": 16500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:50:41.222Z",
+          "expiresAt": "2026-09-06T04:50:41.222Z",
+          "responseSha256": "e1669b25d649750d751074676d0bbe087e84e467c9e6a1000981bc604d3e9303",
+          "responseByteSize": 567128,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/abib_e2218214c9-10.jpeg",
+          "packageImageSha256": "37664e640b219d5fdd881d55935abe2595d9fbbaf4e5188877fc7f4ada59cffc",
+          "packageImageByteSize": 15084
+        },
+        {
+          "retailer": "Ediths Essentials",
+          "url": "https://edithsessentials.com/products/abib-azelaic-acid-7-sea-moss-0-325-serum-30ml",
+          "priceNgn": 21500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:50:44.039Z",
+          "expiresAt": "2026-09-06T04:50:44.039Z",
+          "responseSha256": "f7e65fd5a2584b437f92d8dbee79d0c26f8f821abc68155acb87c6036601c441",
+          "responseByteSize": 137542,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0245/8661/6937/files/8800280693693_b12bdbf0-6db3-4d4c-b298-bbf22423cb38.jpg?v=1782828172",
+          "packageImageSha256": "72b73c61eff4d23bacc447fa4cb91eae47fbfce02bb672eaa824e82baba9ff6e",
+          "packageImageByteSize": 23810
+        },
+        {
+          "retailer": "MySkinCity",
+          "url": "https://www.myskincity.ng/product/abib-clear-spot-serum-7325-pump",
+          "priceNgn": 21500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:50:45.304Z",
+          "expiresAt": "2026-09-06T04:50:45.304Z",
+          "responseSha256": "fe900f232675626144c79e8b1f059ff89f2871c6ba2f4d1b6a1cc3cb65372c50",
+          "responseByteSize": 147160,
+          "packageImageUrl": "https://myskincity.ng/storage/products/287/27821dd1-8be1-4fb1-8bfc-ed5ef04a54bd-large.jpg",
+          "packageImageSha256": "b76a75641e7ead31ffca1d5fc99f6d7e78f8ac1a0f86c4ea3375fb7ce40aa8b9",
+          "packageImageByteSize": 38325
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/abib-clear-spot-serum-7-325-pump-with-seamoss-extract-30ml-6973932",
+          "priceNgn": 39900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:50:41.636Z",
+          "expiresAt": "2026-09-06T04:50:41.636Z",
+          "responseSha256": "4748a6165051c3bf02813d7f599a564126831c388fd7b9c31cdfb65b248d4479",
+          "responseByteSize": 289776,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/Z/F/246169_1777284710.jpg",
+          "packageImageSha256": "677a45fa26ba2a9a88ecee9e9c7b2081dd55072add96e927122a89b3fb2ec6fc",
+          "packageImageByteSize": 24183
+        }
+      ]
+    },
+    {
+      "candidateId": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+      "identity": {
+        "gtin": "4909978147105",
+        "variant": "ANESSA Perfect UV Sunscreen Skincare Milk NA SPF50+ PA++++",
+        "size": "60 ml",
+        "packageVersion": "Current gold bottle with turquoise slanted cap and carton"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/shiseido-professional-anessa-perfect-uv-sunscreen-skincare-milk-60ml/",
+          "priceNgn": 32249,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:48:19.559Z",
+          "expiresAt": "2026-09-06T04:48:19.559Z",
+          "responseSha256": "7e3c126e433f12a414d442168cf4781d37ea2b0b761aa9fd3fd0135ae7b3732c",
+          "responseByteSize": 565076,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/05/uyuan0rn-1.png",
+          "packageImageSha256": "bc5c5d9f0eb749683a5616f6d6dcafdfeab89ecde123d8cc7b6b14c4000ddf98",
+          "packageImageByteSize": 574146
+        }
+      ]
+    },
+    {
+      "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+      "identity": {
+        "gtin": "8809634610881",
+        "variant": "AXIS-Y Vegan Collagen Eye Serum",
+        "size": "10 ml / 0.33 fl oz",
+        "packageVersion": "Current cream applicator tube with green band and metal CoolTouch tip"
+      },
+      "offers": [
+        {
+          "retailer": "Nectar Beauty Hub",
+          "url": "https://nectarbeautyhub.com/products/axis-y-vegan-collagen-eye-serum-10ml",
+          "priceNgn": 12500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:48:36.460Z",
+          "expiresAt": "2026-09-06T04:48:36.460Z",
+          "responseSha256": "b3a4a8b8f6c3de1d138b9026e34fd6df4c6bc501afcdbc5f00cd1033f89803d4",
+          "responseByteSize": 849739,
+          "packageImageUrl": "https://nectarbeautyhub.com/cdn/shop/files/axis-y-vegan-collagen-eye-serum-10ml-4580037_1024x1024.png?v=1772673741",
+          "packageImageSha256": "57990adf6a1ad22e928190ea3a05d0dc4ca2e40274ac3cd25b738db334b96b1d",
+          "packageImageByteSize": 7858
+        },
+        {
+          "retailer": "MySkinCity",
+          "url": "https://www.myskincity.ng/product/axis-y-vegan-collagen-eye-serum",
+          "priceNgn": 17000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:48:39.135Z",
+          "expiresAt": "2026-09-06T04:48:39.135Z",
+          "responseSha256": "303abd805385d0bd1b568577efe6ac7f4ea1fc10fa0f9d38bb8b17cf20939dc0",
+          "responseByteSize": 137033,
+          "packageImageUrl": "https://myskincity.ng/storage/products/620/7b23b497-cad4-4fbc-8930-3505487a8d49-large.jpg",
+          "packageImageSha256": "88e933ce230f32fd6f9f565589fe09f6c6f37d903e69b059b13921b4df05b11d",
+          "packageImageByteSize": 34089
+        },
+        {
+          "retailer": "ShopStation",
+          "url": "https://shopstation.ng/product/axis-y-vegan-collagen-eye-serum-10ml/",
+          "priceNgn": 14999,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T04:48:37.061Z",
+          "expiresAt": "2026-09-06T04:48:37.061Z",
+          "responseSha256": "3a348c7522bc9e1b8d5c290c21941334c2c753698a057bc9558d306cc7d1e5d5",
+          "responseByteSize": 247626,
+          "packageImageUrl": "https://shopstation.ng/wp-content/uploads/2024/07/IMG_7148.jpeg",
+          "packageImageSha256": "a7e710c15eb20cd674257cc605eaf9b67ed3d5f97285ed7736af24f8207b791e",
+          "packageImageByteSize": 55745
+        }
+      ]
+    },
+    {
+      "candidateId": "cerave-acne-foaming-cream-cleanser-4-150ml",
+      "identity": {
+        "gtin": "3606000512238",
+        "variant": "CeraVe Acne Foaming Cream Cleanser 4% Benzoyl Peroxide",
+        "size": "150 ml / 5 fl oz",
+        "packageVersion": "Current 4% benzoyl peroxide 5 FL OZ (150 ml) tube and carton"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-cleanser-4/",
+          "priceNgn": 23850,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:50:00.000Z",
+          "expiresAt": "2026-09-06T04:50:00.000Z",
+          "responseSha256": "a2e172cb728b50c54d2be27fa6362da8c0b2b19538e054bc2f31b9fda8eb7a79",
+          "responseByteSize": 247750,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2024/03/Cerave-Acne-Foaming-Cream-Cleanser.jpeg",
+          "packageImageSha256": "446ab880318b2a0419f2b666cb25e853255d3c25592f50918f6fadfa35e00f12",
+          "packageImageByteSize": 14445
+        },
+        {
+          "retailer": "The Skin Hookup",
+          "url": "https://www.theskinhookupng.com/product/cerave-acne-foaming-cream-cleanser-150ml/",
+          "priceNgn": 25950,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:50:00.000Z",
+          "expiresAt": "2026-09-06T04:50:00.000Z",
+          "responseSha256": "15e42e55521550b323f360d220506be7b01b2580307e6d85bf562573d94bd746",
+          "responseByteSize": 247026,
+          "packageImageUrl": "https://www.theskinhookupng.com/wp-content/uploads/2026/01/2-2-1.jpg",
+          "packageImageSha256": "922dc872e0a34985752dfad98bbe7af831c9aa09ee2bd42d82cf2ae7a96a5117",
+          "packageImageByteSize": 90025
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/cerave-acne-foaming-cleanser-5oz/",
+          "priceNgn": 27000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:50:00.000Z",
+          "expiresAt": "2026-09-06T04:50:00.000Z",
+          "responseSha256": "b9c4991ff43652a1d1f476d3b5d91de18e79428882538082fb73ade460f9ec79",
+          "responseByteSize": 140401,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2023/12/download-3.jpeg",
+          "packageImageSha256": "ff374d70322d97089f0ebe5d4ebd5fa9847916b24518a4b5c7887fb02ea0c903",
+          "packageImageByteSize": 1125
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/cerave-acne-foaming-cream-cleanser-with-4-benzoyl-peroxide-hyaluronic-acid-and-niacinamide/",
+          "priceNgn": 31500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:50:00.000Z",
+          "expiresAt": "2026-09-06T04:50:00.000Z",
+          "responseSha256": "ffa8597a8a7766bb7b3f25a63444543179518d74df5a47e878ae9767f2bf1cf8",
+          "responseByteSize": 438142,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/download.jpg",
+          "packageImageSha256": "bfa43296208e417a1d97c0ac6a64d94f0c16e60dc470a575110d4de38fa7f871",
+          "packageImageByteSize": 167111
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/cerave-acne-foaming-cream-cleanser-4-benzoyl-peroxide-150ml/",
+          "priceNgn": 24000,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T04:50:00.000Z",
+          "expiresAt": "2026-09-06T04:50:00.000Z",
+          "responseSha256": "1fb60b2a8f2e30eb008ae533c2b72cf7aa2392001775f335dbffaaa3ffa6a443",
+          "responseByteSize": 564028,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/Cera_Ve_Acne_Control_Cleanser_4_Benozyl_Peroxide_Acne_Treatment_5_oz_d28a0a856c.jpeg",
+          "packageImageSha256": "f9ad77544f904f11c54d7a060a2c4fcfe69cf57fd661ad6b1432dec81562fac6",
+          "packageImageByteSize": 33569
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "abib-clear-spot-serum-7-325-30ml",
+      "retailer": "Zenova Beauty",
+      "url": "https://zenovabeauty.store/products/abib-clear-spot-serum-7-325-pump-with-seamoss-extract-30-ml",
+      "reason": "The title and image appear exact, but the body describes an unrelated serum-and-cream whitening formula, so identity conflicts.",
+      "responseSha256": "90e954415d597972a83326ed6f5012abeb3e4607fabd9ab196a8d25e53741bc9",
+      "responseByteSize": 116302
+    },
+    {
+      "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+      "retailer": "BuyBetter",
+      "url": "https://buybetter.ng/product/abib-heartleaf-acne-foam-cleanser-150ml/",
+      "reason": "The listing is the older Acne Foam Cleanser package with GTIN 8809864769229, not the current Mild Foam Cleanser GTIN 8809562559108.",
+      "responseSha256": "e8e15425c62b3811aaea24a52eefc2c440629a45b7fab0384a12794f3ac915e6",
+      "responseByteSize": 564176
+    },
+    {
+      "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+      "retailer": "Beauty Hut Africa",
+      "url": "https://beautyhutafrica.com/product/abib-acne-foam-cleanser-heartleaf-foam/",
+      "reason": "The listing shows the discontinued Acne Foam Cleanser package rather than the current Mild Foam Cleanser package.",
+      "responseSha256": "565293ee0880e2a92e736eabdb07e6281b659f18775dd7d5b4b40e3260e3e47f",
+      "responseByteSize": 814684
+    },
+    {
+      "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+      "retailer": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/abib-acne-foam-cleanser-heartleaf-foam-150ml/",
+      "reason": "The older-package route is behind an HTTP 403 verification wall and cannot establish current exact-SKU price or stock.",
+      "responseSha256": "8bbcafeecef99a06e2a1340db2fd6cc32aafd411c2faff4e0cebf963baf39f7d",
+      "responseByteSize": 6024
+    },
+    {
+      "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+      "retailer": "Hermosa Mart",
+      "url": "https://hermosamartng.com/product/abib-acne-foam-cleanser-heartleaf-foam/",
+      "reason": "The out-of-stock listing shows the discontinued Acne Foam Cleanser package, not the current Mild Foam Cleanser.",
+      "responseSha256": "c7bd62218a2052cf6a3f2ea338cc400e70d77c1165a761d8b7e6cc11795b59f5",
+      "responseByteSize": 258429
+    },
+    {
+      "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+      "retailer": "Cho & Zen",
+      "url": "https://choandzen.com/product/abib-heartleaf-acne-foam-cleanser/",
+      "reason": "The out-of-stock listing shows the discontinued Acne Foam Cleanser package, not the current Mild Foam Cleanser.",
+      "responseSha256": "c330f5f303869f3d8335a90e1bc99a4dfe89b8a6090cd945a8c1149f9b140891",
+      "responseByteSize": 396028
+    },
+    {
+      "candidateId": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+      "retailer": "Ubuy",
+      "url": "https://www.u-buy.com.ng/productde/Q6XKNAKUE-anessa-perfect-uv-sunscreen-skincare-milk-spf50-pa-60-ml",
+      "reason": "The cross-border exact-current discovery route is behind an HTTP 403 wall, so current Nigerian price and stock cannot be verified.",
+      "responseSha256": "f2f9c7d37910d2178557b51bfa39af3bebe4c526b870f2a15795eb467254e2e0",
+      "responseByteSize": 6040
+    },
+    {
+      "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+      "retailer": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/axis-y-vegan-collagen-eye-serum-10ml/",
+      "reason": "The route is behind an HTTP 403 wall and the retailer warns that package presentation may differ, so current exact-package admission fails closed.",
+      "responseSha256": "624a1d252a0daf2d0843007b441375141ccea1e27bf09842ca7f9cf1ca25b40b",
+      "responseByteSize": 5915
+    },
+    {
+      "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+      "retailer": "Dr Nutrition Nigeria",
+      "url": "https://drnutrition.com/en-ng/axis-y-vegan-collagen-eye-serum-10-ml",
+      "reason": "The route is behind an HTTP 403 Cloudflare wall, so price, stock, and package cannot be refreshed deterministically.",
+      "responseSha256": "db934b275ed9ac33ae261495f97ed6c52a1a4382d5097102f5a57454d54f7595",
+      "responseByteSize": 4934
+    },
+    {
+      "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+      "retailer": "iHerb Nigeria",
+      "url": "https://ng.iherb.com/pr/axis-y-vegan-collagen-eye-serum-0-33-fl-oz-10-ml/148962",
+      "reason": "The current route is behind an HTTP 403 verification wall; a search snapshot is not admissible as live price and stock evidence.",
+      "responseSha256": "d451d246a8be34d3f9ba45a2427cc8e86dfab0259212558759f1d3400570d512",
+      "responseByteSize": 5876
+    },
+    {
+      "candidateId": "axis-y-vegan-collagen-eye-serum-10ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/vegan-collagen-eye-cream-serum-10ml-axis-y-mpg12056293.html",
+      "reason": "The marketplace route is behind an HTTP 403 wall and its two offers do not establish seller-to-package provenance.",
+      "responseSha256": "87434f650bacdd2a690889872d2c6d1aa5bc1b70eaacc28823e8163e536a9203",
+      "responseByteSize": 5993
+    },
+    {
+      "candidateId": "cerave-acne-foaming-cream-cleanser-4-150ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/cerave-acne-foaming-cream-cleanser-4-benzoyl-peroxide-acne-treatment-419727444.html",
+      "reason": "The incumbent marketplace route is behind a current HTTP 403 verification wall and cannot establish seller, price, stock, or package truth.",
+      "responseSha256": "6cf590fbf98965813b315955abfd9852d12be6f0a5f4124e8ed6231b473d69ea",
+      "responseByteSize": 6108
+    },
+    {
+      "candidateId": "cerave-acne-foaming-cream-cleanser-4-150ml",
+      "retailer": "Brandlistry",
+      "url": "https://www.brandlistry.ng/products/cerave-acne-foaming-cream-cleanser",
+      "reason": "The listing's structured brand is MySkinHubNg rather than CeraVe and it provides no GTIN, so the identity metadata conflicts.",
+      "responseSha256": "7d91e06eeff0dab0ca62a07943452a2ff20d41224a5e5c26cf3a4aae0b0c74c9",
+      "responseByteSize": 531323
+    }
+  ],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+      "retailer": "Ubuy",
+      "reason": "A separate search-only listing is the older Milk A package with GTIN 4909978120757, not the current NA package."
+    },
+    {
+      "candidateId": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+      "retailer": "Jumia",
+      "reason": "Marketplace search results do not establish the exact 60 ml NA package, seller provenance, live price, or stock."
+    }
+  ],
+  "heldCandidates": [
+    {
+      "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+      "reason": "All current Nigerian listings found represent the older Acne Foam Cleanser package. No listing established the current Mild Foam Cleanser package and GTIN 8809562559108, so the cell remains package-and-reformulation blocked."
+    }
+  ]
+}

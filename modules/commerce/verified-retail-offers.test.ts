@@ -28,6 +28,7 @@ import waveTwentyOneAudit from "@/data/retailer-verification/catalogue-offer-ref
 import waveTwentyTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-22-2026-08-29.json";
 import waveTwentyThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-23-2026-08-29.json";
 import waveTwentyFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-24-2026-08-29.json";
+import waveTwentyFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-25-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -1890,6 +1891,117 @@ test("catalogue offer refresh wave 24 releases five exact packages and isolates 
   }
 });
 
+test("catalogue offer refresh wave 25 releases four exact packages and holds the ABIB reformulation conflict", () => {
+  const projected = waveTwentyFiveAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveTwentyFiveAudit.matrix.before, 89);
+  assert.equal(waveTwentyFiveAudit.matrix.after, 93);
+  assert.equal(waveTwentyFiveAudit.matrix.total, 162);
+  assert.equal(waveTwentyFiveAudit.summary.productsReviewed, 5);
+  assert.equal(waveTwentyFiveAudit.summary.productsReleased, 4);
+  assert.equal(waveTwentyFiveAudit.summary.productsBlocked, 1);
+  assert.equal(waveTwentyFiveAudit.summary.offersAdmitted, 13);
+  assert.equal(waveTwentyFiveAudit.summary.shopperActiveOffers, 11);
+  assert.equal(waveTwentyFiveAudit.summary.outOfStockObservations, 2);
+  assert.equal(waveTwentyFiveAudit.summary.offersBlocked, 15);
+  assert.equal(projected.length, 13);
+  assert.equal(waveTwentyFiveAudit.blockedCells.length, 13);
+  assert.equal(waveTwentyFiveAudit.excludedDiscoveries.length, 2);
+  assert.equal(waveTwentyFiveAudit.heldCandidates.length, 1);
+  assert.equal(waveTwentyFiveAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.equal(
+    waveTwentyFiveAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  for (const blocked of waveTwentyFiveAudit.blockedCells) {
+    assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(blocked.responseByteSize > 0);
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.url === blocked.url,
+    );
+    if (offer) {
+      assert.equal(offer.available, false);
+      assert.equal(offer.priceObservation?.stock, "unknown");
+      assert.equal(offer.priceComparison, "exclude");
+    }
+  }
+
+  const held = verifiedRetailOffers["abib-heartleaf-foam-cleanser-150ml"];
+  assert.ok(held);
+  assert.equal(held.length, 3);
+  for (const offer of held) {
+    assert.equal(offer.available, false);
+    assert.equal(offer.priceObservation?.stock, "unknown");
+    assert.equal(offer.priceComparison, "exclude");
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "abib-clear-spot-serum-7-325-30ml",
+      ["BuyBetter", "Ediths Essentials", "Konga Health", "MySkinCity"],
+    ],
+    ["anessa-perfect-uv-sunscreen-skincare-milk-na-60ml", ["BuyBetter"]],
+    [
+      "axis-y-vegan-collagen-eye-serum-10ml",
+      ["MySkinCity", "Nectar Beauty Hub"],
+    ],
+    [
+      "cerave-acne-foaming-cream-cleanser-4-150ml",
+      ["Beauty by Daz", "Deoset", "Perona Beauty", "The Skin Hookup"],
+    ],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["abib-clear-spot-serum-7-325-30ml", 16_500],
+    ["anessa-perfect-uv-sunscreen-skincare-milk-na-60ml", 32_249],
+    ["axis-y-vegan-collagen-eye-serum-10ml", 12_500],
+    ["cerave-acne-foaming-cream-cleanser-4-150ml", 23_850],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    assert.equal(
+      Math.min(
+        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+      ),
+      expectedFloors.get(slug),
+      slug,
+    );
+  }
+
+  const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
+  assert.equal(registered.has("MySkinCity"), true);
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -2021,17 +2133,19 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
       offers.every(
         (offer) =>
           offer.checkedAt ===
-          (slug === "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml"
-            ? "2026-08-29T23:49:23.320Z"
-            : slug.startsWith("eos-")
-              ? "2026-08-30T00:00:32.487Z"
-              : offer.retailer === "Beauty Hut Africa"
-                ? "2026-08-14T17:00:00Z"
-                : offer.retailer === "BuyBetter" &&
-                    slug ===
-                      "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml"
-                  ? "2026-08-11T19:54:00Z"
-                  : "2026-08-14T17:00:00Z"),
+          (slug === "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml"
+            ? "2026-08-30T04:48:19.559Z"
+            : slug === "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml"
+              ? "2026-08-29T23:49:23.320Z"
+              : slug.startsWith("eos-")
+                ? "2026-08-30T00:00:32.487Z"
+                : offer.retailer === "Beauty Hut Africa"
+                  ? "2026-08-14T17:00:00Z"
+                  : offer.retailer === "BuyBetter" &&
+                      slug ===
+                        "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml"
+                    ? "2026-08-11T19:54:00Z"
+                    : "2026-08-14T17:00:00Z"),
       ),
       true,
       `${slug}: observation timestamp`,

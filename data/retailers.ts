@@ -1056,6 +1056,25 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigeria skincare retailer with direct Naira listings and visible inventory; links remain advisory only.",
   },
   {
+    name: "MySkinCity",
+    homepage: "https://www.myskincity.ng/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T04:48:39.135Z",
+      sourceUrl:
+        "https://www.myskincity.ng/product/axis-y-vegan-collagen-eye-serum",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query: string) =>
+      `https://www.myskincity.ng/search?q=${encodeURIComponent(query)}`,
+    note: "Nigerian skincare retailer with direct Naira product pages and item-level stock counts; links remain advisory only.",
+  },
+  {
     name: "Gifty Beauty Store",
     homepage: "https://giftybeautystoree.com/",
     market: "NG",
