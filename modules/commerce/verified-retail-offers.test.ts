@@ -34,6 +34,7 @@ import waveTwentySevenAudit from "@/data/retailer-verification/catalogue-offer-r
 import waveTwentyEightAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-28-2026-08-29.json";
 import waveTwentyNineAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-29-2026-08-29.json";
 import waveThirtyAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-30-2026-08-29.json";
+import waveThirtyOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-31-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -1472,6 +1473,14 @@ test("catalogue offer refresh wave 21 releases four exact packages and isolates 
       (candidate) => candidate.url === blocked.url,
     );
     if (offer) {
+      const refreshed = waveThirtyOneAudit.products
+        .find((product) => product.candidateId === blocked.candidateId)
+        ?.offers.find((candidate) => candidate.url === blocked.url);
+      if (refreshed) {
+        assert.equal(offer.available, refreshed.available);
+        assert.equal(offer.checkedAt, refreshed.checkedAt);
+        continue;
+      }
       assert.equal(isOfferFresh(offer, asOf), true);
       assert.equal(offer.available, false);
       assert.equal(offer.priceComparison, "exclude");
@@ -1544,9 +1553,14 @@ test("catalogue offer refresh wave 21 releases four exact packages and isolates 
     "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
   );
   assert.match(held.reason, /N°1 UK badge.*NEW B5\+E/);
+  assert.ok(
+    waveThirtyOneAudit.products.some(
+      (product) => product.candidateId === held.candidateId,
+    ),
+  );
   assert.equal(
     verifiedRetailOffers[held.candidateId]?.some((offer) => offer.available),
-    false,
+    true,
   );
 });
 
@@ -2535,6 +2549,114 @@ test("catalogue offer refresh wave 30 releases five exact packages with rich cur
       expectedFloors.get(slug),
       slug,
     );
+  }
+});
+
+test("catalogue offer refresh wave 31 releases three exact packages and fails mismatched packages closed", () => {
+  const projected = waveThirtyOneAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveThirtyOneAudit.matrix.before, 118);
+  assert.equal(waveThirtyOneAudit.matrix.after, 121);
+  assert.equal(waveThirtyOneAudit.matrix.total, 162);
+  assert.equal(waveThirtyOneAudit.summary.productsReviewed, 5);
+  assert.equal(waveThirtyOneAudit.summary.productsReleased, 3);
+  assert.equal(waveThirtyOneAudit.summary.productsBlocked, 2);
+  assert.equal(waveThirtyOneAudit.summary.offersReviewed, 20);
+  assert.equal(waveThirtyOneAudit.summary.offersAdmitted, 10);
+  assert.equal(waveThirtyOneAudit.summary.shopperActiveOffers, 9);
+  assert.equal(waveThirtyOneAudit.summary.outOfStockObservations, 1);
+  assert.equal(waveThirtyOneAudit.summary.offersBlocked, 10);
+  assert.equal(projected.length, 10);
+  assert.equal(waveThirtyOneAudit.blockedCells.length, 4);
+  assert.equal(waveThirtyOneAudit.excludedDiscoveries.length, 10);
+  assert.equal(waveThirtyOneAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.equal(
+    waveThirtyOneAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    if (
+      "packageImageSha256" in evidence &&
+      typeof evidence.packageImageSha256 === "string"
+    ) {
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(
+        "packageImageByteSize" in evidence &&
+          typeof evidence.packageImageByteSize === "number" &&
+          evidence.packageImageByteSize > 0,
+      );
+    } else {
+      assert.equal(evidence.retailer, "CSi Grocery");
+      assert.equal(evidence.observedProductSku, product.identity.gtin);
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    }
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      [
+        "Beauty Hut Africa",
+        "CSi Grocery",
+        "Deoset",
+        "Konga Health",
+        "Perona Beauty",
+        "Teeka4",
+      ],
+    ],
+    [
+      "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",
+      ["Konga Health", "Perfect Trust Beauty"],
+    ],
+    ["estelin-vitamin-c-turmeric-face-oil-30ml", ["Konga Health"]],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["simple-kind-to-skin-refreshing-facial-gel-wash-150ml", 4_800],
+    ["sheamoisture-jamaican-black-castor-oil-shampoo-384ml", 13_300],
+    ["estelin-vitamin-c-turmeric-face-oil-30ml", 4_900],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    assert.equal(
+      Math.min(
+        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+      ),
+      expectedFloors.get(slug),
+      slug,
+    );
+  }
+
+  for (const slug of [
+    "loccitane-almond-softening-shower-oil-250ml",
+    "replenix-bp-10-acne-wash-aloe-vera-7oz",
+  ]) {
+    assert.deepEqual(verifiedRetailOffers[slug], [], slug);
   }
 });
 

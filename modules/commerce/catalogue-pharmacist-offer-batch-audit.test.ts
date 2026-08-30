@@ -17,6 +17,7 @@ import waveTwentySevenAudit from "@/data/retailer-verification/catalogue-offer-r
 import waveTwentyEightAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-28-2026-08-29.json";
 import waveTwentyNineAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-29-2026-08-29.json";
 import waveThirtyAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-30-2026-08-29.json";
+import waveThirtyOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-31-2026-08-29.json";
 import { mergeRetailOffers, verifiedRetailOffers } from "@/data/retail-offers";
 import { nigeriaRetailers } from "@/data/retailers";
 import {
@@ -259,7 +260,18 @@ test("the admitted evidence projects exactly once and rejected or pending stores
       continue;
     }
 
+    const blockedByLatestRefresh = waveThirtyOneAudit.blockedCells.some(
+      (candidate) => candidate.candidateId === product.candidateId,
+    );
+    if (blockedByLatestRefresh) {
+      assert.deepEqual(projected, [], offer.observationId);
+      continue;
+    }
+
     const refreshedProduct =
+      waveThirtyOneAudit.products.find(
+        (candidate) => candidate.candidateId === product.candidateId,
+      ) ??
       waveThirtyAudit.products.find(
         (candidate) => candidate.candidateId === product.candidateId,
       ) ??
@@ -503,10 +515,7 @@ test("the Jumia lead is textually 250 ml and no 500 ml authority can bind it", (
     ).includes("official-package-revision-equivalence-missing"),
   );
   assert.ok(verifiedRetailOffers[product.candidateId]);
-  assert.equal(
-    verifiedRetailOffers[product.candidateId]?.[0]?.retailer,
-    "Jumia",
-  );
+  assert.deepEqual(verifiedRetailOffers[product.candidateId], []);
 });
 
 test("explicitly expiring projections disappear from merged public offers", () => {

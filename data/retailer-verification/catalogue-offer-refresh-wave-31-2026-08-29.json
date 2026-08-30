@@ -1,0 +1,322 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-31-2026-08-29",
+  "reviewedAt": "2026-08-30T07:02:34.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Twenty current Nigerian retailer checks across three releasable and two package-blocked exact product SKUs",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T07:02:34.000Z"
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 118,
+    "after": 121,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 3,
+    "productsBlocked": 2,
+    "offersReviewed": 20,
+    "offersAdmitted": 10,
+    "shopperActiveOffers": 9,
+    "outOfStockObservations": 1,
+    "offersBlocked": 10,
+    "offersProjected": 10
+  },
+  "products": [
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "identity": {
+        "gtin": "5011451103863",
+        "variant": "Kind to Skin Refreshing Facial Gel Wash",
+        "size": "150 ml",
+        "packageVersion": "Exact green 150 ml Simple Refreshing Facial Wash squeeze tube"
+      },
+      "offers": [
+        {
+          "retailer": "CSi Grocery",
+          "url": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/simple-refreshing-facial-wash/",
+          "priceNgn": 4800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:02:34.000Z",
+          "expiresAt": "2026-09-06T07:02:34.000Z",
+          "responseUrl": "https://www.csigrocery.com/wp-json/wc/store/v1/products?slug=simple-refreshing-facial-wash",
+          "responseSha256": "76081c276d2a76b3765646dfbf6201cd92a62ddf9086bcca5d1e36be6c859ef5",
+          "responseByteSize": 17194,
+          "observedProductSku": "5011451103863",
+          "packageImageUrl": "https://www.csigrocery.com/wp-content/uploads/2025/02/untitled-design-2-5.png"
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/simple-kind-to-skin-refreshing-facial-gel-wash-150ml/",
+          "priceNgn": 4999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:02:34.000Z",
+          "expiresAt": "2026-09-06T07:02:34.000Z",
+          "responseSha256": "d6a31ac5f855851accbc992e006094ec3e4e21e38191a035b344327369251f7b",
+          "responseByteSize": 141874,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2023/10/62532931-5011451103863-01.jpg.rendition.680.680.jpg",
+          "packageImageSha256": "ed2433c1aab891f9c3ab31349cc56e9168891b7ed271738a64672366162b9655",
+          "packageImageByteSize": 23980
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/simple-refreshing-facial-wash/",
+          "priceNgn": 5500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:02:34.000Z",
+          "expiresAt": "2026-09-06T07:02:34.000Z",
+          "responseSha256": "11a0499ee53d3ed82b4ff19bbcf343468ffe8bdc8c3bb46713f64f27f0d137f0",
+          "responseByteSize": 444753,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/simple-refreshing-facial-wash-new.jpg",
+          "packageImageSha256": "9b39ad043e63fd528258fe1742fe16c9d33797eea325eae9c167d4674e29ddd0",
+          "packageImageByteSize": 31020
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/simple-kind-to-skin-refreshing-facial-gel-wash/",
+          "priceNgn": 5900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:02:34.000Z",
+          "expiresAt": "2026-09-06T07:02:34.000Z",
+          "responseSha256": "75062255db83cf54872bd5d30edc28ccae25cc780a0e263e1fc74d1b44641172",
+          "responseByteSize": 804708,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/04/Simple-Kind-to-Skin-Refreshing-Facial-Gel-Wash.jpg",
+          "packageImageSha256": "e9d63a9e9f73a2dd1645b2aa9665f0f72b1de7a9acbb673e4c4bf0daa8c0cdc7",
+          "packageImageByteSize": 56031
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/simple-kind-to-skin-refreshing-facial-gel-wash/",
+          "priceNgn": 4999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:02:34.000Z",
+          "expiresAt": "2026-09-06T07:02:34.000Z",
+          "responseSha256": "fc827b76d32d1e9d395e476c5c94a504a4738db30fb109052de33b307f1ed1a7",
+          "responseByteSize": 374917,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2023/08/1016266000_1.jpg",
+          "packageImageSha256": "881d887b7e2fd54c660069b71e566d7dba322268c0105e12dc30ded082bdd6bd",
+          "packageImageByteSize": 76771
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/simple-kind-to-skin-refreshing-facial-gel-wash-150ml-6602347",
+          "priceNgn": 11500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:02:34.000Z",
+          "expiresAt": "2026-09-06T07:02:34.000Z",
+          "responseSha256": "ce7c4dab4b3f9d531599cde19f944e8e0c0ed14d8743c528a52add9e1f4d3987",
+          "responseByteSize": 260625,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/T/C/203897_1731259014.jpg",
+          "packageImageSha256": "144164c3225243f7e52bbe0bb3ced43d43bcf05e0827518c1830abf751e5c07c",
+          "packageImageByteSize": 29622
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Jumia",
+          "reason": "current-exact-product-route-returned-waf-403-without-verifiable-live-price-or-stock"
+        }
+      ]
+    },
+    {
+      "candidateId": "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",
+      "identity": {
+        "gtin": "00764302215837",
+        "variant": "Jamaican Black Castor Oil Strengthen & Restore Shampoo",
+        "size": "384 ml",
+        "packageVersion": "Current 13 fl oz / 384 ml Strengthen & Restore Shampoo bottle"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/jamaican-black-castor-oil-shampoo/",
+          "priceNgn": 12685,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T07:02:34.000Z",
+          "expiresAt": "2026-09-06T07:02:34.000Z",
+          "responseSha256": "b6623da21a13e9a5e610ca5259ccb9896d2b6b56d13c352f27d7e85a3de50027",
+          "responseByteSize": 563048,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/57v62e1i-2-5.png",
+          "packageImageSha256": "17e47ebdf5a6f5c6c23d7a7fb789312ce60b242205f1a365a4e9555b17b6292b",
+          "packageImageByteSize": 121987
+        },
+        {
+          "retailer": "Perfect Trust Beauty",
+          "url": "https://perfecttrustbeauty.com/collections/shampoo/products/jamaica-blk-castor-repl-shampoo-384ml",
+          "priceNgn": 13300,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:02:34.000Z",
+          "expiresAt": "2026-09-06T07:02:34.000Z",
+          "responseSha256": "db8c523759c01d0fde6b31f60d3acf766ce0e9f6eefd0748f4e24d423530f38b",
+          "responseByteSize": 1147537,
+          "structuredResponseUrl": "https://perfecttrustbeauty.com/products/jamaica-blk-castor-repl-shampoo-384ml.js",
+          "structuredResponseSha256": "0b1126fbdd78fbe2e22d401f05030313e1a2bdcf1473a510fee334db3db0da0d",
+          "structuredResponseByteSize": 4716,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0608/6780/5319/files/shea-oisture-black-castor-oil-strengthen-restore-shampoo-002_800x800_682e805d-e5d0-405c-9f47-dfa78f345002.webp?v=1783523490",
+          "packageImageSha256": "49b7268f19f6baa716befed5a6877a1d5fd54ce9b41394376d212b35215bf313",
+          "packageImageByteSize": 28208
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/sheamoisture-jamaican-black-castor-oil-strengthen-and-restore-shampoo-13-oz-5904162",
+          "priceNgn": 17500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:02:34.000Z",
+          "expiresAt": "2026-09-06T07:02:34.000Z",
+          "responseSha256": "b637cd597ef00a9a358896d0dad73db60a085efdd204e807d4436bbd2badf334",
+          "responseByteSize": 256658,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/G/Y/149912_1776758531.jpg",
+          "packageImageSha256": "ec80d53638ccc177b3958d86bf5eb17f1eca7c8c5a6ed0ea4ca115efc574274f",
+          "packageImageByteSize": 27326
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Jumia",
+          "reason": "current-listing-is-the-482ml-16-3fl-oz-sibling-not-the-catalogue-384ml-package"
+        }
+      ]
+    },
+    {
+      "candidateId": "estelin-vitamin-c-turmeric-face-oil-30ml",
+      "identity": {
+        "manufacturerSku": "ES0088",
+        "variant": "Vitamin C & Turmeric Face Oil",
+        "size": "30 ml",
+        "packageVersion": "Current green-to-gold 30 ml glass dropper bottle and matching carton"
+      },
+      "offers": [
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/estelin-vitamin-c-turmeric-face-oil-6443148",
+          "priceNgn": 4900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:02:34.000Z",
+          "expiresAt": "2026-09-06T07:02:34.000Z",
+          "responseSha256": "4774a172b4803d7a2bb322ea1bc69ce16465a91ac48caec26f1c72baa298b4be",
+          "responseByteSize": 256441,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/Y/E/180987_1714235475.jpg",
+          "packageImageSha256": "1fdbf8eaf172fb860173bc8f46f73514e7548959fae1d8a6bad979f651416040",
+          "packageImageByteSize": 14817
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "BabesQuarters",
+          "reason": "legacy-url-now-resolves-to-an-unrelated-estelin-spf80-sunscreen-product"
+        },
+        {
+          "retailer": "Deoset",
+          "reason": "current-page-is-labelled-face-serum-not-the-catalogue-face-oil-variant"
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+      "retailer": "Konga Health",
+      "reason": "current-listing-image-shows-the-legacy-silver-cap-and-label-package-not-the-catalogue-black-cap-package"
+    },
+    {
+      "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+      "retailer": "BuyBetter / TOS Nigeria / Teeka4",
+      "reason": "current-listings-and-images-are-labelled-6-7fl-oz-200ml-not-the-catalogue-7oz-package"
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-face-moisturizer-uv-spf-30-100ml",
+      "retailer": "Hermosa Beauty / Perona Beauty / Hello Beauty / MakeupAlley Africa",
+      "reason": "current-retailer-pages-are-75ml-2-5fl-oz-not-the-catalogue-100ml-package"
+    },
+    {
+      "candidateId": "ogx-renewing-argan-oil-of-morocco-weightless-healing-dry-oil-100ml",
+      "retailer": "Care to Beauty",
+      "reason": "current-retailer-gtin-3574661563336-conflicts-with-catalogue-gtin-00022796916167"
+    }
+  ],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+      "retailer": "Jumia",
+      "reason": "current-product-route-returned-waf-403-without-verifiable-live-price-or-stock"
+    },
+    {
+      "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+      "retailer": "Essenza",
+      "reason": "legacy-product-url-now-redirects-to-the-retailer-homepage"
+    },
+    {
+      "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+      "retailer": "Konga Health",
+      "reason": "current-listing-image-shows-the-legacy-silver-cap-and-label-package"
+    },
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "retailer": "Jumia",
+      "reason": "current-product-route-returned-waf-403-without-verifiable-live-price-or-stock"
+    },
+    {
+      "candidateId": "sheamoisture-jamaican-black-castor-oil-shampoo-384ml",
+      "retailer": "Jumia",
+      "reason": "current-listing-is-the-482ml-16-3fl-oz-sibling"
+    },
+    {
+      "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+      "retailer": "BuyBetter / TOS Nigeria / Teeka4",
+      "reason": "all-current-listings-are-labelled-6-7fl-oz-200ml-not-7oz"
+    },
+    {
+      "candidateId": "estelin-vitamin-c-turmeric-face-oil-30ml",
+      "retailer": "BabesQuarters",
+      "reason": "legacy-url-now-resolves-to-an-unrelated-estelin-spf80-sunscreen-product"
+    },
+    {
+      "candidateId": "estelin-vitamin-c-turmeric-face-oil-30ml",
+      "retailer": "Deoset",
+      "reason": "current-page-is-labelled-face-serum-not-face-oil"
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-face-moisturizer-uv-spf-30-100ml",
+      "retailer": "Hermosa Beauty / Perona Beauty / Hello Beauty / MakeupAlley Africa",
+      "reason": "all-current-pages-are-the-75ml-package"
+    },
+    {
+      "candidateId": "ogx-renewing-argan-oil-of-morocco-weightless-healing-dry-oil-100ml",
+      "retailer": "Care to Beauty",
+      "reason": "current-retailer-gtin-conflicts-with-catalogue-gtin"
+    }
+  ]
+}
