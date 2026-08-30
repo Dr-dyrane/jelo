@@ -23,6 +23,7 @@ import waveSixteenAudit from "@/data/retailer-verification/catalogue-offer-refre
 import waveSeventeenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-17-2026-08-29.json";
 import waveEighteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-18-2026-08-29.json";
 import waveNineteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-19-2026-08-29.json";
+import waveTwentyAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-20-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -1319,6 +1320,101 @@ test("catalogue offer refresh wave 19 releases exact FaceFacts cleanser packages
   }
 });
 
+test("catalogue offer refresh wave 20 releases exact package siblings and isolates the base-identity hold", () => {
+  const projected = waveTwentyAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveTwentyAudit.matrix.before, 66);
+  assert.equal(waveTwentyAudit.matrix.after, 70);
+  assert.equal(waveTwentyAudit.matrix.total, 162);
+  assert.equal(waveTwentyAudit.summary.productsReviewed, 4);
+  assert.equal(projected.length, 17);
+  assert.equal(waveTwentyAudit.blockedCells.length, 13);
+  assert.equal(waveTwentyAudit.heldCandidates.length, 1);
+  assert.equal(waveTwentyAudit.scheduledOwner.manifestRecurringOwner, null);
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const asOf = new Date(waveTwentyAudit.reviewedAt);
+  for (const blocked of waveTwentyAudit.blockedCells) {
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.retailer === blocked.retailer,
+    );
+    assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
+    assert.equal(isOfferFresh(offer, asOf), true);
+    assert.equal(offer.available, false);
+    assert.equal(offer.priceComparison, "exclude");
+    assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(blocked.responseByteSize > 0);
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "cerave-hydrating-cleanser-473ml",
+      ["BuyBetter", "Konga Health", "Teeka4"],
+    ],
+    ["facefacts-soothe-glow-niacinamide-serum-30ml", ["Teeka4"]],
+    ["neutrogena-light-sesame-body-oil-8-5oz", ["Perona Beauty", "Teeka4"]],
+    [
+      "panoxyl-acne-creamy-wash-4-170g",
+      [
+        "Beauty Hut Africa",
+        "Beauty by Daz",
+        "BuyBetter",
+        "Deoset",
+        "Konga Health",
+        "Perona Beauty",
+        "Teeka4",
+      ],
+    ],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    assert.deepEqual(
+      product.offers
+        .filter((offer) => offer.available)
+        .map((offer) => offer.retailer)
+        .sort(),
+      expected,
+      slug,
+    );
+  }
+
+  const [held] = waveTwentyAudit.heldCandidates;
+  assert.equal(
+    held.candidateId,
+    "advanced-clinicals-vitamin-c-face-serum-52ml",
+  );
+  assert.match(held.reason, /1-75oz.*1\.75 fl oz \/ 52 ml/);
+  assert.equal(
+    verifiedRetailOffers[held.candidateId]?.some((offer) =>
+      isOfferFresh(offer, asOf),
+    ),
+    false,
+  );
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -1677,7 +1773,6 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     ["eos-pink-champagne-body-wash-473ml", 25_000, "16 fl oz / 473 ml"],
     ["eos-vanilla-cashmere-body-wash-473ml", 23_100, "16 fl oz / 473 ml"],
     ["facefacts-ceramide-hydrating-gentle-cleanser-400ml", 8_775, "400 ml"],
-    ["facefacts-soothe-glow-niacinamide-serum-30ml", 4_380, "30 ml"],
     ["la-roche-posay-effaclar-purifying-foaming-gel-400ml", 15_511, "400 ml"],
     ["nineless-a-control-azelaic-acid-cream-50ml", 20_315, "50 ml"],
     ["nivea-perfect-radiant-body-lotion-400ml", 5_156, "400 ml"],
@@ -1717,6 +1812,17 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     );
     assert.equal(new URL(offer.url).hostname, "beautyhutafrica.com", slug);
   }
+
+  const blockedFaceFacts = verifiedRetailOffers[
+    "facefacts-soothe-glow-niacinamide-serum-30ml"
+  ]?.find((candidate) => candidate.retailer === "Beauty Hut Africa");
+  assert.ok(blockedFaceFacts);
+  assert.equal(blockedFaceFacts.priceNgn, 4_380);
+  assert.equal(blockedFaceFacts.available, false);
+  assert.equal(blockedFaceFacts.priceComparison, "exclude");
+  assert.equal(blockedFaceFacts.priceObservation?.size, "30 ml");
+  assert.equal(blockedFaceFacts.checkedAt, "2026-08-30T02:37:57.000Z");
+  assert.equal(blockedFaceFacts.expiresAt, "2026-09-06T02:37:57.000Z");
 
   const refreshedBalance = verifiedRetailOffers[
     "balance-niacinamide-blemish-recovery-serum-30ml"

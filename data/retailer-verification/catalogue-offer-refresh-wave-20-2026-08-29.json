@@ -1,0 +1,478 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-20-2026-08-29",
+  "scope": "Thirty live retailer checks across four independently releasable exact product SKUs; one additional base-identity-conflicted candidate held",
+  "reviewedAt": "2026-08-30T02:44:24.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-browser-render-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 66,
+    "after": 70,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T02:44:24.000Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The observed backlog remains empty and no later scheduled run was due before this review."
+  },
+  "summary": {
+    "productsReviewed": 4,
+    "productsReleased": 4,
+    "productsBlocked": 0,
+    "offersReviewed": 30,
+    "offersAdmitted": 17,
+    "shopperActiveOffers": 13,
+    "outOfStockObservations": 4,
+    "offersBlocked": 13,
+    "offersProjected": 30
+  },
+  "heldCandidates": [
+    {
+      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "reason": "Catalogue size is malformed as 1-75oz while all current exact evidence is 1.75 fl oz / 52 ml. Offer publication requires a separately authorized base-identity correction and cannot silently normalize this conflict."
+    }
+  ],
+  "products": [
+    {
+      "candidateId": "cerave-hydrating-cleanser-473ml",
+      "identity": {
+        "variant": "Hydrating Cleanser",
+        "size": "473 ml",
+        "packageVersion": "released UK/EU bilingual 16 fl oz / 473 ml pump"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/cerave-hydrating-cleanser-daily-face-and-body-wash-for-normal-to-dry-skin-473ml/",
+          "priceNgn": 17200,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:44:24.000Z",
+          "expiresAt": "2026-09-06T02:44:24.000Z",
+          "responseSha256": "6da3a6577626bd8fcabc3aef29b1fd75ec1cf9c5867cfb9b4062f303f0d35fe0",
+          "responseByteSize": 567154,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2019/05/Untitled-design-2026-08-06T124912.940-1024x1024.png",
+          "packageImageSha256": "7b803b48062ad3e5308f67d696295ee27d96870fb9f29a8a173e3bad1f815222",
+          "packageImageByteSize": 479461
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/cerave-hydrating-cleanser-uk-16oz/",
+          "priceNgn": 16800,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "8511b162be1fe4f948bcc01bf4453b3f090946eb9afebb28ed353c6a0d11b312",
+          "responseByteSize": 422487,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/CeraVe-Hydrating-Cleanser-Uk-version.jpg",
+          "packageImageSha256": "ccd6f05bded95db2b9c6c0bf8e8b46bd6212d8ea6911a4cd54fa451fda4aa338",
+          "packageImageByteSize": 29893
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/cerave-hydrating-cleanser-473ml-uk-version-copy/",
+          "priceNgn": 15500,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "cf4a9b2044f9ad862bcce14e645bec6a9c8363c0d173688da251ff4707847ef5",
+          "responseByteSize": 244374,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/10/images-26.jpeg",
+          "packageImageSha256": "88d846efe554ec6b6519baab6028a25c03bb1f9f04d19bf80bde22c320e0425a",
+          "packageImageByteSize": 15930
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/cerave-hydrating-cleanser-16-oz/",
+          "priceNgn": 16300,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "d8e71e476cb999967bc33707522c1754d3716271c9b82793c7debc1166865c29",
+          "responseByteSize": 354014,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2023/09/woo_product_image_ept-2593-image.jpg",
+          "packageImageSha256": "df8c58425f8f87f83f705833b3aab36b5522b84375e43b6bcdad0e1a762217d4",
+          "packageImageByteSize": 14654
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/cerave-hydrating-cleanser-for-normal-to-dry-skin-473ml-with-hyaluronic-acid-and-3-essential-ceramides-6138374",
+          "priceNgn": 16664,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "8e1d7111ed740f7d9a461ec0a3cd83d0ba6efdc23efb363511a1a9246c31c708",
+          "responseByteSize": 487668,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/H/N/51500_1720458101.jpg",
+          "packageImageSha256": "36e65933edb630248ee22482835e8cff20f31060124c4bf58f6e2eb31385d465",
+          "packageImageByteSize": 60886
+        }
+      ]
+    },
+    {
+      "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+      "identity": {
+        "variant": "Soothe + Glow Niacinamide Serum",
+        "size": "30 ml",
+        "packageVersion": "released purple-label bottle and purple carton"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/face-facts-niacinamide-soothe-glow-serum-purple-pack/",
+          "priceNgn": 4500,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "c8158f45933ceeef9c656dc75b4ff00449d5c3e930ce715db09a1cc91e10e367",
+          "responseByteSize": 390542,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/07/Screenshot_802262.png",
+          "packageImageSha256": "2113bc6ebdc8f46fe36e193b32c0de070fa8263ee05ccb9d7ce779ce9634b5d4",
+          "packageImageByteSize": 70925
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/facefacts-soothe-glow-niacinamide-serum-30ml/",
+          "priceNgn": 4200,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "409cfcdaee43b93c10e491afc5bf81f3b09865eca022ad39095d5a2567152797",
+          "responseByteSize": 352181,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/10/niacinamide.jpg",
+          "packageImageSha256": "23c401e67ff8ced5310f7fbc3629cd6a36ba634d72392e8831a3655a844349f5",
+          "packageImageByteSize": 81166
+        }
+      ]
+    },
+    {
+      "candidateId": "neutrogena-light-sesame-body-oil-8-5oz",
+      "identity": {
+        "variant": "Body Oil Light Sesame Formula Original",
+        "size": "8.5 fl oz",
+        "packageVersion": "original fragranced 250 ml bottle; not Fragrance Free"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/neutrogena-light-sesame-formula-body-oil-8-5-oz-250ml/",
+          "priceNgn": 20000,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "53a0559a944da580abfbddc0fef6c2648a5d914caff427327d46c8ffcf27823b",
+          "responseByteSize": 562334,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/08/k1250kuq.png",
+          "packageImageSha256": "30b4498b48c909b1bdc795eecbf29f72a8a7fff7e5f60e796a0c16184734388d",
+          "packageImageByteSize": 114895
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/neutrogena-moisturizing-body-oil-light-sesame-formula-original-8-5-fl-oz/",
+          "priceNgn": 22000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "7977d02975a6f37a6caf8ac4a5bb64439de317a1ef7a7bdb18e1cfb51c77e434",
+          "responseByteSize": 384712,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/Neutrogena-Moisturizing-Body-Oil-Light-Sesame-Formula-Original-8.5-fl-oz.webp",
+          "packageImageSha256": "a1c864e4e235ca9763e7b231ebceb6bca3c9a9ce2690837daafe263f3bd6dc7f",
+          "packageImageByteSize": 17820
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/neutrogena-lightweight-body-oil16-oz/",
+          "priceNgn": 20000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "f0d36ee38fb3be9f00d95a7a6a918c457229990907e43e80e4a170d279f020de",
+          "responseByteSize": 353096,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2023/08/woo_product_image_ept-3131-image.jpg",
+          "packageImageSha256": "9a3fef52fc355ee6e30b1b8e76cac4199a2c314687524e2145ae3df4eaa62d34",
+          "packageImageByteSize": 28158,
+          "reviewNote": "Historical route slug says 16 oz, but the unchanged canonical page title, schema and package image consistently show exact 8.5 fl oz / 250 ml and no 16 oz product evidence."
+        }
+      ]
+    },
+    {
+      "candidateId": "panoxyl-acne-creamy-wash-4-170g",
+      "identity": {
+        "variant": "Acne Creamy Wash 4% Benzoyl Peroxide Daily Control",
+        "size": "170 g",
+        "packageVersion": "6 oz / 170 g tube"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-control-4/",
+          "priceNgn": 13000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "cc58af544e3bba247adb87458896181fc6b394f3f68d79eea9faae779bc8216b",
+          "responseByteSize": 575575,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2023/08/v4iq21yh-1.png",
+          "packageImageSha256": "fd4d78dc204a41554398547b18d6a4e4de5cb329dd9d8ce84688897089302477",
+          "packageImageByteSize": 2316584
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-4-daily-control/",
+          "priceNgn": 16500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "657d1153ad663dcb391bd59de0d9073071164eb8769e428238e5671c5d757595",
+          "responseByteSize": 390449,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/4-1.jpg",
+          "packageImageSha256": "63d6f3b105f77076bc929d1055c87addf0dcd213397f2d2e529dd9e59d82566f",
+          "packageImageByteSize": 35424
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/panoxyl-creamy-acne-wash-4-benzoyl-peroxide-6-0oz/",
+          "priceNgn": 13850,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "e44e9a38fd6a42345660f40119de6a5258e9fade1731d8faccf4e6e008a55fe2",
+          "responseByteSize": 251582,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/07/panoxyl-4.jpg",
+          "packageImageSha256": "b0ca4810a77959e5655654c9f542ac786128d7505577bd80a4e63cb2c29b3fba",
+          "packageImageByteSize": 8114
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-4-daily-control/",
+          "priceNgn": 16100,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "4fff0b9455800e57361da844c1f435e347c245f898c0d55b2a93dab4c85db318",
+          "responseByteSize": 804417,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/04/Panoxyl-Acne-Creamy-Wash-Benzoyl-Peroxide-4-Daily-Control.webp",
+          "packageImageSha256": "089a253dba8c4d192f34acc58c1b6b33b5775c4b45130e45efbb9c58d29fd223",
+          "packageImageByteSize": 33964
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/panoxyl-acne-creamy-wash-benzoyl-peroxide-4-daily-control-6-0z/",
+          "priceNgn": 13300,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "6720198465584e5a4d323c504f41de39271e0152183c31cbc435c09bb198a993",
+          "responseByteSize": 403396,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/10/Artboard-1.jpg",
+          "packageImageSha256": "edbf862ed8c64ea0d67ad4e6272c7cc555aaf0afa9e7e7aaf3528d8d11dc1b01",
+          "packageImageByteSize": 347701
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-4-daily-control-7005931",
+          "priceNgn": 20000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "8b18b645f7fef168da178eb03d6da65a507749701d70e574efd577d036907387",
+          "responseByteSize": 261803,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/Q/R/249535_1782821653.jpg",
+          "packageImageSha256": "c3755e4d614b53cc75b00e8c6526d2d478e5ecb1249604c0695ceb83d8a14ee7",
+          "packageImageByteSize": 38550
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-4-daily-control/",
+          "priceNgn": 14400,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:37:57.000Z",
+          "expiresAt": "2026-09-06T02:37:57.000Z",
+          "responseSha256": "fcae460b766a918f99d5cdf086ee0a844705bea8d5efd280c620b31cecd25811",
+          "responseByteSize": 142781,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2023/10/Artboard-1.jpg",
+          "packageImageSha256": "edbf862ed8c64ea0d67ad4e6272c7cc555aaf0afa9e7e7aaf3528d8d11dc1b01",
+          "packageImageByteSize": 347701
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "cerave-hydrating-cleanser-473ml",
+      "retailer": "24Eleven",
+      "url": "https://www.24eleven.ng/cerave-hydrating-cleanser-473ml-16oz-uk-version",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "a5599818fc47cccc7c30657c35f5f2db1bcd98d0d4ef3124bfb1e3c0510478a7",
+      "responseByteSize": 5718
+    },
+    {
+      "candidateId": "cerave-hydrating-cleanser-473ml",
+      "retailer": "Deoset",
+      "url": "https://deoset.com/product/cerave-hydrating-facial-cleanser-face-wash-for-normal-to-dry-skin-473ml-us-version/",
+      "status": 200,
+      "reason": "US Hydrating Facial Cleanser package conflicts with the released UK/EU bilingual package.",
+      "responseSha256": "751658495bb131cc13e7e3c3d2ede494fc8a19cbabf0b3c81291e22fe6ab275e",
+      "responseByteSize": 141882,
+      "packageImageUrl": "https://deoset.com/wp-content/uploads/2023/10/Cerave-Hydrating-Facial-Cleanser-Face-wash-for-Normal-to-Dry-Skin.jpg",
+      "packageImageSha256": "51b1be7b98ae4ad835e32d0cae5b605ae530348af6a2c99cf3741580f7994054",
+      "packageImageByteSize": 63462
+    },
+    {
+      "candidateId": "cerave-hydrating-cleanser-473ml",
+      "retailer": "Beauty Hut Africa",
+      "url": "https://beautyhutafrica.com/product/cerave-hydrating-cleanser/",
+      "status": 200,
+      "reason": "Page mixes 236 ml and 473 ml selectors with aggregate pricing and defaults to a 236 ml package image.",
+      "responseSha256": "9df4912acab2c46d2cf0e10d426a354f153907e51bfef556e71eaf9fedaff458",
+      "responseByteSize": 823360,
+      "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/08/P-6-1024x1024.png",
+      "packageImageSha256": "613726e14b412e9172d6893a1e9cbd63068013c4bb24119618b8e3f566aac2c8",
+      "packageImageByteSize": 125072
+    },
+    {
+      "candidateId": "cerave-hydrating-cleanser-473ml",
+      "retailer": "Perfect Trust Beauty",
+      "url": "https://perfecttrustbeauty.com/products/cerave-hydrating-cleanser-473ml",
+      "status": 503,
+      "reason": "Current product evidence is unavailable.",
+      "responseSha256": "894aee4267a8466fbaca6966e7d9f70d77eb25ba4ad253172a91bb8144e943ab",
+      "responseByteSize": 12194
+    },
+    {
+      "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+      "retailer": "Beauty Hut Africa",
+      "url": "https://beautyhutafrica.com/product/face-facts-soothe-glow-niacinamide-serum-30ml/",
+      "status": 200,
+      "reason": "Package image is the white/grey sibling, not the released purple package.",
+      "responseSha256": "d12af97fa3175c865af9474e508c08a9f882b73008b6fd61b0ffb790739ed5b0",
+      "responseByteSize": 803895,
+      "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/07/Face-Facts-Soothe-amp-Glow-Niacinamide-serum-30ml.jpg",
+      "packageImageSha256": "beb0b6f2f263992e8889cf86c2c57e3a77b0b715ab464c5f27b82b12bc1bacc0",
+      "packageImageByteSize": 6230
+    },
+    {
+      "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+      "retailer": "Beauty by Daz",
+      "url": "https://beautybydaz.com/shop/face/serums/face-facts-niacinamide-serum-30ml/",
+      "status": 200,
+      "reason": "Generic identifier and white/grey package conflict with the released purple package.",
+      "responseSha256": "fbda2b3b755aa1fb78b9dc6b5b0e0c46dc091a1c7bba8b1cfb410367a457f79d",
+      "responseByteSize": 241449,
+      "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2024/08/facefacts-niacinamide-serum.jpg",
+      "packageImageSha256": "c7ee4dbc52eb190d88788681bccb4b3f9a04fe7bf54d88cd20b519728e1d8221",
+      "packageImageByteSize": 35431
+    },
+    {
+      "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/facefacts-soothe-glow-niacinamide-serum-30ml-420169704.html",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "48fa267b0581c8f34e8f79726ccd849e7d32621a765a0ccf4bf8e4cdc0dceb8f",
+      "responseByteSize": 5993
+    },
+    {
+      "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+      "retailer": "Konga Health",
+      "url": "https://www.konga.com/product/facefacts-soothe-glow-niacinamide-serum-improves-radiance-and-uneven-skin-texture-30ml-7028044",
+      "status": 200,
+      "reason": "Package image is the white/grey sibling, not the released purple package.",
+      "responseSha256": "436f7c9a022f88184b0cb89999d784bdfbba4a3aff54bff060a50280cfc8ee5d",
+      "responseByteSize": 273745,
+      "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/O/W/240729_1785926137.jpg",
+      "packageImageSha256": "e40ca36d3463e01e9fa9018997d98841a1b1a3a3facd86bdf6b6fa8d2bc5dae4",
+      "packageImageByteSize": 39640
+    },
+    {
+      "candidateId": "facefacts-soothe-glow-niacinamide-serum-30ml",
+      "retailer": "Kadimez Essentials",
+      "url": "https://kadimezessentials.com/product/facefacts-soothe-glow-niacinamide-serum-30ml/",
+      "status": 200,
+      "reason": "Package image is the white/grey sibling, not the released purple package.",
+      "responseSha256": "98ea948ce398685ece7df95f1f337a3427f0269b227a126b89423f0362f717d9",
+      "responseByteSize": 224796,
+      "packageImageUrl": "https://i0.wp.com/kadimezessentials.com/wp-content/uploads/2024/08/facefacts-niacinamide-serum.jpg",
+      "packageImageSha256": "deb2fb4bfdbe5227a874e63aedb0115d406514ebdf1c2d4a3255d6bbaa6c6f37",
+      "packageImageByteSize": 39581
+    },
+    {
+      "candidateId": "neutrogena-light-sesame-body-oil-8-5oz",
+      "retailer": "Slique Beauty",
+      "url": "https://sliquebeautylimited.com/product/neutrogena-body-oil-250ml/",
+      "status": 200,
+      "reason": "Image says Fragrance Free and structured identifiers conflict; this is not the released original fragranced variant.",
+      "responseSha256": "a24e07f57fa3290f7b55b06951f3920f43aa29b45902b8effd5ee365743551d6",
+      "responseByteSize": 419374,
+      "packageImageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/Neutrogena-oil.jpg",
+      "packageImageSha256": "a24690f0f854556b4e8632592b8860cdac4ded40c6a2e340a976066d81ef1c2e",
+      "packageImageByteSize": 18956
+    },
+    {
+      "candidateId": "neutrogena-light-sesame-body-oil-8-5oz",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/neutrogena-body-oil-light-sesame-formula-8.5-fl-oz-250-ml-420169225.html",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "2066775b84c115b40ae65b1069b92572cdd54882a0dce121f6e2a963cdcf7cba",
+      "responseByteSize": 6054
+    },
+    {
+      "candidateId": "neutrogena-light-sesame-body-oil-8-5oz",
+      "retailer": "Konga Health",
+      "url": "https://www.konga.com/product/neutrogena-neutrogena-body-oil-light-sesame-formula-fragrance-free-250ml-6970648",
+      "status": 200,
+      "reason": "Title and description say Fragrance Free while the image shows the original bottle; fail closed on self-conflicting variant evidence.",
+      "responseSha256": "e1df29f64fa46beb18f9053f2c9ff20b5c4763fd28ab0dc303d887af5ea6eda3",
+      "responseByteSize": 280180,
+      "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/Z/E/240729_1776679126.jpg",
+      "packageImageSha256": "9076042c020100afd234584cdf768f79d8fbffa3c92e78d66c63d9298e33060b",
+      "packageImageByteSize": 28251
+    },
+    {
+      "candidateId": "panoxyl-acne-creamy-wash-4-170g",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/panoxyl-acne-creamy-daily-wash-4-benzoyl-peroxide-170g-420092329.html",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "e7b4ad91f24e728dd34a88c323305d09884e1ebbc27f3d567eba4a17423eaccf",
+      "responseByteSize": 6087
+    }
+  ]
+}
