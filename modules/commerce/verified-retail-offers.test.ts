@@ -29,6 +29,7 @@ import waveTwentyTwoAudit from "@/data/retailer-verification/catalogue-offer-ref
 import waveTwentyThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-23-2026-08-29.json";
 import waveTwentyFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-24-2026-08-29.json";
 import waveTwentyFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-25-2026-08-29.json";
+import waveTwentySixAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-26-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -2000,6 +2001,142 @@ test("catalogue offer refresh wave 25 releases four exact packages and holds the
 
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   assert.equal(registered.has("MySkinCity"), true);
+});
+
+test("catalogue offer refresh wave 26 releases five exact packages and excludes size, formula and provenance conflicts", () => {
+  const projected = waveTwentySixAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveTwentySixAudit.matrix.before, 93);
+  assert.equal(waveTwentySixAudit.matrix.after, 98);
+  assert.equal(waveTwentySixAudit.matrix.total, 162);
+  assert.equal(waveTwentySixAudit.summary.productsReviewed, 5);
+  assert.equal(waveTwentySixAudit.summary.productsReleased, 5);
+  assert.equal(waveTwentySixAudit.summary.productsBlocked, 0);
+  assert.equal(waveTwentySixAudit.summary.offersAdmitted, 29);
+  assert.equal(waveTwentySixAudit.summary.shopperActiveOffers, 25);
+  assert.equal(waveTwentySixAudit.summary.outOfStockObservations, 4);
+  assert.equal(waveTwentySixAudit.summary.offersBlocked, 27);
+  assert.equal(projected.length, 29);
+  assert.equal(waveTwentySixAudit.blockedCells.length, 25);
+  assert.equal(waveTwentySixAudit.excludedDiscoveries.length, 2);
+  assert.equal(waveTwentySixAudit.heldCandidates.length, 0);
+  assert.equal(waveTwentySixAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.equal(
+    waveTwentySixAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  for (const blocked of waveTwentySixAudit.blockedCells) {
+    assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(blocked.responseByteSize > 0);
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.url === blocked.url,
+    );
+    if (offer) {
+      assert.equal(offer.available, false);
+      assert.equal(offer.priceObservation?.stock, "unknown");
+      assert.equal(offer.priceComparison, "exclude");
+    }
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "advanced-clinicals-vitamin-c-face-serum-52ml",
+      [
+        "Beauty by Daz",
+        "BuyBetter",
+        "Deoset",
+        "Konga Health",
+        "Ralyd",
+        "Rhema Beauty Shop",
+        "Skin Pop Essentiel",
+      ],
+    ],
+    [
+      "aqua-rich-ceramide-body-lotion-500ml",
+      [
+        "Deoset",
+        "Derma Essentials",
+        "Perona Beauty",
+        "Wholesale Skincare Shop",
+      ],
+    ],
+    [
+      "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+      [
+        "Buy Skincare in Abuja",
+        "BuyBetter",
+        "Derma Essentials",
+        "Konga Health",
+        "Muna Cosmetics",
+        "Perona Beauty",
+        "Skin Pop Essentiel",
+        "TOS Nigeria",
+      ],
+    ],
+    [
+      "olay-super-serum-body-wash-normal-skin-547ml",
+      ["Beauty by Daz", "BuyBetter", "Deoset", "Perona Beauty"],
+    ],
+    [
+      "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      ["Ediths Essentials"],
+    ],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["advanced-clinicals-vitamin-c-face-serum-52ml", 12_000],
+    ["aqua-rich-ceramide-body-lotion-500ml", 10_900],
+    ["aqua-rich-turmeric-vitamin-c-body-lotion-500ml", 10_750],
+    ["olay-super-serum-body-wash-normal-skin-547ml", 20_000],
+    [
+      "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      15_420,
+    ],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    assert.equal(
+      Math.min(
+        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+      ),
+      expectedFloors.get(slug),
+      slug,
+    );
+  }
+
+  const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
+  assert.equal(registered.has("Ralyd"), true);
+  assert.equal(registered.has("Wholesale Skincare Shop"), true);
 });
 
 test("verified Nigerian observations use exact secure product pages", () => {

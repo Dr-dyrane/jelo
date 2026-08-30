@@ -1,0 +1,726 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-26-2026-08-29",
+  "reviewer": "JeloCare catalogue evidence review",
+  "reviewedAt": "2026-08-30T05:11:21.680Z",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T05:11:21.680Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed."
+  },
+  "scope": "Fifty-six current Nigerian retailer checks across five independently releasable exact product SKUs",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 93,
+    "after": 98,
+    "total": 162
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 56,
+    "offersAdmitted": 29,
+    "shopperActiveOffers": 25,
+    "outOfStockObservations": 4,
+    "offersBlocked": 27,
+    "offersProjected": 44
+  },
+  "products": [
+    {
+      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "identity": {
+        "gtin": "819265008016",
+        "variant": "Advanced Clinicals Vitamin C Face Serum",
+        "size": "1.75 fl oz / 52 ml",
+        "packageVersion": "Manufacturer-crosswalked amber dropper old and current black-orange label presentations"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/advanced-clinicals-vitamin-c-anti-aging-serum-52ml/",
+          "priceNgn": 12000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:04:40.502Z",
+          "expiresAt": "2026-09-06T05:04:40.502Z",
+          "responseSha256": "e55e3ddaa08928f14f8e52576cfe352b5c41fbb3186cb825f6b219b4ff5867a1",
+          "responseByteSize": 566210,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2020/01/1v4jbdy3-1.png",
+          "packageImageSha256": "b874df346e848f5d88c066525bb119f2ce10f3b4c8aef6b6b4254e2dcba7f134",
+          "packageImageByteSize": 1382891
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/advanced-clinicals-1-75-oz-vitamin-c-serum/",
+          "priceNgn": 16500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:04:40.523Z",
+          "expiresAt": "2026-09-06T05:04:40.523Z",
+          "responseSha256": "ca4298740a7e72ab2f6532a3e311e24091c3b5d87ccd8c51b42cc6f667c558f5",
+          "responseByteSize": 137666,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2025/11/Advanced-clinicals-vit-serum-new.jpg",
+          "packageImageSha256": "969e411e71cf240bd5aff6ed5c2bd8eefed536ffe41c7890918f9600854454b7",
+          "packageImageByteSize": 219285
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/oils-serum/advanced-clinicals-1-75-oz-vitamin-c-serum/",
+          "priceNgn": 13999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:04:43.284Z",
+          "expiresAt": "2026-09-06T05:04:43.284Z",
+          "responseSha256": "dc9250127d3c28a368ad7e5e3d4f9e52b811ebb0d6c8bfb815ddc6e1f02f55ea",
+          "responseByteSize": 248449,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/07/Advanced-clinicals-vit-serum-new.jpg",
+          "packageImageSha256": "969e411e71cf240bd5aff6ed5c2bd8eefed536ffe41c7890918f9600854454b7",
+          "packageImageByteSize": 219285
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/advanced-clinicals-vitamin-c-serum/",
+          "priceNgn": 14800,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T05:04:46.552Z",
+          "expiresAt": "2026-09-06T05:04:46.552Z",
+          "responseSha256": "9b4d84f0f1eb9c39aa83e23efffb136087a0801cddce25d098f88f4735cc2df5",
+          "responseByteSize": 385171,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/Screenshot-at-1-18.png",
+          "packageImageSha256": "39c8b9aaf66fd766679ea7563fb6542a639912930af6063c34436af7308fa8e8",
+          "packageImageByteSize": 2569437
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/advanced-clinicals-vitamin-c-serum/",
+          "priceNgn": 16852,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:04:46.554Z",
+          "expiresAt": "2026-09-06T05:04:46.554Z",
+          "responseSha256": "9bd392172514027c2cb37140e4d89ce171f165e9b7f711374fed0f6c4f2fbce7",
+          "responseByteSize": 382215,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2023/04/Advanced-Clinicals-Vitamin-C-Serum-%E2%80%93-ml.png",
+          "packageImageSha256": "4f02a59934a6ba2d447fc0c5e936b7aefdffb181a2c885e49f4d35cacfb6527f",
+          "packageImageByteSize": 650655
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/advanced-clinicals-anti-aging-vitamin-c-serum-52ml-6560830",
+          "priceNgn": 16000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:07:33.264Z",
+          "expiresAt": "2026-09-06T05:07:33.264Z",
+          "responseSha256": "817ea2f29cbba0b1dc0ef7070fedb9c79c8c5d31cd6fd72874faf14d183d92aa",
+          "responseByteSize": 277138,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/J/K/96416_1726632836.jpg",
+          "packageImageSha256": "74b57a3c4e98545c3536edf4821dd5b56305b6921a423c8aaf28c6d2bb12c6e1",
+          "packageImageByteSize": 39847
+        },
+        {
+          "retailer": "Skin Pop Essentiel",
+          "url": "https://skinpopessentiel.com/products/advanced-clinical-vitamin-c-serum",
+          "priceNgn": 14835,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:07:35.487Z",
+          "expiresAt": "2026-09-06T05:07:35.487Z",
+          "responseSha256": "e869ae9f47cad94aa045ec9b24e0c0adf031e45dfc3fcb359c345e25e78049b6",
+          "responseByteSize": 276253,
+          "packageImageUrl": "https://skinpopessentiel.com/cdn/shop/products/43b0130a-3702-461b-a796-2566fdfa49f5_1.e22b725129becdfa1fd66cb70633f896.jpg?v=1776270090",
+          "packageImageSha256": "4b6ef3f3853987f46505864a828b6c90744d6fbb3012d37524150cc935ac652c",
+          "packageImageByteSize": 68848
+        },
+        {
+          "retailer": "Ralyd",
+          "url": "https://ralyd.co/products/advanced-clinicals-vitamin-c-face-serum",
+          "priceNgn": 16065,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:07:35.900Z",
+          "expiresAt": "2026-09-06T05:07:35.900Z",
+          "responseSha256": "52b30d81bb1129f37477c6eb85e1926d60cbb8dd37f5dfa33355987992983bf6",
+          "responseByteSize": 195995,
+          "packageImageUrl": "https://ralyd.co/cdn/shop/files/2_602b7cba-9586-4aba-9e69-653aa5fb5e49.png?v=1769812771",
+          "packageImageSha256": "e38b47ad08c9a7d2e2d8a8fff3acdda77e14fa8851c97bf67b57d1acbf6cca15",
+          "packageImageByteSize": 145617
+        }
+      ]
+    },
+    {
+      "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
+      "identity": {
+        "gtin": "4897073187549",
+        "variant": "Aqua Rich Hydrate + Protect Body Lotion Ceramide",
+        "size": "500 ml",
+        "packageVersion": "Current purple 500 ml pump"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
+          "priceNgn": 11288,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T05:04:28.454Z",
+          "expiresAt": "2026-09-06T05:04:28.454Z",
+          "responseSha256": "5e143214d59a619d669eb464f810fd34e813227fad4d72bd61435a9c23902697",
+          "responseByteSize": 562628,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/12/Aqua-bright-and-Glow-Lotion.jpg",
+          "packageImageSha256": "661d5e476c8630b5000e824bd31b59d2401e9b869255ecaa084789e1636d7dc8",
+          "packageImageByteSize": 41835
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/bath-body/creams-lotions/aqua-rich-hydrate-protect-body-lotion-500ml/",
+          "priceNgn": 9500,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T05:04:29.363Z",
+          "expiresAt": "2026-09-06T05:04:29.363Z",
+          "responseSha256": "5d12c534e996ce313ff03d1954d666533838280947851f686a0f94df001723b4",
+          "responseByteSize": 242265,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2026/07/aqua-rich-hydrate-and-protect.jpg",
+          "packageImageSha256": "7f1ec3d1d48847c61a5619ad52d700d5caaf5fcf0fd5f1d796243d612d52f0dc",
+          "packageImageByteSize": 10052
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml/",
+          "priceNgn": 12000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:04:31.713Z",
+          "expiresAt": "2026-09-06T05:04:31.713Z",
+          "responseSha256": "697dbed75078a2166a5c6a44dea5318543957de59be82007b53ec3654624780a",
+          "responseByteSize": 139538,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/02/Aqua-bright-and-Glow-Lotion-optimized.webp",
+          "packageImageSha256": "91355b90b2caa0e54529c37b247024a626aa296fa91d013923e1609e9f197187",
+          "packageImageByteSize": 28392
+        },
+        {
+          "retailer": "Wholesale Skincare Shop",
+          "url": "https://wholesaleskincareshop.ng/products/aqua-rich-hydrate-protect-body-lotion-500ml-ceramide-spf-body-lotion-strengthens-skin-barrier-soothes-repairs-protects-against-uv-damage-long-lasting-hydration-vegan/4307857?location=null",
+          "priceNgn": 12000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:04:38.864Z",
+          "expiresAt": "2026-09-06T05:04:38.864Z",
+          "responseSha256": "dfa2a8841a09e5065ba0d82d9cf8eb3bbf31037a9b473f58b1ce5b722200840b",
+          "responseByteSize": 28019,
+          "packageImageUrl": "https://dodptt9f4zk9h.cloudfront.net/stores/6044/products/1e8bf921eb36c0d74ed722316703d8beb154f808.jpeg",
+          "packageImageSha256": "73004a7a61d3f106105b79e0fb3621409913a723d9c977ce8e657b5946ccf13f",
+          "packageImageByteSize": 91609
+        },
+        {
+          "retailer": "Derma Essentials",
+          "url": "https://dermaessentialshub.com/product/aqua-rich-hydrate-protect-body-lotion-500ml/",
+          "priceNgn": 12500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:04:40.321Z",
+          "expiresAt": "2026-09-06T05:04:40.321Z",
+          "responseSha256": "dcbbb7c799847aad16c69226c99416ed91ed95330ccba0f23fca413a7b02dd56",
+          "responseByteSize": 329216,
+          "packageImageUrl": "https://dermaessentialshub.com/wp-content/uploads/2026/07/IMG_7128.jpeg",
+          "packageImageSha256": "cde670c5418504b3927799b3ff6a976fd2c74bf4d1a1aac3747182dfbd63e542",
+          "packageImageByteSize": 64627
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/aqua-rich-hydrate-protect-body-lotion-2/",
+          "priceNgn": 10900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:11:21.680Z",
+          "expiresAt": "2026-09-06T05:11:21.680Z",
+          "responseSha256": "0cc92556518f9831bb4f9bb2197e8342d38d636f2d98ab849be37c3d8c807e2c",
+          "responseByteSize": 394411,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/08/Screenshot_370953-1.png",
+          "packageImageSha256": "dd9b6de9617a764f5c097eec071d6b41f519bfff71d30f397b8a1483724b2185",
+          "packageImageByteSize": 121164
+        }
+      ]
+    },
+    {
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+      "identity": {
+        "gtin": "4897073186542",
+        "variant": "Aqua Rich Hydrating Bright Turmeric and Vitamin C Body Lotion",
+        "size": "500 ml",
+        "packageVersion": "Current orange 500 ml pump"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/aqua-rich-hydrate-protect-body-lotion-ceramide-500ml-2/",
+          "priceNgn": 10750,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:06:27.504Z",
+          "expiresAt": "2026-09-06T05:06:27.504Z",
+          "responseSha256": "a28269f3ac6556bdef6c782d7fe0d3e0a74f4032c5669b9a1bbdcdf80d08e3f1",
+          "responseByteSize": 566209,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/cybervilla_4897073186542_72a04722d027_bb10ae092a.jpg",
+          "packageImageSha256": "1bf1050c1d1372fa75a00430d90ab526ea4cc78ce81c61bf2acc8b68cf297733",
+          "packageImageByteSize": 39902
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml-6987001",
+          "priceNgn": 16000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:06:28.483Z",
+          "expiresAt": "2026-09-06T05:06:28.483Z",
+          "responseSha256": "37068679ec0213fc14b90254589c8b5912305b84c8e220eea8d812a7fe5fadef",
+          "responseByteSize": 268212,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/L/U/190712_1778985377.jpg",
+          "packageImageSha256": "8d3f011c7f82cef9fc71453c56b17012ac2e79c94bb3c0f88dd91e42e7183339",
+          "packageImageByteSize": 14599
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml-6925177?cid=2279",
+          "priceNgn": 15000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:06:30.257Z",
+          "expiresAt": "2026-09-06T05:06:30.257Z",
+          "responseSha256": "24151b7d820d7726445eca34515be27b12f025870b9f258af2c0cc24e516ae13",
+          "responseByteSize": 294533,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/Y/C/240425_1769596475.jpg",
+          "packageImageSha256": "89ac6334aea9d09d4269db097f568faf57dd922f31a8ac86685281c9c6ab53ba",
+          "packageImageByteSize": 16928
+        },
+        {
+          "retailer": "Buy Skincare in Abuja",
+          "url": "https://buyskincareinabuja.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-vitamin-c-500ml/",
+          "priceNgn": 14950,
+          "stock": "low-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:06:31.895Z",
+          "expiresAt": "2026-09-06T05:06:31.895Z",
+          "responseSha256": "b4252170a638cf0782726c1184f60b7554cba50ccd6255d1eeea4e14cbefa24e",
+          "responseByteSize": 188023,
+          "packageImageUrl": "https://buyskincareinabuja.com/wp-content/uploads/2025/09/IMG_4816.jpeg",
+          "packageImageSha256": "d4c94ea496f7bf3c3e388e7cabcfc9759bea141ad7cc80c112aa107dd53f732c",
+          "packageImageByteSize": 18889
+        },
+        {
+          "retailer": "Muna Cosmetics",
+          "url": "https://munacosmetics.com/aqua-rich-hydrating-bright-turmeric-vitamin-c-lotion",
+          "priceNgn": 11000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:06:32.547Z",
+          "expiresAt": "2026-09-06T05:06:32.547Z",
+          "responseSha256": "62d56831a65d73d49008885e4d32ec796eeee8021b538680118ab1b8c02314a3",
+          "responseByteSize": 470595,
+          "packageImageUrl": "https://munacosmetics.com/image/cache/catalog/Another%20Effort/Intercontinental/aqua-rich-hydrating-bright-body-lotion-500ml-500x500.jpg",
+          "packageImageSha256": "cacbfa5d29e116e134d0a773c292c30d5506f5981e144a33847006c2edde4acb",
+          "packageImageByteSize": 63434
+        },
+        {
+          "retailer": "Derma Essentials",
+          "url": "https://dermaessentialshub.com/product/aqua-rich-hydrating-bright-body-lotion/",
+          "priceNgn": 13000,
+          "stock": "low-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:06:33.484Z",
+          "expiresAt": "2026-09-06T05:06:33.484Z",
+          "responseSha256": "e308229e348287edab0b432a9ad8348af3bb5cb07b2ef8a5a370921729c20381",
+          "responseByteSize": 330274,
+          "packageImageUrl": "https://dermaessentialshub.com/wp-content/uploads/2025/06/IMG-20250630-WA0028.jpg",
+          "packageImageSha256": "cbf852eda85650067ca0f1ee15273127987754df661fa3383997f3b938112787",
+          "packageImageByteSize": 25349
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/a-3/",
+          "priceNgn": 10850,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:09:59.314Z",
+          "expiresAt": "2026-09-06T05:09:59.314Z",
+          "responseSha256": "a2967ef4891d3868b0a7ded1c0961adac65ac66f69c90c93944c3a51f545e73a",
+          "responseByteSize": 392418,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/03/Hydrating-Bright.png",
+          "packageImageSha256": "ad32b32617846477c80ee1793ab88ea81da9e7823b966633de395168b47d2f5a",
+          "packageImageByteSize": 57321
+        },
+        {
+          "retailer": "Skin Pop Essentiel",
+          "url": "https://skinpopessentiel.com/products/aqua-rich-hydrating-bright-body-lotion-500ml",
+          "priceNgn": 10965,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:10:04.594Z",
+          "expiresAt": "2026-09-06T05:10:04.594Z",
+          "responseSha256": "1923acd984c70632e74db422a639c753a17f3a67daedb633ad87431b9a34b607",
+          "responseByteSize": 257235,
+          "packageImageUrl": "https://skinpopessentiel.com/cdn/shop/files/rn-image_picker_lib_temp_5cad0f7b-5c73-4233-b935-7fb263aa5496.png?v=1770053371&width=1920",
+          "packageImageSha256": "b0a933ce6c0e8a22ab3266c122a58a9798202edb8bcc6417c2df3bec29aabc98",
+          "packageImageByteSize": 237072
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/aqua-rich-hydrating-bright-body-lotion-500ml/",
+          "priceNgn": 10800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:10:05.076Z",
+          "expiresAt": "2026-09-06T05:10:05.076Z",
+          "responseSha256": "4d49efef74cf5ffc7d5f6d3b7585d046862eb1094d95cb7e6cd702dda1b9ed0c",
+          "responseByteSize": 312315,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2026/02/Untitled-design-4.webp",
+          "packageImageSha256": "51da55f9ba546999edd8e194073cfb742d20e4a7fa761eecf1dfb7500a6007e5",
+          "packageImageByteSize": 11862
+        }
+      ]
+    },
+    {
+      "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
+      "identity": {
+        "gtin": "030772160350",
+        "variant": "Olay Super Serum Body Wash, Normal Skin",
+        "size": "18.5 fl oz / 547 ml",
+        "packageVersion": "Current pink 547 ml pump"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/olay-super-serum-normal-skin-body-wash-18-5fl-oz-547ml/",
+          "priceNgn": 20000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:04:46.555Z",
+          "expiresAt": "2026-09-06T05:04:46.555Z",
+          "responseSha256": "50fe02693baa78b478b241b3ec8b43eee3bd6e43f8da9fc32b0ec4053d0c1395",
+          "responseByteSize": 566072,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/05/00030772160350_C1N1_NA__19137.webp",
+          "packageImageSha256": "fcee28c3bacb4bec0e893f46a79e4898f0154aba54e876d9ce715ad5830c7efe",
+          "packageImageByteSize": 740026
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/olay-super-serum-body-wash-for-normal-skin/",
+          "priceNgn": 21200,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:04:46.556Z",
+          "expiresAt": "2026-09-06T05:04:46.556Z",
+          "responseSha256": "415c5e20437f0064aa759ea5b1b068d598445ebb27c990180011bccc209fa8fd",
+          "responseByteSize": 394642,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/03/Screenshot_730668.png",
+          "packageImageSha256": "ce3f0603999342a9e61e3c04239c7aa97f4251df07e796411fc36c703ad64cb1",
+          "packageImageByteSize": 60753
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/olay-super-serum-body-wash/",
+          "priceNgn": 20850,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:04:49.929Z",
+          "expiresAt": "2026-09-06T05:04:49.929Z",
+          "responseSha256": "cc55fe0da8f8ff5a783ee77edccb23bd1424dfbc1c8a079eeb0d554a7b9364a9",
+          "responseByteSize": 244760,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2026/05/shopping.webp",
+          "packageImageSha256": "3247e45a3bfc97eb75a271dcb480cbb9670281c1de0d6a0b4447e2a82d5d1daf",
+          "packageImageByteSize": 21354
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/olay-super-serum-body-wash-for-normal-skin/",
+          "priceNgn": 24000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:04:49.932Z",
+          "expiresAt": "2026-09-06T05:04:49.932Z",
+          "responseSha256": "b7ab0d9060098b93700c1cec9ed750e7b0d6f0d33bcbd4d87df9fa382ae52c94",
+          "responseByteSize": 137415,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/06/Screenshot_730668.webp",
+          "packageImageSha256": "e566c9765e8c30f476e35070c92644622054138a6aa08e26c2669f0e20ec65e7",
+          "packageImageByteSize": 47034
+        }
+      ]
+    },
+    {
+      "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      "identity": {
+        "gtin": "764302280217",
+        "variant": "SheaMoisture Raw Shea Butter Deep Moisturizing Conditioner",
+        "size": "13 fl oz / 384 ml",
+        "packageVersion": "Current gold-pump 9X More Moisture package"
+      },
+      "offers": [
+        {
+          "retailer": "Ediths Essentials",
+          "url": "https://edithsessentials.com/products/shea-moisture-raw-shea-butter-deep-moisturizing-conditioner",
+          "priceNgn": 15420,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:06:22.000Z",
+          "expiresAt": "2026-09-06T05:06:22.000Z",
+          "responseSha256": "fdddb42513fd861aabef01e9e339565d2f8a69e0a2bee1c18362a61dd46b41fc",
+          "responseByteSize": 138579,
+          "packageImageUrl": "https://edithsessentials.com/cdn/shop/files/IMG-5788_1200x1200.jpg?v=1737498008",
+          "packageImageSha256": "c5f88d5f59893c9d4ce1175a8fab188ce63a2675007d849a57ecd1724a3c573c",
+          "packageImageByteSize": 23274
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/shea-moisture-raw-shea-butter-sea-kelp-and-argan-oil-deep-moisturizing-conditioner-13-oz-384ml/",
+          "priceNgn": 13223,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T05:06:22.000Z",
+          "expiresAt": "2026-09-06T05:06:22.000Z",
+          "responseSha256": "b60e2c7f132686bc4d44203cb051c2d669b379f0b360d6495a71ea0086e071aa",
+          "responseByteSize": 564915,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/3obnw5y7-1-5.png",
+          "packageImageSha256": "3a797a03275448504047e4e35007f4af5352a0479248f88cdf6e1a1649eac7e4",
+          "packageImageByteSize": 830863
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "retailer": "Nihet Beauty",
+      "url": "https://nihetbeauty.com/product/advanced-clinicals-vitamin-c-serum-52ml/",
+      "reason": "Unsupported legacy gold-label package is outside the manufacturer's old/new package crosswalk.",
+      "responseSha256": "b2ccb8310065102c4ae1c0ad2507eac16d059f35863df63aa1cfcbe7cae65228",
+      "responseByteSize": 476231
+    },
+    {
+      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "retailer": "Teeka4",
+      "url": "https://teeka4.com/shop/advanced-clinicals-vitamin-c-serum-1-7fl/",
+      "reason": "Unsupported legacy gold-label package is outside the manufacturer's old/new package crosswalk.",
+      "responseSha256": "a81ef3bd00946c9fd8a92b53cf91a979b5b3e73826b27c6ef7530c1a3f5131f3",
+      "responseByteSize": 380205
+    },
+    {
+      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "retailer": "Nectar Beauty Hub",
+      "url": "https://nectarbeautyhub.com/products/vitamin-c-serum-anti-aging-52ml",
+      "reason": "Unsupported legacy gold-label package is outside the manufacturer's old/new package crosswalk.",
+      "responseSha256": "663647fdddc6eeadb2c84f55b4f0ba30cb8092d863d4f1084e9b2eb6b9c582ec",
+      "responseByteSize": 874781
+    },
+    {
+      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "retailer": "Derma Essentials",
+      "url": "https://dermaessentialshub.com/product/advanced-clinicals-vitamin-c-serum-52ml/",
+      "reason": "Unsupported legacy gold-label package is outside the manufacturer's old/new package crosswalk.",
+      "responseSha256": "d087f85e7d1ec2c4bf2a5647c8892ce3901dd94ded2be7ba60725466a0d5f9d4",
+      "responseByteSize": 364283
+    },
+    {
+      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "retailer": "Lami Fragrance",
+      "url": "https://lamifragrance.com/product/vitamin-c-anti-aging-serum-52ml/",
+      "reason": "The exact package is priced in USD rather than NGN, so it is not a Nigerian price offer.",
+      "responseSha256": "db863e47d6f1da68f70e955fd421496947d4a70d6ed545a4d913e10cde2104ab",
+      "responseByteSize": 230606
+    },
+    {
+      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "retailer": "Lux Beauty",
+      "url": "https://www.luxbeautyng.com/product/advanced-clinicals-vitamin-c-face-serum/",
+      "reason": "HTTP 403 access wall prevents current price, stock and package verification.",
+      "responseSha256": "2340e42ceaf764f29d40c39d2e4bb9279d48134a4a58bef93ec30cba91d89c80",
+      "responseByteSize": 2013
+    },
+    {
+      "candidateId": "advanced-clinicals-vitamin-c-face-serum-52ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/face/face-serums-eye-creams/advanced-clinicals-vitamin-c-serum/",
+      "reason": "HTTP 403 verification wall prevents current price, stock and package verification.",
+      "responseSha256": "cb6b8f260153110a9ae84d27e8d1894401b8aaddd1be9ef2711ec5efe45f3f24",
+      "responseByteSize": 6002
+    },
+    {
+      "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
+      "retailer": "Teeka4",
+      "url": "https://teeka4.com/shop/olay-super-serum-body-wash-for-normal-skin-18-5fl-547ml/",
+      "reason": "The live route serves the 20 fl oz / 591 ml package, not the canonical 547 ml package.",
+      "responseSha256": "04de6c1e60ad65c38fff53f518c227621a6354fe9e374eeac3ac6e2b3271b1a8",
+      "responseByteSize": 355404
+    },
+    {
+      "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/olay-super-serum-body-wash-for-normal-skin-for-bright-even-firm-luminous-skin-18.5-fl-oz-420055034.html",
+      "reason": "HTTP 403 marketplace wall prevents current seller, price, stock and package verification.",
+      "responseSha256": "c56a9144963d9960057cc4d02252a5cd590aff5b6d5d290502aa9acc53395b78",
+      "responseByteSize": 6232
+    },
+    {
+      "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/olay-super-serum-body-wash-for-normal-skin.-it-has-several-key-features-419139672.html",
+      "reason": "HTTP 403 marketplace wall prevents current seller, price, stock and package verification.",
+      "responseSha256": "4c15d96db2574f35ffdb30b18e70585647e3f504939cdcc6dd95ed54f04c2f48",
+      "responseByteSize": 5968
+    },
+    {
+      "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
+      "retailer": "BuyBetter Wholesale",
+      "url": "https://buybetterwholesale.com/products/olay-super-serum-normal-skin-body-wash-18-5fl-oz-547ml",
+      "reason": "The stale product route redirects to the retailer homepage.",
+      "responseSha256": "ef41973210ccf69c0e92c431bd5c314239258bf4f269259eec81c230ab3e62b2",
+      "responseByteSize": 1652082
+    },
+    {
+      "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      "retailer": "Perfect Trust Beauty",
+      "url": "https://perfecttrustbeauty.com/products/raw-shea-butter-deep-treatment-masque-340g",
+      "reason": "The route is the 340 g Deep Treatment Masque, not the 384 ml rinse-out conditioner.",
+      "responseSha256": "e48d9dba3acb9b59897e0df9909a1e3f564aafa354dc5b2d945752d625629aa2",
+      "responseByteSize": 1127219
+    },
+    {
+      "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      "retailer": "Perfect Trust Beauty",
+      "url": "https://perfecttrustbeauty.com/products/raw-shea-but-restor-conditione-384ml",
+      "reason": "The legacy Restorative Conditioner package and formula do not match the current gold-pump Deep Moisturizing Conditioner.",
+      "responseSha256": "96548f85bb8f1236a313b500b359a3c6f9cb2fad0744ca958a285be5f470d183",
+      "responseByteSize": 1126870
+    },
+    {
+      "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/shea-moisture-raw-shea-butter-deep-moisturizing-conditioner-for-dry-damaged-hair-moisture-restoration-384ml-419964981.html",
+      "reason": "HTTP 403 marketplace wall prevents seller, image, price and stock verification.",
+      "responseSha256": "6db4d51fb135d3e4d9f4d7b61043cfcb8cac2b24432c191bc4f58e6eb91f1e38",
+      "responseByteSize": 6268
+    },
+    {
+      "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/shea-moisture-pure-raw-shea-butter-restorative-conditioner-13-oz.384ml-419305566.html",
+      "reason": "Legacy Restorative Conditioner identity plus an HTTP 403 marketplace wall.",
+      "responseSha256": "a673ba89bbff1be75071c4846c0ad9fee30e36c7e37f641b2e656eb644a909f2",
+      "responseByteSize": 6114
+    },
+    {
+      "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      "retailer": "iHerb Nigeria",
+      "url": "https://ng.iherb.com/",
+      "reason": "Cross-border localized route is behind an HTTP 403 wall and is not a Nigerian direct retailer offer.",
+      "responseSha256": "2f428fce8d7d0a5b9b7a83589bc4799dbf9254e49d2fad315659dcb442d46adb",
+      "responseByteSize": 6044
+    },
+    {
+      "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/aqua-rich-hydrate-protect-ceramide-body-lotion-aqua-mpg12034132.html",
+      "reason": "HTTP 403 marketplace wall prevents seller, price, stock and package verification.",
+      "responseSha256": "fb66e434d710949698fb7ba2b5ea8d97726764671552717072c06831d1a9e763",
+      "responseByteSize": 6042
+    },
+    {
+      "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/skin-brightening/aqua-rich-hydrate-protect-body-lotion/",
+      "reason": "HTTP 403 wall prevents direct current verification.",
+      "responseSha256": "9ef7bfe6b02e7cb6d826d5c7eae90d5a5dcbaffb4bb0805c1778960b80f1ed08",
+      "responseByteSize": 5914
+    },
+    {
+      "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
+      "retailer": "Slique Beauty",
+      "url": "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrate-protect/",
+      "reason": "Published structured GTIN 2000000249551 conflicts with canonical GTIN 4897073187549.",
+      "responseSha256": "ab219da5b8903a785368f4adde7a16740432c7725eada011bb0b7233ed778a51",
+      "responseByteSize": 413127
+    },
+    {
+      "candidateId": "aqua-rich-ceramide-body-lotion-500ml",
+      "retailer": "Queen B Signatures",
+      "url": "https://queenbsignatures.com/product/aqua-rich-body-lotion-500ml/",
+      "reason": "One aggregate multi-variant route provides no option-specific price, stock or URL.",
+      "responseSha256": "c58162c104456f8ed5c2de4f3ecd224152c5c1773af84e311c69555b74e3f192",
+      "responseByteSize": 87783
+    },
+    {
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+      "retailer": "Kadimez Essentials",
+      "url": "https://kadimezessentials.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml/",
+      "reason": "The route has an invalid TLS trust chain; insecure evidence cannot become a public offer.",
+      "responseSha256": "39c199e65d9f743572a51fd9706efeed0626010314208051215c3c18e0ec5dbc",
+      "responseByteSize": 225630
+    },
+    {
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/aqua-rich-hydrating-bright-body-lotion-turmeric-vitamin-c-500ml-419985201.html",
+      "reason": "HTTP 403 marketplace wall prevents seller, price, stock and package verification.",
+      "responseSha256": "1a57b7bdb1d34146581c1d755d6866b6314b01c178d415b6e5649eb1d8e8f88e",
+      "responseByteSize": 5965
+    },
+    {
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/aqua-aqua-rich-hydrating-bright-body-lotion-vitamin-c-turmeric-moisturizing-skin-brightening-500ml-420148389.html",
+      "reason": "HTTP 403 marketplace wall prevents seller, price, stock and package verification.",
+      "responseSha256": "1f055b085db9d88b6846755fc194656f9b403763f4fc9e054de55c034bcfb214",
+      "responseByteSize": 6134
+    },
+    {
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/aqua-rich-hydrating-bright-body-lotion-500ml/",
+      "reason": "HTTP 403 wall prevents direct current verification.",
+      "responseSha256": "e126ab8bbb2ea63afe5aab4b449227088bc8387837272ac442e517a7a44eac83",
+      "responseByteSize": 5714
+    },
+    {
+      "candidateId": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+      "retailer": "Queen B Signatures",
+      "url": "https://queenbsignatures.com/product/aqua-rich-body-lotion-500ml/",
+      "reason": "One aggregate multi-variant route provides no option-specific price, stock or URL.",
+      "responseSha256": "c58162c104456f8ed5c2de4f3ecd224152c5c1773af84e311c69555b74e3f192",
+      "responseByteSize": 87783
+    }
+  ],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "olay-super-serum-body-wash-normal-skin-547ml",
+      "retailer": "Pave Beauty Spa",
+      "reason": "Only a homepage card exists; no deterministic product-specific route establishes exact current stock."
+    },
+    {
+      "candidateId": "sheamoisture-raw-shea-butter-deep-moisturizing-conditioner-384ml",
+      "retailer": "Perfect Trust legacy domain",
+      "reason": "The stale domain is unreachable and produced no current response receipt."
+    }
+  ],
+  "heldCandidates": []
+}

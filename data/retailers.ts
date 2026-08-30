@@ -1075,6 +1075,44 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigerian skincare retailer with direct Naira product pages and item-level stock counts; links remain advisory only.",
   },
   {
+    name: "Wholesale Skincare Shop",
+    homepage: "https://wholesaleskincareshop.ng/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T05:04:38.864Z",
+      sourceUrl:
+        "https://wholesaleskincareshop.ng/products/aqua-rich-hydrate-protect-body-lotion-500ml-ceramide-spf-body-lotion-strengthens-skin-barrier-soothes-repairs-protects-against-uv-damage-long-lasting-hydration-vegan/4307857?location=null",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query: string) =>
+      `https://wholesaleskincareshop.ng/search?q=${encodeURIComponent(query)}`,
+    note: "Nigerian skincare retailer with direct Naira product pages and item-level inventory; links remain advisory only.",
+  },
+  {
+    name: "Ralyd",
+    homepage: "https://ralyd.co/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T05:07:35.900Z",
+      sourceUrl:
+        "https://ralyd.co/products/advanced-clinicals-vitamin-c-face-serum",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query: string) =>
+      `https://ralyd.co/search?q=${encodeURIComponent(query)}`,
+    note: "Nigerian Shopify beauty retailer with direct Naira product pages and visible availability; links remain advisory only.",
+  },
+  {
     name: "Gifty Beauty Store",
     homepage: "https://giftybeautystoree.com/",
     market: "NG",
