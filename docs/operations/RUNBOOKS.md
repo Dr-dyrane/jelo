@@ -881,7 +881,9 @@ Never heal a mismatched package with generation.
    - **200 with `writesPerformed: 0`:** authentication and the read-only backlog
      query are operational. The probe never enqueues, claims, retries, alerts,
      invalidates caches, or syncs a static file. `backlog.due > 0` means the
-     next scheduled non-dry run has due work.
+     next scheduled non-dry run has due work. Its `capacity` object exposes the
+     deployed cadence, batch limit, daily attempt slots, freshness target, and
+     enqueue lookahead without starting a refresh.
 
 2. Check the Neon database directly:
 
@@ -899,9 +901,12 @@ Never heal a mismatched package with generation.
    ```sql
    SELECT status, count(*) FROM inventory_refresh_jobs GROUP BY status;
    ```
-   An empty table means no jobs have been enqueued. The cron's
+   An empty table means no jobs have been enqueued. The hourly cron's
    `enqueueDueInventoryOffers` step creates jobs for offers whose verification
-   has expired or will expire within the 24-hour lookahead window.
+   has expired or will expire within the one-hour lookahead window. A completed
+   run reports `capacity.scheduledRunsPerDay`, `batchAttemptLimit`,
+   `attemptSlotsPerDay`, `targetFreshnessHours`, and `enqueueLookaheadHours`;
+   compare these values with the exact-offer population before changing cadence.
 
 ### Common failures
 
@@ -1095,7 +1100,8 @@ overwrites of higher-quality data.
 - **When:** Woo API, HTTP fetch, and browser fetch all fail or return no usable extraction.
 - **How:** sends truncated page HTML (50k chars) to the AI Gateway with a strict Zod schema for price/stock/title/size.
 - **Env vars:** `INVENTORY_AI_EXTRACTION=true` + `INVENTORY_AI_EXTRACTION_MODEL=<model-id>`.
-- **Confidence:** 50 (1-day freshness window only) — lower than any other method.
+- **Confidence:** 50 — lower than any other method; all accepted extraction
+  layers now share the same 24-hour maximum freshness boundary.
 - **Privacy:** zero data retention, no prompt training, no telemetry inputs/outputs.
 - **Safety:** returns `undefined` if price is null or gateway is unavailable. Never writes to DB directly.
 

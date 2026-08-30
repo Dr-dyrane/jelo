@@ -2,6 +2,13 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import test from "node:test";
+import { verifiedRetailOffers } from "@/data/retail-offers";
+import {
+  INVENTORY_CRON_BATCH_SIZE,
+  INVENTORY_CRON_LOOKAHEAD_HOURS,
+  INVENTORY_CRON_RUNS_PER_DAY,
+  INVENTORY_REFRESH_FRESHNESS_MS,
+} from "@/lib/inventory/refresh-policy";
 
 const root = process.cwd();
 const repository = readFileSync(
@@ -24,22 +31,36 @@ const vercel = JSON.parse(
   readFileSync(resolve(root, "vercel.json"), "utf8"),
 ) as { crons?: Array<{ path: string; schedule: string }> };
 
-test("one Vercel cron feeds the existing Neon inventory queue twice daily", () => {
+test("one hourly Vercel cron has three-pass daily capacity for the exact offer set", () => {
   const inventoryCrons = vercel.crons?.filter(
     (cron) => cron.path === "/api/cron/inventory",
   );
   assert.deepEqual(inventoryCrons, [
     {
       path: "/api/cron/inventory",
-      schedule: "17 4,16 * * *",
+      schedule: "17 * * * *",
     },
   ]);
-  assert.match(route, /const batchSize = 100/);
-  assert.match(route, /enqueueDueInventoryOffers\(batchSize\)/);
+  assert.equal(INVENTORY_CRON_RUNS_PER_DAY, 24);
+  assert.equal(INVENTORY_CRON_BATCH_SIZE, 100);
+  assert.equal(INVENTORY_CRON_LOOKAHEAD_HOURS, 1);
+  assert.equal(INVENTORY_REFRESH_FRESHNESS_MS, 24 * 60 * 60 * 1000);
+  const exactOfferCount = Object.values(verifiedRetailOffers).flat().length;
+  assert.ok(
+    INVENTORY_CRON_RUNS_PER_DAY * INVENTORY_CRON_BATCH_SIZE >=
+      exactOfferCount * 3,
+    `Daily capacity must retain three attempt slots per exact offer; found ${exactOfferCount} offers`,
+  );
   assert.match(
     route,
-    /processInventoryRefreshBatch\(batchSize,\s*\{[\s\S]*claimDeadlineAt[\s\S]*\}\)/,
+    /enqueueDueInventoryOffers\(\s*INVENTORY_CRON_BATCH_SIZE,\s*INVENTORY_CRON_LOOKAHEAD_HOURS,?\s*\)/,
   );
+  assert.match(
+    route,
+    /processInventoryRefreshBatch\(INVENTORY_CRON_BATCH_SIZE,\s*\{[\s\S]*claimDeadlineAt[\s\S]*\}\)/,
+  );
+  assert.match(route, /attemptSlotsPerDay/);
+  assert.match(route, /targetFreshnessHours/);
   assert.doesNotMatch(route, /insert\s+into\s+inventory_refresh_jobs/i);
 });
 
@@ -197,9 +218,12 @@ test("the cron dry-run returns before every write-capable operation", () => {
   assert.match(route, /searchParams\.has\(['"]dry-run['"]\)/);
   assert.match(route, /inventory_refresh_cron_dry_run/);
   assert.match(route, /writesPerformed: 0/);
+  assert.match(route, /capacity: inventoryRefreshCapacity\(\)/);
 
   const dryRunStart = route.indexOf("if (dryRun)");
-  const firstEnqueue = route.indexOf("enqueueDueInventoryOffers(batchSize)");
+  const firstEnqueue = route.indexOf(
+    "const enqueue = await enqueueDueInventoryOffers",
+  );
   assert.ok(dryRunStart >= 0 && firstEnqueue > dryRunStart);
   const dryRunBranch = route.slice(dryRunStart, firstEnqueue);
   assert.match(dryRunBranch, /getInventoryRefreshBacklogSummary\(\)/);
@@ -274,11 +298,9 @@ test("the cron sends email alerts when offers fail or the backlog grows", () => 
   assert.match(alerting, /inventory_refresh_backlog_growing/);
 });
 
-test("the refresh worker uses confidence-based validity windows", () => {
-  assert.match(worker, /adapterKey === ["']woo-store-api["']/);
-  assert.match(worker, /const validityDays =/);
-  assert.match(worker, /\? 1[\s\S]*\? 3[\s\S]*\? 7[\s\S]*: 5/);
-  assert.match(worker, /validityDays \* 86_400_000/);
+test("every successful refresh expires on the daily freshness boundary", () => {
+  assert.match(worker, /INVENTORY_REFRESH_FRESHNESS_MS/);
+  assert.doesNotMatch(worker, /const validityDays =/);
   assert.match(worker, /verification_expires_at = \$\{verificationExpiresAt\}/);
   assert.match(
     worker,

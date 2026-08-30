@@ -7,6 +7,7 @@ import {
 import {
   assertClassifiedInventoryRefreshScope,
   canClaimInventoryRefreshJob,
+  INVENTORY_REFRESH_FRESHNESS_MS,
   INVENTORY_REFRESH_LEASE_MS,
   inventoryRefreshFailureSettlement,
   isInventoryRefreshTerminalReason,
@@ -586,20 +587,9 @@ async function completeJob(
     observation.inventoryStatus === "in_stock" ||
     observation.inventoryStatus === "low_stock";
 
-  // Confidence-based validity: the structured Woo API adapter gets 7 days,
-  // high-confidence HTML extractions get 5 days, medium get 3 days, and low or
-  // unknown observations get 1 day.
-  const validityDays =
-    observation.inventoryStatus === "unknown" || observation.confidence < 60
-      ? 1
-      : observation.confidence < 85
-        ? 3
-        : observation.adapterKey === "woo-store-api"
-          ? 7
-          : 5;
   const verifiedAt = new Date();
   const verificationExpiresAt = new Date(
-    verifiedAt.valueOf() + validityDays * 86_400_000,
+    verifiedAt.valueOf() + INVENTORY_REFRESH_FRESHNESS_MS,
   );
   const verificationNote =
     observation.inventoryStatus === "unknown"

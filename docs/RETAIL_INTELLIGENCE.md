@@ -133,14 +133,22 @@ The refresh worker selects a retailer adapter by canonical hostname. Beauty by D
 
 Extraction order is conservative, with four fallback layers:
 
-1. **WooCommerce Store API** — structured JSON from `/wp-json/wc/store/v1/products?slug=` for known Woo retailers. Most reliable; 7-day freshness window.
-2. **HTTP fetch + structured-data extraction** — JSON-LD `Product`/`Offer` data, product price metadata, and product-scoped WooCommerce stock markers from the HTML response. Confidence-based freshness: 5 days (high), 3 days (medium), 1 day (low).
+1. **WooCommerce Store API** — structured JSON from `/wp-json/wc/store/v1/products?slug=` for known Woo retailers. Most reliable extraction layer; the resulting observation still uses the shared 24-hour freshness boundary.
+2. **HTTP fetch + structured-data extraction** — JSON-LD `Product`/`Offer` data, product price metadata, and product-scoped WooCommerce stock markers from the HTML response. Extraction confidence remains evidence metadata; every accepted result expires after 24 hours.
 3. **Browser fetch + structured-data extraction** — headless Chromium via `playwright-core` for hosts that block server-side HTTP (e.g. Jumia/Cloudflare 403). Lazy-loaded so it never affects cold start. Same extraction and confidence rules as HTTP fetch.
-4. **AI Gateway extraction** — sends truncated page HTML (50k chars) to the Vercel AI Gateway for structured price/stock extraction when all above strategies fail. Gated by `INVENTORY_AI_EXTRACTION=true` and `INVENTORY_AI_EXTRACTION_MODEL`. Returns confidence 50 (1-day freshness window only). Zero data retention, no prompt training.
+4. **AI Gateway extraction** — sends truncated page HTML (50k chars) to the Vercel AI Gateway for structured price/stock extraction when all above strategies fail. Gated by `INVENTORY_AI_EXTRACTION=true` and `INVENTORY_AI_EXTRACTION_MODEL`. Returns confidence 50 and the same 24-hour maximum freshness. Zero data retention, no prompt training.
 
-Page-wide purchase copy is not stock evidence. Every refresh records the adapter, confidence, evidence labels, observed product title and same-origin canonical URL. High-confidence observations remain fresh longer than incomplete ones.
+Page-wide purchase copy is not stock evidence. Every refresh records the adapter, confidence, evidence labels, observed product title and same-origin canonical URL. Confidence controls admission and the evidence note, not a longer public freshness claim.
 
-Production queues and checks a bounded set of exact offers once each day, starting 24 hours before their verification window expires. The cron route is bearer-authenticated, ignores store-search URLs and uses the existing locked job queue so overlapping requests cannot claim the same offer. Public price and availability claims honor both the seven-day maximum and the shorter confidence-based expiry recorded by the worker.
+Production services the exact-offer queue hourly and checks up to 100 attempts
+per run. Accepted observations expire after 24 hours and become queue candidates
+within one hour of expiry. The current 2,400-attempt daily capacity is tested
+against three times the checked-in exact-offer population, so catalogue growth
+must deliberately raise capacity before consuming retry headroom. The cron
+route is bearer-authenticated, ignores store-search URLs and uses the existing
+locked job queue so overlapping requests cannot claim the same offer. Public
+price and availability claims honor the exact 24-hour expiry recorded by the
+worker.
 
 The authenticated `?dry-run` route is read-only: it reports the current backlog
 with `writesPerformed: 0` before enqueue, claim, refresh, alert, cache, or sync

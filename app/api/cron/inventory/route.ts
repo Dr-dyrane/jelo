@@ -5,7 +5,11 @@ import {
   getStaleOfferCount,
 } from "@/lib/inventory/repository";
 import {
+  INVENTORY_CRON_BATCH_SIZE,
   INVENTORY_CRON_CLAIM_BUDGET_MS,
+  INVENTORY_CRON_LOOKAHEAD_HOURS,
+  INVENTORY_CRON_RUNS_PER_DAY,
+  INVENTORY_REFRESH_FRESHNESS_MS,
   summarizeInventoryRefreshRun,
 } from "@/lib/inventory/refresh-policy";
 import {
@@ -22,7 +26,16 @@ import {
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
-const batchSize = 100;
+
+function inventoryRefreshCapacity() {
+  return {
+    scheduledRunsPerDay: INVENTORY_CRON_RUNS_PER_DAY,
+    batchAttemptLimit: INVENTORY_CRON_BATCH_SIZE,
+    attemptSlotsPerDay: INVENTORY_CRON_RUNS_PER_DAY * INVENTORY_CRON_BATCH_SIZE,
+    targetFreshnessHours: INVENTORY_REFRESH_FRESHNESS_MS / (60 * 60 * 1000),
+    enqueueLookaheadHours: INVENTORY_CRON_LOOKAHEAD_HOURS,
+  };
+}
 
 export async function GET(request: Request) {
   const requestStartedAt = Date.now();
@@ -41,7 +54,12 @@ export async function GET(request: Request) {
 
   if (dryRun) {
     const backlog = await getInventoryRefreshBacklogSummary();
-    const summary = { dryRun: true, writesPerformed: 0, backlog };
+    const summary = {
+      dryRun: true,
+      writesPerformed: 0,
+      backlog,
+      capacity: inventoryRefreshCapacity(),
+    };
     console.info(
       JSON.stringify({ event: "inventory_refresh_cron_dry_run", ...summary }),
     );
@@ -49,9 +67,12 @@ export async function GET(request: Request) {
   }
 
   const claimDeadlineAt = requestStartedAt + INVENTORY_CRON_CLAIM_BUDGET_MS;
-  const enqueue = await enqueueDueInventoryOffers(batchSize);
+  const enqueue = await enqueueDueInventoryOffers(
+    INVENTORY_CRON_BATCH_SIZE,
+    INVENTORY_CRON_LOOKAHEAD_HOURS,
+  );
 
-  const batch = await processInventoryRefreshBatch(batchSize, {
+  const batch = await processInventoryRefreshBatch(INVENTORY_CRON_BATCH_SIZE, {
     claimDeadlineAt,
   });
   const run = summarizeInventoryRefreshRun({
@@ -192,7 +213,12 @@ export async function GET(request: Request) {
     );
   }
 
-  const summary = { run, backlog: backlogWithStale, staticFileSync };
+  const summary = {
+    run,
+    backlog: backlogWithStale,
+    capacity: inventoryRefreshCapacity(),
+    staticFileSync,
+  };
 
   console.info(
     JSON.stringify({ event: "inventory_refresh_cron_completed", ...summary }),

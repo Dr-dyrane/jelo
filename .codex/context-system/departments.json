@@ -15,7 +15,7 @@
           "outcome": "inventory-offer-refresh",
           "scheduledOwner": "Vercel cron GET /api/cron/inventory",
           "departments": ["platform-delivery", "catalogue-evidence"],
-          "routineScope": "Queue, lease, retry, evidence refresh, terminal invalidation, and static review-branch proposal",
+          "routineScope": "Hourly queue servicing with a 24-hour offer freshness target, bounded lease/retry handling, evidence refresh, terminal invalidation, and static review-branch proposal",
           "manualOnly": "Diagnose a failed scheduled run without duplicating its queue, claim, retry, or cache work"
         },
         {

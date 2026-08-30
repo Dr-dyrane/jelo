@@ -734,8 +734,13 @@ canvas with at least 10% padding margin before staging.
 
 ## Inventory cron and alerting
 
-The inventory cron (`/api/cron/inventory`) runs twice daily, enqueues due
-offers, processes a batch, and revalidates affected paths. The alerting
+The inventory cron (`/api/cron/inventory`) runs hourly at minute 17, enqueues
+offers that are expired or within one hour of expiry, processes up to 100
+attempts, and revalidates affected paths. Every successful automated
+observation expires after 24 hours. At 24 runs per day, the owner exposes 2,400
+attempt slots: at least three slots for each of the current 609 exact-offer
+population, with a regression test that fails when catalogue growth consumes
+that headroom. Capacity is emitted in every completed-run summary. The alerting
 system (`lib/inventory/refresh-alerting.ts`) sends email alerts when:
 
 1. **5+ offers fail all retry attempts** (critical) — the cron is losing
@@ -747,6 +752,13 @@ system (`lib/inventory/refresh-alerting.ts`) sends email alerts when:
 4. **30+ stale exact NG offers with no active refresh** (warning) —
    verification has expired and prices may be outdated. This catches data
    freshness degradation before users see stale prices.
+
+This cadence keeps already-bound exact retailer offers current. It does not
+promote an ambiguous retailer result into a canonical SKU, normalize a package
+or unit conflict, discover a missing exact Nigerian listing, or publish a new
+product. Those remain evidence-bound completion cells; the scheduled owner
+records typed terminal conflicts and fails them closed instead of manufacturing
+the outcome that earlier catalogue waves established manually.
 
 Alert emails go to `INVENTORY_ALERT_EMAIL` (defaults to
 `hello@jelocare.com`) when transactional email is configured. All alerts

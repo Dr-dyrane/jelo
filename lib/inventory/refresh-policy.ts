@@ -1,5 +1,9 @@
 export const INVENTORY_REFRESH_LEASE_MS = 2 * 60 * 1000;
 export const INVENTORY_CRON_CLAIM_BUDGET_MS = 270 * 1000;
+export const INVENTORY_CRON_BATCH_SIZE = 100;
+export const INVENTORY_CRON_RUNS_PER_DAY = 24;
+export const INVENTORY_CRON_LOOKAHEAD_HOURS = 1;
+export const INVENTORY_REFRESH_FRESHNESS_MS = 24 * 60 * 60 * 1000;
 
 export type InventoryRefreshRunStatus =
   "completed" | "retrying" | "failed" | "discarded";
