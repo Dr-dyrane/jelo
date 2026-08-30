@@ -18,6 +18,7 @@ import waveTwentyEightAudit from "@/data/retailer-verification/catalogue-offer-r
 import waveTwentyNineAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-29-2026-08-29.json";
 import waveThirtyAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-30-2026-08-29.json";
 import waveThirtyOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-31-2026-08-29.json";
+import waveThirtyTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-32-2026-08-29.json";
 import { mergeRetailOffers, verifiedRetailOffers } from "@/data/retail-offers";
 import { nigeriaRetailers } from "@/data/retailers";
 import {
@@ -260,7 +261,19 @@ test("the admitted evidence projects exactly once and rejected or pending stores
       continue;
     }
 
-    const blockedByLatestRefresh = waveThirtyOneAudit.blockedCells.some(
+    const latestRefreshDisposition = [
+      waveThirtyTwoAudit,
+      waveThirtyOneAudit,
+    ].find(
+      (refresh) =>
+        refresh.products.some(
+          (candidate) => candidate.candidateId === product.candidateId,
+        ) ||
+        refresh.blockedCells.some(
+          (candidate) => candidate.candidateId === product.candidateId,
+        ),
+    );
+    const blockedByLatestRefresh = latestRefreshDisposition?.blockedCells.some(
       (candidate) => candidate.candidateId === product.candidateId,
     );
     if (blockedByLatestRefresh) {
@@ -269,6 +282,9 @@ test("the admitted evidence projects exactly once and rejected or pending stores
     }
 
     const refreshedProduct =
+      waveThirtyTwoAudit.products.find(
+        (candidate) => candidate.candidateId === product.candidateId,
+      ) ??
       waveThirtyOneAudit.products.find(
         (candidate) => candidate.candidateId === product.candidateId,
       ) ??

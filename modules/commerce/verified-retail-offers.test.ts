@@ -35,6 +35,7 @@ import waveTwentyEightAudit from "@/data/retailer-verification/catalogue-offer-r
 import waveTwentyNineAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-29-2026-08-29.json";
 import waveThirtyAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-30-2026-08-29.json";
 import waveThirtyOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-31-2026-08-29.json";
+import waveThirtyTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-32-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -2658,6 +2659,102 @@ test("catalogue offer refresh wave 31 releases three exact packages and fails mi
   ]) {
     assert.deepEqual(verifiedRetailOffers[slug], [], slug);
   }
+});
+
+test("catalogue offer refresh wave 32 releases exact packages and preserves package blockers", () => {
+  const projected = waveThirtyTwoAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveThirtyTwoAudit.matrix.before, 121);
+  assert.equal(waveThirtyTwoAudit.matrix.after, 124);
+  assert.equal(waveThirtyTwoAudit.matrix.total, 162);
+  assert.equal(waveThirtyTwoAudit.summary.productsReviewed, 4);
+  assert.equal(waveThirtyTwoAudit.summary.productsReleased, 3);
+  assert.equal(waveThirtyTwoAudit.summary.productsBlocked, 1);
+  assert.equal(waveThirtyTwoAudit.summary.offersReviewed, 12);
+  assert.equal(waveThirtyTwoAudit.summary.offersAdmitted, 4);
+  assert.equal(waveThirtyTwoAudit.summary.shopperActiveOffers, 3);
+  assert.equal(waveThirtyTwoAudit.summary.outOfStockObservations, 1);
+  assert.equal(waveThirtyTwoAudit.summary.offersBlocked, 8);
+  assert.equal(projected.length, 4);
+  assert.equal(waveThirtyTwoAudit.blockedCells.length, 1);
+  assert.equal(waveThirtyTwoAudit.excludedDiscoveries.length, 8);
+  assert.equal(waveThirtyTwoAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.equal(
+    waveThirtyTwoAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    if (
+      "packageImageSha256" in evidence &&
+      typeof evidence.packageImageSha256 === "string"
+    ) {
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(
+        "packageImageByteSize" in evidence &&
+          typeof evidence.packageImageByteSize === "number" &&
+          evidence.packageImageByteSize > 0,
+      );
+    } else {
+      assert.equal(evidence.retailer, "CSi Grocery");
+      assert.equal(evidence.observedProductSku, product.identity.gtin);
+    }
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "facefacts-ceramide-moisturising-gel-cream-50ml",
+      ["BuyBetter", "CSi Grocery"],
+    ],
+    ["medik8-advanced-night-restore-50ml", []],
+    ["ogx-renewing-argan-oil-of-morocco", ["Brandlistry"]],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["facefacts-ceramide-moisturising-gel-cream-50ml", 3_440],
+    ["ogx-renewing-argan-oil-of-morocco", 25_980],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    if (expectedFloors.has(slug)) {
+      assert.equal(
+        Math.min(
+          ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+        ),
+        expectedFloors.get(slug),
+        slug,
+      );
+    }
+  }
+
+  assert.deepEqual(
+    verifiedRetailOffers["naturium-skin-renewing-retinol-body-lotion-8oz"],
+    [],
+  );
 });
 
 test("verified Nigerian observations use exact secure product pages", () => {

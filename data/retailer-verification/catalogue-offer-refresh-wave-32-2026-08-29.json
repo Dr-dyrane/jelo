@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-32-2026-08-29",
+  "reviewedAt": "2026-08-30T07:18:54.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Twelve current Nigerian retailer checks across three releasable exact product SKUs and one package-blocked SKU",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T07:18:54.000Z"
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 121,
+    "after": 124,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed."
+  },
+  "summary": {
+    "productsReviewed": 4,
+    "productsReleased": 3,
+    "productsBlocked": 1,
+    "offersReviewed": 12,
+    "offersAdmitted": 4,
+    "shopperActiveOffers": 3,
+    "outOfStockObservations": 1,
+    "offersBlocked": 8,
+    "offersProjected": 4
+  },
+  "products": [
+    {
+      "candidateId": "facefacts-ceramide-moisturising-gel-cream-50ml",
+      "identity": {
+        "gtin": "5031413928570",
+        "variant": "Ceramide Moisturising Gel Cream",
+        "size": "50 ml",
+        "packageVersion": "Current white 50 ml squeeze tube with green and charcoal label and translucent flip cap"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/facefacts-ceramide-moisturizing-gel-cream/",
+          "priceNgn": 3440,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:18:54.000Z",
+          "expiresAt": "2026-09-06T07:18:54.000Z",
+          "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?slug=facefacts-ceramide-moisturizing-gel-cream",
+          "responseSha256": "e207c0421d908ad57a15d92c4e4d4abb471507e41aa46c7ec507488a31243cbb",
+          "responseByteSize": 9440,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2023/01/stua4fbw.png",
+          "packageImageSha256": "a8f3a38f6a64830894f79a1f5cabac0e26f760d1ea8839f93e9ab6485bb7c6df",
+          "packageImageByteSize": 274666
+        },
+        {
+          "retailer": "CSi Grocery",
+          "url": "https://www.csigrocery.com/shop/skincare/body-oils-moisturizers/face-facts-moisturising-cream/",
+          "priceNgn": 3600,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:18:54.000Z",
+          "expiresAt": "2026-09-06T07:18:54.000Z",
+          "responseUrl": "https://www.csigrocery.com/wp-json/wc/store/v1/products?slug=face-facts-moisturising-cream",
+          "responseSha256": "c3574463137ac7f67df67670cbebe1c5721e9db78f6ae53d2c061887d06af411",
+          "responseByteSize": 10599,
+          "observedProductSku": "5031413928570",
+          "packageImageUrl": "https://www.csigrocery.com/wp-content/uploads/2025/05/Face-Facts-2.png"
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Perona Beauty",
+          "reason": "current-product-endpoint-returned-waf-403-without-a-deterministic-response-receipt"
+        },
+        {
+          "retailer": "Jumia",
+          "reason": "current-product-route-returned-waf-403-without-verifiable-live-price-or-stock"
+        }
+      ]
+    },
+    {
+      "candidateId": "medik8-advanced-night-restore-50ml",
+      "identity": {
+        "gtin": "818625024444",
+        "variant": "Advanced Night Restore™",
+        "size": "50 ml",
+        "packageVersion": "Current white 50 ml jar and carton labelled Advanced Night Restore"
+      },
+      "offers": [
+        {
+          "retailer": "Skincare Plug NG",
+          "url": "https://skincareplug-ng.com/products/medik8-advanced-night-restore-50ml",
+          "priceNgn": 146000,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T07:18:54.000Z",
+          "expiresAt": "2026-09-06T07:18:54.000Z",
+          "responseUrl": "https://skincareplug-ng.com/products/medik8-advanced-night-restore-50ml.js",
+          "responseSha256": "4def459d7bcb56df4c08ee0621f35c09d50a920f570eec20d2a88671b4d57645",
+          "responseByteSize": 3161,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0463/8575/8360/products/58D266F9-2773-40EF-8380-6E3B790BB42F.jpg?v=1665268254",
+          "packageImageSha256": "1ea47c599d6d4df0a556bf4a53ed4118c4f89bb6d68c75e77b265eff22ebf170",
+          "packageImageByteSize": 18659
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Teeka4",
+          "reason": "current-title-says-50ml-but-the-current-primary-listing-image-shows-the-12-5ml-0-42fl-oz-package"
+        },
+        {
+          "retailer": "SweetCare Nigeria",
+          "reason": "current-product-route-returned-waf-403-without-a-deterministic-response-receipt"
+        },
+        {
+          "retailer": "Jumia",
+          "reason": "current-product-route-returned-waf-403-without-verifiable-live-price-or-stock"
+        }
+      ]
+    },
+    {
+      "candidateId": "ogx-renewing-argan-oil-of-morocco",
+      "identity": {
+        "gtin": "00022796916167",
+        "variant": "Argan Oil of Morocco Extra Penetrating Oil",
+        "size": "3.3 fl oz",
+        "packageVersion": "Current gold 100 ml / 3.3 US fl oz bottle and carton with blue Extra Penetrating Oil strip"
+      },
+      "offers": [
+        {
+          "retailer": "Brandlistry",
+          "url": "https://www.brandlistry.ng/products/ogx-renewing-argan-oil-of-morocco-extra-penetrating-oil-100ml",
+          "priceNgn": 25980,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:18:54.000Z",
+          "expiresAt": "2026-09-06T07:18:54.000Z",
+          "responseUrl": "https://www.brandlistry.ng/products/ogx-renewing-argan-oil-of-morocco-extra-penetrating-oil-100ml.js",
+          "responseSha256": "53ebcf3c7a46178a72fee16614a19e85e5b588a131b4605301590abb49e24501",
+          "responseByteSize": 6089,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0937/5940/6404/files/10279059.jpg?v=1757410390",
+          "packageImageSha256": "717edcfef271f68eae18257d3413c66951b4ed8be8f6876a981f1a1fb0610fa3",
+          "packageImageByteSize": 20376
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Beccaville",
+          "reason": "current-title-says-extra-strength-while-the-primary-image-shows-the-different-all-hair-types-penetrating-oil-package"
+        },
+        {
+          "retailer": "Care to Beauty",
+          "reason": "current-retailer-gtin-3574661563336-conflicts-with-catalogue-gtin-00022796916167"
+        },
+        {
+          "retailer": "Jumia",
+          "reason": "current-product-route-returned-waf-403-without-verifiable-live-price-or-stock"
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
+      "retailer": "Konga Health / Rhema Beauty Shop / TOS Nigeria / Wholesale Skincare Shop",
+      "reason": "all-current-retailer-images-show-the-older-8fl-oz-234ml-squeeze-tube-not-the-catalogue-current-8fl-oz-234ml-pump-bottle"
+    }
+  ],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "facefacts-ceramide-moisturising-gel-cream-50ml",
+      "retailer": "Perona Beauty",
+      "reason": "current-product-endpoint-returned-waf-403-without-a-deterministic-response-receipt"
+    },
+    {
+      "candidateId": "facefacts-ceramide-moisturising-gel-cream-50ml",
+      "retailer": "Jumia",
+      "reason": "current-product-route-returned-waf-403-without-verifiable-live-price-or-stock"
+    },
+    {
+      "candidateId": "medik8-advanced-night-restore-50ml",
+      "retailer": "Teeka4",
+      "reason": "current-primary-image-shows-the-12-5ml-package-despite-the-50ml-title"
+    },
+    {
+      "candidateId": "medik8-advanced-night-restore-50ml",
+      "retailer": "SweetCare Nigeria / Jumia",
+      "reason": "current-product-routes-returned-waf-403-without-deterministic-price-and-stock-receipts"
+    },
+    {
+      "candidateId": "ogx-renewing-argan-oil-of-morocco",
+      "retailer": "Beccaville",
+      "reason": "current-title-and-primary-image-do-not-resolve-to-the-same-extra-penetrating-oil-variant"
+    },
+    {
+      "candidateId": "ogx-renewing-argan-oil-of-morocco",
+      "retailer": "Care to Beauty",
+      "reason": "current-retailer-gtin-conflicts-with-the-catalogue-gtin"
+    },
+    {
+      "candidateId": "ogx-renewing-argan-oil-of-morocco",
+      "retailer": "Jumia",
+      "reason": "current-product-route-returned-waf-403-without-verifiable-live-price-or-stock"
+    },
+    {
+      "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
+      "retailer": "Konga Health / Rhema Beauty Shop / TOS Nigeria / Wholesale Skincare Shop",
+      "reason": "all-current-images-show-the-older-squeeze-tube-not-the-catalogue-current-pump-bottle"
+    }
+  ]
+}
