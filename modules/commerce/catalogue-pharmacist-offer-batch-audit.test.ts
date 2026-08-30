@@ -20,6 +20,7 @@ import waveThirtyAudit from "@/data/retailer-verification/catalogue-offer-refres
 import waveThirtyOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-31-2026-08-29.json";
 import waveThirtyTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-32-2026-08-29.json";
 import waveThirtyFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-35-2026-08-29.json";
+import completionWaveTwoAudit from "@/data/retailer-verification/catalogue-completion-wave-2-2026-08-30.json";
 import { mergeRetailOffers, verifiedRetailOffers } from "@/data/retail-offers";
 import { nigeriaRetailers } from "@/data/retailers";
 import {
@@ -536,7 +537,19 @@ test("the Jumia lead is textually 250 ml and no 500 ml authority can bind it", (
     ).includes("official-package-revision-equivalence-missing"),
   );
   assert.ok(verifiedRetailOffers[product.candidateId]);
-  assert.deepEqual(verifiedRetailOffers[product.candidateId], []);
+  const completionProduct = completionWaveTwoAudit.products.find(
+    (candidate) => candidate.candidateId === product.candidateId,
+  );
+  assert.ok(completionProduct);
+  assert.equal(completionProduct.identity.size, "250 ml");
+  assert.deepEqual(
+    verifiedRetailOffers[product.candidateId].map((current) => ({
+      retailer: current.retailer,
+      size: current.priceObservation?.size,
+      priceNgn: current.priceNgn,
+    })),
+    [{ retailer: "Essenza", size: "250 ml", priceNgn: 43000 }],
+  );
 });
 
 test("explicitly expiring projections disappear from merged public offers", () => {

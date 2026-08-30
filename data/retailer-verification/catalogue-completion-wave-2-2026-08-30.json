@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-completion-wave-2-2026-08-30",
+  "reviewedAt": "2026-08-30T12:12:31.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Fresh exact-package Nigerian offer evidence for three independently releasable completion rows, with package and unit conflicts retained fail closed",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-browser-listing-and-package-images",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T12:12:31.000Z"
+  },
+  "matrix": {
+    "unit": "fixed-denominator exact candidate row",
+    "before": 135,
+    "after": 138,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "activeBacklog": 98,
+      "queued": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No cron request, enqueue, claim, process, retry or cache invalidation was performed."
+  },
+  "summary": {
+    "productsReviewed": 3,
+    "productsResolved": 3,
+    "offersReviewed": 4,
+    "offersAdmitted": 4,
+    "shopperActiveOffers": 2,
+    "outOfStockObservations": 1,
+    "unknownAvailabilityObservations": 1,
+    "offersBlocked": 8
+  },
+  "products": [
+    {
+      "candidateId": "dove-moroccan-argan-oil-beauty-bar",
+      "identity": {
+        "gtin": "8710908472336",
+        "variant": "Purely Pampering Cream Oil Beauty Bar With Moroccan Argan Oil",
+        "size": "4 x 100 g",
+        "packageVersion": "four individually wrapped 100 g beauty bars"
+      },
+      "offers": [
+        {
+          "retailer": "Hermosa Mart",
+          "url": "https://hermosamartng.com/product/dove-purely-cream-oil-beauty-bar-soap-with-moroccan-argan-oil/",
+          "priceNgn": 4000,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T12:12:31.000Z",
+          "expiresAt": "2026-09-06T12:12:31.000Z",
+          "responseUrl": "https://hermosamartng.com/product/dove-purely-cream-oil-beauty-bar-soap-with-moroccan-argan-oil/",
+          "responseSha256": "9442f30de722e7c2db5ad5791c18d8b121714552a814e6aa912a2ef6310ce77f",
+          "responseByteSize": 255366,
+          "packageImageUrl": "https://hermosamartng.com/wp-content/uploads/2022/11/heimish-2.png",
+          "packageImageSha256": "e0981bb91e63856a38afa5163cd9945317b557aec51be217c1defb109bb2d287",
+          "packageImageByteSize": 45051
+        },
+        {
+          "retailer": "Amela Pharmacy",
+          "url": "https://amelapharmacy.com/dove-beauty-cream-bar-4-x-100-g-moroccan-argan-oil",
+          "priceNgn": 6000,
+          "stock": "unknown",
+          "available": false,
+          "priceComparison": "exclude",
+          "availabilityEvidence": "The exact GTIN-bound product page offers pharmacy contact rather than a purchase action, so availability is not inferred.",
+          "checkedAt": "2026-08-30T12:12:31.000Z",
+          "expiresAt": "2026-09-06T12:12:31.000Z",
+          "responseUrl": "https://amelapharmacy.com/dove-beauty-cream-bar-4-x-100-g-moroccan-argan-oil",
+          "responseSha256": "28e3254b2e72235859b0b82edf40dddd57f2a9aeedf2678485508b51c80266d0",
+          "responseByteSize": 374753,
+          "packageImageUrl": "https://images.amelastock.com/public/derivatives/434fedb692325d9695e9f188b5667d97acb189b5bb8d55829623848582626ffa/card/167734ccd0b58afc8f51c3b74fa6ef888361fcdf4da94cb45432d55f9f8b2f01.webp",
+          "packageImageSha256": "167734ccd0b58afc8f51c3b74fa6ef888361fcdf4da94cb45432d55f9f8b2f01",
+          "packageImageByteSize": 18310
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Teeka4 and Coco Rosey",
+          "reason": "expired-observations-cannot-remain-current"
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "reason": "documented-package-conflict-remains-excluded"
+        }
+      ]
+    },
+    {
+      "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+      "identity": {
+        "gtin": "3253581785706",
+        "variant": "Almond (Amande) Softening Shower Oil",
+        "size": "250 ml",
+        "packageVersion": "current black-cap 250 ml bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Essenza",
+          "url": "https://www.essenza.ng/products/loccitane-almond-sublime-shower-oil",
+          "priceNgn": 43000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T12:12:31.000Z",
+          "expiresAt": "2026-09-06T12:12:31.000Z",
+          "responseUrl": "https://www.essenza.ng/products/loccitane-almond-sublime-shower-oil.js",
+          "responseSha256": "afc6408bc1eb4081eeefd80fa7fe1279a2cee19d19e5c95dad9de7e07987118a",
+          "responseByteSize": 12261,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0507/4177/2457/files/29HD250A26.webp?v=1782827766",
+          "packageImageSha256": "0b27aef2daefcb43e6e7b58ca6181efd443b61ca394dc722e3236d80547e8dd7",
+          "packageImageByteSize": 277234
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Nihet Beauty",
+          "reason": "older-silver-cap-package-cannot-enter-the-current-black-cap-cell"
+        }
+      ]
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-spf30",
+      "identity": {
+        "gtin": "3337875545846",
+        "variant": "Toleriane Double Repair Face Moisturizer UV SPF 30",
+        "size": "100 ml",
+        "packageVersion": "100 ml SPF 30 moisturizer tube"
+      },
+      "offers": [
+        {
+          "retailer": "Jumia",
+          "url": "https://www.jumia.com.ng/la-roche-posay-toleriane-double-repair-face-moisturizer-uv-sunscreen-spf-30-100ml-419982000.html",
+          "priceNgn": 30000,
+          "stock": "low-stock",
+          "available": true,
+          "sellerName": "Annette Trudan",
+          "sellerScore": 78,
+          "checkedAt": "2026-08-30T12:12:31.000Z",
+          "expiresAt": "2026-09-06T12:12:31.000Z",
+          "browserCapture": {
+            "capturedAt": "2026-08-30T12:12:31.000Z",
+            "title": "La Roche-Posay Toleriane Double Repair Face Moisturizer UV Sunscreen SPF 30 - 100ml",
+            "priceText": "₦ 30,000",
+            "stockText": "Few units left",
+            "sellerText": "Annette Trudan",
+            "sellerScoreText": "78%"
+          },
+          "packageImageUrl": "https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/00/0289914/1.jpg?0102=",
+          "packageImageSha256": "cc62e21bd15fb3fa5c64eb718a1fcbe13059cf47871312a336f1631db7e4c8ed",
+          "packageImageByteSize": 14292
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Perona Beauty, HelloBeauty NG and MakeupAlleyNG",
+          "reason": "75ml-siblings-cannot-enter-the-100ml-cell"
+        },
+        {
+          "retailer": "Hermosa Mart",
+          "reason": "current-page-and-image-do-not-bind-the-offer-to-100ml"
+        }
+      ]
+    }
+  ],
+  "blockedDiscoveries": [
+    {
+      "candidateId": "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
+      "reason": "current-Nigerian-pump-labelled-topical-acid-conflicts-with-published-derivative-complex-dropper"
+    },
+    {
+      "candidateId": "naturium-intense-overnight-sleeping-cream-1-7oz",
+      "reason": "current-listing-declares-50g-while-published-identity-declares-50ml"
+    },
+    {
+      "candidateId": "naturium-vitamin-c-complex-serum-1fl-oz",
+      "reason": "current-package-is-an-airless-pump-while-published-media-bind-a-dropper"
+    },
+    {
+      "candidateId": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+      "reason": "current-Nigerian-listing-does-not-prove-exact-15ml-and-has-light-medium-variant-ambiguity"
+    }
+  ]
+}

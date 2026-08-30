@@ -43,6 +43,7 @@ import waveThirtySixAudit from "@/data/retailer-verification/catalogue-offer-ref
 import waveThirtySevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-37-2026-08-29.json";
 import completionMatrix from "@/data/retailer-verification/catalogue-completion-matrix-2026-08-30.json";
 import completionWaveOneAudit from "@/data/retailer-verification/catalogue-completion-wave-1-2026-08-30.json";
+import completionWaveTwoAudit from "@/data/retailer-verification/catalogue-completion-wave-2-2026-08-30.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -2702,12 +2703,10 @@ test("catalogue offer refresh wave 31 releases three exact packages and fails mi
     );
   }
 
-  for (const slug of [
-    "loccitane-almond-softening-shower-oil-250ml",
-    "replenix-bp-10-acne-wash-aloe-vera-7oz",
-  ]) {
-    assert.deepEqual(verifiedRetailOffers[slug], [], slug);
-  }
+  assert.deepEqual(
+    verifiedRetailOffers["replenix-bp-10-acne-wash-aloe-vera-7oz"],
+    [],
+  );
 });
 
 test("catalogue offer refresh wave 32 releases exact packages and preserves package blockers", () => {
@@ -3293,8 +3292,8 @@ test("catalogue completion wave 1 records four current no-exact-offer dispositio
   assert.equal(completionMatrix.fixedDenominator, 162);
   assert.equal(completionMatrix.baseline.completedDenominatorRows, 131);
   assert.equal(completionMatrix.baseline.remainingRows, 31);
-  assert.equal(completionMatrix.current.completedDenominatorRows, 135);
-  assert.equal(completionMatrix.current.remainingRows, 27);
+  assert.equal(completionMatrix.current.completedDenominatorRows, 138);
+  assert.equal(completionMatrix.current.remainingRows, 24);
   assert.equal(completionMatrix.rows.length, 31);
   assert.equal(
     new Set(completionMatrix.rows.map((row) => row.candidateId)).size,
@@ -3330,6 +3329,128 @@ test("catalogue completion wave 1 records four current no-exact-offer dispositio
   assert.deepEqual(
     verifiedRetailOffers["naturium-multi-peptide-advanced-serum-1fl-oz"],
     [],
+  );
+});
+
+test("catalogue completion wave 2 admits three current exact-package rows", () => {
+  assert.equal(completionWaveTwoAudit.matrix.before, 135);
+  assert.equal(completionWaveTwoAudit.matrix.after, 138);
+  assert.equal(completionWaveTwoAudit.matrix.total, 162);
+  assert.equal(completionWaveTwoAudit.summary.productsReviewed, 3);
+  assert.equal(completionWaveTwoAudit.summary.productsResolved, 3);
+  assert.equal(completionWaveTwoAudit.summary.offersAdmitted, 4);
+  assert.equal(completionWaveTwoAudit.summary.shopperActiveOffers, 2);
+  assert.equal(
+    completionWaveTwoAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+  assert.deepEqual(
+    completionWaveTwoAudit.products.map((product) => product.candidateId),
+    [
+      "dove-moroccan-argan-oil-beauty-bar",
+      "loccitane-almond-softening-shower-oil-250ml",
+      "la-roche-posay-toleriane-double-repair-spf30",
+    ],
+  );
+
+  for (const product of completionWaveTwoAudit.products) {
+    for (const offer of product.offers) {
+      assert.match(offer.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(offer.packageImageByteSize > 0);
+      if ("responseSha256" in offer) {
+        assert.match(offer.responseSha256, /^[a-f0-9]{64}$/);
+        assert.ok(offer.responseByteSize > 0);
+      } else {
+        assert.equal(
+          product.candidateId,
+          "la-roche-posay-toleriane-double-repair-spf30",
+        );
+        assert.equal(offer.browserCapture.stockText, "Few units left");
+      }
+    }
+  }
+
+  const dove = verifiedRetailOffers["dove-moroccan-argan-oil-beauty-bar"];
+  assert.deepEqual(
+    dove.map((offer) => ({
+      retailer: offer.retailer,
+      priceNgn: offer.priceNgn,
+      available: offer.available,
+      stock: offer.priceObservation?.stock,
+      comparison: offer.priceComparison,
+    })),
+    [
+      {
+        retailer: "Hermosa Mart",
+        priceNgn: 4000,
+        available: false,
+        stock: "out-of-stock",
+        comparison: undefined,
+      },
+      {
+        retailer: "Amela Pharmacy",
+        priceNgn: 6000,
+        available: false,
+        stock: "unknown",
+        comparison: "exclude",
+      },
+    ],
+  );
+
+  const loccitane =
+    verifiedRetailOffers["loccitane-almond-softening-shower-oil-250ml"];
+  assert.deepEqual(
+    loccitane.map((offer) => ({
+      retailer: offer.retailer,
+      priceNgn: offer.priceNgn,
+      available: offer.available,
+      size: offer.priceObservation?.size,
+    })),
+    [
+      {
+        retailer: "Essenza",
+        priceNgn: 43000,
+        available: true,
+        size: "250 ml",
+      },
+    ],
+  );
+
+  const toleriane =
+    verifiedRetailOffers["la-roche-posay-toleriane-double-repair-spf30"];
+  assert.deepEqual(
+    toleriane.map((offer) => ({
+      retailer: offer.retailer,
+      priceNgn: offer.priceNgn,
+      available: offer.available,
+      stock: offer.priceObservation?.stock,
+      size: offer.priceObservation?.size,
+      sellerName: offer.sellerName,
+      sellerScore: offer.sellerScore,
+    })),
+    [
+      {
+        retailer: "Jumia",
+        priceNgn: 30000,
+        available: true,
+        stock: "low-stock",
+        size: "100 ml",
+        sellerName: "Annette Trudan",
+        sellerScore: 78,
+      },
+    ],
+  );
+
+  assert.deepEqual(
+    completionWaveTwoAudit.blockedDiscoveries.map(
+      (discovery) => discovery.candidateId,
+    ),
+    [
+      "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
+      "naturium-intense-overnight-sleeping-cream-1-7oz",
+      "naturium-vitamin-c-complex-serum-1fl-oz",
+      "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+    ],
   );
 });
 
@@ -3398,8 +3519,8 @@ test("catalogue seed retains expired exact URLs for refresh without making them 
   assert.equal(isOfferFresh(retained, afterExpiry), false);
 });
 
-test("at least twelve catalogue products have reliable exact Nigerian price evidence at the legacy fixture time", () => {
-  const asOf = new Date("2026-08-14T17:01:00Z");
+test("at least twelve catalogue products have reliable exact Nigerian price evidence at the current completion fixture time", () => {
+  const asOf = new Date("2026-08-30T12:13:00Z");
   const priced = reviewedProductRecords.filter((product) =>
     mergeRetailOffers(product, product.offers, asOf).some(
       (offer) =>

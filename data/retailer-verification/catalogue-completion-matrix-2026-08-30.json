@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "matrixId": "catalogue-completion-matrix-2026-08-30",
-  "reviewedAt": "2026-08-30T11:40:18.000Z",
+  "reviewedAt": "2026-08-30T12:12:31.000Z",
   "reviewer": "JeloCare catalogue evidence review",
   "fixedDenominator": 162,
   "baseline": {
@@ -14,8 +14,8 @@
     "remainingRows": 31
   },
   "current": {
-    "completedDenominatorRows": 135,
-    "remainingRows": 27
+    "completedDenominatorRows": 138,
+    "remainingRows": 24
   },
   "rows": [
     {
@@ -44,9 +44,9 @@
     },
     {
       "candidateId": "dove-moroccan-argan-oil-beauty-bar",
-      "state": "remaining",
-      "nextRoute": "current-exact-offer",
-      "lastKnownBlocker": "exact 4 x 100 g listings are out of stock or lack availability and a current sibling is 4 x 90 g"
+      "state": "resolved",
+      "completionRoute": "current-exact-offer-evidence",
+      "resolutionWave": "catalogue-completion-wave-2-2026-08-30"
     },
     {
       "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
@@ -62,15 +62,15 @@
     },
     {
       "candidateId": "la-roche-posay-toleriane-double-repair-spf30",
-      "state": "remaining",
-      "nextRoute": "canonical-identity-or-current-exact-offer",
-      "lastKnownBlocker": "current exact package and Nigerian availability remain unresolved"
+      "state": "resolved",
+      "completionRoute": "current-exact-offer-evidence",
+      "resolutionWave": "catalogue-completion-wave-2-2026-08-30"
     },
     {
       "candidateId": "loccitane-almond-softening-shower-oil-250ml",
-      "state": "remaining",
-      "nextRoute": "canonical-package-review",
-      "lastKnownBlocker": "current Nigerian evidence does not bind the published exact 250 ml package"
+      "state": "resolved",
+      "completionRoute": "current-exact-offer-evidence",
+      "resolutionWave": "catalogue-completion-wave-2-2026-08-30"
     },
     {
       "candidateId": "naturium-alpha-arbutin-serum-2-percent-1fl-oz",
