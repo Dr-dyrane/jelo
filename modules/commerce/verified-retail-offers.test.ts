@@ -36,6 +36,7 @@ import waveTwentyNineAudit from "@/data/retailer-verification/catalogue-offer-re
 import waveThirtyAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-30-2026-08-29.json";
 import waveThirtyOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-31-2026-08-29.json";
 import waveThirtyTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-32-2026-08-29.json";
+import waveThirtyThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-33-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -66,6 +67,17 @@ test("catalogue offer refresh wave 1 reconciles exact browser evidence to projec
   assert.equal(projected.length, 12);
   for (const product of waveOneAudit.products) {
     assert.equal(product.offers.length, 3, product.candidateId);
+    const latestRefresh = waveThirtyThreeAudit.products.find(
+      (candidate) => candidate.candidateId === product.candidateId,
+    );
+    if (latestRefresh) {
+      assert.equal(
+        verifiedRetailOffers[product.candidateId]?.length,
+        latestRefresh.offers.length,
+        product.candidateId,
+      );
+      continue;
+    }
     for (const evidence of product.offers) {
       const offer = verifiedRetailOffers[product.candidateId]?.find(
         (candidate) => candidate.url === evidence.url,
@@ -97,6 +109,17 @@ test("catalogue offer refresh wave 2 projects only current exact-SKU evidence", 
   assert.equal(projected.length, 10);
   assert.equal(waveTwoAudit.scheduledOwner.manifestRecurringOwner, null);
   for (const product of waveTwoAudit.products) {
+    const latestRefresh = waveThirtyThreeAudit.products.find(
+      (candidate) => candidate.candidateId === product.candidateId,
+    );
+    if (latestRefresh) {
+      assert.equal(
+        verifiedRetailOffers[product.candidateId]?.length,
+        latestRefresh.offers.length,
+        product.candidateId,
+      );
+      continue;
+    }
     assert.equal(
       verifiedRetailOffers[product.candidateId]?.length,
       product.offers.length,
@@ -143,6 +166,17 @@ test("catalogue offer refresh wave 3 releases admitted cells and fails the unit-
     ["naturium-glow-getter-multi-oil-body-scrub-8oz"],
   );
   for (const product of waveThreeAudit.products) {
+    const latestRefresh = waveThirtyThreeAudit.products.find(
+      (candidate) => candidate.candidateId === product.candidateId,
+    );
+    if (latestRefresh) {
+      assert.equal(
+        verifiedRetailOffers[product.candidateId]?.length,
+        latestRefresh.offers.length,
+        product.candidateId,
+      );
+      continue;
+    }
     assert.equal(
       verifiedRetailOffers[product.candidateId]?.length,
       product.offers.length,
@@ -2755,6 +2789,118 @@ test("catalogue offer refresh wave 32 releases exact packages and preserves pack
     verifiedRetailOffers["naturium-skin-renewing-retinol-body-lotion-8oz"],
     [],
   );
+});
+
+test("catalogue offer refresh wave 33 publishes rich exact-package offers and fails mismatches closed", () => {
+  const projected = waveThirtyThreeAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveThirtyThreeAudit.matrix.before, 124);
+  assert.equal(waveThirtyThreeAudit.matrix.after, 129);
+  assert.equal(waveThirtyThreeAudit.matrix.total, 162);
+  assert.equal(waveThirtyThreeAudit.summary.productsReviewed, 9);
+  assert.equal(waveThirtyThreeAudit.summary.productsReleased, 5);
+  assert.equal(waveThirtyThreeAudit.summary.productsBlocked, 4);
+  assert.equal(waveThirtyThreeAudit.summary.offersReviewed, 34);
+  assert.equal(waveThirtyThreeAudit.summary.offersAdmitted, 17);
+  assert.equal(waveThirtyThreeAudit.summary.shopperActiveOffers, 17);
+  assert.equal(waveThirtyThreeAudit.summary.outOfStockObservations, 0);
+  assert.equal(waveThirtyThreeAudit.summary.offersBlocked, 17);
+  assert.equal(projected.length, 17);
+  assert.equal(waveThirtyThreeAudit.blockedCells.length, 4);
+  assert.equal(waveThirtyThreeAudit.excludedDiscoveries.length, 17);
+  assert.equal(
+    waveThirtyThreeAudit.scheduledOwner.manifestRecurringOwner,
+    null,
+  );
+  assert.equal(
+    waveThirtyThreeAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "la-roche-posay-toleriane-double-repair-matte",
+      ["Brandlistry", "Nihet Beauty"],
+    ],
+    [
+      "naturium-brightener-vitamin-c-body-wash-500ml",
+      ["Beauty by Daz", "Perona Beauty", "Rhema Beauty Shop", "TOS Nigeria"],
+    ],
+    [
+      "naturium-energizer-mandelic-acid-body-wash-500ml",
+      ["Perona Beauty", "Rhema Beauty Shop", "TOS Nigeria"],
+    ],
+    [
+      "naturium-glow-getter-multi-oil-body-butter-7-7oz",
+      [
+        "Beauty by Daz",
+        "Kadimez Essentials",
+        "Perona Beauty",
+        "Rhema Beauty Shop",
+        "TOS Nigeria",
+      ],
+    ],
+    [
+      "naturium-glow-getter-body-oil-100ml",
+      ["Kadimez Essentials", "Rhema Beauty Shop", "TOS Nigeria"],
+    ],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["la-roche-posay-toleriane-double-repair-matte", 47_000],
+    ["naturium-brightener-vitamin-c-body-wash-500ml", 38_000],
+    ["naturium-energizer-mandelic-acid-body-wash-500ml", 43_500],
+    ["naturium-glow-getter-multi-oil-body-butter-7-7oz", 45_000],
+    ["naturium-glow-getter-body-oil-100ml", 55_500],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    assert.equal(
+      Math.min(
+        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+      ),
+      expectedFloors.get(slug),
+      slug,
+    );
+  }
+
+  for (const slug of [
+    "amika-the-kure-conditioner-275ml",
+    "cerave-sa-smoothing-cream-177ml",
+    "dove-go-fresh-cucumber-green-tea-spray",
+    "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+  ]) {
+    assert.deepEqual(verifiedRetailOffers[slug] ?? [], [], slug);
+  }
 });
 
 test("verified Nigerian observations use exact secure product pages", () => {

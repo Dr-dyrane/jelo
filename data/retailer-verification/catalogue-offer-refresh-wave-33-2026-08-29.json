@@ -1,0 +1,501 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-33-2026-08-29",
+  "reviewedAt": "2026-08-30T07:33:10.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Thirty-four current Nigerian retailer checks across five releasable exact public product SKUs and four fail-closed product cells",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T07:33:10.000Z"
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 124,
+    "after": 129,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed."
+  },
+  "summary": {
+    "productsReviewed": 9,
+    "productsReleased": 5,
+    "productsBlocked": 4,
+    "offersReviewed": 34,
+    "offersAdmitted": 17,
+    "shopperActiveOffers": 17,
+    "outOfStockObservations": 0,
+    "offersBlocked": 17,
+    "offersProjected": 17
+  },
+  "products": [
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "identity": {
+        "gtin": "3337875782999",
+        "variant": "Toleriane Double Repair Matte Face Moisturizer for Oily Skin",
+        "size": "75 ml",
+        "packageVersion": "Current translucent blue 75 ml squeeze tube with Double Repair Matte Moisturizer panel"
+      },
+      "offers": [
+        {
+          "retailer": "Brandlistry",
+          "url": "https://www.brandlistry.ng/products/la-roche-posay-toleriane-double-repair-matte-face-moisturizer-for-oily-skin",
+          "priceNgn": 47000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://www.brandlistry.ng/products/la-roche-posay-toleriane-double-repair-matte-face-moisturizer-for-oily-skin.js",
+          "responseSha256": "6c6d92e031de11fedc9327f48d3f611d4a6766ee7e42953489e49ca1f2a825ed",
+          "responseByteSize": 4893,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0937/5940/6404/files/IMG_9850_9e1d4907-eb71-4635-8d51-d503e614de5f.png?v=1772787840",
+          "packageImageSha256": "3fb9bcbeb99b66d359f260ed9f69c6eba1393ee6d938fd0af2713fa58cab8200",
+          "packageImageByteSize": 171504
+        },
+        {
+          "retailer": "Nihet Beauty",
+          "url": "https://nihetbeauty.com/product/laroche-posay-double-repair-matte-moisturizer-75ml/",
+          "priceNgn": 128500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://nihetbeauty.com/wp-json/wc/store/v1/products?search=double+repair+matte&per_page=20",
+          "responseSha256": "85d63a281bf943d2408affd3f734264f54de857a962babc0fc1448f11b764a0a",
+          "responseByteSize": 12173,
+          "observedProductSku": "3337875782999",
+          "packageImageUrl": "https://i0.wp.com/nihetbeauty.com/wp-content/uploads/2023/04/Laroche-Posay-Double-Repair-Matte-Moisturizer-75ml.webp?fit=2000%2C2000&ssl=1",
+          "packageImageSha256": "573de030c5e7f9f6ed169997847429ef36882dd1e68f57a49d4d73c093bcf017",
+          "packageImageByteSize": 148935
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Perona Beauty",
+          "reason": "current-product-search-returned-no-matching-live-product"
+        },
+        {
+          "retailer": "Deoset",
+          "reason": "current-product-route-returned-406-without-a-deterministic-price-and-stock-receipt"
+        },
+        {
+          "retailer": "Derma Essentials",
+          "reason": "current-product-route-returned-406-without-a-deterministic-price-and-stock-receipt"
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-brightener-vitamin-c-body-wash-500ml",
+      "identity": {
+        "gtin": "850010792927",
+        "variant": "The Brightener Vitamin C Brightening Body Wash",
+        "size": "16.9 fl oz / 500 mL",
+        "packageVersion": "The Brightener Vitamin C Brightening Body Wash 16.9 fl oz / 500 mL pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/uncategorized/naturium-the-brightener-vitamin-c-body-wash-500ml/",
+          "priceNgn": 38000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://beautybydaz.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "a023d3c2653c55037c9dc679a5c116750b5d59726891ff7bceaf40599875095c",
+          "responseByteSize": 22269,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2024/06/Naturium-The-Brightener-Vitamin-C-Body-Wash-500ml.webp",
+          "packageImageSha256": "eb85397bdec200a0759b5402f41c3b355f9997ad45430d6aa20a52275e0b2d31",
+          "packageImageByteSize": 8628
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/naturium-the-brightener-vitamin-c-brightening-body-wash-500ml/",
+          "priceNgn": 43000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://peronabeauty.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "dbcdcc96ae1d5c5a696fe643944bf6bc5e6cfcbb4d1877e812cf394739780df1",
+          "responseByteSize": 180252,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2025/10/Screenshot_430936.png",
+          "packageImageSha256": "79258dd2dbc0cafeb44256d23e61a4fb92dfdd093b11c059c2b397047f50484c",
+          "packageImageByteSize": 22560
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-the-brightener-vitamin-c-body-wash-500ml/",
+          "priceNgn": 46225,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://rhemabeautyshop.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "d44a9a3538becaf7f06c5f47db0b161839984cef4a29b64c9ede503441adc6d2",
+          "responseByteSize": 262856,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2023/05/Naturium-The-Brightener-Vitamin-C-Body-Wash-%E2%80%93-ml.png",
+          "packageImageSha256": "62d4f26b993105dbe7745d2134f77c8f4ac8489088683f1897de7ed732250dab",
+          "packageImageByteSize": 117907
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/naturium-body-wash-vitamin-c-16-9fl-500ml/",
+          "priceNgn": 48500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://tosnigeria.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "f8000a756c4b2a2e5e85e0e91be6cb278cd15fafec71f77f12b6d351e66b18ff",
+          "responseByteSize": 115220,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2023/05/Naturiun-body-wash-vitamin-c-16.9fl-500ml.jpg",
+          "packageImageSha256": "46a2318792a30604712bb1a59f707761dc8c8a7204389e355bcedb3698c82edf",
+          "packageImageByteSize": 52275
+        }
+      ],
+      "notProjected": []
+    },
+    {
+      "candidateId": "naturium-energizer-mandelic-acid-body-wash-500ml",
+      "identity": {
+        "gtin": "810120261188",
+        "variant": "The Energizer Mandelic Acid Body Wash",
+        "size": "16.9 fl oz / 500 mL",
+        "packageVersion": "The Energizer Mandelic Acid Body Wash 16.9 fl oz / 500 mL pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/naturium-the-energizer-mandelic-acid-body-wash-500ml/",
+          "priceNgn": 43500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://peronabeauty.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "dbcdcc96ae1d5c5a696fe643944bf6bc5e6cfcbb4d1877e812cf394739780df1",
+          "responseByteSize": 180252,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/07/Screenshot_540935-1.png",
+          "packageImageSha256": "9d91cf0b07ea91ad25dec7f78e7ffac5caa135f3130a6bc7fe2c1d83083fa38c",
+          "packageImageByteSize": 48696
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-the-energizer-mandelic-acid-body-wash/",
+          "priceNgn": 45150,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://rhemabeautyshop.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "d44a9a3538becaf7f06c5f47db0b161839984cef4a29b64c9ede503441adc6d2",
+          "responseByteSize": 262856,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2024/06/IMG_0004.webp",
+          "packageImageSha256": "38ea8441dcc8d8a716e4b5b03b4d6f14ab30e051af02e1a06e779f2239d7670c",
+          "packageImageByteSize": 28682
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/naturium-the-energizer-mandelic-acid-body-wash-500ml/",
+          "priceNgn": 48000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://tosnigeria.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "f8000a756c4b2a2e5e85e0e91be6cb278cd15fafec71f77f12b6d351e66b18ff",
+          "responseByteSize": 115220,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2025/12/NATR-TheEnergizer-bonebkgd-front-removebg-preview.png",
+          "packageImageSha256": "578ab630f406da590315bd29005c467cae985d707de6b048e1db5a93d9ce5b2f",
+          "packageImageByteSize": 33574
+        }
+      ],
+      "notProjected": []
+    },
+    {
+      "candidateId": "naturium-glow-getter-multi-oil-body-butter-7-7oz",
+      "identity": {
+        "gtin": "810120260594",
+        "variant": "The Glow Getter Multi-Oil Body Butter",
+        "size": "7.7 fl oz / 232 mL",
+        "packageVersion": "The Glow Getter Multi-Oil Body Butter 7.7 fl oz / 232 mL jar"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/bath-body/naturium-the-glow-getter-multi-oil-body-butter-232ml/",
+          "priceNgn": 45000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://beautybydaz.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "a023d3c2653c55037c9dc679a5c116750b5d59726891ff7bceaf40599875095c",
+          "responseByteSize": 22269,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2026/03/Screenshot-2026-03-06-105144.png",
+          "packageImageSha256": "63cf4d2fcd3db78ec36fa5d00f4f71c9b3fe06860885fcfaceb13138315fee4d",
+          "packageImageByteSize": 68279
+        },
+        {
+          "retailer": "Kadimez Essentials",
+          "url": "https://kadimezessentials.com/product/naturium-the-glow-getter-multi-oil-body-butter-232ml/",
+          "priceNgn": 49500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://kadimezessentials.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "d054d1a17545678a2acd4178eebed8ebed5ec829f61068257538d551abc02b77",
+          "responseByteSize": 58093,
+          "packageImageUrl": "https://i0.wp.com/kadimezessentials.com/wp-content/uploads/2025/10/PDP_GlowGetterBodyButter_front_v2.jpg?fit=700%2C700&ssl=1",
+          "packageImageSha256": "7ad8130744d906451ecb422ef4c7cfbb24e7bd762c705e21a9211a7d6b28c66c",
+          "packageImageByteSize": 23938
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/naturium-the-glow-getter-multi-oil-body-butter-7-7-fl-oz-232-ml/",
+          "priceNgn": 50000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://tosnigeria.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "f8000a756c4b2a2e5e85e0e91be6cb278cd15fafec71f77f12b6d351e66b18ff",
+          "responseByteSize": 115220,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2024/07/4befe5feb0811332e23871c247d5fca0.webp",
+          "packageImageSha256": "32a49ce6fc5a2b0eae56472eacee28ace0065a3a82dd58fe0ae9e9b983b29391",
+          "packageImageByteSize": 8306
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/naturium-the-glow-getter-multi-oil-body-butter/",
+          "priceNgn": 50500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://peronabeauty.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "dbcdcc96ae1d5c5a696fe643944bf6bc5e6cfcbb4d1877e812cf394739780df1",
+          "responseByteSize": 180252,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2025/12/Screenshot_512413.png",
+          "packageImageSha256": "bc0510743595323d113f25a568519cd530cda8ba4571a67c8d014c2dbe6e72e6",
+          "packageImageByteSize": 29436
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-the-glow-getter-multi-oil-body-butter-232ml/",
+          "priceNgn": 52500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://rhemabeautyshop.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "d44a9a3538becaf7f06c5f47db0b161839984cef4a29b64c9ede503441adc6d2",
+          "responseByteSize": 262856,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2024/06/Naturium-The-Glow-Getter-Multi-Oil-Body-Butter-.png",
+          "packageImageSha256": "76443a5fa942041d18e430edf85dc174663181a4c645b7aa55605f3055f06b09",
+          "packageImageByteSize": 278707
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Rhema Beauty Shop 75 ml sibling",
+          "reason": "current-sibling-listing-is-75ml-not-the-catalogue-232ml-jar"
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-glow-getter-body-oil-100ml",
+      "identity": {
+        "gtin": "810120261089",
+        "variant": "The Glow Getter Body Oil",
+        "size": "3.4 fl oz / 100 mL",
+        "packageVersion": "The Glow Getter Body Oil 3.4 fl oz / 100 mL bottle and carton"
+      },
+      "offers": [
+        {
+          "retailer": "Kadimez Essentials",
+          "url": "https://kadimezessentials.com/product/naturium-the-glow-getter-body-oil-100ml/",
+          "priceNgn": 55500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://kadimezessentials.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "d054d1a17545678a2acd4178eebed8ebed5ec829f61068257538d551abc02b77",
+          "responseByteSize": 58093,
+          "packageImageUrl": "https://i0.wp.com/kadimezessentials.com/wp-content/uploads/2026/06/Naturium-The-Glow-Getter-Body-Oil-E28093-ml.jpg?fit=1080%2C1080&ssl=1",
+          "packageImageSha256": "71199045fa4523d995e37bf30c313d5336693b2e78836cf5a8a7e75d26cedccb",
+          "packageImageByteSize": 52121
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-the-glow-getter-body-oil-100ml/",
+          "priceNgn": 59500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://rhemabeautyshop.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "d44a9a3538becaf7f06c5f47db0b161839984cef4a29b64c9ede503441adc6d2",
+          "responseByteSize": 262856,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2024/10/Naturium-The-Glow-Getter-Body-Oil-%E2%80%93-ml.png",
+          "packageImageSha256": "de0bc7a7715ed6e1c86caa29e098fd8a219e542ec2857033f1ed125206505654",
+          "packageImageByteSize": 238547
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/naturium-the-glow-getter-body-oil-100ml/",
+          "priceNgn": 60000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T07:33:10.000Z",
+          "expiresAt": "2026-09-06T07:33:10.000Z",
+          "responseUrl": "https://tosnigeria.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "f8000a756c4b2a2e5e85e0e91be6cb278cd15fafec71f77f12b6d351e66b18ff",
+          "responseByteSize": 115220,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2026/02/Untitled-design-40.webp",
+          "packageImageSha256": "2714399b76babce6e1a1ba0c34182bce65fc6819123fc34dab5239d86e49f8ea",
+          "packageImageByteSize": 16768
+        }
+      ],
+      "notProjected": []
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "amika-the-kure-conditioner-275ml",
+      "retailer": "BuyBetter",
+      "reason": "current-retailer-gtin-840117807082-conflicts-with-catalogue-gtin-840117805743",
+      "responseSha256": "e304d96d4cb97fed62424819c07e07eee6580e7e158c57d1b7a4f58d5daf9718",
+      "responseByteSize": 562049
+    },
+    {
+      "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+      "retailer": "BuyBetter / Brandlistry",
+      "reason": "canonical-spf35-route-is-404-and-current-retailer-sibling-is-spf30",
+      "responseSha256": "62ac0ef7120833df0131dde13abac4289a6bcd93dbcddb9e4e8cf80e2a010105",
+      "responseByteSize": 518386
+    },
+    {
+      "candidateId": "dove-go-fresh-cucumber-green-tea-spray",
+      "retailer": "Beauty by Daz / Care to Beauty / Ubuy",
+      "reason": "no-current-exact-4oz-aluminum-free-cucumber-and-green-tea-spray-offer; observed-results-are-50ml-roll-on-siblings-or-unavailable-imports",
+      "responseSha256": "959b6baa3321d3232e1e5aaf3ecf8ecef4840e6eda0dce001c5b3a1045c343be",
+      "responseByteSize": 403507
+    },
+    {
+      "candidateId": "cerave-sa-smoothing-cream-177ml",
+      "retailer": "Perona Beauty / Nectar Beauty Hub / Brandlistry",
+      "reason": "current-exact-offer-evidence-is-research-only-because-the-product-has-no-authorized-public-catalogue-release",
+      "responseSha256": "0bdd6b532aa757c620192bd81705601bb637d107f2903bf8555c0d141c7cf985",
+      "responseByteSize": 7526
+    }
+  ],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "cerave-sa-smoothing-cream-177ml",
+      "retailer": "Konga Health",
+      "reason": "current-listing-gtin-conflicts-with-the-catalogue-gtin"
+    },
+    {
+      "candidateId": "cerave-sa-smoothing-cream-177ml",
+      "retailer": "Vanguard Pharmacy",
+      "reason": "retailer-identity-is-not-yet-registered-for-shopper-projection"
+    },
+    {
+      "candidateId": "cerave-sa-smoothing-cream-177ml",
+      "retailer": "Brandlistry duplicate route",
+      "reason": "same-retailer-duplicate-product-route-is-not-projected-twice"
+    },
+    {
+      "candidateId": "cerave-sa-smoothing-cream-177ml",
+      "retailer": "Beyond MedPlus",
+      "reason": "current-title-and-description-do-not-resolve-to-the-same-product-type"
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "retailer": "Perona Beauty",
+      "reason": "current-product-search-returned-no-matching-live-product"
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "retailer": "Deoset",
+      "reason": "current-product-route-returned-406-without-deterministic-price-and-stock-evidence"
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "retailer": "Derma Essentials",
+      "reason": "current-product-route-returned-406-without-deterministic-price-and-stock-evidence"
+    },
+    {
+      "candidateId": "naturium-glow-getter-multi-oil-body-butter-7-7oz",
+      "retailer": "Rhema Beauty Shop 75 ml sibling",
+      "reason": "current-sibling-listing-is-75ml-not-the-catalogue-232ml-jar"
+    },
+    {
+      "candidateId": "amika-the-kure-conditioner-275ml",
+      "retailer": "BuyBetter",
+      "reason": "current-retailer-gtin-conflicts-with-the-catalogue-gtin"
+    },
+    {
+      "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+      "retailer": "BuyBetter",
+      "reason": "canonical-spf35-product-route-is-currently-404"
+    },
+    {
+      "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+      "retailer": "Brandlistry",
+      "reason": "current-listing-is-spf30-not-the-catalogue-spf35-variant"
+    },
+    {
+      "candidateId": "dove-go-fresh-cucumber-green-tea-spray",
+      "retailer": "Beauty by Daz",
+      "reason": "current-search-returned-no-exact-4oz-spray"
+    },
+    {
+      "candidateId": "dove-go-fresh-cucumber-green-tea-spray",
+      "retailer": "Care to Beauty",
+      "reason": "current-result-is-a-50ml-roll-on-sibling-not-the-4oz-spray"
+    },
+    {
+      "candidateId": "dove-go-fresh-cucumber-green-tea-spray",
+      "retailer": "Ubuy",
+      "reason": "current-imported-results-are-unavailable-or-multi-pack-siblings"
+    },
+    {
+      "candidateId": "cerave-sa-smoothing-cream-177ml",
+      "retailer": "Perona Beauty",
+      "reason": "current-exact-offer-evidence-retained-research-only-until-a-separate-publication-release-is-authorized"
+    },
+    {
+      "candidateId": "cerave-sa-smoothing-cream-177ml",
+      "retailer": "Nectar Beauty Hub",
+      "reason": "current-exact-offer-evidence-retained-research-only-until-a-separate-publication-release-is-authorized"
+    },
+    {
+      "candidateId": "cerave-sa-smoothing-cream-177ml",
+      "retailer": "Brandlistry",
+      "reason": "current-exact-offer-evidence-retained-research-only-until-a-separate-publication-release-is-authorized"
+    }
+  ]
+}
