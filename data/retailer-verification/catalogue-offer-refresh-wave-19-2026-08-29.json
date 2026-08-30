@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-19-2026-08-29",
+  "scope": "Seventeen live retailer checks across two independently releasable exact product SKUs",
+  "reviewedAt": "2026-08-30T02:27:37.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-browser-render-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 64,
+    "after": 66,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T02:27:37.000Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The observed backlog remains empty and no later scheduled run was due before this review."
+  },
+  "summary": {
+    "productsReviewed": 2,
+    "productsReleased": 2,
+    "productsBlocked": 0,
+    "offersReviewed": 17,
+    "offersAdmitted": 9,
+    "shopperActiveOffers": 7,
+    "outOfStockObservations": 2,
+    "offersBlocked": 8,
+    "offersProjected": 17
+  },
+  "products": [
+    {
+      "candidateId": "facefacts-ceramide-foaming-cleanser-400ml",
+      "identity": {
+        "variant": "Ceramide Foaming Cleanser",
+        "size": "400 ml",
+        "packageVersion": "standard cleanser pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/facefacts-ceramide-foaming-cleanser-400ml/",
+          "priceNgn": 6800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:27:37.000Z",
+          "expiresAt": "2026-09-06T02:27:37.000Z",
+          "responseSha256": "35366779941f1e5bcd7ef93db1b46bcab28d6c8f1f8e12d1da2700f034cecaf2",
+          "responseByteSize": 605553,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2023/08/gxzv2yun.png",
+          "packageImageSha256": "f73e6c317486a0a0a98d2f7f3e1f22cac2a82d0f4b32344e164b0324af41f139",
+          "packageImageByteSize": 232780
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/facefacts-ceramide-foaming-cleanser-400ml/",
+          "priceNgn": 6500,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T02:27:37.000Z",
+          "expiresAt": "2026-09-06T02:27:37.000Z",
+          "responseSha256": "6c8ab571563746b41077490e789d605a8cded62bbbc53d9b1e08fa40f730959b",
+          "responseByteSize": 277745,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/08/foaming.png",
+          "packageImageSha256": "bec116edb1a7cb99746dde60c0ee1e78db194f07806a44f3ead4342ac46f79ea",
+          "packageImageByteSize": 3782
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/facefacts-ceramide-foaming-cleanser-400ml/",
+          "priceNgn": 6500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:27:37.000Z",
+          "expiresAt": "2026-09-06T02:27:37.000Z",
+          "responseSha256": "0d4860c6f2e32c46e7c0481fa1b4eb7229a203f7468d610b0ea02701a25c361d",
+          "responseByteSize": 351602,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2024/01/foaming.jpeg",
+          "packageImageSha256": "4b24929c2919e22cc2d34827dc24998d36625c774e5b05a56dc521f4aa841e82",
+          "packageImageByteSize": 37256
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/facefacts-ceramide-foaming-cleanser-400ml-7028016",
+          "priceNgn": 13000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:27:37.000Z",
+          "expiresAt": "2026-09-06T02:27:37.000Z",
+          "responseSha256": "2aaf8aeeadb630230431d43688454d9ad14e0d8d20aaf2c8c5d66f90b8121a82",
+          "responseByteSize": 270275,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/X/U/240729_1785924769.jpg",
+          "packageImageSha256": "e0b35b6fccf853c0a6872637880562500cd665a248d1d77c6723a7eed25eb379",
+          "packageImageByteSize": 24107
+        },
+        {
+          "retailer": "Slique Beauty",
+          "url": "https://sliquebeautylimited.com/product/facefacts-ceramide-foaming-cleanser-400ml/",
+          "priceNgn": 7500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:27:37.000Z",
+          "expiresAt": "2026-09-06T02:27:37.000Z",
+          "responseSha256": "2c623fb510364810abcf41b2c2c9b4abff871c68f181674c601312954c67e7d1",
+          "responseByteSize": 422224,
+          "packageImageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/10/FACEFACTS-CERAMIDE-FOAMING-CLEANSER-400ML.webp",
+          "packageImageSha256": "4e40fb68862f071090562f8335e398387e385dcd22b300f452a76137f73c9e77",
+          "packageImageByteSize": 11280
+        }
+      ]
+    },
+    {
+      "candidateId": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+      "identity": {
+        "variant": "Ceramide Oil Control Foaming Cleanser",
+        "size": "400 ml",
+        "packageVersion": "oil-control cleanser pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/",
+          "priceNgn": 7200,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:27:37.000Z",
+          "expiresAt": "2026-09-06T02:27:37.000Z",
+          "responseSha256": "f227986456bb6f41dd181a2e3bdcd16e952745705249219059dea8e5fef6e9bd",
+          "responseByteSize": 564656,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/01/ivcaxwdo.png",
+          "packageImageSha256": "b544f36e58bd46b158c85da714ba445379844739268cb9865ded273e8de25cd6",
+          "packageImageByteSize": 141048
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/",
+          "priceNgn": 7800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:27:37.000Z",
+          "expiresAt": "2026-09-06T02:27:37.000Z",
+          "responseSha256": "045bcf170d7be1ffc3d4e590c24df2ee1afa779c47b4fb432889f218f6d56177",
+          "responseByteSize": 137384,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2025/07/facefact-oil-control.jpg",
+          "packageImageSha256": "14c337652926c719cc61c2eb1889ee4a01df0f880c3674d01047641e53c16865",
+          "packageImageByteSize": 2902
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/facefacts-ceramide-oil-control-foaming-cleanser-400ml/",
+          "priceNgn": 6950,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T02:27:37.000Z",
+          "expiresAt": "2026-09-06T02:27:37.000Z",
+          "responseSha256": "ddfaff15dde13fb578fbfd00572e0c27401d5e93643fac52d73c20e6a78bce5c",
+          "responseByteSize": 277653,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2025/05/facefact-oil-control.jpg",
+          "packageImageSha256": "14c337652926c719cc61c2eb1889ee4a01df0f880c3674d01047641e53c16865",
+          "packageImageByteSize": 2902
+        },
+        {
+          "retailer": "Kadimez Essentials",
+          "url": "https://kadimezessentials.com/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/",
+          "priceNgn": 9000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:27:37.000Z",
+          "expiresAt": "2026-09-06T02:27:37.000Z",
+          "responseSha256": "c26b6a35811541214a6bb9bf83aabcaaef45a3a01203d484d13c1ad46db0b732",
+          "responseByteSize": 225356,
+          "packageImageUrl": "https://i0.wp.com/kadimezessentials.com/wp-content/uploads/2025/03/ivcaxwdo-768x768-1.png",
+          "packageImageSha256": "d54b17ec854700b5e800d5d1fe08fe23409d0ec46d1a484cb545c3d7828d1faa",
+          "packageImageByteSize": 61249
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "facefacts-ceramide-foaming-cleanser-400ml",
+      "retailer": "24Eleven",
+      "url": "https://www.24eleven.ng/face-facts-ceramide-foaming-cleanser-400ml",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "b5e2ac0f24b9342791fc1b4e2d5a751419883da6db5964b15309c32173bb4eff",
+      "responseByteSize": 5852
+    },
+    {
+      "candidateId": "facefacts-ceramide-foaming-cleanser-400ml",
+      "retailer": "Perona Beauty",
+      "url": "https://peronabeauty.com/product/face-facts-ceramide-foaming-cleanser-400ml/",
+      "status": 200,
+      "reason": "Schema and hero identify 400 ml but the product description identifies 150 ml; fail closed on size conflict.",
+      "responseSha256": "24b180c2d0781bfbb43b9fab980021116d28822ced2030f214b81455197b578e",
+      "responseByteSize": 435083,
+      "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/FaceFacts-Ceramide-Foaming-Cleanser-400ml.jpg",
+      "packageImageSha256": "734c8e7f2d1f7e87adbc3aaa319fd2d67d778c797f7b2286cb4220595ecc5ba2",
+      "packageImageByteSize": 66509
+    },
+    {
+      "candidateId": "facefacts-ceramide-foaming-cleanser-400ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/facefacts-ceramide-foaming-cleanser-400ml-419227584.html",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "5998e206a87eb1f53c30522de36fe17e5430de7faf22c6d41fea3e462d6ae6b2",
+      "responseByteSize": 5984
+    },
+    {
+      "candidateId": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/face/facial-cleansers/face-facts-oil-control/",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "38133a29852d9bd1ca7208025a3a92adf385b1dfeb89578f07e7dfc139b456e0",
+      "responseByteSize": 5842
+    },
+    {
+      "candidateId": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+      "retailer": "24Eleven",
+      "url": "https://www.24eleven.ng/face-facts-oil-control-foaming-cleanser-400ml",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "ef19209f0f11a4d83b07070a732b4123c4eb1d1db0fc4a634b8e63c79cec7005",
+      "responseByteSize": 5882
+    },
+    {
+      "candidateId": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/face-facts-facefact-oil-control-foaming-cleanser-420054549.html",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "a9e0cda21ee9543cdefd996711b8c72c673343a860ac72800ac6da7e1aab53d9",
+      "responseByteSize": 6005
+    },
+    {
+      "candidateId": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+      "retailer": "Beauty Hut Africa",
+      "url": "https://beautyhutafrica.com/product/face-facts-ceramide-oil-control-foaming-cleanser/",
+      "status": 200,
+      "reason": "Page exposes 200 ml and 400 ml selectors with aggregate pricing; the exact 400 ml price is unresolved.",
+      "responseSha256": "4ec3111733cbbeaf8f2eedb8e97934d00e1b78650a82eb7c35a753b3a4202347",
+      "responseByteSize": 824669,
+      "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/08/Face-Facts-Ceramide-Oil-Control-Foaming-Cleanser.webp",
+      "packageImageSha256": "1e281e56072dbac352149df5648c49344383ee16d528085c041f224519efe2f9",
+      "packageImageByteSize": 16992
+    },
+    {
+      "candidateId": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+      "retailer": "Konga Health",
+      "url": "https://www.konga.com/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml-7025191",
+      "status": 200,
+      "reason": "Title and offer identify 400 ml while the description repeatedly identifies 200 ml; fail closed on size conflict.",
+      "responseSha256": "0ab79336e637db7b0e5015641b8e31f34bf7d51b880007a431efbe84c40f7279",
+      "responseByteSize": 289851,
+      "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/B/T/249753_1785488537.jpg",
+      "packageImageSha256": "70ccc49e7b11346f6644b2d7e867aa37b7c4549b544dd649bdc89045c0fbe11c",
+      "packageImageByteSize": 14885
+    }
+  ]
+}

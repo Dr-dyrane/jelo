@@ -22,6 +22,7 @@ import waveFifteenAudit from "@/data/retailer-verification/catalogue-offer-refre
 import waveSixteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-16-2026-08-29.json";
 import waveSeventeenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-17-2026-08-29.json";
 import waveEighteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-18-2026-08-29.json";
+import waveNineteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-19-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -1227,6 +1228,78 @@ test("catalogue offer refresh wave 18 releases exact package versions and fails 
         "Muna Cosmetics",
         "Perona Beauty",
       ],
+    ],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    assert.deepEqual(
+      product.offers
+        .filter((offer) => offer.available)
+        .map((offer) => offer.retailer)
+        .sort(),
+      expected,
+      slug,
+    );
+  }
+});
+
+test("catalogue offer refresh wave 19 releases exact FaceFacts cleanser packages and fails conflicted siblings closed", () => {
+  const projected = waveNineteenAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveNineteenAudit.matrix.before, 64);
+  assert.equal(waveNineteenAudit.matrix.after, 66);
+  assert.equal(waveNineteenAudit.matrix.total, 162);
+  assert.equal(waveNineteenAudit.summary.productsReviewed, 2);
+  assert.equal(projected.length, 9);
+  assert.equal(waveNineteenAudit.blockedCells.length, 8);
+  assert.equal(waveNineteenAudit.scheduledOwner.manifestRecurringOwner, null);
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const asOf = new Date(waveNineteenAudit.reviewedAt);
+  for (const blocked of waveNineteenAudit.blockedCells) {
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.retailer === blocked.retailer,
+    );
+    if (offer) {
+      assert.equal(isOfferFresh(offer, asOf), true);
+      assert.equal(offer.available, false);
+      assert.equal(offer.priceComparison, "exclude");
+    }
+    assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(blocked.responseByteSize > 0);
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "facefacts-ceramide-foaming-cleanser-400ml",
+      ["BuyBetter", "Konga Health", "Slique Beauty", "Teeka4"],
+    ],
+    [
+      "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+      ["BuyBetter", "Deoset", "Kadimez Essentials"],
     ],
   ]);
 
