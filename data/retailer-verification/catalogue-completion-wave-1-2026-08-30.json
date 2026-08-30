@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-completion-wave-1-2026-08-30",
+  "reviewedAt": "2026-08-30T11:40:18.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Truthful current no-exact-Nigerian-offer dispositions for four independently ready catalogue rows, without repeating fresh retailer evidence already retained by Waves 5, 33 and 37",
+  "matrix": {
+    "unit": "fixed-denominator exact candidate row",
+    "before": 131,
+    "after": 135,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "activeBacklog": 98,
+      "queued": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No cron request, enqueue, claim, process, retry or cache invalidation was performed."
+  },
+  "summary": {
+    "productsReviewed": 4,
+    "productsResolved": 4,
+    "offersAdmitted": 0,
+    "staleOfferSetsRemoved": 1,
+    "offerRecordsRemoved": 3
+  },
+  "dispositions": [
+    {
+      "candidateId": "b-lab-matcha-hydrating-real-sunscreen",
+      "releasedPackage": "Matcha Hydrating Real Sunscreen SPF50+ PA++++ 50 ml tube",
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "Nihet omits size, Skin Bank exact 50 ml is out of stock, Perona is blocked and Beauty by Daz retains a package conflict; expired projections were removed.",
+      "sourceAudit": "data/retailer-verification/catalogue-offer-refresh-wave-5-2026-08-27.json",
+      "sourceAuditSha256": "1485e6652638762491b0a43246aa763598504e3b945a7e18c5b98f325ee2c99d",
+      "sourceAuditByteSize": 12625,
+      "sourceEvidenceExpiresAt": "2026-09-03T21:27:26Z"
+    },
+    {
+      "candidateId": "dove-go-fresh-cucumber-green-tea-spray",
+      "releasedPackage": "0% Aluminum Cucumber & Green Tea Deodorant Spray 4 oz / 113 g",
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "Current searches returned only a 50 ml roll-on sibling, unavailable imports or no exact 4 oz spray.",
+      "sourceAudit": "data/retailer-verification/catalogue-offer-refresh-wave-33-2026-08-29.json",
+      "sourceAuditSha256": "a69992659a7931843e61a7c2fc1573dd99b1cba12604f1f07df0a6ec4e7e63a1",
+      "sourceAuditByteSize": 23933,
+      "sourceEvidenceExpiresAt": "2026-09-06T07:33:10.000Z"
+    },
+    {
+      "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+      "releasedPackage": "Suntouchable Invisible Sunscreen SPF 35 50 ml tube",
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "The canonical SPF 35 retailer route is 404 and the available current sibling is SPF 30.",
+      "sourceAudit": "data/retailer-verification/catalogue-offer-refresh-wave-33-2026-08-29.json",
+      "sourceAuditSha256": "a69992659a7931843e61a7c2fc1573dd99b1cba12604f1f07df0a6ec4e7e63a1",
+      "sourceAuditByteSize": 23933,
+      "sourceEvidenceExpiresAt": "2026-09-06T07:33:10.000Z"
+    },
+    {
+      "candidateId": "naturium-dew-glow-mineral-spf-50-1-7fl-oz",
+      "releasedPackage": "Dew-Glow Moisturizer Mineral SPF 50 1.7 fl oz / 50 mL tube",
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "Current exact-retailer inventories returned no Mineral SPF 50 match; the observed Nihet Dew-Glow SPF 50 listing describes the non-mineral chemical-filter sibling and is excluded.",
+      "sourceAudit": "data/retailer-verification/catalogue-offer-refresh-wave-37-2026-08-29.json",
+      "sourceAuditSha256": "0fa157f6a4dfc91c7c2c64b4ce16cdeb6d35c236f3c70a8b750cda41a4d1a29b",
+      "sourceAuditByteSize": 5639,
+      "sourceEvidenceExpiresAt": "2026-09-06T09:03:40.000Z"
+    }
+  ],
+  "carriedBlockers": [
+    {
+      "candidateId": "naturium-multi-peptide-advanced-serum-1fl-oz",
+      "reason": "Current official and exact Perona 30 ml package evidence shows an airless pump while the published identity and media bind a dropper; expired offers, including the wrong Multi-Bright sibling, were removed pending canonical identity/media correction."
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "matrixId": "catalogue-completion-matrix-2026-08-30",
+  "reviewedAt": "2026-08-30T11:40:18.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "fixedDenominator": 162,
+  "baseline": {
+    "baseSha": "e4f45ed7fbee7d24f5927028ef5f0f25ed51f371",
+    "releaseEvents": 141,
+    "uniqueCandidateIds": 133,
+    "duplicateExactIds": 8,
+    "uniqueEventsOutsideDenominator": 2,
+    "completedDenominatorRows": 131,
+    "remainingRows": 31
+  },
+  "current": {
+    "completedDenominatorRows": 135,
+    "remainingRows": 27
+  },
+  "rows": [
+    {
+      "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+      "state": "remaining",
+      "nextRoute": "canonical-identity-or-current-exact-offer",
+      "lastKnownBlocker": "current Nigerian evidence shows the older Acne Foam package rather than the published Heartleaf Foam package"
+    },
+    {
+      "candidateId": "amika-the-kure-conditioner-275ml",
+      "state": "remaining",
+      "nextRoute": "canonical-identity-review",
+      "lastKnownBlocker": "current retailer GTIN 840117807082 conflicts with catalogue GTIN 840117805743"
+    },
+    {
+      "candidateId": "b-lab-matcha-hydrating-real-sunscreen",
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-1-2026-08-30"
+    },
+    {
+      "candidateId": "dove-go-fresh-cucumber-green-tea-spray",
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-1-2026-08-30"
+    },
+    {
+      "candidateId": "dove-moroccan-argan-oil-beauty-bar",
+      "state": "remaining",
+      "nextRoute": "current-exact-offer",
+      "lastKnownBlocker": "exact 4 x 100 g listings are out of stock or lack availability and a current sibling is 4 x 90 g"
+    },
+    {
+      "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-1-2026-08-30"
+    },
+    {
+      "candidateId": "kuza-indian-hemp-hair-scalp-treatment",
+      "state": "remaining",
+      "nextRoute": "canonical-identity-review",
+      "lastKnownBlocker": "current 8 oz / 226 g package conflicts with published 7.7 oz / 218 g identity"
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-spf30",
+      "state": "remaining",
+      "nextRoute": "canonical-identity-or-current-exact-offer",
+      "lastKnownBlocker": "current exact package and Nigerian availability remain unresolved"
+    },
+    {
+      "candidateId": "loccitane-almond-softening-shower-oil-250ml",
+      "state": "remaining",
+      "nextRoute": "canonical-package-review",
+      "lastKnownBlocker": "current Nigerian evidence does not bind the published exact 250 ml package"
+    },
+    {
+      "candidateId": "naturium-alpha-arbutin-serum-2-percent-1fl-oz",
+      "state": "remaining",
+      "nextRoute": "canonical-package-media-review",
+      "lastKnownBlocker": "published dropper package requires reconciliation with the current official package"
+    },
+    {
+      "candidateId": "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
+      "state": "remaining",
+      "nextRoute": "current-exact-audit",
+      "lastKnownBlocker": "no admitted current exact Nigerian offer"
+    },
+    {
+      "candidateId": "naturium-azelaic-acid-emulsion-10-1fl-oz",
+      "state": "remaining",
+      "nextRoute": "canonical-package-media-review",
+      "lastKnownBlocker": "current official and Nigerian package is an airless pump while the published identity and media bind a dropper"
+    },
+    {
+      "candidateId": "naturium-dew-glow-mineral-spf-50-1-7fl-oz",
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-1-2026-08-30"
+    },
+    {
+      "candidateId": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+      "state": "remaining",
+      "nextRoute": "canonical-identity-or-current-exact-offer",
+      "lastKnownBlocker": "current exact size and package remain unresolved"
+    },
+    {
+      "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+      "state": "remaining",
+      "nextRoute": "canonical-unit-package-review",
+      "lastKnownBlocker": "published 8 oz / 226 mL jar conflicts with current 8 oz / 226 g tube evidence"
+    },
+    {
+      "candidateId": "naturium-intense-overnight-sleeping-cream-1-7oz",
+      "state": "remaining",
+      "nextRoute": "current-exact-audit",
+      "lastKnownBlocker": "no admitted current exact Nigerian offer"
+    },
+    {
+      "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
+      "state": "remaining",
+      "nextRoute": "current-exact-audit",
+      "lastKnownBlocker": "current Nigerian listing does not prove the published exact 1.7 oz / 50 mL size"
+    },
+    {
+      "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
+      "state": "remaining",
+      "nextRoute": "canonical-package-media-review",
+      "lastKnownBlocker": "current exact-size package is an airless pump while the published identity binds a dropper"
+    },
+    {
+      "candidateId": "naturium-multi-peptide-advanced-serum-1fl-oz",
+      "state": "remaining",
+      "nextRoute": "canonical-package-media-review",
+      "lastKnownBlocker": "current official and exact Nigerian package is an airless pump while the published identity and media bind a dropper"
+    },
+    {
+      "candidateId": "naturium-niacinamide-gel-cream-5-1-7oz",
+      "state": "remaining",
+      "nextRoute": "canonical-unit-review",
+      "lastKnownBlocker": "published 50 mL unit conflicts with current 50 g evidence"
+    },
+    {
+      "candidateId": "naturium-niacinamide-serum-12-percent-1fl-oz",
+      "state": "remaining",
+      "nextRoute": "canonical-package-media-review",
+      "lastKnownBlocker": "current official and Nigerian package is an airless pump while the published identity and media bind a dropper"
+    },
+    {
+      "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
+      "state": "remaining",
+      "nextRoute": "canonical-unit-review",
+      "lastKnownBlocker": "published 48 mL package conflicts with current 50 g listing"
+    },
+    {
+      "candidateId": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",
+      "state": "remaining",
+      "nextRoute": "canonical-package-media-review",
+      "lastKnownBlocker": "published dropper package requires reconciliation with the current official package"
+    },
+    {
+      "candidateId": "naturium-retinol-complex-serum-1fl-oz",
+      "state": "remaining",
+      "nextRoute": "canonical-package-media-review",
+      "lastKnownBlocker": "current official and Nigerian package is an airless pump while the published identity and media bind a dropper"
+    },
+    {
+      "candidateId": "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+      "state": "remaining",
+      "nextRoute": "canonical-package-media-review",
+      "lastKnownBlocker": "current official and Nigerian package is an airless pump while the published identity and media bind a dropper"
+    },
+    {
+      "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
+      "state": "remaining",
+      "nextRoute": "canonical-unit-package-review",
+      "lastKnownBlocker": "current exact unit and package remain unresolved"
+    },
+    {
+      "candidateId": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+      "state": "remaining",
+      "nextRoute": "current-exact-audit",
+      "lastKnownBlocker": "no admitted current exact Nigerian offer"
+    },
+    {
+      "candidateId": "naturium-vitamin-c-complex-serum-1fl-oz",
+      "state": "remaining",
+      "nextRoute": "current-exact-audit",
+      "lastKnownBlocker": "no admitted current exact Nigerian offer"
+    },
+    {
+      "candidateId": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",
+      "state": "remaining",
+      "nextRoute": "canonical-package-media-review",
+      "lastKnownBlocker": "published dropper package requires reconciliation with the current official package"
+    },
+    {
+      "candidateId": "naturium-vitamin-c-super-serum-plus-1fl-oz",
+      "state": "remaining",
+      "nextRoute": "canonical-package-media-review",
+      "lastKnownBlocker": "published dropper package requires reconciliation with the current official package"
+    },
+    {
+      "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+      "state": "remaining",
+      "nextRoute": "canonical-identity-review",
+      "lastKnownBlocker": "current Nigerian evidence conflicts with the published exact Replenix package"
+    }
+  ]
+}

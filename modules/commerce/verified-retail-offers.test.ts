@@ -41,6 +41,8 @@ import waveThirtyFourAudit from "@/data/retailer-verification/catalogue-offer-re
 import waveThirtyFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-35-2026-08-29.json";
 import waveThirtySixAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-36-2026-08-29.json";
 import waveThirtySevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-37-2026-08-29.json";
+import completionMatrix from "@/data/retailer-verification/catalogue-completion-matrix-2026-08-30.json";
+import completionWaveOneAudit from "@/data/retailer-verification/catalogue-completion-wave-1-2026-08-30.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -3283,6 +3285,54 @@ test("catalogue offer refresh wave 37 releases Barrier Bounce and fails exact-pa
   }
 });
 
+test("catalogue completion wave 1 records four current no-exact-offer dispositions", () => {
+  const resolvedIds = completionWaveOneAudit.dispositions.map(
+    (disposition) => disposition.candidateId,
+  );
+
+  assert.equal(completionMatrix.fixedDenominator, 162);
+  assert.equal(completionMatrix.baseline.completedDenominatorRows, 131);
+  assert.equal(completionMatrix.baseline.remainingRows, 31);
+  assert.equal(completionMatrix.current.completedDenominatorRows, 135);
+  assert.equal(completionMatrix.current.remainingRows, 27);
+  assert.equal(completionMatrix.rows.length, 31);
+  assert.equal(
+    new Set(completionMatrix.rows.map((row) => row.candidateId)).size,
+    31,
+  );
+  assert.equal(completionWaveOneAudit.matrix.before, 131);
+  assert.equal(completionWaveOneAudit.matrix.after, 135);
+  assert.equal(completionWaveOneAudit.matrix.total, 162);
+  assert.equal(completionWaveOneAudit.summary.productsResolved, 4);
+  assert.equal(completionWaveOneAudit.summary.offersAdmitted, 0);
+  assert.equal(
+    completionWaveOneAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+  assert.deepEqual(resolvedIds, [
+    "b-lab-matcha-hydrating-real-sunscreen",
+    "dove-go-fresh-cucumber-green-tea-spray",
+    "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+    "naturium-dew-glow-mineral-spf-50-1-7fl-oz",
+  ]);
+
+  for (const disposition of completionWaveOneAudit.dispositions) {
+    assert.equal(disposition.disposition, "current-no-exact-nigerian-offer");
+    assert.match(disposition.sourceAuditSha256, /^[a-f0-9]{64}$/);
+    assert.ok(disposition.sourceAuditByteSize > 0);
+    assert.deepEqual(
+      verifiedRetailOffers[disposition.candidateId] ?? [],
+      [],
+      disposition.candidateId,
+    );
+  }
+
+  assert.deepEqual(
+    verifiedRetailOffers["naturium-multi-peptide-advanced-serum-1fl-oz"],
+    [],
+  );
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -3348,7 +3398,7 @@ test("catalogue seed retains expired exact URLs for refresh without making them 
   assert.equal(isOfferFresh(retained, afterExpiry), false);
 });
 
-test("at least thirteen catalogue products have reliable exact Nigerian price evidence", () => {
+test("at least twelve catalogue products have reliable exact Nigerian price evidence at the legacy fixture time", () => {
   const asOf = new Date("2026-08-14T17:01:00Z");
   const priced = reviewedProductRecords.filter((product) =>
     mergeRetailOffers(product, product.offers, asOf).some(
@@ -3361,8 +3411,8 @@ test("at least thirteen catalogue products have reliable exact Nigerian price ev
   );
 
   assert.ok(
-    priced.length >= 13,
-    `expected at least 13 priced products, received ${priced.length}`,
+    priced.length >= 12,
+    `expected at least 12 priced products, received ${priced.length}`,
   );
 });
 
@@ -3596,10 +3646,9 @@ test("featured marketplace offers retain visible seller evidence", () => {
   );
 });
 
-test("the B.LAB Matcha listing publishes verified Perona Beauty offer", () => {
+test("the B.LAB Matcha listing stays empty without current exact 50 ml evidence", () => {
   const offers = verifiedRetailOffers["b-lab-matcha-hydrating-real-sunscreen"];
-  assert.ok(offers && offers.length >= 1);
-  assert.equal(offers[0].retailer, "Perona Beauty");
+  assert.deepEqual(offers, []);
 });
 
 test("DANG sale prices publish only exact in-stock Nigerian product listings", () => {

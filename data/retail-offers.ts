@@ -1596,49 +1596,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
     ),
   ],
-  "b-lab-matcha-hydrating-real-sunscreen": [
-    exactNg(
-      "Perona Beauty",
-      "https://peronabeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/",
-      86,
-      10400,
-      "B Lab Matcha Hydrating Real Sun Screen SPF50+ PA++++",
-      "50 ml",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        available: false,
-        stock: "out-of-stock",
-      },
-    ),
-    exactNg(
-      "Nihet Beauty",
-      "https://nihetbeauty.com/product/b-lab-matcha-hydrating-real-sun-screen-spf50-pa/",
-      78,
-      134000,
-      "BLab Matcha Hydrating Real Sun Screen SPF50+ PA++++",
-      "50 ml",
-      {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
-        stock: "in-stock",
-      },
-    ),
-    exactNg(
-      "Skin Bank NG",
-      "https://skinbankng.com/product/b-lab-matcha-hydrating-real-sunscreen-50ml/",
-      76,
-      5200,
-      "B.LAB Matcha Hydrating Real Sunscreen 50mL",
-      "50 ml",
-      {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
-        available: false,
-        stock: "out-of-stock",
-      },
-    ),
-  ],
+  "b-lab-matcha-hydrating-real-sunscreen": [],
   "mediana-leave-in-conditioning-milk": [
     exactNg(
       "Jumia",
@@ -7631,60 +7589,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     ),
   ],
   "replenix-bp-10-acne-wash-aloe-vera-7oz": [],
-  "naturium-multi-peptide-advanced-serum-1fl-oz": [
-    exactNg(
-      "BuyBetter",
-      "https://buybetter.ng/product/naturium-multi-peptide-advanced-serum/",
-      97,
-      38500,
-      "NATURIUM Multi-Peptide Advanced Serum 1.0 oz 30ml",
-      "1.0 fl oz / 30 mL",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        stock: "low-stock",
-      },
-    ),
-    exactNg(
-      "Teeka4",
-      "https://teeka4.com/shop/naturium-multi-peptide-advanced-serum-1-0-fl-oz-30ml/",
-      98,
-      41454,
-      "Naturium Multi Peptide Advanced Serum 1.0 FL OZ/ 30ML",
-      "1.0 fl oz / 30 mL",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-      },
-    ),
-    exactNg(
-      "Perona Beauty",
-      "https://peronabeauty.com/product/naturium-multi-peptide-advanced-serum-30ml/",
-      86,
-      55000,
-      "Naturium Multi-Peptide Advanced Serum 30ml",
-      "1.0 fl oz / 30 mL",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-      },
-    ),
-    exactNg(
-      "Rhema Beauty Shop",
-      "https://rhemabeautyshop.com/shop/naturium-multi-bright-advanced-serum-30ml/",
-      86,
-      48000,
-      "Naturium Multi-Bright Advanced Serum – 30ml",
-      "1.0 fl oz / 30 mL",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-      },
-    ),
-  ],
+  "naturium-multi-peptide-advanced-serum-1fl-oz": [],
   "aqua-rich-licorice-mulberry-body-lotion-500ml": [
     exactNg(
       "BuyBetter",
