@@ -1,5 +1,6 @@
 "use client";
 
+import { Hash, LockKeyhole, Mail } from "lucide-react";
 import { useState } from "react";
 import styles from "./order-status.module.css";
 
@@ -45,11 +46,18 @@ export function OrderRecoveryForm() {
         }
       }}
     >
-      <p className={styles.recoveryHint} id="order-recovery-hint">
-        Use the reference and email from your request.
-      </p>
+      <div className={styles.recoveryIntro}>
+        <span className={styles.recoveryIcon} aria-hidden="true">
+          <LockKeyhole size={20} />
+        </span>
+        <p className={styles.recoveryHint} id="order-recovery-hint">
+          Reference and email from your request.
+        </p>
+      </div>
       <label>
-        <span>Order reference</span>
+        <span>
+          <Hash size={14} aria-hidden="true" /> Order reference
+        </span>
         <input
           name="reference"
           placeholder="JC-0000000000"
@@ -62,16 +70,22 @@ export function OrderRecoveryForm() {
         />
       </label>
       <label>
-        <span>Email</span>
+        <span>
+          <Mail size={14} aria-hidden="true" /> Email
+        </span>
         <input
           name="contactEmail"
           type="email"
           required
           autoComplete="email"
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
           enterKeyHint="send"
         />
       </label>
       <button type="submit" disabled={pending}>
+        <Mail size={17} aria-hidden="true" />
         {pending ? "Sending…" : "Email private link"}
       </button>
       {message ? (

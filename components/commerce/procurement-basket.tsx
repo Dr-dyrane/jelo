@@ -4,9 +4,12 @@ import {
   ArrowLeft,
   ArrowRight,
   Check,
+  CircleUserRound,
   Minus,
+  Pencil,
   Plus,
   ShieldCheck,
+  Store,
   Trash2,
   MapPin,
 } from "lucide-react";
@@ -14,7 +17,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Product } from "@/data/products";
-import { ProductCard } from "@/components/products/product-card";
 import { SafeProductImage } from "@/components/products/safe-product-image";
 import {
   chooseRetailerBasketOption,
@@ -121,6 +123,7 @@ export function ProcurementBasket({
       <label
         key={option.retailer}
         data-selected={isSelected ? "true" : "false"}
+        data-disabled={!option.allInStock ? "true" : "false"}
       >
         <input
           type="radio"
@@ -130,12 +133,13 @@ export function ProcurementBasket({
           disabled={!option.allInStock}
           onChange={() => selectRetailer(option)}
         />
-        <span>
+        <span className={styles.retailerIcon} aria-hidden="true">
+          <Store size={18} />
+        </span>
+        <span className={styles.retailerCopy}>
           <strong>{option.retailer}</strong>
           <small>
-            {option.allInStock
-              ? "All exact items listed in stock"
-              : "An item needs rechecking"}
+            {option.allInStock ? "All exact items listed" : "Recheck needed"}
           </small>
         </span>
         <b>{naira.format(option.combinedTotal)}</b>
@@ -157,54 +161,81 @@ export function ProcurementBasket({
         aria-labelledby="basket-products-title"
       >
         <div className={styles.sectionHeading}>
-          <div>
-            <p className="eyebrow">Confirm exact products</p>
-            <h2 id="basket-products-title">Your basket.</h2>
-          </div>
+          <h1 id="basket-products-title">Your basket</h1>
           <span>
             {basket.totalQuantity}{" "}
             {basket.totalQuantity === 1 ? "item" : "items"}
           </span>
         </div>
-        <div className={`product-grid ${styles.productGrid}`}>
-          {selectedProducts.map((product) => {
+        <div className={styles.basketProductList}>
+          {selectedProducts.map((product, index) => {
             const quantity = quantities.get(product.slug) ?? 1;
+            const lineOffer = chosen?.offers.find(
+              (offer) => offer.productSlug === product.slug,
+            );
             return (
-              <ProductCard
-                key={product.slug}
-                product={product}
-                density="compact"
-                footer={
-                  <div
-                    className={styles.quantity}
-                    aria-label={`Quantity for ${product.name}`}
-                  >
-                    <button
-                      type="button"
-                      onClick={() =>
-                        basket.setQuantity(product.slug, quantity - 1)
-                      }
-                      aria-label={`Remove one ${product.name}`}
-                    >
-                      {quantity === 1 ? (
-                        <Trash2 size={16} aria-hidden="true" />
-                      ) : (
-                        <Minus size={16} aria-hidden="true" />
-                      )}
-                    </button>
-                    <span>{quantity}</span>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        basket.setQuantity(product.slug, quantity + 1)
-                      }
-                      aria-label={`Add one ${product.name}`}
-                    >
-                      <Plus size={16} aria-hidden="true" />
-                    </button>
+              <article className={styles.basketProduct} key={product.slug}>
+                <Link
+                  className={styles.basketProductLink}
+                  href={`/products/${product.slug}`}
+                  aria-label={`${product.brand} ${product.name}`}
+                >
+                  <div className={styles.basketProductVisual}>
+                    <SafeProductImage
+                      src={product.image}
+                      alt={`${product.brand} ${product.name}`}
+                      priority={index === 0}
+                    />
                   </div>
-                }
-              />
+                  <div className={styles.basketProductCopy}>
+                    <p className="eyebrow">{product.brand}</p>
+                    <h2>{product.name}</h2>
+                    <div className={styles.basketProductMeta}>
+                      <span>{product.size}</span>
+                      {lineOffer ? (
+                        <strong>
+                          {naira.format(lineOffer.priceNgn * quantity)}
+                        </strong>
+                      ) : null}
+                    </div>
+                    {lineOffer ? (
+                      <small>
+                        {quantity > 1
+                          ? `${quantity} × ${naira.format(lineOffer.priceNgn)} at ${chosen?.retailer}`
+                          : `at ${chosen?.retailer}`}
+                      </small>
+                    ) : null}
+                  </div>
+                </Link>
+                <div
+                  className={styles.quantity}
+                  aria-label={`Quantity for ${product.name}`}
+                >
+                  <button
+                    type="button"
+                    onClick={() =>
+                      basket.setQuantity(product.slug, quantity - 1)
+                    }
+                    aria-label={`Remove one ${product.name}`}
+                  >
+                    {quantity === 1 ? (
+                      <Trash2 size={16} aria-hidden="true" />
+                    ) : (
+                      <Minus size={16} aria-hidden="true" />
+                    )}
+                  </button>
+                  <span>{quantity}</span>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      basket.setQuantity(product.slug, quantity + 1)
+                    }
+                    aria-label={`Add one ${product.name}`}
+                  >
+                    <Plus size={16} aria-hidden="true" />
+                  </button>
+                </div>
+              </article>
             );
           })}
         </div>
@@ -214,11 +245,8 @@ export function ProcurementBasket({
         className={styles.retailerChoice}
         aria-labelledby="retailer-choice-title"
       >
-        <p className="eyebrow">One retailer</p>
-        <h2 id="retailer-choice-title">Choose a retailer.</h2>
-        <p className={styles.muted}>
-          Delivery and fees are verified after your address.
-        </p>
+        <p className="eyebrow">Retailer</p>
+        <h2 id="retailer-choice-title">Choose one store</h2>
         {options.length ? (
           <>
             {preferredRetailer && !chosen ? (
@@ -245,13 +273,15 @@ export function ProcurementBasket({
               Continue to checkout <ArrowRight size={17} aria-hidden="true" />
             </button>
 
-            <div className={styles.assurance}>
-              <ShieldCheck size={19} aria-hidden="true" />
+            <details className={styles.assurance}>
+              <summary>
+                <ShieldCheck size={18} aria-hidden="true" /> No payment now
+              </summary>
               <p>
-                <strong>No payment now.</strong> Approve the verified quote
-                first.
+                Product prices shown. Delivery and fees are verified in your
+                quote.
               </p>
-            </div>
+            </details>
 
             {alternativeOptions.length ? (
               <section
@@ -300,6 +330,11 @@ export function ProcurementBasket({
 
 type CheckoutStep = "contact" | "delivery" | "review";
 const checkoutFlow: CheckoutStep[] = ["contact", "delivery", "review"];
+const checkoutStepLabels: Record<CheckoutStep, string> = {
+  contact: "Contact",
+  delivery: "Delivery",
+  review: "Review",
+};
 
 export function CheckoutExperience({
   products,
@@ -445,8 +480,6 @@ function ReadyCheckoutExperience({
     );
   }
 
-  const progress = Math.round((stepIndex / (checkoutFlow.length - 1)) * 100);
-
   function canContinue(): boolean {
     if (currentStep === "contact") {
       return Boolean(
@@ -584,11 +617,28 @@ function ReadyCheckoutExperience({
   return (
     <div className={styles.checkoutLayout}>
       <form className={styles.checkoutForm} onSubmit={submit}>
-        <div className={styles.progressRow}>
-          <div className={styles.progress} aria-label={`${progress}% complete`}>
-            <span style={{ width: `${progress}%` }} />
-          </div>
-        </div>
+        <ol className={styles.stepRail} aria-label="Checkout progress">
+          {checkoutFlow.map((flowStep, index) => {
+            const state =
+              index < stepIndex
+                ? "complete"
+                : index === stepIndex
+                  ? "current"
+                  : "upcoming";
+            return (
+              <li
+                key={flowStep}
+                data-state={state}
+                aria-current={state === "current" ? "step" : undefined}
+              >
+                <span aria-hidden="true">
+                  {state === "complete" ? <Check size={15} /> : index + 1}
+                </span>
+                <small>{checkoutStepLabels[flowStep]}</small>
+              </li>
+            );
+          })}
+        </ol>
         {draftRestored ? (
           <p className={styles.draftStatus} role="status">
             Saved checkout restored on this tab.
@@ -612,9 +662,8 @@ function ReadyCheckoutExperience({
                 ref={stepHeadingRef}
                 tabIndex={-1}
               >
-                How can JeloCare reach you?
+                Contact details
               </h1>
-              <p>No account required.</p>
               <div className={styles.fieldGrid}>
                 <label>
                   <span>Name</span>
@@ -665,7 +714,7 @@ function ReadyCheckoutExperience({
                 ref={stepHeadingRef}
                 tabIndex={-1}
               >
-                Where should we quote delivery?
+                Delivery details
               </h1>
               {savedLocations.length ? (
                 <fieldset className={styles.savedLocations}>
@@ -751,7 +800,7 @@ function ReadyCheckoutExperience({
                 ref={stepHeadingRef}
                 tabIndex={-1}
               >
-                Ready to request your quote?
+                Review request
               </h1>
               <p className={styles.finePrint}>
                 No payment now. You approve the final quote.
@@ -761,63 +810,52 @@ function ReadyCheckoutExperience({
                 aria-label="Entered checkout details"
               >
                 <section aria-labelledby="review-contact-title">
-                  <div className={styles.reviewHeading}>
-                    <h2 id="review-contact-title">Contact</h2>
-                    <button
-                      type="button"
-                      onClick={() => goToStep("contact")}
-                      aria-label="Edit contact details"
-                    >
-                      Edit
-                    </button>
+                  <div className={styles.reviewIcon} aria-hidden="true">
+                    <CircleUserRound size={20} />
                   </div>
-                  <dl className={styles.reviewDetails}>
-                    <div>
-                      <dt>Name</dt>
-                      <dd>{fields.contactName}</dd>
-                    </div>
-                    <div>
-                      <dt>Email</dt>
-                      <dd>{fields.contactEmail}</dd>
-                    </div>
-                    <div>
-                      <dt>Phone</dt>
-                      <dd>{fields.contactPhone}</dd>
-                    </div>
-                  </dl>
+                  <div className={styles.reviewCopy}>
+                    <h2 id="review-contact-title">Contact</h2>
+                    <strong>{fields.contactName}</strong>
+                    <p>{fields.contactEmail}</p>
+                    <p>{fields.contactPhone}</p>
+                  </div>
+                  <button
+                    className={styles.reviewEdit}
+                    type="button"
+                    onClick={() => goToStep("contact")}
+                    aria-label="Edit contact details"
+                  >
+                    <Pencil size={16} aria-hidden="true" />
+                  </button>
                 </section>
                 <section aria-labelledby="review-delivery-title">
-                  <div className={styles.reviewHeading}>
-                    <h2 id="review-delivery-title">Delivery</h2>
-                    <button
-                      type="button"
-                      onClick={() => goToStep("delivery")}
-                      aria-label="Edit delivery details"
-                    >
-                      Edit
-                    </button>
+                  <div className={styles.reviewIcon} aria-hidden="true">
+                    <MapPin size={20} />
                   </div>
-                  <dl className={styles.reviewDetails}>
-                    <div>
-                      <dt>Address</dt>
-                      <dd>
-                        {[
-                          fields.deliveryAddress,
-                          fields.deliveryCity,
-                          fields.deliveryState,
-                          fields.deliveryPostalCode,
-                        ]
-                          .filter(Boolean)
-                          .join(", ")}
-                      </dd>
-                    </div>
+                  <div className={styles.reviewCopy}>
+                    <h2 id="review-delivery-title">Delivery</h2>
+                    <strong>
+                      {[
+                        fields.deliveryAddress,
+                        fields.deliveryCity,
+                        fields.deliveryState,
+                        fields.deliveryPostalCode,
+                      ]
+                        .filter(Boolean)
+                        .join(", ")}
+                    </strong>
                     {fields.deliveryInstructions ? (
-                      <div>
-                        <dt>Notes</dt>
-                        <dd>{fields.deliveryInstructions}</dd>
-                      </div>
+                      <p>{fields.deliveryInstructions}</p>
                     ) : null}
-                  </dl>
+                  </div>
+                  <button
+                    className={styles.reviewEdit}
+                    type="button"
+                    onClick={() => goToStep("delivery")}
+                    aria-label="Edit delivery details"
+                  >
+                    <Pencil size={16} aria-hidden="true" />
+                  </button>
                 </section>
               </section>
               <label className={styles.checkField}>
@@ -874,9 +912,17 @@ function ReadyCheckoutExperience({
         </div>
       </form>
 
-      <aside className={styles.checkoutSummary}>
-        <p className="eyebrow">Your retailer</p>
-        <h2>{chosen.retailer}</h2>
+      <aside className={styles.checkoutSummary} aria-label="Basket summary">
+        <div className={styles.checkoutSummaryHeading}>
+          <div>
+            <p className="eyebrow">Retailer</p>
+            <h2>{chosen.retailer}</h2>
+          </div>
+          <div className={styles.checkoutSummaryTotal}>
+            <span>Products</span>
+            <strong>{naira.format(chosen.combinedTotal)}</strong>
+          </div>
+        </div>
         <dl>
           {chosen.offers.map((offer) => (
             <div key={offer.productSlug} className={styles.summaryLine}>
@@ -887,8 +933,11 @@ function ReadyCheckoutExperience({
                 />
               </div>
               <dt>
-                {offer.productBrand} · {offer.productName}{" "}
-                <small>× {quantities.get(offer.productSlug) ?? 1}</small>
+                {offer.productBrand} · {offer.productName}
+                <small>
+                  {offer.productSize} · ×
+                  {quantities.get(offer.productSlug) ?? 1}
+                </small>
               </dt>
               <dd>
                 {naira.format(
@@ -897,22 +946,10 @@ function ReadyCheckoutExperience({
               </dd>
             </div>
           ))}
-          <div className={styles.observedTotal}>
-            <dt>Observed product total</dt>
-            <dd>{naira.format(chosen.combinedTotal)}</dd>
-          </div>
         </dl>
-        <div className={styles.quoteSteps}>
-          <span>
-            <Check size={16} aria-hidden="true" /> Submit basket
-          </span>
-          <span>
-            <Check size={16} aria-hidden="true" /> We verify costs
-          </span>
-          <span>
-            <Check size={16} aria-hidden="true" /> You approve quote
-          </span>
-        </div>
+        <p className={styles.checkoutAssurance}>
+          <ShieldCheck size={17} aria-hidden="true" /> Quote before payment
+        </p>
       </aside>
     </div>
   );

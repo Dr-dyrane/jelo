@@ -86,6 +86,7 @@ export function OrderProgress({
 }) {
   const presentation = CUSTOMER_VISIBLE_ORDER_STATES[state];
   const exception = EXCEPTION_STATES.has(state);
+  const attention = exception || state === "needs_response";
   const tone = progressTone(state);
   const activeIndex = orderProgressActiveIndex(state, events);
   const CurrentIcon: LucideIcon =
@@ -113,29 +114,18 @@ export function OrderProgress({
           <small>
             {exception
               ? "Order update"
-              : `Current · Step ${activeIndex + 1} of ${STEPS.length}`}
+              : `Step ${activeIndex + 1} of ${STEPS.length}`}
           </small>
-          <strong>{presentation.label}</strong>
-          {!compact ? (
-            <p className={styles.next}>
-              <span>
-                {state === "cancelled" ||
-                state === "delivered" ||
-                state === "refunded"
-                  ? "Outcome"
-                  : state === "needs_response"
-                    ? "Now"
-                    : "Next"}
-              </span>
-              {presentation.detail}
-            </p>
-          ) : null}
+          <strong>
+            {attention
+              ? presentation.label
+              : (STEPS[activeIndex]?.label ?? presentation.label)}
+          </strong>
         </span>
       </div>
 
       <ol>
         {STEPS.map((step, index) => {
-          const Icon = step.icon;
           const status =
             index < activeIndex
               ? "complete"
@@ -166,11 +156,7 @@ export function OrderProgress({
               }`}
             >
               <span aria-hidden="true">
-                {status === "complete" ? (
-                  <Check size={13} strokeWidth={2.8} />
-                ) : (
-                  <Icon size={15} />
-                )}
+                {String(index + 1).padStart(2, "0")}
               </span>
               <small>{step.label}</small>
             </li>

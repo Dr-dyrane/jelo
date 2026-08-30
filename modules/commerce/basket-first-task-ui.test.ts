@@ -33,13 +33,36 @@ test("basket keeps exact products ahead of retailer commitment on mobile", async
   assert.ok(
     basket.indexOf("basketProducts") < basket.indexOf("retailerChoice"),
   );
-  assert.match(basket, /Confirm exact products/);
-  assert.match(basket, /Choose a retailer\./);
+  assert.match(
+    basket,
+    /<h1 id=["']basket-products-title["']>Your basket<\/h1>/,
+  );
+  assert.doesNotMatch(basket, /Confirm exact products/);
+  assert.match(basket, /<SafeProductImage/);
+  assert.match(basket, /lineOffer = chosen\?\.offers\.find/);
+  assert.match(basket, /naira\.format\(lineOffer\.priceNgn \* quantity\)/);
+  assert.match(basket, /<details className=\{styles\.assurance\}>/);
+  assert.match(basket, /<summary>[\s\S]*No payment now/);
+  assert.match(basket, /Product prices shown\./);
+  assert.match(basket, /Delivery and fees are verified in your/);
   assert.doesNotMatch(basket, /Continue with \$\{chosen\.retailer\}/);
   assert.match(
     styles,
     /\.quantity button\s*\{[\s\S]*?width:\s*2\.75rem;[\s\S]*?height:\s*2\.75rem;/,
   );
+  assert.match(styles, /\.pageHeader\s*\{[\s\S]*?display:\s*none;/);
+  assert.match(
+    styles,
+    /\.basketProductVisual img\s*\{[\s\S]*?object-fit:\s*contain;/,
+  );
+  assert.match(
+    styles,
+    /\.retailerOptions label\s*\{[\s\S]*?min-height:\s*4\.25rem;/,
+  );
   assert.doesNotMatch(styles, /\.basketLayout \.retailerChoice\s*\{\s*order:/);
   assert.match(styles, /\.moreStores\s*\{[\s\S]*?min-height:\s*2\.75rem;/);
+  assert.match(
+    styles,
+    /\.primaryAction,[\s\S]*?\.empty a\s*\{[\s\S]*?min-height:\s*3\.25rem;/,
+  );
 });
