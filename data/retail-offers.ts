@@ -1086,10 +1086,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "COSRX Salicylic Acid Daily Gentle Cleanser",
       "150 ml",
       {
-        available: true,
+        available: false,
         observedAt: "2026-08-29T23:11:53.633Z",
-        expiresAt: "2026-09-05T23:11:53.633Z",
-        stock: "in-stock",
+        expiresAt: "2026-08-30T18:39:05Z",
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -1594,9 +1594,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "370 ml",
       {
         observedAt: "2026-08-30T06:13:45.297Z",
-        expiresAt: "2026-09-06T06:13:45.297Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:39:01Z",
+        stock: "unknown",
+        available: false,
         verificationMethod: "api",
       },
     ),
@@ -1702,8 +1702,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         available: false,
         observedAt: "2026-08-30T01:31:00.820Z",
-        expiresAt: "2026-09-06T01:31:00.820Z",
-        stock: "out-of-stock",
+        expiresAt: "2026-08-30T18:38:21Z",
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -1716,8 +1716,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         available: false,
         observedAt: "2026-08-30T01:31:00.820Z",
-        expiresAt: "2026-09-06T01:31:00.820Z",
-        stock: "out-of-stock",
+        expiresAt: "2026-08-30T18:38:34Z",
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -1926,6 +1926,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         observedAt: "2026-08-14T17:00:00Z",
         expiresAt: "2026-08-21T17:00:00Z",
         available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -2568,9 +2569,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "150 ml",
       {
         observedAt: "2026-08-30T02:02:13.000Z",
-        expiresAt: "2026-09-06T02:02:13.000Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:16Z",
+        stock: "unknown",
+        available: false,
         inventoryQuantity: 1,
       },
     ),
@@ -2737,9 +2738,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "150 ml / 5 fl oz",
       {
         observedAt: "2026-08-30T04:50:00.000Z",
-        expiresAt: "2026-09-06T04:50:00.000Z",
+        expiresAt: "2026-08-30T18:38:24Z",
         available: false,
-        stock: "out-of-stock",
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -3237,9 +3238,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "400 ml",
       {
         observedAt: "2026-08-30T01:02:44.400Z",
-        expiresAt: "2026-09-06T01:02:44.400Z",
+        expiresAt: "2026-08-30T18:38:56Z",
         available: false,
-        stock: "out-of-stock",
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -3324,9 +3325,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "50 ml",
       {
         observedAt: "2026-08-30T01:02:44.400Z",
-        expiresAt: "2026-09-06T01:02:44.400Z",
-        available: true,
-        stock: "in-stock",
+        expiresAt: "2026-08-30T18:39:21Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -3758,6 +3759,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-14T17:00:00Z",
         expiresAt: "2026-08-21T17:00:00Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -4180,9 +4183,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "473 ml",
       {
         observedAt: "2026-08-30T02:44:24.000Z",
-        expiresAt: "2026-09-06T02:44:24.000Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:58Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -4312,9 +4315,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "50 ml",
       {
         observedAt: "2026-08-30T02:16:56.000Z",
-        expiresAt: "2026-09-06T02:16:56.000Z",
+        expiresAt: "2026-08-30T18:38:48Z",
         available: false,
-        stock: "out-of-stock",
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -4913,8 +4916,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "200 ml",
       {
         observedAt: "2026-08-30T03:12:51.373Z",
-        expiresAt: "2026-09-06T03:12:51.373Z",
-        stock: "out-of-stock",
+        expiresAt: "2026-08-30T18:38:28Z",
+        stock: "unknown",
         available: false,
         priceComparison: "exclude",
       },
@@ -4974,9 +4977,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T02:55:03.814Z",
-        expiresAt: "2026-09-06T02:55:03.814Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:13Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5200,9 +5203,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "60 ml",
       {
         observedAt: "2026-08-30T03:10:33.566Z",
-        expiresAt: "2026-09-06T03:10:33.566Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:15Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5243,9 +5246,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "60 ml",
       {
         observedAt: "2026-08-30T03:10:33.566Z",
-        expiresAt: "2026-09-06T03:10:33.566Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:11Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5287,9 +5290,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T03:10:33.566Z",
-        expiresAt: "2026-09-06T03:10:33.566Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:32Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5316,8 +5319,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T03:10:33.566Z",
-        expiresAt: "2026-09-06T03:10:33.566Z",
-        stock: "out-of-stock",
+        expiresAt: "2026-08-30T18:38:58Z",
+        stock: "unknown",
         available: false,
       },
     ),
@@ -5432,9 +5435,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "100 ml",
       {
         observedAt: "2026-08-30T01:17:08.285Z",
-        expiresAt: "2026-09-06T01:17:08.285Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:40Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5477,9 +5480,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T06:13:45.297Z",
-        expiresAt: "2026-09-06T06:13:45.297Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:39:01Z",
+        stock: "unknown",
+        available: false,
         verificationMethod: "api",
       },
     ),
@@ -5492,9 +5495,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T06:13:45.297Z",
-        expiresAt: "2026-09-06T06:13:45.297Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:39Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5537,9 +5540,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "120 ml",
       {
         observedAt: "2026-08-30T01:17:08.285Z",
-        expiresAt: "2026-09-06T01:17:08.285Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:51Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5581,9 +5584,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "200 ml",
       {
         observedAt: "2026-08-30T01:17:08.285Z",
-        expiresAt: "2026-09-06T01:17:08.285Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:58Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5610,8 +5613,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "200 ml",
       {
         observedAt: "2026-08-30T01:17:08.285Z",
-        expiresAt: "2026-09-06T01:17:08.285Z",
-        stock: "out-of-stock",
+        expiresAt: "2026-08-30T18:38:31Z",
+        stock: "unknown",
         available: false,
       },
     ),
@@ -5700,9 +5703,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "100 ml",
       {
         observedAt: "2026-08-30T06:48:36.000Z",
-        expiresAt: "2026-09-06T06:48:36.000Z",
-        available: true,
-        stock: "in-stock",
+        expiresAt: "2026-08-30T18:38:47Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -5714,9 +5717,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "100 ml",
       {
         observedAt: "2026-08-30T06:48:36.000Z",
-        expiresAt: "2026-09-06T06:48:36.000Z",
-        available: true,
-        stock: "in-stock",
+        expiresAt: "2026-08-30T18:38:52Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -5758,9 +5761,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "50 g",
       {
         observedAt: "2026-08-30T01:43:54.671Z",
-        expiresAt: "2026-09-06T01:43:54.671Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:52Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5772,9 +5775,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "50 g",
       {
         observedAt: "2026-08-30T01:43:54.671Z",
-        expiresAt: "2026-09-06T01:43:54.671Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:40Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5816,9 +5819,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T01:43:54.671Z",
-        expiresAt: "2026-09-06T01:43:54.671Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:36Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5830,9 +5833,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T01:43:54.671Z",
-        expiresAt: "2026-09-06T01:43:54.671Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:39:05Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5918,7 +5921,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T02:37:57.000Z",
-        expiresAt: "2026-09-06T02:37:57.000Z",
+        expiresAt: "2026-08-30T18:38:18Z",
         stock: "unknown",
         available: false,
         priceComparison: "exclude",
@@ -6011,9 +6014,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "500 ml",
       {
         observedAt: "2026-08-30T05:06:27.504Z",
-        expiresAt: "2026-09-06T05:06:27.504Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:21Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -6390,9 +6393,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "384 ml",
       {
         observedAt: "2026-08-30T07:02:34.000Z",
-        expiresAt: "2026-09-06T07:02:34.000Z",
+        expiresAt: "2026-08-30T18:38:49Z",
         available: false,
-        stock: "out-of-stock",
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -6404,9 +6407,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "384 ml",
       {
         observedAt: "2026-08-30T07:02:34.000Z",
-        expiresAt: "2026-09-06T07:02:34.000Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:35Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -6434,8 +6437,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "13 fl oz / 384 ml",
       {
         observedAt: "2026-08-30T05:06:22.000Z",
-        expiresAt: "2026-09-06T05:06:22.000Z",
-        stock: "out-of-stock",
+        expiresAt: "2026-08-30T18:38:50Z",
+        stock: "unknown",
         available: false,
       },
     ),
@@ -6524,9 +6527,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "828 ml",
       {
         observedAt: "2026-08-30T01:31:00.820Z",
-        expiresAt: "2026-09-06T01:31:00.820Z",
+        expiresAt: "2026-08-30T18:38:51Z",
         available: false,
-        stock: "out-of-stock",
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -6538,9 +6541,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "828 ml",
       {
         observedAt: "2026-08-30T01:31:00.820Z",
-        expiresAt: "2026-09-06T01:31:00.820Z",
+        expiresAt: "2026-08-30T18:38:50Z",
         available: false,
-        stock: "out-of-stock",
+        stock: "unknown",
       },
     ),
   ],
@@ -6718,9 +6721,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "400 ml",
       {
         observedAt: "2026-08-30T03:48:49.000Z",
-        expiresAt: "2026-09-06T03:48:49.000Z",
-        available: true,
-        stock: "in-stock",
+        expiresAt: "2026-08-30T18:38:52Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -6955,10 +6958,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "1.75 fl oz / 52 ml",
       {
         observedAt: "2026-08-30T05:04:40.502Z",
-        expiresAt: "2026-09-06T05:04:40.502Z",
+        expiresAt: "2026-08-30T18:38:39Z",
         inventoryQuantity: 5,
-        stock: "in-stock",
-        available: true,
+        stock: "unknown",
+        available: false,
       },
     ),
 
@@ -6971,7 +6974,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "1.75 fl oz / 52 ml",
       {
         observedAt: "2026-08-30T05:04:40.522Z",
-        expiresAt: "2026-09-06T05:04:40.522Z",
+        expiresAt: "2026-08-30T18:38:59Z",
         stock: "unknown",
         available: false,
         priceComparison: "exclude",
@@ -7065,7 +7068,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "1.75 fl oz / 52 ml",
       {
         observedAt: "2026-08-30T05:04:43.285Z",
-        expiresAt: "2026-09-06T05:04:43.285Z",
+        expiresAt: "2026-08-30T18:38:50Z",
         stock: "unknown",
         available: false,
         priceComparison: "exclude",
@@ -7096,9 +7099,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "1.75 fl oz / 52 ml",
       {
         observedAt: "2026-08-30T05:04:46.554Z",
-        expiresAt: "2026-09-06T05:04:46.554Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:57Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -8666,9 +8669,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "50 g",
       {
         observedAt: "2026-08-30T06:48:36.000Z",
-        expiresAt: "2026-09-06T06:48:36.000Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T18:38:39Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -9056,6 +9059,10 @@ export function mergeRetailOffers(
   }
 
   for (const offer of verifiedRetailOffers[product.slug] ?? []) {
+    // A reviewed offer owns its retailer slot even after it expires. Remove an
+    // older embedded offer first so a terminal invalidation cannot resurrect
+    // stale shopper-facing availability through the fallback catalogue data.
+    merged.delete(offer.retailer);
     if (!options.includeExpired && offer.expiresAt && !isOfferFresh(offer, now))
       continue;
     merged.set(offer.retailer, offer);

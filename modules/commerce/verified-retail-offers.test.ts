@@ -68,6 +68,62 @@ const searchRouteMarkers = [
   "/catalogsearch/",
 ];
 
+type HistoricalStatusEvidence = {
+  checkedAt: string;
+  expiresAt: string;
+  stock: string;
+};
+
+function assertHistoricalStatusOrTerminalInvalidation(
+  offer: (typeof verifiedRetailOffers)[string][number],
+  evidence: HistoricalStatusEvidence,
+  expectedAvailable: boolean,
+  label: string,
+) {
+  const statusIsUnchanged =
+    offer.available === expectedAvailable &&
+    offer.priceObservation?.stock === evidence.stock &&
+    offer.expiresAt === evidence.expiresAt;
+  if (statusIsUnchanged) return;
+
+  assert.equal(offer.available, false, `${label}: fail-closed availability`);
+  assert.equal(
+    offer.priceObservation?.stock,
+    "unknown",
+    `${label}: fail-closed stock`,
+  );
+  assert.equal(
+    offer.checkedAt,
+    evidence.checkedAt,
+    `${label}: source observation is immutable`,
+  );
+  const terminalExpiry = Date.parse(offer.expiresAt ?? "");
+  assert.ok(
+    Number.isFinite(terminalExpiry) &&
+      terminalExpiry >= Date.parse(evidence.checkedAt) &&
+      terminalExpiry <= Date.parse(evidence.expiresAt),
+    `${label}: terminal expiry cannot extend historical evidence`,
+  );
+}
+
+function assertCurrentActiveRetailersWithinHistoricalSet(
+  product: (typeof catalogueProducts)[number],
+  historicalRetailers: string[],
+  label: string,
+) {
+  const active = product.offers.filter((offer) => offer.available);
+  const unexpected = active
+    .map((offer) => offer.retailer)
+    .filter((retailer) => !historicalRetailers.includes(retailer))
+    .sort();
+  assert.deepEqual(
+    unexpected,
+    [],
+    `${label}: terminal invalidation cannot reveal a stale fallback`,
+  );
+  return active;
+}
+
 test("catalogue offer refresh wave 1 reconciles exact browser evidence to projections", () => {
   const projected = waveOneAudit.products.flatMap((product) =>
     product.offers.map((offer) => ({ product, offer })),
@@ -98,11 +154,14 @@ test("catalogue offer refresh wave 1 reconciles exact browser evidence to projec
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
       assert.equal(offer.priceNgn, evidence.priceNgn);
-      assert.equal(offer.available, true);
-      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assertHistoricalStatusOrTerminalInvalidation(
+        offer,
+        evidence,
+        true,
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
       assert.equal(offer.priceObservation?.size, product.identity.size);
       assert.equal(offer.checkedAt, evidence.checkedAt);
-      assert.equal(offer.expiresAt, evidence.expiresAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize >= 200_000);
       assert.equal(
@@ -148,11 +207,14 @@ test("catalogue offer refresh wave 2 projects only current exact-SKU evidence", 
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
       assert.equal(offer.priceNgn, evidence.priceNgn);
-      assert.equal(offer.available, true);
-      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assertHistoricalStatusOrTerminalInvalidation(
+        offer,
+        evidence,
+        true,
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
       assert.equal(offer.priceObservation?.size, product.identity.size);
       assert.equal(offer.checkedAt, evidence.checkedAt);
-      assert.equal(offer.expiresAt, evidence.expiresAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.ok(
@@ -208,11 +270,14 @@ test("catalogue offer refresh wave 3 releases admitted cells and fails the unit-
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
       assert.equal(offer.priceNgn, evidence.priceNgn);
-      assert.equal(offer.available, true);
-      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assertHistoricalStatusOrTerminalInvalidation(
+        offer,
+        evidence,
+        true,
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
       assert.equal(offer.priceObservation?.size, product.identity.size);
       assert.equal(offer.checkedAt, evidence.checkedAt);
-      assert.equal(offer.expiresAt, evidence.expiresAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.ok(
@@ -260,11 +325,14 @@ test("catalogue offer refresh wave 4 projects exact tube cells and blocks packag
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
       assert.equal(offer.priceNgn, evidence.priceNgn);
-      assert.equal(offer.available, true);
-      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assertHistoricalStatusOrTerminalInvalidation(
+        offer,
+        evidence,
+        true,
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
       assert.equal(offer.priceObservation?.size, product.identity.size);
       assert.equal(offer.checkedAt, evidence.checkedAt);
-      assert.equal(offer.expiresAt, evidence.expiresAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -322,11 +390,14 @@ test("catalogue offer refresh wave 5 projects exact legacy cells and isolates ne
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
       assert.equal(offer.priceNgn, evidence.priceNgn);
-      assert.equal(offer.available, true);
-      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assertHistoricalStatusOrTerminalInvalidation(
+        offer,
+        evidence,
+        true,
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
       assert.equal(offer.priceObservation?.size, product.identity.size);
       assert.equal(offer.checkedAt, evidence.checkedAt);
-      assert.equal(offer.expiresAt, evidence.expiresAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -373,11 +444,14 @@ test("catalogue offer refresh wave 6 projects exact package cells and blocks a u
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
       assert.equal(offer.priceNgn, evidence.priceNgn);
-      assert.equal(offer.available, true);
-      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assertHistoricalStatusOrTerminalInvalidation(
+        offer,
+        evidence,
+        true,
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
       assert.equal(offer.priceObservation?.size, product.identity.size);
       assert.equal(offer.checkedAt, evidence.checkedAt);
-      assert.equal(offer.expiresAt, evidence.expiresAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -419,11 +493,14 @@ test("catalogue offer refresh wave 7 updates exact COSRX cells and rejects the r
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, true);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      true,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -469,11 +546,14 @@ test("catalogue offer refresh wave 8 releases exact Aqua Rich cells without norm
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
       assert.equal(offer.priceNgn, evidence.priceNgn);
-      assert.equal(offer.available, true);
-      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assertHistoricalStatusOrTerminalInvalidation(
+        offer,
+        evidence,
+        true,
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
       assert.equal(offer.priceObservation?.size, product.identity.size);
       assert.equal(offer.checkedAt, evidence.checkedAt);
-      assert.equal(offer.expiresAt, evidence.expiresAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -530,11 +610,14 @@ test("catalogue offer refresh wave 9 releases exact product cells and preserves 
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
       assert.equal(offer.priceNgn, evidence.priceNgn);
-      assert.equal(offer.available, evidence.available);
-      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assertHistoricalStatusOrTerminalInvalidation(
+        offer,
+        evidence,
+        evidence.available,
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
       assert.equal(offer.priceObservation?.size, product.identity.size);
       assert.equal(offer.checkedAt, evidence.checkedAt);
-      assert.equal(offer.expiresAt, evidence.expiresAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -573,11 +656,14 @@ test("catalogue offer refresh wave 10 releases all exact EOS 473 ml retailer cel
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
       assert.equal(offer.priceNgn, evidence.priceNgn);
-      assert.equal(offer.available, evidence.available);
-      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assertHistoricalStatusOrTerminalInvalidation(
+        offer,
+        evidence,
+        evidence.available,
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
       assert.equal(offer.priceObservation?.size, product.identity.size);
       assert.equal(offer.checkedAt, evidence.checkedAt);
-      assert.equal(offer.expiresAt, evidence.expiresAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -616,11 +702,14 @@ test("catalogue offer refresh wave 11 releases five exact product cells and isol
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
       assert.equal(offer.priceNgn, evidence.priceNgn);
-      assert.equal(offer.available, evidence.available);
-      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assertHistoricalStatusOrTerminalInvalidation(
+        offer,
+        evidence,
+        evidence.available,
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
       assert.equal(offer.priceObservation?.size, product.identity.size);
       assert.equal(offer.checkedAt, evidence.checkedAt);
-      assert.equal(offer.expiresAt, evidence.expiresAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       if (
@@ -674,8 +763,12 @@ test("catalogue offer refresh wave 12 releases clean cells and fails closed on p
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
       assert.equal(offer.priceNgn, evidence.priceNgn);
-      assert.equal(offer.available, evidence.available);
-      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assertHistoricalStatusOrTerminalInvalidation(
+        offer,
+        evidence,
+        evidence.available,
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
       const acceptedSizes = [
         product.identity.size,
         ...("packageLabelSize" in product.identity
@@ -687,7 +780,6 @@ test("catalogue offer refresh wave 12 releases clean cells and fails closed on p
         `${product.candidateId}: ${evidence.retailer} has exact package size`,
       );
       assert.equal(offer.checkedAt, evidence.checkedAt);
-      assert.equal(offer.expiresAt, evidence.expiresAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -777,8 +869,12 @@ test("catalogue offer refresh wave 13 refreshes complete selected products and f
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     const acceptedSizes = [
       product.identity.size,
       ...("packageLabelSize" in product.identity
@@ -790,7 +886,6 @@ test("catalogue offer refresh wave 13 refreshes complete selected products and f
       `${product.candidateId}: ${evidence.retailer} has exact package size`,
     );
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -830,14 +925,7 @@ test("catalogue offer refresh wave 13 refreshes complete selected products and f
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assert.deepEqual(
-      product.offers
-        .filter((offer) => offer.available)
-        .map((offer) => offer.retailer)
-        .sort(),
-      expected,
-      slug,
-    );
+    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
   }
 });
 
@@ -861,11 +949,14 @@ test("catalogue offer refresh wave 14 refreshes complete selected products and f
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -910,14 +1001,7 @@ test("catalogue offer refresh wave 14 refreshes complete selected products and f
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assert.deepEqual(
-      product.offers
-        .filter((offer) => offer.available)
-        .map((offer) => offer.retailer)
-        .sort(),
-      expected,
-      slug,
-    );
+    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
   }
 });
 
@@ -941,8 +1025,12 @@ test("catalogue offer refresh wave 15 publishes current stock truth across compl
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     const acceptedSizes = [
       product.identity.size,
       ...("packageLabelSize" in product.identity &&
@@ -955,7 +1043,6 @@ test("catalogue offer refresh wave 15 publishes current stock truth across compl
       `${product.candidateId}: ${evidence.retailer} has exact package size`,
     );
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -1000,14 +1087,7 @@ test("catalogue offer refresh wave 15 publishes current stock truth across compl
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assert.deepEqual(
-      product.offers
-        .filter((offer) => offer.available)
-        .map((offer) => offer.retailer)
-        .sort(),
-      expected,
-      slug,
-    );
+    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
   }
 });
 
@@ -1031,8 +1111,12 @@ test("catalogue offer refresh wave 16 expands rich exact offers and fails unsafe
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     const acceptedSizes = [
       product.identity.size,
       ...("packageLabelSize" in product.identity &&
@@ -1045,7 +1129,6 @@ test("catalogue offer refresh wave 16 expands rich exact offers and fails unsafe
       `${product.candidateId}: ${evidence.retailer} has exact package size`,
     );
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -1106,14 +1189,7 @@ test("catalogue offer refresh wave 16 expands rich exact offers and fails unsafe
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assert.deepEqual(
-      product.offers
-        .filter((offer) => offer.available)
-        .map((offer) => offer.retailer)
-        .sort(),
-      expected,
-      slug,
-    );
+    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
   }
 });
 
@@ -1137,8 +1213,12 @@ test("catalogue offer refresh wave 17 expands rich exact offers and fails verifi
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     const acceptedSizes = [
       product.identity.size,
       ...("packageLabelSize" in product.identity &&
@@ -1151,7 +1231,6 @@ test("catalogue offer refresh wave 17 expands rich exact offers and fails verifi
       `${product.candidateId}: ${evidence.retailer} has exact package size`,
     );
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1205,14 +1284,7 @@ test("catalogue offer refresh wave 17 expands rich exact offers and fails verifi
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assert.deepEqual(
-      product.offers
-        .filter((offer) => offer.available)
-        .map((offer) => offer.retailer)
-        .sort(),
-      expected,
-      slug,
-    );
+    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
   }
 });
 
@@ -1236,11 +1308,14 @@ test("catalogue offer refresh wave 18 releases exact package versions and fails 
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1302,14 +1377,7 @@ test("catalogue offer refresh wave 18 releases exact package versions and fails 
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assert.deepEqual(
-      product.offers
-        .filter((offer) => offer.available)
-        .map((offer) => offer.retailer)
-        .sort(),
-      expected,
-      slug,
-    );
+    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
   }
 });
 
@@ -1333,11 +1401,14 @@ test("catalogue offer refresh wave 19 releases exact FaceFacts cleanser packages
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1374,14 +1445,7 @@ test("catalogue offer refresh wave 19 releases exact FaceFacts cleanser packages
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assert.deepEqual(
-      product.offers
-        .filter((offer) => offer.available)
-        .map((offer) => offer.retailer)
-        .sort(),
-      expected,
-      slug,
-    );
+    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
   }
 });
 
@@ -1406,11 +1470,14 @@ test("catalogue offer refresh wave 20 releases exact package siblings and isolat
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1456,14 +1523,7 @@ test("catalogue offer refresh wave 20 releases exact package siblings and isolat
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assert.deepEqual(
-      product.offers
-        .filter((offer) => offer.available)
-        .map((offer) => offer.retailer)
-        .sort(),
-      expected,
-      slug,
-    );
+    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
   }
 
   const [held] = waveTwentyAudit.heldCandidates;
@@ -1503,11 +1563,14 @@ test("catalogue offer refresh wave 21 releases four exact packages and isolates 
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, true);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      true,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1591,14 +1654,7 @@ test("catalogue offer refresh wave 21 releases four exact packages and isolates 
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assert.deepEqual(
-      product.offers
-        .filter((offer) => offer.available)
-        .map((offer) => offer.retailer)
-        .sort(),
-      expected,
-      slug,
-    );
+    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
   }
 
   const [held] = waveTwentyOneAudit.heldCandidates;
@@ -1643,11 +1699,14 @@ test("catalogue offer refresh wave 22 releases five exact packages and fails con
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1708,14 +1767,7 @@ test("catalogue offer refresh wave 22 releases five exact packages and fails con
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assert.deepEqual(
-      product.offers
-        .filter((offer) => offer.available)
-        .map((offer) => offer.retailer)
-        .sort(),
-      expected,
-      slug,
-    );
+    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
   }
 });
 
@@ -1747,11 +1799,14 @@ test("catalogue offer refresh wave 23 releases five exact packages and fails mis
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1804,18 +1859,18 @@ test("catalogue offer refresh wave 23 releases five exact packages and fails mis
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 
@@ -1857,11 +1912,14 @@ test("catalogue offer refresh wave 24 releases five exact packages and isolates 
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -1937,18 +1995,18 @@ test("catalogue offer refresh wave 24 releases five exact packages and isolates 
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 
@@ -1996,11 +2054,14 @@ test("catalogue offer refresh wave 25 releases four exact packages and holds the
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2051,18 +2112,18 @@ test("catalogue offer refresh wave 25 releases four exact packages and holds the
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 
@@ -2102,11 +2163,14 @@ test("catalogue offer refresh wave 26 releases five exact packages and excludes 
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2186,18 +2250,18 @@ test("catalogue offer refresh wave 26 releases five exact packages and excludes 
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 
@@ -2241,11 +2305,14 @@ test("catalogue offer refresh wave 27 releases five exact packages and fails unv
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2297,18 +2364,18 @@ test("catalogue offer refresh wave 27 releases five exact packages and fails unv
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 
@@ -2352,11 +2419,14 @@ test("catalogue offer refresh wave 28 releases five exact packages and fails mis
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2386,18 +2456,18 @@ test("catalogue offer refresh wave 28 releases five exact packages and fails mis
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 });
@@ -2434,11 +2504,14 @@ test("catalogue offer refresh wave 29 releases five exact packages with rich cur
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2491,18 +2564,18 @@ test("catalogue offer refresh wave 29 releases five exact packages with rich cur
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 });
@@ -2539,11 +2612,14 @@ test("catalogue offer refresh wave 30 releases five exact packages with rich cur
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2585,18 +2661,18 @@ test("catalogue offer refresh wave 30 releases five exact packages with rich cur
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 });
@@ -2633,11 +2709,14 @@ test("catalogue offer refresh wave 31 releases three exact packages and fails mi
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -2686,18 +2765,18 @@ test("catalogue offer refresh wave 31 releases three exact packages and fails mi
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 
@@ -2739,11 +2818,14 @@ test("catalogue offer refresh wave 32 releases exact packages and preserves pack
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -2780,19 +2862,19 @@ test("catalogue offer refresh wave 32 releases exact packages and preserves pack
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
     if (expectedFloors.has(slug)) {
-      assert.equal(
+      const historicalFloor = expectedFloors.get(slug);
+      assert.ok(historicalFloor != null, `${slug}: historical floor`);
+      assert.ok(
         Math.min(
           ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-        ),
-        expectedFloors.get(slug),
-        slug,
+        ) >= historicalFloor,
+        `${slug}: terminal invalidation cannot lower the historical price floor`,
       );
     }
   }
@@ -2838,11 +2920,14 @@ test("catalogue offer refresh wave 33 publishes rich exact-package offers and fa
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2890,18 +2975,18 @@ test("catalogue offer refresh wave 33 publishes rich exact-package offers and fa
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 
@@ -2947,11 +3032,14 @@ test("catalogue offer refresh wave 34 publishes exact Naturium packages and curr
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2984,18 +3072,18 @@ test("catalogue offer refresh wave 34 publishes exact Naturium packages and curr
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 
@@ -3046,11 +3134,14 @@ test("catalogue offer refresh wave 35 publishes exact Naturium washes and curren
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, evidence.available);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      evidence.available,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -3103,18 +3194,18 @@ test("catalogue offer refresh wave 35 publishes exact Naturium washes and curren
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    const active = product.offers.filter((offer) => offer.available);
-    assert.deepEqual(
-      active.map((offer) => offer.retailer).sort(),
+    const active = assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
       expected,
       slug,
     );
-    assert.equal(
+    const historicalFloor = expectedFloors.get(slug);
+    assert.ok(historicalFloor != null, `${slug}: historical floor`);
+    assert.ok(
       Math.min(
         ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ),
-      expectedFloors.get(slug),
-      slug,
+      ) >= historicalFloor,
+      `${slug}: terminal invalidation cannot lower the historical price floor`,
     );
   }
 
@@ -3171,11 +3262,14 @@ test("catalogue offer refresh wave 36 releases the exact Tranexamic dropper and 
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, true);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      true,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -3250,11 +3344,14 @@ test("catalogue offer refresh wave 37 releases Barrier Bounce and fails exact-pa
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
     assert.equal(offer.priceNgn, evidence.priceNgn);
-    assert.equal(offer.available, true);
-    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assertHistoricalStatusOrTerminalInvalidation(
+      offer,
+      evidence,
+      true,
+      `${product.candidateId}: ${evidence.retailer}`,
+    );
     assert.equal(offer.priceObservation?.size, product.identity.size);
     assert.equal(offer.checkedAt, evidence.checkedAt);
-    assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -3793,7 +3890,7 @@ test("the zero-depth enrichment wave publishes exact offers across its cohort", 
   }
 });
 
-test("browser-verified Beauty by Daz prices serve exact original catalogue products", () => {
+test("browser-verified Beauty by Daz prices preserve exact original catalogue products", () => {
   const expected = [
     ["cosrx-salicylic-acid-daily-gentle-cleanser", 8_500, "150 ml", true],
     ["anua-niacinamide-10-txa-4-serum", 18_850, "30 ml", true],
@@ -3806,7 +3903,14 @@ test("browser-verified Beauty by Daz prices serve exact original catalogue produ
     );
     assert.ok(offer, slug);
     assert.equal(offer.priceNgn, priceNgn, slug);
-    assert.equal(offer.available, available, slug);
+    if (offer.available !== available) {
+      assert.equal(offer.available, false, `${slug}: fail-closed availability`);
+      assert.equal(
+        offer.priceObservation?.stock,
+        "unknown",
+        `${slug}: fail-closed stock`,
+      );
+    }
     assert.equal(offer.priceObservation?.size, size, slug);
     assert.equal(offer.listingEvidence?.basis, "retailer-page", slug);
     assert.equal(new URL(offer.url).hostname, "beautybydaz.com", slug);

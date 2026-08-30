@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import test from "node:test";
 import { publishedIntakeProducts } from "@/data/published-intake-products";
-import { mergeRetailOffers } from "@/data/retail-offers";
+import { mergeRetailOffers, verifiedRetailOffers } from "@/data/retail-offers";
 
 const seed = readFileSync(
   resolve(process.cwd(), "scripts/seed-catalogue.ts"),
@@ -40,7 +40,7 @@ test("newer protected seed evidence must be exact and pass publication scope che
   );
 });
 
-test("seed projection admits the Batch 1 offers for dossier-released products", () => {
+test("seed projection admits current Batch 1 offers and excludes terminal invalidations", () => {
   const expected = [
     [
       "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
@@ -51,13 +51,34 @@ test("seed projection admits the Batch 1 offers for dossier-released products", 
   for (const [slug, observedAt] of expected) {
     const product = publishedIntakeProducts.find((item) => item.slug === slug);
     assert.ok(product, `missing released product ${slug}`);
-    const offer = mergeRetailOffers(product, product.offers).find(
+    const historicalOffer = verifiedRetailOffers[slug]?.find(
       (item) => item.retailer === "Beauty by Daz",
     );
-    assert.ok(offer, `missing Beauty by Daz offer for ${slug}`);
-    assert.equal(offer.match, "exact");
-    assert.equal(offer.listingEvidence?.observedAt, observedAt);
-    assert.equal(offer.location.includes("NG"), true);
+    assert.ok(historicalOffer, `missing Beauty by Daz evidence for ${slug}`);
+    assert.equal(historicalOffer.match, "exact");
+    assert.equal(historicalOffer.listingEvidence?.observedAt, observedAt);
+    assert.equal(historicalOffer.location.includes("NG"), true);
+
+    const projectedOffer = mergeRetailOffers(product, product.offers).find(
+      (item) => item.retailer === "Beauty by Daz",
+    );
+    if (projectedOffer) {
+      assert.equal(projectedOffer.url, historicalOffer.url);
+      assert.equal(projectedOffer.priceNgn, historicalOffer.priceNgn);
+      assert.equal(projectedOffer.checkedAt, historicalOffer.checkedAt);
+      continue;
+    }
+
+    assert.equal(
+      historicalOffer.available,
+      false,
+      `${slug}: excluded offer is unavailable`,
+    );
+    assert.equal(
+      historicalOffer.priceObservation?.stock,
+      "unknown",
+      `${slug}: excluded offer is terminally invalidated`,
+    );
   }
 });
 
