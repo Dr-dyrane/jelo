@@ -10,6 +10,7 @@ import waveSixAudit from "@/data/retailer-verification/catalogue-offer-refresh-w
 import waveSevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-7-2026-08-29.json";
 import waveEightAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-8-2026-08-29.json";
 import waveNineAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-9-2026-08-29.json";
+import waveTenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-10-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -467,6 +468,49 @@ test("catalogue offer refresh wave 9 releases exact product cells and preserves 
   }
 });
 
+test("catalogue offer refresh wave 10 releases all exact EOS 473 ml retailer cells", () => {
+  const projected = waveTenAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveTenAudit.matrix.unit, "exact product SKU");
+  assert.equal(waveTenAudit.matrix.before, 26);
+  assert.equal(waveTenAudit.matrix.after, 29);
+  assert.equal(waveTenAudit.matrix.total, 162);
+  assert.equal(waveTenAudit.summary.productsReviewed, 3);
+  assert.equal(waveTenAudit.summary.productsReleased, 3);
+  assert.equal(waveTenAudit.summary.offersReviewed, 12);
+  assert.equal(waveTenAudit.summary.offersAdmitted, 12);
+  assert.equal(waveTenAudit.summary.shopperActiveOffers, 12);
+  assert.equal(waveTenAudit.summary.offersBlocked, 0);
+  assert.equal(projected.length, 12);
+  assert.equal(waveTenAudit.scheduledOwner.latestObservedRun.activeBacklog, 0);
+
+  for (const product of waveTenAudit.products) {
+    const offers = verifiedRetailOffers[product.candidateId] ?? [];
+    assert.equal(offers.length, product.offers.length, product.candidateId);
+    for (const evidence of product.offers) {
+      const offer = offers.find((candidate) => candidate.url === evidence.url);
+      assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+      assert.equal(offer.retailer, evidence.retailer);
+      assert.equal(offer.priceNgn, evidence.priceNgn);
+      assert.equal(offer.available, evidence.available);
+      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assert.equal(offer.priceObservation?.size, product.identity.size);
+      assert.equal(offer.checkedAt, evidence.checkedAt);
+      assert.equal(offer.expiresAt, evidence.expiresAt);
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize > 0);
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+      assert.equal(
+        Date.parse(evidence.expiresAt) - Date.parse(evidence.checkedAt),
+        7 * 24 * 60 * 60 * 1000,
+      );
+    }
+  }
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -566,13 +610,13 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
     "eos-coconut-waters-body-wash-473ml": [
       ["Teeka4", 18500],
       ["BuyBetter", 18500],
-      ["Rhema Beauty Shop", 25000],
+      ["Rhema Beauty Shop", 23750],
       ["Beauty Hut Africa", 25000],
     ],
     "eos-pink-champagne-body-wash-473ml": [
       ["Teeka4", 18500],
-      ["BuyBetter", 18500],
-      ["Rhema Beauty Shop", 25000],
+      ["BuyBetter", 18813],
+      ["Rhema Beauty Shop", 23750],
       ["Beauty Hut Africa", 25000],
     ],
     "eos-vanilla-cashmere-body-wash-473ml": [
@@ -600,13 +644,15 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
           offer.checkedAt ===
           (slug === "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml"
             ? "2026-08-29T23:49:23.320Z"
-            : offer.retailer === "Beauty Hut Africa"
-              ? "2026-08-14T17:00:00Z"
-              : offer.retailer === "BuyBetter" &&
-                  slug ===
-                    "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml"
-                ? "2026-08-11T19:54:00Z"
-                : "2026-08-14T17:00:00Z"),
+            : slug.startsWith("eos-")
+              ? "2026-08-30T00:00:32.487Z"
+              : offer.retailer === "Beauty Hut Africa"
+                ? "2026-08-14T17:00:00Z"
+                : offer.retailer === "BuyBetter" &&
+                    slug ===
+                      "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml"
+                  ? "2026-08-11T19:54:00Z"
+                  : "2026-08-14T17:00:00Z"),
       ),
       true,
       `${slug}: observation timestamp`,
@@ -838,8 +884,17 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     assert.equal(offer.priceNgn, priceNgn, slug);
     assert.equal(offer.available, true, slug);
     assert.equal(offer.priceObservation?.size, size, slug);
-    assert.equal(offer.checkedAt, "2026-08-14T17:00:00Z", slug);
-    assert.equal(offer.expiresAt, "2026-08-21T17:00:00Z", slug);
+    const isWaveTen = slug.startsWith("eos-");
+    assert.equal(
+      offer.checkedAt,
+      isWaveTen ? "2026-08-30T00:00:32.487Z" : "2026-08-14T17:00:00Z",
+      slug,
+    );
+    assert.equal(
+      offer.expiresAt,
+      isWaveTen ? "2026-09-06T00:00:32.487Z" : "2026-08-21T17:00:00Z",
+      slug,
+    );
     assert.equal(new URL(offer.url).hostname, "beautyhutafrica.com", slug);
   }
 

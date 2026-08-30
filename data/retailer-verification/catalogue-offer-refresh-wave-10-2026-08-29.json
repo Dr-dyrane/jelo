@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-10-2026-08-29",
+  "scope": "Twelve live retailer checks across three independently releasable EOS Cashmere Body Wash 16 fl oz / 473 ml product SKUs",
+  "reviewedAt": "2026-08-30T00:00:32.487Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 26,
+    "after": 29,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T00:00:32.487Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The latest retry set is terminal and the backlog is empty."
+  },
+  "summary": {
+    "productsReviewed": 3,
+    "productsReleased": 3,
+    "offersReviewed": 12,
+    "offersAdmitted": 12,
+    "shopperActiveOffers": 12,
+    "outOfStockObservations": 0,
+    "offersBlocked": 0,
+    "offersProjected": 12
+  },
+  "products": [
+    {
+      "candidateId": "eos-coconut-waters-body-wash-473ml",
+      "identity": {
+        "gtin": "840044714088",
+        "variant": "EOS Shea Better Cashmere Body Wash - Coconut Waters",
+        "size": "16 fl oz / 473 ml",
+        "packageVersion": "pale taupe oval bottle with magenta cap and coral Coconut Waters scent band"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/eos-shea-better-coconut-waters-body-wash-16fl-oz-473ml/",
+          "priceNgn": 18500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "9e2e170053fd1749bfc4382007bd6bf498d17828f719fc8be6e6fa27c15c795a",
+          "responseByteSize": 354228,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2026/03/WhatsApp-Image-2026-03-14-at-13.48.50.jpeg",
+          "packageImageSha256": "419a7e77f70e643b6396d2900affed540f067d2ea0e8acec529d6beef2c9d573",
+          "packageImageByteSize": 50471
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/eos-evolution-of-smooth-cashmere-body-wash-coconut-water-16oz-473ml/",
+          "priceNgn": 18500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "d2c4851dd972ca3c8b9f0815296eb45437dd5fbac0368e8eac9b0743b280ef52",
+          "responseByteSize": 564983,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/06/eos-coconut-waters-body-wash.jpeg",
+          "packageImageSha256": "3a8abdaf6e041a3861cfeb430c84c6302a0e03d390d26bc7d6f570d981f0e2cf",
+          "packageImageByteSize": 19365
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/eos-coconut-waters-body-wash-473ml/",
+          "priceNgn": 23750,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "085199c1a2cf4ad094f4407c16a5cc7215e57e7a760f3c529b63f08d20d1dbc7",
+          "responseByteSize": 384652,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2025/04/EOS-Coconut-Waters-Body-Wash-%E2%80%93-ml.png",
+          "packageImageSha256": "cec7f5614ff0838a94f535c024793d7ac3e4ea5266e6bea47f3db0644f473855",
+          "packageImageByteSize": 266460
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/eos-shea-better-coconut-waters-body-wash-473ml/",
+          "priceNgn": 25000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "93ee2f80234b7d384a5f3d14d0d131410438ce6ed96418fbaacf2562da8d11fa",
+          "responseByteSize": 809842,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/09/EOS-Shea-Better-Coconut-Waters-Body-Wash-473ml-1.webp",
+          "packageImageSha256": "19c8ed843408f7d7e1a140b5cdebd342030a7a3d6d66f7ca3b2037c3333d67d5",
+          "packageImageByteSize": 10790
+        }
+      ]
+    },
+    {
+      "candidateId": "eos-pink-champagne-body-wash-473ml",
+      "identity": {
+        "gtin": "840044714101",
+        "variant": "EOS Shea Better Cashmere Body Wash - Pink Champagne",
+        "size": "16 fl oz / 473 ml",
+        "packageVersion": "peach oval bottle with magenta cap and magenta Pink Champagne scent band"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/eos-shea-better-cashmere-pink-champagne-body-wash-16fl-oz-473ml/",
+          "priceNgn": 18500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "1cfd80c398e45f05790a3475ed9b5afd3c5f25e8558493283ddc0dee04fb9371",
+          "responseByteSize": 356530,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2026/03/WhatsApp-Image-PINK.jpeg",
+          "packageImageSha256": "82ace53f7da4193b1578cc4d76614f924dd75ea4c546ddeb8ba43d85a22d3f12",
+          "packageImageByteSize": 52358
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/eos-shea-better-cashmere-pink-champagne-body-wash-473ml/",
+          "priceNgn": 18813,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "0a21195af964f88d919353a0e52f1fbd38482c6619897e0c39ddf35698271e43",
+          "responseByteSize": 564583,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/06/eos-pink-champagne-body-wash.jpg",
+          "packageImageSha256": "95be694c9d64ac7b07708f35952f68122831c780bf66bc461c4c9bafa55378d5",
+          "packageImageByteSize": 39371
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/eos-pink-champagne-body-wash-473ml/",
+          "priceNgn": 23750,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "9657a894a17be58634ce7519fab18559fe08f7fcb433124a7be747b6760addac",
+          "responseByteSize": 384269,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2025/04/EOS-Pink-Champagne-Body-Wash-%E2%80%93-ml.png",
+          "packageImageSha256": "be891a6c0c6a2b73de0da700bf6e5e1d05a842892d2290cf075435a3ddec0541",
+          "packageImageByteSize": 306176
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/eos-pink-champagne-wash-473ml/",
+          "priceNgn": 25000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "e5482d2bb4861fdb47c56ab32f3ced19d5d9689b74fd4f68ec4ebd39176114d2",
+          "responseByteSize": 807026,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/12/EOS-Pink-Champagne-Wash-473ml.jpg",
+          "packageImageSha256": "43c7b1c6a514fb9b0fb03c57473339d4958f62b96daacf5457d4a8db2187d1bf",
+          "packageImageByteSize": 17025
+        }
+      ]
+    },
+    {
+      "candidateId": "eos-vanilla-cashmere-body-wash-473ml",
+      "identity": {
+        "gtin": null,
+        "variant": "EOS Shea Better Cashmere Body Wash - Vanilla Cashmere",
+        "size": "16 fl oz / 473 ml",
+        "packageVersion": "lilac oval bottle with magenta cap and neon yellow Vanilla Cashmere scent band"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/bath-body/eos-shea-butter-cashmere-body-wash-vanilla-cashmere-473ml/",
+          "priceNgn": 19500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "b57ba825e7dc13a62f356bd270ac5409b54acb55c2614f7e80ef8bf266b58caf",
+          "responseByteSize": 245847,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2026/03/IMG_2452.jpeg",
+          "packageImageSha256": "437cee17deab80ece967338a6fe87afa90dc9026db30dad386832421cb816436",
+          "packageImageByteSize": 19094,
+          "provenanceNote": "The JSON-LD name incorrectly says Body Lotion, while the rendered H1, product image, description, URL, price and stock identify the exact Vanilla Cashmere Body Wash 473 ml. The offer is admitted from the reviewed rendered listing, not the contradictory metadata name."
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/eos-shea-better-vanilla-cashmere-body-wash-16fl-oz/",
+          "priceNgn": 18500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "43e8a27e0e5a2cd0e8b40d75929b02f9192524974860e9c0832f2e0dc3e6eeeb",
+          "responseByteSize": 355240,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2026/03/WhatsApp-Image-VANILLA.jpeg",
+          "packageImageSha256": "4646d5e68da070169ee8037c0b249a3fc17825e111c3b75393f3b4ce2b9c87d7",
+          "packageImageByteSize": 50521
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/eos-vanilla-cashmere-body-wash-473ml/",
+          "priceNgn": 20850,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "d9bc47a7e2a6cb598b00f738d277b8232ea40c9fa4929d773ec64c58e04a5518",
+          "responseByteSize": 391535,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2025/10/Screenshot_973157.png",
+          "packageImageSha256": "8b49a47102ab3c881f5e11acfb39b0f186f5ddfc7ba92a0135ce944ed3292f0e",
+          "packageImageByteSize": 34752
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/eos-shea-better-vanilla-cashmere-body-wash-473ml/",
+          "priceNgn": 23100,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:00:32.487Z",
+          "expiresAt": "2026-09-06T00:00:32.487Z",
+          "evidenceMethod": "reviewed-live-html-json-ld-and-listing-image",
+          "responseSha256": "6eb3e18386a6b0b3717e8589253db6426fd7af85f52d8f9b767867181fa8d869",
+          "responseByteSize": 799993,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/09/EOS-Shea-Better-Vanilla-Cashmere-Body-Wash-473ml.webp",
+          "packageImageSha256": "ad7188f40c5d21922e22b8aef453b2ad4a824799a0c24e89df678523af564e4b",
+          "packageImageByteSize": 23522
+        }
+      ]
+    }
+  ],
+  "blockedCells": [],
+  "carriedProductBlockers": [
+    "naturium-vitamin-c-complex-serum-1fl-oz",
+    "naturium-niacinamide-serum-12-percent-1fl-oz",
+    "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+    "naturium-retinol-complex-serum-1fl-oz",
+    "naturium-niacinamide-gel-cream-5-1-7oz",
+    "naturium-glow-getter-multi-oil-body-scrub-8oz",
+    "dove-moroccan-argan-oil-beauty-bar",
+    "b-lab-matcha-hydrating-real-sunscreen",
+    "kuza-indian-hemp-hair-scalp-treatment",
+    "lush-hair-mentholated-conditioner"
+  ]
+}
