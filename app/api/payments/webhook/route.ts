@@ -1,14 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { verifyStripeWebhookSignature } from "@/lib/commerce/stripe-provider";
-import { handleStripeWebhookEvent } from "@/lib/commerce/payment-service";
+import {
+  handleStripeWebhookEvent,
+  stripeWebhookSignal,
+} from "@/lib/commerce/payment-service";
 
 export const runtime = "nodejs";
 
 const stripeWebhookSchema = z.object({
+  id: z.string().trim().min(1).max(200),
+  created: z.number().int().positive(),
   type: z.string().max(120),
   data: z.object({
     object: z.object({
+      id: z.string().trim().min(1).max(200),
       metadata: z
         .object({ reference: z.string().trim().min(1).max(200) })
         .nullable()
@@ -28,8 +34,8 @@ export async function POST(request: NextRequest) {
   try {
     const event = stripeWebhookSchema.parse(JSON.parse(payload));
 
-    // Only handle checkout session completion events.
-    if (event.type !== "checkout.session.completed") {
+    const signal = stripeWebhookSignal(event.type);
+    if (!signal) {
       return NextResponse.json({ received: true });
     }
 
@@ -42,7 +48,16 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const result = await handleStripeWebhookEvent({ reference });
+    const result = await handleStripeWebhookEvent({
+      reference,
+      eventSessionId: event.data.object.id,
+      eventId: event.id,
+      successObservedAt:
+        signal === "failure"
+          ? null
+          : new Date(event.created * 1000).toISOString(),
+      signal,
+    });
 
     if (!result.handled) {
       if (!result.retryable) {

@@ -76,6 +76,23 @@ export class PaymentQuoteExpiredWithActiveAttemptError extends Error {
   }
 }
 
+export function isProviderSuccessWithinQuoteWindow(input: {
+  issuedAt: string;
+  expiresAt: string;
+  successObservedAt: string;
+}): boolean {
+  const issuedAt = Date.parse(input.issuedAt);
+  const expiresAt = Date.parse(input.expiresAt);
+  const successObservedAt = Date.parse(input.successObservedAt);
+  return (
+    Number.isFinite(issuedAt) &&
+    Number.isFinite(expiresAt) &&
+    Number.isFinite(successObservedAt) &&
+    successObservedAt >= issuedAt &&
+    successObservedAt <= expiresAt
+  );
+}
+
 const paymentColumns = `
   id, order_id, quote_version, amount_ngn, provider, provider_reference,
   status, evidence_reference, verified_by_subject,
@@ -523,8 +540,11 @@ export async function verifyPaymentAndMarkOrderPaid(
       return null;
     }
     if (
-      paidAtMillis < Date.parse(quote.issued_at) ||
-      paidAtMillis > Date.parse(quote.expires_at)
+      !isProviderSuccessWithinQuoteWindow({
+        issuedAt: quote.issued_at,
+        expiresAt: quote.expires_at,
+        successObservedAt: input.paidAt,
+      })
     ) {
       throw new PaymentSettlementOutsideQuoteWindowError(
         quote.issued_at,
@@ -914,29 +934,28 @@ export async function recordPaymentReviewRequired(
 }
 
 /**
- * Marks pending Stripe payment attempts as "abandoned" when they have been
- * stuck in pending status for longer than the staleness threshold (default 24
- * hours). This prevents stale reservations from accumulating when customers
- * abandon the payment flow without completing it.
- *
- * The reservation system handles short-lived staleness (2-minute grace period)
- * when the customer returns to retry. This cleanup handles the long tail of
- * customers who never return, keeping the payment table clean and ensuring
- * operators don't see stale pending payments in their dashboards.
- *
- * Returns the number of payments marked as abandoned.
+ * Read a bounded oldest-first batch for provider reconciliation. This query is
+ * deliberately read-only: provider evidence must be observed before any stale
+ * attempt can move to a terminal state.
  */
-export async function abandonStalePendingPayments(
-  stalenessHours = 24,
-): Promise<number> {
-  const sql = getPostgresClient();
-  const rows = await sql<{ id: string }[]>`
-    update assisted_order_payments
-    set status = 'abandoned', updated_at = now()
+export async function listStalePendingStripePayments(
+  input: { staleBefore: string; limit: number },
+  database?: PaymentDatabase,
+): Promise<AssistedOrderPayment[]> {
+  const sql = database ?? getPostgresClient();
+  const staleBefore = new Date(input.staleBefore);
+  if (!Number.isFinite(staleBefore.getTime())) {
+    throw new Error("Stripe reconciliation cutoff is invalid.");
+  }
+  const limit = Math.max(1, Math.min(25, Math.trunc(input.limit)));
+  const rows = await sql<PaymentRow[]>`
+    select ${sql.unsafe(paymentColumns)}
+    from assisted_order_payments
     where status = 'pending'
       and provider = 'stripe'
-      and created_at < now() - (${stalenessHours} * interval '1 hour')
-    returning id
+      and created_at < ${staleBefore.toISOString()}::timestamptz
+    order by created_at asc, id asc
+    limit ${limit}
   `;
-  return rows.length;
+  return rows.map(mapPaymentRow);
 }

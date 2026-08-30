@@ -47,14 +47,23 @@ export function createStripeReference(
 }
 
 export type StripeSessionVerifyResult = {
-  status:
-    "paid" | "unpaid" | "no_payment_required" | "expired" | "open" | "complete";
+  status: "expired" | "open" | "complete";
   paymentStatus: "paid" | "unpaid" | "no_payment_required";
   amountTotalKobo: number;
   currency: string;
   sessionId: string;
   paymentIntentId: string | null;
+  paymentIntentStatus: string | null;
+  chargeId: string | null;
+  chargeStatus: string | null;
+  chargePaid: boolean | null;
+  chargeCaptured: boolean | null;
+  chargeAmountKobo: number | null;
+  chargeAmountCapturedKobo: number | null;
+  chargeCurrency: string | null;
+  chargeCreatedAt: string | null;
   reference: string | null;
+  /** Signed success Event creation time, attached by the webhook boundary. */
   paidAt: string | null;
 };
 
@@ -167,17 +176,19 @@ export async function retrieveStripeCheckoutSession(
   const key = stripeSecretKey();
   if (!key) throw new Error("Stripe is not configured.");
 
-  const response = await fetch(
-    `${STRIPE_BASE_URL}/v1/checkout/sessions/${encodeURIComponent(sessionId)}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${key}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      signal: AbortSignal.timeout(STRIPE_REQUEST_TIMEOUT_MS),
-    },
+  const retrievalUrl = new URL(
+    `/v1/checkout/sessions/${encodeURIComponent(sessionId)}`,
+    STRIPE_BASE_URL,
   );
+  retrievalUrl.searchParams.append("expand[]", "payment_intent.latest_charge");
+  const response = await fetch(retrievalUrl, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${key}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    signal: AbortSignal.timeout(STRIPE_REQUEST_TIMEOUT_MS),
+  });
 
   if (!response.ok) {
     const body = await response.text().catch(() => "");
@@ -187,20 +198,35 @@ export async function retrieveStripeCheckoutSession(
     );
   }
 
+  type StripeChargeEvidence = {
+    id?: unknown;
+    status?: unknown;
+    paid?: unknown;
+    captured?: unknown;
+    amount?: unknown;
+    amount_captured?: unknown;
+    currency?: unknown;
+    created?: unknown;
+  };
+  type StripePaymentIntentEvidence = {
+    id?: unknown;
+    status?: unknown;
+    latest_charge?: string | StripeChargeEvidence | null;
+  };
   const data = (await response.json()) as {
     id: string;
     status: string;
     payment_status: string;
     amount_total: number;
     currency: string;
-    payment_intent: string | null;
+    payment_intent: string | StripePaymentIntentEvidence | null;
     metadata: { reference?: string } | null;
-    created: number;
   };
 
   if (
     typeof data.id !== "string" ||
-    data.id.length < 1 ||
+    data.id !== sessionId ||
+    !data.id.startsWith("cs_") ||
     data.id.length > 200 ||
     typeof data.currency !== "string" ||
     data.currency.length < 1 ||
@@ -211,14 +237,7 @@ export async function retrieveStripeCheckoutSession(
     );
   }
 
-  const validStatuses = [
-    "paid",
-    "unpaid",
-    "no_payment_required",
-    "expired",
-    "open",
-    "complete",
-  ];
+  const validStatuses = ["expired", "open", "complete"];
   if (!validStatuses.includes(data.status)) {
     throw new StripeProviderError(
       "Stripe session retrieval returned an invalid status.",
@@ -232,6 +251,32 @@ export async function retrieveStripeCheckoutSession(
     );
   }
 
+  const paymentIntent =
+    data.payment_intent && typeof data.payment_intent === "object"
+      ? data.payment_intent
+      : null;
+  const latestCharge =
+    paymentIntent?.latest_charge &&
+    typeof paymentIntent.latest_charge === "object"
+      ? paymentIntent.latest_charge
+      : null;
+  const paymentIntentId =
+    typeof data.payment_intent === "string"
+      ? data.payment_intent
+      : typeof paymentIntent?.id === "string"
+        ? paymentIntent.id
+        : null;
+  const chargeCreated =
+    typeof latestCharge?.created === "number" &&
+    Number.isSafeInteger(latestCharge.created) &&
+    latestCharge.created > 0
+      ? latestCharge.created
+      : null;
+  const optionalKobo = (value: unknown) =>
+    typeof value === "number" && Number.isSafeInteger(value) && value >= 0
+      ? value
+      : null;
+
   return {
     status: data.status as StripeSessionVerifyResult["status"],
     paymentStatus:
@@ -239,13 +284,31 @@ export async function retrieveStripeCheckoutSession(
     amountTotalKobo: normalizeKoboAmount(data.amount_total),
     currency: data.currency,
     sessionId: data.id,
-    paymentIntentId:
-      typeof data.payment_intent === "string" ? data.payment_intent : null,
-    reference: data.metadata?.reference ?? null,
-    paidAt:
-      data.payment_status === "paid"
-        ? new Date(data.created * 1000).toISOString()
+    paymentIntentId,
+    paymentIntentStatus:
+      typeof paymentIntent?.status === "string" ? paymentIntent.status : null,
+    chargeId: typeof latestCharge?.id === "string" ? latestCharge.id : null,
+    chargeStatus:
+      typeof latestCharge?.status === "string" ? latestCharge.status : null,
+    chargePaid:
+      typeof latestCharge?.paid === "boolean" ? latestCharge.paid : null,
+    chargeCaptured:
+      typeof latestCharge?.captured === "boolean"
+        ? latestCharge.captured
         : null,
+    chargeAmountKobo: optionalKobo(latestCharge?.amount),
+    chargeAmountCapturedKobo: optionalKobo(latestCharge?.amount_captured),
+    chargeCurrency:
+      typeof latestCharge?.currency === "string" ? latestCharge.currency : null,
+    chargeCreatedAt:
+      chargeCreated === null
+        ? null
+        : new Date(chargeCreated * 1000).toISOString(),
+    reference:
+      typeof data.metadata?.reference === "string"
+        ? data.metadata.reference
+        : null,
+    paidAt: null,
   };
 }
 

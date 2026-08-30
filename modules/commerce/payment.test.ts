@@ -5,12 +5,15 @@ import { readFile } from "node:fs/promises";
 import {
   createStripeCheckoutSession,
   isStripeConfigured,
+  StripeProviderError,
   stripeSecretKey,
   retrieveStripeCheckoutSession,
   verifyStripeWebhookSignature,
 } from "../../lib/commerce/stripe-provider";
 import {
+  isProviderSuccessWithinQuoteWindow,
   mapPaymentRow,
+  type AssistedOrderPayment,
   type PaymentProvider,
   type PaymentStatus,
 } from "../../lib/commerce/payment-repository";
@@ -24,12 +27,72 @@ import {
   boundedPaymentEvidenceText,
   providerSettlementDate,
 } from "../../lib/commerce/payment-review";
-import { successfulEvidenceProblem } from "../../lib/commerce/payment-service";
+import {
+  reconcileStaleStripePayments,
+  stripeEvidenceDecision,
+  stripeWebhookSignal,
+  successfulEvidenceProblem,
+} from "../../lib/commerce/payment-service";
+import type { StripeSessionVerifyResult } from "../../lib/commerce/stripe-provider";
 import type { AssistedOrderPrivateView } from "../../lib/commerce/assisted-procurement-repository";
 
 function restoreEnvironment(name: string, value: string | undefined) {
   if (value === undefined) delete process.env[name];
   else process.env[name] = value;
+}
+
+function successfulStripeEvidence(
+  overrides: Partial<StripeSessionVerifyResult> = {},
+): StripeSessionVerifyResult {
+  return {
+    status: "complete",
+    paymentStatus: "paid",
+    amountTotalKobo: 12_345,
+    currency: "ngn",
+    sessionId: "cs_test_123",
+    paymentIntentId: "pi_test_123",
+    paymentIntentStatus: "succeeded",
+    chargeId: "ch_test_123",
+    chargeStatus: "succeeded",
+    chargePaid: true,
+    chargeCaptured: true,
+    chargeAmountKobo: 12_345,
+    chargeAmountCapturedKobo: 12_345,
+    chargeCurrency: "ngn",
+    chargeCreatedAt: "2026-08-14T09:59:00.000Z",
+    reference: "JC-EXACT",
+    paidAt: "2026-08-14T10:00:00.000Z",
+    ...overrides,
+  };
+}
+
+function pendingStripePayment(
+  id: string,
+  sessionId: string | null,
+): AssistedOrderPayment {
+  return {
+    id,
+    orderId: `order-${id}`,
+    quoteVersion: 1,
+    amountNgn: 123.45,
+    provider: "stripe",
+    providerReference: `JC-${id}`,
+    status: "pending",
+    evidenceReference: null,
+    verifiedBySubject: null,
+    verifiedAt: null,
+    providerInitialization: {
+      phase: sessionId ? "ready" : "reserved",
+      reservedAt: "2026-08-13T00:00:00.000Z",
+      checkoutUrl: sessionId
+        ? `https://checkout.stripe.com/c/pay/${sessionId}`
+        : null,
+      providerSessionId: sessionId,
+      initializedAt: sessionId ? "2026-08-13T00:00:01.000Z" : null,
+    },
+    createdAt: "2026-08-13T00:00:00.000Z",
+    updatedAt: "2026-08-13T00:00:01.000Z",
+  };
 }
 
 test("payment migrations establish numeric and idempotency boundaries", async () => {
@@ -361,17 +424,101 @@ test("Stripe session retrieval rejects malformed amounts", async () => {
   }
 });
 
-test("successful evidence requires exact reference, NGN, and paid_at", () => {
-  const valid = {
-    status: "complete" as const,
-    paymentStatus: "paid" as const,
-    amountTotalKobo: 12_345,
-    currency: "ngn",
-    sessionId: "cs_test_123",
-    paymentIntentId: "pi_test_123",
-    reference: "JC-EXACT",
-    paidAt: "2026-08-14T10:00:00.000Z",
+test("Stripe retrieval preserves Charge creation time without treating it as success time", async () => {
+  const originalSecret = process.env.STRIPE_SECRET_KEY;
+  const originalFetch = globalThis.fetch;
+  process.env.STRIPE_SECRET_KEY = "sk_test_verify";
+  let requestedUrl = "";
+  globalThis.fetch = async (input) => {
+    requestedUrl = String(input);
+    return new Response(
+      JSON.stringify({
+        id: "cs_test_123",
+        status: "complete",
+        payment_status: "paid",
+        amount_total: 12_345,
+        currency: "ngn",
+        metadata: { reference: "JC-EXACT" },
+        created: 1_700_000_000,
+        payment_intent: {
+          id: "pi_test_123",
+          status: "succeeded",
+          latest_charge: {
+            id: "ch_test_123",
+            status: "succeeded",
+            paid: true,
+            captured: true,
+            amount: 12_345,
+            amount_captured: 12_345,
+            currency: "ngn",
+            created: 1_700_000_600,
+          },
+        },
+      }),
+      { status: 200, headers: { "content-type": "application/json" } },
+    );
   };
+  try {
+    const result = await retrieveStripeCheckoutSession("cs_test_123");
+    assert.match(requestedUrl, /expand%5B%5D=payment_intent\.latest_charge/);
+    assert.equal(result.paidAt, null);
+    assert.equal(
+      result.chargeCreatedAt,
+      new Date(1_700_000_600_000).toISOString(),
+    );
+    assert.equal(result.chargeId, "ch_test_123");
+  } finally {
+    globalThis.fetch = originalFetch;
+    restoreEnvironment("STRIPE_SECRET_KEY", originalSecret);
+  }
+});
+
+test("paid Checkout Session without captured Charge evidence fails closed", async () => {
+  const originalSecret = process.env.STRIPE_SECRET_KEY;
+  const originalFetch = globalThis.fetch;
+  process.env.STRIPE_SECRET_KEY = "sk_test_verify";
+  globalThis.fetch = async () =>
+    new Response(
+      JSON.stringify({
+        id: "cs_test_123",
+        status: "complete",
+        payment_status: "paid",
+        amount_total: 12_345,
+        currency: "ngn",
+        metadata: { reference: "JC-EXACT" },
+        created: 1_700_000_000,
+        payment_intent: {
+          id: "pi_test_123",
+          status: "succeeded",
+          latest_charge: {
+            id: "ch_test_123",
+            status: "succeeded",
+            paid: true,
+            captured: false,
+            amount: 12_345,
+            amount_captured: 0,
+            currency: "ngn",
+            created: 1_700_000_600,
+          },
+        },
+      }),
+      { status: 200, headers: { "content-type": "application/json" } },
+    );
+  try {
+    const result = await retrieveStripeCheckoutSession("cs_test_123");
+    assert.equal(result.paidAt, null);
+    assert.equal(
+      successfulEvidenceProblem("JC-EXACT", result)?.code,
+      "charge-not-captured",
+    );
+  } finally {
+    globalThis.fetch = originalFetch;
+    restoreEnvironment("STRIPE_SECRET_KEY", originalSecret);
+  }
+});
+
+test("successful evidence requires exact reference, NGN, Charge money, and paid_at", () => {
+  const valid = successfulStripeEvidence();
   assert.equal(successfulEvidenceProblem("JC-EXACT", valid), null);
   assert.equal(
     successfulEvidenceProblem("JC-OTHER", valid)?.code,
@@ -385,6 +532,205 @@ test("successful evidence requires exact reference, NGN, and paid_at", () => {
     successfulEvidenceProblem("JC-EXACT", { ...valid, paidAt: null })?.code,
     "missing-settlement-time",
   );
+  assert.equal(
+    successfulEvidenceProblem("JC-EXACT", {
+      ...valid,
+      chargeAmountCapturedKobo: 12_000,
+    })?.code,
+    "charge-money-mismatch",
+  );
+});
+
+test("immediate and delayed Stripe Checkout events use the exact reconciliation signals", () => {
+  assert.equal(stripeWebhookSignal("checkout.session.completed"), "observe");
+  assert.equal(
+    stripeWebhookSignal("checkout.session.async_payment_succeeded"),
+    "success",
+  );
+  assert.equal(
+    stripeWebhookSignal("checkout.session.async_payment_failed"),
+    "failure",
+  );
+  assert.equal(stripeWebhookSignal("charge.succeeded"), null);
+});
+
+test("Stripe evidence decisions keep processing pending and close only terminal failure", () => {
+  assert.deepEqual(
+    stripeEvidenceDecision({
+      expectedReference: "JC-EXACT",
+      expectedAmountKobo: 12_345,
+      verification: successfulStripeEvidence(),
+      signal: "success",
+    }),
+    { action: "verify" },
+  );
+  assert.equal(
+    stripeEvidenceDecision({
+      expectedReference: "JC-EXACT",
+      expectedAmountKobo: 12_345,
+      verification: successfulStripeEvidence({
+        paymentStatus: "unpaid",
+        paymentIntentStatus: "processing",
+        paidAt: null,
+      }),
+      signal: "cron",
+    }).action,
+    "pending",
+  );
+  assert.deepEqual(
+    stripeEvidenceDecision({
+      expectedReference: "JC-EXACT",
+      expectedAmountKobo: 12_345,
+      verification: successfulStripeEvidence({
+        paymentStatus: "unpaid",
+        paymentIntentStatus: "requires_payment_method",
+        paidAt: null,
+      }),
+      signal: "failure",
+    }),
+    {
+      action: "close",
+      status: "failed",
+      reason: "Stripe reports that the payment failed.",
+    },
+  );
+});
+
+test("polling a paid Stripe Session without a signed success Event requires review", () => {
+  const decision = stripeEvidenceDecision({
+    expectedReference: "JC-EXACT",
+    expectedAmountKobo: 12_345,
+    verification: successfulStripeEvidence({ paidAt: null }),
+    signal: "cron",
+  });
+  assert.equal(decision.action, "review");
+  if (decision.action === "review") {
+    assert.equal(decision.code, "missing-settlement-time");
+  }
+});
+
+test("delayed Charge creation before expiry cannot hide a success Event after expiry", () => {
+  const verification = successfulStripeEvidence({
+    chargeCreatedAt: "2026-08-14T10:29:00.000Z",
+    paidAt: "2026-08-14T10:31:00.000Z",
+  });
+  assert.equal(successfulEvidenceProblem("JC-EXACT", verification), null);
+  assert.equal(
+    isProviderSuccessWithinQuoteWindow({
+      issuedAt: "2026-08-14T10:00:00.000Z",
+      expiresAt: "2026-08-14T10:30:00.000Z",
+      successObservedAt: verification.paidAt!,
+    }),
+    false,
+  );
+});
+
+test("stale reconciliation retrieves provider evidence before terminal changes and preserves uncertainty", async () => {
+  const failed = pendingStripePayment("FAILED", "cs_failed");
+  const expired = pendingStripePayment("EXPIRED", "cs_expired");
+  const processing = pendingStripePayment("PROCESSING", "cs_processing");
+  const paidWithoutEvent = pendingStripePayment("PAID", "cs_paid");
+  const network = pendingStripePayment("NETWORK", "cs_network");
+  const malformed = pendingStripePayment("MALFORMED", "cs_malformed");
+  const reserved = pendingStripePayment("RESERVED", null);
+  const calls: string[] = [];
+
+  const summary = await reconcileStaleStripePayments(
+    { now: new Date("2026-08-15T12:00:00.000Z"), limit: 10 },
+    {
+      listStale: async () => [
+        failed,
+        expired,
+        processing,
+        paidWithoutEvent,
+        network,
+        malformed,
+        reserved,
+      ],
+      retrieve: async (sessionId) => {
+        calls.push(`retrieve:${sessionId}`);
+        if (sessionId === "cs_network") throw new Error("network timeout");
+        if (sessionId === "cs_malformed") {
+          throw new StripeProviderError("malformed provider evidence");
+        }
+        if (sessionId === "cs_failed") {
+          return successfulStripeEvidence({
+            sessionId,
+            reference: failed.providerReference,
+            paymentStatus: "unpaid",
+            paymentIntentStatus: "requires_payment_method",
+            paidAt: null,
+          });
+        }
+        if (sessionId === "cs_expired") {
+          return successfulStripeEvidence({
+            sessionId,
+            reference: expired.providerReference,
+            status: "expired",
+            paymentStatus: "unpaid",
+            paymentIntentStatus: null,
+            paidAt: null,
+          });
+        }
+        if (sessionId === "cs_processing") {
+          return successfulStripeEvidence({
+            sessionId,
+            reference: processing.providerReference,
+            paymentStatus: "unpaid",
+            paymentIntentStatus: "processing",
+            paidAt: null,
+          });
+        }
+        return successfulStripeEvidence({
+          sessionId,
+          reference: paidWithoutEvent.providerReference,
+          paidAt: null,
+        });
+      },
+      verify: async () => {
+        calls.push("verify");
+        throw new Error("polling must not verify without a success Event");
+      },
+      updateStatus: async (input) => {
+        calls.push(`update:${input.paymentId}:${input.status}`);
+        const payment = input.paymentId === failed.id ? failed : expired;
+        return { ...payment, status: input.status };
+      },
+      recordReview: async (input) => {
+        calls.push(`review:${input.paymentId}:${input.evidenceReference}`);
+        return input.paymentId === reserved.id ? reserved : paidWithoutEvent;
+      },
+      expireQuote: async (input) => {
+        calls.push(`expire:${input.paymentId}`);
+        return false;
+      },
+      deliverUpdate: async (orderId) => {
+        calls.push(`deliver:${orderId}`);
+      },
+    },
+  );
+
+  assert.deepEqual(summary, {
+    scanned: 7,
+    verified: 0,
+    failed: 1,
+    abandoned: 1,
+    pending: 1,
+    reviewRequired: 3,
+    retryableErrors: 1,
+  });
+  assert.ok(
+    calls.indexOf("retrieve:cs_failed") <
+      calls.indexOf(`update:${failed.id}:failed`),
+  );
+  assert.ok(
+    calls.indexOf("retrieve:cs_expired") <
+      calls.indexOf(`update:${expired.id}:abandoned`),
+  );
+  assert.equal(calls.includes(`update:${network.id}:abandoned`), false);
+  assert.equal(calls.includes(`update:${malformed.id}:abandoned`), false);
+  assert.equal(calls.includes(`update:${reserved.id}:abandoned`), false);
+  assert.equal(calls.includes("verify"), false);
 });
 
 test("payment provider types remain narrow", () => {
@@ -435,6 +781,9 @@ test("webhook retries recoverable failures and acknowledges recorded anomalies",
   );
   assert.match(route, /if \(!result\.retryable\)/);
   assert.match(route, /\{ status: 503 \}/);
+  assert.match(route, /stripeWebhookSignal\(event\.type\)/);
+  assert.match(route, /new Date\(event\.created \* 1000\)\.toISOString\(\)/);
+  assert.match(route, /eventSessionId: event\.data\.object\.id/);
   assert.doesNotMatch(route, /Always return 200/);
   const service = await readFile(
     new URL("../../lib/commerce/payment-service.ts", import.meta.url),
@@ -442,4 +791,5 @@ test("webhook retries recoverable failures and acknowledges recorded anomalies",
   );
   assert.match(service, /recordPaymentReviewRequired/);
   assert.match(service, /amount-mismatch/);
+  assert.match(service, /if \(payment\.status === ["']verified["']\)/);
 });

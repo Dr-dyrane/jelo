@@ -132,6 +132,42 @@ Expected public behavior: catalogue reads fall back to reviewed static data.
 
 Community and retailer intake should return a temporary unavailable response rather than pretend to save.
 
+## Stripe payment reconciliation reports anomalies
+
+The scheduled `/api/cron/reconcile-payments` owner examines only a bounded
+oldest-first batch of stale pending Stripe attempts. Do not invoke it manually
+against Production to manufacture evidence, and do not update payment rows with
+SQL.
+
+1. Confirm the exact application revision and inspect the structured summary:
+   `scanned`, `verified`, `failed`, `abandoned`, `pending`, `reviewRequired`,
+   and `retryableErrors`. A `503` means at least one provider/database operation
+   remains retryable; it is not authority to abandon that attempt.
+2. For a ready attempt, require the stored Checkout Session to be re-retrieved
+   before any terminal change. `open` or PaymentIntent `processing` remains
+   pending. Exact Session expiry becomes `abandoned`; an exact terminal
+   PaymentIntent failure becomes `failed`.
+3. A paid Checkout Session is not sufficient polling evidence for the quote
+   window. Only a signature-verified `checkout.session.completed` or
+   `checkout.session.async_payment_succeeded` Event supplies its own `created`
+   time, and only after the stored session/reference/amount plus succeeded,
+   paid, fully captured Charge re-verify. Session and Charge `created` values
+   are object-creation metadata, not settlement timestamps.
+4. Paid polling without the signed success-Event time, a late success Event,
+   reference/money/currency mismatch, malformed Charge evidence, or a stale
+   reservation without a stored session records an idempotent
+   `payment_review_required` event. Preserve the attempt and resolve it through
+   provider evidence; never guess a success time.
+5. Webhook replays are safe: an already verified payment returns success and a
+   repeated review evidence reference does not append another review event.
+   Provider/network failure returns non-success for retry and cannot create a
+   paid order or silently close an uncertain attempt.
+
+After deployment, use only unauthenticated negative probes of the webhook and
+cron routes unless a separate production-payment exercise is explicitly
+authorized. Both must reject missing credentials/signatures without touching
+payment state.
+
 ## A migration fails
 
 1. Record the migration filename and PostgreSQL error.

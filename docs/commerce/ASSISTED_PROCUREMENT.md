@@ -409,33 +409,40 @@ The fixture transition is explicitly development-gated and exercises the same
 state/access/event/notification rules without contacting Paystack or writing
 customer data. It is interaction evidence, not provider settlement evidence.
 Production payment acceptance still requires a disposable SQL order and
-Paystack test mode; never manufacture production lifecycle state with SQL.
+Stripe test mode; never manufacture production lifecycle state with SQL.
 
 ## Payment
 
 After a customer approves a quote, the order enters `payment_pending`. The
-customer can pay via Paystack (online checkout) or direct bank transfer.
+customer can pay via Stripe Checkout or direct bank transfer.
 
-### Paystack (automatic verification)
+### Stripe Checkout (automatic verification)
 
 1. The customer clicks "Pay" on their private order page.
 2. The server reserves one active attempt and its exact provider reference in
    PostgreSQL, initializes that same reference, then persists the returned
    authorization URL and access code before returning the URL.
 3. A duplicate click reuses only the persisted URL for that attempt. It never
-   initializes another transaction while the first remains live. An incomplete
-   reservation returns a retryable response; once stale, the server verifies
-   the reserved reference with Paystack before it can retire that attempt.
-4. The customer is redirected to Paystack's secure checkout (card, bank
-   transfer, USSD).
-5. Paystack sends a webhook to `POST /api/payments/webhook` with an
-   HMAC-SHA512 signature created with the account secret key.
-6. The webhook verifies the signature, then calls the Paystack API to verify
-   the transaction independently.
-7. The returned reference must be exact, currency must be `NGN`, `paid_at` must
-   be valid, and integer kobo must match both the reserved attempt and locked
-   approved quote. Only then is the payment marked `verified` and the order
-   transitioned to `paid` in one transaction.
+   initializes another Checkout Session while the first remains live. An
+   incomplete reservation returns a retryable response; once stale, the server
+   retrieves stored Stripe session evidence before it can retire that attempt.
+4. The customer is redirected to Stripe's secure Checkout surface.
+5. Stripe sends `checkout.session.completed` for immediate completion and the
+   delayed `checkout.session.async_payment_succeeded` or
+   `checkout.session.async_payment_failed` outcome to
+   `POST /api/payments/webhook`. Each request uses the separate Stripe webhook
+   signing secret and replay-tolerant timestamp verification.
+6. The webhook verifies the raw signed Event, then re-retrieves the stored
+   Checkout Session with its expanded PaymentIntent and latest Charge. Event
+   payload money is never canonical.
+7. Success requires the exact stored session/reference, `NGN`, integer kobo
+   matching both the reserved attempt and locked quote, a succeeded
+   PaymentIntent, and a succeeded, paid, fully captured Charge for the same
+   money. The signed success Event's own `created` time is the success
+   observation checked against the quote window. Checkout Session creation and
+   Charge creation times are never relabelled as settlement. Only then is the
+   payment marked `verified` and the order transitioned to `paid` in one
+   transaction.
 8. A recoverable commit mismatch returns non-2xx for provider retry. A permanent
    evidence anomaly also returns non-2xx and first appends an idempotent
    `payment_review_required` record visible in Ops; received funds are never
@@ -468,10 +475,21 @@ A button click, chat reply, or unverified staff note cannot establish the
 the only paths from `payment_pending` to `paid`.
 
 An online payment can only be initialized before the approved quote expires.
-Provider settlement must report a `paid_at` inside that quote's issued-to-expiry
-window. A late successful charge is preserved as provider evidence for Ops
-review and never silently advances or fails the order. When an expired quote has
-no live provider attempt, it safely returns to `needs_response` for a fresh quote.
+The signed Stripe success Event must be created inside that quote's
+issued-to-expiry window. A late success Event is preserved as provider evidence
+for Ops review and never silently advances or fails the order. Provider polling
+that finds a paid session without the exact signed success-Event time also
+records review instead of guessing from Session or Charge creation. When an
+expired quote has no live provider attempt, it safely returns to
+`needs_response` for a fresh quote.
+
+The scheduled payment reconciler reads a bounded oldest-first batch of stale
+pending Stripe attempts. Ready attempts are re-retrieved before any terminal
+write: exact expiry or failure closes the attempt, live/processing evidence
+stays pending, paid evidence without a signed success-Event time and all
+malformed/mismatched/late evidence produce one idempotent review, and provider
+or network errors remain pending for retry. A stale reservation without a
+stored session is reviewed rather than silently abandoned.
 
 ### Environment variables
 
