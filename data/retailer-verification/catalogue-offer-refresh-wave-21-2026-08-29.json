@@ -1,0 +1,685 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-21-2026-08-29",
+  "scope": "Fifty-one current Nigerian retailer checks across four independently releasable exact product SKUs and one package-generation-blocked sibling",
+  "reviewedAt": "2026-08-30T03:06:25.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-browser-render-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 70,
+    "after": 74,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T03:06:25.000Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The observed backlog remains empty and no later scheduled run was due before this review."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 4,
+    "productsBlocked": 1,
+    "offersReviewed": 51,
+    "offersAdmitted": 26,
+    "shopperActiveOffers": 26,
+    "outOfStockObservations": 0,
+    "offersBlocked": 25,
+    "offersProjected": 51
+  },
+  "heldCandidates": [
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "reason": "The released GTIN 5011451103863 package has the N°1 UK badge, SENSITIVE SKIN EXPERTS and 100% SOAP FREE GEL label. Every inspectable current Nigerian listing shows an older plain B5+E tube or the NEW B5+E, Pro Amino Acids and PETA reformulation. Offer publication requires a separately authorized package-identity expansion."
+    }
+  ],
+  "products": [
+    {
+      "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
+      "identity": {
+        "variant": "Zero-cast Moisturizing Finish Sunscreen",
+        "size": "50 ml",
+        "packageVersion": "Anua SPF50+ PA++++ single 50 ml tube"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/anua-zero-cast-moisturizing-finnish-sunscreen-50ml/",
+          "priceNgn": 15049,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:56:10.000Z",
+          "expiresAt": "2026-09-06T02:56:10.000Z",
+          "responseSha256": "45059445ad95f9193f667b41bf4abef0e7bbfd1cf2ad8ba3661bbf22a6249227",
+          "responseByteSize": 564554,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/11/0xb4e2x9.png",
+          "packageImageSha256": "1c3a6a2d884a9e0589dc5513daf586fae6d462ffaa2185c63a3f4820aa0d48eb",
+          "packageImageByteSize": 675980
+        },
+        {
+          "retailer": "Nihet Beauty",
+          "url": "https://nihetbeauty.com/product/anua-zero-cast-moisturizing-finish-sunscreen/",
+          "priceNgn": 36000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:56:10.000Z",
+          "expiresAt": "2026-09-06T02:56:10.000Z",
+          "responseSha256": "2f0bae4bc1b228271e274d438d32998a4f4d0e78903cf0f6a36ba9ed4e3d38f6",
+          "responseByteSize": 475299,
+          "packageImageUrl": "https://i0.wp.com/nihetbeauty.com/wp-content/uploads/2025/07/img_1297.jpeg",
+          "packageImageSha256": "0e9c10cb71666562d3747b3facbcbb4eb437c51e4eb09fd3a1e96a3ab3c92074",
+          "packageImageByteSize": 60646
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/anua-zero-cast-moisturizing-finish-sunscreen-50ml/",
+          "priceNgn": 16500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:56:10.000Z",
+          "expiresAt": "2026-09-06T02:56:10.000Z",
+          "responseSha256": "84afba55e4fa99dae539bda434d4f2c6f708980a57dd7a9295cf84f4d5de71eb",
+          "responseByteSize": 399661,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2025/12/anua-zero-_612794.jpg",
+          "packageImageSha256": "41b29cd0374d6225b62eb8c6dfd29f77866371cf381fb27b5c06802449ac9b7a",
+          "packageImageByteSize": 7251
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/anua-zero-cast-moisturizing-finish-sunscreen-50ml-7027579",
+          "priceNgn": 13500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:56:10.000Z",
+          "expiresAt": "2026-09-06T02:56:10.000Z",
+          "responseSha256": "bba1e2af98b42b74672133ee79d0b63cf57a0b5967ab2a243dc12a3b44828227",
+          "responseByteSize": 278679,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/W/D/172118_1785882545.jpg",
+          "packageImageSha256": "491de5533518307f458551fe73691be0da8d256cf67c8534834a4eb57a2c3318",
+          "packageImageByteSize": 17608
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/anua-zero-cast-moisturizing-finnish-sunscreen-50ml/",
+          "priceNgn": 17500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:56:10.000Z",
+          "expiresAt": "2026-09-06T02:56:10.000Z",
+          "responseSha256": "5266185ca859c601524fc4086f98ebe2e7c49708e77799026e2df99e5267c494",
+          "responseByteSize": 138837,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/07/XXL_p0218472671-300x300.webp",
+          "packageImageSha256": "96cffcc90331f29a71a5ed33be470baafe499eb2a00949728f6f0e679ec5f8df",
+          "packageImageByteSize": 3258
+        },
+        {
+          "retailer": "The Beauty Prism",
+          "url": "https://thebeautyprismng.com/shop/anua-zero-cast-moisturizing-finish-sunscreen-50ml/",
+          "priceNgn": 19000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:56:10.000Z",
+          "expiresAt": "2026-09-06T02:56:10.000Z",
+          "responseSha256": "c7d1b92ab39c693e992e43e2abc79cb29982441cd3484ad32ddeb8bb45f25257",
+          "responseByteSize": 307961,
+          "packageImageUrl": "https://thebeautyprismng.com/wp-content/uploads/2025/09/img_3539.jpeg",
+          "packageImageSha256": "11cadf421a0a65236da54e409470dedae317a7552216b2c3baec3cd5aff3ad6c",
+          "packageImageByteSize": 53710
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/anua-zero-cast-moisturizing-finish-sunscreen-50ml/",
+          "priceNgn": 20700,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:56:10.000Z",
+          "expiresAt": "2026-09-06T02:56:10.000Z",
+          "responseSha256": "e71e4394127076a78924840624d534f44be48b5089cde5c6cddcc44fb42db247",
+          "responseByteSize": 315730,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2025/10/anua-zero-cast-moisturizing-finish-sunscreen-ml.png",
+          "packageImageSha256": "3fa767b4ded588b27a46d2f2656238ab37d98950112936a76e1c31ee6bd866e1",
+          "packageImageByteSize": 17242
+        },
+        {
+          "retailer": "Nectar Beauty Hub",
+          "url": "https://nectarbeautyhub.com/products/anua-zero-cast-moisturizing-finish-sunscreen-spf50-pa-50ml",
+          "priceNgn": 16000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:56:10.000Z",
+          "expiresAt": "2026-09-06T02:56:10.000Z",
+          "responseSha256": "ffa2fca2c4d92324d05b42ec4a3e8e5c66599122185fab5e26de4d50eea3083f",
+          "responseByteSize": 866778,
+          "packageImageUrl": "https://nectarbeautyhub.com/cdn/shop/files/anua-zero-cast-moisturizing-finish-sunscreen-spf50-pa-50ml-8616477.png?v=1779118512",
+          "packageImageSha256": "20d9164d14eff6c9fbd595cf1d7341eb28b82e64ce6eabddc3e13477bc9af99b",
+          "packageImageByteSize": 188043
+        }
+      ]
+    },
+    {
+      "candidateId": "cerave-pm-facial-moisturising-lotion-52ml",
+      "identity": {
+        "variant": "PM Facial Moisturising Lotion",
+        "size": "52 ml",
+        "packageVersion": "released UK/EU 52 ml PM pump"
+      },
+      "offers": [
+        {
+          "retailer": "Dunes Center",
+          "url": "https://dunescenter.com/product/cerave-facial-moisturising-lotion-pm-52ml/",
+          "priceNgn": 47500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:56:10.000Z",
+          "expiresAt": "2026-09-06T02:56:10.000Z",
+          "responseSha256": "a2ebb3ffcbebb465e4c8038c7a4b500208974c4869a65e5f41bf374ead25eb73",
+          "responseByteSize": 365156,
+          "packageImageUrl": "https://dunescenter.com/wp-content/uploads/2025/11/pm-moisturising-lotion-52ml-1-LG-optimized.jpg",
+          "packageImageSha256": "57a9cead4bb56a335e89cbf18abc878a94dc69fab7a6b4313709eb2fadbf8675",
+          "packageImageByteSize": 102730
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/cerave-pm-facial-moisturising-lotion/",
+          "priceNgn": 20300,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:56:10.000Z",
+          "expiresAt": "2026-09-06T02:56:10.000Z",
+          "responseSha256": "fa957e8963d476c7db1cd5c47f1d7765bc09d3ecce323b550dee51a90c2722b1",
+          "responseByteSize": 817484,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/06/P-4-1-1024x1024.png",
+          "packageImageSha256": "3bd1840231e3ef3b1d54a59305846fafc2ff7470c5ea952016dd50176b9a4b79",
+          "packageImageByteSize": 107646
+        },
+        {
+          "retailer": "Shoppaton Store",
+          "url": "https://shoppatonstore.com/store/product/cerave-pm-facial-moisturising-lotion-52ml/",
+          "priceNgn": 26300,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:56:10.000Z",
+          "expiresAt": "2026-09-06T02:56:10.000Z",
+          "responseSha256": "30cf09fe313a48cde3225942c1813251268156f2421159068b4ca3d6487837da",
+          "responseByteSize": 35529,
+          "packageImageUrl": "https://shoppatonstore.com/wp-content/uploads/shoppaton/shoppaton-cerave-pm-facial-moisturising-lotion-52ml.webp",
+          "packageImageSha256": "63ba9ef0a7f62d96a13d6e719defc7157c29d3ed5656c9e889f041b4c0a11e30",
+          "packageImageByteSize": 34560
+        }
+      ]
+    },
+    {
+      "candidateId": "eucerin-urearepair-plus-10-urea-body-lotion-250ml",
+      "identity": {
+        "variant": "UreaRepair PLUS 10% Urea Body Lotion",
+        "size": "250 ml",
+        "packageVersion": "released older blue-cap 250 ml UreaRepair package"
+      },
+      "offers": [
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/eucerin-urearepair-plus-10-urea-body-lotion-for-very-dry-skin-250ml/",
+          "priceNgn": 29500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:54:34.040Z",
+          "expiresAt": "2026-09-06T02:54:34.040Z",
+          "responseSha256": "31d64c4ccaea0ff7ccf14caa708ec0f3f97394653c941fee247e12e7cf16d181",
+          "responseByteSize": 139425,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2025/07/beiersdorf-eucerin-urea-repair-plus-10-urea-lotion-2025.png",
+          "packageImageSha256": "58c5b531e5368ce50ae16fc1b3117c0f23017739771d635f58924cfe509979c2",
+          "packageImageByteSize": 933074
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
+          "priceNgn": 26300,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:54:34.040Z",
+          "expiresAt": "2026-09-06T02:54:34.040Z",
+          "responseSha256": "1d72cf1f68ed4f00ad0ad2b8b1d0b539367623e59970950b3de7db8d31784e13",
+          "responseByteSize": 389385,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/06/eucerin-lotion.png",
+          "packageImageSha256": "86ed3f4e662a168d01d9d66e85e9083d5a101e88cd77555f016e4676e8979dfe",
+          "packageImageByteSize": 35520
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/body-cream/eucerin-urea-repair-plus-urea-lotion/",
+          "priceNgn": 25999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:54:34.040Z",
+          "expiresAt": "2026-09-06T02:54:34.040Z",
+          "responseSha256": "133639d43647edf24356d5155ada167f31af682443ea73d1fee53176a402456a",
+          "responseByteSize": 246689,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2024/12/Screenshot-2025-08-09-131500.png",
+          "packageImageSha256": "be744c98cc37ddf71c61d35974eb11209d3fb0b1425f27ef9d4a82458e2fe674",
+          "packageImageByteSize": 34715
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/eucerin-10-urea-lotion/",
+          "priceNgn": 29250,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:54:34.040Z",
+          "expiresAt": "2026-09-06T02:54:34.040Z",
+          "responseSha256": "72ff878d460efd31fe8c7f6bb37e86b0295586b4a41cbf8d43d00e609ed9e3c2",
+          "responseByteSize": 813298,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/07/10-Urea-1024x1024.png",
+          "packageImageSha256": "bbac45d7ef89672f7fcf23ce46bc80e8501a6347d2113eb2279f5988f8af5190",
+          "packageImageByteSize": 234260
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
+          "priceNgn": 24000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:54:34.040Z",
+          "expiresAt": "2026-09-06T02:54:34.040Z",
+          "responseSha256": "7008e7284e6d4af62c2e45e92ec8e2a4afd4760c6faebb308fada1507580f06f",
+          "responseByteSize": 357021,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/05/WhatsApp-Image-2025-10-27-at-09.25.44_b88e6559.jpg",
+          "packageImageSha256": "f91848391cdaec7da13d8ec3823ce5906c17331d4bc83ab506f710b41a2e5830",
+          "packageImageByteSize": 27904
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/eucerin-urearepair-plus-10-urea-lotion-7018209",
+          "priceNgn": 32000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:54:34.040Z",
+          "expiresAt": "2026-09-06T02:54:34.040Z",
+          "responseSha256": "3448d5cbe1dd3791cd3fed3eb73a8557047ce8b24a9117c3e4aa82d327ec0309",
+          "responseByteSize": 261756,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/B/D/249535_1784302928.jpg",
+          "packageImageSha256": "514f8d2faa9f6722d4d1a64fcbac59ed0fe7f8723e17d80351e186caa9fd5de1",
+          "packageImageByteSize": 19962
+        },
+        {
+          "retailer": "The Beauty Prism",
+          "url": "https://thebeautyprismng.com/shop/eucerin-urea-repair-plus-10-urea-lotion-250ml/",
+          "priceNgn": 26500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:54:34.040Z",
+          "expiresAt": "2026-09-06T02:54:34.040Z",
+          "responseSha256": "f130d0a35078398600a48374114ff3b6fbd20ad88a37125c4a955b59256b1ffe",
+          "responseByteSize": 306699,
+          "packageImageUrl": "https://thebeautyprismng.com/wp-content/uploads/2025/03/Eucerin-Urea-Repair-Plus-10-Urea-Lotion-lagos-nigeria.webp",
+          "packageImageSha256": "0b51d5e56e0adde2fabec5f76291ac48656d0dfa8e41b64c5b421a04f39078b2",
+          "packageImageByteSize": 10464
+        },
+        {
+          "retailer": "Nectar Beauty Hub",
+          "url": "https://nectarbeautyhub.com/products/eucerin-urearepair-plus-10-urea-body-lotion-for-very-dry-skin-250ml",
+          "priceNgn": 27000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:06:25.000Z",
+          "expiresAt": "2026-09-06T03:06:25.000Z",
+          "responseSha256": "cee9a737cc9d8aca24f6ff2f233a0ccc70459bffbdbdaf03d5bd2523e3003987",
+          "responseByteSize": 861371,
+          "packageImageUrl": "https://nectarbeautyhub.com/cdn/shop/files/eucerin-urearepair-plus-10-urea-body-lotion-250ml-1630200.png?v=1758151695",
+          "packageImageSha256": "f905d49b5c985748a6c963938ed804aea93acdd02261968245af501d82a8d430",
+          "packageImageByteSize": 67780
+        }
+      ]
+    },
+    {
+      "candidateId": "nineless-a-control-10-azelaic-acid-serum-30ml",
+      "identity": {
+        "variant": "A-Control 10% Azelaic Acid Serum",
+        "size": "30 ml",
+        "packageVersion": "released original green dropper bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/nineless-a-control-10-azelaic-acid-serum-30ml/",
+          "priceNgn": 14800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:55:03.814Z",
+          "expiresAt": "2026-09-06T02:55:03.814Z",
+          "responseSha256": "e108919760e273646512a1e2111fb7da4649242105ba1729b9df769a38863381",
+          "responseByteSize": 138877,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2025/05/nineless-azelaic-2_2.jpg",
+          "packageImageSha256": "3af079dfccc8106a92cf9eeb30efd79fde9339fae16a1ee27bca15006509cdaa",
+          "packageImageByteSize": 25141
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/nine-less-a-control-10-azelaic-acid-serum-30ml/",
+          "priceNgn": 12500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:55:03.814Z",
+          "expiresAt": "2026-09-06T02:55:03.814Z",
+          "responseSha256": "aad9d1e9326e219815688badc1677a40944dcfe41e4f69dc948103a0ad99ad5d",
+          "responseByteSize": 284909,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/11/nineless-azeliac-new-1.jpeg",
+          "packageImageSha256": "e523b36d861070886fa8f0b5eb767526cce62a3f756b7a2536dd8537dea7bfc4",
+          "packageImageByteSize": 41462
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/nineless-a-control-10-azelaic-acid-serum-30ml/",
+          "priceNgn": 21577.05,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:55:03.814Z",
+          "expiresAt": "2026-09-06T02:55:03.814Z",
+          "responseSha256": "78dc1726fcbcde59169c14cc03bf64a6bb95890e9311c16d4f5e85a3d5509389",
+          "responseByteSize": 804060,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/04/Nineless-A-control-10-Azelaic-Acid-Serum-30ml.webp",
+          "packageImageSha256": "beeefd6b3fe1752551b65f7607386798930b381457b2b3b3770f6905a9e3170a",
+          "packageImageByteSize": 22016
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/nineless-a-control-10-azelaic-acid-serum-30ml-6918252",
+          "priceNgn": 19000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:55:03.814Z",
+          "expiresAt": "2026-09-06T02:55:03.814Z",
+          "responseSha256": "760b652032a8bc937492943b48ddb15cfb039e9c1a0d19c2edb0a4a31589c3fe",
+          "responseByteSize": 270384,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/Z/N/170251_1768539620.jpg",
+          "packageImageSha256": "097466bcb60bd27fe78058d7b4d5ae1237e862f3176f855d4eb91aaef52e8e7e",
+          "packageImageByteSize": 16332
+        },
+        {
+          "retailer": "Buy Skincare in Abuja",
+          "url": "https://buyskincareinabuja.com/product/nineless-a-control-10-azelaic-acid-serum-30ml/",
+          "priceNgn": 19500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:55:03.814Z",
+          "expiresAt": "2026-09-06T02:55:03.814Z",
+          "responseSha256": "32e7309257156d756c287a64ef2dc5b296081882c67083889e4561d4e1591e89",
+          "responseByteSize": 185708,
+          "packageImageUrl": "https://buyskincareinabuja.com/wp-content/uploads/2025/06/IMG_2372.jpeg",
+          "packageImageSha256": "15dddeb990ffa6f13b4b94020a3fde130244fc9fde230343455dcf27d2eaf65e",
+          "packageImageByteSize": 33349
+        },
+        {
+          "retailer": "The Skin Hookup",
+          "url": "https://www.theskinhookupng.com/product/nineless-a-control-10-azelaic-acid-serum-30ml/",
+          "priceNgn": 16500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:55:03.814Z",
+          "expiresAt": "2026-09-06T02:55:03.814Z",
+          "responseSha256": "a7dc69a275b96dd7979b8bd079afc1991b3be2a30f19cff45981555fdf091f11",
+          "responseByteSize": 246961,
+          "packageImageUrl": "https://www.theskinhookupng.com/wp-content/uploads/2026/01/1000354723.jpg",
+          "packageImageSha256": "abc93e32d1f37c24f6f5fcda4f7e9bb08c90d92a1ae801ebc297d404281f4e24",
+          "packageImageByteSize": 28656
+        },
+        {
+          "retailer": "Nectar Beauty Hub",
+          "url": "https://nectarbeautyhub.com/products/nineless-a-control-10-azelaic-acid-serum-30ml-effective-skincare-solution",
+          "priceNgn": 12899,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:55:03.814Z",
+          "expiresAt": "2026-09-06T02:55:03.814Z",
+          "responseSha256": "d652fb0c48b9e8d32f97d0c4185c584dc61081ba60159d95efaf7974e4872c8d",
+          "responseByteSize": 879673,
+          "packageImageUrl": "https://nectarbeautyhub.com/cdn/shop/files/nineless-a-control-10-azelaic-acid-serum-30ml-effective-skincare-solution-848226.png?v=1748591846",
+          "packageImageSha256": "ec33b1da9a075f9a5716cb3ba2cffd0a5269cfa20f8a0c97a66519588eb5a4c8",
+          "packageImageByteSize": 86229
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/anua-zero-cast-moisturizing-sunscreen-50ml-419984871.html",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "93327897d4f18cc10a85ceb1db86f5b264684c4c4bfae84c35a31fcd7edefa10",
+      "responseByteSize": 6029
+    },
+    {
+      "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
+      "retailer": "Sonavine Beauty",
+      "url": "https://sonavinebeauty.com/product/anua-zero-cast-moisturizing-finish-sunscreen-50ml/",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "52412d67f9a6ae972b806eb887064d7e64c4794bf7fe8c0ef9b1284877f201e1",
+      "responseByteSize": 5966
+    },
+    {
+      "candidateId": "anua-zero-cast-moisturizing-finish-sunscreen-50ml",
+      "retailer": "Jumia alternate",
+      "url": "https://www.jumia.com.ng/anua-anua-zero-cast-moisturizing-finish-sunscreen-spf-50-50ml-419467290.html",
+      "status": 403,
+      "reason": "Indexed price and stock cannot replace current direct exact-SKU evidence behind a verification wall.",
+      "responseSha256": "ee6c3edfff27a09e596cc370108e458db95a04ba13a7065a69a3ce1a540b25bd",
+      "responseByteSize": 5938
+    },
+    {
+      "candidateId": "cerave-pm-facial-moisturising-lotion-52ml",
+      "retailer": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/cerave-facial-moisturising-lotion-52ml/",
+      "status": 403,
+      "reason": "Verification wall prevents current price, stock and package re-verification.",
+      "responseSha256": "4482a6db479e7c06547a3838c2cb556969268ea37a57a9b45a7b9e5b476b92b2",
+      "responseByteSize": 5942
+    },
+    {
+      "candidateId": "cerave-pm-facial-moisturising-lotion-52ml",
+      "retailer": "Perona Beauty",
+      "url": "https://peronabeauty.com/product/cerave-facial-moisturizing-lotion-pm-night-face-moisturizer-3-oz/",
+      "status": 200,
+      "reason": "The listing is the 3 oz package, not the released 52 ml SKU.",
+      "responseSha256": "654aa96c64dc0ffac57da4fcbdebc27445dcc739d0f377fb6fec0c8a37b807f1",
+      "responseByteSize": 415189
+    },
+    {
+      "candidateId": "cerave-pm-facial-moisturising-lotion-52ml",
+      "retailer": "Beauty by Daz",
+      "url": "https://beautybydaz.com/shop/face/moisturizers/cerave-pm-facial-moisturizing-lotion-3oz/",
+      "status": 200,
+      "reason": "The listing is the 3 oz USA package, not the released 52 ml SKU.",
+      "responseSha256": "d35f6f714fb53b813d2bcf964e27e7cb106e7c421d9bc4ca2ca03395d08cc0e0",
+      "responseByteSize": 248066
+    },
+    {
+      "candidateId": "cerave-pm-facial-moisturising-lotion-52ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/cerave-pm-ultra-light-weight-facial-moisturizing-lotion-89ml-420124130.html",
+      "status": 403,
+      "reason": "The URL identifies an 89 ml sibling and the direct page is behind a verification wall.",
+      "responseSha256": "c8cf1c3ce2d4805b94dd87dfe120efaf1dfff707289db8c31e952dae83018dd5",
+      "responseByteSize": 6105
+    },
+    {
+      "candidateId": "cerave-pm-facial-moisturising-lotion-52ml",
+      "retailer": "Deoset",
+      "url": "https://deoset.com/product/cerave-pm-facial-moisturising-lotion-2-fl-oz60ml-usa/",
+      "status": 200,
+      "reason": "The listing is the 60 ml USA package, not the released 52 ml SKU.",
+      "responseSha256": "3c502e3c500b765bbc2367af93c03e642c72847409b06cf9fac183bbcd12b4ef",
+      "responseByteSize": 138664
+    },
+    {
+      "candidateId": "eucerin-urearepair-plus-10-urea-body-lotion-250ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/skin-moisturizers-oils/eucerin-urea-repair-10-urea-intensive-moisturising-lotion/?location=ibadan-store",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "d73afe84a40297d8f7632fb66d7860e907996dbf8e17d587466d685101241689",
+      "responseByteSize": 6116
+    },
+    {
+      "candidateId": "eucerin-urearepair-plus-10-urea-body-lotion-250ml",
+      "retailer": "PharmaSolutions",
+      "url": "https://pharmasolutions-ng.com/product/eucerin-10-urea-repair-plus-lotion-250ml/",
+      "status": 0,
+      "reason": "Current product evidence was unavailable before an HTTP response was received."
+    },
+    {
+      "candidateId": "eucerin-urearepair-plus-10-urea-body-lotion-250ml",
+      "retailer": "Brandlistry",
+      "url": "https://www.brandlistry.ng/products/eucerin-urearepair-plus-10-urea-lotion-250ml",
+      "status": 200,
+      "reason": "The visible renewed immediate 48h relief package conflicts with the released older blue-cap package.",
+      "responseSha256": "609232e94b1a83aa1086b6e2f42ba89b7e365bbfa5c0552309947a5c203dcf36",
+      "responseByteSize": 530214
+    },
+    {
+      "candidateId": "nineless-a-control-10-azelaic-acid-serum-30ml",
+      "retailer": "Perona Beauty",
+      "url": "https://peronabeauty.com/product/nine-less-a-control-10-azelaic-acid-serum-30ml/",
+      "status": 200,
+      "reason": "The image is the renewed pink pump package, not the released original green dropper.",
+      "responseSha256": "d96191df76291a599eabbc18c2391df2f6f3afde9849f4ff4f28ae4d1cba6aea",
+      "responseByteSize": 435471
+    },
+    {
+      "candidateId": "nineless-a-control-10-azelaic-acid-serum-30ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/nineless-a-control-10-azelaic-acid-face-serum-30ml-419981199.html",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "2a6a75f83a3f881a88b2ce7468740586c6f19815e7eefd0c5d2aa22eeb3c358f",
+      "responseByteSize": 6011
+    },
+    {
+      "candidateId": "nineless-a-control-10-azelaic-acid-serum-30ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/nineless-a-control-10-azelaic-acid-serum-30ml-1-01-fl-oz/",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "a5bd8660a65a7635e478e0e96738e399d984defae12902cb061d949df77326fc",
+      "responseByteSize": 6032
+    },
+    {
+      "candidateId": "nineless-a-control-10-azelaic-acid-serum-30ml",
+      "retailer": "ShopTadi",
+      "url": "https://shoptadi.com.ng/products/nineless-a-control-10-azelaic-acid-serum-30ml/1123509?location=103175",
+      "status": 200,
+      "reason": "The exact original package and price are visible, but the direct page exposes no current stock state.",
+      "responseSha256": "a28b982fca939eb396489f369bce235c315ad33b775be144a7075bb68df2c306",
+      "responseByteSize": 36203
+    },
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "retailer": "Deoset",
+      "url": "https://deoset.com/product/simple-kind-to-skin-refreshing-facial-gel-wash-150ml/",
+      "status": 200,
+      "reason": "The image is the NEW B5+E and Pro Amino reformulation, not the released package; hydrated current price was unavailable.",
+      "responseSha256": "76a978c8e64d291d4ebea10abba7f057d5d36fc658422b79e6ba6eb4c5bfbcf2",
+      "responseByteSize": 141874
+    },
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "retailer": "Perona Beauty",
+      "url": "https://peronabeauty.com/product/simple-refreshing-facial-wash/",
+      "status": 200,
+      "reason": "The image is the NEW B5+E and Pro Amino reformulation, not the released package.",
+      "responseSha256": "0ce850568cf1fb82222d637597a5e93c47f36339670b4e4257ce7ecf157248b7",
+      "responseByteSize": 445402
+    },
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/simple-kind-to-skin-refreshing-facial-gel-wash-150ml-373779221.html",
+      "status": 403,
+      "reason": "Verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "281d058a734f49f03afc0febdd3d12d25502348d5e53093206fd66a01a1020b6",
+      "responseByteSize": 6039
+    },
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "retailer": "Beauty Hut Africa",
+      "url": "https://beautyhutafrica.com/product/simple-kind-to-skin-refreshing-facial-gel-wash/",
+      "status": 200,
+      "reason": "The image is the NEW B5+E and Pro Amino reformulation, not the released package.",
+      "responseSha256": "75062255db83cf54872bd5d30edc28ccae25cc780a0e263e1fc74d1b44641172",
+      "responseByteSize": 804708
+    },
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "retailer": "Teeka4",
+      "url": "https://teeka4.com/shop/simple-kind-to-skin-refreshing-facial-gel-wash/",
+      "status": 200,
+      "reason": "The image is the older plain B5+E package and lacks the released badge and label.",
+      "responseSha256": "456c0c03177899c382e23ecfd9ff8825720c75a96a1763f0dbcbd1fae49e94fd",
+      "responseByteSize": 374917
+    },
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "retailer": "Konga Health",
+      "url": "https://www.konga.com/product/simple-kind-to-skin-refreshing-facial-gel-wash-150ml-6602347",
+      "status": 200,
+      "reason": "The image is the NEW B5+E and Pro Amino reformulation, not the released package.",
+      "responseSha256": "1ffaf96fd960e88af059f7a80bd6928a80c7d202de0ff249eb2e6f2a9613ee59",
+      "responseByteSize": 261645
+    },
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "retailer": "Buy Skincare in Abuja",
+      "url": "https://buyskincareinabuja.com/product/simple-refreshing-facial-wash/",
+      "status": 200,
+      "reason": "The exact GTIN is visible, but the image is the NEW reformulation package.",
+      "responseSha256": "a4e879f7e488ced7fb64d9d4b7ea28b899f31162a47b84094d6b6c703407002c",
+      "responseByteSize": 185765
+    },
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "retailer": "Kuddy Cosmetics",
+      "url": "https://www.kuddycosmetics.com/products/simple-refreshing-facial-wash-150ml",
+      "status": 200,
+      "reason": "The image is the NEW reformulation package.",
+      "responseSha256": "4a9278598f6a4ed5c6abe51fd7bbb2d3ee089653fe90cec3057fe5d0d434a286",
+      "responseByteSize": 313821
+    },
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "retailer": "Lami Fragrance",
+      "url": "https://lamifragrance.com/product/simple-refreshing-facial-wash/",
+      "status": 200,
+      "reason": "The exact GTIN maps to the NEW package and the current raw response exposes USD while the indexed Nigerian surface reports NGN, so currency is ambiguous.",
+      "responseSha256": "6f54bb8d37a7abadbb993785859a120f61aacea88bd27b59ff386ef45f1dd646",
+      "responseByteSize": 230353
+    },
+    {
+      "candidateId": "simple-kind-to-skin-refreshing-facial-gel-wash-150ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/face/simple-refreshing-facial-wash/",
+      "status": 403,
+      "reason": "The direct package is unavailable; indexed price and stock cannot satisfy exact-package verification.",
+      "responseSha256": "8ee8e074a1e747f4773f00025108bf89cbf4229b88c69a4573c78eff54c042ec",
+      "responseByteSize": 5791
+    }
+  ]
+}
