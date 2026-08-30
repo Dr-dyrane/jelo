@@ -733,11 +733,7 @@ function invalidateOfferInContent(
 ): { updated: boolean; content: string; error?: string } {
   const section = findSlugSection(content, offer.productSlug);
   if (!section) {
-    return {
-      updated: false,
-      content,
-      error: `Product slug not found for terminal invalidation: ${offer.productSlug}`,
-    };
+    return { updated: false, content };
   }
 
   const call = findExactNgCall(
@@ -747,11 +743,7 @@ function invalidateOfferInContent(
     offer.retailer,
   );
   if (!call) {
-    return {
-      updated: false,
-      content,
-      error: `Offer not found for terminal invalidation: ${offer.productSlug} / ${offer.retailer}`,
-    };
+    return { updated: false, content };
   }
 
   if (!Number.isFinite(offer.invalidatedAt.valueOf())) {

@@ -188,6 +188,46 @@ test("no terminal invalidation leaves static fallback bytes unchanged", () => {
   assert.equal(result.content, content);
 });
 
+test("a missing product slug is a counted no-op without a sync error", () => {
+  const result = applyStaticOfferRefreshes({
+    content,
+    refreshedOffers: [],
+    invalidatedOffers: [
+      {
+        productSlug: "not-checked-in",
+        retailer: "Exact Store",
+        invalidatedAt: new Date("2026-08-12T10:00:00Z"),
+        reason: "product_identity",
+      },
+    ],
+  });
+
+  assert.equal(result.invalidated, 0);
+  assert.equal(result.skipped, 1);
+  assert.deepEqual(result.errors, []);
+  assert.equal(result.content, content);
+});
+
+test("a missing exact retailer pair is a counted no-op without a sync error", () => {
+  const result = applyStaticOfferRefreshes({
+    content,
+    refreshedOffers: [],
+    invalidatedOffers: [
+      {
+        productSlug: "exact-product",
+        retailer: "Not Checked-In Store",
+        invalidatedAt: new Date("2026-08-12T10:00:00Z"),
+        reason: "route_scope",
+      },
+    ],
+  });
+
+  assert.equal(result.invalidated, 0);
+  assert.equal(result.skipped, 1);
+  assert.deepEqual(result.errors, []);
+  assert.equal(result.content, content);
+});
+
 test("a stale terminal invalidation cannot override newer static evidence", () => {
   const result = applyStaticOfferRefreshes({
     content,
