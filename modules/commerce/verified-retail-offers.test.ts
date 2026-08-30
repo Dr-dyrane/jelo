@@ -46,6 +46,7 @@ import completionWaveOneAudit from "@/data/retailer-verification/catalogue-compl
 import completionWaveTwoAudit from "@/data/retailer-verification/catalogue-completion-wave-2-2026-08-30.json";
 import completionWaveThreeAudit from "@/data/retailer-verification/catalogue-completion-wave-3-2026-08-30.json";
 import completionWaveFourAudit from "@/data/retailer-verification/catalogue-completion-wave-4-2026-08-30.json";
+import completionWaveFiveAudit from "@/data/retailer-verification/catalogue-completion-wave-5-2026-08-30.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -3289,8 +3290,8 @@ test("catalogue completion wave 1 records four current no-exact-offer dispositio
   assert.equal(completionMatrix.fixedDenominator, 162);
   assert.equal(completionMatrix.baseline.completedDenominatorRows, 131);
   assert.equal(completionMatrix.baseline.remainingRows, 31);
-  assert.equal(completionMatrix.current.completedDenominatorRows, 147);
-  assert.equal(completionMatrix.current.remainingRows, 15);
+  assert.equal(completionMatrix.current.completedDenominatorRows, 152);
+  assert.equal(completionMatrix.current.remainingRows, 10);
   assert.equal(completionMatrix.rows.length, 31);
   assert.equal(
     new Set(completionMatrix.rows.map((row) => row.candidateId)).size,
@@ -3536,6 +3537,55 @@ test("catalogue completion wave 4 records five package-safe no-exact-offer dispo
     assert.equal(
       "resolutionWave" in (matrixRow ?? {}) ? matrixRow?.resolutionWave : null,
       "catalogue-completion-wave-4-2026-08-30",
+      disposition.candidateId,
+    );
+    for (const observation of disposition.observations) {
+      assert.equal(observation.status, "not-projected");
+      assert.match(observation.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(observation.responseByteSize > 0);
+      assert.match(observation.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(observation.packageImageByteSize > 0);
+    }
+  }
+});
+
+test("catalogue completion wave 5 records five identity-safe no-exact-offer dispositions", () => {
+  const resolvedIds = completionWaveFiveAudit.dispositions.map(
+    (disposition) => disposition.candidateId,
+  );
+
+  assert.equal(completionWaveFiveAudit.matrix.before, 147);
+  assert.equal(completionWaveFiveAudit.matrix.after, 152);
+  assert.equal(completionWaveFiveAudit.matrix.total, 162);
+  assert.equal(completionWaveFiveAudit.summary.productsResolved, 5);
+  assert.equal(completionWaveFiveAudit.summary.offersAdmitted, 0);
+  assert.equal(completionWaveFiveAudit.summary.offerRecordsRemoved, 8);
+  assert.equal(
+    completionWaveFiveAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+  assert.deepEqual(resolvedIds, [
+    "amika-the-kure-conditioner-275ml",
+    "kuza-indian-hemp-hair-scalp-treatment",
+    "naturium-glow-getter-multi-oil-body-scrub-8oz",
+    "naturium-niacinamide-gel-cream-5-1-7oz",
+    "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
+  ]);
+
+  for (const disposition of completionWaveFiveAudit.dispositions) {
+    assert.equal(disposition.disposition, "current-no-exact-nigerian-offer");
+    assert.deepEqual(
+      verifiedRetailOffers[disposition.candidateId] ?? [],
+      [],
+      disposition.candidateId,
+    );
+    const matrixRow = completionMatrix.rows.find(
+      (row) => row.candidateId === disposition.candidateId,
+    );
+    assert.equal(matrixRow?.state, "resolved", disposition.candidateId);
+    assert.equal(
+      "resolutionWave" in (matrixRow ?? {}) ? matrixRow?.resolutionWave : null,
+      "catalogue-completion-wave-5-2026-08-30",
       disposition.candidateId,
     );
     for (const observation of disposition.observations) {

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "matrixId": "catalogue-completion-matrix-2026-08-30",
-  "reviewedAt": "2026-08-30T12:40:21.000Z",
+  "reviewedAt": "2026-08-30T12:59:21.000Z",
   "reviewer": "JeloCare catalogue evidence review",
   "fixedDenominator": 162,
   "baseline": {
@@ -14,8 +14,8 @@
     "remainingRows": 31
   },
   "current": {
-    "completedDenominatorRows": 147,
-    "remainingRows": 15
+    "completedDenominatorRows": 152,
+    "remainingRows": 10
   },
   "rows": [
     {
@@ -26,9 +26,9 @@
     },
     {
       "candidateId": "amika-the-kure-conditioner-275ml",
-      "state": "remaining",
-      "nextRoute": "canonical-identity-review",
-      "lastKnownBlocker": "current retailer GTIN 840117807082 conflicts with catalogue GTIN 840117805743"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-5-2026-08-30"
     },
     {
       "candidateId": "b-lab-matcha-hydrating-real-sunscreen",
@@ -56,9 +56,9 @@
     },
     {
       "candidateId": "kuza-indian-hemp-hair-scalp-treatment",
-      "state": "remaining",
-      "nextRoute": "canonical-identity-review",
-      "lastKnownBlocker": "current 8 oz / 226 g package conflicts with published 7.7 oz / 218 g identity"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-5-2026-08-30"
     },
     {
       "candidateId": "la-roche-posay-toleriane-double-repair-spf30",
@@ -104,9 +104,9 @@
     },
     {
       "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
-      "state": "remaining",
-      "nextRoute": "canonical-unit-package-review",
-      "lastKnownBlocker": "published 8 oz / 226 mL jar conflicts with current 8 oz / 226 g tube evidence"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-5-2026-08-30"
     },
     {
       "candidateId": "naturium-intense-overnight-sleeping-cream-1-7oz",
@@ -134,9 +134,9 @@
     },
     {
       "candidateId": "naturium-niacinamide-gel-cream-5-1-7oz",
-      "state": "remaining",
-      "nextRoute": "canonical-unit-review",
-      "lastKnownBlocker": "published 50 mL unit conflicts with current 50 g evidence"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-5-2026-08-30"
     },
     {
       "candidateId": "naturium-niacinamide-serum-12-percent-1fl-oz",
@@ -146,9 +146,9 @@
     },
     {
       "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
-      "state": "remaining",
-      "nextRoute": "canonical-unit-review",
-      "lastKnownBlocker": "published 48 mL package conflicts with current 50 g listing"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-5-2026-08-30"
     },
     {
       "candidateId": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",

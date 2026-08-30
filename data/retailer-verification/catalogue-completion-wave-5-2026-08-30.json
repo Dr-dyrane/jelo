@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-completion-wave-5-2026-08-30",
+  "reviewedAt": "2026-08-30T12:59:21.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Truthful current no-exact-Nigerian-offer dispositions for five independently ready rows whose current Nigerian product identifiers, packages or units conflict with the published exact cell",
+  "captureMethod": "reviewed-live-html-structured-data-and-package-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T12:59:21.000Z"
+  },
+  "matrix": {
+    "unit": "fixed-denominator exact candidate row",
+    "before": 147,
+    "after": 152,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "activeBacklog": 98,
+      "queued": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No cron request, enqueue, claim, process, retry or cache invalidation was performed."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsResolved": 5,
+    "offersAdmitted": 0,
+    "staleOfferSetsRemoved": 2,
+    "offerRecordsRemoved": 8,
+    "mismatchedObservationsExcluded": 5
+  },
+  "dispositions": [
+    {
+      "candidateId": "amika-the-kure-conditioner-275ml",
+      "releasedIdentity": {
+        "gtin": "840117805743",
+        "variant": "The Kure Conditioner",
+        "size": "9.2 oz / 275 mL",
+        "packageVersion": "275 mL bottle"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "The current Nigerian exact-name and exact-size retailer product declares GTIN 840117807082, not the published GTIN 840117805743, so it cannot be projected into this identifier-bound cell.",
+      "observations": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/amika-the-kure-conditioner-275ml/",
+          "observedVariant": "The Kure Strength Repair Conditioner",
+          "observedSize": "9.2 US fl oz / 275 mL",
+          "observedProductSku": "840117807082",
+          "observedPackage": "275 mL flip-top bottle",
+          "priceNgn": 35690,
+          "stock": "out-of-stock",
+          "status": "not-projected",
+          "reason": "gtin-conflict",
+          "responseSha256": "2d84ad5699a8b831ab60b49d2e7273eba6be92f700864a41f7ad6fcc8ad7e7df",
+          "responseByteSize": 562832,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/03/odoo-11319.jpg",
+          "packageImageSha256": "855adab54bd7a2873fc88633ffed98acb5a3b804162c0efa5307822abeed7ee4",
+          "packageImageByteSize": 91644
+        }
+      ]
+    },
+    {
+      "candidateId": "kuza-indian-hemp-hair-scalp-treatment",
+      "releasedIdentity": {
+        "gtin": null,
+        "variant": "100% Indian Hemp Hair & Scalp Treatment",
+        "size": "7.7 oz / 218 g",
+        "packageVersion": "7.7 oz / 218 g jar"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "The current Nigerian listing and principal-display image are 8 oz / 226 g, not the published 7.7 oz / 218 g package; units were not rounded or normalized.",
+      "observations": [
+        {
+          "retailer": "Konga",
+          "url": "https://www.konga.com/product/kuza-indian-hemp-hair-cream-treatment-and-care-226g-8oz-5762387",
+          "observedVariant": "100% Indian Hemp Hair & Scalp Treatment",
+          "observedSize": "8 oz / 226 g",
+          "observedProductSku": "5762387",
+          "observedPackage": "8 oz / 226 g jar",
+          "priceNgn": 13899,
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "size-conflict",
+          "responseSha256": "358cfcb706c2a4ab18a6465ced76fdf642556b50cf6414b3e71c58a5cd39ebde",
+          "responseByteSize": 279181,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/O/O/202036_1655668146.jpg",
+          "packageImageSha256": "1e503f3f5ccea721cdf1ba05edab10c66f4bcb3e76070b93628c3b20fdf772f6",
+          "packageImageByteSize": 33514
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
+      "releasedIdentity": {
+        "gtin": "810120263076",
+        "variant": "The Glow Getter Multi-Oil Body Scrub",
+        "size": "8 oz / 226 mL",
+        "packageVersion": "8 oz / 226 mL jar"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "The current Nigerian listing and reviewed package image declare 8 oz / 226 g, not the published 8 oz / 226 mL unit; five stale weight-as-volume projections were removed.",
+      "observations": [
+        {
+          "retailer": "The Beauty Prism",
+          "url": "https://thebeautyprismng.com/shop/naturium-the-glow-getter-multi-oil-body-scrub/",
+          "observedVariant": "The Glow Getter Multi-Oil Body Scrub",
+          "observedSize": "8 oz / 226 g",
+          "observedPackage": "8 oz / 226 g jar",
+          "priceNgn": 49500,
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "weight-volume-unit-conflict",
+          "responseSha256": "3bf4728a2e3fc410662f8a5c497056558f2180bb085023f91429d153d59281a5",
+          "responseByteSize": 308522,
+          "packageImageUrl": "https://thebeautyprismng.com/wp-content/uploads/2026/02/images-4.jpeg",
+          "packageImageSha256": "1235010be488ec489d928fcb9088111649df1105a5f5b65df15b56aa1d77f4f9",
+          "packageImageByteSize": 13105
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-niacinamide-gel-cream-5-1-7oz",
+      "releasedIdentity": {
+        "gtin": "810120260600",
+        "variant": "Niacinamide Gel Cream 5%",
+        "size": "1.7 oz / 50 mL",
+        "packageVersion": "1.7 oz / 50 mL tube"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "The current Nigerian listing declares 1.7 oz / 50 g and shows a jar, not the published 1.7 oz / 50 mL tube; three stale mismatch projections were removed.",
+      "observations": [
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/naturium-niacinamide-gel-cream-5-50-g-1-7-oz/",
+          "observedVariant": "Niacinamide Gel Cream 5%",
+          "observedSize": "1.7 oz / 50 g",
+          "observedPackage": "50 g jar",
+          "priceNgn": 23000,
+          "stock": "out-of-stock",
+          "status": "not-projected",
+          "reason": "weight-volume-and-package-conflict",
+          "responseSha256": "679068d6eb8759f9f1a4442cd763ce12f7d2d7c37c210b10557e7fb22e0251b9",
+          "responseByteSize": 313921,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2022/03/Naturium-niacinamide-gel-cream-5-50-G-1.7-OZ.jpg",
+          "packageImageSha256": "99683bddfc38595028a1c70afed843858e49773987e4203b40f667c8cd3fe503",
+          "packageImageByteSize": 27119
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
+      "releasedIdentity": {
+        "gtin": "850010792200",
+        "variant": "Plant Ceramide Rich Moisture Cream",
+        "size": "1.7 oz / 48 mL",
+        "packageVersion": "1.7 oz / 48 mL jar"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "The current Nigerian listing and reviewed principal-display package declare 1.7 oz / 50 g, not the published 1.7 oz / 48 mL unit.",
+      "observations": [
+        {
+          "retailer": "Nihet Beauty",
+          "url": "https://nihetbeauty.com/product/naturium-plant-ceramide-rich-moisture-cream-50g/",
+          "responseUrl": "https://nihetbeauty.com/wp-json/wc/store/v1/products?search=naturium%20plant%20ceramide&per_page=20",
+          "observedVariant": "Plant Ceramide Rich Moisture Cream",
+          "observedSize": "1.7 oz / 50 g",
+          "observedPackage": "1.7 oz / 50 g jar",
+          "priceNgn": 89800,
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "weight-volume-unit-conflict",
+          "responseSha256": "fd49f07f48bcc1f1080fb49bc5c1a533de21d84964b68a843fae84e72ed8acc4",
+          "responseByteSize": 9222,
+          "packageImageUrl": "https://i0.wp.com/nihetbeauty.com/wp-content/uploads/2025/05/img_8105-1.jpeg",
+          "packageImageSha256": "f092c2e8b587c203374515155956d2fee376e6e784b931abe0b692075087f88e",
+          "packageImageByteSize": 130730
+        }
+      ]
+    }
+  ]
+}
