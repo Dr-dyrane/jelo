@@ -57,3 +57,17 @@ test("current persisted offers retain complete reviewed listing evidence", () =>
   assert.equal(offer.listingEvidence?.basis, "retailer-page");
   assert.equal(hasCompletePriceObservation(offer), true);
 });
+
+test("product-retailer exclusions also fail persisted catalogue offers closed", () => {
+  const offers = materializeCurrentPersistedOffers(
+    {
+      slug: "b-lab-matcha-hydrating-real-sunscreen",
+      name: "Matcha Hydrating Real Sunscreen SPF50+ PA++++",
+      size: "50 ml",
+    },
+    [persistedOffer({ retailer: "Beauty by Daz" })],
+    now,
+  );
+
+  assert.deepEqual(offers, []);
+});

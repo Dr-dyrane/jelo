@@ -9321,6 +9321,10 @@ const excludedRetailers: Partial<Record<string, string[]>> = {
   "beauty-formulas-glowing-serum-2-vitamin-c-30ml": ["CSi Grocery", "24Eleven"],
 };
 
+export function isRetailerOfferExcluded(productSlug: string, retailer: string) {
+  return excludedRetailers[productSlug]?.includes(retailer) ?? false;
+}
+
 function isSearchRoute(url: string) {
   const normalized = url.toLowerCase();
   return (
@@ -9340,11 +9344,10 @@ export function mergeRetailOffers(
   now: number | Date = Date.now(),
   options: { includeExpired?: boolean } = {},
 ) {
-  const excluded = new Set(excludedRetailers[product.slug] ?? []);
   const merged = new Map<string, Offer>();
 
   for (const offer of offers) {
-    if (excluded.has(offer.retailer)) continue;
+    if (isRetailerOfferExcluded(product.slug, offer.retailer)) continue;
     if (!options.includeExpired && offer.expiresAt && !isOfferFresh(offer, now))
       continue;
     merged.set(offer.retailer, {

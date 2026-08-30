@@ -1,3 +1,4 @@
+import { isRetailerOfferExcluded } from "@/data/retail-offers";
 import type { Offer, Product } from "@/data/products";
 import {
   materializePersistedOfferEvidence,
@@ -8,11 +9,16 @@ import { isOfferFresh } from "@/modules/commerce/offer-freshness";
 export type PersistedCatalogueOffer = Offer & PersistedOfferEvidence;
 
 export function materializeCurrentPersistedOffers(
-  product: Pick<Product, "name" | "size">,
+  product: Pick<Product, "name" | "size"> & Partial<Pick<Product, "slug">>,
   persistedOffers: readonly PersistedCatalogueOffer[],
   now: number | Date = Date.now(),
 ) {
   return persistedOffers
+    .filter(
+      (persistedOffer) =>
+        !product.slug ||
+        !isRetailerOfferExcluded(product.slug, persistedOffer.retailer),
+    )
     .map((persistedOffer) => {
       const {
         verificationMethod,
