@@ -22,8 +22,8 @@
           "outcome": "inventory-static-integration",
           "scheduledOwner": "GitHub Actions inventory-static-integration.yml",
           "departments": ["platform-delivery", "catalogue-evidence"],
-          "routineScope": "Validate, rebase, gate, and atomically advance an exact static offer proposal plus its review-branch baseline",
-          "manualOnly": "Resolve a validator, rebase, branch-rule, credential, gate, deployment, or production-smoke exception"
+          "routineScope": "Validate, resolve the full-history three-tree offer conflict policy, gate, and atomically advance an exact static offer proposal plus its review-branch baseline",
+          "manualOnly": "Resolve a validator, history-merge identity conflict, branch-rule, credential, gate, deployment, or production-smoke exception"
         }
       ]
     },

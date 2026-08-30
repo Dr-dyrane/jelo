@@ -153,8 +153,9 @@ terminal contradiction. The worker immediately expires that database offer
 without deleting its prior observation or price history, and proposes a static
 fallback invalidation on the configured review branch. The dedicated static
 integration workflow then semantically validates the exact offer-only diff,
-rebases it onto the current `main`, runs the release gates and build, and
-atomically advances both branches. The checked-in fallback is not fail-closed
+resolves it through the full-history merge-base/current/proposal data trees,
+runs the release gates and build, and atomically advances both branches. The
+checked-in fallback is not fail-closed
 until that workflow succeeds and the resulting production deployment is ready.
 Logs
 expose only bounded reason counts rather than retailer content or error messages.
@@ -189,11 +190,15 @@ anti-overwrite protections:
 - **Idempotent integration owner** — `.github/workflows/inventory-static-integration.yml`
   serializes review-branch proposals, rejects every changed path except
   `data/retail-offers.ts`, rejects offer additions/removals and identity/evidence
-  changes, reruns the release gates and non-mutating build, then uses one atomic
-  push for `main` and the review-branch baseline. If `main` or the proposal moves
-  during validation, the push fails without partially advancing either ref; the
-  hourly integration retry safely re-evaluates the latest state without invoking
-  the inventory cron.
+  changes in the proposal, and uses the full Git merge base to replay that safe
+  field delta onto current `main`. Newer current evidence and a deliberate exact
+  offer removal supersede an older proposal; an independent safe offer edit is
+  retained; a changed URL, retailer, trust, variant, size, or same-timestamp
+  disagreement stops for evidence review. The workflow reruns the release gates
+  and non-mutating build, then uses one atomic push for `main` and the
+  review-branch baseline. If either ref moves during validation, the push fails
+  without partially advancing either ref; the hourly integration retry safely
+  re-evaluates the latest state without invoking the inventory cron.
 
 The cron depends on three production prerequisites: a `CRON_SECRET` of at least 16 characters, the `jelocare_app_runtime` database role provisioned in Neon, and `APP_DATABASE_URL` set in Vercel Production while the owner-capable Neon integration remains disconnected. If any is missing, the cron fails closed. See [Troubleshooting: Inventory cron is not running](./catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running) and [Runbooks: Inventory cron fails](./operations/RUNBOOKS.md#inventory-cron-fails).
 

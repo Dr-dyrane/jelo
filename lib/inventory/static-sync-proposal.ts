@@ -29,9 +29,11 @@ type ParsedOffer = {
   argumentTexts: string[];
   priceNgn: number;
   options: Map<string, { text: string; expression: ts.Expression }>;
+  optionsNode?: ts.ObjectLiteralExpression;
 };
 
 type ParsedOffersFile = {
+  content: string;
   source: ts.SourceFile;
   checkedAt: string;
   initializer: ts.ObjectLiteralExpression;
@@ -208,6 +210,11 @@ function parseOffersFile(content: string, label: string): ParsedOffersFile {
         ),
         priceNgn: positiveNumber(element.arguments[3], `${label} ${key} price`),
         options: parseOptions(element.arguments[6], source, `${label} ${key}`),
+        optionsNode:
+          element.arguments[6] &&
+          ts.isObjectLiteralExpression(element.arguments[6])
+            ? element.arguments[6]
+            : undefined,
       };
       offers.push(offer);
       offerByKey.set(key, offer);
@@ -227,6 +234,7 @@ function parseOffersFile(content: string, label: string): ParsedOffersFile {
   }
 
   return {
+    content,
     source,
     checkedAt,
     initializer,
@@ -470,5 +478,316 @@ export function validateStaticSyncProposal(input: {
     refreshedOffers,
     invalidatedOffers,
     offerKeys,
+  };
+}
+
+export type StaticSyncProposalMerge = {
+  content: string;
+  proposalChanges: number;
+  applied: number;
+  alreadyApplied: number;
+  staleSkipped: number;
+  removedSkipped: number;
+};
+
+function coreIdentity(offer: ParsedOffer) {
+  return JSON.stringify([
+    stringLiteral(offer.call.arguments[0], `${offer.key} retailer`),
+    stringLiteral(offer.call.arguments[1], `${offer.key} URL`),
+    positiveNumber(offer.call.arguments[2], `${offer.key} trust`),
+    stringLiteral(offer.call.arguments[4], `${offer.key} variant`),
+    stringLiteral(offer.call.arguments[5], `${offer.key} size`),
+  ]);
+}
+
+function observedTimestamp(file: ParsedOffersFile, offer: ParsedOffer) {
+  return timestamp(
+    optionString(offer, "observedAt") ?? file.checkedAt,
+    `${offer.key} observedAt`,
+  );
+}
+
+function optionText(offer: ParsedOffer, name: string) {
+  return offer.options.get(name)?.text;
+}
+
+type TextEdit = { start: number; end: number; text: string };
+
+function lineIndent(source: ts.SourceFile, position: number) {
+  const lineStart = source.getPositionOfLineAndCharacter(
+    source.getLineAndCharacterOfPosition(position).line,
+    0,
+  );
+  return source.text.slice(lineStart, position).match(/^\s*/)?.[0] ?? "";
+}
+
+function rewriteOfferCall(input: {
+  file: ParsedOffersFile;
+  offer: ParsedOffer;
+  priceNgn?: number;
+  options: Map<string, string>;
+}) {
+  const { file, offer } = input;
+  const callStart = offer.call.getStart(file.source);
+  const edits: TextEdit[] = [];
+  if (input.priceNgn !== undefined && input.priceNgn !== offer.priceNgn) {
+    const price = offer.call.arguments[3];
+    edits.push({
+      start: price.getStart(file.source) - callStart,
+      end: price.end - callStart,
+      text: String(input.priceNgn),
+    });
+  }
+
+  const missing: Array<[string, string]> = [];
+  for (const [name, value] of input.options) {
+    const current = offer.options.get(name);
+    if (!current) {
+      missing.push([name, value]);
+      continue;
+    }
+    if (current.text === value) continue;
+    edits.push({
+      start: current.expression.getStart(file.source) - callStart,
+      end: current.expression.end - callStart,
+      text: value,
+    });
+  }
+
+  if (missing.length > 0) {
+    const fields = missing.map(([name, value]) => `${name}: ${value},`);
+    const optionsNode = offer.optionsNode;
+    if (!optionsNode) {
+      const closingParen = offer.call.end - callStart - 1;
+      const separator = offer.call.arguments.hasTrailingComma ? "" : ",";
+      edits.push({
+        start: closingParen,
+        end: closingParen,
+        text: `${separator}\n      {\n        ${fields.join("\n        ")}\n      }`,
+      });
+    } else if (optionsNode.properties.length === 0) {
+      const closingBrace = optionsNode.end - callStart - 1;
+      const closingIndent = lineIndent(
+        file.source,
+        optionsNode.getStart(file.source),
+      );
+      edits.push({
+        start: closingBrace,
+        end: closingBrace,
+        text: `\n${closingIndent}  ${fields.join(`\n${closingIndent}  `)}\n${closingIndent}`,
+      });
+    } else {
+      const lastProperty = optionsNode.properties.at(-1)!;
+      const closingBrace = optionsNode.end - 1;
+      const between = file.content.slice(lastProperty.end, closingBrace);
+      const commaOffset = between.indexOf(",");
+      const propertyIndent = lineIndent(
+        file.source,
+        optionsNode.properties[0].getStart(file.source),
+      );
+      const insertion =
+        commaOffset === -1
+          ? {
+              position: lastProperty.end - callStart,
+              text: `,\n${propertyIndent}${fields.join(`\n${propertyIndent}`)}`,
+            }
+          : {
+              position: lastProperty.end + commaOffset + 1 - callStart,
+              text: `\n${propertyIndent}${fields.join(`\n${propertyIndent}`)}`,
+            };
+      edits.push({
+        start: insertion.position,
+        end: insertion.position,
+        text: insertion.text,
+      });
+    }
+  }
+
+  return edits
+    .sort((left, right) => right.start - left.start)
+    .reduce(
+      (text, edit) =>
+        text.slice(0, edit.start) + edit.text + text.slice(edit.end),
+      offer.callText,
+    );
+}
+
+function refreshOptions(proposal: ParsedOffer) {
+  const result = new Map<string, string>();
+  for (const name of [
+    "observedAt",
+    "expiresAt",
+    "available",
+    "stock",
+    "verificationMethod",
+  ]) {
+    const value = optionText(proposal, name);
+    if (value !== undefined) result.set(name, value);
+  }
+  return result;
+}
+
+function matchesRefresh(
+  current: ParsedOffer,
+  proposal: ParsedOffer,
+  desired: Map<string, string>,
+) {
+  return (
+    current.priceNgn === proposal.priceNgn &&
+    [...desired].every(([name, value]) => optionText(current, name) === value)
+  );
+}
+
+/**
+ * Replays one cron-produced proposal onto the current main data tree.
+ *
+ * Git history supplies the exact common-ancestor, current, and proposal trees;
+ * this function resolves only conflict classes already admitted by the static
+ * sync contract. Newer evidence and deliberate removals on main supersede an
+ * older proposal. Any identity/package retarget or same-timestamp disagreement
+ * remains a hard conflict.
+ */
+export function mergeStaticSyncProposal(input: {
+  baseContent: string;
+  currentContent: string;
+  proposalContent: string;
+}): StaticSyncProposalMerge {
+  const proposalValidation = validateStaticSyncProposal({
+    baseContent: input.baseContent,
+    candidateContent: input.proposalContent,
+  });
+  const base = parseOffersFile(input.baseContent, "merge base");
+  const current = parseOffersFile(input.currentContent, "current main");
+  const proposal = parseOffersFile(input.proposalContent, "proposal");
+  const replacements: Array<{ start: number; end: number; text: string }> = [];
+  let applied = 0;
+  let alreadyApplied = 0;
+  let staleSkipped = 0;
+  let removedSkipped = 0;
+
+  for (const key of proposalValidation.offerKeys) {
+    const baseOffer = base.offerByKey.get(key);
+    const proposalOffer = proposal.offerByKey.get(key);
+    if (!baseOffer || !proposalOffer)
+      fail(`History lost proposal offer ${key}`);
+    const classification = classifyChangedOffer(base, baseOffer, proposalOffer);
+    const sameRetailer = current.offers.filter(
+      (offer) =>
+        offer.slug === baseOffer.slug && offer.retailer === baseOffer.retailer,
+    );
+    const identity = coreIdentity(baseOffer);
+    const matches = sameRetailer.filter(
+      (offer) => coreIdentity(offer) === identity,
+    );
+    if (matches.length === 0) {
+      if (sameRetailer.length === 0) {
+        removedSkipped++;
+        continue;
+      }
+      fail(`${key} was retargeted on main; identity conflicts require review`);
+    }
+    if (matches.length > 1) {
+      fail(`${key} is ambiguous on current main`);
+    }
+    const currentOffer = matches[0];
+    const currentObserved = observedTimestamp(current, currentOffer);
+    const baseObserved = observedTimestamp(base, baseOffer);
+    const proposalObserved = observedTimestamp(proposal, proposalOffer);
+    let updatedCall: string;
+
+    if (classification === "refresh") {
+      if (currentObserved > proposalObserved) {
+        staleSkipped++;
+        continue;
+      }
+      const desired = refreshOptions(proposalOffer);
+      if (currentObserved === proposalObserved) {
+        if (matchesRefresh(currentOffer, proposalOffer, desired)) {
+          alreadyApplied++;
+          continue;
+        }
+        fail(`${key} has divergent evidence at the same observation time`);
+      }
+      updatedCall = rewriteOfferCall({
+        file: current,
+        offer: currentOffer,
+        priceNgn: proposalOffer.priceNgn,
+        options: desired,
+      });
+    } else {
+      if (currentObserved > baseObserved) {
+        staleSkipped++;
+        continue;
+      }
+      if (currentObserved < baseObserved) {
+        fail(`${key} current evidence predates the proposal base`);
+      }
+      if (currentOffer.priceNgn !== baseOffer.priceNgn) {
+        fail(`${key} price diverged before terminal invalidation`);
+      }
+      if (
+        optionText(currentOffer, "verificationMethod") !==
+        optionText(baseOffer, "verificationMethod")
+      ) {
+        fail(`${key} provenance diverged before terminal invalidation`);
+      }
+      const proposalExpiryText = optionString(proposalOffer, "expiresAt");
+      const proposalExpiry = timestamp(
+        proposalExpiryText,
+        `${key} proposal expiresAt`,
+      );
+      const currentExpiryText = optionString(currentOffer, "expiresAt");
+      const currentExpiry = currentExpiryText
+        ? timestamp(currentExpiryText, `${key} current expiresAt`)
+        : Number.POSITIVE_INFINITY;
+      const expiresAt =
+        currentExpiry <= proposalExpiry
+          ? optionText(currentOffer, "expiresAt")!
+          : optionText(proposalOffer, "expiresAt")!;
+      updatedCall = rewriteOfferCall({
+        file: current,
+        offer: currentOffer,
+        options: new Map([
+          ["expiresAt", expiresAt],
+          ["available", "false"],
+          ["stock", '"unknown"'],
+        ]),
+      });
+    }
+
+    if (updatedCall === currentOffer.callText) {
+      alreadyApplied++;
+      continue;
+    }
+    replacements.push({
+      start: currentOffer.call.getStart(current.source),
+      end: currentOffer.call.end,
+      text: updatedCall,
+    });
+    applied++;
+  }
+
+  const content = replacements
+    .sort((left, right) => right.start - left.start)
+    .reduce(
+      (text, replacement) =>
+        text.slice(0, replacement.start) +
+        replacement.text +
+        text.slice(replacement.end),
+      input.currentContent,
+    );
+  if (applied > 0) {
+    validateStaticSyncProposal({
+      baseContent: input.currentContent,
+      candidateContent: content,
+    });
+  }
+  return {
+    content,
+    proposalChanges: proposalValidation.changedOffers,
+    applied,
+    alreadyApplied,
+    staleSkipped,
+    removedSkipped,
   };
 }

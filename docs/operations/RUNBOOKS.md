@@ -1133,22 +1133,35 @@ immediately; an hourly schedule retries integration failures caused by a moving
 `main` or interrupted runner. The schedule never calls the inventory endpoint,
 queues work, claims a lease, retries an offer, or invalidates cache.
 
-The workflow fetches both refs, rebases the proposal onto the observed `main`,
-and runs `inventory:static-proposal:validate`. That validator requires exactly
-one changed path and an unchanged exact-offer denominator/order. It permits only
-the bounded price, availability, stock, observation, expiry, and verification
-method mutations produced by the static sync owner. URL, retailer, trust,
-variant, size, seller evidence, additions, removals, and changes outside
-`verifiedRetailOffers` fail closed. A passing revision receives the shared
-release verification, research-integrity check, and a build with database
-migrations disabled.
+The workflow fetches full history for both refs and derives their exact merge
+base. `inventory:static-proposal:merge` parses the merge-base, current `main`,
+and proposal into exact-offer data trees instead of asking Git's text merger to
+guess inside a large object. The original proposal must still have exactly one
+changed path and an unchanged exact-offer denominator/order, and may contain
+only the bounded price, availability, stock, observation, expiry, and
+verification-method mutations produced by the static sync owner.
+
+The learned deterministic conflict classes are:
+
+- a proposal newer than unchanged matching identity is replayed onto current
+  `main`, retaining independent offers and current protected metadata;
+- current evidence with a newer observation time supersedes a stale proposal;
+- a deliberate exact-offer removal on current `main` supersedes its stale
+  refresh or invalidation;
+- an already-applied proposal is an idempotent no-op;
+- changed URL, retailer, trust, variant, size, ambiguous identity,
+  same-timestamp disagreement, or malformed history fails closed.
+
+`inventory:static-proposal:validate` then proves the resolved current-to-result
+delta again. A passing revision receives the shared release verification,
+research-integrity check, and a build with database migrations disabled.
 
 The final push advances `main` and resets `inventory-sync-review` to the same
 gated revision atomically, guarded by exact leases for both observed refs. If
 either ref moved, neither advances. Do not manually merge a passing routine
 proposal. Open a bounded product/platform exception only when the validator,
-rebase, GitHub branch rule/token, release gate, deployment, or production smoke
-reports a concrete failure.
+history resolver, GitHub branch rule/token, release gate, deployment, or
+production smoke reports a concrete failure.
 
 ### Diagnosing sync issues
 
