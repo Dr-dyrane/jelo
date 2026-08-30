@@ -9311,10 +9311,10 @@ const excludedRetailers: Partial<Record<string, string[]>> = {
   "cerave-foaming-facial-cleanser": ["Care to Beauty"],
   // These listings lack a manufacturer-GTIN match for the exact 156 g pack.
   "panoxyl-acne-foaming-wash-10-benzoyl-peroxide": ["Teeka4", "Lux Beauty"],
-  // Beauty by Daz audit withheld these offers for documented identity reasons.
+  // These retailer observations are withheld for documented identity reasons.
   "some-by-mi-aha-bha-pha-miracle-toner": ["Beauty by Daz"],
   "face-facts-wonder-cream-fragrance-free": ["Beauty by Daz"],
-  "b-lab-matcha-hydrating-real-sunscreen": ["Beauty by Daz"],
+  "b-lab-matcha-hydrating-real-sunscreen": ["Beauty by Daz", "Perona Beauty"],
   "dove-moroccan-argan-oil-beauty-bar": ["Beauty by Daz"],
   // Current direct checks are blocked by verification walls, so the stale
   // no-expiry seed offers must not leak into shopper comparisons.

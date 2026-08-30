@@ -3648,7 +3648,12 @@ test("featured marketplace offers retain visible seller evidence", () => {
 
 test("the B.LAB Matcha listing stays empty without current exact 50 ml evidence", () => {
   const offers = verifiedRetailOffers["b-lab-matcha-hydrating-real-sunscreen"];
+  const product = catalogueProducts.find(
+    (candidate) => candidate.slug === "b-lab-matcha-hydrating-real-sunscreen",
+  );
+
   assert.deepEqual(offers, []);
+  assert.deepEqual(product?.offers, []);
 });
 
 test("DANG sale prices publish only exact in-stock Nigerian product listings", () => {
