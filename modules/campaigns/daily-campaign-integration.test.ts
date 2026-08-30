@@ -9,7 +9,7 @@ const root = process.cwd();
 
 test("a fixed current snapshot produces one dossier-bound deterministic draft", async () => {
   const result = await selectDailyCampaign({
-    now: new Date("2026-08-15T07:02:00Z"),
+    now: new Date("2026-08-30T07:02:00Z"),
   });
   assert.equal(result.status, "selected");
   if (result.status !== "selected") return;
@@ -17,9 +17,9 @@ test("a fixed current snapshot produces one dossier-bound deterministic draft", 
   const { draft } = result;
   assert.equal(draft.campaignKind, "market-plus-editorial");
   if (draft.campaignKind !== "market-plus-editorial") return;
-  assert.match(draft.campaignId, /^2026-08-15-[a-z0-9-]+-price-/);
-  assert.equal(draft.product.brand, "Advanced Clinicals");
-  assert.notEqual(draft.product.brand, "DANG! Lifestyle");
+  assert.match(draft.campaignId, /^2026-08-30-[a-z0-9-]+-price-/);
+  assert.equal(draft.product.brand, "DANG! Lifestyle");
+  assert.notEqual(draft.product.brand, "Advanced Clinicals");
   assert.ok(draft.selection.catalogueProductCount >= 150);
   assert.ok(draft.selection.freshPriceCandidateCount > 1);
   assert.ok(draft.offerEvidence.length > 0);
@@ -44,7 +44,7 @@ test("a fixed current snapshot produces one dossier-bound deterministic draft", 
 
 test("the reminder email presents one complete responsive Daily Three packet", async () => {
   const result = await selectDailyCampaign({
-    now: new Date("2026-08-15T07:02:00Z"),
+    now: new Date("2026-08-30T07:02:00Z"),
   });
   assert.equal(result.status, "selected");
   if (result.status !== "selected") return;
@@ -142,7 +142,7 @@ test("the reminder email presents one complete responsive Daily Three packet", a
 
 test("the Daily Three email escapes campaign copy and rejects unsafe URLs", async () => {
   const result = await selectDailyCampaign({
-    now: new Date("2026-08-15T07:02:00Z"),
+    now: new Date("2026-08-30T07:02:00Z"),
   });
   assert.equal(result.status, "selected");
   if (result.status !== "selected") return;

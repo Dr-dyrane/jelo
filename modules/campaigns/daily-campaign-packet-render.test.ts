@@ -10,7 +10,7 @@ import {
 
 test("daily campaign selection emits the exact proof-use-remember render order", async () => {
   const selection = await selectDailyCampaign({
-    now: new Date("2026-08-15T07:02:00Z"),
+    now: new Date("2026-08-30T07:02:00Z"),
   });
   assert.equal(selection.status, "selected");
   if (selection.status !== "selected") return;
