@@ -492,6 +492,14 @@ test("the server read has no live or private interest dependency and both routes
   assert.match(detailRoute, /getWorthSharingReadModel\(\)/);
   assert.match(
     detailRoute,
+    /const data = await buildShareData\(slug\);[\s\S]*if \(!data\) notFound\(\);[\s\S]*const signals = await getWorthSharingReadModel\(\);/,
+  );
+  assert.doesNotMatch(
+    detailRoute,
+    /Promise\.all\(\[[\s\S]*buildShareData\(slug\)[\s\S]*getWorthSharingReadModel\(\)/,
+  );
+  assert.match(
+    detailRoute,
     /selectShareRecommendations\(signals\.rankedPool, slug\)/,
   );
   assert.match(indexRoute, /Price drops[\s\S]*Lower than before\./);

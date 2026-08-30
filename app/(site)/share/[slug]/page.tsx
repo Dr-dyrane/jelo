@@ -57,11 +57,9 @@ export default async function SharePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [data, signals] = await Promise.all([
-    buildShareData(slug),
-    getWorthSharingReadModel(),
-  ]);
+  const data = await buildShareData(slug);
   if (!data) notFound();
+  const signals = await getWorthSharingReadModel();
   const alternatives = selectShareRecommendations(signals.rankedPool, slug);
 
   return (
