@@ -94,6 +94,8 @@
   height: 100%;
   padding: clamp(1.2rem, 3vw, 2.2rem);
   overscroll-behavior: contain;
+  container-name: order-inspector;
+  container-type: inline-size;
 }
 .inspector > header {
   display: flex;
@@ -165,6 +167,16 @@
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+}
+@container order-inspector (max-width: 360px) {
+  .currentAction {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .currentAction button {
+    width: 100%;
+    flex: 1 1 auto;
+  }
 }
 .paymentOverview {
   margin-top: 1rem;
