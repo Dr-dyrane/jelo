@@ -37,6 +37,7 @@ import waveThirtyAudit from "@/data/retailer-verification/catalogue-offer-refres
 import waveThirtyOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-31-2026-08-29.json";
 import waveThirtyTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-32-2026-08-29.json";
 import waveThirtyThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-33-2026-08-29.json";
+import waveThirtyFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-34-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -67,9 +68,10 @@ test("catalogue offer refresh wave 1 reconciles exact browser evidence to projec
   assert.equal(projected.length, 12);
   for (const product of waveOneAudit.products) {
     assert.equal(product.offers.length, 3, product.candidateId);
-    const latestRefresh = waveThirtyThreeAudit.products.find(
-      (candidate) => candidate.candidateId === product.candidateId,
-    );
+    const latestRefresh = [
+      ...waveThirtyFourAudit.products,
+      ...waveThirtyThreeAudit.products,
+    ].find((candidate) => candidate.candidateId === product.candidateId);
     if (latestRefresh) {
       assert.equal(
         verifiedRetailOffers[product.candidateId]?.length,
@@ -109,9 +111,10 @@ test("catalogue offer refresh wave 2 projects only current exact-SKU evidence", 
   assert.equal(projected.length, 10);
   assert.equal(waveTwoAudit.scheduledOwner.manifestRecurringOwner, null);
   for (const product of waveTwoAudit.products) {
-    const latestRefresh = waveThirtyThreeAudit.products.find(
-      (candidate) => candidate.candidateId === product.candidateId,
-    );
+    const latestRefresh = [
+      ...waveThirtyFourAudit.products,
+      ...waveThirtyThreeAudit.products,
+    ].find((candidate) => candidate.candidateId === product.candidateId);
     if (latestRefresh) {
       assert.equal(
         verifiedRetailOffers[product.candidateId]?.length,
@@ -166,9 +169,10 @@ test("catalogue offer refresh wave 3 releases admitted cells and fails the unit-
     ["naturium-glow-getter-multi-oil-body-scrub-8oz"],
   );
   for (const product of waveThreeAudit.products) {
-    const latestRefresh = waveThirtyThreeAudit.products.find(
-      (candidate) => candidate.candidateId === product.candidateId,
-    );
+    const latestRefresh = [
+      ...waveThirtyFourAudit.products,
+      ...waveThirtyThreeAudit.products,
+    ].find((candidate) => candidate.candidateId === product.candidateId);
     if (latestRefresh) {
       assert.equal(
         verifiedRetailOffers[product.candidateId]?.length,
@@ -2898,6 +2902,105 @@ test("catalogue offer refresh wave 33 publishes rich exact-package offers and fa
     "cerave-sa-smoothing-cream-177ml",
     "dove-go-fresh-cucumber-green-tea-spray",
     "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+  ]) {
+    assert.deepEqual(verifiedRetailOffers[slug] ?? [], [], slug);
+  }
+});
+
+test("catalogue offer refresh wave 34 publishes exact Naturium packages and current stock", () => {
+  const projected = waveThirtyFourAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveThirtyFourAudit.matrix.before, 129);
+  assert.equal(waveThirtyFourAudit.matrix.after, 134);
+  assert.equal(waveThirtyFourAudit.matrix.total, 162);
+  assert.equal(waveThirtyFourAudit.summary.productsReviewed, 8);
+  assert.equal(waveThirtyFourAudit.summary.productsReleased, 5);
+  assert.equal(waveThirtyFourAudit.summary.productsBlocked, 3);
+  assert.equal(waveThirtyFourAudit.summary.offersReviewed, 24);
+  assert.equal(waveThirtyFourAudit.summary.offersAdmitted, 15);
+  assert.equal(waveThirtyFourAudit.summary.shopperActiveOffers, 9);
+  assert.equal(waveThirtyFourAudit.summary.outOfStockObservations, 6);
+  assert.equal(waveThirtyFourAudit.summary.offersBlocked, 9);
+  assert.equal(projected.length, 15);
+  assert.equal(waveThirtyFourAudit.blockedCells.length, 3);
+  assert.equal(waveThirtyFourAudit.excludedDiscoveries.length, 9);
+  assert.equal(waveThirtyFourAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.equal(
+    waveThirtyFourAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "naturium-bha-liquid-exfoliant-2-4oz",
+      ["Mirrors Beauty", "Rhema Beauty Shop", "Teeka4", "The Beauty Prism"],
+    ],
+    ["naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz", ["Nihet Beauty"]],
+    [
+      "naturium-niacinamide-cleansing-gelee-3-7-1oz",
+      ["Mirrors Beauty", "The Beauty Prism"],
+    ],
+    ["naturium-multi-peptide-moisturizer-1-7oz", ["The Beauty Prism"]],
+    ["naturium-purple-ginseng-cleansing-balm-3oz", ["Essentials Hub"]],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["naturium-bha-liquid-exfoliant-2-4oz", 29_999],
+    ["naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz", 86_000],
+    ["naturium-niacinamide-cleansing-gelee-3-7-1oz", 38_000],
+    ["naturium-multi-peptide-moisturizer-1-7oz", 45_000],
+    ["naturium-purple-ginseng-cleansing-balm-3oz", 38_000],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    assert.equal(
+      Math.min(
+        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+      ),
+      expectedFloors.get(slug),
+      slug,
+    );
+  }
+
+  assert.equal(
+    verifiedRetailOffers["naturium-multi-peptide-moisturizer-1-7oz"].some(
+      (offer) => offer.retailer === "BuyBetter",
+    ),
+    false,
+  );
+  for (const slug of [
+    "naturium-barrier-bounce-advanced-skin-hydrator-1-7oz",
+    "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+    "naturium-intense-overnight-sleeping-cream-1-7oz",
   ]) {
     assert.deepEqual(verifiedRetailOffers[slug] ?? [], [], slug);
   }

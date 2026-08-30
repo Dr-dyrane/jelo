@@ -1,0 +1,430 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-34-2026-08-29",
+  "reviewedAt": "2026-08-30T08:02:50.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Twenty-four current Nigerian retailer checks across five releasable exact public Naturium SKUs and three fail-closed product cells",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T08:02:50.000Z"
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 129,
+    "after": 134,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed."
+  },
+  "summary": {
+    "productsReviewed": 8,
+    "productsReleased": 5,
+    "productsBlocked": 3,
+    "offersReviewed": 24,
+    "offersAdmitted": 15,
+    "shopperActiveOffers": 9,
+    "outOfStockObservations": 6,
+    "offersBlocked": 9,
+    "offersProjected": 15
+  },
+  "products": [
+    {
+      "candidateId": "naturium-bha-liquid-exfoliant-2-4oz",
+      "identity": {
+        "gtin": "850010792279",
+        "variant": "BHA Liquid Exfoliant 2%",
+        "size": "4.0 fl oz / 120 mL",
+        "packageVersion": "BHA Liquid Exfoliant 2% 4.0 fl oz / 120 mL bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/naturium-bha-liquid-exfoliant-2-4-0-fl-oz-120ml/",
+          "priceNgn": 29999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://teeka4.com/shop/naturium-bha-liquid-exfoliant-2-4-0-fl-oz-120ml/",
+          "responseSha256": "dbd9e2b014a49a8f7aed7a798d17bdfb3ff9d3384fee527b635c680581f9af87",
+          "responseByteSize": 351851,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2026/04/woo_product_image_ept-5800-image.jpg",
+          "packageImageSha256": "1c59d2160d21d43ccbce51010a4b2a1d55cef3d342ef6ea8b37f0265bdac8178",
+          "packageImageByteSize": 67593
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-bha-liquid-exfoliant-2-120ml/",
+          "priceNgn": 38700,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://rhemabeautyshop.com/shop/naturium-bha-liquid-exfoliant-2-120ml/",
+          "responseSha256": "f46384b77bfbe162c45ce51211c3bc158e0f6225a9331c1748cc473ef5691bf7",
+          "responseByteSize": 379562,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2024/01/Naturium-BHA-Liquid-Exfoliant-2-120ml-e1704576793737.jpg",
+          "packageImageSha256": "6e24ff7ca16b8b36e7a5e07705e88d684516aabb313957bbf103ebd4d99368ff",
+          "packageImageByteSize": 31087
+        },
+        {
+          "retailer": "The Beauty Prism",
+          "url": "https://thebeautyprismng.com/shop/naturium-bha-liquid-exfoliant-2/",
+          "priceNgn": 40000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://thebeautyprismng.com/wp-json/wc/store/v1/products?search=naturium%20bha&per_page=100",
+          "responseSha256": "01676d86acb4518a969eccb93e07a3293d0843eab08399d355078f5fc933ee52",
+          "responseByteSize": 5305,
+          "packageImageUrl": "https://thebeautyprismng.com/wp-content/uploads/2024/09/iii.jpg",
+          "packageImageSha256": "46ffbc29138da9602d183e255ebf80b133464acf6f5a7a173ce891d444a67312",
+          "packageImageByteSize": 38361
+        },
+        {
+          "retailer": "Mirrors Beauty",
+          "url": "https://mirrorsbeauty.com/products/naturium-bha-liquid-exfoliant-2",
+          "priceNgn": 41800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://mirrorsbeauty.com/products/naturium-bha-liquid-exfoliant-2.js",
+          "responseSha256": "741de0de9026161a7abee6522242801efb2b98db4758747c5972f77197381183",
+          "responseByteSize": 6432,
+          "observedProductSku": "850010792279",
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0877/9291/0619/files/NATR_Catalog_BHA-Front_1400x_3f26a982-2567-49c2-b537-52ef644f6217.jpg?v=1783667128",
+          "packageImageSha256": "f9e28230541e7de5a014db795cd025a663e7c8856069195ac59be385ef7b4af0",
+          "packageImageByteSize": 58993
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/naturium-bha-liquid-exfoliant-2-120-ml-4-0-fl-oz/",
+          "priceNgn": 32400,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://tosnigeria.com/shop/naturium-bha-liquid-exfoliant-2-120-ml-4-0-fl-oz/",
+          "responseSha256": "a8f12263ad885d40dd78fe9ff7bc9ac9f4a2d533cd4f891abd8949af1928107f",
+          "responseByteSize": 314555,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2022/03/Naturium-BHA-liquid-Exfoliant-2-120-ML-4.0-FL-OZ.jpg",
+          "packageImageSha256": "9347083341a2f2a5d4716bcf1c25949eec63c9ec7ab065a9d802cda8de63943c",
+          "packageImageByteSize": 52380
+        },
+        {
+          "retailer": "Skin Pop Essentiel",
+          "url": "https://skinpopessentiel.com/products/naturium-bha-liquid-exfoliant-2",
+          "priceNgn": 33862.5,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://skinpopessentiel.com/products/naturium-bha-liquid-exfoliant-2.js",
+          "responseSha256": "efd3c13713a23ced82c17a14704af36b67b48c1abb44c4fecb9b7bc7773caa37",
+          "responseByteSize": 2730,
+          "observedProductSku": "850010792279",
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0580/6751/7607/products/naturium-BHA-liquid-exfoliant-2-percent.jpg?v=1627330815",
+          "packageImageSha256": "5eb67055cc7699e9e5d00879320e754a8d4b0075ff5b628224a0cd5c9e68b5a5",
+          "packageImageByteSize": 46850
+        }
+      ],
+      "notProjected": []
+    },
+    {
+      "candidateId": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+      "identity": {
+        "gtin": "810120260181",
+        "variant": "UV Reflect Antioxidant SPF 50",
+        "size": "1.7 fl oz / 50 mL",
+        "packageVersion": "UV Reflect Antioxidant SPF 50 1.7 fl oz / 50 mL tube"
+      },
+      "offers": [
+        {
+          "retailer": "Nihet Beauty",
+          "url": "https://nihetbeauty.com/product/uv-reflect-antioxidant-spf-50/",
+          "priceNgn": 86000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://nihetbeauty.com/wp-json/wc/store/v1/products?search=naturium%20uv%20reflect&per_page=100",
+          "responseSha256": "1928cfd7602991104c1011a2b9198e4bd224a6de12ba44f94b89b244ff279fdf",
+          "responseByteSize": 5313,
+          "packageImageUrl": "https://i0.wp.com/nihetbeauty.com/wp-content/uploads/2024/04/IMG_6263.webp?fit=1400%2C1400&ssl=1",
+          "packageImageSha256": "7e1ebdc5893280be99ec01160a8fb8feaf47a828270777871373a50412c2d66a",
+          "packageImageByteSize": 71601
+        },
+        {
+          "retailer": "Shadremmy Beauty",
+          "url": "https://shadremmybeauty.com/product/naturium-uv-reflect-antioxidant-spf-50/",
+          "priceNgn": 58500,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://shadremmybeauty.com/product/naturium-uv-reflect-antioxidant-spf-50/",
+          "responseSha256": "8006be3acdfb3a5445b1eae275addb79d7ddece42288b684002d66ca58203cec",
+          "responseByteSize": 161962,
+          "packageImageUrl": "https://i0.wp.com/shadremmybeauty.com/wp-content/uploads/2023/11/NATR_UV_Reflect_primary_front_capon_bonebkgd_900x.webp?fit=900%2C900&ssl=1",
+          "packageImageSha256": "90d2d7d8037c5401fd0ebf8785b0e9539f39c703d991e3c4bc172e60dc3b55b3",
+          "packageImageByteSize": 38629
+        },
+        {
+          "retailer": "Mirrors Beauty",
+          "url": "https://mirrorsbeauty.com/products/naturium-uv-reflect-antioxidant-spf-50",
+          "priceNgn": 28600,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://mirrorsbeauty.com/products/naturium-uv-reflect-antioxidant-spf-50.js",
+          "responseSha256": "6b1af7bef30bc48f9180e030d9db087de15cbf8accb738ca94965851610283fc",
+          "responseByteSize": 5572,
+          "observedProductSku": "810120260181",
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0877/9291/0619/files/IMG-4631.jpg?v=1757771809",
+          "packageImageSha256": "fe13c1214066039a6645c6cf6f3da80b3298521fba26980a14310acdc17ba607",
+          "packageImageByteSize": 150405
+        }
+      ],
+      "notProjected": []
+    },
+    {
+      "candidateId": "naturium-niacinamide-cleansing-gelee-3-7-1oz",
+      "identity": {
+        "gtin": "850010792163",
+        "variant": "Niacinamide Cleansing Gelée 3%",
+        "size": "7.1 fl oz / 210 mL",
+        "packageVersion": "Niacinamide Cleansing Gelée 3% 7.1 fl oz / 210 mL tube"
+      },
+      "offers": [
+        {
+          "retailer": "The Beauty Prism",
+          "url": "https://thebeautyprismng.com/shop/naturium-niacinamide-cleansing-gelee-3-210ml/",
+          "priceNgn": 38000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://thebeautyprismng.com/wp-json/wc/store/v1/products?search=naturium%20niacinamide%20cleansing&per_page=100",
+          "responseSha256": "736f7bb589c323ae98dcc1670dd284622f042966ebc6696a7b86266a7efc1ecb",
+          "responseByteSize": 4905,
+          "packageImageUrl": "https://thebeautyprismng.com/wp-content/uploads/2026/01/IMG-1349_grande.jpg",
+          "packageImageSha256": "4f89f6f80390c1d789e3268f803d1a2e422c0c11c34fb7eecc7b8f3eef6e454e",
+          "packageImageByteSize": 11548
+        },
+        {
+          "retailer": "Mirrors Beauty",
+          "url": "https://mirrorsbeauty.com/products/naturium-niacinamide-cleansing-gelee-3",
+          "priceNgn": 39600,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://mirrorsbeauty.com/products/naturium-niacinamide-cleansing-gelee-3.js",
+          "responseSha256": "66c32e783ac42cb6580386cb0ff2c6a833c062229b4ef5b75e27e248c7394ff4",
+          "responseByteSize": 6558,
+          "observedProductSku": "850010792163",
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0877/9291/0619/files/NATRM_Ecomm_Niacinamide-Cleansing-Gelee_Front_1400x_d7397ada-0cf7-4028-9c7c-fbfd3c0b7dec.jpg?v=1783669126",
+          "packageImageSha256": "6f3c6804f35f008a7d58e623546eb4ed1210726cfb01b14a8b480f3f77b9c2df",
+          "packageImageByteSize": 50745
+        },
+        {
+          "retailer": "Skin Pop Essentiel",
+          "url": "https://skinpopessentiel.com/products/naturium-niacinamide-cleansing-gelee-3",
+          "priceNgn": 27412.5,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://skinpopessentiel.com/products/naturium-niacinamide-cleansing-gelee-3.js",
+          "responseSha256": "171352c5025e3a664c5ccc3e5dd3d1a8bdcd68709a9ffdcf1744635e92654c75",
+          "responseByteSize": 2574,
+          "observedProductSku": "850010792163",
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0580/6751/7607/products/naturium-niacinamide-cleansing-gelee-3-percent.jpg?v=1627331328",
+          "packageImageSha256": "e1f06ecab6614b6a0ec59f2d07298d260992b238de1fbfdb5feaae35115ee842",
+          "packageImageByteSize": 44368
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Sonavine Beauty",
+          "reason": "current-product-route-returned-403-without-a-deterministic-price-and-stock-receipt"
+        },
+        {
+          "retailer": "Jumia",
+          "reason": "current-marketplace-product-route-returned-403-without-a-direct-retailer-receipt"
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-multi-peptide-moisturizer-1-7oz",
+      "identity": {
+        "gtin": "850010792354",
+        "variant": "Multi-Peptide Moisturizer",
+        "size": "1.7 oz / 50 mL",
+        "packageVersion": "Multi-Peptide Moisturizer 1.7 oz / 50 mL tube"
+      },
+      "offers": [
+        {
+          "retailer": "The Beauty Prism",
+          "url": "https://thebeautyprismng.com/shop/naturium-multi-peptide-moisturizer-50ml/",
+          "priceNgn": 45000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://thebeautyprismng.com/wp-json/wc/store/v1/products?search=naturium%20multi-peptide%20moisturizer&per_page=100",
+          "responseSha256": "ac7c95acfecaddd3548d4f030e9c101a2ce83dc680dbeea07d6c92d01ce3340f",
+          "responseByteSize": 12477,
+          "packageImageUrl": "https://thebeautyprismng.com/wp-content/uploads/2026/06/Naturium-Multi-Peptide-Moisturizer-lagos-nigeria.webp",
+          "packageImageSha256": "a54c7d54bbeca6dc79e5d7128f7da70baf34c691d752c0c21d3173caf680a9d4",
+          "packageImageByteSize": 46062
+        },
+        {
+          "retailer": "Mirrors Beauty",
+          "url": "https://mirrorsbeauty.com/products/naturium-multi-peptide-moisturizer",
+          "priceNgn": 44000,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://mirrorsbeauty.com/products/naturium-multi-peptide-moisturizer.js",
+          "responseSha256": "c532a2ce5b65a1a5ff66b1b855511a8d5e8a37f7ad4354867ea5ea1599dfcb1d",
+          "responseByteSize": 6689,
+          "observedProductSku": "850010792354",
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0877/9291/0619/files/NATR_Ecomm_MP-Moisturizer_Front_1400x_57eed154-1453-4aaa-9b21-7c1019f432b4.jpg?v=1783667149",
+          "packageImageSha256": "af212d8903e86abaf0127690509b40d03dfa44e8c255d516909ed2d25ca72ca8",
+          "packageImageByteSize": 44265
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "BuyBetter",
+          "reason": "current-listing-is-50g-not-the-catalogue-1.7oz-50ml-tube"
+        },
+        {
+          "retailer": "MakeupAlleyNG",
+          "reason": "current-listing-title-does-not-provide-the-exact-catalogue-variant-and-size-receipt"
+        },
+        {
+          "retailer": "The Beauty Prism 100ml sibling",
+          "reason": "current-search-also-returned-a-100ml-sibling-which-is-not-projected-into-the-50ml-cell"
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-purple-ginseng-cleansing-balm-3oz",
+      "identity": {
+        "gtin": "850010792446",
+        "variant": "Purple Ginseng Cleansing Balm",
+        "size": "3.0 fl oz / 88 mL",
+        "packageVersion": "Purple Ginseng Cleansing Balm 3.0 fl oz / 88 mL jar"
+      },
+      "offers": [
+        {
+          "retailer": "Essentials Hub",
+          "url": "https://essentialshub.com/product/naturium-purple-ginseng-cleansing-balm/",
+          "priceNgn": 38000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:02:50.000Z",
+          "expiresAt": "2026-09-06T08:02:50.000Z",
+          "responseUrl": "https://essentialshub.com/wp-json/wc/store/v1/products?search=naturium%20purple%20ginseng&per_page=100",
+          "responseSha256": "1888a5372a4d9fa9e3ae2d359877e0248663e59925a83af0386d1ddc984eb094",
+          "responseByteSize": 6906,
+          "packageImageUrl": "https://essentialshub.com/wp-content/uploads/2023/09/Naturium-Purple-Ginseng-Cleansing-Balm.jpg",
+          "packageImageSha256": "2e5c65a9f4e2009d2ed79afd62a8a1c0830a5d294259aead47f65f617f965836",
+          "packageImageByteSize": 86577
+        }
+      ],
+      "notProjected": []
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "naturium-barrier-bounce-advanced-skin-hydrator-1-7oz",
+      "retailer": "Perona Beauty / Urban Skin Rx",
+      "reason": "current-known-product-routes-resolve-to-the-retailer-homepage-or-404-without-a-live-exact-listing",
+      "responseSha256": "e0203f39570520ec05c79bfe5919eb4a1034c30f3b7c643946d7be2a79d3970c",
+      "responseByteSize": 694190
+    },
+    {
+      "candidateId": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+      "retailer": "The Beauty Espacio",
+      "reason": "current-retailer-package-is-a-sustainable-bioplastic-tube-not-the-catalogue-bottle-package"
+    },
+    {
+      "candidateId": "naturium-intense-overnight-sleeping-cream-1-7oz",
+      "retailer": "current Naturium and Nigerian retailer evidence",
+      "reason": "current-package-is-labelled-50g-not-the-catalogue-50ml-unit"
+    }
+  ],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "naturium-niacinamide-cleansing-gelee-3-7-1oz",
+      "retailer": "Sonavine Beauty",
+      "reason": "current-product-route-returned-403-without-deterministic-price-and-stock-evidence"
+    },
+    {
+      "candidateId": "naturium-niacinamide-cleansing-gelee-3-7-1oz",
+      "retailer": "Jumia",
+      "reason": "current-marketplace-product-route-returned-403-without-a-direct-retailer-receipt"
+    },
+    {
+      "candidateId": "naturium-multi-peptide-moisturizer-1-7oz",
+      "retailer": "BuyBetter",
+      "reason": "current-listing-is-50g-not-the-catalogue-1.7oz-50ml-tube"
+    },
+    {
+      "candidateId": "naturium-multi-peptide-moisturizer-1-7oz",
+      "retailer": "MakeupAlleyNG",
+      "reason": "current-listing-title-does-not-provide-an-exact-variant-and-size-receipt"
+    },
+    {
+      "candidateId": "naturium-barrier-bounce-advanced-skin-hydrator-1-7oz",
+      "retailer": "Perona Beauty",
+      "reason": "known-product-route-redirected-to-the-homepage-and-current-search-returned-no-match"
+    },
+    {
+      "candidateId": "naturium-barrier-bounce-advanced-skin-hydrator-1-7oz",
+      "retailer": "Urban Skin Rx",
+      "reason": "known-product-route-returned-404"
+    },
+    {
+      "candidateId": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+      "retailer": "The Beauty Espacio",
+      "reason": "current-package-is-a-tube-not-the-catalogue-bottle"
+    },
+    {
+      "candidateId": "naturium-intense-overnight-sleeping-cream-1-7oz",
+      "retailer": "current Naturium and Nigerian retailer evidence",
+      "reason": "current-package-is-labelled-50g-not-the-catalogue-50ml-unit"
+    },
+    {
+      "candidateId": "naturium-multi-peptide-moisturizer-1-7oz",
+      "retailer": "The Beauty Prism 100ml sibling",
+      "reason": "100ml-sibling-search-result-is-not-projected-into-the-50ml-cell"
+    }
+  ],
+  "heldCandidates": null
+}
