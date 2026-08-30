@@ -7763,47 +7763,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
     ),
   ],
-  "naturium-azelaic-acid-derivative-complex-10-1fl-oz": [
-    exactNg(
-      "Teeka4",
-      "https://teeka4.com/shop/naturium-azelaic-acid-derivative-complex-10-1fl-30ml/",
-      98,
-      32966,
-      "Naturium Azelaic Acid Derivative Complex 10% 1fl oz / 30ml",
-      "1.0 fl oz / 30 mL",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-      },
-    ),
-    exactNg(
-      "Perona Beauty",
-      "https://peronabeauty.com/product/naturium-azelaic-topical-acid-10-30ml/",
-      86,
-      43000,
-      "Naturium Azelaic Topical Acid 10% | 30ml",
-      "1.0 fl oz / 30 mL",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-      },
-    ),
-    exactNg(
-      "Rhema Beauty Shop",
-      "https://rhemabeautyshop.com/shop/naturium-azelaic-topical-acid-10-30ml/",
-      86,
-      45000,
-      "Naturium Azelaic Topical Acid 10% – 30ml",
-      "1.0 fl oz / 30 mL",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-      },
-    ),
-  ],
+  "naturium-azelaic-acid-derivative-complex-10-1fl-oz": [],
   "naturium-bha-liquid-exfoliant-2-4oz": [
     exactNg(
       "Teeka4",
@@ -8721,47 +8681,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
     ),
   ],
-  "naturium-vitamin-c-complex-serum-1fl-oz": [
-    exactNg(
-      "Teeka4",
-      "https://teeka4.com/shop/naturium-vitamin-c-complex-serum-1fl-oz-30ml/",
-      98,
-      35913,
-      "Naturium Vitamin C Complex Serum 1fl oz / 30ml",
-      "1.0 fl oz / 30 mL",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-      },
-    ),
-    exactNg(
-      "Perona Beauty",
-      "https://peronabeauty.com/product/naturium-vitamin-c-complex-face-serum-30ml/",
-      86,
-      44000,
-      "Naturium Vitamin C Complex Face Serum | 30ml",
-      "1.0 fl oz / 30 mL",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-      },
-    ),
-    exactNg(
-      "Rhema Beauty Shop",
-      "https://rhemabeautyshop.com/shop/naturium-vitamin-c-complex-serum-30ml/",
-      86,
-      45300,
-      "Naturium Vitamin C Complex Serum – 30ml",
-      "1.0 fl oz / 30 mL",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-      },
-    ),
-  ],
+  "naturium-vitamin-c-complex-serum-1fl-oz": [],
   "naturium-vitamin-c-super-serum-plus-1fl-oz": [],
   "nineless-mela-pro-tranexamic-acid-sunscreen-100ml": [
     exactNg(
@@ -9042,36 +8962,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
     ),
   ],
-  "naturium-vitamin-bright-illuminating-eye-cream-0-5oz": [
-    exactNg(
-      "Nihet Beauty",
-      "https://nihetbeauty.com/product/naturium-vitamin-bright-eye-cream/",
-      76,
-      74800,
-      "Naturium Vitamin Bright Eye Cream",
-      "0.5 fl oz / 15 mL",
-      {
-        observedAt: "2026-08-12T11:02:00Z",
-        expiresAt: "2026-08-19T11:02:00Z",
-        stock: "in-stock",
-        available: true,
-      },
-    ),
-    exactNg(
-      "Shadremmy Beauty",
-      "https://shadremmybeauty.com/product/naturium-vitamin-bright-illuminating-eye-cream/",
-      78,
-      40500,
-      "Naturium Vitamin Bright Illuminating Eye Cream",
-      "0.5 fl oz / 15 mL",
-      {
-        observedAt: "2026-08-13T05:40:00Z",
-        expiresAt: "2026-08-20T05:40:00Z",
-        available: false,
-        stock: "out-of-stock",
-      },
-    ),
-  ],
+  "naturium-vitamin-bright-illuminating-eye-cream-0-5oz": [],
   "naturium-retinol-complex-cream-1-7oz": [
     exactNg(
       "Nihet Beauty",

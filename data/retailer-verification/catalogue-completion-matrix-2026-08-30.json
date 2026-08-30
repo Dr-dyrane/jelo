@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "matrixId": "catalogue-completion-matrix-2026-08-30",
-  "reviewedAt": "2026-08-30T12:12:31.000Z",
+  "reviewedAt": "2026-08-30T12:26:49.000Z",
   "reviewer": "JeloCare catalogue evidence review",
   "fixedDenominator": 162,
   "baseline": {
@@ -14,8 +14,8 @@
     "remainingRows": 31
   },
   "current": {
-    "completedDenominatorRows": 138,
-    "remainingRows": 24
+    "completedDenominatorRows": 142,
+    "remainingRows": 20
   },
   "rows": [
     {
@@ -80,9 +80,9 @@
     },
     {
       "candidateId": "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
-      "state": "remaining",
-      "nextRoute": "current-exact-audit",
-      "lastKnownBlocker": "no admitted current exact Nigerian offer"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-3-2026-08-30"
     },
     {
       "candidateId": "naturium-azelaic-acid-emulsion-10-1fl-oz",
@@ -110,9 +110,9 @@
     },
     {
       "candidateId": "naturium-intense-overnight-sleeping-cream-1-7oz",
-      "state": "remaining",
-      "nextRoute": "current-exact-audit",
-      "lastKnownBlocker": "no admitted current exact Nigerian offer"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-3-2026-08-30"
     },
     {
       "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
@@ -176,15 +176,15 @@
     },
     {
       "candidateId": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
-      "state": "remaining",
-      "nextRoute": "current-exact-audit",
-      "lastKnownBlocker": "no admitted current exact Nigerian offer"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-3-2026-08-30"
     },
     {
       "candidateId": "naturium-vitamin-c-complex-serum-1fl-oz",
-      "state": "remaining",
-      "nextRoute": "current-exact-audit",
-      "lastKnownBlocker": "no admitted current exact Nigerian offer"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-3-2026-08-30"
     },
     {
       "candidateId": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",

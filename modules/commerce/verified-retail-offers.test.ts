@@ -44,6 +44,7 @@ import waveThirtySevenAudit from "@/data/retailer-verification/catalogue-offer-r
 import completionMatrix from "@/data/retailer-verification/catalogue-completion-matrix-2026-08-30.json";
 import completionWaveOneAudit from "@/data/retailer-verification/catalogue-completion-wave-1-2026-08-30.json";
 import completionWaveTwoAudit from "@/data/retailer-verification/catalogue-completion-wave-2-2026-08-30.json";
+import completionWaveThreeAudit from "@/data/retailer-verification/catalogue-completion-wave-3-2026-08-30.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -3292,8 +3293,8 @@ test("catalogue completion wave 1 records four current no-exact-offer dispositio
   assert.equal(completionMatrix.fixedDenominator, 162);
   assert.equal(completionMatrix.baseline.completedDenominatorRows, 131);
   assert.equal(completionMatrix.baseline.remainingRows, 31);
-  assert.equal(completionMatrix.current.completedDenominatorRows, 138);
-  assert.equal(completionMatrix.current.remainingRows, 24);
+  assert.equal(completionMatrix.current.completedDenominatorRows, 142);
+  assert.equal(completionMatrix.current.remainingRows, 20);
   assert.equal(completionMatrix.rows.length, 31);
   assert.equal(
     new Set(completionMatrix.rows.map((row) => row.candidateId)).size,
@@ -3452,6 +3453,54 @@ test("catalogue completion wave 2 admits three current exact-package rows", () =
       "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
     ],
   );
+});
+
+test("catalogue completion wave 3 records four current no-exact-offer dispositions", () => {
+  const resolvedIds = completionWaveThreeAudit.dispositions.map(
+    (disposition) => disposition.candidateId,
+  );
+
+  assert.equal(completionWaveThreeAudit.matrix.before, 138);
+  assert.equal(completionWaveThreeAudit.matrix.after, 142);
+  assert.equal(completionWaveThreeAudit.matrix.total, 162);
+  assert.equal(completionWaveThreeAudit.summary.productsResolved, 4);
+  assert.equal(completionWaveThreeAudit.summary.offersAdmitted, 0);
+  assert.equal(completionWaveThreeAudit.summary.offerRecordsRemoved, 8);
+  assert.equal(
+    completionWaveThreeAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+  assert.deepEqual(resolvedIds, [
+    "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
+    "naturium-intense-overnight-sleeping-cream-1-7oz",
+    "naturium-vitamin-c-complex-serum-1fl-oz",
+    "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+  ]);
+
+  for (const disposition of completionWaveThreeAudit.dispositions) {
+    assert.equal(disposition.disposition, "current-no-exact-nigerian-offer");
+    assert.deepEqual(
+      verifiedRetailOffers[disposition.candidateId] ?? [],
+      [],
+      disposition.candidateId,
+    );
+    const matrixRow = completionMatrix.rows.find(
+      (row) => row.candidateId === disposition.candidateId,
+    );
+    assert.equal(matrixRow?.state, "resolved", disposition.candidateId);
+    assert.equal(
+      "resolutionWave" in (matrixRow ?? {}) ? matrixRow?.resolutionWave : null,
+      "catalogue-completion-wave-3-2026-08-30",
+      disposition.candidateId,
+    );
+    for (const observation of disposition.observations) {
+      assert.equal(observation.status, "not-projected");
+      assert.match(observation.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(observation.responseByteSize > 0);
+      assert.match(observation.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(observation.packageImageByteSize > 0);
+    }
+  }
 });
 
 test("verified Nigerian observations use exact secure product pages", () => {

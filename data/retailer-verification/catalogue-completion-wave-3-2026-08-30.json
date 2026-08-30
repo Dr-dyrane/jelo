@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-completion-wave-3-2026-08-30",
+  "reviewedAt": "2026-08-30T12:26:49.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Truthful current no-exact-Nigerian-offer dispositions for four independently ready Naturium rows whose observed Nigerian products conflict with the published package, unit or shade cell",
+  "captureMethod": "reviewed-live-html-search-result-and-package-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T12:26:49.000Z"
+  },
+  "matrix": {
+    "unit": "fixed-denominator exact candidate row",
+    "before": 138,
+    "after": 142,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "activeBacklog": 98,
+      "queued": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No cron request, enqueue, claim, process, retry or cache invalidation was performed."
+  },
+  "summary": {
+    "productsReviewed": 4,
+    "productsResolved": 4,
+    "offersAdmitted": 0,
+    "staleOfferSetsRemoved": 3,
+    "offerRecordsRemoved": 8,
+    "mismatchedObservationsExcluded": 6
+  },
+  "dispositions": [
+    {
+      "candidateId": "naturium-azelaic-acid-derivative-complex-10-1fl-oz",
+      "releasedIdentity": {
+        "gtin": "850010792231",
+        "variant": "Azelaic Acid Derivative Complex 10%",
+        "size": "1.0 fl oz / 30 mL",
+        "packageVersion": "1.0 fl oz / 30 mL dropper bottle"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "The current Medplus product is Azelaic Topical Acid 10% in an airless pump, not the published Azelaic Acid Derivative Complex dropper cell; expired Teeka4, Perona and Rhema projections were removed.",
+      "observations": [
+        {
+          "retailer": "Medplus",
+          "url": "https://medplusnig.com/product/naturium-azelaic-topical-acid-10-30ml-7af8rb",
+          "observedVariant": "Azelaic Topical Acid 10%",
+          "observedSize": "30 mL",
+          "observedPackage": "airless pump bottle",
+          "priceNgn": 57000,
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "variant-and-package-conflict",
+          "responseSha256": "f1efd8d7ad0e75e47d7a0afc95c00e5ddfec4c82e118dae0e6bdd15098acaddb",
+          "responseByteSize": 315568,
+          "packageImageUrl": "https://commercefiles.lon1.cdn.digitaloceanspaces.com/product/thumbnail/2026-08-20-6a86bd1238216.webp",
+          "packageImageSha256": "f3226e82540e929f654daf748a3dc6655f93df2497fd0c74029b93f3447ff529",
+          "packageImageByteSize": 29140
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-intense-overnight-sleeping-cream-1-7oz",
+      "releasedIdentity": {
+        "gtin": "850010792170",
+        "variant": "Intense Overnight Sleeping Cream",
+        "size": "1.7 oz / 50 mL",
+        "packageVersion": "1.7 oz / 50 mL jar"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "The current Skincare Plug package declares 50 g, not the published 50 mL unit; the 50 g option is sold out and the available sibling is 100 g.",
+      "observations": [
+        {
+          "retailer": "Skincare Plug NG",
+          "url": "https://skincareplug-ng.com/products/naturium-intense-overnight-sleeping-cream",
+          "observedVariant": "Intense Overnight Sleeping Cream",
+          "observedSize": "50 g",
+          "observedPackage": "50 g / 1.7 oz jar",
+          "priceNgn": 55500,
+          "stock": "out-of-stock",
+          "status": "not-projected",
+          "reason": "weight-volume-unit-conflict",
+          "responseSha256": "61a42b27ea7ec242df0c30288f88726161b1ec5f61f0c530b28e992d856b1ca2",
+          "responseByteSize": 116639,
+          "packageImageUrl": "https://skincareplug-ng.com/cdn/shop/products/525B4EB6-D0A0-41BA-A9D9-F848EFA89264.jpg?v=1616351034",
+          "packageImageSha256": "743e18b89b270aae6d89efdf5470dd00d42c40538d1f6fae17927650eb289d3f",
+          "packageImageByteSize": 71918
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-vitamin-c-complex-serum-1fl-oz",
+      "releasedIdentity": {
+        "gtin": "850010792071",
+        "variant": "Vitamin C Complex Serum",
+        "size": "1.0 fl oz / 30 mL",
+        "packageVersion": "1.0 fl oz / 30 mL dropper bottle"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "Current exact-name 30 mL Nigerian listings show the airless-pump package, not the published dropper cell; three expired dropper projections were removed.",
+      "observations": [
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/naturium-vitamin-c-complex-serum-30ml-6953007",
+          "observedVariant": "Vitamin C Complex Serum",
+          "observedSize": "30 mL",
+          "observedPackage": "airless pump bottle",
+          "priceNgn": 52000,
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "package-conflict",
+          "responseSha256": "daf25effc09f7b48246edbe282901f884f69174d651de38ef3859aa40cd83aac",
+          "responseByteSize": 261403,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/X/P/246676_1773611112.jpg",
+          "packageImageSha256": "e15356bfcf24d621697cdcf8289f8c344d04c147b84a4f6c7d9336e9ae3181ea",
+          "packageImageByteSize": 25886
+        },
+        {
+          "retailer": "Urban Skin Nigeria",
+          "url": "https://www.urbanskinng.com/shop/vitamin-c-complex-serum/",
+          "observedVariant": "Vitamin C Complex Serum",
+          "observedSize": "30 mL",
+          "observedPackage": "airless pump bottle",
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "package-conflict",
+          "responseSha256": "b0eb20f4fd57b0be2d3df9bfbde1ec870e099f95062f1e7c428e5bfd2ac3b1d0",
+          "responseByteSize": 137140,
+          "packageImageUrl": "https://i2.wp.com/www.urbanskinng.com/wp-content/uploads/NTRM_Ecomm_Vitamin-C-Serum_Cap-On_400x.jpg?fit=400%2C400&ssl=1",
+          "packageImageSha256": "3e584305ae466fbc201b6eb85002e0b50865e1604556ed51ea906745dbfd6ad6",
+          "packageImageByteSize": 5081
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
+      "releasedIdentity": {
+        "gtin": "810120260211",
+        "variant": "Vitamin Bright Illuminating Eye Cream - Light/Medium",
+        "size": "0.5 fl oz / 15 mL",
+        "packageVersion": "Light/Medium 0.5 fl oz / 15 mL tube"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "Current Nigerian pages show a jar rather than the published tube; the size-bound Essentials page is out of stock and its image does not bind the Light/Medium tube cell. Two expired projections were removed.",
+      "observations": [
+        {
+          "retailer": "Nihet Beauty",
+          "url": "https://nihetbeauty.com/product/naturium-vitamin-bright-eye-cream/",
+          "observedVariant": "Vitamin Bright Eye Cream - Light/Medium",
+          "observedPackage": "open jar",
+          "priceNgn": 74800,
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "package-and-size-evidence-conflict",
+          "responseSha256": "57914f3f337f21362cfbc4b54d3a241c0138bbaaac9305ee8e9f9339baa78c25",
+          "responseByteSize": 484449,
+          "packageImageUrl": "https://i0.wp.com/nihetbeauty.com/wp-content/uploads/2023/10/img_7339.jpeg",
+          "packageImageSha256": "cc56c4c28e185157f3acec15923eb0f6dee84b9645dc22568c5bd03c1bc3b702",
+          "packageImageByteSize": 73163
+        },
+        {
+          "retailer": "Essentials Hub",
+          "url": "https://essentialshub.com/product/naturium-vitamin-bright-illuminating-eye-cream/",
+          "observedVariant": "Vitamin Bright Illuminating Eye Cream",
+          "observedSize": "15 mL",
+          "observedPackage": "open jar",
+          "priceNgn": 22164.45,
+          "stock": "out-of-stock",
+          "status": "not-projected",
+          "reason": "package-and-shade-evidence-conflict",
+          "responseSha256": "426e7e1e0f190a01c7c37a80b2643b9f8629d785d3edbf3f543fd662a9dc4b7a",
+          "responseByteSize": 441944,
+          "packageImageUrl": "https://essentialshub.com/wp-content/uploads/2023/11/Naturium-Vitamin-Bright-Illuminating-Eye-Cream.webp",
+          "packageImageSha256": "85269d7cb50f3c1313c829111bd1c8b44d7994a94e9056f12ecd060245d72974",
+          "packageImageByteSize": 8188
+        }
+      ]
+    }
+  ],
+  "carriedBlockers": [
+    {
+      "candidateId": "naturium-multi-peptide-advanced-serum-1fl-oz",
+      "reason": "Current airless-pump evidence still conflicts with the published dropper identity and media."
+    }
+  ]
+}
