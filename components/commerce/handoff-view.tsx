@@ -27,24 +27,6 @@ export function HandoffView({ model }: Props) {
   const continueLinkRef = useRef<HTMLAnchorElement | null>(null);
 
   const offer = model.selectedOffer;
-  const retailer = offer?.retailer ?? "";
-
-  // Record handoff_viewed on mount (best-effort, never blocks)
-  useEffect(() => {
-    if (!offer) return;
-    fetch("/api/handoff", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        productSlug: model.productSlug,
-        retailer: offer.retailer,
-        market: model.market,
-        interaction: "viewed",
-      }),
-    }).catch(() => {
-      // Analytics is best-effort; never block the experience
-    });
-  }, [model.productSlug, retailer, model.market, offer]);
 
   // Focus the continue link on mount for keyboard users
   useEffect(() => {
@@ -72,46 +54,7 @@ export function HandoffView({ model }: Props) {
 
   function handleContinue() {
     setContinueClicked(true);
-    // Record handoff_continue (best-effort)
-    fetch("/api/handoff", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        productSlug: model.productSlug,
-        retailer: offer!.retailer,
-        market: model.market,
-        interaction: "continue",
-      }),
-    }).catch(() => {});
     // Navigation happens via the link href — no preventDefault
-  }
-
-  function handleAlternative(altRetailer: string) {
-    // Record handoff_alternative (best-effort)
-    fetch("/api/handoff", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        productSlug: model.productSlug,
-        retailer: altRetailer,
-        market: model.market,
-        interaction: "alternative",
-      }),
-    }).catch(() => {});
-  }
-
-  function handleCancel() {
-    // Record handoff_cancelled (best-effort)
-    fetch("/api/handoff", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        productSlug: model.productSlug,
-        retailer: offer!.retailer,
-        market: model.market,
-        interaction: "cancelled",
-      }),
-    }).catch(() => {});
   }
 
   const continueHref = `/go/continue?product=${encodeURIComponent(model.productSlug)}&retailer=${encodeURIComponent(offer!.retailer)}`;
@@ -243,11 +186,7 @@ export function HandoffView({ model }: Props) {
               </>
             )}
           </a>
-          <Link
-            href={productHref}
-            className={styles.cancelButton}
-            onClick={handleCancel}
-          >
+          <Link href={productHref} className={styles.cancelButton}>
             <ChevronLeft size={16} aria-hidden="true" /> Back to product
           </Link>
         </div>
@@ -262,7 +201,6 @@ export function HandoffView({ model }: Props) {
                   <Link
                     href={`/go?product=${encodeURIComponent(model.productSlug)}&retailer=${encodeURIComponent(alt.retailer)}`}
                     className={styles.alternativeRow}
-                    onClick={() => handleAlternative(alt.retailer)}
                   >
                     <span className={styles.alternativeName}>
                       <strong>{alt.retailer}</strong>

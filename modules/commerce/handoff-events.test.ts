@@ -1,96 +1,93 @@
-import assert from 'node:assert/strict';
-import test from 'node:test';
-import { handoffEventSchema, recordHandoffEvent } from '@/lib/analytics/handoff-events';
+import assert from "node:assert/strict";
+import { access, readFile, readdir } from "node:fs/promises";
+import path from "node:path";
+import test from "node:test";
 
-test('handoffEventSchema accepts valid viewed event', () => {
-  const result = handoffEventSchema.safeParse({
-    productSlug: 'cosrx-salicylic-acid-daily-gentle-cleanser',
-    retailer: 'Beauty by Daz',
-    market: 'NG',
-    interaction: 'viewed',
-  });
-  assert.ok(result.success, 'Valid viewed event should parse');
+async function readTypeScriptTree(root: string): Promise<string> {
+  const chunks: string[] = [];
+
+  async function visit(directory: string): Promise<void> {
+    const entries = await readdir(directory, { withFileTypes: true });
+    await Promise.all(
+      entries.map(async (entry) => {
+        const target = path.join(directory, entry.name);
+        if (entry.isDirectory()) {
+          await visit(target);
+        } else if (/\.(?:ts|tsx)$/.test(entry.name)) {
+          chunks.push(await readFile(target, "utf8"));
+        }
+      }),
+    );
+  }
+
+  await visit(root);
+  return chunks.join("\n");
+}
+
+test("the unauthenticated handoff collector and invalid event writer are absent", async () => {
+  const collectorPath = path.join(process.cwd(), "app/api/handoff/route.ts");
+  const writerPath = path.join(
+    process.cwd(),
+    "lib/analytics/handoff-events.ts",
+  );
+
+  await assert.rejects(access(collectorPath), { code: "ENOENT" });
+  await assert.rejects(access(writerPath), { code: "ENOENT" });
+
+  const runtimeSource = await Promise.all(
+    ["app", "components", "lib"].map((directory) =>
+      readTypeScriptTree(path.join(process.cwd(), directory)),
+    ),
+  );
+  const source = runtimeSource.join("\n");
+
+  assert.doesNotMatch(source, /\/api\/handoff/);
+  assert.doesNotMatch(
+    source,
+    /handoff_(?:viewed|continue|alternative|cancelled)/,
+  );
 });
 
-test('handoffEventSchema accepts valid continue event', () => {
-  const result = handoffEventSchema.safeParse({
-    productSlug: 'test-product',
-    retailer: 'Test Retailer',
-    market: 'US',
-    interaction: 'continue',
-  });
-  assert.ok(result.success, 'Valid continue event should parse');
+test("the outbound exact-offer choke point records store_click exactly once", async () => {
+  const continueRoute = await readFile(
+    path.join(process.cwd(), "app/(site)/go/continue/route.ts"),
+    "utf8",
+  );
+
+  assert.equal(
+    continueRoute.match(/recordStoreClick\s*\(/g)?.length,
+    1,
+    "the route must schedule one store_click write",
+  );
+  assert.match(
+    continueRoute,
+    /if \(offer\) \{[\s\S]*?after\(\(\) =>\s*recordStoreClick\(\{[\s\S]*?return NextResponse\.redirect\(/,
+  );
+  assert.match(
+    continueRoute,
+    /priceRank: offerPriceRank\(offer, summary, market\)/,
+  );
+  assert.match(continueRoute, /position,/);
+  assert.doesNotMatch(continueRoute, /recordHandoffEvent|handoff_/);
 });
 
-test('handoffEventSchema accepts valid alternative event', () => {
-  const result = handoffEventSchema.safeParse({
-    productSlug: 'test-product',
-    retailer: 'Test Retailer',
-    market: 'NG',
-    interaction: 'alternative',
-  });
-  assert.ok(result.success, 'Valid alternative event should parse');
-});
+test("handoff navigation, alternatives, cancellation, and focus remain local UI behavior", async () => {
+  const handoffView = await readFile(
+    path.join(process.cwd(), "components/commerce/handoff-view.tsx"),
+    "utf8",
+  );
 
-test('handoffEventSchema accepts valid cancelled event', () => {
-  const result = handoffEventSchema.safeParse({
-    productSlug: 'test-product',
-    retailer: 'Test Retailer',
-    market: 'NG',
-    interaction: 'cancelled',
-  });
-  assert.ok(result.success, 'Valid cancelled event should parse');
-});
-
-test('handoffEventSchema rejects invalid interaction type', () => {
-  const result = handoffEventSchema.safeParse({
-    productSlug: 'test-product',
-    retailer: 'Test Retailer',
-    market: 'NG',
-    interaction: 'invalid',
-  });
-  assert.ok(!result.success, 'Invalid interaction should be rejected');
-});
-
-test('handoffEventSchema rejects invalid market', () => {
-  const result = handoffEventSchema.safeParse({
-    productSlug: 'test-product',
-    retailer: 'Test Retailer',
-    market: 'EU',
-    interaction: 'viewed',
-  });
-  assert.ok(!result.success, 'Invalid market should be rejected');
-});
-
-test('handoffEventSchema rejects empty product slug', () => {
-  const result = handoffEventSchema.safeParse({
-    productSlug: '',
-    retailer: 'Test Retailer',
-    market: 'NG',
-    interaction: 'viewed',
-  });
-  assert.ok(!result.success, 'Empty product slug should be rejected');
-});
-
-test('handoffEventSchema rejects extra fields (strict)', () => {
-  const result = handoffEventSchema.safeParse({
-    productSlug: 'test-product',
-    retailer: 'Test Retailer',
-    market: 'NG',
-    interaction: 'viewed',
-    extraField: 'should be rejected',
-  });
-  assert.ok(!result.success, 'Extra fields should be rejected');
-});
-
-test('recordHandoffEvent does not throw without database config', async () => {
-  // Without Postgres config, this should be a silent no-op
-  await recordHandoffEvent({
-    productSlug: 'test-product',
-    retailer: 'Test Retailer',
-    market: 'NG',
-    interaction: 'viewed',
-  });
-  // If it doesn't throw, the test passes
-  assert.ok(true, 'recordHandoffEvent should not throw without DB config');
+  assert.match(handoffView, /continueLinkRef\.current\?\.focus/);
+  assert.match(handoffView, /event\.key === ["']Escape["']/);
+  assert.match(
+    handoffView,
+    /router\.push\(`\/products\/\$\{model\.productSlug\}`\)/,
+  );
+  assert.match(handoffView, /const continueHref = `\/go\/continue\?product=/);
+  assert.match(
+    handoffView,
+    /const productHref = `\/products\/\$\{model\.productSlug\}`/,
+  );
+  assert.match(handoffView, /href=\{`\/go\?product=/);
+  assert.doesNotMatch(handoffView, /\bfetch\s*\(/);
 });

@@ -1,6 +1,6 @@
 # Behavioural analytics
 
-Updated: 2026-08-13
+Updated: 2026-08-30
 
 We measure behaviour to answer one question: does JeloCare help someone choose better before buying skincare. Every event serves that. None of it profiles a person.
 
@@ -12,8 +12,9 @@ We measure behaviour to answer one question: does JeloCare help someone choose b
   campaign, creative label, and `/contribute` landing path. The aggregate is
   available through `/ops/signals` and
   `npm run community:research:signals`.
-- A single outbound choke point for store links: `/go?product=<slug>&retailer=<name>` in [app/go/route.ts](../app/go/route.ts). It resolves the exact offer and attributes the destination through [redirect-attribution.ts](../modules/commerce/redirect-attribution.ts) (`utm_content=<product>:<retailer>`). Every "Open store" already passes through here, so store-click behaviour has one place to record it.
-- The `store_click` event, recorded server-side there for the exact-offer branch. `priceRank`, `position`, and `freshnessDays` come from the same ranking and market summary the product page shows ([price-rank.ts](../modules/commerce/price-rank.ts)); the write goes through `next/server` `after` so it never delays the redirect, no-ops without Neon, and is bounded by a strict schema ([commerce-events.ts](../lib/analytics/commerce-events.ts), table `commerce_events` in `db/migrations/0019_commerce_events.sql`). See [ADR 0005](./adr/0005-structured-observation-events.md).
+- A single successful exact-offer outbound choke point: the trust bridge at `/go?product=<slug>&retailer=<name>` continues through `/go/continue` in [app/(site)/go/continue/route.ts](<../app/(site)/go/continue/route.ts>). It re-resolves the exact offer and attributes the destination through [redirect-attribution.ts](../modules/commerce/redirect-attribution.ts) (`utm_content=<product>:<retailer>`).
+- The `store_click` event, recorded server-side there exactly once for the exact-offer branch. `priceRank`, `position`, and `freshnessDays` come from the same ranking and market summary the product page shows ([price-rank.ts](../modules/commerce/price-rank.ts)); the write goes through `next/server` `after` so it never delays the redirect, no-ops without Neon, and is bounded by a strict schema ([commerce-events.ts](../lib/analytics/commerce-events.ts), table `commerce_events` in `db/migrations/0019_commerce_events.sql`). See [ADR 0005](./adr/0005-structured-observation-events.md).
+- Trust-bridge view, alternative-selection, cancellation, and pre-navigation continue events are not collected. The former unauthenticated `/api/handoff` collector and invalid `handoff_*` `commerce_events` writer were removed because migration `0019` permits only the complete `store_click` shape. This leaves an explicit measurement gap: current evidence can count successful exact-offer outbound continuations, but cannot measure trust-bridge impressions, abandonment, alternative selection, or cancellation. Closing that gap requires a separately governed, abuse-resistant aggregate design and is deferred to the business-evidence register; it must not be inferred from `store_click`.
 - Two write-only Lagos Daily Desk counters, `view` and `compare_click`. The
   client sends only the current public campaign id and enum event, with cookies
   omitted and referrer suppressed. The server re-resolves today's accepted
@@ -123,7 +124,7 @@ This is a hard boundary, not a preference.
 
 ## Implementation direction
 
-- Keep `/go` the only outbound path. Record `store_click` server-side there, deriving `priceRank` from the offer set already resolved for the redirect.
+- Keep `/go/continue` as the successful outbound path after the `/go` trust bridge. Record `store_click` server-side there exactly once for an exact offer, deriving `priceRank` from the offer set re-resolved for the redirect.
 - Send client events through Vercel Analytics custom events, or a thin typed wrapper, with no free text.
 - Aggregate privately, the same boundary as `npm run community:research:signals`. Do not expose a public analytics endpoint.
 - Keep Me measurement enum-only and server-side. Production reporting defaults
@@ -140,10 +141,10 @@ This is a hard boundary, not a preference.
 | Question                      | Source                                                                                                                               |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | Outbound attribution          | [modules/commerce/redirect-attribution.ts](../modules/commerce/redirect-attribution.ts)                                              |
-| Outbound route                | [app/go/route.ts](../app/go/route.ts)                                                                                                |
+| Outbound route                | [app/(site)/go/continue/route.ts](<../app/(site)/go/continue/route.ts>)                                                              |
 | Page analytics                | `@vercel/analytics` in [app/layout.tsx](../app/layout.tsx)                                                                           |
 | Daily Desk aggregate response | `lib/campaigns/campaign-archive.ts`, written by `/api/campaigns/daily-desk/events`                                                   |
-| Private Me route operations   | `lib/customer/private-telemetry.ts`, reported by `npm run customer:telemetry:report`                                               |
+| Private Me route operations   | `lib/customer/private-telemetry.ts`, reported by `npm run customer:telemetry:report`                                                 |
 | Anonymous contribution source | `community_intake_attributions`, aggregated by `/ops/signals` and `npm run community:research:signals`                               |
 | Decision measures             | [Product roadmap](./product/ROADMAP.md)                                                                                              |
 | Privacy posture               | [ADR 0001](./adr/0001-deferred-trust-collections-community-and-stock-alerts.md), [community intake](./COMMUNITY_KNOWLEDGE_INTAKE.md) |

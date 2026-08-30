@@ -24,6 +24,7 @@ This is the entry point for product, engineering, data, and operations.
 | Prepare exact-SKU image work for an image-capable operator | [Packshot generation handoff](./catalogue/PACKSHOT_GENERATION_HANDOFF.md)                                           |
 | Research or operate the full catalogue pipeline            | [Catalogue operations](./catalogue/OPERATIONS.md)                                                                   |
 | Run Neon safely                                            | [Neon and data](./data/NEON.md)                                                                                     |
+| Read the aggregate business proof and cost gaps            | [Business evidence register](./business-evidence/REGISTER.md)                                                       |
 | Operate guest-first assisted procurement                   | [Assisted procurement](./commerce/ASSISTED_PROCUREMENT.md)                                                          |
 | Operate smart delivery and private saved locations         | [Smart locations](./commerce/SMART_LOCATIONS.md)                                                                    |
 | Operate order-service notifications                        | [Order notifications](./commerce/ORDER_NOTIFICATIONS.md)                                                            |

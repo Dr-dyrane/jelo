@@ -18,6 +18,10 @@
       "schedule": "47 4 * * *"
     },
     {
+      "path": "/api/cron/business-evidence",
+      "schedule": "23 5 * * *"
+    },
+    {
       "path": "/api/cron/daily-campaign",
       "schedule": "0 7 * * *"
     }
