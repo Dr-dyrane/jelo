@@ -30,6 +30,7 @@ import waveTwentyThreeAudit from "@/data/retailer-verification/catalogue-offer-r
 import waveTwentyFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-24-2026-08-29.json";
 import waveTwentyFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-25-2026-08-29.json";
 import waveTwentySixAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-26-2026-08-29.json";
+import waveTwentySevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-27-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -2139,6 +2140,117 @@ test("catalogue offer refresh wave 26 releases five exact packages and excludes 
   assert.equal(registered.has("Wholesale Skincare Shop"), true);
 });
 
+test("catalogue offer refresh wave 27 releases five exact packages and fails unverifiable siblings closed", () => {
+  const projected = waveTwentySevenAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveTwentySevenAudit.matrix.before, 98);
+  assert.equal(waveTwentySevenAudit.matrix.after, 103);
+  assert.equal(waveTwentySevenAudit.matrix.total, 162);
+  assert.equal(waveTwentySevenAudit.summary.productsReviewed, 5);
+  assert.equal(waveTwentySevenAudit.summary.productsReleased, 5);
+  assert.equal(waveTwentySevenAudit.summary.productsBlocked, 0);
+  assert.equal(waveTwentySevenAudit.summary.offersAdmitted, 13);
+  assert.equal(waveTwentySevenAudit.summary.shopperActiveOffers, 11);
+  assert.equal(waveTwentySevenAudit.summary.outOfStockObservations, 2);
+  assert.equal(waveTwentySevenAudit.summary.offersBlocked, 5);
+  assert.equal(projected.length, 13);
+  assert.equal(waveTwentySevenAudit.blockedCells.length, 3);
+  assert.equal(waveTwentySevenAudit.excludedDiscoveries.length, 2);
+  assert.equal(waveTwentySevenAudit.heldCandidates.length, 0);
+  assert.equal(
+    waveTwentySevenAudit.scheduledOwner.manifestRecurringOwner,
+    null,
+  );
+  assert.equal(
+    waveTwentySevenAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  for (const blocked of waveTwentySevenAudit.blockedCells) {
+    assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(blocked.responseByteSize > 0);
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.url === blocked.url,
+    );
+    if (offer) {
+      assert.equal(offer.available, false);
+      assert.equal(offer.priceObservation?.stock, "unknown");
+      assert.equal(offer.priceComparison, "exclude");
+    }
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+      ["Brandlistry"],
+    ],
+    ["saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml", ["BuyBetter"]],
+    [
+      "cecred-moisturizing-deep-conditioner-300ml",
+      ["Bloom Hair Atelier", "Ediths Essentials", "GlowMart"],
+    ],
+    [
+      "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
+      ["Bola Blaque Beauty", "Essenza"],
+    ],
+    [
+      "aveeno-daily-moisturizing-body-oil-mist-200ml",
+      ["CSi Grocery", "Citymarket NG", "Perona Beauty", "Teeka4"],
+    ],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["garnier-pure-active-tea-tree-salicylic-acid-tissue-mask", 9_100],
+    ["saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml", 27_200],
+    ["cecred-moisturizing-deep-conditioner-300ml", 144_750],
+    ["fenty-skin-butta-drop-fenty-fresh-standard-200ml", 83_000],
+    ["aveeno-daily-moisturizing-body-oil-mist-200ml", 15_700],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    assert.equal(
+      Math.min(
+        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+      ),
+      expectedFloors.get(slug),
+      slug,
+    );
+  }
+
+  const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
+  assert.equal(registered.has("Brandlistry"), true);
+  assert.equal(registered.has("Citymarket NG"), true);
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -2227,8 +2339,9 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
     "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml": [["BuyBetter", 32249]],
     "aveeno-daily-moisturizing-body-oil-mist-200ml": [
       ["Teeka4", 15700],
-      ["Lux Beauty", 17500],
       ["Perona Beauty", 17500],
+      ["CSi Grocery", 21500],
+      ["Citymarket NG", 17666.67],
     ],
     "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml": [
       ["BuyBetter", 13500],
@@ -2276,12 +2389,13 @@ test("the seven newest catalogue products carry the exact Nigerian offers found 
               ? "2026-08-29T23:49:23.320Z"
               : slug.startsWith("eos-")
                 ? "2026-08-30T00:00:32.487Z"
-                : offer.retailer === "Beauty Hut Africa"
-                  ? "2026-08-14T17:00:00Z"
-                  : offer.retailer === "BuyBetter" &&
-                      slug ===
-                        "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml"
-                    ? "2026-08-11T19:54:00Z"
+                : new Set([
+                      "aveeno-daily-moisturizing-body-oil-mist-200ml",
+                      "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+                    ]).has(slug)
+                  ? "2026-08-30T05:39:13.098Z"
+                  : offer.retailer === "Beauty Hut Africa"
+                    ? "2026-08-14T17:00:00Z"
                     : "2026-08-14T17:00:00Z"),
       ),
       true,

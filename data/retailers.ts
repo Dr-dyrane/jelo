@@ -685,6 +685,42 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigeria marketplace with exact listings and visible Naira pricing.",
   },
   {
+    name: "Brandlistry",
+    homepage: "https://www.brandlistry.ng/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T05:39:13.098Z",
+      sourceUrl: "https://www.brandlistry.ng/pages/contact",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query) =>
+      `https://www.brandlistry.ng/search?q=${encodeURIComponent(query)}`,
+    note: "Nigeria beauty and wellness storefront with direct product pages, Naira pricing and nationwide delivery.",
+  },
+  {
+    name: "Citymarket NG",
+    homepage: "https://www.citymarketng.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T05:39:13.098Z",
+      sourceUrl: "https://www.citymarketng.com/pages/contact",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query) =>
+      `https://www.citymarketng.com/search?q=${encodeURIComponent(query)}`,
+    note: "Lagos grocery and personal-care storefront with direct product pages, Naira pricing and local pickup.",
+  },
+  {
     name: "Slique Beauty",
     homepage: "https://sliquebeautylimited.com/",
     market: "NG",

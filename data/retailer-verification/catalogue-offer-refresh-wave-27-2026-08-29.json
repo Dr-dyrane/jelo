@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-27-2026-08-29",
+  "reviewedAt": "2026-08-30T05:39:13.098Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Eighteen current Nigerian retailer checks across five independently releasable exact product SKUs",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T05:39:13.098Z"
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 98,
+    "after": 103,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 18,
+    "offersAdmitted": 13,
+    "shopperActiveOffers": 11,
+    "outOfStockObservations": 2,
+    "offersBlocked": 5,
+    "offersProjected": 14
+  },
+  "products": [
+    {
+      "candidateId": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+      "identity": {
+        "gtin": "3600542368810",
+        "variant": "Garnier SkinActive Pure Active Anti-Imperfection Tissue Mask",
+        "size": "23 g / 1 pack",
+        "packageVersion": "Single green Pure Active Tea Tree and Salicylic Acid tissue-mask sachet"
+      },
+      "offers": [
+        {
+          "retailer": "Brandlistry",
+          "url": "https://www.brandlistry.ng/products/garnier-pure-active-anti-imperfection-sheet-mask",
+          "priceNgn": 9100,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "1c4786897fd397f49a1acc5ae177b34edec8bf6ad71c3b1d6dbb6a32b8022a86",
+          "responseByteSize": 6530,
+          "packageImageUrl": "https://www.brandlistry.ng/cdn/shop/files/10285438.jpg?v=1755866722",
+          "packageImageSha256": "670179519fe0075fbd05d3bae1223fa374287fd34be61bdf9abc19fb56c0e02b",
+          "packageImageByteSize": 24204
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/garnier-pure-active-tea-tree-salicylic-acid-tissue-masks-23g/",
+          "priceNgn": 3548,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "1807297bcf92d2940a47703061338da6b07453d3580786b0057062d63fa1fcb6",
+          "responseByteSize": 563621,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/05/odx1uvgu-1.png",
+          "packageImageSha256": "9eac19993b963da7c339153832f64266616cbcf3b34a97dab67877fcee786503",
+          "packageImageByteSize": 1794924
+        }
+      ]
+    },
+    {
+      "candidateId": "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+      "identity": {
+        "gtin": "810083682860",
+        "variant": "Moisture Bound Hair Oil Rich — Santal Bloom",
+        "size": "1.69 fl oz / 50 ml",
+        "packageVersion": "Current Santal Bloom Hair Oil Rich 50 ml bottle"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml/",
+          "priceNgn": 27200,
+          "stock": "low-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "00b4f1afb68962b634c274fed2e6f345d2a38d4f7f4991a5d0e9ab36942a66ea",
+          "responseByteSize": 7997,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/cybervilla_810083682860_957223f2f17f_74ca3ecd8e.jpg",
+          "packageImageSha256": "3dc1b7c7c9b701c4ef26f0c1a094eef8d446ed4e1899a4b722b1626edbcd9454",
+          "packageImageByteSize": 39456
+        }
+      ]
+    },
+    {
+      "candidateId": "cecred-moisturizing-deep-conditioner-300ml",
+      "identity": {
+        "gtin": "850044935406",
+        "variant": "Moisturizing Deep Conditioner",
+        "size": "300 ml / 10 fl oz",
+        "packageVersion": "Current grey-blue Cécred 300 ml jar"
+      },
+      "offers": [
+        {
+          "retailer": "GlowMart",
+          "url": "https://glowmartng.com/shop/cecred-moisturizing-deep-conditioner-300ml/",
+          "priceNgn": 149000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "9815e0e38d4e1e62dce8d2092be3f72dd41fa8b49ac974c65403de772817cc7c",
+          "responseByteSize": 200459,
+          "packageImageUrl": "https://glowmartng.com/wp-content/uploads/2026/04/IMG_5121.webp",
+          "packageImageSha256": "d301d6c255edb134f475073c5b449564b10636323f400555031bbaf8b53c00c7",
+          "packageImageByteSize": 43470
+        },
+        {
+          "retailer": "Bloom Hair Atelier",
+          "url": "https://bloomhairatelier.com/product/cecred-moisturizing-deep-conditioner/",
+          "priceNgn": 149800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "ff14d6c5299f229216e0f03a30623139792fc8dea39fc4ad40b6d088982a122e",
+          "responseByteSize": 231527,
+          "packageImageUrl": "https://bloomhairatelier.com/wp-content/uploads/2025/09/IMG_1758354372553.jpg",
+          "packageImageSha256": "072b6544095d90c9a372ac3f6146eaf14a5aa12392361a37565fff0b15442e30",
+          "packageImageByteSize": 35727
+        },
+        {
+          "retailer": "Ediths Essentials",
+          "url": "https://edithsessentials.com/products/cecred-moisturizing-deep-conditioner-300ml",
+          "priceNgn": 144750,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "ba82a245b1e0a4c1aa1bcd37deaf06649121ea8a261588c325d521bb779b4f11",
+          "responseByteSize": 2085,
+          "packageImageUrl": "https://edithsessentials.com/cdn/shop/files/850044935406_dead76cd-a1c0-4f1a-8795-6e83028354fd.jpg?v=1782827850",
+          "packageImageSha256": "6ac159fa2f04b734c8d118cd56d5fc9c1acbbc811fc4a8237af75f051537e34e",
+          "packageImageByteSize": 65174
+        }
+      ]
+    },
+    {
+      "candidateId": "fenty-skin-butta-drop-fenty-fresh-standard-200ml",
+      "identity": {
+        "gtin": "840026653251",
+        "variant": "Fenty Fresh / Standard",
+        "size": "200 mL / 6.7 fl oz",
+        "packageVersion": "Fenty Fresh standard refillable jar; Amber Bouquet is a separate variant"
+      },
+      "offers": [
+        {
+          "retailer": "Essenza",
+          "url": "https://www.essenza.ng/products/fenty-skin-butta-drop-whipped-oil-body-cream",
+          "priceNgn": 83000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "bafed84abd6a9392aca884e8da426579337ff53fcb4021b11f6515d4852f6c98",
+          "responseByteSize": 11007,
+          "packageImageUrl": "https://www.essenza.ng/cdn/shop/products/840026653251_1.jpg?v=1652706894",
+          "packageImageSha256": "816fe4aa6173b42a35e1551af26791adca7b4aac3f4540757cf7d99aca8ebd64",
+          "packageImageByteSize": 10369
+        },
+        {
+          "retailer": "Bola Blaque Beauty",
+          "url": "https://bolablaquebeauty.com/product/fenty-skin-butta-drop-whipped-oil-body-cream-with-tropical-oils-butters-200ml-fenty-fresh/",
+          "priceNgn": 89500,
+          "stock": "low-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "aa1ab82efc140a669aedc7fcf09a37213f2290b1feeb787ab7a6fcb162825e9a",
+          "responseByteSize": 203274,
+          "packageImageUrl": "https://bolablaquebeauty.com/wp-content/uploads/2025/09/img_4995.jpeg",
+          "packageImageSha256": "575d57cb0a00f08ed13b5a3a9d1604160a2144fb26f4e0022cbef5e0abd44352",
+          "packageImageByteSize": 14006
+        },
+        {
+          "retailer": "Essentials Hub",
+          "url": "https://essentialshub.com/product/fenty-skin-butta-drop-whipped-oil-body-cream/",
+          "priceNgn": 79000,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "ae3cc1ec53b982ec94442170db903a7e253f48e26a258b3ef2747806de7b2923",
+          "responseByteSize": 454452,
+          "packageImageUrl": "https://essentialshub.com/wp-content/uploads/2023/09/Fenty-Skin-BUTTA-Drop-Whipped-Oil-Body-Cream.webp",
+          "packageImageSha256": "dfe4b861563f32975c6c69bd4299751e68d453ad94b3fdb5bad0cffc0e3f78b5",
+          "packageImageByteSize": 6094
+        }
+      ]
+    },
+    {
+      "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+      "identity": {
+        "gtin": "00381371192731",
+        "variant": "Daily Moisturizing Body Oil Mist with Oat + Jojoba Oil",
+        "size": "6.7 fl oz / 200 ml",
+        "packageVersion": "Current white 200 ml spray bottle with oat and jojoba oil"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/aveeno-daily-moisturizing-body-oil-mist-with-oat-oil-6-7-fl-oz/",
+          "priceNgn": 15700,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "8f836681b48378706ecaa178aa037a9e5505893e9f5a9501c8bddb431dac399e",
+          "responseByteSize": 384901,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/10/ave_381371192731_us_daily_moisturizing_oil_mist_6.7oz_00000-removebg-preview.png",
+          "packageImageSha256": "8c1fb5094ca86b05ef114cbd589bd4091b62e1a1ae3a3fc645f035b0cdda8d50",
+          "packageImageByteSize": 50486
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/aveeno-daily-moisturizing-body-oil-mist-with-oat-oil-6-7-fl-oz/",
+          "priceNgn": 17500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "b5fdbfad9435868f0407405b1d972be5d29edb5a782a72e2e438824443794a48",
+          "responseByteSize": 392265,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/2FFCA648.jpg",
+          "packageImageSha256": "304c5545e3f6a1068f408a45d075f75a54f7b936d2252c0885b3f0be145f2b26",
+          "packageImageByteSize": 49154
+        },
+        {
+          "retailer": "CSi Grocery",
+          "url": "https://www.csigrocery.com/shop/skincare/bath-body/aveeno-daily-moisturizing-body/",
+          "priceNgn": 21500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "33b3e7e74201c43f1246ba027c429e36716410e8d3a5c93b2f27642e7a144789",
+          "responseByteSize": 14554,
+          "packageImageUrl": "https://images.ctfassets.net/j7jv1vcgqjb4/66EcpGUEI3xRYlJrrJtLAN/7425d7e3c17bb1a97ad78f9e79ed8842/7oz_00000-en-us?w=1200",
+          "packageImageSha256": "100be1caee92e4a27d15c02b92ac63e28ea63d8a109340dde35a11652379da00",
+          "packageImageByteSize": 315431
+        },
+        {
+          "retailer": "Citymarket NG",
+          "url": "https://www.citymarketng.com/products/aveeno-daily-moisturizing-body-oil-mist-200ml",
+          "priceNgn": 17666.67,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T05:39:13.098Z",
+          "expiresAt": "2026-09-06T05:39:13.098Z",
+          "responseSha256": "a109d2e38c9ecae152c6dfbd3c6e49ad40962a3b38fd4a56867b2cb2c67de8b2",
+          "responseByteSize": 2154,
+          "packageImageUrl": "https://www.citymarketng.com/cdn/shop/files/PersonalCare145.jpg?v=1782952548",
+          "packageImageSha256": "1b9a79b574e5ab9782c84c6007a66a2eaf911d54a928c55de5baf5f5fb6c273a",
+          "packageImageByteSize": 417531
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "cecred-moisturizing-deep-conditioner-300ml",
+      "retailer": "BuyBetter",
+      "url": "https://buybetter.ng/product/cecred-moisturising-deep-conditioner-300ml/",
+      "reason": "The previously admitted exact route now returns 404, so its old price and stock are failed closed.",
+      "responseSha256": "4052c38be6c489ac7ee9807cc58e00e3cad38029dc0b9253f645b4edb08e4176",
+      "responseByteSize": 517780
+    },
+    {
+      "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+      "retailer": "Lux Beauty",
+      "url": "https://www.luxbeautyng.com/product/aveeno-daily-moisturizing-body-oil-body-mist-for-dry-skin-with-oat-oil-and-jojoba-oil-nourishing-body-spray-6-7-fl-oz/",
+      "reason": "The old exact route now returns an access wall, so its price and stock cannot be reverified.",
+      "responseSha256": "f49d7f606bfbfc505724bd9a73d25be058f3a53c356de01492eae790605dbeb2",
+      "responseByteSize": 1654
+    },
+    {
+      "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+      "retailer": "MakeupAlleyNG",
+      "url": "https://makeupalleyng.com/products/aveeno-body-oil-mist",
+      "reason": "The current active listing omits the bottle size, so it cannot be tied to the exact 200 ml SKU.",
+      "responseSha256": "a1cfb198e3f5dffae6026542540679cc0eeff3e7c38e917d7c1eff4fc52062f5",
+      "responseByteSize": 2139
+    }
+  ],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+      "retailer": "BeautyByChancy",
+      "reason": "The page mixes Skin Relief Spray and Daily Moisturizing Oil options under one route, so variant-level price and stock are ambiguous."
+    },
+    {
+      "candidateId": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+      "retailer": "Mon Père Stores",
+      "reason": "The current Aveeno collection is empty and supplies no product-specific route to reverify."
+    }
+  ],
+  "heldCandidates": []
+}

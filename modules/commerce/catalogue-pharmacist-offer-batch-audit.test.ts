@@ -13,6 +13,7 @@ import fentyReleaseSource from "@/data/catalogue-publication-sources/fenty-skin-
 import loccitane250ReleaseSource from "@/data/catalogue-publication-sources/loccitane-almond-softening-shower-oil-250ml.json";
 import audit from "@/data/retailer-verification/catalogue-pharmacist-offer-batch-2026-08-04.json";
 import waveOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-1-2026-08-27.json";
+import waveTwentySevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-27-2026-08-29.json";
 import { mergeRetailOffers, verifiedRetailOffers } from "@/data/retail-offers";
 import { nigeriaRetailers } from "@/data/retailers";
 import {
@@ -255,9 +256,13 @@ test("the admitted evidence projects exactly once and rejected or pending stores
       continue;
     }
 
-    const refreshedProduct = waveOneAudit.products.find(
-      (candidate) => candidate.candidateId === product.candidateId,
-    );
+    const refreshedProduct =
+      waveTwentySevenAudit.products.find(
+        (candidate) => candidate.candidateId === product.candidateId,
+      ) ??
+      waveOneAudit.products.find(
+        (candidate) => candidate.candidateId === product.candidateId,
+      );
     if (refreshedProduct) {
       const refreshedOffer = refreshedProduct.offers.find(
         (candidate) => candidate.retailer === offer.retailer.displayName,
@@ -265,9 +270,10 @@ test("the admitted evidence projects exactly once and rejected or pending stores
       if (!refreshedOffer) {
         assert.deepEqual(projected, [], offer.observationId);
         assert.ok(
-          refreshedProduct.notProjected.some(
-            (candidate) => candidate.retailer === offer.retailer.displayName,
-          ),
+          "notProjected" in refreshedProduct &&
+            refreshedProduct.notProjected.some(
+              (candidate) => candidate.retailer === offer.retailer.displayName,
+            ),
           `${offer.observationId} needs an explicit refresh disposition`,
         );
         continue;
