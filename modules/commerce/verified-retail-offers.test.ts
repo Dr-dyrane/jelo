@@ -27,6 +27,7 @@ import waveTwentyAudit from "@/data/retailer-verification/catalogue-offer-refres
 import waveTwentyOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-21-2026-08-29.json";
 import waveTwentyTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-22-2026-08-29.json";
 import waveTwentyThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-23-2026-08-29.json";
+import waveTwentyFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-24-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -1747,6 +1748,134 @@ test("catalogue offer refresh wave 23 releases five exact packages and fails mis
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   assert.equal(registered.has("Beyond MedPlus"), true);
   assert.equal(registered.has("Ceendies Creations"), true);
+});
+
+test("catalogue offer refresh wave 24 releases five exact packages and isolates stale or conflicting listings", () => {
+  const projected = waveTwentyFourAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveTwentyFourAudit.matrix.before, 84);
+  assert.equal(waveTwentyFourAudit.matrix.after, 89);
+  assert.equal(waveTwentyFourAudit.matrix.total, 162);
+  assert.equal(waveTwentyFourAudit.summary.productsReviewed, 5);
+  assert.equal(waveTwentyFourAudit.summary.productsReleased, 5);
+  assert.equal(waveTwentyFourAudit.summary.productsBlocked, 0);
+  assert.equal(projected.length, 20);
+  assert.equal(waveTwentyFourAudit.summary.shopperActiveOffers, 17);
+  assert.equal(waveTwentyFourAudit.summary.outOfStockObservations, 3);
+  assert.equal(waveTwentyFourAudit.blockedCells.length, 12);
+  assert.equal(waveTwentyFourAudit.heldCandidates.length, 0);
+  assert.equal(waveTwentyFourAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.equal(
+    waveTwentyFourAudit.scheduledOwner.latestObservedRun.queued,
+    100,
+  );
+  assert.equal(
+    waveTwentyFourAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  for (const blocked of waveTwentyFourAudit.blockedCells) {
+    assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(blocked.responseByteSize > 0);
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.url === blocked.url,
+    );
+    assert.equal(offer, undefined, `${blocked.candidateId}: ${blocked.url}`);
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "good-molecules-hyaluronic-acid-serum-30ml",
+      [
+        "Buy Skincare in Abuja",
+        "Gifty Beauty Store",
+        "Konga Health",
+        "Nectar Beauty Hub",
+      ],
+    ],
+    [
+      "good-molecules-niacinamide-serum-30ml",
+      [
+        "DiasBeauty Cosmetics",
+        "Konga Health",
+        "Lami Fragrance",
+        "Perona Beauty",
+      ],
+    ],
+    [
+      "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
+      [
+        "Beauty by Daz",
+        "Bodycare",
+        "Perona Beauty",
+        "Skin Pop Essentiel",
+        "TOS Nigeria",
+      ],
+    ],
+    ["benton-honest-cleansing-foam-150g", ["BuyBetter"]],
+    [
+      "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+      ["Buy Skincare in Abuja", "Nectar Beauty Hub", "ShopStation"],
+    ],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["good-molecules-hyaluronic-acid-serum-30ml", 10_800],
+    ["good-molecules-niacinamide-serum-30ml", 11_000],
+    ["beauty-formulas-glowing-serum-2-vitamin-c-30ml", 3_999],
+    ["benton-honest-cleansing-foam-150g", 9_675],
+    ["the-ordinary-glycolic-acid-7-exfoliating-toner-240ml", 27_000],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    assert.equal(
+      Math.min(
+        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+      ),
+      expectedFloors.get(slug),
+      slug,
+    );
+  }
+
+  const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
+  for (const retailer of [
+    "Gifty Beauty Store",
+    "Lami Fragrance",
+    "DiasBeauty Cosmetics",
+    "Skin Pop Essentiel",
+    "Bodycare",
+  ]) {
+    assert.equal(registered.has(retailer), true, retailer);
+  }
 });
 
 test("verified Nigerian observations use exact secure product pages", () => {

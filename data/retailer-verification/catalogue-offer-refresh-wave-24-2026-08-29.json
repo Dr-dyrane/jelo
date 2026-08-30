@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-24-2026-08-29",
+  "reviewer": "JeloCare catalogue evidence review",
+  "reviewedAt": "2026-08-30T04:26:23.000Z",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T04:26:23.000Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The scheduled owner retained its 98 queued retries while this disjoint manual exact-SKU review proceeded."
+  },
+  "scope": "Thirty-two current Nigerian retailer checks across five independently releasable exact product SKUs",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 84,
+    "after": 89,
+    "total": 162
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 32,
+    "offersAdmitted": 20,
+    "shopperActiveOffers": 17,
+    "outOfStockObservations": 3,
+    "offersBlocked": 12,
+    "offersProjected": 32
+  },
+  "products": [
+    {
+      "candidateId": "good-molecules-hyaluronic-acid-serum-30ml",
+      "identity": {
+        "gtin": "810019610462",
+        "variant": "Good Molecules Hyaluronic Acid Serum",
+        "size": "30 ml / 1 oz",
+        "packageVersion": "Current blue 30 ml dropper bottle and carton"
+      },
+      "offers": [
+        {
+          "retailer": "Nectar Beauty Hub",
+          "url": "https://nectarbeautyhub.com/products/hyaluronic-acid-serum",
+          "priceNgn": 10800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:24:28.940Z",
+          "expiresAt": "2026-09-06T04:24:28.940Z",
+          "responseSha256": "bbd65dd09221debd17c4af7c1f9a5ba7d255f797b0534176f4777515e12e11c7",
+          "responseByteSize": 2972,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0605/0109/8657/files/good-molecules-hyaluronic-acid-serum-30ml-152564.png?v=1748318078",
+          "packageImageSha256": "64ac797fa9c702eb1b48ba1f9644877c0b1884a1e73dc170ccf4493c658a912f",
+          "packageImageByteSize": 69283
+        },
+        {
+          "retailer": "Gifty Beauty Store",
+          "url": "https://giftybeautystoree.com/product/good-molecules-hyaluronic-acid-serum-30ml/",
+          "priceNgn": 16000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:23:02.918Z",
+          "expiresAt": "2026-09-06T04:23:02.918Z",
+          "responseSha256": "4659973d6c82573d82fb671959ba0712d0ec2f5a3a725e4bd8f7873badb9a48b",
+          "responseByteSize": 242743,
+          "packageImageUrl": "https://giftybeautystoree.com/wp-content/uploads/2025/01/img_9022.jpeg",
+          "packageImageSha256": "781841f4055ed9611ec60ab44514b29f06c0ef2b545992f120c55896c0529f96",
+          "packageImageByteSize": 50118
+        },
+        {
+          "retailer": "Buy Skincare in Abuja",
+          "url": "https://buyskincareinabuja.com/product/good-molecules-hyaluronic-acid-serum-30ml/",
+          "priceNgn": 14950,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:23:03.965Z",
+          "expiresAt": "2026-09-06T04:23:03.965Z",
+          "responseSha256": "cebb2632f2178d695aa9788efb1732bc1a90aed1c3b6502ad7304aefc1dba32c",
+          "responseByteSize": 184136,
+          "packageImageUrl": "https://buyskincareinabuja.com/wp-content/uploads/2025/08/IMG_2753.jpeg",
+          "packageImageSha256": "2245c48d921f460d1947cee1edcbc8f553c1938c10ed8111865c9821814991e1",
+          "packageImageByteSize": 24690
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/good-molecules-hyaluronic-acid-serum-30ml-6816998",
+          "priceNgn": 16500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:24:38.312Z",
+          "expiresAt": "2026-09-06T04:24:38.312Z",
+          "responseSha256": "37cf584fed8135033490f5019f5267d05a9f60769ade32e1c7ed75eeb11103f8",
+          "responseByteSize": 263305,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/H/W/241661_1755150492.jpg",
+          "packageImageSha256": "e8d065d2e390cb47ef1d937b3b780cbd329b74918b816fdbf1556fa8c1747c11",
+          "packageImageByteSize": 32440
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://ibadan.peronabeauty.com/product/good-molecules-hyaluronic-acid-30ml/",
+          "priceNgn": 10900,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T04:22:59.468Z",
+          "expiresAt": "2026-09-06T04:22:59.468Z",
+          "responseSha256": "d4b1dd1296e83a6505db9011144f70f29909c0f8b503c2c3e2d054d61754645b",
+          "responseByteSize": 317145,
+          "packageImageUrl": "https://ibadan.peronabeauty.com/wp-content/uploads/2024/01/hyal.jpg",
+          "packageImageSha256": "293200d8272bb80bbb1f15c033ccb3d3ab0e0be914f956a97391249359ffefdc",
+          "packageImageByteSize": 42916
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/good-molecules-hyaluronic-acid-serum-30ml/",
+          "priceNgn": 13160,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T04:23:01.093Z",
+          "expiresAt": "2026-09-06T04:23:01.093Z",
+          "responseSha256": "98d3375153829524be2ffa54baef3d8379538ddc6ea3a6c820406351d2a36bd1",
+          "responseByteSize": 801423,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/07/Good-Molecules-Hyaluronic-acid-serum-30ml.jpg",
+          "packageImageSha256": "58a0214b4ffab444e8672b74ef6798524935538b11bfee48b3a033254b55c11f",
+          "packageImageByteSize": 19931
+        }
+      ]
+    },
+    {
+      "candidateId": "good-molecules-niacinamide-serum-30ml",
+      "identity": {
+        "gtin": "810019610530",
+        "variant": "Good Molecules Niacinamide Serum",
+        "size": "30 ml / 1 oz",
+        "packageVersion": "Current yellow 30 ml dropper bottle and carton"
+      },
+      "offers": [
+        {
+          "retailer": "Lami Fragrance",
+          "url": "https://lamifragrance.com/product/good-molecules-niacinamide-serum/?wmc-currency=NGN",
+          "priceNgn": 11000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:24:22.903Z",
+          "expiresAt": "2026-09-06T04:24:22.903Z",
+          "responseSha256": "baf591a0c194880238ae331ac0acc16055127bf44cd684b16f0fb15b654bc829",
+          "responseByteSize": 232439,
+          "packageImageUrl": "https://lamifragrance.com/wp-content/uploads/2023/05/niacinamide-serum.webp",
+          "packageImageSha256": "e903e6ffa336201ddcf4446e8bbb817c0f23bce913c26b4976f69a6412c37da5",
+          "packageImageByteSize": 25398
+        },
+        {
+          "retailer": "DiasBeauty Cosmetics",
+          "url": "https://diasbeautycosmetic.com/products/good-molecules-niacinamide-serum-1",
+          "priceNgn": 15500,
+          "stock": "low-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:24:29.166Z",
+          "expiresAt": "2026-09-06T04:24:29.166Z",
+          "responseSha256": "05f47a9b2ab13b1f250d9805c34dd359dd94299d9be774d24f429baf12c87d42",
+          "responseByteSize": 2227,
+          "packageImageUrl": "https://diasbeautycosmetic.com/cdn/shop/products/image_d6519c89-bd2d-4ac6-be1e-c3e9db499b4e.jpg?v=1681153436",
+          "packageImageSha256": "b727639b3742ccb55e228d3c86b8cb6b3a727429d08efe9e4429201260000267",
+          "packageImageByteSize": 68835
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://ibadan.peronabeauty.com/product/good-molecules-niacinamide-serum/",
+          "priceNgn": 11500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:23:15.105Z",
+          "expiresAt": "2026-09-06T04:23:15.105Z",
+          "responseSha256": "8b9c1ff79c50973f6aafcdcd29bd9d833bc699b633f5aeff9ba02c7ed7a48e54",
+          "responseByteSize": 326585,
+          "packageImageUrl": "https://ibadan.peronabeauty.com/wp-content/uploads/2024/01/Good-Molecules-Niacinamide-Serum.jpg",
+          "packageImageSha256": "206871e13692f5a601b1a575c85197c39ee25327162a2846c05d6faa0422fc52",
+          "packageImageByteSize": 35579
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/good-molecules-niacinamide-serum-30ml-6818086",
+          "priceNgn": 15500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:23:05.769Z",
+          "expiresAt": "2026-09-06T04:23:05.769Z",
+          "responseSha256": "59f9332dc4b0c74dd3f800be87331df6090be6b52e9313cef14e2e9112f8667e",
+          "responseByteSize": 263579,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/F/W/241661_1755208598.jpg",
+          "packageImageSha256": "89ac3dfd50ac21fa760872e1bf6711562abf16ae838ade30920930c0313f584b",
+          "packageImageByteSize": 39120
+        }
+      ]
+    },
+    {
+      "candidateId": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
+      "identity": {
+        "gtin": "5012251013611",
+        "variant": "Glowing Serum 2% Vitamin C",
+        "size": "30 ml",
+        "packageVersion": "30 ml dropper bottle and carton; manufacturer code 88696"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/beauty-formulas-glowing-serum-2-vitamin-c/",
+          "priceNgn": 3999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:23:14.840Z",
+          "expiresAt": "2026-09-06T04:23:14.840Z",
+          "responseSha256": "6c8b3af7cba73a01a523b4e04bba14c3f43f5718805e7ff088dd027467034c26",
+          "responseByteSize": 280107,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/09/images-23.jpeg",
+          "packageImageSha256": "10f19c383ed4f48754c5657e8414570a990fe9c4e954905c8a10bd5932a18be6",
+          "packageImageByteSize": 21699
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://ibadan.peronabeauty.com/product/beauty-formulas-glowing-serum-2-vitamin-c/",
+          "priceNgn": 4000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:23:20.003Z",
+          "expiresAt": "2026-09-06T04:23:20.003Z",
+          "responseSha256": "5ab4b1789cbbf1c5132a2dd43e887dfd50707c54cb78b4fa4a15d1e59551f107",
+          "responseByteSize": 323659,
+          "packageImageUrl": "https://ibadan.peronabeauty.com/wp-content/uploads/2024/01/Beauty-Formulas-Glowing-Serum-2-Vitamin-C.jpg",
+          "packageImageSha256": "0539b1af4a8def1875aee1171a7fb8cdf3f434af4f95d72089e45dd51d820f64",
+          "packageImageByteSize": 19708
+        },
+        {
+          "retailer": "Skin Pop Essentiel",
+          "url": "https://skinpopessentiel.com/products/beauty-formula-vit-c-glowing-serum",
+          "priceNgn": 4085,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:23:21.585Z",
+          "expiresAt": "2026-09-06T04:23:21.585Z",
+          "responseSha256": "372b8d375a9f146410c3e01faac06b2730109f44bb53b8fead05a313232506d1",
+          "responseByteSize": 255568,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0580/6751/7607/files/VITAMIN-C_TONIC.png?v=1712788139",
+          "packageImageSha256": "c3b2e7c3f1e4162e847dc7d6e6b7ca2e57852da81f16adfc6a3dbdad2f9578bc",
+          "packageImageByteSize": 51098
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/beauty-formulas-glowing-serum-2-vitamin-c-30ml/",
+          "priceNgn": 4950,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:23:21.987Z",
+          "expiresAt": "2026-09-06T04:23:21.987Z",
+          "responseSha256": "c098dccc4698416e5005bdae7cd8eb571f02750e051d7ed89bfcfcb9b46b248d",
+          "responseByteSize": 314663,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2024/01/Beauty-Formulas-Glowing-Serum-2-Vitamin-C.jpg",
+          "packageImageSha256": "c1b538e22ccdead4866341d681af1f77e3096f571d5a7c40999ca3b5a0701bb0",
+          "packageImageByteSize": 20479
+        },
+        {
+          "retailer": "Bodycare",
+          "url": "https://bodycare.ng/product/beauty-formulas-glowing-serum-2-vitamin-c-serum-30ml/",
+          "priceNgn": 4000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:23:24.520Z",
+          "expiresAt": "2026-09-06T04:23:24.520Z",
+          "responseSha256": "46f07ea45be6644e3edc9182575ce87611a913f72d1289f520d3cb66e6edb872",
+          "responseByteSize": 172642,
+          "packageImageUrl": "https://bodycare.ng/wp-content/uploads/2024/12/IMG_6720.jpeg",
+          "packageImageSha256": "b4a35f2b89f672a81b74568488b1549042afe4a96e0c54f89816c9ee4df79785",
+          "packageImageByteSize": 78132
+        }
+      ]
+    },
+    {
+      "candidateId": "benton-honest-cleansing-foam-150g",
+      "identity": {
+        "gtin": "8809540510251",
+        "variant": "Benton Honest Cleansing Foam",
+        "size": "150 g",
+        "packageVersion": "150 g / 5.29 oz tube and carton"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/benton-honest-cleansing-foam-150g/",
+          "priceNgn": 9675,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:23:25.840Z",
+          "expiresAt": "2026-09-06T04:23:25.840Z",
+          "responseSha256": "ce63e3259d6f58f1d84129ee3d1feebacab5446b559c387967082b544d846150",
+          "responseByteSize": 563706,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/08/vcqr15c9.png",
+          "packageImageSha256": "0630211185aeb1e344d161b521f1fda2315fb52c727b7cc479cf32c3d3fa00fd",
+          "packageImageByteSize": 555198
+        }
+      ]
+    },
+    {
+      "candidateId": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+      "identity": {
+        "gtin": "769915234060",
+        "variant": "The Ordinary Glycolic Acid 7% Exfoliating Toner",
+        "size": "240 ml",
+        "packageVersion": "Current clear 240 ml bottle with white dispensing cap and Exfoliating Toner label"
+      },
+      "offers": [
+        {
+          "retailer": "Buy Skincare in Abuja",
+          "url": "https://buyskincareinabuja.com/product/the-ordinary-glycolic-acid-7-exfoliating-toner/",
+          "priceNgn": 32000,
+          "stock": "low-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:26:23.000Z",
+          "expiresAt": "2026-09-06T04:26:23.000Z",
+          "responseSha256": "28d4b37dd8573a94178333f42213847dff74791e09ccd511914e55795c0b5f6f",
+          "responseByteSize": 187630,
+          "packageImageUrl": "https://buyskincareinabuja.com/wp-content/uploads/2025/04/IMG_3583.jpeg",
+          "packageImageSha256": "51ab02370d008f671359d711cf2a936da31d480bfcc4eb64ca7b0d8cbee47ca0",
+          "packageImageByteSize": 18352
+        },
+        {
+          "retailer": "Nectar Beauty Hub",
+          "url": "https://nectarbeautyhub.com/products/the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+          "priceNgn": 32370,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:26:23.000Z",
+          "expiresAt": "2026-09-06T04:26:23.000Z",
+          "responseSha256": "fe0a6d0ab46d2ca92110e53897f5de7fc000dc9ddc4457077a7749d300905e26",
+          "responseByteSize": 848692,
+          "packageImageUrl": "https://nectarbeautyhub.com/cdn/shop/files/the-ordinary-glycolic-acid-7-exfoliating-toner-240ml-1264861_1024x1024.png?v=1782473647",
+          "packageImageSha256": "6d99b0780f7b6cc40e4e814fdf586226d62378f4e943cd7b6cf2d4a5109a14e8",
+          "packageImageByteSize": 116388
+        },
+        {
+          "retailer": "ShopStation",
+          "url": "https://shopstation.ng/product/the-ordinary-glycolic-acid-7-toning-solution/",
+          "priceNgn": 27000,
+          "stock": "low-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T04:26:23.000Z",
+          "expiresAt": "2026-09-06T04:26:23.000Z",
+          "responseSha256": "198b2378794efa56326ede1e0b9c737ce1b66870fe5de216423d228e53fa3ea0",
+          "responseByteSize": 224674,
+          "packageImageUrl": "https://shopstation.ng/wp-content/uploads/2023/05/img_1591.jpeg",
+          "packageImageSha256": "604eb318bbc9e285cc6e709b886a463901ce7de9f498febdbf012da0b632f045",
+          "packageImageByteSize": 104591
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/the-ordinary-glycolic-acid-7-exfoliating-toner-240ml/",
+          "priceNgn": 23650,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T04:26:23.000Z",
+          "expiresAt": "2026-09-06T04:26:23.000Z",
+          "responseSha256": "60183d8392a5a50ba9d50660dfaf1491ceed033f1359bf37d89056fe724a2cf8",
+          "responseByteSize": 563429,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/06/7fead384-5449-4d85-9b3a-22c00a793c1b_13.jpeg",
+          "packageImageSha256": "cc6fb6014e8ab5852384ff84180c0f43f40ca3445866898ed1fae01b893768ad",
+          "packageImageByteSize": 52128
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "good-molecules-niacinamide-serum-30ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/good-molecules-niacinamide-serum/",
+      "reason": "The exact indexed 30 ml route is currently behind an HTTP 403 verification wall, so its prior price and stock remain fail-closed.",
+      "responseSha256": "d8944476ccdd81caefb36b66f1c1b24ce45665e8d5eb5246368a5511709ceb94",
+      "responseByteSize": 5917
+    },
+    {
+      "candidateId": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/beauty-formulas-glowing-serum/",
+      "reason": "The incumbent exact route now returns an HTTP 403 verification wall; the prior price cannot be refreshed.",
+      "responseSha256": "ad47725163e2e6843e542600aed4981aa073f28d5f7ae2758175e0b78fcb429f",
+      "responseByteSize": 5866
+    },
+    {
+      "candidateId": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
+      "retailer": "24Eleven",
+      "url": "https://www.24eleven.ng/beauty-formulas-glowing-serum-2-vitamin-c-30ml/",
+      "reason": "The incumbent exact route now returns an HTTP 403 verification wall; the prior price cannot be refreshed.",
+      "responseSha256": "2cd07766db2f47530f91edf941c87fc7ee021cf402f52caf26ddbb26a13aa551",
+      "responseByteSize": 5888
+    },
+    {
+      "candidateId": "beauty-formulas-glowing-serum-2-vitamin-c-30ml",
+      "retailer": "Slique Beauty",
+      "url": "https://sliquebeautylimited.com/product/beauty-formulas-glowing-serum-2-vitamin-c-30ml/",
+      "reason": "The live 30 ml listing publishes EAN 2000000046600, conflicting with canonical GTIN 5012251013611.",
+      "responseSha256": "e5bb376b1811c64de1439fa1103fe2adc6ef4402d82e6b0104b779156bf3e608",
+      "responseByteSize": 421126
+    },
+    {
+      "candidateId": "benton-honest-cleansing-foam-150g",
+      "retailer": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/benton-honest-cleansing-foam-150g/",
+      "reason": "The exact route is currently behind an HTTP 403 verification wall, so price and stock cannot be refreshed.",
+      "responseSha256": "9341d7a330e7e152b0555adbd847a431388a75cf979f79fa78aaf13ad4998963",
+      "responseByteSize": 5885
+    },
+    {
+      "candidateId": "benton-honest-cleansing-foam-150g",
+      "retailer": "Loja Glamourosa",
+      "url": "https://www.lojaglamourosa.com/ng/en/benton-honest-cleansing-foam---150ml-8809540510251",
+      "reason": "The route labels the product 150 ml rather than canonical 150 g and is currently behind an HTTP 403 wall.",
+      "responseSha256": "e87d7484ef478e9bb7412449a736e78d18bc3486533f0d1032f92ba737c4a2b3",
+      "responseByteSize": 5516
+    },
+    {
+      "candidateId": "benton-honest-cleansing-foam-150g",
+      "retailer": "iHerb",
+      "url": "https://ng.iherb.com/pr/benton-honest-cleansing-foam-5-29-oz-150-g/74831",
+      "reason": "Search evidence identifies the exact UPC and size, but the live route is behind an HTTP 403 wall and cannot support a current offer.",
+      "responseSha256": "eaae54a73f63ed7848efe612c17c57b6fd097b7b84b34469115099d30fb97aa5",
+      "responseByteSize": 5854
+    },
+    {
+      "candidateId": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+      "retailer": "Nihet Beauty",
+      "url": "https://nihetbeauty.com/product/the-ordinary-glycolic-acid-7-toning-solution-240ml/",
+      "reason": "The old Toning Solution package publishes GTIN 769915190977, conflicting with current Exfoliating Toner GTIN 769915234060.",
+      "responseSha256": "c9c195bcd7113a6d4c6c256c5488c033430f72a978f246cdec63701e0d0e833f",
+      "responseByteSize": 475591
+    },
+    {
+      "candidateId": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+      "retailer": "Cocci Beauty",
+      "url": "https://www.cocci.com.ng/products/glycolic-acid-7-toning-solution-240ml",
+      "reason": "The old Toning Solution package publishes GTIN 769915190977, conflicting with current Exfoliating Toner GTIN 769915234060.",
+      "responseSha256": "69163c9ac98f125d43d2b3a93930e1ddd0817b6ff65d2e129421160707ebaf33",
+      "responseByteSize": 529865
+    },
+    {
+      "candidateId": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+      "retailer": "GoMed",
+      "url": "https://gomed.ng/product/the-ordinary-glycolic-7-toning-solution",
+      "reason": "The route shows the old Toning Solution package, labels its price last known, and exposes no directly orderable current stock.",
+      "responseSha256": "ed518b5b7744510e350eaf00f6fde2f480c2f5da9f4ae7acddd14614c95c2052",
+      "responseByteSize": 199047
+    },
+    {
+      "candidateId": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+      "retailer": "Konga Health",
+      "url": "https://www.konga.com/product/the-ordinary-glycolic-acid-7-exfoliating-toner-240ml-6873598",
+      "reason": "The marketplace image shows the old Toning Solution package and exposes no current manufacturer GTIN.",
+      "responseSha256": "0522cbf21e2f490d97be796beee5fade00bd2ab4ee217327b2cde9cbc4da968d",
+      "responseByteSize": 265674
+    },
+    {
+      "candidateId": "the-ordinary-glycolic-acid-7-exfoliating-toner-240ml",
+      "retailer": "Perona Beauty",
+      "url": "https://peronabeauty.com/product/the-ordinary-glycolic-acid-7-toning-solution-240ml/",
+      "reason": "The listing text uses the current name, but its primary package image is behind a verification wall and no GTIN is surfaced.",
+      "responseSha256": "1228d288e2c3984055b7ae6abdf6af6b851ce0170696fdb2aefed7a7feef0cb8",
+      "responseByteSize": 392197
+    }
+  ],
+  "heldCandidates": []
+}

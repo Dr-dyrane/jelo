@@ -1056,6 +1056,98 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigeria skincare retailer with direct Naira listings and visible inventory; links remain advisory only.",
   },
   {
+    name: "Gifty Beauty Store",
+    homepage: "https://giftybeautystoree.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T04:23:02.918Z",
+      sourceUrl:
+        "https://giftybeautystoree.com/product/good-molecules-hyaluronic-acid-serum-30ml/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: wordpressSearch("https://giftybeautystoree.com/"),
+    note: "Nigerian beauty retailer with direct Naira listings, exact product identifiers and visible stock; links remain advisory only.",
+  },
+  {
+    name: "Lami Fragrance",
+    homepage: "https://lamifragrance.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T04:24:22.903Z",
+      sourceUrl:
+        "https://lamifragrance.com/product/good-molecules-niacinamide-serum/?wmc-currency=NGN",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: wordpressSearch("https://lamifragrance.com/"),
+    note: "Nigerian fragrance and skincare retailer with Naira pricing, product identifiers and visible stock; links remain advisory only.",
+  },
+  {
+    name: "DiasBeauty Cosmetics",
+    homepage: "https://diasbeautycosmetic.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T04:24:29.166Z",
+      sourceUrl:
+        "https://diasbeautycosmetic.com/products/good-molecules-niacinamide-serum-1",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query: string) =>
+      `https://diasbeautycosmetic.com/search?q=${encodeURIComponent(query)}`,
+    note: "Nigerian Shopify beauty retailer with Naira pricing and API-visible stock; links remain advisory only.",
+  },
+  {
+    name: "Skin Pop Essentiel",
+    homepage: "https://skinpopessentiel.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T04:23:21.585Z",
+      sourceUrl:
+        "https://skinpopessentiel.com/products/beauty-formula-vit-c-glowing-serum",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query: string) =>
+      `https://skinpopessentiel.com/search?q=${encodeURIComponent(query)}`,
+    note: "Nigerian Shopify beauty retailer with Naira pricing, exact product barcodes and visible stock; links remain advisory only.",
+  },
+  {
+    name: "Bodycare",
+    homepage: "https://bodycare.ng/",
+    market: "NG",
+    kind: "retailer",
+    trust: 78,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T04:23:24.520Z",
+      sourceUrl:
+        "https://bodycare.ng/product/beauty-formulas-glowing-serum-2-vitamin-c-serum-30ml/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: wordpressSearch("https://bodycare.ng/"),
+    note: "Nigerian beauty retailer with direct Naira product listings and visible stock; links remain advisory only.",
+  },
+  {
     name: "HelloBeauty NG",
     homepage: "https://hellobeautyng.com/",
     market: "NG",
