@@ -4656,9 +4656,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "150 ml",
       {
         observedAt: "2026-08-30T07:02:34.000Z",
-        expiresAt: "2026-09-06T07:02:34.000Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-30T21:18:05Z",
+        stock: "unknown",
+        available: false,
         verificationMethod: "api",
       },
     ),
@@ -7021,7 +7021,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "1.75 fl oz / 52 ml",
       {
         observedAt: "2026-08-30T05:04:43.281Z",
-        expiresAt: "2026-09-06T05:04:43.281Z",
+        expiresAt: "2026-08-30T21:17:54Z",
         stock: "unknown",
         available: false,
         priceComparison: "exclude",
