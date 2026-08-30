@@ -16,6 +16,7 @@ import waveNineAudit from "@/data/retailer-verification/catalogue-offer-refresh-
 import waveTenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-10-2026-08-29.json";
 import waveElevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-11-2026-08-29.json";
 import waveTwelveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-12-2026-08-29.json";
+import waveThirteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-13-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -684,6 +685,90 @@ test("catalogue offer refresh wave 12 releases clean cells and fails closed on p
   );
 });
 
+test("catalogue offer refresh wave 13 refreshes complete selected products and fails blocked siblings closed", () => {
+  const projected = waveThirteenAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveThirteenAudit.matrix.before, 36);
+  assert.equal(waveThirteenAudit.matrix.after, 41);
+  assert.equal(waveThirteenAudit.matrix.total, 162);
+  assert.equal(waveThirteenAudit.summary.productsReviewed, 5);
+  assert.equal(projected.length, 15);
+  assert.equal(waveThirteenAudit.blockedCells.length, 9);
+  assert.equal(waveThirteenAudit.scheduledOwner.manifestRecurringOwner, null);
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    const acceptedSizes = [
+      product.identity.size,
+      ...("packageLabelSize" in product.identity
+        ? [product.identity.packageLabelSize]
+        : []),
+    ];
+    assert.ok(
+      acceptedSizes.includes(offer.priceObservation?.size ?? ""),
+      `${product.candidateId}: ${evidence.retailer} has exact package size`,
+    );
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const asOf = new Date(waveThirteenAudit.reviewedAt);
+  for (const blocked of waveThirteenAudit.blockedCells) {
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.retailer === blocked.retailer,
+    );
+    assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
+    assert.equal(isOfferFresh(offer, asOf), true);
+    assert.equal(offer.available, false);
+    assert.equal(offer.priceComparison, "exclude");
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "cerave-acne-foaming-cream-wash-10-150ml",
+      ["Beauty by Daz", "Perona Beauty", "Teeka4"],
+    ],
+    ["cerave-moisturising-cream-454g", ["Nectar Beauty Hub", "Perona Beauty"]],
+    [
+      "facefacts-vitamin-c-body-lotion-400ml",
+      ["Allure Beauty", "Deoset", "Perona Beauty"],
+    ],
+    [
+      "garnier-vitamin-c-brightening-day-cream-50ml",
+      ["BuyBetter", "Perona Beauty", "Teeka4"],
+    ],
+    ["balance-niacinamide-blemish-recovery-serum-30ml", ["Perona Beauty"]],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    assert.deepEqual(
+      product.offers
+        .filter((offer) => offer.available)
+        .map((offer) => offer.retailer)
+        .sort(),
+      expected,
+      slug,
+    );
+  }
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -1034,7 +1119,6 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
   const expected = [
     // COSRX and Vitamin C offers pruned to 10 freshest; Beauty Hut Africa
     // was outside the top-10 trust tier for those two products.
-    ["balance-niacinamide-blemish-recovery-serum-30ml", 10_500, "30 ml"],
     ["cerave-blemish-control-cleanser", 18_252, "236 ml"],
     ["cerave-foaming-facial-cleanser", 14_700, "236 ml"],
     ["cerave-pm-facial-moisturising-lotion-52ml", 20_300, "52 ml"],
@@ -1070,6 +1154,16 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     );
     assert.equal(new URL(offer.url).hostname, "beautyhutafrica.com", slug);
   }
+
+  const refreshedBalance = verifiedRetailOffers[
+    "balance-niacinamide-blemish-recovery-serum-30ml"
+  ]?.find((candidate) => candidate.retailer === "Beauty Hut Africa");
+  assert.ok(refreshedBalance);
+  assert.equal(refreshedBalance.priceNgn, 10_500);
+  assert.equal(refreshedBalance.available, false);
+  assert.equal(refreshedBalance.priceObservation?.size, "30 ml");
+  assert.equal(refreshedBalance.checkedAt, "2026-08-30T01:02:44.400Z");
+  assert.equal(refreshedBalance.expiresAt, "2026-09-06T01:02:44.400Z");
 
   assert.equal(
     verifiedRetailOffers["cerave-foaming-facial-cleanser"].some(

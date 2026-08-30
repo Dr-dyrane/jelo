@@ -1,0 +1,408 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-13-2026-08-29",
+  "scope": "Twenty-four live retailer checks across five independently releasable exact product SKUs",
+  "reviewedAt": "2026-08-30T01:02:44.400Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 36,
+    "after": 41,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T01:02:44.400Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The last observed backlog remains empty and no later scheduled run was due before this review."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 24,
+    "offersAdmitted": 15,
+    "shopperActiveOffers": 12,
+    "outOfStockObservations": 3,
+    "offersBlocked": 9,
+    "offersProjected": 15
+  },
+  "products": [
+    {
+      "candidateId": "cerave-acne-foaming-cream-wash-10-150ml",
+      "identity": {
+        "gtin": "3606000604520",
+        "variant": "CeraVe Acne Foaming Cream Wash 10% Benzoyl Peroxide",
+        "size": "150 ml",
+        "packageLabelSize": "5 fl oz / 150 ml",
+        "packageVersion": "white 5 fl oz squeeze tube with turquoise Acne Foaming Cream Wash label and 10% benzoyl peroxide badge"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5-fl-oz-150ml/",
+          "priceNgn": 23850,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "006dbe31b2928aa1a9082f05a67edb2ed08860d3ea6f8d39bd28ed92e9fadefd",
+          "responseByteSize": 247655,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2026/07/Cerave-acne-foaming-cream-10.jpg",
+          "packageImageSha256": "b8d1ea9c5e52e48834c4aaa19d90051caddf8ca46dac6ac213b20e39bac1e9dd",
+          "packageImageByteSize": 144350
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/cerave-acne-foaming-cream-wash-10-benzoyl-peroxide-acne-treatment-5fl-150ml/",
+          "priceNgn": 24500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "eba5c5c6fc62c41cdbad8d42fa4775b21415dc49f203bc955e113dff01b905b3",
+          "responseByteSize": 356806,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/12/BPO10-packshot-with-carton-desktop-700x785-v1.jpg",
+          "packageImageSha256": "4464d8f5e891a69a6f8c6afb5ad333a6fbb4875350895e5004cbfeeb5b90d683",
+          "packageImageByteSize": 67803
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/cerave-acne-foaming-cream-wash-with-10-benzoyl-peroxide/",
+          "priceNgn": 30000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "940dc3eaa09dfa459098105be24403743777d399d5fae13954dea3122393445b",
+          "responseByteSize": 385768,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/04/Screenshot_800886.jpg",
+          "packageImageSha256": "b2f56770de10b3e418b77f8506e294e22ef57260108350f9eba9c12e9740d195",
+          "packageImageByteSize": 194406
+        }
+      ]
+    },
+    {
+      "candidateId": "cerave-moisturising-cream-454g",
+      "identity": {
+        "gtin": "3337875597388",
+        "variant": "CeraVe Moisturising Cream Pot",
+        "size": "454 g",
+        "packageLabelSize": "16 oz / 454 g",
+        "packageVersion": "white 16 oz pot with blue Moisturising Cream label and 454 g net weight"
+      },
+      "offers": [
+        {
+          "retailer": "Nectar Beauty Hub",
+          "url": "https://nectarbeautyhub.com/products/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g",
+          "priceNgn": 22500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "9b97c1b6d837c38d62324a15c8a8b10f0d2c3911b411f8b187ad1ebcfd58a97b",
+          "responseByteSize": 872898,
+          "packageImageUrl": "https://nectarbeautyhub.com/cdn/shop/files/cerave-moisturizing-cream-for-dry-to-very-dry-skin-454g-700295.jpg?v=1750774367",
+          "packageImageSha256": "d72e019aa6c6d7addbebc7a96327da3d634a2c3c2bf3bf554ca1b83780cb43aa",
+          "packageImageByteSize": 6169
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/cerave-moisturizing-cream-for-dry-to-very-dry-skin-16-oz-uk/",
+          "priceNgn": 22500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "c00f3e9df801c712adf1177a85bd25959ff1634e3fe7304aba03461d9430cff3",
+          "responseByteSize": 386108,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/Cerave-Moisturizing-Cream-For-Dry-to-very-dry-Skin.jpg",
+          "packageImageSha256": "4866e21f97c58b232a57331b3334cdcd812e3c1e853c73005cc6cfe0c781bf5c",
+          "packageImageByteSize": 36883
+        }
+      ]
+    },
+    {
+      "candidateId": "facefacts-vitamin-c-body-lotion-400ml",
+      "identity": {
+        "gtin": "5031413929089",
+        "variant": "FaceFacts Vitamin C Body Lotion",
+        "size": "400 ml",
+        "packageVersion": "current white 400 ml pump bottle with orange Vitamin C label"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/facefacts-vitamin-c-body-lotion-400ml/",
+          "priceNgn": 6095,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "3374ffb405c9da1e01fdd4b963201ef1efaee1e987161a3cc59e34a16f8c4523",
+          "responseByteSize": 561862,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2024/08/q4fi2nqu.png",
+          "packageImageSha256": "c8e26cf8c558fcc2c5f4aa6f55f9efcf712d5012e3c194aaf8117e26201b20ca",
+          "packageImageByteSize": 111127
+        },
+        {
+          "retailer": "Allure Beauty",
+          "url": "https://allure.com.ng/face-facts-vitamin-c-body-lotion/",
+          "priceNgn": 8000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "83b0db4e83fd5958950c4a85bf15344eabd84eb5a1d4d3b0c2b522b75d4e5fe2",
+          "responseByteSize": 438770,
+          "packageImageUrl": "https://allure.com.ng/wp-content/uploads/2024/05/face-facts-lotion-pic.jpg",
+          "packageImageSha256": "61050752c5ecee46d60aeb9b6dd67da3eafd987de84cc8297408b70c149cb52d",
+          "packageImageByteSize": 16814
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/facefacts-vitamin-c-body-lotion-13-53fl-oz-400ml/",
+          "priceNgn": 6500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "37ff196eea75973adabb9411b9c0c705671c3358531731d8371345fa13e92017",
+          "responseByteSize": 136621,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2025/11/woo_product_image_ept-2907-image.jpg",
+          "packageImageSha256": "dce2e0c888dc6d659904b165d19c2424755685f374108d46dd02c055d50c524b",
+          "packageImageByteSize": 66522
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/facefacts-vitamin-c-body-lotion-400ml/",
+          "priceNgn": 6350,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "2f950ace8464b60cfb23b6bf348e3846d274f9e6124c5aaa442bfd84664351fe",
+          "responseByteSize": 390665,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/FaceFacts-Vitamin-C-Body-Lotion-400ml.jpg",
+          "packageImageSha256": "2443eb024e1c7fdc133cc6040e578efdfeac1b54408a6a3bfdb3610b3a935b92",
+          "packageImageByteSize": 25931
+        }
+      ]
+    },
+    {
+      "candidateId": "garnier-vitamin-c-brightening-day-cream-50ml",
+      "identity": {
+        "gtin": "3600542453110",
+        "variant": "Garnier Vitamin C Brightening Day Cream",
+        "size": "50 ml",
+        "packageVersion": "white 50 ml jar with pale green lid and orange Vitamin C Brightening Day Cream label"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/garnier-vitamin-c-brightening-day-cream-50ml/",
+          "priceNgn": 11833,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "e954e4166a3177abdd7fba9af8d66bdb149632d9dfadba7618b926835aaf8ebd",
+          "responseByteSize": 367646,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2023/08/DAY-CREAM.jpeg",
+          "packageImageSha256": "1bf58abaf9537644297f73f25a6013ba4c38693e6fd872b514a304ce8493a1d5",
+          "packageImageByteSize": 44834
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/garnier-vitamin-c-brightening-day-cream-50ml/",
+          "priceNgn": 12728,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "4eb68b2a661e8a6c59a3420de0f1af65c33e3ed6e17b3300e7d2fa5427048d02",
+          "responseByteSize": 564269,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2024/06/Garnier-Vitamin-C-Bright-Day-Cream-50ml.avif",
+          "packageImageSha256": "cd73e80eab20e0524994259b6821617c9d42d84bd41314fe6ab3eed518467cc0",
+          "packageImageByteSize": 15624
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/garnier-vitamin-c-brightening-day-cream-50ml/",
+          "priceNgn": 12850,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "631017b157c5b0717228c85e23b1a7a120b31ef62fe48e7352c533f8fb8d6e2a",
+          "responseByteSize": 392284,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/IMG-1921-j_933440.jpg",
+          "packageImageSha256": "a8a3da40623eea77887c66d6bf2234f7fae86e27f60c91cf71c6db1f8f23ef6b",
+          "packageImageByteSize": 72955
+        }
+      ]
+    },
+    {
+      "candidateId": "balance-niacinamide-blemish-recovery-serum-30ml",
+      "identity": {
+        "gtin": "5015833328165",
+        "variant": "Balance Active Formula Skincare Niacinamide Blemish Recovery Serum",
+        "size": "30 ml",
+        "packageLabelSize": "30 ml / 1 fl oz",
+        "packageVersion": "amber 30 ml dropper bottle with white cap and turquoise Niacinamide Blemish Recovery Serum label"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/balance-niacinamide-blemish-recovery-serum-clear-30ml/",
+          "priceNgn": 8400,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "949d5949ab1512145c36a87cc63e78b8763c68f27e75367694e082b759ca682b",
+          "responseByteSize": 562389,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2023/08/balance-niacinamide.jpg",
+          "packageImageSha256": "a93735342e62bddfdfcfff852fbadfae9cf4f4f784635f7c53cb0e782e610b87",
+          "packageImageByteSize": 16360
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/balance-active-formula-niacinamide-blemish-recovery-serum-30ml-1oz/",
+          "priceNgn": 9000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "495a5c6e98005a2800b50c4905c0cd088e46dc2bfa8ddd96c5c377777b94d7b7",
+          "responseByteSize": 438628,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/Balance-Active-Formula-Niacinamide-Blemish-Recovery-Serum-30ml-1oz.jpg",
+          "packageImageSha256": "055d8196571c56a8a7de8fc114a9bbd8dd3c345f9ee96ed12494a0809526d545",
+          "packageImageByteSize": 91995
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/balance-active-formula-niacinamide-blemish-recovery-serum-30ml/",
+          "priceNgn": 10500,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:02:44.400Z",
+          "expiresAt": "2026-09-06T01:02:44.400Z",
+          "responseSha256": "ef7aeca3711000f5f5e95b8ba2bcb98a5762cc958212ac2d7a8a4add0c7b92fd",
+          "responseByteSize": 809859,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/04/Balance-Active-Formula-Niacinamide-Blemish-Recovery-Serum-30ml.jpg",
+          "packageImageSha256": "6497dfaf914bf4ce1c87a89a4ae188291227b2c203994f6206ea74d04237f5ab",
+          "packageImageByteSize": 26226
+        }
+      ]
+    }
+  ],
+  "blockedProducts": [],
+  "blockedCells": [
+    {
+      "candidateId": "cerave-acne-foaming-cream-wash-10-150ml",
+      "retailer": "BuyBetter",
+      "url": "https://buybetter.ng/product/cerave-acne-control-cleanser-5-oz-150ml/",
+      "responseStatus": 404,
+      "responseSha256": "cdd8ccd5677b96cc00e29dd1a073b7b3acfacf28ea026496e53d0c8e2f46b444",
+      "responseByteSize": 516441,
+      "blocker": "The exact retailer route now returns a product-scoped 404 page, so current price and stock cannot be asserted."
+    },
+    {
+      "candidateId": "cerave-acne-foaming-cream-wash-10-150ml",
+      "retailer": "Deoset",
+      "url": "https://deoset.com/product/cerave-acne-foaming-cream-wash/",
+      "responseStatus": 502,
+      "responseSha256": "5fd55da8747d933410bb637571802aca2eedf3314039722e2b9d6f37afdad97e",
+      "responseByteSize": 552,
+      "blocker": "The current retailer response is a 502 gateway error, so current exact-SKU price and stock are not reviewable."
+    },
+    {
+      "candidateId": "cerave-moisturising-cream-454g",
+      "retailer": "BuyBetter",
+      "url": "https://buybetter.ng/product/cerave-moisturizing-cream-with-hyaluronic-acid-and-ceramides-454g/",
+      "responseStatus": 404,
+      "responseSha256": "9a0441caa500b75ef87186d2c36b7d9da80cec75ede408b7d98ee57ee5729da6",
+      "responseByteSize": 516883,
+      "blocker": "The exact retailer route now returns a product-scoped 404 page, so current price and stock cannot be asserted."
+    },
+    {
+      "candidateId": "cerave-moisturising-cream-454g",
+      "retailer": "Deoset",
+      "url": "https://deoset.com/product/cerave-moisturizing-cream-16-0z-453g-usa-version/",
+      "responseStatus": 200,
+      "responseSha256": "baf7684347943b07796dfa1514eec172d677744a17c58a8baa0c38d0addb58d9",
+      "responseByteSize": 139029,
+      "observedPriceNgn": 34500,
+      "observedStock": "in-stock",
+      "observedSize": "453 g",
+      "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/02/cerave-cup-cream-US-16OZ.jpg",
+      "packageImageSha256": "fe6e87c60618c04fdcbed0bea471f2b2f6989c31c322faa68950932f448d1d86",
+      "packageImageByteSize": 153667,
+      "blocker": "The retailer explicitly lists the US 453 g pack, which conflicts with the released UK 454 g identity."
+    },
+    {
+      "candidateId": "garnier-vitamin-c-brightening-day-cream-50ml",
+      "retailer": "Deoset",
+      "url": "https://deoset.com/product/garnier-vitamin-c-brightening-day-cream-50ml/",
+      "responseStatus": 502,
+      "responseSha256": "5fd55da8747d933410bb637571802aca2eedf3314039722e2b9d6f37afdad97e",
+      "responseByteSize": 552,
+      "blocker": "The current retailer response is a 502 gateway error, so current exact-SKU price and stock are not reviewable."
+    },
+    {
+      "candidateId": "balance-niacinamide-blemish-recovery-serum-30ml",
+      "retailer": "Deoset",
+      "url": "https://deoset.com/product/balance-active-formula-niacinamide-blemish-recovery-serum-30ml-1oz/",
+      "responseStatus": 502,
+      "responseSha256": "5fd55da8747d933410bb637571802aca2eedf3314039722e2b9d6f37afdad97e",
+      "responseByteSize": 552,
+      "blocker": "The current retailer response is a 502 gateway error, so current exact-SKU price and stock are not reviewable."
+    },
+    {
+      "candidateId": "cerave-moisturising-cream-454g",
+      "retailer": "24Eleven",
+      "url": "https://www.24eleven.ng/cerave-moisturizing-cream-454g-16oz",
+      "responseStatus": 403,
+      "responseSha256": "4e77deb8b3c2da993e47d727a131c7de18fc07f29356e41d7cb661cd531ff9c1",
+      "responseByteSize": 5831,
+      "blocker": "A browser verification wall prevents current price, stock, size, and package verification."
+    },
+    {
+      "candidateId": "garnier-vitamin-c-brightening-day-cream-50ml",
+      "retailer": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/garnier-bio-vitamin-c-brightening-day-cream-50ml/",
+      "responseStatus": 403,
+      "responseSha256": "94c7a133ca07c59b97ae7d65a25d65bac8f1d0ece5ded333c453870914acd6b7",
+      "responseByteSize": 5951,
+      "blocker": "A browser verification wall prevents current price, stock, size, and package verification."
+    },
+    {
+      "candidateId": "balance-niacinamide-blemish-recovery-serum-30ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/balance-active-formula/",
+      "responseStatus": 403,
+      "responseSha256": "3db39b0cc1cf804fd7cd3ea86bed0fb29523b6ff7cf5fb96f4ca0865d589ce45",
+      "responseByteSize": 5887,
+      "blocker": "A browser verification wall prevents current price, stock, size, and package verification."
+    }
+  ]
+}
