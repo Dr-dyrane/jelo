@@ -8,12 +8,16 @@ import {
   INVENTORY_CRON_CLAIM_BUDGET_MS,
   summarizeInventoryRefreshRun,
 } from "@/lib/inventory/refresh-policy";
-import { processInventoryRefreshBatch } from "@/lib/inventory/refresh-worker";
+import {
+  processInventoryRefreshBatch,
+  type InventoryRefreshResult,
+} from "@/lib/inventory/refresh-worker";
 import { sendRefreshAlertIfNeeded } from "@/lib/inventory/refresh-alerting";
 import { isAuthorizedCronRequest } from "@/modules/retail-intelligence/cron-auth";
 import {
-  staticFileSyncConfig,
+  staticFileSyncConfiguration,
   syncOffersToStaticFile,
+  type StaticFileSyncResult,
 } from "@/lib/inventory/static-file-sync";
 
 export const runtime = "nodejs";
@@ -31,22 +35,21 @@ export async function GET(request: Request) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Dry-run mode: enqueue due offers and report the backlog without fetching
-  // retailer pages or writing to the database. Useful for local testing and
-  // for verifying that the cron is wired up correctly.
+  // Dry-run mode reports the current backlog without enqueueing, claiming,
+  // refreshing, alerting, cache invalidation, or static-file synchronization.
   const dryRun = new URL(request.url).searchParams.has("dry-run");
-
-  const claimDeadlineAt = requestStartedAt + INVENTORY_CRON_CLAIM_BUDGET_MS;
-  const enqueue = await enqueueDueInventoryOffers(batchSize);
 
   if (dryRun) {
     const backlog = await getInventoryRefreshBacklogSummary();
-    const summary = { dryRun: true, enqueue, backlog };
+    const summary = { dryRun: true, writesPerformed: 0, backlog };
     console.info(
       JSON.stringify({ event: "inventory_refresh_cron_dry_run", ...summary }),
     );
     return Response.json(summary);
   }
+
+  const claimDeadlineAt = requestStartedAt + INVENTORY_CRON_CLAIM_BUDGET_MS;
+  const enqueue = await enqueueDueInventoryOffers(batchSize);
 
   const batch = await processInventoryRefreshBatch(batchSize, {
     claimDeadlineAt,
@@ -92,9 +95,21 @@ export async function GET(request: Request) {
 
   // Sync refreshed offers back to the static data file via GitHub API.
   // This is opt-in (requires STATIC_FILE_SYNC_ENABLED=true and GITHUB_TOKEN)
-  // and only updates offers refreshed by automation — never manual ones.
-  let staticFileSync = null;
-  if (staticFileSyncConfig()) {
+  // Updates automation refreshes and proposes typed terminal invalidations;
+  // manual observations and exhausted transient failures are never changed.
+  const syncConfiguration = staticFileSyncConfiguration();
+  let staticFileSync: StaticFileSyncResult | null =
+    syncConfiguration.status === "misconfigured"
+      ? {
+          synced: 0,
+          invalidated: 0,
+          skipped: 0,
+          committed: false,
+          commitSha: null,
+          errors: [`static_file_sync_misconfigured:${syncConfiguration.issue}`],
+        }
+      : null;
+  if (syncConfiguration.status === "ready") {
     const completedRefreshes = batch.results
       .filter(
         (
@@ -126,14 +141,37 @@ export async function GET(request: Request) {
         verificationMethod: result.verificationMethod,
         extractionConfidence: result.extractionConfidence,
       }));
-    if (completedRefreshes.length > 0) {
+    const terminalInvalidations = batch.results
+      .filter(
+        (
+          result,
+        ): result is typeof result & {
+          retailer: string;
+          terminalInvalidation: NonNullable<
+            InventoryRefreshResult["terminalInvalidation"]
+          >;
+        } =>
+          result.status === "failed" &&
+          typeof result.retailer === "string" &&
+          result.terminalInvalidation != null,
+      )
+      .map((result) => ({
+        productSlug: result.productSlug,
+        retailer: result.retailer,
+        invalidatedAt: new Date(result.terminalInvalidation.invalidatedAt),
+        reason: result.terminalInvalidation.reason,
+      }));
+    if (completedRefreshes.length > 0 || terminalInvalidations.length > 0) {
       try {
         staticFileSync = await syncOffersToStaticFile({
           refreshedOffers: completedRefreshes,
+          invalidatedOffers: terminalInvalidations,
+          config: syncConfiguration.config,
         });
       } catch (error) {
         staticFileSync = {
           synced: 0,
+          invalidated: 0,
           skipped: 0,
           committed: false,
           commitSha: null,
@@ -143,6 +181,15 @@ export async function GET(request: Request) {
         };
       }
     }
+  }
+
+  if (staticFileSync?.errors.length) {
+    console.warn(
+      JSON.stringify({
+        event: "inventory_static_file_sync_failed",
+        reasons: staticFileSync.errors.map((error) => error.split(":", 1)[0]),
+      }),
+    );
   }
 
   const summary = { run, backlog: backlogWithStale, staticFileSync };

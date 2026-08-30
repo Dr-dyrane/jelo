@@ -2,6 +2,7 @@ import {
   sendAlertEmail,
   hasTransactionalEmailConfig,
 } from "@/lib/email/mailer";
+import type { InventoryRefreshFailureReason } from "@/lib/inventory/refresh-policy";
 
 type RefreshRunSummary = {
   queued: number;
@@ -12,6 +13,7 @@ type RefreshRunSummary = {
   failed: number;
   discarded: number;
   recoveredLeases: number;
+  failureReasons: Partial<Record<InventoryRefreshFailureReason, number>>;
   stoppedByDeadline: boolean;
   affectedProductSlugs: string[];
 };
@@ -106,6 +108,7 @@ function alertEmailHtml(alert: AlertPayload): string {
       ["Failed", String(alert.run.failed)],
       ["Retrying", String(alert.run.retrying)],
       ["Discarded", String(alert.run.discarded)],
+      ["Failure reasons", JSON.stringify(alert.run.failureReasons)],
       ["Stopped by deadline", String(alert.run.stoppedByDeadline)],
     );
   }

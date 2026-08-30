@@ -5,9 +5,15 @@ import {
   isProductionApplicationRuntime,
 } from "@/lib/database/runtime-database-config";
 import {
+  assertClassifiedInventoryRefreshScope,
   canClaimInventoryRefreshJob,
   INVENTORY_REFRESH_LEASE_MS,
+  inventoryRefreshFailureSettlement,
+  isInventoryRefreshTerminalReason,
+  transientInventoryRefreshFailure,
+  type InventoryRefreshFailureReason,
   type InventoryRefreshRunStatus,
+  type InventoryRefreshTerminalReason,
 } from "@/lib/inventory/refresh-policy";
 import {
   extractRetailerPage,
@@ -72,6 +78,11 @@ export type InventoryRefreshResult = {
   extractionConfidence?: number;
   verifiedAt?: string;
   verificationExpiresAt?: string;
+  terminalInvalidation?: {
+    invalidatedAt: string;
+    reason: InventoryRefreshTerminalReason;
+  };
+  failureReason?: InventoryRefreshFailureReason;
   error?: string;
 };
 
@@ -100,6 +111,11 @@ type CurrentClaim = {
 
 type ClaimSettlement = {
   status: InventoryRefreshRunStatus;
+  terminalInvalidation?: {
+    invalidatedAt: string;
+    reason: InventoryRefreshTerminalReason;
+  };
+  failureReason?: InventoryRefreshFailureReason;
   error?: string;
   verifiedAt?: string;
   verificationExpiresAt?: string;
@@ -490,6 +506,7 @@ async function settleChangedCurrentClaim(
     `;
     return {
       status: "discarded",
+      failureReason: "eligibility_changed",
       error: "Offer eligibility changed while the refresh was running.",
     };
   }
@@ -510,6 +527,7 @@ async function settleChangedCurrentClaim(
     `;
     return {
       status: "retrying",
+      failureReason: "claim_changed",
       error: "Offer URL changed while the refresh was running.",
     };
   }
@@ -530,6 +548,7 @@ async function settleChangedCurrentClaim(
     `;
     return {
       status: "retrying",
+      failureReason: "claim_changed",
       error: "Offer market changed while the refresh was running.",
     };
   }
@@ -550,6 +569,7 @@ async function settleChangedCurrentClaim(
     `;
     return {
       status: "retrying",
+      failureReason: "claim_changed",
       error: "Offer changed while the refresh was running.",
     };
   }
@@ -593,6 +613,7 @@ async function completeJob(
     if (!claim) {
       return {
         status: "discarded",
+        failureReason: "claim_changed",
         error: "Inventory refresh claim was superseded before completion.",
       };
     }
@@ -671,8 +692,15 @@ async function failJob(
   error: unknown,
 ): Promise<ClaimSettlement> {
   const sql = getInventoryRefreshClient();
-  const message = error instanceof Error ? error.message : String(error);
-  const terminal = job.attempt_count >= MAX_ATTEMPTS;
+  const decision = inventoryRefreshFailureSettlement({
+    error,
+    attemptCount: job.attempt_count,
+    maxAttempts: MAX_ATTEMPTS,
+  });
+  const failure = decision.failure;
+  const message = failure.message;
+  const provenTerminalContradiction = decision.invalidateOffer;
+  const terminal = decision.terminal;
   const backoffMinutes = Math.min(
     2 ** Math.max(job.attempt_count - 1, 0) * 5,
     240,
@@ -682,6 +710,7 @@ async function failJob(
     if (!claim) {
       return {
         status: "discarded",
+        failureReason: "claim_changed",
         error:
           "Inventory refresh claim was superseded before failure settlement.",
       };
@@ -689,6 +718,34 @@ async function failJob(
 
     const changed = await settleChangedCurrentClaim(transaction, job, claim);
     if (changed) return changed;
+
+    const invalidatedAt = provenTerminalContradiction ? new Date() : undefined;
+    if (invalidatedAt) {
+      const invalidatedOffers = await transaction<{ id: string }[]>`
+        update offers o
+        set verification_expires_at = least(
+              coalesce(o.verification_expires_at, ${invalidatedAt}),
+              ${invalidatedAt}
+            ),
+            updated_at = ${invalidatedAt}
+        where o.id = ${job.offer_id}
+          and o.url = ${job.url}
+          and o.match_kind = 'exact'
+          and o.market_code = ${job.market_code}
+          and exists (
+            select 1
+            from products p
+            where p.id = o.product_id
+              and p.is_published = true
+          )
+        returning o.id
+      `;
+      if (invalidatedOffers.length !== 1) {
+        throw new Error(
+          "Terminal inventory contradiction could not expire the current exact offer.",
+        );
+      }
+    }
 
     const settledJobs = await transaction<{ id: string }[]>`
       update inventory_refresh_jobs
@@ -705,14 +762,28 @@ async function failJob(
       returning id
     `;
     if (settledJobs.length !== 1) {
+      if (invalidatedAt) {
+        throw new Error(
+          "Terminal inventory contradiction could not expire the offer and settle the job atomically.",
+        );
+      }
       return {
         status: "discarded",
+        failureReason: "claim_changed",
         error: "Inventory refresh claim changed before failure settlement.",
       };
     }
 
     return {
       status: terminal ? "failed" : "retrying",
+      terminalInvalidation:
+        invalidatedAt && isInventoryRefreshTerminalReason(failure.reason)
+          ? {
+              invalidatedAt: invalidatedAt.toISOString(),
+              reason: failure.reason,
+            }
+          : undefined,
+      failureReason: failure.reason,
       error: message,
     };
   });
@@ -856,7 +927,8 @@ export async function processNextInventoryRefreshJob(
           : "no layers attempted";
       const settlement = await failJob(
         job,
-        new Error(
+        transientInventoryRefreshFailure(
+          "fetch_unavailable",
           `All fetch strategies failed. Layers attempted: ${layerDetail}.`,
         ),
       );
@@ -867,21 +939,25 @@ export async function processNextInventoryRefreshJob(
         retailer: job.retailer_name,
         status: settlement.status,
         recoveredLease: job.recovered_lease,
+        terminalInvalidation: settlement.terminalInvalidation,
+        failureReason: settlement.failureReason,
         error: settlement.error,
       };
     }
 
-    assertRetailerResponseScope({
-      requestedUrl: job.url,
-      responseUrl: observation.responseUrl,
-      canonicalUrl: observation.canonicalUrl,
-      expectedTitle: `${job.brand_name} ${job.product_name}`,
-      expectedTitleAliases: VERIFIED_PRODUCT_TITLE_ALIASES[job.product_slug],
-      expectedSize: job.product_size,
-      observedTitle: observation.productTitle,
-      observedSize: observation.productSize,
-      marketCode: job.market_code,
-      currencyCode: observation.currencyCode,
+    assertClassifiedInventoryRefreshScope(() => {
+      assertRetailerResponseScope({
+        requestedUrl: job.url,
+        responseUrl: observation.responseUrl,
+        canonicalUrl: observation.canonicalUrl,
+        expectedTitle: `${job.brand_name} ${job.product_name}`,
+        expectedTitleAliases: VERIFIED_PRODUCT_TITLE_ALIASES[job.product_slug],
+        expectedSize: job.product_size,
+        observedTitle: observation.productTitle,
+        observedSize: observation.productSize,
+        marketCode: job.market_code,
+        currencyCode: observation.currencyCode,
+      });
     });
     const settlement = await completeJob(job, observation);
     return {
@@ -891,6 +967,8 @@ export async function processNextInventoryRefreshJob(
       retailer: job.retailer_name,
       status: settlement.status,
       recoveredLease: job.recovered_lease,
+      terminalInvalidation: settlement.terminalInvalidation,
+      failureReason: settlement.failureReason,
       inventoryStatus:
         settlement.status === "completed"
           ? observation.inventoryStatus
@@ -926,6 +1004,8 @@ export async function processNextInventoryRefreshJob(
       retailer: job.retailer_name,
       status: settlement.status,
       recoveredLease: job.recovered_lease,
+      terminalInvalidation: settlement.terminalInvalidation,
+      failureReason: settlement.failureReason,
       error: settlement.error,
     };
   }

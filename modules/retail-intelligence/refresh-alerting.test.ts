@@ -11,6 +11,7 @@ const healthyRun = {
   failed: 0,
   discarded: 0,
   recoveredLeases: 0,
+  failureReasons: {},
   stoppedByDeadline: false,
   affectedProductSlugs: ["example-1", "example-2"],
 };
@@ -42,12 +43,23 @@ test("alerts when offers fail all retry attempts", async () => {
 
 test("alerts when no offers were successfully refreshed", async () => {
   const alert = await sendRefreshAlertIfNeeded(
-    { ...healthyRun, completed: 0, processed: 10, failed: 3, retrying: 7 },
+    {
+      ...healthyRun,
+      completed: 0,
+      processed: 10,
+      failed: 3,
+      retrying: 7,
+      failureReasons: { package_size: 3, fetch_unavailable: 7 },
+    },
     healthyBacklog,
   );
   assert.ok(alert);
   assert.equal(alert!.severity, "critical");
   assert.equal(alert!.event, "inventory_refresh_zero_completions");
+  assert.deepEqual(alert!.run?.failureReasons, {
+    package_size: 3,
+    fetch_unavailable: 7,
+  });
 });
 
 test("alerts when the backlog grows beyond the threshold", async () => {

@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   applyStaticOfferRefreshes,
+  describeStaticFileSyncGetFailure,
   staticFileSyncConfig,
+  staticFileSyncConfiguration,
   type StaticFileRefreshedOffer,
 } from "@/lib/inventory/static-file-sync";
 
@@ -83,6 +85,47 @@ test("static sync requires an explicit non-production review branch", () => {
   );
 });
 
+test("enabled static sync reports actionable configuration issues", () => {
+  assert.deepEqual(
+    staticFileSyncConfiguration({ STATIC_FILE_SYNC_ENABLED: "false" }),
+    { status: "disabled" },
+  );
+  assert.deepEqual(
+    staticFileSyncConfiguration({ STATIC_FILE_SYNC_ENABLED: "true" }),
+    { status: "misconfigured", issue: "missing_github_token" },
+  );
+  assert.deepEqual(
+    staticFileSyncConfiguration({
+      STATIC_FILE_SYNC_ENABLED: "true",
+      GITHUB_TOKEN: "configured",
+    }),
+    { status: "misconfigured", issue: "missing_review_branch" },
+  );
+  assert.deepEqual(
+    staticFileSyncConfiguration({
+      STATIC_FILE_SYNC_ENABLED: "true",
+      GITHUB_TOKEN: "configured",
+      GITHUB_REPO_BRANCH: "main",
+    }),
+    { status: "misconfigured", issue: "invalid_review_branch" },
+  );
+});
+
+test("a missing remote review branch has a stable actionable failure code", () => {
+  assert.equal(
+    describeStaticFileSyncGetFailure({ status: 404, statusText: "Not Found" }),
+    "static_file_sync_review_branch_not_found: GITHUB_REPO_BRANCH must name an existing inventory-sync-review* branch",
+  );
+  assert.equal(
+    describeStaticFileSyncGetFailure({
+      status: 403,
+      statusText: "Forbidden",
+      rateLimitRemaining: "0",
+    }),
+    "static_file_sync_github_rate_limited",
+  );
+});
+
 test("AI and low-confidence observations remain database-only", () => {
   const result = applyStaticOfferRefreshes({
     content,
@@ -107,6 +150,60 @@ test("eligible observations preserve provenance and their shorter actual expiry"
   assert.match(result.content, /observedAt: "2026-08-11T10:00:00Z"/);
   assert.match(result.content, /expiresAt: "2026-08-14T10:00:00Z"/);
   assert.match(result.content, /verificationMethod: "retailer_page"/);
+});
+
+test("terminal contradictions propose unavailable expired static fallback without deleting provenance", () => {
+  const result = applyStaticOfferRefreshes({
+    content,
+    refreshedOffers: [],
+    invalidatedOffers: [
+      {
+        productSlug: "exact-product",
+        retailer: "Exact Store",
+        invalidatedAt: new Date("2026-08-12T10:00:00Z"),
+        reason: "package_size",
+      },
+    ],
+  });
+
+  assert.equal(result.synced, 0);
+  assert.equal(result.invalidated, 1);
+  assert.equal(result.skipped, 0);
+  assert.match(result.content, /\b10000,/);
+  assert.match(result.content, /observedAt: "2026-08-10T10:00:00Z"/);
+  assert.match(result.content, /expiresAt: "2026-08-12T10:00:00Z"/);
+  assert.match(result.content, /available: false/);
+  assert.match(result.content, /stock: "unknown"/);
+  assert.match(result.content, /"Exact Product",\s*"50 ml"/);
+});
+
+test("no terminal invalidation leaves static fallback bytes unchanged", () => {
+  const result = applyStaticOfferRefreshes({
+    content,
+    refreshedOffers: [],
+    invalidatedOffers: [],
+  });
+  assert.equal(result.synced, 0);
+  assert.equal(result.invalidated, 0);
+  assert.equal(result.content, content);
+});
+
+test("a stale terminal invalidation cannot override newer static evidence", () => {
+  const result = applyStaticOfferRefreshes({
+    content,
+    refreshedOffers: [],
+    invalidatedOffers: [
+      {
+        productSlug: "exact-product",
+        retailer: "Exact Store",
+        invalidatedAt: new Date("2026-08-09T10:00:00Z"),
+        reason: "route_scope",
+      },
+    ],
+  });
+  assert.equal(result.invalidated, 0);
+  assert.equal(result.skipped, 1);
+  assert.equal(result.content, content);
 });
 
 test("freshness is capped and large automated price changes stop for review", () => {

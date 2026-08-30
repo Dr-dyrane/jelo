@@ -142,6 +142,19 @@ Page-wide purchase copy is not stock evidence. Every refresh records the adapter
 
 Production queues and checks a bounded set of exact offers once each day, starting 24 hours before their verification window expires. The cron route is bearer-authenticated, ignores store-search URLs and uses the existing locked job queue so overlapping requests cannot claim the same offer. Public price and availability claims honor both the seven-day maximum and the shorter confidence-based expiry recorded by the worker.
 
+The authenticated `?dry-run` route is read-only: it reports the current backlog
+with `writesPerformed: 0` before enqueue, claim, refresh, alert, cache, or sync
+logic. During a real run, transient fetch/runtime failures retain bounded retry
+and backoff. Missing title/size evidence and an observed size that cannot be
+measured are also transient extraction-quality failures. Only a proven route or
+canonical redirect, explicit title mismatch, explicit measurable size mismatch,
+unverifiable catalogue expected size, or explicit market-currency mismatch is a
+terminal contradiction. The worker immediately expires that database offer
+without deleting its prior observation or price history, and proposes a static
+fallback invalidation on the configured review branch. The checked-in fallback
+is not fail-closed until that reviewed proposal is merged and deployed. Logs
+expose only bounded reason counts rather than retailer content or error messages.
+
 Catalogue reconciliation retains expired reviewed offers as non-current history
 instead of dropping their exact URLs. They remain excluded by the public
 freshness gate, but the inventory queue can claim and re-verify them after a
@@ -152,12 +165,23 @@ from becoming permanently unreachable by the refresh worker.
 
 After each cron run, refreshed offers are synced back to `data/retail-offers.ts` via the GitHub Contents API. This keeps the static seed data in sync with the live database so that re-seeding does not reintroduce stale prices.
 
-The sync is opt-in (`STATIC_FILE_SYNC_ENABLED=true` + `GITHUB_TOKEN`) and enforces these anti-overwrite protections:
+The sync is opt-in (`STATIC_FILE_SYNC_ENABLED=true` + `GITHUB_TOKEN` + an
+existing `inventory-sync-review*` `GITHUB_REPO_BRANCH`) and enforces these
+anti-overwrite protections:
 
-- **Never touches manual offers** — only offers with `verification_method` in `retailer_page`, `api`, or `ai_extraction` are synced.
+- **Never touches manual or AI-only offers** — only confidence-60+
+  `retailer_page` and `api` observations are eligible for static sync.
 - **Freshness gate** — only updates if the refreshed `last_verified_at` is strictly newer than the static offer's `checkedAt`/`observedAt`.
 - **Field-level updates only** — updates `priceNgn`, `available`, `stock`, `observedAt`, and `expiresAt`. Never touches `url`, `match`, `trust`, `variant`, `size`, or any other field.
 - **Post-update verification** — confirms all requested fields were actually changed before accepting the update.
+- **Terminal contradiction proposal** — a typed contradiction proposes
+  `available: false`, `stock: "unknown"`, and an immediate `expiresAt` for the
+  exact static offer while preserving its URL, price, title, size, observation
+  time, and verification provenance. This changes no checked-in fallback until
+  the review-branch commit is inspected, merged, and deployed.
+- **Actionable configuration state** — enabled sync distinguishes a missing
+  token, missing branch variable, invalid branch namespace, and a syntactically
+  valid review branch that GitHub reports as absent.
 
 The cron depends on three production prerequisites: a `CRON_SECRET` of at least 16 characters, the `jelocare_app_runtime` database role provisioned in Neon, and `APP_DATABASE_URL` set in Vercel Production while the owner-capable Neon integration remains disconnected. If any is missing, the cron fails closed. See [Troubleshooting: Inventory cron is not running](./catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running) and [Runbooks: Inventory cron fails](./operations/RUNBOOKS.md#inventory-cron-fails).
 

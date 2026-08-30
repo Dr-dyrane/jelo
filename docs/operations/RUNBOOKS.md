@@ -878,8 +878,10 @@ Never heal a mismatched package with generation.
      `jelocare_app_runtime` role is missing or `APP_DATABASE_URL` is not set.
      See
      [Troubleshooting: role missing / Neon integration override](../catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running).
-   - **200 with `backlog.due > 0`:** The cron is operational; offers are queued
-     and will be processed on the next scheduled run.
+   - **200 with `writesPerformed: 0`:** authentication and the read-only backlog
+     query are operational. The probe never enqueues, claims, retries, alerts,
+     invalidates caches, or syncs a static file. `backlog.due > 0` means the
+     next scheduled non-dry run has due work.
 
 2. Check the Neon database directly:
 
@@ -942,7 +944,7 @@ then create fresh Production and Preview deployments. See
 ### After fixing
 
 1. Trigger a redeployment so the new env vars are picked up.
-2. Run the dry-run probe to confirm 200.
+2. Run the dry-run probe to confirm 200 and `writesPerformed: 0`.
 3. Run the full cron to process the backlog:
    ```bash
    curl -s -H "Authorization: Bearer $CRON_SECRET" \
@@ -970,14 +972,23 @@ for the full diagnosis and recovery plan.
 1. Verify `CRON_SECRET` and the Authorization header.
 2. Inspect the response or `inventory_refresh_cron_completed` log. `run`
    separates completed, retrying, terminal-failed, discarded, lease-recovered,
-   and deadline-stopped work; `backlog` reports queued, due, processing, and
-   lease-expired counts.
+   and deadline-stopped work. `run.failureReasons` contains only bounded reason
+   counts: route scope, product identity, package size, market currency, fetch
+   unavailable, incomplete evidence, runtime, claim changed, or eligibility
+   changed. It never emits fetched content, credentials, URLs, titles, or error
+   messages. `backlog` reports queued, due, processing, and lease-expired counts.
 3. Check retailer response status, MIME type, size, redirects, and adapter.
 4. Look for product or market scope rejection.
-5. Let bounded retries and the two-minute processing lease work; do not create
-   duplicate active jobs or manually reclaim an unexpired worker. An expired
-   job below the attempt cap is reclaimed, while one at the cap fails
-   terminally.
+5. Let bounded retries and the two-minute processing lease handle transient
+   fetch/runtime failures, missing title or size evidence, and unmeasurable
+   observed size; do not create duplicate active jobs or manually reclaim an
+   unexpired worker. A proven route/canonical, title, measurable size, catalogue
+   expected-size, or market-currency contradiction fails immediately and expires
+   the persisted database offer. It also proposes an unavailable/expired static
+   fallback on the configured review branch. Production is not fully fail-closed
+   while that proposal remains unmerged or undeployed. An expired transient job
+   below the attempt cap is reclaimed, while one at the cap fails without offer
+   invalidation.
 6. Manually inspect any retailer that blocks automation.
 
 For a bounded manual run, scope claims to the intended market. This filter
@@ -1105,7 +1116,14 @@ overwrites of higher-quality data.
   - Refuses every branch outside the `inventory-sync-review`, `inventory-sync-review-*`, or `inventory-sync-review/*` namespace; every proposed change lands on an explicit review branch.
   - Only updates `priceNgn`, `available`, `stock`, `observedAt`, `expiresAt`, and verification method — never `url`, `match`, `trust`, `variant`, `size`.
   - Post-update verification confirms all requested fields were actually changed.
-- **Failure mode:** returns error results, never throws. Rate limiting and network errors are caught.
+  - For a typed terminal contradiction, proposes `available: false`,
+    `stock: "unknown"`, and an immediate `expiresAt` while preserving the prior
+    price, URL, title, size, observation time, and verification method. Exhausted
+    transient failures never create this proposal.
+- **Failure mode:** returns error results, never throws. Enabled-but-invalid
+  configuration produces `static_file_sync_misconfigured:<issue>`. A GitHub 404
+  produces `static_file_sync_review_branch_not_found`, which means the configured
+  review branch does not exist remotely. Rate limiting and network errors are caught.
 
 ### Diagnosing sync issues
 
@@ -1116,8 +1134,15 @@ overwrites of higher-quality data.
      "https://www.jelocare.com/api/cron/inventory"
    ```
    - `staticFileSync.committed: true` — a commit was made to `data/retail-offers.ts`.
-   - `staticFileSync.errors` — any sync errors (rate limiting, network, parse failures).
-   - `staticFileSync: null` — sync is disabled or no offers were refreshed.
+   - `staticFileSync.invalidated` — number of terminal-contradiction fallback
+     invalidations included in the review-branch proposal.
+   - `staticFileSync.errors` — stable configuration/GitHub reason codes plus
+     bounded parse failures. `missing_review_branch` means the variable is
+     absent; `invalid_review_branch` means it is outside the protected namespace;
+     `static_file_sync_review_branch_not_found` means the named safe branch is
+     syntactically valid but absent from GitHub.
+   - `staticFileSync: null` — sync is disabled or no offers were refreshed or
+     invalidated.
 
 2. **Inspect and merge the configured review branch** after re-opening the
    exact retailer evidence. Never configure static sync against `main`.

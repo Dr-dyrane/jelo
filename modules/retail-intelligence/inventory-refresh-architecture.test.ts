@@ -192,10 +192,72 @@ test("all Woo retailers in the extraction adapters have a matching Woo API host"
   }
 });
 
-test("the cron supports a dry-run mode that skips fetching and writing", () => {
+test("the cron dry-run returns before every write-capable operation", () => {
   assert.match(route, /dry-run/);
   assert.match(route, /searchParams\.has\(['"]dry-run['"]\)/);
   assert.match(route, /inventory_refresh_cron_dry_run/);
+  assert.match(route, /writesPerformed: 0/);
+
+  const dryRunStart = route.indexOf("if (dryRun)");
+  const firstEnqueue = route.indexOf("enqueueDueInventoryOffers(batchSize)");
+  assert.ok(dryRunStart >= 0 && firstEnqueue > dryRunStart);
+  const dryRunBranch = route.slice(dryRunStart, firstEnqueue);
+  assert.match(dryRunBranch, /getInventoryRefreshBacklogSummary\(\)/);
+  assert.match(dryRunBranch, /return Response\.json\(summary\)/);
+  assert.doesNotMatch(
+    dryRunBranch,
+    /enqueueDueInventoryOffers|processInventoryRefreshBatch|revalidatePath|revalidateTag|sendRefreshAlertIfNeeded|syncOffersToStaticFile/,
+  );
+});
+
+test("the worker terminal-sets only proven scope contradictions", () => {
+  assert.match(worker, /assertClassifiedInventoryRefreshScope\(\(\) =>/);
+  assert.match(worker, /inventoryRefreshFailureSettlement\(\{/);
+  assert.match(
+    worker,
+    /provenTerminalContradiction = decision\.invalidateOffer/,
+  );
+});
+
+test("only proven contradictions expire persisted offers and enter static review", () => {
+  assert.match(
+    worker,
+    /inventoryRefreshFailureSettlement\(\{[\s\S]*attemptCount: job\.attempt_count,[\s\S]*maxAttempts: MAX_ATTEMPTS/,
+  );
+  assert.match(
+    worker,
+    /invalidatedAt = provenTerminalContradiction \? new Date\(\) : undefined/,
+  );
+  assert.match(
+    worker,
+    /if \(invalidatedAt\) \{[\s\S]*update offers o[\s\S]*verification_expires_at = least\([\s\S]*coalesce\(o\.verification_expires_at, \$\{invalidatedAt\}\)[\s\S]*updated_at = \$\{invalidatedAt\}/,
+  );
+  assert.match(
+    worker,
+    /terminalInvalidation:[\s\S]*invalidatedAt\.toISOString\(\)/,
+  );
+  assert.match(
+    worker,
+    /if \(invalidatedAt\) \{[\s\S]*could not expire the offer and settle the job atomically/,
+  );
+  assert.match(
+    route,
+    /result\.status === ["']failed["'][\s\S]*result\.terminalInvalidation != null/,
+  );
+  assert.match(route, /invalidatedOffers: terminalInvalidations/);
+});
+
+test("the cron exposes static-sync configuration failures as bounded codes", () => {
+  assert.match(route, /staticFileSyncConfiguration\(\)/);
+  assert.match(
+    route,
+    /static_file_sync_misconfigured:\$\{syncConfiguration\.issue\}/,
+  );
+  assert.match(route, /event: ["']inventory_static_file_sync_failed["']/);
+  assert.match(
+    route,
+    /reasons: staticFileSync\.errors\.map\(\(error\) => error\.split\(["']:["'], 1\)\[0\]\)/,
+  );
 });
 
 test("the cron sends email alerts when offers fail or the backlog grows", () => {

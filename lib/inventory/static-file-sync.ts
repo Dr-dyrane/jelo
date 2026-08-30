@@ -1,4 +1,5 @@
 import "server-only";
+import type { InventoryRefreshTerminalReason } from "@/lib/inventory/refresh-policy";
 
 /* -------------------------------------------------------------------------- */
 /*                              Public types                                  */
@@ -6,19 +7,28 @@ import "server-only";
 
 export type StaticFileSyncResult = {
   synced: number;
+  invalidated: number;
   skipped: number;
   committed: boolean;
   commitSha: string | null;
   errors: string[];
 };
 
-type StaticFileSyncConfig = {
+export type StaticFileSyncConfig = {
   enabled: true;
   githubToken: string;
   owner: string;
   repo: string;
   branch: string;
 };
+
+export type StaticFileSyncConfigIssue =
+  "missing_github_token" | "missing_review_branch" | "invalid_review_branch";
+
+export type StaticFileSyncConfiguration =
+  | { status: "disabled" }
+  | { status: "misconfigured"; issue: StaticFileSyncConfigIssue }
+  | { status: "ready"; config: StaticFileSyncConfig };
 
 export type StaticFileRefreshedOffer = {
   productSlug: string;
@@ -30,6 +40,13 @@ export type StaticFileRefreshedOffer = {
   verificationExpiresAt: Date;
   verificationMethod: string;
   extractionConfidence: number;
+};
+
+export type StaticFileInvalidatedOffer = {
+  productSlug: string;
+  retailer: string;
+  invalidatedAt: Date;
+  reason: InventoryRefreshTerminalReason;
 };
 
 type StaticVerificationMethod = "retailer_page" | "api";
@@ -69,9 +86,8 @@ function isAllowedVerificationMethod(
 /* -------------------------------------------------------------------------- */
 
 /**
- * Returns the static-file-sync configuration derived from environment
- * variables, or `null` when the feature is disabled or the GitHub token is
- * missing.
+ * Distinguishes intentionally disabled sync from enabled-but-invalid
+ * configuration without exposing any credential value.
  *
  * Env vars:
  * - `STATIC_FILE_SYNC_ENABLED` — must be `"true"` to enable
@@ -80,21 +96,38 @@ function isAllowedVerificationMethod(
  * - `GITHUB_REPO_NAME`         — defaults to `"jelo"`
  * - `GITHUB_REPO_BRANCH`       — required `inventory-sync-review*` branch
  */
+export function staticFileSyncConfiguration(
+  env: Record<string, string | undefined> = process.env,
+): StaticFileSyncConfiguration {
+  if (env.STATIC_FILE_SYNC_ENABLED !== "true") return { status: "disabled" };
+  if (!env.GITHUB_TOKEN?.trim()) {
+    return { status: "misconfigured", issue: "missing_github_token" };
+  }
+  const branch = env.GITHUB_REPO_BRANCH?.trim();
+  if (!branch) {
+    return { status: "misconfigured", issue: "missing_review_branch" };
+  }
+  if (!REVIEW_BRANCH_PATTERN.test(branch)) {
+    return { status: "misconfigured", issue: "invalid_review_branch" };
+  }
+
+  return {
+    status: "ready",
+    config: {
+      enabled: true,
+      githubToken: env.GITHUB_TOKEN,
+      owner: env.GITHUB_REPO_OWNER ?? "Dr-dyrane",
+      repo: env.GITHUB_REPO_NAME ?? "jelo",
+      branch,
+    },
+  };
+}
+
 export function staticFileSyncConfig(
   env: Record<string, string | undefined> = process.env,
 ): StaticFileSyncConfig | null {
-  if (env.STATIC_FILE_SYNC_ENABLED !== "true") return null;
-  if (!env.GITHUB_TOKEN) return null;
-  const branch = env.GITHUB_REPO_BRANCH?.trim();
-  if (!branch || !REVIEW_BRANCH_PATTERN.test(branch)) return null;
-
-  return {
-    enabled: true,
-    githubToken: env.GITHUB_TOKEN,
-    owner: env.GITHUB_REPO_OWNER ?? "Dr-dyrane",
-    repo: env.GITHUB_REPO_NAME ?? "jelo",
-    branch,
-  };
+  const configuration = staticFileSyncConfiguration(env);
+  return configuration.status === "ready" ? configuration.config : null;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -285,6 +318,11 @@ function findExactNgCall(
  */
 function extractObservedAt(offerText: string): string | null {
   const match = /\bobservedAt\s*:\s*"([^"]+)"/.exec(offerText);
+  return match ? match[1] : null;
+}
+
+function extractExpiresAt(offerText: string): string | null {
+  const match = /\bexpiresAt\s*:\s*"([^"]+)"/.exec(offerText);
   return match ? match[1] : null;
 }
 
@@ -688,6 +726,100 @@ function updateOfferInContent(
   return { updated: true, content: newContent };
 }
 
+function invalidateOfferInContent(
+  content: string,
+  offer: StaticFileInvalidatedOffer,
+  topLevelCheckedAt: string | null,
+): { updated: boolean; content: string; error?: string } {
+  const section = findSlugSection(content, offer.productSlug);
+  if (!section) {
+    return {
+      updated: false,
+      content,
+      error: `Product slug not found for terminal invalidation: ${offer.productSlug}`,
+    };
+  }
+
+  const call = findExactNgCall(
+    content,
+    section.start,
+    section.end,
+    offer.retailer,
+  );
+  if (!call) {
+    return {
+      updated: false,
+      content,
+      error: `Offer not found for terminal invalidation: ${offer.productSlug} / ${offer.retailer}`,
+    };
+  }
+
+  if (!Number.isFinite(offer.invalidatedAt.valueOf())) {
+    return {
+      updated: false,
+      content,
+      error: `Terminal invalidation time is invalid: ${offer.productSlug} / ${offer.retailer}`,
+    };
+  }
+
+  const offerText = content.slice(call.start, call.end);
+  const staticCheckedAt = extractObservedAt(offerText) ?? topLevelCheckedAt;
+  if (!staticCheckedAt) {
+    return {
+      updated: false,
+      content,
+      error: `Cannot determine static checkedAt for terminal invalidation: ${offer.productSlug} / ${offer.retailer}`,
+    };
+  }
+  const staticDate = new Date(staticCheckedAt);
+  if (!Number.isFinite(staticDate.valueOf())) {
+    return {
+      updated: false,
+      content,
+      error: `Static checkedAt is invalid for terminal invalidation: ${offer.productSlug} / ${offer.retailer}`,
+    };
+  }
+  if (offer.invalidatedAt <= staticDate) {
+    return { updated: false, content };
+  }
+
+  const currentExpiresAt = extractExpiresAt(offerText);
+  const currentExpiry = currentExpiresAt ? new Date(currentExpiresAt) : null;
+  if (currentExpiry && !Number.isFinite(currentExpiry.valueOf())) {
+    return {
+      updated: false,
+      content,
+      error: `Static expiry is invalid for terminal invalidation: ${offer.productSlug} / ${offer.retailer}`,
+    };
+  }
+  const expiresAt =
+    currentExpiry && currentExpiry <= offer.invalidatedAt
+      ? currentExpiresAt!
+      : toISODateString(offer.invalidatedAt);
+  const updates: OfferUpdates = {
+    available: false,
+    stock: "unknown",
+    expiresAt,
+  };
+  const updatedOfferText = updateOfferBlock(offerText, updates);
+  if (
+    updatedOfferText === offerText ||
+    !verifyOfferUpdate(updatedOfferText, updates)
+  ) {
+    return {
+      updated: false,
+      content,
+      error: `Failed to apply ${offer.reason} terminal invalidation: ${offer.productSlug} / ${offer.retailer}`,
+    };
+  }
+
+  return {
+    updated: true,
+    content:
+      content.slice(0, call.start) + updatedOfferText + content.slice(call.end),
+  };
+}
+
 /* -------------------------------------------------------------------------- */
 /*                       GitHub API helpers                                   */
 /* -------------------------------------------------------------------------- */
@@ -701,6 +833,20 @@ type GitHubCommitResponse = {
   commit?: { sha: string };
   content?: { sha: string };
 };
+
+export function describeStaticFileSyncGetFailure(input: {
+  status: number;
+  statusText: string;
+  rateLimitRemaining?: string | null;
+}) {
+  if (input.status === 403 && input.rateLimitRemaining === "0") {
+    return "static_file_sync_github_rate_limited";
+  }
+  if (input.status === 404) {
+    return "static_file_sync_review_branch_not_found: GITHUB_REPO_BRANCH must name an existing inventory-sync-review* branch";
+  }
+  return `static_file_sync_github_get_failed:${input.status} ${input.statusText}`;
+}
 
 /** Common headers for all GitHub API requests. */
 function githubHeaders(token: string): Record<string, string> {
@@ -727,14 +873,12 @@ async function fetchFileFromGitHub(
     });
 
     if (!res.ok) {
-      if (res.status === 403) {
-        const remaining = res.headers.get("X-RateLimit-Remaining");
-        if (remaining === "0") {
-          return { error: "GitHub API rate limit exceeded" };
-        }
-      }
       return {
-        error: `GitHub API GET failed: ${res.status} ${res.statusText}`,
+        error: describeStaticFileSyncGetFailure({
+          status: res.status,
+          statusText: res.statusText,
+          rateLimitRemaining: res.headers.get("X-RateLimit-Remaining"),
+        }),
       };
     }
 
@@ -827,16 +971,20 @@ async function commitFileToGitHub(
  *    changed offers, and writes back. Never blindly overwrites the whole file.
  * 6. Only runs when `STATIC_FILE_SYNC_ENABLED=true`, `GITHUB_TOKEN` is set,
  *    and `GITHUB_REPO_BRANCH` names an `inventory-sync-review*` branch.
- * 7. Safe to call with an empty array or when the GitHub API is down —
+ * 7. Typed terminal contradictions can only mark the exact fallback unavailable
+ *    and expired; they preserve price, URL, title, size, and observation provenance.
+ * 8. Safe to call with empty arrays or when the GitHub API is down —
  *    returns errors, never throws.
  */
 export function applyStaticOfferRefreshes(input: {
   content: string;
   refreshedOffers: StaticFileRefreshedOffer[];
+  invalidatedOffers?: StaticFileInvalidatedOffer[];
 }) {
   const result = {
     content: input.content,
     synced: 0,
+    invalidated: 0,
     skipped: 0,
     errors: [] as string[],
   };
@@ -861,14 +1009,34 @@ export function applyStaticOfferRefreshes(input: {
     }
   }
 
+  for (const offer of input.invalidatedOffers ?? []) {
+    const invalidationResult = invalidateOfferInContent(
+      result.content,
+      offer,
+      topLevelCheckedAt,
+    );
+    if (invalidationResult.updated) {
+      result.content = invalidationResult.content;
+      result.invalidated++;
+    } else {
+      result.skipped++;
+      if (invalidationResult.error) {
+        result.errors.push(invalidationResult.error);
+      }
+    }
+  }
+
   return result;
 }
 
 export async function syncOffersToStaticFile(input: {
   refreshedOffers: StaticFileRefreshedOffer[];
+  invalidatedOffers?: StaticFileInvalidatedOffer[];
+  config?: StaticFileSyncConfig;
 }): Promise<StaticFileSyncResult> {
   const emptyResult: StaticFileSyncResult = {
     synced: 0,
+    invalidated: 0,
     skipped: 0,
     committed: false,
     commitSha: null,
@@ -876,13 +1044,17 @@ export async function syncOffersToStaticFile(input: {
   };
 
   // Short-circuit on empty input
-  if (input.refreshedOffers.length === 0) return emptyResult;
+  const invalidatedOffers = input.invalidatedOffers ?? [];
+  if (input.refreshedOffers.length === 0 && invalidatedOffers.length === 0) {
+    return emptyResult;
+  }
 
   // Check config — return empty result if disabled
-  const config = staticFileSyncConfig();
+  const config = input.config ?? staticFileSyncConfig();
   if (!config) return emptyResult;
 
   if (
+    invalidatedOffers.length === 0 &&
     !input.refreshedOffers.some(
       (offer) =>
         isAllowedVerificationMethod(offer.verificationMethod) &&
@@ -903,9 +1075,11 @@ export async function syncOffersToStaticFile(input: {
   const projection = applyStaticOfferRefreshes({
     content: fileContent,
     refreshedOffers: input.refreshedOffers,
+    invalidatedOffers,
   });
   const result: StaticFileSyncResult = {
     synced: projection.synced,
+    invalidated: projection.invalidated,
     skipped: projection.skipped,
     committed: false,
     commitSha: null,
@@ -913,13 +1087,13 @@ export async function syncOffersToStaticFile(input: {
   };
 
   // --- Commit if anything changed ------------------------------------------
-  if (result.synced === 0) return result;
+  if (result.synced === 0 && result.invalidated === 0) return result;
 
   const committed = await commitFileToGitHub(
     config,
     projection.content,
     fileSha,
-    result.synced,
+    result.synced + result.invalidated,
   );
 
   if ("error" in committed) {

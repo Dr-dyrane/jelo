@@ -539,11 +539,23 @@ past their expiry, and `/share` price/stock data goes stale. The cron schedule
      headers: { Authorization: 'Bearer ' + secret }
    })
    ```
-   A 200 response with `backlog.due > 0` confirms the cron is operational.
+   A 200 response with `writesPerformed: 0` confirms authentication and the
+   read-only backlog query are operational. `backlog.due > 0` reports work for
+   the next scheduled run; the probe itself does not enqueue it.
 
 **Prevention:** After any Vercel env var change, trigger a redeployment and run
 the dry-run probe. The `CRON_SECRET` length check is enforced by
 `isAuthorizedCronRequest` and tested in `modules/retail-intelligence/cron-auth.test.ts`.
+
+When the cron runs, do not treat missing title/size evidence or an unmeasurable
+observed size as a product contradiction; those extraction-quality failures
+remain retryable. A verified route/canonical redirect, explicit title mismatch,
+explicit measurable size mismatch, impossible catalogue expected size, or
+explicit market-currency mismatch is terminal. The worker expires the database
+offer immediately and proposes an unavailable/expired checked-in fallback on
+the configured static-sync review branch. The static fallback can still surface
+until that proposal is reviewed, merged, and deployed, so do not claim complete
+production fail-closure from the worker result alone.
 
 ### Share page trend chart shows empty state
 
@@ -717,7 +729,9 @@ cause is the missing fresh evidence from the inventory cron.
    ```
    - 401: `CRON_SECRET` is missing or wrong. Check Vercel environment variables.
    - 500: `APP_DATABASE_URL` or `jelocare_app_runtime` role is missing.
-   - 200 with `backlog.due > 0`: The cron is operational; offers are queued.
+   - 200 with `writesPerformed: 0`: The read-only probe is operational.
+     `backlog.due > 0` means the next scheduled run has due work; the probe does
+     not enqueue, claim, retry, or refresh it.
 
 2. Check the Neon `inventory_refresh_jobs` table:
 
