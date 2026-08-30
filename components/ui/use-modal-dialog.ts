@@ -119,7 +119,7 @@ export function useModalDialog({
 
     function onKeyDown(event: KeyboardEvent) {
       if (!dialogElement.hasAttribute('open')) return;
-      if (event.key === 'Escape' && dialogElement.dataset.fallbackModal === 'true') {
+      if (event.key === 'Escape') {
         event.preventDefault();
         close();
         return;

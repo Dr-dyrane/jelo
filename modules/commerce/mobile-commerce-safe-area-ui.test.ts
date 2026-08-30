@@ -97,3 +97,16 @@ test("public commerce pages use the standard header clearance and shared bottom 
     /\.quoteCard\s*\{[\s\S]*?top:\s*var\(--site-chrome-content-start\)/,
   );
 });
+
+test("shared modal dialogs close Escape consistently in native and fallback browsers", async () => {
+  const modalController = await source("components/ui/use-modal-dialog.ts");
+
+  assert.match(
+    modalController,
+    /if \(event\.key === ["']Escape["']\) \{[\s\S]*?event\.preventDefault\(\);[\s\S]*?close\(\);/,
+  );
+  assert.doesNotMatch(
+    modalController,
+    /event\.key === ["']Escape["'] && dialogElement\.dataset\.fallbackModal/,
+  );
+});
