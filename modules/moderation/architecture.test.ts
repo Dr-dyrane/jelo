@@ -49,7 +49,7 @@ test("the moderation console writes only its audit log and denies access by defa
   // hardcoded value — and identity must come only from getAuthSubject().
   assert.match(
     access,
-    /import \{ getAuthSubject \} from '@\/lib\/auth\/subject';/,
+    /import \{ getAuthSubject \} from ["']@\/lib\/auth\/subject["'];/,
   );
   assert.match(
     access,
@@ -74,6 +74,52 @@ test("the moderation console writes only its audit log and denies access by defa
   assert.match(databaseTransitions, /contribution\.retain_until > now\(\)/);
   assert.match(databaseTransitions, /action: 'map'/);
   assert.match(databaseTransitions, /action: 'reconcile'/);
+});
+
+test("operator access denial logs cannot disclose verified identities", async () => {
+  const access = await readFile(
+    path.join(process.cwd(), "lib/moderation/access.ts"),
+    "utf8",
+  );
+  const logPayloads = [
+    ...access.matchAll(
+      /console\.(?:debug|info|log|warn|error)\(([\s\S]*?)\);/g,
+    ),
+  ].map((match) => match[1]);
+
+  assert.equal(logPayloads.length, 2);
+  for (const payload of logPayloads) {
+    assert.doesNotMatch(
+      payload,
+      /authSubject|identity|email|row\.id|operator\.id|\$\{/,
+    );
+  }
+  assert.match(
+    access,
+    /event: ["']operator_access_denied["'],[\s\S]*reason: ["']missing_verified_session["']/,
+  );
+  assert.match(
+    access,
+    /event: ["']operator_access_denied["'],[\s\S]*reason: ["']verified_subject_not_allowlisted["']/,
+  );
+
+  // Identity still comes from the verified session, authorization remains an
+  // active allowlist, and the invitation/concurrency path stays fail-closed.
+  assert.match(access, /const identity = await getAuthSubject\(\);/);
+  assert.match(
+    access,
+    /where auth_subject = \$\{authSubject\} and active = true/,
+  );
+  assert.match(access, /claimPendingOperatorInvitation\(sql, identity\)/);
+  assert.match(
+    access,
+    /return resolveActiveOperator\(sql, identity\.subject\);/,
+  );
+  assert.match(
+    access,
+    /if \(isOperatorAccessLifecycleUnavailable\(error\)\) return null;/,
+  );
+  assert.match(access, /if \(!operator\) throw new ModerationAccessError\(\);/);
 });
 
 test("the phone shell always exposes one real contextual action", async () => {

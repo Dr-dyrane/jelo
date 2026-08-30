@@ -1,7 +1,10 @@
 import "server-only";
 
-import { getReviewedProductCare } from "@/data/product-care-review";
-import { isPublishedIntakeProduct } from "@/data/published-intake-products";
+import {
+  getReviewedProductCare,
+  type ProductCareState,
+  type ReviewedProductCare,
+} from "@/data/product-care-review";
 import type { Offer, Product } from "@/data/products";
 import { listProductIngredientsSafe } from "@/lib/clinical/ingredients";
 import { getProductPriceTrends } from "@/lib/inventory/price-trends";
@@ -16,6 +19,15 @@ import {
 
 export type ProductPanelTab = "buy" | "stores" | "details";
 
+export type ProductCareDecision = {
+  state: ProductCareState;
+  statusLabel: string;
+  summary: string;
+  approvedUses: string[];
+  evidenceSourceUrls: string[];
+  reviewedAt: string | null;
+};
+
 export type ProductPanelData = {
   productSlug: string;
   productName: string;
@@ -23,6 +35,7 @@ export type ProductPanelData = {
   /** Server-owned market snapshot — one source of truth for the entire panel. */
   marketSnapshot?: ProductMarketSnapshot;
   priceTrends?: ProductPriceTrends;
+  careDecision: ProductCareDecision;
   careNote: string;
   usage: string;
   ingredients: Array<{
@@ -33,6 +46,50 @@ export type ProductPanelData = {
   }>;
   routine: Array<{ title: string; detail: string }>;
 };
+
+export function buildProductCareDecision(
+  careReview: ReviewedProductCare | undefined,
+): ProductCareDecision {
+  const state = careReview?.careState ?? "insufficient_data";
+  const evidenceSourceUrls = [...(careReview?.evidenceSourceUrls ?? [])];
+  const reviewedAt = careReview?.reviewedAt ?? null;
+
+  if (state === "supportive_eligible") {
+    return {
+      state,
+      statusLabel: "Reviewed supportive use",
+      summary:
+        "JeloCare has reviewed this product for the specific supportive uses listed here.",
+      approvedUses: careReview
+        ? careReview.approvedUses.map((use) => use.label)
+        : [],
+      evidenceSourceUrls,
+      reviewedAt,
+    };
+  }
+
+  if (state === "pharmacist_review") {
+    return {
+      state,
+      statusLabel: "Pharmacist review needed",
+      summary:
+        "JeloCare's reviewed care state says to check with a pharmacist before treating this product as supportive care.",
+      approvedUses: [],
+      evidenceSourceUrls,
+      reviewedAt,
+    };
+  }
+
+  return {
+    state,
+    statusLabel: "Not enough reviewed care evidence",
+    summary:
+      "JeloCare does not yet have enough reviewed care evidence to say which concerns or skin types this product may support.",
+    approvedUses: [],
+    evidenceSourceUrls,
+    reviewedAt,
+  };
+}
 
 /**
  * Builds the complete evidence payload used by every product quick panel.
@@ -58,15 +115,7 @@ export async function readProductPanelData(
   ]);
 
   const careReview = getReviewedProductCare(product.slug);
-  const catalogueVerified = isPublishedIntakeProduct(product.slug);
-  const careNote =
-    careReview?.careState === "supportive_eligible"
-      ? careReview.approvedUses.map((use) => use.label).join(" · ")
-      : careReview?.careState === "pharmacist_review"
-        ? "Check with a pharmacist first."
-        : catalogueVerified
-          ? product.displayLine
-          : "More formula evidence needed.";
+  const careDecision = buildProductCareDecision(careReview);
 
   const ingredients = productIngredients.slice(0, 8).map((ingredient) => {
     const concentration =
@@ -88,7 +137,8 @@ export async function readProductPanelData(
     offers: product.offers,
     marketSnapshot: buildProductMarketSnapshot(product.offers, now, false),
     priceTrends,
-    careNote,
+    careDecision,
+    careNote: careDecision.summary,
     usage: product.usage,
     ingredients,
     routine: [],

@@ -23,6 +23,10 @@ const decisionSummary = readFileSync(
   "components/products/product-decision-summary.tsx",
   "utf8",
 );
+const productPanelModel = readFileSync(
+  "lib/catalogue/product-panel-model.ts",
+  "utf8",
+);
 const productPage = readFileSync("app/(site)/products/[slug]/page.tsx", "utf8");
 const concernPage = readFileSync("app/(site)/concerns/[slug]/page.tsx", "utf8");
 
@@ -130,47 +134,66 @@ test("ingredient detail sheet omits sections when data is absent", () => {
   assert.match(ingredientExplorer, /detailRows\.length \?/);
 });
 
-test("product decision summary uses shared EvidenceGradeBadge and ClinicalCaution", () => {
+test("product care decision maps every canonical state without catalogue-copy fallback", () => {
   assert.match(
-    decisionSummary,
-    /from '@\/components\/clinical\/clinical-primitives'/,
+    productPanelModel,
+    /careReview\?\.careState \?\? ["']insufficient_data["']/,
   );
-  assert.match(decisionSummary, /EvidenceGradeBadge/);
-  assert.match(decisionSummary, /ClinicalCaution/);
+  assert.match(productPanelModel, /state === ["']supportive_eligible["']/);
+  assert.match(productPanelModel, /Reviewed supportive use/);
+  assert.match(productPanelModel, /state === ["']pharmacist_review["']/);
+  assert.match(productPanelModel, /Pharmacist review needed/);
+  assert.match(productPanelModel, /Not enough reviewed care evidence/);
+  assert.doesNotMatch(productPanelModel, /product\.displayLine/);
 });
 
-test("product decision summary shows Why JeloCare only when care review data supports it", () => {
-  // hasWhyJeloCare is gated on supportive_eligible care state
-  assert.match(decisionSummary, /hasWhyJeloCare/);
-  assert.match(decisionSummary, /careStatus === 'Supportive use'/);
-  assert.match(decisionSummary, /approvedUses && approvedUses\.length > 0/);
+test("insufficient product copy denies concern and skin-type support", () => {
+  assert.match(
+    productPanelModel,
+    /does not yet have enough reviewed care evidence to say which concerns or skin types this product may support/,
+  );
+  assert.match(
+    productPanelModel,
+    /statusLabel: ["']Not enough reviewed care evidence["'][\s\S]*?approvedUses: \[\]/,
+  );
+  assert.doesNotMatch(decisionSummary, /concernFit|ingredients/);
 });
 
-test("product decision summary surfaces the strongest caution from care review state", () => {
-  assert.match(decisionSummary, /strongestCaution/);
-  assert.match(decisionSummary, /Pharmacist review/);
-  assert.match(decisionSummary, /Formula review pending/);
-  // Formula-level caveat is always present
-  assert.match(decisionSummary, /formulaCaveat/);
+test("approved-use claims render only for supportive eligible products", () => {
   assert.match(
     decisionSummary,
-    /Ingredient-level evidence, not a formula guarantee/,
+    /decision\.state === ["']supportive_eligible["']/,
   );
+  assert.match(decisionSummary, /showsApprovedUses \?/);
+  assert.match(decisionSummary, /decision\.approvedUses\.join/);
 });
 
-test("product decision summary shows evidence sources only when care review provides them", () => {
-  assert.match(
-    decisionSummary,
-    /evidenceSourceUrls && evidenceSourceUrls\.length > 0/,
-  );
+test("product decision summary exposes exact review dates and source links", () => {
+  assert.match(decisionSummary, /<time dateTime=\{decision\.reviewedAt\}>/);
+  assert.match(decisionSummary, /day: ["']numeric["']/);
+  assert.match(decisionSummary, /timeZone: ["']UTC["']/);
+  assert.match(decisionSummary, /href=\{url\}/);
   assert.match(decisionSummary, /Care review sources/);
-  assert.match(decisionSummary, /reviewedAt/);
 });
 
-test("product page derives care status from care review data", () => {
+test("public product page renders the care decision before the hero", () => {
+  const main = productPage.slice(
+    productPage.indexOf('<main className="product-page">'),
+  );
+  assert.ok(main.indexOf("<ProductDecisionSummary") >= 0);
+  assert.ok(main.indexOf("<ProductHeroMotion") >= 0);
+  assert.ok(
+    main.indexOf("<ProductDecisionSummary") <
+      main.indexOf("<ProductHeroMotion"),
+  );
+  assert.match(productPage, /decision=\{panelData\.careDecision\}/);
   assert.match(
     productPage,
-    /careReview\?\.careState === ["']supportive_eligible["']/,
+    /careStatus=\{panelData\.careDecision\.statusLabel\}/,
+  );
+  assert.doesNotMatch(
+    productPage,
+    /isPublishedIntakeProduct|getReviewedProductCare/,
   );
 });
 
@@ -240,9 +263,12 @@ test("no unsupported clinical claim appears through fallback logic", () => {
     'Ingredient explorer must not hardcode "unknown" as display text',
   );
 
-  // The decision summary must not invent claims
-  // It must only show "Why JeloCare considers this" when care review data supports it
-  assert.match(decisionSummary, /hasWhyJeloCare/);
-  // The formula caveat is a general statement, not a product-specific claim
-  assert.match(decisionSummary, /Patch test new products/);
+  // The product surface must not turn catalogue prose, concern matching, or
+  // ingredient presence into care support.
+  assert.doesNotMatch(productPanelModel, /product\.displayLine/);
+  assert.doesNotMatch(decisionSummary, /concernFit|ingredients/);
+  assert.match(
+    decisionSummary,
+    /decision\.state === ["']supportive_eligible["']/,
+  );
 });
