@@ -35,6 +35,7 @@ import {
 } from "../../lib/commerce/payment-service";
 import type { StripeSessionVerifyResult } from "../../lib/commerce/stripe-provider";
 import type { AssistedOrderPrivateView } from "../../lib/commerce/assisted-procurement-repository";
+import { stripeSuccessObservedAtForSignedEvent } from "../../app/api/payments/webhook/route";
 
 function restoreEnvironment(name: string, value: string | undefined) {
   if (value === undefined) delete process.env[name];
@@ -554,6 +555,62 @@ test("immediate and delayed Stripe Checkout events use the exact reconciliation 
   assert.equal(stripeWebhookSignal("charge.succeeded"), null);
 });
 
+test("signed completed-unpaid Event cannot backdate later retrieved paid evidence", () => {
+  const successObservedAt = stripeSuccessObservedAtForSignedEvent({
+    eventType: "checkout.session.completed",
+    eventCreated: 1_786_701_600,
+    sessionPaymentStatus: "unpaid",
+  });
+  assert.equal(successObservedAt, null);
+
+  const decision = stripeEvidenceDecision({
+    expectedReference: "JC-EXACT",
+    expectedAmountKobo: 12_345,
+    verification: successfulStripeEvidence({ paidAt: successObservedAt }),
+    signal: "observe",
+  });
+  assert.equal(decision.action, "review");
+  if (decision.action === "review") {
+    assert.equal(decision.code, "missing-settlement-time");
+  }
+});
+
+test("signed completed-paid Event supplies its exact success observation time", () => {
+  const successObservedAt = stripeSuccessObservedAtForSignedEvent({
+    eventType: "checkout.session.completed",
+    eventCreated: 1_786_701_600,
+    sessionPaymentStatus: "paid",
+  });
+  assert.equal(successObservedAt, "2026-08-14T10:00:00.000Z");
+  assert.equal(
+    stripeEvidenceDecision({
+      expectedReference: "JC-EXACT",
+      expectedAmountKobo: 12_345,
+      verification: successfulStripeEvidence({ paidAt: successObservedAt }),
+      signal: "observe",
+    }).action,
+    "verify",
+  );
+});
+
+test("signed async-succeeded-paid Event supplies its exact success observation time", () => {
+  const successObservedAt = stripeSuccessObservedAtForSignedEvent({
+    eventType: "checkout.session.async_payment_succeeded",
+    eventCreated: 1_786_701_660,
+    sessionPaymentStatus: "paid",
+  });
+  assert.equal(successObservedAt, "2026-08-14T10:01:00.000Z");
+  assert.equal(
+    stripeEvidenceDecision({
+      expectedReference: "JC-EXACT",
+      expectedAmountKobo: 12_345,
+      verification: successfulStripeEvidence({ paidAt: successObservedAt }),
+      signal: "success",
+    }).action,
+    "verify",
+  );
+});
+
 test("Stripe evidence decisions keep processing pending and close only terminal failure", () => {
   assert.deepEqual(
     stripeEvidenceDecision({
@@ -782,7 +839,9 @@ test("webhook retries recoverable failures and acknowledges recorded anomalies",
   assert.match(route, /if \(!result\.retryable\)/);
   assert.match(route, /\{ status: 503 \}/);
   assert.match(route, /stripeWebhookSignal\(event\.type\)/);
-  assert.match(route, /new Date\(event\.created \* 1000\)\.toISOString\(\)/);
+  assert.match(route, /payment_status/);
+  assert.match(route, /sessionPaymentStatus !== ["']paid["']/);
+  assert.match(route, /stripeSuccessObservedAtForSignedEvent/);
   assert.match(route, /eventSessionId: event\.data\.object\.id/);
   assert.doesNotMatch(route, /Always return 200/);
   const service = await readFile(

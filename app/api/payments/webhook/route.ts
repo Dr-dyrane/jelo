@@ -15,6 +15,7 @@ const stripeWebhookSchema = z.object({
   data: z.object({
     object: z.object({
       id: z.string().trim().min(1).max(200),
+      payment_status: z.string().trim().min(1).max(40).nullable().optional(),
       metadata: z
         .object({ reference: z.string().trim().min(1).max(200) })
         .nullable()
@@ -22,6 +23,22 @@ const stripeWebhookSchema = z.object({
     }),
   }),
 });
+
+export function stripeSuccessObservedAtForSignedEvent(input: {
+  eventType: string;
+  eventCreated: number;
+  sessionPaymentStatus: string | null | undefined;
+}) {
+  const successEvent =
+    input.eventType === "checkout.session.completed" ||
+    input.eventType === "checkout.session.async_payment_succeeded";
+
+  if (!successEvent || input.sessionPaymentStatus !== "paid") {
+    return null;
+  }
+
+  return new Date(input.eventCreated * 1000).toISOString();
+}
 
 export async function POST(request: NextRequest) {
   const payload = await request.text();
@@ -52,10 +69,11 @@ export async function POST(request: NextRequest) {
       reference,
       eventSessionId: event.data.object.id,
       eventId: event.id,
-      successObservedAt:
-        signal === "failure"
-          ? null
-          : new Date(event.created * 1000).toISOString(),
+      successObservedAt: stripeSuccessObservedAtForSignedEvent({
+        eventType: event.type,
+        eventCreated: event.created,
+        sessionPaymentStatus: event.data.object.payment_status,
+      }),
       signal,
     });
 
