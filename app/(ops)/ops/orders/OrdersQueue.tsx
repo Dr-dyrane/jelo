@@ -130,6 +130,9 @@ export function OrdersQueue({
   const [error, setError] = useState("");
   const [feedback, setFeedback] = useState("");
   const [overlayOrderId, setOverlayOrderId] = useState<string | null>(null);
+  const [actionModeKey, setActionModeKey] = useState<string | null>(null);
+  const [openedActionKey, setOpenedActionKey] = useState<string | null>(null);
+  const [recoveryModeKey, setRecoveryModeKey] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const detailPortalTarget = useSyncExternalStore(
     subscribeToDetailPane,
@@ -143,6 +146,13 @@ export function OrdersQueue({
   );
   const overlayDialogRef = useRef<HTMLElement | null>(null);
   const lastTriggerRef = useRef<HTMLElement | null>(null);
+  const inspectorRef = useRef<HTMLElement | null>(null);
+  const actionTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const recoveryTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const actionRecoveryRef = useRef<HTMLButtonElement | null>(null);
+  const signalsDetailsRef = useRef<HTMLDetailsElement | null>(null);
+  const actionHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const actionReturnTargetRef = useRef<"primary" | "recovery">("primary");
   const { selected, selectionMissing } = resolveOrderQueueSelection(
     orders,
     selectedId,
@@ -153,6 +163,16 @@ export function OrdersQueue({
   const selectedOperatorAlert = operatorAlerts.find(
     (alert) => alert.orderId === selected?.id,
   );
+  const selectedActionKey = selected
+    ? `${selected.id}:${selected.state}:${selected.revision}`
+    : null;
+  const selectedAction = selected ? resolveCurrentOrderAction(selected) : null;
+  const actionMode =
+    selectedActionKey != null && actionModeKey === selectedActionKey;
+  const actionWasOpened =
+    selectedActionKey != null && openedActionKey === selectedActionKey;
+  const recoveryMode =
+    selectedActionKey != null && recoveryModeKey === selectedActionKey;
   const sections = useMemo(
     () => ({
       waiting: orders.filter((order) =>
@@ -169,15 +189,81 @@ export function OrdersQueue({
     [orders],
   );
 
-  const closeInspector = useCallback(() => setOverlayOrderId(null), []);
+  const closeInspector = useCallback(() => {
+    setOverlayOrderId(null);
+    setActionModeKey(null);
+    setOpenedActionKey(null);
+    setRecoveryModeKey(null);
+  }, []);
   const openOrder = useCallback(
     (order: AssistedOrderPrivateView, trigger: HTMLButtonElement) => {
       lastTriggerRef.current = trigger;
+      setActionModeKey(null);
+      setOpenedActionKey(null);
+      setRecoveryModeKey(null);
       selectOrderId(order);
       if (!isDesktop) setOverlayOrderId(order.id);
     },
     [isDesktop, selectOrderId],
   );
+  const openCurrentAction = useCallback(() => {
+    if (!selectedActionKey) return;
+    actionReturnTargetRef.current = "primary";
+    setRecoveryModeKey(null);
+    setOpenedActionKey(selectedActionKey);
+    setActionModeKey(selectedActionKey);
+    requestAnimationFrame(() => {
+      const inspector = inspectorRef.current;
+      const scrollOwner =
+        inspector?.closest<HTMLElement>("[data-ops-order-overlay-scroll]") ??
+        inspector;
+      scrollOwner?.scrollTo({ top: 0, left: 0 });
+      actionHeadingRef.current?.focus();
+    });
+  }, [selectedActionKey]);
+  const openRecoveryAction = useCallback(
+    (trigger: HTMLButtonElement) => {
+      if (!selectedActionKey) return;
+      recoveryTriggerRef.current = trigger;
+      actionReturnTargetRef.current = "recovery";
+      setRecoveryModeKey(selectedActionKey);
+      setOpenedActionKey(selectedActionKey);
+      setActionModeKey(selectedActionKey);
+      requestAnimationFrame(() => {
+        const inspector = inspectorRef.current;
+        const scrollOwner =
+          inspector?.closest<HTMLElement>("[data-ops-order-overlay-scroll]") ??
+          inspector;
+        scrollOwner?.scrollTo({ top: 0, left: 0 });
+        actionHeadingRef.current?.focus();
+      });
+    },
+    [selectedActionKey],
+  );
+  const returnToOrder = useCallback(() => {
+    const returnTarget = actionReturnTargetRef.current;
+    setActionModeKey(null);
+    setRecoveryModeKey(null);
+    requestAnimationFrame(() => {
+      if (returnTarget === "recovery") {
+        if (signalsDetailsRef.current) signalsDetailsRef.current.open = true;
+        recoveryTriggerRef.current?.focus();
+        return;
+      }
+      const inspector = inspectorRef.current;
+      const scrollOwner =
+        inspector?.closest<HTMLElement>("[data-ops-order-overlay-scroll]") ??
+        inspector;
+      scrollOwner?.scrollTo({ top: 0, left: 0 });
+      actionTriggerRef.current?.focus();
+    });
+  }, []);
+  const returnFromRecovery = useCallback(() => {
+    setRecoveryModeKey(null);
+    requestAnimationFrame(() => {
+      actionRecoveryRef.current?.focus();
+    });
+  }, []);
   const overlayMounted =
     !isDesktop && overlayOrderId === selected?.id && detailPortalTarget != null;
 
@@ -260,192 +346,297 @@ export function OrdersQueue({
   }
 
   const inspector = selected ? (
-    <aside className={styles.inspector} data-ops-order-inspector>
-      <header>
-        <div>
-          <p>Order {selected.reference}</p>
-          <h2>{selected.contactName}</h2>
-        </div>
-        <span>{CUSTOMER_VISIBLE_ORDER_STATES[selected.state].label}</span>
-      </header>
-      <OrderLifecycle order={selected} />
-      <div className={styles.privateData}>
-        <strong>{selected.retailer}</strong>
-        <span>{selected.contactEmail}</span>
-        <span>{selected.contactPhone}</span>
-        <span>
-          {selected.deliveryAddress}, {selected.deliveryCity},{" "}
-          {selected.deliveryState}
-        </span>
-        {selected.deliveryInstructions ? (
-          <span>{selected.deliveryInstructions}</span>
-        ) : null}
-        <small>
-          {selected.whatsappConsent
-            ? "WhatsApp consent recorded"
-            : "Do not initiate WhatsApp contact"}
-        </small>
-      </div>
-      <div className={styles.lines}>
-        {selected.lines.map((line) => (
-          <div key={line.slug}>
+    <aside
+      ref={inspectorRef}
+      className={styles.inspector}
+      data-ops-order-inspector
+      data-view={actionMode ? "action" : "summary"}
+    >
+      {!actionMode ? (
+        <>
+          <header>
+            <div>
+              <p>Order {selected.reference}</p>
+              <h2>{selected.contactName}</h2>
+            </div>
+            <span>{CUSTOMER_VISIBLE_ORDER_STATES[selected.state].label}</span>
+          </header>
+
+          {selected.state === "payment_pending" ? (
+            <PaymentOverview order={selected} />
+          ) : null}
+
+          <OrderOverviewWarnings
+            order={selected}
+            delivery={selectedDelivery}
+            alert={selectedOperatorAlert}
+          />
+
+          {selectedAction && canManage ? (
+            <section className={styles.currentAction}>
+              <div>
+                <p>Current action</p>
+                <strong>{selectedAction.title}</strong>
+                <small>{selectedAction.detail}</small>
+              </div>
+              <button
+                ref={actionTriggerRef}
+                type="button"
+                onClick={openCurrentAction}
+              >
+                {selectedAction.buttonLabel}
+                <ArrowRight size={16} aria-hidden="true" />
+              </button>
+            </section>
+          ) : null}
+
+          <OrderLifecycle order={selected} />
+          <div className={styles.privateData}>
+            <strong>{selected.retailer}</strong>
+            <span>{selected.contactEmail}</span>
+            <span>{selected.contactPhone}</span>
             <span>
-              {line.brand} · {line.name}
-              <small>
-                {line.size} × {line.quantity}
-              </small>
+              {selected.deliveryAddress}, {selected.deliveryCity},{" "}
+              {selected.deliveryState}
             </span>
-            <span className={styles.lineActions}>
-              <b>{naira.format(line.observedUnitPriceNgn * line.quantity)}</b>
-              {line.observedListingUrl ? (
-                <a
-                  href={line.observedListingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open retailer <ExternalLink size={14} aria-hidden="true" />
-                </a>
-              ) : null}
-            </span>
+            {selected.deliveryInstructions ? (
+              <span>{selected.deliveryInstructions}</span>
+            ) : null}
+            <small>
+              {selected.whatsappConsent
+                ? "WhatsApp consent recorded"
+                : "Do not initiate WhatsApp contact"}
+            </small>
           </div>
-        ))}
-      </div>
+          <div className={styles.lines}>
+            {selected.lines.map((line) => (
+              <div key={line.slug}>
+                <span>
+                  {line.brand} · {line.name}
+                  <small>
+                    {line.size} × {line.quantity}
+                  </small>
+                </span>
+                <span className={styles.lineActions}>
+                  <b>
+                    {naira.format(line.observedUnitPriceNgn * line.quantity)}
+                  </b>
+                  {line.observedListingUrl ? (
+                    <a
+                      href={line.observedListingUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Open retailer{" "}
+                      <ExternalLink size={14} aria-hidden="true" />
+                    </a>
+                  ) : null}
+                </span>
+              </div>
+            ))}
+          </div>
 
-      <OrderVerificationPanel
-        order={selected}
-        canManage={canManage}
-        pending={pending}
-        onReverify={() =>
-          run(() => reverifyOrderAction({ orderId: selected.id }))
-        }
-      />
+          <details ref={signalsDetailsRef} className={styles.secondarySignals}>
+            <summary>
+              <span>
+                <strong>Checks and delivery</strong>
+                <small>Verification, team alert, and customer update</small>
+              </span>
+              <span aria-hidden="true">View</span>
+            </summary>
+            <div>
+              <OrderVerificationPanel
+                order={selected}
+                canManage={canManage}
+                pending={pending}
+                onReverify={() =>
+                  run(() => reverifyOrderAction({ orderId: selected.id }))
+                }
+              />
 
-      <TeamAlertDelivery
-        alert={selectedOperatorAlert}
-        canManage={canManage}
-        pending={pending}
-        onRetry={() =>
-          run(() => retryOrderOperatorAlertAction({ orderId: selected.id }))
-        }
-      />
+              <TeamAlertDelivery
+                alert={selectedOperatorAlert}
+                canManage={canManage}
+                pending={pending}
+                onRetry={() =>
+                  run(() =>
+                    retryOrderOperatorAlertAction({ orderId: selected.id }),
+                  )
+                }
+              />
 
-      <NotificationDelivery
-        delivery={selectedDelivery}
-        enabled={selected.emailNotificationsConsent}
-        canManage={canManage}
-        pending={pending}
-        onRetry={() =>
-          selectedDelivery &&
-          run(() =>
-            retryOrderNotificationAction({
-              notificationId: selectedDelivery.id,
-              orderId: selected.id,
-            }),
-          )
-        }
-      />
-
-      {selected.state === "requested" || selected.state === "needs_response" ? (
-        <div className={styles.decision}>
-          <p>
-            <Clock3 size={17} /> Next governed step
-          </p>
-          <h3>Claim this request and begin verification.</h3>
-          <p>
-            Check exact products and every cost component. Do not substitute.
-          </p>
-          <button
-            disabled={!canManage || pending}
-            onClick={() =>
-              run(() =>
-                transitionOrderAction({
-                  orderId: selected.id,
-                  revision: selected.revision,
-                  transition: "quoting",
-                }),
-              )
-            }
-          >
-            Claim &amp; verify
-          </button>
-        </div>
+              <NotificationDelivery
+                delivery={selectedDelivery}
+                enabled={selected.emailNotificationsConsent}
+                canManage={canManage}
+                pending={pending}
+                onRetry={() =>
+                  selectedDelivery &&
+                  run(() =>
+                    retryOrderNotificationAction({
+                      notificationId: selectedDelivery.id,
+                      orderId: selected.id,
+                    }),
+                  )
+                }
+              />
+              {selected.state === "awaiting_approval" && canManage ? (
+                <button
+                  type="button"
+                  className={styles.signalRecovery}
+                  onClick={(event) => openRecoveryAction(event.currentTarget)}
+                >
+                  Order cannot continue
+                </button>
+              ) : null}
+            </div>
+          </details>
+        </>
       ) : null}
 
-      {selected.state === "quoting" ? (
-        <QuoteForm
-          key={selected.id}
-          order={selected}
-          disabled={!canManage || pending}
-          serviceFee={serviceFees.get(selected.id) ?? null}
-          onSubmit={(input) => run(() => submitOrderQuoteAction(input))}
-        />
-      ) : null}
+      {actionWasOpened && canManage ? (
+        <section className={styles.actionView} hidden={!actionMode}>
+          <header>
+            <button
+              type="button"
+              className={styles.backToOrder}
+              onClick={returnToOrder}
+            >
+              <ArrowLeft size={16} aria-hidden="true" /> Back to order
+            </button>
+            <div>
+              <p>Order {selected.reference}</p>
+              <h2 ref={actionHeadingRef} tabIndex={-1}>
+                {selectedAction?.title ?? "Cancel this order request"}
+              </h2>
+              <span>
+                {selectedAction?.detail ??
+                  "Record the exact reason this request cannot continue."}
+              </span>
+            </div>
+          </header>
 
-      {selected.state === "awaiting_approval" ? (
-        <div className={styles.decision}>
-          <p>
-            <CheckCircle2 size={17} /> Customer decision
-          </p>
-          <h3>Quote version {selected.quote?.version} is waiting.</h3>
-          <p>
-            It expires{" "}
-            {selected.quote
-              ? formatOrderDateTime(selected.quote.expiresAt)
-              : "soon"}
-            . A changed cost requires a new quote.
-          </p>
-        </div>
-      ) : null}
+          <OrderActionWarning order={selected} />
 
-      {selected.state === "payment_pending" ? (
-        <PaymentVerification
-          order={selected}
-          canManage={canManage}
-          disabled={pending}
-          onSubmit={(input) => run(() => verifyManualPaymentAction(input))}
-        />
-      ) : null}
+          <div hidden={recoveryMode}>
+            {selected.state === "requested" ||
+            selected.state === "needs_response" ? (
+              <div className={styles.decision}>
+                <p>
+                  <Clock3 size={17} /> Next governed step
+                </p>
+                <h3>Claim this request and begin verification.</h3>
+                <p>
+                  Check exact products and every cost component. Do not
+                  substitute.
+                </p>
+                <button
+                  disabled={pending}
+                  onClick={() =>
+                    run(() =>
+                      transitionOrderAction({
+                        orderId: selected.id,
+                        revision: selected.revision,
+                        transition: "quoting",
+                      }),
+                    )
+                  }
+                >
+                  Claim &amp; verify
+                </button>
+              </div>
+            ) : null}
 
-      {[
-        "paid",
-        "procurement",
-        "retailer_confirmed",
-        "out_for_delivery",
-        "refund_pending",
-      ].includes(selected.state) ||
-      (selected.state === "delivered" &&
-        selected.returnRequest?.status === "requested") ? (
-        <LifecycleDecisionForm
-          key={`${selected.id}:${selected.state}:${selected.revision}`}
-          order={selected}
-          disabled={!canManage || pending}
-          onSubmit={(input) => run(() => advanceOrderLifecycleAction(input))}
-        />
-      ) : null}
+            {selected.state === "quoting" ? (
+              <QuoteForm
+                key={selectedActionKey}
+                order={selected}
+                disabled={pending}
+                serviceFee={serviceFees.get(selected.id) ?? null}
+                onSubmit={(input) => run(() => submitOrderQuoteAction(input))}
+              />
+            ) : null}
 
-      {canManage &&
-      [
-        "requested",
-        "quoting",
-        "awaiting_approval",
-        "needs_response",
-        "payment_pending",
-      ].includes(selected.state) ? (
-        <CancellationRecovery
-          key={`cancel:${selected.id}:${selected.revision}`}
-          order={selected}
-          disabled={pending}
-          onSubmit={(reason) =>
-            run(() =>
-              transitionOrderAction({
-                orderId: selected.id,
-                revision: selected.revision,
-                transition: "cancelled",
-                reason,
-              }),
-            )
-          }
-        />
+            {selected.state === "awaiting_approval" ? (
+              <div className={styles.decision}>
+                <p>
+                  <CheckCircle2 size={17} /> Customer decision
+                </p>
+                <h3>Quote version {selected.quote?.version} is waiting.</h3>
+                <p>
+                  It expires{" "}
+                  {selected.quote
+                    ? formatOrderDateTime(selected.quote.expiresAt)
+                    : "soon"}
+                  . A changed cost requires a new quote.
+                </p>
+              </div>
+            ) : null}
+
+            {selected.state === "payment_pending" ? (
+              <PaymentVerification
+                order={selected}
+                canManage={canManage}
+                disabled={pending}
+                onSubmit={(input) =>
+                  run(() => verifyManualPaymentAction(input))
+                }
+              />
+            ) : null}
+
+            {[
+              "paid",
+              "procurement",
+              "retailer_confirmed",
+              "out_for_delivery",
+              "refund_pending",
+            ].includes(selected.state) ||
+            (selected.state === "delivered" &&
+              selected.returnRequest?.status === "requested") ? (
+              <LifecycleDecisionForm
+                key={selectedActionKey}
+                order={selected}
+                disabled={pending}
+                onSubmit={(input) =>
+                  run(() => advanceOrderLifecycleAction(input))
+                }
+              />
+            ) : null}
+
+            {isPrePaymentCancellationState(selected.state) ? (
+              <button
+                ref={actionRecoveryRef}
+                className={styles.actionRecovery}
+                type="button"
+                disabled={pending}
+                onClick={() =>
+                  selectedActionKey && setRecoveryModeKey(selectedActionKey)
+                }
+              >
+                Order cannot continue
+              </button>
+            ) : null}
+          </div>
+
+          {recoveryMode ? (
+            <CancellationRecovery
+              key={`cancel:${selectedActionKey}`}
+              order={selected}
+              disabled={pending}
+              onBack={returnFromRecovery}
+              onSubmit={(reason) =>
+                run(() =>
+                  transitionOrderAction({
+                    orderId: selected.id,
+                    revision: selected.revision,
+                    transition: "cancelled",
+                    reason,
+                  }),
+                )
+              }
+            />
+          ) : null}
+        </section>
       ) : null}
       {error ? (
         <p className={styles.error} role="alert">
@@ -532,13 +723,175 @@ export function OrdersQueue({
                     <X size={18} aria-hidden="true" />
                   </button>
                 </header>
-                <div className={styles.overlayBody}>{inspector}</div>
+                <div
+                  className={styles.overlayBody}
+                  data-ops-order-overlay-scroll
+                >
+                  {inspector}
+                </div>
               </section>
             </div>,
             detailPortalTarget,
           )
         : null}
     </>
+  );
+}
+
+function resolveCurrentOrderAction(order: AssistedOrderPrivateView) {
+  if (order.state === "requested" || order.state === "needs_response")
+    return {
+      title: "Claim and verify this request",
+      detail: "Confirm the exact products and costs before preparing a quote.",
+      buttonLabel: "Review and claim",
+    };
+  if (order.state === "quoting")
+    return {
+      title: "Prepare the exact quote",
+      detail: "Record each verified cost and the evidence behind it.",
+      buttonLabel: "Prepare quote",
+    };
+  if (order.state === "payment_pending")
+    return {
+      title: "Verify the approved payment",
+      detail: "Reconcile bank evidence before the order can progress.",
+      buttonLabel: "Verify payment",
+    };
+  if (order.state === "paid")
+    return {
+      title: "Begin the exact retailer purchase",
+      detail: "Record governed purchase evidence before progressing.",
+      buttonLabel: "Start procurement",
+    };
+  if (order.state === "procurement")
+    return {
+      title: "Confirm the retailer order",
+      detail: "Record the retailer reference and confirmation evidence.",
+      buttonLabel: "Confirm retailer",
+    };
+  if (order.state === "retailer_confirmed")
+    return {
+      title: "Record the delivery handoff",
+      detail: "Enter the carrier and tracking facts exactly as supplied.",
+      buttonLabel: "Record dispatch",
+    };
+  if (order.state === "out_for_delivery")
+    return {
+      title: "Confirm delivery evidence",
+      detail: "Use governed retailer, courier, or customer evidence.",
+      buttonLabel: "Record delivery",
+    };
+  if (order.state === "refund_pending")
+    return {
+      title: "Confirm the completed refund",
+      detail: "Keep the verified payment unchanged and record refund evidence.",
+      buttonLabel: "Complete refund",
+    };
+  if (
+    order.state === "delivered" &&
+    order.returnRequest?.status === "requested"
+  )
+    return {
+      title: "Review the return request",
+      detail: "Read the customer reason before recording a decision.",
+      buttonLabel: "Review return",
+    };
+  return null;
+}
+
+function isPrePaymentCancellationState(
+  state: AssistedOrderPrivateView["state"],
+) {
+  return [
+    "requested",
+    "quoting",
+    "awaiting_approval",
+    "needs_response",
+    "payment_pending",
+  ].includes(state);
+}
+
+function PaymentOverview({ order }: { order: AssistedOrderPrivateView }) {
+  const paymentReview = order.paymentReviews?.at(-1);
+  return (
+    <section className={styles.paymentOverview}>
+      <div>
+        <p>Approved total</p>
+        <strong>{naira.format(order.quote?.totalNgn ?? 0)}</strong>
+      </div>
+      {paymentReview ? (
+        <div className={styles.paymentOverviewWarning} role="alert">
+          <CircleAlert size={17} aria-hidden="true" />
+          <span>
+            <strong>Provider evidence needs review</strong>
+            <small>
+              {paymentReview.reason ??
+                "Reconcile the payment evidence before proceeding."}
+            </small>
+          </span>
+        </div>
+      ) : (
+        <small>Waiting for governed payment evidence.</small>
+      )}
+    </section>
+  );
+}
+
+function OrderOverviewWarnings({
+  order,
+  delivery,
+  alert,
+}: {
+  order: AssistedOrderPrivateView;
+  delivery?: AssistedOrderNotificationDeliverySummary;
+  alert?: AssistedOrderOperatorAlertSummary;
+}) {
+  const verificationFailure = order.lineVerifications.find(
+    (verification) => verification.verificationError,
+  );
+  const customerDeliveryStatus =
+    delivery?.emailStatus ??
+    (order.emailNotificationsConsent ? "pending" : "suppressed");
+  const warnings = [
+    verificationFailure ? "Product verification needs attention" : null,
+    (alert?.failedCount ?? 0) > 0
+      ? "Team alert delivery failed"
+      : (alert?.pendingCount ?? 0) > 0
+        ? "Team alert delivery is pending"
+        : null,
+    customerDeliveryStatus === "failed"
+      ? "Customer email delivery failed"
+      : customerDeliveryStatus === "pending"
+        ? "Customer email delivery is pending"
+        : null,
+  ].filter((warning): warning is string => warning != null);
+
+  if (!warnings.length) return null;
+  return (
+    <section className={styles.overviewWarnings} aria-label="Order attention">
+      <CircleAlert size={17} aria-hidden="true" />
+      <span>
+        <strong>Needs attention</strong>
+        <small>{warnings.join(" · ")}</small>
+      </span>
+    </section>
+  );
+}
+
+function OrderActionWarning({ order }: { order: AssistedOrderPrivateView }) {
+  if (order.state !== "quoting") return null;
+  const failed = order.lineVerifications.find(
+    (verification) => verification.verificationError,
+  );
+  if (!failed) return null;
+  return (
+    <p className={styles.actionWarning} role="alert">
+      <CircleAlert size={17} aria-hidden="true" />
+      <span>
+        <strong>Verification needs attention</strong>
+        <small>{failed.verificationError}</small>
+      </span>
+    </p>
   );
 }
 
@@ -1317,26 +1670,15 @@ type LifecycleActionName =
 function CancellationRecovery({
   order,
   disabled,
+  onBack,
   onSubmit,
 }: {
   order: AssistedOrderPrivateView;
   disabled: boolean;
+  onBack: () => void;
   onSubmit: (reason: string) => void;
 }) {
-  const [open, setOpen] = useState(false);
   const [reason, setReason] = useState("");
-  if (!open) {
-    return (
-      <button
-        className={styles.cancel}
-        type="button"
-        disabled={disabled}
-        onClick={() => setOpen(true)}
-      >
-        <XCircle size={16} aria-hidden="true" /> Cancel order request
-      </button>
-    );
-  }
   return (
     <form
       className={styles.quoteForm}
@@ -1365,11 +1707,7 @@ function CancellationRecovery({
         </label>
       </div>
       <div className={styles.quoteNav}>
-        <button
-          className={styles.quoteBack}
-          type="button"
-          onClick={() => setOpen(false)}
-        >
+        <button className={styles.quoteBack} type="button" onClick={onBack}>
           <ArrowLeft size={16} aria-hidden="true" /> Keep order open
         </button>
         <button disabled={disabled || reason.trim().length < 4} type="submit">

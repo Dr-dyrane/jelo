@@ -93,6 +93,72 @@ test("Orders timestamps are hydration-stable and line count is grammatical", asy
   );
 });
 
+test("Orders open a calm summary before mounting one focused current action", async () => {
+  const queue = await source("app/(ops)/ops/orders/OrdersQueue.tsx");
+  const summaryStart = queue.indexOf("{!actionMode ? (");
+  const actionStart = queue.indexOf("{actionWasOpened && canManage ? (");
+
+  assert.ok(summaryStart >= 0 && actionStart > summaryStart);
+  const summary = queue.slice(summaryStart, actionStart);
+  assert.doesNotMatch(
+    summary,
+    /<QuoteForm|<PaymentVerification|<LifecycleDecisionForm/,
+  );
+  assert.match(summary, /<PaymentOverview order=\{selected\}/);
+  assert.match(summary, /<OrderOverviewWarnings/);
+  assert.match(
+    summary,
+    /<details[\s\S]*?className=\{styles\.secondarySignals\}>/,
+  );
+  assert.match(summary, /ref=\{actionTriggerRef\}/);
+  assert.match(summary, /onClick=\{openCurrentAction\}/);
+
+  assert.match(
+    queue,
+    /const \[openedActionKey, setOpenedActionKey\] = useState<string \| null>\(null\)/,
+  );
+  assert.match(
+    queue,
+    /`\$\{selected\.id\}:\$\{selected\.state\}:\$\{selected\.revision\}`/,
+  );
+  assert.match(
+    queue,
+    /className=\{styles\.actionView\} hidden=\{!actionMode\}/,
+  );
+  assert.match(queue, /> Back to order/);
+  assert.match(queue, /actionTriggerRef\.current\?\.focus/);
+  assert.match(queue, /recoveryTriggerRef\.current\?\.focus/);
+  assert.match(queue, /actionRecoveryRef\.current\?\.focus/);
+  assert.match(queue, /actionHeadingRef\.current\?\.focus/);
+  assert.match(queue, /setRecoveryModeKey\(null\)/);
+  assert.match(queue, /data-ops-order-overlay-scroll/);
+  assert.match(queue, /scrollOwner\?\.scrollTo\(\{ top: 0, left: 0 \}\)/);
+
+  const actionResolver = queue.slice(
+    queue.indexOf("function resolveCurrentOrderAction"),
+    queue.indexOf("function isPrePaymentCancellationState"),
+  );
+  assert.doesNotMatch(actionResolver, /awaiting_approval/);
+  assert.match(
+    queue,
+    /onClick=\{\(event\) => openRecoveryAction\(event\.currentTarget\)\}/,
+  );
+});
+
+test("Orders keep critical payment truth visible while the manual form is closed", async () => {
+  const queue = await source("app/(ops)/ops/orders/OrdersQueue.tsx");
+
+  assert.match(queue, /function PaymentOverview/);
+  assert.match(queue, /Approved total/);
+  assert.match(queue, /order\.quote\?\.totalNgn/);
+  assert.match(queue, /Provider evidence needs review/);
+  assert.match(queue, /paymentReview\.reason/);
+  assert.match(
+    queue,
+    /\{actionWasOpened && canManage \? \([\s\S]*?<PaymentVerification/,
+  );
+});
+
 test("Orders inspector is a one-scroll-owner bottom sheet with reachable actions", async () => {
   const styles = await source("app/(ops)/ops/orders/orders.module.css");
 
@@ -127,6 +193,10 @@ test("Orders inspector is a one-scroll-owner bottom sheet with reachable actions
   assert.match(
     styles,
     /background:\s*var\(--ops-action, var\(--ops-accent\)\)/,
+  );
+  assert.match(
+    styles,
+    /@media \(max-width: 720px\)[\s\S]*?\.currentAction\s*\{[\s\S]*?flex-direction:\s*column/,
   );
   assert.match(
     styles,

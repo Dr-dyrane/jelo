@@ -121,6 +121,200 @@
   color: var(--ops-accent);
   font-size: 0.68rem;
 }
+.currentAction {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 1rem;
+  background: var(--ops-action-subtle, var(--ops-surface-subtle));
+}
+.currentAction > div,
+.currentAction > div > span {
+  min-width: 0;
+  display: grid;
+  gap: 0.15rem;
+}
+.currentAction p,
+.paymentOverview p {
+  margin: 0;
+  color: var(--ops-muted);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.currentAction small,
+.paymentOverview small {
+  color: var(--ops-muted);
+  line-height: 1.35;
+}
+.currentAction button {
+  min-height: var(--touch-min);
+  padding: 0 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ops-action, var(--ops-accent));
+  color: var(--ops-workspace);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.paymentOverview {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  display: grid;
+  gap: 0.65rem;
+  border-radius: 1rem;
+  background: var(--ops-surface-subtle);
+}
+.paymentOverview > div:first-child {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.paymentOverviewWarning,
+.actionWarning,
+.overviewWarnings {
+  margin: 0;
+  padding: 0.75rem;
+  display: flex;
+  align-items: start;
+  gap: 0.55rem;
+  border-radius: 0.75rem;
+  background: var(--state-danger-bg);
+  color: var(--state-danger);
+}
+.paymentOverviewWarning > span,
+.actionWarning > span,
+.overviewWarnings > span {
+  display: grid;
+  gap: 0.12rem;
+}
+.paymentOverviewWarning small,
+.actionWarning small,
+.overviewWarnings small {
+  color: inherit;
+}
+.overviewWarnings {
+  margin-top: 1rem;
+  background: var(--state-warning-bg);
+  color: var(--state-warning);
+}
+.secondarySignals {
+  margin-top: 1rem;
+  border-radius: 1rem;
+  background: var(--ops-surface-subtle);
+}
+.secondarySignals > summary {
+  min-height: var(--touch-min);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  list-style: none;
+}
+.secondarySignals > summary::-webkit-details-marker {
+  display: none;
+}
+.secondarySignals > summary > span:first-child {
+  display: grid;
+  gap: 0.12rem;
+}
+.secondarySignals > summary small,
+.secondarySignals > summary > span:last-child {
+  color: var(--ops-muted);
+  font-size: 0.72rem;
+}
+.secondarySignals[open] > summary > span:last-child {
+  visibility: hidden;
+}
+.secondarySignals[open] > summary > span:last-child::after {
+  content: "Hide";
+  visibility: visible;
+}
+.secondarySignals > div {
+  padding: 0 1rem 1rem;
+}
+.signalRecovery {
+  min-height: var(--touch-min);
+  margin-top: 0.65rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--state-danger);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.secondarySignals .verification,
+.secondarySignals .teamAlert,
+.secondarySignals .notificationDelivery {
+  margin-top: 0.65rem;
+}
+.actionView[hidden],
+.actionView > div[hidden] {
+  display: none;
+}
+.actionView > header {
+  display: grid;
+  gap: 1.2rem;
+}
+.actionView > header > div {
+  display: grid;
+  gap: 0.25rem;
+}
+.actionView > header p {
+  margin: 0;
+  color: var(--ops-muted);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.actionView > header h2 {
+  margin: 0;
+  font-size: clamp(1.55rem, 3vw, 2.25rem);
+  line-height: 1.08;
+}
+.actionView > header h2:focus {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 4px;
+}
+.actionView > header span {
+  color: var(--ops-muted);
+  line-height: 1.4;
+}
+.backToOrder,
+.actionRecovery {
+  min-height: var(--touch-min);
+  width: fit-content;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 0;
+  background: transparent;
+  color: var(--ops-action, var(--ops-accent));
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.actionWarning {
+  margin-top: 1rem;
+}
+.actionRecovery {
+  margin-top: 1rem;
+  color: var(--state-danger);
+}
 .lifecycle {
   margin: 1.25rem 0;
   padding: 1rem;
@@ -1012,6 +1206,19 @@
 }
 
 @media (max-width: 720px) {
+  .currentAction {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .currentAction button {
+    width: 100%;
+    flex: 1 1 auto;
+  }
+  .paymentOverview > div:first-child {
+    align-items: start;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
   .lifecycle {
     overflow: hidden;
   }
