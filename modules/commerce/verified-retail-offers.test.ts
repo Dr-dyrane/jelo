@@ -39,6 +39,7 @@ import waveThirtyTwoAudit from "@/data/retailer-verification/catalogue-offer-ref
 import waveThirtyThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-33-2026-08-29.json";
 import waveThirtyFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-34-2026-08-29.json";
 import waveThirtyFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-35-2026-08-29.json";
+import waveThirtySixAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-36-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -70,6 +71,7 @@ test("catalogue offer refresh wave 1 reconciles exact browser evidence to projec
   for (const product of waveOneAudit.products) {
     assert.equal(product.offers.length, 3, product.candidateId);
     const latestRefresh = [
+      ...waveThirtySixAudit.products,
       ...waveThirtyFiveAudit.products,
       ...waveThirtyFourAudit.products,
       ...waveThirtyThreeAudit.products,
@@ -114,6 +116,7 @@ test("catalogue offer refresh wave 2 projects only current exact-SKU evidence", 
   assert.equal(waveTwoAudit.scheduledOwner.manifestRecurringOwner, null);
   for (const product of waveTwoAudit.products) {
     const latestRefresh = [
+      ...waveThirtySixAudit.products,
       ...waveThirtyFiveAudit.products,
       ...waveThirtyFourAudit.products,
       ...waveThirtyThreeAudit.products,
@@ -173,6 +176,7 @@ test("catalogue offer refresh wave 3 releases admitted cells and fails the unit-
   );
   for (const product of waveThreeAudit.products) {
     const latestRefresh = [
+      ...waveThirtySixAudit.products,
       ...waveThirtyFiveAudit.products,
       ...waveThirtyFourAudit.products,
       ...waveThirtyThreeAudit.products,
@@ -3135,6 +3139,82 @@ test("catalogue offer refresh wave 35 publishes exact Naturium washes and curren
     verifiedRetailOffers["naturium-retinol-complex-cream-1-7oz"].find(
       (offer) => offer.retailer === "BuyBetter",
     )?.available,
+    false,
+  );
+});
+
+test("catalogue offer refresh wave 36 releases the exact Tranexamic dropper and fails package drift closed", () => {
+  const projected = waveThirtySixAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveThirtySixAudit.matrix.before, 139);
+  assert.equal(waveThirtySixAudit.matrix.after, 140);
+  assert.equal(waveThirtySixAudit.matrix.total, 162);
+  assert.equal(waveThirtySixAudit.summary.productsReviewed, 5);
+  assert.equal(waveThirtySixAudit.summary.productsReleased, 1);
+  assert.equal(waveThirtySixAudit.summary.productsBlocked, 4);
+  assert.equal(waveThirtySixAudit.summary.offersAdmitted, 3);
+  assert.equal(waveThirtySixAudit.summary.shopperActiveOffers, 3);
+  assert.equal(projected.length, 3);
+  assert.equal(waveThirtySixAudit.blockedCells.length, 4);
+  assert.equal(waveThirtySixAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.equal(
+    waveThirtySixAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, true);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const active = catalogueProducts
+    .find(
+      (product) => product.slug === "naturium-tranexamic-topical-acid-5-1fl-oz",
+    )
+    ?.offers.filter((offer) => offer.available);
+  assert.deepEqual(active?.map((offer) => offer.retailer).sort(), [
+    "Rhema Beauty Shop",
+    "TOS Nigeria",
+    "The Beauty Prism",
+  ]);
+  assert.equal(
+    Math.min(
+      ...(active ?? []).map(
+        (offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY,
+      ),
+    ),
+    44_000,
+  );
+
+  for (const blocked of waveThirtySixAudit.blockedCells) {
+    assert.deepEqual(
+      verifiedRetailOffers[blocked.candidateId] ?? [],
+      [],
+      blocked.candidateId,
+    );
+  }
+  assert.equal(
+    verifiedRetailOffers["naturium-tranexamic-topical-acid-5-1fl-oz"].some(
+      (offer) =>
+        ["Konga Health", "MakeupAlleyNG", "Nihet Beauty"].includes(
+          offer.retailer,
+        ),
+    ),
     false,
   );
 });

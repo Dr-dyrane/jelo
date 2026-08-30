@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-36-2026-08-29",
+  "reviewedAt": "2026-08-30T08:45:57.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Current Nigerian retailer checks across five independent Naturium cells, releasing the exact legacy-package cell and failing package-drift siblings closed",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T08:45:57.000Z"
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 139,
+    "after": 140,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 1,
+    "productsBlocked": 4,
+    "offersReviewed": 16,
+    "offersAdmitted": 3,
+    "shopperActiveOffers": 3,
+    "outOfStockObservations": 1,
+    "offersBlocked": 13,
+    "offersProjected": 3
+  },
+  "products": [
+    {
+      "candidateId": "naturium-tranexamic-topical-acid-5-1fl-oz",
+      "identity": {
+        "gtin": "850010792194",
+        "variant": "Tranexamic Topical Acid 5%",
+        "size": "1.0 fl oz / 30 mL",
+        "packageVersion": "Tranexamic Topical Acid 5% 1.0 fl oz / 30 mL dropper bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-tranexamic-tropical-acid-5-serum/",
+          "priceNgn": 47300,
+          "stock": "low-stock",
+          "available": true,
+          "inventoryQuantity": 2,
+          "checkedAt": "2026-08-30T08:45:57.000Z",
+          "expiresAt": "2026-09-06T08:45:57.000Z",
+          "responseUrl": "https://rhemabeautyshop.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "d44a9a3538becaf7f06c5f47db0b161839984cef4a29b64c9ede503441adc6d2",
+          "responseByteSize": 262856,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2023/04/61z6I4vaW-L._SL1500.jpg",
+          "packageImageSha256": "c282e89c42e87a01435bc8ecb986eb2b94fb1a7e2780dd62f91b1b78879c67e1",
+          "packageImageByteSize": 21498
+        },
+        {
+          "retailer": "The Beauty Prism",
+          "url": "https://thebeautyprismng.com/shop/naturium-tranexamic-topical-acid-5/",
+          "priceNgn": 44000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:45:57.000Z",
+          "expiresAt": "2026-09-06T08:45:57.000Z",
+          "responseUrl": "https://thebeautyprismng.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "24dfab9e24231de5fb005ecd43e621a16d27bd2f5ac58f751c964bf2b45be000",
+          "responseByteSize": 256628,
+          "packageImageUrl": "https://thebeautyprismng.com/wp-content/uploads/2022/11/Naturium-Tranexamic-acid.jpg",
+          "packageImageSha256": "c231e050d28d500e0cbc0a39dc9785e4f3c49b563970939337255e49fafeb0fc",
+          "packageImageByteSize": 45956
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/naturium-tranexamic-tropical-acid-1-0-fl-0z-30-ml/",
+          "priceNgn": 60000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:45:57.000Z",
+          "expiresAt": "2026-09-06T08:45:57.000Z",
+          "responseUrl": "https://tosnigeria.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "f8000a756c4b2a2e5e85e0e91be6cb278cd15fafec71f77f12b6d351e66b18ff",
+          "responseByteSize": 115220,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2022/03/Naturium-Tranexamic-Tropical-Acid-1.0-FL-0Z-30-ml.jpg",
+          "packageImageSha256": "51bd19d26a0f947fe79f0427a1203b3297661d578394c656c414f9fa3f40d146",
+          "packageImageByteSize": 22298
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Konga Health / MakeupAlleyNG / Nihet Beauty",
+          "reason": "current-exact-size-listings-show-the-new-pump-package-not-the-published-dropper-package"
+        },
+        {
+          "retailer": "TOS Nigeria Multi-Bright sibling",
+          "reason": "listing-variant-is-multi-bright-tranexamic-acid-treatment-not-the-published-tranexamic-topical-acid-variant"
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "naturium-alpha-arbutin-serum-2-percent-1fl-oz",
+      "retailer": "Konga Health / Teeka4 / The Beauty Prism / MakeupAlleyNG",
+      "releasedPackage": "Alpha Arbutin Serum 2% 1.0 fl oz / 30 mL dropper bottle",
+      "observedPackage": "Current exact-size retailer images show pump packaging.",
+      "reason": "published-dropper-package-conflicts-with-current-retailer-package-evidence",
+      "responseSha256": "e1b978f635d66bcbf23eca9aea002a4f41c1c6f4a5088d34fab93bdd02b87a7b",
+      "responseByteSize": 262411
+    },
+    {
+      "candidateId": "naturium-quadruple-hyaluronic-acid-serum-5-1fl-oz",
+      "retailer": "Konga Health / The Beauty Prism / TOS Nigeria",
+      "releasedPackage": "Quadruple Hyaluronic Acid Serum 5% 1.0 fl oz / 30 mL dropper bottle",
+      "observedPackage": "Current exact-size retailer images show pump packaging; TOS also labels packaging as variable.",
+      "reason": "published-dropper-package-conflicts-with-current-retailer-package-evidence",
+      "responseSha256": "93c9f64df348db615079c818013f72aa21cd5ad144003240a7c7ba2a4d7ad38c",
+      "responseByteSize": 262960
+    },
+    {
+      "candidateId": "naturium-vitamin-c-super-serum-plus-1fl-oz",
+      "retailer": "Teeka4 / TOS Nigeria / The Beauty Prism / Nihet Beauty / MakeupAlleyNG",
+      "releasedPackage": "Vitamin C Super Serum Plus 1.0 fl oz / 30 mL dropper bottle",
+      "observedPackage": "Current exact-size retailer images show pump packaging.",
+      "reason": "published-dropper-package-conflicts-with-current-retailer-package-evidence",
+      "responseSha256": "08895260cde58e15d76a3d1aa9b7382a788fa82fb37607a9815cdb2dfb867578",
+      "responseByteSize": 69353
+    },
+    {
+      "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
+      "retailer": "Rhema Beauty Shop / Nihet Beauty",
+      "releasedPackage": "Skin-Renewing Retinol Body Lotion 8 fl oz / 234 mL pump bottle",
+      "observedPackage": "Current exact-size retailer images show a 234 mL squeeze tube; Nihet also exposes a separate 414 mL sibling.",
+      "reason": "published-pump-bottle-conflicts-with-current-retailer-tube-package",
+      "responseSha256": "d44a9a3538becaf7f06c5f47db0b161839984cef4a29b64c9ede503441adc6d2",
+      "responseByteSize": 262856
+    }
+  ],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "naturium-tranexamic-topical-acid-5-1fl-oz",
+      "retailer": "Konga Health / MakeupAlleyNG / Nihet Beauty",
+      "reason": "new-pump-package-listings-cannot-enter-the-published-dropper-package-cell"
+    },
+    {
+      "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
+      "retailer": "Nihet Beauty 414 mL sibling",
+      "reason": "414ml-sibling-cannot-enter-the-published-234ml-cell"
+    }
+  ]
+}
