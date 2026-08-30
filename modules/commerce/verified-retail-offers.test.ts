@@ -31,6 +31,7 @@ import waveTwentyFourAudit from "@/data/retailer-verification/catalogue-offer-re
 import waveTwentyFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-25-2026-08-29.json";
 import waveTwentySixAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-26-2026-08-29.json";
 import waveTwentySevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-27-2026-08-29.json";
+import waveTwentyEightAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-28-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -2249,6 +2250,91 @@ test("catalogue offer refresh wave 27 releases five exact packages and fails unv
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   assert.equal(registered.has("Brandlistry"), true);
   assert.equal(registered.has("Citymarket NG"), true);
+});
+
+test("catalogue offer refresh wave 28 releases five exact packages and fails mismatched siblings closed", () => {
+  const projected = waveTwentyEightAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveTwentyEightAudit.matrix.before, 103);
+  assert.equal(waveTwentyEightAudit.matrix.after, 108);
+  assert.equal(waveTwentyEightAudit.matrix.total, 162);
+  assert.equal(waveTwentyEightAudit.summary.productsReviewed, 5);
+  assert.equal(waveTwentyEightAudit.summary.productsReleased, 5);
+  assert.equal(waveTwentyEightAudit.summary.productsBlocked, 0);
+  assert.equal(waveTwentyEightAudit.summary.offersReviewed, 16);
+  assert.equal(waveTwentyEightAudit.summary.offersAdmitted, 11);
+  assert.equal(waveTwentyEightAudit.summary.shopperActiveOffers, 9);
+  assert.equal(waveTwentyEightAudit.summary.outOfStockObservations, 2);
+  assert.equal(waveTwentyEightAudit.summary.offersBlocked, 5);
+  assert.equal(projected.length, 11);
+  assert.equal(waveTwentyEightAudit.blockedCells.length, 4);
+  assert.equal(waveTwentyEightAudit.excludedDiscoveries.length, 5);
+  assert.equal(
+    waveTwentyEightAudit.scheduledOwner.manifestRecurringOwner,
+    null,
+  );
+  assert.equal(
+    waveTwentyEightAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    ["keracare-dry-itchy-scalp-conditioner-950ml", ["Ediths Essentials"]],
+    ["lush-hair-mentholated-conditioner", ["Lush Hair Nigeria"]],
+    ["medik8-crystal-retinal-3-30ml", ["Ralyd", "Skincare Plug NG"]],
+    ["medik8-crystal-retinal-6-30ml", ["Teeka4"]],
+    [
+      "dang-collagen-hydrating-serum-ceramides-30ml",
+      ["Bracketts Beauty", "DANG Lifestyle", "Konga Health", "Perona Beauty"],
+    ],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["keracare-dry-itchy-scalp-conditioner-950ml", 43_485],
+    ["lush-hair-mentholated-conditioner", 1_687],
+    ["medik8-crystal-retinal-3-30ml", 116_000],
+    ["medik8-crystal-retinal-6-30ml", 94_215],
+    ["dang-collagen-hydrating-serum-ceramides-30ml", 17_000],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    assert.equal(
+      Math.min(
+        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+      ),
+      expectedFloors.get(slug),
+      slug,
+    );
+  }
 });
 
 test("verified Nigerian observations use exact secure product pages", () => {

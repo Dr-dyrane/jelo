@@ -14,6 +14,7 @@ import loccitane250ReleaseSource from "@/data/catalogue-publication-sources/locc
 import audit from "@/data/retailer-verification/catalogue-pharmacist-offer-batch-2026-08-04.json";
 import waveOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-1-2026-08-27.json";
 import waveTwentySevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-27-2026-08-29.json";
+import waveTwentyEightAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-28-2026-08-29.json";
 import { mergeRetailOffers, verifiedRetailOffers } from "@/data/retail-offers";
 import { nigeriaRetailers } from "@/data/retailers";
 import {
@@ -257,6 +258,9 @@ test("the admitted evidence projects exactly once and rejected or pending stores
     }
 
     const refreshedProduct =
+      waveTwentyEightAudit.products.find(
+        (candidate) => candidate.candidateId === product.candidateId,
+      ) ??
       waveTwentySevenAudit.products.find(
         (candidate) => candidate.candidateId === product.candidateId,
       ) ??
@@ -271,9 +275,9 @@ test("the admitted evidence projects exactly once and rejected or pending stores
         assert.deepEqual(projected, [], offer.observationId);
         assert.ok(
           "notProjected" in refreshedProduct &&
-            refreshedProduct.notProjected.some(
+            refreshedProduct.notProjected?.some(
               (candidate) => candidate.retailer === offer.retailer.displayName,
-            ),
+            ) === true,
           `${offer.observationId} needs an explicit refresh disposition`,
         );
         continue;

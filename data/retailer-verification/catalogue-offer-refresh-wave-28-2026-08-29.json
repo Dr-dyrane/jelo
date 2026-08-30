@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-28-2026-08-29",
+  "reviewedAt": "2026-08-30T06:13:45.297Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Sixteen current Nigerian retailer checks across five independently releasable exact product SKUs",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T06:13:45.297Z"
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 103,
+    "after": 108,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 16,
+    "offersAdmitted": 11,
+    "shopperActiveOffers": 9,
+    "outOfStockObservations": 2,
+    "offersBlocked": 5,
+    "offersProjected": 11
+  },
+  "products": [
+    {
+      "candidateId": "keracare-dry-itchy-scalp-conditioner-950ml",
+      "identity": {
+        "gtin": "850068103058",
+        "variant": "Dry & Itchy Scalp Anti-Dandruff Moisturizing Conditioner",
+        "size": "950 ml",
+        "packageVersion": "Current blue KeraCare No. 2 conditioner bottle"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/keracare-no2-dry-and-itchy-scalp-anti-dandruff-moisturizing-conditioner-950ml/",
+          "priceNgn": 38485,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T06:13:45.297Z",
+          "expiresAt": "2026-09-06T06:13:45.297Z",
+          "responseSha256": "bf9d0c3d431a2ef83f86883005e5bcad6dcc51a3b1f2a4ed79dd416a542314de",
+          "responseByteSize": 564008,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/08/x1erf93f.png",
+          "packageImageSha256": "848885cc46178957ff4c3ee5ec67d353e52012a58255ca2022712b3d9f5b374f",
+          "packageImageByteSize": 348004
+        },
+        {
+          "retailer": "Ediths Essentials",
+          "url": "https://edithsessentials.com/products/keracare-dry-and-itchy-conditioner-950ml",
+          "priceNgn": 43485,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:13:45.297Z",
+          "expiresAt": "2026-09-06T06:13:45.297Z",
+          "responseSha256": "e5e6aab6500c87a467b5000630280d787646cc8aecdb90c11386101dfaa92192",
+          "responseByteSize": 2684,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0245/8661/6937/files/x1erf93f_cfbd4e86-5499-487c-beb5-9aa3fca055e8.jpg?v=1782827523",
+          "packageImageSha256": "2a5490df4ae0e64a706d09ad51fd4b1836d92aa051a1c7b85740e6d3b54d2ae4",
+          "packageImageByteSize": 51561
+        }
+      ]
+    },
+    {
+      "candidateId": "lush-hair-mentholated-conditioner",
+      "identity": {
+        "variant": "Rinse Me Out Mentholated Conditioner",
+        "size": "370 ml",
+        "packageVersion": "Current blue and pink 370 ml Lush Hair bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Lush Hair Nigeria",
+          "url": "https://nigeria.lushhairafrica.com/products/mentholated-conditioner-370ml",
+          "priceNgn": 1687,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:13:45.297Z",
+          "expiresAt": "2026-09-06T06:13:45.297Z",
+          "responseSha256": "823abb81c6f67b2d59820b8276ff15b7e8959051e5f7cda4d0a8dd57830cd261",
+          "responseByteSize": 7130,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0791/5978/7745/files/26451_7ca2d10503cf413b262130540e2df7dd.png?v=1766145282",
+          "packageImageSha256": "ac5f523de5252bde38355b1a7adee11be3a59e9acd5bd253cf2050e08b044907",
+          "packageImageByteSize": 27127
+        }
+      ]
+    },
+    {
+      "candidateId": "medik8-crystal-retinal-3-30ml",
+      "identity": {
+        "gtin": "818625024529",
+        "variant": "Crystal Retinal 3",
+        "size": "30 ml",
+        "packageVersion": "Crystal Retinal 3 silver 30 ml airless pump tube"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/medik8-crystal-retinal-3-30ml/",
+          "priceNgn": 92389,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T06:13:45.297Z",
+          "expiresAt": "2026-09-06T06:13:45.297Z",
+          "responseSha256": "5a4e6d6c73f9528cf02c646e0772c656c7777ae5186cff92bd2ef5d6fd8c8eb1",
+          "responseByteSize": 349971,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2026/04/Crystal-Retinal-3-Tube-Box-removebg-preview.png",
+          "packageImageSha256": "ba12a083760675486039d46f269b82b550521193f97bd4761cfc0c2d4ccd8394",
+          "packageImageByteSize": 90494
+        },
+        {
+          "retailer": "Skincare Plug NG",
+          "url": "https://skincareplug-ng.com/products/medik8-crystal-retinal-3",
+          "priceNgn": 145000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:13:45.297Z",
+          "expiresAt": "2026-09-06T06:13:45.297Z",
+          "responseSha256": "8621670a7cc5be77e6303f3bb8643463a42809fb268d6cf697e659c20cbf5a15",
+          "responseByteSize": 3378,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0463/8575/8360/files/IMG_9708.webp?v=1712327034",
+          "packageImageSha256": "f1f0879605d6a01ae8974946731612307405807d68a655c1423660f288db440d",
+          "packageImageByteSize": 49640
+        },
+        {
+          "retailer": "Ralyd",
+          "url": "https://ralyd.co/products/medik8-crystal-retinal-3-30ml",
+          "priceNgn": 116000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:13:45.297Z",
+          "expiresAt": "2026-09-06T06:13:45.297Z",
+          "responseSha256": "b20e5d3a3bf9e03d070ba70d372bbbe97a52856528b6bfa0e180c408cfbd504d",
+          "responseByteSize": 4276,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0786/4683/7481/files/A239D080-A811-42BE-93AA-EAA80B60419B.png?v=1776853600",
+          "packageImageSha256": "43a9dd9dfdf0ca6500cd07967a198168e04c3ccfc0a4da7263c907ee1f3c7158",
+          "packageImageByteSize": 271379
+        }
+      ]
+    },
+    {
+      "candidateId": "medik8-crystal-retinal-6-30ml",
+      "identity": {
+        "gtin": "818625024536",
+        "variant": "Crystal Retinal 6",
+        "size": "30 ml",
+        "packageVersion": "Crystal Retinal 6 silver 30 ml airless pump tube"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/medik8-crystal-retinal-6-30ml/",
+          "priceNgn": 94215,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:13:45.297Z",
+          "expiresAt": "2026-09-06T06:13:45.297Z",
+          "responseSha256": "3e497e2770cf558152784e80d8cb703fe73802e6dbfc9d75794adc5c999efd66",
+          "responseByteSize": 351849,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2026/04/crystal-retinal-6-serum-retinol-30ml-medik8-removebg-preview.png",
+          "packageImageSha256": "1180d221bcdbd44598d0ccf4e62cd91d8ebfc681ffc8177693f67699ebb37ce1",
+          "packageImageByteSize": 61672
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "My Skin Hub NG",
+          "reason": "current-page-omits-size-and-the-listing-image-shows-the-full-strength-range"
+        },
+        {
+          "retailer": "Jumia",
+          "reason": "legacy-direct-route-was-not-currently-verifiable"
+        }
+      ]
+    },
+    {
+      "candidateId": "dang-collagen-hydrating-serum-ceramides-30ml",
+      "identity": {
+        "manufacturerSku": "DGL-SKC-034",
+        "variant": "Collagen And Hydrating Serum With Ceramides",
+        "size": "30 ml",
+        "packageVersion": "Current purple carton and dropper bottle"
+      },
+      "offers": [
+        {
+          "retailer": "DANG Lifestyle",
+          "url": "https://danglifestyle.co/products/collagen-peptide-serum",
+          "priceNgn": 17000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:13:45.297Z",
+          "expiresAt": "2026-09-06T06:13:45.297Z",
+          "responseSha256": "f536f623e2fb26f1217fa3c51c98594e68a8c574d2816128e90556307f56a419",
+          "responseByteSize": 3244,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0837/2181/4264/files/dang-ageless-collagen-and-hydrating-serum-with-ceramides-425301.webp?v=1783591040",
+          "packageImageSha256": "911f377e5390faa63d139930a4c4e2854d7a9a11862254ce3b1f97f01f5f2e0a",
+          "packageImageByteSize": 62147
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/dang-collagen-and-hydrating-serum-with-ceramides-30ml/",
+          "priceNgn": 18300,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:13:45.297Z",
+          "expiresAt": "2026-09-06T06:13:45.297Z",
+          "responseSha256": "41236687c40dc2689096504d9d17f329e29b7f494f3b823bbf6f3b3f281afa86",
+          "responseByteSize": 395177,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/05/Screenshot_789844.png",
+          "packageImageSha256": "75c639d44734f530a20df10bfcd424e43eccd15d6d47426ff686295b43840254",
+          "packageImageByteSize": 23346
+        },
+        {
+          "retailer": "Bracketts Beauty",
+          "url": "https://www.brackettsbeauty.com/products/collagen-and-hydrating-serum-with-ceramides",
+          "priceNgn": 18656,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:13:45.297Z",
+          "expiresAt": "2026-09-06T06:13:45.297Z",
+          "responseSha256": "7c60fcc19a6c27bf5e791e30685cb64da36fb20a2b6b855f34ee4cf65bbf810c",
+          "responseByteSize": 3473,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0480/7829/1097/files/Untitled_design-26.png?v=1744124252",
+          "packageImageSha256": "b50a7d0f46eb73d3d123b81269e62aed8c662a21edef10ebc6cb40bca8aa7afd",
+          "packageImageByteSize": 169791
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/dang-collagen-and-hydrating-serum-with-ceramides-30ml-6961918",
+          "priceNgn": 37000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:13:45.297Z",
+          "expiresAt": "2026-09-06T06:13:45.297Z",
+          "responseSha256": "d5aac40873d80eed8b7fecbd5607b4b81cbf2dd07733380c0c6cc4495fa86e95",
+          "responseByteSize": 286749,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/O/H/246169_1775066585.jpg",
+          "packageImageSha256": "eef7efbddeacf6798249089a1a419e94ea29fb1694c1d5f59f65bdfde5e6b663",
+          "packageImageByteSize": 27278
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "amika-the-kure-conditioner-275ml",
+      "retailer": "BuyBetter",
+      "reason": "current-retailer-gtin-840117807082-conflicts-with-catalogue-gtin-840117805743"
+    },
+    {
+      "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+      "retailer": "BuyBetter",
+      "reason": "exact-product-route-now-404"
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "retailer": "Perona Beauty / Derma Essentials / Deoset",
+      "reason": "current-pages-and-listing-images-omit-the-catalogue-75ml-size"
+    },
+    {
+      "candidateId": "medik8-advanced-night-restore-50ml",
+      "retailer": "Teeka4",
+      "reason": "current-title-says-50ml-but-listing-image-shows-12-5ml-package"
+    }
+  ],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "lush-hair-mentholated-conditioner",
+      "retailer": "Jumia",
+      "reason": "current-route-is-cloudflare-403"
+    },
+    {
+      "candidateId": "medik8-crystal-retinal-3-30ml",
+      "retailer": "Care to Beauty",
+      "reason": "current-configurable-route-does-not-bind-the-selected-strength-to-one-exact-offer"
+    },
+    {
+      "candidateId": "medik8-crystal-retinal-6-30ml",
+      "retailer": "My Skin Hub NG",
+      "reason": "current-page-omits-size-and-the-listing-image-shows-the-full-strength-range"
+    },
+    {
+      "candidateId": "medik8-crystal-retinal-6-30ml",
+      "retailer": "Jumia",
+      "reason": "legacy-direct-route-was-not-currently-verifiable"
+    },
+    {
+      "candidateId": "dang-collagen-hydrating-serum-ceramides-30ml",
+      "retailer": "Jumia",
+      "reason": "current-exact-search-result-is-not-deterministically-readable-through-the-access-wall"
+    }
+  ]
+}
