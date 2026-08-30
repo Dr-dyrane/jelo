@@ -1,8 +1,8 @@
 .header {
   position: fixed;
   z-index: 50;
-  inset: 0.9rem 1.2rem auto;
-  height: 4.1rem;
+  inset: var(--site-chrome-safe-top) 1.2rem auto;
+  height: var(--site-chrome-header-height);
   padding: 0 clamp(1rem, 3vw, 2rem);
   display: flex;
   align-items: center;
@@ -237,10 +237,12 @@
 
 .menuDialog {
   position: fixed;
-  inset: auto 0.75rem 0.75rem;
+  inset: auto 0.75rem var(--site-chrome-safe-bottom);
   width: calc(100vw - 1.5rem);
   max-width: none;
-  max-height: calc(100dvh - 1.5rem);
+  max-height: calc(
+    100dvh - var(--site-chrome-safe-top) - var(--site-chrome-safe-bottom)
+  );
   margin: 0;
   padding: 0;
   overflow: visible;
@@ -261,14 +263,16 @@
   max-height: none;
   display: flex;
   align-items: flex-end;
-  padding: 0.75rem;
+  padding: var(--site-chrome-safe-top) 0.75rem var(--site-chrome-safe-bottom);
   background: rgba(45, 33, 31, 0.3);
   backdrop-filter: blur(12px) saturate(115%);
 }
 
 .menuSheet {
   width: 100%;
-  max-height: calc(100dvh - 1.5rem);
+  max-height: calc(
+    100dvh - var(--site-chrome-safe-top) - var(--site-chrome-safe-bottom)
+  );
   padding: 1.15rem 0.55rem;
   overflow: auto;
   border-radius: 1.9rem;
@@ -414,8 +418,8 @@
 
 @media (max-width: 700px) {
   .header {
-    inset: 0.7rem 0.75rem auto;
-    height: 3.8rem;
+    inset: var(--site-chrome-safe-top) 0.75rem auto;
+    height: var(--site-chrome-header-height);
     padding: 0 1rem;
     gap: 1rem;
   }

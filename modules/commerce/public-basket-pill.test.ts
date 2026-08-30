@@ -63,12 +63,23 @@ test("public basket action stays visible on content pages and leaves basket flow
   assert.match(component, /href="\/basket"/);
   assert.match(component, /basket\.totalQuantity === 0/);
   assert.match(component, /"\/basket", "\/checkout", "\/order", "\/sign-in"/);
+  assert.match(
+    component,
+    /segments\.length === 2 && segments\[0\] === ["']products["']/,
+  );
+  assert.match(component, /isProductDetail\(pathname\)/);
   assert.match(component, /product\.quantity/);
-  assert.match(component, /Basket full\. Your basket holds up to \$\{BASKET_MAX_PRODUCTS\} products/);
-  assert.match(component, /role=\{productLimitReached \? "status" : undefined\}/);
+  assert.match(
+    component,
+    /Basket full\. Your basket holds up to \$\{BASKET_MAX_PRODUCTS\} products/,
+  );
+  assert.match(
+    component,
+    /role=\{productLimitReached \? "status" : undefined\}/,
+  );
   assert.match(component, /SafeProductImage/);
   assert.match(styles, /position:\s*fixed/);
-  assert.match(styles, /env\(safe-area-inset-bottom\)/);
+  assert.match(styles, /bottom:\s*var\(--site-chrome-safe-bottom\)/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(layout, /<PublicBasketPill products=\{basketProducts\} \/>/);
 });

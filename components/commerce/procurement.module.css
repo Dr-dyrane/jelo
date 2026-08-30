@@ -1,6 +1,7 @@
 .page {
   min-height: 100vh;
-  padding: clamp(4.5rem, 7vw, 5.5rem) max(1.1rem, 4vw) clamp(5rem, 9vw, 7rem);
+  padding: var(--site-chrome-content-start) max(1.1rem, 4vw)
+    clamp(5rem, 9vw, 7rem);
 }
 
 .pageHeader {
@@ -180,7 +181,7 @@
 }
 .retailerChoice {
   position: sticky;
-  top: 6.2rem;
+  top: var(--site-chrome-content-start);
   padding: clamp(1.5rem, 3vw, 2.5rem);
 }
 .muted,
@@ -405,7 +406,7 @@
 }
 .checkoutSummary {
   position: sticky;
-  top: 6.2rem;
+  top: var(--site-chrome-content-start);
   padding: clamp(1.2rem, 2.5vw, 1.8rem);
 }
 .checkoutSummaryHeading {
@@ -818,7 +819,7 @@
 
 @media (max-width: 620px) {
   .page {
-    padding: 4.25rem 1rem 5rem;
+    padding: var(--site-chrome-content-start) 1rem 5rem;
   }
   .basketProductList,
   .fieldGrid {

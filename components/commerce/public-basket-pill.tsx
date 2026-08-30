@@ -19,6 +19,11 @@ function isBasketFlow(pathname: string) {
   );
 }
 
+function isProductDetail(pathname: string) {
+  const segments = pathname.split("/").filter(Boolean);
+  return segments.length === 2 && segments[0] === "products";
+}
+
 export function PublicBasketPill({
   products,
   surface = "public",
@@ -33,7 +38,12 @@ export function PublicBasketPill({
     [basket.items, products],
   );
 
-  if (!basket.ready || basket.totalQuantity === 0 || isBasketFlow(pathname)) {
+  if (
+    !basket.ready ||
+    basket.totalQuantity === 0 ||
+    isBasketFlow(pathname) ||
+    isProductDetail(pathname)
+  ) {
     return null;
   }
 
@@ -52,11 +62,7 @@ export function PublicBasketPill({
       data-surface={surface}
       aria-label="Current basket"
     >
-      <Link
-        className={styles.pill}
-        href="/basket"
-        aria-label={basketLabel}
-      >
+      <Link className={styles.pill} href="/basket" aria-label={basketLabel}>
         <span className={styles.avatars} aria-hidden="true">
           {preview.map((product) => (
             <span className={styles.avatar} key={product.slug}>

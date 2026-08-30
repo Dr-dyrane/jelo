@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  padding: clamp(4.5rem, 7vw, 5.5rem) max(1rem, 4vw) 7rem;
+  padding: var(--site-chrome-content-start) max(1rem, 4vw) 7rem;
   background:
     radial-gradient(
       circle at 86% 6%,
@@ -437,7 +437,7 @@
 }
 .quoteCard {
   position: sticky;
-  top: 6.2rem;
+  top: var(--site-chrome-content-start);
 }
 .quoteHeading {
   display: flex;

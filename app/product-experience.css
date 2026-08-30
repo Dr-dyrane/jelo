@@ -109,9 +109,9 @@
 @media (min-width: 901px) {
   .product-visual-large {
     position: sticky;
-    top: 4.75rem;
+    top: var(--site-chrome-immersive-start);
     align-self: start;
-    height: calc(100svh - 4.75rem);
+    height: calc(100svh - var(--site-chrome-immersive-start));
     min-height: 0;
     padding: clamp(2rem, 4vw, 4.5rem);
     display: grid;

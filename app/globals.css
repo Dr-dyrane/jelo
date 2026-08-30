@@ -278,9 +278,34 @@
   box-sizing: border-box;
 }
 html {
+  /* Fixed public chrome: standard pages clear the header by 12px; immersive
+     product media keeps a deliberate 4px handoff. These geometry-only values
+     live outside the protected light-theme token blocks. */
+  --site-chrome-safe-top: max(0.9rem, env(safe-area-inset-top, 0px));
+  --site-chrome-header-height: 4.1rem;
+  --site-chrome-content-gap: 12px;
+  --site-chrome-immersive-gap: 4px;
+  --site-chrome-header-bottom: calc(
+    var(--site-chrome-safe-top) + var(--site-chrome-header-height)
+  );
+  --site-chrome-content-start: calc(
+    var(--site-chrome-header-bottom) + var(--site-chrome-content-gap)
+  );
+  --site-chrome-immersive-start: calc(
+    var(--site-chrome-header-bottom) + var(--site-chrome-immersive-gap)
+  );
+  --site-chrome-safe-bottom: calc(
+    var(--site-chrome-content-gap) + env(safe-area-inset-bottom, 0px)
+  );
   scroll-behavior: smooth;
   background: var(--cream);
   color-scheme: light;
+}
+@media (max-width: 700px) {
+  html {
+    --site-chrome-safe-top: max(0.7rem, env(safe-area-inset-top, 0px));
+    --site-chrome-header-height: 3.8rem;
+  }
 }
 html[data-theme="dark"] {
   color-scheme: dark;
