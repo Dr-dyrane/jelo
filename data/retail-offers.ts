@@ -2275,7 +2275,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       4300,
       "FaceFacts Vitamin C Brightening Jelly Cleanser",
       "150 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
     exactNg(
       "Jumia",
@@ -2285,10 +2288,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Vegan Vitamin C jelly cleanser.",
       "150 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-        available: true,
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+        stock: "unknown",
+        available: false,
+        priceComparison: "exclude",
       },
     ),
     exactNg(
@@ -2299,8 +2303,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Vitamin C Jelly Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
         stock: "in-stock",
         available: true,
       },
@@ -2313,8 +2317,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FACE FACTS VITAMIN C JELLY CLEANSER",
       "150 ml",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 1,
@@ -2398,13 +2402,43 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   "cerave-sa-smoothing-cleanser-473ml": [
     exactNg(
+      "Teeka4",
+      "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/",
+      98,
+      20900,
+      "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml",
+      "473 ml",
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
+    ),
+    exactNg(
+      "24Eleven",
+      "https://www.24eleven.ng/cerave-sa-smoothing-cleanser-473ml-16oz",
+      84,
+      23800,
+      "Cerave SA Smoothing Cleanser - 473ml (16oz)",
+      "473 ml",
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+        available: false,
+        stock: "unknown",
+        priceComparison: "exclude",
+      },
+    ),
+    exactNg(
       "BuyBetter",
-      "https://buybetter.ng/product/cerave-sa-smoothing-cleanser-face-and-body-wash-with-salicylic-acid-for-dry-rough-amp-bumpy-skin-473ml/",
+      "https://buybetter.ng/product/cerave-sa-smoothing-cleanser-473ml/",
       97,
-      20748,
+      20900,
       "CeraVe SA Smoothing Cleanser",
       "473 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
     exactNg(
       "Deoset",
@@ -2413,25 +2447,34 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       28000,
       "CeraVe SA Smoothing Cleanser 473ml/16oz US Version",
       "473 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
     exactNg(
       "Perona Beauty",
       "https://peronabeauty.com/product/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16oz/",
       86,
-      22650,
+      23400,
       "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16oz",
       "473 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
     exactNg(
       "Beauty Hut Africa",
       "https://beautyhutafrica.com/product/cerave-sa-smoothing-cleanser/",
       80,
-      23420,
+      16955,
       "CeraVe SA Smoothing Face and Body Cleanser for Dry, Rough and Bumpy Skin with Salicylic Acid",
       "473 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
   ],
   "cerave-acne-foaming-cream-cleanser-4-150ml": [
@@ -5115,6 +5158,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       6950,
       "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
       "400 ml",
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+        available: false,
+        stock: "out-of-stock",
+      },
     ),
     exactNg(
       "Teeka4",
@@ -5123,6 +5172,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       7200,
       "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
       "400 ml",
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
     exactNg(
       "24Eleven",
@@ -5131,6 +5184,13 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       7300,
       "Face Facts Ceramide Hydrating Gentle Cleanser 400ml",
       "400 ml",
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+        available: false,
+        stock: "unknown",
+        priceComparison: "exclude",
+      },
     ),
     exactNg(
       "Beauty Hut Africa",
@@ -5139,7 +5199,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       8775,
       "Face Facts Hydrating Gentle Cleanser 400ml",
       "400 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
   ],
   "de-la-cruz-acne-treatment-10-sulfur-73-7g": [
@@ -5150,6 +5213,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       12500,
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6oz",
       "73.7 g",
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
     exactNg(
       "BuyBetter",
@@ -5159,8 +5226,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Acne Treatment With 10% Sulfur Ointment 2.6 oz 73.7g",
       "73.7 g",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
         available: false,
         stock: "out-of-stock",
       },
@@ -5173,8 +5240,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz 10% Sulfur Ointment Acne Medication",
       "2.6 oz / 73.7 g",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
         stock: "in-stock",
         available: true,
       },
@@ -5187,8 +5254,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6Oz",
       "2.6 oz / 73.7 g",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
         stock: "in-stock",
         available: true,
       },
@@ -5768,23 +5835,34 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       23300,
       "La Roche-Posay Effaclar Purifying Foaming Gel Cleanser for Oily Sensitive Skin 400ml",
       "400 ml",
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
     exactNg(
       "Beauty Hut Africa",
       "https://beautyhutafrica.com/product/la-roche-posay-effaclar-purifying-foaming-gel/",
       80,
-      22325,
+      15511,
       "La Roche Posay Effaclar Foam Cleanser",
       "400 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
     exactNg(
       "Rhema Beauty Shop",
       "https://rhemabeautyshop.com/shop/la-roche-posay-effaclar-cleanser/",
       86,
-      15910,
+      26500,
       "La Roche-Posay Effaclar Gel Moussant Purifying Foaming Gel for Oily Sensitive Skin 400ml",
       "400 ml",
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
     exactNg(
       "The Beauty Prism",
@@ -5793,6 +5871,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       24000,
       "La Roche Posay Effaclar Purifying Foaming Wash 400ml",
       "400 ml",
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
     exactNg(
       "Teeka4",
@@ -5801,6 +5883,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       20999,
       "La Roche-Posay Effaclar Purifying Foaming Gel Cleanser 400ml",
       "400 ml",
+      {
+        observedAt: "2026-08-30T02:02:13.000Z",
+        expiresAt: "2026-09-06T02:02:13.000Z",
+      },
     ),
   ],
   "abib-clear-spot-serum-7-325-30ml": [

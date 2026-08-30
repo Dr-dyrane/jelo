@@ -20,6 +20,7 @@ import waveThirteenAudit from "@/data/retailer-verification/catalogue-offer-refr
 import waveFourteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-14-2026-08-29.json";
 import waveFifteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-15-2026-08-29.json";
 import waveSixteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-16-2026-08-29.json";
+import waveSeventeenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-17-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -1048,6 +1049,105 @@ test("catalogue offer refresh wave 16 expands rich exact offers and fails unsafe
   }
 });
 
+test("catalogue offer refresh wave 17 expands rich exact offers and fails verification walls closed", () => {
+  const projected = waveSeventeenAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveSeventeenAudit.matrix.before, 56);
+  assert.equal(waveSeventeenAudit.matrix.after, 61);
+  assert.equal(waveSeventeenAudit.matrix.total, 162);
+  assert.equal(waveSeventeenAudit.summary.productsReviewed, 5);
+  assert.equal(projected.length, 20);
+  assert.equal(waveSeventeenAudit.blockedCells.length, 3);
+  assert.equal(waveSeventeenAudit.scheduledOwner.manifestRecurringOwner, null);
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    const acceptedSizes = [
+      product.identity.size,
+      ...("packageLabelSize" in product.identity &&
+      product.identity.packageLabelSize
+        ? [product.identity.packageLabelSize]
+        : []),
+    ];
+    assert.ok(
+      acceptedSizes.includes(offer.priceObservation?.size ?? ""),
+      `${product.candidateId}: ${evidence.retailer} has exact package size`,
+    );
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const asOf = new Date(waveSeventeenAudit.reviewedAt);
+  for (const blocked of waveSeventeenAudit.blockedCells) {
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.retailer === blocked.retailer,
+    );
+    assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
+    assert.equal(isOfferFresh(offer, asOf), true);
+    assert.equal(offer.available, false);
+    assert.equal(offer.priceComparison, "exclude");
+    assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(blocked.responseByteSize > 0);
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
+      [
+        "Beauty Hut Africa",
+        "Perona Beauty",
+        "Rhema Beauty Shop",
+        "Teeka4",
+        "The Beauty Prism",
+      ],
+    ],
+    [
+      "de-la-cruz-acne-treatment-10-sulfur-73-7g",
+      ["Beauty by Daz", "Deoset", "Perona Beauty"],
+    ],
+    [
+      "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+      ["Beauty Hut Africa", "Teeka4"],
+    ],
+    [
+      "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+      ["BuyBetter", "Derma Essentials", "Muna Cosmetics"],
+    ],
+    [
+      "cerave-sa-smoothing-cleanser-473ml",
+      ["Beauty Hut Africa", "BuyBetter", "Deoset", "Perona Beauty", "Teeka4"],
+    ],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    assert.deepEqual(
+      product.offers
+        .filter((offer) => offer.available)
+        .map((offer) => offer.retailer)
+        .sort(),
+      expected,
+      slug,
+    );
+  }
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -1401,13 +1501,13 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     ["cerave-blemish-control-cleanser", 18_252, "236 ml"],
     ["cerave-foaming-facial-cleanser", 14_700, "236 ml"],
     ["cerave-pm-facial-moisturising-lotion-52ml", 20_300, "52 ml"],
-    ["cerave-sa-smoothing-cleanser-473ml", 23_420, "473 ml"],
+    ["cerave-sa-smoothing-cleanser-473ml", 16_955, "473 ml"],
     ["eos-coconut-waters-body-wash-473ml", 25_000, "16 fl oz / 473 ml"],
     ["eos-pink-champagne-body-wash-473ml", 25_000, "16 fl oz / 473 ml"],
     ["eos-vanilla-cashmere-body-wash-473ml", 23_100, "16 fl oz / 473 ml"],
     ["facefacts-ceramide-hydrating-gentle-cleanser-400ml", 8_775, "400 ml"],
     ["facefacts-soothe-glow-niacinamide-serum-30ml", 4_380, "30 ml"],
-    ["la-roche-posay-effaclar-purifying-foaming-gel-400ml", 22_325, "400 ml"],
+    ["la-roche-posay-effaclar-purifying-foaming-gel-400ml", 15_511, "400 ml"],
     ["nineless-a-control-azelaic-acid-cream-50ml", 20_315, "50 ml"],
     ["nivea-perfect-radiant-body-lotion-400ml", 5_156, "400 ml"],
   ] as const;
@@ -1421,14 +1521,27 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     assert.equal(offer.available, true, slug);
     assert.equal(offer.priceObservation?.size, size, slug);
     const isWaveTen = slug.startsWith("eos-");
+    const isWaveSeventeen = new Set([
+      "cerave-sa-smoothing-cleanser-473ml",
+      "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+      "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
+    ]).has(slug);
     assert.equal(
       offer.checkedAt,
-      isWaveTen ? "2026-08-30T00:00:32.487Z" : "2026-08-14T17:00:00Z",
+      isWaveTen
+        ? "2026-08-30T00:00:32.487Z"
+        : isWaveSeventeen
+          ? "2026-08-30T02:02:13.000Z"
+          : "2026-08-14T17:00:00Z",
       slug,
     );
     assert.equal(
       offer.expiresAt,
-      isWaveTen ? "2026-09-06T00:00:32.487Z" : "2026-08-21T17:00:00Z",
+      isWaveTen
+        ? "2026-09-06T00:00:32.487Z"
+        : isWaveSeventeen
+          ? "2026-09-06T02:02:13.000Z"
+          : "2026-08-21T17:00:00Z",
       slug,
     );
     assert.equal(new URL(offer.url).hostname, "beautyhutafrica.com", slug);

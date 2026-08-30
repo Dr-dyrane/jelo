@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-17-2026-08-29",
+  "scope": "Twenty-three live retailer checks across five independently releasable exact product SKUs",
+  "reviewedAt": "2026-08-30T02:02:13.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 56,
+    "after": 61,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T02:02:13.000Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The observed backlog remains empty and no later scheduled run was due before this review."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 23,
+    "offersAdmitted": 20,
+    "shopperActiveOffers": 18,
+    "outOfStockObservations": 2,
+    "offersBlocked": 3,
+    "offersProjected": 20
+  },
+  "products": [
+    {
+      "candidateId": "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
+      "identity": {
+        "variant": "Effaclar Purifying Foaming Gel",
+        "size": "400 ml",
+        "packageVersion": "current blue pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/la-roche-posay-effaclar-purifying-foaming-gel-cleanser-for-oily-sensitive-skin-400ml/",
+          "priceNgn": 23300,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "d13c12b7209068b9a97cf2c4169d2ced2df1d1a31c3ff9cf056a8479e8a4360a",
+          "responseByteSize": 441163,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/LA-ROCHE-POSAY-EFFACLAR-PURIFYING-FOAMING-GEL.png",
+          "packageImageSha256": "ee59749f8efef8f1b2db4290697bc51eb38dfb27000ef5bca3c8be62f5e0e08d",
+          "packageImageByteSize": 149571
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/la-roche-posay-effaclar-purifying-foaming-gel/",
+          "priceNgn": 15511,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "3430b438c04ae252e9bdf99bd219029c69ff6f775f8864bc443cd819cc712546",
+          "responseByteSize": 839225,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/06/Untitled-design-79.png",
+          "packageImageSha256": "14772c13df19ca89d89006c5e56e5f17e56692dbd5bdec8c5b442a4e7d648d61",
+          "packageImageByteSize": 536506
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/la-roche-posay-effaclar-cleanser/",
+          "priceNgn": 26500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "c5bfd6a217efa27a68540cab230b700ff77c8f2bc84818955f2536b58665938d",
+          "responseByteSize": 378761,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2023/04/IMG_9239-1024x1024.webp",
+          "packageImageSha256": "31ccafb6578b529702c61bb0431803d2edf3d03793d528fe550d25c7138d9c59",
+          "packageImageByteSize": 29694
+        },
+        {
+          "retailer": "The Beauty Prism",
+          "url": "https://thebeautyprismng.com/shop/la-roche-posay-effaclar-purifying-foaming-wash/",
+          "priceNgn": 24000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "a11bd4f02dfa553258584c47ecbe56563a941cf7a825971d19c874a4427916a5",
+          "responseByteSize": 309000,
+          "packageImageUrl": "https://thebeautyprismng.com/wp-content/uploads/2022/11/2DF_800.jpg",
+          "packageImageSha256": "3b1e8ce80af0ca6cf7f5af3b147be54ccde2dfab72b4cd5b2aade35be917949c",
+          "packageImageByteSize": 31909
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/la-roche-posay-effaclar-purifying-foaming-gel-cleanser-400ml/",
+          "priceNgn": 20999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "b105788f8b97095d39488a7a4e0e8e80346042e742bb26a823f58935ea6dac67",
+          "responseByteSize": 351890,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2023/08/woo_product_image_ept-3086-image.jpg",
+          "packageImageSha256": "6f4f47730b2e87b7f56e2ffe564af4924bbf05b6f74d4ffbfe2032e2692d5d21",
+          "packageImageByteSize": 53859
+        }
+      ]
+    },
+    {
+      "candidateId": "de-la-cruz-acne-treatment-10-sulfur-73-7g",
+      "identity": {
+        "gtin": "024286150426",
+        "variant": "Maximum Strength 10% Sulfur Acne Treatment Ointment",
+        "size": "2.6 oz / 73.7 g",
+        "packageLabelSize": "73.7 g",
+        "packageVersion": "current jar"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/de-la-cruz-maximum-strength-acne-treatment-ointment-2-6oz/",
+          "priceNgn": 12500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "556ec8f2819046f29003ab155b8e6e553fac479ad6af98dda0c106fcf2f58f1b",
+          "responseByteSize": 249373,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/07/18f26b0c-36a6-41cd-950d-f3a5a1d8756a_1.71d12539e5a9d13c0eaa7c5cfbceff9d-1024x1024.jpeg",
+          "packageImageSha256": "456ccead0def3ae51eb6f84e6ce6666da22269b564ff12d32f7b1b08304c25ac",
+          "packageImageByteSize": 83792
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/de-la-cruz-acne-treatment-with-10-sulfur-ointment-2-6-oz-73-7g/",
+          "priceNgn": 17738,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "13056ba75ecd59bd713d87d76dfc62d0ec7d1fdfbc9c70c3f42f25da94213361",
+          "responseByteSize": 563244,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/09/vwsik40p.png",
+          "packageImageSha256": "932f266a12eb752012c21c3f514ea0a1d4d88fbd15a1160466e170d3b8d03dd4",
+          "packageImageByteSize": 1826265
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/de-la-cruz-10-sulfur-ointment-acne-medication/",
+          "priceNgn": 13900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "cc88ba7993c124a75d60fc2864e72af33825a74cfe109af0d1edb774dbf3ecd6",
+          "responseByteSize": 386253,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/B708650B-F9C2-403A-BEDD-FCA344CA2982.jpeg",
+          "packageImageSha256": "18e73fd8ff04d7e7afd41d685305d32615f75514c9fb55986a13cc70ee2871f2",
+          "packageImageByteSize": 41245
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/de-la-cruz-maximum-strength-acne-treatment-ointment-2-6oz/",
+          "priceNgn": 13500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "7992afa2c75bd82b1c5ff7bc353b57ac7eceb323ec7706acb9392a7009914476",
+          "responseByteSize": 140459,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/02/18f26b0c-36a6-41cd-950d-f3a5a1d8756a_1.71d12539e5a9d13c0eaa7c5cfbceff9d-2048x2048-1.jpeg",
+          "packageImageSha256": "daa51f9cef38be56ea5d524ddd4734ba57275725907d48e75afc5b91a4d64a3a",
+          "packageImageByteSize": 296822
+        }
+      ]
+    },
+    {
+      "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+      "identity": {
+        "variant": "Ceramide Hydrating Gentle Cleanser",
+        "size": "400 ml",
+        "packageVersion": "current pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
+          "priceNgn": 6950,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "29912a2811ebfc60f29d8fd1ebf42cb27c02004cb43d8c3e11fd883f9d7400eb",
+          "responseByteSize": 284400,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/07/Face-Facts-Ceramide-Hydrating-Gentle-Cleanser-400ml.jpeg",
+          "packageImageSha256": "4d2d0f131092403144ff047c0688b51a8d74389b0832b50d44008aac53ffaae3",
+          "packageImageByteSize": 24074
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
+          "priceNgn": 7200,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "1473fab6ff01e6a4620e325e4145393e3c147dc7d005748f081ee0b1f32d608f",
+          "responseByteSize": 373253,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2024/03/WhatsApp-Image-2026-03-31-at-09.06.06.jpeg",
+          "packageImageSha256": "7963db06ab62f61133af2be7b120eabb3a9742a87e050ed189e5b3c7278200c0",
+          "packageImageByteSize": 38860
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/face-facts-hydrating-gentle-cleanser-400ml/",
+          "priceNgn": 8775,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "c1c5b1f73b66a9b4bfe313530a1712fb0fdf6704e94b6bfd88e203a7216d0465",
+          "responseByteSize": 803393,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/07/Face-Facts-hydrating-gentle-cleanser-400ml.jpeg",
+          "packageImageSha256": "f2f8227cafb409dd982ef5382184bc2cd685494dd50228b411287845426379be",
+          "packageImageByteSize": 48518
+        }
+      ]
+    },
+    {
+      "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+      "identity": {
+        "manufacturerSku": "25968-150",
+        "gtin": "5031413925968",
+        "variant": "Vitamin C Brightening Jelly Cleanser",
+        "size": "150 ml",
+        "packageVersion": "current orange tube"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/",
+          "priceNgn": 4300,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "19de7c54802e75e713f2a8bec63d2240aba594d871e3af8f857c03b539e92932",
+          "responseByteSize": 564734,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/02/bwd68bry-1024x1024.png",
+          "packageImageSha256": "187cfb0631de4ca37959535bb54c52feb981c65dd7c45827d90fbe04cbd62e0d",
+          "packageImageByteSize": 196324
+        },
+        {
+          "retailer": "Muna Cosmetics",
+          "url": "https://munacosmetics.com/face-facts-vitamin-c-jelly-cleanser",
+          "priceNgn": 3500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "933a64bae23a5ffc3c16c04273800c78f51a0cdce258c1046024bb4020599153",
+          "responseByteSize": 467351,
+          "packageImageUrl": "https://munacosmetics.com/image/cache/catalog/ArchitectDeMuna/Super%20M/face-facts-vitamin-c-jelly-cleanser-600x315.jpg",
+          "packageImageSha256": "745c4fe8f9119a2345c2b11267e058332e06f8684534b9915cd138c3426bbd5c",
+          "packageImageByteSize": 49099
+        },
+        {
+          "retailer": "Derma Essentials",
+          "url": "https://dermaessentialshub.com/product/face-facts-vitamin-c-jelly-cleanser/",
+          "priceNgn": 5000,
+          "stock": "in-stock",
+          "available": true,
+          "inventoryQuantity": 1,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "d538c193d5f3472dbfeb2be2f259ab006d2c525da9bd99db17c320869d2c36c3",
+          "responseByteSize": 331270,
+          "packageImageUrl": "https://dermaessentialshub.com/wp-content/uploads/2023/05/IMG_0623.jpg",
+          "packageImageSha256": "3bdf88dddee2dd404a5e32a2a66e31c45eda52b70912202ab9c071df9a5a8175",
+          "packageImageByteSize": 144270
+        }
+      ]
+    },
+    {
+      "candidateId": "cerave-sa-smoothing-cleanser-473ml",
+      "identity": {
+        "gtin": "3337875795456",
+        "variant": "SA Smoothing Cleanser",
+        "size": "473 ml",
+        "packageLabelSize": "16 fl oz / 473 ml",
+        "packageVersion": "current pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16fl-oz-473ml/",
+          "priceNgn": 20900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "3775d1104b6474cc2301a3e5afccd9668fed39065b525c01985766826ee8fc1a",
+          "responseByteSize": 358211,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/10/WhatsApp-Image-2024-03-29-at-14.29.46_6fe82fdb.jpg",
+          "packageImageSha256": "1afc96687be5ac3697c8eb69dc94720523faebd2ed542bbf860968dc8bc09da0",
+          "packageImageByteSize": 58847
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/cerave-sa-smoothing-cleanser-473ml/",
+          "priceNgn": 20900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "30df44af8a4ccafe12511c2c7cbcf86f3e59fd6157c23fa7c02f3d7825cd78b3",
+          "responseByteSize": 565927,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/cybervilla_3337875795456_942e76ca6461_4a64ad57d3.jpg",
+          "packageImageSha256": "880af74c0120e07a027de727c28e7a1f492ab5deba6c845fa0f4fbae199bf339",
+          "packageImageByteSize": 52052
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/cerave-sa-smoothing-cleanser-473ml-16oz-us-version/",
+          "priceNgn": 28000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "fc81d56537c8407c888dead9c7ed4ae91d46a9652f98f431d42e356a3cadaeb7",
+          "responseByteSize": 141886,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2023/12/images-3.jpeg",
+          "packageImageSha256": "de3e883ffef11bfa36607cf8ecbaeb85bf5df7ff71f9c9fe2d0827d832f760ff",
+          "packageImageByteSize": 3250
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/cerave-sa-smoothing-cleanser-for-dry-rough-bumpy-skin-16oz/",
+          "priceNgn": 23400,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "9fd042b881f766486c4b6dfe7fc77984e52f546f671d29409bebe3c706147c14",
+          "responseByteSize": 385652,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/03/cerave-smo_22158.jpg",
+          "packageImageSha256": "37d4cb253c80e3af4043b2e8c52e6837a32948880066f2e654f398e19004cb82",
+          "packageImageByteSize": 97058
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/cerave-sa-smoothing-cleanser/",
+          "priceNgn": 16955,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:02:13.000Z",
+          "expiresAt": "2026-09-06T02:02:13.000Z",
+          "responseSha256": "97641b9e8aef8e1c27c2016f1a1b2dcfa6cc84b28f5e674eebaa596df0ba601a",
+          "responseByteSize": 828864,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/09/12.png",
+          "packageImageSha256": "1810dd85f8aa02c608081b0476c88deab89db1b19c3e28d85fddc89767b7eb58",
+          "packageImageByteSize": 145132
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+      "retailer": "24Eleven",
+      "url": "https://www.24eleven.ng/face-facts-ceramide-hydrating-gentle-cleanser-400ml/",
+      "status": 403,
+      "reason": "Current retailer response is a JavaScript/cookie verification wall, so price, stock, and package cannot be freshly re-verified.",
+      "responseSha256": "e6331f11b229a053063bfc3ebc659b48af73b7c738c44b21cbefd8d47f02a365",
+      "responseByteSize": 5903
+    },
+    {
+      "candidateId": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/facefacts-vegan-vitamin-c-jelly-cleanser.-420169719.html",
+      "status": 403,
+      "reason": "Current retailer response is a JavaScript/cookie verification wall, so price, stock, and package cannot be freshly re-verified.",
+      "responseSha256": "7404a8ce1bbdb99d3d6d90bb287c77a6d332959cdf3d3a61a432849b51b9bee2",
+      "responseByteSize": 5984
+    },
+    {
+      "candidateId": "cerave-sa-smoothing-cleanser-473ml",
+      "retailer": "24Eleven",
+      "url": "https://www.24eleven.ng/cerave-sa-smoothing-cleanser-473ml-16oz",
+      "status": 403,
+      "reason": "Current retailer response is a JavaScript/cookie verification wall, so price, stock, and package cannot be freshly re-verified.",
+      "responseSha256": "6c2d88d9e5b56472f90f9490fa06795eaee7eaf0841e6bc39cf2b1bc77c9775a",
+      "responseByteSize": 5843
+    }
+  ]
+}
