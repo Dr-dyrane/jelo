@@ -648,7 +648,7 @@ test("catalogue offer refresh wave 12 releases clean cells and fails closed on p
   const persistedCosrx = {
     ...cosrx,
     offers: cosrx.offers.map((offer) =>
-      ["CSi Grocery", "Lux Beauty"].includes(offer.retailer)
+      ["CSi Grocery", "Lux Beauty", "Care to Beauty"].includes(offer.retailer)
         ? {
             ...offer,
             available: true,

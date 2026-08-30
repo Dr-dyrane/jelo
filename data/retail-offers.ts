@@ -2055,6 +2055,31 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
       location: ["NG"],
     },
+    {
+      retailer: "Care to Beauty",
+      url: "https://www.caretobeauty.com/ng/cosrx-advanced-snail-96-mucin-power-essence-100ml/",
+      trust: 92,
+      available: false,
+      priceNgn: 39158,
+      checkedAt: "2026-08-30T00:26:58.532Z",
+      expiresAt: "2026-09-06T00:26:58.532Z",
+      match: "exact",
+      priceComparison: "exclude",
+      listingEvidence: {
+        observedAt: "2026-08-30T00:26:58.532Z",
+        sourceUrl:
+          "https://www.caretobeauty.com/ng/cosrx-advanced-snail-96-mucin-power-essence-100ml/",
+        basis: "retailer-page",
+      },
+      priceObservation: {
+        observedAt: "2026-08-30T00:26:58.532Z",
+        variant: "Not re-verified in the current Nigerian exact-SKU wave",
+        size: "100 ml",
+        stock: "unknown",
+        landedCost: "unknown",
+      },
+      location: ["NG"],
+    },
   ],
   "panoxyl-acne-foaming-wash-10-benzoyl-peroxide": [
     {
