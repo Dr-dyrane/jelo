@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-14-2026-08-29",
+  "scope": "Fifteen live retailer checks across five independently releasable exact product SKUs",
+  "reviewedAt": "2026-08-30T01:17:08.285Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 41,
+    "after": 46,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T01:17:08.285Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The last observed backlog remains empty and no later scheduled run was due before this review."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 15,
+    "offersAdmitted": 11,
+    "shopperActiveOffers": 10,
+    "outOfStockObservations": 1,
+    "offersBlocked": 4,
+    "offersProjected": 11
+  },
+  "products": [
+    {
+      "candidateId": "facefacts-enhance-gel-cream-cleanser-150ml",
+      "identity": {
+        "gtin": "5031413952803",
+        "variant": "Enhance Gel-Cream Cleanser",
+        "size": "150 ml",
+        "packageVersion": "Current 150 ml tube with Enhance Gel-Cream Cleanser front label"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/facefacts-enhance-salicylic-acid-rice-cherry-extract-gel-cream-cleanser-150ml/",
+          "priceNgn": 6900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:17:08.285Z",
+          "expiresAt": "2026-09-06T01:17:08.285Z",
+          "responseSha256": "4baa0cd7b9798c8a689bf4d05c6275e3549270432e44bb4f968e18d0559bdf11",
+          "responseByteSize": 567399,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/04/FACEFACTS-ENHANCE-Salicylic-Acid-Rice-Cherry-Extract-Gel-Cream-Cleanser-150ml-1.jpg",
+          "packageImageSha256": "5d1960578c826454ea3ef6f8eafbb7ace247a5c14e1e02b59404c66b9d2262ba",
+          "packageImageByteSize": 18219
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://ibadan.peronabeauty.com/product/face-facts-enhance-gel-cream-cleanser/",
+          "priceNgn": 6950,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:17:08.285Z",
+          "expiresAt": "2026-09-06T01:17:08.285Z",
+          "responseSha256": "da186d8ee1746150ea575744f743357517e7f1875ee3111fc21f5661e61155bb",
+          "responseByteSize": 324355,
+          "packageImageUrl": "https://ibadan.peronabeauty.com/wp-content/uploads/2025/05/Screenshot.png",
+          "packageImageSha256": "fb8ced3af78a94563348d6cf0146496c767a1c04109ef4b5f89bf2f75805412f",
+          "packageImageByteSize": 40310
+        }
+      ]
+    },
+    {
+      "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+      "identity": {
+        "gtin": "4897073187532",
+        "variant": "Aqua Rich Licorice and Mulbery Root Extract Body Lotion",
+        "size": "500 ml",
+        "packageVersion": "Current 500 ml Bright + Glow pump bottle with Licorice and Mulberry Root Extract front label"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/aqua-rich-bright-glow-body-lotion-licorice-mulberry-root-extract-500ml/",
+          "priceNgn": 10804,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:17:08.285Z",
+          "expiresAt": "2026-09-06T01:17:08.285Z",
+          "responseSha256": "97cb68d3cac5d80a787f333f58fd8def1bd4fa8064a4f71cf39b87a6e4e426e1",
+          "responseByteSize": 565175,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/12/Untitled-design-2026-08-07T113700.860.png",
+          "packageImageSha256": "8724e72b811f4c7bd54b45252f38929026e6c1a1856740aa5fea337ef1548909",
+          "packageImageByteSize": 753296
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/aqua-rich-bright-glow-body-lotion-licorice-mulberry-root-extract-500ml/",
+          "priceNgn": 12000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:17:08.285Z",
+          "expiresAt": "2026-09-06T01:17:08.285Z",
+          "responseSha256": "64389f279c95731c9b48b1a709e24475ada40bc599863a8cebc85de01de262da",
+          "responseByteSize": 140279,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/02/Aqua-bright-and-Glow-optimized.webp",
+          "packageReviewMethod": "reviewed-browser-render",
+          "packageImageDirectFetchStatus": 406
+        }
+      ]
+    },
+    {
+      "candidateId": "dang-beauty-water-toner-100ml",
+      "identity": {
+        "manufacturerSku": "DGL-SKC-017",
+        "variant": "Beauty Water (Toner)-100ml",
+        "size": "100 ml",
+        "packageVersion": "Current bottle"
+      },
+      "offers": [
+        {
+          "retailer": "DANG Lifestyle",
+          "url": "https://danglifestyle.co/products/centella-asiatica-toner",
+          "priceNgn": 14400,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:17:08.285Z",
+          "expiresAt": "2026-09-06T01:17:08.285Z",
+          "responseSha256": "1bce94284a6a7352d8c0ec09c1bf2c2b29cb8e3f7270f66563ecad6188209ef5",
+          "responseByteSize": 667342,
+          "packageImageUrl": "https://danglifestyle.co/cdn/shop/files/Beauty-water_1c8a1685-9bef-431d-bf28-93be8ba18fa8.webp?v=1783591051",
+          "packageImageSha256": "77c8dc3a190c63a67b11167657ff4aeb82bf1ed94c1cfbc2f5f683f9059302a5",
+          "packageImageByteSize": 83368
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/dang-ageless-beauty-water-100ml-6961914",
+          "priceNgn": 34000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:17:08.285Z",
+          "expiresAt": "2026-09-06T01:17:08.285Z",
+          "responseSha256": "ef5ab1493d19db53cec8a3cf55ed413a37f5bd9e1dece7454a117376ff8fd9d3",
+          "responseByteSize": 289581,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/D/J/246169_1775064719.jpg",
+          "packageImageSha256": "1db2e37e3b365da17fe2d2655ca11dda5259e75cfcc7611a4dd90c056e82fb90",
+          "packageImageByteSize": 32262
+        }
+      ]
+    },
+    {
+      "candidateId": "dang-everyday-gentle-foaming-face-wash-120ml",
+      "identity": {
+        "manufacturerSku": "DGL-SKC-031",
+        "variant": "Everyday Gentle Foaming Face Wash-120ml",
+        "size": "120 ml",
+        "packageVersion": "Current tube"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/dang-everyday-gentle-foaming-face-wash-120ml/",
+          "priceNgn": 16700,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:17:08.285Z",
+          "expiresAt": "2026-09-06T01:17:08.285Z",
+          "responseSha256": "bfe43a422949f164c16d0bd46d47b799be02817ecd30a2b0f007bb93e6f62f68",
+          "responseByteSize": 389065,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/05/Screenshot_666528.png",
+          "packageImageSha256": "84227e75dfdb25b8f41272f11beea77c6f0187a3541051bc1a53c8ae8beed0ad",
+          "packageImageByteSize": 83312
+        },
+        {
+          "retailer": "DANG Lifestyle",
+          "url": "https://danglifestyle.co/products/rose-face-wash",
+          "priceNgn": 15500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:17:08.285Z",
+          "expiresAt": "2026-09-06T01:17:08.285Z",
+          "responseSha256": "7f3a48da028d88ae35624365c872262ba887d4e424b77f3f5e2c3ad732d7b2f9",
+          "responseByteSize": 661563,
+          "packageImageUrl": "https://danglifestyle.co/cdn/shop/files/dang-ageless-everyday-gentle-foaming-face-wash-107558.webp?v=1783591041",
+          "packageImageSha256": "9411f503146fb57980f3258380ccc28b43b6cd5d1db570596dece66f9b379ec2",
+          "packageImageByteSize": 69700
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/dang-everyday-gentle-foaming-face-wash-120ml-6961919",
+          "priceNgn": 36000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:17:08.285Z",
+          "expiresAt": "2026-09-06T01:17:08.285Z",
+          "responseSha256": "5a6dc1ba5791431630c9a9ccd163d54e4c63a54cdaa2bf021aa240fb1afa57c3",
+          "responseByteSize": 290795,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/H/Y/246169_1775066897.jpg",
+          "packageImageSha256": "5ce7ccb732d3aaf4b7f2a007c9a437c98c5c4ee92458cf73bd47ac156bacc7c3",
+          "packageImageByteSize": 28363
+        }
+      ]
+    },
+    {
+      "candidateId": "dang-hyaluronic-cream-hydrating-face-cleanser-200ml",
+      "identity": {
+        "manufacturerSku": "DGL-SKC-052",
+        "variant": "Hyaluronic Cream Hydrating Face Cleanser For Sensitive/Dry Skin- 200ml",
+        "size": "200 ml",
+        "packageVersion": "Current tube"
+      },
+      "offers": [
+        {
+          "retailer": "DANG Lifestyle",
+          "url": "https://danglifestyle.co/products/hydrating-cream-cleanser",
+          "priceNgn": 19100,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:17:08.285Z",
+          "expiresAt": "2026-09-06T01:17:08.285Z",
+          "responseSha256": "05da08e5a74e2fdadb16753f3802a4f4c1a065b06d5eacb4b06d5e611f32ac0f",
+          "responseByteSize": 667977,
+          "packageImageUrl": "https://danglifestyle.co/cdn/shop/files/Hyaluronic-face-cleanser.webp?v=1783591037",
+          "packageImageSha256": "0e6b65e3af213925b71eab902dc269a52c4531f45744233ac69b7b34a285234c",
+          "packageImageByteSize": 97764
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/dang-hyaluronic-cream-hydrating-face-cleanser-for-sensitive-dry-skin/",
+          "priceNgn": 9200,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:17:08.285Z",
+          "expiresAt": "2026-09-06T01:17:08.285Z",
+          "responseSha256": "e750f6ca98558f461236f15d58683bfd30e938e2e6d860fb4b899c545b85df91",
+          "responseByteSize": 833226,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2026/07/Dang-HYALURONIC-CREAM-HYDRATING-FACE-CLEANSER.jpg.jpeg",
+          "packageImageSha256": "bf17b9641a1bc1c22c6f31e9386f8b0b050913aa55673103f4eb85e2da01b7a6",
+          "packageImageByteSize": 82947
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "facefacts-enhance-gel-cream-cleanser-150ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skin-care/face/face-facts-enhance-gel-cream-cleanser-150ml/",
+      "responseStatus": 403,
+      "responseSha256": "a9dccf89b86c18e625de64375bb6972e9dd9d9482728e938f2f32effa7f93020",
+      "responseByteSize": 5814,
+      "blocker": "A browser verification wall prevents current price, stock, size, and package verification."
+    },
+    {
+      "candidateId": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/aqua-rich-bright-glow-body-lotion-licorice-mulberry-root-extract-500ml-aquarich-419928321.html",
+      "responseStatus": 403,
+      "responseSha256": "f28c4af1c09756efebb4a25726fc93de56406d03ec6a6373aaeb003f15e0de16",
+      "responseByteSize": 6141,
+      "blocker": "A browser verification wall prevents current price, stock, size, and package verification."
+    },
+    {
+      "candidateId": "dang-beauty-water-toner-100ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/dang-hydrating-face-toner-beauty-water-100ml-420018620.html",
+      "responseStatus": 403,
+      "responseSha256": "35d74fc5c0aa3e16afe4d8124834212a45e958936c6d3957f9b9089a3af0d74c",
+      "responseByteSize": 5993,
+      "blocker": "A browser verification wall prevents current price, stock, size, and package verification."
+    },
+    {
+      "candidateId": "dang-hyaluronic-cream-hydrating-face-cleanser-200ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/dang-hyaluronic-cream-hydrating-face-cleanser-200ml-for-sensitive-dry-skin-gentle-cleansing-hydration-419909418.html",
+      "responseStatus": 403,
+      "responseSha256": "2bbd81963ea2f5180dce5de23c0d44deb8e6d317347bd57f61822ab528d6126c",
+      "responseByteSize": 6250,
+      "blocker": "A browser verification wall prevents current price, stock, size, and package verification."
+    }
+  ],
+  "blockedProducts": []
+}

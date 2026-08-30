@@ -17,6 +17,7 @@ import waveTenAudit from "@/data/retailer-verification/catalogue-offer-refresh-w
 import waveElevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-11-2026-08-29.json";
 import waveTwelveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-12-2026-08-29.json";
 import waveThirteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-13-2026-08-29.json";
+import waveFourteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-14-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -751,6 +752,86 @@ test("catalogue offer refresh wave 13 refreshes complete selected products and f
       ["BuyBetter", "Perona Beauty", "Teeka4"],
     ],
     ["balance-niacinamide-blemish-recovery-serum-30ml", ["Perona Beauty"]],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    assert.deepEqual(
+      product.offers
+        .filter((offer) => offer.available)
+        .map((offer) => offer.retailer)
+        .sort(),
+      expected,
+      slug,
+    );
+  }
+});
+
+test("catalogue offer refresh wave 14 refreshes complete selected products and fails blocked siblings closed", () => {
+  const projected = waveFourteenAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveFourteenAudit.matrix.before, 41);
+  assert.equal(waveFourteenAudit.matrix.after, 46);
+  assert.equal(waveFourteenAudit.matrix.total, 162);
+  assert.equal(waveFourteenAudit.summary.productsReviewed, 5);
+  assert.equal(projected.length, 11);
+  assert.equal(waveFourteenAudit.blockedCells.length, 4);
+  assert.equal(waveFourteenAudit.scheduledOwner.manifestRecurringOwner, null);
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    if (
+      typeof evidence.packageImageSha256 === "string" &&
+      typeof evidence.packageImageByteSize === "number"
+    ) {
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+    } else {
+      assert.equal(evidence.packageReviewMethod, "reviewed-browser-render");
+      assert.equal(evidence.packageImageDirectFetchStatus, 406);
+    }
+  }
+
+  const asOf = new Date(waveFourteenAudit.reviewedAt);
+  for (const blocked of waveFourteenAudit.blockedCells) {
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.retailer === blocked.retailer,
+    );
+    assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
+    assert.equal(isOfferFresh(offer, asOf), true);
+    assert.equal(offer.available, false);
+    assert.equal(offer.priceComparison, "exclude");
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "facefacts-enhance-gel-cream-cleanser-150ml",
+      ["BuyBetter", "Perona Beauty"],
+    ],
+    ["aqua-rich-licorice-mulberry-body-lotion-500ml", ["BuyBetter", "Deoset"]],
+    ["dang-beauty-water-toner-100ml", ["DANG Lifestyle", "Konga Health"]],
+    [
+      "dang-everyday-gentle-foaming-face-wash-120ml",
+      ["DANG Lifestyle", "Konga Health", "Perona Beauty"],
+    ],
+    ["dang-hyaluronic-cream-hydrating-face-cleanser-200ml", ["DANG Lifestyle"]],
   ]);
 
   for (const [slug, expected] of expectedActiveRetailers) {
