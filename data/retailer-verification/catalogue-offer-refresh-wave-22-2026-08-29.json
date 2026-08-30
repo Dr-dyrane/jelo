@@ -1,0 +1,593 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-22-2026-08-29",
+  "reviewedAt": "2026-08-30T03:13:29.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Forty current Nigerian retailer checks across five independently releasable exact product SKUs",
+  "captureMethod": "reviewed-live-html-json-ld-browser-render-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T03:13:29.000Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. Vercel logs show no later scheduled run before this review."
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 74,
+    "after": 79,
+    "total": 162
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 40,
+    "offersAdmitted": 26,
+    "shopperActiveOffers": 22,
+    "outOfStockObservations": 4,
+    "offersBlocked": 14,
+    "offersProjected": 40
+  },
+  "products": [
+    {
+      "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+      "identity": {
+        "variant": "Perfect & Radiant Body Lotion",
+        "size": "400 ml",
+        "packageVersion": "NIVEA Perfect & Radiant single 400 ml lotion bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/nivea-perfect-radiant-body-lotion-400ml/",
+          "priceNgn": 6500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:23.752Z",
+          "expiresAt": "2026-09-06T03:10:23.752Z",
+          "responseSha256": "8f53b4e9d04bfdeccbf6a58e4940ca4548d88bb407d9d2f64d140181da77ec95",
+          "responseByteSize": 139646,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2025/11/9f4d88dd3c07449f8232057fa54cd601-web_1010x1180_transparent_png.webp",
+          "packageImageSha256": "919c3b3047fa6adec5be76bbd08fed08582a0839c9e0630d46aef3d2c615e914",
+          "packageImageByteSize": 25754
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/nivea-perfect-radiant-body-lotion-400ml/",
+          "priceNgn": 6150,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:26.762Z",
+          "expiresAt": "2026-09-06T03:10:26.762Z",
+          "responseSha256": "d0a67dd44ca0a2bece2d80c56ecb7e23ea9a8963591e11dcbdcac3390439d75a",
+          "responseByteSize": 392096,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/IMG-4799-j_776152.jpg",
+          "packageImageSha256": "3abd2562d57ad81d3210182db756001ccff01d27a9c5b29e8e6bf210640405d7",
+          "packageImageByteSize": 20326
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/241662/",
+          "priceNgn": 5999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:31.728Z",
+          "expiresAt": "2026-09-06T03:10:31.728Z",
+          "responseSha256": "8d9bb05158147bea621fcfbfd5f1290c1228cc9b7866fa2cb00b3067f1f51567",
+          "responseByteSize": 354211,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/10/9f4d88dd3c07449f8232057fa54cd601-web_1010x1180_transparent_png-600x701-1.webp",
+          "packageImageSha256": "ed54981e9ef737c7abe0ca5d2a3a59a03059ad5659fa32c3c16fe3952070861d",
+          "packageImageByteSize": 17606
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/nivea-perfect-and-radiant-body-lotion-for-women-400ml-6067962",
+          "priceNgn": 5500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:34.798Z",
+          "expiresAt": "2026-09-06T03:10:34.798Z",
+          "responseSha256": "e7bcf3c15d0f75a7e4c1f990b712c8d1be02aa95a4452b900fd7a7eb6a03ceb0",
+          "responseByteSize": 491153,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/P/D/_1730289980.png",
+          "packageImageSha256": "3ab6a627c8610c30c9245c376b16ca86a4c7280c4edbccbfba0c3724383ca8a6",
+          "packageImageByteSize": 213504
+        },
+        {
+          "retailer": "Allure Beauty",
+          "url": "https://allure.com.ng/nivea-perfect-radiant-body-lotion/",
+          "priceNgn": 6500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:12:50.603Z",
+          "expiresAt": "2026-09-06T03:12:50.603Z",
+          "responseSha256": "2ab9952d751feb11e85803a7b0f129c9ebc80d45fe7dd6f08481c4db0a38eeba",
+          "responseByteSize": 437993,
+          "packageImageUrl": "https://allure.com.ng/wp-content/uploads/2026/03/1-2.jpg",
+          "packageImageSha256": "a1d42ed20fd17d5387d83aacbba37eb0ed07921dbd780d0362e774a9fcc07bb7",
+          "packageImageByteSize": 11310
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/nivea-nivea-perfect-radiant-body-lotion-400ml-6958362",
+          "priceNgn": 8990,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:11:51.792Z",
+          "expiresAt": "2026-09-06T03:11:51.792Z",
+          "responseSha256": "af943f5089dcb82ab1cbc6e61117b994392a93e4846a6a64c15e433df76dd5a3",
+          "responseByteSize": 276047,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/S/B/240729_1774451153.jpg",
+          "packageImageSha256": "bc2b160a225a9c786db44b67d5c2c96ebd201e0ab1141318fd3b38d239378d5f",
+          "packageImageByteSize": 21228
+        }
+      ]
+    },
+    {
+      "candidateId": "balance-salicylic-acid-zinc-clarifying-toner-200ml",
+      "identity": {
+        "variant": "Salicylic Acid + Zinc Clarifying Toner",
+        "size": "200 ml",
+        "packageVersion": "Balance Active Formula single 200 ml / 7.039 fl oz toner bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/balance-active-salicylic-acid-zinc-clarifying-toner-200ml/",
+          "priceNgn": 10500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:36.837Z",
+          "expiresAt": "2026-09-06T03:10:36.837Z",
+          "responseSha256": "cbdd8a30673a01cfe1f7a20711ed638443c228be4d95ebf471dbfb8da76c16c7",
+          "responseByteSize": 138365,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/03/balance-sal-1.jpeg",
+          "packageImageSha256": "9c7c1ac647fef929a2c07a227c81e6a72536d3812f5fd08ef3f012ff739167f4",
+          "packageImageByteSize": 55211
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml/",
+          "priceNgn": 9000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:38.941Z",
+          "expiresAt": "2026-09-06T03:10:38.941Z",
+          "responseSha256": "919c0d6deae3995a478bb6d6a341d47f5464e737d6b71018640859ba24b1d936",
+          "responseByteSize": 392080,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/12/Screenshot_738685.png",
+          "packageImageSha256": "b28569aaed979da32780ee26835ea3177407f47b93c1b7c4a02a4c594f749756",
+          "packageImageByteSize": 47652
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/balance-active-salicylic-acid-zinc-clarifying-toner-200ml/",
+          "priceNgn": 9150,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:42.194Z",
+          "expiresAt": "2026-09-06T03:10:42.194Z",
+          "responseSha256": "af3795195ef5556736fa74fbcfab1ec320c2acc77c8b2778f1e44c3b612c210d",
+          "responseByteSize": 281996,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2025/06/balance-sal.jpeg",
+          "packageImageSha256": "9c7c1ac647fef929a2c07a227c81e6a72536d3812f5fd08ef3f012ff739167f4",
+          "packageImageByteSize": 55211
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml-6927398",
+          "priceNgn": 15000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:44.816Z",
+          "expiresAt": "2026-09-06T03:10:44.816Z",
+          "responseSha256": "db4038811937c506bf42a0b8a5e30e5740a2b1cac2867c0bb9159d60fb18d09b",
+          "responseByteSize": 276057,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/Y/R/53241_1769888956.jpg",
+          "packageImageSha256": "364d904974c4ed43debb6ca3796d65e527fe38e325cd7efe2c456f3ca359a542",
+          "packageImageByteSize": 20048
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml-6799447",
+          "priceNgn": 12500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:11:56.330Z",
+          "expiresAt": "2026-09-06T03:11:56.330Z",
+          "responseSha256": "0466552fbd3a07e39395ab758990ef204bb605a4e36d9bd79996cd32dad13f62",
+          "responseByteSize": 270350,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/X/V/241661_1753213672.jpg",
+          "packageImageSha256": "735fc61b60a424e400884f8ee4cfaae19d7d9fc1152ced2e3ada3f8c2ef61e31",
+          "packageImageByteSize": 24742
+        },
+        {
+          "retailer": "Muna Cosmetics",
+          "url": "https://munacosmetics.com/balance-active-salicylic-acid-toner",
+          "priceNgn": 9000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:11:57.539Z",
+          "expiresAt": "2026-09-06T03:11:57.539Z",
+          "responseSha256": "0c4d5b235b5e85aef7de8cb80648e490bdb1ecfe1c51903987673a58321b4d8b",
+          "responseByteSize": 467554,
+          "packageImageUrl": "https://munacosmetics.com/image/cache/catalog/Another%20Effort/Banana%20Island/balance-active-salicylic-acid-toner-600x315.jpg",
+          "packageImageSha256": "6002014fbbf70812c22b60692801e8a3ca5fbe12142543daf137f709867cd492",
+          "packageImageByteSize": 25469
+        }
+      ]
+    },
+    {
+      "candidateId": "dang-hydra-glow-sun-protection-gel-60ml",
+      "identity": {
+        "variant": "Hydra Glow Sun Protection Gel",
+        "size": "60 ml",
+        "packageVersion": "DANG Hydra Glow SPF50+ PA+++ single 60 ml turquoise tube and carton"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/dang-hydra-glow-sun-protection-gel-60ml/",
+          "priceNgn": 26900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:33.566Z",
+          "expiresAt": "2026-09-06T03:10:33.566Z",
+          "responseSha256": "ccf011c9a73e684acc31e99ddf87b1eb092b9a34d517da4b58e0b6593b28440e",
+          "responseByteSize": 386948,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/05/Screenshot_522254.png",
+          "packageImageSha256": "6a474307b1cdc656e5b2ef826472be2220d5a70cd0fc815bed38ecb50bdf530b",
+          "packageImageByteSize": 75774
+        },
+        {
+          "retailer": "DANG Lifestyle",
+          "url": "https://danglifestyle.co/products/hydra-glow-sun-protection-gel-60ml",
+          "priceNgn": 25000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:33.566Z",
+          "expiresAt": "2026-09-06T03:10:33.566Z",
+          "responseSha256": "6dec881c16eebc80c656eaa6198894a8d5d678d947f12ecb9678481d851a6541",
+          "responseByteSize": 693787,
+          "packageImageUrl": "https://danglifestyle.co/cdn/shop/files/Hydra-Glow-Protection-scaled.jpg?v=1783924796",
+          "packageImageSha256": "5d0be5c73404f4745577eed8e108b9404a57f89f6135ff709a77871c87044820",
+          "packageImageByteSize": 267581
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/dang-hydra-glow-sun-protection-gel/",
+          "priceNgn": 26900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:33.566Z",
+          "expiresAt": "2026-09-06T03:10:33.566Z",
+          "responseSha256": "54642a9966ce1764c9ef2140bce4e39f88d9a2c9c632d6a063db6ca6b959bf10",
+          "responseByteSize": 804028,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/06/Dang-Hydra-Glow-Sun-Protection-Gel.jpg",
+          "packageImageSha256": "e89dba45885f682183a039e6ff02b5e4ec64994d4f9b1bb8e357060f742f6b23",
+          "packageImageByteSize": 113081
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/dang-hydra-glow-sun-protection-gel-spf-50-pa-60ml-6962079",
+          "priceNgn": 54000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:33.566Z",
+          "expiresAt": "2026-09-06T03:10:33.566Z",
+          "responseSha256": "fd68fa167de6a36f82f8b926154cb4db927e37553844c28fb59f86e0100d0edc",
+          "responseByteSize": 289664,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/J/M/246169_1775067649.jpg",
+          "packageImageSha256": "949c55fdd40b0f5ae6dcf1a8c6879d8d293c7364b4a6c7a3eba878553ca403da",
+          "packageImageByteSize": 40145
+        },
+        {
+          "retailer": "Bracketts Beauty",
+          "url": "https://www.brackettsbeauty.com/products/hydra-glow-sun-protection",
+          "priceNgn": 27500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:33.566Z",
+          "expiresAt": "2026-09-06T03:10:33.566Z",
+          "responseSha256": "65edaf9630d5794e2cb12317060b3647db8aec7992063e8f51f3efd3b3dac834",
+          "responseByteSize": 442320,
+          "packageImageUrl": "https://www.brackettsbeauty.com/cdn/shop/files/bracketts-beauty-dang-hydra-glow-sun-protection-1.png?v=1734518023&width=2048",
+          "packageImageSha256": "a03950a2bc6c8ab5bc3824bcc2fe6460efcfa97d4d8a901390c4bfa8dfd144f1",
+          "packageImageByteSize": 1110401
+        }
+      ]
+    },
+    {
+      "candidateId": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
+      "identity": {
+        "variant": "Ageless Niacinamide + N-Acetyl Glucosamine Serum",
+        "size": "30 ml",
+        "packageVersion": "DANG Ageless single 30 ml green dropper bottle and carton"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/dang-niacinamiden-acetyl-glucosamine-serum-30ml/",
+          "priceNgn": 19050,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:33.566Z",
+          "expiresAt": "2026-09-06T03:10:33.566Z",
+          "responseSha256": "71ec5b7237d551c655410f6d582db9672db75bdd99bbaa8f4f63acebc01e387a",
+          "responseByteSize": 391216,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/05/Screenshot_666714.jpg",
+          "packageImageSha256": "e9f57306cb6df92c4cb079f78feb88e7263846463f74a2c7ab6bef7f75b6da8c",
+          "packageImageByteSize": 40831
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/dang-niacinamide-n-acetyl-glucosamine-serum/",
+          "priceNgn": 17700,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T03:10:33.566Z",
+          "expiresAt": "2026-09-06T03:10:33.566Z",
+          "responseSha256": "441956840d24005cd88e73caa8929b209ddebea5619e961dd626a97745c88d7e",
+          "responseByteSize": 801244,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/06/Dang-Niacinamide-N-Acetyl-Glucosamine-Serum.jpg",
+          "packageImageSha256": "164cfda45476397efd78ee21c89f0991410199de6c646836fb70e882ead33f33",
+          "packageImageByteSize": 127370
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/dang-niacinamide-n-acetyl-glucosamine-serum-30ml-6962148",
+          "priceNgn": 38000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:10:33.566Z",
+          "expiresAt": "2026-09-06T03:10:33.566Z",
+          "responseSha256": "19705d0235c4b84eba6484c3f92bc014108b2fbf63838b0e103f3641fed470c7",
+          "responseByteSize": 306235,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/K/P/246169_1775068369.jpg",
+          "packageImageSha256": "d908c13277e35a5835b895111752e281ef897e26b2b9679dd986a0745038fe25",
+          "packageImageByteSize": 38727
+        },
+        {
+          "retailer": "Bracketts Beauty",
+          "url": "https://www.brackettsbeauty.com/products/ageless-niacinamide-n-acetyl-glucosamine-serum",
+          "priceNgn": 20421.5,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T03:10:33.566Z",
+          "expiresAt": "2026-09-06T03:10:33.566Z",
+          "responseSha256": "fae29e0ae64388e0d6fd278f02ea0534b99d196bdcdb314ea5e6c6313fed136b",
+          "responseByteSize": 439014,
+          "packageImageUrl": "https://www.brackettsbeauty.com/cdn/shop/files/bracketts-beauty-dang-niacinamide-n-acetyl-glucosamine-serum-1.png?v=1734518502&width=2048",
+          "packageImageSha256": "4436d3294ec1a400b1e792173b01d7ab68df9b7eec68ece0d0a7c766aa37503a",
+          "packageImageByteSize": 335820
+        }
+      ]
+    },
+    {
+      "candidateId": "dang-azelaic-acid-serum-30ml",
+      "identity": {
+        "variant": "Azelaic Acid Serum",
+        "size": "30 ml",
+        "packageVersion": "DANG Azelaic Acid single 30 ml coral dropper bottle and carton; GTIN 6154000333867"
+      },
+      "offers": [
+        {
+          "retailer": "DANG Lifestyle",
+          "url": "https://danglifestyle.co/products/azelaic-acid-pigmentation-acne-control",
+          "priceNgn": 17700,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:13:29.000Z",
+          "expiresAt": "2026-09-06T03:13:29.000Z",
+          "responseSha256": "03acd7c3801f4583bf41b42cc311b5ab919bdface5dacc4cc359cf5e1d8ca25d",
+          "responseByteSize": 672178,
+          "packageImageUrl": "https://danglifestyle.co/cdn/shop/files/azelaic-acid-pigmentationacne-control-30ml-114853.jpg?v=1783591062&width=1000",
+          "packageImageSha256": "4ce467008cab5d3686d7df502f7db31d5b106b58fdf2d93a82b6d29376742fb5",
+          "packageImageByteSize": 86668
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/dang-azelaic-acid-serum-30ml/",
+          "priceNgn": 19050,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:13:29.000Z",
+          "expiresAt": "2026-09-06T03:13:29.000Z",
+          "responseSha256": "a5d04a3d4fda8c9163b533cd336063e07cd8282c3b46a4d303168c32fab088a3",
+          "responseByteSize": 388515,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/05/Screenshot_801305.png",
+          "packageImageSha256": "5d2d6a1db00cab5633a70b3f688573ed4d312879a5bf38864ad0c828c8d55734",
+          "packageImageByteSize": 146102
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/dang-azelaic-acid-pigmentation-acne-control-serum/",
+          "priceNgn": 17700,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T03:13:29.000Z",
+          "expiresAt": "2026-09-06T03:13:29.000Z",
+          "responseSha256": "4d52372f840eda17a01c32d5cdfb39071ce2366b4eb5460e7000b9270f1b069b",
+          "responseByteSize": 809908,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/06/Dang-Azelaic-Acid-PigmentationAcne-Control-Serum.jpg",
+          "packageImageSha256": "b30888e4a1fe85ffa1ef01549207aa00069089fc22cd515a126761172c9d7970",
+          "packageImageByteSize": 83181
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/dang-azelaic-acid-serum-30ml-6961916",
+          "priceNgn": 38700,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:13:29.000Z",
+          "expiresAt": "2026-09-06T03:13:29.000Z",
+          "responseSha256": "d6ecc87a468bd16b2bd14f7e01a7ecebcd93df7fc4e0cf6b80351ca1306d189f",
+          "responseByteSize": 315116,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/B/F/246169_1775065892.jpg",
+          "packageImageSha256": "1fbead6c2b2d58f4b26558c0c7cf9f08f1c0383e35f3ef5f4ac1f141e32d8356",
+          "packageImageByteSize": 34524
+        },
+        {
+          "retailer": "Bracketts Beauty",
+          "url": "https://www.brackettsbeauty.com/products/azelaic-acid-serum",
+          "priceNgn": 20421.5,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T03:13:29.000Z",
+          "expiresAt": "2026-09-06T03:13:29.000Z",
+          "responseSha256": "6e37ca84582f8fe0d67e923bb609e5657c1b159dce3c9e79682419b98bb0d908",
+          "responseByteSize": 434167,
+          "packageImageUrl": "https://www.brackettsbeauty.com/cdn/shop/files/bracketts-beauty-dang-azelaic-acid-serum-1.png?v=1734521233&width=1920",
+          "packageImageSha256": "23bced0ebe472ad652e4ece5d4da2ae7b9cf28bbb0e2026e4dd6423347c8d7bd",
+          "packageImageByteSize": 252010
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+      "retailer": "Beauty Hut Africa",
+      "url": "https://beautyhutafrica.com/product/nivea-perfect-radiant-body-lotion-400ml/",
+      "status": 200,
+      "reason": "Exact single 400 ml package is currently sold out; retained only as an excluded observation.",
+      "responseSha256": "81c41ad900d0e5ec58210ae38df79d19d2c13547bfd9d54c15bd9cf176491c80",
+      "responseByteSize": 804819
+    },
+    {
+      "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/nivea-perfect-radiant-body-lotion-for-women-250ml-pack-of-2-419908942.html",
+      "status": 403,
+      "reason": "Verification wall and definite 2 x 250 ml package mismatch; never normalize to the single 400 ml product.",
+      "responseSha256": "76a97a9ebac994e4d74143ca2b2a9f35c147332877c59265a52be9ea8820424f",
+      "responseByteSize": 6060
+    },
+    {
+      "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+      "retailer": "MeddyLab",
+      "url": "https://meddylab.com/medics-pharmacy/pharmaceutical/nivea-perfect-and-radiant-body-lotion-400ml/",
+      "status": 200,
+      "reason": "Structured availability is OutOfStock and conflicts with generic cart text; fail closed.",
+      "responseSha256": "0c80d235dcc19d91ffc10ecd1d357b646d6f22972ffcfd91c5d24e71b20c1229",
+      "responseByteSize": 336202
+    },
+    {
+      "candidateId": "nivea-perfect-radiant-body-lotion-400ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/nivea-perfect-radiant-body-lotion-for-women-400ml-149878478.html",
+      "status": 403,
+      "reason": "Verification wall plus contradictory current stock evidence prevents release.",
+      "responseSha256": "710fc3a38b83341d8db7f7d8795eeaa8aa2457bc9e2bd1f5871da7a3087852e2",
+      "responseByteSize": 6008
+    },
+    {
+      "candidateId": "balance-salicylic-acid-zinc-clarifying-toner-200ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/generic-balance-active-formula-salicylic-acid-zinc-clarify-toner-409561125.html",
+      "status": 403,
+      "reason": "Verification wall plus generic-brand, size and package ambiguity.",
+      "responseSha256": "c279f8e2735a6361b506f08dd5bda7a88dcfedb16cf4f86a7a1cc9b152e52f1d",
+      "responseByteSize": 6032
+    },
+    {
+      "candidateId": "balance-salicylic-acid-zinc-clarifying-toner-200ml",
+      "retailer": "BuyBetter",
+      "url": "https://buybetter.ng/product/balance-salicylic-acid-zinc-clarifying-toner-7-039-oz-200ml/",
+      "status": 200,
+      "reason": "Exact 200 ml product is currently out of stock.",
+      "responseSha256": "ab6c24653e2471ac1215fb7122c98e039bf10aac81f67e032e01fa92e088e1a2",
+      "responseByteSize": 562908
+    },
+    {
+      "candidateId": "balance-salicylic-acid-zinc-clarifying-toner-200ml",
+      "retailer": "24Eleven",
+      "url": "https://www.24eleven.ng/balance-salicylic-acid-zinc-clarifying-toner-200ml",
+      "status": 403,
+      "reason": "Verification wall prevents current exact offer proof.",
+      "responseSha256": "ef8a66febddb0a0c205f294febf9bbeecb0b80d92f84b968f8d4c00078411f4f",
+      "responseByteSize": 5897
+    },
+    {
+      "candidateId": "balance-salicylic-acid-zinc-clarifying-toner-200ml",
+      "retailer": "Tonia Lifestyle Hub",
+      "url": "https://www.tonialifestylehub.com/products/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml",
+      "status": 200,
+      "reason": "Exact single 200 ml product is sold out.",
+      "responseSha256": "f8f1f9428b07ad4ad1cee507f01e3f5ec7ac5e4b1e554ae2c73dff2925f814f1",
+      "responseByteSize": 191960
+    },
+    {
+      "candidateId": "balance-salicylic-acid-zinc-clarifying-toner-200ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/balancedot-balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml-419463864.html",
+      "status": 403,
+      "reason": "Verification wall plus Balancedot versus Balance Active Formula brand ambiguity.",
+      "responseSha256": "cf55ee43838b0a4cce665228cefbd30f5cb28c54319ab7998d4853d71c1c8024",
+      "responseByteSize": 6132
+    },
+    {
+      "candidateId": "dang-hydra-glow-sun-protection-gel-60ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/dang-hydra-glow-sun-protection-gel-100-transparent-sunscreen-spf-50-pa-60ml-420018865.html",
+      "status": 403,
+      "reason": "Verification wall prevents current exact offer proof.",
+      "responseSha256": "c9fabc3e0bacb2fb2822b5475b560ab0478bd5dd49a4fc67ef87de5591dc3748",
+      "responseByteSize": 6129
+    },
+    {
+      "candidateId": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/dang-niacinamiden-acetyl-glucosamine-serum-30ml-420018863.html",
+      "status": 403,
+      "reason": "Verification wall prevents current exact offer proof.",
+      "responseSha256": "695e43b1e4a0dd7e8014b9bdb896aec1fba26b64872cfb84cba962488cd516c1",
+      "responseByteSize": 5960
+    },
+    {
+      "candidateId": "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
+      "retailer": "DANG Lifestyle",
+      "url": "https://danglifestyle.co/products/10-niacinamide-serum",
+      "status": 200,
+      "reason": "The 30 ml route redirects home and current first-party inventory exposes only a distinct 15 ml mini SKU; never substitute it.",
+      "responseSha256": "999735a2a56319831ba501b2156563778a13a6cd12f72290684c2261d6f2f7e5",
+      "responseByteSize": 618190
+    },
+    {
+      "candidateId": "dang-azelaic-acid-serum-30ml",
+      "retailer": "Skin Pop Essentiel",
+      "url": "https://skinpopessentiel.com/products/dang-azelaic-acid-serum-30ml",
+      "status": 200,
+      "reason": "Merchant GTIN 6154000333973 conflicts with first-party canonical GTIN 6154000333867.",
+      "responseSha256": "dd261e6c7444f51cb88299e0e0e27a7c1e51efdeba908fb456f6b7ddabc18f0c",
+      "responseByteSize": 259248
+    },
+    {
+      "candidateId": "dang-azelaic-acid-serum-30ml",
+      "retailer": "Nectar Beauty Hub",
+      "url": "https://nectarbeautyhub.com/products/dang-azelaic-acid-serum-30ml-redness-reducing-skin-clarifying-treatment",
+      "status": 200,
+      "reason": "Merchant GTIN 6154000333973 conflicts with canonical 6154000333867; listing is also out of stock.",
+      "responseSha256": "5930c4c19768ebe05e363a3d2613247232cdbd090075b91639a72d024c58b699",
+      "responseByteSize": 854651
+    }
+  ],
+  "heldCandidates": []
+}

@@ -25,6 +25,7 @@ import waveEighteenAudit from "@/data/retailer-verification/catalogue-offer-refr
 import waveNineteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-19-2026-08-29.json";
 import waveTwentyAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-20-2026-08-29.json";
 import waveTwentyOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-21-2026-08-29.json";
+import waveTwentyTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-22-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -1541,6 +1542,107 @@ test("catalogue offer refresh wave 21 releases four exact packages and isolates 
   );
 });
 
+test("catalogue offer refresh wave 22 releases five exact packages and fails conflicted siblings closed", () => {
+  const projected = waveTwentyTwoAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveTwentyTwoAudit.matrix.before, 74);
+  assert.equal(waveTwentyTwoAudit.matrix.after, 79);
+  assert.equal(waveTwentyTwoAudit.matrix.total, 162);
+  assert.equal(waveTwentyTwoAudit.summary.productsReviewed, 5);
+  assert.equal(waveTwentyTwoAudit.summary.productsReleased, 5);
+  assert.equal(waveTwentyTwoAudit.summary.productsBlocked, 0);
+  assert.equal(projected.length, 26);
+  assert.equal(waveTwentyTwoAudit.summary.shopperActiveOffers, 22);
+  assert.equal(waveTwentyTwoAudit.summary.outOfStockObservations, 4);
+  assert.equal(waveTwentyTwoAudit.blockedCells.length, 14);
+  assert.equal(waveTwentyTwoAudit.heldCandidates.length, 0);
+  assert.equal(waveTwentyTwoAudit.scheduledOwner.manifestRecurringOwner, null);
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const asOf = new Date(waveTwentyTwoAudit.reviewedAt);
+  for (const blocked of waveTwentyTwoAudit.blockedCells) {
+    assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(blocked.responseByteSize > 0);
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.url === blocked.url,
+    );
+    if (offer) {
+      assert.equal(isOfferFresh(offer, asOf), true);
+      assert.equal(offer.available, false);
+      assert.equal(offer.priceComparison, "exclude");
+    }
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "nivea-perfect-radiant-body-lotion-400ml",
+      ["Allure Beauty", "Deoset", "Konga Health", "Perona Beauty", "Teeka4"],
+    ],
+    [
+      "balance-salicylic-acid-zinc-clarifying-toner-200ml",
+      [
+        "Beauty by Daz",
+        "Deoset",
+        "Konga Health",
+        "Muna Cosmetics",
+        "Perona Beauty",
+      ],
+    ],
+    [
+      "dang-hydra-glow-sun-protection-gel-60ml",
+      [
+        "Beauty Hut Africa",
+        "Bracketts Beauty",
+        "DANG Lifestyle",
+        "Konga Health",
+        "Perona Beauty",
+      ],
+    ],
+    [
+      "dang-niacinamide-n-acetyl-glucosamine-serum-30ml",
+      ["Konga Health", "Perona Beauty"],
+    ],
+    [
+      "dang-azelaic-acid-serum-30ml",
+      ["DANG Lifestyle", "Konga Health", "Perona Beauty"],
+    ],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    assert.deepEqual(
+      product.offers
+        .filter((offer) => offer.available)
+        .map((offer) => offer.retailer)
+        .sort(),
+      expected,
+      slug,
+    );
+  }
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -1858,15 +1960,23 @@ test("the B.LAB Matcha listing publishes verified Perona Beauty offer", () => {
 
 test("DANG sale prices publish only exact in-stock Nigerian product listings", () => {
   const expected = {
-    "dang-azelaic-acid-serum-30ml": [15_045, "30 ml", "2026-08-09T11:40:38Z"],
+    "dang-azelaic-acid-serum-30ml": [
+      17_700,
+      "30 ml",
+      "2026-08-30T03:13:29.000Z",
+      "2026-09-06T03:13:29.000Z",
+    ],
     "dang-hydra-glow-sun-protection-gel-60ml": [
-      21_250,
+      25_000,
       "60 ml",
-      "2026-08-09T11:40:39Z",
+      "2026-08-30T03:10:33.566Z",
+      "2026-09-06T03:10:33.566Z",
     ],
   } as const;
 
-  for (const [slug, [priceNgn, size, observedAt]] of Object.entries(expected)) {
+  for (const [slug, [priceNgn, size, observedAt, expiresAt]] of Object.entries(
+    expected,
+  )) {
     const offer = verifiedRetailOffers[slug]?.find(
       (candidate) => candidate.retailer === "DANG Lifestyle",
     );
@@ -1875,7 +1985,7 @@ test("DANG sale prices publish only exact in-stock Nigerian product listings", (
     assert.equal(offer.available, true, slug);
     assert.equal(offer.priceObservation?.size, size, slug);
     assert.equal(offer.checkedAt, observedAt, slug);
-    assert.equal(offer.expiresAt, "2026-08-21T17:00:00Z", slug);
+    assert.equal(offer.expiresAt, expiresAt, slug);
     assert.equal(new URL(offer.url).hostname, "danglifestyle.co", slug);
   }
 
@@ -1901,7 +2011,6 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     ["facefacts-ceramide-hydrating-gentle-cleanser-400ml", 8_775, "400 ml"],
     ["la-roche-posay-effaclar-purifying-foaming-gel-400ml", 15_511, "400 ml"],
     ["nineless-a-control-azelaic-acid-cream-50ml", 20_315, "50 ml"],
-    ["nivea-perfect-radiant-body-lotion-400ml", 5_156, "400 ml"],
   ] as const;
 
   for (const [slug, priceNgn, size] of expected) {
@@ -1944,6 +2053,17 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     );
     assert.equal(new URL(offer.url).hostname, "beautyhutafrica.com", slug);
   }
+
+  const blockedNivea = verifiedRetailOffers[
+    "nivea-perfect-radiant-body-lotion-400ml"
+  ]?.find((candidate) => candidate.retailer === "Beauty Hut Africa");
+  assert.ok(blockedNivea);
+  assert.equal(blockedNivea.priceNgn, 5_156);
+  assert.equal(blockedNivea.available, false);
+  assert.equal(blockedNivea.priceComparison, "exclude");
+  assert.equal(blockedNivea.priceObservation?.size, "400 ml");
+  assert.equal(blockedNivea.checkedAt, "2026-08-30T03:10:24.487Z");
+  assert.equal(blockedNivea.expiresAt, "2026-09-06T03:10:24.487Z");
 
   const blockedFaceFacts = verifiedRetailOffers[
     "facefacts-soothe-glow-niacinamide-serum-30ml"
