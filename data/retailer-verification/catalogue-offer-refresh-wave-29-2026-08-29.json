@@ -1,0 +1,417 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-29-2026-08-29",
+  "reviewedAt": "2026-08-30T06:32:58.163Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Twenty-four current Nigerian retailer checks across five independently releasable exact product SKUs",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T06:32:58.163Z"
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 108,
+    "after": 113,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 24,
+    "offersAdmitted": 18,
+    "shopperActiveOffers": 14,
+    "outOfStockObservations": 4,
+    "offersBlocked": 6,
+    "offersProjected": 18
+  },
+  "products": [
+    {
+      "candidateId": "c28f590dd2739ea73f1b5ea3",
+      "identity": {
+        "gtin": "5011451103948",
+        "variant": "Kind to Skin Replenishing Rich Moisturiser",
+        "size": "125 ml",
+        "packageVersion": "Current white 125 ml bottle with green cap and Replenishing Rich Moisturiser / Instantly Smoothing label"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/simple-kind-to-skin-replenishing-rich-moisturizer-125ml/",
+          "priceNgn": 4790,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "b0ed3771730396ea08d90d75fecac489ef6ba7190d24e5e4f5293e7389dd1605",
+          "responseByteSize": 562531,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2023/01/zjigylmw.png",
+          "packageImageSha256": "6d72d3d4058ba2b103e542ecb137de194948938645f351252d3185a39afa6e57",
+          "packageImageByteSize": 76325
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/simple-kind-to-skin-replenishing-rich-moisturiser-125ml/",
+          "priceNgn": 8170,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "330634c6549d18077b081c3cfdb48c5ca4cef16c4a0bdfa7e221460a028d6f8e",
+          "responseByteSize": 376025,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2023/06/SIMPLE-RICH.jpg",
+          "packageImageSha256": "6621cc73d2f6779fc51700dc73a89edbd758806b60aeebd6f47aa1fe3500441b",
+          "packageImageByteSize": 25727
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/simple-replenishing-rich-moisturizer-125ml/",
+          "priceNgn": 5700,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "cda265ac993daaf0275d5dd65b55f2784c8ee0bdc0bacb9e04613a915a476f38",
+          "responseByteSize": 391391,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/simple-replenishing-moisturizer-new.jpg",
+          "packageImageSha256": "08bab2f89a96e7c14d6a8db110835c4b007467d20e1b31fbe5bab290c081bbc6",
+          "packageImageByteSize": 24928
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/simple-new-replenishing-rich-moisturizer-4-2oz-125ml-6350122",
+          "priceNgn": 8999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "f34f75ed92d7e420caef6e547ddd72ffde61ad617c3cff01591a0d6c655625c8",
+          "responseByteSize": 273288,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/C/T/182332_1757776958.jpg",
+          "packageImageSha256": "e4a952ac8a29bee625151a3794131f7ed94a9ec4c86f840f22c3168ca92d42f0",
+          "packageImageByteSize": 21512
+        }
+      ]
+    },
+    {
+      "candidateId": "11d3a6116ccfc1cbce191430",
+      "identity": {
+        "gtin": "3337875923613",
+        "variant": "Vitamin C Gel Moussant 200ml",
+        "size": "200 ml",
+        "packageVersion": "Current translucent amber-orange 200 ml pump bottle with white pump and La Roche-Posay Vitamin C label"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/la-roche-posay-vitamin-c-gel-moussant-purifying-cleanser-200ml/",
+          "priceNgn": 21500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "6e3522d5a8f7467b3639710752af7e2948d24bc384778ac2c8c847e89775e584",
+          "responseByteSize": 244851,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2026/05/Screenshot-2026-05-16-135542.png",
+          "packageImageSha256": "79fc8980940c2fd8ac489346c94ba914a3e3e9f21462027b1340ea332a02bdc8",
+          "packageImageByteSize": 143614
+        },
+        {
+          "retailer": "Eslin Beauty",
+          "url": "https://eslinbeauty.com/product/la-roche-posay-vitamin-c-gel-moussant-purifying-cleanser-200ml/",
+          "priceNgn": 29000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "91ab6c7c608fd42f28d95247e62ddbf1edd96f6676979ca40d9b85f10304f722",
+          "responseByteSize": 469180,
+          "packageImageUrl": "https://eslinbeauty.com/wp-content/uploads/2026/06/photoroom_20260606_131119.jpeg",
+          "packageImageSha256": "aad47a6d4c02bc7cb0236600f467752ba02f961388f140112911ce2c2d75f2bf",
+          "packageImageByteSize": 113060
+        },
+        {
+          "retailer": "Nectar Beauty Hub",
+          "url": "https://nectarbeautyhub.com/products/la-roche-posay-vitamin-c-gel-moussant-purifying-cleanser-200ml",
+          "priceNgn": 23900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "bded329973b89750726d12f7ea5d3900823b7408cadfa9965b527b1969214267",
+          "responseByteSize": 886506,
+          "packageImageUrl": "https://nectarbeautyhub.com/cdn/shop/files/la-roche-posay-vitamin-c-gel-moussant-purifying-cleanser-200ml-4360807_1024x1024.png?v=1782906667",
+          "packageImageSha256": "17915856dbee002be2662547d86e9d1f462ada427970a6c540230228f9396abd",
+          "packageImageByteSize": 20028
+        },
+        {
+          "retailer": "Derma Essentials",
+          "url": "https://dermaessentialshub.com/product/laroche-posay-vitamin-c-gel-moussant-vitamin-c-bha/",
+          "priceNgn": 24950,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "07dda131f4c4216c9c64c4c5239f2fbc0fad98b59f45fc007bf4bbc3318a327a",
+          "responseByteSize": 343422,
+          "packageImageUrl": "https://dermaessentialshub.com/wp-content/uploads/2026/02/image-scaled.jpg",
+          "packageImageSha256": "a195591086ba0c3d028ab84439ea7fbf2b2da8ae7e2d68a8ab9f8582093fde10",
+          "packageImageByteSize": 587627
+        }
+      ]
+    },
+    {
+      "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+      "identity": {
+        "gtin": "3337875930048",
+        "variant": "Lipikar Baume AP+MAX",
+        "size": "200 mL",
+        "packageVersion": "Lipikar Baume AP+MAX 200 mL tube"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/la-roche-posay-lipikar-apmax-triple-action-balm-200ml/",
+          "priceNgn": 18999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "1d583695e9fd22948b508790c61fb9d6c6a093aea6d39884b4081b5d84504088",
+          "responseByteSize": 356225,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2026/03/larocheposaybodycarelipikarbaumeap200mllipidreplenishingbalmantiirritationscratching0003337872418587.webp",
+          "packageImageSha256": "c4a8acacc3315860a397ebd1679d05bc26bc545fae8f7ebfbe66a051f65226ea",
+          "packageImageByteSize": 36214
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/la-roche-posay-lipikar-baume-ap-m-tube-200ml/",
+          "priceNgn": 19565,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "1d66ffb19ba994ed22049e41e87b33442cfe333f6d1de8d510dc08e2d40ba0f1",
+          "responseByteSize": 563088,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/vq6u0f37-1.png",
+          "packageImageSha256": "24f7c0b2cc51635755b8c51714e1ae0f6df58a16f76a3e602eafc03785aa6e67",
+          "packageImageByteSize": 235152
+        },
+        {
+          "retailer": "Nihet Beauty",
+          "url": "https://nihetbeauty.com/product/la-roche-posay-lipikar-baume-apm-200ml/",
+          "priceNgn": 36000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "4e1ae3606b02f3ed7307d8a0762e6a2859c98474596ccc62d908c6ebe1c8aa44",
+          "responseByteSize": 475577,
+          "packageImageUrl": "https://nihetbeauty.com/wp-content/uploads/2024/02/img_2913.jpeg",
+          "packageImageSha256": "f41dfe7bc74ac918791df3a702062dfbe93e0812f4566d330f588da9da6db015",
+          "packageImageByteSize": 99639
+        }
+      ]
+    },
+    {
+      "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
+      "identity": {
+        "gtin": "3337875930239",
+        "variant": "Lipikar Baume AP+MAX",
+        "size": "400 mL",
+        "packageVersion": "Lipikar Baume AP+MAX 400 mL pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/la-roche-posay-lipikar-baume-ap-m-400ml/",
+          "priceNgn": 28200,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "649f01b355062ee8c796a1de4c5ec8adf03912e3b28d36883d421ef5b0289659",
+          "responseByteSize": 394221,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/original-la-roche-posay-Lipikar-APMax-Baume-lagos-nigeria.webp",
+          "packageImageSha256": "11b837841f9969f3659dd71bd44354abcd05bb919c15402eabf778de89718f40",
+          "packageImageByteSize": 22298
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream/",
+          "priceNgn": 28800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "7afc25fa56d01f0a4d275d6487d60fd904937e45b42f0fc684b5b86a5124fc7a",
+          "responseByteSize": 138641,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/05/shopping-11.webp",
+          "packageImageSha256": "5a3054f0ebd4118cb283e4d5192dab2e71959c857185dd7f55a430c5736d7105",
+          "packageImageByteSize": 13160
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Medplus",
+          "reason": "current-page-does-not-expose-a-deterministically-bound-price-and-stock-pair"
+        }
+      ]
+    },
+    {
+      "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+      "identity": {
+        "gtin": "8809875270189",
+        "variant": "A-Control Azelaic Acid Cream",
+        "size": "50 ml",
+        "packageVersion": "NINELESS A-Control Azelaic Acid Cream 50ml"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/nineless-a-control-azelaic-acid-cream/",
+          "priceNgn": 14500,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "558f849595d19056c3553b54115c25786740d51009884c6c6d87ec0e9f327a23",
+          "responseByteSize": 574079,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2024/08/Nineless-Azelaic-cream-50ml.jpg",
+          "packageImageSha256": "571df714028cc697ea1613d26fbf70162ca9e122872c1fc809395d9cd4c24af4",
+          "packageImageByteSize": 6701
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/nineless-a-control-azelaic-acid-cream-50ml/",
+          "priceNgn": 20315,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "76cf9865777b85b039ed219d49e3855f281f53433db36e4e6051d41083a1c197",
+          "responseByteSize": 803876,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/11/Nineless-A-Control-Azelaic-Acid-Cream.webp",
+          "packageImageSha256": "f7bb608bc900db6565a87254be0440374b0ab10f6b67a69f1f9484bb4630851a",
+          "packageImageByteSize": 8094
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/nineless-a-control-azelaic-acid-cream-50ml-6796462",
+          "priceNgn": 19500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "ba89a5174f735f117f7524c78534c469fbe0a6a7e80c4105329f3ca720176822",
+          "responseByteSize": 266455,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/U/I/241661_1753032432.jpg",
+          "packageImageSha256": "c2cb9947c6e711214374a348d322022007e124c4a57d9e17b6c928b4ba9d4ac5",
+          "packageImageByteSize": 36467
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/nineless-a-control-azelaic-acid-cream-50ml/",
+          "priceNgn": 14650,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "ae869df4f4a9804f167bc9ad4bdc1894dd25148123024ad9f83cad342d78d087",
+          "responseByteSize": 137758,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/02/XXL_p0211326746.webp",
+          "packageImageSha256": "f7bb608bc900db6565a87254be0440374b0ab10f6b67a69f1f9484bb4630851a",
+          "packageImageByteSize": 8094
+        },
+        {
+          "retailer": "Nihet Beauty",
+          "url": "https://nihetbeauty.com/product/nineless-a-control-azelaic-acid-cream-50ml/",
+          "priceNgn": 29000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T06:32:58.163Z",
+          "expiresAt": "2026-09-06T06:32:58.163Z",
+          "responseSha256": "16c8f816ae233cd1e53dcfc7a5bf96219dcb353c45722753d60e0da3ea770cce",
+          "responseByteSize": 476742,
+          "packageImageUrl": "https://nihetbeauty.com/wp-content/uploads/2025/08/img_1558.jpeg",
+          "packageImageSha256": "6f2ba9613bcca6aad1fd8e8c28dfb711c8ca1251473f69c8216a84375a09d305",
+          "packageImageByteSize": 27024
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "amika-the-kure-conditioner-275ml",
+      "retailer": "BuyBetter",
+      "reason": "current-retailer-gtin-840117807082-conflicts-with-catalogue-gtin-840117805743"
+    },
+    {
+      "candidateId": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+      "retailer": "BuyBetter",
+      "reason": "exact-product-route-now-404"
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "retailer": "Perona Beauty / Derma Essentials / Deoset",
+      "reason": "current-pages-and-listing-images-omit-the-catalogue-75ml-size"
+    },
+    {
+      "candidateId": "medik8-advanced-night-restore-50ml",
+      "retailer": "Teeka4",
+      "reason": "current-title-says-50ml-but-listing-image-shows-12-5ml-package"
+    }
+  ],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "c28f590dd2739ea73f1b5ea3",
+      "retailer": "Teeka4",
+      "reason": "current-exact-product-route-is-404"
+    },
+    {
+      "candidateId": "11d3a6116ccfc1cbce191430",
+      "retailer": "Deoset",
+      "reason": "current-exact-product-route-returned-502"
+    },
+    {
+      "candidateId": "11d3a6116ccfc1cbce191430",
+      "retailer": "Sonavine Beauty",
+      "reason": "current-route-is-cloudflare-403"
+    },
+    {
+      "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+      "retailer": "24Eleven",
+      "reason": "current-route-is-cloudflare-403"
+    },
+    {
+      "candidateId": "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
+      "retailer": "Medplus",
+      "reason": "current-page-does-not-expose-a-deterministically-bound-price-and-stock-pair"
+    },
+    {
+      "candidateId": "nineless-a-control-azelaic-acid-cream-50ml",
+      "retailer": "Sonavine Beauty",
+      "reason": "current-route-is-cloudflare-403"
+    }
+  ]
+}

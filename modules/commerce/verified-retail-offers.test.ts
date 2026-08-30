@@ -32,6 +32,7 @@ import waveTwentyFiveAudit from "@/data/retailer-verification/catalogue-offer-re
 import waveTwentySixAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-26-2026-08-29.json";
 import waveTwentySevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-27-2026-08-29.json";
 import waveTwentyEightAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-28-2026-08-29.json";
+import waveTwentyNineAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-29-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -2337,6 +2338,111 @@ test("catalogue offer refresh wave 28 releases five exact packages and fails mis
   }
 });
 
+test("catalogue offer refresh wave 29 releases five exact packages with rich current offers", () => {
+  const projected = waveTwentyNineAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveTwentyNineAudit.matrix.before, 108);
+  assert.equal(waveTwentyNineAudit.matrix.after, 113);
+  assert.equal(waveTwentyNineAudit.matrix.total, 162);
+  assert.equal(waveTwentyNineAudit.summary.productsReviewed, 5);
+  assert.equal(waveTwentyNineAudit.summary.productsReleased, 5);
+  assert.equal(waveTwentyNineAudit.summary.productsBlocked, 0);
+  assert.equal(waveTwentyNineAudit.summary.offersReviewed, 24);
+  assert.equal(waveTwentyNineAudit.summary.offersAdmitted, 18);
+  assert.equal(waveTwentyNineAudit.summary.shopperActiveOffers, 14);
+  assert.equal(waveTwentyNineAudit.summary.outOfStockObservations, 4);
+  assert.equal(waveTwentyNineAudit.summary.offersBlocked, 6);
+  assert.equal(projected.length, 18);
+  assert.equal(waveTwentyNineAudit.blockedCells.length, 4);
+  assert.equal(waveTwentyNineAudit.excludedDiscoveries.length, 6);
+  assert.equal(waveTwentyNineAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.equal(
+    waveTwentyNineAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "c28f590dd2739ea73f1b5ea3",
+      ["Konga Health", "Perona Beauty", "Rhema Beauty Shop"],
+    ],
+    [
+      "11d3a6116ccfc1cbce191430",
+      [
+        "Beauty by Daz",
+        "Derma Essentials",
+        "Eslin Beauty",
+        "Nectar Beauty Hub",
+      ],
+    ],
+    [
+      "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+      ["Nihet Beauty", "Teeka4"],
+    ],
+    [
+      "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
+      ["Deoset", "Perona Beauty"],
+    ],
+    [
+      "nineless-a-control-azelaic-acid-cream-50ml",
+      ["Deoset", "Konga Health", "Nihet Beauty"],
+    ],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["c28f590dd2739ea73f1b5ea3", 5_700],
+    ["11d3a6116ccfc1cbce191430", 21_500],
+    [
+      "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-200ml",
+      18_999,
+    ],
+    [
+      "la-roche-posay-lipikar-apmax-triple-repair-moisturizing-cream-400ml",
+      28_200,
+    ],
+    ["nineless-a-control-azelaic-acid-cream-50ml", 14_650],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    assert.equal(
+      Math.min(
+        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+      ),
+      expectedFloors.get(slug),
+      slug,
+    );
+  }
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -2717,7 +2823,9 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     );
     assert.ok(offer, slug);
     assert.equal(offer.priceNgn, priceNgn, slug);
-    assert.equal(offer.available, true, slug);
+    const isWaveTwentyNine =
+      slug === "nineless-a-control-azelaic-acid-cream-50ml";
+    assert.equal(offer.available, !isWaveTwentyNine, slug);
     assert.equal(offer.priceObservation?.size, size, slug);
     const isWaveTen = slug.startsWith("eos-");
     const isWaveSeventeen = new Set([
@@ -2748,7 +2856,9 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
             ? "2026-08-30T02:02:13.000Z"
             : isWaveTwentyOne
               ? "2026-08-30T02:56:10.000Z"
-              : "2026-08-14T17:00:00Z",
+              : isWaveTwentyNine
+                ? "2026-08-30T06:32:58.163Z"
+                : "2026-08-14T17:00:00Z",
       slug,
     );
     assert.equal(
@@ -2761,7 +2871,9 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
             ? "2026-09-06T02:02:13.000Z"
             : isWaveTwentyOne
               ? "2026-09-06T02:56:10.000Z"
-              : "2026-08-21T17:00:00Z",
+              : isWaveTwentyNine
+                ? "2026-09-06T06:32:58.163Z"
+                : "2026-08-21T17:00:00Z",
       slug,
     );
     assert.equal(new URL(offer.url).hostname, "beautyhutafrica.com", slug);
