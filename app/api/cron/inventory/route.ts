@@ -172,7 +172,7 @@ export async function GET(request: Request) {
             InventoryRefreshResult["terminalInvalidation"]
           >;
         } =>
-          result.status === "failed" &&
+          result.status === "deferred" &&
           typeof result.retailer === "string" &&
           result.terminalInvalidation != null,
       )

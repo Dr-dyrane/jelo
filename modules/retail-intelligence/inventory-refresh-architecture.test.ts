@@ -7,6 +7,7 @@ import {
   INVENTORY_CRON_BATCH_SIZE,
   INVENTORY_CRON_LOOKAHEAD_HOURS,
   INVENTORY_CRON_RUNS_PER_DAY,
+  INVENTORY_DEFERRED_RECHECK_MS,
   INVENTORY_REFRESH_FRESHNESS_MS,
 } from "@/lib/inventory/refresh-policy";
 
@@ -21,6 +22,14 @@ const worker = readFileSync(
 );
 const route = readFileSync(
   resolve(root, "app/api/cron/inventory/route.ts"),
+  "utf8",
+);
+const healthRoute = readFileSync(
+  resolve(root, "app/api/cron/inventory-health/route.ts"),
+  "utf8",
+);
+const staticIntegrationWorkflow = readFileSync(
+  resolve(root, ".github/workflows/inventory-static-integration.yml"),
   "utf8",
 );
 const workerScript = readFileSync(
@@ -97,15 +106,16 @@ test("manual workers can scope every claim-side mutation to one market", () => {
   assert.match(workerScript, /marketCode: options\.market/);
 });
 
-test("claims recover only expired bounded leases and terminal-set exhausted work", () => {
+test("claims recover expired leases and defer exhausted work for daily recheck", () => {
   assert.match(
     worker,
     /j\.status = 'processing'[\s\S]*j\.attempt_count < \$\{MAX_ATTEMPTS\}[\s\S]*j\.started_at <= now\(\) - \(\$\{INVENTORY_REFRESH_LEASE_MS\}/,
   );
   assert.match(
     worker,
-    /exhausted_candidate as \([\s\S]*j\.attempt_count >= \$\{MAX_ATTEMPTS\}[\s\S]*exhausted as \([\s\S]*set status = 'failed'/,
+    /exhausted_candidate as \([\s\S]*j\.attempt_count >= \$\{MAX_ATTEMPTS\}[\s\S]*exhausted as \([\s\S]*set status = 'queued'[\s\S]*INVENTORY_DEFERRED_RECHECK_MS/,
   );
+  assert.equal(INVENTORY_DEFERRED_RECHECK_MS, 24 * 60 * 60 * 1000);
   assert.match(worker, /for update of j skip locked/);
   assert.match(
     worker,
@@ -266,9 +276,46 @@ test("only proven contradictions expire persisted offers and enter static review
   );
   assert.match(
     route,
-    /result\.status === ["']failed["'][\s\S]*result\.terminalInvalidation != null/,
+    /result\.status === ["']deferred["'][\s\S]*result\.terminalInvalidation != null/,
   );
   assert.match(route, /invalidatedOffers: terminalInvalidations/);
+});
+
+test("an independent scheduled watchdog is read-only and visibly fails on degraded health", () => {
+  const healthCrons = vercel.crons?.filter(
+    (cron) => cron.path === "/api/cron/inventory-health",
+  );
+  assert.deepEqual(healthCrons, [
+    { path: "/api/cron/inventory-health", schedule: "7 * * * *" },
+  ]);
+  assert.match(healthRoute, /isAuthorizedCronRequest/);
+  assert.match(healthRoute, /writesPerformed: 0/);
+  assert.match(healthRoute, /inventory_health_watchdog_checked/);
+  assert.match(healthRoute, /status === "healthy" \? 200 : 503/);
+  assert.match(healthRoute, /INVENTORY_DEFERRED_RECHECK_ERROR_CODE/);
+  assert.equal(
+    healthRoute.match(
+      /left\(last_error, char_length\(\$\{deferredErrorPrefix\}\)\) = \$\{deferredErrorPrefix\}/g,
+    )?.length,
+    2,
+    "recent and total deferred counts must use only the typed daily marker",
+  );
+  assert.doesNotMatch(
+    healthRoute,
+    /enqueueDueInventoryOffers|processInventoryRefreshBatch|revalidatePath|revalidateTag|sendRefreshAlertIfNeeded|syncOffersToStaticFile/,
+  );
+  assert.doesNotMatch(healthRoute, /\b(insert|update|delete)\b/i);
+});
+
+test("static integration failures remain native workflow signals without issue publication", () => {
+  assert.doesNotMatch(staticIntegrationWorkflow, /issues: write/);
+  assert.doesNotMatch(staticIntegrationWorkflow, /report-failure:/);
+  assert.doesNotMatch(staticIntegrationWorkflow, /gh issue/);
+  assert.match(
+    staticIntegrationWorkflow,
+    /name: Integrate inventory static proposal/,
+  );
+  assert.match(staticIntegrationWorkflow, /npm run verify:release/);
 });
 
 test("the cron exposes static-sync configuration failures as bounded codes", () => {
@@ -284,7 +331,7 @@ test("the cron exposes static-sync configuration failures as bounded codes", () 
   );
 });
 
-test("the cron sends email alerts when offers fail or the backlog grows", () => {
+test("the cron sends email alerts when offers defer or the backlog grows", () => {
   assert.match(route, /sendRefreshAlertIfNeeded/);
   const alerting = readFileSync(
     resolve(root, "lib/inventory/refresh-alerting.ts"),
@@ -293,6 +340,7 @@ test("the cron sends email alerts when offers fail or the backlog grows", () => 
   assert.match(alerting, /sendAlertEmail/);
   assert.match(alerting, /INVENTORY_ALERT_EMAIL/);
   assert.match(alerting, /hello@jelocare\.com/);
+  assert.match(alerting, /inventory_refresh_deferred_rechecks/);
   assert.match(alerting, /inventory_refresh_failed_offers/);
   assert.match(alerting, /inventory_refresh_zero_completions/);
   assert.match(alerting, /inventory_refresh_backlog_growing/);

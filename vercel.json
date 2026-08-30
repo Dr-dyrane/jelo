@@ -6,6 +6,10 @@
       "schedule": "17 * * * *"
     },
     {
+      "path": "/api/cron/inventory-health",
+      "schedule": "7 * * * *"
+    },
+    {
       "path": "/api/cron/reconcile-requests",
       "schedule": "37 4 * * *"
     },

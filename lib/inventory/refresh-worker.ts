@@ -7,9 +7,11 @@ import {
 import {
   assertClassifiedInventoryRefreshScope,
   canClaimInventoryRefreshJob,
+  INVENTORY_DEFERRED_RECHECK_MS,
   INVENTORY_REFRESH_FRESHNESS_MS,
   INVENTORY_REFRESH_LEASE_MS,
   inventoryRefreshFailureSettlement,
+  inventoryRefreshLastError,
   isInventoryRefreshTerminalReason,
   transientInventoryRefreshFailure,
   type InventoryRefreshFailureReason,
@@ -34,6 +36,12 @@ import {
 const REQUEST_TIMEOUT_MS = 12_000;
 const MAX_RESPONSE_BYTES = 1_500_000;
 const MAX_ATTEMPTS = 5;
+const EXHAUSTED_LEASE_DEFERRED_ERROR = inventoryRefreshLastError({
+  deferRecheck: true,
+  failureReason: "runtime",
+  message:
+    "Processing lease expired after the maximum refresh attempts; deferred for daily recheck.",
+});
 
 // Woo Store API retailers: map hostname -> store origin for API calls.
 // These retailers expose /wp-json/wc/store/v1/products?slug=<slug> which returns
@@ -197,9 +205,11 @@ async function claimJob(
       limit 100
     ), exhausted as (
       update inventory_refresh_jobs j
-      set status = 'failed',
-          last_error = 'Processing lease expired after the maximum refresh attempts.',
-          completed_at = now(),
+      set status = 'queued',
+          last_error = ${EXHAUSTED_LEASE_DEFERRED_ERROR},
+          started_at = null,
+          next_attempt_at = now() + (${INVENTORY_DEFERRED_RECHECK_MS} * interval '1 millisecond'),
+          completed_at = null,
           updated_at = now()
       from exhausted_candidate
       where j.id = exhausted_candidate.id
@@ -690,7 +700,12 @@ async function failJob(
   const failure = decision.failure;
   const message = failure.message;
   const provenTerminalContradiction = decision.invalidateOffer;
-  const terminal = decision.terminal;
+  const deferRecheck = decision.deferRecheck;
+  const lastError = inventoryRefreshLastError({
+    deferRecheck,
+    failureReason: failure.reason,
+    message,
+  });
   const backoffMinutes = Math.min(
     2 ** Math.max(job.attempt_count - 1, 0) * 5,
     240,
@@ -739,11 +754,14 @@ async function failJob(
 
     const settledJobs = await transaction<{ id: string }[]>`
       update inventory_refresh_jobs
-      set status = ${terminal ? "failed" : "queued"}::inventory_refresh_status,
-          last_error = ${message.slice(0, 1000)},
-          started_at = case when ${terminal} then started_at else null end,
-          next_attempt_at = now() + (${backoffMinutes} * interval '1 minute'),
-          completed_at = ${terminal ? new Date() : null},
+      set status = 'queued',
+          last_error = ${lastError},
+          started_at = null,
+          next_attempt_at = now() + (
+            ${deferRecheck ? INVENTORY_DEFERRED_RECHECK_MS : backoffMinutes * 60 * 1000}
+            * interval '1 millisecond'
+          ),
+          completed_at = null,
           updated_at = now()
       where id = ${job.job_id}
         and offer_id = ${job.offer_id}
@@ -765,7 +783,7 @@ async function failJob(
     }
 
     return {
-      status: terminal ? "failed" : "retrying",
+      status: deferRecheck ? "deferred" : "retrying",
       terminalInvalidation:
         invalidatedAt && isInventoryRefreshTerminalReason(failure.reason)
           ? {

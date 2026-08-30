@@ -177,6 +177,38 @@ test("terminal contradictions propose unavailable expired static fallback withou
   assert.match(result.content, /"Exact Product",\s*"50 ml"/);
 });
 
+test("an already-applied terminal invalidation is an idempotent safe skip", () => {
+  const first = applyStaticOfferRefreshes({
+    content,
+    refreshedOffers: [],
+    invalidatedOffers: [
+      {
+        productSlug: "exact-product",
+        retailer: "Exact Store",
+        invalidatedAt: new Date("2026-08-12T10:00:00Z"),
+        reason: "product_identity",
+      },
+    ],
+  });
+  const repeated = applyStaticOfferRefreshes({
+    content: first.content,
+    refreshedOffers: [],
+    invalidatedOffers: [
+      {
+        productSlug: "exact-product",
+        retailer: "Exact Store",
+        invalidatedAt: new Date("2026-08-13T10:00:00Z"),
+        reason: "product_identity",
+      },
+    ],
+  });
+
+  assert.equal(repeated.invalidated, 0);
+  assert.equal(repeated.skipped, 1);
+  assert.deepEqual(repeated.errors, []);
+  assert.equal(repeated.content, first.content);
+});
+
 test("no terminal invalidation leaves static fallback bytes unchanged", () => {
   const result = applyStaticOfferRefreshes({
     content,

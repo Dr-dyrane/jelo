@@ -1012,7 +1012,8 @@ for the full diagnosis and recovery plan.
 
 1. Verify `CRON_SECRET` and the Authorization header.
 2. Inspect the response or `inventory_refresh_cron_completed` log. `run`
-   separates completed, retrying, terminal-failed, discarded, lease-recovered,
+   separates completed, retrying, deferred-daily-recheck, failed, discarded,
+   lease-recovered,
    and deadline-stopped work. `run.failureReasons` contains only bounded reason
    counts: route scope, product identity, package size, market currency, fetch
    unavailable, incomplete evidence, runtime, claim changed, or eligibility
@@ -1024,12 +1025,13 @@ for the full diagnosis and recovery plan.
    fetch/runtime failures, missing title or size evidence, and unmeasurable
    observed size; do not create duplicate active jobs or manually reclaim an
    unexpired worker. A proven route/canonical, title, measurable size, catalogue
-   expected-size, or market-currency contradiction fails immediately and expires
-   the persisted database offer. It also proposes an unavailable/expired static
-   fallback on the configured review branch. Production is not fully fail-closed
-   while that proposal remains unmerged or undeployed. An expired transient job
-   below the attempt cap is reclaimed, while one at the cap fails without offer
-   invalidation.
+   expected-size, or market-currency contradiction fails closed immediately,
+   expires the persisted database offer, and defers the same active job for one
+   recheck per day. It also proposes an unavailable/expired static fallback on
+   the configured review branch. Production is not fully fail-closed while that
+   proposal remains unmerged or undeployed. Exhausted transient work is not
+   hourly re-enqueued: the same job moves to the daily recheck cadence without
+   offer invalidation.
 6. Manually inspect any retailer that blocks automation.
 
 For a bounded manual run, scope claims to the intended market. This filter
@@ -1162,6 +1164,8 @@ overwrites of higher-quality data.
     `stock: "unknown"`, and an immediate `expiresAt` while preserving the prior
     price, URL, title, size, observation time, and verification method. Exhausted
     transient failures never create this proposal.
+  - Treats an already-applied unavailable/unknown/expired terminal projection
+    as an idempotent safe skip rather than a sync error.
 - **Failure mode:** returns error results, never throws. Enabled-but-invalid
   configuration produces `static_file_sync_misconfigured:<issue>`. A GitHub 404
   produces `static_file_sync_review_branch_not_found`, which means the configured
@@ -1204,6 +1208,25 @@ either ref moved, neither advances. Do not manually merge a passing routine
 proposal. Open a bounded product/platform exception only when the validator,
 history resolver, GitHub branch rule/token, release gate, deployment, or
 production smoke reports a concrete failure.
+
+If that recurring workflow fails, the native red Actions run and its exact
+failing step are the repository-internal operator signal. Automatic public
+issue creation and external paging remain unconfigured pending explicit
+action-time publication authority; do not publish an incident around the red
+gate without that authority.
+
+### Independent inventory health watchdog
+
+`/api/cron/inventory-health` runs hourly at minute 7, separately from the
+minute-17 inventory processor. It authenticates with the same cron boundary,
+executes aggregate `SELECT` queries only, and reports recent completion,
+failure, deferred-recheck, backlog, expired-lease, and stale-offer counts. A
+missed state, five or more deferred rechecks, expired leases, or degraded
+freshness emits `inventory_health_watchdog_checked` and returns HTTP 503 so the
+scheduled run is visibly unhealthy. It never calls the queue, claim, retry,
+cache, alert-email, or static-sync paths. Deferred aggregates select only
+`last_error` values prefixed with `inventory_refresh_daily_deferred:<reason>:`;
+ordinary short-retry errors are excluded.
 
 ### Diagnosing sync issues
 

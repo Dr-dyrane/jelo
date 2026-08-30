@@ -8,6 +8,7 @@ const healthyRun = {
   processed: 10,
   completed: 10,
   retrying: 0,
+  deferred: 0,
   failed: 0,
   discarded: 0,
   recoveredLeases: 0,
@@ -30,7 +31,18 @@ test("does not alert when the cron run is healthy", async () => {
   assert.equal(alert, undefined);
 });
 
-test("alerts when offers fail all retry attempts", async () => {
+test("alerts when offers are deferred to bounded daily rechecks", async () => {
+  const alert = await sendRefreshAlertIfNeeded(
+    { ...healthyRun, deferred: 5, completed: 5 },
+    healthyBacklog,
+  );
+  assert.ok(alert);
+  assert.equal(alert!.severity, "critical");
+  assert.equal(alert!.event, "inventory_refresh_deferred_rechecks");
+  assert.ok(alert!.message.includes("5 offers were fail-closed"));
+});
+
+test("retains a distinct alert for unrecoverable failed settlements", async () => {
   const alert = await sendRefreshAlertIfNeeded(
     { ...healthyRun, failed: 5, completed: 5 },
     healthyBacklog,
@@ -38,7 +50,7 @@ test("alerts when offers fail all retry attempts", async () => {
   assert.ok(alert);
   assert.equal(alert!.severity, "critical");
   assert.equal(alert!.event, "inventory_refresh_failed_offers");
-  assert.ok(alert!.message.includes("5 offers failed"));
+  assert.ok(alert!.message.includes("safe recheck path"));
 });
 
 test("alerts when no offers were successfully refreshed", async () => {
@@ -48,6 +60,7 @@ test("alerts when no offers were successfully refreshed", async () => {
       completed: 0,
       processed: 10,
       failed: 3,
+      deferred: 0,
       retrying: 7,
       failureReasons: { package_size: 3, fetch_unavailable: 7 },
     },

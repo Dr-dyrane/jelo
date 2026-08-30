@@ -793,6 +793,9 @@ function invalidateOfferInContent(
     stock: "unknown",
     expiresAt,
   };
+  if (verifyOfferUpdate(offerText, updates)) {
+    return { updated: false, content };
+  }
   const updatedOfferText = updateOfferBlock(offerText, updates);
   if (
     updatedOfferText === offerText ||

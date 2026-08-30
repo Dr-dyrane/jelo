@@ -10,6 +10,7 @@ type RefreshRunSummary = {
   processed: number;
   completed: number;
   retrying: number;
+  deferred: number;
   failed: number;
   discarded: number;
   recoveredLeases: number;
@@ -38,7 +39,7 @@ type AlertPayload = {
 };
 
 const BACKLOG_ALERT_THRESHOLD = 50;
-const FAILED_ALERT_THRESHOLD = 5;
+const DEFERRED_ALERT_THRESHOLD = 5;
 const STALE_OFFER_ALERT_THRESHOLD = 30;
 const ALERT_RECIPIENT =
   process.env.INVENTORY_ALERT_EMAIL ?? "hello@jelocare.com";
@@ -47,11 +48,22 @@ function shouldAlert(
   run: RefreshRunSummary,
   backlog: BacklogSummary,
 ): AlertPayload | undefined {
-  if (run.failed >= FAILED_ALERT_THRESHOLD) {
+  if (run.deferred >= DEFERRED_ALERT_THRESHOLD) {
+    return {
+      event: "inventory_refresh_deferred_rechecks",
+      severity: "critical",
+      message: `${run.deferred} offers were fail-closed and deferred to bounded daily rechecks in the last cron run.`,
+      run,
+      backlog,
+      timestamp: new Date().toISOString(),
+    };
+  }
+
+  if (run.failed >= DEFERRED_ALERT_THRESHOLD) {
     return {
       event: "inventory_refresh_failed_offers",
       severity: "critical",
-      message: `${run.failed} offers failed all retry attempts in the last cron run.`,
+      message: `${run.failed} offers could not be placed on a safe recheck path in the last cron run.`,
       run,
       backlog,
       timestamp: new Date().toISOString(),
@@ -107,6 +119,7 @@ function alertEmailHtml(alert: AlertPayload): string {
       ["Completed", String(alert.run.completed)],
       ["Failed", String(alert.run.failed)],
       ["Retrying", String(alert.run.retrying)],
+      ["Deferred", String(alert.run.deferred)],
       ["Discarded", String(alert.run.discarded)],
       ["Failure reasons", JSON.stringify(alert.run.failureReasons)],
       ["Stopped by deadline", String(alert.run.stoppedByDeadline)],

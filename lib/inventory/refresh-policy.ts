@@ -4,9 +4,13 @@ export const INVENTORY_CRON_BATCH_SIZE = 100;
 export const INVENTORY_CRON_RUNS_PER_DAY = 24;
 export const INVENTORY_CRON_LOOKAHEAD_HOURS = 1;
 export const INVENTORY_REFRESH_FRESHNESS_MS = 24 * 60 * 60 * 1000;
+export const INVENTORY_DEFERRED_RECHECK_MS = 24 * 60 * 60 * 1000;
+export const INVENTORY_DEFERRED_RECHECK_ERROR_CODE =
+  "inventory_refresh_daily_deferred";
+const INVENTORY_REFRESH_LAST_ERROR_MAX_LENGTH = 1000;
 
 export type InventoryRefreshRunStatus =
-  "completed" | "retrying" | "failed" | "discarded";
+  "completed" | "retrying" | "deferred" | "failed" | "discarded";
 
 export const INVENTORY_REFRESH_FAILURE_REASONS = [
   "route_scope",
@@ -149,8 +153,22 @@ export function inventoryRefreshFailureSettlement(input: {
   return {
     failure,
     invalidateOffer,
-    terminal: invalidateOffer || input.attemptCount >= input.maxAttempts,
+    deferRecheck: invalidateOffer || input.attemptCount >= input.maxAttempts,
   };
+}
+
+export function inventoryRefreshLastError(input: {
+  deferRecheck: boolean;
+  failureReason: InventoryRefreshFailureReason;
+  message: string;
+}) {
+  const prefix = input.deferRecheck
+    ? `${INVENTORY_DEFERRED_RECHECK_ERROR_CODE}:${input.failureReason}:`
+    : "";
+  return `${prefix}${input.message}`.slice(
+    0,
+    INVENTORY_REFRESH_LAST_ERROR_MAX_LENGTH,
+  );
 }
 
 export function canClaimInventoryRefreshJob(
@@ -191,6 +209,8 @@ export function summarizeInventoryRefreshRun(input: {
     completed: input.results.filter((result) => result.status === "completed")
       .length,
     retrying: input.results.filter((result) => result.status === "retrying")
+      .length,
+    deferred: input.results.filter((result) => result.status === "deferred")
       .length,
     failed: input.results.filter((result) => result.status === "failed").length,
     discarded: input.results.filter((result) => result.status === "discarded")

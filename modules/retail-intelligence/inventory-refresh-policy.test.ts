@@ -5,8 +5,11 @@ import {
   canClaimInventoryRefreshJob,
   classifyInventoryRefreshFailure,
   INVENTORY_CRON_CLAIM_BUDGET_MS,
+  INVENTORY_DEFERRED_RECHECK_ERROR_CODE,
+  INVENTORY_DEFERRED_RECHECK_MS,
   INVENTORY_REFRESH_LEASE_MS,
   inventoryRefreshFailureSettlement,
+  inventoryRefreshLastError,
   summarizeInventoryRefreshRun,
   transientInventoryRefreshFailure,
 } from "@/lib/inventory/refresh-policy";
@@ -113,7 +116,7 @@ test("only proven contradictions invalidate offers, even when transient retries 
     attemptCount: 1,
     maxAttempts: 5,
   });
-  assert.equal(titleMissing.terminal, false);
+  assert.equal(titleMissing.deferRecheck, false);
   assert.equal(titleMissing.invalidateOffer, false);
 
   const exhaustedFetch = inventoryRefreshFailureSettlement({
@@ -124,7 +127,7 @@ test("only proven contradictions invalidate offers, even when transient retries 
     attemptCount: 5,
     maxAttempts: 5,
   });
-  assert.equal(exhaustedFetch.terminal, true);
+  assert.equal(exhaustedFetch.deferRecheck, true);
   assert.equal(exhaustedFetch.invalidateOffer, false);
 
   const contradiction = inventoryRefreshFailureSettlement({
@@ -132,12 +135,12 @@ test("only proven contradictions invalidate offers, even when transient retries 
     attemptCount: 1,
     maxAttempts: 5,
   });
-  assert.equal(contradiction.terminal, true);
+  assert.equal(contradiction.deferRecheck, true);
   assert.equal(contradiction.invalidateOffer, true);
   assert.equal(contradiction.failure.reason, "package_size");
 });
 
-test("the structured run summary separates retry and terminal outcomes", () => {
+test("the structured run summary separates retries, deferred rechecks, and failures", () => {
   const summary = summarizeInventoryRefreshRun({
     queued: 3,
     withdrawn: 1,
@@ -165,8 +168,8 @@ test("the structured run summary separates retry and terminal outcomes", () => {
         failureReason: "fetch_unavailable",
       },
       {
-        status: "failed",
-        productSlug: "failed-lotion",
+        status: "deferred",
+        productSlug: "deferred-lotion",
         recoveredLease: true,
         failureReason: "package_size",
       },
@@ -184,7 +187,8 @@ test("the structured run summary separates retry and terminal outcomes", () => {
     processed: 6,
     completed: 3,
     retrying: 1,
-    failed: 1,
+    deferred: 1,
+    failed: 0,
     discarded: 1,
     recoveredLeases: 2,
     failureReasons: {
@@ -194,4 +198,37 @@ test("the structured run summary separates retry and terminal outcomes", () => {
     stoppedByDeadline: true,
     affectedProductSlugs: ["alpha-serum", "zinc-cleanser"],
   });
+});
+
+test("terminal and exhausted outcomes use a bounded daily recheck window", () => {
+  assert.equal(INVENTORY_DEFERRED_RECHECK_MS, 24 * 60 * 60 * 1000);
+});
+
+test("only daily deferrals receive the typed marker and every error stays bounded", () => {
+  const ordinaryRetry = inventoryRefreshLastError({
+    deferRecheck: false,
+    failureReason: "fetch_unavailable",
+    message: "Retailer timed out.",
+  });
+  const dailyDeferred = inventoryRefreshLastError({
+    deferRecheck: true,
+    failureReason: "package_size",
+    message: "Observed package conflicts with the catalogue identity.",
+  });
+  const longDeferred = inventoryRefreshLastError({
+    deferRecheck: true,
+    failureReason: "runtime",
+    message: "x".repeat(2_000),
+  });
+
+  assert.equal(ordinaryRetry, "Retailer timed out.");
+  assert.equal(
+    ordinaryRetry.startsWith(INVENTORY_DEFERRED_RECHECK_ERROR_CODE),
+    false,
+  );
+  assert.match(
+    dailyDeferred,
+    /^inventory_refresh_daily_deferred:package_size:/,
+  );
+  assert.equal(longDeferred.length, 1_000);
 });

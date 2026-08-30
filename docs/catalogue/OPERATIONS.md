@@ -743,8 +743,10 @@ population, with a regression test that fails when catalogue growth consumes
 that headroom. Capacity is emitted in every completed-run summary. The alerting
 system (`lib/inventory/refresh-alerting.ts`) sends email alerts when:
 
-1. **5+ offers fail all retry attempts** (critical) — the cron is losing
-   retailer pages to persistent errors.
+1. **5+ offers enter deferred recheck** (critical) — proven fail-closed
+   conflicts or exhausted transient attempts need operator visibility.
+   A separate critical event remains for settlements that cannot enter that
+   safe recheck path.
 2. **Zero completions in a run with processed > 0** (critical) — every
    refresh attempt failed.
 3. **Backlog exceeds 50 due offers** (warning) — the cron is falling behind
@@ -758,7 +760,18 @@ promote an ambiguous retailer result into a canonical SKU, normalize a package
 or unit conflict, discover a missing exact Nigerian listing, or publish a new
 product. Those remain evidence-bound completion cells; the scheduled owner
 records typed terminal conflicts and fails them closed instead of manufacturing
-the outcome that earlier catalogue waves established manually.
+the outcome that earlier catalogue waves established manually. Proven
+identity, package, route, and market conflicts expire the affected offer and
+remain on the same refresh job for one bounded recheck per day. Transient work
+uses the existing short retry budget, then moves to that daily recheck cadence.
+The run summary reports these outcomes as `deferred`, not completed or failed,
+and the active queued job prevents a duplicate enqueue.
+
+An independent `/api/cron/inventory-health` watchdog runs hourly at minute 7.
+It performs read-only aggregate queries, emits a structured health event, and
+returns a failing status for missed activity or degraded freshness. It never
+enqueues, claims, retries, refreshes, invalidates cache, or proposes a static
+file change.
 
 Alert emails go to `INVENTORY_ALERT_EMAIL` (defaults to
 `hello@jelocare.com`) when transactional email is configured. All alerts
