@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-11-2026-08-29",
+  "scope": "Twenty-one live retailer checks across five independently releasable exact product SKUs",
+  "reviewedAt": "2026-08-30T00:11:51.842Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-store-api-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 29,
+    "after": 34,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T00:11:51.842Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The backlog remains empty."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "offersReviewed": 21,
+    "offersAdmitted": 11,
+    "shopperActiveOffers": 11,
+    "outOfStockObservations": 0,
+    "offersBlocked": 10,
+    "offersProjected": 11
+  },
+  "products": [
+    {
+      "candidateId": "some-by-mi-aha-bha-pha-miracle-toner",
+      "identity": {
+        "gtin": null,
+        "variant": "SOME BY MI AHA BHA PHA 30 Days Miracle Toner",
+        "size": "150 ml",
+        "packageVersion": "green cylindrical bottle with black cap and vertical white 30 Days Miracle Toner label"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/some-by-mi-aha-bha-pha-30days-miracle-toner/",
+          "priceNgn": 17000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:11:51.842Z",
+          "expiresAt": "2026-09-06T00:11:51.842Z",
+          "responseSha256": "0156c80a0593efeb8d6c11adc88f198f5c546c4b369625068e1d91ea38f42c45",
+          "responseByteSize": 390750,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/Screenshot-at-1-4.png",
+          "packageImageSha256": "186821d979e9e39c6a3ca942d1cb97c1bc368d18b6f3dc146110b0fd6dbf0cfd",
+          "packageImageByteSize": 43094
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/some-by-mi-aha-bha-pha-30-days-miracle-toner/",
+          "priceNgn": 26747,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:11:51.842Z",
+          "expiresAt": "2026-09-06T00:11:51.842Z",
+          "responseSha256": "642be048270e0ffcd8e033bdab5515505b468a4fdbf8315f571086bd375de3b6",
+          "responseByteSize": 810809,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/04/Some-By-Mi-AHA-BHA-PHA-30-days-Miracle-Toner.jpg",
+          "packageImageSha256": "6510c260fd842f679a2c3d95aba3fe94b08cca87dbecca39a56dff9e9b85ec18",
+          "packageImageByteSize": 65585
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/some-by-mi-aha-bha-pha-30-days-miracle-toner-5-07oz-6891546",
+          "priceNgn": 18000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:11:51.842Z",
+          "expiresAt": "2026-09-06T00:11:51.842Z",
+          "responseSha256": "028d705f7468e89ce0bc1d090b4a1ca6383cfa8e50764f6e9eaef8ace420784b",
+          "responseByteSize": 259467,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/C/Q/245723_1763462366.jpg",
+          "packageImageSha256": "c9f119b8a1c89e04d174196af7ac96d9098d25f0968fead581bc537e589f48b8",
+          "packageImageByteSize": 45713
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/some-by-mi-aha-bha-pha-30-days-miracle-toner-150ml/",
+          "priceNgn": 17400,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:11:51.842Z",
+          "expiresAt": "2026-09-06T00:11:51.842Z",
+          "responseSha256": "434b08e4e4975e10e0d9e2915e5a973aa89766d2185c1d335cfdb21bb3072f6f",
+          "responseByteSize": 142538,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/07/some-by-mi-ahabhapha-30-days-miracle-toner-150ml-585686.webp",
+          "packageReviewMethod": "reviewed-browser-render",
+          "packageImageDirectFetchStatus": 406
+        }
+      ]
+    },
+    {
+      "candidateId": "anua-niacinamide-10-txa-4-serum",
+      "identity": {
+        "gtin": null,
+        "variant": "Anua Niacinamide 10% + TXA 4% Serum",
+        "size": "30 ml",
+        "packageVersion": "current red 10+ square glass dropper bottle with silver collar and white label band"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/anua-niacinamide-10-tranexamin-acid-4-serum/",
+          "priceNgn": 18850,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:11:51.842Z",
+          "expiresAt": "2026-09-06T00:11:51.842Z",
+          "responseSha256": "3c9b21747db8afe939ff44d2dcdf0c3c07d1a396252937d709faa1bd8d74d16e",
+          "responseByteSize": 289329,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2024/06/images-2025-06-13T135851.366.jpeg",
+          "packageImageSha256": "4cd40748f1e4e56d0996ceed53d4bb1c9e5067c7b71e3fd9fdf760a77787fbd7",
+          "packageImageByteSize": 13631
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/anua-niacinamide-10-txa-4-serum-30ml/",
+          "priceNgn": 18000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:11:51.842Z",
+          "expiresAt": "2026-09-06T00:11:51.842Z",
+          "responseSha256": "4c9c8d0ea37d227728afcb051d0b278139ebe8b12574f76b20ce8e6f5d0c0791",
+          "responseByteSize": 354013,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/10/WhatsApp-Image-2025-07-11-at-17.01.15_0748a558.jpg",
+          "packageImageSha256": "f42c44f8a08da4c1d07f1f576e4f547ce9fe9df18503640182d2fde814b1f7e3",
+          "packageImageByteSize": 65906
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/anua-10-niacinamide-4-txa-acid-serum-30ml/",
+          "priceNgn": 18000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:11:51.842Z",
+          "expiresAt": "2026-09-06T00:11:51.842Z",
+          "responseSha256": "db9b99db93c6b456ae2c3021cdb78b7060b67867638ae9a2607ce8183d2b3acb",
+          "responseByteSize": 585531,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2024/06/skdbvd-1.jpg",
+          "packageImageSha256": "3622592d945f1254bd5ec53a8915a89e727f0fcabeca8b8acd14cd3d727a3107",
+          "packageImageByteSize": 11468
+        }
+      ]
+    },
+    {
+      "candidateId": "mediana-leave-in-conditioning-milk",
+      "identity": {
+        "gtin": "615600032567",
+        "variant": "Mediana Leave-In Conditioning Milk",
+        "size": "250 ml",
+        "packageVersion": "cream-coloured 250 ml cylindrical bottle with white flip cap and green-purple label"
+      },
+      "offers": [
+        {
+          "retailer": "Slique Beauty",
+          "url": "https://sliquebeautylimited.com/product/mediana-leave-in-conditioning-milk-250ml/",
+          "priceNgn": 2000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:11:51.842Z",
+          "expiresAt": "2026-09-06T00:11:51.842Z",
+          "responseSha256": "b910224219f8b460b9c3d83b0f82e9b4326673b138295a015a7d7bcd511d3175",
+          "responseByteSize": 421163,
+          "packageImageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/mediana-leave-in-conditioning-milk.webp",
+          "packageImageSha256": "58dc7505b7ccf5bcc32c824fe848982295eab52f2ad723adaa02e562dda59c2f",
+          "packageImageByteSize": 15294
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/mediana-leave-in-conditioning-milk-250ml-6752018",
+          "priceNgn": 8500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:11:51.842Z",
+          "expiresAt": "2026-09-06T00:11:51.842Z",
+          "responseSha256": "da35b688017be865eda3b76fd6d88f211f32d48067f287ccfc4f22089235ddfc",
+          "responseByteSize": 267568,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/B/H/223470_1747902019.jpg",
+          "packageImageSha256": "f43643fc07c986563b5db0477678c74229ca4f6452437043a9ec6868edb95aa6",
+          "packageImageByteSize": 25945
+        }
+      ]
+    },
+    {
+      "candidateId": "disaar-argan-oil-body-oil-gel",
+      "identity": {
+        "gtin": null,
+        "variant": "Disaar Argan Oil Body Oil Gel",
+        "size": "200 ml",
+        "packageVersion": "clear rectangular gel bottle with navy cap and teal Argan Oil Body Oil Gel label"
+      },
+      "offers": [
+        {
+          "retailer": "Choices Beauty",
+          "url": "https://choiceschi.com/product/disaar-argan-oil-body-oil-gel/",
+          "priceNgn": 4000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:11:51.842Z",
+          "expiresAt": "2026-09-06T00:11:51.842Z",
+          "responseSha256": "76a5be31d2f4bb2ed8062f582301dc79e7e8fe0535f41b13ec17276e7095c269",
+          "responseByteSize": 194233,
+          "packageImageUrl": "https://choiceschi.com/wp-content/uploads/2023/10/img_7380.jpeg",
+          "packageImageSha256": "a5dadccffc17ecbe8c1fc0bcad78daeb6c4b034b3494fc1357a8f5ba4a05687f",
+          "packageImageByteSize": 61383
+        }
+      ]
+    },
+    {
+      "candidateId": "miracle-natural-hair-anti-dandruff-shampoo",
+      "identity": {
+        "gtin": "6156000247298",
+        "variant": "Beautiful You Miracle Natural Hair Anti-Dandruff & Anti-Itch Shampoo with Castor Oil",
+        "size": "400 ml",
+        "packageVersion": "pink tapered bottle with pink flip cap and Beautiful You Miracle Natural Hair label"
+      },
+      "offers": [
+        {
+          "retailer": "MamaTega",
+          "url": "https://www.shopmamatega.com/products/6156000247298",
+          "priceNgn": 1300,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:11:51.842Z",
+          "expiresAt": "2026-09-06T00:11:51.842Z",
+          "evidenceMethod": "reviewed-live-html-and-shopify-product-json",
+          "responseSha256": "670dfcf02ee75efce474649a299d9a58d07942e9f310b00662f5ac2598e3eac1",
+          "responseByteSize": 840700,
+          "productApiUrl": "https://www.shopmamatega.com/products/6156000247298.js",
+          "productApiSha256": "4195edf164a852042c252c59a2e95566e1df7fd26fbf2605f349c4d29c584668",
+          "productApiByteSize": 5513,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0282/6557/8584/products/6156000247298_f989b0fa-9dd4-482c-b868-c98788b3e816.png?v=1702124253",
+          "packageImageSha256": "50919a1eacf0ab49fc6fd189017e4109788ccaddceb929a41d8a5941da7fd6cf",
+          "packageImageByteSize": 86333
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "some-by-mi-aha-bha-pha-miracle-toner",
+      "retailer": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/some-by-mi-30-days-miracle-toner-150ml/",
+      "responseStatus": 403,
+      "responseSha256": "542dad1c8f4aca20cb2e326cdbde30e5e14ff4fcaea124b2b5f0b81eef67ba94",
+      "responseByteSize": 5900,
+      "blocker": "Browser verification wall prevents a current exact price, stock, and package check."
+    },
+    {
+      "candidateId": "some-by-mi-aha-bha-pha-miracle-toner",
+      "retailer": "Teeka4",
+      "url": "https://teeka4.com/shop/somebymi-aha-bha-pha-30days-miracle-toner-150ml-5oz/",
+      "responseStatus": 200,
+      "responseSha256": "f74cde2661f596472afb0871fcf1022518c1c03083428f1ca398d444d20323aa",
+      "responseByteSize": 373320,
+      "observedPriceNgn": 13495,
+      "observedStock": "out-of-stock",
+      "blocker": "The current exact title and size route has no product image, so the package version cannot be re-verified. The expired observation remains non-shareable."
+    },
+    {
+      "candidateId": "some-by-mi-aha-bha-pha-miracle-toner",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/some-by-mi-aha-bha-pha-30-days-miracle-toner-150ml-419663953.html",
+      "responseStatus": 403,
+      "responseSha256": "14bd487425a61cc22564423dcb95ef3e9ad68708fa3cc0f2c8a75f0b4377b678",
+      "responseByteSize": 6011,
+      "blocker": "Browser verification wall prevents current exact verification."
+    },
+    {
+      "candidateId": "anua-niacinamide-10-txa-4-serum",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/anua-niacinamide-10-txa-4-serum-30ml-new-version-419517907.html",
+      "responseStatus": 403,
+      "responseSha256": "7b3c0074daed7e61b680a423dc595f1bc90b42f1928aafd937475ea7ad523fd6",
+      "responseByteSize": 6005,
+      "blocker": "Browser verification wall prevents current exact verification."
+    },
+    {
+      "candidateId": "anua-niacinamide-10-txa-4-serum",
+      "retailer": "Care to Beauty",
+      "url": "https://www.caretobeauty.com/ng/anua-niacinamide-10-txa-4-serum-30ml/",
+      "responseStatus": 403,
+      "responseSha256": "88d65b75feb3bef96dd347a79634affa02df9f66ceccd5aac90c24a88f978d66",
+      "responseByteSize": 5851,
+      "blocker": "Browser verification wall prevents current exact verification."
+    },
+    {
+      "candidateId": "mediana-leave-in-conditioning-milk",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/mediana-leave-in-conditioning-milk-250ml-215118251.html",
+      "responseStatus": 403,
+      "responseSha256": "d867d7f4eb33ad693d4577b2b5ca62c675a81e1803845ab5f3070fa798dcac47",
+      "responseByteSize": 5939,
+      "blocker": "Browser verification wall prevents current seller, price, stock, and package verification."
+    },
+    {
+      "candidateId": "disaar-argan-oil-body-oil-gel",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/disaar-argan-oil-body-oil-gel-deep-moisturizing-skin-care-200ml-419220900.html",
+      "responseStatus": 403,
+      "responseSha256": "e804132ad20ca5e10fdc8c0e6ca78713711c1dec224e53a0591a40491441c2cc",
+      "responseByteSize": 6072,
+      "blocker": "Browser verification wall prevents current seller, price, stock, and package verification."
+    },
+    {
+      "candidateId": "disaar-argan-oil-body-oil-gel",
+      "retailer": "Konga Health",
+      "url": "https://www.konga.com/product/disaar-argan-oil-whitening-and-moisturizing-oil-100ml-6584283",
+      "responseStatus": 200,
+      "responseSha256": "8b1304b0429566ae75231d26e688db63acfd8b951d7e251fe9ed6a1ea782092d",
+      "responseByteSize": 262491,
+      "observedIdentity": "Disaar Argan Oil Whitening & Moisturizing Oil",
+      "observedSize": "100 ml",
+      "blocker": "The live listing is a 100 ml oil sibling, not the 200 ml Body Oil Gel. It remains expired and non-shareable."
+    },
+    {
+      "candidateId": "miracle-natural-hair-anti-dandruff-shampoo",
+      "retailer": "AGT Plaza",
+      "url": "https://www.agtplaza.com/products/miracle-shampoo-natural-hair-anti-dandruff-anti-itch-with-castor-oil-400ml-ugm41a",
+      "responseStatus": 200,
+      "finalUrl": "https://www.agtplaza.com/",
+      "responseSha256": "68f8dde3e2bc63b95417f5febf31146d572c2ff1b4f68852ffac0c5c4898e908",
+      "responseByteSize": 1054575,
+      "blocker": "The exact route now redirects to the retailer homepage, so the expired observation is made explicitly non-shareable."
+    },
+    {
+      "candidateId": "miracle-natural-hair-anti-dandruff-shampoo",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/miracle-anti-dandruff-anti-itch-natural-hair-shampoo-420118990.html",
+      "responseStatus": 403,
+      "responseSha256": "709bf6f55c934fcddb18e2303501aa5eaec67abf92538e5d30ec0d3d7e85099b",
+      "responseByteSize": 6039,
+      "blocker": "Browser verification wall prevents current exact verification."
+    }
+  ],
+  "carriedProductBlockers": [
+    "naturium-vitamin-c-complex-serum-1fl-oz",
+    "naturium-niacinamide-serum-12-percent-1fl-oz",
+    "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+    "naturium-retinol-complex-serum-1fl-oz",
+    "naturium-niacinamide-gel-cream-5-1-7oz",
+    "naturium-glow-getter-multi-oil-body-scrub-8oz",
+    "dove-moroccan-argan-oil-beauty-bar",
+    "b-lab-matcha-hydrating-real-sunscreen",
+    "kuza-indian-hemp-hair-scalp-treatment",
+    "lush-hair-mentholated-conditioner"
+  ]
+}

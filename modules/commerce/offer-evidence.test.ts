@@ -344,7 +344,10 @@ test("Slique remains provisional and link-only with a complete dated Mediana obs
   assert.equal(hasCompletePriceObservation(offer), true);
   assert.equal(offer.priceObservation?.size, "250 ml");
   assert.equal(offer.priceObservation?.landedCost, "unknown");
-  assert.equal(observedMarketPrice(offer, "NG", now), 22_500);
+  assert.equal(
+    observedMarketPrice(offer, "NG", new Date("2026-08-30T00:12:00Z")),
+    2_000,
+  );
   assert.equal(
     mediana.image,
     "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/mediana/mediana-leave-in-conditioning-milk/packshot-v2.png",

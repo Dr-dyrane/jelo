@@ -11,6 +11,7 @@ import waveSevenAudit from "@/data/retailer-verification/catalogue-offer-refresh
 import waveEightAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-8-2026-08-29.json";
 import waveNineAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-9-2026-08-29.json";
 import waveTenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-10-2026-08-29.json";
+import waveElevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-11-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -511,6 +512,61 @@ test("catalogue offer refresh wave 10 releases all exact EOS 473 ml retailer cel
   }
 });
 
+test("catalogue offer refresh wave 11 releases five exact product cells and isolates blocked siblings", () => {
+  const projected = waveElevenAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveElevenAudit.matrix.unit, "exact product SKU");
+  assert.equal(waveElevenAudit.matrix.before, 29);
+  assert.equal(waveElevenAudit.matrix.after, 34);
+  assert.equal(waveElevenAudit.matrix.total, 162);
+  assert.equal(waveElevenAudit.summary.productsReleased, 5);
+  assert.equal(waveElevenAudit.summary.offersReviewed, 21);
+  assert.equal(waveElevenAudit.summary.offersAdmitted, 11);
+  assert.equal(waveElevenAudit.summary.offersBlocked, 10);
+  assert.equal(projected.length, 11);
+  assert.equal(
+    waveElevenAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    0,
+  );
+
+  for (const product of waveElevenAudit.products) {
+    const offers = verifiedRetailOffers[product.candidateId] ?? [];
+    for (const evidence of product.offers) {
+      const offer = offers.find((candidate) => candidate.url === evidence.url);
+      assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+      assert.equal(offer.retailer, evidence.retailer);
+      assert.equal(offer.priceNgn, evidence.priceNgn);
+      assert.equal(offer.available, evidence.available);
+      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      assert.equal(offer.priceObservation?.size, product.identity.size);
+      assert.equal(offer.checkedAt, evidence.checkedAt);
+      assert.equal(offer.expiresAt, evidence.expiresAt);
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize > 0);
+      if (
+        typeof evidence.packageImageSha256 === "string" &&
+        typeof evidence.packageImageByteSize === "number"
+      ) {
+        assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+        assert.ok(evidence.packageImageByteSize > 0);
+      } else {
+        assert.equal(evidence.packageReviewMethod, "reviewed-browser-render");
+      }
+    }
+  }
+
+  const asOf = new Date(waveElevenAudit.reviewedAt);
+  for (const blocked of waveElevenAudit.blockedCells) {
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.retailer === blocked.retailer,
+    );
+    assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
+    assert.equal(isOfferFresh(offer, asOf), false);
+  }
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -705,7 +761,7 @@ test("the zero-depth enrichment wave publishes exact offers across its cohort", 
 test("browser-verified Beauty by Daz prices serve exact original catalogue products", () => {
   const expected = [
     ["cosrx-salicylic-acid-daily-gentle-cleanser", 8_500, "150 ml", true],
-    ["anua-niacinamide-10-txa-4-serum", 18_850, "30 ml", false],
+    ["anua-niacinamide-10-txa-4-serum", 18_850, "30 ml", true],
     ["face-facts-bright-clear-face-cream", 7_500, "75 ml", true],
   ] as const;
 

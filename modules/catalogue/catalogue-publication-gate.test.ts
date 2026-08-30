@@ -269,7 +269,7 @@ test("the same audit surfaces reviewed-product formula, evidence, Nigeria and ri
   const audit = auditReviewedProductQuality(
     product,
     undefined,
-    Date.parse("2026-08-14T17:01:00Z"),
+    Date.parse("2026-08-30T00:12:00Z"),
   );
 
   assert.equal(audit.productSlug, product.slug);

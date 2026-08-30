@@ -1156,6 +1156,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       25100,
       "Some By Mi AHA-BHA-PHA 30 Days Miracle Toner",
       "150 ml",
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+      },
     ),
     exactNg(
       "Teeka4",
@@ -1179,8 +1183,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SOME BY MI AHA-BHA-PHA 30Days Miracle Toner",
       "150 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-30T00:11:51.842Z",
+        expiresAt: "2026-09-06T00:11:51.842Z",
         stock: "in-stock",
         available: true,
       },
@@ -1207,8 +1211,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi AHA BHA PHA 30 days Miracle Toner",
       "150 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-30T00:11:51.842Z",
+        expiresAt: "2026-09-06T00:11:51.842Z",
         stock: "in-stock",
         available: true,
       },
@@ -1221,8 +1225,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha Bha Pha 30 Days Miracle Toner - 5.07oz",
       "150 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-30T00:11:51.842Z",
+        expiresAt: "2026-09-06T00:11:51.842Z",
         stock: "in-stock",
         available: true,
       },
@@ -1235,8 +1239,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha.Bha.Pha 30 Days Miracle Toner 150ml",
       "150 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-30T00:11:51.842Z",
+        expiresAt: "2026-09-06T00:11:51.842Z",
         stock: "in-stock",
         available: true,
       },
@@ -1250,7 +1254,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       18850,
       "ANUA Niacinamide 10% + TXA 4% Serum",
       "30 ml",
-      { available: false, observedAt: "2026-08-14T17:00:00Z" },
+      {
+        available: true,
+        observedAt: "2026-08-30T00:11:51.842Z",
+        expiresAt: "2026-09-06T00:11:51.842Z",
+        stock: "in-stock",
+      },
     ),
     exactNg(
       "Teeka4",
@@ -1259,6 +1268,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       18000,
       "ANUA Niacinamide 10% + TXA 4% Serum",
       "30 ml",
+      {
+        observedAt: "2026-08-30T00:11:51.842Z",
+        expiresAt: "2026-09-06T00:11:51.842Z",
+        stock: "in-stock",
+      },
     ),
     exactNg(
       "Jumia",
@@ -1277,12 +1291,16 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     ),
     exactNg(
       "BuyBetter",
-      "https://buybetter.ng/product/anua-10-niacinamide-4-txa-acid-serum/",
+      "https://buybetter.ng/product/anua-10-niacinamide-4-txa-acid-serum-30ml/",
       97,
-      17738,
+      18000,
       "Anua 10% Niacinamide + 4% TXA Acid Serum",
       "30 ml",
-      { observedAt: "2026-08-14T17:00:00Z", expiresAt: "2026-08-21T17:00:00Z" },
+      {
+        observedAt: "2026-08-30T00:11:51.842Z",
+        expiresAt: "2026-09-06T00:11:51.842Z",
+        stock: "in-stock",
+      },
     ),
     exactNg(
       "Care to Beauty",
@@ -1478,6 +1496,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       1695,
       "Miracle Shampoo Natural Hair Anti-Dandruff Anti-Itch with Castor Oil",
       "400 ml",
+      {
+        observedAt: "2026-08-14T17:00:00Z",
+        expiresAt: "2026-08-21T17:00:00Z",
+      },
     ),
     exactNg(
       "Jumia",
@@ -1495,14 +1517,14 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     ),
     exactNg(
       "MamaTega",
-      "https://shopmamatega.com/products/6156000247298",
+      "https://www.shopmamatega.com/products/6156000247298",
       76,
       1300,
       "Miracle Shampoo Natural Hair Anti Dandruff",
       "400 ml",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
+        observedAt: "2026-08-30T00:11:51.842Z",
+        expiresAt: "2026-09-06T00:11:51.842Z",
         stock: "in-stock",
       },
     ),
@@ -1590,29 +1612,19 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         priceComparison: "exclude",
       },
     ),
-    {
-      retailer: "Slique Beauty",
-      url: "https://sliquebeautylimited.com/product/mediana-leave-in-conditioning-milk-250ml/",
-      trust: 78,
-      available: true,
-      priceNgn: 22500,
-      checkedAt: "2026-08-14T17:00:00Z",
-      match: "exact",
-      listingEvidence: {
-        observedAt: "2026-08-14T17:00:00Z",
-        sourceUrl:
-          "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?slug=mediana-leave-in-conditioning-milk-250ml",
-        basis: "retailer-api",
-      },
-      priceObservation: {
-        observedAt: "2026-08-14T17:00:00Z",
-        variant: "Leave-In Conditioning Milk",
-        size: "250 ml",
+    exactNg(
+      "Slique Beauty",
+      "https://sliquebeautylimited.com/product/mediana-leave-in-conditioning-milk-250ml/",
+      78,
+      2000,
+      "MEDIANA LEAVE IN CONDITIONING MILK 250ML",
+      "250 ml",
+      {
+        observedAt: "2026-08-30T00:11:51.842Z",
+        expiresAt: "2026-09-06T00:11:51.842Z",
         stock: "in-stock",
-        landedCost: "unknown",
       },
-      location: ["NG"],
-    },
+    ),
     exactNg(
       "Konga Health",
       "https://www.konga.com/product/mediana-leave-in-conditioning-milk-250ml-6752018",
@@ -1621,8 +1633,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Mediana Leave-in Conditioning Milk - 250ml",
       "250 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-08-30T00:11:51.842Z",
+        expiresAt: "2026-09-06T00:11:51.842Z",
         stock: "in-stock",
         available: true,
       },
@@ -1636,6 +1648,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       4000,
       "Disaar Argan Oil Body Oil Gel",
       "200 ml",
+      {
+        observedAt: "2026-08-30T00:11:51.842Z",
+        expiresAt: "2026-09-06T00:11:51.842Z",
+        stock: "in-stock",
+      },
     ),
     exactNg(
       "Jumia",
