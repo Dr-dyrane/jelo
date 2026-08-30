@@ -1,0 +1,366 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-15-2026-08-29",
+  "scope": "Nineteen live retailer checks across five independently releasable exact product SKUs",
+  "reviewedAt": "2026-08-30T01:31:00.820Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 46,
+    "after": 51,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T01:31:00.820Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The last observed backlog remains empty and no later scheduled run was due before this review."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 19,
+    "offersAdmitted": 17,
+    "shopperActiveOffers": 10,
+    "outOfStockObservations": 7,
+    "offersBlocked": 2,
+    "offersProjected": 17
+  },
+  "products": [
+    {
+      "candidateId": "dove-melanin-even-tone-body-wash-18-5oz",
+      "identity": {
+        "gtin": "00011111040090",
+        "variant": "Melanin Even Tone Serum Body Wash with Pro-Ceramide",
+        "size": "18.5 oz",
+        "packageLabelSize": "547 ml / 18.5 fl oz",
+        "packageVersion": "current 18.5 fl oz grey pump bottle with Melanin Even Tone 5% and Pro-Ceramide Serum label"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/dove-melanin-even-tone-body-wash-547ml/",
+          "priceNgn": 19500,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "73cb1e8de7414ca7a8c3dc3cafe5aadc5ab06a976a19c45441e8d7779a8964da",
+          "responseByteSize": 243148,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2024/10/dove-melanin-wash.jpg",
+          "packageImageSha256": "5964c4f1f5867ed7726719782fe5892b822bc0a620c6e0c1b4be28239847cbfc",
+          "packageImageByteSize": 45150
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/dove-melanin-even-tone-5-body-wash-547ml/",
+          "priceNgn": 22600,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "09bfb5971d2889d84823bf48f40cf4188c024b73de364c3b05ac72c279d20026",
+          "responseByteSize": 562587,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/cybervilla_11111040090_fd73df9093ea_b8afc6c9ea.png",
+          "packageImageSha256": "702df06210ff6e64dd9c06c79b6dc793a656d32a43090f6315aa917a8c6b53ac",
+          "packageImageByteSize": 71123
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/dove-melanin-even-tone-body-wash-547ml/",
+          "priceNgn": 20000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "a1ed8c84c4f811cb16ef0f46775dba0076e96053b70903dc1b341f9f2d86c47f",
+          "responseByteSize": 388328,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/02/Screenshot-at-.png",
+          "packageImageSha256": "4bb501abef059fec4f40b29a7ff5a90a1317aa0ae7c1655ec9f64dd1b434c85e",
+          "packageImageByteSize": 38335
+        }
+      ]
+    },
+    {
+      "candidateId": "laroche-posay-mela-b3-serum-30ml",
+      "identity": {
+        "gtin": "3337875890021",
+        "variant": "Mela B3 Serum",
+        "size": "30 ml",
+        "packageVersion": "current 30 ml Mela B3 serum dropper bottle and carton"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/serums/la-roche-posay-mela-b3-serum-dark-spot-corrector-30ml/",
+          "priceNgn": 44700,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "3c4adb63105f5f90782326d8a98ddd7046aa4293a20ccf2606bf421de7a575f1",
+          "responseByteSize": 242978,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2025/07/la-roche-mela-serum.jpg",
+          "packageImageSha256": "f087bfd41f655b8c3893dd01b6a813dfbfb43b5a70a37c59fdd1829e8456c958",
+          "packageImageByteSize": 33568
+        },
+        {
+          "retailer": "Dunes Center",
+          "url": "https://dunescenter.com/product/lr-pos-mela-b3-10-serum-30ml-en-fr-du/",
+          "priceNgn": 126500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "4665229ac6d296334e13718cb5fcb541b8aae5b3b8af9077958ca3b1dfdd3e3e",
+          "responseByteSize": 364023,
+          "packageImageUrl": "https://dunescenter.com/wp-content/uploads/2025/11/1_B3-Serum-PACKSHOT-BOTTLE.jpg",
+          "packageImageSha256": "c9f735b869e87def2073ff7ad5f46bc9d0b338e26f140e47d21ef1dbcc7d0188",
+          "packageImageByteSize": 48259
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/la-roche-posay-mela-b3-serum-dark-spot-corrector-30ml/",
+          "priceNgn": 48600,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "0331c1ae695f539c14a2604235a0c1c49c32126777e8977028d86f51cbe4a3c7",
+          "responseByteSize": 139580,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2025/07/la-roche-mela-serum.jpg",
+          "packageImageSha256": "f087bfd41f655b8c3893dd01b6a813dfbfb43b5a70a37c59fdd1829e8456c958",
+          "packageImageByteSize": 33568
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/la-roche-posay-melab3-serum-intense-anti-dark-spot-serum-for-hyperpigmentation-30ml/",
+          "priceNgn": 54000,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "38f01f1498de5e3ab826f17054df9752a7dfc86663b013b34a1e8c0e55387bbc",
+          "responseByteSize": 386922,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/10/Screenshot_387589.png",
+          "packageImageSha256": "8ff141646a69738f89e1d96a677633969a59f28f249647201c3270b7e88bc187",
+          "packageImageByteSize": 102463
+        }
+      ]
+    },
+    {
+      "candidateId": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+      "identity": {
+        "gtin": "5031413935691",
+        "variant": "Ceramide Blemish Gel Moisturiser",
+        "size": "50 ml",
+        "packageVersion": "Current 50 ml white squeeze tube with turquoise Ceramide and Blemish Gel Moisturiser front label"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/facefacts-ceramide-blemish-gel-moisturiser-50ml/",
+          "priceNgn": 3500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "7c56590aa479231ea5a390a39d5dd0a5f76f60af473bd6032ee826e62340afc3",
+          "responseByteSize": 575872,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2023/08/q6yvil8h.png",
+          "packageImageSha256": "f7bb07bb69d88b8fc2e2d664ce7bf2ad3b24f28065624e9e5a0ea0b370951580",
+          "packageImageByteSize": 490934
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/facefacts-ceramide-blemish-gel-moisturizer-50ml/",
+          "priceNgn": 3500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "678354ab1c9c1d0828567f81c117f7c5b690018966a35ad5811286d9b5c21e64",
+          "responseByteSize": 245163,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/08/blemish-moist.png",
+          "packageImageSha256": "3f68b04bad314a9d1369a067a90f31a9ea08fa7011b232727445c55dd15989c0",
+          "packageImageByteSize": 731354
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/facefacts-ceramide-blemish-gel-moisturiser-50ml/",
+          "priceNgn": 4500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "ca76137c1c0363b2d33fca1decf63aa25fe2315c95874dcb6b8ee6c02aabf066",
+          "responseByteSize": 137855,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2025/11/q6yvil8h-optimized.webp",
+          "packageReviewMethod": "reviewed-browser-render",
+          "packageImageDirectFetchStatus": 406
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/facefacts-ceramide-blemish-gel-face-moisturiser-50ml/",
+          "priceNgn": 4000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "d809ea60a9718c70fd7786a8b71e6177d6790ebe0d4afa66172802c222e0cd38",
+          "responseByteSize": 389318,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/FaceFacts-Ceramide-Blemish-Gel-Moisturiser-50ml.jpg",
+          "packageImageSha256": "5c474bca9082ad49473e9db7f90ec397d7576597a35caa3f40fef8ca23d3302a",
+          "packageImageByteSize": 143026
+        }
+      ]
+    },
+    {
+      "candidateId": "skin-by-zaron-vitamin-c-body-wash-650ml",
+      "identity": {
+        "gtin": "6908137011248",
+        "variant": "Vitamin C Body Wash",
+        "size": "650 ml",
+        "packageVersion": "Skin by Zaron Vitamin C Body Wash 650ml"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/skin-by-zaron-vitamin-c-body-wash-650ml/",
+          "priceNgn": 11718,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "530b6c73db7d1ef7151611fb2b11b56f6fc129950ee332b2e7babc7476db9ddf",
+          "responseByteSize": 567347,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2024/08/k98a32mb.png",
+          "packageImageSha256": "fec1f86ef676081aa909afeb6e6b2458ec7bdf2efc8b1f97250bfb7a1fafb5ee",
+          "packageImageByteSize": 157771
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/skin-by-zaron-vitamin-c-body-wash-650ml/",
+          "priceNgn": 12200,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "047a52120d47fb0124eecd5a7f1ac65b8e3b2b7b28d086273587c44fb3dea98f",
+          "responseByteSize": 137243,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/04/WhatsApp-Image-at-e-b-x-removebg-preview.webp",
+          "packageReviewMethod": "reviewed-browser-render",
+          "packageImageDirectFetchStatus": 406
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/skin-by-zaron-vitamin-c-body-wash-650ml/",
+          "priceNgn": 12950,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "8dd0cab2969afcdfa0bd7d1a644c122240fc36375dd59ec85853a6f2fc25df33",
+          "responseByteSize": 388116,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/07/Zaron-vitamin-c-body-wash-.png",
+          "packageImageSha256": "a4b76cc9ddc10bfbfc8604b8b1b3ffb329bbbd5408a4b0ab3ba99a33bcb770af",
+          "packageImageByteSize": 66384
+        }
+      ]
+    },
+    {
+      "candidateId": "tresemme-keratin-smooth-weightless-conditioner-828ml",
+      "identity": {
+        "gtin": "00022400011738",
+        "variant": "Keratin Smooth Weightless Conditioner",
+        "size": "28 fl oz / 828 ml",
+        "packageLabelSize": "828 ml",
+        "packageVersion": "Current 28 US fl oz / 828 ml white rounded bottle with black cap and gold Keratin Smooth Weightless label"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/hair-care/conditioners/tresemme-keratin-smooth-weightless-conditioner-828-ml/",
+          "priceNgn": 7950,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "b84944c694cf5c38186426a0bfb3f638dae5eb477ae97e74a4b33bc66ecf32ee",
+          "responseByteSize": 241553,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2026/05/Screenshot-2026-05-15-124333.png",
+          "packageImageSha256": "c9b3c03ec1c6bcc72469d38ef6ccf9119da03795a49fb23cc4bfe256fe01ef97",
+          "packageImageByteSize": 110928
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/tresemme-keratin-smooth-weightless-conditioner-828ml/",
+          "priceNgn": 9138,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "d6a8abec94d7bad296f47bddb30bea7b447921e9ab7ec97497ded9c5668ec814",
+          "responseByteSize": 564137,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/03/u6smquku-1-1024x1024.png",
+          "packageImageSha256": "2ae68948e26e9395ddd32ded8690c4698c93528e57bce2bfe49a18a5a7739b77",
+          "packageImageByteSize": 103846
+        },
+        {
+          "retailer": "Perfect Trust Beauty",
+          "url": "https://perfecttrustbeauty.com/products/tresemme-conditioner-828ml-keratin-smoot",
+          "priceNgn": 9900,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:31:00.820Z",
+          "expiresAt": "2026-09-06T01:31:00.820Z",
+          "responseSha256": "95699af1ebf79b676a63b6394ed8ab249fe1cf943593724d90922a00c913bb5a",
+          "responseByteSize": 1123363,
+          "packageImageUrl": "https://perfecttrustbeauty.com/cdn/shop/files/f880cf2701e645bae9e9779dd8edaa7d.jpg?v=1773404087&width=1024",
+          "packageImageSha256": "53e3237d2e93dc206dc295286216b2ed0728d65c10abc4d0777089fa14df77ae",
+          "packageImageByteSize": 3159
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "laroche-posay-mela-b3-serum-30ml",
+      "retailer": "Lux Beauty",
+      "url": "https://www.luxbeautyng.com/product/la-roche-posay-mela-b3-dark-spot-serum-30ml/",
+      "responseStatus": 403,
+      "responseSha256": "0b372335975617480ada8c512f47d491b500bc6bfab3fe63a5e6d2bb52cc1bed",
+      "responseByteSize": 2013,
+      "blocker": "The retailer denies access by geolocation, so current exact-SKU price, stock, size, and package cannot be asserted."
+    },
+    {
+      "candidateId": "skin-by-zaron-vitamin-c-body-wash-650ml",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/face/body-face-wash/skin-by-zaron-vitamin-c-body-2/",
+      "responseStatus": 403,
+      "responseSha256": "bce4ba0c6c355090630621c5565816e4bc3af98a33bc071327de6b813cb99465",
+      "responseByteSize": 5860,
+      "blocker": "A browser verification wall prevents current price, stock, size, and package verification."
+    }
+  ],
+  "blockedProducts": []
+}

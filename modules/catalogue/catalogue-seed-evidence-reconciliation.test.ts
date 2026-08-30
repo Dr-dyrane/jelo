@@ -46,7 +46,7 @@ test("seed projection admits the Batch 1 offers for dossier-released products", 
       "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
       "2026-08-14T17:00:00Z",
     ],
-    ["dove-melanin-even-tone-body-wash-18-5oz", "2026-08-14T17:00:00Z"],
+    ["dove-melanin-even-tone-body-wash-18-5oz", "2026-08-30T01:31:00.820Z"],
   ] as const;
   for (const [slug, observedAt] of expected) {
     const product = publishedIntakeProducts.find((item) => item.slug === slug);

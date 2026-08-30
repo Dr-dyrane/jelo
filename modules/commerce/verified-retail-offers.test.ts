@@ -18,6 +18,7 @@ import waveElevenAudit from "@/data/retailer-verification/catalogue-offer-refres
 import waveTwelveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-12-2026-08-29.json";
 import waveThirteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-13-2026-08-29.json";
 import waveFourteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-14-2026-08-29.json";
+import waveFifteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-15-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -850,6 +851,96 @@ test("catalogue offer refresh wave 14 refreshes complete selected products and f
   }
 });
 
+test("catalogue offer refresh wave 15 publishes current stock truth across complete exact offer sets", () => {
+  const projected = waveFifteenAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveFifteenAudit.matrix.before, 46);
+  assert.equal(waveFifteenAudit.matrix.after, 51);
+  assert.equal(waveFifteenAudit.matrix.total, 162);
+  assert.equal(waveFifteenAudit.summary.productsReviewed, 5);
+  assert.equal(projected.length, 17);
+  assert.equal(waveFifteenAudit.blockedCells.length, 2);
+  assert.equal(waveFifteenAudit.scheduledOwner.manifestRecurringOwner, null);
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    const acceptedSizes = [
+      product.identity.size,
+      ...("packageLabelSize" in product.identity &&
+      product.identity.packageLabelSize
+        ? [product.identity.packageLabelSize]
+        : []),
+    ];
+    assert.ok(
+      acceptedSizes.includes(offer.priceObservation?.size ?? ""),
+      `${product.candidateId}: ${evidence.retailer} has exact package size`,
+    );
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    if (
+      typeof evidence.packageImageSha256 === "string" &&
+      typeof evidence.packageImageByteSize === "number"
+    ) {
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+    } else {
+      assert.equal(evidence.packageReviewMethod, "reviewed-browser-render");
+      assert.equal(evidence.packageImageDirectFetchStatus, 406);
+    }
+  }
+
+  const asOf = new Date(waveFifteenAudit.reviewedAt);
+  for (const blocked of waveFifteenAudit.blockedCells) {
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.retailer === blocked.retailer,
+    );
+    assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
+    assert.equal(isOfferFresh(offer, asOf), true);
+    assert.equal(offer.available, false);
+    assert.equal(offer.priceComparison, "exclude");
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    ["dove-melanin-even-tone-body-wash-18-5oz", ["Perona Beauty"]],
+    ["laroche-posay-mela-b3-serum-30ml", ["Deoset", "Dunes Center"]],
+    [
+      "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+      ["Beauty by Daz", "BuyBetter", "Deoset", "Perona Beauty"],
+    ],
+    [
+      "skin-by-zaron-vitamin-c-body-wash-650ml",
+      ["BuyBetter", "Deoset", "Perona Beauty"],
+    ],
+    ["tresemme-keratin-smooth-weightless-conditioner-828ml", []],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    assert.deepEqual(
+      product.offers
+        .filter((offer) => offer.available)
+        .map((offer) => offer.retailer)
+        .sort(),
+      expected,
+      slug,
+    );
+  }
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -1075,7 +1166,7 @@ test("catalogue coverage batch 1 preserves its fresh Beauty by Daz observations"
       19_500,
       false,
       "547 ml / 18.5 fl oz",
-      "2026-08-14T17:00:00Z",
+      "2026-08-30T01:31:00.820Z",
     ],
   ] as const;
 
