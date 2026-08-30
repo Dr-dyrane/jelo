@@ -1,0 +1,417 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-16-2026-08-29",
+  "scope": "Twenty-three live retailer checks across five independently releasable exact product SKUs",
+  "reviewedAt": "2026-08-30T01:43:54.671Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-browser-render-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 51,
+    "after": 56,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T01:43:54.671Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The last observed backlog remains empty and no later scheduled run was due before this review."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 23,
+    "offersAdmitted": 19,
+    "shopperActiveOffers": 18,
+    "outOfStockObservations": 1,
+    "offersBlocked": 4,
+    "offersProjected": 19
+  },
+  "products": [
+    {
+      "candidateId": "dr-teals-nourish-protect-coconut-oil-body-wash-710ml",
+      "identity": {
+        "gtin": "811068015857",
+        "variant": "Nourish & Protect with Coconut Oil Body Wash",
+        "size": "710 ml",
+        "packageLabelSize": "24 fl oz / 710 mL",
+        "packageVersion": "blue pump bottle with Coconut Oil and Nourish & Protect front label"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/dr-teals-body-wash-nourish-and-protect-coconut-oil-710ml/",
+          "priceNgn": 7150,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "7a20bc426d3fac13188bda2f886ff0f9b2a3b6e8e94a64c5132f7abf96b933b2",
+          "responseByteSize": 564100,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2024/08/dr-te.jpg",
+          "packageImageSha256": "fc4f0f3905a2c2e923a3409295c43656746914b5b59de2127324f5118af19c18",
+          "packageImageByteSize": 768357
+        },
+        {
+          "retailer": "Reginah",
+          "url": "https://reginah.com/product/dr-teals-epsom-salt-coconut-oil-body-wash-710ml/",
+          "priceNgn": 13416,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "ccc89c01a7d0358771a4f9772bba6018736b7118b40b5c8f7ce36c052709b1cf",
+          "responseByteSize": 383647,
+          "packageImageUrl": "https://reginah.com/wp-content/uploads/2025/12/dr14.gif",
+          "packageImageSha256": "5f5bdd79066bd02f902e29c807cb6e942b6cf679f0288306ecf6c91dd1e825f3",
+          "packageImageByteSize": 385088,
+          "reviewNote": "Product schema, purchase control, and reviewed package image are exact; page-wide title and description retain unrelated lotion copy."
+        },
+        {
+          "retailer": "Perfect Trust Beauty",
+          "url": "https://perfecttrustbeauty.com/products/dr-teals-coconut-oil-body-wash",
+          "priceNgn": 7200,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "8b49259a5eaf1320c72cfac22d36790db32f64b8fdd11290056cff55976960f8",
+          "responseByteSize": 1114527,
+          "packageImageUrl": "https://perfecttrustbeauty.com/cdn/shop/files/Dr_Teal_s_Body_Wash_with_Pure_Epsom_Salt_Nourish_Protect_with_Coconut_Oil.jpg?v=1783521024&width=1024",
+          "packageImageSha256": "e58f414eea2088e54bb117c52de6b2d5558962c18460b8c8c779bdb03f023283",
+          "packageImageByteSize": 20376
+        },
+        {
+          "retailer": "Nectar Beauty Hub",
+          "url": "https://nectarbeautyhub.com/products/coconut-oil-body-wash-710ml",
+          "priceNgn": 6750,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "d29456d2c152bbe86cb3c233c1918ce19d6f4fee6455ebe5ee44eb821b7c7bc6",
+          "responseByteSize": 853330,
+          "packageImageUrl": "https://nectarbeautyhub.com/cdn/shop/products/dr-teals-coconut-oil-body-wash-710ml-593015.jpg?v=1709851453",
+          "packageImageSha256": "617cfd7870de2733c2ab86c922874e8f3f2d29716699ef37192dc71503e5df8e",
+          "packageImageByteSize": 27066
+        }
+      ]
+    },
+    {
+      "candidateId": "dove-skin-replenish-serum-body-wash-547ml",
+      "identity": {
+        "gtin": "00011111055230",
+        "variant": "Skin Replenish Serum Body Wash with smoothing BHA",
+        "size": "18.5 fl oz / 547 ml",
+        "packageLabelSize": "547 ml",
+        "packageVersion": "current pink-lily 2% niacinamide and BHA serum pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/dove-skin-replenish-2-body-wash-547ml/",
+          "priceNgn": 22600,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "bdcc2ea4a16b44f6def23309dc205bfa7240fd91b7c02da40e008dee8f544719",
+          "responseByteSize": 564145,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/cybervilla_11111055230_5df742accb04_2b6007049a-1.png",
+          "packageImageSha256": "f746fc2ec80f8339f87e5f1a338c8699e6a62f898d48049616f601036a40326a",
+          "packageImageByteSize": 60864
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/dove-skin-replenish-2-body-wash-547ml/",
+          "priceNgn": 27000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "e513160e428f6990425de7a8e8c3072647b115fa6194dae9a0d6488303551f1d",
+          "responseByteSize": 135963,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/06/odoo-13941-optimized.webp",
+          "packageReviewMethod": "reviewed-browser-render",
+          "packageImageDirectFetchStatus": 406
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/dove-skin-replenishing-2-body-wash-547ml/",
+          "priceNgn": 17800,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "af5927fc4c89eb0a63199bce8eb07586d3a76dfa80322ec20717745ed600f704",
+          "responseByteSize": 347436,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2026/04/WhatsApp-Image-2026-04-20-at-11.39.26-AM.jpeg",
+          "packageImageSha256": "96c1089ceb0ee49f4438d875a341cfd15fdca1f81bdfdbccc35a4c5f17e39d42",
+          "packageImageByteSize": 18316
+        },
+        {
+          "retailer": "Kadimez Essentials",
+          "url": "https://kadimezessentials.com/product/dove-skin-replenish-pink-lily-body-wash-with-2-niacinamide-bha-refining-serum-547ml/",
+          "priceNgn": 24500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "d3dd27abc2ebccdf3d137df486d6dcdbd7bde23efd84afe0c28792c7fb55417d",
+          "responseByteSize": 200114,
+          "responseDigestScope": "rendered-dom-outerhtml",
+          "packageImageUrl": "https://i0.wp.com/kadimezessentials.com/wp-content/uploads/2025/10/61wbcLdwJ3L._UF10002C1000_QL80_FMwebp_.jpg",
+          "packageImageSha256": "5268cd50b1522e20a8876d331328e328ea536b80d0dbb864d5b11c67a66c6a70",
+          "packageImageByteSize": 13014
+        }
+      ]
+    },
+    {
+      "candidateId": "dang-retinal-cream-005-30ml",
+      "identity": {
+        "manufacturerSku": "DGL-SKC-030",
+        "variant": "Multipurpose Retinal Cream 0.05%",
+        "size": "30 ml",
+        "packageVersion": "current carton and tube labelled 0.05% retinaldehyde"
+      },
+      "offers": [
+        {
+          "retailer": "DANG Lifestyle",
+          "url": "https://danglifestyle.co/products/retinal-cream-0-05",
+          "priceNgn": 14900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "098625d2c18b84137b143f214c9e84579b6bdd8b3663bd42365056c2e34c0a61",
+          "responseByteSize": 693215,
+          "packageImageUrl": "https://danglifestyle.co/cdn/shop/files/Multipurpose-Retinal-Cream-0.05.webp?v=1783591027",
+          "packageImageSha256": "68941464e3ffe65a5fe249499ae33b530d45671fbc7d09f2dba6b4a57280c241",
+          "packageImageByteSize": 38450
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/dang-multipurpose-retinal-cream-0-05-30ml/",
+          "priceNgn": 14900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "280e446af734afa707e1f0c1d0b2ef0aa3be0014821807b277e2e51ffb9e0156",
+          "responseByteSize": 825209,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2026/07/Dang-MULTIPURPOSE-RETINAL-CREAM.jpg.jpeg",
+          "packageImageSha256": "fbc302657af8dce33924e3a392f01673d311c90f3e417f80b3c778cd26661e4f",
+          "packageImageByteSize": 97573
+        },
+        {
+          "retailer": "Bracketts Beauty",
+          "url": "https://www.brackettsbeauty.com/products/multipurpose-retinal-cream-005",
+          "priceNgn": 16362.5,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "032f627af4ddc11165ac0c9c8ad4030a4107c73e979751ee04bd7bd4f7cfcc9b",
+          "responseByteSize": 436240,
+          "packageImageUrl": "https://www.brackettsbeauty.com/cdn/shop/files/20_5730e862-ca30-4a6b-86bb-7bd890eaed67.png?v=1771762810&width=2048",
+          "packageImageSha256": "ea8d100fa8b7dabee8290dcd37105ea385afa82c6f9074458efe486637af3adc",
+          "packageImageByteSize": 92020
+        }
+      ]
+    },
+    {
+      "candidateId": "dang-snail-secretion-filtrate-repair-face-cream-50g",
+      "identity": {
+        "manufacturerSku": "DGL-SKC-019",
+        "variant": "Snail Secretion Filtrate Repair Face Cream",
+        "size": "50 g",
+        "packageVersion": "current brown jar and carton"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/dang-snail-secretion-filtrate-repair-face-cream/",
+          "priceNgn": 16350,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "7724f95cca57323711e62ffeb4594f83363632e8af9260e61a89b2632d197269",
+          "responseByteSize": 401137,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/05/Screenshot_881459.png",
+          "packageImageSha256": "fc687b739fef45dc88bf3ac64ebacb08891640e1827ce18d9f773d47e974242e",
+          "packageImageByteSize": 83167
+        },
+        {
+          "retailer": "DANG Lifestyle",
+          "url": "https://danglifestyle.co/products/snail-mucin-cream",
+          "priceNgn": 15200,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "0753cd4eec6f7ff94eeb6208b379d83f4465a86ee0efed57bb64cf0d83766033",
+          "responseByteSize": 668547,
+          "packageImageUrl": "https://danglifestyle.co/cdn/shop/files/Snail-filtrate.-web-p.webp?v=1783591047",
+          "packageImageSha256": "bd74f5c559225d84fbb7aa164f1429da98889030620adde8dd3ece2ad87c4a26",
+          "packageImageByteSize": 25692
+        },
+        {
+          "retailer": "Medplus",
+          "url": "https://medplusnig.com/product/dang-ageless-snail-repair-cream-50g-661G2O",
+          "priceNgn": 15700,
+          "stock": "in-stock",
+          "available": true,
+          "quantityObserved": 167,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "5321525af6f7b170302aee84641d4eb838e0e8a8611042e5b03901a744794c16",
+          "responseByteSize": 315387,
+          "packageImageUrl": "https://commercefiles.lon1.cdn.digitaloceanspaces.com/product/thumbnail/2024-08-14-66bd193a8a9d5.webp",
+          "packageImageSha256": "53b98d6ca08e66f412fe43f64ca010c52d8ee47d89a0b00b8d2e053c2bcfc474",
+          "packageImageByteSize": 252848
+        },
+        {
+          "retailer": "Bracketts Beauty",
+          "url": "https://www.brackettsbeauty.com/products/snail-secretion-filtrate-repair-face-cream",
+          "priceNgn": 16698,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "cd18dc8422a89e43eb297fb1421ed68c09035c13ddcd216f382e10717eca409f",
+          "responseByteSize": 436239,
+          "packageImageUrl": "https://www.brackettsbeauty.com/cdn/shop/files/18_cc177fcb-cad4-4644-b6d7-480c7009305d.png?v=1771762674&width=2048",
+          "packageImageSha256": "2aa0354549d8b3985eb01301837e18923982ba4243c3bc9bf2b20a3df3edd6c8",
+          "packageImageByteSize": 77046
+        }
+      ]
+    },
+    {
+      "candidateId": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
+      "identity": {
+        "manufacturerSku": "DGL-SKC-020",
+        "variant": "Vitamin C Concentrated Serum For Face (Oil Free)",
+        "size": "30 ml",
+        "packageVersion": "current orange carton and dropper bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/dang-vitamin-c-concentrated-serum-for-face-oil-free-30ml/",
+          "priceNgn": 19050,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "f22a246ee5805aa634a5f2bb468c33cd6e22307c64ea49af7c92626c82802512",
+          "responseByteSize": 390142,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/05/Screenshot_92331.png",
+          "packageImageSha256": "c9b96d853993ab59b0f3050c114e66a9390759bd2ae9a9e06f4bc86f7c643577",
+          "packageImageByteSize": 83679
+        },
+        {
+          "retailer": "DANG Lifestyle",
+          "url": "https://danglifestyle.co/products/vitamin-c-serum-for-oily-skin",
+          "priceNgn": 17700,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "3f1526abf2b21d92c06d640aedd0d0e68c336720aae52a35fdf38c361975f198",
+          "responseByteSize": 667261,
+          "packageImageUrl": "https://danglifestyle.co/cdn/shop/files/Vitamin-C-concentrated-serum-scaled.webp?v=1783591050",
+          "packageImageSha256": "fb571fb921f53b78d021bfdf84b76a340744e3a0b7bc40e244b5cd0e12908fa6",
+          "packageImageByteSize": 199380
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/dang-vitamin-c-concentrated-serum-30ml/",
+          "priceNgn": 20000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "4d8d5928a0cf4095c056d6a9b33abef683f2ecbc61846ed2953f8194f54f75e5",
+          "responseByteSize": 813012,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/08/Dang-Vitamin-C-Concentrated-Serum-30ml.jpg",
+          "packageImageSha256": "363013ed992d6d55027b61c1b0bf5f38fb5a4742e7e3f5ad104f2a9d1aa51e32",
+          "packageImageByteSize": 102856
+        },
+        {
+          "retailer": "Bracketts Beauty",
+          "url": "https://www.brackettsbeauty.com/products/vitamin-c-concentrated-serum",
+          "priceNgn": 20421.5,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T01:43:54.671Z",
+          "expiresAt": "2026-09-06T01:43:54.671Z",
+          "responseSha256": "54669e0ff97ca82e76d16b2e83d107cc3dfd26b7bfedb0af7deb90fa5afb45ec",
+          "responseByteSize": 442896,
+          "packageImageUrl": "https://www.brackettsbeauty.com/cdn/shop/files/bracketts-beauty-dang-vitamin-c-concentrated-serum-1.png?v=1734518296&width=2048",
+          "packageImageSha256": "44c88bdfff7c72f99489d2c7e973c445d6c336fb9915259c46165bf734a8cb24",
+          "packageImageByteSize": 85444
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "dove-skin-replenish-serum-body-wash-547ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/dove-skin-replenish-body-wash-547ml-420066755.html",
+      "status": 403,
+      "reason": "Current retailer response is a JavaScript/cookie verification wall, so price, stock, and package cannot be freshly re-verified.",
+      "responseSha256": "ec0b90249b3c79a1562e3c9354d2e5a127a503d54bdb1f25685625e9370a9900",
+      "responseByteSize": 5966
+    },
+    {
+      "candidateId": "dang-retinal-cream-005-30ml",
+      "retailer": "Konga Health",
+      "url": "https://www.konga.com/product/dang-retinoic-cream-0-05-30ml-6961927",
+      "status": 200,
+      "reason": "Listing title says retinoic cream and the reviewed package image is DANG Ageless 0.05% tretinoin, not the released 0.05% retinaldehyde carton and tube.",
+      "responseSha256": "77f3953c8c613de91856ab1fe2e99e2501a164729fe737f8270bae34a077a53a",
+      "responseByteSize": 291937,
+      "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/U/Q/246169_1775069023.jpg",
+      "packageImageSha256": "c8608e87e485c6714d9f27f3923fec253610514b036de458264aed04af3b1172",
+      "packageImageByteSize": 16275
+    },
+    {
+      "candidateId": "dang-retinal-cream-005-30ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/dang-multipurpose-retinal-cream-0.05-30ml-420100660.html",
+      "status": 403,
+      "reason": "Current retailer response is a JavaScript/cookie verification wall, so price, stock, and package cannot be freshly re-verified.",
+      "responseSha256": "c61eee2a2e274f9d0d1d4ada6a137e791352620c0a3bedb8ae842c36482d12b8",
+      "responseByteSize": 5984
+    },
+    {
+      "candidateId": "dang-vitamin-c-concentrated-serum-oil-free-30ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/dang-vitamin-c-concentrated-serum-for-face-oil-free-30ml-420019126.html",
+      "status": 403,
+      "reason": "Current retailer response is a JavaScript/cookie verification wall, so price, stock, and package cannot be freshly re-verified.",
+      "responseSha256": "39ee7aceae84da3ee8cac9c1b0a60c87cadb28ef388d2a232bd3297d8d63b054",
+      "responseByteSize": 6051
+    }
+  ]
+}
