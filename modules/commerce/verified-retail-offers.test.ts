@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { reviewedProductRecords } from "@/data/catalogue";
+import {
+  products as catalogueProducts,
+  reviewedProductRecords,
+} from "@/data/catalogue";
 import waveOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-1-2026-08-27.json";
 import waveTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-2-2026-08-27.json";
 import waveThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-3-2026-08-27.json";
@@ -628,6 +631,16 @@ test("catalogue offer refresh wave 12 releases clean cells and fails closed on p
       `${blocked.candidateId}: ${blocked.retailer} must remain non-shareable`,
     );
   }
+
+  const cosrx = catalogueProducts.find(
+    (product) => product.slug === "cosrx-advanced-snail-96-mucin-power-essence",
+  );
+  assert.ok(cosrx);
+  assert.deepEqual(cosrx.offers.map((offer) => offer.retailer).sort(), [
+    "Beauty by Daz",
+    "Konga Health",
+    "Perona Beauty",
+  ]);
 });
 
 test("verified Nigerian observations use exact secure product pages", () => {

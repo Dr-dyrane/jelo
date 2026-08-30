@@ -7451,6 +7451,8 @@ const excludedRetailers: Partial<Record<string, string[]>> = {
   "cerave-foaming-facial-cleanser": ["Care to Beauty"],
   // These listings lack a manufacturer-GTIN match for the exact 156 g pack.
   "panoxyl-acne-foaming-wash-10-benzoyl-peroxide": ["Teeka4", "Lux Beauty"],
+  // Current verification walls prevent re-checking these inherited dossier offers.
+  "cosrx-advanced-snail-96-mucin-power-essence": ["CSi Grocery", "Lux Beauty"],
   // Beauty by Daz audit withheld these offers for documented identity reasons.
   "some-by-mi-aha-bha-pha-miracle-toner": ["Beauty by Daz"],
   "face-facts-wonder-cream-fragrance-free": ["Beauty by Daz"],
