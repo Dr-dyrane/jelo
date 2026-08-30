@@ -2003,6 +2003,58 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
+    {
+      retailer: "CSi Grocery",
+      url: "https://www.csi.ng/product/cosrx-advanced-snail-96-mucin-power-essence-100ml/",
+      trust: 90,
+      available: false,
+      priceNgn: 16000,
+      checkedAt: "2026-08-30T00:26:58.532Z",
+      expiresAt: "2026-09-06T00:26:58.532Z",
+      match: "exact",
+      priceComparison: "exclude",
+      listingEvidence: {
+        observedAt: "2026-08-30T00:26:58.532Z",
+        sourceUrl:
+          "https://www.csi.ng/product/cosrx-advanced-snail-96-mucin-power-essence-100ml/",
+        basis: "retailer-page",
+      },
+      priceObservation: {
+        observedAt: "2026-08-30T00:26:58.532Z",
+        variant:
+          "Verification wall; exact product state not currently re-verifiable",
+        size: "100 ml",
+        stock: "unknown",
+        landedCost: "unknown",
+      },
+      location: ["NG"],
+    },
+    {
+      retailer: "Lux Beauty",
+      url: "https://luxbeauty.com.ng/product/cosrx-advanced-snail-96-mucin-power-essence-100ml/",
+      trust: 96,
+      available: false,
+      priceNgn: 12400,
+      checkedAt: "2026-08-30T00:26:58.532Z",
+      expiresAt: "2026-09-06T00:26:58.532Z",
+      match: "exact",
+      priceComparison: "exclude",
+      listingEvidence: {
+        observedAt: "2026-08-30T00:26:58.532Z",
+        sourceUrl:
+          "https://luxbeauty.com.ng/product/cosrx-advanced-snail-96-mucin-power-essence-100ml/",
+        basis: "retailer-page",
+      },
+      priceObservation: {
+        observedAt: "2026-08-30T00:26:58.532Z",
+        variant:
+          "Access denied; exact product state not currently re-verifiable",
+        size: "100 ml",
+        stock: "unknown",
+        landedCost: "unknown",
+      },
+      location: ["NG"],
+    },
   ],
   "panoxyl-acne-foaming-wash-10-benzoyl-peroxide": [
     {
@@ -7451,8 +7503,6 @@ const excludedRetailers: Partial<Record<string, string[]>> = {
   "cerave-foaming-facial-cleanser": ["Care to Beauty"],
   // These listings lack a manufacturer-GTIN match for the exact 156 g pack.
   "panoxyl-acne-foaming-wash-10-benzoyl-peroxide": ["Teeka4", "Lux Beauty"],
-  // Current verification walls prevent re-checking these inherited dossier offers.
-  "cosrx-advanced-snail-96-mucin-power-essence": ["CSi Grocery", "Lux Beauty"],
   // Beauty by Daz audit withheld these offers for documented identity reasons.
   "some-by-mi-aha-bha-pha-miracle-toner": ["Beauty by Daz"],
   "face-facts-wonder-cream-fragrance-free": ["Beauty by Daz"],

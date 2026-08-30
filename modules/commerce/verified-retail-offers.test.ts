@@ -22,6 +22,7 @@ import {
   verifiedRetailOffers,
 } from "@/data/retail-offers";
 import { nigeriaRetailers } from "@/data/retailers";
+import { reconcilePublishedCatalogue } from "@/lib/catalogue/publication-boundary";
 import {
   hasCompletePriceObservation,
   hasListingEvidence,
@@ -626,21 +627,61 @@ test("catalogue offer refresh wave 12 releases clean cells and fails closed on p
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
       (candidate) => candidate.retailer === blocked.retailer,
     );
-    assert.ok(
-      !offer || !isOfferFresh(offer, asOf),
-      `${blocked.candidateId}: ${blocked.retailer} must remain non-shareable`,
-    );
+    if (offer && isOfferFresh(offer, asOf)) {
+      assert.equal(offer.available, false);
+      assert.equal(offer.priceComparison, "exclude");
+    }
   }
 
   const cosrx = catalogueProducts.find(
     (product) => product.slug === "cosrx-advanced-snail-96-mucin-power-essence",
   );
   assert.ok(cosrx);
-  assert.deepEqual(cosrx.offers.map((offer) => offer.retailer).sort(), [
-    "Beauty by Daz",
-    "Konga Health",
-    "Perona Beauty",
-  ]);
+  assert.deepEqual(
+    cosrx.offers
+      .filter((offer) => offer.available)
+      .map((offer) => offer.retailer)
+      .sort(),
+    ["Beauty by Daz", "Konga Health", "Perona Beauty"],
+  );
+
+  const persistedCosrx = {
+    ...cosrx,
+    offers: cosrx.offers.map((offer) =>
+      ["CSi Grocery", "Lux Beauty"].includes(offer.retailer)
+        ? {
+            ...offer,
+            available: true,
+            checkedAt: "2026-08-28T16:00:00Z",
+            priceComparison: undefined,
+            listingEvidence: {
+              ...offer.listingEvidence,
+              observedAt: "2026-08-28T16:00:00Z",
+              sourceUrl: offer.listingEvidence?.sourceUrl ?? offer.url,
+              basis: offer.listingEvidence?.basis ?? "retailer-page",
+            },
+            priceObservation: {
+              observedAt: "2026-08-28T16:00:00Z",
+              variant: "Cosrx Advanced Snail 96 Mucin Power Essence",
+              size: "100 ml",
+              stock: "in-stock" as const,
+              landedCost: "unknown" as const,
+            },
+          }
+        : offer,
+    ),
+  };
+  const [reconciledCosrx] = reconcilePublishedCatalogue(
+    [persistedCosrx],
+    [cosrx],
+  );
+  assert.deepEqual(
+    reconciledCosrx.offers
+      .filter((offer) => offer.available)
+      .map((offer) => offer.retailer)
+      .sort(),
+    ["Beauty by Daz", "Konga Health", "Perona Beauty"],
+  );
 });
 
 test("verified Nigerian observations use exact secure product pages", () => {
