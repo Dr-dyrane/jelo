@@ -21,6 +21,7 @@ import waveFourteenAudit from "@/data/retailer-verification/catalogue-offer-refr
 import waveFifteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-15-2026-08-29.json";
 import waveSixteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-16-2026-08-29.json";
 import waveSeventeenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-17-2026-08-29.json";
+import waveEighteenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-18-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -1148,6 +1149,103 @@ test("catalogue offer refresh wave 17 expands rich exact offers and fails verifi
   }
 });
 
+test("catalogue offer refresh wave 18 releases exact package versions and fails conflicted siblings closed", () => {
+  const projected = waveEighteenAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveEighteenAudit.matrix.before, 61);
+  assert.equal(waveEighteenAudit.matrix.after, 64);
+  assert.equal(waveEighteenAudit.matrix.total, 162);
+  assert.equal(waveEighteenAudit.summary.productsReviewed, 3);
+  assert.equal(projected.length, 21);
+  assert.equal(waveEighteenAudit.blockedCells.length, 5);
+  assert.equal(waveEighteenAudit.scheduledOwner.manifestRecurringOwner, null);
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const asOf = new Date(waveEighteenAudit.reviewedAt);
+  for (const blocked of waveEighteenAudit.blockedCells) {
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.retailer === blocked.retailer,
+    );
+    assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
+    assert.equal(isOfferFresh(offer, asOf), true);
+    assert.equal(offer.available, false);
+    assert.equal(offer.priceComparison, "exclude");
+    assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(blocked.responseByteSize > 0);
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+      [
+        "Beauty Hut Africa",
+        "Beauty by Daz",
+        "BuyBetter",
+        "Deoset",
+        "Kadimez Essentials",
+        "Konga Health",
+        "Perona Beauty",
+      ],
+    ],
+    [
+      "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+      [
+        "Beauty Hut Africa",
+        "Beauty by Daz",
+        "Deoset",
+        "Konga Health",
+        "Perona Beauty",
+        "Teeka4",
+      ],
+    ],
+    [
+      "nineless-mela-pro-rice-txa-toner-200ml",
+      [
+        "Beauty Hut Africa",
+        "BuyBetter",
+        "Deoset",
+        "Konga Health",
+        "Muna Cosmetics",
+        "Perona Beauty",
+      ],
+    ],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    assert.deepEqual(
+      product.offers
+        .filter((offer) => offer.available)
+        .map((offer) => offer.retailer)
+        .sort(),
+      expected,
+      slug,
+    );
+  }
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -1366,7 +1464,7 @@ test("catalogue coverage batch 1 preserves its fresh Beauty by Daz observations"
       18_850,
       true,
       "30 ml",
-      "2026-08-14T17:00:00Z",
+      "2026-08-30T02:16:56.000Z",
     ],
     [
       "dove-melanin-even-tone-body-wash-18-5oz",

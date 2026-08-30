@@ -1,0 +1,425 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-18-2026-08-29",
+  "scope": "Twenty-six live retailer checks across three independently releasable exact product SKUs",
+  "reviewedAt": "2026-08-30T02:16:56.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-browser-render-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 61,
+    "after": 64,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T02:16:56.000Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The observed backlog remains empty and no later scheduled run was due before this review."
+  },
+  "summary": {
+    "productsReviewed": 3,
+    "productsReleased": 3,
+    "productsBlocked": 0,
+    "offersReviewed": 26,
+    "offersAdmitted": 21,
+    "shopperActiveOffers": 19,
+    "outOfStockObservations": 2,
+    "offersBlocked": 5,
+    "offersProjected": 21
+  },
+  "products": [
+    {
+      "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+      "identity": {
+        "variant": "Azelaic Acid 10% + Hyaluron Redness Soothing Serum",
+        "size": "30 ml",
+        "packageVersion": "current green dropper bottle and carton"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+          "priceNgn": 18700,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "ffe7902dfcf57e00eac21c44825b8a89c1699ad80373b6294d8d2989e5e5d791",
+          "responseByteSize": 565399,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/06/ANUA-AZELAIC-ACID-10-HYALURON-REDNESS-SOOTHING-SERUM-30ml-1.jpg",
+          "packageImageSha256": "c9dae7f78cddf960371fb930a860641b713390a68564bd25e05190ec2ef6ca51",
+          "packageImageByteSize": 22260
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+          "priceNgn": 16999,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "dccc10d635f3837810a9a1ba15eb0377a897553d69368c509101ff898e94d5fb",
+          "responseByteSize": 352575,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/10/IMG-0131.webp",
+          "packageImageSha256": "9d5cacd5986523cac3a2232b0c4a029d810f2fbedbdd506a90d3a47b50522ac2",
+          "packageImageByteSize": 11338
+        },
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/serums/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+          "priceNgn": 18850,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "31ea29cff577213ccd1dec04a518917086842925e94dab8d1c5ab86c06c7c727",
+          "responseByteSize": 247572,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2025/01/anua-azeliac-serum.jpg",
+          "packageImageSha256": "72b09cd30aa30ff9c57f85b1bd759e245bb539bab2695ebf21449cb3d53726ad",
+          "packageImageByteSize": 65782
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+          "priceNgn": 21500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "beadc87174190ab9282a6ea5f524f356fe72e8841103a45e931fc0295ae46568",
+          "responseByteSize": 401433,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2025/03/image-1-5-_461956.png",
+          "packageImageSha256": "2a169970dd54bd37db383fda0b4d7ec56e0a7ca6bb777b034d2902d8ce4869e5",
+          "packageImageByteSize": 29898
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/anua-azelaic-acid-10-hyaluronic-10/",
+          "priceNgn": 32590.8,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "952bb517d4da5593d3b7fa07812a8546898ce7679feb9a33641a71ca03bfa8b7",
+          "responseByteSize": 807862,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/07/buy-anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml-at-lila-beauty-korean-and-japanese-beauty-skin-care-465724.webp",
+          "packageImageSha256": "f513c39a1b0f4651ac91b3100854fff984ef4b2e63aa0b15e0177c4012c60668",
+          "packageImageByteSize": 17698
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml-6983193",
+          "priceNgn": 29000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "f63365a57e534d2ce543d3f810bf3de8966f5fc1b68cf0dc4f62982c722a60b2",
+          "responseByteSize": 271928,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/J/J/246676_1778707337.jpg",
+          "packageImageSha256": "bb589a7f4a74376f50eafc4389dc51357d7f44332a36108d2e81c9790f8717c9",
+          "packageImageByteSize": 25176
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum/",
+          "priceNgn": 19800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "c034c6f98413a72a83483c8230c34450900879e97145880c0f3a82cc1e9207a6",
+          "responseByteSize": 140733,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2025/06/Anua-Azelaic-Acid-10-Hyaluron-Redness-Soothing-Serum.png",
+          "packageImageSha256": "30476fefd0fa05035c3c3000cf12a2f83cf15457cb0e305613f9c3623a1ba72c",
+          "packageImageByteSize": 51376
+        },
+        {
+          "retailer": "Kadimez Essentials",
+          "url": "https://kadimezessentials.com/product/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml/",
+          "priceNgn": 26500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "47fc600d71b58e103cbf5a8188560761c4ff3bc798297ce26d566a02ecfc0627",
+          "responseByteSize": 244289,
+          "packageImageUrl": "https://i0.wp.com/kadimezessentials.com/wp-content/uploads/2025/03/Azelaic10Serum_2000x2200_Listing128129.jpg",
+          "packageImageSha256": "76561cdf28aa7187d52d03db97d7a3aeafa39574957c075ca662a050e8aa76bf",
+          "packageImageByteSize": 28960
+        }
+      ]
+    },
+    {
+      "candidateId": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+      "identity": {
+        "variant": "Oil Control Sun Gel-Cream Dry Touch SPF 50+",
+        "size": "50 ml",
+        "packageVersion": "current pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/sunscreens/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
+          "priceNgn": 19100,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "a76c993d8620cdb6e0af18390f894655c97580d4d17644a60054226af574830f",
+          "responseByteSize": 247916,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2025/07/eucerin-sun-oil-control.jpg",
+          "packageImageSha256": "a3899b0305cdfd9babd0f204bc5ef72ea7dc97821d2ad6290121a61cdce061fa",
+          "packageImageByteSize": 30460
+        },
+        {
+          "retailer": "Nectar Beauty Hub",
+          "url": "https://nectarbeautyhub.com/products/eucerin-face-sunscreen-oil-control-gel-cream-dry-touch-spf-50-50ml",
+          "priceNgn": 21000,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "3ff54d0a3b81e6475d7976a7b8bea430f41d94c3fa0c87ab8c946920b76a3b58",
+          "responseByteSize": 881356,
+          "packageImageUrl": "https://nectarbeautyhub.com/cdn/shop/files/eucerin-face-sunscreen-oil-control-blemish-prone-skin-gel-cream-dry-touch-spf-50-50ml-636570.png?v=1747879323",
+          "packageImageSha256": "9821684cdd0b3816508b74336519241b1f5b4fc724690831504befc5d9bcd39c",
+          "packageImageByteSize": 26978
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/eucerin-oil-control-sun-gel-cream-dry-touch-spf50-50ml/",
+          "priceNgn": 22700,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "53a124ee0ead812ed1ecf635695e465ea948d3835e8dfee68525e36055078dbf",
+          "responseByteSize": 140332,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/04/eucerin-sun-oil-control.jpg",
+          "packageImageSha256": "a3899b0305cdfd9babd0f204bc5ef72ea7dc97821d2ad6290121a61cdce061fa",
+          "packageImageByteSize": 30460
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/eucerin-oil-control-sun-gel-cream-spf50-50ml/",
+          "priceNgn": 20900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "5a378fc177a6ed5a7c7c56c13584d14c29d193b46bab4980aaa80965f9695401",
+          "responseByteSize": 395048,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2026/05/Screenshot_654935.png",
+          "packageImageSha256": "d68e58ec9cd5d3c6338e8b3daa3bd8d53db64e80a7fef8a2461f8d537cd5fe31",
+          "packageImageByteSize": 49988
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/eucerin-sun-face-oil-control-gel-cream-spf-50/",
+          "priceNgn": 26331.36,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "cfaaa2c09d8e7fe36289ec495b92c103f02ae8175847ab803c16f3fcbfac793e",
+          "responseByteSize": 805557,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/06/GEL_CREAM_OIL_DRY_TOUCH-SPF50-50ML.png",
+          "packageImageSha256": "6bc5aa8e0ada162d981201db486d3fc4dee47a3b622bfbdb5e70061d4eec1d74",
+          "packageImageByteSize": 402961
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/eucerin-sun-protection-spf50-oil-control-sun-gel-cream-50ml/",
+          "priceNgn": 18999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "4dfb25af113caf2ffc2d7c4b47e157ca5e9ceefdbe6b00fff9f3ea43d7addd33",
+          "responseByteSize": 358876,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/10/WhatsApp-Image-2025-05-06-at-12.13.40_5b03b5ad.jpg",
+          "packageImageSha256": "bbc8c6bebbb1e872f8e62c63d5f8fe4d87f16ab79bc4014cd57a45a71b4d3835",
+          "packageImageByteSize": 44852
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/eucerin-sun-screen-oil-control-gel-cream-dry-touch-spf50-50ml-6736685",
+          "priceNgn": 13000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "751f418e229c604d2c907c56f94bb92d42d0abee486fc838826574dc80afe9c8",
+          "responseByteSize": 273393,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/Q/D/133302_1746198369.jpg",
+          "packageImageSha256": "b13cdc456db931e8c01c15cc75e6c0745ddb2f15f5396e929a23cc8a6e644a46",
+          "packageImageByteSize": 19790
+        }
+      ]
+    },
+    {
+      "candidateId": "nineless-mela-pro-rice-txa-toner-200ml",
+      "identity": {
+        "variant": "Mela-Pro Rice & TXA Toner",
+        "size": "200 ml",
+        "packageVersion": "original pre-renewal frosted bottle with orange cap; 72.49% rice extract and 19,800 ppm TXA"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/nineless-mela-pro-rice-txa-toner-200ml/",
+          "priceNgn": 15500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "1bf32de9e32a0e062c5069e19bbd660fe5544f3bd4eb8234c75c96099eab01da",
+          "responseByteSize": 564012,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2024/06/Nineless-rice-and-txa-toner.jpg",
+          "packageImageSha256": "077c0406dc96b56fc138f0e6809ab98156a356a8ade849cfa154f02cdbb70a2e",
+          "packageImageByteSize": 17549
+        },
+        {
+          "retailer": "Muna Cosmetics",
+          "url": "https://munacosmetics.com/nineless-mela-pro-rice-txa-toner",
+          "priceNgn": 19000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "0a82c25f0e03c4523d32aa925144bf66188933a1677c5a9a299b6e58d790859f",
+          "responseByteSize": 466163,
+          "packageImageUrl": "https://munacosmetics.com/image/cache/catalog/Beautiful%20Skin/Utako%20Abuja/nineless-mela-pro-rice-txa-toner-200ml-1600x1600.jpg",
+          "packageImageSha256": "90cce29c908d892616ac8bdb271d81eed34d0ea997e9db8ee1a6a21627e8196d",
+          "packageImageByteSize": 357191
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/nineless-mela-pro-rice-txa-toner-200ml/",
+          "priceNgn": 17800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "fbdd24d0ab52149a788ea505f1febaf70235c15a29e26e3394c725895f5dba8c",
+          "responseByteSize": 137254,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2025/07/Nineless-rice-and-txa-toner-optimized.webp",
+          "packageImageSha256": "ce5a5abb16050e2b3be9bb3c2e7c28237b54b8fb77cced9965b50697e9a4ed2b",
+          "packageImageByteSize": 7866
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/",
+          "priceNgn": 15900,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "d7dd7ee54f13d33b6fcf20d2413ab90edd1483e340cda187d8db6efd25f98c4f",
+          "responseByteSize": 389477,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/06/NINELESSME_770562.jpg",
+          "packageImageSha256": "0c1bcfd41d85f1098d33acc830d3894529ddef55d6f7a96c57c2edce4d3e888d",
+          "packageImageByteSize": 29666
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/nineless-mela-pro-rice-txa-toner/",
+          "priceNgn": 21557.05,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "fb46574043359f92cf5da2a0b6adc64a88ebc1599c3d5aee39155994ca58c063",
+          "responseByteSize": 802206,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/04/Nineless-Mela-Pro-Rice-TXA-Toner.webp",
+          "packageImageSha256": "ce5a5abb16050e2b3be9bb3c2e7c28237b54b8fb77cced9965b50697e9a4ed2b",
+          "packageImageByteSize": 7866
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/nineless-mela-pro-rice-and-txa-toner-oe-200ml-6982946",
+          "priceNgn": 22000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T02:16:56.000Z",
+          "expiresAt": "2026-09-06T02:16:56.000Z",
+          "responseSha256": "2bd4f9e8be56c26c2aa1d72f4287d263ffd51710553ff99e6f48e8d9ae1b0f84",
+          "responseByteSize": 262656,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/M/K/246676_1778674124.jpg",
+          "packageImageSha256": "15d66d1ab2e41deef43964ef369edd0b4387265b0d25617fe6baee3905867e6e",
+          "packageImageByteSize": 26385,
+          "reviewNote": "Exact title, package and purchase controls; page description retains unrelated cleanser copy."
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml-419659681.html",
+      "status": 403,
+      "reason": "Verification wall and browser redirect to a stale-product category; no current exact offer.",
+      "responseSha256": "f2b0da8a55d1c31f70fd733fa33ad5b74bca01f61b8721d911a76882caa51eea",
+      "responseByteSize": 6096
+    },
+    {
+      "candidateId": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/eucerin-face-sunscreen-oil-control-gel-cream-dry-touch-spf-50-50ml-350932893.html",
+      "status": 403,
+      "reason": "Current verification wall prevents exact price, stock and package re-verification.",
+      "responseSha256": "3736b35bf352b1f0bc86f7417703124523f1ad3d67d495364f77874251ff9c9c",
+      "responseByteSize": 6123
+    },
+    {
+      "candidateId": "nineless-mela-pro-rice-txa-toner-200ml",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/nineless-mela-pro-rice-txa-toner-200ml-420078237.html",
+      "status": 403,
+      "reason": "Listing is tombstoned and redirects to an out-of-stock toner category; no current exact offer.",
+      "responseSha256": "f881e6b3fa8689488158ba0c7c73e8794e017efd1c9d709d06bbfe1ccd3c4bb2",
+      "responseByteSize": 5975
+    },
+    {
+      "candidateId": "nineless-mela-pro-rice-txa-toner-200ml",
+      "retailer": "Slique Beauty",
+      "url": "https://sliquebeautylimited.com/product/nineless-mela-pro-rice-txa-toner-200ml/",
+      "status": 200,
+      "reason": "Structured SKU is the official 8809875270172 but the page emits conflicting gtin13 2000000255835; fail closed on identifier conflict.",
+      "responseSha256": "952cb9beea0bacdeb6c415ace260199c8c4124f41efac441d8bb04d8031865d8",
+      "responseByteSize": 412452,
+      "packageImageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/12/NINELESS-MELA-PRO-RICE-TXA-TONER-200ML.webp",
+      "packageImageSha256": "6124c4306b20e390ae20ab2b6f351a81e32cbd842bbb599cea791631a44782ce",
+      "packageImageByteSize": 76692
+    },
+    {
+      "candidateId": "nineless-mela-pro-rice-txa-toner-200ml",
+      "retailer": "Sonavine Beauty",
+      "url": "https://sonavinebeauty.com/product/nineless-mela-pro-rice-txa-toner-200ml/",
+      "status": 403,
+      "reason": "Cloudflare verification wall prevents current exact price, stock and package re-verification.",
+      "responseSha256": "45f8a4573b583000f3ce1cdee72006624b3612db703a59ae607da2a6bd684870",
+      "responseByteSize": 5870
+    }
+  ]
+}
