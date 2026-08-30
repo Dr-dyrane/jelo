@@ -43,6 +43,15 @@ const EXCEPTION_STATES = new Set<AssistedOrderState>([
   "refunded",
 ]);
 
+function progressTone(state: AssistedOrderState) {
+  if (state === "cancelled") return "danger";
+  if (state === "needs_response" || state === "refund_pending") {
+    return "warning";
+  }
+  if (state === "delivered" || state === "refunded") return "success";
+  return "action";
+}
+
 function reachedStep(
   state: AssistedOrderState,
   events: readonly Pick<AssistedOrderEventView, "fromState" | "toState">[],
@@ -57,6 +66,15 @@ function reachedStep(
   );
 }
 
+export function orderProgressActiveIndex(
+  state: AssistedOrderState,
+  events: readonly Pick<AssistedOrderEventView, "fromState" | "toState">[] = [],
+) {
+  return EXCEPTION_STATES.has(state) || state === "needs_response"
+    ? reachedStep(state, events)
+    : (STATE_STEP[state] ?? 0);
+}
+
 export function OrderProgress({
   state,
   events = [],
@@ -68,9 +86,8 @@ export function OrderProgress({
 }) {
   const presentation = CUSTOMER_VISIBLE_ORDER_STATES[state];
   const exception = EXCEPTION_STATES.has(state);
-  const activeIndex = exception
-    ? reachedStep(state, events)
-    : (STATE_STEP[state] ?? 0);
+  const tone = progressTone(state);
+  const activeIndex = orderProgressActiveIndex(state, events);
   const CurrentIcon: LucideIcon =
     state === "cancelled"
       ? X
@@ -85,6 +102,7 @@ export function OrderProgress({
       className={styles.progress}
       data-compact={compact ? "true" : "false"}
       data-exception={exception ? "true" : "false"}
+      data-tone={tone}
       aria-label="Order progress"
     >
       <div className={styles.current}>
@@ -95,11 +113,22 @@ export function OrderProgress({
           <small>
             {exception
               ? "Order update"
-              : `Step ${activeIndex + 1} of ${STEPS.length}`}
+              : `Current · Step ${activeIndex + 1} of ${STEPS.length}`}
           </small>
           <strong>{presentation.label}</strong>
-          {!compact && (state === "needs_response" || exception) ? (
-            <p>{presentation.detail}</p>
+          {!compact ? (
+            <p className={styles.next}>
+              <span>
+                {state === "cancelled" ||
+                state === "delivered" ||
+                state === "refunded"
+                  ? "Outcome"
+                  : state === "needs_response"
+                    ? "Now"
+                    : "Next"}
+              </span>
+              {presentation.detail}
+            </p>
           ) : null}
         </span>
       </div>
@@ -126,6 +155,15 @@ export function OrderProgress({
                   ? "step"
                   : undefined
               }
+              aria-label={`${step.label}: ${
+                status === "complete"
+                  ? "complete"
+                  : status === "current" || status === "attention"
+                    ? "current"
+                    : status === "reached"
+                      ? "reached"
+                      : "later"
+              }`}
             >
               <span aria-hidden="true">
                 {status === "complete" ? (

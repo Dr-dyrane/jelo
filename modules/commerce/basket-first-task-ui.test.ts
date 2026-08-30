@@ -26,16 +26,20 @@ test("basket presents the selected retailer and checkout action before bounded a
   );
 });
 
-test("basket keeps mobile quantity controls touchable and brings the decision card first", async () => {
+test("basket keeps exact products ahead of retailer commitment on mobile", async () => {
+  const basket = await source("components/commerce/procurement-basket.tsx");
   const styles = await source("components/commerce/procurement.module.css");
 
+  assert.ok(
+    basket.indexOf("basketProducts") < basket.indexOf("retailerChoice"),
+  );
+  assert.match(basket, /Confirm exact products/);
+  assert.match(basket, /Choose a retailer\./);
+  assert.doesNotMatch(basket, /Continue with \$\{chosen\.retailer\}/);
   assert.match(
     styles,
     /\.quantity button\s*\{[\s\S]*?width:\s*2\.75rem;[\s\S]*?height:\s*2\.75rem;/,
   );
-  assert.match(
-    styles,
-    /@media \(max-width: 840px\)[\s\S]*?\.basketLayout \.retailerChoice\s*\{\s*order:\s*-1;/,
-  );
+  assert.doesNotMatch(styles, /\.basketLayout \.retailerChoice\s*\{\s*order:/);
   assert.match(styles, /\.moreStores\s*\{[\s\S]*?min-height:\s*2\.75rem;/);
 });

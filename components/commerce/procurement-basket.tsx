@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Product } from "@/data/products";
 import { ProductCard } from "@/components/products/product-card";
 import { SafeProductImage } from "@/components/products/safe-product-image";
@@ -158,7 +158,7 @@ export function ProcurementBasket({
       >
         <div className={styles.sectionHeading}>
           <div>
-            <p className="eyebrow">Exact products</p>
+            <p className="eyebrow">Confirm exact products</p>
             <h2 id="basket-products-title">Your basket.</h2>
           </div>
           <span>
@@ -215,9 +215,7 @@ export function ProcurementBasket({
         aria-labelledby="retailer-choice-title"
       >
         <p className="eyebrow">One retailer</p>
-        <h2 id="retailer-choice-title">
-          {chosen ? `Continue with ${chosen.retailer}.` : "Choose one store."}
-        </h2>
+        <h2 id="retailer-choice-title">Choose a retailer.</h2>
         <p className={styles.muted}>
           Delivery and fees are verified after your address.
         </p>
@@ -388,6 +386,8 @@ function ReadyCheckoutExperience({
     initialDraft?.whatsappConsent ?? false,
   );
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null);
+  const orientOnStepChangeRef = useRef(false);
   const draftRestored = Boolean(initialDraft);
   const currentStep =
     checkoutFlow[Math.min(stepIndex, checkoutFlow.length - 1)];
@@ -415,6 +415,22 @@ function ReadyCheckoutExperience({
     fields,
     whatsappConsent,
   ]);
+
+  useEffect(() => {
+    if (!orientOnStepChangeRef.current) return;
+    orientOnStepChangeRef.current = false;
+
+    const heading = stepHeadingRef.current;
+    if (!heading) return;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    heading.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+    heading.focus({ preventScroll: true });
+  }, [currentStep]);
 
   if (!chosen || !selectedProducts.length) {
     return (
@@ -452,14 +468,18 @@ function ReadyCheckoutExperience({
     return true;
   }
 
-  function nextStep() {
+  function goToStep(step: CheckoutStep) {
+    orientOnStepChangeRef.current = true;
     setError("");
-    setStepIndex((index) => Math.min(index + 1, checkoutFlow.length - 1));
+    setStepIndex(checkoutFlow.indexOf(step));
+  }
+
+  function nextStep() {
+    goToStep(checkoutFlow[Math.min(stepIndex + 1, checkoutFlow.length - 1)]);
   }
 
   function previousStep() {
-    setError("");
-    setStepIndex((index) => Math.max(0, index - 1));
+    goToStep(checkoutFlow[Math.max(0, stepIndex - 1)]);
   }
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
@@ -587,7 +607,13 @@ function ReadyCheckoutExperience({
           {currentStep === "contact" ? (
             <div className={styles.stepPanel}>
               <p className="eyebrow">Step 1 of 3</p>
-              <h1>How can JeloCare reach you?</h1>
+              <h1
+                className={styles.stepHeading}
+                ref={stepHeadingRef}
+                tabIndex={-1}
+              >
+                How can JeloCare reach you?
+              </h1>
               <p>No account required.</p>
               <div className={styles.fieldGrid}>
                 <label>
@@ -634,7 +660,13 @@ function ReadyCheckoutExperience({
           {currentStep === "delivery" ? (
             <div className={styles.stepPanel}>
               <p className="eyebrow">Step 2 of 3</p>
-              <h1>Where should we quote delivery?</h1>
+              <h1
+                className={styles.stepHeading}
+                ref={stepHeadingRef}
+                tabIndex={-1}
+              >
+                Where should we quote delivery?
+              </h1>
               {savedLocations.length ? (
                 <fieldset className={styles.savedLocations}>
                   <legend>Use a saved location</legend>
@@ -714,10 +746,80 @@ function ReadyCheckoutExperience({
           {currentStep === "review" ? (
             <div className={styles.stepPanel}>
               <p className="eyebrow">Step 3 of 3</p>
-              <h1>Ready to request your quote?</h1>
+              <h1
+                className={styles.stepHeading}
+                ref={stepHeadingRef}
+                tabIndex={-1}
+              >
+                Ready to request your quote?
+              </h1>
               <p className={styles.finePrint}>
                 No payment now. You approve the final quote.
               </p>
+              <section
+                className={styles.reviewSummary}
+                aria-label="Entered checkout details"
+              >
+                <section aria-labelledby="review-contact-title">
+                  <div className={styles.reviewHeading}>
+                    <h2 id="review-contact-title">Contact</h2>
+                    <button
+                      type="button"
+                      onClick={() => goToStep("contact")}
+                      aria-label="Edit contact details"
+                    >
+                      Edit
+                    </button>
+                  </div>
+                  <dl className={styles.reviewDetails}>
+                    <div>
+                      <dt>Name</dt>
+                      <dd>{fields.contactName}</dd>
+                    </div>
+                    <div>
+                      <dt>Email</dt>
+                      <dd>{fields.contactEmail}</dd>
+                    </div>
+                    <div>
+                      <dt>Phone</dt>
+                      <dd>{fields.contactPhone}</dd>
+                    </div>
+                  </dl>
+                </section>
+                <section aria-labelledby="review-delivery-title">
+                  <div className={styles.reviewHeading}>
+                    <h2 id="review-delivery-title">Delivery</h2>
+                    <button
+                      type="button"
+                      onClick={() => goToStep("delivery")}
+                      aria-label="Edit delivery details"
+                    >
+                      Edit
+                    </button>
+                  </div>
+                  <dl className={styles.reviewDetails}>
+                    <div>
+                      <dt>Address</dt>
+                      <dd>
+                        {[
+                          fields.deliveryAddress,
+                          fields.deliveryCity,
+                          fields.deliveryState,
+                          fields.deliveryPostalCode,
+                        ]
+                          .filter(Boolean)
+                          .join(", ")}
+                      </dd>
+                    </div>
+                    {fields.deliveryInstructions ? (
+                      <div>
+                        <dt>Notes</dt>
+                        <dd>{fields.deliveryInstructions}</dd>
+                      </div>
+                    ) : null}
+                  </dl>
+                </section>
+              </section>
               <label className={styles.checkField}>
                 <input
                   type="checkbox"
@@ -754,9 +856,9 @@ function ReadyCheckoutExperience({
             <button
               className={styles.primaryAction}
               type="submit"
-              disabled={submitting}
+              disabled={submitting || !termsAccepted}
             >
-              {submitting ? "Saving request…" : "Request verified quote"}
+              {submitting ? "Saving request…" : "Request quote"}
               {!submitting ? <ArrowRight size={17} aria-hidden="true" /> : null}
             </button>
           ) : (

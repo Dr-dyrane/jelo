@@ -1,51 +1,77 @@
 .progress {
-  --progress-accent: var(--wine);
-  padding: 1rem;
+  --current-tone: var(--wine);
+  --current-bg: var(--state-info-bg);
+  --complete-tone: var(--state-success);
+  --complete-bg: var(--state-success-bg);
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+  padding: clamp(0.875rem, 2.8vw, 1.2rem);
   display: grid;
   gap: 1rem;
   border-radius: 1.25rem;
-  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
 }
-.progress[data-exception="true"] {
-  --progress-accent: var(--state-danger);
+.progress[data-tone="warning"] {
+  --current-tone: var(--state-warning);
+  --current-bg: var(--state-warning-bg);
+}
+.progress[data-tone="danger"] {
+  --current-tone: var(--state-danger);
+  --current-bg: var(--state-danger-bg);
+}
+.progress[data-tone="success"] {
+  --current-tone: var(--state-success);
+  --current-bg: var(--state-success-bg);
 }
 .current {
   min-width: 0;
+  padding: 0.75rem;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  align-items: start;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 0.8rem;
+  border-radius: 1rem;
+  background: var(--current-bg);
 }
 .current > span:last-child {
   min-width: 0;
   display: grid;
-  gap: 0.12rem;
+  gap: 0.16rem;
 }
 .currentIcon {
-  width: 2.65rem;
-  height: 2.65rem;
+  width: 3rem;
+  height: 3rem;
   display: grid;
   place-items: center;
   border-radius: 999px;
-  background: var(--progress-accent);
+  background: var(--current-tone);
   color: var(--paper);
 }
 .current small {
-  color: var(--progress-accent);
-  font-size: 0.62rem;
+  color: var(--current-tone);
+  font-size: 0.66rem;
   font-weight: 750;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
 }
 .current strong {
-  font-size: 1.05rem;
+  font-size: clamp(1.15rem, 3.4vw, 1.42rem);
+  line-height: 1.15;
 }
-.current p {
-  max-width: 46rem;
-  margin: 0.18rem 0 0;
-  color: var(--muted);
-  font-size: 0.82rem;
+.next {
+  margin: 0.25rem 0 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.45rem;
+  color: var(--ink);
+  font-size: 0.86rem;
   line-height: 1.45;
+}
+.next > span {
+  color: var(--current-tone);
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
 }
 .progress ol {
   margin: 0;
@@ -59,18 +85,18 @@
   position: relative;
   display: grid;
   justify-items: center;
-  gap: 0.3rem;
+  gap: 0.38rem;
   color: var(--muted);
   text-align: center;
 }
 .progress li::before {
   content: "";
   position: absolute;
-  top: 0.9rem;
+  top: 1rem;
   right: 50%;
   width: 100%;
-  height: 1px;
-  background: color-mix(in srgb, var(--ink) 12%, transparent);
+  height: 2px;
+  background: color-mix(in srgb, var(--ink) 13%, transparent);
 }
 .progress li:first-child::before {
   display: none;
@@ -79,48 +105,105 @@
 .progress li[data-status="current"]::before,
 .progress li[data-status="attention"]::before,
 .progress li[data-status="reached"]::before {
-  background: color-mix(in srgb, var(--progress-accent) 58%, transparent);
+  background: color-mix(in srgb, var(--complete-tone) 65%, transparent);
 }
 .progress li > span {
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 2rem;
+  height: 2rem;
   position: relative;
   z-index: 1;
   display: grid;
   place-items: center;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
   border-radius: 999px;
   background: var(--paper);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--paper) 90%, transparent);
+  color: var(--muted);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--paper) 92%, transparent);
 }
-.progress li[data-status="complete"] > span,
-.progress li[data-status="current"] > span,
-.progress li[data-status="attention"] > span {
-  background: var(--progress-accent);
+.progress li[data-status="complete"] > span {
+  border-color: transparent;
+  background: var(--complete-tone);
   color: var(--paper);
 }
+.progress li[data-status="current"] > span,
+.progress li[data-status="attention"] > span {
+  border-color: transparent;
+  background: var(--current-tone);
+  color: var(--paper);
+  box-shadow:
+    0 0 0 4px var(--paper),
+    0 0 0 7px var(--current-bg);
+}
 .progress li[data-status="reached"] > span {
-  border: 1px solid var(--progress-accent);
-  color: var(--progress-accent);
+  border-color: var(--current-tone);
+  color: var(--current-tone);
 }
 .progress li small {
-  overflow: hidden;
-  font-size: 0.62rem;
-  text-overflow: ellipsis;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.progress li[data-status="complete"] small {
+  color: var(--complete-tone);
+}
+.progress li[data-status="current"] small,
+.progress li[data-status="attention"] small,
+.progress li[data-status="reached"] small {
+  color: var(--current-tone);
+  font-weight: 750;
 }
 .progress[data-compact="true"] {
-  padding: 0.85rem;
+  margin-bottom: 0;
+  padding: 0.8rem;
   gap: 0.75rem;
 }
+.progress[data-compact="true"] .current {
+  padding: 0.6rem;
+}
 .progress[data-compact="true"] .currentIcon {
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.progress[data-compact="true"] .current strong {
+  font-size: 1rem;
+}
+.progress[data-compact="true"] li > span {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+.progress[data-compact="true"] li::before {
+  top: 0.875rem;
 }
 .progress[data-compact="true"] li small {
-  font-size: 0.58rem;
+  font-size: 0.625rem;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 360px) {
+  .progress {
+    padding: 0.75rem;
+  }
+  .current {
+    padding: 0.65rem;
+    gap: 0.65rem;
+  }
+  .currentIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .current strong {
+    font-size: 1.08rem;
+  }
+  .next {
+    grid-template-columns: 1fr;
+    gap: 0.08rem;
+  }
+  .progress ol {
+    margin-inline: -0.2rem;
+  }
   .progress li small {
-    font-size: 0.55rem;
+    font-size: 0.64rem;
   }
 }
