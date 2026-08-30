@@ -1,0 +1,445 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-35-2026-08-29",
+  "reviewedAt": "2026-08-30T08:23:49.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Twenty current Nigerian retailer checks across five releasable exact public Naturium SKUs",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T08:23:49.000Z"
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 134,
+    "after": 139,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 23,
+    "offersAdmitted": 20,
+    "shopperActiveOffers": 17,
+    "outOfStockObservations": 3,
+    "offersBlocked": 3,
+    "offersProjected": 20
+  },
+  "products": [
+    {
+      "candidateId": "naturium-glow-getter-multi-oil-hydrating-body-wash-500ml",
+      "identity": {
+        "gtin": "850010792897",
+        "variant": "The Glow Getter Multi-Oil Hydrating Body Wash",
+        "size": "16.9 fl oz / 500 mL",
+        "packageVersion": "The Glow Getter Multi-Oil Hydrating Body Wash 16.9 fl oz / 500 mL pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-glow-getter-multi-oil-hydrating-body-wash-16-9-oz/",
+          "priceNgn": 38000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://beautybydaz.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "a023d3c2653c55037c9dc679a5c116750b5d59726891ff7bceaf40599875095c",
+          "responseByteSize": 22269,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2025/11/Naturium-multi-oil-body-wash.jpg",
+          "packageImageSha256": "aeb2c2c1cb2a8ae98ea30b8a8e87f2a1a7a83f30a9debf4bc453498179144e2f",
+          "packageImageByteSize": 31170
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/naturium-the-glow-getter-multi-oil-body-wash-500ml/",
+          "priceNgn": 38999,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://teeka4.com/shop/naturium-the-glow-getter-multi-oil-body-wash-500ml/",
+          "responseSha256": "9073bd34e1130172852bc85b8c85e1d4666b71d0b9460c7dbbfcb2652142f274",
+          "responseByteSize": 353117,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/10/PDP_GlowGetter_MultiOil_BodyWash_front_v2-1.webp",
+          "packageImageSha256": "ae5695ccc1c3012ec485129adf92011e645ed29997e8d21bfaf987187c579c51",
+          "packageImageByteSize": 8958
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/naturium-the-glow-getter-multi-oil-hydrating-body-wash-500ml/",
+          "priceNgn": 43000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://peronabeauty.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "dbcdcc96ae1d5c5a696fe643944bf6bc5e6cfcbb4d1877e812cf394739780df1",
+          "responseByteSize": 180252,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2025/10/Screenshot_19849.png",
+          "packageImageSha256": "dae6960ed91f1c85e4b30583aa89f8aa20a1963bd25767873260a297de81d72e",
+          "packageImageByteSize": 29240
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-the-glow-getter-multi-oil-hydrating-body-wash-500ml/",
+          "priceNgn": 46225,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://rhemabeautyshop.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "d44a9a3538becaf7f06c5f47db0b161839984cef4a29b64c9ede503441adc6d2",
+          "responseByteSize": 262856,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2023/07/Naturium-The-Glow-Getter-Multi-Oil-Hydrating-Body-Wash-–-ml.png",
+          "packageImageSha256": "1d47d7a5d57d5d688a9ae4dae062b25e23e2aea510e5707d904de8ade4f68b7a",
+          "packageImageByteSize": 118844
+        },
+        {
+          "retailer": "Essentials Hub",
+          "url": "https://essentialshub.com/product/naturium-the-glow-getter-multi-oil-body-wash-500-ml/",
+          "priceNgn": 39000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://essentialshub.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "c8a34ed00cb4ee59959d420a587b3f22cfcb341059d6520d77fdb092266a1a0b",
+          "responseByteSize": 358885,
+          "packageImageUrl": "https://essentialshub.com/wp-content/uploads/2023/09/Naturium-The-Glow-Getter-Multi-Oil-Body-Wash.jpg",
+          "packageImageSha256": "84001d5eaffd940ebec562398844437d11bb2cac6482a18169609176ac5a67ad",
+          "packageImageByteSize": 22168
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Nihet Beauty",
+          "reason": "listing-title-says-glow-getter-body-wash-but-its-observed-sku-850010792903-belongs-to-the-smoother-cell"
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
+      "identity": {
+        "gtin": "850010792934",
+        "variant": "The Perfector Salicylic Acid Body Wash",
+        "size": "16.9 fl oz / 500 mL",
+        "packageVersion": "The Perfector Salicylic Acid Body Wash 16.9 fl oz / 500 mL pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
+          "priceNgn": 43500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://peronabeauty.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "dbcdcc96ae1d5c5a696fe643944bf6bc5e6cfcbb4d1877e812cf394739780df1",
+          "responseByteSize": 180252,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/06/Naturium-T_765003.png",
+          "packageImageSha256": "faec15ba0fd60c04181b1738a4b3002eca29b9fc921f358dc7efdafeda459641",
+          "packageImageByteSize": 45060
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
+          "priceNgn": 46225,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://rhemabeautyshop.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "d44a9a3538becaf7f06c5f47db0b161839984cef4a29b64c9ede503441adc6d2",
+          "responseByteSize": 262856,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2023/05/1FE69A78-33C6-480E-A968-A0904D344F4B.webp",
+          "packageImageSha256": "e570561f1ccae318477beb301cb984c6e1fcbda8af85cd88a817b733a490b0b1",
+          "packageImageByteSize": 39390
+        },
+        {
+          "retailer": "Kadimez Essentials",
+          "url": "https://kadimezessentials.com/product/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
+          "priceNgn": 43000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://kadimezessentials.com/product/naturium-the-perfector-salicylic-acid-body-wash-500ml/",
+          "responseSha256": "0d73c63ea0d3d980e709d29a8e44d82c3dd4c93487a963b3ff1c5ef7956b0651",
+          "responseByteSize": 224791,
+          "packageImageUrl": "https://i0.wp.com/kadimezessentials.com/wp-content/uploads/2024/07/1000983902.jpg?fit=720%2C1044&ssl=1",
+          "packageImageSha256": "cd433996596db460dc8bdcee0a3f3c57466549025b379098125bf01f9cc7370d",
+          "packageImageByteSize": 66167
+        },
+        {
+          "retailer": "Essentials Hub",
+          "url": "https://essentialshub.com/product/naturium-the-perfector-salicylic-acid-body-wash/",
+          "priceNgn": 39000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://essentialshub.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "c8a34ed00cb4ee59959d420a587b3f22cfcb341059d6520d77fdb092266a1a0b",
+          "responseByteSize": 358885,
+          "packageImageUrl": "https://essentialshub.com/wp-content/uploads/2023/09/Naturium-The-Perfector-Salicylic-Acid-Body-Wash.jpg",
+          "packageImageSha256": "5cdd7f0e71738cfa3e6063543aa1e0f517b30a111fa15c3965407ae9083bbece",
+          "packageImageByteSize": 22750
+        },
+        {
+          "retailer": "The Beauty Prism",
+          "url": "https://thebeautyprismng.com/shop/the-perfector-salicylic-acid-body-wash/",
+          "priceNgn": 42500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://thebeautyprismng.com/shop/the-perfector-salicylic-acid-body-wash/",
+          "responseSha256": "152a4ca917cb49843f711ead8accaaa6d46f30dc1263db4f133a26442fa4e487",
+          "responseByteSize": 305722,
+          "packageImageUrl": "https://thebeautyprismng.com/wp-content/uploads/2023/12/UK200039377_NATURIUM.jpg",
+          "packageImageSha256": "f4a22f3a20832916e87d069c905b8e838144af3e086fb3c09acc0ca596edf847",
+          "packageImageByteSize": 515774
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/naturium-the-perfector-salicylic-acid-skin-smoothing-body-wash-16-9-fl-oz-500ml/",
+          "priceNgn": 48500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://tosnigeria.com/shop/naturium-the-perfector-salicylic-acid-skin-smoothing-body-wash-16-9-fl-oz-500ml/",
+          "responseSha256": "cbc05237a657e63323ee0707f9b9e549867f510ee1019b7cf5876c6afcd37ce7",
+          "responseByteSize": 316641,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2023/05/Naturium-The-Perfector-Salicylic-Acid-Skin-Smoothing-Body-Wash-16.9-fl-oz-500ml.jpg",
+          "packageImageSha256": "5b485f43127b0786bcf1aa4621e48e975c68307054370a1f70ab5b9c920576ca",
+          "packageImageByteSize": 12438
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Beauty by Daz",
+          "reason": "current-retailer-catalogue-response-returned-no-exact-perfector-listing"
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml",
+      "identity": {
+        "gtin": "850010792903",
+        "variant": "The Smoother Glycolic Acid Exfoliating Body Wash",
+        "size": "16.9 oz / 500 mL",
+        "packageVersion": "The Smoother Glycolic Acid Exfoliating Body Wash 16.9 oz / 500 mL pump bottle"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/bath-body/bath-wash-gels/naturium-the-smoother-glycolic-acid-exfoliating-body-wash16-9-oz/",
+          "priceNgn": 38000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://beautybydaz.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "a023d3c2653c55037c9dc679a5c116750b5d59726891ff7bceaf40599875095c",
+          "responseByteSize": 22269,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2025/11/Naturim-glycolic-wash.jpg",
+          "packageImageSha256": "fbab13e02913ba17e6915e231ca6b7512417091122ee4fa1f12972037be2bd0d",
+          "packageImageByteSize": 31576
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/naturium-the-smoother-glycolic-acid-body-wash-500ml/",
+          "priceNgn": 43500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://peronabeauty.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "dbcdcc96ae1d5c5a696fe643944bf6bc5e6cfcbb4d1877e812cf394739780df1",
+          "responseByteSize": 180252,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2025/10/Screenshot_123717.png",
+          "packageImageSha256": "541947ce5e5e2141196d4bf8381e0badebdd6d53fdad30c6b4588e725b2ad9a5",
+          "packageImageByteSize": 22688
+        },
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-the-smoother-glycolic-acid-body-wash-500ml/",
+          "priceNgn": 46225,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://rhemabeautyshop.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "d44a9a3538becaf7f06c5f47db0b161839984cef4a29b64c9ede503441adc6d2",
+          "responseByteSize": 262856,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2023/05/Naturium-The-Smoother-Glycolic-Acid-Body-Wash-–-ml.png",
+          "packageImageSha256": "128fca99aa919325f5ea790a53676398a52cd0ad16cd2539587317c926e4a0d7",
+          "packageImageByteSize": 96846
+        },
+        {
+          "retailer": "Kadimez Essentials",
+          "url": "https://kadimezessentials.com/product/naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml/",
+          "priceNgn": 43000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://kadimezessentials.com/product/naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml/",
+          "responseSha256": "a1874a8b34e27cf891df6ab2cfaffacbdbb0c33cc3721dc7c1a5006f3d8dab91",
+          "responseByteSize": 232551,
+          "packageImageUrl": "https://i0.wp.com/kadimezessentials.com/wp-content/uploads/2026/03/1003669254.jpg?fit=700%2C700&ssl=1",
+          "packageImageSha256": "ca0f2a6d42e20fb33ac68185f1637210035ba5215fecb2cda96ab12d7c4f4008",
+          "packageImageByteSize": 17171
+        },
+        {
+          "retailer": "Essentials Hub",
+          "url": "https://essentialshub.com/product/naturium-the-smoother-glycolic-body-wash/",
+          "priceNgn": 39000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://essentialshub.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "c8a34ed00cb4ee59959d420a587b3f22cfcb341059d6520d77fdb092266a1a0b",
+          "responseByteSize": 358885,
+          "packageImageUrl": "https://essentialshub.com/wp-content/uploads/2023/09/Naturium-The-Smoother-Glycolic-Body-Wash.jpg",
+          "packageImageSha256": "bcec6e9ffa9e3a3c2eb3d5061cd0236c181216df55c2e3788072766b1453f713",
+          "packageImageByteSize": 19625
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Essentials Hub 100ml sibling",
+          "reason": "current-search-also-returned-a-100ml-sibling-which-is-not-projected-into-the-500ml-cell"
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-fermented-rice-enzyme-cleanser-4oz",
+      "identity": {
+        "gtin": "850010792361",
+        "variant": "Fermented Rice Enzyme Cleanser",
+        "size": "4.0 fl oz / 120 mL",
+        "packageVersion": "Fermented Rice Enzyme Cleanser 4.0 fl oz / 120 mL tube"
+      },
+      "offers": [
+        {
+          "retailer": "Mirrors Beauty",
+          "url": "https://mirrorsbeauty.com/products/naturium-fermented-rice-enzyme-cleanser",
+          "priceNgn": 44000,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://mirrorsbeauty.com/products/naturium-fermented-rice-enzyme-cleanser.js",
+          "responseSha256": "11576fa671951d2ad60396a6eb63ce5380a6921025b85e23737a6cc1639e6ab7",
+          "responseByteSize": 5589,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0877/9291/0619/files/IMG-4645.jpg?v=1783668283",
+          "packageImageSha256": "217cded0508231c7b140f5c975e2e031fedf2daad74a97032869c9fb47fbc654",
+          "packageImageByteSize": 70781
+        },
+        {
+          "retailer": "Skin Pop Essentiel",
+          "url": "https://skinpopessentiel.com/products/naturium-fermented-rice-enzyme-cleanser",
+          "priceNgn": 13867.5,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://skinpopessentiel.com/products/naturium-fermented-rice-enzyme-cleanser.js",
+          "responseSha256": "63d2e25565784b3281d33e687a43fbb411ed4b4b8d47fd3998f94aa5f60f7788",
+          "responseByteSize": 3546,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0580/6751/7607/products/NATR_Fermented-Rice-Enzyme-Cleanser-Comp_1400x_8635acfd-9143-47ae-ba8e-9ed48f7d4800.jpg?v=1654958899",
+          "packageImageSha256": "b0fd52ea27f716efb50cd60c1e1853f6f86eefadd514fe63220641845343b07b",
+          "packageImageByteSize": 123002
+        }
+      ],
+      "notProjected": []
+    },
+    {
+      "candidateId": "naturium-retinol-complex-cream-1-7oz",
+      "identity": {
+        "gtin": "850010792040",
+        "variant": "Retinol Complex Cream",
+        "size": "1.7 fl oz / 50 mL",
+        "packageVersion": "Retinol Complex Cream 1.7 fl oz / 50 mL airless pump"
+      },
+      "offers": [
+        {
+          "retailer": "Nihet Beauty",
+          "url": "https://nihetbeauty.com/product/naturium-retinol-complex-cream-50ml/",
+          "priceNgn": 78500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://nihetbeauty.com/wp-json/wc/store/v1/products?search=naturium&per_page=100",
+          "responseSha256": "9259272b636abfe20a8bf210f33b3b64a256ab6d733143733403ed9af892f5c2",
+          "responseByteSize": 454140,
+          "packageImageUrl": "https://i0.wp.com/nihetbeauty.com/wp-content/uploads/2024/11/img_9571.jpeg?fit=1400%2C1400&ssl=1",
+          "packageImageSha256": "afdf7192d527a46322362721cadf8929dacf0110c1c3629217bf1f142835f113",
+          "packageImageByteSize": 62520
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/naturium-retinol-complex-cream-50ml/",
+          "priceNgn": 43968,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T08:23:49.000Z",
+          "expiresAt": "2026-09-06T08:23:49.000Z",
+          "responseUrl": "https://buybetter.ng/product/naturium-retinol-complex-cream-50ml/",
+          "responseSha256": "9e493d2321e4eecb8667c026270841012a65b8d00a654caae5a7afaa7d40ecf6",
+          "responseByteSize": 562951,
+          "observedProductGtin": "850010792040",
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/08/NATR_Retinol-Cream-New-Formula_Front_capoff.webp",
+          "packageImageSha256": "35552bff7e88196179765f3b9a23f48be171d5382ca4def62229755690a71141",
+          "packageImageByteSize": 4286
+        }
+      ],
+      "notProjected": []
+    }
+  ],
+  "blockedCells": [],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "naturium-glow-getter-multi-oil-hydrating-body-wash-500ml",
+      "retailer": "Nihet Beauty",
+      "reason": "listing-title-says-glow-getter-body-wash-but-its-observed-sku-850010792903-belongs-to-the-smoother-cell"
+    },
+    {
+      "candidateId": "naturium-the-smoother-glycolic-acid-exfoliating-body-wash-500ml",
+      "retailer": "Essentials Hub 100ml sibling",
+      "reason": "100ml-sibling-search-result-is-not-projected-into-the-500ml-cell"
+    },
+    {
+      "candidateId": "naturium-the-perfector-salicylic-acid-body-wash-500ml",
+      "retailer": "Beauty by Daz",
+      "reason": "current-retailer-catalogue-response-returned-no-exact-perfector-listing"
+    }
+  ],
+  "heldCandidates": null
+}

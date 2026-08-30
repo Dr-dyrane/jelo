@@ -19,6 +19,7 @@ import waveTwentyNineAudit from "@/data/retailer-verification/catalogue-offer-re
 import waveThirtyAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-30-2026-08-29.json";
 import waveThirtyOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-31-2026-08-29.json";
 import waveThirtyTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-32-2026-08-29.json";
+import waveThirtyFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-35-2026-08-29.json";
 import { mergeRetailOffers, verifiedRetailOffers } from "@/data/retail-offers";
 import { nigeriaRetailers } from "@/data/retailers";
 import {
@@ -262,6 +263,7 @@ test("the admitted evidence projects exactly once and rejected or pending stores
     }
 
     const latestRefreshDisposition = [
+      waveThirtyFiveAudit,
       waveThirtyTwoAudit,
       waveThirtyOneAudit,
     ].find(
@@ -282,6 +284,9 @@ test("the admitted evidence projects exactly once and rejected or pending stores
     }
 
     const refreshedProduct =
+      waveThirtyFiveAudit.products.find(
+        (candidate) => candidate.candidateId === product.candidateId,
+      ) ??
       waveThirtyTwoAudit.products.find(
         (candidate) => candidate.candidateId === product.candidateId,
       ) ??
