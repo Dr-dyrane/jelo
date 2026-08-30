@@ -79,6 +79,17 @@ The validation job runs:
 
 A second job installs the hash-locked Python 3.12 CPU runtime and verifies the exact-SKU packshot operator.
 
+`.github/workflows/inventory-static-integration.yml` is the single recurring
+integration owner for static offer proposals on `inventory-sync-review`. It
+accepts no arbitrary application changes: a dedicated semantic validator limits
+the proposal to the existing offer set and cron-owned fields. It rebases onto
+the observed `main`, runs the same release and research gates plus the
+non-mutating build, and atomically advances `main` and the review baseline under
+exact ref leases. Its hourly retry only retries integration; it does not invoke
+inventory processing. Because GitHub-token pushes do not recursively start the
+normal validation workflow, this workflow performs the complete validation job
+before its push.
+
 Do not merge around a red gate. Read the exact failing log.
 
 ## Vercel

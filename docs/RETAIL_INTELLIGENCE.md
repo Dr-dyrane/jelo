@@ -151,8 +151,12 @@ canonical redirect, explicit title mismatch, explicit measurable size mismatch,
 unverifiable catalogue expected size, or explicit market-currency mismatch is a
 terminal contradiction. The worker immediately expires that database offer
 without deleting its prior observation or price history, and proposes a static
-fallback invalidation on the configured review branch. The checked-in fallback
-is not fail-closed until that reviewed proposal is merged and deployed. Logs
+fallback invalidation on the configured review branch. The dedicated static
+integration workflow then semantically validates the exact offer-only diff,
+rebases it onto the current `main`, runs the release gates and build, and
+atomically advances both branches. The checked-in fallback is not fail-closed
+until that workflow succeeds and the resulting production deployment is ready.
+Logs
 expose only bounded reason counts rather than retailer content or error messages.
 
 Catalogue reconciliation retains expired reviewed offers as non-current history
@@ -182,6 +186,14 @@ anti-overwrite protections:
 - **Actionable configuration state** — enabled sync distinguishes a missing
   token, missing branch variable, invalid branch namespace, and a syntactically
   valid review branch that GitHub reports as absent.
+- **Idempotent integration owner** — `.github/workflows/inventory-static-integration.yml`
+  serializes review-branch proposals, rejects every changed path except
+  `data/retail-offers.ts`, rejects offer additions/removals and identity/evidence
+  changes, reruns the release gates and non-mutating build, then uses one atomic
+  push for `main` and the review-branch baseline. If `main` or the proposal moves
+  during validation, the push fails without partially advancing either ref; the
+  hourly integration retry safely re-evaluates the latest state without invoking
+  the inventory cron.
 
 The cron depends on three production prerequisites: a `CRON_SECRET` of at least 16 characters, the `jelocare_app_runtime` database role provisioned in Neon, and `APP_DATABASE_URL` set in Vercel Production while the owner-capable Neon integration remains disconnected. If any is missing, the cron fails closed. See [Troubleshooting: Inventory cron is not running](./catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running) and [Runbooks: Inventory cron fails](./operations/RUNBOOKS.md#inventory-cron-fails).
 
@@ -189,7 +201,9 @@ The scheduled worker may service every configured market. A manual maintenance
 run must pass an explicit two-letter market when its authorization is narrower;
 the same boundary constrains fresh claims, expired-lease recovery, and
 exhausted-lease settlement. Market scoping consumes the existing ledger and
-never requires duplicate jobs.
+never requires duplicate jobs. Routine static proposals likewise belong to the
+integration workflow; a product lane opens only for a reported exception, not
+for a second manual merge of a passing proposal.
 
 ## Implementation order
 

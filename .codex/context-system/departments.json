@@ -5,6 +5,28 @@
     "readByDefault": [".codex/context-system/work-ledger.md"],
     "inheritFullHistory": false,
     "maxFilesPerRouteCapsule": 12,
+    "recurringWork": {
+      "scheduledOwnerPrecedence": true,
+      "avoidDuplicateManualExecution": true,
+      "promoteRepeatedFailuresToDurableImprovements": true,
+      "requireLearningHandback": true,
+      "owners": [
+        {
+          "outcome": "inventory-offer-refresh",
+          "scheduledOwner": "Vercel cron GET /api/cron/inventory",
+          "departments": ["platform-delivery", "catalogue-evidence"],
+          "routineScope": "Queue, lease, retry, evidence refresh, terminal invalidation, and static review-branch proposal",
+          "manualOnly": "Diagnose a failed scheduled run without duplicating its queue, claim, retry, or cache work"
+        },
+        {
+          "outcome": "inventory-static-integration",
+          "scheduledOwner": "GitHub Actions inventory-static-integration.yml",
+          "departments": ["platform-delivery", "catalogue-evidence"],
+          "routineScope": "Validate, rebase, gate, and atomically advance an exact static offer proposal plus its review-branch baseline",
+          "manualOnly": "Resolve a validator, rebase, branch-rule, credential, gate, deployment, or production-smoke exception"
+        }
+      ]
+    },
     "rotationGuards": {
       "capsuleApproxTokens": 1500,
       "handbackApproxTokens": 500,

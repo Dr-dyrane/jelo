@@ -1125,6 +1125,31 @@ overwrites of higher-quality data.
   produces `static_file_sync_review_branch_not_found`, which means the configured
   review branch does not exist remotely. Rate limiting and network errors are caught.
 
+### Phase 4: Idempotent static integration
+
+`.github/workflows/inventory-static-integration.yml` owns routine integration
+from the exact `inventory-sync-review` branch. A branch push starts it
+immediately; an hourly schedule retries integration failures caused by a moving
+`main` or interrupted runner. The schedule never calls the inventory endpoint,
+queues work, claims a lease, retries an offer, or invalidates cache.
+
+The workflow fetches both refs, rebases the proposal onto the observed `main`,
+and runs `inventory:static-proposal:validate`. That validator requires exactly
+one changed path and an unchanged exact-offer denominator/order. It permits only
+the bounded price, availability, stock, observation, expiry, and verification
+method mutations produced by the static sync owner. URL, retailer, trust,
+variant, size, seller evidence, additions, removals, and changes outside
+`verifiedRetailOffers` fail closed. A passing revision receives the shared
+release verification, research-integrity check, and a build with database
+migrations disabled.
+
+The final push advances `main` and resets `inventory-sync-review` to the same
+gated revision atomically, guarded by exact leases for both observed refs. If
+either ref moved, neither advances. Do not manually merge a passing routine
+proposal. Open a bounded product/platform exception only when the validator,
+rebase, GitHub branch rule/token, release gate, deployment, or production smoke
+reports a concrete failure.
+
 ### Diagnosing sync issues
 
 1. **Check the cron response** for `staticFileSync` in the JSON output:
@@ -1144,8 +1169,11 @@ overwrites of higher-quality data.
    - `staticFileSync: null` — sync is disabled or no offers were refreshed or
      invalidated.
 
-2. **Inspect and merge the configured review branch** after re-opening the
-   exact retailer evidence. Never configure static sync against `main`.
+2. **Check the `Integrate inventory static proposal` workflow** for the review
+   commit. A green run means the semantic offer guard, release gates, build, and
+   atomic ref advancement passed. A red run is an exception to diagnose; do not
+   duplicate the cron or manually merge around it. Never configure static sync
+   against `main`.
 
 3. **Check the GitHub commit history** for sync commits:
 

@@ -29,6 +29,7 @@
     "inventory:queue": "tsx scripts/queue-inventory-refresh.ts",
     "inventory:work": "tsx scripts/process-inventory-refresh.ts",
     "inventory:observe:manual": "tsx scripts/record-manual-inventory-observation.ts",
+    "inventory:static-proposal:validate": "tsx scripts/validate-inventory-sync-proposal.ts",
     "db:migrate": "tsx scripts/migrate-database.ts",
     "db:migrations:validate": "tsx scripts/validate-migrations.ts",
     "db:migrations:status": "tsx scripts/report-migration-status.ts",
