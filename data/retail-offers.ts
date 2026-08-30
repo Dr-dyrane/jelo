@@ -6395,6 +6395,36 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   "beauty-formulas-glowing-serum-2-vitamin-c-30ml": [
     exactNg(
+      "CSi Grocery",
+      "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/beauty-formulas-glowing-serum/",
+      90,
+      3300,
+      "Current verification wall; prior exact listing retained only as an unavailable reference",
+      "30 ml",
+      {
+        observedAt: "2026-08-30T04:23:14.383Z",
+        expiresAt: "2026-09-06T04:23:14.383Z",
+        available: false,
+        stock: "unknown",
+        priceComparison: "exclude",
+      },
+    ),
+    exactNg(
+      "24Eleven",
+      "https://www.24eleven.ng/beauty-formulas-glowing-serum-2-vitamin-c-30ml/",
+      82,
+      3800,
+      "Current verification wall; prior exact listing retained only as an unavailable reference",
+      "30 ml",
+      {
+        observedAt: "2026-08-30T04:23:17.330Z",
+        expiresAt: "2026-09-06T04:23:17.330Z",
+        available: false,
+        stock: "unknown",
+        priceComparison: "exclude",
+      },
+    ),
+    exactNg(
       "Beauty by Daz",
       "https://beautybydaz.com/shop/face/beauty-formulas-glowing-serum-2-vitamin-c/",
       100,

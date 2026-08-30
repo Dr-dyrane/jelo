@@ -39,7 +39,7 @@
     "productsReleased": 5,
     "productsBlocked": 0,
     "offersReviewed": 32,
-    "offersAdmitted": 20,
+    "offersAdmitted": 22,
     "shopperActiveOffers": 17,
     "outOfStockObservations": 3,
     "offersBlocked": 12,
@@ -217,6 +217,28 @@
         "packageVersion": "30 ml dropper bottle and carton; manufacturer code 88696"
       },
       "offers": [
+        {
+          "retailer": "CSi Grocery",
+          "url": "https://www.csigrocery.com/shop/skincare/face/facial-serums-eye-creams/beauty-formulas-glowing-serum/",
+          "priceNgn": 3300,
+          "stock": "unknown",
+          "available": false,
+          "checkedAt": "2026-08-30T04:23:14.383Z",
+          "expiresAt": "2026-09-06T04:23:14.383Z",
+          "responseSha256": "ad47725163e2e6843e542600aed4981aa073f28d5f7ae2758175e0b78fcb429f",
+          "responseByteSize": 5866
+        },
+        {
+          "retailer": "24Eleven",
+          "url": "https://www.24eleven.ng/beauty-formulas-glowing-serum-2-vitamin-c-30ml/",
+          "priceNgn": 3800,
+          "stock": "unknown",
+          "available": false,
+          "checkedAt": "2026-08-30T04:23:17.330Z",
+          "expiresAt": "2026-09-06T04:23:17.330Z",
+          "responseSha256": "2cd07766db2f47530f91edf941c87fc7ee021cf402f52caf26ddbb26a13aa551",
+          "responseByteSize": 5888
+        },
         {
           "retailer": "Beauty by Daz",
           "url": "https://beautybydaz.com/shop/face/beauty-formulas-glowing-serum-2-vitamin-c/",

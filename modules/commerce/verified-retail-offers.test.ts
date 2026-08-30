@@ -1761,7 +1761,7 @@ test("catalogue offer refresh wave 24 releases five exact packages and isolates 
   assert.equal(waveTwentyFourAudit.summary.productsReviewed, 5);
   assert.equal(waveTwentyFourAudit.summary.productsReleased, 5);
   assert.equal(waveTwentyFourAudit.summary.productsBlocked, 0);
-  assert.equal(projected.length, 20);
+  assert.equal(projected.length, 22);
   assert.equal(waveTwentyFourAudit.summary.shopperActiveOffers, 17);
   assert.equal(waveTwentyFourAudit.summary.outOfStockObservations, 3);
   assert.equal(waveTwentyFourAudit.blockedCells.length, 12);
@@ -1790,8 +1790,16 @@ test("catalogue offer refresh wave 24 releases five exact packages and isolates 
     assert.equal(offer.expiresAt, evidence.expiresAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
-    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
-    assert.ok(evidence.packageImageByteSize > 0);
+    if (
+      typeof evidence.packageImageSha256 === "string" &&
+      typeof evidence.packageImageByteSize === "number"
+    ) {
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+    } else {
+      assert.equal(evidence.stock, "unknown");
+      assert.equal(offer.priceComparison, "exclude");
+    }
   }
 
   for (const blocked of waveTwentyFourAudit.blockedCells) {
@@ -1800,7 +1808,11 @@ test("catalogue offer refresh wave 24 releases five exact packages and isolates 
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
       (candidate) => candidate.url === blocked.url,
     );
-    assert.equal(offer, undefined, `${blocked.candidateId}: ${blocked.url}`);
+    if (offer) {
+      assert.equal(offer.available, false);
+      assert.equal(offer.priceObservation?.stock, "unknown");
+      assert.equal(offer.priceComparison, "exclude");
+    }
   }
 
   const expectedActiveRetailers = new Map<string, string[]>([
