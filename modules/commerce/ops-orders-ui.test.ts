@@ -108,10 +108,61 @@ test("Orders open a calm summary before mounting one focused current action", as
   assert.match(summary, /<OrderOverviewWarnings/);
   assert.match(
     summary,
-    /<details[\s\S]*?className=\{styles\.secondarySignals\}>/,
+    /<details[\s\S]*?className=\{styles\.secondaryDetails\}[\s\S]*?data-ops-order-secondary-details/,
   );
   assert.match(summary, /ref=\{actionTriggerRef\}/);
   assert.match(summary, /onClick=\{openCurrentAction\}/);
+
+  const essentialsStart = summary.indexOf(
+    "<OrderEssentials order={selected} />",
+  );
+  const stageStart = summary.indexOf("<OrderStageSummary order={selected} />");
+  const currentActionStart = summary.indexOf(
+    "<section className={styles.currentAction}>",
+  );
+  const secondaryDetailsStart = summary.indexOf("<details");
+  assert.ok(
+    essentialsStart >= 0 &&
+      stageStart > essentialsStart &&
+      currentActionStart > stageStart &&
+      secondaryDetailsStart > currentActionStart,
+  );
+
+  const secondaryDetailsEnd = summary.indexOf(
+    "</details>",
+    secondaryDetailsStart,
+  );
+  assert.ok(secondaryDetailsEnd > secondaryDetailsStart);
+  const secondaryDetails = summary.slice(
+    secondaryDetailsStart,
+    secondaryDetailsEnd + "</details>".length,
+  );
+  const detailsOpeningTag = secondaryDetails.slice(
+    0,
+    secondaryDetails.indexOf(">") + 1,
+  );
+  assert.doesNotMatch(detailsOpeningTag, /\sopen(?:=|\s|>)/);
+  assert.equal(secondaryDetails.match(/<details\b/g)?.length, 1);
+  assert.match(secondaryDetails, /Customer and delivery/);
+  assert.match(secondaryDetails, /Product lines/);
+  assert.match(secondaryDetails, /<OrderLifecycle order=\{selected\} \/>/);
+  assert.match(secondaryDetails, /<OrderVerificationPanel/);
+  assert.match(secondaryDetails, /<TeamAlertDelivery/);
+  assert.match(secondaryDetails, /<NotificationDelivery/);
+  assert.doesNotMatch(
+    secondaryDetails,
+    /<QuoteForm|<PaymentVerification|<LifecycleDecisionForm/,
+  );
+  assert.match(
+    queue,
+    /currentStep\?\.closest<HTMLDetailsElement>\([\s\S]*?["']details["'][\s\S]*?\)/,
+  );
+  assert.match(
+    queue,
+    /if \(lifecycleDetails && !lifecycleDetails\.open\) return/,
+  );
+  assert.match(queue, /lifecycleList\.scrollTo\(\{[\s\S]*?left:/);
+  assert.doesNotMatch(queue, /currentStep\?\.scrollIntoView/);
 
   assert.match(
     queue,
@@ -194,6 +245,33 @@ test("Orders inspector is a one-scroll-owner bottom sheet with reachable actions
     styles,
     /background:\s*var\(--ops-action, var\(--ops-accent\)\)/,
   );
+  const narrowInspectorStart = styles.indexOf(
+    "@container order-inspector (max-width: 360px)",
+  );
+  const narrowInspectorEnd = styles.indexOf(
+    ".paymentOverview",
+    narrowInspectorStart,
+  );
+  assert.ok(
+    narrowInspectorStart >= 0 && narrowInspectorEnd > narrowInspectorStart,
+  );
+  const narrowInspectorRules = styles.slice(
+    narrowInspectorStart,
+    narrowInspectorEnd,
+  );
+  assert.match(
+    narrowInspectorRules,
+    /\.orderEssentials dl\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\)/,
+  );
+  assert.match(
+    narrowInspectorRules,
+    /\.stageSummary,\s*\.secondaryGroup > header\s*\{[\s\S]*?flex-direction:\s*column/,
+  );
+  assert.match(
+    styles,
+    /\.secondaryDetails > summary\s*\{[\s\S]*?min-height:\s*var\(--touch-min\)/,
+  );
+  assert.match(styles, /\.secondaryDetails > summary:focus-visible/);
   assert.match(
     styles,
     /@media \(max-width: 720px\)[\s\S]*?\.currentAction\s*\{[\s\S]*?flex-direction:\s*column/,

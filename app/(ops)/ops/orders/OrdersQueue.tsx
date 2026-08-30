@@ -150,7 +150,7 @@ export function OrdersQueue({
   const actionTriggerRef = useRef<HTMLButtonElement | null>(null);
   const recoveryTriggerRef = useRef<HTMLButtonElement | null>(null);
   const actionRecoveryRef = useRef<HTMLButtonElement | null>(null);
-  const signalsDetailsRef = useRef<HTMLDetailsElement | null>(null);
+  const secondaryDetailsRef = useRef<HTMLDetailsElement | null>(null);
   const actionHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const actionReturnTargetRef = useRef<"primary" | "recovery">("primary");
   const { selected, selectionMissing } = resolveOrderQueueSelection(
@@ -246,7 +246,8 @@ export function OrdersQueue({
     setRecoveryModeKey(null);
     requestAnimationFrame(() => {
       if (returnTarget === "recovery") {
-        if (signalsDetailsRef.current) signalsDetailsRef.current.open = true;
+        if (secondaryDetailsRef.current)
+          secondaryDetailsRef.current.open = true;
         recoveryTriggerRef.current?.focus();
         return;
       }
@@ -356,11 +357,13 @@ export function OrdersQueue({
         <>
           <header>
             <div>
-              <p>Order {selected.reference}</p>
-              <h2>{selected.contactName}</h2>
+              <p>Selected order</p>
+              <h2>{selected.reference}</h2>
             </div>
             <span>{CUSTOMER_VISIBLE_ORDER_STATES[selected.state].label}</span>
           </header>
+
+          <OrderEssentials order={selected} />
 
           {selected.state === "payment_pending" ? (
             <PaymentOverview order={selected} />
@@ -371,6 +374,8 @@ export function OrdersQueue({
             delivery={selectedDelivery}
             alert={selectedOperatorAlert}
           />
+
+          <OrderStageSummary order={selected} />
 
           {selectedAction && canManage ? (
             <section className={styles.currentAction}>
@@ -390,61 +395,91 @@ export function OrdersQueue({
             </section>
           ) : null}
 
-          <OrderLifecycle order={selected} />
-          <div className={styles.privateData}>
-            <strong>{selected.retailer}</strong>
-            <span>{selected.contactEmail}</span>
-            <span>{selected.contactPhone}</span>
-            <span>
-              {selected.deliveryAddress}, {selected.deliveryCity},{" "}
-              {selected.deliveryState}
-            </span>
-            {selected.deliveryInstructions ? (
-              <span>{selected.deliveryInstructions}</span>
-            ) : null}
-            <small>
-              {selected.whatsappConsent
-                ? "WhatsApp consent recorded"
-                : "Do not initiate WhatsApp contact"}
-            </small>
-          </div>
-          <div className={styles.lines}>
-            {selected.lines.map((line) => (
-              <div key={line.slug}>
-                <span>
-                  {line.brand} · {line.name}
-                  <small>
-                    {line.size} × {line.quantity}
-                  </small>
-                </span>
-                <span className={styles.lineActions}>
-                  <b>
-                    {naira.format(line.observedUnitPriceNgn * line.quantity)}
-                  </b>
-                  {line.observedListingUrl ? (
-                    <a
-                      href={line.observedListingUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Open retailer{" "}
-                      <ExternalLink size={14} aria-hidden="true" />
-                    </a>
-                  ) : null}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <details ref={signalsDetailsRef} className={styles.secondarySignals}>
+          <details
+            ref={secondaryDetailsRef}
+            className={styles.secondaryDetails}
+            data-ops-order-secondary-details
+          >
             <summary>
               <span>
-                <strong>Checks and delivery</strong>
-                <small>Verification, team alert, and customer update</small>
+                <strong>More order details</strong>
+                <small>Customer, full progress, checks, and delivery</small>
               </span>
-              <span aria-hidden="true">View</span>
+              <span aria-hidden="true">Show</span>
             </summary>
             <div>
+              <section
+                className={styles.secondaryGroup}
+                aria-labelledby={`order-customer-${selected.id}`}
+              >
+                <header>
+                  <h3 id={`order-customer-${selected.id}`}>
+                    Customer and delivery
+                  </h3>
+                  <strong>{selected.contactName}</strong>
+                </header>
+                <div className={styles.privateData}>
+                  <span>{selected.contactEmail}</span>
+                  <span>{selected.contactPhone}</span>
+                  <span>
+                    {selected.deliveryAddress}, {selected.deliveryCity},{" "}
+                    {selected.deliveryState}
+                  </span>
+                  {selected.deliveryInstructions ? (
+                    <span>{selected.deliveryInstructions}</span>
+                  ) : null}
+                  <small>
+                    {selected.whatsappConsent
+                      ? "WhatsApp consent recorded"
+                      : "Do not initiate WhatsApp contact"}
+                  </small>
+                </div>
+              </section>
+
+              <section
+                className={styles.secondaryGroup}
+                aria-labelledby={`order-products-${selected.id}`}
+              >
+                <header>
+                  <h3 id={`order-products-${selected.id}`}>Product lines</h3>
+                  <strong>
+                    {selected.lines.length}{" "}
+                    {selected.lines.length === 1 ? "line" : "lines"}
+                  </strong>
+                </header>
+                <div className={styles.lines}>
+                  {selected.lines.map((line) => (
+                    <div key={line.slug}>
+                      <span>
+                        {line.brand} · {line.name}
+                        <small>
+                          {line.size} × {line.quantity}
+                        </small>
+                      </span>
+                      <span className={styles.lineActions}>
+                        <b>
+                          {naira.format(
+                            line.observedUnitPriceNgn * line.quantity,
+                          )}
+                        </b>
+                        {line.observedListingUrl ? (
+                          <a
+                            href={line.observedListingUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Open retailer{" "}
+                            <ExternalLink size={14} aria-hidden="true" />
+                          </a>
+                        ) : null}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <OrderLifecycle order={selected} />
+
               <OrderVerificationPanel
                 order={selected}
                 canManage={canManage}
@@ -799,6 +834,66 @@ function resolveCurrentOrderAction(order: AssistedOrderPrivateView) {
   return null;
 }
 
+function OrderEssentials({ order }: { order: AssistedOrderPrivateView }) {
+  const primaryLine = order.lines[0];
+  const remainingLines = Math.max(order.lines.length - 1, 0);
+  const observedValue = order.lines.reduce(
+    (total, line) =>
+      total + line.observedUnitPriceNgn * Math.max(line.quantity, 0),
+    0,
+  );
+
+  return (
+    <section className={styles.orderEssentials} aria-label="Order essentials">
+      <div>
+        <p>{order.lines.length === 1 ? "Product" : "Products"}</p>
+        <strong>
+          {primaryLine
+            ? `${primaryLine.brand} · ${primaryLine.name}`
+            : "Product details unavailable"}
+        </strong>
+        {primaryLine ? (
+          <small>
+            {primaryLine.size} × {primaryLine.quantity}
+            {remainingLines > 0
+              ? ` · ${remainingLines} more ${remainingLines === 1 ? "line" : "lines"}`
+              : ""}
+          </small>
+        ) : null}
+      </div>
+      <dl>
+        <div>
+          <dt>Retailer</dt>
+          <dd>{order.retailer}</dd>
+        </div>
+        <div>
+          <dt>Observed value</dt>
+          <dd>{naira.format(observedValue)}</dd>
+        </div>
+      </dl>
+    </section>
+  );
+}
+
+function OrderStageSummary({ order }: { order: AssistedOrderPrivateView }) {
+  const { steps, exception, deepestReachedIndex } =
+    resolveOrderOperationsJourney(order.state, order.events);
+  const current = exception ?? CUSTOMER_VISIBLE_ORDER_STATES[order.state];
+
+  return (
+    <section className={styles.stageSummary} aria-label="Present order stage">
+      <div>
+        <p>Present stage</p>
+        <strong>{current.label}</strong>
+        <small>{current.detail}</small>
+      </div>
+      <span>
+        Step {Math.min(deepestReachedIndex + 1, steps.length)} of {steps.length}
+      </span>
+    </section>
+  );
+}
+
 function isPrePaymentCancellationState(
   state: AssistedOrderPrivateView["state"],
 ) {
@@ -914,10 +1009,24 @@ function OrderLifecycle({ order }: { order: AssistedOrderPrivateView }) {
 
   useEffect(() => {
     if (!window.matchMedia("(max-width: 720px)").matches) return;
-    currentStepRef.current?.scrollIntoView({
-      block: "nearest",
-      inline: "center",
-    });
+    const currentStep = currentStepRef.current;
+    const lifecycleList = currentStep?.parentElement;
+    const lifecycleDetails =
+      currentStep?.closest<HTMLDetailsElement>("details");
+    const centerCurrentStep = () => {
+      if (lifecycleDetails && !lifecycleDetails.open) return;
+      if (!currentStep || !lifecycleList) return;
+      lifecycleList.scrollTo({
+        left:
+          currentStep.offsetLeft -
+          (lifecycleList.clientWidth - currentStep.clientWidth) / 2,
+      });
+    };
+
+    centerCurrentStep();
+    lifecycleDetails?.addEventListener("toggle", centerCurrentStep);
+    return () =>
+      lifecycleDetails?.removeEventListener("toggle", centerCurrentStep);
   }, [order.id, order.state]);
 
   return (

@@ -123,6 +123,76 @@
   color: var(--ops-accent);
   font-size: 0.68rem;
 }
+.orderEssentials {
+  margin-top: 0.9rem;
+  padding: 0.9rem 1rem;
+  display: grid;
+  gap: 0.7rem;
+  border-radius: 1rem;
+  background: var(--ops-surface-subtle);
+}
+.orderEssentials > div:first-child {
+  min-width: 0;
+  display: grid;
+  gap: 0.14rem;
+}
+.orderEssentials p,
+.stageSummary p {
+  margin: 0;
+  color: var(--ops-muted);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.orderEssentials > div:first-child > strong {
+  line-height: 1.25;
+}
+.orderEssentials small,
+.stageSummary small {
+  color: var(--ops-muted);
+  line-height: 1.35;
+}
+.orderEssentials dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+.orderEssentials dl > div {
+  min-width: 0;
+  display: grid;
+  gap: 0.08rem;
+}
+.orderEssentials dt {
+  color: var(--ops-muted);
+  font-size: 0.68rem;
+}
+.orderEssentials dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.stageSummary {
+  margin-top: 0.85rem;
+  padding-inline: 0.1rem;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.stageSummary > div {
+  min-width: 0;
+  display: grid;
+  gap: 0.12rem;
+}
+.stageSummary > span {
+  flex: 0 0 auto;
+  color: var(--ops-muted);
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
 .currentAction {
   margin-top: 1rem;
   padding: 0.9rem 1rem;
@@ -177,6 +247,15 @@
     width: 100%;
     flex: 1 1 auto;
   }
+  .orderEssentials dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .stageSummary,
+  .secondaryGroup > header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
 }
 .paymentOverview {
   margin-top: 1rem;
@@ -220,42 +299,59 @@
   background: var(--state-warning-bg);
   color: var(--state-warning);
 }
-.secondarySignals {
+.secondaryDetails {
   margin-top: 1rem;
-  border-radius: 1rem;
-  background: var(--ops-surface-subtle);
 }
-.secondarySignals > summary {
+.secondaryDetails > summary {
   min-height: var(--touch-min);
   padding: 0.85rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  border-radius: 1rem;
+  background: var(--ops-surface-subtle);
   cursor: pointer;
   list-style: none;
 }
-.secondarySignals > summary::-webkit-details-marker {
+.secondaryDetails > summary::-webkit-details-marker {
   display: none;
 }
-.secondarySignals > summary > span:first-child {
+.secondaryDetails > summary > span:first-child {
   display: grid;
   gap: 0.12rem;
 }
-.secondarySignals > summary small,
-.secondarySignals > summary > span:last-child {
+.secondaryDetails > summary small,
+.secondaryDetails > summary > span:last-child {
   color: var(--ops-muted);
   font-size: 0.72rem;
 }
-.secondarySignals[open] > summary > span:last-child {
+.secondaryDetails[open] > summary > span:last-child {
   visibility: hidden;
 }
-.secondarySignals[open] > summary > span:last-child::after {
+.secondaryDetails[open] > summary > span:last-child::after {
   content: "Hide";
   visibility: visible;
 }
-.secondarySignals > div {
-  padding: 0 1rem 1rem;
+.secondaryDetails > div {
+  padding: 0.9rem 0.1rem 0;
+  display: grid;
+  gap: 1.2rem;
+}
+.secondaryGroup > header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.secondaryGroup > header h3 {
+  margin: 0;
+  font-size: 0.82rem;
+}
+.secondaryGroup > header strong {
+  color: var(--ops-muted);
+  font-size: 0.78rem;
+  font-weight: 500;
 }
 .signalRecovery {
   min-height: var(--touch-min);
@@ -268,10 +364,11 @@
   font-weight: 600;
   cursor: pointer;
 }
-.secondarySignals .verification,
-.secondarySignals .teamAlert,
-.secondarySignals .notificationDelivery {
-  margin-top: 0.65rem;
+.secondaryDetails .lifecycle,
+.secondaryDetails .verification,
+.secondaryDetails .teamAlert,
+.secondaryDetails .notificationDelivery {
+  margin: 0;
 }
 .actionView[hidden],
 .actionView > div[hidden] {
@@ -489,12 +586,10 @@
   line-height: 1.35;
 }
 .privateData {
-  margin: 1.2rem 0;
-  padding: 1rem;
+  margin: 0.55rem 0 0;
+  padding: 0;
   display: grid;
   gap: 0.25rem;
-  border-radius: 1rem;
-  background: var(--ops-surface-subtle);
 }
 .privateData small {
   margin-top: 0.35rem;
@@ -505,11 +600,10 @@
   gap: 0.2rem;
 }
 .lines > div {
-  padding: 0.75rem 0;
+  padding: 0.55rem 0;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--ops-ink) 10%, transparent);
 }
 .lines span {
   display: grid;
@@ -1090,6 +1184,7 @@
 .inspector a:focus-visible,
 .inspector input:focus-visible,
 .inspector textarea:focus-visible,
+.secondaryDetails > summary:focus-visible,
 .overlayClose:focus-visible {
   outline: 2px solid var(--ops-action, var(--ops-focus-ring));
   outline-offset: 2px;
