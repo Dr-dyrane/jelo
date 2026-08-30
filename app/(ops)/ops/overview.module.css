@@ -15,7 +15,9 @@
   gap: var(--space-1);
 }
 
-.context { max-width: 38rem; }
+.context {
+  max-width: 38rem;
+}
 
 .context h1,
 .attentionSection h2,
@@ -29,12 +31,18 @@
   letter-spacing: var(--tracking-tight);
 }
 
-.context h1 { font-size: var(--text-title); }
-.inspectorHeader h2 { font-size: 1.05rem; }
+.context h1 {
+  font-size: var(--text-title);
+}
+.inspectorHeader h2 {
+  font-size: 1.05rem;
+}
 .upNextSection h2,
 .attentionSection h2,
 .sectionHeading h2,
-.auditHeading h3 { font-size: 1rem; }
+.auditHeading h3 {
+  font-size: 1rem;
+}
 
 .sectionHeading p,
 .upNextHeading p,
@@ -85,7 +93,11 @@
   height: 44px;
   place-items: center;
   border-radius: calc(var(--ops-instrument-inner-radius) - 3px);
-  background: color-mix(in srgb, var(--state-danger-bg) 72%, var(--ops-workspace));
+  background: color-mix(
+    in srgb,
+    var(--state-danger-bg) 72%,
+    var(--ops-workspace)
+  );
   color: var(--state-danger);
 }
 
@@ -111,7 +123,7 @@
   min-height: var(--touch-min);
   align-items: center;
   gap: 2px;
-  color: var(--ops-accent);
+  color: var(--ops-action);
   font-size: var(--text-caption);
   font-weight: var(--weight-medium);
   text-decoration: none;
@@ -142,19 +154,28 @@
   display: grid;
   min-width: 0;
   min-height: 164px;
-  grid-template-columns: minmax(96px, .84fr) minmax(0, 1.16fr);
+  grid-template-columns: minmax(96px, 0.84fr) minmax(0, 1.16fr);
   align-items: stretch;
   padding: var(--space-2);
   border-radius: calc(var(--ops-control-radius) + 4px);
   background: transparent;
   color: var(--ops-ink);
   text-decoration: none;
-  transition: background var(--duration-fast), transform var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    transform var(--duration-fast);
 }
 
-.upNextCard:hover { background: color-mix(in srgb, var(--ops-accent) 6%, transparent); }
-.upNextCard:active { transform: scale(.995); }
-.upNextCard:focus-visible { outline: 2px solid var(--ops-focus-ring); outline-offset: 2px; }
+.upNextCard:hover {
+  background: color-mix(in srgb, var(--ops-action) 6%, transparent);
+}
+.upNextCard:active {
+  transform: scale(0.995);
+}
+.upNextCard:focus-visible {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 2px;
+}
 
 .upNextVisual {
   display: grid;
@@ -170,7 +191,7 @@
   width: 100%;
   height: 132px;
   object-fit: contain;
-  filter: drop-shadow(0 10px 14px rgba(72, 40, 38, .07));
+  filter: drop-shadow(0 10px 14px rgba(72, 40, 38, 0.07));
 }
 
 .upNextCopy {
@@ -251,8 +272,12 @@
   text-decoration: none;
 }
 
-.queueSection { margin-top: var(--space-8); }
-.sectionHeading { margin-bottom: var(--space-3); }
+.queueSection {
+  margin-top: var(--space-8);
+}
+.sectionHeading {
+  margin-bottom: var(--space-3);
+}
 
 .queueList {
   display: grid;
@@ -263,7 +288,9 @@
   list-style: none;
 }
 
-.queueList li { min-width: 0; }
+.queueList li {
+  min-width: 0;
+}
 
 .queueRow {
   display: grid;
@@ -280,15 +307,24 @@
   cursor: pointer;
   font: inherit;
   text-align: left;
-  transition: background var(--duration-fast), color var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
 }
 
 .queueRow:hover,
-.queueRow:focus-visible { background: color-mix(in srgb, var(--ops-accent-subtle) 58%, transparent); }
-.queueRowActive { background: var(--ops-accent-subtle); }
+.queueRow:focus-visible {
+  background: color-mix(in srgb, var(--ops-action-subtle) 58%, transparent);
+}
+.queueRowActive {
+  background: var(--ops-action-subtle);
+}
 .queueRow:focus-visible,
 .inspectorLink:focus-visible,
-.inspectorClose:focus-visible { outline: 2px solid var(--ops-focus-ring); outline-offset: 3px; }
+.inspectorClose:focus-visible {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 3px;
+}
 
 .queueVisual {
   display: grid;
@@ -339,7 +375,9 @@
 .queueQuiet .queueName,
 .queueQuiet .queueMeta,
 .queueQuiet .queueCount,
-.queueQuiet .queueVisual { color: var(--ops-muted); }
+.queueQuiet .queueVisual {
+  color: var(--ops-muted);
+}
 
 .recentSection {
   margin-top: var(--space-8);
@@ -373,8 +411,13 @@
   text-decoration: none;
 }
 
-.sectionLink:hover { color: var(--ops-ink); }
-.sectionLink:focus-visible { outline: 2px solid var(--ops-focus-ring); outline-offset: 2px; }
+.sectionLink:hover {
+  color: var(--ops-ink);
+}
+.sectionLink:focus-visible {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 2px;
+}
 
 .recentList {
   display: grid;
@@ -486,7 +529,9 @@
   padding: var(--space-4) 0 var(--space-6);
 }
 
-.viewOnly { color: var(--ops-muted); }
+.viewOnly {
+  color: var(--ops-muted);
+}
 
 .inspectorLink {
   width: 100%;
@@ -521,7 +566,10 @@
   font-size: var(--text-caption);
 }
 
-.decisionList li span:last-child { color: var(--ops-muted); white-space: nowrap; }
+.decisionList li span:last-child {
+  color: var(--ops-muted);
+  white-space: nowrap;
+}
 .decisionCopy {
   display: grid;
   min-width: 0;
@@ -535,7 +583,9 @@
 .decisionCopy > span:last-child {
   color: var(--ops-muted);
 }
-.quietEmpty { font-size: var(--text-caption); }
+.quietEmpty {
+  font-size: var(--text-caption);
+}
 
 .inspectorClose {
   display: grid;
@@ -588,14 +638,28 @@
 .skeletonInspectorRow,
 .skeletonInspectorAction {
   border-radius: var(--ops-control-radius);
-  background: linear-gradient(90deg, var(--ops-surface-subtle) 25%, color-mix(in srgb, var(--ops-surface-subtle) 78%, var(--ops-workspace)) 37%, var(--ops-surface-subtle) 63%);
+  background: linear-gradient(
+    90deg,
+    var(--ops-surface-subtle) 25%,
+    color-mix(in srgb, var(--ops-surface-subtle) 78%, var(--ops-workspace)) 37%,
+    var(--ops-surface-subtle) 63%
+  );
   background-size: 200% 100%;
   animation: overviewShimmer 1.4s var(--ease-standard) infinite;
 }
 
-.skeletonTitle { width: 8rem; height: 1.6rem; }
-.skeletonHeading { width: 5.5rem; height: 1rem; }
-.skeletonButton { width: 8rem; height: var(--touch-min); }
+.skeletonTitle {
+  width: 8rem;
+  height: 1.6rem;
+}
+.skeletonHeading {
+  width: 5.5rem;
+  height: 1rem;
+}
+.skeletonButton {
+  width: 8rem;
+  height: var(--touch-min);
+}
 .skeletonFeatureShelf {
   display: grid;
   max-width: 736px;
@@ -613,7 +677,10 @@
   gap: var(--space-2);
   margin-top: var(--space-3);
 }
-.skeletonRow { height: 72px; border-radius: var(--ops-instrument-inner-radius); }
+.skeletonRow {
+  height: 72px;
+  border-radius: var(--ops-instrument-inner-radius);
+}
 .skeletonRecentRows {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -628,14 +695,22 @@
   align-items: center;
   gap: var(--space-3);
 }
-.skeletonRecentVisual { width: 44px; height: 44px; }
+.skeletonRecentVisual {
+  width: 44px;
+  height: 44px;
+}
 .skeletonRecentCopy {
   display: grid;
   min-width: 0;
   gap: var(--space-2);
 }
-.skeletonRecentLine { width: 82%; height: 10px; }
-.skeletonRecentLine[data-short] { width: 54%; }
+.skeletonRecentLine {
+  width: 82%;
+  height: 10px;
+}
+.skeletonRecentLine[data-short] {
+  width: 54%;
+}
 
 .inspectorLoading {
   display: flex;
@@ -644,17 +719,33 @@
   gap: var(--space-5);
 }
 
-.skeletonInspectorTitle { width: 9rem; height: 1.25rem; }
+.skeletonInspectorTitle {
+  width: 9rem;
+  height: 1.25rem;
+}
 .skeletonInspectorSummary,
 .skeletonInspectorSection {
   display: grid;
   gap: var(--space-3);
 }
-.skeletonInspectorSummary { padding: var(--space-4) 0 var(--space-2); }
-.skeletonInspectorSection { margin-top: var(--space-3); }
-.skeletonInspectorLabel { width: 6rem; height: .75rem; }
-.skeletonInspectorLine { width: 11rem; height: .8rem; }
-.skeletonInspectorRow { width: 100%; height: 34px; }
+.skeletonInspectorSummary {
+  padding: var(--space-4) 0 var(--space-2);
+}
+.skeletonInspectorSection {
+  margin-top: var(--space-3);
+}
+.skeletonInspectorLabel {
+  width: 6rem;
+  height: 0.75rem;
+}
+.skeletonInspectorLine {
+  width: 11rem;
+  height: 0.8rem;
+}
+.skeletonInspectorRow {
+  width: 100%;
+  height: 34px;
+}
 .skeletonInspectorAction {
   width: 100%;
   height: var(--ops-control-height);
@@ -662,18 +753,34 @@
 }
 
 @keyframes overviewShimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 @keyframes inspectorIn {
-  from { opacity: .72; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0.72;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes inspectorUp {
-  from { opacity: .72; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0.72;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (min-width: 1180px) {
@@ -683,20 +790,34 @@
     padding: var(--space-5);
     overflow: hidden;
     border: 0;
-    background: color-mix(in srgb, var(--ops-workspace) 92%, var(--ops-surface-subtle));
+    background: color-mix(
+      in srgb,
+      var(--ops-workspace) 92%,
+      var(--ops-surface-subtle)
+    );
     box-shadow: none;
   }
 
-  :global([data-ops-shell]):has(.briefing) :global([data-ops-detail]:empty) { display: none; }
+  :global([data-ops-shell]):has(.briefing) :global([data-ops-detail]:empty) {
+    display: none;
+  }
 }
 
 @media (max-width: 1179px) {
-  .briefing { padding-top: calc(var(--space-8) + var(--touch-min)); }
-  .inspectorLink { min-height: var(--touch-min); }
+  .briefing {
+    padding-top: calc(var(--space-8) + var(--touch-min));
+  }
+  .inspectorLink {
+    min-height: var(--touch-min);
+  }
 }
 
 @media (max-width: 819px) {
-  .briefing { padding-bottom: calc(var(--space-9) + var(--touch-min) + env(safe-area-inset-bottom)); }
+  .briefing {
+    padding-bottom: calc(
+      var(--space-9) + var(--touch-min) + env(safe-area-inset-bottom)
+    );
+  }
 
   .overlayStage {
     display: flex;
@@ -707,7 +828,8 @@
   .overlayInspector {
     width: 100%;
     height: min(76dvh, 680px);
-    padding: var(--space-5) var(--space-4) max(var(--space-5), env(safe-area-inset-bottom));
+    padding: var(--space-5) var(--space-4)
+      max(var(--space-5), env(safe-area-inset-bottom));
     border-radius: var(--ops-shell-radius) var(--ops-shell-radius) 0 0;
     animation-name: inspectorUp;
   }
@@ -722,7 +844,11 @@
   :global([data-ops-shell]):has(.briefing) :global([data-ops-sidebar]) {
     width: 220px;
     flex-basis: 220px;
-    background: color-mix(in srgb, var(--ops-instrument) 94%, var(--ops-workspace));
+    background: color-mix(
+      in srgb,
+      var(--ops-instrument) 94%,
+      var(--ops-workspace)
+    );
     box-shadow: var(--ops-instrument-shadow);
   }
 
@@ -757,7 +883,9 @@
   .queueList,
   .recentList,
   .skeletonRows,
-  .skeletonRecentRows { grid-template-columns: 1fr; }
+  .skeletonRecentRows {
+    grid-template-columns: 1fr;
+  }
 
   .upNextShelf,
   .skeletonFeatureShelf {
@@ -788,11 +916,17 @@
 }
 
 @media (max-width: 429px) {
-  .briefing { padding-right: var(--space-4); padding-left: var(--space-4); }
+  .briefing {
+    padding-right: var(--space-4);
+    padding-left: var(--space-4);
+  }
   .attentionList li {
     grid-template-columns: 40px minmax(0, 1fr);
   }
-  .attentionIcon { width: 40px; height: 40px; }
+  .attentionIcon {
+    width: 40px;
+    height: 40px;
+  }
   .attentionList a {
     grid-column: 2;
     min-height: 32px;
@@ -813,5 +947,7 @@
   .skeletonInspectorLine,
   .skeletonInspectorRow,
   .skeletonInspectorAction,
-  .overlayInspector { animation-duration: 1ms; }
+  .overlayInspector {
+    animation-duration: 1ms;
+  }
 }

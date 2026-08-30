@@ -1,7 +1,7 @@
-import 'server-only';
+import "server-only";
 
-import type { Sql } from 'postgres';
-import { isQueueItemUuid } from './queue-selection';
+import type { Sql } from "postgres";
+import { isQueueItemUuid } from "./queue-selection";
 
 function boundedLimit(limit: number) {
   return Math.min(Math.max(Math.trunc(limit), 1), 500);
@@ -64,7 +64,30 @@ export async function pendingQueueCounts(sql: Sql): Promise<QueueCounts> {
           and signal_count > 0
       )::int as research,
       (select count(*) from retailer_partnership_applications where status = 'submitted')::int as retailers,
-      (select count(*) from assisted_orders where state not in ('delivered', 'cancelled', 'refunded'))::int as orders,
+      (
+        select count(*)
+        from assisted_orders orders
+        where (
+          orders.state not in ('delivered', 'cancelled', 'refunded')
+          or (
+            orders.state = 'delivered'
+            and exists (
+              select 1
+              from assisted_order_events requested_return
+              where requested_return.order_id = orders.id
+                and requested_return.action = 'return_requested'
+                and not exists (
+                  select 1
+                  from assisted_order_events return_decision
+                  where return_decision.order_id = orders.id
+                    and return_decision.sequence_id > requested_return.sequence_id
+                    and return_decision.action in ('return_declined', 'refund_pending')
+                )
+            )
+          )
+        )
+          and orders.retain_until > now()
+      )::int as orders,
       (select count(*) from commerce_events)::int as signals
   `;
   return row;
@@ -79,8 +102,8 @@ export type PendingObservation = {
   id: string;
   contributionId: string;
   parentEligibleForReview: boolean;
-  moderationStatus: 'pending' | 'mapped' | 'approved' | 'rejected';
-  kind: 'price' | 'outcome';
+  moderationStatus: "pending" | "mapped" | "approved" | "rejected";
+  kind: "price" | "outcome";
   subjectKind: string;
   subjectRef: string;
   resolvedProductRef: string | null;
@@ -108,20 +131,22 @@ export async function listPendingObservations(
         )
       `
     : sql``;
-  const rows = await sql<{
-    id: string;
-    contribution_id: string;
-    parent_eligible_for_review: boolean;
-    moderation_status: PendingObservation['moderationStatus'];
-    observation_kind: 'price' | 'outcome';
-    subject_kind: string;
-    subject_ref: string;
-    resolved_product_ref: string | null;
-    amount_ngn: number | null;
-    outcome: string | null;
-    observed_on: string | null;
-    created_at: string;
-  }[]>`
+  const rows = await sql<
+    {
+      id: string;
+      contribution_id: string;
+      parent_eligible_for_review: boolean;
+      moderation_status: PendingObservation["moderationStatus"];
+      observation_kind: "price" | "outcome";
+      subject_kind: string;
+      subject_ref: string;
+      resolved_product_ref: string | null;
+      amount_ngn: number | null;
+      outcome: string | null;
+      observed_on: string | null;
+      created_at: string;
+    }[]
+  >`
     select observation.id, observation.contribution_id,
            (contribution.moderation_status <> 'rejected'
              and contribution.retain_until > now()) as parent_eligible_for_review,
@@ -154,7 +179,7 @@ export async function listPendingObservations(
     order by observation.created_at asc, observation.id asc
     limit ${boundedLimit(limit)}
   `;
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     contributionId: row.contribution_id,
     parentEligibleForReview: row.parent_eligible_for_review,
@@ -175,20 +200,22 @@ export async function findPendingObservation(
   id: string,
 ): Promise<PendingObservation | null> {
   if (!isQueueItemUuid(id)) return null;
-  const [row] = await sql<{
-    id: string;
-    contribution_id: string;
-    parent_eligible_for_review: boolean;
-    moderation_status: PendingObservation['moderationStatus'];
-    observation_kind: 'price' | 'outcome';
-    subject_kind: string;
-    subject_ref: string;
-    resolved_product_ref: string | null;
-    amount_ngn: number | null;
-    outcome: string | null;
-    observed_on: string | null;
-    created_at: string;
-  }[]>`
+  const [row] = await sql<
+    {
+      id: string;
+      contribution_id: string;
+      parent_eligible_for_review: boolean;
+      moderation_status: PendingObservation["moderationStatus"];
+      observation_kind: "price" | "outcome";
+      subject_kind: string;
+      subject_ref: string;
+      resolved_product_ref: string | null;
+      amount_ngn: number | null;
+      outcome: string | null;
+      observed_on: string | null;
+      created_at: string;
+    }[]
+  >`
     select observation.id, observation.contribution_id,
            (contribution.moderation_status <> 'rejected'
              and contribution.retain_until > now()) as parent_eligible_for_review,
@@ -220,20 +247,22 @@ export async function findPendingObservation(
       and observation.id = ${id}
     limit 1
   `;
-  return row ? {
-    id: row.id,
-    contributionId: row.contribution_id,
-    parentEligibleForReview: row.parent_eligible_for_review,
-    moderationStatus: row.moderation_status,
-    kind: row.observation_kind,
-    subjectKind: row.subject_kind,
-    subjectRef: row.subject_ref,
-    resolvedProductRef: row.resolved_product_ref,
-    amountNgn: row.amount_ngn,
-    outcome: row.outcome,
-    observedOn: row.observed_on,
-    createdAt: row.created_at,
-  } : null;
+  return row
+    ? {
+        id: row.id,
+        contributionId: row.contribution_id,
+        parentEligibleForReview: row.parent_eligible_for_review,
+        moderationStatus: row.moderation_status,
+        kind: row.observation_kind,
+        subjectKind: row.subject_kind,
+        subjectRef: row.subject_ref,
+        resolvedProductRef: row.resolved_product_ref,
+        amountNgn: row.amount_ngn,
+        outcome: row.outcome,
+        observedOn: row.observed_on,
+        createdAt: row.created_at,
+      }
+    : null;
 }
 
 // A settled observation is addressable only by its explicit record id. It is not
@@ -244,20 +273,22 @@ export async function findSettledObservation(
   id: string,
 ): Promise<PendingObservation | null> {
   if (!isQueueItemUuid(id)) return null;
-  const [row] = await sql<{
-    id: string;
-    contribution_id: string;
-    parent_eligible_for_review: boolean;
-    moderation_status: PendingObservation['moderationStatus'];
-    observation_kind: 'price' | 'outcome';
-    subject_kind: string;
-    subject_ref: string;
-    resolved_product_ref: string | null;
-    amount_ngn: number | null;
-    outcome: string | null;
-    observed_on: string | null;
-    created_at: string;
-  }[]>`
+  const [row] = await sql<
+    {
+      id: string;
+      contribution_id: string;
+      parent_eligible_for_review: boolean;
+      moderation_status: PendingObservation["moderationStatus"];
+      observation_kind: "price" | "outcome";
+      subject_kind: string;
+      subject_ref: string;
+      resolved_product_ref: string | null;
+      amount_ngn: number | null;
+      outcome: string | null;
+      observed_on: string | null;
+      created_at: string;
+    }[]
+  >`
     select observation.id, observation.contribution_id,
            (contribution.moderation_status <> 'rejected'
              and contribution.retain_until > now()) as parent_eligible_for_review,
@@ -287,25 +318,27 @@ export async function findSettledObservation(
       and observation.id = ${id}
     limit 1
   `;
-  return row ? {
-    id: row.id,
-    contributionId: row.contribution_id,
-    parentEligibleForReview: row.parent_eligible_for_review,
-    moderationStatus: row.moderation_status,
-    kind: row.observation_kind,
-    subjectKind: row.subject_kind,
-    subjectRef: row.subject_ref,
-    resolvedProductRef: row.resolved_product_ref,
-    amountNgn: row.amount_ngn,
-    outcome: row.outcome,
-    observedOn: row.observed_on,
-    createdAt: row.created_at,
-  } : null;
+  return row
+    ? {
+        id: row.id,
+        contributionId: row.contribution_id,
+        parentEligibleForReview: row.parent_eligible_for_review,
+        moderationStatus: row.moderation_status,
+        kind: row.observation_kind,
+        subjectKind: row.subject_kind,
+        subjectRef: row.subject_ref,
+        resolvedProductRef: row.resolved_product_ref,
+        amountNgn: row.amount_ngn,
+        outcome: row.outcome,
+        observedOn: row.observed_on,
+        createdAt: row.created_at,
+      }
+    : null;
 }
 
 export type PendingContribution = {
   id: string;
-  kind: 'product' | 'routine' | 'store';
+  kind: "product" | "routine" | "store";
   payload: Record<string, unknown>;
   submittedAt: string;
   retainUntil: string;
@@ -336,18 +369,20 @@ export async function listPendingContributions(
         )
       `
     : sql``;
-  const rows = await sql<{
-    id: string;
-    contribution_kind: PendingContribution['kind'];
-    payload: Record<string, unknown>;
-    submitted_at: string;
-    retain_until: string;
-    pending_edge_count: number;
-    pending_observation_count: number;
-    attribution_source: string | null;
-    attribution_medium: string | null;
-    attribution_campaign: string | null;
-  }[]>`
+  const rows = await sql<
+    {
+      id: string;
+      contribution_kind: PendingContribution["kind"];
+      payload: Record<string, unknown>;
+      submitted_at: string;
+      retain_until: string;
+      pending_edge_count: number;
+      pending_observation_count: number;
+      attribution_source: string | null;
+      attribution_medium: string | null;
+      attribution_campaign: string | null;
+    }[]
+  >`
     select contribution.id, contribution.contribution_kind, contribution.payload,
            contribution.submitted_at::text as submitted_at,
            contribution.retain_until::text as retain_until,
@@ -375,7 +410,7 @@ export async function listPendingContributions(
     order by contribution.submitted_at asc, contribution.id asc
     limit ${boundedLimit(limit)}
   `;
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     kind: row.contribution_kind,
     payload: row.payload,
@@ -383,11 +418,13 @@ export async function listPendingContributions(
     retainUntil: row.retain_until,
     pendingEdgeCount: row.pending_edge_count,
     pendingObservationCount: row.pending_observation_count,
-    attribution: row.attribution_source ? {
-      source: row.attribution_source,
-      medium: row.attribution_medium,
-      campaign: row.attribution_campaign,
-    } : null,
+    attribution: row.attribution_source
+      ? {
+          source: row.attribution_source,
+          medium: row.attribution_medium,
+          campaign: row.attribution_campaign,
+        }
+      : null,
   }));
 }
 
@@ -395,18 +432,20 @@ export async function findPendingContribution(
   sql: Sql,
   id: string,
 ): Promise<PendingContribution | null> {
-  const [row] = await sql<{
-    id: string;
-    contribution_kind: PendingContribution['kind'];
-    payload: Record<string, unknown>;
-    submitted_at: string;
-    retain_until: string;
-    pending_edge_count: number;
-    pending_observation_count: number;
-    attribution_source: string | null;
-    attribution_medium: string | null;
-    attribution_campaign: string | null;
-  }[]>`
+  const [row] = await sql<
+    {
+      id: string;
+      contribution_kind: PendingContribution["kind"];
+      payload: Record<string, unknown>;
+      submitted_at: string;
+      retain_until: string;
+      pending_edge_count: number;
+      pending_observation_count: number;
+      attribution_source: string | null;
+      attribution_medium: string | null;
+      attribution_campaign: string | null;
+    }[]
+  >`
     select contribution.id, contribution.contribution_kind, contribution.payload,
            contribution.submitted_at::text as submitted_at,
            contribution.retain_until::text as retain_until,
@@ -434,26 +473,30 @@ export async function findPendingContribution(
     limit 1
   `;
 
-  return row ? {
-    id: row.id,
-    kind: row.contribution_kind,
-    payload: row.payload,
-    submittedAt: row.submitted_at,
-    retainUntil: row.retain_until,
-    pendingEdgeCount: row.pending_edge_count,
-    pendingObservationCount: row.pending_observation_count,
-    attribution: row.attribution_source ? {
-      source: row.attribution_source,
-      medium: row.attribution_medium,
-      campaign: row.attribution_campaign,
-    } : null,
-  } : null;
+  return row
+    ? {
+        id: row.id,
+        kind: row.contribution_kind,
+        payload: row.payload,
+        submittedAt: row.submitted_at,
+        retainUntil: row.retain_until,
+        pendingEdgeCount: row.pending_edge_count,
+        pendingObservationCount: row.pending_observation_count,
+        attribution: row.attribution_source
+          ? {
+              source: row.attribution_source,
+              medium: row.attribution_medium,
+              campaign: row.attribution_campaign,
+            }
+          : null,
+      }
+    : null;
 }
 
 export type PendingEdge = {
   id: string;
   contributionId: string;
-  contributionKind: 'product' | 'routine' | 'store';
+  contributionKind: "product" | "routine" | "store";
   contributionPayload: Record<string, unknown>;
   subjectKind: string;
   subjectRef: string;
@@ -483,20 +526,22 @@ export async function listPendingEdges(
         )
       `
     : sql``;
-  const rows = await sql<{
-    id: string;
-    contribution_id: string;
-    contribution_kind: PendingEdge['contributionKind'];
-    contribution_payload: Record<string, unknown>;
-    subject_kind: string;
-    subject_ref: string;
-    predicate: string;
-    object_kind: string;
-    object_ref: string;
-    confidence_state: string;
-    metadata: Record<string, unknown>;
-    created_at: string;
-  }[]>`
+  const rows = await sql<
+    {
+      id: string;
+      contribution_id: string;
+      contribution_kind: PendingEdge["contributionKind"];
+      contribution_payload: Record<string, unknown>;
+      subject_kind: string;
+      subject_ref: string;
+      predicate: string;
+      object_kind: string;
+      object_ref: string;
+      confidence_state: string;
+      metadata: Record<string, unknown>;
+      created_at: string;
+    }[]
+  >`
     select edge.id, edge.contribution_id,
            contribution.contribution_kind,
            contribution.payload as contribution_payload,
@@ -512,7 +557,7 @@ export async function listPendingEdges(
     order by edge.created_at asc, edge.id asc
     limit ${boundedLimit(limit)}
   `;
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     contributionId: row.contribution_id,
     contributionKind: row.contribution_kind,
@@ -528,21 +573,26 @@ export async function listPendingEdges(
   }));
 }
 
-export async function findPendingEdge(sql: Sql, id: string): Promise<PendingEdge | null> {
-  const [row] = await sql<{
-    id: string;
-    contribution_id: string;
-    contribution_kind: PendingEdge['contributionKind'];
-    contribution_payload: Record<string, unknown>;
-    subject_kind: string;
-    subject_ref: string;
-    predicate: string;
-    object_kind: string;
-    object_ref: string;
-    confidence_state: string;
-    metadata: Record<string, unknown>;
-    created_at: string;
-  }[]>`
+export async function findPendingEdge(
+  sql: Sql,
+  id: string,
+): Promise<PendingEdge | null> {
+  const [row] = await sql<
+    {
+      id: string;
+      contribution_id: string;
+      contribution_kind: PendingEdge["contributionKind"];
+      contribution_payload: Record<string, unknown>;
+      subject_kind: string;
+      subject_ref: string;
+      predicate: string;
+      object_kind: string;
+      object_ref: string;
+      confidence_state: string;
+      metadata: Record<string, unknown>;
+      created_at: string;
+    }[]
+  >`
     select edge.id, edge.contribution_id,
            contribution.contribution_kind,
            contribution.payload as contribution_payload,
@@ -558,34 +608,36 @@ export async function findPendingEdge(sql: Sql, id: string): Promise<PendingEdge
     limit 1
   `;
 
-  return row ? {
-    id: row.id,
-    contributionId: row.contribution_id,
-    contributionKind: row.contribution_kind,
-    contributionPayload: row.contribution_payload,
-    subjectKind: row.subject_kind,
-    subjectRef: row.subject_ref,
-    predicate: row.predicate,
-    objectKind: row.object_kind,
-    objectRef: row.object_ref,
-    confidenceState: row.confidence_state,
-    metadata: row.metadata,
-    createdAt: row.created_at,
-  } : null;
+  return row
+    ? {
+        id: row.id,
+        contributionId: row.contribution_id,
+        contributionKind: row.contribution_kind,
+        contributionPayload: row.contribution_payload,
+        subjectKind: row.subject_kind,
+        subjectRef: row.subject_ref,
+        predicate: row.predicate,
+        objectKind: row.object_kind,
+        objectRef: row.object_ref,
+        confidenceState: row.confidence_state,
+        metadata: row.metadata,
+        createdAt: row.created_at,
+      }
+    : null;
 }
 
 export type PendingModerationValueContext = {
-  contributionKind: 'product' | 'routine' | 'store';
+  contributionKind: "product" | "routine" | "store";
   contributionPayload: Record<string, unknown>;
   submittedAt: string;
 };
 
 export type PendingModerationValue = {
   id: string;
-  valueKind: 'purpose' | 'product' | 'brand' | 'retailer';
+  valueKind: "purpose" | "product" | "brand" | "retailer";
   rawValue: string;
   activeMentionCount: number;
-  contributionKinds: ('product' | 'routine' | 'store')[];
+  contributionKinds: ("product" | "routine" | "store")[];
   recentContexts: PendingModerationValueContext[];
   firstSeenAt: string;
   lastSeenAt: string;
@@ -598,7 +650,7 @@ export type PendingModerationValueCursor = {
 };
 
 export type CanonicalVocabularyTarget = {
-  kind: PendingModerationValue['valueKind'];
+  kind: PendingModerationValue["valueKind"];
   ref: string;
   label: string;
   detail: string | null;
@@ -623,20 +675,22 @@ export async function listPendingModerationValues(
         )
       `
     : sql``;
-  const rows = await sql<{
-    id: string;
-    value_kind: PendingModerationValue['valueKind'];
-    raw_value: string;
-    active_mention_count: number;
-    contribution_kinds: PendingModerationValue['contributionKinds'];
-    recent_contexts: {
-      contributionKind: PendingModerationValueContext['contributionKind'];
-      contributionPayload: Record<string, unknown>;
-      submittedAt: string;
-    }[];
-    first_seen_at: string;
-    last_seen_at: string;
-  }[]>`
+  const rows = await sql<
+    {
+      id: string;
+      value_kind: PendingModerationValue["valueKind"];
+      raw_value: string;
+      active_mention_count: number;
+      contribution_kinds: PendingModerationValue["contributionKinds"];
+      recent_contexts: {
+        contributionKind: PendingModerationValueContext["contributionKind"];
+        contributionPayload: Record<string, unknown>;
+        submittedAt: string;
+      }[];
+      first_seen_at: string;
+      last_seen_at: string;
+    }[]
+  >`
     with active_mentions as (
       select mention.moderation_value_id,
              count(distinct contribution.id)::int as active_mention_count,
@@ -679,13 +733,13 @@ export async function listPendingModerationValues(
     order by active.active_mention_count desc, active.first_seen_at asc, value.id asc
     limit ${boundedLimit(limit)}
   `;
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     valueKind: row.value_kind,
     rawValue: row.raw_value,
     activeMentionCount: row.active_mention_count,
     contributionKinds: row.contribution_kinds,
-    recentContexts: row.recent_contexts.map(context => ({
+    recentContexts: row.recent_contexts.map((context) => ({
       contributionKind: context.contributionKind,
       contributionPayload: context.contributionPayload,
       submittedAt: context.submittedAt,
@@ -699,20 +753,22 @@ export async function findPendingModerationValue(
   sql: Sql,
   id: string,
 ): Promise<PendingModerationValue | null> {
-  const [row] = await sql<{
-    id: string;
-    value_kind: PendingModerationValue['valueKind'];
-    raw_value: string;
-    active_mention_count: number;
-    contribution_kinds: PendingModerationValue['contributionKinds'];
-    recent_contexts: {
-      contributionKind: PendingModerationValueContext['contributionKind'];
-      contributionPayload: Record<string, unknown>;
-      submittedAt: string;
-    }[];
-    first_seen_at: string;
-    last_seen_at: string;
-  }[]>`
+  const [row] = await sql<
+    {
+      id: string;
+      value_kind: PendingModerationValue["valueKind"];
+      raw_value: string;
+      active_mention_count: number;
+      contribution_kinds: PendingModerationValue["contributionKinds"];
+      recent_contexts: {
+        contributionKind: PendingModerationValueContext["contributionKind"];
+        contributionPayload: Record<string, unknown>;
+        submittedAt: string;
+      }[];
+      first_seen_at: string;
+      last_seen_at: string;
+    }[]
+  >`
     select value.id, value.value_kind, value.raw_value,
            count(distinct contribution.id)::int as active_mention_count,
            array_agg(distinct contribution.contribution_kind::text order by contribution.contribution_kind::text) as contribution_kinds,
@@ -748,29 +804,35 @@ export async function findPendingModerationValue(
     limit 1
   `;
 
-  return row ? {
-    id: row.id,
-    valueKind: row.value_kind,
-    rawValue: row.raw_value,
-    activeMentionCount: row.active_mention_count,
-    contributionKinds: row.contribution_kinds,
-    recentContexts: row.recent_contexts.map(context => ({
-      contributionKind: context.contributionKind,
-      contributionPayload: context.contributionPayload,
-      submittedAt: context.submittedAt,
-    })),
-    firstSeenAt: row.first_seen_at,
-    lastSeenAt: row.last_seen_at,
-  } : null;
+  return row
+    ? {
+        id: row.id,
+        valueKind: row.value_kind,
+        rawValue: row.raw_value,
+        activeMentionCount: row.active_mention_count,
+        contributionKinds: row.contribution_kinds,
+        recentContexts: row.recent_contexts.map((context) => ({
+          contributionKind: context.contributionKind,
+          contributionPayload: context.contributionPayload,
+          submittedAt: context.submittedAt,
+        })),
+        firstSeenAt: row.first_seen_at,
+        lastSeenAt: row.last_seen_at,
+      }
+    : null;
 }
 
-export async function listCanonicalVocabularyTargets(sql: Sql): Promise<CanonicalVocabularyTarget[]> {
-  const rows = await sql<{
-    kind: CanonicalVocabularyTarget['kind'];
-    ref: string;
-    label: string;
-    detail: string | null;
-  }[]>`
+export async function listCanonicalVocabularyTargets(
+  sql: Sql,
+): Promise<CanonicalVocabularyTarget[]> {
+  const rows = await sql<
+    {
+      kind: CanonicalVocabularyTarget["kind"];
+      ref: string;
+      label: string;
+      detail: string | null;
+    }[]
+  >`
     select 'purpose'::text as kind, slug as ref, name as label, null::text as detail from concerns
     union all
     select 'product'::text as kind, product.slug as ref, product.name as label, brand.name as detail
@@ -816,15 +878,17 @@ export async function listPendingRetailerApplications(
         )
       `
     : sql``;
-  const rows = await sql<{
-    id: string;
-    store_name: string;
-    email: string;
-    email_verified_at: string | null;
-    contact_consent_at: string;
-    payload: Record<string, unknown>;
-    submitted_at: string;
-  }[]>`
+  const rows = await sql<
+    {
+      id: string;
+      store_name: string;
+      email: string;
+      email_verified_at: string | null;
+      contact_consent_at: string;
+      payload: Record<string, unknown>;
+      submitted_at: string;
+    }[]
+  >`
     select application.id, application.store_name, application.email,
            application.email_verified_at::text as email_verified_at,
            application.contact_consent_at::text as contact_consent_at,
@@ -836,7 +900,7 @@ export async function listPendingRetailerApplications(
     order by application.submitted_at asc, application.id asc
     limit ${boundedLimit(limit)}
   `;
-  return rows.map(row => ({
+  return rows.map((row) => ({
     id: row.id,
     storeName: row.store_name,
     email: row.email,
@@ -851,15 +915,17 @@ export async function findPendingRetailerApplication(
   sql: Sql,
   id: string,
 ): Promise<PendingRetailerApplication | null> {
-  const [row] = await sql<{
-    id: string;
-    store_name: string;
-    email: string;
-    email_verified_at: string | null;
-    contact_consent_at: string;
-    payload: Record<string, unknown>;
-    submitted_at: string;
-  }[]>`
+  const [row] = await sql<
+    {
+      id: string;
+      store_name: string;
+      email: string;
+      email_verified_at: string | null;
+      contact_consent_at: string;
+      payload: Record<string, unknown>;
+      submitted_at: string;
+    }[]
+  >`
     select application.id, application.store_name, application.email,
            application.email_verified_at::text as email_verified_at,
            application.contact_consent_at::text as contact_consent_at,
@@ -871,18 +937,21 @@ export async function findPendingRetailerApplication(
     limit 1
   `;
 
-  return row ? {
-    id: row.id,
-    storeName: row.store_name,
-    email: row.email,
-    emailVerifiedAt: row.email_verified_at,
-    contactConsentAt: row.contact_consent_at,
-    payload: row.payload,
-    submittedAt: row.submitted_at,
-  } : null;
+  return row
+    ? {
+        id: row.id,
+        storeName: row.store_name,
+        email: row.email,
+        emailVerifiedAt: row.email_verified_at,
+        contactConsentAt: row.contact_consent_at,
+        payload: row.payload,
+        submittedAt: row.submitted_at,
+      }
+    : null;
 }
 
-export type CommercePriceChoice = 'lowest' | 'median' | 'higher' | 'only' | 'marketplace';
+export type CommercePriceChoice =
+  "lowest" | "median" | "higher" | "only" | "marketplace";
 
 export type CommerceSignalMonitor = {
   asOf: string;
@@ -910,7 +979,7 @@ export type CommerceSignalMonitor = {
     id: string;
     productSlug: string;
     retailer: string;
-    market: 'NG' | 'US';
+    market: "NG" | "US";
     priceNgn: number | null;
     priceChoice: CommercePriceChoice;
     position: number;
@@ -921,15 +990,20 @@ export type CommerceSignalMonitor = {
 
 // Measurement only (ADR 0005 / 0006): a read-only window on store_click signals.
 // Never joined to health-shaped behaviour and never an input to ranking.
-export async function getCommerceSignalMonitor(sql: Sql): Promise<CommerceSignalMonitor> {
-  const [summaryRows, priceChoiceRows, productRows, retailerRows, recentRows] = await Promise.all([
-    sql<{
-      as_of: string;
-      last_7_days_count: number;
-      previous_7_days_count: number;
-      last_30_days_count: number;
-      last_recorded_at: string | null;
-    }[]>`
+export async function getCommerceSignalMonitor(
+  sql: Sql,
+): Promise<CommerceSignalMonitor> {
+  const [summaryRows, priceChoiceRows, productRows, retailerRows, recentRows] =
+    await Promise.all([
+      sql<
+        {
+          as_of: string;
+          last_7_days_count: number;
+          previous_7_days_count: number;
+          last_30_days_count: number;
+          last_recorded_at: string | null;
+        }[]
+      >`
       select now()::text as as_of,
              count(*) filter (where created_at >= now() - interval '7 days')::int as last_7_days_count,
              count(*) filter (
@@ -941,10 +1015,12 @@ export async function getCommerceSignalMonitor(sql: Sql): Promise<CommerceSignal
       from commerce_events
       where event_type = 'store_click'
     `,
-    sql<{
-      price_rank: CommercePriceChoice;
-      visit_count: number;
-    }[]>`
+      sql<
+        {
+          price_rank: CommercePriceChoice;
+          visit_count: number;
+        }[]
+      >`
       select price_rank, count(*)::int as visit_count
       from commerce_events
       where event_type = 'store_click'
@@ -952,12 +1028,14 @@ export async function getCommerceSignalMonitor(sql: Sql): Promise<CommerceSignal
       group by price_rank
       order by visit_count desc, price_rank asc
     `,
-    sql<{
-      product_slug: string;
-      visit_count: number;
-      store_count: number;
-      last_visited_at: string;
-    }[]>`
+      sql<
+        {
+          product_slug: string;
+          visit_count: number;
+          store_count: number;
+          last_visited_at: string;
+        }[]
+      >`
       select product_slug, count(*)::int as visit_count,
              count(distinct retailer)::int as store_count,
              max(created_at)::text as last_visited_at
@@ -968,12 +1046,14 @@ export async function getCommerceSignalMonitor(sql: Sql): Promise<CommerceSignal
       order by visit_count desc, last_visited_at desc, product_slug asc
       limit 8
     `,
-    sql<{
-      retailer: string;
-      visit_count: number;
-      product_count: number;
-      last_visited_at: string;
-    }[]>`
+      sql<
+        {
+          retailer: string;
+          visit_count: number;
+          product_count: number;
+          last_visited_at: string;
+        }[]
+      >`
       select retailer, count(*)::int as visit_count,
              count(distinct product_slug)::int as product_count,
              max(created_at)::text as last_visited_at
@@ -984,17 +1064,19 @@ export async function getCommerceSignalMonitor(sql: Sql): Promise<CommerceSignal
       order by visit_count desc, last_visited_at desc, retailer asc
       limit 8
     `,
-    sql<{
-      id: string;
-      product_slug: string;
-      retailer: string;
-      market: 'NG' | 'US';
-      price_ngn: number | null;
-      price_rank: CommercePriceChoice;
-      position: number;
-      freshness_days: number | null;
-      created_at: string;
-    }[]>`
+      sql<
+        {
+          id: string;
+          product_slug: string;
+          retailer: string;
+          market: "NG" | "US";
+          price_ngn: number | null;
+          price_rank: CommercePriceChoice;
+          position: number;
+          freshness_days: number | null;
+          created_at: string;
+        }[]
+      >`
       select id, product_slug, retailer, market, price_ngn, price_rank,
              position, freshness_days, created_at::text as created_at
       from commerce_events
@@ -1002,9 +1084,9 @@ export async function getCommerceSignalMonitor(sql: Sql): Promise<CommerceSignal
       order by created_at desc, id desc
       limit 20
     `,
-  ]);
+    ]);
   const summary = summaryRows[0];
-  if (!summary) throw new Error('Commerce signal summary unavailable.');
+  if (!summary) throw new Error("Commerce signal summary unavailable.");
 
   return {
     asOf: summary.as_of,
@@ -1012,23 +1094,23 @@ export async function getCommerceSignalMonitor(sql: Sql): Promise<CommerceSignal
     previous7DaysCount: summary.previous_7_days_count,
     last30DaysCount: summary.last_30_days_count,
     lastRecordedAt: summary.last_recorded_at,
-    priceChoices: priceChoiceRows.map(row => ({
+    priceChoices: priceChoiceRows.map((row) => ({
       choice: row.price_rank,
       count: row.visit_count,
     })),
-    topProducts: productRows.map(row => ({
+    topProducts: productRows.map((row) => ({
       productSlug: row.product_slug,
       visitCount: row.visit_count,
       storeCount: row.store_count,
       lastVisitedAt: row.last_visited_at,
     })),
-    topRetailers: retailerRows.map(row => ({
+    topRetailers: retailerRows.map((row) => ({
       retailer: row.retailer,
       visitCount: row.visit_count,
       productCount: row.product_count,
       lastVisitedAt: row.last_visited_at,
     })),
-    recentVisits: recentRows.map(row => ({
+    recentVisits: recentRows.map((row) => ({
       id: row.id,
       productSlug: row.product_slug,
       retailer: row.retailer,
@@ -1073,17 +1155,19 @@ export async function getContributionAttributionMonitor(
   sql: Sql,
 ): Promise<ContributionAttributionMonitor> {
   const [summaryRows, campaignRows] = await Promise.all([
-    sql<{
-      as_of: string;
-      last_7_days_starts: number;
-      last_7_days_completions: number;
-      previous_7_days_starts: number;
-      previous_7_days_completions: number;
-      last_30_days_starts: number;
-      last_30_days_completions: number;
-      last_started_at: string | null;
-      last_completed_at: string | null;
-    }[]>`
+    sql<
+      {
+        as_of: string;
+        last_7_days_starts: number;
+        last_7_days_completions: number;
+        previous_7_days_starts: number;
+        previous_7_days_completions: number;
+        last_30_days_starts: number;
+        last_30_days_completions: number;
+        last_started_at: string | null;
+        last_completed_at: string | null;
+      }[]
+    >`
       select now()::text as as_of,
              (
                select count(*)::int
@@ -1134,16 +1218,18 @@ export async function getContributionAttributionMonitor(
                where contribution.retain_until > now()
              ) as last_completed_at
     `,
-    sql<{
-      source: string;
-      medium: string | null;
-      campaign: string | null;
-      content: string | null;
-      starts: number;
-      completions: number;
-      last_started_at: string | null;
-      last_completed_at: string | null;
-    }[]>`
+    sql<
+      {
+        source: string;
+        medium: string | null;
+        campaign: string | null;
+        content: string | null;
+        starts: number;
+        completions: number;
+        last_started_at: string | null;
+        last_completed_at: string | null;
+      }[]
+    >`
       with attribution_window as (
         select attribution.source, attribution.medium, attribution.campaign,
                attribution.content, attribution.captured_at
@@ -1195,7 +1281,8 @@ export async function getContributionAttributionMonitor(
     `,
   ]);
   const summary = summaryRows[0];
-  if (!summary) throw new Error('Contribution attribution summary unavailable.');
+  if (!summary)
+    throw new Error("Contribution attribution summary unavailable.");
 
   return {
     asOf: summary.as_of,
@@ -1207,7 +1294,7 @@ export async function getContributionAttributionMonitor(
     last30DaysCompletions: summary.last_30_days_completions,
     lastStartedAt: summary.last_started_at,
     lastCompletedAt: summary.last_completed_at,
-    campaigns: campaignRows.map(row => ({
+    campaigns: campaignRows.map((row) => ({
       source: row.source,
       medium: row.medium,
       campaign: row.campaign,

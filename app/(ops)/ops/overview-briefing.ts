@@ -1,4 +1,10 @@
-export type OverviewQueueKind = 'contributions' | 'edges' | 'observations' | 'vocabulary' | 'retailers';
+export type OverviewQueueKind =
+  | "orders"
+  | "contributions"
+  | "edges"
+  | "observations"
+  | "vocabulary"
+  | "retailers";
 
 export type OverviewQueueDefinition = {
   kind: OverviewQueueKind;
@@ -9,19 +15,21 @@ export type OverviewQueueDefinition = {
 // This order is the documented deterministic tie-break for equal oldest
 // timestamps. It follows the queue topology, never a hidden priority order.
 export const OVERVIEW_QUEUE_ORDER: readonly OverviewQueueKind[] = [
-  'contributions',
-  'edges',
-  'observations',
-  'vocabulary',
-  'retailers',
+  "orders",
+  "contributions",
+  "edges",
+  "observations",
+  "vocabulary",
+  "retailers",
 ];
 
 export const OVERVIEW_QUEUES: readonly OverviewQueueDefinition[] = [
-  { kind: 'contributions', label: 'Contributions', href: '/ops/contributions' },
-  { kind: 'edges', label: 'Relationships', href: '/ops/edges' },
-  { kind: 'observations', label: 'Observations', href: '/ops/observations' },
-  { kind: 'vocabulary', label: 'Vocabulary', href: '/ops/vocabulary' },
-  { kind: 'retailers', label: 'Retailer applications', href: '/ops/retailers' },
+  { kind: "orders", label: "Assisted orders", href: "/ops/orders" },
+  { kind: "contributions", label: "Contributions", href: "/ops/contributions" },
+  { kind: "edges", label: "Relationships", href: "/ops/edges" },
+  { kind: "observations", label: "Observations", href: "/ops/observations" },
+  { kind: "vocabulary", label: "Vocabulary", href: "/ops/vocabulary" },
+  { kind: "retailers", label: "Retailer applications", href: "/ops/retailers" },
 ];
 
 export type OverviewQueue = OverviewQueueDefinition & {
@@ -67,7 +75,7 @@ export type OverviewAttentionItem = {
   title: string;
   summary: string;
   observedAt: string;
-  reasonCode: 'waiting-time-unavailable';
+  reasonCode: "waiting-time-unavailable";
   actionLabel: string;
   actionHref: string;
 };
@@ -80,7 +88,7 @@ export type OverviewBriefingReadModel = {
     queueKind: OverviewQueueKind;
     href: string;
     label: string;
-    reasonCode: 'oldest-actionable-pending';
+    reasonCode: "oldest-actionable-pending";
     reasonText: string;
   } | null;
   recentDecisions: OverviewRecentDecision[];
@@ -90,37 +98,79 @@ export type OverviewBriefingReadModel = {
   attentionItems: OverviewAttentionItem[];
 };
 
-export type OverviewQueueFact = Pick<OverviewQueue, 'kind' | 'pendingCount' | 'oldestPendingAt'>;
+export type OverviewQueueFact = Pick<
+  OverviewQueue,
+  "kind" | "pendingCount" | "oldestPendingAt"
+>;
 
 export type OverviewAuditEntry = {
   id: string;
   operatorName: string;
-  queue: 'community_contribution' | 'community_edge' | 'community_observation' | 'community_moderation_value' | 'community_research_task' | 'retailer_application' | 'commerce_signal';
-  action: 'claim' | 'assign' | 'unassign' | 'approve' | 'reject' | 'map' | 'promote' | 'reconcile' | 'defer' | 'retry' | 'note';
+  queue:
+    | "community_contribution"
+    | "community_edge"
+    | "community_observation"
+    | "community_moderation_value"
+    | "community_research_task"
+    | "retailer_application"
+    | "commerce_signal";
+  action:
+    | "claim"
+    | "assign"
+    | "unassign"
+    | "approve"
+    | "reject"
+    | "map"
+    | "promote"
+    | "reconcile"
+    | "defer"
+    | "retry"
+    | "note";
   targetLabel?: string;
   createdAt: string;
   image?: string | null;
 };
 
-const ACTION_LABELS: Record<OverviewAuditEntry['action'], string> = {
-  claim: 'Claimed', assign: 'Assigned', unassign: 'Unassigned', approve: 'Approved', reject: 'Rejected', map: 'Mapped', promote: 'Promoted', reconcile: 'Reconciled', defer: 'Deferred', retry: 'Retried', note: 'Noted',
+const ACTION_LABELS: Record<OverviewAuditEntry["action"], string> = {
+  claim: "Claimed",
+  assign: "Assigned",
+  unassign: "Unassigned",
+  approve: "Approved",
+  reject: "Rejected",
+  map: "Mapped",
+  promote: "Promoted",
+  reconcile: "Reconciled",
+  defer: "Deferred",
+  retry: "Retried",
+  note: "Noted",
 };
 
-const AUDIT_QUEUE_LABELS: Record<OverviewAuditEntry['queue'], string> = {
-  community_contribution: 'contribution', community_edge: 'relationship', community_observation: 'observation', community_moderation_value: 'vocabulary item', community_research_task: 'research task', retailer_application: 'retailer application', commerce_signal: 'commerce signal',
+const AUDIT_QUEUE_LABELS: Record<OverviewAuditEntry["queue"], string> = {
+  community_contribution: "contribution",
+  community_edge: "relationship",
+  community_observation: "observation",
+  community_moderation_value: "vocabulary item",
+  community_research_task: "research task",
+  retailer_application: "retailer application",
+  commerce_signal: "commerce signal",
 };
 
-const AUDIT_QUEUE_KINDS: Record<OverviewAuditEntry['queue'], OverviewQueueKind | null> = {
-  community_contribution: 'contributions',
-  community_edge: 'edges',
-  community_observation: 'observations',
-  community_moderation_value: 'vocabulary',
+const AUDIT_QUEUE_KINDS: Record<
+  OverviewAuditEntry["queue"],
+  OverviewQueueKind | null
+> = {
+  community_contribution: "contributions",
+  community_edge: "edges",
+  community_observation: "observations",
+  community_moderation_value: "vocabulary",
   community_research_task: null,
-  retailer_application: 'retailers',
+  retailer_application: "retailers",
   commerce_signal: null,
 };
 
-export function overviewQueueKindForAuditQueue(queue: OverviewAuditEntry['queue']): OverviewQueueKind | null {
+export function overviewQueueKindForAuditQueue(
+  queue: OverviewAuditEntry["queue"],
+): OverviewQueueKind | null {
   return AUDIT_QUEUE_KINDS[queue];
 }
 
@@ -155,52 +205,80 @@ export function buildOverviewBriefing({
   oldestItems?: readonly OverviewFeaturedItemFact[];
   upNextUnavailable?: boolean;
   recentDecisions?: readonly OverviewAuditEntry[];
-  recentDecisionsByQueue?: Partial<Record<OverviewQueueKind, readonly OverviewAuditEntry[]>>;
+  recentDecisionsByQueue?: Partial<
+    Record<OverviewQueueKind, readonly OverviewAuditEntry[]>
+  >;
   recentDecisionsUnavailable?: boolean;
   generatedAt?: string;
 }): OverviewBriefingReadModel {
-  const facts = new Map(queueFacts.map(fact => [fact.kind, fact]));
+  const facts = new Map(queueFacts.map((fact) => [fact.kind, fact]));
   const actionableKinds = new Set(actionableQueueKinds);
-  const queues = OVERVIEW_QUEUES.map(definition => {
+  const queues = OVERVIEW_QUEUES.map((definition) => {
     const fact = facts.get(definition.kind);
     return {
       ...definition,
       pendingCount: fact?.pendingCount ?? 0,
       oldestPendingAt: fact?.oldestPendingAt ?? null,
       operatorCanAct: actionableKinds.has(definition.kind),
-      recentDecisions: (recentDecisionsByQueue[definition.kind] ?? []).slice(0, 3).map(projectDecision),
+      recentDecisions: (recentDecisionsByQueue[definition.kind] ?? [])
+        .slice(0, 3)
+        .map(projectDecision),
     };
   });
-  const pendingTotal = queues.reduce((total, queue) => total + queue.pendingCount, 0);
-  const actionable = queues.filter(queue => queue.operatorCanAct && queue.pendingCount > 0 && queue.oldestPendingAt);
-  const nextQueue = actionable.reduce<OverviewQueue | null>((earliest, queue) => {
-    if (!earliest || isEarlier(queue.oldestPendingAt!, earliest.oldestPendingAt!)) return queue;
-    // Equal dates intentionally retain the first queue in OVERVIEW_QUEUE_ORDER.
-    return earliest;
-  }, null);
+  const pendingTotal = queues.reduce(
+    (total, queue) => total + queue.pendingCount,
+    0,
+  );
+  const actionable = queues.filter(
+    (queue) =>
+      queue.operatorCanAct && queue.pendingCount > 0 && queue.oldestPendingAt,
+  );
+  const nextQueue = actionable.reduce<OverviewQueue | null>(
+    (earliest, queue) => {
+      if (
+        !earliest ||
+        isEarlier(queue.oldestPendingAt!, earliest.oldestPendingAt!)
+      )
+        return queue;
+      // Equal dates intentionally retain the first queue in OVERVIEW_QUEUE_ORDER.
+      return earliest;
+    },
+    null,
+  );
 
   return {
     generatedAt,
     pendingTotal,
     queues,
-    nextAction: nextQueue ? {
-      queueKind: nextQueue.kind,
-      href: nextQueue.href,
-      label: nextQueue.label,
-      reasonCode: 'oldest-actionable-pending',
-      reasonText: 'Oldest item waiting',
-    } : null,
+    nextAction: nextQueue
+      ? {
+          queueKind: nextQueue.kind,
+          href: nextQueue.href,
+          label: nextQueue.label,
+          reasonCode: "oldest-actionable-pending",
+          reasonText: "Oldest item waiting",
+        }
+      : null,
     recentDecisions: recentDecisions.slice(0, 5).map(projectDecision),
     recentDecisionsUnavailable,
     upNext: oldestItems
-      .filter(item => item.queueKind === nextQueue?.kind)
+      // The Overview read model exposes aggregate order facts, not private
+      // order records, so keep order recommendations at the canonical queue.
+      .filter(
+        (item) =>
+          item.queueKind === nextQueue?.kind && item.queueKind !== "orders",
+      )
       .sort((left, right) => {
-        const timeDifference = new Date(left.createdAt).getTime() - new Date(right.createdAt).getTime();
+        const timeDifference =
+          new Date(left.createdAt).getTime() -
+          new Date(right.createdAt).getTime();
         return timeDifference || left.id.localeCompare(right.id);
       })
       .slice(0, 2)
-      .map(item => {
-        const definition = OVERVIEW_QUEUES.find(queue => queue.kind === item.queueKind)!;
+      .map((item) => {
+        const definition = OVERVIEW_QUEUES.find(
+          (queue) => queue.kind === item.queueKind,
+        )!;
         return {
           id: item.id,
           queueKind: item.queueKind,
@@ -214,14 +292,14 @@ export function buildOverviewBriefing({
       }),
     upNextUnavailable,
     attentionItems: queues
-      .filter(queue => queue.pendingCount > 0 && !queue.oldestPendingAt)
-      .map(queue => ({
+      .filter((queue) => queue.pendingCount > 0 && !queue.oldestPendingAt)
+      .map((queue) => ({
         id: `waiting-time-unavailable:${queue.kind}`,
         queueKind: queue.kind,
         title: `${queue.label} waiting time unavailable`,
-        summary: `${queue.pendingCount} ${queue.pendingCount === 1 ? 'item is' : 'items are'} waiting, but age could not be read.`,
+        summary: `${queue.pendingCount} ${queue.pendingCount === 1 ? "item is" : "items are"} waiting, but age could not be read.`,
         observedAt: generatedAt,
-        reasonCode: 'waiting-time-unavailable' as const,
+        reasonCode: "waiting-time-unavailable" as const,
         actionLabel: queue.operatorCanAct
           ? `Review ${queue.label.toLowerCase()}`
           : `View ${queue.label.toLowerCase()}`,

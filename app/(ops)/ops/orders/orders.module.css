@@ -1,12 +1,12 @@
 .workspace {
+  flex: 1 1 auto;
   min-height: 0;
-  height: 100%;
-  display: grid;
-  grid-template-columns: minmax(20rem, 0.78fr) minmax(27rem, 1.22fr);
-  gap: 1rem;
+  height: auto;
+  display: block;
 }
 .queue,
 .inspector {
+  box-sizing: border-box;
   min-width: 0;
   min-height: 0;
   overflow: auto;
@@ -16,6 +16,7 @@
   box-shadow: var(--ops-workspace-shadow);
 }
 .queue {
+  height: 100%;
   padding: 1rem;
 }
 .queue section + section {
@@ -35,6 +36,7 @@
   gap: 0.45rem;
 }
 .queue button {
+  min-height: var(--touch-min);
   width: 100%;
   padding: 0.85rem;
   display: flex;
@@ -49,8 +51,8 @@
   cursor: pointer;
 }
 .queue button[data-active="true"] {
-  background: var(--ops-accent);
-  color: var(--ops-workspace);
+  background: var(--ops-action-subtle, var(--ops-accent-subtle));
+  color: var(--ops-action, var(--ops-accent));
 }
 .queue button > span {
   display: grid;
@@ -72,11 +74,11 @@
   place-items: center;
   border-radius: 999px;
   background: var(--ops-surface-subtle);
-  color: var(--ops-accent);
+  color: var(--ops-action, var(--ops-accent));
   font-style: normal;
 }
 .queue button[data-active="true"] .queueIdentity i {
-  background: color-mix(in srgb, var(--ops-workspace) 16%, transparent);
+  background: color-mix(in srgb, currentColor 10%, transparent);
   color: currentColor;
 }
 .queueIdentity > span {
@@ -89,7 +91,9 @@
   opacity: 0.6;
 }
 .inspector {
+  height: 100%;
   padding: clamp(1.2rem, 3vw, 2.2rem);
+  overscroll-behavior: contain;
 }
 .inspector > header {
   display: flex;
@@ -105,11 +109,12 @@
 }
 .inspector > header h2 {
   margin: 0.3rem 0;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  line-height: 0.95;
+  font-size: clamp(1.65rem, 3vw, 2.4rem);
+  line-height: 1;
 }
 .inspector > header > span {
   height: fit-content;
+  flex: 0 0 auto;
   padding: 0.45rem 0.65rem;
   border-radius: 999px;
   background: var(--ops-accent-subtle);
@@ -152,7 +157,8 @@
   margin: 0.9rem 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(4.5rem, 1fr));
+  overflow-x: auto;
   list-style: none;
 }
 .lifecycle li {
@@ -325,7 +331,7 @@
   margin-top: 1rem;
   padding: 0.9rem;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: start;
   gap: 0.75rem;
   border-radius: 1rem;
@@ -386,11 +392,13 @@
   gap: 0.35rem;
   border: 0;
   border-radius: 999px;
-  background: var(--ops-ink);
+  background: var(--ops-action, var(--ops-accent));
   color: var(--ops-workspace);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
+  grid-column: 2;
+  justify-self: start;
 }
 .verification button:disabled {
   cursor: wait;
@@ -423,7 +431,7 @@
   margin-top: 1rem;
   padding: 0.9rem;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   gap: 0.75rem;
   border-radius: 1rem;
@@ -463,11 +471,13 @@
   gap: 0.35rem;
   border: 0;
   border-radius: 999px;
-  background: var(--ops-ink);
+  background: var(--ops-action, var(--ops-accent));
   color: var(--ops-workspace);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
+  grid-column: 2;
+  justify-self: start;
 }
 .notificationDelivery button:disabled {
   cursor: wait;
@@ -477,7 +487,7 @@
   margin-top: 1rem;
   padding: 0.9rem;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   gap: 0.75rem;
   border-radius: 1rem;
@@ -517,11 +527,13 @@
   gap: 0.35rem;
   border: 0;
   border-radius: 999px;
-  background: var(--ops-ink);
+  background: var(--ops-action, var(--ops-accent));
   color: var(--ops-workspace);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
+  grid-column: 2;
+  justify-self: start;
 }
 .teamAlert[data-status="failed"] {
   outline: 1px solid color-mix(in srgb, var(--state-danger) 40%, transparent);
@@ -552,8 +564,8 @@
   padding: 0 1rem;
   border: 0;
   border-radius: 999px;
-  background: var(--accent-solid);
-  color: var(--paper);
+  background: var(--ops-action, var(--ops-accent));
+  color: var(--ops-workspace);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
@@ -626,7 +638,7 @@
   padding: 0.6rem 1rem;
   border: 0;
   border-radius: 999px;
-  background: var(--ops-ink);
+  background: var(--ops-action, var(--ops-accent));
   color: var(--ops-workspace);
   font: inherit;
   font-weight: 700;
@@ -821,7 +833,7 @@
 .lifecycleChoices {
   margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.65rem;
 }
 .lifecycleChoices button,
@@ -867,14 +879,135 @@
   text-align: center;
 }
 
-@media (max-width: 900px) {
-  .workspace {
-    height: auto;
-    grid-template-columns: minmax(0, 1fr);
+.queue button:focus-visible,
+.inspector button:focus-visible,
+.inspector a:focus-visible,
+.inspector input:focus-visible,
+.inspector textarea:focus-visible,
+.overlayClose:focus-visible {
+  outline: 2px solid var(--ops-action, var(--ops-focus-ring));
+  outline-offset: 2px;
+}
+
+.overlayStage {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: auto;
+}
+
+.overlayScrim {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  border: 0;
+  background: color-mix(in srgb, var(--ops-canvas) 52%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+.overlaySheet {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  border-radius: var(--ops-shell-radius);
+  background: var(--ops-workspace);
+  color: var(--ops-ink);
+  box-shadow: var(--ops-floating-shadow);
+  animation: inspectorIn 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.overlayHeader {
+  min-height: 3.5rem;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.overlayHeader > div {
+  min-width: 0;
+  display: grid;
+  gap: 0.1rem;
+}
+
+.overlayHeader span {
+  color: var(--ops-muted);
+  font-size: var(--text-label);
+}
+
+.overlayHeader strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.overlayClose {
+  width: var(--touch-min);
+  height: var(--touch-min);
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ops-action-subtle, var(--ops-surface-subtle));
+  color: var(--ops-action, var(--ops-ink));
+  cursor: pointer;
+}
+
+.overlayBody {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.overlayBody .inspector {
+  height: auto;
+  min-height: 100%;
+  overflow: visible;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+@keyframes inspectorIn {
+  from {
+    opacity: 0.72;
+    transform: translateX(1.5rem);
   }
-  .queue,
-  .inspector {
-    overflow: visible;
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 1179px) {
+  .queue {
+    padding-bottom: calc(56px + var(--space-6) + env(safe-area-inset-bottom));
+  }
+
+  .inspector button,
+  .inspector a {
+    min-height: var(--touch-min);
+  }
+}
+
+@media (max-width: 819px) {
+  .overlayStage {
+    align-items: flex-end;
+  }
+
+  .overlaySheet {
+    height: min(88dvh, 760px);
+    border-radius: var(--ops-shell-radius) var(--ops-shell-radius) 0 0;
+    animation-name: inspectorUp;
+  }
+
+  .overlayBody {
+    padding-bottom: calc(56px + var(--space-6) + env(safe-area-inset-bottom));
   }
 }
 
@@ -897,6 +1030,17 @@
   }
   .lifecycle li {
     scroll-snap-align: center;
+  }
+}
+
+@keyframes inspectorUp {
+  from {
+    opacity: 0.72;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -925,5 +1069,11 @@
   }
   .lifecycleChoices {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlaySheet {
+    animation-duration: 1ms;
   }
 }

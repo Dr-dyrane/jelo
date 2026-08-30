@@ -103,9 +103,9 @@ The first reusable frame will support triage detail work: a queue list, a select
 
 Menus are transient surfaces. They emerge from their trigger and use the workspace surface so glass does not stack on glass.
 
-The private shell uses low-chroma mineral surfaces, not the public product palette. `--ops-accent` is a muted umber selection and focus colour; semantic status colours remain reserved for actual operational state.
+The private shell uses low-chroma mineral surfaces, not the public product palette. `--ops-accent` is a neutral data and decorative mark for charts, avatars, eyebrows, and other noninteractive emphasis. `--ops-action` is restrained cobalt ink for selection and consequential actions, while `--ops-focus-ring` owns keyboard focus. Semantic status colours remain reserved for actual operational state.
 
-Semantic colour is reserved for active navigation, counts, focus, and consequential actions. It does not decorate the shell.
+Interaction colour is reserved for active navigation, selection, focus, and consequential actions. It does not decorate the shell. Success, warning, danger, and information colours communicate only their operational meanings.
 
 ## Tokens and ownership
 
@@ -122,6 +122,8 @@ Global shell tokens live in `app/globals.css` because light and dark themes must
 - `--ops-floating-shadow`
 - `--ops-accent`
 - `--ops-accent-subtle`
+- `--ops-action`
+- `--ops-action-subtle`
 - `--ops-focus-ring`
 - `--ops-shell-inset`
 - `--ops-sidebar-width`

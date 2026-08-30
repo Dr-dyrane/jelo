@@ -1,11 +1,11 @@
-import 'server-only';
+import "server-only";
 
-import type { Sql } from 'postgres';
-import { listOverviewDecisionHistory } from '@/lib/moderation/audit-queries';
-import { humanizeRef } from '@/lib/humanize/refs';
-import { can, type Capability } from '@/lib/moderation/capabilities';
-import type { ModerationRole } from '@/lib/moderation/access';
-import { resolveOpsProductImages } from '@/lib/moderation/ops-product-visuals';
+import type { Sql } from "postgres";
+import { listOverviewDecisionHistory } from "@/lib/moderation/audit-queries";
+import { humanizeRef } from "@/lib/humanize/refs";
+import { can, type Capability } from "@/lib/moderation/capabilities";
+import type { ModerationRole } from "@/lib/moderation/access";
+import { resolveOpsProductImages } from "@/lib/moderation/ops-product-visuals";
 import {
   buildOverviewBriefing,
   overviewQueueKindForAuditQueue,
@@ -15,14 +15,15 @@ import {
   type OverviewFeaturedItemFact,
   type OverviewQueueFact,
   type OverviewQueueKind,
-} from './overview-briefing';
+} from "./overview-briefing";
 
 const QUEUE_CAPABILITIES: Record<OverviewQueueKind, Capability> = {
-  contributions: 'contributions.decide',
-  edges: 'edges.decide',
-  observations: 'observations.decide',
-  vocabulary: 'vocabulary.decide',
-  retailers: 'retailers.decide',
+  orders: "orders.manage",
+  contributions: "contributions.decide",
+  edges: "edges.decide",
+  observations: "observations.decide",
+  vocabulary: "vocabulary.decide",
+  retailers: "retailers.decide",
 };
 
 type OverviewQueueRow = {
@@ -42,6 +43,28 @@ type OverviewOldestItemRow = {
 
 async function listOverviewQueueFacts(sql: Sql): Promise<OverviewQueueFact[]> {
   const rows = await sql<OverviewQueueRow[]>`
+    select 'orders'::text as kind, count(*)::int as pending_count,
+      min(orders.updated_at)::text as oldest_pending_at
+    from assisted_orders as orders
+    where (
+      orders.state not in ('delivered', 'cancelled', 'refunded')
+      or (
+        orders.state = 'delivered'
+        and exists (
+          select 1 from assisted_order_events as requested_return
+          where requested_return.order_id = orders.id
+            and requested_return.action = 'return_requested'
+            and not exists (
+              select 1 from assisted_order_events as return_decision
+              where return_decision.order_id = orders.id
+                and return_decision.sequence_id > requested_return.sequence_id
+                and return_decision.action in ('return_declined', 'refund_pending')
+            )
+        )
+      )
+    )
+      and orders.retain_until > now()
+    union all
     select 'contributions'::text as kind, count(*)::int as pending_count, min(submitted_at)::text as oldest_pending_at
     from community_contributions
     where moderation_status = 'pending' and retain_until > now()
@@ -74,14 +97,16 @@ async function listOverviewQueueFacts(sql: Sql): Promise<OverviewQueueFact[]> {
     where status = 'submitted'
   `;
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     kind: row.kind,
     pendingCount: row.pending_count,
     oldestPendingAt: row.oldest_pending_at,
   }));
 }
 
-async function listOverviewOldestItems(sql: Sql): Promise<OverviewFeaturedItemFact[]> {
+async function listOverviewOldestItems(
+  sql: Sql,
+): Promise<OverviewFeaturedItemFact[]> {
   const rows = await sql<OverviewOldestItemRow[]>`
     with pending_items as (
       select
@@ -212,7 +237,7 @@ async function listOverviewOldestItems(sql: Sql): Promise<OverviewFeaturedItemFa
     order by queue_kind, queue_rank
   `;
 
-  return rows.map(row => {
+  return rows.map((row) => {
     const product = row.product_ref ? humanizeRef(row.product_ref) : null;
     return {
       id: row.record_id,
@@ -220,47 +245,54 @@ async function listOverviewOldestItems(sql: Sql): Promise<OverviewFeaturedItemFa
       title: row.title,
       summary: row.summary,
       createdAt: row.created_at,
-      image: product?.displayApproved ? product.image ?? null : null,
+      image: product?.displayApproved ? (product.image ?? null) : null,
     };
   });
 }
 
 // The queue projection is one small aggregate read; audit history is independent
 // and may fail without making reliable queue counts look partial.
-export async function loadOverviewBriefing(sql: Sql, role: ModerationRole): Promise<OverviewBriefingReadModel> {
+export async function loadOverviewBriefing(
+  sql: Sql,
+  role: ModerationRole,
+): Promise<OverviewBriefingReadModel> {
   const [queueFacts, oldestItemsResult, auditResult] = await Promise.all([
     listOverviewQueueFacts(sql),
     listOverviewOldestItems(sql).then(
-      rows => ({ rows, unavailable: false }),
-      error => {
-        console.error('Could not load oldest operations records.', error);
+      (rows) => ({ rows, unavailable: false }),
+      (error) => {
+        console.error("Could not load oldest operations records.", error);
         return { rows: [], unavailable: true };
       },
     ),
     listOverviewDecisionHistory(sql, 5, 3).then(
-      rows => ({ rows, unavailable: false }),
-      error => {
-        console.error('Could not load recent operations decisions.', error);
+      (rows) => ({ rows, unavailable: false }),
+      (error) => {
+        console.error("Could not load recent operations decisions.", error);
         return { rows: [], unavailable: true };
       },
     ),
   ]);
 
   const productImages = await resolveOpsProductImages(
-    auditResult.rows.map(row => row.productRef),
+    auditResult.rows.map((row) => row.productRef),
   );
   const recentDecisions = auditResult.rows
-    .filter(row => row.globalRank <= 5)
-    .map<OverviewAuditEntry>(row => ({
+    .filter((row) => row.globalRank <= 5)
+    .map<OverviewAuditEntry>((row) => ({
       id: row.id,
       operatorName: row.operatorName,
       queue: row.queue,
       action: row.action,
       targetLabel: row.targetLabel,
       createdAt: row.createdAt,
-      image: row.productRef ? productImages.get(row.productRef) ?? null : null,
+      image: row.productRef
+        ? (productImages.get(row.productRef) ?? null)
+        : null,
     }));
-  const recentDecisionsByQueue: Partial<Record<OverviewQueueKind, OverviewAuditEntry[]>> = {};
+  const recentDecisionsByQueue: Partial<
+    Record<OverviewQueueKind, OverviewAuditEntry[]>
+  > = {};
   for (const row of auditResult.rows) {
     if (row.queueRank > 3) continue;
     const queueKind = overviewQueueKindForAuditQueue(row.queue);
@@ -272,15 +304,17 @@ export async function loadOverviewBriefing(sql: Sql, role: ModerationRole): Prom
       action: row.action,
       targetLabel: row.targetLabel,
       createdAt: row.createdAt,
-      image: row.productRef ? productImages.get(row.productRef) ?? null : null,
+      image: row.productRef
+        ? (productImages.get(row.productRef) ?? null)
+        : null,
     });
   }
 
   return buildOverviewBriefing({
     queueFacts,
-    actionableQueueKinds: OVERVIEW_QUEUES
-      .filter(queue => can(role, QUEUE_CAPABILITIES[queue.kind]))
-      .map(queue => queue.kind),
+    actionableQueueKinds: OVERVIEW_QUEUES.filter((queue) =>
+      can(role, QUEUE_CAPABILITIES[queue.kind]),
+    ).map((queue) => queue.kind),
     oldestItems: oldestItemsResult.rows,
     upNextUnavailable: oldestItemsResult.unavailable,
     recentDecisions,

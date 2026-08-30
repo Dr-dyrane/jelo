@@ -24,23 +24,33 @@ import {
   Store,
   Truck,
   UserRoundCheck,
+  X,
   XCircle,
   Zap,
   type LucideIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { createPortal } from "react-dom";
 import {
+  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
   useTransition,
   type FormEvent,
 } from "react";
+import { useUrlInboxSelection } from "@/components/ops/inbox/use-url-inbox-selection";
+import {
+  OPS_OVERLAY_INERT_TARGETS,
+  useOpsOverlay,
+} from "@/components/ops/shell/use-ops-overlay";
 import type { AssistedOrderPrivateView } from "@/lib/commerce/assisted-procurement-repository";
 import { CUSTOMER_VISIBLE_ORDER_STATES } from "@/lib/commerce/assisted-procurement-model";
 import type { AssistedOrderNotificationDeliverySummary } from "@/lib/commerce/order-notification-model";
 import type { AssistedOrderOperatorAlertSummary } from "@/lib/commerce/order-operator-alert-repository";
+import { formatOrderDateTime } from "@/lib/commerce/order-date";
 import {
   boundedPaymentEvidenceText,
   providerSettlementDate,
@@ -59,6 +69,7 @@ import {
   transitionOrderAction,
   verifyManualPaymentAction,
 } from "./actions";
+import { resolveOrderQueueSelection } from "./order-selection";
 import styles from "./orders.module.css";
 
 const naira = new Intl.NumberFormat("en-NG", {
@@ -67,10 +78,34 @@ const naira = new Intl.NumberFormat("en-NG", {
   minimumFractionDigits: 0,
   maximumFractionDigits: 2,
 });
-const date = new Intl.DateTimeFormat("en-NG", {
-  dateStyle: "medium",
-  timeStyle: "short",
-});
+
+function subscribeToDetailPane(onStoreChange: () => void) {
+  const observer = new MutationObserver(onStoreChange);
+  observer.observe(document.body, { childList: true, subtree: true });
+  return () => observer.disconnect();
+}
+
+function getDetailPaneSnapshot() {
+  return document.getElementById("ops-detail-pane");
+}
+
+function getServerDetailPaneSnapshot() {
+  return null;
+}
+
+function subscribeToDesktopViewport(onStoreChange: () => void) {
+  const query = window.matchMedia("(min-width: 1180px)");
+  query.addEventListener("change", onStoreChange);
+  return () => query.removeEventListener("change", onStoreChange);
+}
+
+function getDesktopViewportSnapshot() {
+  return window.matchMedia("(min-width: 1180px)").matches;
+}
+
+function getServerDesktopViewportSnapshot() {
+  return true;
+}
 
 export function OrdersQueue({
   orders,
@@ -86,11 +121,32 @@ export function OrdersQueue({
   serviceFees: Map<string, ResolvedServiceFee | null>;
 }) {
   const router = useRouter();
-  const [selectedId, setSelectedId] = useState(orders[0]?.id ?? "");
+  const {
+    selectedId,
+    pendingSelectionId,
+    onSelect: selectOrderId,
+    onDeselect: deselectOrderId,
+  } = useUrlInboxSelection();
   const [error, setError] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [overlayOrderId, setOverlayOrderId] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
-  const selected = orders.find((order) => order.id === selectedId) ?? orders[0];
+  const detailPortalTarget = useSyncExternalStore(
+    subscribeToDetailPane,
+    getDetailPaneSnapshot,
+    getServerDetailPaneSnapshot,
+  );
+  const isDesktop = useSyncExternalStore(
+    subscribeToDesktopViewport,
+    getDesktopViewportSnapshot,
+    getServerDesktopViewportSnapshot,
+  );
+  const overlayDialogRef = useRef<HTMLElement | null>(null);
+  const lastTriggerRef = useRef<HTMLElement | null>(null);
+  const { selected, selectionMissing } = resolveOrderQueueSelection(
+    orders,
+    selectedId,
+  );
   const selectedDelivery = notificationDeliveries.find(
     (delivery) => delivery.orderId === selected?.id,
   );
@@ -113,7 +169,58 @@ export function OrdersQueue({
     [orders],
   );
 
-  if (!selected)
+  const closeInspector = useCallback(() => setOverlayOrderId(null), []);
+  const openOrder = useCallback(
+    (order: AssistedOrderPrivateView, trigger: HTMLButtonElement) => {
+      lastTriggerRef.current = trigger;
+      selectOrderId(order);
+      if (!isDesktop) setOverlayOrderId(order.id);
+    },
+    [isDesktop, selectOrderId],
+  );
+  const overlayMounted =
+    !isDesktop && overlayOrderId === selected?.id && detailPortalTarget != null;
+
+  useOpsOverlay({
+    open: overlayMounted,
+    onClose: closeInspector,
+    dialogRef: overlayDialogRef,
+    returnFocusRef: lastTriggerRef,
+    inertTargetSelectors: OPS_OVERLAY_INERT_TARGETS,
+    initialFocusSelector: "[data-ops-inspector-close]",
+    returnFocusFallbackSelector: "[data-ops-main]",
+  });
+
+  useEffect(() => {
+    if (!selectionMissing) return;
+
+    deselectOrderId();
+    requestAnimationFrame(() => {
+      document
+        .querySelector<HTMLElement>("[data-ops-main]")
+        ?.focus({ preventScroll: true });
+    });
+  }, [deselectOrderId, selectionMissing]);
+
+  useEffect(() => {
+    if (!selected || lastTriggerRef.current?.isConnected) return;
+    lastTriggerRef.current =
+      document.querySelector<HTMLElement>(
+        `[data-order-id="${CSS.escape(selected.id)}"]`,
+      ) ?? document.querySelector<HTMLElement>("[data-ops-main]");
+  }, [orders, selected]);
+
+  useEffect(() => {
+    const desktopViewport = window.matchMedia("(min-width: 1180px)");
+    const closeAtDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) closeInspector();
+    };
+
+    desktopViewport.addEventListener("change", closeAtDesktop);
+    return () => desktopViewport.removeEventListener("change", closeAtDesktop);
+  }, [closeInspector]);
+
+  if (orders.length === 0)
     return (
       <div className={styles.empty}>
         <PackageCheck size={24} />
@@ -152,229 +259,286 @@ export function OrdersQueue({
     });
   }
 
-  return (
-    <div className={styles.workspace}>
-      <div className={styles.queue}>
-        <QueueSection
-          label="Needs a verified step"
-          orders={sections.waiting}
-          selectedId={selected.id}
-          onSelect={setSelectedId}
-        />
-        <QueueSection
-          label="In progress"
-          orders={sections.active}
-          selectedId={selected.id}
-          onSelect={setSelectedId}
-        />
-        <QueueSection
-          label="Quote approved · payment gated"
-          orders={sections.approved}
-          selectedId={selected.id}
-          onSelect={setSelectedId}
-        />
+  const inspector = selected ? (
+    <aside className={styles.inspector} data-ops-order-inspector>
+      <header>
+        <div>
+          <p>Order {selected.reference}</p>
+          <h2>{selected.contactName}</h2>
+        </div>
+        <span>{CUSTOMER_VISIBLE_ORDER_STATES[selected.state].label}</span>
+      </header>
+      <OrderLifecycle order={selected} />
+      <div className={styles.privateData}>
+        <strong>{selected.retailer}</strong>
+        <span>{selected.contactEmail}</span>
+        <span>{selected.contactPhone}</span>
+        <span>
+          {selected.deliveryAddress}, {selected.deliveryCity},{" "}
+          {selected.deliveryState}
+        </span>
+        {selected.deliveryInstructions ? (
+          <span>{selected.deliveryInstructions}</span>
+        ) : null}
+        <small>
+          {selected.whatsappConsent
+            ? "WhatsApp consent recorded"
+            : "Do not initiate WhatsApp contact"}
+        </small>
+      </div>
+      <div className={styles.lines}>
+        {selected.lines.map((line) => (
+          <div key={line.slug}>
+            <span>
+              {line.brand} · {line.name}
+              <small>
+                {line.size} × {line.quantity}
+              </small>
+            </span>
+            <span className={styles.lineActions}>
+              <b>{naira.format(line.observedUnitPriceNgn * line.quantity)}</b>
+              {line.observedListingUrl ? (
+                <a
+                  href={line.observedListingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open retailer <ExternalLink size={14} aria-hidden="true" />
+                </a>
+              ) : null}
+            </span>
+          </div>
+        ))}
       </div>
 
-      <aside className={styles.inspector}>
-        <header>
-          <div>
-            <p>Order {selected.reference}</p>
-            <h2>{selected.contactName}</h2>
-          </div>
-          <span>{CUSTOMER_VISIBLE_ORDER_STATES[selected.state].label}</span>
-        </header>
-        <OrderLifecycle order={selected} />
-        <div className={styles.privateData}>
-          <strong>{selected.retailer}</strong>
-          <span>{selected.contactEmail}</span>
-          <span>{selected.contactPhone}</span>
-          <span>
-            {selected.deliveryAddress}, {selected.deliveryCity},{" "}
-            {selected.deliveryState}
-          </span>
-          {selected.deliveryInstructions ? (
-            <span>{selected.deliveryInstructions}</span>
-          ) : null}
-          <small>
-            {selected.whatsappConsent
-              ? "WhatsApp consent recorded"
-              : "Do not initiate WhatsApp contact"}
-          </small>
-        </div>
-        <div className={styles.lines}>
-          {selected.lines.map((line) => (
-            <div key={line.slug}>
-              <span>
-                {line.brand} · {line.name}
-                <small>
-                  {line.size} × {line.quantity}
-                </small>
-              </span>
-              <span className={styles.lineActions}>
-                <b>{naira.format(line.observedUnitPriceNgn * line.quantity)}</b>
-                {line.observedListingUrl ? (
-                  <a
-                    href={line.observedListingUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Open retailer <ExternalLink size={14} aria-hidden="true" />
-                  </a>
-                ) : null}
-              </span>
-            </div>
-          ))}
-        </div>
+      <OrderVerificationPanel
+        order={selected}
+        canManage={canManage}
+        pending={pending}
+        onReverify={() =>
+          run(() => reverifyOrderAction({ orderId: selected.id }))
+        }
+      />
 
-        <OrderVerificationPanel
-          order={selected}
-          canManage={canManage}
-          pending={pending}
-          onReverify={() =>
-            run(() => reverifyOrderAction({ orderId: selected.id }))
-          }
-        />
+      <TeamAlertDelivery
+        alert={selectedOperatorAlert}
+        canManage={canManage}
+        pending={pending}
+        onRetry={() =>
+          run(() => retryOrderOperatorAlertAction({ orderId: selected.id }))
+        }
+      />
 
-        <TeamAlertDelivery
-          alert={selectedOperatorAlert}
-          canManage={canManage}
-          pending={pending}
-          onRetry={() =>
-            run(() => retryOrderOperatorAlertAction({ orderId: selected.id }))
-          }
-        />
+      <NotificationDelivery
+        delivery={selectedDelivery}
+        enabled={selected.emailNotificationsConsent}
+        canManage={canManage}
+        pending={pending}
+        onRetry={() =>
+          selectedDelivery &&
+          run(() =>
+            retryOrderNotificationAction({
+              notificationId: selectedDelivery.id,
+              orderId: selected.id,
+            }),
+          )
+        }
+      />
 
-        <NotificationDelivery
-          delivery={selectedDelivery}
-          enabled={selected.emailNotificationsConsent}
-          canManage={canManage}
-          pending={pending}
-          onRetry={() =>
-            selectedDelivery &&
-            run(() =>
-              retryOrderNotificationAction({
-                notificationId: selectedDelivery.id,
-                orderId: selected.id,
-              }),
-            )
-          }
-        />
-
-        {selected.state === "requested" ||
-        selected.state === "needs_response" ? (
-          <div className={styles.decision}>
-            <p>
-              <Clock3 size={17} /> Next governed step
-            </p>
-            <h3>Claim this request and begin verification.</h3>
-            <p>
-              Check exact products and every cost component. Do not substitute.
-            </p>
-            <button
-              disabled={!canManage || pending}
-              onClick={() =>
-                run(() =>
-                  transitionOrderAction({
-                    orderId: selected.id,
-                    revision: selected.revision,
-                    transition: "quoting",
-                  }),
-                )
-              }
-            >
-              Claim &amp; verify
-            </button>
-          </div>
-        ) : null}
-
-        {selected.state === "quoting" ? (
-          <QuoteForm
-            key={selected.id}
-            order={selected}
+      {selected.state === "requested" || selected.state === "needs_response" ? (
+        <div className={styles.decision}>
+          <p>
+            <Clock3 size={17} /> Next governed step
+          </p>
+          <h3>Claim this request and begin verification.</h3>
+          <p>
+            Check exact products and every cost component. Do not substitute.
+          </p>
+          <button
             disabled={!canManage || pending}
-            serviceFee={serviceFees.get(selected.id) ?? null}
-            onSubmit={(input) => run(() => submitOrderQuoteAction(input))}
-          />
-        ) : null}
-
-        {selected.state === "awaiting_approval" ? (
-          <div className={styles.decision}>
-            <p>
-              <CheckCircle2 size={17} /> Customer decision
-            </p>
-            <h3>Quote version {selected.quote?.version} is waiting.</h3>
-            <p>
-              It expires{" "}
-              {selected.quote
-                ? date.format(new Date(selected.quote.expiresAt))
-                : "soon"}
-              . A changed cost requires a new quote.
-            </p>
-          </div>
-        ) : null}
-
-        {selected.state === "payment_pending" ? (
-          <PaymentVerification
-            order={selected}
-            canManage={canManage}
-            disabled={pending}
-            onSubmit={(input) => run(() => verifyManualPaymentAction(input))}
-          />
-        ) : null}
-
-        {[
-          "paid",
-          "procurement",
-          "retailer_confirmed",
-          "out_for_delivery",
-          "refund_pending",
-        ].includes(selected.state) ||
-        (selected.state === "delivered" &&
-          selected.returnRequest?.status === "requested") ? (
-          <LifecycleDecisionForm
-            key={`${selected.id}:${selected.state}:${selected.revision}`}
-            order={selected}
-            disabled={!canManage || pending}
-            onSubmit={(input) => run(() => advanceOrderLifecycleAction(input))}
-          />
-        ) : null}
-
-        {canManage &&
-        [
-          "requested",
-          "quoting",
-          "awaiting_approval",
-          "needs_response",
-          "payment_pending",
-        ].includes(selected.state) ? (
-          <CancellationRecovery
-            key={`cancel:${selected.id}:${selected.revision}`}
-            order={selected}
-            disabled={pending}
-            onSubmit={(reason) =>
+            onClick={() =>
               run(() =>
                 transitionOrderAction({
                   orderId: selected.id,
                   revision: selected.revision,
-                  transition: "cancelled",
-                  reason,
+                  transition: "quoting",
                 }),
               )
             }
-          />
-        ) : null}
-        {error ? (
-          <p className={styles.error} role="alert">
-            {error}
+          >
+            Claim &amp; verify
+          </button>
+        </div>
+      ) : null}
+
+      {selected.state === "quoting" ? (
+        <QuoteForm
+          key={selected.id}
+          order={selected}
+          disabled={!canManage || pending}
+          serviceFee={serviceFees.get(selected.id) ?? null}
+          onSubmit={(input) => run(() => submitOrderQuoteAction(input))}
+        />
+      ) : null}
+
+      {selected.state === "awaiting_approval" ? (
+        <div className={styles.decision}>
+          <p>
+            <CheckCircle2 size={17} /> Customer decision
           </p>
-        ) : null}
-        {feedback ? (
-          <p className={styles.feedback} role="status">
-            {feedback}
+          <h3>Quote version {selected.quote?.version} is waiting.</h3>
+          <p>
+            It expires{" "}
+            {selected.quote
+              ? formatOrderDateTime(selected.quote.expiresAt)
+              : "soon"}
+            . A changed cost requires a new quote.
           </p>
-        ) : null}
-      </aside>
+        </div>
+      ) : null}
+
+      {selected.state === "payment_pending" ? (
+        <PaymentVerification
+          order={selected}
+          canManage={canManage}
+          disabled={pending}
+          onSubmit={(input) => run(() => verifyManualPaymentAction(input))}
+        />
+      ) : null}
+
+      {[
+        "paid",
+        "procurement",
+        "retailer_confirmed",
+        "out_for_delivery",
+        "refund_pending",
+      ].includes(selected.state) ||
+      (selected.state === "delivered" &&
+        selected.returnRequest?.status === "requested") ? (
+        <LifecycleDecisionForm
+          key={`${selected.id}:${selected.state}:${selected.revision}`}
+          order={selected}
+          disabled={!canManage || pending}
+          onSubmit={(input) => run(() => advanceOrderLifecycleAction(input))}
+        />
+      ) : null}
+
+      {canManage &&
+      [
+        "requested",
+        "quoting",
+        "awaiting_approval",
+        "needs_response",
+        "payment_pending",
+      ].includes(selected.state) ? (
+        <CancellationRecovery
+          key={`cancel:${selected.id}:${selected.revision}`}
+          order={selected}
+          disabled={pending}
+          onSubmit={(reason) =>
+            run(() =>
+              transitionOrderAction({
+                orderId: selected.id,
+                revision: selected.revision,
+                transition: "cancelled",
+                reason,
+              }),
+            )
+          }
+        />
+      ) : null}
+      {error ? (
+        <p className={styles.error} role="alert">
+          {error}
+        </p>
+      ) : null}
+      {feedback ? (
+        <p className={styles.feedback} role="status">
+          {feedback}
+        </p>
+      ) : null}
+    </aside>
+  ) : (
+    <div className={styles.empty} data-ops-order-inspector-empty>
+      <PackageSearch size={24} aria-hidden="true" />
+      <h2>Select an order</h2>
+      <p>Choose a queue row to open its private order details.</p>
     </div>
+  );
+
+  return (
+    <>
+      <div className={styles.workspace} data-ops-reserve-detail>
+        <div className={styles.queue} aria-label="Assisted orders">
+          <QueueSection
+            label="Needs a verified step"
+            orders={sections.waiting}
+            selectedId={selected?.id ?? ""}
+            pendingSelectionId={pendingSelectionId}
+            onSelect={openOrder}
+          />
+          <QueueSection
+            label="In progress"
+            orders={sections.active}
+            selectedId={selected?.id ?? ""}
+            pendingSelectionId={pendingSelectionId}
+            onSelect={openOrder}
+          />
+          <QueueSection
+            label="Quote approved · payment gated"
+            orders={sections.approved}
+            selectedId={selected?.id ?? ""}
+            pendingSelectionId={pendingSelectionId}
+            onSelect={openOrder}
+          />
+        </div>
+      </div>
+
+      {isDesktop && detailPortalTarget
+        ? createPortal(inspector, detailPortalTarget)
+        : null}
+      {overlayMounted && detailPortalTarget && inspector
+        ? createPortal(
+            <div className={styles.overlayStage}>
+              <button
+                type="button"
+                className={styles.overlayScrim}
+                onClick={closeInspector}
+                tabIndex={-1}
+                aria-hidden="true"
+              />
+              <section
+                ref={overlayDialogRef}
+                className={styles.overlaySheet}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="order-inspector-title"
+                tabIndex={-1}
+              >
+                <header className={styles.overlayHeader}>
+                  <div>
+                    <span>Order details</span>
+                    <strong id="order-inspector-title">
+                      {selected?.reference ?? "Selected order"}
+                    </strong>
+                  </div>
+                  <button
+                    type="button"
+                    data-ops-inspector-close
+                    className={styles.overlayClose}
+                    onClick={closeInspector}
+                    aria-label="Close order details"
+                  >
+                    <X size={18} aria-hidden="true" />
+                  </button>
+                </header>
+                <div className={styles.overlayBody}>{inspector}</div>
+              </section>
+            </div>,
+            detailPortalTarget,
+          )
+        : null}
+    </>
   );
 }
 
@@ -522,7 +686,7 @@ function TeamAlertDelivery({
         <strong>{label}</strong>
         <small>
           {alert?.lastAttemptAt
-            ? `Last attempt ${date.format(new Date(alert.lastAttemptAt))}`
+            ? `Last attempt ${formatOrderDateTime(alert.lastAttemptAt)}`
             : "Sent independently of customer email preferences."}
         </small>
       </div>
@@ -573,7 +737,7 @@ function NotificationDelivery({
           {delivery?.title ??
             "No customer-visible order event has been created yet."}
           {delivery?.emailLastAttemptAt
-            ? ` · Last attempt ${date.format(new Date(delivery.emailLastAttemptAt))}`
+            ? ` · Last attempt ${formatOrderDateTime(delivery.emailLastAttemptAt)}`
             : ""}
         </small>
       </div>
@@ -593,12 +757,17 @@ function QueueSection({
   label,
   orders,
   selectedId,
+  pendingSelectionId,
   onSelect,
 }: {
   label: string;
   orders: AssistedOrderPrivateView[];
   selectedId: string;
-  onSelect: (id: string) => void;
+  pendingSelectionId: string | null;
+  onSelect: (
+    order: AssistedOrderPrivateView,
+    trigger: HTMLButtonElement,
+  ) => void;
 }) {
   if (!orders.length) return null;
   return (
@@ -612,13 +781,19 @@ function QueueSection({
           <button
             key={order.id}
             type="button"
+            data-order-id={order.id}
             data-active={order.id === selectedId ? "true" : "false"}
-            onClick={() => onSelect(order.id)}
+            aria-pressed={order.id === selectedId}
+            aria-busy={pendingSelectionId === order.id ? "true" : undefined}
+            onClick={(event) => onSelect(order, event.currentTarget)}
           >
             <OrderQueueIdentity order={order} />
             <span>
-              <b>{order.lines.length} lines</b>
-              <small>{date.format(new Date(order.updatedAt))}</small>
+              <b>
+                {order.lines.length}{" "}
+                {order.lines.length === 1 ? "line" : "lines"}
+              </b>
+              <small>{formatOrderDateTime(order.updatedAt)}</small>
             </span>
           </button>
         ))}
@@ -1574,7 +1749,9 @@ function PaymentVerification({
                   </small>
                 ) : null}
                 {reviewPaidAt ? (
-                  <small>Provider paid at · {date.format(reviewPaidAt)}</small>
+                  <small>
+                    Provider paid at · {formatOrderDateTime(reviewPaidAt)}
+                  </small>
                 ) : rawReviewPaidAt ? (
                   <small>Invalid provider settlement timestamp</small>
                 ) : null}

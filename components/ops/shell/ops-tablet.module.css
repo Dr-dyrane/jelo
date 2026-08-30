@@ -55,7 +55,10 @@
     bottom: var(--ops-shell-inset);
     z-index: calc(var(--z-palette) + 3);
     display: block !important;
-    width: min(360px, calc(100vw - var(--ops-sidebar-width) - (var(--ops-shell-inset) * 4)));
+    width: min(
+      360px,
+      calc(100vw - var(--ops-sidebar-width) - (var(--ops-shell-inset) * 4))
+    );
     min-width: 0;
     padding: 0 !important;
     overflow: visible !important;
@@ -84,7 +87,7 @@
     visibility: hidden;
     transform: translateX(calc(-100% - var(--space-4)));
     transition:
-      transform 320ms cubic-bezier(.22, 1, .36, 1),
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
       visibility 0s linear 320ms;
     pointer-events: none;
   }
@@ -131,7 +134,7 @@
     outline-offset: 2px;
   }
 
-  .shell[data-sidebar-open='true'] .sidebarLayer {
+  .shell[data-sidebar-open="true"] .sidebarLayer {
     visibility: visible;
     transform: translateX(0);
     transition-delay: 0s;
@@ -151,7 +154,7 @@
     transition: opacity 230ms var(--ease-standard);
   }
 
-  .shell[data-sidebar-open='true'] .sidebarScrim {
+  .shell[data-sidebar-open="true"] .sidebarScrim {
     opacity: 1;
     pointer-events: auto;
   }
@@ -196,7 +199,10 @@
     font-weight: var(--weight-medium);
     text-decoration: none;
     cursor: pointer;
-    transition: background var(--duration-fast), color var(--duration-fast), transform var(--duration-fast);
+    transition:
+      background var(--duration-fast),
+      color var(--duration-fast),
+      transform var(--duration-fast);
   }
 
   .islandMenu {
@@ -217,13 +223,13 @@
   .islandMenu:hover,
   .islandLink:hover,
   .islandLinkActive {
-    background: var(--ops-accent-subtle);
-    color: var(--ops-accent);
+    background: var(--ops-action-subtle);
+    color: var(--ops-action);
   }
 
   .islandMenu:active,
   .islandLink:active {
-    transform: scale(.985);
+    transform: scale(0.985);
   }
 
   .islandMenu:focus-visible,
@@ -250,12 +256,15 @@
     background: transparent !important;
     pointer-events: none;
   }
-
 }
 
 /* Touch and compact widths keep the route's real contextual action reachable.
    The inspector stage sits above it while open, so actions never stack. */
 @media (min-width: 430px) and (max-width: 1179px) {
+  .main {
+    padding-bottom: calc(56px + var(--space-6) + env(safe-area-inset-bottom));
+  }
+
   .bottomBarAction {
     position: fixed;
     right: max(var(--space-4), env(safe-area-inset-right));
@@ -269,8 +278,8 @@
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: var(--ops-instrument);
-    color: var(--ops-ink);
+    background: var(--ops-action);
+    color: var(--ops-workspace);
     cursor: pointer;
     box-shadow: var(--ops-floating-shadow);
     backdrop-filter: var(--glass-blur);
@@ -280,6 +289,11 @@
   .bottomBarAction:focus-visible {
     outline: 2px solid var(--ops-focus-ring);
     outline-offset: 2px;
+  }
+
+  .bottomBarAction:disabled {
+    cursor: wait;
+    opacity: 0.78;
   }
 }
 
@@ -349,8 +363,8 @@
   }
 
   .bottomBarItemActive {
-    background: var(--ops-accent-subtle);
-    color: var(--ops-accent);
+    background: var(--ops-action-subtle);
+    color: var(--ops-action);
   }
 
   .bottomBarAction {
@@ -366,17 +380,17 @@
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: var(--ops-instrument);
+    background: var(--ops-action);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
     box-shadow: var(--ops-floating-shadow);
-    color: var(--ops-ink);
+    color: var(--ops-workspace);
     cursor: pointer;
   }
 
   .main {
     padding-top: 0;
-    padding-bottom: calc(56px + var(--space-6));
+    padding-bottom: calc(56px + var(--space-6) + env(safe-area-inset-bottom));
   }
 
   .detailPane {
@@ -397,7 +411,8 @@
     width: auto;
     height: 96dvh;
     flex-direction: column;
-    padding: var(--space-4) var(--space-4) max(var(--space-4), env(safe-area-inset-bottom));
+    padding: var(--space-4) var(--space-4)
+      max(var(--space-4), env(safe-area-inset-bottom));
     border-radius: var(--ops-shell-radius) var(--ops-shell-radius) 0 0;
     background: var(--ops-instrument);
     backdrop-filter: var(--glass-blur);
@@ -406,7 +421,7 @@
     transform: translateY(100%);
   }
 
-  [data-ops-shell][data-sidebar-open='true'] .sidebarLayer {
+  [data-ops-shell][data-sidebar-open="true"] .sidebarLayer {
     transform: translateY(0);
   }
 
@@ -436,7 +451,10 @@
     padding-bottom: var(--space-3);
   }
 
-  .sidebarLayer > :global(aside) > :global([data-ops-sidebar-footer]) :global([data-ops-footer-label]) {
+  .sidebarLayer
+    > :global(aside)
+    > :global([data-ops-sidebar-footer])
+    :global([data-ops-footer-label]) {
     display: block;
     padding: 0 var(--space-3);
     color: var(--ops-muted);
@@ -444,7 +462,10 @@
     font-weight: var(--weight-regular);
   }
 
-  .sidebarLayer > :global(aside) > :global([data-ops-sidebar-footer]) :global([data-ops-theme-toggle]) {
+  .sidebarLayer
+    > :global(aside)
+    > :global([data-ops-sidebar-footer])
+    :global([data-ops-theme-toggle]) {
     align-self: flex-start;
     width: 100%;
     max-width: 180px;
@@ -514,6 +535,34 @@
   }
 }
 
+.bottomBarActionStatus {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + var(--space-2));
+  width: max-content;
+  max-width: min(240px, calc(100vw - (var(--space-4) * 2)));
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--ops-ink) 10%, transparent);
+  border-radius: var(--radius-pill);
+  background: var(--ops-instrument);
+  color: var(--ops-ink);
+  box-shadow: var(--ops-instrument-shadow);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+  pointer-events: none;
+}
+
+.refreshIconPending {
+  animation: opsRefreshSpin 900ms linear infinite;
+}
+
+@keyframes opsRefreshSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 359px) {
   .bottomBar {
     gap: 0;
@@ -529,7 +578,12 @@
   .sidebarLayer,
   .sidebarScrim,
   .islandMenu,
-  .islandLink {
+  .islandLink,
+  .refreshIconPending {
     transition-duration: 1ms;
+  }
+
+  .refreshIconPending {
+    animation: none;
   }
 }

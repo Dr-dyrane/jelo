@@ -2,7 +2,7 @@
   display: grid;
   width: 100%;
   min-height: 164px;
-  grid-template-columns: minmax(96px, .84fr) minmax(0, 1.16fr);
+  grid-template-columns: minmax(96px, 0.84fr) minmax(0, 1.16fr);
   align-items: stretch;
   padding: var(--space-2);
 }
@@ -115,7 +115,7 @@
 
 .compactCaret {
   color: var(--muted);
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .identitySummary {
@@ -244,7 +244,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--touch-min);
   align-items: center;
-  background: var(--ops-accent-subtle);
+  background: var(--ops-action-subtle);
 }
 
 .selectedTargetMain,
@@ -289,7 +289,7 @@
 .targetTrigger:disabled,
 .selectedTarget button:disabled {
   cursor: wait;
-  opacity: .55;
+  opacity: 0.55;
 }
 
 .targetDialog {
@@ -306,11 +306,11 @@
   border-radius: 26px 26px 0 0;
   background: var(--ops-workspace);
   color: var(--ink);
-  box-shadow: 0 -18px 54px rgba(42, 29, 27, .16);
+  box-shadow: 0 -18px 54px rgba(42, 29, 27, 0.16);
 }
 
 .targetDialog::backdrop {
-  background: rgba(31, 23, 22, .32);
+  background: rgba(31, 23, 22, 0.32);
   backdrop-filter: blur(10px);
 }
 
@@ -438,8 +438,8 @@
 }
 
 .targetResults > button:hover,
-.targetResults > button[data-active='true'] {
-  background: var(--ops-accent-subtle);
+.targetResults > button[data-active="true"] {
+  background: var(--ops-action-subtle);
 }
 
 .targetResults > button > span {
@@ -511,8 +511,8 @@
 }
 
 .researchButton {
-  background: var(--ops-accent-subtle);
-  color: var(--ops-accent);
+  background: var(--ops-action-subtle);
+  color: var(--ops-action);
 }
 
 .notUsefulButton {
@@ -567,7 +567,7 @@
   border: 0;
   border-radius: var(--ops-control-radius);
   background: transparent;
-  color: var(--ops-accent);
+  color: var(--ops-action);
   cursor: pointer;
   font: inherit;
   font-size: var(--text-caption);
@@ -575,7 +575,7 @@
 }
 
 .loadMore button:hover {
-  background: var(--ops-accent-subtle);
+  background: var(--ops-action-subtle);
 }
 
 .loadMore button:focus-visible {
@@ -585,7 +585,7 @@
 
 .loadMore button:disabled {
   cursor: wait;
-  opacity: .58;
+  opacity: 0.58;
 }
 
 .loadMore span {
@@ -628,7 +628,7 @@
     height: 100dvh;
     max-height: none;
     border-radius: 26px 0 0 26px;
-    box-shadow: -20px 0 56px rgba(42, 29, 27, .16);
+    box-shadow: -20px 0 56px rgba(42, 29, 27, 0.16);
   }
 }
 
@@ -642,14 +642,14 @@
     margin: 0;
     border-radius: 26px;
     transform: translate(-50%, -50%);
-    box-shadow: 0 28px 80px rgba(42, 29, 27, .22);
+    box-shadow: 0 28px 80px rgba(42, 29, 27, 0.22);
   }
 }
 
 @media (max-width: 819px) {
   .featureCard {
     min-height: 140px;
-    grid-template-columns: minmax(76px, .72fr) minmax(0, 1.28fr);
+    grid-template-columns: minmax(76px, 0.72fr) minmax(0, 1.28fr);
   }
 }
 
@@ -659,7 +659,7 @@
   }
 
   .featureTitle {
-    font-size: .94rem;
+    font-size: 0.94rem;
   }
 
   .featureMeta {
@@ -677,7 +677,7 @@
   }
 
   .featureTitle {
-    font-size: .92rem;
+    font-size: 0.92rem;
     -webkit-line-clamp: 2;
   }
 

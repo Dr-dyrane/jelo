@@ -54,8 +54,8 @@ test('temporary inspectors name the selected subject and leave one evidence scro
 
   assert.match(inbox, /getItemLabel\?\.\(activeItem\) \?\? itemTypeLabel/);
   assert.match(inbox, /inertTargetSelectors: OPS_OVERLAY_INERT_TARGETS/);
-  assert.match(overlay, /setAttribute\('inert', ''\)/);
-  assert.match(overlay, /removeAttribute\('inert'\)/);
+  assert.match(overlay, /setAttribute\(["']inert["'], ["']{2}\)/);
+  assert.match(overlay, /removeAttribute\(["']inert["']\)/);
   assert.match(inboxCss, /\.detailScroll \{[\s\S]*?overflow-y: auto;/);
   assert.match(inspectorCss, /\.tabletInspectorBody \{[\s\S]*?overflow: hidden;/);
 });

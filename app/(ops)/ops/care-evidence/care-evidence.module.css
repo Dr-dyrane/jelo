@@ -41,8 +41,8 @@
 }
 
 .tabActive {
-  background: var(--ops-accent-subtle);
-  color: var(--ink);
+  background: var(--ops-action-subtle);
+  color: var(--ops-action);
   font-weight: var(--weight-medium);
 }
 

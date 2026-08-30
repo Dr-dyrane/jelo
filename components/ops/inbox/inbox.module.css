@@ -152,7 +152,7 @@
 .propertyRow {
   display: grid;
   min-height: 34px;
-  grid-template-columns: minmax(78px, .7fr) minmax(0, 1.3fr);
+  grid-template-columns: minmax(78px, 0.7fr) minmax(0, 1.3fr);
   align-items: center;
   gap: var(--space-3);
 }
@@ -196,7 +196,7 @@
 }
 
 .metadataDisclosure summary::after {
-  content: '›';
+  content: "›";
   color: var(--muted);
   font-size: 17px;
   font-weight: var(--weight-regular);
@@ -246,7 +246,9 @@
   font-size: var(--text-cell);
   line-height: var(--leading-ui);
   resize: vertical;
-  transition: background var(--duration-fast), box-shadow var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    box-shadow var(--duration-fast);
 }
 
 .note::placeholder {
@@ -254,11 +256,16 @@
 }
 
 .note:hover {
-  background: color-mix(in srgb, var(--ops-surface-subtle) 94%, var(--ops-accent));
+  background: color-mix(
+    in srgb,
+    var(--ops-surface-subtle) 94%,
+    var(--ops-action)
+  );
 }
 
 .note:focus-visible {
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ops-focus-ring) 18%, transparent);
+  box-shadow: 0 0 0 2px
+    color-mix(in srgb, var(--ops-focus-ring) 18%, transparent);
 }
 
 .actionButtons {
@@ -277,16 +284,19 @@
   font: inherit;
   font-size: var(--text-caption);
   font-weight: var(--weight-semibold);
-  transition: background var(--duration-fast), color var(--duration-fast), transform var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast),
+    transform var(--duration-fast);
 }
 
 .btn:active {
-  transform: scale(.985);
+  transform: scale(0.985);
 }
 
 .btn:disabled {
   cursor: wait;
-  opacity: .55;
+  opacity: 0.55;
 }
 
 .btnApprove {
@@ -295,7 +305,7 @@
 }
 
 .btnApprove:hover {
-  background: color-mix(in srgb, var(--accent-solid) 92%, var(--ops-accent));
+  background: color-mix(in srgb, var(--accent-solid) 92%, var(--ops-action));
 }
 
 .btnReject {
@@ -304,7 +314,11 @@
 }
 
 .btnReject:hover {
-  background: color-mix(in srgb, var(--state-danger-bg) 80%, var(--state-danger));
+  background: color-mix(
+    in srgb,
+    var(--state-danger-bg) 80%,
+    var(--state-danger)
+  );
 }
 
 .btn:focus-visible {
@@ -354,7 +368,7 @@
 .collectionSectionHeader h2 {
   margin: 0;
   color: var(--ink);
-  font-size: .94rem;
+  font-size: 0.94rem;
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-tight);
   line-height: 1.2;
@@ -367,20 +381,20 @@
   list-style: none;
 }
 
-.sectionItems[data-presentation='feature-shelf'] {
+.sectionItems[data-presentation="feature-shelf"] {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3);
 }
 
-.sectionItems[data-presentation='compact-rows'] {
+.sectionItems[data-presentation="compact-rows"] {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: var(--space-6);
   row-gap: var(--space-2);
 }
 
-.sectionItems[data-presentation='horizontal-rail'] {
+.sectionItems[data-presentation="horizontal-rail"] {
   display: grid;
   grid-auto-columns: 220px;
   grid-auto-flow: column;
@@ -392,7 +406,7 @@
   scrollbar-width: none;
 }
 
-.sectionItems[data-presentation='horizontal-rail']::-webkit-scrollbar {
+.sectionItems[data-presentation="horizontal-rail"]::-webkit-scrollbar {
   display: none;
 }
 
@@ -401,7 +415,7 @@
   list-style: none;
 }
 
-.sectionItems[data-presentation='horizontal-rail'] .sectionItem {
+.sectionItems[data-presentation="horizontal-rail"] .sectionItem {
   scroll-snap-align: start;
 }
 
@@ -419,28 +433,30 @@
   cursor: pointer;
   font: inherit;
   text-align: left;
-  transition: background var(--duration-fast), transform var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    transform var(--duration-fast);
 }
 
-.sectionItems[data-presentation='feature-shelf'] .sectionItemButton {
+.sectionItems[data-presentation="feature-shelf"] .sectionItemButton {
   height: 100%;
   border-radius: calc(var(--ops-control-radius) + 4px);
 }
 
-.sectionItems[data-presentation='horizontal-rail'] .sectionItemButton {
+.sectionItems[data-presentation="horizontal-rail"] .sectionItemButton {
   border-radius: calc(var(--ops-control-radius) + 2px);
 }
 
 .sectionItemButton:hover {
-  background: color-mix(in srgb, var(--ops-accent) 6%, transparent);
+  background: color-mix(in srgb, var(--ops-action) 6%, transparent);
 }
 
 .sectionItemButtonActive {
-  background: var(--ops-accent-subtle);
+  background: var(--ops-action-subtle);
 }
 
 .sectionItemButton:active {
-  transform: scale(.995);
+  transform: scale(0.995);
 }
 
 .sectionItemButton:focus-visible {
@@ -449,7 +465,11 @@
 }
 
 .skeletonSectionItemButton {
-  --ops-skeleton-surface: color-mix(in srgb, var(--ops-surface-subtle) 88%, var(--ink));
+  --ops-skeleton-surface: color-mix(
+    in srgb,
+    var(--ops-surface-subtle) 88%,
+    var(--ink)
+  );
 
   cursor: default;
   pointer-events: none;
@@ -475,8 +495,8 @@
 }
 
 .railControls button:hover {
-  background: var(--ops-accent-subtle);
-  color: var(--ops-accent);
+  background: var(--ops-action-subtle);
+  color: var(--ops-action);
 }
 
 .railControls button:focus-visible {
@@ -507,16 +527,18 @@
   border: 0;
   border-radius: var(--ops-control-radius);
   background: transparent;
-  color: var(--ops-accent);
+  color: var(--ops-action);
   cursor: pointer;
   font: inherit;
   font-size: var(--text-caption);
   font-weight: var(--weight-semibold);
-  transition: background var(--duration-fast), color var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
 }
 
 .paginationButton:hover {
-  background: var(--ops-accent-subtle);
+  background: var(--ops-action-subtle);
 }
 
 .paginationButton:focus-visible {
@@ -526,7 +548,7 @@
 
 .paginationButton:disabled {
   cursor: wait;
-  opacity: .58;
+  opacity: 0.58;
 }
 
 .paginationStatus {
@@ -556,10 +578,12 @@
   position: relative;
   min-width: 0;
   min-height: 70px;
-  border-top: 1px solid var(--ops-separator, rgba(63,48,43,.08));
+  border-top: 1px solid var(--ops-separator, rgba(63, 48, 43, 0.08));
   cursor: pointer;
   outline: none;
-  transition: background var(--duration-fast), color var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
 }
 
 .card:nth-child(-n + 2) {
@@ -567,7 +591,7 @@
 }
 
 .card::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 7px -8px;
   z-index: -1;
@@ -578,11 +602,11 @@
 
 .card:hover::after,
 .card:focus-visible::after {
-  background: color-mix(in srgb, var(--ops-accent) 6%, transparent);
+  background: color-mix(in srgb, var(--ops-action) 6%, transparent);
 }
 
 .cardActive::after {
-  background: var(--ops-accent-subtle);
+  background: var(--ops-action-subtle);
 }
 
 .card:focus-visible {
@@ -638,7 +662,10 @@
   color: color-mix(in srgb, var(--muted) 72%, transparent);
   opacity: 0;
   transform: translateX(-2px);
-  transition: opacity var(--duration-fast), transform var(--duration-fast), color var(--duration-fast);
+  transition:
+    opacity var(--duration-fast),
+    transform var(--duration-fast),
+    color var(--duration-fast);
 }
 
 .card:hover .cardCaret,
@@ -649,11 +676,11 @@
 }
 
 .cardActive .cardCaret {
-  color: var(--ops-accent);
+  color: var(--ops-action);
 }
 
 @media (min-width: 1440px) {
-  .sectionItems[data-presentation='compact-rows'] {
+  .sectionItems[data-presentation="compact-rows"] {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -689,7 +716,7 @@
 }
 
 @media (min-width: 430px) and (max-width: 599px) {
-  .sectionItems[data-presentation='compact-rows'] {
+  .sectionItems[data-presentation="compact-rows"] {
     grid-template-columns: 1fr;
   }
 }
@@ -700,8 +727,8 @@
     padding: 0 var(--space-3) calc(var(--space-9) + var(--touch-min));
   }
 
-  .sectionItems[data-presentation='feature-shelf'],
-  .sectionItems[data-presentation='compact-rows'] {
+  .sectionItems[data-presentation="feature-shelf"],
+  .sectionItems[data-presentation="compact-rows"] {
     grid-template-columns: 1fr;
   }
 
@@ -778,7 +805,8 @@
     background: linear-gradient(
       90deg,
       var(--ops-surface-subtle) 25%,
-      color-mix(in srgb, var(--ops-surface-subtle) 70%, var(--ops-workspace)) 37%,
+      color-mix(in srgb, var(--ops-surface-subtle) 70%, var(--ops-workspace))
+        37%,
       var(--ops-surface-subtle) 63%
     );
     background-size: 200% 100%;
@@ -796,8 +824,12 @@
 }
 
 @keyframes opsSkeletonShimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* Detail pane skeleton placeholders for loading.tsx.
@@ -806,16 +838,56 @@
   background: var(--ops-skeleton-surface, var(--ops-surface-subtle));
 }
 
-.skeletonEyebrow { width: 80px; height: 10px; border-radius: var(--ops-control-radius); }
-.skeletonDetailTitle { width: 90%; height: 16px; border-radius: var(--ops-control-radius); }
-.skeletonPill { width: 56px; height: 20px; border-radius: 999px; }
-.skeletonProductImage { width: 64px; height: 64px; border-radius: calc(var(--ops-control-radius) - 3px); }
-.skeletonProductTitle { width: 80%; height: 13px; border-radius: var(--ops-control-radius); }
-.skeletonProductMeta { width: 55%; height: 10px; border-radius: var(--ops-control-radius); }
-.skeletonPropertyLabel { width: 60%; height: 10px; border-radius: var(--ops-control-radius); }
-.skeletonPropertyValue { width: 70%; height: 10px; border-radius: var(--ops-control-radius); }
-.skeletonNote { width: 100%; min-height: 76px; border-radius: var(--ops-control-radius); }
-.skeletonBtn { min-height: 34px; border-radius: var(--ops-control-radius); cursor: default; }
+.skeletonEyebrow {
+  width: 80px;
+  height: 10px;
+  border-radius: var(--ops-control-radius);
+}
+.skeletonDetailTitle {
+  width: 90%;
+  height: 16px;
+  border-radius: var(--ops-control-radius);
+}
+.skeletonPill {
+  width: 56px;
+  height: 20px;
+  border-radius: 999px;
+}
+.skeletonProductImage {
+  width: 64px;
+  height: 64px;
+  border-radius: calc(var(--ops-control-radius) - 3px);
+}
+.skeletonProductTitle {
+  width: 80%;
+  height: 13px;
+  border-radius: var(--ops-control-radius);
+}
+.skeletonProductMeta {
+  width: 55%;
+  height: 10px;
+  border-radius: var(--ops-control-radius);
+}
+.skeletonPropertyLabel {
+  width: 60%;
+  height: 10px;
+  border-radius: var(--ops-control-radius);
+}
+.skeletonPropertyValue {
+  width: 70%;
+  height: 10px;
+  border-radius: var(--ops-control-radius);
+}
+.skeletonNote {
+  width: 100%;
+  min-height: 76px;
+  border-radius: var(--ops-control-radius);
+}
+.skeletonBtn {
+  min-height: 34px;
+  border-radius: var(--ops-control-radius);
+  cursor: default;
+}
 
 .skeletonDisclosure {
   display: flex;
@@ -830,7 +902,12 @@
     background: linear-gradient(
       90deg,
       var(--ops-skeleton-surface, var(--ops-surface-subtle)) 25%,
-      color-mix(in srgb, var(--ops-skeleton-surface, var(--ops-surface-subtle)) 70%, var(--ops-workspace)) 37%,
+      color-mix(
+          in srgb,
+          var(--ops-skeleton-surface, var(--ops-surface-subtle)) 70%,
+          var(--ops-workspace)
+        )
+        37%,
       var(--ops-skeleton-surface, var(--ops-surface-subtle)) 63%
     );
     background-size: 200% 100%;

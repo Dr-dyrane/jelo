@@ -10,16 +10,16 @@ The full behavior contract is [UI_PHILOSOPHY.md](../UI_PHILOSOPHY.md). This guid
 
 The global tokens live in `app/globals.css`.
 
-| Token | Current value | Use |
-| --- | --- | --- |
-| `--ink` | `#2d211f` | Primary text and strong actions |
-| `--muted` | `#7a6b66` | Secondary text |
-| `--cream` | `#fbf3ed` | Page field |
-| `--paper` | `#fffdf9` | Raised reading surface |
-| `--peach` | `#f4d4c5` | Warm section and control surface |
-| `--rose` | `#e8bbb4` | Soft accent |
-| `--wine` | `#6b3b35` | Text accent and focus |
-| `--shadow` | `0 30px 90px rgba(112,71,61,.12)` | Restrained depth |
+| Token      | Current value                     | Use                              |
+| ---------- | --------------------------------- | -------------------------------- |
+| `--ink`    | `#2d211f`                         | Primary text and strong actions  |
+| `--muted`  | `#7a6b66`                         | Secondary text                   |
+| `--cream`  | `#fbf3ed`                         | Page field                       |
+| `--paper`  | `#fffdf9`                         | Raised reading surface           |
+| `--peach`  | `#f4d4c5`                         | Warm section and control surface |
+| `--rose`   | `#e8bbb4`                         | Soft accent                      |
+| `--wine`   | `#6b3b35`                         | Text accent and focus            |
+| `--shadow` | `0 30px 90px rgba(112,71,61,.12)` | Restrained depth                 |
 
 Route CSS may add peach, pink, and cream shades. Brown is an accent, not a dominant page background.
 
@@ -39,7 +39,8 @@ JeloCare has two distinct workspace temperatures:
   administrative environment:
 
 - `--ops-canvas`, `--ops-instrument`, and `--ops-workspace` establish the environmental, lucent instrument, and solid working planes.
-- `--ops-accent`, `--ops-accent-subtle`, and `--ops-focus-ring` provide selection and focus without making public wine the private-shell default. They are muted umber in light mode and neutral in dark mode.
+- `--ops-accent` and `--ops-accent-subtle` are low-chroma neutral marks for data, avatars, labels, and other noninteractive emphasis.
+- `--ops-action`, `--ops-action-subtle`, and `--ops-focus-ring` provide restrained cobalt-ink selection, action, and keyboard focus without making public wine the private-shell default.
 - Semantic success, warning, danger, and information tokens retain their meanings. They are never ambient decoration.
 
 Do not share ambient palette tokens between Me and Operations. Neutral shell
@@ -71,10 +72,12 @@ Operations keeps its separate `--ops-*` hierarchy in dark mode: true-black
 `--ops-canvas`, translucent neutral `--ops-instrument`, then `#121212`
 workspace, `#1c1c1c` subtle surface, and `#262626` product stage. Success,
 warning, and danger retain their semantic colors; they are signals, not ambient
-decoration. Primary text, secondary text, actions, and focus use high-contrast
-neutral values so focus remains visible across every elevation.
+decoration. Primary and secondary text remain neutral; action, selection, and
+focus use high-contrast cobalt-ink values across every elevation. Neutral
+accent marks remain separate from both interaction and operational status.
 
-Brand pink (`--wine`) means action, selection, and editorial emphasis. Coral
+On public and Me surfaces, brand pink (`--wine`) means action, selection, and
+editorial emphasis. Coral
 `--state-danger` means errors or destructive action; success and warning retain
 their green and amber semantics. None of these state colors are ambient card
 decoration.
@@ -153,17 +156,17 @@ Filled cards with icons read as controls. Implement them as buttons or links whe
 
 ## Component ownership
 
-| Concern | Primary implementation |
-| --- | --- |
-| Global tokens and base type | `app/globals.css`, `app/layout.tsx` |
-| Shared interaction adjustments | `app/interaction.css` |
-| Header and navigation | `components/navigation/` |
-| Neutral workspace mechanics | `lib/workspace-shell/`, `components/workspace-shell/` |
-| JeloCare Me shell vocabulary | `components/me/shell/` |
-| Adaptive selection | `components/ui/adaptive-selector.tsx` |
-| Modal behavior | `components/ui/use-modal-dialog.ts` |
-| Catalogue discovery | `components/products/` and `app/products/` |
-| Product decision experience | `app/products/[slug]/` and shared product CSS |
-| Intake experiences | `components/contribute/` and retailer partnership components |
+| Concern                        | Primary implementation                                       |
+| ------------------------------ | ------------------------------------------------------------ |
+| Global tokens and base type    | `app/globals.css`, `app/layout.tsx`                          |
+| Shared interaction adjustments | `app/interaction.css`                                        |
+| Header and navigation          | `components/navigation/`                                     |
+| Neutral workspace mechanics    | `lib/workspace-shell/`, `components/workspace-shell/`        |
+| JeloCare Me shell vocabulary   | `components/me/shell/`                                       |
+| Adaptive selection             | `components/ui/adaptive-selector.tsx`                        |
+| Modal behavior                 | `components/ui/use-modal-dialog.ts`                          |
+| Catalogue discovery            | `components/products/` and `app/products/`                   |
+| Product decision experience    | `app/products/[slug]/` and shared product CSS                |
+| Intake experiences             | `components/contribute/` and retailer partnership components |
 
 New shared behavior belongs in a component. Route-specific visual composition belongs in a CSS module.

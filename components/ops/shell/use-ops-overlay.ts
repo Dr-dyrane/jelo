@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, type RefObject } from 'react';
+import { useEffect, useRef, type RefObject } from "react";
 
 const FOCUSABLE_SELECTOR = [
-  'a[href]',
-  'button:not([disabled])',
-  'input:not([disabled])',
-  'select:not([disabled])',
-  'textarea:not([disabled])',
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
   '[tabindex]:not([tabindex="-1"])',
-].join(', ');
+].join(", ");
 
 export const OPS_OVERLAY_INERT_TARGETS = [
-  '[data-ops-workspace]',
-  '[data-ops-sidebar-layer]',
-  '[data-ops-detail]',
-  '[data-ops-menu-fab]',
+  "[data-ops-workspace]",
+  "[data-ops-sidebar-layer]",
+  "[data-ops-detail]",
+  "[data-ops-menu-fab]",
 ] as const;
 
 export const OPS_MODAL_DIALOG_OPTIONS = {
-  scrollOwnerSelector: '[data-ops-main]',
+  scrollOwnerSelector: "[data-ops-main]",
   inertTargetSelectors: OPS_OVERLAY_INERT_TARGETS,
 } as const;
 
@@ -28,7 +28,7 @@ function isRendered(element: HTMLElement, boundary: HTMLElement) {
 
   while (current) {
     const style = window.getComputedStyle(current);
-    if (style.display === 'none' || style.visibility === 'hidden') return false;
+    if (style.display === "none" || style.visibility === "hidden") return false;
     if (current === boundary) break;
     current = current.parentElement;
   }
@@ -37,13 +37,15 @@ function isRendered(element: HTMLElement, boundary: HTMLElement) {
 }
 
 function focusableElements(dialog: HTMLElement) {
-  return Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR))
-    .filter(element => (
-      !element.hasAttribute('hidden')
-      && element.getAttribute('aria-hidden') !== 'true'
-      && !element.closest('[inert]')
-      && isRendered(element, dialog)
-    ));
+  return Array.from(
+    dialog.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+  ).filter(
+    (element) =>
+      !element.hasAttribute("hidden") &&
+      element.getAttribute("aria-hidden") !== "true" &&
+      !element.closest("[inert]") &&
+      isRendered(element, dialog),
+  );
 }
 
 interface UseOpsOverlayOptions {
@@ -53,6 +55,7 @@ interface UseOpsOverlayOptions {
   returnFocusRef: RefObject<HTMLElement | null>;
   inertTargetSelectors: readonly string[];
   initialFocusSelector?: string;
+  returnFocusFallbackSelector?: string;
   scrollOwnerSelector?: string;
 }
 
@@ -67,7 +70,8 @@ export function useOpsOverlay({
   returnFocusRef,
   inertTargetSelectors,
   initialFocusSelector,
-  scrollOwnerSelector = '[data-ops-main]',
+  returnFocusFallbackSelector,
+  scrollOwnerSelector = "[data-ops-main]",
 }: UseOpsOverlayOptions) {
   const wasOpen = useRef(false);
 
@@ -79,42 +83,50 @@ export function useOpsOverlay({
     if (!dialog) return;
     const activeDialog = dialog;
 
-    const scrollOwner = document.querySelector<HTMLElement>(scrollOwnerSelector);
-    const previousOverflow = scrollOwner?.style.overflow ?? '';
+    const scrollOwner =
+      document.querySelector<HTMLElement>(scrollOwnerSelector);
+    const previousOverflow = scrollOwner?.style.overflow ?? "";
     const inertTargets = inertTargetSelectors
-      .map(selector => document.querySelector<HTMLElement>(selector))
-      .filter((target): target is HTMLElement => target != null && !target.contains(activeDialog));
-    const previousInert = inertTargets.map(target => target.hasAttribute('inert'));
+      .map((selector) => document.querySelector<HTMLElement>(selector))
+      .filter(
+        (target): target is HTMLElement =>
+          target != null && !target.contains(activeDialog),
+      );
+    const previousInert = inertTargets.map((target) =>
+      target.hasAttribute("inert"),
+    );
 
-    if (scrollOwner) scrollOwner.style.overflow = 'hidden';
-    inertTargets.forEach(target => target.setAttribute('inert', ''));
+    if (scrollOwner) scrollOwner.style.overflow = "hidden";
+    inertTargets.forEach((target) => target.setAttribute("inert", ""));
 
     function focusInitialTarget() {
       const requestedTarget = initialFocusSelector
         ? activeDialog.querySelector<HTMLElement>(initialFocusSelector)
         : null;
-      const target = requestedTarget && isRendered(requestedTarget, activeDialog)
-        ? requestedTarget
-        : focusableElements(activeDialog)[0] ?? activeDialog;
+      const target =
+        requestedTarget && isRendered(requestedTarget, activeDialog)
+          ? requestedTarget
+          : (focusableElements(activeDialog)[0] ?? activeDialog);
       target.focus({ preventScroll: true });
     }
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.defaultPrevented) return;
 
-      const nestedDialog = event.target instanceof Element
-        ? event.target.closest('dialog[open]')
-        : null;
+      const nestedDialog =
+        event.target instanceof Element
+          ? event.target.closest("dialog[open]")
+          : null;
       if (nestedDialog && nestedDialog !== activeDialog) return;
 
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         event.preventDefault();
         event.stopPropagation();
         onClose();
         return;
       }
 
-      if (event.key !== 'Tab') return;
+      if (event.key !== "Tab") return;
 
       const focusable = focusableElements(activeDialog);
       if (focusable.length === 0) {
@@ -140,14 +152,14 @@ export function useOpsOverlay({
     }
 
     const focusFrame = requestAnimationFrame(focusInitialTarget);
-    document.addEventListener('keydown', handleKeyDown, true);
+    document.addEventListener("keydown", handleKeyDown, true);
 
     return () => {
       cancelAnimationFrame(focusFrame);
-      document.removeEventListener('keydown', handleKeyDown, true);
+      document.removeEventListener("keydown", handleKeyDown, true);
       if (scrollOwner) scrollOwner.style.overflow = previousOverflow;
       inertTargets.forEach((target, index) => {
-        if (!previousInert[index]) target.removeAttribute('inert');
+        if (!previousInert[index]) target.removeAttribute("inert");
       });
     };
   }, [
@@ -163,11 +175,17 @@ export function useOpsOverlay({
     if (open || !wasOpen.current) return;
 
     wasOpen.current = false;
-    const focusTarget = returnFocusRef.current;
+    const savedFocusTarget = returnFocusRef.current;
     const focusFrame = requestAnimationFrame(() => {
-      if (focusTarget?.isConnected) focusTarget.focus({ preventScroll: true });
+      const fallbackFocusTarget = returnFocusFallbackSelector
+        ? document.querySelector<HTMLElement>(returnFocusFallbackSelector)
+        : null;
+      const focusTarget = savedFocusTarget?.isConnected
+        ? savedFocusTarget
+        : fallbackFocusTarget;
+      focusTarget?.focus({ preventScroll: true });
     });
 
     return () => cancelAnimationFrame(focusFrame);
-  }, [open, returnFocusRef]);
+  }, [open, returnFocusFallbackSelector, returnFocusRef]);
 }

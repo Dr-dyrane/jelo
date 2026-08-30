@@ -47,7 +47,7 @@
 
 .retailerCaret {
   color: var(--muted);
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .identitySummary {
@@ -100,7 +100,7 @@
 }
 
 .link {
-  color: var(--ops-accent);
+  color: var(--ops-action);
   text-decoration: underline;
 }
 
@@ -174,7 +174,7 @@
   border: 0;
   border-radius: var(--ops-control-radius);
   background: transparent;
-  color: var(--ops-accent);
+  color: var(--ops-action);
   cursor: pointer;
   font: inherit;
   font-size: var(--text-caption);
@@ -182,7 +182,7 @@
 }
 
 .loadMore button:hover {
-  background: var(--ops-accent-subtle);
+  background: var(--ops-action-subtle);
 }
 
 .loadMore button:focus-visible {
@@ -192,7 +192,7 @@
 
 .loadMore button:disabled {
   cursor: wait;
-  opacity: .58;
+  opacity: 0.58;
 }
 
 .loadMore span {

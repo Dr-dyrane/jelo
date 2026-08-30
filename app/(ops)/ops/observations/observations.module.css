@@ -2,7 +2,7 @@
   display: grid;
   width: 100%;
   min-height: 164px;
-  grid-template-columns: minmax(96px, .84fr) minmax(0, 1.16fr);
+  grid-template-columns: minmax(96px, 0.84fr) minmax(0, 1.16fr);
   align-items: stretch;
   padding: var(--space-2);
 }
@@ -20,7 +20,7 @@
   width: 100%;
   height: 132px;
   object-fit: contain;
-  filter: drop-shadow(0 10px 14px rgba(72, 40, 38, .07));
+  filter: drop-shadow(0 10px 14px rgba(72, 40, 38, 0.07));
 }
 
 .featureCopy {
@@ -123,7 +123,7 @@
 
 .compactCaret {
   color: var(--muted);
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .experienceCard {
@@ -149,7 +149,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 8px 12px rgba(72, 40, 38, .06));
+  filter: drop-shadow(0 8px 12px rgba(72, 40, 38, 0.06));
 }
 
 .visualPlaceholder {
@@ -196,7 +196,7 @@
 }
 
 .returnToReviewButton:hover {
-  background: color-mix(in srgb, var(--accent-solid) 92%, var(--ops-accent));
+  background: color-mix(in srgb, var(--accent-solid) 92%, var(--ops-action));
 }
 
 .rejectConfirmation {
@@ -244,7 +244,7 @@
   border: 0;
   border-radius: var(--ops-control-radius);
   background: transparent;
-  color: var(--ops-accent);
+  color: var(--ops-action);
   cursor: pointer;
   font: inherit;
   font-size: var(--text-caption);
@@ -258,7 +258,7 @@
 
 .loadMore button:disabled {
   cursor: wait;
-  opacity: .58;
+  opacity: 0.58;
 }
 
 .loadMore span {
@@ -347,7 +347,7 @@
 @media (max-width: 819px) {
   .featureCard {
     min-height: 140px;
-    grid-template-columns: minmax(76px, .72fr) minmax(0, 1.28fr);
+    grid-template-columns: minmax(76px, 0.72fr) minmax(0, 1.28fr);
   }
 
   .featureImage {
@@ -365,7 +365,7 @@
   }
 
   .featureTitle {
-    font-size: .94rem;
+    font-size: 0.94rem;
   }
 
   .featureMeta {
@@ -396,7 +396,7 @@
   }
 
   .featureTitle {
-    font-size: .92rem;
+    font-size: 0.92rem;
     -webkit-line-clamp: 2;
   }
 

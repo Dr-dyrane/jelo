@@ -25,7 +25,7 @@
   --muted: var(--ops-muted);
   --surface-2: var(--ops-surface-subtle);
   --surface-3: var(--ops-surface-subtle);
-  --state-selected-bg: var(--ops-accent-subtle);
+  --state-selected-bg: var(--ops-action-subtle);
   --focus-ring: var(--ops-focus-ring);
 }
 
@@ -131,15 +131,17 @@
   letter-spacing: 0;
   line-height: 1.25;
   text-decoration: none;
-  transition: background var(--duration-fast), color var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
 }
 .navLink:hover {
   background: var(--state-selected-bg);
   color: var(--ink);
 }
 .navLinkActive {
-  background: var(--ops-accent-subtle);
-  color: var(--ops-accent);
+  background: var(--ops-action-subtle);
+  color: var(--ops-action);
   font-weight: var(--weight-medium);
 }
 
@@ -224,7 +226,9 @@
   border-radius: var(--radius-control);
   cursor: pointer;
   font-size: var(--text-cell);
-  transition: background var(--duration-fast), color var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
   margin-top: var(--space-1);
 }
 .footerLogoutBtn:hover {
@@ -258,7 +262,9 @@
   color: var(--muted);
   border-radius: var(--radius-pill);
   cursor: pointer;
-  transition: background var(--duration-fast), color var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
 }
 
 .themeBtn:hover {
@@ -267,7 +273,7 @@
 
 .themeBtnActive {
   background: var(--ops-workspace);
-  color: var(--ops-accent);
+  color: var(--ops-action);
   box-shadow: var(--ops-instrument-shadow);
 }
 
@@ -349,14 +355,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color var(--duration-fast), background var(--duration-fast);
+  transition:
+    color var(--duration-fast),
+    background var(--duration-fast);
 }
 .logoutBtn:hover {
   color: var(--state-danger);
   background: var(--state-danger-bg);
 }
-
-
 
 /* 4. Page layouts */
 .contentWrapper {
@@ -396,8 +402,17 @@
   color: var(--ink);
 }
 
-.h1 { font-size: var(--text-title); font-weight: var(--weight-semibold); margin: 0; color: var(--ink); }
-.lede { font-size: var(--text-cell); color: var(--muted); margin: var(--space-1) 0 0; }
+.h1 {
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  margin: 0;
+  color: var(--ink);
+}
+.lede {
+  font-size: var(--text-cell);
+  color: var(--muted);
+  margin: var(--space-1) 0 0;
+}
 
 .overview {
   display: grid;
@@ -421,10 +436,23 @@
 .tile:hover {
   background: var(--state-selected-bg);
 }
-.tileCount { font-size: var(--text-metric); font-weight: var(--weight-semibold); letter-spacing: var(--tracking-tight); color: var(--ink); }
-.tileCount.zero { color: var(--muted); }
-.tileLabel { font-size: var(--text-cell); font-weight: var(--weight-medium); }
-.tileHint { color: var(--muted); font-size: var(--text-caption); }
+.tileCount {
+  font-size: var(--text-metric);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--ink);
+}
+.tileCount.zero {
+  color: var(--muted);
+}
+.tileLabel {
+  font-size: var(--text-cell);
+  font-weight: var(--weight-medium);
+}
+.tileHint {
+  color: var(--muted);
+  font-size: var(--text-caption);
+}
 
 .ledger,
 .operatorDirectory {
@@ -456,9 +484,14 @@
   gap: var(--space-2);
 }
 
-.ledgerAction,
+.ledgerAction {
+  color: var(--ops-action, var(--wine));
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+}
+
 .operatorRecordRole {
-  color: var(--ops-accent, var(--wine));
+  color: var(--ops-accent, var(--muted));
   font-size: var(--text-caption);
   font-weight: var(--weight-medium);
 }
@@ -532,8 +565,12 @@
   border-radius: var(--radius-pill);
 }
 
-.operatorRecordStatus { background: var(--state-success); }
-.operatorRecordInactive { background: var(--muted); }
+.operatorRecordStatus {
+  background: var(--state-success);
+}
+.operatorRecordInactive {
+  background: var(--muted);
+}
 
 .operatorRecordRole {
   padding: 2px var(--space-2);
@@ -630,11 +667,13 @@
   color: var(--ink);
   cursor: pointer;
   text-align: left;
-  transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+  transition:
+    background var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
 }
 
 .accountTrigger:hover,
-.accountTrigger[aria-expanded='true'] {
+.accountTrigger[aria-expanded="true"] {
   background: var(--state-selected-bg);
 }
 
@@ -645,8 +684,16 @@
   flex: 0 0 auto;
   place-items: center;
   border-radius: var(--radius-pill);
-  background: radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--ops-accent) 60%, white), var(--ops-accent) 55%, color-mix(in srgb, var(--ops-accent) 70%, black));
-  box-shadow: inset -3px -3px 6px color-mix(in srgb, black 16%, transparent), inset 3px 3px 6px color-mix(in srgb, white 32%, transparent), 0 2px 4px color-mix(in srgb, var(--ops-ink) 12%, transparent);
+  background: radial-gradient(
+    circle at 30% 25%,
+    color-mix(in srgb, var(--ops-accent) 60%, white),
+    var(--ops-accent) 55%,
+    color-mix(in srgb, var(--ops-accent) 70%, black)
+  );
+  box-shadow:
+    inset -3px -3px 6px color-mix(in srgb, black 16%, transparent),
+    inset 3px 3px 6px color-mix(in srgb, white 32%, transparent),
+    0 2px 4px color-mix(in srgb, var(--ops-ink) 12%, transparent);
   color: var(--on-accent);
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
@@ -686,7 +733,7 @@
   transition: transform var(--duration-fast) var(--ease-standard);
 }
 
-.accountTrigger[aria-expanded='true'] .accountChevron {
+.accountTrigger[aria-expanded="true"] .accountChevron {
   transform: rotate(180deg);
 }
 
@@ -836,7 +883,6 @@
     min-height: 0;
   }
 
-
   .sidebarNavigation {
     display: flex;
     flex-direction: column;
@@ -923,7 +969,9 @@
     font-weight: var(--weight-medium);
     text-decoration: none;
     cursor: pointer;
-    transition: background var(--duration-fast), color var(--duration-fast);
+    transition:
+      background var(--duration-fast),
+      color var(--duration-fast);
   }
 
   .workspaceTab:hover {
@@ -932,8 +980,8 @@
   }
 
   .workspaceTabActive {
-    background: var(--ops-accent-subtle);
-    color: var(--ops-accent);
+    background: var(--ops-action-subtle);
+    color: var(--ops-action);
   }
 
   .workspaceBody {
@@ -942,7 +990,6 @@
     min-height: 0;
     flex: 1 1 auto;
   }
-
 }
 
 @media (max-width: 1179px) {
@@ -970,7 +1017,11 @@
     align-self: stretch;
     overflow: hidden;
     overscroll-behavior-y: contain;
-    background: color-mix(in srgb, var(--ops-workspace) 96%, var(--ops-surface-subtle));
+    background: color-mix(
+      in srgb,
+      var(--ops-workspace) 96%,
+      var(--ops-surface-subtle)
+    );
     box-sizing: border-box;
     padding: var(--space-4);
     gap: var(--space-4);

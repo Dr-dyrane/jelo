@@ -12,26 +12,31 @@ function readSource(relativePath: string) {
 test("temporary Ops overlays share one complete interaction contract", async () => {
   const hook = await readSource("components/ops/shell/use-ops-overlay.ts");
 
-  assert.match(hook, /scrollOwnerSelector = '\[data-ops-main\]'/);
-  assert.match(hook, /scrollOwner\.style\.overflow = 'hidden'/);
+  assert.match(hook, /scrollOwnerSelector = ["']\[data-ops-main\]["']/);
+  assert.match(hook, /scrollOwner\.style\.overflow = ["']hidden["']/);
   assert.doesNotMatch(hook, /document\.body\.style\.overflow/);
-  assert.match(hook, /target\.setAttribute\('inert', ''\)/);
+  assert.match(hook, /target\.setAttribute\(["']inert["'], ["']{2}\)/);
   assert.match(
     hook,
-    /if \(!previousInert\[index\]\) target\.removeAttribute\('inert'\)/,
+    /if \(!previousInert\[index\]\) target\.removeAttribute\(["']inert["']\)/,
   );
-  assert.match(hook, /event\.key === 'Escape'/);
-  assert.match(hook, /event\.key !== 'Tab'/);
+  assert.match(hook, /event\.key === ["']Escape["']/);
+  assert.match(hook, /event\.key !== ["']Tab["']/);
   assert.match(
     hook,
-    /document\.addEventListener\('keydown', handleKeyDown, true\)/,
+    /document\.addEventListener\(["']keydown["'], handleKeyDown, true\)/,
   );
   assert.match(
     hook,
-    /document\.removeEventListener\('keydown', handleKeyDown, true\)/,
+    /document\.removeEventListener\(["']keydown["'], handleKeyDown, true\)/,
   );
-  assert.match(hook, /focusTarget\?\.isConnected/);
-  assert.match(hook, /focusTarget\.focus\(\{ preventScroll: true \}\)/);
+  assert.match(hook, /savedFocusTarget\?\.isConnected/);
+  assert.match(hook, /focusTarget\?\.focus\(\{ preventScroll: true \}\)/);
+  assert.match(hook, /returnFocusFallbackSelector/);
+  assert.match(
+    hook,
+    /document\.querySelector<HTMLElement>\(returnFocusFallbackSelector\)/,
+  );
 });
 
 test("the shell navigation overlay preserves its exact trigger and inert planes", async () => {
@@ -64,12 +69,47 @@ test("the shell navigation overlay preserves its exact trigger and inert planes"
   assert.doesNotMatch(chrome, /window\.addEventListener\(["']keydown["']/);
 });
 
+test("the shell refresh action reports real transition feedback and keeps its mobile footprint clear", async () => {
+  const [chrome, shellCss] = await Promise.all([
+    readSource("components/ops/shell/OpsChrome.tsx"),
+    readSource("components/ops/shell/ops-tablet.module.css"),
+  ]);
+
+  assert.match(
+    chrome,
+    /const \[isRefreshPending, startRefreshTransition\] = useTransition\(\)/,
+  );
+  assert.match(chrome, /startRefreshTransition\(\(\) => router\.refresh\(\)\)/);
+  assert.match(chrome, /refreshFeedback === ["']pending["']/);
+  assert.match(chrome, /refreshFeedback === ["']complete["']/);
+  assert.match(
+    chrome,
+    /const refreshBusy\s*=\s*usesDefaultRefresh && refreshFeedback === ["']pending["']/,
+  );
+  assert.match(chrome, /disabled=\{refreshBusy\}/);
+  assert.match(chrome, /aria-busy=\{/);
+  assert.match(chrome, /role=["']status["'][\s\S]*aria-live=["']polite["']/);
+
+  assert.match(
+    shellCss,
+    /@media \(min-width: 430px\) and \(max-width: 1179px\)[\s\S]*?\.main\s*\{[\s\S]*?padding-bottom:\s*calc\(56px \+ var\(--space-6\) \+ env\(safe-area-inset-bottom\)\)/,
+  );
+  assert.match(
+    shellCss,
+    /\.bottomBarActionStatus\s*\{[\s\S]*?bottom:\s*calc\(100% \+ var\(--space-2\)\)/,
+  );
+  assert.match(
+    shellCss,
+    /\.refreshIconPending\s*\{[\s\S]*?animation:\s*opsRefreshSpin/,
+  );
+});
+
 test("Overview uses the shared overlay contract without inventing a second modal system", async () => {
   const overview = await readSource("app/(ops)/ops/OverviewBriefing.tsx");
 
   assert.match(
     overview,
-    /import \{ useOpsOverlay \} from '@\/components\/ops\/shell\/use-ops-overlay'/,
+    /import \{ useOpsOverlay \} from ["']@\/components\/ops\/shell\/use-ops-overlay["']/,
   );
   assert.match(overview, /const overlayActive = !isDesktop && overlayOpen/);
   assert.match(
@@ -80,7 +120,10 @@ test("Overview uses the shared overlay contract without inventing a second modal
     overview,
     /useOpsOverlay\(\{[\s\S]*open: overlayMounted,[\s\S]*returnFocusRef: lastTrigger/,
   );
-  assert.match(overview, /initialFocusSelector: '#queue-inspector-heading'/);
+  assert.match(
+    overview,
+    /initialFocusSelector: ["']#queue-inspector-heading["']/,
+  );
   assert.match(overview, /lastTrigger\.current = trigger/);
   assert.match(
     overview,
@@ -91,7 +134,7 @@ test("Overview uses the shared overlay contract without inventing a second modal
     /className=\{styles\.overlayScrim\}[\s\S]*tabIndex=\{-1\}[\s\S]*aria-hidden="true"/,
   );
   assert.doesNotMatch(overview, /document\.body\.style\.overflow/);
-  assert.doesNotMatch(overview, /window\.addEventListener\('keydown'/);
+  assert.doesNotMatch(overview, /window\.addEventListener\(["']keydown["']/);
 });
 
 test("queue inspectors use the shared overlay contract and inert every shell plane", async () => {
@@ -113,15 +156,18 @@ test("queue inspectors use the shared overlay contract and inert every shell pla
     /useOpsOverlay\(\{[\s\S]*open: overlayMounted,[\s\S]*returnFocusRef: lastTriggerRef/,
   );
   assert.match(inbox, /inertTargetSelectors: OPS_OVERLAY_INERT_TARGETS/);
-  assert.match(inbox, /initialFocusSelector: ["']\[data-ops-inspector-close\]["']/);
+  assert.match(
+    inbox,
+    /initialFocusSelector: ["']\[data-ops-inspector-close\]["']/,
+  );
   assert.match(inbox, /data-ops-inspector-close/);
   assert.doesNotMatch(inbox, /document\.body\.style\.overflow/);
   assert.doesNotMatch(inbox, /handleOverlayKeyDown/);
 
-  assert.match(hook, /'\[data-ops-workspace\]'/);
-  assert.match(hook, /'\[data-ops-sidebar-layer\]'/);
-  assert.match(hook, /'\[data-ops-detail\]'/);
-  assert.match(hook, /'\[data-ops-menu-fab\]'/);
+  assert.match(hook, /["']\[data-ops-workspace\]["']/);
+  assert.match(hook, /["']\[data-ops-sidebar-layer\]["']/);
+  assert.match(hook, /["']\[data-ops-detail\]["']/);
+  assert.match(hook, /["']\[data-ops-menu-fab\]["']/);
 });
 
 test("Ops native dialogs preserve public defaults while owning the Ops scroll plane", async () => {
@@ -135,7 +181,7 @@ test("Ops native dialogs preserve public defaults while owning the Ops scroll pl
 
   assert.match(
     hook,
-    /OPS_MODAL_DIALOG_OPTIONS[\s\S]*scrollOwnerSelector: '\[data-ops-main\]'/,
+    /OPS_MODAL_DIALOG_OPTIONS[\s\S]*scrollOwnerSelector: ["']\[data-ops-main\]["']/,
   );
   assert.match(hook, /inertTargetSelectors: OPS_OVERLAY_INERT_TARGETS/);
   assert.match(modal, /interface UseModalDialogOptions/);
@@ -145,10 +191,10 @@ test("Ops native dialogs preserve public defaults while owning the Ops scroll pl
   );
   assert.match(modal, /\?\? document\.body/);
   assert.match(modal, /!target\.contains\(element\)/);
-  assert.match(modal, /target\.setAttribute\('inert', ''\)/);
+  assert.match(modal, /target\.setAttribute\(["']inert["'], ["']{2}\)/);
   assert.match(
     modal,
-    /if \(!environment\.previousInert\[index\]\) target\.removeAttribute\('inert'\)/,
+    /if \(!environment\.previousInert\[index\]\) target\.removeAttribute\(["']inert["']\)/,
   );
   assert.match(operators, /useModalDialog\(OPS_MODAL_DIALOG_OPTIONS\)/);
   assert.equal(
@@ -175,7 +221,10 @@ test("Overview context is a touch bottom sheet, compact side sheet, and one-scro
     shellCss,
     /^\s*:global\(\[data-ops-(?:shell|workspace|main|detail|sidebar)\][^)]*\)\s*\{/m,
   );
-  assert.match(chrome, /className=\{`\$\{styles\.container\} \$\{adaptive\.shell\}`\}/);
+  assert.match(
+    chrome,
+    /className=\{`\$\{styles\.container\} \$\{adaptive\.shell\}`\}/,
+  );
 
   const touchStart = overviewCss.indexOf("@media (max-width: 819px)");
   const persistentShellStart = overviewCss.indexOf(
@@ -218,14 +267,18 @@ test("route shell tuning stays locally owned across Ops navigation", async () =>
     ]);
 
     assert.match(page, /import shellStyles from ["'].+shell\.module\.css["']/);
-    assert.match(loading, /import shellStyles from ["'].+shell\.module\.css["']/);
+    assert.match(
+      loading,
+      /import shellStyles from ["'].+shell\.module\.css["']/,
+    );
     assert.match(page, /className=\{shellStyles\.scope\}/);
     assert.match(loading, /className=\{shellStyles\.scope\}/);
     assert.match(shellCss, /\.scope\s*\{/);
     assert.match(shellCss, /:global\(\[data-ops-shell\]\):has\(\.scope\)/);
     const shellLines = shellCss.split("\n");
     shellLines.forEach((line, index) => {
-      if (!/:global\(\[data-ops-(?:detail|workspace|main|sidebar)/.test(line)) return;
+      if (!/:global\(\[data-ops-(?:detail|workspace|main|sidebar)/.test(line))
+        return;
       assert.match(`${shellLines[index - 1] ?? ""} ${line}`, /:has\(\.scope\)/);
     });
   }

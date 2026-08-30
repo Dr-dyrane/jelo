@@ -161,7 +161,7 @@
 .form input:focus,
 .form select:focus,
 .form textarea:focus {
-  outline: 2px solid var(--ops-accent);
+  outline: 2px solid var(--ops-focus-ring);
   outline-offset: 1px;
 }
 .formRow {

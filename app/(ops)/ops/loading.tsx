@@ -1,10 +1,14 @@
-import styles from './overview.module.css';
-import { OverviewLoadingInspector } from './OverviewLoadingInspector';
+import styles from "./overview.module.css";
+import { OverviewLoadingInspector } from "./OverviewLoadingInspector";
 
 export default function LoadingOverview() {
   return (
     <>
-      <div className={styles.briefing} role="status" aria-label="Loading overview">
+      <div
+        className={styles.briefing}
+        role="status"
+        aria-label="Loading overview"
+      >
         <div className={styles.context} aria-hidden="true">
           <div className={styles.skeletonTitle} />
         </div>
@@ -18,7 +22,9 @@ export default function LoadingOverview() {
         <div className={styles.queueSection} aria-hidden="true">
           <div className={styles.skeletonHeading} />
           <div className={styles.skeletonRows}>
-            {Array.from({ length: 5 }).map((_, index) => <div key={index} className={styles.skeletonRow} />)}
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className={styles.skeletonRow} />
+            ))}
           </div>
         </div>
         <div className={styles.recentSection} aria-hidden="true">

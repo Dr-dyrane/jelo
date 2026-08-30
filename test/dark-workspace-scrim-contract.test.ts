@@ -64,13 +64,13 @@ test("Ops dropdowns and modal backdrops use the neutral dark foundation", async 
 
   assert.match(
     vocabulary,
-    /\.targetDialog::backdrop\s*{\s*background: rgba\(31, 23, 22, \.32\);/,
+    /\.targetDialog::backdrop\s*{\s*background: rgba\(31, 23, 22, 0?\.32\);/,
   );
   assert.equal(occurrences(vocabulary, "background: var(--glass-scrim);"), 2);
 
   assert.match(
     operators,
-    /\.dialog::backdrop\s*{\s*background: rgba\(31, 23, 22, \.32\);/,
+    /\.dialog::backdrop\s*{\s*background: rgba\(31, 23, 22, 0?\.32\);/,
   );
   assert.equal(occurrences(operators, "background: var(--glass-scrim);"), 2);
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -53,9 +53,17 @@ export function OpsChrome({
   const router = useRouter();
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [sidebarOpenPath, setSidebarOpenPath] = useState<string | null>(null);
+  const [refreshFeedback, setRefreshFeedback] = useState<
+    "idle" | "pending" | "complete"
+  >("idle");
+  const [isRefreshPending, startRefreshTransition] = useTransition();
   const sidebarOpen = sidebarOpenPath === pathname;
   const sidebarLayerRef = useRef<HTMLDivElement | null>(null);
   const sidebarTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const sawRefreshPendingRef = useRef(false);
+  const refreshFeedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
 
   const closeSidebar = useCallback(() => setSidebarOpenPath(null), []);
 
@@ -100,6 +108,31 @@ export function OpsChrome({
       overlayViewport.removeEventListener("change", closePersistentSidebar);
   }, [closeSidebar]);
 
+  useEffect(() => {
+    if (isRefreshPending) {
+      sawRefreshPendingRef.current = true;
+      return;
+    }
+
+    if (refreshFeedback !== "pending" || !sawRefreshPendingRef.current) return;
+
+    sawRefreshPendingRef.current = false;
+    setRefreshFeedback("complete");
+    refreshFeedbackTimerRef.current = setTimeout(
+      () => setRefreshFeedback("idle"),
+      1800,
+    );
+  }, [isRefreshPending, refreshFeedback]);
+
+  useEffect(
+    () => () => {
+      if (refreshFeedbackTimerRef.current) {
+        clearTimeout(refreshFeedbackTimerRef.current);
+      }
+    },
+    [],
+  );
+
   const toggleTheme = (targetTheme: "light" | "dark") => {
     document.documentElement.setAttribute("data-theme", targetTheme);
     document.documentElement.style.colorScheme = targetTheme;
@@ -129,33 +162,42 @@ export function OpsChrome({
       .slice(0, 2)
       .toUpperCase() || "OP";
 
-  function defaultContextFab(): ContextFabConfig {
-    const label =
-      pathname === "/ops/activity"
-        ? "Refresh insights"
-        : pathname === "/ops/signals"
-          ? "Refresh signals"
-          : pathname === "/ops/operators"
-            ? "Refresh operators"
-            : pathname === "/ops"
-              ? "Refresh queue overview"
-              : "Refresh this queue";
+  const refreshQueue = useCallback(() => {
+    if (refreshFeedbackTimerRef.current) {
+      clearTimeout(refreshFeedbackTimerRef.current);
+      refreshFeedbackTimerRef.current = null;
+    }
 
-    return {
-      icon: RefreshCw,
-      label,
-      onClick: () => router.refresh(),
-    };
-  }
+    sawRefreshPendingRef.current = false;
+    setRefreshFeedback("pending");
+    startRefreshTransition(() => router.refresh());
+  }, [router]);
+
+  const defaultContextLabel =
+    pathname === "/ops/activity"
+      ? "Refresh insights"
+      : pathname === "/ops/signals"
+        ? "Refresh signals"
+        : pathname === "/ops/operators"
+          ? "Refresh operators"
+          : pathname === "/ops"
+            ? "Refresh queue overview"
+            : "Refresh this queue";
+  const defaultContextFab: ContextFabConfig = {
+    icon: RefreshCw,
+    label: defaultContextLabel,
+    onClick: () => router.refresh(),
+  };
 
   const [contextFabState, setContextFabState] = useState<{
     pathname: string;
     value: ContextFabConfig | null;
-  }>(() => ({ pathname, value: defaultContextFab() }));
-  const contextFab =
-    contextFabState.pathname === pathname
-      ? (contextFabState.value ?? defaultContextFab())
-      : defaultContextFab();
+  }>(() => ({ pathname, value: null }));
+  const hasCustomContextFab =
+    contextFabState.pathname === pathname && contextFabState.value !== null;
+  const contextFab = hasCustomContextFab
+    ? contextFabState.value
+    : defaultContextFab;
   const setContextFab = useCallback(
     (value: ContextFabConfig | null) => {
       setContextFabState({ pathname, value });
@@ -258,6 +300,15 @@ export function OpsChrome({
     { href: "/ops/observations", label: "Review", icon: Eye },
     { href: "/ops/activity", label: "Insights", icon: History },
   ];
+  const FabIcon = contextFab?.icon ?? RefreshCw;
+  const usesDefaultRefresh = !hasCustomContextFab;
+  const refreshBusy = usesDefaultRefresh && refreshFeedback === "pending";
+  const refreshStatus =
+    refreshFeedback === "pending"
+      ? "Refreshing…"
+      : refreshFeedback === "complete"
+        ? "Queue refreshed"
+        : null;
 
   return (
     <div className={styles.body}>
@@ -386,21 +437,40 @@ export function OpsChrome({
             })}
           </nav>
 
-          {contextFab &&
-            (() => {
-              const FabIcon = contextFab.icon;
-              return (
-                <button
-                  type="button"
-                  data-ops-context-fab
-                  className={adaptive.bottomBarAction}
-                  onClick={contextFab.onClick}
-                  aria-label={contextFab.label}
+          {contextFab ? (
+            <button
+              type="button"
+              data-ops-context-fab
+              data-refresh-state={
+                usesDefaultRefresh ? refreshFeedback : undefined
+              }
+              className={adaptive.bottomBarAction}
+              onClick={usesDefaultRefresh ? refreshQueue : contextFab.onClick}
+              disabled={refreshBusy}
+              aria-busy={refreshBusy ? "true" : undefined}
+              aria-label={
+                usesDefaultRefresh && refreshStatus
+                  ? refreshStatus
+                  : contextFab.label
+              }
+            >
+              <FabIcon
+                size={24}
+                className={
+                  refreshBusy ? adaptive.refreshIconPending : undefined
+                }
+              />
+              {usesDefaultRefresh && refreshStatus ? (
+                <span
+                  className={adaptive.bottomBarActionStatus}
+                  role="status"
+                  aria-live="polite"
                 >
-                  <FabIcon size={24} />
-                </button>
-              );
-            })()}
+                  {refreshStatus}
+                </span>
+              ) : null}
+            </button>
+          ) : null}
         </div>
         <div
           data-ops-detail

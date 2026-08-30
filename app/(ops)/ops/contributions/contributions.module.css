@@ -3,7 +3,7 @@
   width: 100%;
   height: 100%;
   min-height: 164px;
-  grid-template-columns: minmax(96px, .84fr) minmax(0, 1.16fr);
+  grid-template-columns: minmax(96px, 0.84fr) minmax(0, 1.16fr);
   align-items: stretch;
   padding: var(--space-2);
 }
@@ -131,7 +131,7 @@
 
 .compactCaret {
   color: var(--muted);
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .routineCard {
@@ -295,7 +295,7 @@
   border: 0;
   border-radius: var(--ops-control-radius);
   background: transparent;
-  color: var(--ops-accent);
+  color: var(--ops-action);
   cursor: pointer;
   font: inherit;
   font-size: var(--text-caption);
@@ -303,7 +303,7 @@
 }
 
 .loadMore button:hover {
-  background: var(--ops-accent-subtle);
+  background: var(--ops-action-subtle);
 }
 
 .loadMore button:focus-visible {
@@ -313,7 +313,7 @@
 
 .loadMore button:disabled {
   cursor: wait;
-  opacity: .58;
+  opacity: 0.58;
 }
 
 .loadMore span {
@@ -321,7 +321,7 @@
   font-size: var(--text-caption);
 }
 
-.loadMore span[role='alert'] {
+.loadMore span[role="alert"] {
   color: var(--state-danger);
 }
 
@@ -346,7 +346,7 @@
 @media (max-width: 819px) {
   .featureCard {
     min-height: 140px;
-    grid-template-columns: minmax(76px, .72fr) minmax(0, 1.28fr);
+    grid-template-columns: minmax(76px, 0.72fr) minmax(0, 1.28fr);
   }
 
   .featureImage {
@@ -364,7 +364,7 @@
   }
 
   .featureTitle {
-    font-size: .94rem;
+    font-size: 0.94rem;
   }
 
   .featureMeta {
@@ -401,7 +401,7 @@
   }
 
   .featureTitle {
-    font-size: .92rem;
+    font-size: 0.92rem;
     -webkit-line-clamp: 2;
     line-clamp: 2;
   }
