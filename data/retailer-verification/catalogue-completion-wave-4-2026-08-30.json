@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-completion-wave-4-2026-08-30",
+  "reviewedAt": "2026-08-30T12:40:21.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Truthful current no-exact-Nigerian-offer dispositions for five independently ready rows whose observed Nigerian products conflict with the published variant, package or unit cell",
+  "captureMethod": "reviewed-live-html-structured-data-store-api-and-package-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T12:40:21.000Z"
+  },
+  "matrix": {
+    "unit": "fixed-denominator exact candidate row",
+    "before": 142,
+    "after": 147,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "activeBacklog": 98,
+      "queued": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No cron request, enqueue, claim, process, retry or cache invalidation was performed."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsResolved": 5,
+    "offersAdmitted": 0,
+    "staleOfferSetsRemoved": 1,
+    "offerRecordsRemoved": 3,
+    "mismatchedObservationsExcluded": 9
+  },
+  "dispositions": [
+    {
+      "candidateId": "abib-heartleaf-foam-cleanser-150ml",
+      "releasedIdentity": {
+        "gtin": "8809562559108",
+        "variant": "Mild foam cleanser Heartleaf foam",
+        "size": "150 mL",
+        "packageVersion": "Mild foam cleanser Heartleaf foam 150 mL tube"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "Current Nigerian listings bind the older Acne Foam Cleanser package, including GTIN 8809864769229, rather than the published Mild Foam Cleanser GTIN 8809562559108; three mismatched projections were removed.",
+      "observations": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/abib-heartleaf-acne-foam-cleanser-150ml/",
+          "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?search=abib%20heartleaf%20acne%20foam&per_page=20",
+          "observedVariant": "Heartleaf Acne Foam Cleanser",
+          "observedSize": "150 mL",
+          "observedPackage": "older Acne Foam Cleanser tube",
+          "priceNgn": 11900,
+          "stock": "low-stock",
+          "availableUnits": 12,
+          "status": "not-projected",
+          "reason": "variant-gtin-and-package-conflict",
+          "responseSha256": "992e106282c0826921b40226747aaed697834a978746a9ab863cd0c9ba44796d",
+          "responseByteSize": 7620,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/06/vzqfv67h-3.png",
+          "packageImageSha256": "677d4a58e3cca79d69fca523162a86247a0d42062a37c2dd96189efc1ffa1344",
+          "packageImageByteSize": 246316
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/abib-acne-foam-cleanser-heartleaf-foam/",
+          "observedVariant": "Acne Foam Cleanser Heartleaf Foam",
+          "observedSize": "150 mL",
+          "observedPackage": "older Acne Foam Cleanser tube",
+          "priceNgn": 15191.55,
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "variant-and-package-conflict",
+          "responseSha256": "565293ee0880e2a92e736eabdb07e6281b659f18775dd7d5b4b40e3260e3e47f",
+          "responseByteSize": 814684,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/04/Abib-Acne-Foam-Cleanser-Heartleaf-Foam-1.webp",
+          "packageImageSha256": "071bacc0e2cf4a07935c9560dde8339de699ad50edf6e545fbfae7d19c903dfa",
+          "packageImageByteSize": 14306
+        },
+        {
+          "retailer": "Care to Beauty",
+          "url": "https://www.caretobeauty.com/ng/abib-acne-foam-cleanser-heartleaf-foam-150ml/",
+          "observedVariant": "Acne Foam Cleanser Heartleaf Foam",
+          "observedSize": "150 mL",
+          "observedProductSku": "8809864769229",
+          "observedPackage": "older Acne Foam Cleanser tube",
+          "priceNgn": 23429.74,
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "variant-gtin-and-package-conflict",
+          "responseSha256": "90c9b09c0a68082b288b67a0a7d09beeffea4faaed4f985805be607774f347d6",
+          "responseByteSize": 341168,
+          "packageImageUrl": "https://www.caretobeauty.com/cdn-cgi/image/w=1200,h=1200,f=auto/media/catalog/product/a/b/abib-acne-foam-cleanser-heartleaf-foam-150ml.jpg",
+          "packageImageSha256": "3b104fa6e2ad492ba7ba8b7e05087ede2c5c34de13bb54fe1762f474b37bcb64",
+          "packageImageByteSize": 31669
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+      "releasedIdentity": {
+        "gtin": "850010792385",
+        "variant": "Fermented Camellia Creamy Cleansing Oil",
+        "size": "3.5 fl oz / 103.5 mL",
+        "packageVersion": "3.5 fl oz / 103.5 mL bottle"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "Current Nigerian listings show the exact-size sustainable bioplastic squeeze tube, not the published bottle package.",
+      "observations": [
+        {
+          "retailer": "HelloBeauty NG",
+          "url": "https://hellobeautyng.com/products/naturium-fermented-camelia-creamy-cleansing-oil",
+          "responseUrl": "https://hellobeautyng.com/products/naturium-fermented-camelia-creamy-cleansing-oil.js",
+          "observedVariant": "Fermented Camellia Creamy Cleansing Oil",
+          "observedSize": "3.5 fl oz / 103.5 mL",
+          "observedPackage": "squeeze tube",
+          "priceNgn": 40000,
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "package-conflict",
+          "responseSha256": "b0a9ae5568d4450a42fef3d82e6081b779caee080b0d01fce78a9dc28be23118",
+          "responseByteSize": 2658,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0316/8488/6663/files/cc1.webp?v=1748795885",
+          "packageImageSha256": "6f45aa9956bda3b69d90c75fbcbf097d01c83b48005f3a49070893f6813ff557",
+          "packageImageByteSize": 67384
+        },
+        {
+          "retailer": "The Beauty Espacio",
+          "url": "https://www.thebeautyespacio.com/products/fermented-camellia-creamy-cleansing-oil",
+          "responseUrl": "https://www.thebeautyespacio.com/products/fermented-camellia-creamy-cleansing-oil.js",
+          "observedVariant": "Fermented Camellia Creamy Cleansing Oil",
+          "observedSize": "3.5 fl oz / 103.5 mL",
+          "observedPackage": "squeeze tube",
+          "priceNgn": 35000,
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "package-conflict",
+          "responseSha256": "566cd25dbd3644ea3258f2dbf1c83f9ff34dea5e028f119e547ee4923efaf72e",
+          "responseByteSize": 5998,
+          "packageImageUrl": "https://www.thebeautyespacio.com/cdn/shop/products/image_25bb22db-a431-4dac-9094-d6453dc60baa.jpg?v=1618742133",
+          "packageImageSha256": "e042a77f709a9f093f002d6d13f467918907b6d22b1a257d68ebef4e9384fe4f",
+          "packageImageByteSize": 40826
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
+      "releasedIdentity": {
+        "gtin": "850010792750",
+        "variant": "Marshmallow Root Barrier Balm",
+        "size": "1.7 oz / 50 mL",
+        "packageVersion": "1.7 oz / 50 mL jar"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "The current Nigerian title proves only 1.7 oz and its image does not expose the published 50 mL unit; current manufacturer evidence for the same GTIN declares 1.7 oz / 50 g, so the 50 mL cell remains fail closed.",
+      "manufacturerConflictEvidence": {
+        "url": "https://naturium.com/products/marshmallow-root-barrier-balm",
+        "observedGtin": "850010792750",
+        "observedSize": "1.7 oz / 50 g",
+        "responseSha256": "c5b6c90c302db91791c5091d73c99bfa078b6068bafd9ccfafbb5a583e8993be",
+        "responseByteSize": 409013
+      },
+      "observations": [
+        {
+          "retailer": "MySkinPlug",
+          "url": "https://www.myskin-plug.com/products/naturium-marshallow-root-barrier-balm",
+          "responseUrl": "https://www.myskin-plug.com/products/naturium-marshallow-root-barrier-balm.js",
+          "observedVariant": "Marshmallow Root Barrier Balm",
+          "observedSize": "1.7 oz; 50 mL not declared",
+          "observedPackage": "jar without a readable principal-display unit",
+          "priceNgn": 51000,
+          "stock": "in-stock",
+          "status": "not-projected",
+          "reason": "weight-volume-unit-not-proven",
+          "responseSha256": "558c4b9d82c92da78c3e632489905e809f9cee5b209f79e8dc91efe4bbb02104",
+          "responseByteSize": 2370,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0441/7984/9380/files/IMG-1353.jpg?v=1716253162",
+          "packageImageSha256": "ff1a10b1ee4642f6eaa3009623b1b03b64e342b51cc6151c8b42c9c1a8a2d5a3",
+          "packageImageByteSize": 12179
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
+      "releasedIdentity": {
+        "gtin": "810120260037",
+        "variant": "Skin-Renewing Retinol Body Lotion",
+        "size": "8 fl oz / 234 mL",
+        "packageVersion": "8 fl oz / 234 mL pump bottle"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "The current exact-size Nigerian product is a squeeze tube, not the published pump-bottle package; the separate 414 mL pump sibling remains excluded.",
+      "observations": [
+        {
+          "retailer": "Rhema Beauty Shop",
+          "url": "https://rhemabeautyshop.com/shop/naturium-skin-renewing-retinol-body-lotion-234ml/",
+          "responseUrl": "https://rhemabeautyshop.com/wp-json/wc/store/v1/products?search=naturium%20skin-renewing%20retinol%20body%20lotion&per_page=20",
+          "observedVariant": "Skin-Renewing Retinol Body Lotion",
+          "observedSize": "8 fl oz / 234 mL",
+          "observedPackage": "squeeze tube",
+          "priceNgn": 53000,
+          "stock": "low-stock",
+          "availableUnits": 1,
+          "status": "not-projected",
+          "reason": "package-conflict",
+          "responseSha256": "26c9ca019e638f8c9677216873f49c1d183f79577115d9a19f87ba1e2ecd9244",
+          "responseByteSize": 12158,
+          "packageImageUrl": "https://rhemabeautyshop.com/wp-content/uploads/2023/10/Naturium-Skin-Renewing-Retinol-Body-Lotion-%E2%80%93-ml.png",
+          "packageImageSha256": "f30bc88af2eeebd5fa20514f97e7c588a029ea087e1e30b7ef45a47127d45fb3",
+          "packageImageByteSize": 191975
+        }
+      ]
+    },
+    {
+      "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+      "releasedIdentity": {
+        "gtin": "358211113003",
+        "variant": "BP 10% Acne Wash + Aloe Vera",
+        "size": "7 oz",
+        "packageVersion": "7 oz tube"
+      },
+      "disposition": "current-no-exact-nigerian-offer",
+      "reason": "Current Nigerian listings and package images bind GTIN 358211113003 to 6.7 fl oz / 200 mL, not the published 7 oz cell.",
+      "observations": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/replenix-bp-10-acne-wash-aloe-vera-200ml/",
+          "observedVariant": "BP 10% Acne Wash + Aloe Vera",
+          "observedSize": "6.7 fl oz / 200 mL",
+          "observedProductSku": "358211113003",
+          "observedPackage": "6.7 fl oz / 200 mL tube",
+          "priceNgn": 30100,
+          "stock": "out-of-stock",
+          "status": "not-projected",
+          "reason": "size-conflict",
+          "responseSha256": "ca6970f759ee5d66e197af899465169343ff88cd9c51abb3a66aa0c3b34f93e3",
+          "responseByteSize": 563650,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2022/07/rsz_71i76rveb9l_sl1500__1.jpg",
+          "packageImageSha256": "f8df18f001f8bef2d5d6c0a2d934f4647d2d17e138512173dad732cf0fb0d9ca",
+          "packageImageByteSize": 31994
+        },
+        {
+          "retailer": "TOS Nigeria",
+          "url": "https://tosnigeria.com/shop/replenix-acne-bp10-acne-wash-aloe-vera-6-7floz-200ml/",
+          "observedVariant": "BP 10% Acne Wash + Aloe Vera",
+          "observedSize": "6.7 fl oz / 200 mL",
+          "observedPackage": "6.7 fl oz / 200 mL tube",
+          "priceNgn": 24000,
+          "stock": "out-of-stock",
+          "status": "not-projected",
+          "reason": "size-conflict",
+          "responseSha256": "64512a6fbeac31942fe6baa9aad71724c00d48db4f6bdf7591a602a30dbe5981",
+          "responseByteSize": 317978,
+          "packageImageUrl": "https://tosnigeria.com/wp-content/uploads/2023/05/Replenix-acne-BP10-ACNE-WASH-ALOE-VERA-6.7FLOZ-200ML.jpg",
+          "packageImageSha256": "92330c0162be15558f53cc64ab4ae065692298267b85fbb05f33886e26914012",
+          "packageImageByteSize": 59341
+        }
+      ]
+    }
+  ]
+}

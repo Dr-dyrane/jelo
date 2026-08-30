@@ -45,6 +45,7 @@ import completionMatrix from "@/data/retailer-verification/catalogue-completion-
 import completionWaveOneAudit from "@/data/retailer-verification/catalogue-completion-wave-1-2026-08-30.json";
 import completionWaveTwoAudit from "@/data/retailer-verification/catalogue-completion-wave-2-2026-08-30.json";
 import completionWaveThreeAudit from "@/data/retailer-verification/catalogue-completion-wave-3-2026-08-30.json";
+import completionWaveFourAudit from "@/data/retailer-verification/catalogue-completion-wave-4-2026-08-30.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -2020,12 +2021,7 @@ test("catalogue offer refresh wave 25 releases four exact packages and holds the
 
   const held = verifiedRetailOffers["abib-heartleaf-foam-cleanser-150ml"];
   assert.ok(held);
-  assert.equal(held.length, 3);
-  for (const offer of held) {
-    assert.equal(offer.available, false);
-    assert.equal(offer.priceObservation?.stock, "unknown");
-    assert.equal(offer.priceComparison, "exclude");
-  }
+  assert.deepEqual(held, []);
 
   const expectedActiveRetailers = new Map<string, string[]>([
     [
@@ -3293,8 +3289,8 @@ test("catalogue completion wave 1 records four current no-exact-offer dispositio
   assert.equal(completionMatrix.fixedDenominator, 162);
   assert.equal(completionMatrix.baseline.completedDenominatorRows, 131);
   assert.equal(completionMatrix.baseline.remainingRows, 31);
-  assert.equal(completionMatrix.current.completedDenominatorRows, 142);
-  assert.equal(completionMatrix.current.remainingRows, 20);
+  assert.equal(completionMatrix.current.completedDenominatorRows, 147);
+  assert.equal(completionMatrix.current.remainingRows, 15);
   assert.equal(completionMatrix.rows.length, 31);
   assert.equal(
     new Set(completionMatrix.rows.map((row) => row.candidateId)).size,
@@ -3491,6 +3487,55 @@ test("catalogue completion wave 3 records four current no-exact-offer dispositio
     assert.equal(
       "resolutionWave" in (matrixRow ?? {}) ? matrixRow?.resolutionWave : null,
       "catalogue-completion-wave-3-2026-08-30",
+      disposition.candidateId,
+    );
+    for (const observation of disposition.observations) {
+      assert.equal(observation.status, "not-projected");
+      assert.match(observation.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(observation.responseByteSize > 0);
+      assert.match(observation.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(observation.packageImageByteSize > 0);
+    }
+  }
+});
+
+test("catalogue completion wave 4 records five package-safe no-exact-offer dispositions", () => {
+  const resolvedIds = completionWaveFourAudit.dispositions.map(
+    (disposition) => disposition.candidateId,
+  );
+
+  assert.equal(completionWaveFourAudit.matrix.before, 142);
+  assert.equal(completionWaveFourAudit.matrix.after, 147);
+  assert.equal(completionWaveFourAudit.matrix.total, 162);
+  assert.equal(completionWaveFourAudit.summary.productsResolved, 5);
+  assert.equal(completionWaveFourAudit.summary.offersAdmitted, 0);
+  assert.equal(completionWaveFourAudit.summary.offerRecordsRemoved, 3);
+  assert.equal(
+    completionWaveFourAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+  assert.deepEqual(resolvedIds, [
+    "abib-heartleaf-foam-cleanser-150ml",
+    "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
+    "naturium-marshmallow-root-barrier-balm-1-7oz",
+    "naturium-skin-renewing-retinol-body-lotion-8oz",
+    "replenix-bp-10-acne-wash-aloe-vera-7oz",
+  ]);
+
+  for (const disposition of completionWaveFourAudit.dispositions) {
+    assert.equal(disposition.disposition, "current-no-exact-nigerian-offer");
+    assert.deepEqual(
+      verifiedRetailOffers[disposition.candidateId] ?? [],
+      [],
+      disposition.candidateId,
+    );
+    const matrixRow = completionMatrix.rows.find(
+      (row) => row.candidateId === disposition.candidateId,
+    );
+    assert.equal(matrixRow?.state, "resolved", disposition.candidateId);
+    assert.equal(
+      "resolutionWave" in (matrixRow ?? {}) ? matrixRow?.resolutionWave : null,
+      "catalogue-completion-wave-4-2026-08-30",
       disposition.candidateId,
     );
     for (const observation of disposition.observations) {

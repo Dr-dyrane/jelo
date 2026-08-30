@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "matrixId": "catalogue-completion-matrix-2026-08-30",
-  "reviewedAt": "2026-08-30T12:26:49.000Z",
+  "reviewedAt": "2026-08-30T12:40:21.000Z",
   "reviewer": "JeloCare catalogue evidence review",
   "fixedDenominator": 162,
   "baseline": {
@@ -14,15 +14,15 @@
     "remainingRows": 31
   },
   "current": {
-    "completedDenominatorRows": 142,
-    "remainingRows": 20
+    "completedDenominatorRows": 147,
+    "remainingRows": 15
   },
   "rows": [
     {
       "candidateId": "abib-heartleaf-foam-cleanser-150ml",
-      "state": "remaining",
-      "nextRoute": "canonical-identity-or-current-exact-offer",
-      "lastKnownBlocker": "current Nigerian evidence shows the older Acne Foam package rather than the published Heartleaf Foam package"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-4-2026-08-30"
     },
     {
       "candidateId": "amika-the-kure-conditioner-275ml",
@@ -98,9 +98,9 @@
     },
     {
       "candidateId": "naturium-fermented-camellia-creamy-cleansing-oil-3-5oz",
-      "state": "remaining",
-      "nextRoute": "canonical-identity-or-current-exact-offer",
-      "lastKnownBlocker": "current exact size and package remain unresolved"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-4-2026-08-30"
     },
     {
       "candidateId": "naturium-glow-getter-multi-oil-body-scrub-8oz",
@@ -116,9 +116,9 @@
     },
     {
       "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
-      "state": "remaining",
-      "nextRoute": "current-exact-audit",
-      "lastKnownBlocker": "current Nigerian listing does not prove the published exact 1.7 oz / 50 mL size"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-4-2026-08-30"
     },
     {
       "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
@@ -170,9 +170,9 @@
     },
     {
       "candidateId": "naturium-skin-renewing-retinol-body-lotion-8oz",
-      "state": "remaining",
-      "nextRoute": "canonical-unit-package-review",
-      "lastKnownBlocker": "current exact unit and package remain unresolved"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-4-2026-08-30"
     },
     {
       "candidateId": "naturium-vitamin-bright-illuminating-eye-cream-0-5oz",
@@ -200,9 +200,9 @@
     },
     {
       "candidateId": "replenix-bp-10-acne-wash-aloe-vera-7oz",
-      "state": "remaining",
-      "nextRoute": "canonical-identity-review",
-      "lastKnownBlocker": "current Nigerian evidence conflicts with the published exact Replenix package"
+      "state": "resolved",
+      "completionRoute": "current-no-exact-nigerian-offer",
+      "resolutionWave": "catalogue-completion-wave-4-2026-08-30"
     }
   ]
 }
