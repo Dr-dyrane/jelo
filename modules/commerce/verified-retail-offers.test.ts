@@ -26,6 +26,7 @@ import waveNineteenAudit from "@/data/retailer-verification/catalogue-offer-refr
 import waveTwentyAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-20-2026-08-29.json";
 import waveTwentyOneAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-21-2026-08-29.json";
 import waveTwentyTwoAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-22-2026-08-29.json";
+import waveTwentyThreeAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-23-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -1643,6 +1644,111 @@ test("catalogue offer refresh wave 22 releases five exact packages and fails con
   }
 });
 
+test("catalogue offer refresh wave 23 releases five exact packages and fails mismatched siblings closed", () => {
+  const projected = waveTwentyThreeAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveTwentyThreeAudit.matrix.before, 79);
+  assert.equal(waveTwentyThreeAudit.matrix.after, 84);
+  assert.equal(waveTwentyThreeAudit.matrix.total, 162);
+  assert.equal(waveTwentyThreeAudit.summary.productsReviewed, 5);
+  assert.equal(waveTwentyThreeAudit.summary.productsReleased, 5);
+  assert.equal(waveTwentyThreeAudit.summary.productsBlocked, 0);
+  assert.equal(projected.length, 20);
+  assert.equal(waveTwentyThreeAudit.summary.shopperActiveOffers, 16);
+  assert.equal(waveTwentyThreeAudit.summary.outOfStockObservations, 4);
+  assert.equal(waveTwentyThreeAudit.blockedCells.length, 15);
+  assert.equal(waveTwentyThreeAudit.heldCandidates.length, 0);
+  assert.equal(
+    waveTwentyThreeAudit.scheduledOwner.manifestRecurringOwner,
+    null,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const asOf = new Date(waveTwentyThreeAudit.reviewedAt);
+  for (const blocked of waveTwentyThreeAudit.blockedCells) {
+    assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(blocked.responseByteSize > 0);
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.url === blocked.url,
+    );
+    if (offer) {
+      assert.equal(isOfferFresh(offer, asOf), true);
+      assert.equal(offer.available, false);
+      assert.equal(offer.priceComparison, "exclude");
+    }
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
+      ["Beauty by Daz", "Konga Health", "Nectar Beauty Hub", "Perona Beauty"],
+    ],
+    [
+      "cerave-blemish-control-cleanser",
+      ["Beauty Hut Africa", "Konga Health", "Perona Beauty", "Teeka4"],
+    ],
+    [
+      "cerave-foaming-facial-cleanser",
+      ["Beauty Hut Africa", "Beyond MedPlus", "Ediths Essentials", "Teeka4"],
+    ],
+    [
+      "dove-calming-moisture-body-wash-547ml",
+      ["Ceendies Creations", "Deoset", "Ediths Essentials"],
+    ],
+    ["prequel-gleanser-glycolic-acid-cleanser-400ml", ["Nihet Beauty"]],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["cosrx-advanced-snail-92-all-in-one-cream-100g-jar", 12_850],
+    ["cerave-blemish-control-cleanser", 14_800],
+    ["cerave-foaming-facial-cleanser", 14_700],
+    ["dove-calming-moisture-body-wash-547ml", 23_000],
+    ["prequel-gleanser-glycolic-acid-cleanser-400ml", 96_000],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    assert.equal(
+      Math.min(
+        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+      ),
+      expectedFloors.get(slug),
+      slug,
+    );
+  }
+
+  const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
+  assert.equal(registered.has("Beyond MedPlus"), true);
+  assert.equal(registered.has("Ceendies Creations"), true);
+});
+
 test("verified Nigerian observations use exact secure product pages", () => {
   const registered = new Set(nigeriaRetailers.map((retailer) => retailer.name));
   const observations = Object.entries(verifiedRetailOffers).flatMap(
@@ -2029,26 +2135,41 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     ]).has(slug);
     const isWaveTwentyOne =
       slug === "cerave-pm-facial-moisturising-lotion-52ml";
+    const waveTwentyThreeTimes = new Map<string, [string, string]>([
+      [
+        "cerave-blemish-control-cleanser",
+        ["2026-08-30T03:47:32.957Z", "2026-09-06T03:47:32.957Z"],
+      ],
+      [
+        "cerave-foaming-facial-cleanser",
+        ["2026-08-30T03:48:25.979Z", "2026-09-06T03:48:25.979Z"],
+      ],
+    ]);
+    const waveTwentyThreeTime = waveTwentyThreeTimes.get(slug);
     assert.equal(
       offer.checkedAt,
-      isWaveTen
-        ? "2026-08-30T00:00:32.487Z"
-        : isWaveSeventeen
-          ? "2026-08-30T02:02:13.000Z"
-          : isWaveTwentyOne
-            ? "2026-08-30T02:56:10.000Z"
-            : "2026-08-14T17:00:00Z",
+      waveTwentyThreeTime
+        ? waveTwentyThreeTime[0]
+        : isWaveTen
+          ? "2026-08-30T00:00:32.487Z"
+          : isWaveSeventeen
+            ? "2026-08-30T02:02:13.000Z"
+            : isWaveTwentyOne
+              ? "2026-08-30T02:56:10.000Z"
+              : "2026-08-14T17:00:00Z",
       slug,
     );
     assert.equal(
       offer.expiresAt,
-      isWaveTen
-        ? "2026-09-06T00:00:32.487Z"
-        : isWaveSeventeen
-          ? "2026-09-06T02:02:13.000Z"
-          : isWaveTwentyOne
-            ? "2026-09-06T02:56:10.000Z"
-            : "2026-08-21T17:00:00Z",
+      waveTwentyThreeTime
+        ? waveTwentyThreeTime[1]
+        : isWaveTen
+          ? "2026-09-06T00:00:32.487Z"
+          : isWaveSeventeen
+            ? "2026-09-06T02:02:13.000Z"
+            : isWaveTwentyOne
+              ? "2026-09-06T02:56:10.000Z"
+              : "2026-08-21T17:00:00Z",
       slug,
     );
     assert.equal(new URL(offer.url).hostname, "beautyhutafrica.com", slug);

@@ -145,7 +145,7 @@ test("known size mismatches stay removed from the exact comparison", () => {
     offers: mergeRetailOffers(
       currentProduct,
       currentProduct.offers,
-      new Date("2026-08-14T17:01:00Z"),
+      new Date("2026-08-30T03:50:47.913Z"),
     ),
   };
   assert.equal(

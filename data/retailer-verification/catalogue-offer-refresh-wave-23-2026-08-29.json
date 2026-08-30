@@ -1,0 +1,506 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-23-2026-08-29",
+  "reviewedAt": "2026-08-30T03:50:47.913Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Thirty-five current Nigerian retailer checks across five independently releasable exact product SKUs",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-browser-render-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T03:50:47.913Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19.123Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The latest production log still shows an inactive backlog before this review."
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 79,
+    "after": 84,
+    "total": 162
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 5,
+    "productsBlocked": 0,
+    "offersReviewed": 35,
+    "offersAdmitted": 20,
+    "shopperActiveOffers": 16,
+    "outOfStockObservations": 4,
+    "offersBlocked": 15,
+    "offersProjected": 35
+  },
+  "products": [
+    {
+      "candidateId": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
+      "identity": {
+        "gtin": "8809416470016",
+        "variant": "Advanced Snail 92 All in One Cream",
+        "size": "100 g / 3.52 oz",
+        "packageVersion": "Jar / 100 g"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/moisturizers/cosrx-advanced-snail-92-all-in-one-cream/",
+          "priceNgn": 12850,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:47:22.196Z",
+          "expiresAt": "2026-09-06T03:47:22.196Z",
+          "responseSha256": "3bd8dd94612a1e20d42d2dd46af0fe65ae190a96ae8425b8cc2f25adc6fbf4ab",
+          "responseByteSize": 287055,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/07/Cosrx-Advanced-Snail-92-All-in-one-Cream.webp",
+          "packageImageSha256": "19a15e8ffdcfd11f6a3269cb71769c8bc4617cbf64c8619aca5780a36e79b892",
+          "packageImageByteSize": 35970
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/cosrx-advanced-snail-92-all-in-one-cream/",
+          "priceNgn": 16750,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:47:22.676Z",
+          "expiresAt": "2026-09-06T03:47:22.676Z",
+          "responseSha256": "d32464f960b13bc853e18e9980224025dfc9702d02396c0b6153a52ab3b00309",
+          "responseByteSize": 452919,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/cosrx-moisturizer.png",
+          "packageImageSha256": "1cf9790e0d034a2407fd933d3fb47aaf645a3c1da7d6aa76b285a3ecc4a1de2e",
+          "packageImageByteSize": 109151
+        },
+        {
+          "retailer": "Nectar Beauty Hub",
+          "url": "https://nectarbeautyhub.com/products/cosrx-advanced-snail-92-all-in-one-cream",
+          "priceNgn": 12856.8,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:47:45.432Z",
+          "expiresAt": "2026-09-06T03:47:45.432Z",
+          "responseSha256": "524206687f64cd5174bc0e86e1ca5fafdb78fb50fbb88449d52ae8439ee33f86",
+          "responseByteSize": 6699,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0605/0109/8657/files/cosrx-advanced-snail-92-all-in-one-cream-100g-2307704.webp?v=1773539407",
+          "packageImageSha256": "58bf35ddc92f5fd0838e90cfc2e78579c7282455dda01546d98571508d221a77",
+          "packageImageByteSize": 111943
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/cosrx-advanced-snail-92-all-in-one-cream-100g-6786643",
+          "priceNgn": 20000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:48:36.379Z",
+          "expiresAt": "2026-09-06T03:48:36.379Z",
+          "responseSha256": "b4e2b71d5346246cd84310e9308c2923ddeac0430dd0b280b31c1a1bf6cec7b8",
+          "responseByteSize": 266070,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/N/Z/241661_1751801716.jpg",
+          "packageImageSha256": "b65612396d3fdb8d7da51a98822053f4089f222665aa3944a5c37853ddf7dab2",
+          "packageImageByteSize": 33559
+        },
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/cosrx-advanced-snail-92-all-in-one-cream-100g/",
+          "priceNgn": 12800,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T03:49:14.449Z",
+          "expiresAt": "2026-09-06T03:49:14.449Z",
+          "responseSha256": "e62aedfceb89337665aae1aaf995c288a15b8dc35f5fec47ea17f8c02c0b962a",
+          "responseByteSize": 585998,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2026/08/tmphpfosqsm_e61423bc3a-1.jpg",
+          "packageImageSha256": "1f4fbe3034df5a022a9592daa0a517c590a204f05943d47bf0fb3da2ac97b3ef",
+          "packageImageByteSize": 98959
+        }
+      ]
+    },
+    {
+      "candidateId": "cerave-blemish-control-cleanser",
+      "identity": {
+        "gtin": "3337875784054",
+        "variant": "Blemish Control Cleanser",
+        "size": "236 ml",
+        "packageVersion": "Single pump bottle / 236 ml"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/cerave-acne-control-face-cleanser-facial-cleanser-8-fl-oz/",
+          "priceNgn": 14800,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:47:27.287Z",
+          "expiresAt": "2026-09-06T03:47:27.287Z",
+          "responseSha256": "46f38b856f9821c653da715184284b639faf790607172d8d745ff182ba31c1d2",
+          "responseByteSize": 375178,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2025/10/Cerave-Blemish-Control-Cleanser-8-Fl-Oz236ml_All_552_1.png",
+          "packageImageSha256": "785ec612635829fd5a7e59aa16ebf55bf7be41e4b6dfea4813a674b4a32abf6f",
+          "packageImageByteSize": 89176
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://ibadan.peronabeauty.com/product/cerave-blemish-control-face-cleanser-236ml/",
+          "priceNgn": 15500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:47:32.402Z",
+          "expiresAt": "2026-09-06T03:47:32.402Z",
+          "responseSha256": "ea73e549e88a34e73488352f7c68339c5b6fe4d7dadf55efbc60042ca1da0463",
+          "responseByteSize": 328725,
+          "packageImageUrl": "https://ibadan.peronabeauty.com/wp-content/uploads/2024/01/CeraVe-Blemish-Control-Face-Cleanser-236ml.jpg",
+          "packageImageSha256": "6cac4589886967ccc40452cc45a82769d0b1f35709acf6524556ad1f56eea67f",
+          "packageImageByteSize": 49286
+        },
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/cerave-blemish-control-cleanser-236ml/",
+          "priceNgn": 18252,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:47:32.957Z",
+          "expiresAt": "2026-09-06T03:47:32.957Z",
+          "responseSha256": "543b883c24c4cb8ca7683801c49e50b80753ac84ebac64e78b6e9bf3c1b1a894",
+          "responseByteSize": 813721,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/07/P-5-1-1024x1024.png",
+          "packageImageSha256": "f53fa2e1b95d74cd8afba3cac1571cff295dc0881b9a2d1428630eb44ac88a98",
+          "packageImageByteSize": 48751
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/cerave-acne-cleanser-236ml-blemish-control-cleanser-6158833",
+          "priceNgn": 14996,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:48:42.228Z",
+          "expiresAt": "2026-09-06T03:48:42.228Z",
+          "responseSha256": "d42aff6c38d7e4a09ff04e4584d15b8c55dd5c6123b364acf7f6bafe6ac73e07",
+          "responseByteSize": 482868,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/T/S/_1720306206.png",
+          "packageImageSha256": "15bec93e1d013dd388ff68726e8e4eb0622966d1b6f29974b126107437ee0ca1",
+          "packageImageByteSize": 154288
+        }
+      ]
+    },
+    {
+      "candidateId": "cerave-foaming-facial-cleanser",
+      "identity": {
+        "variant": "Foaming Cleanser for normal-to-oily skin",
+        "size": "236 ml",
+        "packageVersion": "Single pump bottle / 8 fl oz"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty Hut Africa",
+          "url": "https://beautyhutafrica.com/product/cerave-foaming-cleanser/",
+          "priceNgn": 14700,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:48:25.979Z",
+          "expiresAt": "2026-09-06T03:48:25.979Z",
+          "responseSha256": "460310a70563ddbd0ba80fd728bd4521e4621bc44dbc25d2212613e7a413a148",
+          "responseByteSize": 841470,
+          "packageImageUrl": "https://beautyhutafrica.com/wp-content/uploads/2025/06/P-4.png",
+          "packageImageSha256": "7a6de5610160d241cb3d575d22bab8008afc4465e00a626e4d18be5919388d0a",
+          "packageImageByteSize": 636165
+        },
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/cerave-foaming-cleanser-8fl-normal-to-oily-skin/",
+          "priceNgn": 15400,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:48:30.246Z",
+          "expiresAt": "2026-09-06T03:48:30.246Z",
+          "responseSha256": "10dd53ed6261dfa9a80f241f0c166325a321eb0e8a40774d0bfd017201cd697f",
+          "responseByteSize": 367759,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2023/09/woo_product_image_ept-5042-image.jpg",
+          "packageImageSha256": "1cdc141d7233bc56c4fd1f4acecb49144fd46251d933ca3daf957d42d0827586",
+          "packageImageByteSize": 3435
+        },
+        {
+          "retailer": "Beyond MedPlus",
+          "url": "https://beyondmedplus.com/product/6644d9087e62cefb5c99fea3",
+          "priceNgn": 18350,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:48:39.688Z",
+          "expiresAt": "2026-09-06T03:48:39.688Z",
+          "responseSha256": "7847f583bb7e3e1f54c0265741950d1dc85116ede1e4241d69c0727e21f1cbcd",
+          "responseByteSize": 48465,
+          "packageImageUrl": "https://res.cloudinary.com/medplusnig/image/upload/v1715787919/beyond/me2brop3efdubuejtpvs.jpg",
+          "packageImageSha256": "c1286e0c9398b7e6705ef9c523ca7089783bc7527dcd3b6863e7daca85f2b0df",
+          "packageImageByteSize": 47146
+        },
+        {
+          "retailer": "Ediths Essentials",
+          "url": "https://edithsessentials.com/products/foaming-cleanser-236ml",
+          "priceNgn": 19500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:49:34.122Z",
+          "expiresAt": "2026-09-06T03:49:34.122Z",
+          "responseSha256": "a24edcb6f5442fe45b43daf3709d1ed74dabfd00511ceb66c3736925c349ca5b",
+          "responseByteSize": 2586,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0245/8661/6937/files/cerave-foaming-cleanser-236ml-239318.jpg?v=1782822007",
+          "packageImageSha256": "7fbb1b2f3b97ee74711b8b350541d523d54c2bacf0c2869aa45aa0b003effa16",
+          "packageImageByteSize": 20273
+        }
+      ]
+    },
+    {
+      "candidateId": "dove-calming-moisture-body-wash-547ml",
+      "identity": {
+        "variant": "Calming Moisture 3% Body Wash with retinol",
+        "size": "18.5 fl oz / 547 ml",
+        "packageVersion": "Single pump bottle / chamomile and warm oat milk"
+      },
+      "offers": [
+        {
+          "retailer": "Teeka4",
+          "url": "https://teeka4.com/shop/dove-calming-moisture-3-body-wash-54ml/",
+          "priceNgn": 17800,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T03:48:43.690Z",
+          "expiresAt": "2026-09-06T03:48:43.690Z",
+          "responseSha256": "0ddd3ed3ac24cfcdcd074a8f691b690acfcdc35d2b1145a4e82a98f307183ffd",
+          "responseByteSize": 347147,
+          "packageImageUrl": "https://teeka4.com/wp-content/uploads/2026/04/WhatsApp-Image-2026-04-20-at-11.53.36-AM.jpeg",
+          "packageImageSha256": "7f7a7ca392f76aa766375fd2d49dd9b9534445575a5e4ce9f291af75322f689b",
+          "packageImageByteSize": 18606
+        },
+        {
+          "retailer": "Deoset",
+          "url": "https://deoset.com/product/dove-calming-moisture-3-body-wash-547ml/",
+          "priceNgn": 25000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:48:49.389Z",
+          "expiresAt": "2026-09-06T03:48:49.389Z",
+          "responseSha256": "4247a7944bbbb5a4be521fa1256a8ebe904a68e755f5e42c9a85c6714f686fbc",
+          "responseByteSize": 135859,
+          "packageImageUrl": "https://deoset.com/wp-content/uploads/2026/06/odoo-13942-optimized.webp",
+          "packageImageSha256": "f15458eab710e054b11e67b49c8db6badb883e69bb1b457ca479b2ead4603bb1",
+          "packageImageByteSize": 17680
+        },
+        {
+          "retailer": "Ceendies Creations",
+          "url": "https://ceendiescreations.com/product/dove-calming-moisture-body-wash-547ml/",
+          "priceNgn": 23000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:49:29.532Z",
+          "expiresAt": "2026-09-06T03:49:29.532Z",
+          "responseSha256": "cc382869f4f074df12974a48b24fda0e931f339fb6df51c8927f817c964373bc",
+          "responseByteSize": 172641,
+          "packageImageUrl": "https://ceendiescreations.com/wp-content/uploads/2026/04/dove-calming.jpg",
+          "packageImageSha256": "fd08ba87095f59f90c780c052f913a50da8a4ac1f7a33e77e15e8a4a5ef53b9b",
+          "packageImageByteSize": 3027
+        },
+        {
+          "retailer": "Ediths Essentials",
+          "url": "https://edithsessentials.com/products/dove-calming-moisture-3-body-wash-547ml",
+          "priceNgn": 27600,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:49:34.378Z",
+          "expiresAt": "2026-09-06T03:49:34.378Z",
+          "responseSha256": "20b16ef1f6bf886e54e882b1e3a0fef2e1838cb56de9e296b12a417de7fd1a07",
+          "responseByteSize": 2031,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0245/8661/6937/files/odoo-13942_4f9a5492-c657-46e8-bbfa-2f059991d694.jpg?v=1782827823",
+          "packageImageSha256": "e9fe4d3c8f3e3f67347a696ee1963b6497f58676610a56e5e92eee4f13697ee8",
+          "packageImageByteSize": 31083
+        }
+      ]
+    },
+    {
+      "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
+      "identity": {
+        "gtin": "810129110562",
+        "variant": "GLEANSER + GLYCOLIC",
+        "size": "400 ml",
+        "packageVersion": "Silver bottle with dark navy pump / 13.5 fl oz"
+      },
+      "offers": [
+        {
+          "retailer": "BuyBetter",
+          "url": "https://buybetter.ng/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
+          "priceNgn": 37088,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T03:48:49.000Z",
+          "expiresAt": "2026-09-06T03:48:49.000Z",
+          "responseSha256": "f9f2f82b4fa3927e94df3bdbb9a77f9e87ec39b820293a5edb70559db7c8c20c",
+          "responseByteSize": 563963,
+          "packageImageUrl": "https://buybetter.ng/wp-content/uploads/2025/12/1-PRQL_PDP_GleanserGlycolic.webp",
+          "packageImageSha256": "ad355c442827d3b10727547cc42818ab1b969fba9c27e2ab1170e17e4d56577e",
+          "packageImageByteSize": 44706
+        },
+        {
+          "retailer": "Nihet Beauty",
+          "url": "https://nihetbeauty.com/product/prequel-gleanser-glycolic-acid-cleanser-400ml/",
+          "priceNgn": 96000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T03:48:49.000Z",
+          "expiresAt": "2026-09-06T03:48:49.000Z",
+          "responseSha256": "2e55fda1c6842260364ce5c942c8ba681ffb0a39310b0730f4a57d9ef958035a",
+          "responseByteSize": 476867,
+          "packageImageUrl": "https://nihetbeauty.com/wp-content/uploads/2026/02/img_8249.jpeg",
+          "packageImageSha256": "dd955c53030305127412b7030dc312b667cf31fdb8598fa785302e2a44625575",
+          "packageImageByteSize": 173571
+        },
+        {
+          "retailer": "Essentials Hub",
+          "url": "https://essentialshub.com/product/prequel-gleanser-glycolic-acid-cleanser/",
+          "priceNgn": 47000,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T03:48:49.000Z",
+          "expiresAt": "2026-09-06T03:48:49.000Z",
+          "responseSha256": "a98f37b6543d355f449d618c2d2fe7c917cbd2b63ae1471b0e153117c30b4b66",
+          "responseByteSize": 442434,
+          "packageImageUrl": "https://essentialshub.com/wp-content/uploads/2025/12/imgi_2_1-PRQL_PDP_GleanserGlycolic.jpg",
+          "packageImageSha256": "20608dad2ef81f01eb1b0a83c8a242f4fc4a1ddea40eda25e13c1c1bf5c29cf2",
+          "packageImageByteSize": 127157
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/skin-moisturizers-oils/cosrx-advanced-snail-all-in-one/",
+      "reason": "Direct listing returned a verification wall; search-index price and stock cannot establish current shopper availability.",
+      "responseSha256": "87ea2ec8c9214f52f72980a8894210601becee06ac671a1a4941e3457028ce49",
+      "responseByteSize": 5893
+    },
+    {
+      "candidateId": "cerave-blemish-control-cleanser",
+      "retailer": "BuyBetter",
+      "url": "https://buybetter.ng/shop/specific-concern/acne/cerave-blemish-control-cleanser-236ml/",
+      "reason": "The previously cited exact route now returns a hard 404.",
+      "responseSha256": "a6ac557e0640c7f520bfda3b7a136f1be584b897313a27c4d1c9660c21f01580",
+      "responseByteSize": 519796
+    },
+    {
+      "candidateId": "cerave-blemish-control-cleanser",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/cerave-blemish-control-cleanser-8-fl-oz-236ml/?location=lagos-store",
+      "reason": "Direct listing returned a verification wall, so indexed stock is not admitted.",
+      "responseSha256": "39aa1a15b5f38f5daedd2a16c5f3a7f4d355171c62ec9f366a15cc46f842bf5d",
+      "responseByteSize": 5944
+    },
+    {
+      "candidateId": "cerave-foaming-facial-cleanser",
+      "retailer": "Perona Beauty",
+      "url": "https://peronabeauty.com/product/cerave-foaming-facial-cleanser-12oz/",
+      "reason": "The live listing is the 12 oz USA package, not the canonical 236 ml bottle.",
+      "responseSha256": "db3f35910a154c58448d2a3d8f3ab392b798cc40c8fa8a8393a1ea7848bec825",
+      "responseByteSize": 386288
+    },
+    {
+      "candidateId": "cerave-foaming-facial-cleanser",
+      "retailer": "Beauty by Daz",
+      "url": "https://beautybydaz.com/shop/face/cerave-foaming-facial-cleanser-16oz/",
+      "reason": "The live listing is the 16 oz USA package and is out of stock.",
+      "responseSha256": "74ab95051158b38a62d750a79e3ebd79ce77addef712fc8459dab528693c964a",
+      "responseByteSize": 244811
+    },
+    {
+      "candidateId": "cerave-foaming-facial-cleanser",
+      "retailer": "Jumia",
+      "url": "https://www.jumia.com.ng/cerave-foaming-cleanser-for-normal-to-oily-skin-236ml-free-uv-aqua-rich-watery-sunscreen-spf-50-419958238.html",
+      "reason": "The route is a 236 ml plus sunscreen bundle behind a marketplace wall, not the canonical single bottle.",
+      "responseSha256": "529ef873b443f6d31e89f84605d163d611daa255c766a94dbffae3045e67a793",
+      "responseByteSize": 6146
+    },
+    {
+      "candidateId": "cerave-foaming-facial-cleanser",
+      "retailer": "Deoset",
+      "url": "https://deoset.com/product/cerave-foaming-facial-cleanser-8-oz-237ml-us-version/",
+      "reason": "The listing is the distinct 237 ml US package and is out of stock.",
+      "responseSha256": "176c23a04280a7de7da74979330a3c50f401bc7576685c1cc8e817b727b7dbea",
+      "responseByteSize": 138636
+    },
+    {
+      "candidateId": "dove-calming-moisture-body-wash-547ml",
+      "retailer": "BuyBetter",
+      "url": "https://buybetter.ng/product/dove-calming-moisture-3-body-wash-547ml/",
+      "reason": "The incumbent exact route now returns a hard 404.",
+      "responseSha256": "e9f1f908aad67e805be91a26099370643ab04084dd2c316b7480cbaa108886c5",
+      "responseByteSize": 517189
+    },
+    {
+      "candidateId": "dove-calming-moisture-body-wash-547ml",
+      "retailer": "Teeka4",
+      "url": "https://teeka4.com/shop/dove-calming-body-wash-with-pistachio-magnolia-750ml/",
+      "reason": "The listing is the Pistachio and Magnolia 750 ml sibling, not Calming Moisture 3% 547 ml.",
+      "responseSha256": "5925c562d96d9f2a444db0a5461cede572e7528e4a9c6a726c44e1e4d5efc8a1",
+      "responseByteSize": 355004
+    },
+    {
+      "candidateId": "dove-calming-moisture-body-wash-547ml",
+      "retailer": "Konga Health",
+      "url": "https://www.konga.com/product/dove-dove-calming-moisture-body-wash-3-7018212",
+      "reason": "Third-party marketplace seller and conflicting body-weight metadata prevent exact package admission.",
+      "responseSha256": "b73c1f40a49b2d36e68c442ed3ef2dae05359c5e3e373288a0e0a0f6ce447bf1",
+      "responseByteSize": 262082
+    },
+    {
+      "candidateId": "dove-calming-moisture-body-wash-547ml",
+      "retailer": "Nihet Beauty",
+      "url": "https://nihetbeauty.com/product/dove-calming-moisture-body-wash-547ml/",
+      "reason": "Two simultaneous live routes expose different prices and package images for the same formula and size.",
+      "responseSha256": "519e4918d77c912ea7e40d07983100cd7babdefec46937298a5514ddc516ff46",
+      "responseByteSize": 475725
+    },
+    {
+      "candidateId": "dove-calming-moisture-body-wash-547ml",
+      "retailer": "Nihet Beauty",
+      "url": "https://nihetbeauty.com/product/dove-calming-moisture-serum-body-wash-with-renewing-retinol-547ml/",
+      "reason": "Conflicting simultaneous retailer package presentation fails closed until one current package is authoritative.",
+      "responseSha256": "48ba1af6403e66f3e008132bc5ff55944c1a7c0f4cba742fef29d2230e2db583",
+      "responseByteSize": 480990
+    },
+    {
+      "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
+      "retailer": "Konga Health",
+      "url": "https://www.konga.com/product/prequel-gleanser-oe-glycerin-cleanser-for-face-and-body-400ml-6989894",
+      "reason": "The listing is the original white-pump Gleanser without glycolic acid and has a third-party seller conflict.",
+      "responseSha256": "4d9228d2be63066247ae06784a73a89b3a4508aaf96c769ad7b61d79ec02a0e9",
+      "responseByteSize": 274634
+    },
+    {
+      "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
+      "retailer": "Ralyd",
+      "url": "https://ralyd.co/products/prequel-gleanser-non-drying-glycerin-cleanser400ml",
+      "reason": "The listing is the original white-pump Gleanser without the 5% glycolic variant.",
+      "responseSha256": "7fb604cfe42c30e18d9dd1f5ed7cf0e1b72fae4a6a942fbf327808577fb78077",
+      "responseByteSize": 189298
+    },
+    {
+      "candidateId": "prequel-gleanser-glycolic-acid-cleanser-400ml",
+      "retailer": "MySkinHubNg",
+      "url": "https://myskinhubng.com/products/prequel-skincare-essentials-gift-set/4116164?location=135853",
+      "reason": "The route is a 60 ml original-Gleanser plus moisturizer bundle with ambiguous stock, not the 400 ml glycolic SKU.",
+      "responseSha256": "284c52dc4b625a3385654531febe0f7abc4f24f8df887f688d871a36dc5fe4f9",
+      "responseByteSize": 56234
+    }
+  ],
+  "heldCandidates": []
+}

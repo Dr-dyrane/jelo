@@ -206,6 +206,24 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigeria beauty retailer with direct product listings.",
   },
   {
+    name: "Beyond MedPlus",
+    homepage: "https://beyondmedplus.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 92,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T03:48:39.688Z",
+      sourceUrl: "https://beyondmedplus.com/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: (query) =>
+      `https://beyondmedplus.com/search?q=${encodeURIComponent(query)}`,
+    note: "MedPlus beauty storefront with Nigerian store addresses, domain contact, Naira pricing and explicit unit stock.",
+  },
+  {
     name: "CSi Grocery",
     homepage: "https://www.csigrocery.com/skincare/",
     market: "NG",
@@ -501,6 +519,23 @@ export const nigeriaRetailers: RetailerReference[] = [
     searchUrl: (query) =>
       `https://edithsessentials.com/search?q=${encodeURIComponent(query)}&type=product`,
     note: "Lekki retailer with a direct Shopify catalogue, Naira pricing, cart availability, street address and phone contact.",
+  },
+  {
+    name: "Ceendies Creations",
+    homepage: "https://ceendiescreations.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 82,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-08-30T03:49:29.532Z",
+      sourceUrl: "https://ceendiescreations.com/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: wordpressSearch("https://ceendiescreations.com/"),
+    note: "Lagos beauty retailer with direct product pages, Naira pricing, unit stock and self-published store addresses and phone contact.",
   },
   {
     name: "Kadimez Essentials",
