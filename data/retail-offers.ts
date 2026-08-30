@@ -7836,6 +7836,23 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     ),
   ],
   "naturium-alpha-arbutin-serum-2-percent-1fl-oz": [],
+  "naturium-barrier-bounce-bi-phase-mist-100ml": [
+    exactNg(
+      "HelloBeauty NG",
+      "https://hellobeautyng.com/products/naturium-barrier-bounce-bi-phase-mist",
+      76,
+      42000,
+      "Naturium Barrier Bounce Bi-Phase Mist",
+      "3.4 fl oz / 100 mL",
+      {
+        observedAt: "2026-08-30T09:03:40.000Z",
+        expiresAt: "2026-09-06T09:03:40.000Z",
+        stock: "in-stock",
+        available: true,
+        verificationMethod: "api",
+      },
+    ),
+  ],
   "naturium-azelaic-acid-derivative-complex-10-1fl-oz": [
     exactNg(
       "Teeka4",

@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-37-2026-08-29",
+  "reviewedAt": "2026-08-30T09:03:40.000Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "scope": "Current Nigerian retailer checks across five independent Naturium cells, releasing the exact Barrier Bounce mist and failing unavailable or package-drift siblings closed",
+  "captureMethod": "reviewed-live-html-structured-product-endpoint-and-listing-image",
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T09:03:40.000Z"
+  },
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 140,
+    "after": 141,
+    "total": 162
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-30T04:17:19.081Z",
+    "latestObservedRun": {
+      "queued": 100,
+      "processed": 100,
+      "completed": 2,
+      "retrying": 98,
+      "failed": 0,
+      "activeBacklog": 98,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 0
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 1,
+    "productsBlocked": 4,
+    "offersReviewed": 4,
+    "offersAdmitted": 1,
+    "shopperActiveOffers": 1,
+    "outOfStockObservations": 1,
+    "offersBlocked": 3,
+    "offersProjected": 1
+  },
+  "products": [
+    {
+      "candidateId": "naturium-barrier-bounce-bi-phase-mist-100ml",
+      "identity": {
+        "gtin": "810120263328",
+        "variant": "Barrier Bounce Bi-Phase Mist",
+        "size": "3.4 fl oz / 100 mL",
+        "packageVersion": "Barrier Bounce Bi-Phase Mist 3.4 fl oz / 100 mL bottle"
+      },
+      "offers": [
+        {
+          "retailer": "HelloBeauty NG",
+          "url": "https://hellobeautyng.com/products/naturium-barrier-bounce-bi-phase-mist",
+          "priceNgn": 42000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T09:03:40.000Z",
+          "expiresAt": "2026-09-06T09:03:40.000Z",
+          "responseUrl": "https://hellobeautyng.com/products/naturium-barrier-bounce-bi-phase-mist.js",
+          "responseSha256": "e79406632b228c3b89b94eae20fcdd58b37002dc9552e436eb03593ec962ebed",
+          "responseByteSize": 3475,
+          "packageImageUrl": "https://cdn.shopify.com/s/files/1/0316/8488/6663/files/mist.webp?v=1780917775",
+          "packageImageSha256": "1c539310a64076a1e0873b4556a45c7d0e93c9d8c2c7cb542862b4e86954f19d",
+          "packageImageByteSize": 179857
+        }
+      ],
+      "notProjected": [
+        {
+          "retailer": "Nihet Beauty Barrier Bounce Serum sibling",
+          "reason": "50ml-serum-sibling-cannot-enter-the-100ml-bi-phase-mist-cell"
+        }
+      ]
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "naturium-marshmallow-root-barrier-balm-1-7oz",
+      "retailer": "Essentials Hub",
+      "releasedPackage": "Marshmallow Root Barrier Balm 1.7 oz / 50 mL jar",
+      "observedPackage": "Current out-of-stock product page and jar image do not expose an exact 1.7 oz / 50 mL package declaration.",
+      "reason": "current-listing-does-not-prove-the-published-exact-size",
+      "responseSha256": "d8a16309796a57a02bdb0a06a9f4fdce473f1c8f202748624556cfb1e8ce2146",
+      "responseByteSize": 441980,
+      "packageImageSha256": "c26b863d530b3660514fa3f4496ecf0dfe30fde3bab900415e7c2332ae89528b",
+      "packageImageByteSize": 18331
+    },
+    {
+      "candidateId": "naturium-dew-glow-mineral-spf-50-1-7fl-oz",
+      "retailer": "The Beauty Prism / Rhema Beauty Shop / TOS Nigeria / Nihet Beauty",
+      "releasedPackage": "Dew-Glow Mineral SPF 50 1.7 fl oz / 50 mL tube",
+      "observedPackage": "Current exact-retailer inventories returned no matching product listing.",
+      "reason": "no-current-exact-nigerian-product-listing",
+      "responseSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "responseByteSize": 2
+    },
+    {
+      "candidateId": "naturium-plant-ceramide-rich-moisture-cream-1-7oz",
+      "retailer": "Nihet Beauty",
+      "releasedPackage": "Plant Ceramide Rich Moisture Cream 1.7 oz / 48 mL jar",
+      "observedPackage": "Current listing declares 50 g.",
+      "reason": "published-48ml-package-conflicts-with-current-50g-listing",
+      "responseSha256": "efb14045437f7feeada70dedeb6b57142b7df1ca5f93af1eb496040f9345653e",
+      "responseByteSize": 9213
+    },
+    {
+      "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
+      "retailer": "Essentials Hub",
+      "releasedPackage": "Multi-Active Exosome Serum 1.0 fl oz / 30 mL dropper bottle",
+      "observedPackage": "Current exact-size image shows an airless pump bottle.",
+      "reason": "published-dropper-package-conflicts-with-current-pump-package",
+      "responseSha256": "c16f486ec9882d0d7be260f4d9e4f3b2f8dcb4f1eb244facbabb47b1d0187892",
+      "responseByteSize": 460388,
+      "packageImageSha256": "f8e1437ca9129dda8e85d84473117cf43107221d810e7f2a6df28aa0b780ddaa",
+      "packageImageByteSize": 92191
+    }
+  ],
+  "excludedDiscoveries": [
+    {
+      "candidateId": "naturium-barrier-bounce-bi-phase-mist-100ml",
+      "retailer": "Nihet Beauty Barrier Bounce Serum 50 mL",
+      "reason": "different-variant-and-size-cannot-enter-the-bi-phase-mist-cell"
+    },
+    {
+      "candidateId": "naturium-multi-active-exosome-serum-1fl-oz",
+      "retailer": "Essentials Hub",
+      "reason": "current-pump-package-cannot-enter-the-published-dropper-package-cell"
+    }
+  ]
+}

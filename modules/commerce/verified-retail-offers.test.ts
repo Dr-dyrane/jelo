@@ -40,6 +40,7 @@ import waveThirtyThreeAudit from "@/data/retailer-verification/catalogue-offer-r
 import waveThirtyFourAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-34-2026-08-29.json";
 import waveThirtyFiveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-35-2026-08-29.json";
 import waveThirtySixAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-36-2026-08-29.json";
+import waveThirtySevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-37-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -3217,6 +3218,69 @@ test("catalogue offer refresh wave 36 releases the exact Tranexamic dropper and 
     ),
     false,
   );
+});
+
+test("catalogue offer refresh wave 37 releases Barrier Bounce and fails exact-package siblings closed", () => {
+  const projected = waveThirtySevenAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveThirtySevenAudit.matrix.before, 140);
+  assert.equal(waveThirtySevenAudit.matrix.after, 141);
+  assert.equal(waveThirtySevenAudit.matrix.total, 162);
+  assert.equal(waveThirtySevenAudit.summary.productsReviewed, 5);
+  assert.equal(waveThirtySevenAudit.summary.productsReleased, 1);
+  assert.equal(waveThirtySevenAudit.summary.productsBlocked, 4);
+  assert.equal(waveThirtySevenAudit.summary.offersAdmitted, 1);
+  assert.equal(waveThirtySevenAudit.summary.shopperActiveOffers, 1);
+  assert.equal(projected.length, 1);
+  assert.equal(waveThirtySevenAudit.blockedCells.length, 4);
+  assert.equal(
+    waveThirtySevenAudit.scheduledOwner.manifestRecurringOwner,
+    null,
+  );
+  assert.equal(
+    waveThirtySevenAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, true);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const active = catalogueProducts
+    .find(
+      (product) =>
+        product.slug === "naturium-barrier-bounce-bi-phase-mist-100ml",
+    )
+    ?.offers.filter((offer) => offer.available);
+  assert.deepEqual(
+    active?.map((offer) => offer.retailer),
+    ["HelloBeauty NG"],
+  );
+  assert.equal(active?.[0]?.priceNgn, 42_000);
+
+  for (const blocked of waveThirtySevenAudit.blockedCells) {
+    assert.deepEqual(
+      verifiedRetailOffers[blocked.candidateId] ?? [],
+      [],
+      blocked.candidateId,
+    );
+  }
 });
 
 test("verified Nigerian observations use exact secure product pages", () => {
