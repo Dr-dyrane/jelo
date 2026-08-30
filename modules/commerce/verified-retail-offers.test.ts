@@ -12,6 +12,7 @@ import waveEightAudit from "@/data/retailer-verification/catalogue-offer-refresh
 import waveNineAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-9-2026-08-29.json";
 import waveTenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-10-2026-08-29.json";
 import waveElevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-11-2026-08-29.json";
+import waveTwelveAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-12-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -564,6 +565,68 @@ test("catalogue offer refresh wave 11 releases five exact product cells and isol
     );
     assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
     assert.equal(isOfferFresh(offer, asOf), false);
+  }
+});
+
+test("catalogue offer refresh wave 12 releases clean cells and fails closed on package conflicts", () => {
+  const projected = waveTwelveAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveTwelveAudit.matrix.unit, "exact product SKU");
+  assert.equal(waveTwelveAudit.matrix.before, 34);
+  assert.equal(waveTwelveAudit.matrix.after, 36);
+  assert.equal(waveTwelveAudit.matrix.total, 162);
+  assert.equal(waveTwelveAudit.summary.productsReviewed, 5);
+  assert.equal(waveTwelveAudit.summary.productsReleased, 2);
+  assert.equal(waveTwelveAudit.summary.productsBlocked, 3);
+  assert.equal(waveTwelveAudit.summary.offersReviewed, 17);
+  assert.equal(waveTwelveAudit.summary.offersAdmitted, 5);
+  assert.equal(waveTwelveAudit.summary.offersBlocked, 12);
+  assert.equal(projected.length, 5);
+  assert.equal(waveTwelveAudit.carriedProductBlockers.length, 13);
+  assert.equal(
+    waveTwelveAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    0,
+  );
+
+  for (const product of waveTwelveAudit.products) {
+    const offers = verifiedRetailOffers[product.candidateId] ?? [];
+    for (const evidence of product.offers) {
+      const offer = offers.find((candidate) => candidate.url === evidence.url);
+      assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+      assert.equal(offer.retailer, evidence.retailer);
+      assert.equal(offer.priceNgn, evidence.priceNgn);
+      assert.equal(offer.available, evidence.available);
+      assert.equal(offer.priceObservation?.stock, evidence.stock);
+      const acceptedSizes = [
+        product.identity.size,
+        ...("packageLabelSize" in product.identity
+          ? [product.identity.packageLabelSize]
+          : []),
+      ];
+      assert.ok(
+        acceptedSizes.includes(offer.priceObservation?.size ?? ""),
+        `${product.candidateId}: ${evidence.retailer} has exact package size`,
+      );
+      assert.equal(offer.checkedAt, evidence.checkedAt);
+      assert.equal(offer.expiresAt, evidence.expiresAt);
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize > 0);
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+    }
+  }
+
+  const asOf = new Date(waveTwelveAudit.reviewedAt);
+  for (const blocked of waveTwelveAudit.blockedCells) {
+    const offer = verifiedRetailOffers[blocked.candidateId]?.find(
+      (candidate) => candidate.retailer === blocked.retailer,
+    );
+    assert.ok(
+      !offer || !isOfferFresh(offer, asOf),
+      `${blocked.candidateId}: ${blocked.retailer} must remain non-shareable`,
+    );
   }
 });
 

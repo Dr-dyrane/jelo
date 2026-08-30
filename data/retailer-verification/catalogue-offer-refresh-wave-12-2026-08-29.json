@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "batchId": "catalogue-offer-refresh-wave-12-2026-08-29",
+  "scope": "Seventeen live retailer checks across five exact product SKUs; two independently releasable and three identity/package blocked",
+  "reviewedAt": "2026-08-30T00:26:58.532Z",
+  "reviewer": "JeloCare catalogue evidence review",
+  "captureMethod": "reviewed-live-html-json-ld-and-listing-image",
+  "matrix": {
+    "unit": "exact product SKU",
+    "before": 34,
+    "after": 36,
+    "total": 162
+  },
+  "freshnessPolicy": {
+    "maxAgeDays": 7,
+    "expiresOnOrBefore": "2026-09-06T00:26:58.532Z"
+  },
+  "scheduledOwner": {
+    "manifestRecurringOwner": null,
+    "observedRuntimeOwner": "Vercel cron /api/cron/inventory",
+    "schedule": "17 4,16 * * *",
+    "latestObservedRunAt": "2026-08-29T16:17:19Z",
+    "latestObservedRun": {
+      "queued": 0,
+      "processed": 10,
+      "completed": 0,
+      "retrying": 0,
+      "failed": 10,
+      "activeBacklog": 0,
+      "due": 0,
+      "processing": 0,
+      "leaseExpired": 0,
+      "staleExactOffers": 4
+    },
+    "impact": "No manual enqueue, claim, cron request, or scheduled processing was performed. The backlog remains empty."
+  },
+  "summary": {
+    "productsReviewed": 5,
+    "productsReleased": 2,
+    "productsBlocked": 3,
+    "offersReviewed": 17,
+    "offersAdmitted": 5,
+    "shopperActiveOffers": 4,
+    "outOfStockObservations": 1,
+    "offersBlocked": 12,
+    "offersProjected": 5
+  },
+  "products": [
+    {
+      "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
+      "identity": {
+        "gtin": "8809416470009",
+        "variant": "COSRX Advanced Snail 96 Mucin Power Essence",
+        "size": "100 ml",
+        "packageLabelSize": "100 ml / 3.38 fl oz",
+        "packageVersion": "clear 100 ml pump bottle with black pump and black-gold Advanced Snail 96 label"
+      },
+      "offers": [
+        {
+          "retailer": "Beauty by Daz",
+          "url": "https://beautybydaz.com/shop/face/oils-serum/cosrx-advanced-snail-96-mucin-power-essence/",
+          "priceNgn": 12500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:26:58.532Z",
+          "expiresAt": "2026-09-06T00:26:58.532Z",
+          "responseSha256": "9ab507c7a9063d7f7ef995b71f4a706145b6f559d8941e7b25c2e97b312616a5",
+          "responseByteSize": 285592,
+          "packageImageUrl": "https://beautybydaz.com/wp-content/uploads/2023/07/Cosrx20snail20mucin20essence.jpg",
+          "packageImageSha256": "6d784fb7bc8d0a8c2ce602abe298ad2fbea4454ef2e9bfa3bc9e49bb02b6562c",
+          "packageImageByteSize": 48825
+        },
+        {
+          "retailer": "Perona Beauty",
+          "url": "https://peronabeauty.com/product/cosrx-advanced-snail-96-mucin-power-essence/",
+          "priceNgn": 14500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:26:58.532Z",
+          "expiresAt": "2026-09-06T00:26:58.532Z",
+          "responseSha256": "9dee299ffa8727e0f50766aef155cae0d1a5beef649321874a72b7af03c4bf4b",
+          "responseByteSize": 482977,
+          "packageImageUrl": "https://peronabeauty.com/wp-content/uploads/2024/02/cosrx-essence.jpg",
+          "packageImageSha256": "74bbb4bf539a616d9b2ab109e0f454b9d17b2c03be1bd7d8865656673ab4c19e",
+          "packageImageByteSize": 16973
+        },
+        {
+          "retailer": "Konga Health",
+          "url": "https://www.konga.com/product/cosrx-advanced-snail-96-mucin-power-essence-100ml-5780570",
+          "priceNgn": 22500,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:26:58.532Z",
+          "expiresAt": "2026-09-06T00:26:58.532Z",
+          "responseSha256": "1af7a8ce156c8fc15992a4d76189c883360edd08469fa536e76ba1ef0cfbaeac",
+          "responseByteSize": 276770,
+          "packageImageUrl": "https://www-konga-com-res.cloudinary.com/media/catalog/product/I/G/53241_1657134395.jpg",
+          "packageImageSha256": "56c110f38f6b68708a91c8af03f26d9f6ab1e34c0807ce374c16a78c8b6366b5",
+          "packageImageByteSize": 22834
+        }
+      ]
+    },
+    {
+      "candidateId": "naturium-phyto-glow-lip-balm-clear-0-34oz",
+      "identity": {
+        "gtin": "850010792392",
+        "variant": "Naturium Phyto-Glow Lip Balm Clear",
+        "size": "0.34 fl oz / 10 mL",
+        "packageVersion": "warm-white 0.34 fl oz / 10 mL squeeze tube marked Clear"
+      },
+      "offers": [
+        {
+          "retailer": "The Beauty Prism",
+          "url": "https://thebeautyprismng.com/shop/naturium-phyto-glow-lip-balm-clear/",
+          "priceNgn": 24000,
+          "stock": "out-of-stock",
+          "available": false,
+          "checkedAt": "2026-08-30T00:26:58.532Z",
+          "expiresAt": "2026-09-06T00:26:58.532Z",
+          "responseSha256": "e3b5448a248e206e9d9e4e3754242eda7a1ae9e65482dbaf9e5617ec536e66db",
+          "responseByteSize": 305114,
+          "packageImageUrl": "https://thebeautyprismng.com/wp-content/uploads/2025/12/shopping.webp",
+          "packageImageSha256": "2eec0f96f154343e1a1a4ed9f4005db9e4d949ad9d5e9febe6af209bc5a1752b",
+          "packageImageByteSize": 4872
+        },
+        {
+          "retailer": "Nihet Beauty",
+          "url": "https://nihetbeauty.com/product/naturium-phyto-glow-lip-balm-clear/",
+          "priceNgn": 45000,
+          "stock": "in-stock",
+          "available": true,
+          "checkedAt": "2026-08-30T00:26:58.532Z",
+          "expiresAt": "2026-09-06T00:26:58.532Z",
+          "responseSha256": "48240865883885206d70edf4c519aada99c768179e6aae5ea2f5578e4c9a1ced",
+          "responseByteSize": 472507,
+          "packageImageUrl": "https://nihetbeauty.com/wp-content/uploads/2024/04/IMG_6059.webp",
+          "packageImageSha256": "51dc90500271a8c3fb21ab4303154976a30f92d2605ff3b23200747c5fae7ddf",
+          "packageImageByteSize": 12450
+        }
+      ]
+    }
+  ],
+  "blockedProducts": [
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "releasedPackage": "Toleriane Double Repair Matte Face Moisturizer for Oily Skin 75 ml",
+      "observedPackage": "Three current exact-title retailer routes and matching blue tube images omit visible or structured 75 ml evidence.",
+      "blocker": "The current package size cannot be bound to the released 75 ml identity without normalization.",
+      "nextAction": "Require a current retailer response or package panel that explicitly proves 75 ml."
+    },
+    {
+      "candidateId": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+      "releasedPackage": "UV Reflect Antioxidant SPF 50 1.7 fl oz / 50 mL tube",
+      "observedPackage": "All three current retailer images show an orange rectangular bottle marked 1.7 fl oz / 50 mL.",
+      "blocker": "Current bottle packaging conflicts with the released tube package version.",
+      "nextAction": "Route the package change through canonical identity review before projecting any current offers."
+    },
+    {
+      "candidateId": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",
+      "releasedPackage": "Vitamin C Complex Serum Jumbo 2.0 fl oz / 60 mL dropper bottle",
+      "observedPackage": "Nihet and Essentials Hub show a tall pump bottle; Skincare Plug labels the selectable size 60 g rather than 60 mL.",
+      "blocker": "Current pump packaging conflicts with the released dropper version, and one retailer also conflicts on the unit.",
+      "nextAction": "Route the package change through canonical identity review and do not normalize 60 g to 60 mL."
+    }
+  ],
+  "blockedCells": [
+    {
+      "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
+      "retailer": "CSi Grocery",
+      "url": "https://www.csigrocery.com/shop/skincare/face/cosrx-advanced-snail-96-mucin-power/",
+      "responseStatus": 403,
+      "responseSha256": "829da9d52e8081f6b4ec3a1b9076761cfed0e7c50d5e5cb0266f095c0f19eaad",
+      "responseByteSize": 5830,
+      "blocker": "Browser verification wall prevents current price, stock, size, and package verification."
+    },
+    {
+      "candidateId": "cosrx-advanced-snail-96-mucin-power-essence",
+      "retailer": "Lux Beauty",
+      "url": "https://www.luxbeautyng.com/product/cosrx-snail-mucin-96-power-repairing-essence/",
+      "responseStatus": 403,
+      "responseSha256": "8bf3f5dbf5167551efeb8469723e9577827a1bd6a8b764374cc0fed88799a00d",
+      "responseByteSize": 2013,
+      "blocker": "Retailer access denial prevents current price, stock, size, and package verification."
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "retailer": "Perona Beauty",
+      "url": "https://peronabeauty.com/product/la-roche-posay-toleriane-double-repair-matte-face-moisturizer-for-oily-skin/",
+      "responseStatus": 200,
+      "responseSha256": "48baefac504c2a5b074f6e2788a12fb49bf1dbded04a1a84b315f7a0fecb70a0",
+      "responseByteSize": 382427,
+      "observedPriceNgn": 38000,
+      "observedStock": "out-of-stock",
+      "blocker": "Current response and front package image omit 75 ml size proof."
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "retailer": "Deoset",
+      "url": "https://deoset.com/product/la-roche-posay-toleriane-double-repair-matte-face-moisturizer-for-oily-skin/",
+      "responseStatus": 200,
+      "responseSha256": "02146afebb1220dc554e21bb0c7f6b0193b17705c5cd8d7ab26d66c764c098f6",
+      "responseByteSize": 140551,
+      "observedPriceNgn": 48990,
+      "observedStock": "in-stock",
+      "blocker": "Current response and front package image omit 75 ml size proof."
+    },
+    {
+      "candidateId": "la-roche-posay-toleriane-double-repair-matte",
+      "retailer": "Derma Essentials",
+      "url": "https://dermaessentialshub.com/product/la-roche-posay-toleriane-double-repair-matte-moisturizer/",
+      "responseStatus": 200,
+      "responseSha256": "7438dfe8d33c12e6c893e2d1eb8b6e5c75ef8e2ace28615d13ea7c76d55a507c",
+      "responseByteSize": 333515,
+      "observedPriceNgn": 57700,
+      "observedStock": "low-stock",
+      "observedInventoryQuantity": 4,
+      "blocker": "Current response and front package image omit 75 ml size proof."
+    },
+    {
+      "candidateId": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+      "retailer": "Nihet Beauty",
+      "url": "https://nihetbeauty.com/product/uv-reflect-antioxidant-spf-50/",
+      "responseStatus": 200,
+      "responseSha256": "06d2b746fcd6b8e2e08f06e86aea52f2ee0579dcaf641f60dcdd9d794247c1b2",
+      "responseByteSize": 472158,
+      "observedPriceNgn": 86000,
+      "observedStock": "in-stock",
+      "blocker": "Current orange bottle conflicts with the released tube package version."
+    },
+    {
+      "candidateId": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+      "retailer": "Shadremmy Beauty",
+      "url": "https://shadremmybeauty.com/product/naturium-uv-reflect-antioxidant-spf-50/",
+      "responseStatus": 200,
+      "responseSha256": "8006be3acdfb3a5445b1eae275addb79d7ddece42288b684002d66ca58203cec",
+      "responseByteSize": 161962,
+      "observedPriceNgn": 58500,
+      "observedStock": "out-of-stock",
+      "blocker": "Current orange bottle conflicts with the released tube package version."
+    },
+    {
+      "candidateId": "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+      "retailer": "Mirrors Beauty",
+      "url": "https://mirrorsbeauty.com/products/naturium-uv-reflect-antioxidant-spf-50",
+      "responseStatus": 200,
+      "responseSha256": "8dded7598520eb9f17b86c6f7e1b0e9fe1d518575507faa34094d3ef23d39853",
+      "responseByteSize": 388825,
+      "observedGtin": "810120260181",
+      "observedPriceNgn": 28600,
+      "observedStock": "out-of-stock",
+      "blocker": "Current orange bottle conflicts with the released tube package version."
+    },
+    {
+      "candidateId": "naturium-phyto-glow-lip-balm-clear-0-34oz",
+      "retailer": "BabesQuarters",
+      "url": "https://babesquarters.ng/shop/naturium-phyto-glow-balm-clear/",
+      "responseStatus": 200,
+      "responseSha256": "b5193522cb44c9219bd0954a02dece26d25893e6b3f78657fa48e96996ed07eb",
+      "responseByteSize": 169361,
+      "observedPriceNgn": 20000,
+      "observedStock": "out-of-stock",
+      "blocker": "Current response exposes the exact Clear variant but no size or reviewable package image."
+    },
+    {
+      "candidateId": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",
+      "retailer": "Nihet Beauty",
+      "url": "https://nihetbeauty.com/product/naturium-vitamin-c-complex-serum-60ml/",
+      "responseStatus": 200,
+      "responseSha256": "960595eafe2dd02433fce46d6386edf8c170e487aa0aea0977be42fb895ab755",
+      "responseByteSize": 469998,
+      "observedPriceNgn": 128000,
+      "observedStock": "in-stock",
+      "blocker": "Current 60 ml pump bottle conflicts with the released dropper package version."
+    },
+    {
+      "candidateId": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",
+      "retailer": "Skincare Plug NG",
+      "url": "https://skincareplug-ng.com/products/naturium-vitamin-c-complex-serum",
+      "responseStatus": 200,
+      "responseSha256": "e20b67fd1a94b1eac8dc2fbdde1e8cd01ba72feb30c0e7015b6fc84a137b37bf",
+      "responseByteSize": 116033,
+      "observedPriceNgn": 91000,
+      "observedStock": "in-stock",
+      "observedSize": "60 g",
+      "blocker": "Current 60 g option conflicts with the released 60 mL identity; units are not normalized."
+    },
+    {
+      "candidateId": "naturium-vitamin-c-complex-serum-jumbo-2fl-oz",
+      "retailer": "Essentials Hub",
+      "url": "https://essentialshub.com/product/naturium-vitamin-c-serum-60ml/",
+      "responseStatus": 200,
+      "responseSha256": "5cbcc059ab789aa92d7eb99e20299896117dccdd1b6900a9f9f83fe5f3525f2c",
+      "responseByteSize": 442215,
+      "observedPriceNgn": 64478,
+      "observedStock": "out-of-stock",
+      "blocker": "Current 60 ml pump bottle conflicts with the released dropper package version."
+    }
+  ],
+  "carriedProductBlockers": [
+    "naturium-vitamin-c-complex-serum-1fl-oz",
+    "naturium-niacinamide-serum-12-percent-1fl-oz",
+    "naturium-salicylic-acid-serum-2-percent-1fl-oz",
+    "naturium-retinol-complex-serum-1fl-oz",
+    "naturium-niacinamide-gel-cream-5-1-7oz",
+    "naturium-glow-getter-multi-oil-body-scrub-8oz",
+    "dove-moroccan-argan-oil-beauty-bar",
+    "b-lab-matcha-hydrating-real-sunscreen",
+    "kuza-indian-hemp-hair-scalp-treatment",
+    "lush-hair-mentholated-conditioner",
+    "la-roche-posay-toleriane-double-repair-matte",
+    "naturium-uv-reflect-antioxidant-spf-50-1-7fl-oz",
+    "naturium-vitamin-c-complex-serum-jumbo-2fl-oz"
+  ]
+}

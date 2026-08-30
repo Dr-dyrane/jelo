@@ -1969,8 +1969,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Advanced Snail 96 Mucin Power Essence",
       "100 ml / 3.38 fl oz",
       {
-        observedAt: "2026-08-28T16:45:53.960Z",
-        expiresAt: "2026-09-04T16:45:53.960Z",
+        observedAt: "2026-08-30T00:26:58.532Z",
+        expiresAt: "2026-09-06T00:26:58.532Z",
         available: true,
         stock: "in-stock",
       },
@@ -1983,22 +1983,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Advanced Snail 96 Mucin Power Essence",
       "100 ml / 3.38 fl oz",
       {
-        observedAt: "2026-08-28T16:17:28.478Z",
-        expiresAt: "2026-09-04T16:17:28.478Z",
-        available: true,
-        stock: "in-stock",
-      },
-    ),
-    exactNg(
-      "CSi Grocery",
-      "https://www.csigrocery.com/shop/skincare/face/cosrx-advanced-snail-96-mucin-power/",
-      90,
-      16000,
-      "Cosrx Advanced Snail 96 Mucin Power Essence",
-      "100 ml / 3.38 fl oz",
-      {
-        observedAt: "2026-08-28T16:18:39.623Z",
-        expiresAt: "2026-09-04T16:18:39.623Z",
+        observedAt: "2026-08-30T00:26:58.532Z",
+        expiresAt: "2026-09-06T00:26:58.532Z",
         available: true,
         stock: "in-stock",
       },
@@ -2011,38 +1997,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx - Advanced Snail 96 Mucin Power Essence - 100ml",
       "100 ml",
       {
-        observedAt: "2026-08-28T16:27:42.729Z",
-        expiresAt: "2026-09-04T16:27:42.729Z",
+        observedAt: "2026-08-30T00:26:58.532Z",
+        expiresAt: "2026-09-06T00:26:58.532Z",
         available: true,
         stock: "in-stock",
       },
     ),
-    {
-      retailer: "Lux Beauty",
-      url: "https://www.luxbeautyng.com/product/cosrx-snail-mucin-96-power-repairing-essence/",
-      trust: 96,
-      available: false,
-      priceNgn: 12400,
-      checkedAt: "2026-08-28T16:56:24.587Z",
-      expiresAt: "2026-09-04T16:56:24.587Z",
-      match: "exact",
-      priceComparison: "exclude",
-      listingEvidence: {
-        observedAt: "2026-08-28T16:56:24.587Z",
-        sourceUrl:
-          "https://www.luxbeautyng.com/product/cosrx-snail-mucin-96-power-repairing-essence/",
-        basis: "retailer-page",
-      },
-      priceObservation: {
-        observedAt: "2026-08-28T16:56:24.587Z",
-        variant:
-          "Access denied; exact product state not currently re-verifiable",
-        size: "100 ml",
-        stock: "unknown",
-        landedCost: "unknown",
-      },
-      location: ["NG"],
-    },
   ],
   "panoxyl-acne-foaming-wash-10-benzoyl-peroxide": [
     {
@@ -7258,11 +7218,10 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Phyto-Glow Lip Balm – Clear",
       "0.34 fl oz / 10 mL",
       {
-        observedAt: "2026-08-12T11:05:00Z",
-        expiresAt: "2026-08-19T11:05:00Z",
-        stock: "low-stock",
-        inventoryQuantity: 1,
-        available: true,
+        observedAt: "2026-08-30T00:26:58.532Z",
+        expiresAt: "2026-09-06T00:26:58.532Z",
+        stock: "out-of-stock",
+        available: false,
       },
     ),
     exactNg(
@@ -7273,8 +7232,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Phyto-Glow Lip Balm Clear",
       "0.34 fl oz / 10 mL",
       {
-        observedAt: "2026-08-12T23:12:00Z",
-        expiresAt: "2026-08-19T23:12:00Z",
+        observedAt: "2026-08-30T00:26:58.532Z",
+        expiresAt: "2026-09-06T00:26:58.532Z",
         stock: "in-stock",
         available: true,
       },
