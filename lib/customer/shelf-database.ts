@@ -49,11 +49,61 @@ export async function assertCustomerShelfRlsRole(
         ) as has_role_memberships,
         exists (
           select 1
+          from pg_catalog.pg_auth_members app_membership
+          where app_membership.member = app_role.oid
+        ) as app_has_role_memberships,
+        exists (
+          select 1
           from pg_catalog.pg_class owned_relation
           where owned_relation.relowner = role.oid
         ) as owns_relations,
         shelf_relation.relrowsecurity,
         shelf_relation.relforcerowsecurity,
+        coalesce((
+          select pg_catalog.array_agg(
+            privilege.privilege_type || ':' || privilege.is_grantable::text
+            order by privilege.privilege_type
+          )
+          from pg_catalog.aclexplode(coalesce(
+            shelf_relation.relacl,
+            pg_catalog.acldefault('r', shelf_relation.relowner)
+          )) privilege
+          where privilege.grantee = role.oid
+        ), array[]::text[]) = array['DELETE:false', 'INSERT:false', 'SELECT:false']::text[]
+        and not exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = shelf_relation.oid
+            and privilege.grantee = role.oid
+        ) as shelf_privileges_exact,
+        pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'SELECT')
+          or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'INSERT')
+          or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'UPDATE')
+          or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'DELETE')
+          or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'TRUNCATE')
+          or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'REFERENCES')
+          or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'TRIGGER')
+          or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'MAINTAIN')
+          or pg_catalog.has_any_column_privilege(app_role.oid, shelf_relation.oid, 'SELECT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, shelf_relation.oid, 'INSERT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, shelf_relation.oid, 'UPDATE')
+          or pg_catalog.has_any_column_privilege(app_role.oid, shelf_relation.oid, 'REFERENCES')
+          as shelf_app_privileges,
+        exists (
+          select 1
+          from pg_catalog.aclexplode(coalesce(
+            shelf_relation.relacl,
+            pg_catalog.acldefault('r', shelf_relation.relowner)
+          )) privilege
+          where privilege.grantee = 0
+        ) or exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = shelf_relation.oid
+            and privilege.grantee = 0
+        ) as shelf_public_privileges,
         request_relation.relrowsecurity as requests_relrowsecurity,
         request_relation.relforcerowsecurity as requests_relforcerowsecurity,
         image_relation.relrowsecurity as images_relrowsecurity,
@@ -314,6 +364,53 @@ export async function assertCustomerShelfRlsRole(
           where attribute.attrelid = routine_step_relation.oid
             and privilege.grantee = 0
         ) as routine_steps_public_privileges,
+        concern_relation.relrowsecurity as concerns_relrowsecurity,
+        concern_relation.relforcerowsecurity as concerns_relforcerowsecurity,
+        coalesce((
+          select pg_catalog.array_agg(
+            privilege.privilege_type || ':' || privilege.is_grantable::text
+            order by privilege.privilege_type
+          )
+          from pg_catalog.aclexplode(coalesce(
+            concern_relation.relacl,
+            pg_catalog.acldefault('r', concern_relation.relowner)
+          )) privilege
+          where privilege.grantee = role.oid
+        ), array[]::text[]) = array['INSERT:false', 'SELECT:false', 'UPDATE:false']::text[]
+        and not exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = concern_relation.oid
+            and privilege.grantee = role.oid
+        ) as concerns_shelf_privileges_exact,
+        pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'SELECT')
+          or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'INSERT')
+          or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'UPDATE')
+          or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'DELETE')
+          or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'TRUNCATE')
+          or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'REFERENCES')
+          or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'TRIGGER')
+          or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'MAINTAIN')
+          or pg_catalog.has_any_column_privilege(app_role.oid, concern_relation.oid, 'SELECT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, concern_relation.oid, 'INSERT')
+          or pg_catalog.has_any_column_privilege(app_role.oid, concern_relation.oid, 'UPDATE')
+          or pg_catalog.has_any_column_privilege(app_role.oid, concern_relation.oid, 'REFERENCES')
+          as concerns_app_privileges,
+        exists (
+          select 1
+          from pg_catalog.aclexplode(coalesce(
+            concern_relation.relacl,
+            pg_catalog.acldefault('r', concern_relation.relowner)
+          )) privilege
+          where privilege.grantee = 0
+        ) or exists (
+          select 1
+          from pg_catalog.pg_attribute attribute
+          cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+          where attribute.attrelid = concern_relation.oid
+            and privilege.grantee = 0
+        ) as concerns_public_privileges,
         pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'SELECT')
           or pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'INSERT')
           or pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'UPDATE')
@@ -416,6 +513,8 @@ export async function assertCustomerShelfRlsRole(
         on routine_relation.oid = pg_catalog.to_regclass('public.customer_routines')
       left join pg_catalog.pg_class routine_step_relation
         on routine_step_relation.oid = pg_catalog.to_regclass('public.customer_routine_steps')
+      left join pg_catalog.pg_class concern_relation
+        on concern_relation.oid = pg_catalog.to_regclass('public.customer_concerns')
       left join pg_catalog.pg_class mention_relation
         on mention_relation.oid = pg_catalog.to_regclass('public.customer_product_request_research_mentions')
       left join pg_catalog.pg_proc signal_bridge

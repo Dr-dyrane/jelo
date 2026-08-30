@@ -19,7 +19,10 @@ const ATTESTATION_FALSE_FIELDS = new Set<keyof CustomerShelfRoleAttestation>([
   "rolreplication",
   "rolbypassrls",
   "has_role_memberships",
+  "app_has_role_memberships",
   "owns_relations",
+  "shelf_app_privileges",
+  "shelf_public_privileges",
   "requests_app_privileges",
   "images_app_privileges",
   "mutations_app_privileges",
@@ -32,6 +35,8 @@ const ATTESTATION_FALSE_FIELDS = new Set<keyof CustomerShelfRoleAttestation>([
   "routine_steps_app_privileges",
   "routines_public_privileges",
   "routine_steps_public_privileges",
+  "concerns_app_privileges",
+  "concerns_public_privileges",
   "research_mentions_shelf_privileges",
   "research_mentions_public_privileges",
   "signal_bridge_public_execute",
@@ -68,11 +73,61 @@ async function roleAttestation(sql: Sql | TransactionSql) {
       ) as has_role_memberships,
       exists (
         select 1
+        from pg_catalog.pg_auth_members app_membership
+        where app_membership.member = app_role.oid
+      ) as app_has_role_memberships,
+      exists (
+        select 1
         from pg_catalog.pg_class owned_relation
         where owned_relation.relowner = role.oid
       ) as owns_relations,
       shelf_relation.relrowsecurity,
       shelf_relation.relforcerowsecurity,
+      coalesce((
+        select pg_catalog.array_agg(
+          privilege.privilege_type || ':' || privilege.is_grantable::text
+          order by privilege.privilege_type
+        )
+        from pg_catalog.aclexplode(coalesce(
+          shelf_relation.relacl,
+          pg_catalog.acldefault('r', shelf_relation.relowner)
+        )) privilege
+        where privilege.grantee = role.oid
+      ), array[]::text[]) = array['DELETE:false', 'INSERT:false', 'SELECT:false']::text[]
+      and not exists (
+        select 1
+        from pg_catalog.pg_attribute attribute
+        cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+        where attribute.attrelid = shelf_relation.oid
+          and privilege.grantee = role.oid
+      ) as shelf_privileges_exact,
+      pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'SELECT')
+        or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'INSERT')
+        or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'UPDATE')
+        or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'DELETE')
+        or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'TRUNCATE')
+        or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'REFERENCES')
+        or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'TRIGGER')
+        or pg_catalog.has_table_privilege(app_role.oid, shelf_relation.oid, 'MAINTAIN')
+        or pg_catalog.has_any_column_privilege(app_role.oid, shelf_relation.oid, 'SELECT')
+        or pg_catalog.has_any_column_privilege(app_role.oid, shelf_relation.oid, 'INSERT')
+        or pg_catalog.has_any_column_privilege(app_role.oid, shelf_relation.oid, 'UPDATE')
+        or pg_catalog.has_any_column_privilege(app_role.oid, shelf_relation.oid, 'REFERENCES')
+        as shelf_app_privileges,
+      exists (
+        select 1
+        from pg_catalog.aclexplode(coalesce(
+          shelf_relation.relacl,
+          pg_catalog.acldefault('r', shelf_relation.relowner)
+        )) privilege
+        where privilege.grantee = 0
+      ) or exists (
+        select 1
+        from pg_catalog.pg_attribute attribute
+        cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+        where attribute.attrelid = shelf_relation.oid
+          and privilege.grantee = 0
+      ) as shelf_public_privileges,
       request_relation.relrowsecurity as requests_relrowsecurity,
       request_relation.relforcerowsecurity as requests_relforcerowsecurity,
       image_relation.relrowsecurity as images_relrowsecurity,
@@ -333,6 +388,53 @@ async function roleAttestation(sql: Sql | TransactionSql) {
         where attribute.attrelid = routine_step_relation.oid
           and privilege.grantee = 0
       ) as routine_steps_public_privileges,
+      concern_relation.relrowsecurity as concerns_relrowsecurity,
+      concern_relation.relforcerowsecurity as concerns_relforcerowsecurity,
+      coalesce((
+        select pg_catalog.array_agg(
+          privilege.privilege_type || ':' || privilege.is_grantable::text
+          order by privilege.privilege_type
+        )
+        from pg_catalog.aclexplode(coalesce(
+          concern_relation.relacl,
+          pg_catalog.acldefault('r', concern_relation.relowner)
+        )) privilege
+        where privilege.grantee = role.oid
+      ), array[]::text[]) = array['INSERT:false', 'SELECT:false', 'UPDATE:false']::text[]
+      and not exists (
+        select 1
+        from pg_catalog.pg_attribute attribute
+        cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+        where attribute.attrelid = concern_relation.oid
+          and privilege.grantee = role.oid
+      ) as concerns_shelf_privileges_exact,
+      pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'SELECT')
+        or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'INSERT')
+        or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'UPDATE')
+        or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'DELETE')
+        or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'TRUNCATE')
+        or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'REFERENCES')
+        or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'TRIGGER')
+        or pg_catalog.has_table_privilege(app_role.oid, concern_relation.oid, 'MAINTAIN')
+        or pg_catalog.has_any_column_privilege(app_role.oid, concern_relation.oid, 'SELECT')
+        or pg_catalog.has_any_column_privilege(app_role.oid, concern_relation.oid, 'INSERT')
+        or pg_catalog.has_any_column_privilege(app_role.oid, concern_relation.oid, 'UPDATE')
+        or pg_catalog.has_any_column_privilege(app_role.oid, concern_relation.oid, 'REFERENCES')
+        as concerns_app_privileges,
+      exists (
+        select 1
+        from pg_catalog.aclexplode(coalesce(
+          concern_relation.relacl,
+          pg_catalog.acldefault('r', concern_relation.relowner)
+        )) privilege
+        where privilege.grantee = 0
+      ) or exists (
+        select 1
+        from pg_catalog.pg_attribute attribute
+        cross join lateral pg_catalog.aclexplode(attribute.attacl) privilege
+        where attribute.attrelid = concern_relation.oid
+          and privilege.grantee = 0
+      ) as concerns_public_privileges,
       pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'SELECT')
         or pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'INSERT')
         or pg_catalog.has_table_privilege(role.oid, mention_relation.oid, 'UPDATE')
@@ -428,6 +530,8 @@ async function roleAttestation(sql: Sql | TransactionSql) {
       on routine_relation.oid = pg_catalog.to_regclass('public.customer_routines')
     left join pg_catalog.pg_class routine_step_relation
       on routine_step_relation.oid = pg_catalog.to_regclass('public.customer_routine_steps')
+    left join pg_catalog.pg_class concern_relation
+      on concern_relation.oid = pg_catalog.to_regclass('public.customer_concerns')
     left join pg_catalog.pg_class mention_relation
       on mention_relation.oid = pg_catalog.to_regclass('public.customer_product_request_research_mentions')
     left join pg_catalog.pg_proc signal_bridge
@@ -484,6 +588,7 @@ async function assertNoPooledSubjectOrVisibleShelfRows(sql: Sql) {
         visible_mutation_count: number;
         visible_cleanup_count: number;
         visible_routine_count: number;
+        visible_concern_count: number;
       }[]
     >`
       select
@@ -514,7 +619,11 @@ async function assertNoPooledSubjectOrVisibleShelfRows(sql: Sql) {
         (
           select pg_catalog.count(*)::integer
           from public.customer_routines
-        ) as visible_routine_count
+        ) as visible_routine_count,
+        (
+          select pg_catalog.count(*)::integer
+          from public.customer_concerns
+        ) as visible_concern_count
     `;
     if (
       state?.customer_subject !== null ||
@@ -523,7 +632,8 @@ async function assertNoPooledSubjectOrVisibleShelfRows(sql: Sql) {
       state.visible_image_count !== 0 ||
       state.visible_mutation_count !== 0 ||
       state.visible_cleanup_count !== 0 ||
-      state.visible_routine_count !== 0
+      state.visible_routine_count !== 0 ||
+      state.visible_concern_count !== 0
     ) {
       throw new Error("Customer Shelf pooled subject reset audit failed.");
     }
@@ -1052,6 +1162,114 @@ async function exercisePrivateRequestLifecycle(
   }
 }
 
+async function exerciseConcernOwnerCrud(
+  transaction: TransactionSql,
+  ownerA: string,
+  ownerB: string,
+) {
+  const concernId = randomUUID();
+  const concernSlug = `audit-${randomUUID()}`;
+
+  await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerA}, true)`;
+  const ownerConcernCreate = await transaction<{ id: string }[]>`
+    insert into public.customer_concerns (
+      id,
+      owner_subject,
+      concern_slug,
+      origin
+    ) values (
+      ${concernId},
+      ${ownerA},
+      ${concernSlug},
+      'synthetic-development'
+    )
+    returning id
+  `;
+  if (ownerConcernCreate.length !== 1)
+    throw new Error("Customer Concern owner create audit failed.");
+
+  const ownerConcernRead = await transaction<{ count: number }[]>`
+    select pg_catalog.count(*)::integer as count
+    from public.customer_concerns
+    where owner_subject = ${ownerA}
+      and id = ${concernId}
+      and removed_at is null
+  `;
+  if (ownerConcernRead[0]?.count !== 1)
+    throw new Error("Customer Concern owner read audit failed.");
+
+  const ownerConcernRemove = await transaction<{ id: string }[]>`
+    update public.customer_concerns
+    set removed_at = now()
+    where owner_subject = ${ownerA}
+      and id = ${concernId}
+      and removed_at is null
+    returning id
+  `;
+  if (ownerConcernRemove.length !== 1)
+    throw new Error("Customer Concern owner remove audit failed.");
+
+  const ownerConcernRestore = await transaction<{ id: string }[]>`
+    update public.customer_concerns
+    set removed_at = null,
+        saved_at = now()
+    where owner_subject = ${ownerA}
+      and id = ${concernId}
+      and removed_at is not null
+    returning id
+  `;
+  if (ownerConcernRestore.length !== 1)
+    throw new Error("Customer Concern owner restore audit failed.");
+
+  await expectPrivilegeDenial(
+    transaction,
+    "forged concern owner insert",
+    (savepoint) => savepoint`
+      insert into public.customer_concerns (
+        owner_subject,
+        concern_slug,
+        origin
+      ) values (
+        ${ownerB},
+        ${`forged-${randomUUID()}`},
+        'synthetic-development'
+      )
+    `,
+  );
+
+  await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerB}, true)`;
+  const crossOwnerConcernRead = await transaction<{ count: number }[]>`
+    select pg_catalog.count(*)::integer as count
+    from public.customer_concerns
+    where owner_subject = ${ownerA}
+      and id = ${concernId}
+  `;
+  if (crossOwnerConcernRead[0]?.count !== 0)
+    throw new Error("Customer Concern cross-owner read audit failed.");
+
+  const crossOwnerConcernUpdate = await transaction<{ id: string }[]>`
+    update public.customer_concerns
+    set removed_at = now()
+    where owner_subject = ${ownerA}
+      and id = ${concernId}
+    returning id
+  `;
+  if (crossOwnerConcernUpdate.length !== 0)
+    throw new Error("Customer Concern cross-owner update audit failed.");
+
+  await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerA}, true)`;
+  const ownerConcernClear = await transaction<{ id: string }[]>`
+    update public.customer_concerns
+    set removed_at = now()
+    where owner_subject = ${ownerA}
+      and id = ${concernId}
+      and removed_at is null
+    returning id
+  `;
+  if (ownerConcernClear.length !== 1)
+    throw new Error("Customer Concern owner clear audit failed.");
+}
+
 async function assertNoRolledBackOwnerRows(
   sql: Sql,
   owners: readonly string[],
@@ -1069,6 +1287,7 @@ async function assertNoRolledBackOwnerRows(
           cleanup: number;
           routines: number;
           routine_steps: number;
+          concerns: number;
         }[]
       >`
         select
@@ -1078,7 +1297,8 @@ async function assertNoRolledBackOwnerRows(
           (select pg_catalog.count(*)::integer from public.customer_product_request_mutations) as mutations,
           (select pg_catalog.count(*)::integer from public.customer_product_request_blob_cleanup) as cleanup,
           (select pg_catalog.count(*)::integer from public.customer_routines) as routines,
-          (select pg_catalog.count(*)::integer from public.customer_routine_steps) as routine_steps
+          (select pg_catalog.count(*)::integer from public.customer_routine_steps) as routine_steps,
+          (select pg_catalog.count(*)::integer from public.customer_concerns) as concerns
       `;
       if (!state || Object.values(state).some((count) => count !== 0)) {
         throw new Error("Customer Shelf rollback verification audit failed.");
@@ -1303,6 +1523,7 @@ async function exerciseRolledBackIsolation(sql: Sql) {
       `;
       if (remainingRoutineSteps[0]?.count !== 0)
         throw new Error("Customer Routine cascade audit failed.");
+      await exerciseConcernOwnerCrud(transaction, ownerA, ownerB);
       throw new ExpectedAuditRollback();
     });
   } catch (error) {

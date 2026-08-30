@@ -11,9 +11,13 @@ export type CustomerShelfRoleAttestation = {
   rolreplication: boolean;
   rolbypassrls: boolean;
   has_role_memberships: boolean;
+  app_has_role_memberships: boolean;
   owns_relations: boolean;
   relrowsecurity: boolean;
   relforcerowsecurity: boolean;
+  shelf_privileges_exact: boolean;
+  shelf_app_privileges: boolean;
+  shelf_public_privileges: boolean;
   requests_relrowsecurity: boolean;
   requests_relforcerowsecurity: boolean;
   images_relrowsecurity: boolean;
@@ -44,6 +48,11 @@ export type CustomerShelfRoleAttestation = {
   routine_steps_app_privileges: boolean;
   routines_public_privileges: boolean;
   routine_steps_public_privileges: boolean;
+  concerns_relrowsecurity: boolean;
+  concerns_relforcerowsecurity: boolean;
+  concerns_shelf_privileges_exact: boolean;
+  concerns_app_privileges: boolean;
+  concerns_public_privileges: boolean;
   research_mentions_shelf_privileges: boolean;
   research_mentions_app_privileges_exact: boolean;
   research_mentions_public_privileges: boolean;
@@ -60,57 +69,66 @@ export function isCustomerShelfRoleAttestationSafe(
 ) {
   return Boolean(
     attestation &&
-    attestation.current_role_is_exact &&
-    attestation.session_role_is_exact &&
-    attestation.rolcanlogin &&
-    !attestation.rolinherit &&
-    !attestation.rolsuper &&
-    !attestation.rolcreatedb &&
-    !attestation.rolcreaterole &&
-    !attestation.rolreplication &&
-    !attestation.rolbypassrls &&
-    !attestation.has_role_memberships &&
-    !attestation.owns_relations &&
-    attestation.relrowsecurity &&
-    attestation.relforcerowsecurity &&
-    attestation.requests_relrowsecurity &&
-    attestation.requests_relforcerowsecurity &&
-    attestation.images_relrowsecurity &&
-    attestation.images_relforcerowsecurity &&
-    attestation.mutations_relrowsecurity &&
-    attestation.mutations_relforcerowsecurity &&
-    attestation.cleanup_relrowsecurity &&
-    attestation.cleanup_relforcerowsecurity &&
-    attestation.requests_shelf_privileges_exact &&
-    attestation.images_shelf_privileges_exact &&
-    attestation.mutations_shelf_privileges_exact &&
-    attestation.cleanup_shelf_privileges_exact &&
-    !attestation.requests_app_privileges &&
-    !attestation.images_app_privileges &&
-    !attestation.mutations_app_privileges &&
-    !attestation.cleanup_app_privileges &&
-    !attestation.requests_public_privileges &&
-    !attestation.images_public_privileges &&
-    !attestation.mutations_public_privileges &&
-    !attestation.cleanup_public_privileges &&
-    attestation.routines_relrowsecurity &&
-    attestation.routines_relforcerowsecurity &&
-    attestation.routine_steps_relrowsecurity &&
-    attestation.routine_steps_relforcerowsecurity &&
-    attestation.routines_shelf_privileges_exact &&
-    attestation.routine_steps_shelf_privileges_exact &&
-    !attestation.routines_app_privileges &&
-    !attestation.routine_steps_app_privileges &&
-    !attestation.routines_public_privileges &&
-    !attestation.routine_steps_public_privileges &&
-    !attestation.research_mentions_shelf_privileges &&
-    attestation.research_mentions_app_privileges_exact &&
-    !attestation.research_mentions_public_privileges &&
-    attestation.signal_bridge_is_security_definer &&
-    attestation.signal_bridge_search_path_is_pinned &&
-    !attestation.signal_bridge_public_execute &&
-    !attestation.signal_bridge_app_execute &&
-    attestation.signal_bridge_shelf_execute &&
-    !attestation.signal_bridge_shelf_execute_grant_option,
+    attestation.current_role_is_exact === true &&
+    attestation.session_role_is_exact === true &&
+    attestation.rolcanlogin === true &&
+    attestation.rolinherit === false &&
+    attestation.rolsuper === false &&
+    attestation.rolcreatedb === false &&
+    attestation.rolcreaterole === false &&
+    attestation.rolreplication === false &&
+    attestation.rolbypassrls === false &&
+    attestation.has_role_memberships === false &&
+    attestation.app_has_role_memberships === false &&
+    attestation.owns_relations === false &&
+    attestation.relrowsecurity === true &&
+    attestation.relforcerowsecurity === true &&
+    attestation.shelf_privileges_exact === true &&
+    attestation.shelf_app_privileges === false &&
+    attestation.shelf_public_privileges === false &&
+    attestation.requests_relrowsecurity === true &&
+    attestation.requests_relforcerowsecurity === true &&
+    attestation.images_relrowsecurity === true &&
+    attestation.images_relforcerowsecurity === true &&
+    attestation.mutations_relrowsecurity === true &&
+    attestation.mutations_relforcerowsecurity === true &&
+    attestation.cleanup_relrowsecurity === true &&
+    attestation.cleanup_relforcerowsecurity === true &&
+    attestation.requests_shelf_privileges_exact === true &&
+    attestation.images_shelf_privileges_exact === true &&
+    attestation.mutations_shelf_privileges_exact === true &&
+    attestation.cleanup_shelf_privileges_exact === true &&
+    attestation.requests_app_privileges === false &&
+    attestation.images_app_privileges === false &&
+    attestation.mutations_app_privileges === false &&
+    attestation.cleanup_app_privileges === false &&
+    attestation.requests_public_privileges === false &&
+    attestation.images_public_privileges === false &&
+    attestation.mutations_public_privileges === false &&
+    attestation.cleanup_public_privileges === false &&
+    attestation.routines_relrowsecurity === true &&
+    attestation.routines_relforcerowsecurity === true &&
+    attestation.routine_steps_relrowsecurity === true &&
+    attestation.routine_steps_relforcerowsecurity === true &&
+    attestation.routines_shelf_privileges_exact === true &&
+    attestation.routine_steps_shelf_privileges_exact === true &&
+    attestation.routines_app_privileges === false &&
+    attestation.routine_steps_app_privileges === false &&
+    attestation.routines_public_privileges === false &&
+    attestation.routine_steps_public_privileges === false &&
+    attestation.concerns_relrowsecurity === true &&
+    attestation.concerns_relforcerowsecurity === true &&
+    attestation.concerns_shelf_privileges_exact === true &&
+    attestation.concerns_app_privileges === false &&
+    attestation.concerns_public_privileges === false &&
+    attestation.research_mentions_shelf_privileges === false &&
+    attestation.research_mentions_app_privileges_exact === true &&
+    attestation.research_mentions_public_privileges === false &&
+    attestation.signal_bridge_is_security_definer === true &&
+    attestation.signal_bridge_search_path_is_pinned === true &&
+    attestation.signal_bridge_public_execute === false &&
+    attestation.signal_bridge_app_execute === false &&
+    attestation.signal_bridge_shelf_execute === true &&
+    attestation.signal_bridge_shelf_execute_grant_option === false,
   );
 }

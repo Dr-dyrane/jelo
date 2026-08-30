@@ -449,9 +449,13 @@ test("Shelf role attestation rejects every elevated or indirect authority path",
     rolreplication: false,
     rolbypassrls: false,
     has_role_memberships: false,
+    app_has_role_memberships: false,
     owns_relations: false,
     relrowsecurity: true,
     relforcerowsecurity: true,
+    shelf_privileges_exact: true,
+    shelf_app_privileges: false,
+    shelf_public_privileges: false,
     requests_relrowsecurity: true,
     requests_relforcerowsecurity: true,
     images_relrowsecurity: true,
@@ -482,6 +486,11 @@ test("Shelf role attestation rejects every elevated or indirect authority path",
     routine_steps_app_privileges: false,
     routines_public_privileges: false,
     routine_steps_public_privileges: false,
+    concerns_relrowsecurity: true,
+    concerns_relforcerowsecurity: true,
+    concerns_shelf_privileges_exact: true,
+    concerns_app_privileges: false,
+    concerns_public_privileges: false,
     research_mentions_shelf_privileges: false,
     research_mentions_app_privileges_exact: true,
     research_mentions_public_privileges: false,
@@ -500,6 +509,7 @@ test("Shelf role attestation rejects every elevated or indirect authority path",
     "rolcanlogin",
     "relrowsecurity",
     "relforcerowsecurity",
+    "shelf_privileges_exact",
     "requests_relrowsecurity",
     "requests_relforcerowsecurity",
     "images_relrowsecurity",
@@ -518,6 +528,9 @@ test("Shelf role attestation rejects every elevated or indirect authority path",
     "routine_steps_relforcerowsecurity",
     "routines_shelf_privileges_exact",
     "routine_steps_shelf_privileges_exact",
+    "concerns_relrowsecurity",
+    "concerns_relforcerowsecurity",
+    "concerns_shelf_privileges_exact",
     "research_mentions_app_privileges_exact",
     "signal_bridge_is_security_definer",
     "signal_bridge_search_path_is_pinned",
@@ -537,7 +550,10 @@ test("Shelf role attestation rejects every elevated or indirect authority path",
     "rolreplication",
     "rolbypassrls",
     "has_role_memberships",
+    "app_has_role_memberships",
     "owns_relations",
+    "shelf_app_privileges",
+    "shelf_public_privileges",
     "requests_app_privileges",
     "images_app_privileges",
     "mutations_app_privileges",
@@ -555,11 +571,27 @@ test("Shelf role attestation rejects every elevated or indirect authority path",
     "routine_steps_app_privileges",
     "routines_public_privileges",
     "routine_steps_public_privileges",
+    "concerns_app_privileges",
+    "concerns_public_privileges",
   ] as const) {
     assert.equal(
       isCustomerShelfRoleAttestationSafe({ ...safe, [key]: true }),
       false,
       key,
+    );
+  }
+
+  for (const key of Object.keys(
+    safe,
+  ) as (keyof CustomerShelfRoleAttestation)[]) {
+    const incomplete: Partial<CustomerShelfRoleAttestation> = { ...safe };
+    delete incomplete[key];
+    assert.equal(
+      isCustomerShelfRoleAttestationSafe(
+        incomplete as CustomerShelfRoleAttestation,
+      ),
+      false,
+      `missing ${key}`,
     );
   }
 
@@ -578,10 +610,35 @@ test("Shelf role attestation rejects every elevated or indirect authority path",
   assert.ok(attestationQuery(auditSource));
   assert.equal(attestationQuery(auditSource), attestationQuery(runtimeSource));
   for (const source of [auditSource, runtimeSource]) {
+    assert.match(
+      source,
+      /from pg_catalog\.pg_auth_members app_membership\s+where app_membership\.member = app_role\.oid\s+\) as app_has_role_memberships/,
+    );
+    assert.match(source, /as shelf_privileges_exact/);
+    assert.match(source, /as shelf_app_privileges/);
+    assert.match(source, /as shelf_public_privileges/);
     assert.match(source, /as requests_shelf_privileges_exact/);
     assert.match(source, /as images_shelf_privileges_exact/);
     assert.match(source, /as mutations_shelf_privileges_exact/);
     assert.match(source, /as cleanup_shelf_privileges_exact/);
+    assert.match(source, /as concerns_relrowsecurity/);
+    assert.match(source, /as concerns_relforcerowsecurity/);
+    assert.match(source, /as concerns_shelf_privileges_exact/);
+    assert.match(source, /as concerns_app_privileges/);
+    assert.match(source, /as concerns_public_privileges/);
+    assert.match(
+      source,
+      /array\['DELETE:false', 'INSERT:false', 'SELECT:false'\]::text\[\][\s\S]*as shelf_privileges_exact/,
+    );
+    assert.match(
+      source,
+      /array\['INSERT:false', 'SELECT:false', 'UPDATE:false'\]::text\[\][\s\S]*as concerns_shelf_privileges_exact/,
+    );
+    assert.match(
+      source,
+      /attribute\.attrelid = concern_relation\.oid[\s\S]*privilege\.grantee = role\.oid[\s\S]*as concerns_shelf_privileges_exact/,
+    );
+    assert.match(source, /to_regclass\('public\.customer_concerns'\)/);
     assert.match(
       source,
       /has_table_privilege\(app_role\.oid,[^\n]+, 'MAINTAIN'\)/g,
@@ -875,6 +932,16 @@ test("the real Shelf role and owner isolation audit is explicit and rolls writes
   assert.match(script, /INSUFFICIENT_PRIVILEGE = ["']42501["']/);
   assert.match(script, /visibleToB\[0\]\?\.count !== 0/);
   assert.match(script, /crossOwnerDelete\.length !== 0/);
+  assert.match(script, /insert into public\.customer_concerns/);
+  assert.match(script, /ownerConcernCreate\.length !== 1/);
+  assert.match(script, /ownerConcernRead\[0\]\?\.count !== 1/);
+  assert.match(script, /ownerConcernRemove\.length !== 1/);
+  assert.match(script, /ownerConcernRestore\.length !== 1/);
+  assert.match(script, /forged concern owner insert/);
+  assert.match(script, /crossOwnerConcernRead\[0\]\?\.count !== 0/);
+  assert.match(script, /crossOwnerConcernUpdate\.length !== 0/);
+  assert.match(script, /ownerConcernClear\.length !== 1/);
+  assert.match(script, /from public\.customer_concerns\) as concerns/);
   assert.match(script, /insert into public\.customer_product_requests/);
   assert.match(
     script,
