@@ -33,6 +33,7 @@ import waveTwentySixAudit from "@/data/retailer-verification/catalogue-offer-ref
 import waveTwentySevenAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-27-2026-08-29.json";
 import waveTwentyEightAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-28-2026-08-29.json";
 import waveTwentyNineAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-29-2026-08-29.json";
+import waveThirtyAudit from "@/data/retailer-verification/catalogue-offer-refresh-wave-30-2026-08-29.json";
 import {
   materializeRetailOffersForCatalogueSeed,
   mergeRetailOffers,
@@ -2420,6 +2421,100 @@ test("catalogue offer refresh wave 29 releases five exact packages with rich cur
       28_200,
     ],
     ["nineless-a-control-azelaic-acid-cream-50ml", 14_650],
+  ]);
+
+  for (const [slug, expected] of expectedActiveRetailers) {
+    const product = catalogueProducts.find(
+      (candidate) => candidate.slug === slug,
+    );
+    assert.ok(product, slug);
+    const active = product.offers.filter((offer) => offer.available);
+    assert.deepEqual(
+      active.map((offer) => offer.retailer).sort(),
+      expected,
+      slug,
+    );
+    assert.equal(
+      Math.min(
+        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
+      ),
+      expectedFloors.get(slug),
+      slug,
+    );
+  }
+});
+
+test("catalogue offer refresh wave 30 releases five exact packages with rich current offers", () => {
+  const projected = waveThirtyAudit.products.flatMap((product) =>
+    product.offers.map((offer) => ({ product, offer })),
+  );
+
+  assert.equal(waveThirtyAudit.matrix.before, 113);
+  assert.equal(waveThirtyAudit.matrix.after, 118);
+  assert.equal(waveThirtyAudit.matrix.total, 162);
+  assert.equal(waveThirtyAudit.summary.productsReviewed, 5);
+  assert.equal(waveThirtyAudit.summary.productsReleased, 5);
+  assert.equal(waveThirtyAudit.summary.productsBlocked, 0);
+  assert.equal(waveThirtyAudit.summary.offersReviewed, 18);
+  assert.equal(waveThirtyAudit.summary.offersAdmitted, 15);
+  assert.equal(waveThirtyAudit.summary.shopperActiveOffers, 14);
+  assert.equal(waveThirtyAudit.summary.outOfStockObservations, 1);
+  assert.equal(waveThirtyAudit.summary.offersBlocked, 3);
+  assert.equal(projected.length, 15);
+  assert.equal(waveThirtyAudit.blockedCells.length, 4);
+  assert.equal(waveThirtyAudit.excludedDiscoveries.length, 3);
+  assert.equal(waveThirtyAudit.scheduledOwner.manifestRecurringOwner, null);
+  assert.equal(
+    waveThirtyAudit.scheduledOwner.latestObservedRun.activeBacklog,
+    98,
+  );
+
+  for (const { product, offer: evidence } of projected) {
+    const offer = verifiedRetailOffers[product.candidateId]?.find(
+      (candidate) => candidate.url === evidence.url,
+    );
+    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    assert.equal(offer.retailer, evidence.retailer);
+    assert.equal(offer.priceNgn, evidence.priceNgn);
+    assert.equal(offer.available, evidence.available);
+    assert.equal(offer.priceObservation?.stock, evidence.stock);
+    assert.equal(offer.priceObservation?.size, product.identity.size);
+    assert.equal(offer.checkedAt, evidence.checkedAt);
+    assert.equal(offer.expiresAt, evidence.expiresAt);
+    assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.responseByteSize > 0);
+    assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+    assert.ok(evidence.packageImageByteSize > 0);
+  }
+
+  const expectedActiveRetailers = new Map<string, string[]>([
+    [
+      "estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g",
+      ["Konga Health", "Perona Beauty"],
+    ],
+    [
+      "la-roche-posay-anthelios-uvmune-400-oil-control-fluid",
+      ["Konga Health", "Perona Beauty"],
+    ],
+    [
+      "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+      ["BuyBetter", "Eslin Beauty", "Slique Beauty", "TOS Nigeria"],
+    ],
+    [
+      "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+      ["Nihet Beauty", "Perona Beauty"],
+    ],
+    [
+      "dang-snail-mucin-repair-serum-100ml",
+      ["Beauty Hut Africa", "DANG Lifestyle", "Konga Health", "Perona Beauty"],
+    ],
+  ]);
+  const expectedFloors = new Map<string, number>([
+    ["estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g", 4_000],
+    ["la-roche-posay-anthelios-uvmune-400-oil-control-fluid", 21_540],
+    ["aqua-rich-turmeric-vitamin-c-body-wash-1000ml", 10_500],
+    ["nineless-mela-pro-tranexamic-acid-sunscreen-100ml", 13_000],
+    ["dang-snail-mucin-repair-serum-100ml", 21_600],
   ]);
 
   for (const [slug, expected] of expectedActiveRetailers) {
