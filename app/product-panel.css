@@ -22,6 +22,7 @@
   box-shadow: 0 14px 38px rgba(77, 46, 40, 0.08);
   backdrop-filter: blur(18px) saturate(135%);
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .product-quick-actions button:first-child {
@@ -288,6 +289,94 @@
   text-underline-offset: 0.18em;
 }
 .product-panel-care-action:focus-visible {
+  border-radius: 0.2rem;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+.product-panel-evidence {
+  margin-top: 1rem;
+  border-top: 1px solid rgba(111, 35, 50, 0.18);
+}
+.product-panel-evidence > summary {
+  min-height: 3rem;
+  padding: 0.8rem 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, max-content) auto;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+}
+.product-panel-evidence > summary::-webkit-details-marker {
+  display: none;
+}
+.product-panel-evidence > summary::after {
+  content: "+";
+  color: var(--wine);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+.product-panel-evidence[open] > summary::after {
+  content: "−";
+}
+.product-panel-evidence > summary span {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.product-panel-evidence > summary small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.product-panel-evidence > summary:focus-visible {
+  border-radius: 0.3rem;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+.product-panel-evidence-body {
+  padding: 0.25rem 0 0.35rem;
+  display: grid;
+  gap: 0.65rem;
+}
+.product-panel-evidence-body p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+.product-panel-evidence-uses span {
+  margin-right: 0.45rem;
+  color: var(--ink);
+  font-weight: 700;
+}
+.product-panel-evidence-body ul {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+  list-style: none;
+}
+.product-panel-evidence-body a {
+  width: fit-content;
+  min-height: 2.75rem;
+  padding-block: 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--wine);
+  font-size: 0.72rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+.product-panel-evidence-body a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+.product-panel-evidence-body a:focus-visible {
   border-radius: 0.2rem;
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;

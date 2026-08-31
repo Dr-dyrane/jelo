@@ -23,10 +23,12 @@ import { ShareButton } from "@/components/share/share-button";
 import { useControlledDialog } from "@/components/ui/use-controlled-dialog";
 import { nigeriaRetailers } from "@/data/retailers";
 import type {
+  ProductCareDecision,
   ProductPanelData,
   ProductPanelTab,
 } from "@/lib/catalogue/product-panel-model";
 import { ingredientLibraryHref } from "@/lib/clinical/care-context-links";
+import { formatProductCareSourceLabel } from "@/lib/clinical/product-care-source-quality";
 import { hasListingEvidence } from "@/modules/commerce/offer-evidence";
 import { hasShareableNgOffer } from "@/modules/commerce/shareable-offer";
 
@@ -51,15 +53,101 @@ const tabs: Array<{ id: ProductPanelTab; label: string }> = [
   { id: "details", label: "Details" },
 ];
 
+function formatReviewDate(value: string): string | null {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
+function ProductCareEvidenceDisclosure({
+  decision,
+}: {
+  decision: ProductCareDecision;
+}) {
+  const reviewedDate = decision.reviewedAt
+    ? formatReviewDate(decision.reviewedAt)
+    : null;
+  const pharmacyApprovalDate = decision.pharmacyAttestation
+    ? formatReviewDate(decision.pharmacyAttestation.approvedAt)
+    : null;
+  const showsApprovedUses =
+    decision.state === "supportive_eligible" &&
+    decision.approvedUses.length > 0;
+
+  return (
+    <details className="product-panel-evidence">
+      <summary>
+        <span>Review evidence</span>
+        <small>{decision.statusLabel}</small>
+      </summary>
+      <div className="product-panel-evidence-body">
+        {showsApprovedUses ? (
+          <p className="product-panel-evidence-uses">
+            <span>Reviewed for</span>
+            {decision.approvedUses.join(" · ")}
+          </p>
+        ) : null}
+        {decision.reviewedAt && reviewedDate ? (
+          <p>
+            {decision.pharmacyAttestation
+              ? "Product evidence reviewed "
+              : "Reviewed "}
+            <time dateTime={decision.reviewedAt}>{reviewedDate}</time>
+          </p>
+        ) : (
+          <p>No completed care-review date is recorded yet.</p>
+        )}
+        {decision.pharmacyAttestation && pharmacyApprovalDate ? (
+          <p>
+            Pharmacy approval by {decision.pharmacyAttestation.reviewerLabel}{" "}
+            <time dateTime={decision.pharmacyAttestation.approvedAt}>
+              {pharmacyApprovalDate}
+            </time>
+          </p>
+        ) : null}
+        {decision.evidenceSourceUrls.length > 0 ? (
+          <ul aria-label="Care review sources">
+            {decision.evidenceSourceUrls.map((url) => (
+              <li key={url}>
+                <a href={url} target="_blank" rel="noreferrer">
+                  {formatProductCareSourceLabel(url)}
+                  <ArrowUpRight size={12} aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No public care-review source is recorded yet.</p>
+        )}
+      </div>
+    </details>
+  );
+}
+
 function focusableElements(dialog: HTMLDialogElement) {
   return Array.from(
     dialog.querySelectorAll<HTMLElement>(
-      'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      'button:not([disabled]), a[href], summary, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
     ),
-  ).filter(
-    (element) =>
-      !element.hasAttribute("hidden") && !element.closest("[hidden]"),
-  );
+  ).filter((element) => {
+    if (element.hasAttribute("hidden") || element.closest("[hidden]"))
+      return false;
+
+    const closedDetails = element.closest<HTMLDetailsElement>(
+      "details:not([open])",
+    );
+    if (!closedDetails) return true;
+
+    return (
+      element.tagName === "SUMMARY" && element.parentElement === closedDetails
+    );
+  });
 }
 
 export function ProductQuickPanelSheet({
@@ -337,6 +425,7 @@ export function ProductQuickPanelSheet({
                 {data.careDecision.nextAction.label}
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
+              <ProductCareEvidenceDisclosure decision={data.careDecision} />
             </div>
             {data.ingredients.length ? (
               <div>

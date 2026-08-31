@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
-import { Stamp } from "@/components/motion/stamp";
 
 type ProductHeroMotionProps = {
   brand: string;
@@ -13,7 +12,6 @@ type ProductHeroMotionProps = {
   size: string | null;
   category: string;
   step: string;
-  careStatus: string | null;
   priceLabel: string | null;
   lowestPrice: number | null;
   storeCount: number;
@@ -29,9 +27,8 @@ const ease = [0.2, 0.8, 0.2, 1] as const;
 /**
  * Product page hero with motion layer.
  *
- * - Staggered entrance: brand → name → meta → size → care → price → panel → concerns
+ * - Staggered entrance: brand → name → meta → size → price → panel → concerns
  * - Market facts render at their final server-owned values; price never animates from a false zero
- * - Care status stamp: scale 1.15 → 0.98 → 1 with warm radial flash
  */
 export function ProductHeroMotion({
   brand,
@@ -40,7 +37,6 @@ export function ProductHeroMotion({
   size,
   category,
   step,
-  careStatus,
   priceLabel,
   lowestPrice,
   storeCount,
@@ -92,16 +88,6 @@ export function ProductHeroMotion({
           >
             {sizeSelector}
           </motion.div>
-        ) : null}
-        {careStatus ? (
-          <motion.p
-            className="product-line"
-            initial={reduce ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, ease, delay: 0.24 }}
-          >
-            <Stamp delay={0.24}>{careStatus}</Stamp>
-          </motion.p>
         ) : null}
         {priceLabel && lowestPrice != null ? (
           <motion.p

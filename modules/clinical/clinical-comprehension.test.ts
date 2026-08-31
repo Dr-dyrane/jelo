@@ -188,21 +188,11 @@ test("product decision summary exposes exact review dates and source links", () 
   assert.match(decisionSummary, /formatProductCareSourceLabel\(url\)/);
 });
 
-test("public product page renders the care decision before the hero", () => {
-  const main = productPage.slice(
-    productPage.indexOf('<main className="product-page">'),
-  );
-  assert.ok(main.indexOf("<ProductDecisionSummary") >= 0);
-  assert.ok(main.indexOf("<ProductHeroMotion") >= 0);
-  assert.ok(
-    main.indexOf("<ProductDecisionSummary") <
-      main.indexOf("<ProductHeroMotion"),
-  );
-  assert.match(productPage, /decision=\{panelData\.careDecision\}/);
-  assert.match(
-    productPage,
-    /careStatus=\{panelData\.careDecision\.statusLabel\}/,
-  );
+test("public product page keeps care evidence out of the default commerce hero", () => {
+  assert.match(productPage, /<ProductHeroMotion/);
+  assert.doesNotMatch(productPage, /<ProductDecisionSummary/);
+  assert.doesNotMatch(productPage, /careStatus=/);
+  assert.match(productPage, /<ProductQuickPanel \{\.\.\.panelData\} \/>/);
   assert.doesNotMatch(
     productPage,
     /isPublishedIntakeProduct|getReviewedProductCare/,

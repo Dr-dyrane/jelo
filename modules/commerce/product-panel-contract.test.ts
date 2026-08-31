@@ -28,6 +28,12 @@ test("the product panel exposes one controlled dialog with a stable accessible t
   assert.match(component, /onCancel=/);
   assert.match(component, /event\.key === (?:'Escape'|"Escape")/);
   assert.match(component, /useControlledDialog/);
+  assert.match(component, /a\[href\], summary, input/);
+  assert.match(component, /details:not\(\[open\]\)/);
+  assert.match(
+    component,
+    /element\.tagName === "SUMMARY" && element\.parentElement === closedDetails/,
+  );
   assert.equal(
     component.match(
       /hidden=\{tab !== (?:'buy'|"buy"|'stores'|"stores"|'details'|"details")\}/g,
@@ -102,6 +108,18 @@ test("the details sheet turns every care state into one Ask Jelo next step", () 
   assert.match(component, /data\.careDecision\.nextAction\.label/);
   assert.match(component, /className="product-panel-care-action"/);
   assert.match(component, /onClick=\{onClose\}/);
+});
+
+test("care review evidence is nested behind an accessible Details disclosure", () => {
+  assert.match(component, /<details className="product-panel-evidence">/);
+  assert.match(component, /<summary>[\s\S]*Review evidence[\s\S]*<\/summary>/);
+  assert.match(component, /decision\.statusLabel/);
+  assert.match(component, /<time dateTime=\{decision\.reviewedAt\}>/);
+  assert.match(component, /aria-label="Care review sources"/);
+  assert.match(component, /formatProductCareSourceLabel\(url\)/);
+  assert.match(panelStyles, /\.product-panel-evidence > summary:focus-visible/);
+  assert.doesNotMatch(productPage, /<ProductDecisionSummary/);
+  assert.doesNotMatch(productPage, /careStatus=/);
 });
 
 test("public product routes reject slugs outside the checked-in publication set", () => {

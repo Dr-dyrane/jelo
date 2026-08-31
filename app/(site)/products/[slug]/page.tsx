@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import { products as staticProducts } from "@/data/catalogue";
 import { concerns } from "@/data/knowledge";
 import { nigeriaRetailers, retailerSlug } from "@/data/retailers";
-import { ProductDecisionSummary } from "@/components/products/product-decision-summary";
 import { ProductHeroMotion } from "@/components/products/product-hero-motion";
 import { ProductGrid } from "@/components/products/product-grid";
 import { ProductQuickPanel } from "@/components/products/product-quick-panel";
@@ -133,8 +132,6 @@ export default async function ProductPage({
         />
       ) : null}
       <main className="product-page">
-        <ProductDecisionSummary decision={panelData.careDecision} />
-
         <ProductHeroMotion
           brand={product.brand}
           brandHref={brandProfileHref(product.brand)}
@@ -142,7 +139,6 @@ export default async function ProductPage({
           size={productFamily ? null : product.size}
           category={product.category}
           step={product.step}
-          careStatus={panelData.careDecision.statusLabel}
           priceLabel={
             pricedReading
               ? pricedReading.priceLabel
