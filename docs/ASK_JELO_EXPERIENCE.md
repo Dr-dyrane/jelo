@@ -54,11 +54,17 @@ clarification classifier follows the same privacy and safety boundary on both
 surfaces.
 
 Private member context is always excluded initially. A customer may explicitly
-include saved Concern references or exact products currently on Shelf or in a
-Routine for that session. The interface previews every included item before a
-submission. The server ignores unknown Concern and product slugs, resolves
-known products through the canonical catalogue, and supplies only their
-verified ingredient identifiers to clinical screening. Retailer copy, public
+include saved Concern references or exact active products currently on Shelf or
+in a Routine for that session. The interface previews every included item
+before a submission. The server requires the verified member session, reads
+that owner's active Concern, Shelf, and Routine context, and intersects the
+submitted slugs with those owner-derived sets before resolving products through
+the canonical catalogue. If an owner-context read required by the selection is
+unavailable, the request stops with a private, recoverable error; it never
+trusts the client claims or silently continues without the selected context. An
+empty selection performs no private context read, and the explicit local
+development customer derives its owned set only from the server fixture.
+Retailer copy, public
 marketing claims, and arbitrary client ingredient text cannot be promoted into
 member product context through this adapter.
 

@@ -3,10 +3,11 @@ import { products } from "@/data/catalogue";
 import { concerns as knowledgeConcerns } from "@/data/knowledge";
 import type { Market } from "@/data/prices";
 import type { Product } from "@/data/products";
-import { getAuthSubject } from "@/lib/auth/subject";
 import { sameSiteRequest } from "@/lib/community-intake/request-security";
 import { readBoundedConsultJson } from "@/lib/consult/request-body";
 import { checkConsultRateLimit } from "@/lib/consult/security";
+import { resolveCustomerConsultContext } from "@/lib/customer/consult-context";
+import { getCustomerIdentityResult } from "@/lib/customer/access";
 import {
   clarificationQuestionsFromProposal,
   runConsultIntakeShadow,
@@ -96,6 +97,9 @@ const reviewedConcernSlugs = new Set(
 const catalogueBySlug = new Map(
   products.map((product) => [product.slug, product]),
 );
+const privateContextResponseHeaders = {
+  "Cache-Control": "private, no-store, max-age=0",
+};
 
 type TimelineRecordInput = z.infer<typeof timelineRecordInputSchema>;
 
@@ -195,6 +199,7 @@ async function clarificationResponse(input: {
   questions: string[];
   market: Market;
   priorOutcomes?: ReturnType<typeof summarizeTimelineOutcomes>;
+  responseInit?: ResponseInit;
 }) {
   const intake = await runConsultIntakeShadow({
     query: input.query,
@@ -205,15 +210,18 @@ async function clarificationResponse(input: {
     input.questions,
   );
 
-  return Response.json({
-    report: clarificationReport(questions),
-    products: [],
-    meta: {
-      market: input.market,
-      needsClarification: true,
-      priorOutcomes: input.priorOutcomes,
+  return Response.json(
+    {
+      report: clarificationReport(questions),
+      products: [],
+      meta: {
+        market: input.market,
+        needsClarification: true,
+        priorOutcomes: input.priorOutcomes,
+      },
     },
-  });
+    input.responseInit,
+  );
 }
 
 export async function POST(request: Request) {
@@ -224,9 +232,12 @@ export async function POST(request: Request) {
     );
   }
 
-  const authIdentity = await getAuthSubject();
+  const customerResult = await getCustomerIdentityResult();
   const rateLimit = await checkConsultRateLimit(request, {
-    accountSubject: authIdentity?.subject,
+    accountSubject:
+      customerResult.status === "authenticated"
+        ? customerResult.identity.subject
+        : undefined,
   });
   if (!rateLimit.allowed) {
     return Response.json(
@@ -273,15 +284,96 @@ export async function POST(request: Request) {
   const legacyClient = clientSchemaVersion !== 2;
   const priorTimeline = priorTimelineInput.map(normalizeTimelineRecord);
   const outcomeSummary = summarizeTimelineOutcomes(priorTimeline);
-  const sharedConcernSlugs = (memberContext?.concernSlugs ?? []).filter(
+  const safetyInterruptResponse = (
+    safety: ReturnType<typeof assessConsultSafety>,
+    clinical: ReturnType<typeof assessClinicalRoutine>,
+    responseInit?: ResponseInit,
+  ) => {
+    const title =
+      safety.level === "emergency"
+        ? "Get help now."
+        : safety.level === "urgent"
+          ? "Please get care today."
+          : "Check first.";
+
+    return Response.json(
+      {
+        report: {
+          title,
+          summary: safety.action,
+          pattern: "JeloCare stopped before product guidance.",
+          routine: [],
+          cautions: [],
+          productSlugs: [],
+          followUp: safety.action,
+        },
+        products: [],
+        guide: concernGuideForClinicalAssessment(clinical),
+        meta: {
+          market,
+          safetyInterrupt: true,
+          safetyLevel: safety.level,
+          priorOutcomes:
+            outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
+        },
+      },
+      responseInit,
+    );
+  };
+  const queryConcerns = inferConcerns(query);
+  const baselineClinical = assessClinicalRoutine(query, {
+    ...profile,
+    concerns: queryConcerns,
+    market,
+    sensitiveSkin:
+      profile?.sensitiveSkin ?? queryConcerns.includes("sensitivity"),
+  });
+  const baselineSafety = assessConsultSafety({
+    text: query,
+    profile: baselineClinical.profile ?? {},
+    referral: baselineClinical.referral,
+  });
+  if (baselineSafety.stopJourney) {
+    return safetyInterruptResponse(baselineSafety, baselineClinical);
+  }
+
+  const customerContext = await resolveCustomerConsultContext(
+    customerResult,
+    memberContext,
+  );
+  if (customerContext.status === "signed-out") {
+    return Response.json(
+      { error: "Sign in again to use your saved care context." },
+      {
+        status: 401,
+        headers: privateContextResponseHeaders,
+      },
+    );
+  }
+  if (customerContext.status === "unavailable") {
+    return Response.json(
+      {
+        error: "Your saved care context is unavailable right now. Try again.",
+      },
+      {
+        status: 503,
+        headers: privateContextResponseHeaders,
+      },
+    );
+  }
+  const ownedMemberContext =
+    customerContext.status === "ready" ? customerContext.context : undefined;
+  const privateContextResponseInit =
+    customerContext.status === "ready"
+      ? { headers: privateContextResponseHeaders }
+      : undefined;
+  const sharedConcernSlugs = (ownedMemberContext?.concernSlugs ?? []).filter(
     (slug) => reviewedConcernSlugs.has(slug),
   );
-  const sharedIngredientIds = (memberContext?.productSlugs ?? []).flatMap(
+  const sharedIngredientIds = (ownedMemberContext?.productSlugs ?? []).flatMap(
     (slug) => catalogueBySlug.get(slug)?.verifiedIngredientIds ?? [],
   );
-  const concerns = [
-    ...new Set([...inferConcerns(query), ...sharedConcernSlugs]),
-  ];
+  const concerns = [...new Set([...queryConcerns, ...sharedConcernSlugs])];
   const currentIngredients = [
     ...new Set([
       ...(profile?.currentIngredients ?? []),
@@ -305,33 +397,11 @@ export async function POST(request: Request) {
   const concernGuide = concernGuideForClinicalAssessment(clinical);
 
   if (safety.stopJourney) {
-    const title =
-      safety.level === "emergency"
-        ? "Get help now."
-        : safety.level === "urgent"
-          ? "Please get care today."
-          : "Check first.";
-
-    return Response.json({
-      report: {
-        title,
-        summary: safety.action,
-        pattern: "JeloCare stopped before product guidance.",
-        routine: [],
-        cautions: [],
-        productSlugs: [],
-        followUp: safety.action,
-      },
-      products: [],
-      guide: concernGuide,
-      meta: {
-        market,
-        safetyInterrupt: true,
-        safetyLevel: safety.level,
-        priorOutcomes:
-          outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
-      },
-    });
+    return safetyInterruptResponse(
+      safety,
+      clinical,
+      privateContextResponseInit,
+    );
   }
 
   const careIntent = assessOrdinaryCareIntent(query, clinical.differential);
@@ -369,33 +439,36 @@ export async function POST(request: Request) {
       selectedSlugs,
     );
 
-    return Response.json({
-      report: {
-        ...report,
-        pattern: `You asked about ${careIntent.labels
-          .map((label) => label.toLowerCase())
-          .join(" and ")}. Here is a simple care plan to start with.`,
-      },
-      products: selected.map((item) => publicProduct(item.product, market)),
-      careIntent: {
-        concernSlugs: careIntent.concernSlugs,
-        labels: careIntent.labels,
-      },
-      ...timelinePayload({
-        concernSlugs: careIntent.concernSlugs,
-        market,
-        selectedSlugs,
-      }),
-      meta: responseMeta(
-        {
-          market,
-          ordinaryCare: true,
-          priorOutcomes:
-            outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
+    return Response.json(
+      {
+        report: {
+          ...report,
+          pattern: `You asked about ${careIntent.labels
+            .map((label) => label.toLowerCase())
+            .join(" and ")}. Here is a simple care plan to start with.`,
         },
-        legacyClient,
-      ),
-    });
+        products: selected.map((item) => publicProduct(item.product, market)),
+        careIntent: {
+          concernSlugs: careIntent.concernSlugs,
+          labels: careIntent.labels,
+        },
+        ...timelinePayload({
+          concernSlugs: careIntent.concernSlugs,
+          market,
+          selectedSlugs,
+        }),
+        meta: responseMeta(
+          {
+            market,
+            ordinaryCare: true,
+            priorOutcomes:
+              outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
+          },
+          legacyClient,
+        ),
+      },
+      privateContextResponseInit,
+    );
   }
 
   const needsClarification =
@@ -416,6 +489,7 @@ export async function POST(request: Request) {
       market,
       priorOutcomes:
         outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
+      responseInit: privateContextResponseInit,
     });
   }
 
@@ -434,41 +508,45 @@ export async function POST(request: Request) {
       market,
       priorOutcomes:
         outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
+      responseInit: privateContextResponseInit,
     });
   }
 
   const report = buildDeterministicConditionGuideReport(clinical, concernGuide);
   const primary = clinical.differential.primary;
 
-  return Response.json({
-    report: {
-      ...report,
-      pattern:
-        "This is the best fit from what you shared, but it is not a confirmed diagnosis. Some conditions can look alike, so an examination or test may change the answer.",
-    },
-    products: [],
-    guide: concernGuide,
-    assessment: {
-      mostLikely: publicAssessmentLabel(primary?.label ?? concernGuide.name),
-      otherPossibilities: clinical.differential.alternatives
-        .slice(0, 2)
-        .map((alternative) => publicAssessmentLabel(alternative.label)),
-      whatMatched:
-        primary?.supporting.slice(0, 3).map(publicAssessmentReason) ?? [],
-    },
-    ...timelinePayload({
-      concernSlugs: [concernGuide.slug],
-      market,
-      selectedSlugs: [],
-    }),
-    meta: responseMeta(
-      {
-        market,
-        guideOnly: true,
-        priorOutcomes:
-          outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
+  return Response.json(
+    {
+      report: {
+        ...report,
+        pattern:
+          "This is the best fit from what you shared, but it is not a confirmed diagnosis. Some conditions can look alike, so an examination or test may change the answer.",
       },
-      legacyClient,
-    ),
-  });
+      products: [],
+      guide: concernGuide,
+      assessment: {
+        mostLikely: publicAssessmentLabel(primary?.label ?? concernGuide.name),
+        otherPossibilities: clinical.differential.alternatives
+          .slice(0, 2)
+          .map((alternative) => publicAssessmentLabel(alternative.label)),
+        whatMatched:
+          primary?.supporting.slice(0, 3).map(publicAssessmentReason) ?? [],
+      },
+      ...timelinePayload({
+        concernSlugs: [concernGuide.slug],
+        market,
+        selectedSlugs: [],
+      }),
+      meta: responseMeta(
+        {
+          market,
+          guideOnly: true,
+          priorOutcomes:
+            outcomeSummary.withOutcome > 0 ? outcomeSummary : undefined,
+        },
+        legacyClient,
+      ),
+    },
+    privateContextResponseInit,
+  );
 }
