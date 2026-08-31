@@ -32,7 +32,7 @@ test("site metadata uses contextual cards instead of a generic root preview", as
   assert.match(socialCardSource, /height: OG_SIZE\.height/);
   assert.match(socialCardSource, /@\/lib\/og\/constants/);
   assert.doesNotMatch(socialCardSource, /@\/lib\/og\/assets/);
-  assert.equal(packageJson.dependencies?.sharp, "0.34.5");
+  assert.equal(packageJson.dependencies?.sharp, "0.35.4");
   assert.equal(packageJson.devDependencies?.sharp, undefined);
   assert.equal(packageJson.overrides?.sharp, undefined);
   assert.match(
