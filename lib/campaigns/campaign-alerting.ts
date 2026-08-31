@@ -1,5 +1,6 @@
 import "server-only";
 
+import { createHash } from "node:crypto";
 import {
   sendAlertEmail,
   hasTransactionalEmailConfig,
@@ -21,12 +22,114 @@ type NoCandidateAlertPayload = {
   timestamp: string;
 };
 
+type CampaignExceptionAlertPayload = {
+  failureCode: string;
+  mode: "production";
+  timestamp: string;
+  message: string;
+};
+
+type CampaignExceptionAlertDependencies = {
+  hasMailConfig: () => boolean;
+  sendMail: typeof sendAlertEmail;
+  logMailFailure: (alert: CampaignExceptionAlertPayload) => void;
+  sendTimeoutMs: number;
+};
+
 const ALERT_RECIPIENT =
   process.env.CAMPAIGN_ALERT_EMAIL ??
   process.env.INVENTORY_ALERT_EMAIL ??
   "hello@jelocare.com";
 
 const NO_CANDIDATE_CRITICAL_THRESHOLD = 120;
+const CAMPAIGN_EXCEPTION_ALERT_TIMEOUT_MS = 5_000;
+
+export function sanitizeCampaignFailureCode(value: unknown): string {
+  if (value === "campaign-run-failed") return value;
+  if (
+    typeof value === "string" &&
+    /^campaign-run-failed-[a-f0-9]{16}$/.test(value)
+  ) {
+    return value;
+  }
+
+  const digest = createHash("sha256")
+    .update(typeof value === "string" ? value : "unknown-campaign-failure")
+    .digest("hex")
+    .slice(0, 16);
+
+  return `campaign-run-failed-${digest}`;
+}
+
+function exceptionAlertEmailHtml(alert: CampaignExceptionAlertPayload): string {
+  return `<table style="border-collapse:collapse;font-family:monospace;font-size:14px">
+    <tr><td style="padding:4px 12px 4px 0;color:#666">Failure code</td><td style="padding:4px 0">${alert.failureCode}</td></tr>
+    <tr><td style="padding:4px 12px 4px 0;color:#666">Mode</td><td style="padding:4px 0">${alert.mode}</td></tr>
+    <tr><td style="padding:4px 12px 4px 0;color:#666">Timestamp</td><td style="padding:4px 0">${alert.timestamp}</td></tr>
+    <tr><td style="padding:4px 12px 4px 0;color:#666">Message</td><td style="padding:4px 0">${alert.message}</td></tr>
+  </table>`;
+}
+
+const defaultExceptionAlertDependencies: CampaignExceptionAlertDependencies = {
+  hasMailConfig: hasTransactionalEmailConfig,
+  sendMail: sendAlertEmail,
+  logMailFailure: (alert) => {
+    console.error(
+      JSON.stringify({
+        event: "daily_campaign_exception_alert_email_failed",
+        ...alert,
+      }),
+    );
+  },
+  sendTimeoutMs: CAMPAIGN_EXCEPTION_ALERT_TIMEOUT_MS,
+};
+
+/**
+ * Send the production exception alert without exposing the underlying error.
+ *
+ * The mail and its failure log contain only a bounded failure code and generic
+ * operational context. Provider failures are deliberately absorbed so the
+ * cron route can preserve its original response.
+ */
+export async function sendCampaignExceptionAlert(
+  failureCode: unknown,
+  timestamp: string,
+  dependencies: CampaignExceptionAlertDependencies = defaultExceptionAlertDependencies,
+): Promise<CampaignExceptionAlertPayload> {
+  const alert: CampaignExceptionAlertPayload = {
+    failureCode: sanitizeCampaignFailureCode(failureCode),
+    mode: "production",
+    timestamp: new Date(timestamp).toISOString(),
+    message:
+      "The production daily campaign run failed. Review the structured server logs using the failure code.",
+  };
+
+  if (!dependencies.hasMailConfig()) return alert;
+
+  let deadline: ReturnType<typeof setTimeout> | undefined;
+  try {
+    await Promise.race([
+      dependencies.sendMail({
+        to: ALERT_RECIPIENT,
+        subject: "[JeloCare CRITICAL] Daily campaign run failed",
+        text: `${alert.message}\n\nFailure code: ${alert.failureCode}\nMode: ${alert.mode}\nTimestamp: ${alert.timestamp}`,
+        html: exceptionAlertEmailHtml(alert),
+      }),
+      new Promise<never>((_, reject) => {
+        deadline = setTimeout(
+          () => reject(new Error("campaign-exception-alert-timeout")),
+          dependencies.sendTimeoutMs,
+        );
+      }),
+    ]);
+  } catch {
+    dependencies.logMailFailure(alert);
+  } finally {
+    if (deadline) clearTimeout(deadline);
+  }
+
+  return alert;
+}
 
 /**
  * Determine whether a no-candidate campaign run should trigger an alert.
@@ -144,6 +247,8 @@ export async function sendCampaignNoCandidateAlertIfNeeded(
 }
 
 export type {
+  CampaignExceptionAlertDependencies,
+  CampaignExceptionAlertPayload,
   NoCandidateAlertPayload,
   RejectedCandidate as CampaignRejectedCandidate,
 };

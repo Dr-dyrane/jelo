@@ -1,4 +1,8 @@
 import { revalidatePath, revalidateTag } from "next/cache";
+import {
+  sanitizeCampaignFailureCode,
+  sendCampaignExceptionAlert,
+} from "@/lib/campaigns/campaign-alerting";
 import { runDailyCampaign } from "@/lib/campaigns/daily-campaign-runner";
 import { campaignDailyEnabled } from "@/lib/campaigns/campaign-recipient";
 import { isAuthorizedCronRequest } from "@/modules/retail-intelligence/cron-auth";
@@ -79,13 +83,9 @@ export async function GET(request: Request) {
       headers: { "Cache-Control": "no-store", "X-Robots-Tag": "noindex" },
     });
   } catch (cause) {
-    const code =
-      cause instanceof Error
-        ? cause.message
-            .toLowerCase()
-            .replace(/[^a-z0-9_-]+/g, "-")
-            .slice(0, 80)
-        : "campaign-run-failed";
+    const code = sanitizeCampaignFailureCode(
+      cause instanceof Error ? cause.message : cause,
+    );
     console.error(
       JSON.stringify({
         event: "daily_campaign_cron_failed",
@@ -93,6 +93,12 @@ export async function GET(request: Request) {
         code,
       }),
     );
+    if (runMode === "production") {
+      await sendCampaignExceptionAlert(
+        code || "campaign-run-failed",
+        new Date().toISOString(),
+      );
+    }
     return publicError(code || "campaign-run-failed", 500);
   }
 }

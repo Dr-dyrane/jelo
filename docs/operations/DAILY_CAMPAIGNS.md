@@ -24,6 +24,23 @@ Use a new bounded iteration for a materially changed preview or test. Retrying
 the same iteration after a delivery intent exists is deliberately suppressed;
 Hostinger does not provide a send-idempotency contract.
 
+## Exception alert
+
+An unhandled production run exception emits the structured
+`daily_campaign_cron_failed` log and sends one critical transactional alert to
+the existing campaign-alert recipient policy (`CAMPAIGN_ALERT_EMAIL`, then
+`INVENTORY_ALERT_EMAIL`, then `hello@jelocare.com`). The alert contains only a
+bounded sanitized failure code, production mode, timestamp, and a generic
+operator message. It never contains the raw error, stack trace, recipient
+addresses, credentials, campaign drafts, product or customer data, or database
+details. Missing mail configuration skips delivery; provider failure is logged
+without changing the cron route's original `500` response.
+
+This exception alert is separate from the no-candidate alert. No-candidate
+runs completed normally and report selector coverage and rejection blockers;
+exception alerts mean the production run itself failed. Neither path changes
+the exact-three-active-operator rule for daily review packet delivery.
+
 ## Daily deliverable
 
 Every successful run prepares exactly three independent 1080 × 1920 review
