@@ -40,6 +40,34 @@ We measure behaviour to answer one question: does JeloCare help someone choose b
   collapses an unavailable Concern source to an empty set, so a successfully
   rendered empty Concern state remains a successful route read rather than a
   per-source health signal.
+- The production SLO evaluator consumes that report without adding another
+  telemetry stream:
+
+  ```bash
+  npm run customer:telemetry:slo -- \
+    --minimum-read <approved-positive-integer> \
+    --minimum-write <approved-positive-integer>
+  ```
+
+  Both minimum-traffic values are required policy inputs. They have no code
+  defaults and require a recorded approval before an evaluation is evidence.
+  The evaluator rejects every non-production, non-28-day, malformed, or
+  incomplete window. It compares raw aggregate counts with the 99.9% read and
+  99.5% write targets and emits aggregate-only JSON. `pass` means both signals
+  reached approved traffic and met target. `fail` means at least one signal
+  reached traffic and missed target. `not-evaluable` means no known failure is
+  present but at least one signal has not reached approved traffic; it is never
+  a pass. The report's hourly buckets cannot prove the roadmap's separate
+  15-minute rollback signal.
+
+  Exit status is `0` for pass, `1` for fail, `2` for not-evaluable, and `3` for
+  invalid input, unavailable reporting, or another fail-closed error. Retain
+  the dated aggregate JSON, exit status, exact application/deployment revision,
+  report window, command, approved minimum-traffic policy reference, and an
+  artifact checksum in the protected production evidence register. Do not
+  retain credentials or introduce identity, request, product, concern, or other
+  private dimensions. No production SLO evidence exists until a dated
+  672-hour report is retained with those fields.
 
 The rest of the custom event taxonomy below is still roadmap. Page traffic,
 anonymous contribution starts and completions, outbound attribution, and

@@ -712,8 +712,12 @@ former owner; and record the role-compatible rollback floor.
 The private telemetry writer and operator report ship in code, but that is not
 authenticated production evidence. Configure the existing KV variables during
 the protected activation, verify the production partition, observe the agreed
-SLO window, and establish alerts and recovery before calling observability
-production-complete.
+SLO window, record approval for the explicit minimum read and write traffic
+inputs, and establish alerts and recovery before calling observability
+production-complete. Hourly telemetry can evaluate the 28-day scorecard but
+cannot prove the separate 15-minute rollback signal. No production SLO or drill
+evidence exists until a dated 672-hour production report and the non-destructive
+recovery-drill receipt described in the runbook are retained.
 
 Do not describe Phase 1 as production-active without that evidence. Before
 private requests open beyond a controlled cohort, add a governed review-to-

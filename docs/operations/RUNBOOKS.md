@@ -132,6 +132,66 @@ Expected public behavior: catalogue reads fall back to reviewed static data.
 
 Community and retailer intake should return a temporary unavailable response rather than pretend to save.
 
+## Private Me telemetry SLO evaluation and recovery drill
+
+The scorecard command is read-only. It always requests the canonical 28-day
+production report and requires both approved traffic-policy values explicitly:
+
+```bash
+npm run customer:telemetry:slo -- \
+  --minimum-read <approved-positive-integer> \
+  --minimum-write <approved-positive-integer>
+```
+
+Do not invent either value during an incident. The minimum read and write
+traffic values remain policy inputs requiring recorded approval. Exit `0`
+means both signals reached minimum traffic and passed (read at least 99.9%,
+write at least 99.5%). Exit `1` means a traffic-qualified signal failed. Exit
+`2` means the result is not evaluable because at least one signal lacks minimum
+traffic and no qualified signal failed. Exit `3` is a generic fail-closed input
+or operational error. The JSON contains only window metadata, policy values,
+and aggregate read/write counts, rates, targets, and statuses.
+
+For production evidence, retain the exact JSON and exit status with a UTC
+capture time, the report's start and end hour, exact application revision and
+deployment, exact command, the recorded approval reference for both minimums,
+operator/reviewer references, and a SHA-256 checksum. Never record Redis
+credentials or add private dimensions. Hourly hashes can evaluate the 28-day
+target, but they cannot prove the separate 15-minute rollback signal; that
+requires a separately approved finer-grained alert source.
+
+Use this non-destructive operator-report recovery drill contract:
+
+1. With approved read-only production access, capture one successful report and
+   evaluation. Do not write, delete, expire, copy, or synthesize a production
+   telemetry hash.
+2. In a local child process only, remove `KV_REST_API_URL` and
+   `KV_REST_API_TOKEN` from that process environment and run the same command.
+   Require generic error text, no report JSON, and exit `3`. Do not alter Vercel
+   configuration, rotate credentials, or make Redis unavailable.
+
+   ```bash
+   env -u KV_REST_API_URL -u KV_REST_API_TOKEN \
+     npm run customer:telemetry:slo -- \
+       --minimum-read <same-approved-positive-integer> \
+       --minimum-write <same-approved-positive-integer>
+   ```
+
+3. End the child process, run the unchanged command again with the approved
+   read-only environment restored, and require a valid aggregate result. This
+   proves only fail-closed operator reporting and recovery after local
+   configuration restoration; it does not prove writer recovery, Redis backup
+   restore, data reconstruction, or the 15-minute rollback alert.
+4. Retain a dated drill receipt containing the two successful aggregate
+   artifact checksums, the expected failure exit, timestamps, revision and
+   deployment, unchanged configuration attestation, approved traffic-policy
+   reference, and operator/reviewer references. Record any hour-boundary change
+   rather than expecting byte-identical reports.
+
+No production SLO or recovery-drill evidence exists until both a dated 672-hour
+production report and the drill receipt are retained. A code check, local test,
+or undated terminal transcript is not production evidence.
+
 ## Stripe payment reconciliation reports anomalies
 
 The scheduled `/api/cron/reconcile-payments` owner examines only a bounded
