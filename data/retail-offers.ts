@@ -974,7 +974,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T02:16:56.000Z",
-        expiresAt: "2026-09-06T02:16:56.000Z",
+        expiresAt: "2026-08-31T00:17:58Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -2898,9 +2900,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "400 ml",
       {
         observedAt: "2026-08-30T02:27:37.000Z",
-        expiresAt: "2026-09-06T02:27:37.000Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-31T00:17:50Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -3148,9 +3150,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "50 ml",
       {
         observedAt: "2026-08-30T07:18:54.000Z",
-        expiresAt: "2026-09-06T07:18:54.000Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-08-31T00:17:47Z",
+        stock: "unknown",
+        available: false,
         verificationMethod: "api",
       },
     ),
@@ -3476,9 +3478,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "547 ml",
       {
         observedAt: "2026-08-30T01:43:54.671Z",
-        expiresAt: "2026-09-06T01:43:54.671Z",
-        available: true,
-        stock: "in-stock",
+        expiresAt: "2026-08-31T00:17:50Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
