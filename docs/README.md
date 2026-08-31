@@ -26,6 +26,7 @@ This is the entry point for product, engineering, data, and operations.
 | Run Neon safely                                            | [Neon and data](./data/NEON.md)                                                                                     |
 | Read the aggregate business proof and cost gaps            | [Business evidence register](./business-evidence/REGISTER.md)                                                       |
 | Review the comprehensive remediation evidence              | [Comprehensive remediation register](./operations/evidence/2026-08-31-comprehensive-remediation.md)                 |
+| Review the Ask member-context ownership release            | [Ask member-context ownership evidence](./operations/evidence/2026-08-31-ask-member-context-ownership.md)           |
 | Review the pharmacy care attestation                       | [Pharmacy care attestation](./operations/evidence/2026-08-31-pharmacy-care-attestation.md)                          |
 | Review the clinical scheduled-owner evidence               | [Clinical review scheduled owner](./operations/evidence/2026-08-31-clinical-review-scheduled-owner.md)              |
 | Operate guest-first assisted procurement                   | [Assisted procurement](./commerce/ASSISTED_PROCUREMENT.md)                                                          |

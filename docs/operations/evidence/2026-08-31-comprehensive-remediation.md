@@ -13,10 +13,10 @@ ledger, or an authorization to mutate production data or configuration.
 
 ## Release boundary
 
-The integration branch is `main`. At this receipt's latest capture, local
-`HEAD` and `origin/main` resolve to
-`2ad29208e8d960ef7f8585a52d50aff88929900c`. The exact production deployment
-is `dpl_9osvqHJqNAjHxgeFvm1aPoDdMFSv`, which is READY and aliased to
+The integration branch is `main`. The latest application revision captured by
+this receipt is
+`93df3a618c80af5bd64e646c26178af3d2f072d3`. Its exact production deployment
+is `dpl_DVfAwVqUp9WW3JXjXP9WJghF2ggK`, which is READY and aliased to
 `www.jelocare.com` and `jelocare.com`.
 
 The shared checkout still contains protected, unrelated work in
@@ -51,6 +51,8 @@ cell because each cell was integrated on `main`.
 | Ask JeloCare governed assessment                 | `9ca25d128aca147b23d927c9e2744f9dcb395a79` | `dpl_6chbE24Ky7iAQ1yG5msQ73NroXNJ` | Ask acts under medical/pharmacy protocol governance, gives a possible explanation and plan, and does not impersonate a personally reviewed diagnosis. |
 | Customer recovery and Ops wait-clock integrity   | `0dba14dd04c1188fd5b8319ab8b1150846ed8995` | `dpl_7mPpRM2smdfNXeZALF4WgqVQNgxK` | Provider failure recovers with bounded intent and no private-ID leak; Ops age uses append-only owned-state evidence.                                  |
 | Postgres reconnect-delay clamp                   | `2ad29208e8d960ef7f8585a52d50aff88929900c` | `dpl_9osvqHJqNAjHxgeFvm1aPoDdMFSv` | The exact Postgres 3.4.7 ESM and CommonJS sources receive one version- and hash-pinned non-negative reconnect clamp during install.                   |
+| Global product care source and Ask handoff       | `3d5dc34fabca8678f138189d2ece14ea63c8e23b` | `dpl_DhmwSjCYwv4BtRFMHYzauTXDC4x4` | All 163 products expose a truthful care boundary and editable Ask handoff; source roles fail closed without blanket clinical promotion.               |
+| Ask selected-context owner verification          | `93df3a618c80af5bd64e646c26178af3d2f072d3` | `dpl_DVfAwVqUp9WW3JXjXP9WJghF2ggK` | Submitted Concern, Shelf, and Routine slugs influence Ask only after server-side owner verification; private responses are never cacheable.           |
 
 ## Integrated verification
 
@@ -143,18 +145,47 @@ external Neon Auth upstream 500 while the application failed closed to 404;
 that provider-capacity condition remains gate 1 rather than being attributed
 to the reconnect patch.
 
+The global product-care cell passed 64 focused tests and the full clean
+release verifier. Its exact deployment removed the obsolete dead-end care
+sentence from all 163 product presentations, introduced one editable Ask
+handoff, and tightened product-source admission so retailer, social,
+aggregator, or unknown hosts cannot satisfy a claim-scoped evidence pair. The
+matrix remains truthful at 22 supportive, 39 pharmacist-reviewed context, and
+102 evidence-pending products; the context-only review was not widened.
+
+The Ask member-context cell passed 125 focused tests and the exact clean
+release verifier: 1,720 tests ran, 1,716 passed, four expected environment
+tests were skipped, and none failed. One independent review stopped the first
+candidate over missing private cache headers; the bounded correction covered
+every selected-context success and failure branch, and the recheck returned
+`SHIP`. The exact Vercel build repeated the same full-suite totals.
+
+Live smokes proved public guidance remained HTTP 200, emergency guidance
+interrupted before unavailable authentication, and forged nonempty member
+context failed closed at HTTP 503 with `private, no-store, max-age=0` and no
+report or products. `/me/consult` preserved its safe continuation, while
+signed-out `/ops` and `/ops/orders` remained concealed 404 responses. The
+deployment-scoped smoke window contained no HTTP 500 or new application-error
+signature.
+
+A complete production crawl then returned HTTP 200 for all 163 unique product
+URLs. The obsolete sentence appeared zero times; every page matched its exact
+care state and editable Ask prompt; and two warmed-cache rounds produced
+163 of 163 hits without state, prompt, action, redirect, presentation, ETag, or
+obsolete-copy drift.
+
 ## Objective closure matrix
 
-| Remediation domain                          | Current proof                                                                                                                                                 | Closure state                                                                                                        |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Release-blocking security                   | Zero-audit dependency floors, exact Shelf-role attestation, production database-alias containment, private operator logs, and name-only environment inventory | Code and release cells closed; dedicated HMAC secret configuration remains gate 2                                    |
-| Authentication                              | Password lifecycle containment, bounded OTP intent and recovery, private-route fail-closed behavior, and production safe-continuation checks                  | Non-destructive boundary closed; Neon capacity remains gate 1 and a fresh private/destructive journey remains gate 8 |
-| Payment integrity                           | Signed settlement-time binding, preserved payment-attempt reservations, governed evidence tests, and exact READY deployment                                   | Code and release cell closed; provider fees and other business inputs remain gate 9                                  |
-| Inventory automation and failure accounting | Separate retry, contradiction, deferral, stale, and watchdog accounting; guarded proposal integration; natural owner-run logs                                 | Code/release cells closed; Neon capacity remains gate 1                                                              |
-| Production observability                    | Exact-deployment runtime logs, health watchdog, private aggregate telemetry, and deterministic 28-day evaluator                                               | Instrumentation closed; approved traffic floors, alert ownership, dated 672-hour report, and drill remain gate 4     |
-| Customer and commerce flows                 | Public care states, governed Ask assessment, compact accessibility, owner isolation, export privacy, bounded recovery and production route smokes             | Non-destructive released behavior closed; policy/private-action gates 5, 6, 8, 11, and 12 remain                     |
-| Business evidence                           | Private read-only 30-day aggregate with exact payment and SLA proof rules, explicit cost-null behavior, and the observed natural 05:23 run                    | Code/release and scheduled-observation cells closed; Neon capacity and unavailable inputs remain gates 1 and 9       |
-| Final release record                        | Seventeen exact revision-to-READY-deployment bindings, production smokes, independent review, protected-path accounting, and natural owner observations       | Current release cells are live; the first natural all-product clinical-owner run remains pending                     |
+| Remediation domain                          | Current proof                                                                                                                                                                         | Closure state                                                                                                        |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Release-blocking security                   | Zero-audit dependency floors, exact Shelf-role attestation, production database-alias containment, private operator logs, and name-only environment inventory                         | Code and release cells closed; dedicated HMAC secret configuration remains gate 2                                    |
+| Authentication                              | Password lifecycle containment, bounded OTP intent and recovery, private-route fail-closed behavior, and production safe-continuation checks                                          | Non-destructive boundary closed; Neon capacity remains gate 1 and a fresh private/destructive journey remains gate 8 |
+| Payment integrity                           | Signed settlement-time binding, preserved payment-attempt reservations, governed evidence tests, and exact READY deployment                                                           | Code and release cell closed; provider fees and other business inputs remain gate 9                                  |
+| Inventory automation and failure accounting | Separate retry, contradiction, deferral, stale, and watchdog accounting; guarded proposal integration; natural owner-run logs                                                         | Code/release cells closed; Neon capacity remains gate 1                                                              |
+| Production observability                    | Exact-deployment runtime logs, health watchdog, private aggregate telemetry, and deterministic 28-day evaluator                                                                       | Instrumentation closed; approved traffic floors, alert ownership, dated 672-hour report, and drill remain gate 4     |
+| Customer and commerce flows                 | Global care handoffs, governed Ask assessment, server-verified selected context, compact accessibility, owner isolation, export privacy, bounded recovery and production route smokes | Non-destructive released behavior closed; policy/private-action gates 5, 6, 8, 11, and 12 remain                     |
+| Business evidence                           | Private read-only 30-day aggregate with exact payment and SLA proof rules, explicit cost-null behavior, and the observed natural 05:23 run                                            | Code/release and scheduled-observation cells closed; Neon capacity and unavailable inputs remain gates 1 and 9       |
+| Final release record                        | Nineteen exact revision-to-READY-deployment bindings, production smokes, independent review, protected-path accounting, and natural owner observations                                | Current release cells are live; the first natural all-product clinical-owner run remains pending                     |
 
 ## Scheduled-owner observations
 
