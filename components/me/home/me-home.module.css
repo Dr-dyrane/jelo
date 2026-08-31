@@ -2110,6 +2110,31 @@
   line-height: 1.45;
 }
 
+.productCareAction {
+  width: fit-content;
+  min-height: 2.75rem;
+  margin-top: 0.85rem;
+  padding-block: 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--wine);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.productCareAction:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.productCareAction:focus-visible {
+  border-radius: 0.2rem;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
 .productEvidenceActions {
   display: flex;
   flex-wrap: wrap;

@@ -88,8 +88,20 @@ test("one server read model owns evidence and the public page consumes it", () =
   assert.match(model, /getProductPriceTrends\(product\.slug, trendSnapshot\)/);
   assert.match(model, /listProductIngredientsSafe\(product\.slug\)/);
   assert.match(model, /getReviewedProductCare\(product\.slug\)/);
+  assert.match(model, /buildProductCareDecision\(careReview, product\)/);
+  assert.match(
+    model,
+    /href: `\/consult\?q=\$\{encodeURIComponent\(prompt\)\}`/,
+  );
   assert.match(productPage, /readProductPanelData\(product\)/);
   assert.match(productPage, /<ProductQuickPanel \{\.\.\.panelData\} \/>/);
+});
+
+test("the details sheet turns every care state into one Ask Jelo next step", () => {
+  assert.match(component, /data\.careDecision\.nextAction\.href/);
+  assert.match(component, /data\.careDecision\.nextAction\.label/);
+  assert.match(component, /className="product-panel-care-action"/);
+  assert.match(component, /onClick=\{onClose\}/);
 });
 
 test("public product routes reject slugs outside the checked-in publication set", () => {

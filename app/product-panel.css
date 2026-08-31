@@ -270,6 +270,28 @@
   border-radius: 1.35rem;
   background: rgba(232, 187, 180, 0.38);
 }
+.product-panel-care-action {
+  width: fit-content;
+  min-height: 2.75rem;
+  margin-top: 0.9rem;
+  padding-block: 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--wine);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.product-panel-care-action:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+.product-panel-care-action:focus-visible {
+  border-radius: 0.2rem;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
 .product-panel-chips {
   margin-top: 0.85rem;
   display: flex;

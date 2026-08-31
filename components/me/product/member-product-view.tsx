@@ -1,6 +1,7 @@
 "use client";
 
-import { Info, ShoppingBag } from "lucide-react";
+import { ArrowRight, Info, ShoppingBag } from "lucide-react";
+import Link from "next/link";
 import { useMemo } from "react";
 import { AddToBasketButton } from "@/components/commerce/add-to-basket-button";
 import { ShelfActionButton } from "@/components/me/shelf/shelf-action-button";
@@ -242,6 +243,13 @@ export function MemberProductView({
             <section>
               <span>How it fits</span>
               <p>{panelData.careNote}</p>
+              <Link
+                className={styles.productCareAction}
+                href={panelData.careDecision.nextAction.href}
+              >
+                {panelData.careDecision.nextAction.label}
+                <ArrowRight size={14} aria-hidden="true" />
+              </Link>
             </section>
             <section>
               <span>How to use</span>
@@ -256,7 +264,10 @@ export function MemberProductView({
                   ))}
                 </ul>
               ) : (
-                <p>More formula evidence is needed.</p>
+                <p>
+                  We do not have a verified ingredient list for this exact
+                  product yet. Check the package before you use it.
+                </p>
               )}
               <small>Ingredient evidence is not the complete formula.</small>
             </section>

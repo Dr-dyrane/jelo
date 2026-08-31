@@ -1284,6 +1284,9 @@ test("Member Product keeps care evidence visible before the detail sheet", () =>
   assert.match(view, /panelData\?: ProductPanelData/);
   assert.match(view, /Understand it before you choose it\./);
   assert.match(view, /panelData\.careNote/);
+  assert.match(view, /panelData\.careDecision\.nextAction\.href/);
+  assert.match(view, /panelData\.careDecision\.nextAction\.label/);
+  assert.match(view, /productCareAction/);
   assert.match(view, /panelData\.ingredients\.slice\(0, 6\)/);
   assert.match(css, /\.productCareDetails/);
 });

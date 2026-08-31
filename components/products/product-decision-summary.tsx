@@ -1,10 +1,13 @@
 import {
+  ArrowRight,
   ArrowUpRight,
   CircleAlert,
   FileQuestion,
   ShieldCheck,
 } from "lucide-react";
+import Link from "next/link";
 import type { ProductCareDecision } from "@/lib/catalogue/product-panel-model";
+import { formatProductCareSourceLabel } from "@/lib/clinical/product-care-source-quality";
 import styles from "./product-decision-summary.module.css";
 
 type Props = {
@@ -55,6 +58,10 @@ export function ProductDecisionSummary({ decision }: Props) {
               {decision.approvedUses.join(" · ")}
             </p>
           ) : null}
+          <Link href={decision.nextAction.href} className={styles.careAction}>
+            {decision.nextAction.label}
+            <ArrowRight size={15} aria-hidden="true" />
+          </Link>
         </div>
 
         <div className={styles.evidence} aria-label="Care review evidence">
@@ -91,7 +98,7 @@ export function ProductDecisionSummary({ decision }: Props) {
                     rel="noreferrer"
                     className={styles.sourceLink}
                   >
-                    {sourceHostname(url)}
+                    {formatProductCareSourceLabel(url)}
                     <ArrowUpRight size={12} aria-hidden="true" />
                   </a>
                 </li>
@@ -106,14 +113,6 @@ export function ProductDecisionSummary({ decision }: Props) {
       </div>
     </section>
   );
-}
-
-function sourceHostname(url: string): string {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
 }
 
 function formatReviewDate(value: string): string | null {

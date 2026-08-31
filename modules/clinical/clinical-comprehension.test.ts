@@ -145,19 +145,22 @@ test("product care decision maps every canonical state without catalogue-copy fa
   assert.match(productPanelModel, /Pharmacist-reviewed context/);
   assert.match(productPanelModel, /reviewed context only/);
   assert.match(productPanelModel, /pharmacyAttestation/);
-  assert.match(productPanelModel, /Not enough reviewed care evidence/);
+  assert.match(productPanelModel, /Supportive use not confirmed/);
   assert.doesNotMatch(productPanelModel, /product\.displayLine/);
 });
 
 test("insufficient product copy denies concern and skin-type support", () => {
   assert.match(
     productPanelModel,
-    /does not yet have enough reviewed care evidence to say which concerns or skin types this product may support/,
+    /haven't confirmed this exact product for a particular concern or skin type yet/,
   );
   assert.match(
     productPanelModel,
-    /statusLabel: ["']Not enough reviewed care evidence["'][\s\S]*?approvedUses: \[\]/,
+    /statusLabel: ["']Supportive use not confirmed["'][\s\S]*?approvedUses: \[\]/,
   );
+  assert.match(productPanelModel, /Tell Jelo what I'm noticing/);
+  assert.match(productPanelModel, /What I'm noticing is:/);
+  assert.doesNotMatch(productPanelModel, /Ask Jelo to check how it fits/);
   assert.doesNotMatch(decisionSummary, /concernFit|ingredients/);
 });
 
@@ -180,6 +183,9 @@ test("product decision summary exposes exact review dates and source links", () 
   assert.match(decisionSummary, /timeZone: ["']UTC["']/);
   assert.match(decisionSummary, /href=\{url\}/);
   assert.match(decisionSummary, /Care review sources/);
+  assert.match(decisionSummary, /href=\{decision\.nextAction\.href\}/);
+  assert.match(decisionSummary, /decision\.nextAction\.label/);
+  assert.match(decisionSummary, /formatProductCareSourceLabel\(url\)/);
 });
 
 test("public product page renders the care decision before the hero", () => {

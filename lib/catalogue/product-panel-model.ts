@@ -31,6 +31,10 @@ export type ProductCareDecision = {
   evidenceSourceUrls: string[];
   reviewedAt: string | null;
   pharmacyAttestation: PharmacyCareReviewAttestation | null;
+  nextAction: {
+    label: string;
+    href: string;
+  };
 };
 
 export type ProductPanelData = {
@@ -54,6 +58,7 @@ export type ProductPanelData = {
 
 export function buildProductCareDecision(
   careReview: ReviewedProductCare | undefined,
+  product: Pick<Product, "brand" | "name">,
 ): ProductCareDecision {
   const state = careReview?.careState ?? "insufficient_data";
   const evidenceSourceUrls = [...(careReview?.evidenceSourceUrls ?? [])];
@@ -61,19 +66,21 @@ export function buildProductCareDecision(
   const pharmacyAttestation = careReview
     ? (getPharmacyCareReviewAttestation(careReview.productSlug) ?? null)
     : null;
+  const nextAction = buildProductCareAction(product);
 
   if (state === "supportive_eligible") {
     return {
       state,
       statusLabel: "Reviewed supportive use",
       summary:
-        "JeloCare has reviewed this product for the specific supportive uses listed here.",
+        "JeloCare has reviewed this product for the specific supportive uses listed here. Tell Jelo what you're noticing for an assessment before you add it to your routine.",
       approvedUses: careReview
         ? careReview.approvedUses.map((use) => use.label)
         : [],
       evidenceSourceUrls,
       reviewedAt,
       pharmacyAttestation: null,
+      nextAction,
     };
   }
 
@@ -83,11 +90,12 @@ export function buildProductCareDecision(
         state,
         statusLabel: "Pharmacist-reviewed context",
         summary:
-          "A JeloCare pharmacist approved this as reviewed context only, not a direct supportive recommendation. Ask a pharmacist for guidance about a specific concern.",
+          "A JeloCare pharmacist approved this as reviewed context only, not a direct supportive recommendation. Tell Jelo what you're noticing for an assessment and a safer next step.",
         approvedUses: [],
         evidenceSourceUrls,
         reviewedAt,
         pharmacyAttestation,
+        nextAction,
       };
     }
 
@@ -95,23 +103,35 @@ export function buildProductCareDecision(
       state,
       statusLabel: "Pharmacist guidance required",
       summary:
-        "JeloCare's reviewed care state says to check with a pharmacist before treating this product as supportive care.",
+        "This product still needs pharmacist guidance before JeloCare can treat it as supportive care. Tell Jelo what you're noticing for an assessment and a safer next step.",
       approvedUses: [],
       evidenceSourceUrls,
       reviewedAt,
       pharmacyAttestation: null,
+      nextAction,
     };
   }
 
   return {
     state,
-    statusLabel: "Not enough reviewed care evidence",
+    statusLabel: "Supportive use not confirmed",
     summary:
-      "JeloCare does not yet have enough reviewed care evidence to say which concerns or skin types this product may support.",
+      "We haven't confirmed this exact product for a particular concern or skin type yet. Tell Jelo what you're noticing for an assessment and a safer next step.",
     approvedUses: [],
     evidenceSourceUrls,
     reviewedAt,
     pharmacyAttestation: null,
+    nextAction,
+  };
+}
+
+function buildProductCareAction(product: Pick<Product, "brand" | "name">) {
+  const productName = `${product.brand} ${product.name}`.trim();
+  const prompt = `I'm considering ${productName}. What I'm noticing is: `;
+
+  return {
+    label: "Tell Jelo what I'm noticing",
+    href: `/consult?q=${encodeURIComponent(prompt)}`,
   };
 }
 
@@ -139,7 +159,7 @@ export async function readProductPanelData(
   ]);
 
   const careReview = getReviewedProductCare(product.slug);
-  const careDecision = buildProductCareDecision(careReview);
+  const careDecision = buildProductCareDecision(careReview, product);
 
   const ingredients = productIngredients.slice(0, 8).map((ingredient) => {
     const concentration =

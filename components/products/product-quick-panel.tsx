@@ -329,6 +329,14 @@ export function ProductQuickPanelSheet({
             <div className="product-panel-caution">
               <p className="eyebrow">Profile</p>
               <p>{data.careNote}</p>
+              <Link
+                className="product-panel-care-action"
+                href={data.careDecision.nextAction.href}
+                onClick={onClose}
+              >
+                {data.careDecision.nextAction.label}
+                <ArrowRight size={14} aria-hidden="true" />
+              </Link>
             </div>
             {data.ingredients.length ? (
               <div>

@@ -73,6 +73,32 @@
   font-weight: 700;
 }
 
+.careAction {
+  width: fit-content;
+  min-height: 2.75rem;
+  margin-top: 0.2rem;
+  padding-block: 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--wine);
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.careAction:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.careAction:focus-visible {
+  border-radius: 0.2rem;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
 .evidence {
   padding-left: clamp(1rem, 3vw, 2rem);
   display: grid;
