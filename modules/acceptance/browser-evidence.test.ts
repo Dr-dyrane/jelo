@@ -25,6 +25,30 @@ test("home page renders the primary discovery entry points", () => {
   assert.match(home, /listRecommendationEligibleProducts/);
 });
 
+test("public pages expose a keyboard bypass link and visible focus contract", () => {
+  const layout = readFileSync(`${root}/app/(site)/layout.tsx`, "utf8");
+  const globals = readFileSync(`${root}/app/globals.css`, "utf8");
+  const skipLinkIndex = layout.indexOf('className="site-skip-link"');
+  const headerIndex = layout.indexOf("<SiteHeader");
+
+  assert.match(layout, /href=["']#main-content["']/);
+  assert.match(layout, />\s*Skip to main content\s*</);
+  assert.match(layout, /id=["']main-content["']/);
+  assert.match(layout, /tabIndex=\{-1\}/);
+  assert.equal(
+    (layout.match(/className=["']site-skip-link["']/g) ?? []).length,
+    1,
+  );
+  assert.equal((layout.match(/id=["']main-content["']/g) ?? []).length, 1);
+  assert.ok(skipLinkIndex >= 0 && skipLinkIndex < headerIndex);
+  assert.match(globals, /\.site-skip-link\s*\{/);
+  assert.match(globals, /\.site-skip-link:focus-visible\s*\{/);
+  assert.match(globals, /body:has\(\.site-skip-link\)/);
+  assert.match(globals, /:focus-visible:not\(/);
+  assert.match(globals, /outline:\s*3px solid var\(--focus-ring\)/);
+  assert.match(globals, /top:\s*var\(--site-chrome-safe-top\)/);
+});
+
 test("products page renders the catalogue view through the extracted model", () => {
   const page = readFileSync(`${root}/app/(site)/products/page.tsx`, "utf8");
   const model = readFileSync(

@@ -22,8 +22,13 @@ export default async function SiteLayout({
   return (
     <BasketProvider>
       <NavigationMemory />
+      <a className="site-skip-link" href="#main-content">
+        Skip to main content
+      </a>
       <SiteHeader />
-      {children}
+      <div id="main-content" tabIndex={-1}>
+        {children}
+      </div>
       <PublicBasketPill products={basketProducts} />
       <footer className="site-footer">
         <div className="footer-brand">
