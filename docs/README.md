@@ -1,6 +1,6 @@
 # JeloCare handbook
 
-Updated: 2026-08-14
+Updated: 2026-08-31
 
 This is the entry point for product, engineering, data, and operations.
 
@@ -25,6 +25,7 @@ This is the entry point for product, engineering, data, and operations.
 | Research or operate the full catalogue pipeline            | [Catalogue operations](./catalogue/OPERATIONS.md)                                                                   |
 | Run Neon safely                                            | [Neon and data](./data/NEON.md)                                                                                     |
 | Read the aggregate business proof and cost gaps            | [Business evidence register](./business-evidence/REGISTER.md)                                                       |
+| Review the comprehensive remediation evidence              | [Comprehensive remediation register](./operations/evidence/2026-08-31-comprehensive-remediation.md)                 |
 | Operate guest-first assisted procurement                   | [Assisted procurement](./commerce/ASSISTED_PROCUREMENT.md)                                                          |
 | Operate smart delivery and private saved locations         | [Smart locations](./commerce/SMART_LOCATIONS.md)                                                                    |
 | Operate order-service notifications                        | [Order notifications](./commerce/ORDER_NOTIFICATIONS.md)                                                            |
