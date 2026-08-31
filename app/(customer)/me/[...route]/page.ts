@@ -97,15 +97,19 @@ export default async function MeRoutePage({
       ? `/me/product/${route.slug}?from=${route.origin}`
       : route.kind === "explore"
         ? "/me/explore"
-        : route.kind === "routine"
-          ? "/me/routine"
-          : route.kind === "orders"
-            ? "/me/orders"
-            : route.kind === "notifications"
-              ? "/me/notifications"
-              : route.kind === "locations"
-                ? "/me/locations"
-                : undefined;
+        : route.kind === "shelf"
+          ? "/me/shelf"
+          : route.kind === "routine"
+            ? "/me/routine"
+            : route.kind === "consult"
+              ? "/me/consult"
+              : route.kind === "orders"
+                ? "/me/orders"
+                : route.kind === "notifications"
+                  ? "/me/notifications"
+                  : route.kind === "locations"
+                    ? "/me/locations"
+                    : undefined;
   const customer = await requireCustomer(continuation);
 
   // Product route uses a route-scoped reader, not the portal-wide loader.

@@ -51,6 +51,35 @@
   font-size: .95rem;
 }
 
+.recovery {
+  margin: -.5rem 0 1.75rem;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  background: var(--tag-bg);
+  color: var(--ink);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+.recovery p { margin: .35rem 0 0; color: var(--muted); }
+
+.recoveryAction {
+  margin: .75rem 0 0;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--wine);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.recoveryAction:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
+
 .done { display: flex; flex-direction: column; }
 
 .input {

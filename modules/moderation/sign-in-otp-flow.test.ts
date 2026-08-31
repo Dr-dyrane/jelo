@@ -66,3 +66,28 @@ test("OTP sign-in is truthful, autofill-friendly, and quietly recoverable", asyn
   assert.match(layout, /Sign in · JeloCare["']/);
   assert.doesNotMatch(layout, /Sign in · JeloCare Ops/);
 });
+
+test("a failed customer sign-in check has a private-safe, plain recovery action", async () => {
+  const [page, css] = await Promise.all([
+    readSource("app/(auth)/sign-in/page.tsx"),
+    readSource("app/(auth)/sign-in/sign-in.module.css"),
+  ]);
+
+  assert.match(page, /searchParams\.getAll\(["']recovery["']\)/);
+  assert.match(page, /requestedRecoveries\.length === 1/);
+  assert.match(page, /customerIntent &&\s*resolveCustomerSignInRecovery/);
+  assert.match(page, /We couldn’t confirm your sign-in just now\./);
+  assert.match(page, /Your saved information is unchanged\./);
+  assert.match(page, />\s*Try again\s*</);
+  assert.match(page, /window\.location\.assign\(continuation\)/);
+  assert.doesNotMatch(page, /Auth provider|SDK error|session-check failure/);
+  assert.match(css, /\.recovery[\s\S]*line-height:\s*1\.55/);
+  assert.match(
+    css,
+    /\.recoveryAction\s*\{[^}]*min-height:\s*44px[^}]*display:\s*inline-flex[^}]*align-items:\s*center/,
+  );
+  assert.match(
+    css,
+    /\.recoveryAction:focus-visible\s*\{[^}]*outline:\s*2px solid var\(--wine\)[^}]*outline-offset:\s*3px/,
+  );
+});

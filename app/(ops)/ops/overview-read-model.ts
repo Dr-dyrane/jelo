@@ -43,27 +43,56 @@ type OverviewOldestItemRow = {
 
 async function listOverviewQueueFacts(sql: Sql): Promise<OverviewQueueFact[]> {
   const rows = await sql<OverviewQueueRow[]>`
-    select 'orders'::text as kind, count(*)::int as pending_count,
-      min(orders.updated_at)::text as oldest_pending_at
-    from assisted_orders as orders
-    where (
-      orders.state not in ('delivered', 'cancelled', 'refunded')
-      or (
-        orders.state = 'delivered'
-        and exists (
-          select 1 from assisted_order_events as requested_return
-          where requested_return.order_id = orders.id
-            and requested_return.action = 'return_requested'
-            and not exists (
-              select 1 from assisted_order_events as return_decision
-              where return_decision.order_id = orders.id
-                and return_decision.sequence_id > requested_return.sequence_id
-                and return_decision.action in ('return_declined', 'refund_pending')
-            )
+    with ops_order_waiting as (
+      select
+        orders.id,
+        case
+          when orders.state = 'delivered' then open_return.created_at
+          else wait_anchor.created_at
+        end as waiting_since
+      from assisted_orders as orders
+      left join lateral (
+        select requested_return.created_at
+        from assisted_order_events as requested_return
+        where requested_return.order_id = orders.id
+          and requested_return.action = 'return_requested'
+          and not exists (
+            select 1 from assisted_order_events as return_decision
+            where return_decision.order_id = orders.id
+              and return_decision.sequence_id > requested_return.sequence_id
+              and return_decision.action in ('return_declined', 'refund_pending')
+          )
+        order by requested_return.sequence_id desc
+        limit 1
+      ) as open_return on orders.state = 'delivered'
+      left join lateral (
+        select anchor.created_at
+        from assisted_order_events as anchor
+        where anchor.order_id = orders.id
+          and anchor.to_state = orders.state
+          and (
+            anchor.from_state is distinct from anchor.to_state
+            or anchor.action = 'payment_review_required'
+          )
+        order by anchor.sequence_id desc
+        limit 1
+      ) as wait_anchor on orders.state <> 'delivered'
+      where orders.retain_until > now()
+        and (
+          orders.state in (
+            'requested', 'quoting', 'needs_response', 'payment_pending',
+            'paid', 'procurement', 'retailer_confirmed', 'out_for_delivery',
+            'refund_pending'
+          )
+          or (orders.state = 'delivered' and open_return.created_at is not null)
         )
-      )
     )
-      and orders.retain_until > now()
+    select 'orders'::text as kind, count(*)::int as pending_count,
+      case
+        when count(waiting_since) = count(*) then min(waiting_since)::text
+        else null
+      end as oldest_pending_at
+    from ops_order_waiting
     union all
     select 'contributions'::text as kind, count(*)::int as pending_count, min(submitted_at)::text as oldest_pending_at
     from community_contributions

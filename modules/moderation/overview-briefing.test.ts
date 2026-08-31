@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   buildOverviewBriefing,
@@ -8,6 +9,14 @@ import {
 } from "@/app/(ops)/ops/overview-briefing";
 
 const generatedAt = "2026-07-25T12:00:00.000Z";
+const overviewReadModelSource = readFileSync(
+  new URL("../../app/(ops)/ops/overview-read-model.ts", import.meta.url),
+  "utf8",
+);
+const opsOrderQueueSql =
+  overviewReadModelSource.match(
+    /with ops_order_waiting as \([\s\S]*?\n    union all/,
+  )?.[0] ?? "";
 
 function queueFacts(
   overrides: Partial<
@@ -38,6 +47,57 @@ test("overview total is the sum of its visible queue topology", () => {
     briefing.queues.reduce((total, queue) => total + queue.pendingCount, 0),
     7,
   );
+});
+
+test("notification preferences and other same-state writes cannot reset Ops wait age", () => {
+  assert.notEqual(opsOrderQueueSql, "");
+  assert.doesNotMatch(opsOrderQueueSql, /orders\.updated_at/);
+  assert.doesNotMatch(opsOrderQueueSql, /orders\.created_at/);
+  assert.doesNotMatch(opsOrderQueueSql, /notification_preference_updated/);
+  assert.match(
+    opsOrderQueueSql,
+    /anchor\.from_state is distinct from anchor\.to_state\s+or anchor\.action = ["']payment_review_required["']/,
+  );
+  assert.match(opsOrderQueueSql, /else wait_anchor\.created_at/);
+  assert.match(
+    opsOrderQueueSql,
+    /when count\(waiting_since\) = count\(\*\) then min\(waiting_since\)::text\s+else null/,
+  );
+
+  const stateList = opsOrderQueueSql.match(
+    /orders\.state in \(\s*([\s\S]*?)\s*\)\s*or \(orders\.state = ["']delivered["']/,
+  );
+  assert.ok(stateList);
+  assert.doesNotMatch(stateList[1], /awaiting_approval/);
+  assert.deepEqual(
+    Array.from(
+      stateList[1].matchAll(/["']([a-z_]+)["']/g),
+      (match) => match[1],
+    ),
+    [
+      "requested",
+      "quoting",
+      "needs_response",
+      "payment_pending",
+      "paid",
+      "procurement",
+      "retailer_confirmed",
+      "out_for_delivery",
+      "refund_pending",
+    ],
+  );
+});
+
+test("open returns use their immutable request time as the Ops wait clock", () => {
+  assert.match(
+    opsOrderQueueSql,
+    /when orders\.state = ["']delivered["'] then open_return\.created_at/,
+  );
+  assert.match(
+    opsOrderQueueSql,
+    /requested_return\.action = ["']return_requested["'][\s\S]*?return_decision\.sequence_id > requested_return\.sequence_id[\s\S]*?return_decision\.action in \(["']return_declined["'], ["']refund_pending["']\)/,
+  );
+  assert.match(opsOrderQueueSql, /end as oldest_pending_at/);
 });
 
 test("assisted orders join the oldest-actionable policy without a special boost", () => {

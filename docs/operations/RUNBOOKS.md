@@ -1,6 +1,6 @@
 # Operational runbooks
 
-Updated: 2026-08-30
+Updated: 2026-08-31
 
 Lead with evidence. Preserve data. Prefer a forward repair.
 
@@ -227,6 +227,35 @@ After deployment, use only unauthenticated negative probes of the webhook and
 cron routes unless a separate production-payment exercise is explicitly
 authorized. Both must reject missing credentials/signatures without touching
 payment state.
+
+## Ops Overview assisted-order age looks wrong
+
+The assisted-order count on `/ops` is an Ops-work clock, not a count of every
+non-terminal customer order. `awaiting_approval` is intentionally absent while
+the customer decides. A delivered order appears only while a return request is
+open.
+
+Use approved read-only evidence for one exact order; do not change an order or
+append an event merely to test the clock:
+
+1. Confirm the exact application revision, current order state, and retained
+   append-only event sequence.
+2. For an open delivered return, use the unmatched `return_requested` event
+   time. A later notification-preference change must not replace it.
+3. For other included states, find the latest event that entered the current
+   state. A later `payment_review_required` event in that state is the only
+   same-state event that becomes a new Ops wait anchor. If no qualifying event
+   exists, treat queue age as unavailable and investigate the ledger gap.
+4. Ignore `orders.updated_at`, notification-preference events, and other
+   same-state writes. They record real changes but do not restart Ops waiting
+   age.
+5. If two queues have the same oldest timestamp, the fixed Overview topology
+   order decides which queue is recommended. Do not add a hidden priority.
+
+If the projection differs from those facts, retain only the order reference,
+state, anchor action, event sequence, event time, application revision, and UTC
+capture time needed for a bounded forward fix. Do not rewrite the event ledger,
+backdate rows, add an alert, or invent an escalation threshold.
 
 ## A migration fails
 

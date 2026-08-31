@@ -4,11 +4,20 @@
 
 ---
 
+> **Remediation update — 2026-08-31.** The public keyboard-bypass finding in
+> this audit is closed. Commit `c4124ab4025237c1ed6fedd00a6b0bee74b041b1`
+> shipped in READY deployment `dpl_E4KWUtqrKbUsVAHW9vFr7HvWw39w` and is an
+> ancestor of current revision `9ca25d128aca147b23d927c9e2744f9dcb395a79`.
+> Current production checks returned HTTP 200 for `/` and `/consult`. At
+> 320 x 700 CSS pixels, the focus-visible `Skip to main content` target measured
+> 191 x 46 pixels with a three-pixel outline; the page exposed one `main`
+> landmark and no horizontal overflow.
+
 ## 1. Executive Summary
 
 JeloCare is a pharmacist-led skincare intelligence platform with a strong existing foundation: a warm editorial visual language, evidence-based product data, safety-first concern guides, and a sophisticated design token system. The codebase is well-structured with 60+ components, comprehensive dark mode, and thoughtful accessibility patterns.
 
-However, the PWA experience is incomplete (no service worker, no offline support, no install prompt), the home page suffers from scroll fatigue (9 product rails), the retailer handoff is abrupt (no trust bridge), and several accessibility gaps remain (no skip link, inconsistent focus indicators). The design system has tokens but no shared UI primitives (no Button, Modal, Toast, or Chip components for public use).
+However, the PWA experience is incomplete (no service worker, no offline support, no install prompt), the home page suffers from scroll fatigue (9 product rails), the retailer handoff is abrupt (no trust bridge), and broader contrast and heading-hierarchy verification remains open. The original skip-link finding is resolved. The design system has tokens but no shared UI primitives (no Button, Modal, Toast, or Chip components for public use).
 
 The customer insight — *"I wanted JeloCare itself to process the order because I trusted JeloCare more than the retailer"* — is the most important signal in this audit. It means JeloCare has become the trust layer. Every improvement should reinforce that trust without pretending JeloCare fulfils orders.
 
@@ -38,7 +47,6 @@ The customer insight — *"I wanted JeloCare itself to process the order because
 |----------|--------|----------|
 | **No service worker** | No offline support, no cached pages, poor PWA experience | Critical |
 | **No install prompt** | Users never prompted to install, low install rate | High |
-| **No skip link** | Keyboard users must tab through entire navbar to reach content | High |
 | **Abrupt retailer handoff** | 307 redirect with no trust bridge — user leaves JeloCare with no confirmation or context | High |
 | **9 product rails on home** | Scroll fatigue, unclear hierarchy, "everything is important so nothing is" | Medium |
 | **No shared UI primitives** | Buttons, modals, toasts, chips all inline — inconsistent variants across pages | Medium |
@@ -55,11 +63,11 @@ The customer insight — *"I wanted JeloCare itself to process the order because
 
 *Things that can be shipped in hours, not days.*
 
-### 4.1 Add skip link
-- **Rationale:** Keyboard and screen reader users currently tab through the entire navbar. A "Skip to main content" link is a WCAG 2.1 Level A requirement.
-- **User impact:** Immediate navigation improvement for assistive technology users.
-- **Engineering complexity:** Low — add one `<a>` tag to root layout, add `.sr-only` + focus-visible styles.
-- **Priority:** P0
+### 4.1 Public keyboard bypass — released
+- **Outcome:** Public pages expose one `Skip to main content` link before the header and one focusable `#main-content` target.
+- **Production evidence:** At 320 x 700 CSS pixels, the focused link measured 191 x 46 pixels with a three-pixel outline, reached a page with one `main` landmark, and introduced no horizontal overflow.
+- **Release evidence:** Commit `c4124ab4025237c1ed6fedd00a6b0bee74b041b1`; READY deployment `dpl_E4KWUtqrKbUsVAHW9vFr7HvWw39w`.
+- **Status:** Closed on 2026-08-31; retain the source contract and production keyboard smoke in future public-shell releases.
 
 ### 4.2 Add search placeholder text
 - **Rationale:** Current search input has no placeholder. Users don't know what they can search for.
@@ -85,11 +93,11 @@ The customer insight — *"I wanted JeloCare itself to process the order because
 - **Engineering complexity:** Low — reduce to 4-5 rails: Editors' edit, Face care, Nigeria-ready, Hair care, Body care. Move K-beauty and Supportive care into category filters.
 - **Priority:** P1
 
-### 4.6 Add visible focus indicators globally
-- **Rationale:** Only some interactive elements have `:focus-visible` styles. Inconsistent focus indicators violate WCAG 2.4.7.
-- **User impact:** Keyboard users can always see where they are.
-- **Engineering complexity:** Low — add global `*:focus-visible` outline rule using `--focus-ring` token.
-- **Priority:** P0
+### 4.6 Public-shell focus indicators — released
+- **Outcome:** The public shell applies a three-pixel `--focus-ring` outline to links, buttons, form controls, summaries, and focusable custom elements.
+- **User impact:** Keyboard users retain a visible current target across the public route family.
+- **Scope:** Ops and authenticated customer surfaces keep their own accessibility contracts and are not inferred from this public-shell result.
+- **Status:** Closed for the public shell; automated contrast and route-specific interaction audits remain separate work.
 
 ---
 
@@ -469,19 +477,19 @@ The customer insight — *"I wanted JeloCare itself to process the order because
 | 1.3.1 Info and Relationships | Partial | Some heading levels skipped; landmarks inconsistent |
 | 1.4.3 Contrast (Minimum) | Needs audit | No automated contrast checking |
 | 1.4.10 Reflow | Pass | Responsive at 320px width |
-| 1.4.11 Non-text Contrast | Needs audit | Focus indicators not consistent |
-| 2.1.1 Keyboard | Partial | Most flows keyboard-accessible; no skip link |
+| 1.4.11 Non-text Contrast | Needs automated audit | Public focus indicators are present; their cross-theme contrast still needs automated ratio evidence |
+| 2.1.1 Keyboard | Pass for audited public root | Keyboard bypass and visible focus are released; route-specific interaction audits remain separate |
 | 2.1.2 No Keyboard Trap | Pass | Focus trapping in modals with escape |
-| 2.4.1 Bypass Blocks | Fail | No skip link |
-| 2.4.7 Focus Visible | Partial | Only some elements have focus-visible styles |
+| 2.4.1 Bypass Blocks | Pass | One focus-visible skip link reaches the public main-content target |
+| 2.4.7 Focus Visible | Pass for audited public root | The focused skip target has a three-pixel outline; other route families retain their own audits |
 | 2.3.3 Animation from Interactions | Pass | Reduced-motion respected in 2 components |
 | 3.3.1 Error Identification | Partial | Some forms lack error summaries |
 | 4.1.2 Name, Role, Value | Pass | 100+ aria-labels, proper roles |
 | 4.1.3 Status Messages | Pass | 18 aria-live regions |
 
 ### Recommendations
-1. Add skip link to root layout (P0)
-2. Add global `*:focus-visible` outline (P0)
+1. Keep the released root skip-link and focus-visible regression contract green
+2. Keep the released public-shell focus-visible contract green
 3. Audit heading hierarchy across all pages (P1)
 4. Add `main`, `nav`, `aside` landmarks consistently (P1)
 5. Run automated contrast audit (P1)
@@ -753,10 +761,10 @@ The customer insight — *"I wanted JeloCare itself to process the order"* — r
 ### Phase 1: Foundation (Week 1-2)
 | Item | Effort | Impact |
 |------|--------|--------|
-| Skip link | Trivial | High (a11y) |
+| Skip link | Released | High (a11y) |
 | Search placeholder | Trivial | High (UX) |
 | Global error boundary | Low | High (reliability) |
-| Global focus indicators | Low | High (a11y) |
+| Global focus indicators | Released for public shell | High (a11y) |
 | Collapse home rails to 5 | Low | Medium (UX) |
 | JSON-LD structured data | Low | Medium (SEO) |
 

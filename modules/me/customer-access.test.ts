@@ -4,6 +4,8 @@ import test from "node:test";
 import { products } from "../../data/catalogue";
 import {
   customerSignInPath,
+  customerSignInRecoveryPath,
+  resolveCustomerSignInRecovery,
   resolveSignInContinuation,
   resolveSignInIntent,
 } from "../../lib/auth/sign-in-intent";
@@ -19,9 +21,20 @@ import {
 import { LEGACY_SHELF_IMPORT_MANIFEST } from "../../lib/customer/legacy-shelf-import-manifest";
 
 test("sign-in continuation accepts roots and exact bounded member Product destinations", () => {
-  assert.equal(resolveSignInContinuation("/me"), "/me");
-  assert.equal(resolveSignInContinuation("/me/routine"), "/me/routine");
-  assert.equal(resolveSignInIntent("/me/routine"), "customer");
+  for (const continuation of [
+    "/me",
+    "/me/explore",
+    "/me/shelf",
+    "/me/routine",
+    "/me/consult",
+    "/me/orders",
+    "/me/notifications",
+    "/me/locations",
+  ]) {
+    const resolved = resolveSignInContinuation(continuation);
+    assert.equal(resolved, continuation);
+    assert.equal(resolveSignInIntent(resolved), "customer");
+  }
   assert.equal(resolveSignInContinuation("/ops"), "/ops");
   for (const origin of ["home", "explore", "shelf", "routine"]) {
     const continuation = `/me/product/exact-product-${origin}?from=${origin}`;
@@ -40,8 +53,9 @@ test("sign-in continuation accepts roots and exact bounded member Product destin
   );
 
   for (const unsafe of [
-    "/me/shelf",
-    "/me/explore",
+    "/me/shelf/add",
+    "/me/shelf/request/private-request-id",
+    "/me/consult/private-thread",
     "/me/product/exact-product",
     "/me/product/exact-product/extra?from=explore",
     "/me/product/exact-product?from=unknown",
@@ -68,7 +82,25 @@ test("sign-in continuation accepts roots and exact bounded member Product destin
   assert.equal(resolveSignInIntent("/ops"), "operator");
   assert.equal(customerSignInPath(), "/sign-in?next=/me");
   assert.equal(customerSignInPath("/ops"), "/sign-in?next=/me");
-  assert.equal(customerSignInPath("/me/shelf"), "/sign-in?next=/me");
+  assert.equal(customerSignInPath("/me/shelf/add"), "/sign-in?next=/me");
+  assert.equal(
+    customerSignInPath("/me/shelf/request/private-request-id"),
+    "/sign-in?next=/me",
+  );
+  for (const continuation of [
+    "/me/explore",
+    "/me/shelf",
+    "/me/routine",
+    "/me/consult",
+    "/me/orders",
+    "/me/notifications",
+    "/me/locations",
+  ]) {
+    assert.equal(
+      customerSignInPath(continuation),
+      `/sign-in?next=${encodeURIComponent(continuation)}`,
+    );
+  }
   assert.equal(
     customerSignInPath("/me/routine"),
     "/sign-in?next=%2Fme%2Froutine",
@@ -77,9 +109,20 @@ test("sign-in continuation accepts roots and exact bounded member Product destin
     customerSignInPath("/me/product/exact-product?from=explore"),
     "/sign-in?next=%2Fme%2Fproduct%2Fexact-product%3Ffrom%3Dexplore",
   );
+  assert.equal(
+    customerSignInRecoveryPath("/me/consult"),
+    "/sign-in?next=%2Fme%2Fconsult&recovery=retry",
+  );
+  assert.equal(
+    customerSignInRecoveryPath("/me/shelf/request/private-request-id"),
+    "/sign-in?next=/me&recovery=retry",
+  );
+  assert.equal(resolveCustomerSignInRecovery("retry"), true);
+  assert.equal(resolveCustomerSignInRecovery(["retry"]), false);
+  assert.equal(resolveCustomerSignInRecovery(["retry", "retry"]), false);
 });
 
-test("signed-out Routine and Product routes carry only canonical continuations through OTP", () => {
+test("signed-out released Me routes carry only canonical continuations through OTP", () => {
   const access = readFileSync("lib/customer/access.ts", "utf8");
   const productRoute = readFileSync(
     "app/(customer)/me/[...route]/page.ts",
@@ -100,6 +143,22 @@ test("signed-out Routine and Product routes carry only canonical continuations t
     productRoute,
     /route\.kind === ['"]routine['"][\s\S]*\? ['"]\/me\/routine['"]/,
   );
+  const continuationBlock = productRoute.slice(
+    productRoute.indexOf("const continuation"),
+    productRoute.indexOf("const customer"),
+  );
+  for (const continuation of [
+    "/me/explore",
+    "/me/shelf",
+    "/me/routine",
+    "/me/consult",
+    "/me/orders",
+    "/me/notifications",
+    "/me/locations",
+  ]) {
+    assert.match(continuationBlock, new RegExp(`["']${continuation}["']`));
+  }
+  assert.doesNotMatch(continuationBlock, /shelf-add|shelf-request/);
   assert.match(productRoute, /requireCustomer\(continuation\)/);
   assert.doesNotMatch(
     productRoute,
@@ -107,6 +166,8 @@ test("signed-out Routine and Product routes carry only canonical continuations t
   );
   assert.match(signInPage, /searchParams\.getAll\(["']next["']\)/);
   assert.match(signInPage, /requestedContinuations\.length === 1/);
+  assert.match(signInPage, /searchParams\.getAll\(["']recovery["']\)/);
+  assert.match(signInPage, /requestedRecoveries\.length === 1/);
   assert.match(signInPage, /window\.location\.assign\(continuation\)/);
 });
 
@@ -159,7 +220,7 @@ test("the development presentation is server-only, synthetic, and local-data-onl
     /fetch\(|getPostgresClient|NEON_|sql`|https?:\/\//,
   );
   assert.match(access, /isDevelopmentCustomerFixtureEnabled\(process\.env\)/);
-  assert.match(access, /const identity = await getAuthSubject\(\)/);
+  assert.match(access, /const result = await getAuthSubjectResult\(\)/);
   assert.doesNotMatch(access, /searchParams|cookies\(\)|headers\(\)/);
   assert.doesNotMatch(home, /__qa|fixture|scenario selector|test customer/i);
 });
@@ -252,9 +313,36 @@ test("the real customer route owns account sign-out and no unreleased Concern li
 
 test("authentication failures are fail-closed without logging raw SDK errors", () => {
   const subject = readFileSync("lib/auth/subject.ts", "utf8");
+  const access = readFileSync("lib/customer/access.ts", "utf8");
+
+  assert.match(
+    subject,
+    /const \{ data: session, error \} = await getAuth\(\)\.getSession\(\)/,
+  );
+  assert.match(subject, /if \(error\)[\s\S]*status: ['"]unavailable['"]/);
+  assert.match(
+    subject,
+    /if \(!user\?\.id\) return \{ status: ['"]signed-out['"] \}/,
+  );
   assert.match(
     subject,
     /catch \{[\s\S]*Authentication session lookup unavailable\./,
   );
+  assert.match(
+    subject,
+    /getAuthSubject\(\)[\s\S]*result\.status === ['"]authenticated['"] \? result\.identity : null/,
+  );
   assert.doesNotMatch(subject, /console\.error\([^\n]*(?:err|error)[,)]/i);
+  assert.match(
+    access,
+    /getCustomerIdentity\(\)[\s\S]*result\.status === ['"]authenticated['"] \? result\.identity : null/,
+  );
+  assert.match(
+    access,
+    /result\.status === ['"]unavailable['"][\s\S]*customerSignInRecoveryPath/,
+  );
+  assert.match(
+    access,
+    /if \(continuation === undefined\) redirect\(customerSignInPath\(\)\)/,
+  );
 });

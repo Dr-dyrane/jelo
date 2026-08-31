@@ -43,8 +43,8 @@ export const customerCapabilities = {
   requestLimits: true,
   /** Private-safe aggregate route-operation telemetry covers authenticated Me. */
   privateTelemetry: true,
-  /** Expired-session recovery is not yet implemented. */
-  sessionRecovery: false,
+  /** Expired or unavailable sessions recover through a safe retained sign-in intent. */
+  sessionRecovery: true,
 } as const;
 
 export type CustomerCapabilityKey = keyof typeof customerCapabilities;

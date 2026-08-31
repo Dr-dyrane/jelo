@@ -1,4 +1,14 @@
-export const SIGN_IN_CONTINUATIONS = ['/me', '/me/routine', '/me/orders', '/ops'] as const;
+export const SIGN_IN_CONTINUATIONS = [
+  '/me',
+  '/me/explore',
+  '/me/shelf',
+  '/me/routine',
+  '/me/consult',
+  '/me/orders',
+  '/me/notifications',
+  '/me/locations',
+  '/ops',
+] as const;
 export const MEMBER_PRODUCT_CONTINUATION_ORIGINS = [
   'home',
   'explore',
@@ -14,9 +24,13 @@ export type SignInIntent = 'customer' | 'operator';
 const MAX_MEMBER_PRODUCT_SLUG_LENGTH = 180;
 const MAX_MEMBER_PRODUCT_CONTINUATION_LENGTH = 205;
 const MEMBER_PRODUCT_CONTINUATION_PATTERN = /^\/me\/product\/([a-z0-9]+(?:-[a-z0-9]+)*)\?from=(home|explore|shelf|routine)$/;
+const CUSTOMER_SIGN_IN_RECOVERY_VALUE = 'retry';
 
 export function resolveSignInContinuation(value: unknown): SignInContinuation {
-  if (value === '/me' || value === '/me/routine' || value === '/me/orders' || value === '/ops') return value;
+  if (
+    typeof value === 'string'
+    && (SIGN_IN_CONTINUATIONS as readonly string[]).includes(value)
+  ) return value as SignInContinuation;
   if (
     typeof value !== 'string'
     || value.length > MAX_MEMBER_PRODUCT_CONTINUATION_LENGTH
@@ -49,4 +63,17 @@ export function customerSignInPath(continuation?: unknown): string {
     return '/sign-in?next=/me';
   }
   return `/sign-in?next=${encodeURIComponent(resolved)}`;
+}
+
+export function customerSignInRecoveryPath(): '/sign-in?next=/me&recovery=retry';
+export function customerSignInRecoveryPath(continuation: unknown): string;
+export function customerSignInRecoveryPath(continuation?: unknown): string {
+  const signInPath = continuation === undefined
+    ? customerSignInPath()
+    : customerSignInPath(continuation);
+  return `${signInPath}&recovery=${CUSTOMER_SIGN_IN_RECOVERY_VALUE}`;
+}
+
+export function resolveCustomerSignInRecovery(value: unknown): boolean {
+  return value === CUSTOMER_SIGN_IN_RECOVERY_VALUE;
 }

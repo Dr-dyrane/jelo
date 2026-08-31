@@ -8,7 +8,11 @@ import {
   otpResendSeconds,
   otpSignInErrorMessage,
 } from '@/lib/auth/otp-sign-in';
-import { resolveSignInContinuation, resolveSignInIntent } from '@/lib/auth/sign-in-intent';
+import {
+  resolveCustomerSignInRecovery,
+  resolveSignInContinuation,
+  resolveSignInIntent,
+} from '@/lib/auth/sign-in-intent';
 import styles from './sign-in.module.css';
 
 type Phase = 'email' | 'code';
@@ -26,6 +30,10 @@ function SignInForm() {
   );
   const intent = resolveSignInIntent(continuation);
   const customerIntent = intent === 'customer';
+  const requestedRecoveries = searchParams.getAll('recovery');
+  const showRecovery =
+    customerIntent &&
+    resolveCustomerSignInRecovery(requestedRecoveries.length === 1 ? requestedRecoveries[0] : requestedRecoveries);
   const [phase, setPhase] = useState<Phase>('email');
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
@@ -123,6 +131,19 @@ function SignInForm() {
     <main className={styles.shell}>
       <div className={styles.card}>
         <p className={styles.eyebrow}>{customerIntent ? 'JeloCare Me' : 'JeloCare Ops'}</p>
+        {showRecovery && phase === 'email' ? (
+          <div className={styles.recovery}>
+            <strong role="status">We couldn’t confirm your sign-in just now.</strong>
+            <p>Your saved information is unchanged. Try your page again, or sign in below.</p>
+            <button
+              type="button"
+              className={styles.recoveryAction}
+              onClick={() => window.location.assign(continuation)}
+            >
+              Try again
+            </button>
+          </div>
+        ) : null}
         {phase === 'email' ? (
           <form onSubmit={event => { event.preventDefault(); void requestCode(); }}>
             <h1 className={styles.h1}>{customerIntent ? 'Come back to your care.' : 'Operator sign in.'}</h1>

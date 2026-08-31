@@ -311,6 +311,29 @@ The first recommendation policy is deliberately simple:
 3. use a documented stable tie-break only when timestamps are equal;
 4. show the reason in human language.
 
+For assisted orders, `oldestPendingAt` measures when the current Ops-owned work
+began. The Overview count includes `requested`, `quoting`, `needs_response`,
+`payment_pending`, `paid`, `procurement`, `retailer_confirmed`,
+`out_for_delivery`, and `refund_pending`. `awaiting_approval` is a customer
+decision and is not Ops backlog. A delivered order returns to the count only
+while it has an open return request.
+
+The wait clock comes from the append-only order event ledger, never from the
+mutable order `updated_at` value:
+
+- an open return starts at its unmatched `return_requested` event;
+- other Ops work starts at the latest event that entered the current state;
+- a later `payment_review_required` event in that same current state becomes
+  the clock because it creates specific operator work; and
+- a missing qualifying event makes the queue age unavailable rather than
+  substituting a mutable or semantically different timestamp.
+
+Notification-preference changes and every other same-state write are not wait
+anchors. A later state transition supersedes an earlier payment-review anchor.
+These rules define a truthful clock only; they do not define an escalation,
+alert, or service threshold. Equal queue timestamps continue to use the
+documented Overview topology order as their deterministic tie-break.
+
 Future safety or freshness rules may outrank age only after the rule, source,
 and operator response are explicitly defined and tested. Queue volume alone is
 not urgency. A fixed route order is not a priority model.
