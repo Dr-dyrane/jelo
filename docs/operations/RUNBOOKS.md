@@ -1325,6 +1325,43 @@ cache, alert-email, or static-sync paths. Deferred aggregates select only
 `last_error` values prefixed with `inventory_refresh_daily_deferred:<reason>:`;
 ordinary short-retry errors are excluded.
 
+### Clinical care-evidence review owner
+
+`/api/cron/clinical-review-health` runs daily at 05:53 UTC. It authenticates
+with the shared cron boundary, reads only checked-in public catalogue and care
+records, and returns `private, no-store`. It performs no database, queue,
+notification, cache, care-state, recommendation, approval or patient action.
+
+The successful event is `clinical_review_health_checked`. Its bounded log
+contains the schema version, status, manifest digest, aggregate care-state and
+reason counts, and `writesPerformed: 0`; product slugs and practitioner details
+remain out of runtime logs. `attention_required` is an ordinary HTTP 200 state:
+it means a deterministic human-review plan exists. HTTP 500 with
+`clinical_review_health_failed` means the static plan itself could not be
+generated and is the scheduled-owner failure signal.
+
+The private response includes each exact public slug, its care/evidence digest,
+stable idempotency key and reason codes. Repeated identical inputs produce the
+same keys. A named licensed clinician, not the scheduler, evaluates and signs
+an exact versioned review. Do not manually invoke the route to clear or replay
+an item; inspect the next natural run and open a bounded platform exception
+only when authentication, routing, deployment identity or plan generation
+fails.
+
+Current v1 reason codes are:
+
+- `missing_care_cell`;
+- `invalid_review_date`;
+- `unattested_pharmacist_context`;
+- `legacy_attestation_requires_credential_binding`;
+- `supportive_review_requires_credential_binding`;
+- `missing_source`;
+- `missing_verified_ingredients`; and
+- `insufficient_evidence`.
+
+This scheduled owner does not change the accepted non-diagnostic Ask boundary.
+The human consultation and diagnosis contract is [ADR 0018](../adr/0018-clinician-led-consultation-and-diagnosis.md).
+
 ### Diagnosing sync issues
 
 1. **Check the cron response** for `staticFileSync` in the JSON output:

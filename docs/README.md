@@ -27,6 +27,7 @@ This is the entry point for product, engineering, data, and operations.
 | Read the aggregate business proof and cost gaps            | [Business evidence register](./business-evidence/REGISTER.md)                                                       |
 | Review the comprehensive remediation evidence              | [Comprehensive remediation register](./operations/evidence/2026-08-31-comprehensive-remediation.md)                 |
 | Review the pharmacy care attestation                       | [Pharmacy care attestation](./operations/evidence/2026-08-31-pharmacy-care-attestation.md)                          |
+| Review the clinical scheduled-owner evidence               | [Clinical review scheduled owner](./operations/evidence/2026-08-31-clinical-review-scheduled-owner.md)              |
 | Operate guest-first assisted procurement                   | [Assisted procurement](./commerce/ASSISTED_PROCUREMENT.md)                                                          |
 | Operate smart delivery and private saved locations         | [Smart locations](./commerce/SMART_LOCATIONS.md)                                                                    |
 | Operate order-service notifications                        | [Order notifications](./commerce/ORDER_NOTIFICATIONS.md)                                                            |
@@ -103,6 +104,7 @@ This is the entry point for product, engineering, data, and operations.
 - [ADR 0015 · Customer concern consultation](./adr/0015-customer-concern-consultation.md)
 - [ADR 0016 · Retailer-scoped assisted procurement](./adr/0016-retailer-scoped-assisted-procurement.md)
 - [ADR 0017 · Private saved locations and optional geocoding](./adr/0017-private-saved-locations-and-optional-geocoding.md)
+- [ADR 0018 · Clinician-led consultation and diagnosis](./adr/0018-clinician-led-consultation-and-diagnosis.md)
 
 ## What is authoritative
 

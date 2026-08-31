@@ -22,6 +22,10 @@
       "schedule": "23 5 * * *"
     },
     {
+      "path": "/api/cron/clinical-review-health",
+      "schedule": "53 5 * * *"
+    },
+    {
       "path": "/api/cron/daily-campaign",
       "schedule": "0 7 * * *"
     }

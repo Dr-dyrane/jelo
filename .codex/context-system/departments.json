@@ -24,6 +24,17 @@
           "departments": ["platform-delivery", "catalogue-evidence"],
           "routineScope": "Validate, resolve the full-history three-tree offer conflict policy, gate, and atomically advance an exact static offer proposal plus its review-branch baseline",
           "manualOnly": "Resolve a validator, history-merge identity conflict, branch-rule, credential, gate, deployment, or production-smoke exception"
+        },
+        {
+          "outcome": "clinical-care-evidence-review",
+          "scheduledOwner": "Vercel cron GET /api/cron/clinical-review-health",
+          "departments": [
+            "platform-delivery",
+            "clinical-governance",
+            "catalogue-evidence"
+          ],
+          "routineScope": "Daily read-only inventory of every public product care cell, evidence source boundary, ingredient verification state, and exact pharmacist attestation; emit a deterministic human-review plan with zero writes",
+          "manualOnly": "A named licensed clinician evaluates evidence and signs, supersedes, expires, or revokes an exact versioned review; diagnose route, authentication, or schedule failures without replaying the cron"
         }
       ]
     },
@@ -178,6 +189,33 @@
         "Ops UI redesign",
         "Unrelated catalogue candidates",
         "Replacing evidence with repository-operator authority"
+      ]
+    },
+    "clinical-governance": {
+      "purpose": "Licensed pharmacist and physician review authority, exact product-care attestations, consultation safety contracts, and clinician-owned decisions",
+      "owns": [
+        "data/<selected-care-review-or-attestation>",
+        "lib/clinical/<selected-review-contract>",
+        "modules/clinical/<selected-review-tests>",
+        "docs/adr/<selected-clinical-decision>",
+        "docs/operations/evidence/<selected-clinical-receipt>"
+      ],
+      "canon": [
+        "docs/adr/0011-guide-resolution-and-clinical-product-authority.md",
+        "docs/adr/0015-customer-concern-consultation.md",
+        "docs/adr/0018-clinician-led-consultation-and-diagnosis.md",
+        "docs/operations/RUNBOOKS.md"
+      ],
+      "verification": [
+        "Bind every review to an exact product and evidence digest with a named licensed human owner",
+        "Keep product context, pharmacist counselling, physician diagnosis, prescribing, dispensing, and automated assistance as distinct authorities",
+        "Require focused safety tests and one independent clinical-governance review"
+      ],
+      "exclusions": [
+        "Autonomous diagnosis, prescribing, dispensing, or care-state promotion",
+        "Publicly representing a licence, specialty, premises, or service before current independent verification",
+        "Committing licence documents or personal registration identifiers",
+        "Production health-data or database mutation without the protected authority gate"
       ]
     },
     "data-administration": {
