@@ -6,6 +6,7 @@ import {
   isCareEligible,
   requiresPharmacistReview,
   hasInsufficientData,
+  careStateAttestation,
   careStateLabel,
 } from "@/lib/clinical/care-evidence-bridge";
 
@@ -34,6 +35,29 @@ test("careStateLabel returns null for unknown products", () => {
     careStateLabel("nonexistent-product-slug"),
     "Community evidence being collected",
   );
+});
+
+test("attested pharmacist-review products expose reviewed context without becoming eligible", () => {
+  const productSlug = "anua-niacinamide-10-txa-4-serum";
+
+  assert.equal(careStateForProduct(productSlug), "pharmacist_review");
+  assert.equal(requiresPharmacistReview(productSlug), true);
+  assert.equal(isCareEligible(productSlug), false);
+  assert.equal(careStateLabel(productSlug), "Pharmacist-reviewed context");
+  assert.deepEqual(careStateAttestation(productSlug), {
+    version: "pharmacy-care-review/2026-08-31/v1",
+    reviewerLabel: "JeloCare pharmacist",
+    approvedAt: "2026-08-31",
+    disposition: "reviewed_context_only",
+  });
+});
+
+test("pharmacist-review state without exact cohort approval has no attestation", () => {
+  const productSlug = "nizoral-ad-ketoconazole-shampoo";
+
+  assert.equal(careStateForProduct(productSlug), "pharmacist_review");
+  assert.equal(careStateAttestation(productSlug), null);
+  assert.equal(careStateAttestation("nonexistent-product-slug"), null);
 });
 
 test("identifyCareEvidenceSignals flags products with enough positive outcomes", () => {

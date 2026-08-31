@@ -5,6 +5,10 @@ import {
   type ProductCareState,
   type ReviewedProductCare,
 } from "@/data/product-care-review";
+import {
+  getPharmacyCareReviewAttestation,
+  type PharmacyCareReviewAttestation,
+} from "@/data/product-care-review-attestation";
 import type { Offer, Product } from "@/data/products";
 import { listProductIngredientsSafe } from "@/lib/clinical/ingredients";
 import { getProductPriceTrends } from "@/lib/inventory/price-trends";
@@ -26,6 +30,7 @@ export type ProductCareDecision = {
   approvedUses: string[];
   evidenceSourceUrls: string[];
   reviewedAt: string | null;
+  pharmacyAttestation: PharmacyCareReviewAttestation | null;
 };
 
 export type ProductPanelData = {
@@ -53,6 +58,9 @@ export function buildProductCareDecision(
   const state = careReview?.careState ?? "insufficient_data";
   const evidenceSourceUrls = [...(careReview?.evidenceSourceUrls ?? [])];
   const reviewedAt = careReview?.reviewedAt ?? null;
+  const pharmacyAttestation = careReview
+    ? (getPharmacyCareReviewAttestation(careReview.productSlug) ?? null)
+    : null;
 
   if (state === "supportive_eligible") {
     return {
@@ -65,18 +73,33 @@ export function buildProductCareDecision(
         : [],
       evidenceSourceUrls,
       reviewedAt,
+      pharmacyAttestation: null,
     };
   }
 
   if (state === "pharmacist_review") {
+    if (pharmacyAttestation) {
+      return {
+        state,
+        statusLabel: "Pharmacist-reviewed context",
+        summary:
+          "A JeloCare pharmacist approved this as reviewed context only, not a direct supportive recommendation. Ask a pharmacist for guidance about a specific concern.",
+        approvedUses: [],
+        evidenceSourceUrls,
+        reviewedAt,
+        pharmacyAttestation,
+      };
+    }
+
     return {
       state,
-      statusLabel: "Pharmacist review needed",
+      statusLabel: "Pharmacist guidance required",
       summary:
         "JeloCare's reviewed care state says to check with a pharmacist before treating this product as supportive care.",
       approvedUses: [],
       evidenceSourceUrls,
       reviewedAt,
+      pharmacyAttestation: null,
     };
   }
 
@@ -88,6 +111,7 @@ export function buildProductCareDecision(
     approvedUses: [],
     evidenceSourceUrls,
     reviewedAt,
+    pharmacyAttestation: null,
   };
 }
 

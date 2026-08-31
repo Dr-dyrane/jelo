@@ -319,7 +319,7 @@ test("a reviewed retinoid remains blocked during pregnancy", () => {
   assert.match(decision.exclusions.join(" "), /blocked ingredient.*retinol/i);
 });
 
-test("all five pharmacist-review products are excluded from direct recommendations", () => {
+test("pharmacist-reviewed context remains excluded from direct recommendations", () => {
   const pharmacistSlugs = [
     "anua-niacinamide-10-txa-4-serum",
     "cerave-blemish-control-cleanser",
@@ -345,6 +345,44 @@ test("all five pharmacist-review products are excluded from direct recommendatio
     const decision = evaluateProductClinically(product(slug), clinical);
     assert.equal(decision.careState, "pharmacist_review", slug);
     assert.equal(decision.eligible, false, slug);
-    assert.match(decision.exclusions.join(" "), /pharmacist review/i, slug);
+    assert.deepEqual(decision.approvedUseIds, [], slug);
+    assert.deepEqual(decision.reasons, [], slug);
+    assert.equal(decision.clinicalScore, 0, slug);
+    const exclusion = decision.exclusions.join(" ");
+    if (slug !== "nizoral-ad-ketoconazole-shampoo") {
+      assert.match(exclusion, /pharmacist-reviewed context only/i, slug);
+      assert.deepEqual(
+        decision.pharmacyAttestation,
+        {
+          version: "pharmacy-care-review/2026-08-31/v1",
+          reviewerLabel: "JeloCare pharmacist",
+          approvedAt: "2026-08-31",
+          disposition: "reviewed_context_only",
+        },
+        slug,
+      );
+    } else {
+      assert.match(exclusion, /pharmacist guidance is required/i, slug);
+      assert.equal(decision.pharmacyAttestation, null, slug);
+    }
   }
+});
+
+test("insufficient-data decisions cannot carry approved uses, scores, or pharmacy approval", () => {
+  const clinical = assessClinicalRoutine("My skin feels dry.", {
+    concerns: ["dryness"],
+  });
+  const decision = evaluateProductClinically(
+    product("cosrx-advanced-snail-92-all-in-one-cream-100g-jar"),
+    clinical,
+    [],
+    { concernSlugs: ["dry-dehydrated-skin"] },
+  );
+
+  assert.equal(decision.careState, "insufficient_data");
+  assert.equal(decision.eligible, false);
+  assert.deepEqual(decision.approvedUseIds, []);
+  assert.deepEqual(decision.reasons, []);
+  assert.equal(decision.clinicalScore, 0);
+  assert.equal(decision.pharmacyAttestation, null);
 });

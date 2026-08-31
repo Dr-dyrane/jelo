@@ -142,7 +142,9 @@ test("product care decision maps every canonical state without catalogue-copy fa
   assert.match(productPanelModel, /state === ["']supportive_eligible["']/);
   assert.match(productPanelModel, /Reviewed supportive use/);
   assert.match(productPanelModel, /state === ["']pharmacist_review["']/);
-  assert.match(productPanelModel, /Pharmacist review needed/);
+  assert.match(productPanelModel, /Pharmacist-reviewed context/);
+  assert.match(productPanelModel, /reviewed context only/);
+  assert.match(productPanelModel, /pharmacyAttestation/);
   assert.match(productPanelModel, /Not enough reviewed care evidence/);
   assert.doesNotMatch(productPanelModel, /product\.displayLine/);
 });
@@ -170,6 +172,10 @@ test("approved-use claims render only for supportive eligible products", () => {
 
 test("product decision summary exposes exact review dates and source links", () => {
   assert.match(decisionSummary, /<time dateTime=\{decision\.reviewedAt\}>/);
+  assert.match(decisionSummary, /Product evidence reviewed/);
+  assert.match(decisionSummary, /: ["']Reviewed ["']/);
+  assert.match(decisionSummary, /Pharmacy approval by/);
+  assert.match(decisionSummary, /decision\.pharmacyAttestation\.approvedAt/);
   assert.match(decisionSummary, /day: ["']numeric["']/);
   assert.match(decisionSummary, /timeZone: ["']UTC["']/);
   assert.match(decisionSummary, /href=\{url\}/);

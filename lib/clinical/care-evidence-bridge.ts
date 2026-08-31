@@ -16,6 +16,10 @@ import {
   type ProductCareState,
   type ReviewedProductCare,
 } from "@/data/product-care-review";
+import {
+  getPharmacyCareReviewAttestation,
+  type PharmacyCareReviewAttestation,
+} from "@/data/product-care-review-attestation";
 
 export type ProductCareEvidenceSignal = {
   productSlug: string;
@@ -143,6 +147,17 @@ export function hasInsufficientData(productSlug: string): boolean {
 }
 
 /**
+ * Read the governed pharmacy approval metadata for an exact product cohort.
+ * The compatibility care state alone never implies an attestation.
+ */
+export function careStateAttestation(
+  productSlug: string,
+): PharmacyCareReviewAttestation | null {
+  if (careStateForProduct(productSlug) !== "pharmacist_review") return null;
+  return getPharmacyCareReviewAttestation(productSlug) ?? null;
+}
+
+/**
  * Get a human-readable label for a product's care state,
  * suitable for display in the contribute pathway.
  */
@@ -152,7 +167,9 @@ export function careStateLabel(productSlug: string): string | null {
     case "supportive_eligible":
       return null; // No label needed — this is the normal state
     case "pharmacist_review":
-      return "Pharmacist review pending";
+      return careStateAttestation(productSlug)
+        ? "Pharmacist-reviewed context"
+        : "Pharmacist guidance required";
     case "insufficient_data":
       return "Community evidence being collected";
     default:

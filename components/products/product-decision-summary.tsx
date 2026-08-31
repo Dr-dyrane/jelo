@@ -26,6 +26,9 @@ export function ProductDecisionSummary({ decision }: Props) {
   const reviewedDate = decision.reviewedAt
     ? formatReviewDate(decision.reviewedAt)
     : null;
+  const pharmacyApprovalDate = decision.pharmacyAttestation
+    ? formatReviewDate(decision.pharmacyAttestation.approvedAt)
+    : null;
   const showsApprovedUses =
     decision.state === "supportive_eligible" &&
     decision.approvedUses.length > 0;
@@ -58,7 +61,9 @@ export function ProductDecisionSummary({ decision }: Props) {
           <p className={styles.evidenceLabel}>Evidence record</p>
           {decision.reviewedAt && reviewedDate ? (
             <p className={styles.reviewedOn}>
-              Reviewed{" "}
+              {decision.pharmacyAttestation
+                ? "Product evidence reviewed "
+                : "Reviewed "}
               <time dateTime={decision.reviewedAt}>{reviewedDate}</time>
             </p>
           ) : (
@@ -66,6 +71,15 @@ export function ProductDecisionSummary({ decision }: Props) {
               No completed care-review date is recorded yet.
             </p>
           )}
+
+          {decision.pharmacyAttestation && pharmacyApprovalDate ? (
+            <p className={styles.reviewedOn}>
+              Pharmacy approval by {decision.pharmacyAttestation.reviewerLabel}{" "}
+              <time dateTime={decision.pharmacyAttestation.approvedAt}>
+                {pharmacyApprovalDate}
+              </time>
+            </p>
+          ) : null}
 
           {decision.evidenceSourceUrls.length > 0 ? (
             <ul className={styles.sourceList} aria-label="Care review sources">
