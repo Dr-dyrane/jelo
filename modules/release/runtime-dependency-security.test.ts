@@ -46,4 +46,15 @@ test("runtime dependencies stay on the reviewed security floor", async () => {
   assert.equal(lock.packages?.["node_modules/postcss"]?.version, "8.5.23");
   assert.equal(lock.packages?.["node_modules/nanoid"]?.version, "3.3.18");
   assert.equal(lock.packages?.["node_modules/undici"]?.version, "6.28.0");
+  assert.equal(
+    lock.packages?.[
+      "node_modules/@typescript-eslint/typescript-estree/node_modules/brace-expansion"
+    ]?.version,
+    "5.0.9",
+  );
+  assert.equal(
+    lock.packages?.["node_modules/brace-expansion"]?.version,
+    "1.1.18",
+  );
+  assert.equal(lock.packages?.["node_modules/js-yaml"]?.version, "4.3.2");
 });
