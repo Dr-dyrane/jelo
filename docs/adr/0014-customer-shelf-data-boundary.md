@@ -90,11 +90,11 @@ an opaque routine ID, and revision, never an owner.
 
 Production has three distinct database authorities:
 
-| Authority | Location | Contract |
-| --- | --- | --- |
-| Protected migration administrator | Operator workstation or protected release runner only | Supplied as `MIGRATION_DATABASE_URL`; applies migrations and explicit reconciliation operators |
-| `jelocare_app_runtime` | Vercel server runtime | `LOGIN NOINHERIT NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS`; may use the existing public application tables and sequences granted by migration `0035`, but not Shelf rows, Shelf import receipts, or the migration ledger; future tables receive no default grant |
-| `jelocare_shelf_runtime` | Vercel server runtime | Same non-privileged role attributes; may use only owner-isolated Shelf/request/image/idempotency/cleanup/routine rows, reviewed catalogue identity columns, and the pinned aggregate-signal bridge |
+| Authority                         | Location                                              | Contract                                                                                                                                                                                                                                                                              |
+| --------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Protected migration administrator | Operator workstation or protected release runner only | Supplied as `MIGRATION_DATABASE_URL`; applies migrations and explicit reconciliation operators                                                                                                                                                                                        |
+| `jelocare_app_runtime`            | Vercel server runtime                                 | `LOGIN NOINHERIT NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS`; may use the existing public application tables and sequences granted by migration `0035`, but not Shelf rows, Shelf import receipts, or the migration ledger; future tables receive no default grant |
+| `jelocare_shelf_runtime`          | Vercel server runtime                                 | Same non-privileged role attributes; may use only owner-isolated Shelf/request/image/idempotency/cleanup/routine rows, reviewed catalogue identity columns, and the pinned aggregate-signal bridge                                                                                    |
 
 The operator creates both runtime roles with SQL as `PASSWORD NULL`, then sets
 each independent password through an interactive or equivalently protected
@@ -117,23 +117,29 @@ attestation additionally requires forced RLS on both routine relations, the
 exact expected Shelf-runtime table privileges, and no app-runtime or PUBLIC
 table or column privilege.
 
-Production runtime code also fails closed unless the general connection names
-the exact `jelocare_app_runtime` user and the Shelf connection attests the exact
+Production runtime code considers only `APP_DATABASE_URL` for the general
+connection when `NODE_ENV=production` or `VERCEL_ENV=preview|production`, and
+fails closed unless it names the exact `jelocare_app_runtime` user. It never
+accepts or falls through to `DATABASE_URL` or `POSTGRES_URL`. The Shelf
+connection separately attests the exact
 `jelocare_shelf_runtime` current and session role. The Shelf attestation rejects
 inheritance, elevated role attributes, the runtime role belonging to any other
 role, relation ownership, or a table without enabled and forced RLS. PostgreSQL
-17 may grant the creating administrator membership *in* a newly created role;
+17 may grant the creating administrator membership _in_ a newly created role;
 that incoming administration edge is allowed. It does not let an owner
 masquerade as the Shelf runtime because attestation requires both
 `session_user` and `current_user` to be the exact runtime login.
 
 No database owner or migration-administrator credential may exist in Vercel.
-`DATABASE_URL` (and any retained `POSTGRES_URL` compatibility alias) may resolve
-only to `jelocare_app_runtime`; `CUSTOMER_SHELF_DATABASE_URL` may resolve only to
-`jelocare_shelf_runtime`. Delete unused provider-generated aliases rather than
-leaving an owner URL reconstructable from `POSTGRES_*`, `PG*`, or other split
-fields. `MIGRATION_DATABASE_URL` belongs only at the protected operator/release
-boundary.
+`APP_DATABASE_URL` is the only general-runtime database variable permitted
+there and may resolve only to `jelocare_app_runtime`;
+`CUSTOMER_SHELF_DATABASE_URL` may resolve only to `jelocare_shelf_runtime`.
+`DATABASE_URL`, `POSTGRES_URL`, and every provider-generated database alias are
+local-development/test compatibility only and must be absent from every Vercel
+scope, even if they contain the restricted app role. Delete generated aliases
+rather than leaving an owner URL reconstructable from `POSTGRES_*`, `PG*`, or
+other split fields. `MIGRATION_DATABASE_URL` belongs only at the protected
+operator/release boundary.
 
 ## Reviewed Umeh import
 
@@ -145,13 +151,13 @@ and routine-components hash
 All 14 historical product records have exactly one disposition. Five exact
 brand/name/size tuples are accepted:
 
-| Legacy ID | Exact reviewed product |
-| --- | --- |
-| `cosrx` | COSRX · Salicylic Acid Daily Gentle Cleanser · 150 ml |
-| `somebymi` | SOME BY MI · AHA·BHA·PHA 30 Days Miracle Toner · 150 ml |
-| `anua` | ANUA · Niacinamide 10% + TXA 4% Serum · 30 ml |
-| `wonder` | FACE FACTS · Wonder Cream Fragrance Free · 50 ml |
-| `ogx` | OGX · Renewing + Argan Oil of Morocco Extra Penetrating Oil · 100 ml |
+| Legacy ID  | Exact reviewed product                                               |
+| ---------- | -------------------------------------------------------------------- |
+| `cosrx`    | COSRX · Salicylic Acid Daily Gentle Cleanser · 150 ml                |
+| `somebymi` | SOME BY MI · AHA·BHA·PHA 30 Days Miracle Toner · 150 ml              |
+| `anua`     | ANUA · Niacinamide 10% + TXA 4% Serum · 30 ml                        |
+| `wonder`   | FACE FACTS · Wonder Cream Fragrance Free · 50 ml                     |
+| `ogx`      | OGX · Renewing + Argan Oil of Morocco Extra Penetrating Oil · 100 ml |
 
 The other nine records become private pending product requests. Ambiguous Dove
 identities and records without one reviewed public binding are never

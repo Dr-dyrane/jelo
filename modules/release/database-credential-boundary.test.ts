@@ -10,53 +10,123 @@ import {
   requireRehearsalDatabaseUrl,
 } from "../../scripts/lib/admin-database";
 
-test("production application configuration requires the exact runtime login", () => {
+test("production application configuration accepts only the exact APP_DATABASE_URL runtime login", () => {
   const exact = `postgresql://${APPLICATION_RUNTIME_ROLE}:secret@ep-safe.example/db`;
+  const owner = "postgresql://owner:secret@ep-safe.example/db";
+
+  assert.equal(
+    applicationDatabaseUrl({ NODE_ENV: "production", APP_DATABASE_URL: exact }),
+    exact,
+  );
+  assert.equal(
+    applicationDatabaseUrl({
+      NODE_ENV: "production",
+      APP_DATABASE_URL: exact,
+      DATABASE_URL: owner,
+      POSTGRES_URL: owner,
+    }),
+    exact,
+    "local-only aliases cannot override the canonical production credential",
+  );
+  assert.equal(
+    applicationDatabaseUrl({
+      NODE_ENV: "production",
+      APP_DATABASE_URL: owner,
+      DATABASE_URL: exact,
+      POSTGRES_URL: exact,
+    }),
+    undefined,
+    "an unsafe APP_DATABASE_URL cannot fall through to a local-only alias",
+  );
+  assert.equal(
+    applicationDatabaseUrl({
+      NODE_ENV: "production",
+      APP_DATABASE_URL: "not-a-url",
+      DATABASE_URL: exact,
+    }),
+    undefined,
+    "an invalid APP_DATABASE_URL cannot fall through to a local-only alias",
+  );
   assert.equal(
     applicationDatabaseUrl({ NODE_ENV: "production", DATABASE_URL: exact }),
-    exact,
-  );
-  assert.equal(
-    applicationDatabaseUrl({
-      NODE_ENV: "production",
-      DATABASE_URL: "postgresql://owner:secret@ep-safe.example/db",
-    }),
     undefined,
   );
   assert.equal(
-    applicationDatabaseUrl({
-      NODE_ENV: "production",
-      DATABASE_URL: "postgresql://owner:secret@ep-safe.example/db",
-      POSTGRES_URL: exact,
-    }),
+    applicationDatabaseUrl({ NODE_ENV: "production", POSTGRES_URL: exact }),
     undefined,
-    "an unsafe preferred URL cannot fall through to a second credential",
   );
-  assert.equal(
-    applicationDatabaseUrl({
-      NODE_ENV: "production",
-      POSTGRES_URL: exact,
-    }),
-    exact,
-  );
+
+  for (const VERCEL_ENV of ["preview", "production"]) {
+    assert.equal(
+      applicationDatabaseUrl({
+        VERCEL_ENV,
+        DATABASE_URL: exact,
+        POSTGRES_URL: exact,
+      }),
+      undefined,
+      `Vercel ${VERCEL_ENV} cannot use local-only database aliases`,
+    );
+    assert.equal(
+      applicationDatabaseUrl({
+        VERCEL_ENV,
+        APP_DATABASE_URL: exact,
+        DATABASE_URL: owner,
+        POSTGRES_URL: owner,
+      }),
+      exact,
+    );
+    assert.equal(
+      applicationDatabaseUrl({
+        NODE_ENV: "development",
+        VERCEL_ENV,
+        DATABASE_URL: exact,
+      }),
+      undefined,
+      `Vercel ${VERCEL_ENV} remains fail-closed when NODE_ENV is mis-set`,
+    );
+  }
 });
 
-test("development and tests remain usable with an ordinary local PostgreSQL role", () => {
-  const local = "postgresql://developer:secret@127.0.0.1/jelocare";
+test("development and tests retain ordered local database compatibility", () => {
+  const app = "postgresql://app-local:secret@127.0.0.1/jelocare";
+  const database = "postgresql://database-local:secret@127.0.0.1/jelocare";
+  const postgres = "postgresql://postgres-local:secret@127.0.0.1/jelocare";
   assert.equal(
-    applicationDatabaseUrl({ NODE_ENV: "development", DATABASE_URL: local }),
-    local,
-  );
-  assert.equal(
-    applicationDatabaseUrl({ NODE_ENV: "test", POSTGRES_URL: local }),
-    local,
+    applicationDatabaseUrl({
+      NODE_ENV: "development",
+      APP_DATABASE_URL: app,
+      DATABASE_URL: database,
+      POSTGRES_URL: postgres,
+    }),
+    app,
   );
   assert.equal(
     applicationDatabaseUrl({
-      NODE_ENV: "production",
-      DATABASE_URL: "not-a-url",
+      NODE_ENV: "development",
+      DATABASE_URL: database,
+      POSTGRES_URL: postgres,
+    }),
+    database,
+  );
+  assert.equal(
+    applicationDatabaseUrl({ NODE_ENV: "test", POSTGRES_URL: postgres }),
+    postgres,
+  );
+  assert.equal(
+    applicationDatabaseUrl({
+      VERCEL_ENV: "development",
+      DATABASE_URL: database,
+    }),
+    database,
+  );
+  assert.equal(
+    applicationDatabaseUrl({
+      NODE_ENV: "test",
+      APP_DATABASE_URL: "not-a-url",
+      DATABASE_URL: database,
     }),
     undefined,
+    "an invalid preferred local URL cannot fall through to a second credential",
   );
 });
 

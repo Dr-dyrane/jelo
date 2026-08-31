@@ -12,7 +12,7 @@ Neon PostgreSQL is the durable store. Checked-in reviewed data remains a deliber
 | Private Shelf runtime         | `CUSTOMER_SHELF_DATABASE_URL` as `jelocare_shelf_runtime`              | Vercel server runtime and local development                         |
 | Migrations and reconciliation | `MIGRATION_DATABASE_URL` as a protected administrator                  | Operator workstation or protected release runner only; never Vercel |
 | Temporary migration rehearsal | `MIGRATION_REHEARSAL_DATABASE_URL` as a protected branch administrator | Verified disposable `rehearsal/...` branch process only             |
-| General runtime compatibility | `POSTGRES_URL` as `jelocare_app_runtime`                               | Retain only when required; never point it to the owner              |
+| General runtime compatibility | `DATABASE_URL` or `POSTGRES_URL`                                       | Local development/test only; absent from every Vercel scope         |
 
 Never expose a PostgreSQL connection string through a `NEXT_PUBLIC_` variable.
 Never put the database owner or another migration-capable credential in Vercel,
@@ -21,9 +21,11 @@ role attributes, grants, and credential lifecycle are canonical in
 [ADR 0014](../adr/0014-customer-shelf-data-boundary.md#database-role-and-credential-boundary).
 
 `lib/db/postgres.ts` creates a small pooled general-runtime client with prepared
-statements disabled. In production it fails closed unless the connection URL
-names the exact `jelocare_app_runtime` user. Shelf uses its own attested client;
-migration and reconciliation scripts accept only `MIGRATION_DATABASE_URL`.
+statements disabled. In production mode it considers only `APP_DATABASE_URL`
+and fails closed unless that URL names the exact `jelocare_app_runtime` user.
+It never falls through to a compatibility alias. Shelf uses its own attested
+client; migration and reconciliation scripts accept only
+`MIGRATION_DATABASE_URL`.
 
 ### Restricted Vercel runtime and the owned Neon resource
 
@@ -34,9 +36,13 @@ Neon Auth base/project variables are configured explicitly in their reviewed
 Production and Preview scopes; the database integration is not their authority.
 
 `applicationDatabaseUrl()` in `lib/database/runtime-database-config.ts` resolves
-`APP_DATABASE_URL` first. Vercel Production configures only that general-runtime
-URL and the separate Shelf URL. `DATABASE_URL`, owner URLs, unpooled aliases,
-and split `POSTGRES_*`/`PG*` owner fields must be absent from every Vercel scope.
+only `APP_DATABASE_URL` when `NODE_ENV=production` or
+`VERCEL_ENV=preview|production`, so a missing or mis-set `NODE_ENV` cannot
+weaken a Vercel runtime. Local development, tests, and
+`VERCEL_ENV=development` may fall back in order to `DATABASE_URL` and
+`POSTGRES_URL`. Those compatibility aliases, owner URLs, unpooled aliases, and
+split `POSTGRES_*`/`PG*` fields must be absent from every Vercel scope, even if
+an alias currently names `jelocare_app_runtime`.
 
 **Production setup:**
 

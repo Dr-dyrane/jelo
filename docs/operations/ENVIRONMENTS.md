@@ -2,7 +2,9 @@
 
 Updated: 2026-08-13
 
-Use the same names across local development, Vercel Preview, and Vercel Production. Values differ; contracts do not.
+Canonical variables use the same names across local development, Vercel Preview,
+and Vercel Production. The PostgreSQL compatibility aliases documented below
+are local-only and must be absent from every Vercel scope.
 
 ## Local setup
 
@@ -71,14 +73,21 @@ separate secrets, and the canary described in
 
 ### PostgreSQL
 
-| Variable                      | Required                          | Notes                                                                                                                                                                                                                 |
-| ----------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `APP_DATABASE_URL`            | Production runtime data features  | Pooled postgres.js URL whose username is exactly `jelocare_app_runtime`; require `sslmode=verify-full` and omit `channel_binding`. This is the only general database URL configured in Vercel Production.             |
-| `DATABASE_URL`                | Not permitted in Vercel           | Must be absent from every Vercel scope because a provider integration can reconstruct it with an owner role. Local development may use this compatibility name only when it resolves to exact `jelocare_app_runtime`. |
-| `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf and Routine runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only                                                                         |
-| `POSTGRES_URL`                | Compatibility only                | If retained, it must satisfy the same driver and exact app-role contract, never point to an owner or administrator                                                                                                    |
-| `NEON_PROJECT_ID`             | Operator convenience              | Not read by application runtime                                                                                                                                                                                       |
-| `CRON_SECRET`                 | Production cron endpoints         | Bearer token for `/api/cron/inventory`, `/api/cron/reconcile-requests`, and `/api/cron/daily-campaign`. Must be at least 16 characters; `isAuthorizedCronRequest` rejects shorter secrets.                            |
+| Variable                      | Required                          | Notes                                                                                                                                                                                                                            |
+| ----------------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `APP_DATABASE_URL`            | Production-mode runtime data      | Canonical pooled postgres.js URL whose username is exactly `jelocare_app_runtime`; require `sslmode=verify-full` and omit `channel_binding`. This is the only general URL read when `NODE_ENV=production` or `VERCEL_ENV=preview | production`. |
+| `DATABASE_URL`                | Local development/test only       | Compatibility alias after `APP_DATABASE_URL`. It is ignored in production mode and must be absent from Production, Preview, and Development Vercel scopes, even if it names the exact restricted role.                           |
+| `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf and Routine runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only                                                                                    |
+| `POSTGRES_URL`                | Local development/test only       | Final compatibility alias after `APP_DATABASE_URL` and `DATABASE_URL`. It is ignored in production mode and must be absent from every Vercel scope.                                                                              |
+| `NEON_PROJECT_ID`             | Operator convenience              | Not read by application runtime                                                                                                                                                                                                  |
+| `CRON_SECRET`                 | Production cron endpoints         | Bearer token for `/api/cron/inventory`, `/api/cron/reconcile-requests`, and `/api/cron/daily-campaign`. Must be at least 16 characters; `isAuthorizedCronRequest` rejects shorter secrets.                                       |
+
+Production-mode application resolution means `NODE_ENV=production` or
+`VERCEL_ENV=preview|production`. It considers only `APP_DATABASE_URL` and fails
+closed unless its decoded username is exactly `jelocare_app_runtime`. It never
+falls through to `DATABASE_URL` or `POSTGRES_URL`. Local development, tests, and
+`VERCEL_ENV=development` retain the ordered `APP_DATABASE_URL`, `DATABASE_URL`,
+`POSTGRES_URL` compatibility chain.
 
 `MIGRATION_DATABASE_URL` is deliberately not a Vercel environment variable. A
 protected operator process injects one direct, non-pooled administrator URL for
@@ -108,8 +117,10 @@ not be connected to the Vercel project because that connection can recreate an
 owner-bearing `DATABASE_URL`. Neon Auth variables are configured explicitly in
 their reviewed scopes instead of relying on the database integration.
 
-Delete unused Neon/Vercel compatibility variables. In particular, do not leave
-an owner credential reconstructable from `DATABASE_URL_UNPOOLED`,
+No Vercel scope may contain Neon database compatibility aliases or generated
+connection fields, including aliases that currently name a restricted role. In
+particular, do not leave an owner credential reconstructable from `DATABASE_URL`,
+`POSTGRES_URL`, `DATABASE_URL_UNPOOLED`,
 `POSTGRES_URL_NON_POOLING`, `POSTGRES_PRISMA_URL`, `POSTGRES_*`, `PG*`, or a
 provider integration after configuring the two restricted runtime URLs. No
 database URL belongs in browser code.
@@ -253,6 +264,9 @@ activation sequence are documented in
 
 - Restricted application secrets belong in Vercel Production. The database
   owner and `MIGRATION_DATABASE_URL` explicitly do not.
+- `APP_DATABASE_URL` is the canonical general-runtime name. `DATABASE_URL`,
+  `POSTGRES_URL`, and generated database aliases are local-only and must be
+  absent from Production, Preview, and Development Vercel scopes.
 - `MIGRATION_REHEARSAL_DATABASE_URL` belongs only to the bounded local
   rehearsal process and must never coexist with production migration authority.
 - Preview secrets belong in Preview only when the feature is safe to exercise there.
