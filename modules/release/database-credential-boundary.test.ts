@@ -151,6 +151,7 @@ test("every database mutation step in reconciliation uses the admin-only resolve
     "scripts/record-manual-inventory-observation.ts",
     "scripts/queue-inventory-refresh.ts",
     "scripts/purge-community-intake-drafts.ts",
+    "scripts/purge-consult-ai-generations.ts",
   ];
   for (const path of paths) {
     const source = await readFile(path, "utf8");

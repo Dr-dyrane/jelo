@@ -1,6 +1,6 @@
 # Neon and data operations
 
-Updated: 2026-08-13
+Updated: 2026-08-30
 
 Neon PostgreSQL is the durable store. Checked-in reviewed data remains a deliberate public fallback.
 
@@ -73,6 +73,7 @@ be `jelocare_app_runtime`, and the read-only Shelf audit must attest
 | Retailer partnerships     | `retailer_partnership_applications`, `retailer_partnership_events`                                                               |
 | Operations                | `moderation_operators`, append-only `moderation_audit_log` (`event_sequence` is causal order; `created_at` is presentation time) |
 | Customer Shelf            | `customer_shelf_items`; private one-off `customer_shelf_import_receipts`                                                         |
+| Ask generation metadata   | `consult_ai_generations`; bounded metadata only, with no raw customer query                                                      |
 | Migration history         | Append-only, checksummed `schema_migrations` with execution provenance                                                           |
 
 The ordered files in `db/migrations/` are authoritative.
@@ -322,6 +323,11 @@ catalogue tables.
 - Community drafts expire after 30 days and have a purge operator.
 - Submitted community contributions currently retain for 24 months.
 - Retailer partnership applications currently retain for 24 months.
+- Ask generation metadata becomes eligible for protected manual deletion when
+  `retain_until` passes 30 days. This is not an automatic deletion guarantee;
+  rows remain until an explicitly authorized operator run removes a bounded
+  batch. The operator accepts only `MIGRATION_DATABASE_URL`, is unavailable in
+  Vercel, and is documented in the Ask retention runbook.
 - Edit-secret hashes remain one-way.
 
 Run the community draft purge with:
@@ -329,3 +335,12 @@ Run the community draft purge with:
 ```bash
 npm run community:intake:purge
 ```
+
+Inspect Ask generation expiry without writing:
+
+```bash
+npm run consult:ai:retention
+```
+
+Production apply requires the runbook's exact confirmation token plus fresh
+action-time authority for the re-resolved Neon target and batch.

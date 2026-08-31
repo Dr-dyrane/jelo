@@ -1,6 +1,6 @@
 # Ask Jelo AI Gateway plan
 
-Updated: 2026-08-13
+Updated: 2026-08-30
 
 ## Implementation status
 
@@ -27,9 +27,18 @@ only a SHA-256 digest and character count for the customer text, the
 deterministic outcome class, the constrained proposal, token usage, exact
 Gateway cost metadata when supplied, latency, and settlement state. Raw health
 text, member context, contact data, and customer-visible wording are not
-persisted. Retention is 30 days. The historical database lane name remains
-`intake_shadow`, but schema version 2 records that its enum can select a
-JeloCare-owned clarification question.
+persisted. Rows become eligible for deletion 30 days after creation; actual
+deletion remains a protected manual operation and may occur later. The
+historical database lane name remains `intake_shadow`, but schema version 2
+records that its enum can select a JeloCare-owned clarification question.
+
+Expired generation metadata is removed only by the protected manual retention
+operator documented in the runbook. Dry run is database-enforced read-only;
+apply requires an exact confirmation token and deletes one bounded,
+oldest-currently-unlocked `SKIP LOCKED` batch. The runtime role remains denied
+`DELETE`, the operator is unavailable in Vercel and is not scheduled, and its
+result contains aggregate counts only. Every production apply still requires
+fresh action-time authority for the exact target and batch.
 
 Persistence failure, Gateway authentication or provider failure, timeout,
 fallback exhaustion, or schema failure all return the original deterministic

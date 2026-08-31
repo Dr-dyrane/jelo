@@ -1,6 +1,6 @@
 # Operational runbooks
 
-Updated: 2026-08-23
+Updated: 2026-08-30
 
 Lead with evidence. Preserve data. Prefer a forward repair.
 
@@ -436,6 +436,43 @@ left join catalogue_product_identity_versions identity
 where product.is_published = true
   and product.source_version in ('static-v1', 'published-intake-v1');
 ```
+
+### Purge expired Ask Jelo generation metadata
+
+`consult_ai_generations` rows become eligible for deletion when their 30-day
+`retain_until` boundary passes. They remain stored until the protected manual
+operator removes them; no automatic 30-day deletion claim is made. The runtime
+role remains denied `DELETE`; expiry does not grant the application or a
+scheduled job deletion authority. The protected retention CLI accepts only a
+direct administrator `MIGRATION_DATABASE_URL`, never runs in Vercel, and prints
+aggregate eligible, selected, deleted, and remaining counts only.
+
+Start with the database-enforced read-only dry run. The default batch is 100;
+`--limit` must be an integer from 1 through 500.
+
+```bash
+npm run consult:ai:retention -- --limit=100
+```
+
+Before production apply, re-resolve the exact Neon project and branch, review
+the dry-run aggregate, and obtain fresh action-time production authority for
+that target and batch. Then inject the direct administrator URL only into the
+protected operator process and use both apply gates:
+
+```bash
+npm run consult:ai:retention -- \
+  --apply \
+  --limit=100 \
+  --confirm=purge-expired-consult-ai-generations
+unset MIGRATION_DATABASE_URL
+```
+
+Apply locks one oldest-currently-unlocked bounded batch with `SKIP LOCKED` and
+deletes only rows whose `retain_until <= now()` in one transaction. A repeated
+run with zero eligible rows succeeds with zero aggregate deletions. Do not add this
+operator to Vercel, cron, queue, or cache work, and never retain row IDs, row
+content, prompt or output hashes, provider fields, URLs, emails, secrets,
+connection details, or terminal output containing them.
 
 ## Release the Customer Shelf boundary
 

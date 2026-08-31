@@ -42,6 +42,7 @@
     "customer:shelf:audit": "tsx scripts/audit-customer-shelf-rls.ts",
     "customer:telemetry:report": "tsx scripts/report-customer-telemetry.ts",
     "customer:product-request-blobs:drain": "tsx scripts/drain-customer-product-request-blob-cleanup.ts",
+    "consult:ai:retention": "tsx scripts/purge-consult-ai-generations.ts",
     "db:seed": "tsx scripts/seed-catalogue.ts",
     "db:seed:external": "tsx scripts/seed-external-catalogue.ts",
     "catalogue:source": "tsx scripts/import-open-beauty-facts.ts",
