@@ -9,6 +9,13 @@
 .consult-report .report-pattern > p:last-of-type {
   color: #614f49;
 }
+.consult-report .report-pattern .pattern-alternatives,
+.consult-report .report-pattern .pattern-supporting li {
+  color: #614f49;
+}
+.consult-report .report-pattern .pattern-supporting span {
+  color: var(--wine);
+}
 .consult-report .report-pattern .concern-chips a {
   background: rgba(255, 253, 249, 0.7);
 }
@@ -120,6 +127,15 @@ html[data-theme="dark"] .consult-report .report-pattern {
 html[data-theme="dark"] .consult-report .report-pattern > p:last-of-type {
   color: var(--muted);
 }
+html[data-theme="dark"] .consult-report .report-pattern .pattern-alternatives,
+html[data-theme="dark"] .consult-report .report-pattern .pattern-supporting li,
+html[data-theme="dark"]
+  .consult-report
+  .report-pattern
+  .pattern-supporting
+  span {
+  color: var(--muted);
+}
 html[data-theme="dark"] .consult-report .report-pattern .concern-chips a {
   background: rgba(255, 255, 255, 0.1);
 }
@@ -152,6 +168,22 @@ html[data-theme="dark"] .consult-interrupt > small {
     .consult-report
     .report-pattern
     > p:last-of-type {
+    color: var(--muted);
+  }
+  html:not([data-theme="light"])
+    .consult-report
+    .report-pattern
+    .pattern-alternatives,
+  html:not([data-theme="light"])
+    .consult-report
+    .report-pattern
+    .pattern-supporting
+    li,
+  html:not([data-theme="light"])
+    .consult-report
+    .report-pattern
+    .pattern-supporting
+    span {
     color: var(--muted);
   }
   html:not([data-theme="light"])

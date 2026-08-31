@@ -105,6 +105,11 @@ type TimelineRecord = {
   outcomeRecordedAt?: string;
 };
 type CareIntent = { concernSlugs: string[]; labels: string[] };
+type Assessment = {
+  mostLikely: string;
+  otherPossibilities: string[];
+  whatMatched: string[];
+};
 export type MemberConsultContext = {
   concerns: readonly { slug: string; name: string }[];
   products: readonly { slug: string; brand: string; name: string }[];
@@ -115,13 +120,7 @@ type Consultation = {
   guide?: Guide;
   careIntent?: CareIntent;
   timeline?: TimelineRecord;
-  differential?: {
-    confidence: "low" | "moderate" | "high";
-    primaryLabel: string | null;
-    primaryConfidence: number | null;
-    alternatives: { label: string; confidence: number }[];
-    supporting: string[];
-  };
+  assessment?: Assessment;
   meta: {
     market: "NG" | "US";
     ordinaryCare?: boolean;
@@ -208,20 +207,15 @@ const outcomeOptions: {
   value: string;
   label: string;
 }[] = [
-  { value: "love-it", label: "Love it" },
-  { value: "helped", label: "Helped" },
+  { value: "love-it", label: "Very helpful" },
+  { value: "helped", label: "A little helpful" },
   { value: "unsure", label: "Not sure" },
-  { value: "didnt-help", label: "Didn't help" },
+  { value: "didnt-help", label: "Not helpful" },
 ];
 function outcomeLabel(value: string) {
   return (
     outcomeOptions.find((option) => option.value === value)?.label ?? value
   );
-}
-function confidenceLabel(confidence: "low" | "moderate" | "high") {
-  if (confidence === "high") return "High confidence";
-  if (confidence === "moderate") return "Moderate confidence";
-  return "Low confidence";
 }
 function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -302,32 +296,13 @@ function isCareIntent(value: unknown): value is CareIntent {
     isStringArray(value.labels)
   );
 }
-function isDifferential(value: unknown): value is Consultation["differential"] {
-  if (!isObject(value)) return false;
-  if (
-    value.confidence !== "low" &&
-    value.confidence !== "moderate" &&
-    value.confidence !== "high"
-  )
-    return false;
-  if (value.primaryLabel !== null && typeof value.primaryLabel !== "string")
-    return false;
-  if (
-    value.primaryConfidence !== null &&
-    typeof value.primaryConfidence !== "number"
-  )
-    return false;
-  if (!Array.isArray(value.alternatives)) return false;
-  if (
-    !value.alternatives.every(
-      (alt) =>
-        isObject(alt) &&
-        typeof alt.label === "string" &&
-        typeof alt.confidence === "number",
-    )
-  )
-    return false;
-  return isStringArray(value.supporting);
+function isAssessment(value: unknown): value is Assessment {
+  return (
+    isObject(value) &&
+    typeof value.mostLikely === "string" &&
+    isStringArray(value.otherPossibilities) &&
+    isStringArray(value.whatMatched)
+  );
 }
 function isConsultationPayload(value: unknown): value is Consultation {
   if (!isObject(value) || !isObject(value.report) || !isObject(value.meta))
@@ -349,7 +324,7 @@ function isConsultationPayload(value: unknown): value is Consultation {
     (value.timeline === undefined || isTimelineRecord(value.timeline)) &&
     (value.guide === undefined || isGuide(value.guide)) &&
     (value.careIntent === undefined || isCareIntent(value.careIntent)) &&
-    (value.differential === undefined || isDifferential(value.differential))
+    (value.assessment === undefined || isAssessment(value.assessment))
   );
 }
 function normalizedCopy(value: string) {
@@ -454,7 +429,7 @@ export function ConsultExperience({
     if (!query || busy) return;
     setBusy(true);
     setError("");
-    setStatus("Reading your description and safety context.");
+    setStatus("Assessing what you shared and checking for urgent signs.");
     setSubmittedQuery(query);
     const patient = profilePayload(profile);
     const priorTimeline = timeline.slice(0, 8);
@@ -486,23 +461,23 @@ export function ConsultExperience({
         const message =
           isObject(payload) && typeof payload.error === "string"
             ? payload.error
-            : "Consultation failed";
+            : "We couldn’t complete the assessment";
         throw new Error(message);
       }
       if (!isConsultationPayload(payload)) {
         throw new Error(
-          "JeloCare returned an incomplete guide. Please try again.",
+          "We couldn’t finish this assessment. Please try again.",
         );
       }
       setResult(payload);
       setTimeline((current) => mergeTimeline(current, payload.timeline));
       setInput("");
-      setStatus("Your JeloCare guide is ready.");
+      setStatus("Your JeloCare assessment is ready.");
     } catch (cause) {
       const message =
         cause instanceof Error
           ? cause.message
-          : "The consultation could not continue.";
+          : "We couldn’t complete this assessment.";
       setError(message);
       setStatus("");
     } finally {
@@ -595,7 +570,11 @@ export function ConsultExperience({
               </button>
             )}
           </div>
-          <small>No products selected.</small>
+          <small>
+            {interrupted
+              ? "Products are not shown when getting medical care comes first."
+              : "Products will appear when there is enough detail to guide you safely."}
+          </small>
         </motion.section>
       );
     }
@@ -621,12 +600,12 @@ export function ConsultExperience({
         transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
       >
         <p className="sr-only" role="status">
-          Your JeloCare guide is ready.
+          Your JeloCare assessment is ready.
         </p>
         <header className="report-hero">
           <div>
             <p className="eyebrow">
-              <Sparkles size={14} /> JeloCare guide
+              <Sparkles size={14} /> Your JeloCare assessment
             </p>
             <h2>{result.report.title}</h2>
             <p className="report-summary">{result.report.summary}</p>
@@ -647,32 +626,27 @@ export function ConsultExperience({
         <div className="report-grid">
           <article className="report-panel report-pattern">
             <p className="eyebrow">
-              {result.careIntent ? "Everyday care" : "What it may fit"}
+              {result.careIntent ? "Everyday care" : "Your assessment"}
             </p>
             <h3>
               {result.careIntent
                 ? "What you asked for."
-                : "A possible pattern."}
+                : (result.assessment?.mostLikely ?? "What this may be.")}
             </h3>
             <p>{result.report.pattern}</p>
-            {result.differential ? (
+            {result.assessment ? (
               <div className="pattern-differential">
-                <span className="pattern-confidence">
-                  {confidenceLabel(result.differential.confidence)}
-                </span>
-                {result.differential.alternatives.length ? (
+                {result.assessment.otherPossibilities.length ? (
                   <p className="pattern-alternatives">
-                    Other patterns considered:{" "}
-                    {result.differential.alternatives
-                      .map((alt) => alt.label)
-                      .join(", ")}
+                    Other possible causes:{" "}
+                    {result.assessment.otherPossibilities.join(", ")}
                   </p>
                 ) : null}
-                {result.differential.supporting.length ? (
+                {result.assessment.whatMatched.length ? (
                   <div className="pattern-supporting">
-                    <span>What matched</span>
+                    <span>Why this fits</span>
                     <ul>
-                      {result.differential.supporting.map((reason) => (
+                      {result.assessment.whatMatched.map((reason) => (
                         <li key={reason}>{reason}</li>
                       ))}
                     </ul>
@@ -717,12 +691,12 @@ export function ConsultExperience({
           <section className="timeline-card">
             <div>
               <p className="eyebrow">
-                <CalendarClock size={14} /> This visit
+                <CalendarClock size={14} /> This assessment
               </p>
-              <h3>Ready for a check-in.</h3>
+              <h3>A useful time to check again.</h3>
               <p>
-                This guide can support another comparison while this page stays
-                open.
+                Compare how things look or feel around the suggested date.
+                Nothing has been scheduled.
               </p>
               {(() => {
                 const currentRecord = timeline.find(
@@ -734,9 +708,8 @@ export function ConsultExperience({
                     <div className="outcome-recorded">
                       <Heart size={14} aria-hidden="true" />
                       <span>
-                        You said this{" "}
-                        {outcomeLabel(recordedOutcome).toLowerCase()}. Thanks
-                        for sharing.
+                        Thanks. You marked this as{" "}
+                        {outcomeLabel(recordedOutcome).toLowerCase()}.
                       </span>
                     </div>
                   );
@@ -760,7 +733,7 @@ export function ConsultExperience({
               })()}
             </div>
             <div className="timeline-meta">
-              <span>Follow-up</span>
+              <span>Suggested check-in</span>
               <strong>
                 {new Date(result.timeline.followUpAt).toLocaleDateString(
                   undefined,
@@ -768,8 +741,8 @@ export function ConsultExperience({
                 )}
               </strong>
               <small>
-                {timeline.length} guide{timeline.length === 1 ? "" : "s"} in
-                this visit
+                {timeline.length} assessment{timeline.length === 1 ? "" : "s"}{" "}
+                while this page is open
               </small>
             </div>
           </section>
@@ -864,7 +837,7 @@ export function ConsultExperience({
             ) : null}
             {distinctFollowUp ? (
               <article className="report-panel follow-panel">
-                <p className="eyebrow">Follow-up</p>
+                <p className="eyebrow">What to do next</p>
                 <p>{result.report.followUp}</p>
               </article>
             ) : null}
@@ -912,7 +885,7 @@ export function ConsultExperience({
             <MessageCircleMore size={20} aria-hidden="true" />
             <span>
               <strong>Something changed?</strong>
-              <small>Ask a follow-up while this visit stays in context.</small>
+              <small>Ask another question while this page stays open.</small>
             </span>
           </div>
           <button type="button" onClick={askFollowUp}>
@@ -920,8 +893,8 @@ export function ConsultExperience({
           </button>
         </div>
         <p className="report-disclaimer">
-          Guidance, not diagnosis. Urgent or worsening symptoms need in-person
-          care.
+          This assessment is based on what you shared. Severe, worsening, or
+          unclear symptoms need in-person care.
         </p>
       </motion.section>
     );
@@ -944,7 +917,7 @@ export function ConsultExperience({
       >
         <div className="consult-composer-head">
           <label htmlFor="consult-description">What are you noticing?</label>
-          <span>Private to this visit</span>
+          <span>Used for this assessment · not saved</span>
         </div>
         <div className="consult-compose-row">
           <textarea
@@ -980,11 +953,11 @@ export function ConsultExperience({
             ) : (
               <Sparkles size={18} aria-hidden="true" />
             )}
-            {busy ? "Creating guide…" : "Create my guide"}
+            {busy ? "Assessing…" : "Get my assessment"}
           </button>
         </div>
         <div className="consult-composer-foot">
-          <span>Press Ctrl or ⌘ + Enter to create your guide.</span>
+          <span>Press Ctrl or ⌘ + Enter to get your assessment.</span>
           {input && !busy ? (
             <button
               className="consult-clear"
@@ -1011,12 +984,12 @@ export function ConsultExperience({
             size={16}
             aria-hidden="true"
           />
-          Reading your description and safety context…
+          Assessing what you shared and checking for urgent signs…
         </div>
       ) : null}
       {error ? (
         <div className="consult-error" role="alert" aria-live="assertive">
-          <strong>We couldn’t create your guide.</strong>
+          <strong>We couldn’t complete your assessment.</strong>
           <span>
             {error} Your description is still here so you can try again.
           </span>
@@ -1084,7 +1057,7 @@ export function ConsultExperience({
         <details className="consult-disclosure member-context-disclosure">
           <summary>
             <span>
-              <strong>Use my JeloCare context</strong>
+              <strong>Include saved details</strong>
               <small>
                 {sharedContext.concerns || sharedContext.products
                   ? "Review what is included"
@@ -1101,12 +1074,12 @@ export function ConsultExperience({
           >
             <div className="member-consult-context-heading">
               <div>
-                <p className="eyebrow">Private context</p>
+                <p className="eyebrow">Saved details</p>
                 <h3 id="member-consult-context-title">
-                  Choose what Ask Me may use.
+                  Choose what to include in this assessment.
                 </h3>
               </div>
-              <span>Session only</span>
+              <span>Used while this page is open</span>
             </div>
             <div className="member-consult-context-options">
               <button
@@ -1192,11 +1165,11 @@ export function ConsultExperience({
         onClick={openProfile}
       >
         <span>
-          <strong>Safety context</strong>
+          <strong>Optional health details</strong>
           <small>
             {profileContextCount
               ? `${profileContextCount} detail${profileContextCount === 1 ? "" : "s"} added`
-              : "Optional · used for this visit only"}
+              : "Optional · not saved"}
           </small>
         </span>
         <span className="profile-trigger-action">
@@ -1319,8 +1292,9 @@ export function ConsultExperience({
           </div>
           <footer>
             <p>
-              Allergies, medicines, pregnancy, breastfeeding and age under 18
-              pause product guidance for human review. Used for this visit only.
+              These details can change what is safe. If JeloCare cannot assess
+              this safely online, it will tell you where to get care. Used for
+              this visit only.
             </p>
             <button type="button" onClick={closeProfile}>
               Done

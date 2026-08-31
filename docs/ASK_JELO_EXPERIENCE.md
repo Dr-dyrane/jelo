@@ -1,6 +1,9 @@
 # Ask Jelo experience direction
 
-Ask Jelo is a guided education canvas, not a chat transcript, diagnosis tool, or draggable flow editor.
+Ask Jelo is JeloCare's guided clinical assessment and care canvas, not a chat
+transcript or a draggable flow editor. It is a protocol-governed service owned
+by JeloCare's medical and pharmacy clinical leads; it does not imply that
+either named clinician personally reviewed an individual result.
 
 ## Product principles
 
@@ -11,7 +14,9 @@ Ask Jelo is a guided education canvas, not a chat transcript, diagnosis tool, or
 - Use structured choices first. Free text is optional context.
 - Show a short review before building guidance.
 - Keep results action-first: **Now**, **Routine**, **Products**, **Why**.
-- Never call a working pattern a diagnosis or show an unvalidated confidence percentage.
+- Give the best supported possible explanation in plain language, state that it
+  is not a confirmed diagnosis, show uncertainty without a confidence score,
+  and say when an examination or test may change the answer.
 - Keep health answers in session memory by default. Device saving must be explicit, reversible, and explained.
 
 ## Journey
@@ -30,13 +35,15 @@ Ask Jelo is a guided education canvas, not a chat transcript, diagnosis tool, or
 A red flag replaces the normal journey with a concise care action and returns
 zero products.
 
-The current Ask Jelo care authority is fully deterministic. Safety and
-condition paths project reviewed guidance, everyday-care paths use reviewed
-product authority, and unclear descriptions ask for more detail. Only that last
-branch may call Vercel AI Gateway to classify which neutral detail is missing.
-The model returns an enum; JeloCare renders the reviewed question. With the
-flag off or on any model, persistence, timeout, or schema failure, the original
-deterministic questions are returned.
+The current Ask Jelo care authority is fully deterministic. JeloCare makes the
+first assessment from approved clinical rules, checks urgent signs before any
+product guidance, and gives the best supported possible explanation, care plan,
+uncertainty and next step. Everyday-care paths use reviewed product authority, and unclear
+descriptions ask for more detail. Only that last branch may call Vercel AI
+Gateway to classify which neutral detail is missing. The model returns an enum;
+JeloCare renders the reviewed question. With the flag off or on any model,
+persistence, timeout, or schema failure, the original deterministic questions
+are returned.
 
 ## Authenticated My JeloCare adapter
 
@@ -86,7 +93,8 @@ directed-care path handles that description without ordinary-care products.
 - A person under 18, including age stated in prose, stops before product guidance.
 - Submitted allergies or medicines stop before product guidance because JeloCare does not evaluate allergy or medicine interactions.
 - Reviewed server rules, not model output, resolve guides, authorize products, set urgency, and compose the public result.
-- Public results contain only the guide, care steps, safe product fields,
+- Public results contain only the likely explanation, other reasonable
+  possibilities, plain-language reasons, care steps, safe product fields,
   canonical source links, and session-only check-in fields. Rule identifiers,
   scores, ingredient internals, and recommendation diagnostics stay server-side.
 

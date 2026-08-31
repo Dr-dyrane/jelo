@@ -30,8 +30,9 @@ export default async function ConsultPage({
         <p className="eyebrow">Ask JeloCare</p>
         <h1>Tell us what you notice.</h1>
         <p>
-          Describe it in your own words. We’ll build a sourced care guide—not a
-          diagnosis.
+          Describe it in your own words. JeloCare will assess what is most
+          likely, explain what to do next, and tell you when in-person care is
+          safer.
         </p>
       </header>
       <div className={styles.visual}>

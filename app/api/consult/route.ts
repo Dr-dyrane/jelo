@@ -148,6 +148,20 @@ function publicProduct(product: Product, market: Market) {
   };
 }
 
+function publicAssessmentLabel(label: string) {
+  const plainLabel = label
+    .replace(/-like pattern$/i, "")
+    .replace(/ warning pattern$/i, " warning")
+    .replace(/ assessment pattern$/i, "")
+    .replace(/ pattern$/i, "")
+    .trim();
+  return `Possible ${plainLabel.toLocaleLowerCase()}`;
+}
+
+function publicAssessmentReason(reason: string) {
+  return reason.replace(/\bpattern\b/gi, "explanation");
+}
+
 function timelinePayload(input: {
   concernSlugs: string[];
   market: Market;
@@ -234,7 +248,7 @@ export async function POST(request: Request) {
       {
         error: tooLarge
           ? "That description is too long."
-          : "Please send a valid request.",
+          : "We couldn’t read that description. Please try again.",
       },
       { status: tooLarge ? 413 : 400 },
     );
@@ -350,8 +364,18 @@ export async function POST(request: Request) {
     const selected = eligible.slice(0, 4);
     const selectedSlugs = selected.map((item) => item.product.slug);
 
+    const report = buildDeterministicCareIntentReport(
+      careIntent,
+      selectedSlugs,
+    );
+
     return Response.json({
-      report: buildDeterministicCareIntentReport(careIntent, selectedSlugs),
+      report: {
+        ...report,
+        pattern: `You asked about ${careIntent.labels
+          .map((label) => label.toLowerCase())
+          .join(" and ")}. Here is a simple care plan to start with.`,
+      },
       products: selected.map((item) => publicProduct(item.product, market)),
       careIntent: {
         concernSlugs: careIntent.concernSlugs,
@@ -413,21 +437,24 @@ export async function POST(request: Request) {
     });
   }
 
+  const report = buildDeterministicConditionGuideReport(clinical, concernGuide);
+  const primary = clinical.differential.primary;
+
   return Response.json({
-    report: buildDeterministicConditionGuideReport(clinical, concernGuide),
+    report: {
+      ...report,
+      pattern:
+        "This is the best fit from what you shared, but it is not a confirmed diagnosis. Some conditions can look alike, so an examination or test may change the answer.",
+    },
     products: [],
     guide: concernGuide,
-    differential: {
-      confidence: clinical.differential.confidence,
-      primaryLabel: clinical.differential.primary?.label ?? null,
-      primaryConfidence: clinical.differential.primary?.confidence ?? null,
-      alternatives: clinical.differential.alternatives
+    assessment: {
+      mostLikely: publicAssessmentLabel(primary?.label ?? concernGuide.name),
+      otherPossibilities: clinical.differential.alternatives
         .slice(0, 2)
-        .map((alt) => ({
-          label: alt.label,
-          confidence: alt.confidence,
-        })),
-      supporting: clinical.differential.primary?.supporting.slice(0, 3) ?? [],
+        .map((alternative) => publicAssessmentLabel(alternative.label)),
+      whatMatched:
+        primary?.supporting.slice(0, 3).map(publicAssessmentReason) ?? [],
     },
     ...timelinePayload({
       concernSlugs: [concernGuide.slug],

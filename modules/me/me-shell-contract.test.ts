@@ -718,7 +718,7 @@ test("Ask Me is route-scoped and reuses one reviewed guidance authority with opt
     experience,
     /Nothing from My JeloCare is included unless you choose it\./,
   );
-  assert.match(experience, /Session only/);
+  assert.match(experience, /Used while this page is open/);
   assert.match(experience, /memberContext: selectedMemberContext/);
   assert.match(api, /reviewedConcernSlugs\.has\(slug\)/);
   assert.match(api, /catalogueBySlug\.get\(slug\)\?\.verifiedIngredientIds/);

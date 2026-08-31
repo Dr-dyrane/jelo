@@ -212,7 +212,8 @@
         "Require focused safety tests and one independent clinical-governance review"
       ],
       "exclusions": [
-        "Autonomous diagnosis, prescribing, dispensing, or care-state promotion",
+        "Unreviewed or unbounded diagnosis, prescribing, dispensing, or care-state promotion",
+        "Representing an automated result as personally reviewed by a named clinician",
         "Publicly representing a licence, specialty, premises, or service before current independent verification",
         "Committing licence documents or personal registration identifiers",
         "Production health-data or database mutation without the protected authority gate"

@@ -1,6 +1,6 @@
-# ADR 0018: Clinician-led consultation and diagnosis
+# ADR 0018: Clinically governed digital assessment and consultation
 
-- **Status:** Accepted; implementation and public claims gated
+- **Status:** Accepted; Ask assessment implementation open, licensed encounter claims gated
 - **Date:** 2026-08-31
 - **Decision owners:** Founder/medical clinical lead and JeloCare pharmacist
 - **Extends:** [ADR 0011](0011-guide-resolution-and-clinical-product-authority.md), [ADR 0015](0015-customer-concern-consultation.md)
@@ -8,29 +8,34 @@
 
 ## Outcome
 
-JeloCare may add full, human-delivered pharmacist and physician consultations.
-A named physician may record a diagnosis or working diagnosis after an adequate
-clinical encounter within that physician's competence. A named pharmacist may
-provide medicines counselling, medication review, adherence and interaction
-support, and referral within pharmacy practice.
+Ask JeloCare is the digital clinical service governed by JeloCare's
+founder/medical clinical lead and pharmacist. Their approval applies at the
+system and protocol level: JeloCare may assess each person's description at
+scale, state the best supported possible explanation when the approved evidence
+supports it, give a care plan, and route examination-dependent or urgent cases
+to appropriate care. It must not present an automated result as a confirmed or
+clinician-authored diagnosis, or imply that either named clinician personally
+reviewed that individual result.
 
-The public Ask Jelo guide remains educational and non-diagnostic. Software may
-structure intake, retrieve reviewed evidence, screen for red flags, and prepare
-a clinician work queue. It cannot independently issue a diagnosis,
-prescription, medicine change, product-care approval, or other final
-patient-specific clinical decision.
+The automated assessment is not a prescription, medicine change, product-care
+approval, or a confirmed diagnosis that requires a physical examination or
+test. JeloCare may also add full pharmacist and physician encounters. A named
+physician may record a confirmed diagnosis or clinician-authored working
+diagnosis after an adequate encounter within that physician's competence. A
+named pharmacist may provide medicines counselling, medication review,
+adherence and interaction support, and referral within pharmacy practice.
 
 ## Authority boundaries
 
-| Activity                       | Accountable authority                                                     | Required record                                                                                                          |
-| ------------------------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Catalogue product context      | Named licensed pharmacist or physician reviewing an exact evidence packet | Versioned product/evidence digest, disposition, reviewer identity, licence validity boundary, review and expiry dates    |
-| Pharmacist consultation        | Named current pharmacist                                                  | Consent, medication and allergy history, advice, interaction/adherence findings, referral and follow-up                  |
-| Physician consultation         | Named current physician                                                   | Identity/location, consent, history, remote-examination limitations, assessment, plan, red flags, follow-up and referral |
-| Diagnosis or working diagnosis | Named physician after an adequate encounter                               | Clinician-signed conclusion, uncertainty and alternatives, supporting findings, exclusions and safety-net advice         |
-| Prescription                   | Named authorized prescriber                                               | Patient-specific signed prescription, indication, medicine, dose, route, duration, monitoring and review                 |
-| Dispensing                     | Licensed pharmacist and authorized premises/service                       | Prescription validation, dispensing evidence, counselling and medicine provenance                                        |
-| Automated assistance           | JeloCare decision-support system under human oversight                    | Model/rule version, inputs used, bounded output, clinician acceptance or correction, audit and rollback reference        |
+| Activity                             | Accountable authority                                                     | Required record                                                                                                             |
+| ------------------------------------ | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Automated Ask assessment             | JeloCare service under medical and pharmacy protocol governance           | Approved protocol/version, bounded inputs, possible explanation, uncertainty, red flags, care plan, source set and rollback |
+| Catalogue product context            | Named licensed pharmacist or physician reviewing an exact evidence packet | Versioned product/evidence digest, disposition, reviewer identity, licence validity boundary, review and expiry dates       |
+| Pharmacist consultation              | Named current pharmacist                                                  | Consent, medication and allergy history, advice, interaction/adherence findings, referral and follow-up                     |
+| Physician consultation               | Named current physician                                                   | Identity/location, consent, history, remote-examination limitations, assessment, plan, red flags, follow-up and referral    |
+| Confirmed or clinician-led diagnosis | Named physician after an adequate encounter                               | Clinician-signed conclusion, uncertainty and alternatives, supporting findings, exclusions and safety-net advice            |
+| Prescription                         | Named authorized prescriber                                               | Patient-specific signed prescription, indication, medicine, dose, route, duration, monitoring and review                    |
+| Dispensing                           | Licensed pharmacist and authorized premises/service                       | Prescription validation, dispensing evidence, counselling and medicine provenance                                           |
 
 ## Encounter contract
 
@@ -48,9 +53,12 @@ A licensed-care encounter cannot begin until the service has:
 6. opened an immutable, owner-scoped clinical record with access, correction,
    export, retention and lawful-deletion controls.
 
-The clinician owns the assessment. A product card, catalogue care state,
-community outcome, generated differential, confidence score, or pharmacist
-product attestation cannot substitute for an encounter or diagnosis.
+The clinical owners own the assessment protocol; JeloCare owns each automated
+result. The result must preserve uncertainty, explain what it used in ordinary
+language, and escalate when the available information is insufficient. A
+product card, catalogue care state, community outcome, numeric score, or
+pharmacist product attestation cannot substitute for a licensed encounter when
+one is required.
 
 ## Product review relationship
 
@@ -81,8 +89,11 @@ cron output is an idempotent reminder, not a second review or approval.
 
 ## Public-claim and launch gates
 
-Before JeloCare publicly claims clinician consultation or diagnosis, the
-clinical owners must approve and record:
+Ask JeloCare may publicly describe its current output as a JeloCare assessment,
+including the best-supported possible explanation and next care step. Before
+it claims that a named clinician personally consulted on a case, provides a confirmed
+diagnosis, prescribes, or dispenses, the clinical owners must approve and
+record:
 
 - independent current licence and registered-competence verification;
 - the clinical lead, pharmacist owner, hours, response SLO, referral network,
@@ -107,8 +118,9 @@ standing.
 
 ## Verification boundary
 
-The first implementation cell is the read-only scheduled review owner. A
-clinician-facing approval workflow, patient encounter, clinical-record store,
-diagnosis, prescription, dispensing integration, or public service claim is a
-separate release cell with its own authority, privacy, migration, security,
-rendered-flow and production-smoke gates.
+The read-only scheduled review owner governs catalogue evidence. The public Ask
+assessment is a separate route cell and cannot mutate product approval. A
+clinician-facing encounter workflow, clinical-record store, confirmed
+diagnosis, prescription, or dispensing integration remains a separate release
+cell with its own privacy, migration, security, rendered-flow and
+production-smoke gates.

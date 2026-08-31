@@ -70,7 +70,8 @@ export default async function SiteLayout({
         <div className="footer-legal">
           <ThemeToggle />
           <span>
-            © {new Date().getFullYear()} Dyrane · Guidance, not diagnosis.
+            © {new Date().getFullYear()} Dyrane · Evidence-led care, with clear
+            next steps.
           </span>
         </div>
       </footer>

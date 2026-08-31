@@ -68,9 +68,11 @@ recommendation.
 
 ### 3. Condition and urgent-care authority
 
-A condition-shaped or differential path consumes reviewed guide care
-deterministically. It returns no products and makes no model call. Its public
-copy remains observational and must not confirm a cause.
+A condition-shaped path consumes reviewed guide care deterministically. It
+returns no products and makes no model call. When the evidence is sufficient,
+its public copy may state JeloCare's best supported possible explanation while
+making the uncertainty and any need for examination or testing clear. It must
+not present an unverified cause as confirmed.
 
 Guide care is ordered by urgency:
 
@@ -100,9 +102,11 @@ explicitly topical context before it describes application.
 ### Public response boundary
 
 The public Ask Jelo response contains the information needed to render the
-guide, care actions, uncertainty, timing, and eligible products. Internal
-differential IDs, alternative scores, matching reasons, prompt text, and model
-diagnostics are not public UI data.
+assessment, care actions, uncertainty, timing, sources, and eligible products.
+It may include a plain-language possible explanation, other reasonable
+possibilities, and the observations that support the assessment. Internal
+differential IDs, numeric scores, prompt text, and model diagnostics are not
+public UI data.
 
 Ask Jelo may call the bounded AI Gateway intake classifier only after
 deterministic code has selected clarification. The model returns a
@@ -112,12 +116,12 @@ lane still requires a separate reviewed boundary.
 
 ## Lane contract
 
-| Lane                         | Owns                                                                                                       | Must preserve                                                                                                                |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `consult-safety-p0`          | Ask Jelo routing, care projection, medication context, API response and regression tests                   | Same-site and rate-limit controls, emergency precedence, non-diagnostic voice, zero products/model calls for condition paths |
-| `catalogue-guide-resolution` | Product-search guide suggestions, exact-guide ranking, no-result handoff, query-param resolution and tests | Direct-product eligibility boundary, public catalogue projection privacy, community intake trust boundary                    |
-| `concern-urgency-ui`         | Guide urgency metadata, static concern composition, source parity and rendering tests                      | Stable guide slugs/routes, `productTerms: []` for condition patterns, inclusive observable language                          |
-| `catalogue-product-lane`     | Product evidence, release dossiers, prices and packshots                                                   | This ADR's authority rules; catalogue growth does not wait for unrelated guide UI work                                       |
+| Lane                         | Owns                                                                                                       | Must preserve                                                                                                                           |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `consult-safety-p0`          | Ask Jelo routing, care projection, medication context, API response and regression tests                   | Same-site and rate-limit controls, emergency precedence, evidence-bound assessment voice, zero products/model calls for condition paths |
+| `catalogue-guide-resolution` | Product-search guide suggestions, exact-guide ranking, no-result handoff, query-param resolution and tests | Direct-product eligibility boundary, public catalogue projection privacy, community intake trust boundary                               |
+| `concern-urgency-ui`         | Guide urgency metadata, static concern composition, source parity and rendering tests                      | Stable guide slugs/routes, `productTerms: []` for condition patterns, inclusive observable language                                     |
+| `catalogue-product-lane`     | Product evidence, release dossiers, prices and packshots                                                   | This ADR's authority rules; catalogue growth does not wait for unrelated guide UI work                                                  |
 
 These lanes may run in parallel only while their owned paths remain disjoint.
 Any shared clinical contract change is reconciled through one integration pass
@@ -165,6 +169,6 @@ gate, production build, and browser checks for the affected public journeys.
 - **Hide pharmacist-review products entirely.** Rejected. They may remain
   discoverable as neutral catalogue context, with an explicit review label,
   while staying outside direct recommendations.
-- **Turn guide titles into diagnoses.** Rejected. Public titles remain
-  observational, and JeloCare continues to say when an examination or test is
-  needed to identify a cause.
+- **Present a guide title as a confirmed diagnosis.** Rejected. JeloCare may
+  state the most likely explanation, but it continues to show uncertainty and
+  say when an examination or test is needed to settle the cause.

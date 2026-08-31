@@ -44,6 +44,7 @@ function assertPublicGuide(
   );
   assert.equal("clinical" in payload, false, message);
   assert.equal("recommendationAudit" in payload, false, message);
+  assert.equal("differential" in payload, false, message);
   assert.equal("deterministic" in payload.meta, false, message);
   assert.equal("modelCalls" in payload.meta, false, message);
 }
@@ -271,14 +272,19 @@ test("urgent and pregnancy paths return before AI and products", async () => {
 });
 
 test("member context cannot bypass a safety interrupt or leak into the response", async () => {
-  const response = await POST(request({
-    query: "My lips are swelling and I am having trouble breathing.",
-    market: "NG",
-    memberContext: {
-      concernSlugs: ["dry-dehydrated-skin", "unknown-private-concern"],
-      productSlugs: ["cerave-hydrating-cleanser-473ml", "unknown-private-product"],
-    },
-  }));
+  const response = await POST(
+    request({
+      query: "My lips are swelling and I am having trouble breathing.",
+      market: "NG",
+      memberContext: {
+        concernSlugs: ["dry-dehydrated-skin", "unknown-private-concern"],
+        productSlugs: [
+          "cerave-hydrating-cleanser-473ml",
+          "unknown-private-product",
+        ],
+      },
+    }),
+  );
   const payload = await response.json();
   const serialized = JSON.stringify(payload);
 
@@ -424,7 +430,7 @@ test("ordinary care reaches canonical concerns and reviewed products without a m
     );
     assert.match(
       payload.report.pattern,
-      /everyday care, not a diagnosis/i,
+      /simple care plan to start with/i,
       expected.query,
     );
     assert.match(
@@ -473,7 +479,7 @@ test("public consult JSON never exposes internal clinical or recommendation mach
     );
     assert.doesNotMatch(
       serialized,
-      /"(?:score|clinicalScore|differentialScore|barrierScore)"\s*:\s*-?\d/,
+      /"(?:score|confidence|primaryConfidence|clinicalScore|differentialScore|barrierScore)"\s*:\s*-?\d/,
     );
     assert.doesNotMatch(serialized, /"(?:rule|finding|evidence)_[a-z0-9_-]+"/i);
     assert.doesNotMatch(serialized, new RegExp(uniquePromptMarker, "i"));
@@ -534,6 +540,17 @@ test("dandruff and itchy flaky scalp stays on its canonical scalp guide with no 
   assert.equal(payload.guide?.area, "Scalp");
   assertSafeTimeline(payload.timeline, ["dandruff-itchy-scalp"]);
   assert.deepEqual(payload.products, []);
+  assert.equal(
+    payload.assessment?.mostLikely,
+    "Possible seborrhoeic dermatitis",
+  );
+  assert.ok(payload.assessment?.otherPossibilities.length);
+  assert.ok(payload.assessment?.whatMatched.length);
+  assert.match(payload.report.pattern, /not a confirmed diagnosis/i);
+  assert.doesNotMatch(
+    JSON.stringify(payload.assessment),
+    /confidence|score|engine|differential|pattern/i,
+  );
   const care = payload.report.routine
     .map((step: { action: string }) => step.action)
     .join(" ");
@@ -620,6 +637,7 @@ test("ordinary-looking acne and dark-spot differentials remain deterministic gui
     assertMinimalPublicContract(payload, query);
     assert.equal(payload.meta.guideOnly, true, query);
     assert.equal(payload.guide?.slug, guideSlug, query);
+    assert.equal(typeof payload.assessment?.mostLikely, "string", query);
     assertSafeTimeline(payload.timeline, [guideSlug], query);
     assert.deepEqual(payload.products, [], query);
   }
@@ -1297,14 +1315,17 @@ test("unrecognized descriptions ask for detail instead of assuming acne", async 
   assert.match(payload.report.summary, /location/i);
 });
 
-test('Ask Jelo keeps health details in session memory by default', async () => {
-  const source = await readFile(path.join(process.cwd(), 'components/consult/consult-experience.tsx'), 'utf8');
+test("Ask Jelo keeps health details in session memory by default", async () => {
+  const source = await readFile(
+    path.join(process.cwd(), "components/consult/consult-experience.tsx"),
+    "utf8",
+  );
   assert.match(source, /^["']use client["'];/);
   assert.doesNotMatch(source, /localStorage|sessionStorage|indexedDB/i);
   assert.doesNotMatch(source, /jelocare:consult|clinical-timeline/i);
   assert.match(source, /clientSchemaVersion:\s*2/);
   assert.match(source, /isConsultationPayload/);
-  assert.match(source, /returned an incomplete guide/i);
+  assert.match(source, /couldn’t finish this assessment/i);
   assert.match(source, /focus\(\{ preventScroll: true \}\)/);
   assert.equal((source.match(/tabIndex=\{-1\}/g) ?? []).length >= 3, true);
   assert.doesNotMatch(
@@ -1314,5 +1335,9 @@ test('Ask Jelo keeps health details in session memory by default', async () => {
   assert.doesNotMatch(
     source,
     /Barrier score|Clinically eligible|Safety-filtered|Reported signals|Guidance note|reviewed source/i,
+  );
+  assert.doesNotMatch(
+    source,
+    /confidenceLabel|Other patterns considered|What matched|human review|Private to this visit|Session only/i,
   );
 });
