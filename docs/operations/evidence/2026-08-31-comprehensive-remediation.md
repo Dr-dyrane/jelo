@@ -15,8 +15,8 @@ ledger, or an authorization to mutate production data or configuration.
 
 The integration branch is `main`. At this receipt's latest capture, local
 `HEAD` and `origin/main` resolve to
-`0dba14dd04c1188fd5b8319ab8b1150846ed8995`. The exact production deployment
-is `dpl_7mPpRM2smdfNXeZALF4WgqVQNgxK`, which is READY and aliased to
+`2ad29208e8d960ef7f8585a52d50aff88929900c`. The exact production deployment
+is `dpl_9osvqHJqNAjHxgeFvm1aPoDdMFSv`, which is READY and aliased to
 `www.jelocare.com` and `jelocare.com`.
 
 The shared checkout still contains protected, unrelated work in
@@ -50,6 +50,7 @@ cell because each cell was integrated on `main`.
 | All-product clinical review owner                | `5cf974ae99927a89a661818fef6f591d9b2c4914` | `dpl_43RnaNYB6FTefb4Eqya74Fq9QWUx` | A daily read-only owner inventories all 163 products into an exact human-review plan; it cannot attest or promote them.                               |
 | Ask JeloCare governed assessment                 | `9ca25d128aca147b23d927c9e2744f9dcb395a79` | `dpl_6chbE24Ky7iAQ1yG5msQ73NroXNJ` | Ask acts under medical/pharmacy protocol governance, gives a possible explanation and plan, and does not impersonate a personally reviewed diagnosis. |
 | Customer recovery and Ops wait-clock integrity   | `0dba14dd04c1188fd5b8319ab8b1150846ed8995` | `dpl_7mPpRM2smdfNXeZALF4WgqVQNgxK` | Provider failure recovers with bounded intent and no private-ID leak; Ops age uses append-only owned-state evidence.                                  |
+| Postgres reconnect-delay clamp                   | `2ad29208e8d960ef7f8585a52d50aff88929900c` | `dpl_9osvqHJqNAjHxgeFvm1aPoDdMFSv` | The exact Postgres 3.4.7 ESM and CommonJS sources receive one version- and hash-pinned non-negative reconnect clamp during install.                   |
 
 ## Integrated verification
 
@@ -124,6 +125,24 @@ destination or application log message. The Ops SQL cell was verified
 semantically and statically; private production query execution was not
 authorized and remains part of the authenticated gate.
 
+The reconnect-delay cell passed three focused patch-contract tests, typecheck,
+documentation checks, all 53 canonical migration checks, scoped lint,
+formatting, and whitespace verification. The local full suite passed 1,700 of
+1,703 tests with three expected skips and zero failures. The clean Vercel build
+cloned exact revision `2ad29208e8d960ef7f8585a52d50aff88929900c`, reported
+`2 patched, 0 already patched` from the install hook, and passed 1,699 of 1,703
+tests with four expected environment skips and zero failures. Its build log
+contained no `TimeoutNegativeWarning`.
+
+Three production rounds then returned HTTP 200 for `/`, `/consult`, and the
+bounded recovery sign-in URL, while signed-out `/ops` and `/ops/orders`
+returned HTTP 404 with `private, no-store` and
+`noindex, nofollow, noarchive`. The exact deployment's 5xx response scan was
+empty. Error-level telemetry from the deliberate Ops probes retained the
+external Neon Auth upstream 500 while the application failed closed to 404;
+that provider-capacity condition remains gate 1 rather than being attributed
+to the reconnect patch.
+
 ## Objective closure matrix
 
 | Remediation domain                          | Current proof                                                                                                                                                 | Closure state                                                                                                        |
@@ -135,7 +154,7 @@ authorized and remains part of the authenticated gate.
 | Production observability                    | Exact-deployment runtime logs, health watchdog, private aggregate telemetry, and deterministic 28-day evaluator                                               | Instrumentation closed; approved traffic floors, alert ownership, dated 672-hour report, and drill remain gate 4     |
 | Customer and commerce flows                 | Public care states, governed Ask assessment, compact accessibility, owner isolation, export privacy, bounded recovery and production route smokes             | Non-destructive released behavior closed; policy/private-action gates 5, 6, 8, 11, and 12 remain                     |
 | Business evidence                           | Private read-only 30-day aggregate with exact payment and SLA proof rules, explicit cost-null behavior, and the observed natural 05:23 run                    | Code/release and scheduled-observation cells closed; Neon capacity and unavailable inputs remain gates 1 and 9       |
-| Final release record                        | Sixteen exact revision-to-READY-deployment bindings, production smokes, independent review, protected-path accounting, and natural owner observations         | Current release cells are live; the first natural all-product clinical-owner run remains pending                     |
+| Final release record                        | Seventeen exact revision-to-READY-deployment bindings, production smokes, independent review, protected-path accounting, and natural owner observations       | Current release cells are live; the first natural all-product clinical-owner run remains pending                     |
 
 ## Scheduled-owner observations
 
@@ -190,9 +209,10 @@ It was not invoked manually. A passing observation requires HTTP 200,
 `writesPerformed: 0`. Until that event is observed, this scheduled behavior is
 deployed-unverified.
 
-## Open authority and policy gates
+## Authority, policy, and residual-risk register
 
-These are not closed by code or local tests:
+Item 3 is retained in place for audit traceability and is now closed by an
+exact live release. The other items are not closed by code or local tests:
 
 1. **Neon capacity.** Production reports PostgreSQL `53000`: the project has
    exceeded its data-transfer quota. Public catalogue and checkout reads use
@@ -207,11 +227,17 @@ These are not closed by code or local tests:
    01:55 UTC confirmed both absences, confirmed `APP_DATABASE_URL` remains
    Production-only, and found no `DATABASE_URL` or `POSTGRES_URL` in any
    Vercel scope; no secret value was read.
-3. **Postgres reconnect timer.** Postgres.js 3.4.7 can schedule a negative
-   reconnect delay. Upstream 3.4.8 and 3.4.9 clamp the delay but introduce an
-   upstream `TransactionSql` type regression across the repository. The
-   bounded upgrade correction was reverted. A later decision must choose an
-   exact install-time patch or the wider upstream type migration.
+3. **Postgres reconnect timer — closed.** The install lifecycle now applies an
+   exact, reversible `Math.max(0, ...)` clamp to the ESM and CommonJS sources of
+   Postgres.js 3.4.7. It validates the package version and original file hashes,
+   preflights both targets before writing, is idempotent, and fails the install
+   on dependency drift. This avoids the 3.4.8 `TransactionSql` type regression
+   tracked in upstream issues
+   [1143](https://github.com/porsager/postgres/issues/1143) and
+   [1150](https://github.com/porsager/postgres/issues/1150), and the later
+   transaction defect tracked in issue
+   [1189](https://github.com/porsager/postgres/issues/1189). The exact clean
+   production build applied both patches and emitted no negative-delay warning.
 4. **Private-service SLO proof.** No dated production 672-hour SLO report or
    recovery-drill receipt exists. Minimum read and write traffic populations,
    a 15-minute alert source/cadence, and the accountable response owner require
