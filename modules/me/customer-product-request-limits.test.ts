@@ -36,7 +36,8 @@ test('the private request capacity policy is explicit and customer-readable', ()
 test('request and photo capacity decisions are serialized per owner', () => {
   const repository = source('lib/customer/product-request-repository.ts');
   assert.match(repository, /pg_advisory_xact_lock/);
-  assert.match(repository, /jelocare\.product-request-capacity\\0/);
+  assert.match(repository, /["']jelocare\.product-request-capacity:["']/);
+  assert.doesNotMatch(repository, /["']jelocare\.product-request-capacity\\0["']/);
   assert.match(repository, /where owner_subject = \$\{ownerSubject\}/g);
   assert.match(repository, /lifecycle_state::text = any/);
 

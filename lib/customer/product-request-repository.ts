@@ -159,7 +159,7 @@ async function lockOwnerProductRequestCapacity(
 ) {
   await transaction`
     select pg_catalog.pg_advisory_xact_lock(
-      pg_catalog.hashtextextended(${'jelocare.product-request-capacity\0' + ownerSubject}, 0::bigint)
+      pg_catalog.hashtextextended(${'jelocare.product-request-capacity:' + ownerSubject}, 0::bigint)
     )
   `;
 }
