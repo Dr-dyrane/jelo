@@ -174,18 +174,49 @@ care state and editable Ask prompt; and two warmed-cache rounds produced
 163 of 163 hits without state, prompt, action, redirect, presentation, ETag, or
 obsolete-copy drift.
 
+## Capacity, configuration, and authorized private-journey follow-up
+
+Fresh action-time authority upgraded the shared eight-project Neon installation
+to `launch_v3`. A production read-only connection probe then succeeded with
+`writesPerformed: 0`, replacing the earlier PostgreSQL `53000` capacity result
+as current provider evidence. No database row, queue, claim, retry, cache,
+inventory job, payment, or order state was manually mutated.
+
+Two independently generated dedicated values now configure
+`ASSISTED_ORDER_RATE_LIMIT_SECRET` and `LOCATION_RATE_LIMIT_SECRET` across
+Production, Preview, and Development. Vercel stores the Production and Preview
+values as sensitive variables and the Development values as encrypted variables,
+which is the strongest supported Development scope. Exact-source production
+deployment `dpl_AnCws7Anj72eZwb7KNpugXyT1qBj` became READY and passed canonical
+route smokes after the configuration change; no secret value entered this
+receipt or a runtime log.
+
+The explicitly authorized disposable-account journey proved a fresh OTP sign-in,
+Shelf add/reload/remove, Routine create/update/delete, a one-item Shelf export
+without email or account identifier, both cancel and accept paths for clearing
+the Shelf, the empty end state, sign-out, and the restored signed-out boundary.
+The missing-product request path failed closed at HTTP 503 before inserting a
+row. Runtime evidence isolated an invalid NUL separator in the per-owner
+PostgreSQL advisory-lock key. Exact fix
+`c44846e23fc5a8d3372640abeebbac235fb87935` replaced that separator with a safe
+domain delimiter, passed independent review and the complete 1,726-test suite
+with 1,723 passes, three expected skips, and zero failures, and shipped through
+READY deployment `dpl_GeWDGR7cj6z2sm2zFa1QiAJB7Hgn`. A fresh OTP has been sent;
+the final post-fix request create/edit/delete proof remains pending that newest
+code and is not inferred from the green deployment.
+
 ## Objective closure matrix
 
 | Remediation domain                          | Current proof                                                                                                                                                                         | Closure state                                                                                                        |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Release-blocking security                   | Zero-audit dependency floors, exact Shelf-role attestation, production database-alias containment, private operator logs, and name-only environment inventory                         | Code and release cells closed; dedicated HMAC secret configuration remains gate 2                                    |
-| Authentication                              | Password lifecycle containment, bounded OTP intent and recovery, private-route fail-closed behavior, and production safe-continuation checks                                          | Non-destructive boundary closed; Neon capacity remains gate 1 and a fresh private/destructive journey remains gate 8 |
+| Release-blocking security                   | Zero-audit dependency floors, exact Shelf-role attestation, production database-alias containment, private operator logs, and six dedicated rate-limit secret bindings                | Code, release, and dedicated-secret configuration cells closed                                                       |
+| Authentication                              | Password lifecycle containment, bounded OTP intent and recovery, successful post-upgrade auth, and the authorized disposable-account journey                                          | Provider-capacity gate closed; final post-fix product-request create/edit/delete proof remains in gate 8             |
 | Payment integrity                           | Signed settlement-time binding, preserved payment-attempt reservations, governed evidence tests, and exact READY deployment                                                           | Code and release cell closed; provider fees and other business inputs remain gate 9                                  |
-| Inventory automation and failure accounting | Separate retry, contradiction, deferral, stale, and watchdog accounting; guarded proposal integration; natural owner-run logs                                                         | Code/release cells closed; Neon capacity remains gate 1                                                              |
+| Inventory automation and failure accounting | Separate retry, contradiction, deferral, stale, and watchdog accounting; guarded proposal integration; post-upgrade natural health evidence                                           | Code/release and provider-capacity cells closed; the current degraded backlog remains scheduled-owner work           |
 | Production observability                    | Exact-deployment runtime logs, health watchdog, private aggregate telemetry, and deterministic 28-day evaluator                                                                       | Instrumentation closed; approved traffic floors, alert ownership, dated 672-hour report, and drill remain gate 4     |
 | Customer and commerce flows                 | Global care handoffs, governed Ask assessment, server-verified selected context, compact accessibility, owner isolation, export privacy, bounded recovery and production route smokes | Non-destructive released behavior closed; policy/private-action gates 5, 6, 8, 11, and 12 remain                     |
-| Business evidence                           | Private read-only 30-day aggregate with exact payment and SLA proof rules, explicit cost-null behavior, and the observed natural 05:23 run                                            | Code/release and scheduled-observation cells closed; Neon capacity and unavailable inputs remain gates 1 and 9       |
-| Final release record                        | Nineteen exact revision-to-READY-deployment bindings, production smokes, independent review, protected-path accounting, and natural owner observations                                | Current release cells are live; the first natural all-product clinical-owner run remains pending                     |
+| Business evidence                           | Private read-only 30-day aggregate with exact payment and SLA proof rules, explicit cost-null behavior, and the successful post-upgrade natural 05:23 run                             | Code/release, scheduled observation, and provider-capacity cells closed; unavailable inputs remain gate 9            |
+| Final release record                        | Exact revision-to-READY bindings, production smokes, independent review, protected-path accounting, and all first natural owner observations                                          | Clinical scheduled evidence is closed; final private-request proof and this receipt's release binding remain pending |
 
 ## Scheduled-owner observations
 
@@ -223,6 +254,19 @@ The natural scheduled observations are:
 - business evidence at 05:23:09 UTC on the same exact deployment: HTTP 500,
   cache `BYPASS`, and the structured `business_evidence_register_failed` /
   `query_or_configuration_error` event with `writesPerformed: 0`.
+- post-upgrade inventory health at 05:07:07 UTC on exact READY production
+  deployment `dpl_DHNP97FRB1T7ubpUqEz643LZGm5i`: HTTP 503 with
+  `inventory_health_watchdog_checked`, `degraded`, three due jobs, 105 deferred
+  rechecks, 60 stale offers, and `writesPerformed: 0`;
+- post-upgrade business evidence at 05:23:09 UTC on that deployment: HTTP 200,
+  cache `BYPASS`, `business_evidence_register_checked`, four requests, one
+  quote, one approval, zero payment or later lifecycle rows, eight unavailable
+  cost inputs, and `writesPerformed: 0`;
+- all-product clinical review at 05:53:12 UTC on exact READY production
+  deployment `dpl_A9dF8J8b3TX9PYRGdW2QxDe8HtJk`: HTTP 200,
+  `clinical_review_health_checked`, `attention_required`, exact manifest digest
+  `d4af5339f885b43baebe697654eb6fa4122db95846276995ce6b6ff418224d6d`, and
+  `writesPerformed: 0`.
 
 The 02:07, 02:17, and 05:23 results prove all three owners fired naturally;
 scheduler silence is not the cause. The business-evidence route failed closed
@@ -232,32 +276,28 @@ with the independently observed database-capacity failure, but the structured
 event does not claim a provider-specific cause. Observation was read-only; no
 missing or failed run was replayed manually.
 
-The all-product clinical-review owner was deployed after its 05:53 UTC slot on
-31 August. Its first natural execution is due 1 September 2026 at 05:53 UTC.
-It was not invoked manually. A passing observation requires HTTP 200,
-`clinical_review_health_checked`, `attention_required`, exact manifest digest
-`d4af5339f885b43baebe697654eb6fa4122db95846276995ce6b6ff418224d6d`, and
-`writesPerformed: 0`. Until that event is observed, this scheduled behavior is
-deployed-unverified.
+The post-upgrade results prove capacity recovery without hiding operational
+truth: business evidence can query successfully, while inventory health still
+reports the actual deferred and stale backlog. The all-product clinical owner
+also met its fixed acceptance rule on its first natural slot. None of these
+routes was invoked manually and every observed route reported zero writes.
 
 ## Authority, policy, and residual-risk register
 
-Item 3 is retained in place for audit traceability and is now closed by an
-exact live release. The other items are not closed by code or local tests:
+Items 1, 2, and 3 are retained in place for audit traceability and are now
+closed by action-time authority plus exact production evidence. Item 8 is
+partially closed and names its one remaining post-fix proof. The other items
+are not closed by code or local tests:
 
-1. **Neon capacity.** Production reports PostgreSQL `53000`: the project has
-   exceeded its data-transfer quota. Public catalogue and checkout reads use
-   verified static fallbacks, but inventory, health, business-evidence, and
-   Neon Auth cannot be certified healthy until capacity is restored. A plan
-   upgrade or provider change requires fresh spending/configuration authority.
-2. **Dedicated rate-limit secrets.** Production and Preview have no
-   `ASSISTED_ORDER_RATE_LIMIT_SECRET` or `LOCATION_RATE_LIMIT_SECRET`. The
-   current literal fallback must not be removed before two distinct secrets
-   are configured. Creating or changing those secrets requires fresh
-   action-time authority. A name-and-scope-only Vercel inventory refreshed at
-   01:55 UTC confirmed both absences, confirmed `APP_DATABASE_URL` remains
-   Production-only, and found no `DATABASE_URL` or `POSTGRES_URL` in any
-   Vercel scope; no secret value was read.
+1. **Neon capacity — closed.** The authorized `launch_v3` upgrade completed,
+   a production read-only connection probe succeeded, and the next natural
+   business-evidence query returned HTTP 200 with zero writes. The degraded
+   inventory-health result is retained as backlog evidence rather than being
+   misreported as continuing provider failure.
+2. **Dedicated rate-limit secrets — closed.** Two distinct generated secrets
+   now exist across Production, Preview, and Development with the strongest
+   storage class supported by each scope. Exact-source redeployment and public
+   smokes passed without reading or logging either value.
 3. **Postgres reconnect timer — closed.** The install lifecycle now applies an
    exact, reversible `Math.max(0, ...)` clamp to the ESM and CommonJS sources of
    Postgres.js 3.4.7. It validates the package version and original file hashes,
@@ -291,10 +331,13 @@ exact live release. The other items are not closed by code or local tests:
    eligibility, not an automatic-deletion promise; the runbook deliberately
    excludes Vercel, cron, queue, and cache ownership. Any production deletion
    requires a freshly resolved target and batch plus action-time authority.
-8. **Authenticated destructive journey.** Existing historical evidence covers
-   one OTP member smoke. A fresh sign-in, intent return, new session, export,
-   expired-session recovery, and delete/reconciliation proof would expose or
-   change private data and therefore requires fresh action-time authority.
+8. **Authenticated destructive journey — partially closed.** Fresh authority
+   covered the disposable account, OTP transmission, export, Shelf clear,
+   Shelf removal, Routine deletion, and the final product-request sequence.
+   Every mutation actually completed reconciled to the empty UI and sign-out
+   boundary. The pre-fix request create failed without a row, the bounded
+   advisory-lock fix is live, and its authorized post-fix create/edit/delete
+   proof still awaits the newest OTP.
 9. **Business inputs.** No accepted durable source exists for Stripe fees,
    operator labour, messaging or AI cost, retailer variance, customer
    acquisition cost, chargeback/refund loss, contribution margin, or repeat
