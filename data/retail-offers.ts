@@ -5631,9 +5631,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T01:43:54.671Z",
-        expiresAt: "2026-09-06T01:43:54.671Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-01T05:17:44Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
