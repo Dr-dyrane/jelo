@@ -25,6 +25,12 @@ import {
 
 const root = process.cwd();
 
+const MARKET_FIXTURE_PAGES = [
+  'app/(site)/markets/page.tsx',
+  'app/(site)/markets/[marketSlug]/page.tsx',
+  'app/(site)/markets/[marketSlug]/shops/[shopSlug]/page.tsx',
+] as const;
+
 function filesBelow(directory: string): string[] {
   return readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
     const absolute = path.join(directory, entry.name);
@@ -62,6 +68,7 @@ test('every public page family has explicit contextual social metadata', () => {
     'app/(site)/go/page.tsx',
     'app/(site)/image-audit/page.tsx',
     'app/(site)/order/page.tsx',
+    ...MARKET_FIXTURE_PAGES,
   ];
 
   assert.deepEqual(sitePages, [...covered, ...intentionallyNoindex].sort());
@@ -94,6 +101,7 @@ test('the full page tree is classified as contextual public or intentionally non
     || file === 'app/(site)/go/page.tsx'
     || file === 'app/(site)/image-audit/page.tsx'
     || file === 'app/(site)/order/page.tsx'
+    || MARKET_FIXTURE_PAGES.includes(file as (typeof MARKET_FIXTURE_PAGES)[number])
     || file.startsWith('app/(auth)/')
     || file.startsWith('app/(customer)/me/')
     || file.startsWith('app/(ops)/ops/')

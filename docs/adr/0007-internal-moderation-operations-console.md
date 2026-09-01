@@ -12,6 +12,12 @@ Three accepted ADRs converge on the same missing capability, and none of them de
 - **[ADR 0005](0005-structured-observation-events.md)** adds `community_observations` (first-class price and outcome rows) as a moderation input, deepening that queue, plus a `store_click` `commerce_events` stream that needs a private aggregation surface.
 - **[ADR 0003](0003-retailer-partnership-intake.md)** produces private retailer applications that need a review queue before canonical retailer or offer publication.
 
+[ADR 0019](0019-product-to-place-market-finder.md) later proposes a typed
+physical-market projection from the same anonymous contribution pipeline. It
+does not add a public intake or a parallel moderation application. If its data
+migration is accepted, `/ops/contributions` remains the parent review surface
+and exposes the typed Market Finder claim in that contribution's context.
+
 Today all four queues are worked by hand in the database. Authentication is provisioned at the infrastructure level but is deliberately absent from the public surface ([ADR 0001](0001-deferred-trust-collections-community-and-stock-alerts.md)). Without a console the intake and observation pipelines accumulate data no one can triage at scale, and every promotion to a canonical record is a manual SQL action with no audit trail. This is also a precondition for reopening ADR 0001 (its re-entry gate #6 requires an owned moderation operating model).
 
 ## Decision
@@ -24,6 +30,13 @@ Build an internal, authenticated moderation and operations console as a surface 
 4. **Access is gated by the provisioned authentication** (see below). The console is not linked from, or reachable through, the public product, concern, or Ask Jelo surfaces.
 5. **The console uses a neutral private-shell colour context.** It shares JeloCare geometry and interaction grammar with future authenticated surfaces, but uses low-chroma mineral canvas, workspace, and lucent instrument layers rather than the public peach and rose product palette. Muted umber is reserved for active selection and focus; semantic colours communicate operational state only. The decision is implemented through the `--ops-*` token family and documented in [the operations shell guide](../design/OPS_SHELL.md).
 
+A typed child projection never changes the contribution-level decision into a
+bulk approval. For Market Finder, an operator may accept or reject the retained
+contribution, then separately resolve its exact product, market, place, retailer
+location, and fixed report outcome. Creating or superseding a public physical
+observation is another attributable action with its own evidence and freshness
+checks. Neither parent acceptance nor corroboration count performs that action.
+
 ## Operator parity
 
 Automation can collect, refresh, or propose. It cannot become the only way to
@@ -32,13 +45,13 @@ equivalent before it can make a governed change or publish a result. The
 equivalent may be a console workflow or a controlled runbook while its console
 workflow is not yet shipped; it is never an undocumented database edit.
 
-| Pathway | Operator equivalent |
-| --- | --- |
-| Product catalogue | Create, correct, archive, and restore a product through identity and publication gates. |
-| Retailer catalogue | Create, correct, archive, and restore a retailer with its verification record intact. |
-| Price observations and refresh | Inspect the source, add or correct an observation, replace a stale value, and preserve the freshness record. |
-| Catalogue publishing | Review evidence, publish or unpublish deliberately, and see the resulting public state. |
-| Contributions and vocabulary | Review, link, keep for research, or mark not useful without erasing the original report. |
+| Pathway                        | Operator equivalent                                                                                                                                            |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Product catalogue              | Create, correct, archive, and restore a product through identity and publication gates.                                                                        |
+| Retailer catalogue             | Create, correct, archive, and restore a retailer with its verification record intact.                                                                          |
+| Price observations and refresh | Inspect the source, add or correct an observation, replace a stale value, and preserve the freshness record.                                                   |
+| Catalogue publishing           | Review evidence, publish or unpublish deliberately, and see the resulting public state.                                                                        |
+| Contributions and vocabulary   | Review, link, keep for research, or mark not useful without erasing the original report; inspect any typed domain projection in the same contribution context. |
 
 Every consequential action has role checks, validation, an attributable audit
 entry, honest failure feedback, and an explicit reversal path. A reversal is a
@@ -57,15 +70,15 @@ recorded observation, never an unreviewable source of truth.
 The baseline is deliberately specific. It is not satisfied by a generic
 database editor or an undifferentiated "admin" screen.
 
-| Domain | Manual capability required | Automation may do | Operator boundary |
-| --- | --- | --- | --- |
-| Product catalogue | Create, inspect, correct, archive, restore, publish, and unpublish an exact product identity. | Discover candidate products, enrich evidence, prepare assets, and suggest changes. | Creation and correction validate brand, identity, package/formula evidence, image provenance, and publication gates. Archive and restore retain history. |
-| Retailer catalogue | Create, inspect, correct, archive, restore, and verify a retailer, including its public channels and verification record. | Discover retailer details, check public destinations, and propose refreshes. | A retailer record never becomes trusted merely because a crawler found it or a community member named it. |
-| Offers and prices | Inspect the exact product/retailer match, add or correct an offer observation, mark availability, refresh, supersede, retire, and review a queued retry. | Fetch public listings, record bounded observations, detect staleness, and queue retries. | Operators see source, observed time, market, matching evidence, exclusions, and the resulting public price state before accepting it. They cannot attach an ambiguous listing to a product. |
-| Catalogue publication | See the proposed public projection, publish or unpublish it deliberately, and reverse a publication decision. | Assemble eligible projections and flag incomplete evidence. | Publication remains an explicit evidence-gated action; neither a successful job nor a queue count publishes a product, retailer, or offer. |
-| Contributions, vocabulary, edges, and observations | Review, accept, reject, link, defer, keep for research, reopen, and correct the decision when new evidence changes it. | Classify, deduplicate, suggest aliases, and create review work. | The original submission stays intact. Approving a parent contribution never silently approves every child claim. |
-| Failures and retries | Inspect why a refresh or import stopped, retry a safe bounded operation, cancel a pending retry, and record a manual resolution. | Back off, retry within explicit limits, and surface a terminal failure. | Retry must not duplicate offers, overwrite stronger evidence, or hide the earlier failure. Unsafe matches require research, not repeated automation. |
-| Audit and reversal | See actor, action, target, rationale, source reference, time, and resulting state; reverse with a reason. | Write machine-attributable attempt and outcome records. | Audit history is append-only. Correction, retirement, restore, and reversal are new events; none delete the original decision or observation. |
+| Domain                                                                | Manual capability required                                                                                                                               | Automation may do                                                                        | Operator boundary                                                                                                                                                                                                             |
+| --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Product catalogue                                                     | Create, inspect, correct, archive, restore, publish, and unpublish an exact product identity.                                                            | Discover candidate products, enrich evidence, prepare assets, and suggest changes.       | Creation and correction validate brand, identity, package/formula evidence, image provenance, and publication gates. Archive and restore retain history.                                                                      |
+| Retailer catalogue                                                    | Create, inspect, correct, archive, restore, and verify a retailer, including its public channels and verification record.                                | Discover retailer details, check public destinations, and propose refreshes.             | A retailer record never becomes trusted merely because a crawler found it or a community member named it.                                                                                                                     |
+| Offers and prices                                                     | Inspect the exact product/retailer match, add or correct an offer observation, mark availability, refresh, supersede, retire, and review a queued retry. | Fetch public listings, record bounded observations, detect staleness, and queue retries. | Operators see source, observed time, market, matching evidence, exclusions, and the resulting public price state before accepting it. They cannot attach an ambiguous listing to a product.                                   |
+| Catalogue publication                                                 | See the proposed public projection, publish or unpublish it deliberately, and reverse a publication decision.                                            | Assemble eligible projections and flag incomplete evidence.                              | Publication remains an explicit evidence-gated action; neither a successful job nor a queue count publishes a product, retailer, or offer.                                                                                    |
+| Contributions, vocabulary, edges, observations, and typed projections | Review, accept, reject, link, defer, keep for research, reopen, and correct the decision when new evidence changes it.                                   | Classify, deduplicate, suggest aliases, and create review work.                          | The original submission stays intact. Approving a parent contribution never silently approves every child claim. A Market Finder projection stays in `/ops/contributions`; publishing physical evidence is a separate action. |
+| Failures and retries                                                  | Inspect why a refresh or import stopped, retry a safe bounded operation, cancel a pending retry, and record a manual resolution.                         | Back off, retry within explicit limits, and surface a terminal failure.                  | Retry must not duplicate offers, overwrite stronger evidence, or hide the earlier failure. Unsafe matches require research, not repeated automation.                                                                          |
+| Audit and reversal                                                    | See actor, action, target, rationale, source reference, time, and resulting state; reverse with a reason.                                                | Write machine-attributable attempt and outcome records.                                  | Audit history is append-only. Correction, retirement, restore, and reversal are new events; none delete the original decision or observation.                                                                                 |
 
 The console must keep the distinction between **reviewing evidence** and
 **editing a canonical record** visible. It should name the operator task in
@@ -106,7 +119,7 @@ operator experiences it.
 
 ## Authentication
 
-*Where identity is verified* and *where auth state lives* are separate decisions. The console builds no credential storage of its own.
+_Where identity is verified_ and _where auth state lives_ are separate decisions. The console builds no credential storage of its own.
 
 - **Identity: Neon Managed Better Auth, already provisioned.** `NEON_AUTH_BASE_URL` is in the environment template — this is the "infrastructure-level" authentication [ADR 0001](0001-deferred-trust-collections-community-and-stock-alerts.md) refers to. It is Neon's current managed auth (`@neondatabase/auth`, which wraps Better Auth), **not** the retired Stack Auth, so the mirror table is `neon_auth."user"` (not `users_sync`), and the stable id is `neon_auth."user".id` (the JWT `sub`, equal to `getSession().user.id`). The project uses a JeloCare-branded email one-time code. JeloCare stores no passwords, and operator identity is queryable in SQL. (`VITE_NEON_AUTH_URL` is a Vite leftover the Next SDK does not read.)
 - **Durable auth state lives in Neon — the deciding reason to prefer it.** The audit log (actor, action, target, timestamp, rationale) and the operator role list are Neon tables, so a promotion to a canonical record and its audit row commit in the **same transaction** (decision #2). Operator identity is a plain-text soft reference to `neon_auth."user".id` (no FK — the console works before the auth schema exists). Redis is the wrong home for this because it is ephemeral.
@@ -115,7 +128,7 @@ operator experiences it.
 - **Ephemeral state stays in the existing Upstash Redis** (rate limits, short-lived caches), reusing the HMAC pattern in `lib/community-intake/security.ts` — never as the durable session or audit store.
 - **Edge gate for defense in depth.** The console is a separate internal surface (its own route or subdomain) and may additionally sit behind Vercel deployment protection, so it is never reachable from the public app even before app-level auth runs.
 
-Rejected here: a bespoke email/password system (needless credential storage and reset surface, weaker than the provisioned Neon Auth); Redis-only sessions (no durable, transactional audit trail); and reusing the public magic-link intake primitive for operators (it authenticates a *draft*, not a person, and carries no role model).
+Rejected here: a bespoke email/password system (needless credential storage and reset surface, weaker than the provisioned Neon Auth); Redis-only sessions (no durable, transactional audit trail); and reusing the public magic-link intake primitive for operators (it authenticates a _draft_, not a person, and carries no role model).
 
 ## Consequences
 
@@ -132,6 +145,13 @@ Rejected here: a bespoke email/password system (needless credential storage and 
 - **Increment 3 (wired end to end):** `@neondatabase/auth` (Managed Better Auth, pinned `0.4.2-beta`) is wired against its real types — `lib/auth/server.ts` (`createNeonAuth`, lazy so an unconfigured env stays deny-by-default), `lib/auth/subject.ts` (`getAuthSubject` via `getSession()`), the catch-all `app/api/auth/[...path]/route.ts` (404s until configured), and `operatorAuthSubject` delegates to the verified session. The operator sign-in surface lives in its own `app/(auth)/` shell at `/sign-in`: `emailOtp.sendVerificationOtp` sends a one-time code, `signIn.emailOtp` verifies it, and the browser then performs a full navigation to `/ops` so the server guard can claim any pending invitation for that exact verified email. `npm run ops:seed-operator` remains the bootstrap path for the first allowlisted operator. It all comes alive once the Neon Auth and JeloCare transactional-email environment are configured.
 - **Increment 4 (accountability shell shipped):** `/ops/activity` reads the append-only decision trail with operator identity, action, target, rationale, and time. Admins can read `/ops/operators`, a role-gated operator directory with active status and recent decision activity.
 - **Increment 5 (operator access lifecycle):** migration `0025_operator_access_lifecycle.sql` adds pending email invitations and a separate append-only access audit. An invitation grants no access. Neon Auth must first verify the exact normalized mailbox and provide its stable subject; only then may the server transaction create an active operator and accept the invitation. Admins can invite, resend, change another operator's role, pause or restore access, and revoke a pending invitation. The server prevents duplicate access, self-demotion, self-deactivation, and removal of the last active admin. Delivery failure is recorded and shown honestly. The directory remains readable during migration rollout while every mutation fails closed until the lifecycle schema exists.
+- **Market Finder extension (accepted architecture, not shipped):** the
+  development-only contextual `/contribute` prototype has no write. A future
+  reviewed migration may add one `market_finder_reports` row per immutable
+  contribution and extend `/ops/contributions` with the typed context and
+  child-decision controls. It must reuse the current console guard, audit,
+  parent rejection cascade, and retention behavior. No separate public report
+  API, public moderation route, or automatic physical observation is accepted.
 - **Next delivery sequence:** [Operations console delivery](../operations/console/README.md) turns this accepted architecture into dependency-ordered workspace, triage, retailer-workflow, and governance phases. It does not authorize any new data mutation or access-management capability by itself.
 
 ## Alternatives rejected

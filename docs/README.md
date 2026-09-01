@@ -108,6 +108,7 @@ This is the entry point for product, engineering, data, and operations.
 - [ADR 0016 · Retailer-scoped assisted procurement](./adr/0016-retailer-scoped-assisted-procurement.md)
 - [ADR 0017 · Private saved locations and optional geocoding](./adr/0017-private-saved-locations-and-optional-geocoding.md)
 - [ADR 0018 · Clinician-led consultation and diagnosis](./adr/0018-clinician-led-consultation-and-diagnosis.md)
+- [ADR 0019 · Product-to-place Market Finder](./adr/0019-product-to-place-market-finder.md)
 
 ## What is authoritative
 

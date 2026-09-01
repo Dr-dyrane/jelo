@@ -4,9 +4,14 @@ Route: `/contribute`
 
 Public label: **Share skincare**. The internal feature name remains Community Knowledge Intake.
 
-The intake collects anonymous, community-reported product, routine and retailer knowledge. It is a moderation input—not a publishing path.
+The intake collects anonymous, community-reported product, routine and retailer
+knowledge. It is also the single public intake seam for future contextual
+domain reports such as Market Finder updates. It is a moderation input—not a
+publishing path.
 
 ## Experience
+
+The standard contribution journey is:
 
 1. Choose product, routine or store.
 2. Select every relevant purpose.
@@ -18,6 +23,27 @@ The intake collects anonymous, community-reported product, routine and retailer 
 8. Review and submit.
 
 Routine and store paths skip irrelevant questions. The page saves immediately on-device, then autosaves to Neon when available. The interface always shows the save state.
+
+### Contextual Market Finder mode
+
+[ADR 0019](adr/0019-product-to-place-market-finder.md) adds a development-only
+interaction prototype at:
+
+`/contribute?mode=market-report&market=<marketSlug>&product=<productSlug>&shop=<shopSlug>`
+
+The route accepts exactly one value for each key, resolves all three entities
+through the bounded fixture server helpers, and fails closed for missing,
+repeated, unknown, ambiguous, or non-development context. The exact product,
+market, and shop are locked; the preview offers only `found_bought`,
+`shop_exists_no_stock`, `location_wrong`, and `shop_closed`.
+
+The prototype creates no anonymous draft, makes no API request, and stores
+nothing. Normal `/contribute` behavior is unchanged. If production reporting is
+later accepted, this contextual journey must use the same draft endpoints,
+HttpOnly edit capability, same-site and rate-limit controls, optimistic
+revision, idempotent submission, immutable parent contribution, and retention
+policy as every other contribution. There will be no separate
+`/api/markets/reports` intake.
 
 ## Reusable selector
 
@@ -55,6 +81,21 @@ API:
 - `POST /api/contribute/drafts/:id/submit`
 
 The edit capability lives in an HttpOnly cookie. Saves use a monotonically increasing revision. A repeated final submission returns the original contribution.
+
+The future Market Finder persistence contract is one immutable
+`community_contributions` parent plus at most one typed
+`market_finder_reports` child, joined by a unique, non-null `contribution_id`.
+The child carries fixed report outcome and server-resolved physical context; it
+does not own authentication, draft state, idempotency, or retention. Parent and
+child must be created in the same finalization transaction, and parent
+rejection or retention expiry must keep the child out of active review and
+public-data decisions.
+
+This child is distinct from the shipped `community_observations` price and
+experience rows. It is also distinct from the future
+`physical_product_observations` evidence history: only a separate attributable
+physical-evidence decision may append or supersede that history. No current
+migration implements this contract.
 
 Migration `0015_community_knowledge_intake.sql` keeps drafts, immutable contributions, custom-value moderation, events and community-reported graph edges separate from JeloCare-reviewed records.
 
@@ -110,6 +151,13 @@ allowlisted operator, prints only aggregate data by default, dry-runs every muta
 unless `--apply` is present, requires a rationale, and appends the decision to the
 same audit trail as the console.
 
+A future Market Finder report stays attached to its parent in
+`/ops/contributions`. Operators review the immutable contribution first, then
+make a separate typed child decision about its exact product and physical-place
+scope. Parent approval never silently approves the report, and report
+corroboration never updates a shop, direction, price, or stock state. Any
+physical observation is a later evidence-gated and audited action.
+
 Research dry-runs execute the same read-only ownership, task-shape, exact-target,
 candidate-release, and existing-resolution preflight used immediately before an
 applied transition. They can still become stale after the read; every applied
@@ -141,3 +189,10 @@ Public contributor counts and trust labels must be derived from moderated, retai
 ## Release boundary
 
 Photos and receipts are not collected. They require private quarantine storage and a reviewed upload pipeline. Accounts, public stories, ratings, comments and alerts remain deferred under ADR 0001.
+
+The contextual Market Finder report remains a development-only, no-write
+preview. Production activation requires a separately authorized and rehearsed
+migration for the typed one-to-one projection, strict server validation, parent
+rejection and retention behavior, `/ops/contributions` child review, audit,
+abuse tests, and a fail-closed rollout. The prototype is not production market
+data and must never be described as live reporting.
