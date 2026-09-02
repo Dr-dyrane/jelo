@@ -179,7 +179,8 @@ const onboardingManifestSchema = z
         productId: exactUuidSchema,
         slug: slugSchema,
       })
-      .strict(),
+      .strict()
+      .optional(),
     market: z
       .object({
         id: exactUuidSchema,
@@ -243,6 +244,15 @@ const onboardingManifestSchema = z
   })
   .strict()
   .superRefine((manifest, context) => {
+    if (manifest.initialObservation && !manifest.product) {
+      context.addIssue({
+        code: "custom",
+        path: ["product"],
+        message:
+          "An exact product identity is required when initialObservation is provided.",
+      });
+    }
+
     const aliases = manifest.place?.reviewedAliases ?? [];
     const normalizedAliases = aliases.map((alias) => alias.toLocaleLowerCase());
     if (new Set(normalizedAliases).size !== normalizedAliases.length) {
@@ -294,7 +304,7 @@ type OnboardingPlan = {
   product: {
     identityVersionId: string;
     productId: string;
-  };
+  } | null;
   market: { id: string; action: PlannedAction };
   place: { id: string; action: PlannedAction } | null;
   location: { id: string; action: PlannedAction };
@@ -1023,6 +1033,12 @@ async function planInitialObservation(
 ): Promise<OnboardingPlan["initialObservation"]> {
   const observation = manifest.initialObservation;
   if (!observation) return null;
+  const product = manifest.product;
+  if (!product) {
+    throw new OnboardingConflictError(
+      "An exact product identity is required for an initial observation.",
+    );
+  }
   const rows = await sql<ExistingObservationRow[]>`
     select id, retailer_location_id, product_identity_version_id,
       availability, price_ngn, observed_at, expires_at, source_method,
@@ -1032,7 +1048,7 @@ async function planInitialObservation(
     where id = ${observation.id}
       or (
         retailer_location_id = ${manifest.location.id}
-        and product_identity_version_id = ${manifest.product.identityVersionId}
+        and product_identity_version_id = ${product.identityVersionId}
         and source_method = ${observation.sourceMethod}
         and source_reference = ${observation.sourceReference}
       )
@@ -1051,8 +1067,7 @@ async function planInitialObservation(
     (candidate) =>
       candidate.id === observation.id &&
       candidate.retailer_location_id === manifest.location.id &&
-      candidate.product_identity_version_id ===
-        manifest.product.identityVersionId &&
+      candidate.product_identity_version_id === product.identityVersionId &&
       candidate.availability === observation.availability &&
       pricesEqual(candidate.price_ngn, observation.priceNgn) &&
       datesEqual(candidate.observed_at, observation.observedAt) &&
@@ -1098,28 +1113,30 @@ async function buildOnboardingPlan(
     "Canonical retailer",
   );
 
-  const products = await sql<ExistingProductRow[]>`
-    select identity_version.identity_version_id, identity_version.product_id,
-      identity_version.lifecycle_state, product.slug as product_slug,
-      product.is_published
-    from catalogue_product_identity_versions identity_version
-    join products product on product.id = identity_version.product_id
-    where identity_version.identity_version_id = ${manifest.product.identityVersionId}
-      or product.id = ${manifest.product.productId}
-      or product.slug = ${manifest.product.slug}
-    order by identity_version.identity_version_id
-    limit 3
-  `;
-  const product = requireExactSingleRow(
-    products,
-    (candidate) =>
-      candidate.identity_version_id === manifest.product.identityVersionId &&
-      candidate.product_id === manifest.product.productId &&
-      candidate.product_slug === manifest.product.slug &&
-      candidate.lifecycle_state === "active" &&
-      candidate.is_published === true,
-    "Published active exact product identity",
-  );
+  const productInput = manifest.product;
+  const product = productInput
+    ? requireExactSingleRow(
+        await sql<ExistingProductRow[]>`
+          select identity_version.identity_version_id, identity_version.product_id,
+            identity_version.lifecycle_state, product.slug as product_slug,
+            product.is_published
+          from catalogue_product_identity_versions identity_version
+          join products product on product.id = identity_version.product_id
+          where identity_version.identity_version_id = ${productInput.identityVersionId}
+            or product.id = ${productInput.productId}
+            or product.slug = ${productInput.slug}
+          order by identity_version.identity_version_id
+          limit 3
+        `,
+        (candidate) =>
+          candidate.identity_version_id === productInput.identityVersionId &&
+          candidate.product_id === productInput.productId &&
+          candidate.product_slug === productInput.slug &&
+          candidate.lifecycle_state === "active" &&
+          candidate.is_published === true,
+        "Published active exact product identity",
+      )
+    : null;
 
   const market = await planMarket(sql, manifest);
   const place = await planPlace(sql, manifest);
@@ -1151,10 +1168,12 @@ async function buildOnboardingPlan(
 
   return {
     retailerId: retailer.id,
-    product: {
-      identityVersionId: product.identity_version_id,
-      productId: product.product_id,
-    },
+    product: product
+      ? {
+          identityVersionId: product.identity_version_id,
+          productId: product.product_id,
+        }
+      : null,
     market,
     place,
     location,
@@ -1427,6 +1446,12 @@ async function applyOnboardingPlan(
 
   const observation = manifest.initialObservation;
   if (observation && plan.initialObservation?.action === "create-pending") {
+    const product = manifest.product;
+    if (!product) {
+      throw new OnboardingConflictError(
+        "An exact product identity is required for an initial observation.",
+      );
+    }
     const rows = await sql<{ id: string }[]>`
       insert into physical_product_observations (
         id, retailer_location_id, product_identity_version_id, availability,
@@ -1434,7 +1459,7 @@ async function applyOnboardingPlan(
         observed_title, observed_size, moderation_status
       ) values (
         ${observation.id}, ${manifest.location.id},
-        ${manifest.product.identityVersionId}, ${observation.availability},
+        ${product.identityVersionId}, ${observation.availability},
         ${observation.priceNgn}, ${observation.observedAt},
         ${observation.expiresAt}, ${observation.sourceMethod},
         ${observation.sourceReference}, ${observation.observedTitle},
@@ -1457,7 +1482,7 @@ async function applyOnboardingPlan(
           operation: "append_pending_pilot_evidence",
           marketId: manifest.market.id,
           retailerLocationId: manifest.location.id,
-          productIdentityVersionId: manifest.product.identityVersionId,
+          productIdentityVersionId: product.identityVersionId,
           availability: observation.availability,
           observedAt: observation.observedAt,
           expiresAt: observation.expiresAt,
@@ -1481,7 +1506,9 @@ async function applyOnboardingPlan(
           placeId: manifest.place?.id ?? null,
           retailerId: manifest.retailer.id,
           locationId: manifest.location.id,
-          identityVersionId: manifest.product.identityVersionId,
+          ...(manifest.product
+            ? { identityVersionId: manifest.product.identityVersionId }
+            : {}),
           identityEvidenceId: manifest.location.identityEvidence.id,
           directionsEvidenceId:
             manifest.location.publicDirections?.evidence.id ?? null,
@@ -1520,11 +1547,13 @@ function boundedResult(
     ready: true,
     writes,
     retailer: { id: plan.retailerId, state: "existing" as const },
-    product: {
-      identityVersionId: plan.product.identityVersionId,
-      productId: plan.product.productId,
-      state: "active-published" as const,
-    },
+    product: plan.product
+      ? {
+          identityVersionId: plan.product.identityVersionId,
+          productId: plan.product.productId,
+          state: "active-published" as const,
+        }
+      : null,
     market: {
       id: plan.market.id,
       state: "published" as const,

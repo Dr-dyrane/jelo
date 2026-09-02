@@ -100,6 +100,13 @@ function onboardingManifest(): MarketFinderOnboardingManifest {
   );
 }
 
+function locationOnlyOnboardingManifest(): MarketFinderOnboardingManifest {
+  const manifest = onboardingManifest();
+  delete manifest.product;
+  delete manifest.initialObservation;
+  return parseMarketFinderOnboardingManifest(manifest, now);
+}
+
 function queryText(strings: TemplateStringsArray) {
   return strings
     .reduce(
@@ -198,9 +205,13 @@ type ObservationRow = {
 };
 
 function onboardingFixture(
-  input: { operatorRole?: string; conflictingRetailer?: boolean } = {},
+  input: {
+    operatorRole?: string;
+    conflictingRetailer?: boolean;
+    manifest?: MarketFinderOnboardingManifest;
+  } = {},
 ) {
-  const manifest = onboardingManifest();
+  const manifest = input.manifest ?? onboardingManifest();
   const state = {
     market: null as MarketRow | null,
     place: null as PlaceRow | null,
@@ -212,6 +223,7 @@ function onboardingFixture(
     events: [] as string[],
     queries: [] as string[],
     auditCount: 0,
+    auditMetadata: [] as unknown[],
   };
 
   const tag = ((strings: TemplateStringsArray, ...values: unknown[]) => {
@@ -231,6 +243,7 @@ function onboardingFixture(
       return [manifest.retailer];
     }
     if (query.includes("from catalogue_product_identity_versions")) {
+      assert.ok(manifest.product);
       return [
         {
           identity_version_id: manifest.product.identityVersionId,
@@ -424,7 +437,10 @@ function onboardingFixture(
     }
     throw new Error(`Unexpected onboarding fixture query: ${query}`);
   }) as unknown as Sql;
-  tag.json = (value) => value as never;
+  tag.json = (value) => {
+    state.auditMetadata.push(value);
+    return value as never;
+  };
   const transactionTag = tag as unknown as {
     begin: <T>(
       options: string,
@@ -586,6 +602,119 @@ test("dry-run resolves exact canonical parents in a read-only transaction and em
   assert.doesNotMatch(output, /civic centre/i);
   assert.doesNotMatch(output, /wa\.me/);
   assert.doesNotMatch(output, /Approve one evidence-bound/);
+});
+
+test("location-only dry-run omits product planning and product output", async () => {
+  const fixture = onboardingFixture({
+    manifest: locationOnlyOnboardingManifest(),
+  });
+  const result = await runMarketFinderOnboarding(
+    fixture.sql,
+    fixture.manifest,
+    {
+      operatorEmail: "admin@jelocare.invalid",
+      now,
+    },
+  );
+
+  assert.equal(result.mode, "dry-run");
+  assert.equal(result.writes, false);
+  assert.equal(result.product, null);
+  assert.equal(result.initialObservation, null);
+  assert.deepEqual(fixture.state.transactionModes, ["read only"]);
+  assert.deepEqual(fixture.state.events, []);
+  assert.equal(
+    fixture.state.queries.some((query) =>
+      query.includes("from catalogue_product_identity_versions"),
+    ),
+    false,
+  );
+  assert.equal(
+    fixture.state.queries.some((query) =>
+      query.includes("from physical_product_observations"),
+    ),
+    false,
+  );
+});
+
+test("location-only apply is audited without product identity and reruns idempotently", async () => {
+  const fixture = onboardingFixture({
+    manifest: locationOnlyOnboardingManifest(),
+  });
+  const result = await runMarketFinderOnboarding(
+    fixture.sql,
+    fixture.manifest,
+    {
+      apply: true,
+      operatorEmail: "admin@jelocare.invalid",
+      now,
+    },
+  );
+
+  assert.equal(result.mode, "applied");
+  assert.equal(result.writes, true);
+  assert.equal(result.product, null);
+  assert.equal(result.initialObservation, null);
+  assert.deepEqual(fixture.state.events, [
+    "insert:market:draft",
+    "update:market:published",
+    "insert:place:lead",
+    "update:place:verified",
+    "insert:location:lead",
+    "insert:evidence:location_identity:pending",
+    "update:evidence:location_identity:approved",
+    "insert:evidence:public_directions:pending",
+    "update:evidence:public_directions:approved",
+    "update:location:verified",
+    "insert:channel:pending",
+    "insert:evidence:channel_ownership:pending",
+    "update:evidence:channel_ownership:approved",
+    "update:channel:verified",
+    "insert:audit:location",
+  ]);
+  assert.equal(fixture.state.auditCount, 1);
+  assert.equal(fixture.state.auditMetadata.length, 1);
+  assert.equal(
+    Object.hasOwn(
+      fixture.state.auditMetadata[0] as object,
+      "identityVersionId",
+    ),
+    false,
+  );
+  assert.doesNotMatch(
+    JSON.stringify(fixture.state.auditMetadata[0]),
+    /33333333-3333-4333-8333-333333333333|22222222-2222-4222-8222-222222222222/,
+  );
+
+  const eventCount = fixture.state.events.length;
+  const queryCount = fixture.state.queries.length;
+  const rerun = await runMarketFinderOnboarding(fixture.sql, fixture.manifest, {
+    apply: true,
+    operatorEmail: "admin@jelocare.invalid",
+    now,
+  });
+  assert.equal(rerun.writes, false);
+  assert.equal(rerun.product, null);
+  assert.equal(rerun.initialObservation, null);
+  assert.equal(fixture.state.events.length, eventCount);
+  assert.equal(fixture.state.auditCount, 1);
+  assert.equal(
+    fixture.state.queries
+      .slice(queryCount)
+      .some((query) =>
+        query.includes("from catalogue_product_identity_versions"),
+      ),
+    false,
+  );
+});
+
+test("an initial observation without an exact product identity is rejected", () => {
+  const manifest = onboardingManifest();
+  delete manifest.product;
+  assert.throws(
+    () => parseMarketFinderOnboardingManifest(manifest, now),
+    /An exact product identity is required when initialObservation is provided/,
+  );
 });
 
 test("apply follows trigger-safe pending-to-approved order, audits atomically, and reruns as a no-op", async () => {

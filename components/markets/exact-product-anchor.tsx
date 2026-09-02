@@ -11,14 +11,14 @@ export function ExactProductAnchor({
   product: MarketSurfaceProduct;
   changeHref?: string;
 }) {
-  const pendingPackshot = (
+  const unavailableImage = (
     <div
       className={styles.packshotMissing}
       role="img"
-      aria-label="Reviewed product packshot unavailable"
+      aria-label="Reviewed product image unavailable"
     >
       <PackageCheck size={30} aria-hidden="true" />
-      <small>Packshot pending</small>
+      <small>No reviewed image</small>
     </div>
   );
 
@@ -49,10 +49,10 @@ export function ExactProductAnchor({
             alt={`${product.brand} ${product.name}, ${product.size}`}
             className={styles.packshot}
             priority
-            fallback={pendingPackshot}
+            fallback={unavailableImage}
           />
         ) : (
-          pendingPackshot
+          unavailableImage
         )}
       </div>
 

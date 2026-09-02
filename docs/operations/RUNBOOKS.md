@@ -1612,7 +1612,9 @@ ID, slug, case-insensitive name, or trust score stops without repair or update.
 This operator never creates or changes an offer, price, market, place, retailer
 location, channel, physical stock observation, or retailer application. After a
 successful promotion, run the separate Market Finder location onboarding below
-only when its own reviewed location and exact-product evidence are ready.
+when its reviewed location evidence is ready. Exact-product evidence is
+additionally required only when the onboarding manifest includes an initial
+stock observation.
 
 ### Market Finder physical evidence
 
@@ -1623,13 +1625,15 @@ product evidence, and every appended observation starts in `pending` review.
 
 Before the first report can exist, onboard one canonical pilot location with a
 private version-1 JSON manifest. The manifest must bind an existing canonical
-retailer and active published exact-product identity to the reviewed market,
-optional place, location-identity evidence, and either reviewed text directions
-or one verified public channel. It may include one attributable
-`initialObservation` from `field_visit`, `retailer_confirmation`, or
-`branch_online_record`; that observation is inserted as `pending`, never
-approved by onboarding. Do not use fixture names, disputed landmarks, search
-results, map results, or an unresolved "beside" description.
+retailer to the reviewed market, optional place, location-identity evidence,
+and either reviewed text directions or one verified public channel. A
+location-only manifest omits both `product` and `initialObservation`; it creates
+no product relation or availability claim. If the manifest includes one
+attributable `initialObservation` from `field_visit`,
+`retailer_confirmation`, or `branch_online_record`, it must also bind the exact
+active published product identity. That observation is inserted as `pending`,
+never approved by onboarding. Do not use fixture names, disputed landmarks,
+search results, map results, or an unresolved "beside" description.
 
 Run the read-only preflight first, using a manifest outside the repository:
 
@@ -1647,7 +1651,9 @@ The serializable transaction creates pending/lead rows first, applies the
 reviewed location decisions in trigger-safe order, appends the optional first
 product observation as `pending`, and writes attributable audit events. An exact
 rerun is a no-op; a conflicting canonical row stops the transaction. Use the
-observation ID returned by the plan with the separate `decide` command below.
+observation ID returned by a plan that includes `initialObservation` with the
+separate `decide` command below. A location-only plan has no observation to
+decide.
 
 Record one exact product/place observation with a dry run first:
 
@@ -1740,14 +1746,18 @@ concurrent catalogue change cannot create a torn pass.
 
 It exits `2` unless migrations `0053`–`0055` are applied unchanged and the
 `trade-fair` directory contains only exact published product identities whose
-current reads each have at least one usable reviewed location and one native
-catalogue packshot binding. Its output contains only fixed status labels,
-public product slugs and bounded counts; unexpected failures emit one generic
-message. A packshot binding does not prove that the deployed asset loads, so
-the command deliberately reports `asset-delivery=not-assessed`. Before calling
-the release live, use the production browser to verify every affected exact
-product route loads its bound image and preserves the native transparent
-presentation. `public-read-data-ready=true` does not approve activation:
+current reads each have at least one usable reviewed location. An absent
+Market Finder packshot binding is reported as unavailable media and renders the
+native image-unavailable state; it does not block public reads. Any present
+binding that fails exact identity, catalogue metadata, alpha, subject-bounds,
+rights, or fingerprint validation blocks readiness as a configuration-integrity
+failure. Output contains only fixed status labels, public product slugs and
+bounded counts; unexpected failures emit one generic message. A valid binding
+does not prove that the deployed asset loads, so the command deliberately
+reports `asset-delivery=not-assessed`. Before calling the release live, use the
+production browser to verify every bound image preserves the native transparent
+presentation and every unbound product shows the native unavailable state.
+`public-read-data-ready=true` does not approve activation:
 founder pilot approval is still required, and the command also reports
 `report-intake=not-assessed` because privacy, abuse and Ops acceptance remain a
 separate human gate.

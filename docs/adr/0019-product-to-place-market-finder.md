@@ -234,9 +234,17 @@ physical-evidence operations, targeted cache invalidation, and rollback-safe
 public-read gate are now implemented locally, but that does not make the
 production loop complete. Activation still requires the protected production
 migration, canonical Trade Fair onboarding, attributable review of the first
-location and product observations, accepted exact-product packshots, and the
-explicit flag sequence below. Those release requirements must not be
+location and product observations, and the explicit flag sequence below. Those
+release requirements must not be
 represented as finished merely because the local journey is visually complete.
+
+Canonical onboarding may stop at a reviewed retailer location without choosing
+an unrelated product. In that location-only mode the manifest omits both
+`product` and `initialObservation`, performs no catalogue or observation lookup,
+and records no product identity in its audit. Supplying an
+`initialObservation` always requires the exact active published product
+identity. A verified location is therefore reusable groundwork, never an
+implicit stock claim.
 
 ## Exact-SKU identity boundary
 
@@ -268,9 +276,11 @@ catalogue product and image, then bind the full Market Finder identity version,
 the content-addressed image URL, SHA-256, MIME type and native dimensions,
 measured alpha evidence, reviewed rights and treatment fingerprint, source and
 output subject bounds proving no upscale, and the native `contain` treatment.
-Missing, duplicate, malformed, or mismatched bindings fail closed to the honest
-image-unavailable state. This binding grants no catalogue publication or media
-repair authority.
+An absent binding fails closed to the honest image-unavailable state and is
+reported as media coverage rather than blocking otherwise truthful location
+guidance. A present duplicate, malformed, or mismatched binding also renders no
+image, but blocks readiness as a configuration-integrity failure. This binding
+grants no catalogue publication or media repair authority.
 
 ## Separate physical-market domain
 
@@ -642,10 +652,11 @@ and require the protected release sequence below.
   are one atomic unit; exact online-offer retailers continue through catalogue
   release and reconciliation instead.
 - Use the protected onboarding manifest to resolve an existing canonical
-  retailer and active published product identity, create the reviewed place and
-  location rows, and optionally append the first attributable product
-  observation as `pending`. Approve that observation only through the separate
-  audited evidence-decision command.
+  retailer, create the reviewed place and location rows, and stop there when
+  only location evidence is ready. Bind an active published product identity
+  only when appending the first attributable product observation as `pending`.
+  Approve that observation only through the separate audited evidence-decision
+  command.
 - Implement the current read model, source-specific freshness policy, targeted
   cache tags, and operator recheck workflow.
 
@@ -699,10 +710,11 @@ Production activation additionally requires:
 - successful validation, production-shaped rehearsal, and protected operator
   application under the [Operations runbooks](../operations/RUNBOOKS.md);
 - exact identity-version coverage for every surfaced product;
-- one reviewed transparent packshot binding for every surfaced product, with
-  the exact supplemental evidence above accepted by the same decision used by
-  readiness and presentation, and rendered with the native catalogue `contain`
-  treatment rather than a crop, transformed URL, or opaque fallback;
+- every rendered product image has the exact supplemental evidence above
+  accepted by the same decision used by readiness and presentation, and uses
+  the native catalogue `contain` treatment rather than a crop, transformed URL,
+  or opaque fallback; a product without an accepted binding renders the native
+  image-unavailable state and does not withhold truthful location guidance;
 - attributable location, channel, and stock evidence for every public claim;
 - `/ops/contributions` support for the typed report, with separate child,
   location, and physical-observation capabilities and audit;

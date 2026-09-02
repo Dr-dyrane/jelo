@@ -142,6 +142,12 @@ export type MarketFinderPackshotDecision =
       reason: MarketFinderPackshotRejectionReason;
     };
 
+export type MarketFinderPackshotRegistryIssue = {
+  entry: number;
+  slug: string | null;
+  reason: Exclude<MarketFinderPackshotRejectionReason, "binding-missing">;
+};
+
 const sha256Schema = z.string().regex(/^[0-9a-f]{64}$/);
 const positiveIntegerSchema = z.number().int().positive();
 const nonNegativeIntegerSchema = z.number().int().nonnegative();
@@ -514,6 +520,68 @@ function publishedCatalogueImageEvidence(
   }
 
   return undefined;
+}
+
+/**
+ * Audits every declared supplemental record, including records that do not
+ * match a currently surfaced Market Finder product. Missing records are valid;
+ * malformed, duplicate, or orphaned declarations are not.
+ */
+export function evaluateMarketFinderPackshotRegistryIntegrity(
+  candidates: readonly unknown[] = marketFinderPackshotBindings as readonly unknown[],
+): readonly MarketFinderPackshotRegistryIssue[] {
+  const parsedCandidates = candidates.map((candidate) =>
+    bindingSchema.safeParse(candidate),
+  );
+  const slugCounts = new Map<string, number>();
+
+  for (const parsed of parsedCandidates) {
+    if (!parsed.success) continue;
+    const slug = parsed.data.identity.slug;
+    slugCounts.set(slug, (slugCounts.get(slug) ?? 0) + 1);
+  }
+
+  const issues: MarketFinderPackshotRegistryIssue[] = [];
+  parsedCandidates.forEach((parsed, index) => {
+    const candidate = candidates[index];
+    if (!parsed.success) {
+      issues.push({
+        entry: index + 1,
+        slug: bindingSlug(candidate) ?? null,
+        reason: "binding-invalid",
+      });
+      return;
+    }
+
+    const identity = parsed.data.identity;
+    if ((slugCounts.get(identity.slug) ?? 0) !== 1) {
+      issues.push({
+        entry: index + 1,
+        slug: identity.slug,
+        reason: "binding-ambiguous",
+      });
+      return;
+    }
+
+    const published = productBySlug(identity.slug);
+    const decision = evaluateMarketFinderPackshotBinding(
+      identity,
+      candidate,
+      published ? publishedCatalogueImageEvidence(published) : undefined,
+    );
+    if (decision.status === "accepted") return;
+
+    issues.push({
+      entry: index + 1,
+      slug: identity.slug,
+      reason:
+        decision.reason === "binding-missing"
+          ? "binding-invalid"
+          : decision.reason,
+    });
+  });
+
+  return issues;
 }
 
 /** The production decision shared by Market Finder presentation and readiness. */

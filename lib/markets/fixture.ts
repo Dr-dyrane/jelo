@@ -1,6 +1,5 @@
 import "server-only";
 
-import { productBySlug } from "@/data/catalogue";
 export {
   deriveMarketPrimaryAction,
   type MarketPrimaryAction,
@@ -72,7 +71,7 @@ export const MARKET_FIXTURE_PRODUCTS: readonly MarketFixtureProduct[] = [
     name: "Aloe Soothing Sun Cream",
     size: "50 ml",
     identityNote:
-      "Exact 50 ml identity retained; a reviewed transparent packshot is still pending.",
+      "Exact 50 ml identity retained; no reviewed product image is available.",
     listed: true,
   },
   {
@@ -293,17 +292,9 @@ export function listMarketFixtureProducts(): readonly MarketFixtureProduct[] {
 export function resolveMarketFixtureProductPackshot(
   product: MarketFixtureProduct,
 ) {
-  const publishedProduct = productBySlug(product.slug);
-  if (
-    !publishedProduct ||
-    publishedProduct.brand !== product.brand ||
-    publishedProduct.name !== product.name ||
-    publishedProduct.size !== product.size
-  ) {
-    return undefined;
-  }
-
-  return publishedProduct.image;
+  void product;
+  // Development fixtures never bypass the reviewed supplemental decision.
+  return undefined;
 }
 
 export function findMarketFixtureProduct(slug: string) {

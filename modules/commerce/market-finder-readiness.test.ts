@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { marketFinderPackshotBindings } from "@/data/market-finder-packshot-bindings";
 import type { MigrationPlan } from "@/lib/database/migration-governance";
 import type {
   MarketFinderDirectoryModel,
@@ -122,7 +123,7 @@ test("readiness stops at the governed migration gate before reading pilot data",
   );
 });
 
-test("readiness blocks exact current reads until the shared packshot decision accepts", () => {
+test("readiness permits an exact current read without optional Market Finder media", () => {
   const report = evaluateMarketFinderReadiness({
     migrationPlan: migrationPlan(),
     runtimeRoleAttested: true,
@@ -130,23 +131,24 @@ test("readiness blocks exact current reads until the shared packshot decision ac
     productChecks: [{ product, readModel: currentRead }],
   });
 
-  assert.equal(report.state, "blocked");
-  assert.equal(report.publicReadDataReady, false);
+  assert.equal(report.state, "ready");
+  assert.equal(report.publicReadDataReady, true);
   assert.equal(report.reportIntakeAssessment, "not-assessed");
   assert.equal(report.assetDeliveryAssessment, "not-assessed");
   assert.equal(report.runtime.roleAssessment, "attested");
-  assert.deepEqual(report.blockers, ["packshot-missing:exact-product-50ml"]);
+  assert.deepEqual(report.blockers, []);
   assert.deepEqual(report.data, {
     checked: true,
     directoryState: "current",
     productCount: 1,
     productCheckCount: 1,
     packshotCount: 0,
+    packshotUnavailableCount: 1,
     currentLocationCount: 1,
   });
 });
 
-test("missing packshots and non-current exact reads block activation", () => {
+test("non-current exact reads still block activation when media is unavailable", () => {
   const unavailable: MarketFinderReadModel = {
     state: "unavailable",
     context: { market, product },
@@ -164,7 +166,6 @@ test("missing packshots and non-current exact reads block activation", () => {
 
   assert.equal(report.state, "blocked");
   assert.deepEqual(report.blockers, [
-    "packshot-missing:exact-product-50ml",
     "product-unavailable:exact-product-50ml:no-usable-action",
   ]);
 });
@@ -202,12 +203,11 @@ test("a product read from another market can never satisfy the directory", () =>
 
   assert.equal(report.state, "blocked");
   assert.deepEqual(report.blockers, [
-    "packshot-missing:exact-product-50ml",
     "read-market-mismatch:exact-product-50ml",
   ]);
 });
 
-test("a caller-forged packshot boolean cannot satisfy readiness", () => {
+test("a caller-forged packshot boolean cannot change media coverage", () => {
   const forgedCheck = {
     product,
     readModel: currentRead,
@@ -220,9 +220,55 @@ test("a caller-forged packshot boolean cannot satisfy readiness", () => {
     productChecks: [forgedCheck],
   });
 
-  assert.equal(report.state, "blocked");
+  assert.equal(report.state, "ready");
   assert.equal(report.data.packshotCount, 0);
-  assert.deepEqual(report.blockers, ["packshot-missing:exact-product-50ml"]);
+  assert.equal(report.data.packshotUnavailableCount, 1);
+  assert.deepEqual(report.blockers, []);
+});
+
+test("a declared invalid binding remains a readiness blocker", () => {
+  const bindings = marketFinderPackshotBindings as unknown as unknown[];
+  bindings.push({ identity: { slug: product.slug } });
+
+  try {
+    const report = evaluateMarketFinderReadiness({
+      migrationPlan: migrationPlan(),
+      runtimeRoleAttested: true,
+      directory,
+      productChecks: [{ product, readModel: currentRead }],
+    });
+
+    assert.equal(report.state, "blocked");
+    assert.equal(report.data.packshotCount, 0);
+    assert.equal(report.data.packshotUnavailableCount, 1);
+    assert.deepEqual(report.blockers, [
+      "packshot-registry-invalid:1:binding-invalid",
+    ]);
+  } finally {
+    bindings.pop();
+  }
+});
+
+test("a malformed binding without a usable slug cannot disappear as missing media", () => {
+  const bindings = marketFinderPackshotBindings as unknown as unknown[];
+  bindings.push({});
+
+  try {
+    const report = evaluateMarketFinderReadiness({
+      migrationPlan: migrationPlan(),
+      runtimeRoleAttested: true,
+      directory,
+      productChecks: [{ product, readModel: currentRead }],
+    });
+
+    assert.equal(report.state, "blocked");
+    assert.equal(report.data.packshotUnavailableCount, 1);
+    assert.deepEqual(report.blockers, [
+      "packshot-registry-invalid:1:binding-invalid",
+    ]);
+  } finally {
+    bindings.pop();
+  }
 });
 
 test("missing application-runtime attestation blocks data evaluation", () => {
@@ -377,6 +423,7 @@ test("the operator command uses a stable read-only runtime snapshot and bounded 
   );
   assert.match(source, /asset-delivery=not-assessed/);
   assert.match(source, /report-intake=not-assessed/);
+  assert.match(source, /packshot-unavailable=/);
   assert.match(
     source,
     /console\.error\("Market Finder readiness audit failed\."\)/,

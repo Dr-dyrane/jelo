@@ -86,7 +86,7 @@ export default async function MarketsPage() {
       name: product.name,
       size: product.size,
       image: product.image,
-      imageUnavailableLabel: "Packshot pending",
+      imageUnavailableLabel: "No reviewed image",
     },
     href: `/markets/${market.slug}?product=${encodeURIComponent(product.slug)}`,
   }));
@@ -157,7 +157,7 @@ export default async function MarketsPage() {
                     fallback={
                       <span className={styles.heroImageMissing}>
                         <PackageSearch size={32} aria-hidden="true" />
-                        <small>Packshot pending</small>
+                        <small>No reviewed image</small>
                       </span>
                     }
                   />
@@ -166,7 +166,7 @@ export default async function MarketsPage() {
             ) : (
               <span className={styles.heroPackshotsPending}>
                 <PackageSearch size={58} aria-hidden="true" />
-                <small>Exact packshots in review</small>
+                <small>No reviewed images</small>
               </span>
             )}
           </div>

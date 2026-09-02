@@ -161,6 +161,7 @@ async function main() {
           `migrations=${report.migrations.applied}/${report.migrations.required}`,
           `products=${report.data.productCount}`,
           `packshot-bindings=${report.data.packshotCount}`,
+          `packshot-unavailable=${report.data.packshotUnavailableCount}`,
           `locations=${report.data.currentLocationCount}`,
           "asset-delivery=not-assessed",
           "report-intake=not-assessed",

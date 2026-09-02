@@ -100,10 +100,11 @@ test("fixture media fails closed until an exact transparent packshot is reviewed
   assert.equal(resolveMarketFixtureProductPackshot(routeRehearsal), undefined);
 
   const fixtureSource = readFileSync("lib/markets/fixture.ts", "utf8");
-  assert.match(fixtureSource, /productBySlug\(product\.slug\)/);
-  assert.match(fixtureSource, /publishedProduct\.brand !== product\.brand/);
-  assert.match(fixtureSource, /publishedProduct\.name !== product\.name/);
-  assert.match(fixtureSource, /publishedProduct\.size !== product\.size/);
+  assert.doesNotMatch(fixtureSource, /productBySlug/);
+  assert.match(
+    fixtureSource,
+    /never bypass the reviewed supplemental decision/i,
+  );
   assert.doesNotMatch(fixtureSource, /cosrx\.com\/cdn\/shop\/files/);
   assert.doesNotMatch(fixtureSource, /packshot\.webp/);
 });
@@ -393,8 +394,9 @@ test("the full Market Finder flow reuses native JeloCare composition", () => {
   );
   assert.match(
     entrySource,
-    /imageUnavailableLabel:\s*["']Packshot pending["']/,
+    /imageUnavailableLabel:\s*["']No reviewed image["']/,
   );
+  assert.match(entrySource, /No reviewed images/);
   assert.doesNotMatch(entrySource, /product-placeholder\.svg/);
   assert.doesNotMatch(
     entrySource,
@@ -527,7 +529,7 @@ test("the full Market Finder flow reuses native JeloCare composition", () => {
   );
   assert.match(
     readFileSync("components/markets/exact-product-anchor.tsx", "utf8"),
-    /fallback=\{pendingPackshot\}/,
+    /fallback=\{unavailableImage\}/,
   );
   assert.match(entrySource, /fallback=\{[\s\S]*styles\.heroImageMissing/);
   assert.equal(stylesheet.match(/^\.productAnchor\s*\{/gm)?.length, 1);

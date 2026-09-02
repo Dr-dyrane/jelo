@@ -5,7 +5,10 @@ import type {
   MarketFinderProductIdentity,
   MarketFinderReadModel,
 } from "@/lib/markets/domain";
-import { resolveMarketFinderProductPackshotDecision } from "@/lib/markets/market-finder-packshot-binding";
+import {
+  evaluateMarketFinderPackshotRegistryIntegrity,
+  resolveMarketFinderProductPackshotDecision,
+} from "@/lib/markets/market-finder-packshot-binding";
 
 export const MARKET_FINDER_REQUIRED_MIGRATIONS = [
   "0053_physical_market_finder.sql",
@@ -38,6 +41,7 @@ export type MarketFinderReadinessReport = {
     productCount: number;
     productCheckCount: number;
     packshotCount: number;
+    packshotUnavailableCount: number;
     currentLocationCount: number;
   };
   blockers: string[];
@@ -117,6 +121,7 @@ export function evaluateMarketFinderReadiness(input: {
   const productChecks = input.productChecks ?? [];
   let productCount = 0;
   let packshotCount = 0;
+  let packshotUnavailableCount = 0;
   let currentLocationCount = 0;
   let directoryState: MarketFinderReadinessReport["data"]["directoryState"] =
     "not-checked";
@@ -132,6 +137,14 @@ export function evaluateMarketFinderReadiness(input: {
   }
 
   if (migrationsReady && runtimeRoleAttested) {
+    const packshotRegistryIssues =
+      evaluateMarketFinderPackshotRegistryIntegrity();
+    const invalidBindingSlugs = new Set<string>();
+    for (const issue of packshotRegistryIssues) {
+      if (issue.slug) invalidBindingSlugs.add(issue.slug);
+      blockers.add(`packshot-registry-invalid:${issue.entry}:${issue.reason}`);
+    }
+
     if (!input.directory) {
       blockers.add("directory-not-checked");
     } else {
@@ -178,10 +191,18 @@ export function evaluateMarketFinderReadiness(input: {
           }
           const packshotDecision =
             resolveMarketFinderProductPackshotDecision(product);
-          if (packshotDecision.status !== "accepted") {
-            blockers.add(`packshot-missing:${product.slug}`);
-          } else {
+          if (packshotDecision.status === "accepted") {
             packshotCount += 1;
+          } else {
+            packshotUnavailableCount += 1;
+            if (
+              packshotDecision.reason !== "binding-missing" &&
+              !invalidBindingSlugs.has(product.slug)
+            ) {
+              blockers.add(
+                `packshot-invalid:${product.slug}:${packshotDecision.reason}`,
+              );
+            }
           }
           if (check.readModel.state !== "current") {
             blockers.add(
@@ -238,6 +259,7 @@ export function evaluateMarketFinderReadiness(input: {
       productCount,
       productCheckCount: productChecks.length,
       packshotCount,
+      packshotUnavailableCount,
       currentLocationCount,
     },
     blockers: [...blockers],

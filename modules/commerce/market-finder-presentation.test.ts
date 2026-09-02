@@ -5,6 +5,7 @@ import type {
   MarketFinderContext,
 } from "@/lib/markets/domain";
 import {
+  evaluateMarketFinderPackshotRegistryIntegrity,
   evaluateMarketFinderPackshotBinding,
   marketFinderPackshotRightsTreatmentFingerprint,
   resolveMarketFinderProductPackshotDecision,
@@ -223,6 +224,29 @@ test("supplemental packshot acceptance binds the public image and all reviewed e
       rendering: "native-contain",
     },
   });
+});
+
+test("supplemental packshot registry rejects malformed, orphaned, and duplicate declarations", () => {
+  assert.deepEqual(evaluateMarketFinderPackshotRegistryIntegrity([{}]), [
+    { entry: 1, slug: null, reason: "binding-invalid" },
+  ]);
+
+  const orphaned = reviewedBinding();
+  assert.deepEqual(evaluateMarketFinderPackshotRegistryIntegrity([orphaned]), [
+    {
+      entry: 1,
+      slug: context.product.slug,
+      reason: "catalogue-product-missing",
+    },
+  ]);
+
+  assert.deepEqual(
+    evaluateMarketFinderPackshotRegistryIntegrity([orphaned, orphaned]),
+    [
+      { entry: 1, slug: context.product.slug, reason: "binding-ambiguous" },
+      { entry: 2, slug: context.product.slug, reason: "binding-ambiguous" },
+    ],
+  );
 });
 
 test("supplemental packshot acceptance fails closed for missing or mismatched proof", async (t) => {
