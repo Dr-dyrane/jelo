@@ -24,6 +24,7 @@ export type MeWorkspacePage =
   | "shelf-request"
   | "not-found";
 export type MeProductOrigin = MeWorkspaceTab;
+export type MeShelfAddOrigin = "shelf" | "market-finder";
 type MePrimaryRoute = {
   [Kind in MeWorkspaceTab]: { kind: Kind };
 }[MeWorkspaceTab];
@@ -34,7 +35,7 @@ export type MePortalRoute =
   | { kind: "locations" }
   | { kind: "consult" }
   | { kind: "not-found" }
-  | { kind: "shelf-add" }
+  | { kind: "shelf-add"; origin?: MeShelfAddOrigin }
   | { kind: "shelf-request"; id: string }
   | { kind: "product"; slug: string; origin: MeProductOrigin };
 
@@ -75,6 +76,12 @@ export function createMeStackBack(route: MePortalRoute) {
     route.kind !== "not-found"
   )
     return undefined;
+  if (route.kind === "shelf-add" && route.origin === "market-finder") {
+    return {
+      href: "/markets",
+      accessibleLabel: "Back to Market Finder",
+    };
+  }
   const href = resolveMeActiveParentHref(route);
   const parent =
     ME_WORKSPACE_NAVIGATION.find((item) => item.href === href) ??

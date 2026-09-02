@@ -18,6 +18,10 @@ import {
   type ProductRequest,
 } from "../../components/me/product-requests/product-request-model";
 import type { CustomerPortalProduct } from "../../lib/customer/portal-model";
+import {
+  normalizeProductRequestEntrySeed,
+  productRequestEntryHref,
+} from "../../lib/customer/product-request-entry";
 
 const root = process.cwd();
 const source = (path: string) => readFileSync(join(root, path), "utf8");
@@ -108,6 +112,23 @@ const products: readonly CustomerPortalProduct[] = [
 ];
 
 describe("private missing-product presentation model", () => {
+  it("carries a bounded Market Finder query into the private exact-pack search", () => {
+    assert.equal(
+      normalizeProductRequestEntrySeed("  Kuza\u202e black\ncastor oil  "),
+      "Kuza black castor oil",
+    );
+    assert.equal(normalizeProductRequestEntrySeed(["Kuza"]), undefined);
+    assert.equal(
+      [...normalizeProductRequestEntrySeed("a".repeat(300))!].length,
+      240,
+    );
+    assert.equal(
+      productRequestEntryHref("Kuza black castor oil"),
+      "/me/shelf/add?from=market-finder&request=Kuza%20black%20castor%20oil",
+    );
+    assert.equal(productRequestEntryHref("\n\t"), "/me/shelf/add");
+  });
+
   it("accepts only an exact canonical identity alias before opening the request path", () => {
     assert.equal(
       findExactCanonicalIdentity(
@@ -157,7 +178,7 @@ describe("private missing-product presentation model", () => {
       controller,
       /searchCanonicalIdentities\(viewModel\.catalogue \?\? \[\], value\)\.length/,
     );
-    assert.match(page, />Request this missing product</);
+    assert.match(page, /Request this missing product/);
   });
 
   it("defaults photo-identification consent off and validates required identity fields", () => {
@@ -281,6 +302,32 @@ describe("private request /me contract", () => {
     assert.match(
       shell,
       /['"]shelf-add['"][\s\S]*href: ['"]\/me\/shelf\/add['"]/,
+    );
+    assert.match(
+      routes,
+      /route\.origin === ["']market-finder["'][\s\S]*normalizeProductRequestEntrySeed\(query\.request\)/,
+    );
+    assert.match(
+      routes,
+      /productRequestEntryHref\(productRequestInitialSearch\)/,
+    );
+    const home = source("components/me/home/me-home.tsx");
+    const addPage = source(
+      "components/me/product-requests/product-request-add-page.tsx",
+    );
+    const addController = source(
+      "components/me/product-requests/use-product-request-add.ts",
+    );
+    assert.match(home, /initialSearch=\{productRequestInitialSearch\}/);
+    assert.match(addPage, /useProductRequestAdd\(viewModel, initialSearch\)/);
+    assert.match(addController, /useState\(initialSearch\)/);
+    assert.match(
+      addController,
+      /locked: pending \|\| Boolean\(createdRequest\)/,
+    );
+    assert.doesNotMatch(
+      addController,
+      /locked:[^\n]*viewModel\.account\.synthetic/,
     );
   });
 

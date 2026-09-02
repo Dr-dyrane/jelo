@@ -20,6 +20,10 @@ import { toAssistedOrderCustomerView } from "@/lib/commerce/assisted-procurement
 import { readAssistedOrderNotificationCenter } from "@/lib/commerce/order-notification-repository";
 import { customerLocationService } from "@/lib/customer/location-service";
 import {
+  normalizeProductRequestEntrySeed,
+  productRequestEntryHref,
+} from "@/lib/customer/product-request-entry";
+import {
   measureCustomerPrivateResultOperation,
   type CustomerPrivateTelemetrySurface,
 } from "@/lib/customer/private-telemetry";
@@ -63,7 +67,10 @@ function parseRoute(
   }
 
   if (parts.length === 2 && parts[0] === "shelf" && parts[1] === "add") {
-    return { kind: "shelf-add" };
+    return {
+      kind: "shelf-add",
+      origin: from === "market-finder" ? "market-finder" : "shelf",
+    };
   }
 
   if (
@@ -86,11 +93,16 @@ export default async function MeRoutePage({
   searchParams: Promise<{
     from?: string | string[];
     outcome?: string | string[];
+    request?: string | string[];
   }>;
 }) {
   const [{ route: parts }, query] = await Promise.all([params, searchParams]);
   const route = parseRoute(parts, query.from);
   if (!route) notFound();
+  const productRequestInitialSearch =
+    route.kind === "shelf-add" && route.origin === "market-finder"
+      ? normalizeProductRequestEntrySeed(query.request)
+      : undefined;
 
   const continuation =
     route.kind === "product"
@@ -100,7 +112,9 @@ export default async function MeRoutePage({
         : route.kind === "shelf"
           ? "/me/shelf"
           : route.kind === "shelf-add"
-            ? "/me/shelf/add"
+            ? route.origin === "market-finder"
+              ? productRequestEntryHref(productRequestInitialSearch)
+              : "/me/shelf/add"
             : route.kind === "routine"
               ? "/me/routine"
               : route.kind === "consult"
@@ -248,5 +262,6 @@ export default async function MeRoutePage({
     route,
     productRequestOutcome,
     productRequestPresentation,
+    productRequestInitialSearch,
   });
 }

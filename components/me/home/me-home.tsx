@@ -367,6 +367,7 @@ function MePortalView({
   productPanelData,
   productRequestOutcome,
   productRequestPresentation,
+  productRequestInitialSearch,
   orders,
   notificationCenter,
   locations,
@@ -381,6 +382,7 @@ function MePortalView({
   productPanelData?: ProductPanelData;
   productRequestOutcome?: string;
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
+  productRequestInitialSearch?: string;
   orders?: AssistedOrderCustomerView[];
   notificationCenter?: AssistedOrderNotificationCenter;
   locations?: CustomerLocationReadResult;
@@ -651,7 +653,7 @@ function MePortalView({
         <Link href="/me" className={styles.brand}>
           JeloCare
         </Link>
-        <MeNotificationBell />
+        <MeNotificationBell previewOnly={portalViewModel.account.synthetic} />
         <button
           ref={accountTriggerRef}
           className={styles.accountTrigger}
@@ -766,9 +768,11 @@ function MePortalView({
           ) : null}
           {route.kind === "shelf-add" ? (
             <ProductRequestAddPage
+              key={productRequestInitialSearch ?? "new-request"}
               viewModel={portalViewModel}
               shelfAction={shelfState.shelfAction}
               searchRef={searchRef}
+              initialSearch={productRequestInitialSearch}
             />
           ) : null}
           {route.kind === "shelf-request" ? (
@@ -848,6 +852,7 @@ export function MePortal({
   productPanelData,
   productRequestOutcome,
   productRequestPresentation,
+  productRequestInitialSearch,
   orders,
   notificationCenter,
   locations,
@@ -862,6 +867,7 @@ export function MePortal({
   productPanelData?: ProductPanelData;
   productRequestOutcome?: string;
   productRequestPresentation?: CustomerProductRequestPresentationViewModel;
+  productRequestInitialSearch?: string;
   orders?: AssistedOrderCustomerView[];
   notificationCenter?: AssistedOrderNotificationCenter;
   locations?: CustomerLocationReadResult;
@@ -889,6 +895,7 @@ export function MePortal({
         productPanelData={productPanelData}
         productRequestOutcome={productRequestOutcome}
         productRequestPresentation={productRequestPresentation}
+        productRequestInitialSearch={productRequestInitialSearch}
         orders={orders}
         notificationCenter={notificationCenter}
         locations={locations}

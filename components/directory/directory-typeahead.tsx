@@ -23,6 +23,7 @@ type Props = {
   emptyAction?: Readonly<{
     href: string;
     label: string;
+    queryParameter?: string;
   }>;
 };
 
@@ -54,6 +55,13 @@ export function DirectoryTypeahead({
   const emptyActionAvailable = Boolean(
     query.trim() && !suggestions.length && emptyAction,
   );
+  const emptyActionHref = useMemo(() => {
+    if (!emptyAction) return undefined;
+    const parameter = emptyAction.queryParameter?.trim();
+    if (!parameter || !query.trim()) return emptyAction.href;
+    const separator = emptyAction.href.includes("?") ? "&" : "?";
+    return `${emptyAction.href}${separator}${encodeURIComponent(parameter)}=${encodeURIComponent(query.trim())}`;
+  }, [emptyAction, query]);
 
   function updateQuery(nextValue: string) {
     if (onValueChange) onValueChange(nextValue);
@@ -69,9 +77,14 @@ export function DirectoryTypeahead({
       return;
     }
     if (!suggestions.length) {
-      if (event.key === "Enter" && open && emptyActionAvailable) {
+      if (
+        event.key === "Enter" &&
+        open &&
+        emptyActionAvailable &&
+        emptyActionHref
+      ) {
         event.preventDefault();
-        router.push(emptyAction!.href);
+        router.push(emptyActionHref);
       }
       return;
     }
@@ -170,7 +183,7 @@ export function DirectoryTypeahead({
           ) : emptyActionAvailable && emptyAction ? (
             <Link
               id={emptyActionId}
-              href={emptyAction.href}
+              href={emptyActionHref ?? emptyAction.href}
               role="option"
               aria-selected="true"
               data-active="true"

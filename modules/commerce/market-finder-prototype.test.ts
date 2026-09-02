@@ -403,7 +403,7 @@ test("the full Market Finder flow reuses native JeloCare composition", () => {
   assert.match(entrySource, /<details className=\{styles\.identityQueue\}>/);
   assert.match(
     entrySource,
-    /emptyAction=\{\{[\s\S]*href: ["']\/me\/shelf\/add["'][\s\S]*label: ["']Share the exact pack["']/,
+    /emptyAction=\{\{[\s\S]*href: ["']\/me\/shelf\/add\?from=market-finder["'][\s\S]*label: ["']Share the exact pack["'][\s\S]*queryParameter: ["']request["']/,
   );
   const directoryTypeahead = readFileSync(
     "components/directory/directory-typeahead.tsx",
@@ -412,20 +412,24 @@ test("the full Market Finder flow reuses native JeloCare composition", () => {
   assert.match(directoryTypeahead, /emptyActionAvailable/);
   assert.match(
     directoryTypeahead,
-    /event\.key === ["']Enter["'][\s\S]*router\.push\(emptyAction!\.href\)/,
+    /event\.key === ["']Enter["'][\s\S]*router\.push\(emptyActionHref\)/,
+  );
+  assert.match(
+    directoryTypeahead,
+    /href=\{emptyActionHref \?\? emptyAction\.href\}/,
   );
   assert.match(directoryTypeahead, /id=\{emptyActionId\}/);
   assert.match(directoryTypeahead, /role=["']option["']/);
   assert.match(
     entrySource,
-    /<Link href=["']\/me\/shelf\/add["']>[\s\S]*Share the exact pack/,
+    /MARKET_UNRESOLVED_REQUESTS\.map[\s\S]*productRequestEntryHref\(request\.query\)/,
   );
   assert.doesNotMatch(entrySource, /<Link href=["']\/contribute["']>/);
   assert.doesNotMatch(entrySource, /styles\.productOption/);
   assert.match(resultPageSource, /SmartBackLink/);
   assert.match(
     resultPageSource,
-    /className=\{styles\.routeStatePrimary\}[\s\S]*href=["']\/me\/shelf\/add["'][\s\S]*Share the exact pack/,
+    /className=\{styles\.routeStatePrimary\}[\s\S]*href=\{productRequestEntryHref\(request\.query\)\}[\s\S]*Share the exact pack/,
   );
   assert.doesNotMatch(
     resultPageSource,

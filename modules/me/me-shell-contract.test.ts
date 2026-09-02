@@ -47,6 +47,20 @@ test("JeloCare Me has exactly four released primary destinations", () => {
   );
 });
 
+test("synthetic Me preview does not poll the real notification API", () => {
+  const home = readFileSync("components/me/home/me-home.tsx", "utf8");
+  const notificationBell = readFileSync(
+    "components/me/notifications/me-notification-bell.tsx",
+    "utf8",
+  );
+  assert.match(
+    home,
+    /<MeNotificationBell previewOnly=\{portalViewModel\.account\.synthetic\} \/>/,
+  );
+  assert.match(notificationBell, /if \(previewOnly\) return;/);
+  assert.match(notificationBell, /\}, \[previewOnly\]\);/);
+});
+
 test("stack Back is shell-owned, deterministic, and preserves the active parent", () => {
   for (const kind of ["home", "explore", "shelf", "routine"] as const) {
     assert.equal(createMeStackBack({ kind }), undefined);
@@ -107,6 +121,19 @@ test("stack Back is shell-owned, deterministic, and preserves the active parent"
       parent,
     );
   }
+
+  const marketFinderRequestRoute = {
+    kind: "shelf-add",
+    origin: "market-finder",
+  } as const;
+  assert.deepEqual(createMeStackBack(marketFinderRequestRoute), {
+    href: "/markets",
+    accessibleLabel: "Back to Market Finder",
+  });
+  assert.equal(
+    resolveMeActiveParentHref(marketFinderRequestRoute),
+    "/me/shelf",
+  );
 
   assert.equal(resolveMeProductOrigin("home"), "home");
   assert.equal(resolveMeProductOrigin("explore"), "explore");

@@ -19,6 +19,7 @@ import {
   reviewedSyntheticSizeMatches,
 } from "../../lib/customer/development-fixture";
 import { LEGACY_SHELF_IMPORT_MANIFEST } from "../../lib/customer/legacy-shelf-import-manifest";
+import { productRequestEntryHref } from "../../lib/customer/product-request-entry";
 
 test("sign-in continuation accepts roots and exact bounded member Product destinations", () => {
   for (const continuation of [
@@ -52,6 +53,12 @@ test("sign-in continuation accepts roots and exact bounded member Product destin
     resolveSignInContinuation(`/me/product/${"a".repeat(181)}?from=explore`),
     "/ops",
   );
+  const shelfAddContinuation = productRequestEntryHref("Kuza black castor oil");
+  assert.equal(
+    resolveSignInContinuation(shelfAddContinuation),
+    shelfAddContinuation,
+  );
+  assert.equal(resolveSignInIntent(shelfAddContinuation), "customer");
 
   for (const unsafe of [
     "/me/shelf/request/private-request-id",
@@ -67,6 +74,11 @@ test("sign-in continuation accepts roots and exact bounded member Product destin
     "/me/product/%252e%252e?from=explore",
     "/me/product/%2fops?from=explore",
     "/me/product/exact\\product?from=explore",
+    "/me/shelf/add?request=Kuza%20black%20castor%20oil",
+    "/me/shelf/add?from=market-finder&request=Kuza black castor oil",
+    "/me/shelf/add?from=market-finder&request=Kuza%20black%20castor%20oil&next=/ops",
+    "/me/shelf/add?from=market-finder&request=Kuza%0Ablack%20castor%20oil",
+    "/me/shelf/add?from=market-finder&request=",
     "https://example.com/me/product/exact-product?from=explore",
     "//example.com/me/product/exact-product?from=explore",
     "javascript:alert(1)",
@@ -108,6 +120,10 @@ test("sign-in continuation accepts roots and exact bounded member Product destin
   assert.equal(
     customerSignInPath("/me/product/exact-product?from=explore"),
     "/sign-in?next=%2Fme%2Fproduct%2Fexact-product%3Ffrom%3Dexplore",
+  );
+  assert.equal(
+    customerSignInPath(shelfAddContinuation),
+    `/sign-in?next=${encodeURIComponent(shelfAddContinuation)}`,
   );
   assert.equal(
     customerSignInRecoveryPath("/me/consult"),
@@ -161,7 +177,7 @@ test("signed-out released Me routes carry only canonical continuations through O
   }
   assert.match(
     continuationBlock,
-    /route\.kind === ["']shelf-add["'][\s\S]*\? ["']\/me\/shelf\/add["']/,
+    /route\.kind === ["']shelf-add["'][\s\S]*\? productRequestEntryHref\(productRequestInitialSearch\)/,
   );
   assert.doesNotMatch(continuationBlock, /shelf-request/);
   assert.match(productRoute, /requireCustomer\(continuation\)/);

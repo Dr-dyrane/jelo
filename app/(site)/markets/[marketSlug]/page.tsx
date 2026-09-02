@@ -15,6 +15,7 @@ import {
   type MarketResultLead,
 } from "@/components/markets/market-result-list";
 import { SmartBackLink } from "@/components/navigation/smart-back-link";
+import { productRequestEntryHref } from "@/lib/customer/product-request-entry";
 import {
   isMarketFinderPublicMarketAllowed,
   isMarketFinderPublicReadEnabled,
@@ -158,7 +159,10 @@ function UnresolvedFixtureProduct({
           <h1>{request.query}</h1>
           <p>{request.reason}</p>
           <div className={styles.routeStateActions}>
-            <Link className={styles.routeStatePrimary} href="/me/shelf/add">
+            <Link
+              className={styles.routeStatePrimary}
+              href={productRequestEntryHref(request.query)}
+            >
               Share the exact pack <ArrowRight size={17} aria-hidden="true" />
             </Link>
             <Link

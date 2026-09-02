@@ -495,11 +495,28 @@
 
 .identityQueueBody li {
   min-height: 4.2rem;
-  padding: 0.85rem 1rem;
-  display: grid;
-  gap: 0.2rem;
   border-radius: 1rem;
   background: var(--paper);
+}
+
+.identityQueueBody li > a {
+  min-height: inherit;
+  padding: 0.85rem 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+  color: inherit;
+}
+
+.identityQueueBody li > a > span {
+  min-width: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.identityQueueBody li > a > svg {
+  color: var(--wine);
 }
 
 .identityQueueBody li strong {
@@ -511,18 +528,6 @@
   color: var(--muted);
   font-size: 0.66rem;
   line-height: 1.45;
-}
-
-.identityQueueBody > a {
-  width: max-content;
-  min-height: 2.75rem;
-  margin-top: 0.75rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--wine);
-  font-size: 0.72rem;
-  font-weight: 650;
 }
 
 .productAnchor {
@@ -1229,7 +1234,7 @@
 }
 
 .changeProduct:hover,
-.identityQueueBody > a:hover,
+.identityQueueBody li > a:hover,
 .recordAction:hover {
   text-decoration: underline;
   text-underline-offset: 0.18em;
@@ -1238,7 +1243,7 @@
 .backLink:focus-visible,
 .changeProduct:focus-visible,
 .identityQueue > summary:focus-visible,
-.identityQueueBody > a:focus-visible,
+.identityQueueBody li > a:focus-visible,
 .resultEvidence > summary:focus-visible,
 .recordsSummary:focus-visible,
 .primaryAction:focus-visible,

@@ -1,3 +1,9 @@
+import {
+  normalizeProductRequestEntrySeed,
+  productRequestEntryHref,
+  type ProductRequestEntryHref,
+} from "@/lib/customer/product-request-entry";
+
 export const SIGN_IN_CONTINUATIONS = [
   "/me",
   "/me/explore",
@@ -21,15 +27,58 @@ export type MemberProductContinuationOrigin =
   (typeof MEMBER_PRODUCT_CONTINUATION_ORIGINS)[number];
 export type MemberProductContinuation =
   `/me/product/${string}?from=${MemberProductContinuationOrigin}`;
+export type MemberShelfAddContinuation = Exclude<
+  ProductRequestEntryHref,
+  "/me/shelf/add"
+>;
 export type SignInContinuation =
-  (typeof SIGN_IN_CONTINUATIONS)[number] | MemberProductContinuation;
+  | (typeof SIGN_IN_CONTINUATIONS)[number]
+  | MemberProductContinuation
+  | MemberShelfAddContinuation;
 export type SignInIntent = "customer" | "operator";
 
 const MAX_MEMBER_PRODUCT_SLUG_LENGTH = 180;
 const MAX_MEMBER_PRODUCT_CONTINUATION_LENGTH = 205;
+const MAX_MEMBER_SHELF_ADD_CONTINUATION_LENGTH = 3_100;
 const MEMBER_PRODUCT_CONTINUATION_PATTERN =
   /^\/me\/product\/([a-z0-9]+(?:-[a-z0-9]+)*)\?from=(home|explore|shelf|routine)$/;
+const MEMBER_SHELF_ADD_PREFIX = "/me/shelf/add?from=market-finder&request=";
 const CUSTOMER_SIGN_IN_RECOVERY_VALUE = "retry";
+
+function resolveMemberShelfAddContinuation(
+  value: string,
+): MemberShelfAddContinuation | null {
+  if (
+    value.length > MAX_MEMBER_SHELF_ADD_CONTINUATION_LENGTH ||
+    !value.startsWith(MEMBER_SHELF_ADD_PREFIX)
+  ) {
+    return null;
+  }
+  const encodedRequest = value.slice(MEMBER_SHELF_ADD_PREFIX.length);
+  if (
+    !encodedRequest ||
+    encodedRequest.includes("&") ||
+    encodedRequest.includes("#")
+  ) {
+    return null;
+  }
+
+  let decodedRequest: string;
+  try {
+    decodedRequest = decodeURIComponent(encodedRequest);
+  } catch {
+    return null;
+  }
+  const normalizedRequest = normalizeProductRequestEntrySeed(decodedRequest);
+  if (
+    !normalizedRequest ||
+    normalizedRequest !== decodedRequest ||
+    productRequestEntryHref(normalizedRequest) !== value
+  ) {
+    return null;
+  }
+  return value as MemberShelfAddContinuation;
+}
 
 export function resolveSignInContinuation(value: unknown): SignInContinuation {
   if (
@@ -37,12 +86,17 @@ export function resolveSignInContinuation(value: unknown): SignInContinuation {
     (SIGN_IN_CONTINUATIONS as readonly string[]).includes(value)
   )
     return value as SignInContinuation;
+  if (typeof value !== "string") return "/ops";
+
+  const shelfAddContinuation = resolveMemberShelfAddContinuation(value);
+  if (shelfAddContinuation) return shelfAddContinuation;
+
   if (
-    typeof value !== "string" ||
     value.length > MAX_MEMBER_PRODUCT_CONTINUATION_LENGTH ||
     value.includes("%")
-  )
+  ) {
     return "/ops";
+  }
 
   const match = MEMBER_PRODUCT_CONTINUATION_PATTERN.exec(value);
   const slug = match?.[1];

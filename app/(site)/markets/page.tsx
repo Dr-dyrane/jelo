@@ -12,6 +12,7 @@ import { notFound } from "next/navigation";
 import { DirectoryTypeahead } from "@/components/directory/directory-typeahead";
 import { ProductCardGrid } from "@/components/products/product-grid";
 import { SafeProductImage } from "@/components/products/safe-product-image";
+import { productRequestEntryHref } from "@/lib/customer/product-request-entry";
 import {
   isMarketFinderPublicReadEnabled,
   marketFinderPublicMarketSlug,
@@ -210,8 +211,9 @@ export default async function MarketsPage() {
             resultNoun="exact product"
             emptyLabel="No reviewed record matches that exact product."
             emptyAction={{
-              href: "/me/shelf/add",
+              href: "/me/shelf/add?from=market-finder",
               label: "Share the exact pack",
+              queryParameter: "request",
             }}
           />
           <div className={styles.marketScope}>
@@ -254,16 +256,17 @@ export default async function MarketsPage() {
             <div className={styles.identityQueueBody}>
               <ul>
                 {MARKET_UNRESOLVED_REQUESTS.map((request) => (
-                  <li key={request.query}>
-                    <strong>{request.query}</strong>
-                    <small>{request.reason}</small>
+                  <li key={request.slug}>
+                    <Link href={productRequestEntryHref(request.query)}>
+                      <span>
+                        <strong>{request.query}</strong>
+                        <small>{request.reason}</small>
+                      </span>
+                      <ArrowRight size={16} aria-hidden="true" />
+                    </Link>
                   </li>
                 ))}
               </ul>
-              <Link href="/me/shelf/add">
-                Share the exact pack
-                <ArrowRight size={16} aria-hidden="true" />
-              </Link>
             </div>
           </details>
         ) : null}
