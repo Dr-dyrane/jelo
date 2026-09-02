@@ -40,7 +40,7 @@ The system stores:
 - contribution-scoped knowledge edges marked `community_reported` and `pending`;
 - optional typed domain projections, each keyed one-to-one to its immutable
   parent contribution and accepted only through a separately reviewed
-  migration;
+  migration; Market Finder's local foundation is migration `0053`;
 - deduplicated interaction events that record modes and counts, never search text;
 - one separate first-touch campaign record with bounded source, medium,
   campaign, creative label, and landing path;
@@ -63,7 +63,7 @@ Submissions never write directly to products, brands, retailers, offers, concern
 
 A contextual Market Finder report likewise cannot change a physical market,
 place, retailer location, direction, channel, stock state, price, or public
-result. Its future `market_finder_reports` row is a typed moderation projection
+result. Its `market_finder_reports` row is a typed moderation projection
 of one `community_contributions` row, not a canonical physical observation and
 not a second public intake. Approval of the parent contribution does not
 silently approve that child claim; physical publication requires a separate,
@@ -94,7 +94,7 @@ Unknown values enter `community_moderation_values`. Contributions, graph edges,
 and observations stay pending until reviewed through the authenticated system
 decided in [ADR 0007](0007-internal-moderation-operations-console.md).
 `/ops/contributions` remains the parent review surface for every contribution,
-including a future Market Finder projection; a domain-specific child decision
+including a Market Finder projection; a domain-specific child decision
 must remain distinct and attributable. There is no public moderation endpoint.
 
 Abandoned drafts are eligible for deletion after 30 days. `npm run community:intake:purge` performs the cleanup. Production requests use the existing Upstash Redis connection for rate limits.

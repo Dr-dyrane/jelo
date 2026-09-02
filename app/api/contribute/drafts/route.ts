@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { hasPostgresConfig } from "@/lib/db/postgres";
 import { communityIntakeAttributionFromReferrer } from "@/lib/community-intake/attribution";
+import { MarketReportContextUnavailableError } from "@/lib/community-intake/market-report-context";
+import {
+  isMarketFinderReportIntakeEnabled,
+  MarketFinderReportIntakeUnavailableError,
+} from "@/lib/markets/activation";
 import { createCommunityDraft } from "@/lib/community-intake/repository";
-import { createDraftRequestSchema } from "@/lib/community-intake/schema";
+import {
+  contributionDraftSchema,
+  createDraftRequestSchema,
+} from "@/lib/community-intake/schema";
 import {
   allowCommunityAction,
   contributionCookieMaxAge,
@@ -40,20 +48,31 @@ export async function POST(request: NextRequest) {
     const input = createDraftRequestSchema.parse(
       await readBoundedJson(request),
     );
+    if (
+      input.kind === "market_report" &&
+      !isMarketFinderReportIntakeEnabled()
+    ) {
+      return NextResponse.json(
+        { error: "This market report is not available." },
+        { status: 404 },
+      );
+    }
     const secret = createEditSecret();
     const attribution = communityIntakeAttributionFromReferrer(
       request.headers.get("referer"),
     );
     const draft = await createCommunityDraft(
-      input.kind,
+      input,
       hashEditSecret(secret),
       attribution,
     );
+    const savedDraft = contributionDraftSchema.parse(draft.payload);
     const response = NextResponse.json(
       {
         draftId: draft.id,
         revision: draft.revision,
         expiresAt: draft.expires_at.toISOString(),
+        ...(input.kind === "market_report" ? { draft: savedDraft } : {}),
       },
       { status: 201 },
     );
@@ -68,6 +87,14 @@ export async function POST(request: NextRequest) {
     });
     return response;
   } catch (error) {
+    if (
+      error instanceof MarketReportContextUnavailableError ||
+      error instanceof MarketFinderReportIntakeUnavailableError
+    )
+      return NextResponse.json(
+        { error: "This market report is not available." },
+        { status: 422 },
+      );
     const message =
       error instanceof Error && error.message === "payload_too_large"
         ? "Contribution is too large."

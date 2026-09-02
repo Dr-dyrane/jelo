@@ -7,6 +7,13 @@ function boundedLimit(limit: number) {
   return Math.min(Math.max(Math.trunc(limit), 1), 500);
 }
 
+async function marketFinderSchemaAvailable(sql: Sql): Promise<boolean> {
+  const [row] = await sql<{ available: boolean }[]>`
+    select to_regclass('public.market_finder_reports') is not null as available
+  `;
+  return row?.available ?? false;
+}
+
 export type QueueCounts = {
   contributions: number;
   edges: number;
@@ -18,7 +25,9 @@ export type QueueCounts = {
   signals: number;
 };
 
-// Pending counts for the console overview, in one round-trip. Read-only.
+// Pending counts for the console overview. The additive Market Finder lookup is
+// feature-detected so the existing console remains readable during migration
+// rollout; approved parents with a pending typed child remain actionable work.
 export async function pendingQueueCounts(sql: Sql): Promise<QueueCounts> {
   const [row] = await sql<QueueCounts[]>`
     select
@@ -90,6 +99,18 @@ export async function pendingQueueCounts(sql: Sql): Promise<QueueCounts> {
       )::int as orders,
       (select count(*) from commerce_events)::int as signals
   `;
+  if (await marketFinderSchemaAvailable(sql)) {
+    const [marketReports] = await sql<{ count: number }[]>`
+      select count(*)::int as count
+      from market_finder_reports report
+      join community_contributions contribution
+        on contribution.id = report.contribution_id
+      where report.moderation_status = 'pending'
+        and contribution.moderation_status = 'approved'
+        and contribution.retain_until > now()
+    `;
+    row.contributions += marketReports?.count ?? 0;
+  }
   return row;
 }
 
@@ -336,14 +357,32 @@ export async function findSettledObservation(
     : null;
 }
 
+export type MarketFinderReportContext = {
+  contributionId: string;
+  marketId: string;
+  marketName: string;
+  retailerLocationId: string;
+  retailerLocationName: string;
+  retailerName: string;
+  productIdentityVersionId: string;
+  productBrand: string;
+  productVariant: string;
+  productSize: string;
+  outcome:
+    "found_bought" | "shop_exists_no_stock" | "location_wrong" | "shop_closed";
+  moderationStatus: "pending" | "mapped" | "approved" | "rejected";
+};
+
 export type PendingContribution = {
   id: string;
   kind: "product" | "routine" | "store";
   payload: Record<string, unknown>;
+  moderationStatus: "pending" | "mapped" | "approved" | "rejected";
   submittedAt: string;
   retainUntil: string;
   pendingEdgeCount: number;
   pendingObservationCount: number;
+  marketReport: MarketFinderReportContext | null;
   attribution: {
     source: string;
     medium: string | null;
@@ -356,12 +395,155 @@ export type PendingContributionCursor = {
   id: string;
 };
 
+type ContributionDatabaseRow = {
+  id: string;
+  contribution_kind: PendingContribution["kind"] | "market_report";
+  payload: Record<string, unknown>;
+  moderation_status: PendingContribution["moderationStatus"];
+  submitted_at: string;
+  retain_until: string;
+  pending_edge_count: number;
+  pending_observation_count: number;
+  attribution_source: string | null;
+  attribution_medium: string | null;
+  attribution_campaign: string | null;
+};
+
+type MarketFinderReportDatabaseRow = {
+  contribution_id: string;
+  market_id: string;
+  market_name: string;
+  retailer_location_id: string;
+  retailer_location_name: string;
+  retailer_name: string;
+  product_identity_version_id: string;
+  product_brand: string;
+  product_variant: string;
+  product_size: string;
+  outcome: MarketFinderReportContext["outcome"];
+  moderation_status: MarketFinderReportContext["moderationStatus"];
+};
+
+function contributionFromDatabase(
+  row: ContributionDatabaseRow,
+  marketReport: MarketFinderReportContext | null,
+): PendingContribution {
+  return {
+    id: row.id,
+    kind:
+      row.contribution_kind === "market_report"
+        ? "store"
+        : row.contribution_kind,
+    payload: row.payload,
+    moderationStatus: row.moderation_status,
+    submittedAt: row.submitted_at,
+    retainUntil: row.retain_until,
+    pendingEdgeCount: row.pending_edge_count,
+    pendingObservationCount: row.pending_observation_count,
+    marketReport,
+    attribution: row.attribution_source
+      ? {
+          source: row.attribution_source,
+          medium: row.attribution_medium,
+          campaign: row.attribution_campaign,
+        }
+      : null,
+  };
+}
+
+function marketReportFromDatabase(
+  row: MarketFinderReportDatabaseRow,
+): MarketFinderReportContext {
+  return {
+    contributionId: row.contribution_id,
+    marketId: row.market_id,
+    marketName: row.market_name,
+    retailerLocationId: row.retailer_location_id,
+    retailerLocationName: row.retailer_location_name,
+    retailerName: row.retailer_name,
+    productIdentityVersionId: row.product_identity_version_id,
+    productBrand: row.product_brand,
+    productVariant: row.product_variant,
+    productSize: row.product_size,
+    outcome: row.outcome,
+    moderationStatus: row.moderation_status,
+  };
+}
+
+async function marketReportsForContributions(
+  sql: Sql,
+  contributionIds: string[],
+  schemaAvailable: boolean,
+): Promise<Map<string, MarketFinderReportContext>> {
+  if (!schemaAvailable || contributionIds.length === 0) return new Map();
+  const rows = await sql<MarketFinderReportDatabaseRow[]>`
+    select
+      report.contribution_id,
+      report.market_id,
+      market.public_name as market_name,
+      report.retailer_location_id,
+      location.public_name as retailer_location_name,
+      retailer.name as retailer_name,
+      report.product_identity_version_id,
+      identity.brand_at_review as product_brand,
+      identity.variant_at_review as product_variant,
+      identity.size_at_review as product_size,
+      report.outcome,
+      report.moderation_status
+    from market_finder_reports report
+    join physical_markets market on market.id = report.market_id
+    join retailer_locations location on location.id = report.retailer_location_id
+    join retailers retailer on retailer.id = location.retailer_id
+    join catalogue_product_identity_versions identity
+      on identity.identity_version_id = report.product_identity_version_id
+    where report.contribution_id = any(${contributionIds}::uuid[])
+  `;
+  return new Map(
+    rows.map((row) => [row.contribution_id, marketReportFromDatabase(row)]),
+  );
+}
+
 export async function listPendingContributions(
   sql: Sql,
   limit = 100,
   after?: PendingContributionCursor,
 ): Promise<PendingContribution[]> {
-  const afterCursor = after
+  const requestedLimit = boundedLimit(limit);
+  const schemaAvailable = await marketFinderSchemaAvailable(sql);
+  const parentRows = await listPendingParentContributions(
+    sql,
+    requestedLimit,
+    after,
+  );
+  const marketRows = schemaAvailable
+    ? await listPendingMarketReportParents(sql, requestedLimit, after)
+    : [];
+  const rowsById = new Map<string, ContributionDatabaseRow>();
+  [...parentRows, ...marketRows]
+    .sort((left, right) =>
+      left.submitted_at === right.submitted_at
+        ? left.id.localeCompare(right.id, "en-NG")
+        : left.submitted_at < right.submitted_at
+          ? -1
+          : 1,
+    )
+    .forEach((row) => {
+      if (rowsById.size < requestedLimit && !rowsById.has(row.id))
+        rowsById.set(row.id, row);
+    });
+  const rows = [...rowsById.values()];
+  const marketReports = await marketReportsForContributions(
+    sql,
+    rows.map((row) => row.id),
+    schemaAvailable,
+  );
+  return rows.map((row) =>
+    contributionFromDatabase(row, marketReports.get(row.id) ?? null),
+  );
+}
+
+function contributionCursor(sql: Sql, after?: PendingContributionCursor) {
+  return after
     ? sql`
         and (contribution.submitted_at, contribution.id) > (
           ${after.submittedAt}::text::timestamptz,
@@ -369,21 +551,17 @@ export async function listPendingContributions(
         )
       `
     : sql``;
-  const rows = await sql<
-    {
-      id: string;
-      contribution_kind: PendingContribution["kind"];
-      payload: Record<string, unknown>;
-      submitted_at: string;
-      retain_until: string;
-      pending_edge_count: number;
-      pending_observation_count: number;
-      attribution_source: string | null;
-      attribution_medium: string | null;
-      attribution_campaign: string | null;
-    }[]
-  >`
+}
+
+async function listPendingParentContributions(
+  sql: Sql,
+  limit: number,
+  after?: PendingContributionCursor,
+) {
+  const afterCursor = contributionCursor(sql, after);
+  return sql<ContributionDatabaseRow[]>`
     select contribution.id, contribution.contribution_kind, contribution.payload,
+           contribution.moderation_status,
            contribution.submitted_at::text as submitted_at,
            contribution.retain_until::text as retain_until,
            (
@@ -410,43 +588,55 @@ export async function listPendingContributions(
     order by contribution.submitted_at asc, contribution.id asc
     limit ${boundedLimit(limit)}
   `;
-  return rows.map((row) => ({
-    id: row.id,
-    kind: row.contribution_kind,
-    payload: row.payload,
-    submittedAt: row.submitted_at,
-    retainUntil: row.retain_until,
-    pendingEdgeCount: row.pending_edge_count,
-    pendingObservationCount: row.pending_observation_count,
-    attribution: row.attribution_source
-      ? {
-          source: row.attribution_source,
-          medium: row.attribution_medium,
-          campaign: row.attribution_campaign,
-        }
-      : null,
-  }));
+}
+
+async function listPendingMarketReportParents(
+  sql: Sql,
+  limit: number,
+  after?: PendingContributionCursor,
+) {
+  const afterCursor = contributionCursor(sql, after);
+  return sql<ContributionDatabaseRow[]>`
+    select contribution.id, contribution.contribution_kind, contribution.payload,
+           contribution.moderation_status,
+           contribution.submitted_at::text as submitted_at,
+           contribution.retain_until::text as retain_until,
+           (
+             select count(*)::int
+             from community_knowledge_edges edge
+             where edge.contribution_id = contribution.id
+               and edge.moderation_status = 'pending'
+           ) as pending_edge_count,
+           (
+             select count(*)::int
+             from community_observations observation
+             where observation.contribution_id = contribution.id
+               and observation.moderation_status = 'pending'
+           ) as pending_observation_count,
+           attribution.source as attribution_source,
+           attribution.medium as attribution_medium,
+           attribution.campaign as attribution_campaign
+    from community_contributions contribution
+    join market_finder_reports report on report.contribution_id = contribution.id
+    left join community_intake_attributions attribution
+      on attribution.draft_id = contribution.draft_id
+    where contribution.moderation_status = 'approved'
+      and report.moderation_status = 'pending'
+      and contribution.retain_until > now()
+      ${afterCursor}
+    order by contribution.submitted_at asc, contribution.id asc
+    limit ${boundedLimit(limit)}
+  `;
 }
 
 export async function findPendingContribution(
   sql: Sql,
   id: string,
 ): Promise<PendingContribution | null> {
-  const [row] = await sql<
-    {
-      id: string;
-      contribution_kind: PendingContribution["kind"];
-      payload: Record<string, unknown>;
-      submitted_at: string;
-      retain_until: string;
-      pending_edge_count: number;
-      pending_observation_count: number;
-      attribution_source: string | null;
-      attribution_medium: string | null;
-      attribution_campaign: string | null;
-    }[]
-  >`
+  const schemaAvailable = await marketFinderSchemaAvailable(sql);
+  const [row] = await sql<ContributionDatabaseRow[]>`
     select contribution.id, contribution.contribution_kind, contribution.payload,
+           contribution.moderation_status,
            contribution.submitted_at::text as submitted_at,
            contribution.retain_until::text as retain_until,
            (
@@ -467,30 +657,33 @@ export async function findPendingContribution(
     from community_contributions contribution
     left join community_intake_attributions attribution
       on attribution.draft_id = contribution.draft_id
-    where contribution.moderation_status = 'pending'
-      and contribution.retain_until > now()
+    where contribution.retain_until > now()
       and contribution.id = ${id}
+      and (
+        contribution.moderation_status = 'pending'
+        ${
+          schemaAvailable
+            ? sql`or (
+              contribution.moderation_status = 'approved'
+              and exists (
+                select 1
+                from market_finder_reports report
+                where report.contribution_id = contribution.id
+                  and report.moderation_status = 'pending'
+              )
+            )`
+            : sql``
+        }
+      )
     limit 1
   `;
-
-  return row
-    ? {
-        id: row.id,
-        kind: row.contribution_kind,
-        payload: row.payload,
-        submittedAt: row.submitted_at,
-        retainUntil: row.retain_until,
-        pendingEdgeCount: row.pending_edge_count,
-        pendingObservationCount: row.pending_observation_count,
-        attribution: row.attribution_source
-          ? {
-              source: row.attribution_source,
-              medium: row.attribution_medium,
-              campaign: row.attribution_campaign,
-            }
-          : null,
-      }
-    : null;
+  if (!row) return null;
+  const reports = await marketReportsForContributions(
+    sql,
+    [row.id],
+    schemaAvailable,
+  );
+  return contributionFromDatabase(row, reports.get(row.id) ?? null);
 }
 
 export type PendingEdge = {

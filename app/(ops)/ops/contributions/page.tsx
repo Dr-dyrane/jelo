@@ -1,21 +1,21 @@
-import { getPostgresClient } from '@/lib/db/postgres';
+import { getPostgresClient } from "@/lib/db/postgres";
 import {
   findPendingContribution,
   listPendingContributions,
-} from '@/lib/moderation/queues';
+} from "@/lib/moderation/queues";
 import {
   includeSelectedQueueItem,
   selectedQueueItemId,
   type QueueSearchParams,
-} from '@/lib/moderation/queue-selection';
-import { requireConsoleOperator } from '@/lib/moderation/console-access';
-import { can } from '@/lib/moderation/capabilities';
-import { contributionReviewItem } from '@/lib/moderation/contribution-presentation';
-import { EmptyState } from '@/components/ops/state/EmptyState';
-import { OpsWorkspace } from '@/components/ops/workspace/OpsWorkspace';
-import { ContributionsInbox } from './ContributionsInbox';
+} from "@/lib/moderation/queue-selection";
+import { requireConsoleOperator } from "@/lib/moderation/console-access";
+import { can } from "@/lib/moderation/capabilities";
+import { EmptyState } from "@/components/ops/state/EmptyState";
+import { OpsWorkspace } from "@/components/ops/workspace/OpsWorkspace";
+import { ContributionsInbox } from "./ContributionsInbox";
+import { contributionWorkItem } from "./market-report-presentation";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const PAGE_SIZE = 40;
 
@@ -25,17 +25,19 @@ export default async function ContributionsQueue({
   searchParams: Promise<QueueSearchParams>;
 }) {
   const operator = await requireConsoleOperator();
-  const canDecide = can(operator.role, 'contributions.decide');
+  const canDecide = can(operator.role, "contributions.decide");
+  const canDecideMarketReports = can(operator.role, "market-reports.decide");
   const selectedId = selectedQueueItemId(await searchParams);
   const sql = getPostgresClient();
   const fetchedRows = await listPendingContributions(sql, PAGE_SIZE + 1);
   const recentRows = fetchedRows.slice(0, PAGE_SIZE);
   const hasMore = fetchedRows.length > PAGE_SIZE;
-  const selectedRow = selectedId && !recentRows.some(row => row.id === selectedId)
-    ? await findPendingContribution(sql, selectedId)
-    : null;
+  const selectedRow =
+    selectedId && !recentRows.some((row) => row.id === selectedId)
+      ? await findPendingContribution(sql, selectedId)
+      : null;
   const rows = includeSelectedQueueItem(recentRows, selectedRow);
-  const reviewItems = rows.map(contributionReviewItem);
+  const reviewItems = rows.map(contributionWorkItem);
   const lastQueueRow = recentRows.at(-1);
   const nextCursor = lastQueueRow
     ? { submittedAt: lastQueueRow.submittedAt, id: lastQueueRow.id }
@@ -47,12 +49,13 @@ export default async function ContributionsQueue({
         <EmptyState
           title="You’re caught up."
           body="There’s nothing waiting."
-          action={{ href: '/ops/activity', label: 'View insights' }}
+          action={{ href: "/ops/activity", label: "View insights" }}
         />
       ) : (
         <ContributionsInbox
           rows={reviewItems}
           canDecide={canDecide}
+          canDecideMarketReports={canDecideMarketReports}
           initialHasMore={hasMore}
           initialCursor={nextCursor}
         />

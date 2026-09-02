@@ -1,6 +1,6 @@
 # Neon and data operations
 
-Updated: 2026-08-30
+Updated: 2026-09-01
 
 Neon PostgreSQL is the durable store. Checked-in reviewed data remains a deliberate public fallback.
 
@@ -77,6 +77,7 @@ be `jelocare_app_runtime`, and the read-only Shelf audit must attest
 | Frozen external catalogue | `external_catalogue_products`, `external_catalogue_releases`                                                                     |
 | Community intake          | `community_intake_drafts`, `community_contributions`, moderation, observation, research-task, event, and edge tables             |
 | Retailer partnerships     | `retailer_partnership_applications`, `retailer_partnership_events`                                                               |
+| Physical markets          | `physical_markets`, place hierarchy, retailer locations/channels/evidence, exact-identity observations, and typed Finder reports |
 | Operations                | `moderation_operators`, append-only `moderation_audit_log` (`event_sequence` is causal order; `created_at` is presentation time) |
 | Customer Shelf            | `customer_shelf_items`; private one-off `customer_shelf_import_receipts`                                                         |
 | Ask generation metadata   | `consult_ai_generations`; bounded metadata only, with no raw customer query                                                      |
@@ -185,6 +186,45 @@ After first-run and idempotent-rerun evidence passes, promote with
 uses an exclusive byte-for-byte copy, fails if the canonical destination
 exists, and re-hashes the result. Do not paste or reformat rehearsed SQL into
 `db/migrations/`; promotion is the bytes boundary.
+
+Migration `0053_physical_market_finder.sql` followed this boundary on
+2026-09-01. Exact SHA-256
+`9f959c3431b6a1b62912e6fe1b7e5e06e62f28a7956d26c5691ec74703c8f078`
+was applied once and skipped once on expiring branch
+`rehearsal/market-finder-terminal-insert-20260902`
+(`br-snowy-pine-avu7n6wq`), then promoted unchanged. The schema audit found
+seven empty tables, every named acceptance trigger enabled, and no runtime
+delete grant. Rollback-safe probes rejected terminal-at-insert location and
+product evidence and left all seven tables empty. This is rehearsal evidence
+only.
+
+Follow-on migration `0054_market_finder_report_current_context.sql` used the
+same unchanged-byte boundary on 2026-09-02. Exact SHA-256
+`62081dd7c9936c6a4e1d25f1ff39cf0c9e63d757f8d0b25ad61ea4f2234c1e7f`
+was applied once and skipped once on fresh production-derived, expiring branch
+`rehearsal/market-finder-report-current-context-final-20260902`
+(`br-curly-sea-avsiv3xz`), then promoted unchanged. Rollback-safe acceptance
+accepted current reviewed directions and a current verified channel, rejected
+missing, expired, negative-successor, actionless, and unusable-channel targets,
+and left no synthetic market rows. A separate two-session probe confirmed that
+the parent-contribution lock blocks a concurrent moderation write. Production
+migrations `0053` and `0054` remain unapplied.
+
+Correction migration `0055_market_finder_atomic_context.sql` used the same
+unchanged-byte boundary on 2026-09-02. Exact SHA-256
+`e0a5e58ee2e39f54976031d5afc64d9e8a966e76cfe116e5130b2fd5d2bdc22d`
+was rehearsed on fresh production-derived project `spring-field-93817903`
+branch `rehearsal/market-finder-atomic-context-20260902`
+(`br-long-silence-avkudczf`, expiring `2026-09-09T23:59:59Z`). The first run
+applied `0053`, `0054`, and `0055`; the second skipped all three unchanged, and
+`0055` was then promoted unchanged.
+Rollback-safe acceptance preserved the original evidence and observation
+reviewer attribution, found all eight current-context statement-lock triggers,
+proved both context-blocks-report and report-blocks-context directions,
+rejected non-READ-COMMITTED report transactions, and left zero synthetic rows.
+This corrects report-current-context atomicity without converting a community
+report into public evidence. Production migrations `0053`, `0054`, and `0055`,
+canonical physical-market rows, report intake, and public reads remain pending.
 
 ### Protected agent migration when no local admin URL exists
 

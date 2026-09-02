@@ -14,17 +14,28 @@ import {
 } from "@/lib/community-intake/canonical-options";
 import { catalogueSearchProductPrefill } from "@/lib/community-intake/catalogue-search-handoff";
 import {
+  isMarketFinderPublicMarketAllowed,
+  isMarketFinderReportIntakeEnabled,
+} from "@/lib/markets/activation";
+import {
   findMarketFixture,
   findMarketFixtureShop,
   isMarketFixtureEnabled,
+  resolveMarketFixtureProductPackshot,
   resolveMarketFixtureProductQuery,
 } from "@/lib/markets/fixture";
+import {
+  presentMarketFinderLocation,
+  presentMarketFinderMarket,
+  presentMarketFinderProduct,
+} from "@/lib/markets/presentation";
+import { readMarketFinder } from "@/lib/markets/repository";
 import { publicSocialMetadata, staticSocialCard } from "@/lib/og/social-card";
 import styles from "./contribute.module.css";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = publicSocialMetadata(
+const defaultContributionMetadata: Metadata = publicSocialMetadata(
   staticSocialCard("contribute"),
   "/contribute",
 );
@@ -42,6 +53,20 @@ function requestsMarketReport(value: SearchParams["mode"]) {
   );
 }
 
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}): Promise<Metadata> {
+  const params = await searchParams;
+  if (!requestsMarketReport(params.mode)) return defaultContributionMetadata;
+  return {
+    title: "Report a market update",
+    description: "Privately report a change to one reviewed market record.",
+    robots: { index: false, follow: false },
+  };
+}
+
 export default async function ContributePage({
   searchParams,
 }: {
@@ -50,8 +75,7 @@ export default async function ContributePage({
   const params = await searchParams;
 
   if (requestsMarketReport(params.mode)) {
-    if (params.mode !== MARKET_REPORT_MODE || !isMarketFixtureEnabled())
-      notFound();
+    if (params.mode !== MARKET_REPORT_MODE) notFound();
 
     const marketSlug =
       typeof params.market === "string" && params.market.length
@@ -61,31 +85,72 @@ export default async function ContributePage({
       typeof params.shop === "string" && params.shop.length
         ? params.shop
         : undefined;
-    const product = resolveMarketFixtureProductQuery(params.product);
-    const market = marketSlug ? findMarketFixture(marketSlug) : undefined;
-    const shop =
-      market && product && shopSlug
-        ? findMarketFixtureShop(market.slug, product.slug, shopSlug)
-        : undefined;
+    if (isMarketFixtureEnabled()) {
+      const product = resolveMarketFixtureProductQuery(params.product);
+      const market = marketSlug ? findMarketFixture(marketSlug) : undefined;
+      const shop =
+        market && product && shopSlug
+          ? findMarketFixtureShop(market.slug, product.slug, shopSlug)
+          : undefined;
 
-    if (!market || !product || !shop) notFound();
+      if (!market || !product || !shop) notFound();
+
+      return (
+        <MarketReportPrototype
+          product={{
+            brand: product.brand,
+            name: product.name,
+            size: product.size,
+            image: resolveMarketFixtureProductPackshot(product),
+            identityNote: product.identityNote,
+          }}
+          market={{ name: market.name, location: market.location }}
+          shop={{
+            name: shop.name,
+            locationLabel: shop.locationLabel,
+            stateLabel: shop.stateLabel,
+          }}
+          returnHref={`/markets/${market.slug}/shops/${shop.slug}?product=${encodeURIComponent(product.slug)}`}
+        />
+      );
+    }
+
+    const productSlug =
+      typeof params.product === "string" && params.product.length
+        ? params.product
+        : undefined;
+    if (
+      !isMarketFinderReportIntakeEnabled() ||
+      !marketSlug ||
+      !isMarketFinderPublicMarketAllowed(marketSlug) ||
+      !productSlug ||
+      !shopSlug
+    ) {
+      notFound();
+    }
+
+    const model = await readMarketFinder({ marketSlug, productSlug });
+    if (
+      model.state === "unavailable" &&
+      model.reason === "repository-unavailable"
+    ) {
+      throw new Error("Market reporting is temporarily unavailable.");
+    }
+    if (model.state !== "current") notFound();
+    const location = model.locations.find((item) => item.slug === shopSlug);
+    if (!location) notFound();
+
+    const product = presentMarketFinderProduct(model.context.product);
+    const market = presentMarketFinderMarket(model.context.market);
+    const shop = presentMarketFinderLocation(model.context, location);
 
     return (
       <MarketReportPrototype
-        product={{
-          brand: product.brand,
-          name: product.name,
-          size: product.size,
-          image: product.image,
-          identityNote: product.identityNote,
-        }}
-        market={{ name: market.name, location: market.location }}
-        shop={{
-          name: shop.name,
-          locationLabel: shop.locationLabel,
-          stateLabel: shop.stateLabel,
-        }}
+        product={product}
+        market={market}
+        shop={shop}
         returnHref={`/markets/${market.slug}/shops/${shop.slug}?product=${encodeURIComponent(product.slug)}`}
+        submissionContext={{ marketSlug, productSlug, shopSlug }}
       />
     );
   }

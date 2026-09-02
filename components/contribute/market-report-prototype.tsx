@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -8,24 +8,32 @@ import {
   CircleCheck,
   LockKeyhole,
   MapPin,
+  MapPinOff,
   PackageCheck,
+  PackageX,
   ShieldCheck,
+  ShoppingBag,
   Store,
 } from "lucide-react";
+import { SmartBackLink } from "@/components/navigation/smart-back-link";
 import { SafeProductImage } from "@/components/products/safe-product-image";
 import {
   MARKET_REPORT_OUTCOMES,
+  type MarketReportContext,
   type MarketReportOutcomeId,
 } from "@/lib/markets/feedback";
+import {
+  contributionDraftSchema,
+  type ContributionDraft,
+} from "@/lib/community-intake/schema";
 import styles from "./market-report-prototype.module.css";
 
-const OUTCOME_DETAILS: Record<MarketReportOutcomeId, string> = {
-  found_bought: "The selected pack was available at this shop.",
-  shop_exists_no_stock:
-    "The shop was there, but this exact product was unavailable.",
-  location_wrong: "The shop name, unit or final-leg direction did not match.",
-  shop_closed: "The shop appears to have stopped trading at this location.",
-};
+const OUTCOME_ICONS = {
+  found_bought: ShoppingBag,
+  shop_exists_no_stock: PackageX,
+  location_wrong: MapPinOff,
+  shop_closed: Store,
+} satisfies Record<MarketReportOutcomeId, typeof ShoppingBag>;
 
 type ProductContext = {
   brand: string;
@@ -51,26 +59,169 @@ export function MarketReportPrototype({
   market,
   shop,
   returnHref,
+  submissionContext,
 }: {
   product: ProductContext;
   market: MarketContext;
   shop: ShopContext;
   returnHref: string;
+  submissionContext?: MarketReportContext;
 }) {
   const [outcome, setOutcome] = useState<MarketReportOutcomeId | null>(null);
   const [reviewed, setReviewed] = useState(false);
+  const [submitState, setSubmitState] = useState<
+    "idle" | "pending" | "success" | "error"
+  >("idle");
+  const [submitError, setSubmitError] = useState("");
+  const [outcomeLocked, setOutcomeLocked] = useState(false);
+  const submitKeyRef = useRef(crypto.randomUUID());
+  const remoteDraftRef = useRef<{
+    id: string;
+    revision: number;
+    draft: ContributionDraft;
+    savedOutcome: MarketReportOutcomeId | null;
+  } | null>(null);
   const selectedOutcome = MARKET_REPORT_OUTCOMES.find(
     (option) => option.id === outcome,
   );
 
   function chooseOutcome(nextOutcome: MarketReportOutcomeId) {
+    if (submitState === "pending" || outcomeLocked) return;
     setOutcome(nextOutcome);
     setReviewed(false);
+    setSubmitState("idle");
+    setSubmitError("");
   }
 
-  function previewReport(event: FormEvent<HTMLFormElement>) {
+  async function previewOrSubmitReport(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (outcome) setReviewed(true);
+    if (!outcome) return;
+    if (!submissionContext) {
+      setReviewed(true);
+      return;
+    }
+
+    setReviewed(false);
+    setSubmitState("pending");
+    setSubmitError("");
+
+    try {
+      let remote = remoteDraftRef.current;
+      if (!remote) {
+        const createResponse = await fetch("/api/contribute/drafts", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            kind: "market_report",
+            context: submissionContext,
+            website: "",
+          }),
+        });
+        if (!createResponse.ok) {
+          const failure = (await createResponse.json().catch(() => null)) as {
+            error?: string;
+          } | null;
+          throw new Error(
+            failure?.error ?? "This market report is not available.",
+          );
+        }
+        const created = (await createResponse.json()) as {
+          draftId?: unknown;
+          revision?: unknown;
+          draft?: unknown;
+        };
+        const parsedDraft = contributionDraftSchema.safeParse(created.draft);
+        if (
+          typeof created.draftId !== "string" ||
+          !Number.isInteger(created.revision) ||
+          !parsedDraft.success ||
+          parsedDraft.data.kind !== "market_report"
+        ) {
+          throw new Error("The report context could not be locked.");
+        }
+        remote = {
+          id: created.draftId,
+          revision: created.revision as number,
+          draft: parsedDraft.data,
+          savedOutcome: null,
+        };
+        remoteDraftRef.current = remote;
+        setOutcomeLocked(true);
+      }
+
+      if (remote.savedOutcome !== outcome) {
+        if (!remote.draft.marketReport)
+          throw new Error("The report context could not be locked.");
+        const nextDraft = {
+          ...remote.draft,
+          marketReport: { ...remote.draft.marketReport, outcome },
+        } satisfies ContributionDraft;
+        const draftId = remote.id;
+        const requestSave = (revision: number) =>
+          fetch(`/api/contribute/drafts/${draftId}`, {
+            method: "PUT",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              revision,
+              draft: nextDraft,
+              events: [],
+              website: "",
+            }),
+          });
+        let saveResponse = await requestSave(remote.revision);
+        if (saveResponse.status === 409) {
+          const conflict = (await saveResponse.json().catch(() => null)) as {
+            error?: string;
+            revision?: unknown;
+          } | null;
+          if (!Number.isInteger(conflict?.revision))
+            throw new Error(
+              conflict?.error ?? "The report context could not be saved.",
+            );
+          remote = { ...remote, revision: conflict!.revision as number };
+          remoteDraftRef.current = remote;
+          saveResponse = await requestSave(remote.revision);
+        }
+        if (!saveResponse.ok) {
+          const failure = (await saveResponse.json().catch(() => null)) as {
+            error?: string;
+          } | null;
+          throw new Error(failure?.error ?? "The report could not be saved.");
+        }
+        const saved = (await saveResponse.json()) as { revision?: unknown };
+        if (!Number.isInteger(saved.revision))
+          throw new Error("The report save could not be confirmed.");
+        remote = {
+          ...remote,
+          revision: saved.revision as number,
+          draft: nextDraft,
+          savedOutcome: outcome,
+        };
+        remoteDraftRef.current = remote;
+      }
+
+      const submitResponse = await fetch(
+        `/api/contribute/drafts/${remote.id}/submit`,
+        {
+          method: "POST",
+          headers: { "idempotency-key": submitKeyRef.current },
+        },
+      );
+      if (!submitResponse.ok) {
+        const failure = (await submitResponse.json().catch(() => null)) as {
+          error?: string;
+        } | null;
+        throw new Error(failure?.error ?? "The report could not be sent yet.");
+      }
+      setSubmitState("success");
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "The report could not be sent yet.",
+      );
+      setSubmitState("error");
+    }
   }
 
   return (
@@ -79,23 +230,24 @@ export function MarketReportPrototype({
         <div className={styles.previewNotice} role="note">
           <ShieldCheck size={18} aria-hidden="true" />
           <span>
-            <strong>Development preview.</strong> Nothing selected here is saved
-            or sent.
+            <strong>
+              {submissionContext ? "Private report." : "Development preview."}
+            </strong>{" "}
+            {submissionContext
+              ? "Reviewed before it changes guidance."
+              : "Nothing is saved or sent."}
           </span>
         </div>
 
-        <Link className={styles.backLink} href={returnHref}>
+        <SmartBackLink className={styles.backLink} fallbackHref={returnHref}>
           <ArrowLeft size={17} aria-hidden="true" />
-          Back to shop record
-        </Link>
+          Back
+        </SmartBackLink>
 
         <header className={styles.header}>
-          <p>Contribute · market update</p>
-          <h1>Tell us what you found.</h1>
-          <span>
-            One specific outcome can help us investigate this market record. A
-            report never changes public guidance by itself.
-          </span>
+          <p>Market update</p>
+          <h1>What happened?</h1>
+          <span>One shop. One exact pack. One factual outcome.</span>
         </header>
 
         <div className={styles.layout}>
@@ -105,8 +257,8 @@ export function MarketReportPrototype({
           >
             <div className={styles.contextHeading}>
               <div>
-                <p>Locked report context</p>
-                <h2 id="market-report-context">The exact visit</h2>
+                <p>Exact visit</p>
+                <h2 id="market-report-context">Locked context</h2>
               </div>
               <LockKeyhole size={20} aria-hidden="true" />
             </div>
@@ -133,8 +285,6 @@ export function MarketReportPrototype({
                 <span>{product.size}</span>
               </span>
             </div>
-
-            <p className={styles.identityNote}>{product.identityNote}</p>
 
             <dl className={styles.placeContext}>
               <div>
@@ -163,15 +313,12 @@ export function MarketReportPrototype({
           <form
             className={styles.report}
             id="contribution-form"
-            onSubmit={previewReport}
+            onSubmit={previewOrSubmitReport}
+            aria-busy={submitState === "pending"}
           >
             <div className={styles.reportHeading}>
-              <p>Step 1 of 1</p>
-              <h2>What happened at this shop?</h2>
-              <span>
-                Choose the closest factual outcome. Product and place cannot be
-                changed in this report.
-              </span>
+              <p>One choice</p>
+              <h2>What did you find?</h2>
             </div>
 
             <div
@@ -181,6 +328,7 @@ export function MarketReportPrototype({
             >
               {MARKET_REPORT_OUTCOMES.map((option) => {
                 const selected = outcome === option.id;
+                const OutcomeIcon = OUTCOME_ICONS[option.id];
                 return (
                   <label
                     className={styles.outcome}
@@ -194,14 +342,18 @@ export function MarketReportPrototype({
                       value={option.id}
                       checked={selected}
                       onChange={() => chooseOutcome(option.id)}
+                      disabled={submitState === "pending" || outcomeLocked}
                       required
                     />
                     <span className={styles.outcomeMark} aria-hidden="true">
-                      {selected ? <Check size={16} /> : null}
+                      {selected ? (
+                        <Check size={16} />
+                      ) : (
+                        <OutcomeIcon size={17} />
+                      )}
                     </span>
                     <span>
                       <strong>{option.label}</strong>
-                      <small>{OUTCOME_DETAILS[option.id]}</small>
                     </span>
                   </label>
                 );
@@ -211,9 +363,21 @@ export function MarketReportPrototype({
             <button
               className={styles.previewButton}
               type="submit"
-              disabled={!outcome}
+              disabled={
+                !outcome ||
+                submitState === "pending" ||
+                submitState === "success"
+              }
             >
-              Preview report
+              {submissionContext
+                ? submitState === "pending"
+                  ? "Sending report…"
+                  : submitState === "error"
+                    ? "Try sending again"
+                    : submitState === "success"
+                      ? "Report received"
+                      : "Send report"
+                : "Preview report"}
             </button>
 
             <div
@@ -221,28 +385,45 @@ export function MarketReportPrototype({
               role="status"
               aria-live="polite"
             >
-              {reviewed && selectedOutcome ? (
+              {submitState === "success" && selectedOutcome ? (
+                <>
+                  <CircleCheck size={21} aria-hidden="true" />
+                  <span>
+                    <strong>Report received: {selectedOutcome.label}.</strong>
+                    Private and pending review.
+                  </span>
+                </>
+              ) : submitState === "error" ? (
+                <span>
+                  <strong>Not sent.</strong> {submitError} You can retry safely.
+                </span>
+              ) : submitState === "pending" ? (
+                <span>Locking the exact product and shop before sending…</span>
+              ) : reviewed && selectedOutcome ? (
                 <>
                   <CircleCheck size={21} aria-hidden="true" />
                   <span>
                     <strong>Preview ready: {selectedOutcome.label}.</strong>
-                    Nothing was saved. In the connected flow, this would enter
-                    Contributions review before it could update Market Finder.
+                    Nothing was saved or sent.
                   </span>
                 </>
               ) : (
                 <span>
-                  Preview only. There is no submission API or durable write
-                  behind this screen.
+                  {submissionContext
+                    ? "Choose one outcome."
+                    : "Choose one outcome to preview."}
                 </span>
               )}
             </div>
 
-            <p className={styles.moderationNote}>
-              Reports are private moderation inputs. Repeated reports still
-              require evidence review; they do not automatically verify a shop
-              or stock state.
-            </p>
+            <div className={styles.moderationChips} aria-label="Report limits">
+              <span>
+                <LockKeyhole size={14} aria-hidden="true" /> Private
+              </span>
+              <span>
+                <ShieldCheck size={14} aria-hidden="true" /> Evidence reviewed
+              </span>
+            </div>
           </form>
         </div>
 

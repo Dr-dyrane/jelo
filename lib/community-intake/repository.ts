@@ -1,39 +1,55 @@
-import 'server-only';
+import "server-only";
 
-import { getPostgresClient } from '@/lib/db/postgres';
-import type { CommunityIntakeAttribution } from './attribution';
-import { communityKnowledgeEdges, communityObservations, unknownCommunityValues } from './moderation';
-import { communityResearchTasks } from './research-queue';
+import { getPostgresClient } from "@/lib/db/postgres";
+import { requireMarketFinderReportIntakeEnabled } from "@/lib/markets/activation";
+import type { CommunityIntakeAttribution } from "./attribution";
+import { marketReportContextLockMatches } from "./market-report-context";
+import { resolveMarketReportDraftContext } from "./market-report-context-repository";
 import {
+  communityKnowledgeEdges,
+  communityObservations,
+  unknownCommunityValues,
+} from "./moderation";
+import { communityResearchTasks } from "./research-queue";
+import {
+  contributionDraftSchema,
   emptyContributionDraft,
   finalContributionSchema,
+  marketReportContributionDraft,
+  type CreateDraftRequest,
   type ContributionDraft,
-  type ContributionKind,
   type IntakeEvent,
-} from './schema';
+} from "./schema";
 
 type DraftRow = {
   id: string;
   revision: number;
   expires_at: Date;
-  status: 'draft' | 'submitted' | 'expired';
+  status: "draft" | "submitted" | "expired";
+  contribution_kind: string;
   payload: unknown;
 };
 
 type ContributionRow = { id: string };
 
 export async function createCommunityDraft(
-  kind: ContributionKind,
+  input: CreateDraftRequest,
   editSecretHash: string,
   attribution: CommunityIntakeAttribution,
 ) {
+  requireMarketFinderReportIntakeEnabled(input.kind);
   const sql = getPostgresClient();
-  const payload = emptyContributionDraft(kind);
-  return sql.begin(async transaction => {
+  return sql.begin(async (transaction) => {
+    const payload =
+      input.kind === "market_report"
+        ? marketReportContributionDraft(
+            await resolveMarketReportDraftContext(transaction, input.context),
+          )
+        : emptyContributionDraft(input.kind);
     const [row] = await transaction<DraftRow[]>`
       insert into community_intake_drafts (edit_secret_hash, contribution_kind, payload)
-      values (${editSecretHash}, ${kind}, ${transaction.json(payload)})
-      returning id, revision, expires_at, status, payload
+      values (${editSecretHash}, ${input.kind}, ${transaction.json(payload)})
+      returning id, revision, expires_at, status, contribution_kind, payload
     `;
     await transaction`
       insert into community_intake_attributions (
@@ -55,7 +71,39 @@ export async function saveCommunityDraft(input: {
   events: IntakeEvent[];
 }) {
   const sql = getPostgresClient();
-  return sql.begin(async transaction => {
+  return sql.begin(async (transaction) => {
+    const [current] = await transaction<DraftRow[]>`
+      select id, revision, expires_at, status, contribution_kind, payload
+      from community_intake_drafts
+      where id = ${input.id} and edit_secret_hash = ${input.editSecretHash}
+      for update
+    `;
+    if (!current) return { ok: false as const, reason: "missing" as const };
+    requireMarketFinderReportIntakeEnabled(current.contribution_kind);
+
+    const currentDraft = contributionDraftSchema.safeParse(current.payload);
+    const currentIsMarketReport = current.contribution_kind === "market_report";
+    if (
+      currentIsMarketReport !== (input.draft.kind === "market_report") ||
+      (currentIsMarketReport &&
+        (!currentDraft.success ||
+          !marketReportContextLockMatches(
+            currentDraft.data.marketReport,
+            input.draft.marketReport,
+          )))
+    ) {
+      return { ok: false as const, reason: "locked" as const };
+    }
+
+    if (current.status !== "draft" || current.revision !== input.revision) {
+      return {
+        ok: false as const,
+        reason: "revision" as const,
+        revision: current.revision,
+        status: current.status,
+      };
+    }
+
     const [updated] = await transaction<DraftRow[]>`
       update community_intake_drafts
       set payload = ${transaction.json(input.draft)},
@@ -68,18 +116,16 @@ export async function saveCommunityDraft(input: {
         and edit_secret_hash = ${input.editSecretHash}
         and status = 'draft'
         and revision = ${input.revision}
-      returning id, revision, expires_at, status, payload
+      returning id, revision, expires_at, status, contribution_kind, payload
     `;
 
     if (!updated) {
-      const [current] = await transaction<Pick<DraftRow, 'revision' | 'status'>[]>`
-        select revision, status
-        from community_intake_drafts
-        where id = ${input.id} and edit_secret_hash = ${input.editSecretHash}
-      `;
-      return current
-        ? { ok: false as const, reason: 'revision' as const, revision: current.revision, status: current.status }
-        : { ok: false as const, reason: 'missing' as const };
+      return {
+        ok: false as const,
+        reason: "revision" as const,
+        revision: current.revision,
+        status: current.status,
+      };
     }
 
     for (const event of input.events) {
@@ -93,36 +139,71 @@ export async function saveCommunityDraft(input: {
       `;
     }
 
-    return { ok: true as const, revision: updated.revision, expiresAt: updated.expires_at };
+    return {
+      ok: true as const,
+      revision: updated.revision,
+      expiresAt: updated.expires_at,
+    };
   });
 }
 
-export async function submitCommunityDraft(input: { id: string; editSecretHash: string }) {
+export async function submitCommunityDraft(input: {
+  id: string;
+  editSecretHash: string;
+}) {
   const sql = getPostgresClient();
-  return sql.begin(async transaction => {
+  return sql.begin("isolation level read committed", async (transaction) => {
     const [draftRow] = await transaction<DraftRow[]>`
-      select id, revision, expires_at, status, payload
+      select id, revision, expires_at, status, contribution_kind, payload
       from community_intake_drafts
       where id = ${input.id} and edit_secret_hash = ${input.editSecretHash}
       for update
     `;
-    if (!draftRow) return { ok: false as const, reason: 'missing' as const };
+    if (!draftRow) return { ok: false as const, reason: "missing" as const };
+    requireMarketFinderReportIntakeEnabled(draftRow.contribution_kind);
 
     const [existing] = await transaction<ContributionRow[]>`
       select id from community_contributions where draft_id = ${input.id}
     `;
-    if (existing) return { ok: true as const, contributionId: existing.id, duplicate: true as const };
-    if (draftRow.status !== 'draft') return { ok: false as const, reason: 'closed' as const };
+    if (existing)
+      return {
+        ok: true as const,
+        contributionId: existing.id,
+        duplicate: true as const,
+      };
+    if (draftRow.status !== "draft")
+      return { ok: false as const, reason: "closed" as const };
 
     const draft = finalContributionSchema.parse(draftRow.payload);
+    if (draftRow.contribution_kind !== draft.kind)
+      throw new Error("contribution_kind_mismatch");
     const [contribution] = await transaction<ContributionRow[]>`
       insert into community_contributions (draft_id, contribution_kind, payload)
       values (${input.id}, ${draft.kind}, ${transaction.json(draft)})
       returning id
     `;
 
-    for (const value of unknownCommunityValues(draft)) {
-      const [moderationValue] = await transaction<{ id: string }[]>`
+    if (draft.kind === "market_report") {
+      const report = draft.marketReport;
+      if (!report?.outcome) throw new Error("market_report_outcome_required");
+      await transaction`
+        insert into market_finder_reports (
+          contribution_id,
+          market_id,
+          retailer_location_id,
+          product_identity_version_id,
+          outcome
+        ) values (
+          ${contribution.id},
+          ${report.marketId},
+          ${report.retailerLocationId},
+          ${report.productIdentityVersionId},
+          ${report.outcome}
+        )
+      `;
+    } else {
+      for (const value of unknownCommunityValues(draft)) {
+        const [moderationValue] = await transaction<{ id: string }[]>`
         insert into community_moderation_values (value_kind, raw_value, normalized_value)
         values (${value.kind}, ${value.rawValue}, ${value.normalizedValue})
         on conflict (value_kind, normalized_value) do update
@@ -130,7 +211,7 @@ export async function submitCommunityDraft(input: { id: string; editSecretHash: 
             last_seen_at = now()
         returning id
       `;
-      await transaction`
+        await transaction`
         insert into community_moderation_mentions (
           moderation_value_id, contribution_id, field_path, selected_context
         ) values (
@@ -139,10 +220,10 @@ export async function submitCommunityDraft(input: { id: string; editSecretHash: 
         )
         on conflict (moderation_value_id, contribution_id, field_path) do nothing
       `;
-    }
+      }
 
-    for (const edge of communityKnowledgeEdges(draft, contribution.id)) {
-      await transaction`
+      for (const edge of communityKnowledgeEdges(draft, contribution.id)) {
+        await transaction`
         insert into community_knowledge_edges (
           contribution_id, subject_kind, subject_ref, predicate, object_kind, object_ref, metadata
         ) values (
@@ -151,10 +232,10 @@ export async function submitCommunityDraft(input: { id: string; editSecretHash: 
         )
         on conflict (contribution_id, subject_kind, subject_ref, predicate, object_kind, object_ref) do nothing
       `;
-    }
+      }
 
-    for (const observation of communityObservations(draft, contribution.id)) {
-      await transaction`
+      for (const observation of communityObservations(draft, contribution.id)) {
+        await transaction`
         insert into community_observations (
           contribution_id, observation_kind, subject_kind, subject_ref, amount_ngn, outcome, observed_on
         ) values (
@@ -163,10 +244,10 @@ export async function submitCommunityDraft(input: { id: string; editSecretHash: 
         )
         on conflict (contribution_id, observation_kind, subject_kind, subject_ref) do nothing
       `;
-    }
+      }
 
-    for (const task of communityResearchTasks(draft)) {
-      const [researchTask] = await transaction<{ id: string }[]>`
+      for (const task of communityResearchTasks(draft)) {
+        const [researchTask] = await transaction<{ id: string }[]>`
         insert into community_research_tasks (
           task_kind, entity_kind, entity_ref, entity_label, entity_source,
           priority_lane, publication_status
@@ -180,20 +261,21 @@ export async function submitCommunityDraft(input: { id: string; editSecretHash: 
             updated_at = now()
         returning id
       `;
-      const [mention] = await transaction<{ task_id: string }[]>`
+        const [mention] = await transaction<{ task_id: string }[]>`
         insert into community_research_task_mentions (task_id, contribution_id, context)
         values (${researchTask.id}, ${contribution.id}, ${transaction.json(task.context)})
         on conflict (task_id, contribution_id) do nothing
         returning task_id
       `;
-      if (mention) {
-        await transaction`
+        if (mention) {
+          await transaction`
           update community_research_tasks
           set signal_count = signal_count + 1,
               last_seen_at = now(),
               updated_at = now()
           where id = ${researchTask.id}
         `;
+        }
       }
     }
 
@@ -203,6 +285,10 @@ export async function submitCommunityDraft(input: { id: string; editSecretHash: 
       where id = ${input.id}
     `;
 
-    return { ok: true as const, contributionId: contribution.id, duplicate: false as const };
+    return {
+      ok: true as const,
+      contributionId: contribution.id,
+      duplicate: false as const,
+    };
   });
 }

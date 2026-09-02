@@ -192,7 +192,10 @@ test("public product page keeps care evidence out of the default commerce hero",
   assert.match(productPage, /<ProductHeroMotion/);
   assert.doesNotMatch(productPage, /<ProductDecisionSummary/);
   assert.doesNotMatch(productPage, /careStatus=/);
-  assert.match(productPage, /<ProductQuickPanel \{\.\.\.panelData\} \/>/);
+  assert.match(
+    productPage,
+    /<ProductQuickPanel[\s\S]*?\{\.\.\.panelData\}[\s\S]*?\/>/,
+  );
   assert.doesNotMatch(
     productPage,
     /isPublishedIntakeProduct|getReviewedProductCare/,

@@ -5,6 +5,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Info,
+  MapPin,
   Search,
   ShoppingBag,
   X,
@@ -37,8 +38,14 @@ export type {
   ProductPanelTab,
 } from "@/lib/catalogue/product-panel-model";
 
+type MarketAwareProductPanelData = ProductPanelData & {
+  marketFinderHref?: string;
+  marketFinderLabel?: string;
+  marketFinderDetail?: string;
+};
+
 export type ProductQuickPanelSheetProps = {
-  data: ProductPanelData;
+  data: MarketAwareProductPanelData;
   open: boolean;
   tab: ProductPanelTab;
   onTabChange: (tab: ProductPanelTab) => void;
@@ -360,6 +367,24 @@ export function ProductQuickPanelSheet({
             tabIndex={0}
             hidden={tab !== "stores"}
           >
+            {data.marketFinderHref ? (
+              <Link
+                className="product-panel-market-entry"
+                href={data.marketFinderHref}
+                onClick={onClose}
+              >
+                <MapPin size={19} aria-hidden="true" />
+                <span>
+                  <strong>
+                    {data.marketFinderLabel ?? "Search a physical market"}
+                  </strong>
+                  <small>
+                    {data.marketFinderDetail ?? "Exact pack · physical market"}
+                  </small>
+                </span>
+                <ArrowRight size={18} aria-hidden="true" />
+              </Link>
+            ) : null}
             <div className="product-panel-stores-search">
               <Search size={16} aria-hidden="true" />
               <input
@@ -488,7 +513,7 @@ export function ProductQuickPanelSheet({
   );
 }
 
-export function ProductQuickPanel(data: ProductPanelData) {
+export function ProductQuickPanel(data: MarketAwareProductPanelData) {
   const dialogId = useId();
   const openerRef = useRef<HTMLElement | null>(null);
   const actionRegionRef = useRef<HTMLDivElement | null>(null);
@@ -543,10 +568,10 @@ export function ProductQuickPanel(data: ProductPanelData) {
         >
           <button
             type="button"
-            onClick={(event) => openPanel("buy", event.currentTarget)}
+            onClick={(event) => openPanel("stores", event.currentTarget)}
             aria-haspopup="dialog"
             aria-controls={dialogId}
-            aria-expanded={open && tab === "buy"}
+            aria-expanded={open && tab === "stores"}
           >
             <ShoppingBag size={18} aria-hidden="true" /> Find a store
           </button>

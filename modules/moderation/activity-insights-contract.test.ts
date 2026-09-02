@@ -66,13 +66,13 @@ test("Insights keeps early community patterns distinct from proof", async () => 
 
   assert.match(
     view,
-    /Early sample · \{number\.format\(community\.approvedNotes\)\} approved notes/,
+    /Early sample · \{number\.format\(community\.approvedNotes\)\} approved\s+notes/,
   );
   assert.match(view, /Community reported/);
-  assert.match(view, /do not prove results or retailer trust/);
+  assert.match(view, /do not prove\s+results or retailer trust/);
   assert.match(
     view,
-    /approvedNoteWindow\(community\.firstNoteAt, community\.lastNoteAt, community\.activeDays\)/,
+    /approvedNoteWindow\(\s*community\.firstNoteAt,\s*community\.lastNoteAt,\s*community\.activeDays,?\s*\)/,
   );
   assert.match(view, /denominator=\{community\.approvedNotes\}/);
   assert.doesNotMatch(view, /\bcontributors?\b/i);
@@ -100,19 +100,19 @@ test("Insights uses compact, accessible donuts for both mutually exclusive compo
   assert.equal(view.match(/<CompositionDonut/g)?.length, 2);
   assert.match(
     view,
-    /<figure className=\{styles\.donutFigure\} role="img" aria-label=\{accessibleLabel\}>/,
+    /<figure\s+className=\{styles\.donutFigure\}[\s\S]*?role=["']img["'][\s\S]*?aria-label=\{accessibleLabel\}\s*>/,
   );
   assert.match(view, /<svg viewBox="0 0 80 80" aria-hidden="true">/);
   assert.match(view, /pathLength="100"/);
   assert.match(view, /strokeDasharray=/);
   assert.match(view, /total=\{community\.approvedNotes\}/);
-  assert.match(view, /label: 'product notes'/);
-  assert.match(view, /label: 'routine notes'/);
-  assert.match(view, /label: 'store notes'/);
+  assert.match(view, /label: ["']product notes["']/);
+  assert.match(view, /label: ["']routine notes["']/);
+  assert.match(view, /label: ["']store notes["']/);
   assert.match(view, /total=\{research\.resolvedProductResearch\}/);
-  assert.match(view, /label: 'matched'/);
-  assert.match(view, /label: 'intake candidates'/);
-  assert.match(view, /label: 'need clarity'/);
+  assert.match(view, /label: ["']matched["']/);
+  assert.match(view, /label: ["']intake candidates["']/);
+  assert.match(view, /label: ["']need clarity["']/);
   assert.doesNotMatch(view, /\bSegment\b|segmentBar|title=/);
   assert.doesNotMatch(view, /moving forward/i);
   assert.doesNotMatch(view, /dailyVolume|lineChart|growth chart/i);
@@ -202,7 +202,7 @@ test("Insights owns geometry-matched loading and a private retry state", async (
   assert.match(loading, /styles\.skeletonDecisionVisual/);
   assert.match(
     loading,
-    /window\.matchMedia\('\(min-width: 1180px\)'\)\.matches/,
+    /window\.matchMedia\(["']\(min-width: 1180px\)["']\)\.matches/,
   );
   assert.match(loading, /data-ops-reserve-detail/);
   assert.match(loading, /<DetailSkeleton \/>/);
@@ -222,7 +222,7 @@ test("every triage empty state stays put and offers Insights", async () => {
     assert.match(page, /title="You’re caught up\."/);
     assert.match(
       page,
-      /action=\{\{ href: '\/ops\/activity', label: 'View insights' \}\}/,
+      /action=\{\{ href: ["']\/ops\/activity["'], label: ["']View insights["'] \}\}/,
     );
     assert.doesNotMatch(page, /redirect\(['"]\/ops\/activity/);
   }

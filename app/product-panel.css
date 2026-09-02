@@ -256,6 +256,32 @@
   color: var(--muted);
   font-size: 0.66rem;
 }
+.product-panel-stores .product-panel-market-entry {
+  min-height: 5.2rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  background:
+    radial-gradient(
+      circle at 88% 12%,
+      color-mix(in srgb, var(--paper) 72%, transparent),
+      transparent 42%
+    ),
+    linear-gradient(135deg, var(--product-pink), var(--peach));
+}
+.product-panel-market-entry > span {
+  min-width: 0;
+}
+.product-panel-market-entry > svg:first-child {
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0.65rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--paper) 64%, transparent);
+}
+.product-panel-market-entry:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
 
 .product-panel-details {
   display: grid;

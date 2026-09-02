@@ -1,9 +1,12 @@
-import 'server-only';
+import "server-only";
 
 // Keep the Next application behind a server-only boundary while sharing the
 // actual transactional writers with the private operator CLI.
 export {
   decideContribution,
+  decideMarketFinderReport,
+  createPhysicalProductObservation,
+  decidePhysicalProductObservation,
   decideEdge,
   decideModerationValue,
   mapModerationValue,
@@ -13,4 +16,4 @@ export {
   recordNote,
   updateResearchAssignment,
   reconcileCommunityResearchTasks,
-} from './database-transitions';
+} from "./database-transitions";

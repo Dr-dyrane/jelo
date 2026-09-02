@@ -1,6 +1,6 @@
 # ADR 0019: Product-to-place Market Finder
 
-- **Status:** Accepted for prototype; production data activation pending
+- **Status:** Phase 1 foundation implemented locally; production data activation pending
 - **Date:** 2026-09-01
 - **Decision owner:** Founder
 - **Extends:** [ADR 0002](0002-anonymous-community-knowledge-intake.md),
@@ -35,11 +35,66 @@ into a public pin. Market Finder therefore connects products to reviewed
 places through evidence; it does not publish remembered directions or import
 search and map results as truth.
 
-This decision accepts a development-only fixture prototype, including a
-contextual report preview inside the existing `/contribute` route. It does not
-authorize a database migration, canonical market data, production route
-activation, a persistent Market Finder contribution mode, user-location
-collection, retailer stock automation, or checkout integration.
+The original decision accepted a development-only fixture prototype, including
+a contextual report preview inside the existing `/contribute` route. A later
+founder-authorized Phase 1 implementation added the governed local data and
+moderation foundation described below. It still does not authorize production
+database application, canonical market data, production route activation,
+user-location collection, retailer stock automation, or checkout integration.
+
+### Phase 1 implementation checkpoint
+
+Migration `0053_physical_market_finder.sql` was promoted byte-for-byte after a
+first-run and idempotent-rerun rehearsal on the production-derived, expiring
+Neon branch `rehearsal/market-finder-terminal-insert-20260902`
+(`br-snowy-pine-avu7n6wq`). The rehearsed SHA-256 is
+`9f959c3431b6a1b62912e6fe1b7e5e06e62f28a7956d26c5691ec74703c8f078`.
+The branch audit found exactly the seven accepted empty tables, all 21 named
+acceptance triggers enabled, the committed `market_report` enum value, no
+runtime `DELETE` grant, and the exact ledger checksum. Rollback-safe negative
+probes also proved that neither location evidence nor a physical product
+observation can be inserted already approved.
+
+Migration `0054_market_finder_report_current_context.sql` then closed the
+report-intake race and eligibility gap on fresh production-derived branch
+`rehearsal/market-finder-report-current-context-final-20260902`
+(`br-curly-sea-avsiv3xz`). The exact promoted SHA-256 is
+`62081dd7c9936c6a4e1d25f1ff39cf0c9e63d757f8d0b25ad61ea4f2234c1e7f`.
+The replacement trigger requires the newest approved, non-superseded, current
+positive observation and the same reviewed public-action predicate used by the
+read model. It also serializes report creation with parent moderation and pins
+authoritative relations to the public schema. First-run, idempotent rerun,
+rollback-safe result cases, action-parser parity, and a two-session parent-lock
+probe passed on that disposable branch.
+
+Correction migration `0055_market_finder_atomic_context.sql` closes the
+remaining current-context mutation race while preserving original reviewer
+attribution when approved evidence or observations are superseded. Exact
+SHA-256
+`e0a5e58ee2e39f54976031d5afc64d9e8a966e76cfe116e5130b2fd5d2bdc22d`
+was rehearsed on 2026-09-02 in Neon project `spring-field-93817903`, fresh
+production-derived branch
+`rehearsal/market-finder-atomic-context-20260902`
+(`br-long-silence-avkudczf`, expiring `2026-09-09T23:59:59Z`). The first run
+applied `0053`, `0054`, and `0055`; the second skipped all three unchanged, and
+`0055` was then promoted unchanged.
+Rollback-safe acceptance found all eight statement-level context-lock triggers,
+proved blocking in both directions, rejected non-READ-COMMITTED report
+transactions, preserved evidence and observation attribution, and left zero
+synthetic rows.
+
+The application foundation now includes the fail-closed database read model,
+database-backed public route adapters, strict contextual contribution
+transaction, typed child review in `/ops/contributions`, separately audited
+physical-evidence operations, a dry-run-first pilot onboarding operator, and
+targeted cache tags. Public reads require both
+`MARKET_FINDER_PUBLIC_READ_ENABLED=true` and the exact
+`MARKET_FINDER_PUBLIC_MARKET_SLUG=trade-fair` allowlist. Anonymous Market
+report create, save, and submit additionally require the default-off
+`MARKET_FINDER_REPORT_INTAKE_ENABLED=true` gate. These are local implementation
+facts, not a production release. The production database has
+not received migrations `0053`, `0054`, or `0055`, no market or shop row was
+seeded, and all three production gates remain off.
 
 ## Product-to-place journey
 
@@ -82,6 +137,107 @@ not weaken the one-retailer commerce contract in
 [ADR 0016](0016-retailer-scoped-assisted-procurement.md) or the operational
 boundary in [Assisted procurement](../commerce/ASSISTED_PROCUREMENT.md).
 
+### Experience architecture and complete decision tree
+
+Market Finder is one JeloCare journey, not a self-contained mini-application.
+Its public composition reuses the catalogue and retailer language already
+present in the product card, directory search, retailer profile, back
+navigation, and Contribute surfaces.
+
+```text
+product profile "Find a store" sheet (when an eligible market path exists)
+                         |
+                         v
+/markets -> exact-product search and ProductCard selection
+   |
+   +-- exact identity missing or ambiguous
+   |      -> no result route
+   |      -> identity queue
+   |      -> private My Shelf exact-pack request
+   |
+   +-- exact identity resolved
+          -> reviewed market scope
+          -> current read / fixture rehearsal
+                 |
+                 +-- one or more eligible places
+                 |      -> best current place first
+                 |      -> shop record
+                 |      -> reviewed direction or contact action
+                 |
+                 +-- no eligible place
+                        -> calm no-route state
+                        -> stale, disputed, unavailable, and research
+                           records remain visibly separate from travel guidance
+
+shop record
+   |
+   +-- continue journey -> text directions for an eligible route only
+   |
+   +-- report a change
+          -> development fixture: preview one fixed outcome; no write
+          -> after the report-intake activation gate: existing /contribute
+             draft lifecycle with product, market, and retailer location
+             locked by the server
+          -> parent Contributions review
+          -> typed Market Finder child review
+          -> separate attributable physical-evidence decision
+          -> targeted cache invalidation
+          -> next current read
+```
+
+The customer decision matrix is:
+
+| Decision state                                   | Visible answer                                            | Primary action                                |
+| ------------------------------------------------ | --------------------------------------------------------- | --------------------------------------------- |
+| Exact product is unresolved                      | Show the named request and what identity is missing       | Share the exact pack through My Shelf         |
+| Exact product is resolved but no place qualifies | Show no confirmed place; keep research records separate   | Change product                                |
+| Current reviewed place exists                    | Show one best place, freshness, and location              | Open the shop record                          |
+| Location or directions are disputed              | Show the warning only                                     | No travel action                              |
+| Product evidence is stale                        | Keep the shop history visible as research                 | No travel action                              |
+| Exact product was reported unavailable           | Keep the negative observation product-scoped              | No travel action                              |
+| Eligible shop record is open                     | Keep exact pack, market, shop, and observed date visible  | Follow reviewed text directions               |
+| Shopper knows the record changed                 | Preserve locked context and accept one controlled outcome | Preview in the fixture; send after activation |
+
+The route and component ownership is:
+
+| Surface                                  | Native JeloCare composition                                                                     | Truth owner                                       |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Product profile                          | Existing product quick-panel Store search with an optional Physical market row                  | Exact catalogue product plus activation gate      |
+| `/markets`                               | `DirectoryTypeahead`, `ProductCardGrid`, exact packshots, and one reviewed market scope         | Published exact-product and market discovery read |
+| `/me/shelf/add`                          | Existing private missing-product request with exact pack fields and optional private photo      | Customer-owned identity request                   |
+| `/markets/[marketSlug]`                  | Editorial market hero, locked exact-product stage, best result, then collapsed research records | Market Finder read model                          |
+| `/markets/[marketSlug]/shops/[shopSlug]` | `SmartBackLink`, retailer-profile rhythm, text directions, one evidence disclosure              | Eligible location/action evidence                 |
+| Contextual `/contribute`                 | Existing draft, capability, retention, submission, and moderation lifecycle                     | Server-resolved locked report context             |
+| `/ops/contributions`                     | Existing parent row plus typed child decision and separate physical-evidence action             | Attributable Operations decisions                 |
+
+The UI contract is deliberately strict:
+
+- full-width warm editorial surfaces and existing type scale, not a centered
+  feature shell;
+- real exact-product imagery is the dominant recognition cue;
+- one vertical decision path, with the current action visible before secondary
+  evidence;
+- one disclosure layer at a time and no disclosure nested inside another;
+- status is carried by concise chips, iconography, freshness, and action
+  availability instead of explanatory paragraphs;
+- product and market remain in the URL, back navigation uses
+  `SmartBackLink`, and changing product returns to the exact-product picker;
+- every card that looks actionable is a link or control, all touch targets are
+  at least 44 px, and light, dark, keyboard, reduced-motion, and 320 px reflow
+  remain release gates; and
+- the Market Finder stylesheet owns one definition per component. A
+  route-scoped late cascade may not reskin an existing Market component.
+
+The development fixture exercises this complete visual decision tree. The
+production read adapters, locked report context, location-correction and
+physical-evidence operations, targeted cache invalidation, and rollback-safe
+public-read gate are now implemented locally, but that does not make the
+production loop complete. Activation still requires the protected production
+migration, canonical Trade Fair onboarding, attributable review of the first
+location and product observations, accepted exact-product packshots, and the
+explicit flag sequence below. Those release requirements must not be
+represented as finished merely because the local journey is visually complete.
+
 ## Exact-SKU identity boundary
 
 Every production physical product observation must reference the immutable
@@ -114,11 +270,13 @@ URL, and retailer-level uniqueness do not identify a Trade Fair plaza, branch,
 or stall. Physical shelf evidence also expires and contradicts differently
 from a retailer website. The two domains must not be collapsed.
 
-The production contract proposes exactly seven additive tables. These names
-and relationships are accepted as architecture, not as an authorized
-migration. The next migration number, SQL, grants, indexes, backfill, and
-activation plan must be reviewed and rehearsed separately under the
-[Neon data operating guide](../data/NEON.md).
+The production contract uses exactly seven additive tables. These names and
+relationships are implemented by locally checked-in migration `0053`; the
+report-current-context guard is implemented by follow-on migration `0054`, and
+its attribution-preserving atomic context correction by migration `0055`.
+All three unchanged byte sets passed governed rehearsal under the
+[Neon data operating guide](../data/NEON.md). Rehearsal and local promotion do
+not authorize applying them to production or inserting canonical rows.
 
 ```text
 physical_markets
@@ -355,7 +513,7 @@ ratings, retailer partnership, and featured status are permanently forbidden
 inputs. [ADR 0006](0006-store-ranking-excludes-commercial-signals.md) remains
 the governing ranking decision.
 
-## Development-only fixture prototype
+## Development fixture and production boundary
 
 The accepted prototype uses clearly fictional or explicitly non-authoritative
 fixture observations to test information architecture, language, responsive
@@ -369,11 +527,11 @@ The only prototype routes are:
 - `/markets/trade-fair/shops/<shopSlug>?product=<slug>`
 - `/contribute?mode=market-report&market=<marketSlug>&product=<productSlug>&shop=<shopSlug>`
 
-The product query is re-resolved against the bounded fixture catalogue; an
-unknown or ambiguous slug fails closed. The contextual contribution preview
-also resolves one exact, non-repeated `mode`, market, product, and shop through
-the fixture helpers. Missing, repeated, unknown, or production Market Finder
-context returns `notFound()`; the normal `/contribute` journey remains
+In development, the product query is re-resolved against the bounded fixture
+catalogue; an unknown or ambiguous slug fails closed. The contextual
+contribution preview also resolves one exact, non-repeated `mode`, market,
+product, and shop through the fixture helpers. Missing, repeated, unknown, or
+invalid context returns `notFound()`; the normal `/contribute` journey remains
 unchanged.
 
 The preview locks the resolved market, exact product, and shop, then shows only
@@ -381,12 +539,25 @@ the four fixed report outcomes. It creates no draft and makes no fetch, API,
 analytics, or durable write. Feedback on the shop page also remains local
 client state.
 
-Every fixture-backed route and contextual contribution mode must call
-`notFound()` outside development. Preview and production must not render
-fixture shops, stock, prices, directions, feedback, or the Market Finder report
-preview. A deployed 404 is the expected production behavior until the data
-activation gates below are satisfied; it is not evidence that Market Finder is
-live.
+Production never imports a fixture result as a fallback. With the public-read
+gate off, Market Finder returns `notFound()`. With it on, the exact Trade Fair
+allowlist resolves only published database identities supported by an approved
+physical observation. A current shop additionally requires current location,
+location-identity, product-observation, and usable-action evidence. Repository
+failure reaches the route error boundary; stale or missing authority cannot
+become a fixture or catalogue-only result. The contextual production report
+uses the existing Contribute draft lifecycle only after all three URL hints are
+re-resolved by the application to that current database result. Migration
+`0054` makes the database insert trigger require the same newest approved,
+non-superseded, current positive exact-product observation and usable public
+action, in addition to the `0053` parent, market, location, and product-identity
+checks. Migration `0055` then serializes report validation with statement-level
+mutation of every eligibility relation, preserves original superseded-review
+attribution, and rejects report insertion at another isolation level; the
+application starts an explicit READ COMMITTED transaction. Report intake
+remains off until all three migrations are applied
+through the protected production gate, canonical data is reviewed, and the
+abuse and Ops acceptance pass.
 
 ## Activation phases
 
@@ -407,6 +578,12 @@ report endpoint, analytics stream, or order behavior.
 
 ### Phase 1: governed data foundation
 
+The schema, read-model, public route, contribution, moderation, protected
+onboarding code, and shared application/database report-context guard in this
+phase are implemented locally. Production migration application, exact
+canonical evidence, operator acceptance, and route activation remain pending
+and require the protected release sequence below.
+
 - Review the seven-table contract and authorize a separately numbered
   migration.
 - Rehearse the exact migration bytes against a production-shaped Neon branch.
@@ -418,6 +595,11 @@ report endpoint, analytics stream, or order behavior.
 - Resolve and approve one canonical market, its initial place hierarchy,
   canonical retailer locations, public channels, and exact product
   observations.
+- Use the protected onboarding manifest to resolve an existing canonical
+  retailer and active published product identity, create the reviewed place and
+  location rows, and optionally append the first attributable product
+  observation as `pending`. Approve that observation only through the separate
+  audited evidence-decision command.
 - Implement the current read model, source-specific freshness policy, targeted
   cache tags, and operator recheck workflow.
 
@@ -450,7 +632,7 @@ The prototype is accepted only when:
 - all three Market Finder routes and the contextual `/contribute` preview
   render and behave correctly in development;
 - the three Market Finder routes and contextual report mode return `notFound()`
-  in production mode;
+  outside development while the default-off production gates are disabled;
 - the product and shop URL state survives refresh and browser navigation;
 - exact, stale, missing, disputed, and empty evidence states are visibly
   different;
@@ -471,14 +653,28 @@ Production activation additionally requires:
 - successful validation, production-shaped rehearsal, and protected operator
   application under the [Operations runbooks](../operations/RUNBOOKS.md);
 - exact identity-version coverage for every surfaced product;
+- one reviewed transparent packshot for every surfaced product, rendered with
+  the native catalogue image treatment rather than a crop or opaque fallback;
 - attributable location, channel, and stock evidence for every public claim;
 - `/ops/contributions` support for the typed report, with separate child,
   location, and physical-observation capabilities and audit;
+- protected production application of rehearsed migrations `0054` and `0055`:
+  the former's
+  database trigger rejects a report target without the newest approved,
+  non-superseded, current in-stock or low-stock observation and a current
+  reviewed public action, while the latter preserves superseded-review
+  attribution and makes that current-context decision atomic against all eight
+  eligible relation mutations;
 - server-side freshness enforcement and fail-closed stale behavior;
-- targeted cache invalidation that cannot expose fixture or unreviewed rows;
-- security and abuse review before accepting any public write; and
+- no cache purge before first activation, because disabled reads return before
+  a cache can be populated; later public evidence changes hard-delete only the
+  exact reviewed market tag through the authenticated Vercel CLI;
+- security and abuse review before accepting any public write;
 - a reviewed rollback that disables public reads without deleting evidence or
-  history.
+  history; and
+- the exact activation order: migrate, onboard and review data, enable the
+  Trade Fair public read, smoke the read-only journey, then separately enable
+  reporting only after its abuse and Ops gates pass.
 
 ### Release proof
 
@@ -503,6 +699,7 @@ Keeping the typed report projection separate from both `community_observations`
 and `physical_product_observations` preserves clear evidence lineage from a
 community claim to an attributable public-data decision.
 
-The development prototype can now answer the interaction question quickly.
-Production remains closed until the evidence system, migration, operator
-authority, and reviewed Trade Fair data exist.
+The development fixture can now answer the interaction question quickly.
+Production remains closed until migrations `0053`, `0054`, and `0055` are
+applied, operator authority is exercised, exact Trade Fair data is reviewed,
+and the explicit read and report gates are released in order.

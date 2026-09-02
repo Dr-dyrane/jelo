@@ -37,11 +37,46 @@ test("the moderation console writes only its audit log and denies access by defa
   );
   assert.doesNotMatch(all, /@vercel\/blob|put\(/);
 
-  // The only table the console writes is its audit log.
+  // The only insert targets are the audit log and the accepted append-only
+  // physical evidence history. The latter is never a product, offer, retailer,
+  // location, or publication mutation.
   const insertTargets = [...all.matchAll(/insert into (\w+)/gi)].map((match) =>
     match[1].toLowerCase(),
   );
-  assert.deepEqual([...new Set(insertTargets)], ["moderation_audit_log"]);
+  assert.deepEqual(
+    [...new Set(insertTargets)],
+    ["moderation_audit_log", "physical_product_observations"],
+  );
+
+  // The one canonical update owned here is a narrow, attributable moderation
+  // transition on append-only physical evidence. It cannot rewrite evidence,
+  // location, catalogue, offer, or retailer facts.
+  const physicalDecisionStart = all.indexOf(
+    "export function decidePhysicalProductObservation",
+  );
+  const physicalDecisionEnd = all.indexOf(
+    "export function decideEdge",
+    physicalDecisionStart,
+  );
+  const physicalDecision = all.slice(
+    physicalDecisionStart,
+    physicalDecisionEnd,
+  );
+  assert.ok(
+    physicalDecisionStart >= 0 && physicalDecisionEnd > physicalDecisionStart,
+  );
+  assert.match(
+    physicalDecision,
+    /update physical_product_observations\s+set moderation_status = \$\{planned\.nextStatus\},\s+reviewed_by = \$\{operatorSubject\},\s+reviewed_at = now\(\)/,
+  );
+  assert.match(
+    physicalDecision,
+    /queue: ["']physical_product_observation["'],[\s\S]*?canonicalWrite: true/,
+  );
+  assert.doesNotMatch(
+    physicalDecision,
+    /set[\s\S]*?\b(?:availability|price_ngn|observed_at|expires_at|source_method|source_reference|observed_title|observed_size|retailer_location_id|product_identity_version_id)\s*=/,
+  );
 
   // Access is deny-by-default and never infers identity from a header, cookie, or query param.
   const access = sources[files.indexOf("access.ts")];
@@ -71,9 +106,17 @@ test("the moderation console writes only its audit log and denies access by defa
     databaseTransitions,
     /update community_observations[\s\S]*contribution_id = \$\{id\}/,
   );
+  assert.match(
+    databaseTransitions,
+    /marketFinderReportCascade:\s*cascadedMarketFinderReports\s*>\s*0/,
+  );
+  assert.doesNotMatch(
+    databaseTransitions,
+    /update market_finder_reports[\s\S]*marketFinderReportCascade/,
+  );
   assert.match(databaseTransitions, /contribution\.retain_until > now\(\)/);
-  assert.match(databaseTransitions, /action: 'map'/);
-  assert.match(databaseTransitions, /action: 'reconcile'/);
+  assert.match(databaseTransitions, /action: ["']map["']/);
+  assert.match(databaseTransitions, /action: ["']reconcile["']/);
 });
 
 test("operator access denial logs cannot disclose verified identities", async () => {

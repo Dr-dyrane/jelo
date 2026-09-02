@@ -36,10 +36,10 @@ test("research work has a private manual route, durable ownership, and role chec
   assert.match(inbox, /Unassign/);
   assert.match(inbox, /Block with reason/);
   assert.match(inbox, /Record outcome/);
-  assert.match(actions, /assertCan\(operator, 'research\.manage'\)/);
+  assert.match(actions, /assertCan\(operator, ["']research\.manage["']\)/);
   assert.match(
     actions,
-    /assertCan\(operator, administrativeAssignment \? 'research\.assign' : 'research\.manage'\)/,
+    /assertCan\(operator, administrativeAssignment \? ["']research\.assign["'] : ["']research\.manage["']\)/,
   );
   assert.match(actions, /resolveCommunityProductResearchTask/);
   assert.match(actions, /resolveCommunityRetailerResearchTask/);
@@ -49,14 +49,14 @@ test("research work has a private manual route, durable ownership, and role chec
   assert.match(transitions, /work_state = \$\{planned\.workState\}/);
   assert.match(
     transitions,
-    /next_action = \$\{planned\.workState === 'ready' \? null : rationale\}/,
+    /next_action = \$\{planned\.workState === ["']ready["'] \? null : rationale\}/,
   );
   assert.match(transitions, /for update/);
-  assert.match(transitions, /operator\.role !== 'admin'/);
+  assert.match(transitions, /operator\.role !== ["']admin["']/);
   assert.match(transitions, /previousOwnerId/);
   assert.match(migration, /community_research_tasks_assignment_check/);
   assert.match(shell, /href: ['"]\/ops\/research['"]/);
-  assert.match(capabilities, /'research\.manage'/);
+  assert.match(capabilities, /["']research\.manage["']/);
 });
 
 test("research outcomes remain non-canonical and exact-target bound", async () => {
@@ -68,8 +68,8 @@ test("research outcomes remain non-canonical and exact-target bound", async () =
   assert.match(productWriter, /is_published = true/);
   assert.match(productWriter, /operatorLock = lockTask \? sql`for share`/);
   assert.match(productWriter, /isReleasedIntakeCandidate/);
-  assert.match(productWriter, /task\.taskKind !== 'product-identity'/);
-  assert.match(productWriter, /task\.entitySource !== 'canonical'/);
+  assert.match(productWriter, /task\.taskKind !== ["']product-identity["']/);
+  assert.match(productWriter, /task\.entitySource !== ["']canonical["']/);
   assert.match(
     productWriter,
     /resolution_cycle = \$\{task\.resolution_cycle\}/,
@@ -78,7 +78,7 @@ test("research outcomes remain non-canonical and exact-target bound", async () =
     productWriter,
     /on conflict \(task_id, resolution_cycle\) do nothing/,
   );
-  assert.match(retailerWriter, /task\.entitySource !== 'canonical'/);
+  assert.match(retailerWriter, /task\.entitySource !== ["']canonical["']/);
   assert.match(retailerWriter, /select 1 from retailers/);
   assert.match(retailerWriter, /operatorLock = lockTask \? sql`for share`/);
   assert.doesNotMatch(
@@ -116,7 +116,7 @@ test("research queue covers production-shaped identity, pagination, inspector st
   assert.match(inbox, /\[\.\.\.state\.extraRows, \.\.\.initialRows\]/);
   assert.match(
     inbox,
-    /row\.entitySource === 'canonical'[\s\S]*?\[options\[0\]\]/,
+    /row\.entitySource === ["']canonical["'][\s\S]*?\[options\[0\]\]/,
   );
   assert.match(inbox, /canonicalOptions\.products/);
   assert.match(inbox, /Choose a reviewed record/);
@@ -143,7 +143,7 @@ test("research queue covers production-shaped identity, pagination, inspector st
   );
   assert.match(inbox, /feedbackState\.success\.message/);
   assert.equal(inbox.match(/role="status"/g)?.length, 1);
-  assert.match(inbox, /'Try again'/);
+  assert.match(inbox, /["']Try again["']/);
   assert.doesNotMatch(
     inbox,
     /Exact target|Canonical slug or intake ID|Signals/,

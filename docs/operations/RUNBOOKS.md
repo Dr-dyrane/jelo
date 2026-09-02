@@ -1526,6 +1526,138 @@ MODERATION_OPERATOR_EMAIL=admin@example.com \
   --rationale "Return this work to the shared queue."
 ```
 
+### Market Finder physical evidence
+
+A Market Finder community report remains a private claim even after its typed
+child review. It never becomes a shelf observation automatically. Only an active
+admin using the protected, direct `MIGRATION_DATABASE_URL` may append physical
+product evidence, and every appended observation starts in `pending` review.
+
+Before the first report can exist, onboard one canonical pilot location with a
+private version-1 JSON manifest. The manifest must bind an existing canonical
+retailer and active published exact-product identity to the reviewed market,
+optional place, location-identity evidence, and either reviewed text directions
+or one verified public channel. It may include one attributable
+`initialObservation` from `field_visit`, `retailer_confirmation`, or
+`branch_online_record`; that observation is inserted as `pending`, never
+approved by onboarding. Do not use fixture names, disputed landmarks, search
+results, map results, or an unresolved "beside" description.
+
+Run the read-only preflight first, using a manifest outside the repository:
+
+```bash
+MIGRATION_DATABASE_URL='postgresql://protected-admin@direct-host/database' \
+MODERATION_OPERATOR_EMAIL=admin@example.invalid \
+npm run market-finder:onboard -- \
+  --manifest=/absolute/private/market-finder-pilot.json
+```
+
+Review the bounded plan. It prints canonical IDs and planned states, not source
+references, directions, contact destinations, or rationale. Repeat the exact
+command with `--apply` only after the manifest and target database are accepted.
+The serializable transaction creates pending/lead rows first, applies the
+reviewed location decisions in trigger-safe order, appends the optional first
+product observation as `pending`, and writes attributable audit events. An exact
+rerun is a no-op; a conflicting canonical row stops the transaction. Use the
+observation ID returned by the plan with the separate `decide` command below.
+
+Record one exact product/place observation with a dry run first:
+
+```bash
+MIGRATION_DATABASE_URL='postgresql://protected-admin@direct-host/database' \
+MODERATION_OPERATOR_EMAIL=admin@example.invalid \
+npm run market-finder:evidence -- record \
+  --contribution-id=00000000-0000-4000-8000-000000000000 \
+  --availability=in_stock \
+  --observed-at=2026-09-01T12:00:00.000Z \
+  --expires-at=2026-09-08T12:00:00.000Z \
+  --source-method=retailer_confirmation \
+  --source-reference='private evidence reference' \
+  --observed-title='Exact reviewed product title' \
+  --observed-size='50 ml' \
+  --price-ngn=12500 \
+  --rationale='Why this evidence is attributable to the exact shop and pack.'
+```
+
+Review the bounded `writes:false` result, then repeat the identical command with
+`--apply`. The insert and its `physical_product_observation` audit event share
+one transaction; raw source evidence is not printed. Omit `--price-ngn` when no
+price was directly observed.
+
+An inserted observation still cannot appear publicly. A separate active admin
+must dry-run and then apply its decision:
+
+```bash
+MIGRATION_DATABASE_URL='postgresql://protected-admin@direct-host/database' \
+MODERATION_OPERATOR_EMAIL=admin@example.invalid \
+npm run market-finder:evidence -- decide \
+  --observation-id=00000000-0000-4000-8000-000000000000 \
+  --decision=approve \
+  --rationale='Exact product, place, source and freshness window verified.'
+```
+
+Use `--decision=reject` when the evidence is not publishable. The locked
+pending-to-terminal transition writes reviewer attribution and an audit event in
+the same transaction. Its applied result returns only the observation ID, next
+status and bounded market/location/product cache scope.
+
+Do not apply onboarding or evidence commands until migration
+`0053_physical_market_finder.sql`
+has passed the protected production migration gate and canonical market,
+location, place, channel and location-evidence rows have been separately
+reviewed. Do not enable report intake until follow-on migration
+`0054_market_finder_report_current_context.sql`, canonical SHA-256
+`62081dd7c9936c6a4e1d25f1ff39cf0c9e63d757f8d0b25ad61ea4f2234c1e7f`,
+and correction migration `0055_market_finder_atomic_context.sql`, canonical
+SHA-256
+`e0a5e58ee2e39f54976031d5afc64d9e8a966e76cfe116e5130b2fd5d2bdc22d`,
+have both passed that protected production gate. Migration `0055` preserves
+the original reviewer attribution when evidence is superseded and makes report
+validation and all eight current-context table mutations share one transaction
+lock. The application report transaction is explicitly READ COMMITTED; the
+database rejects report insertion at another isolation level.
+
+The exact `0055` bytes were rehearsed on 2026-09-02 in Neon project
+`spring-field-93817903`, fresh production-derived branch
+`rehearsal/market-finder-atomic-context-20260902`
+(`br-long-silence-avkudczf`, expiring `2026-09-09T23:59:59Z`). The first run
+applied `0053`, `0054`, and `0055`; the second skipped all three unchanged, and
+`0055` was then promoted unchanged.
+Rollback-safe acceptance preserved evidence and observation attribution,
+confirmed all eight context-lock triggers and both blocking directions,
+rejected a non-READ-COMMITTED report transaction, and left zero synthetic rows.
+This is rehearsal evidence only: production `0053`, `0054`, and `0055` remain
+pending, and public reads and report intake remain gated. Keep
+`MARKET_FINDER_PUBLIC_READ_ENABLED=false`,
+`MARKET_FINDER_PUBLIC_MARKET_SLUG` unset, and
+`MARKET_FINDER_REPORT_INTAKE_ENABLED=false` through migration, data onboarding,
+observation approval, abuse checks, and operator acceptance. Then set the
+public market slug to exactly `trade-fair` and enable public reads for the
+read-only smoke. Enable report intake only after that smoke and its separate
+abuse/Ops acceptance. Create, save, and submit all close when the report flag is
+false. While public Market Finder reads remain inactive, no cache purge is
+needed: both the route and repository gates return before cached reads, and the
+first activated revision has no older Market Finder cache to clear. For every
+later approved evidence, location, or public-action change while reads are live,
+verify that the applied command returned `cacheScope.marketSlug` equal to the
+reviewed `trade-fair` pilot, then hard-delete the shared market tag from the
+linked Vercel project:
+
+```bash
+vercel whoami
+vercel cache dangerously-delete \
+  --tag market-finder:market:trade-fair \
+  --project jelo \
+  --yes
+```
+
+The directory and every exact-product read in that market share this tag. Do
+not use `vercel cache invalidate`, which may serve stale data while it
+revalidates. Do not use the global `market-finder` tag or `vercel cache purge`.
+After deletion, smoke `/markets`, the affected exact-product result, and its
+shop record. Never derive a tag from contributor text or use a community report
+as canonical location or stock data.
+
 Never copy a connection string, raw payload, operator subject, or contributor text
 into a ticket, commit, terminal transcript, or chat. Use queue row IDs for handoff.
 

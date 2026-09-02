@@ -17,6 +17,13 @@ type Props = {
   items: readonly DirectorySearchItem[];
   value?: string;
   onValueChange?: (value: string) => void;
+  suggestionLabel?: string;
+  resultNoun?: string;
+  emptyLabel?: string;
+  emptyAction?: Readonly<{
+    href: string;
+    label: string;
+  }>;
 };
 
 export function DirectoryTypeahead({
@@ -26,6 +33,10 @@ export function DirectoryTypeahead({
   items,
   value,
   onValueChange,
+  suggestionLabel = "Suggested profiles",
+  resultNoun = "match",
+  emptyLabel,
+  emptyAction,
 }: Props) {
   const router = useRouter();
   const reactId = useId();
@@ -39,6 +50,10 @@ export function DirectoryTypeahead({
   );
   const suggestions = matches.slice(0, 6);
   const listboxId = `${id}-${reactId.replace(/:/g, "")}-suggestions`;
+  const emptyActionId = `${listboxId}-empty-action`;
+  const emptyActionAvailable = Boolean(
+    query.trim() && !suggestions.length && emptyAction,
+  );
 
   function updateQuery(nextValue: string) {
     if (onValueChange) onValueChange(nextValue);
@@ -53,7 +68,13 @@ export function DirectoryTypeahead({
       setOpen(false);
       return;
     }
-    if (!suggestions.length) return;
+    if (!suggestions.length) {
+      if (event.key === "Enter" && open && emptyActionAvailable) {
+        event.preventDefault();
+        router.push(emptyAction!.href);
+      }
+      return;
+    }
     if (event.key === "ArrowDown") {
       event.preventDefault();
       setOpen(true);
@@ -100,7 +121,9 @@ export function DirectoryTypeahead({
           aria-activedescendant={
             open && suggestions[activeIndex]
               ? `${listboxId}-${activeIndex}`
-              : undefined
+              : open && emptyActionAvailable
+                ? emptyActionId
+                : undefined
           }
           onFocus={() => setOpen(true)}
           onChange={(event) => updateQuery(event.target.value)}
@@ -122,8 +145,8 @@ export function DirectoryTypeahead({
         <div className={styles.suggestions} id={listboxId} role="listbox">
           <p className={styles.suggestionMeta} aria-live="polite">
             {query.trim()
-              ? `${matches.length} ${matches.length === 1 ? "match" : "matches"}`
-              : "Suggested profiles"}
+              ? `${matches.length} ${resultNoun}${matches.length === 1 ? "" : "s"}`
+              : suggestionLabel}
           </p>
           {suggestions.length ? (
             suggestions.map((item, index) => (
@@ -144,8 +167,27 @@ export function DirectoryTypeahead({
                 <ArrowUpRight size={17} aria-hidden="true" />
               </Link>
             ))
+          ) : emptyActionAvailable && emptyAction ? (
+            <Link
+              id={emptyActionId}
+              href={emptyAction.href}
+              role="option"
+              aria-selected="true"
+              data-active="true"
+              onClick={() => setOpen(false)}
+            >
+              <span>
+                <strong>{emptyAction.label}</strong>
+                <small>
+                  {emptyLabel ?? `No profile matches “${query.trim()}”.`}
+                </small>
+              </span>
+              <ArrowUpRight size={17} aria-hidden="true" />
+            </Link>
           ) : (
-            <p className={styles.empty}>No profile matches “{query.trim()}”.</p>
+            <p className={styles.empty}>
+              {emptyLabel ?? `No profile matches “${query.trim()}”.`}
+            </p>
           )}
         </div>
       ) : null}

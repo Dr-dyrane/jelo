@@ -49,9 +49,17 @@ test("the product panel exposes one controlled dialog with a stable accessible t
 test("the public wrapper keeps its two familiar triggers and delegates to the controlled sheet", () => {
   assert.match(
     component,
-    /export function ProductQuickPanel\(data: ProductPanelData\)/,
+    /type MarketAwareProductPanelData = ProductPanelData &/,
+  );
+  assert.match(
+    component,
+    /export function ProductQuickPanel\(data: MarketAwareProductPanelData\)/,
   );
   assert.match(component, /> Find a store/);
+  assert.match(
+    component,
+    /onClick=\{\(event\) => openPanel\((?:'stores'|"stores"), event\.currentTarget\)\}/,
+  );
   assert.match(component, /> Details/);
   assert.match(component, /<ProductQuickPanelSheet/);
   assert.match(component, /onClose=\{\(\) => setOpen\(false\)\}/);
@@ -100,7 +108,29 @@ test("one server read model owns evidence and the public page consumes it", () =
     /href: `\/consult\?q=\$\{encodeURIComponent\(prompt\)\}`/,
   );
   assert.match(productPage, /readProductPanelData\(product\)/);
-  assert.match(productPage, /<ProductQuickPanel \{\.\.\.panelData\} \/>/);
+  assert.match(
+    productPage,
+    /<ProductQuickPanel[\s\S]*?\{\.\.\.panelData\}[\s\S]*?marketFinderHref=\{marketFinderEntry\?\.href\}[\s\S]*?marketFinderLabel=\{marketFinderEntry\?\.label\}[\s\S]*?marketFinderDetail=\{marketFinderEntry\?\.detail\}[\s\S]*?\/>/,
+  );
+});
+
+test("the Market Finder handoff requires the current exact catalogue identity", () => {
+  assert.match(
+    productPage,
+    /resolveProductMarketEntry\(product: CatalogueProduct\)/,
+  );
+  assert.match(productPage, /fixtureProduct\?\.brand === product\.brand/);
+  assert.match(productPage, /fixtureProduct\.name === product\.name/);
+  assert.match(productPage, /fixtureProduct\.size === product\.size/);
+  assert.match(productPage, /candidate\.slug === product\.slug/);
+  assert.match(productPage, /candidate\.brand === product\.brand/);
+  assert.match(productPage, /candidate\.variant === product\.name/);
+  assert.match(productPage, /candidate\.size === product\.size/);
+  assert.match(productPage, /resolveProductMarketEntry\(product\)/);
+  assert.doesNotMatch(
+    productPage,
+    /resolveProductMarketEntry\(product\.slug\)/,
+  );
 });
 
 test("the details sheet turns every care state into one Ask Jelo next step", () => {

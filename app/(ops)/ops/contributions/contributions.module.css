@@ -226,6 +226,35 @@
   white-space: normal;
 }
 
+.marketReportSection {
+  padding-top: var(--space-5);
+  border-top: 1px solid color-mix(in srgb, var(--ops-ink) 10%, transparent);
+}
+
+.lockedContextNote,
+.decisionBoundary {
+  margin: 0 0 var(--space-3);
+  color: var(--muted);
+  font-size: var(--text-caption);
+  line-height: 1.45;
+}
+
+.decisionStack {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  background: var(--ops-workspace);
+}
+
+.decisionStack > :not(:first-child) {
+  border-top: 1px solid color-mix(in srgb, var(--ops-ink) 10%, transparent);
+}
+
+.decisionStack > p {
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+}
+
 .submittedValues {
   display: flex;
   min-width: 0;

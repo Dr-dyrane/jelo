@@ -113,6 +113,9 @@ export type OverviewAuditEntry = {
     | "community_moderation_value"
     | "community_research_task"
     | "retailer_application"
+    | "market_finder_report"
+    | "retailer_location"
+    | "physical_product_observation"
     | "commerce_signal";
   action:
     | "claim"
@@ -152,6 +155,9 @@ const AUDIT_QUEUE_LABELS: Record<OverviewAuditEntry["queue"], string> = {
   community_moderation_value: "vocabulary item",
   community_research_task: "research task",
   retailer_application: "retailer application",
+  market_finder_report: "market report",
+  retailer_location: "retailer location",
+  physical_product_observation: "market evidence",
   commerce_signal: "commerce signal",
 };
 
@@ -165,6 +171,9 @@ const AUDIT_QUEUE_KINDS: Record<
   community_moderation_value: "vocabulary",
   community_research_task: null,
   retailer_application: "retailers",
+  market_finder_report: "contributions",
+  retailer_location: "contributions",
+  physical_product_observation: "contributions",
   commerce_signal: null,
 };
 

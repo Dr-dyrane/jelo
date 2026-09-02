@@ -1,133 +1,270 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ShieldAlert } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronDown,
+  MapPin,
+  PackageSearch,
+  ShieldAlert,
+  ShieldCheck,
+} from "lucide-react";
 import { notFound } from "next/navigation";
+import { DirectoryTypeahead } from "@/components/directory/directory-typeahead";
+import { ProductCardGrid } from "@/components/products/product-grid";
 import { SafeProductImage } from "@/components/products/safe-product-image";
+import {
+  isMarketFinderPublicReadEnabled,
+  marketFinderPublicMarketSlug,
+} from "@/lib/markets/activation";
 import {
   isMarketFixtureEnabled,
   listMarketFixtureProducts,
   listMarketFixtures,
   MARKET_UNRESOLVED_REQUESTS,
+  resolveMarketFixtureProductPackshot,
 } from "@/lib/markets/fixture";
+import {
+  presentMarketFinderMarket,
+  presentMarketFinderProduct,
+  type MarketSurfaceMarket,
+  type MarketSurfaceProduct,
+} from "@/lib/markets/presentation";
+import { readMarketFinderDirectory } from "@/lib/markets/repository";
 import styles from "@/components/markets/market-finder.module.css";
 
 export const metadata: Metadata = {
-  title: "Market Finder research fixture · JeloCare",
-  description:
-    "Development-only prototype for testing exact-product market guidance.",
+  title: "Market Finder",
+  description: "Find reviewed physical-market records for one exact product.",
   robots: { index: false, follow: false },
 };
 
-export default function MarketsPage() {
-  if (!isMarketFixtureEnabled()) notFound();
+type LandingModel = {
+  market: MarketSurfaceMarket;
+  products: MarketSurfaceProduct[];
+  preview: boolean;
+};
 
-  const [market] = listMarketFixtures();
-  const products = listMarketFixtureProducts();
+async function readLandingModel(): Promise<LandingModel> {
+  if (isMarketFixtureEnabled()) {
+    const [market] = listMarketFixtures();
+    if (!market) notFound();
+    return {
+      market,
+      products: listMarketFixtureProducts().map((product) => ({
+        ...product,
+        image: resolveMarketFixtureProductPackshot(product),
+      })),
+      preview: true,
+    };
+  }
+
+  const marketSlug = marketFinderPublicMarketSlug();
+  if (!isMarketFinderPublicReadEnabled() || !marketSlug) notFound();
+
+  const directory = await readMarketFinderDirectory(marketSlug);
+  if (directory.state === "unavailable") {
+    throw new Error("Market Finder is temporarily unavailable.");
+  }
+  if (directory.state !== "current" || directory.products.length === 0) {
+    notFound();
+  }
+
+  return {
+    market: presentMarketFinderMarket(directory.market),
+    products: directory.products.map(presentMarketFinderProduct),
+    preview: false,
+  };
+}
+
+export default async function MarketsPage() {
+  const { market, products, preview } = await readLandingModel();
+  const productItems = products.map((product) => ({
+    product: {
+      slug: product.slug,
+      brand: product.brand,
+      name: product.name,
+      size: product.size,
+      image: product.image,
+      imageUnavailableLabel: "Packshot pending",
+    },
+    href: `/markets/${market.slug}?product=${encodeURIComponent(product.slug)}`,
+  }));
+  const reviewedPackshots = products.flatMap((product) =>
+    product.image ? [{ product, image: product.image }] : [],
+  );
+  const searchItems = products.map((product) => ({
+    href: `/markets/${market.slug}?product=${encodeURIComponent(product.slug)}`,
+    name: product.name,
+    detail: `${product.brand} · ${product.size}`,
+    searchText: `${product.brand} ${product.name} ${product.size}`,
+  }));
 
   return (
     <main className={styles.main}>
-      <section className={styles.hero} aria-labelledby="market-finder-title">
+      <section className={styles.finderHero} aria-labelledby="market-title">
         <div className={styles.heroCopy}>
-          <span className={styles.prototypeStamp}>
-            <ShieldAlert size={16} aria-hidden="true" />
-            Development-only research fixture
-          </span>
-          <h1 id="market-finder-title">Find the product. Then the place.</h1>
+          <p className="eyebrow">Physical markets</p>
+          <h1 id="market-title">
+            Find it.
+            <br />
+            In person.
+          </h1>
           <p className={styles.heroLead}>
-            This prototype starts with the exact pack, then separates current
-            product evidence from shop identity and directions. It is not live
-            market guidance.
+            Start with the exact pack. Separate useful leads from places ready
+            to visit.
           </p>
+          <div className={styles.truthChips} aria-label="Market Finder status">
+            <span>
+              <MapPin size={15} aria-hidden="true" /> {market.name}
+            </span>
+            <span>
+              {preview ? (
+                <ShieldAlert size={15} aria-hidden="true" />
+              ) : (
+                <ShieldCheck size={15} aria-hidden="true" />
+              )}
+              {preview ? "Development preview" : "Reviewed pilot"}
+            </span>
+          </div>
+        </div>
+
+        <div
+          className={styles.heroStage}
+          aria-label={`${products.length} exact products in the ${market.name} pilot`}
+        >
+          <div className={styles.stageLabel}>
+            <span>Pilot market</span>
+            <small>
+              {market.name} · {market.location}
+            </small>
+          </div>
+          <div className={styles.heroProducts} aria-hidden="true">
+            {reviewedPackshots.length ? (
+              reviewedPackshots.map(({ product, image }, index) => (
+                <span
+                  className={
+                    index === 0
+                      ? styles.heroProductPrimary
+                      : styles.heroProductSecondary
+                  }
+                  key={product.slug}
+                >
+                  <SafeProductImage
+                    src={image}
+                    alt=""
+                    priority={index === 0}
+                    fallback={
+                      <span className={styles.heroImageMissing}>
+                        <PackageSearch size={32} aria-hidden="true" />
+                        <small>Packshot pending</small>
+                      </span>
+                    }
+                  />
+                </span>
+              ))
+            ) : (
+              <span className={styles.heroPackshotsPending}>
+                <PackageSearch size={58} aria-hidden="true" />
+                <small>Exact packshots in review</small>
+              </span>
+            )}
+          </div>
+          <div className={styles.heroMetrics}>
+            <span>
+              <strong>{products.length}</strong>
+              <small>exact packs</small>
+            </span>
+            <span>
+              <strong>1</strong>
+              <small>pilot market</small>
+            </span>
+            <span>
+              <PackageSearch size={24} aria-hidden="true" />
+              <small>{preview ? "research states" : "reviewed records"}</small>
+            </span>
+          </div>
         </div>
       </section>
 
       <section
-        className={styles.section}
+        className={styles.pickerSection}
         aria-labelledby="exact-products-title"
       >
         <div className={styles.sectionHeading}>
           <div>
-            <p className={styles.kicker}>Exact identity first</p>
-            <h2 id="exact-products-title">Choose the pack you mean.</h2>
+            <p className="eyebrow">01 · Exact product</p>
+            <h2 id="exact-products-title">What are you looking for?</h2>
           </div>
-          <p>
-            The selected product stays visible through results and directions,
-            so a nearby sibling or wrong size cannot silently replace it.
-          </p>
+          <p>Choose the exact name and size.</p>
         </div>
 
-        <div className={styles.productOptions}>
-          {products.map((product) => (
-            <Link
-              className={styles.productOption}
-              href={`/markets/${market.slug}?product=${product.slug}`}
-              key={product.slug}
-            >
-              <span className={styles.miniPackshot}>
-                {product.image ? (
-                  <SafeProductImage
-                    src={product.image}
-                    alt={`${product.brand} ${product.name}, ${product.size}`}
-                  />
-                ) : (
-                  <span className={styles.miniPackshotMissing}>
-                    Reviewed packshot pending
-                  </span>
-                )}
+        <div className={styles.pickerTools}>
+          <DirectoryTypeahead
+            id="market-product-search"
+            label="Find an exact product"
+            placeholder="Product, brand or size"
+            items={searchItems}
+            suggestionLabel="Products with reviewed records"
+            resultNoun="exact product"
+            emptyLabel="No reviewed record matches that exact product."
+            emptyAction={{
+              href: "/me/shelf/add",
+              label: "Share the exact pack",
+            }}
+          />
+          <div className={styles.marketScope}>
+            <span className={styles.marketScopeIcon} aria-hidden="true">
+              <MapPin size={22} />
+            </span>
+            <span>
+              <small>Searching</small>
+              <strong>{market.name}</strong>
+            </span>
+            {preview ? (
+              <ShieldAlert size={19} aria-label="Research pilot" />
+            ) : (
+              <ShieldCheck size={19} aria-label="Reviewed pilot" />
+            )}
+          </div>
+        </div>
+
+        <ProductCardGrid items={productItems} />
+
+        {preview ? (
+          <details className={styles.identityQueue}>
+            <summary>
+              <span className={styles.queueIcon} aria-hidden="true">
+                <PackageSearch size={21} />
               </span>
-              <span className={styles.miniIdentity}>
-                <small>{product.brand}</small>
-                <strong>{product.name}</strong>
-                <span>{product.size}</span>
+              <span>
+                <strong>
+                  {MARKET_UNRESOLVED_REQUESTS.length} requests still need an
+                  exact pack
+                </strong>
+                <small>Open the identity queue</small>
               </span>
-              <ArrowRight size={18} aria-hidden="true" />
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.section} aria-labelledby="pilot-market-title">
-        <div className={styles.sectionHeading}>
-          <div>
-            <p className={styles.kicker}>Pilot market</p>
-            <h2 id="pilot-market-title">One bounded place first.</h2>
-          </div>
-          <p>
-            Choose an exact pack above before entering Trade Fair. The fixture
-            never supplies a product choice on your behalf.
-          </p>
-        </div>
-
-        <article className={styles.marketOverview}>
-          <div>
-            <p className={styles.kicker}>{market.location}</p>
-            <h3>{market.name}</h3>
-            <p>{market.summary}</p>
-          </div>
-          <span className={styles.fixtureChip}>Product selection required</span>
-        </article>
-      </section>
-
-      <section className={styles.section} aria-labelledby="unresolved-title">
-        <div className={styles.sectionHeading}>
-          <div>
-            <p className={styles.kicker}>Fail closed</p>
-            <h2 id="unresolved-title">Requests that need the exact pack.</h2>
-          </div>
-          <p>
-            These names are preserved as research requests, but no shop result
-            appears until brand, variant and size are resolved.
-          </p>
-        </div>
-
-        <div className={styles.unresolvedGrid}>
-          {MARKET_UNRESOLVED_REQUESTS.map((request) => (
-            <article className={styles.unresolvedItem} key={request.query}>
-              <strong>{request.query}</strong>
-              <span>{request.reason} No market route shown.</span>
-            </article>
-          ))}
-        </div>
+              <ChevronDown
+                className={styles.disclosureChevron}
+                size={20}
+                aria-hidden="true"
+              />
+            </summary>
+            <div className={styles.identityQueueBody}>
+              <ul>
+                {MARKET_UNRESOLVED_REQUESTS.map((request) => (
+                  <li key={request.query}>
+                    <strong>{request.query}</strong>
+                    <small>{request.reason}</small>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/me/shelf/add">
+                Share the exact pack
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            </div>
+          </details>
+        ) : null}
       </section>
     </main>
   );

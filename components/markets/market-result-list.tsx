@@ -2,98 +2,214 @@ import Link from "next/link";
 import {
   AlertTriangle,
   ArrowRight,
-  CircleX,
+  ChevronDown,
+  ChevronRight,
+  CircleCheck,
   CircleHelp,
+  CircleX,
   Clock3,
+  History,
   MapPin,
+  MapPinOff,
   PhoneOff,
+  ShieldCheck,
+  Store,
 } from "lucide-react";
-import {
-  deriveMarketPrimaryAction,
-  type MarketFixtureLead,
-  type MarketFixtureProduct,
-} from "@/lib/markets/fixture";
+import { deriveMarketPrimaryAction } from "@/lib/markets/action";
+import type { MarketSurfaceProduct } from "@/lib/markets/presentation";
 import styles from "./market-finder.module.css";
 
-function StateIcon({ state }: { state: MarketFixtureLead["state"] }) {
+export type MarketResultLead = {
+  kind: "shop" | "direction-alert";
+  slug: string;
+  state:
+    | "ready"
+    | "purchase-report"
+    | "location-lead"
+    | "stale"
+    | "unavailable"
+    | "disputed";
+  name: string;
+  stateLabel: string;
+  locationLabel: string;
+  identityLabel: string;
+  evidenceLabel: string;
+  evidenceNote: string;
+  observedAt?: string;
+  observedAtLabel?: string;
+  expiresAt?: string;
+  expiresAtLabel?: string;
+  directions: readonly string[];
+  detailRecordAvailable?: boolean;
+  actionEvidence: {
+    exactProductIdentity: true;
+    retailerLocationVerified: boolean;
+    observationReviewed: boolean;
+    usableAction: "directions" | "contact" | null;
+  };
+};
+
+function StateIcon({ state }: { state: MarketResultLead["state"] }) {
+  if (state === "ready") {
+    return <CircleCheck size={17} aria-hidden="true" />;
+  }
   if (state === "purchase-report") {
     return <CircleHelp size={17} aria-hidden="true" />;
   }
   if (state === "location-lead") {
     return <PhoneOff size={17} aria-hidden="true" />;
   }
+  if (state === "stale") return <History size={17} aria-hidden="true" />;
   if (state === "unavailable") return <CircleX size={17} aria-hidden="true" />;
   return <AlertTriangle size={17} aria-hidden="true" />;
+}
+
+function PlaceIcon({
+  lead,
+  compact,
+}: {
+  lead: MarketResultLead;
+  compact: boolean;
+}) {
+  if (lead.kind === "direction-alert") {
+    return (
+      <MapPinOff
+        size={compact ? 23 : 30}
+        strokeWidth={1.55}
+        aria-hidden="true"
+      />
+    );
+  }
+
+  return (
+    <Store size={compact ? 23 : 30} strokeWidth={1.55} aria-hidden="true" />
+  );
+}
+
+function freshnessLabel(lead: MarketResultLead) {
+  if (lead.state === "stale" && lead.expiresAt && lead.expiresAtLabel) {
+    return {
+      label: "Expired",
+      dateTime: lead.expiresAt,
+      date: lead.expiresAtLabel,
+    };
+  }
+
+  if (!lead.observedAt || !lead.observedAtLabel) return null;
+
+  return {
+    label: lead.state === "ready" ? "Checked" : "Reported",
+    dateTime: lead.observedAt,
+    date: lead.observedAtLabel,
+  };
 }
 
 function LeadCard({
   lead,
   marketSlug,
   product,
-  rank,
+  compact = false,
 }: {
-  lead: MarketFixtureLead;
+  lead: MarketResultLead;
   marketSlug: string;
-  product: MarketFixtureProduct;
-  rank?: number;
+  product: MarketSurfaceProduct;
+  compact?: boolean;
 }) {
   const action = deriveMarketPrimaryAction(lead);
+  const freshness = freshnessLabel(lead);
   const shopHref = `/markets/${marketSlug}/shops/${lead.slug}?product=${encodeURIComponent(product.slug)}`;
+  const actionLabel = action.enabled ? "View shop" : action.label;
 
   return (
     <li
-      className={`${styles.resultCard} ${rank === undefined ? styles.resultCardNoRank : ""}`}
+      className={`${styles.resultCard} ${compact ? styles.resultCardCompact : ""}`}
       data-state={lead.state}
     >
-      {rank === undefined ? null : (
-        <div className={styles.resultNumber} aria-hidden="true">
-          {String(rank).padStart(2, "0")}
-        </div>
-      )}
+      <span className={styles.resultVisual} data-state={lead.state}>
+        <PlaceIcon lead={lead} compact={compact} />
+        <span className={styles.resultVisualState}>
+          <StateIcon state={lead.state} />
+        </span>
+      </span>
 
       <div className={styles.resultBody}>
-        <div className={styles.resultStatus} data-state={lead.state}>
-          <StateIcon state={lead.state} />
-          <span>{lead.stateLabel}</span>
+        <div className={styles.resultMetaRow}>
+          <span className={styles.resultStatus} data-state={lead.state}>
+            {lead.stateLabel}
+          </span>
+          {freshness ? (
+            <span className={styles.freshnessLine}>
+              {lead.state === "stale" ? (
+                <History size={14} aria-hidden="true" />
+              ) : (
+                <Clock3 size={14} aria-hidden="true" />
+              )}
+              {freshness.label}{" "}
+              <time dateTime={freshness.dateTime}>{freshness.date}</time>
+            </span>
+          ) : null}
         </div>
 
-        <h2>{lead.name}</h2>
+        <h3>{lead.name}</h3>
 
         <p className={styles.locationLine}>
           <MapPin size={16} aria-hidden="true" />
           <span>{lead.locationLabel}</span>
         </p>
 
-        <div className={styles.evidenceBlock}>
-          <strong>{lead.evidenceLabel}</strong>
-          <p>{lead.evidenceNote}</p>
-          <span>
-            <Clock3 size={15} aria-hidden="true" />
-            Evidence date{" "}
-            <time dateTime={lead.observedAt}>{lead.observedAtLabel}</time>
-          </span>
-        </div>
+        {compact ? (
+          <>
+            <p className={styles.recordNote}>{lead.evidenceNote}</p>
+            {lead.kind === "shop" && lead.detailRecordAvailable === true ? (
+              <Link
+                className={styles.recordAction}
+                href={shopHref}
+                aria-label={`Review ${lead.name}`}
+              >
+                View record
+                <ChevronRight size={17} aria-hidden="true" />
+              </Link>
+            ) : (
+              <span className={styles.pausedAction} aria-disabled="true">
+                No travel action
+              </span>
+            )}
+          </>
+        ) : (
+          <>
+            <div className={styles.resultActions}>
+              {action.enabled && lead.kind === "shop" ? (
+                <Link className={styles.primaryAction} href={shopHref}>
+                  {actionLabel}
+                  <ArrowRight size={17} aria-hidden="true" />
+                </Link>
+              ) : (
+                <span className={styles.pausedAction} aria-disabled="true">
+                  {lead.stateLabel}
+                </span>
+              )}
+            </div>
 
-        <p className={styles.identityLine}>{lead.identityLabel}</p>
-
-        <div className={styles.resultActions}>
-          {action.enabled && lead.kind === "shop" ? (
-            <Link className={styles.primaryAction} href={shopHref}>
-              {action.label}
-              <ArrowRight size={17} aria-hidden="true" />
-            </Link>
-          ) : (
-            <span className={styles.pausedAction} aria-disabled="true">
-              {action.label}
-            </span>
-          )}
-
-          {lead.kind === "shop" && !action.enabled ? (
-            <Link className={styles.textAction} href={shopHref}>
-              Review record
-            </Link>
-          ) : null}
-        </div>
+            <details className={styles.resultEvidence}>
+              <summary>
+                <span>
+                  <ShieldCheck size={16} aria-hidden="true" />
+                  Why this result
+                </span>
+                <ChevronDown
+                  className={styles.disclosureChevron}
+                  size={18}
+                  aria-hidden="true"
+                />
+              </summary>
+              <div>
+                <strong>{lead.evidenceLabel}</strong>
+                <p>{lead.evidenceNote}</p>
+                <span>{lead.identityLabel}</span>
+              </div>
+            </details>
+          </>
+        )}
       </div>
     </li>
   );
@@ -104,21 +220,22 @@ export function MarketResultList({
   marketSlug,
   product,
 }: {
-  leads: readonly MarketFixtureLead[];
+  leads: readonly MarketResultLead[];
   marketSlug: string;
-  product: MarketFixtureProduct;
+  product: MarketSurfaceProduct;
 }) {
   if (!leads.length) {
     return (
       <div className={styles.emptyResults} data-state="empty">
-        <p className={styles.kicker}>No physical lead yet</p>
-        <h2>Keep the exact product selected.</h2>
-        <p>
-          This research fixture has no Trade Fair observation for{" "}
-          {product.brand} {product.name}, {product.size}. Online listings must
-          not be presented as a market shop.
-        </p>
-        <Link href="/markets">Choose another exact product</Link>
+        <span className={styles.emptyResultIcon} aria-hidden="true">
+          <MapPin size={28} />
+        </span>
+        <div>
+          <p className={styles.kicker}>No confirmed place</p>
+          <h2>Nothing ready yet.</h2>
+          <p>We’ll show a route after the shop and exact pack are checked.</p>
+        </div>
+        <Link href="/markets">Choose another product</Link>
       </div>
     );
   }
@@ -134,50 +251,62 @@ export function MarketResultList({
     <>
       {readyLeads.length ? (
         <ol className={styles.resultList} id="market-results">
-          {readyLeads.map((lead, index) => (
+          {readyLeads.map((lead) => (
             <LeadCard
               key={lead.slug}
               lead={lead}
               marketSlug={marketSlug}
               product={product}
-              rank={index + 1}
             />
           ))}
         </ol>
       ) : (
         <div className={styles.emptyResults} data-state="empty">
-          <p className={styles.kicker}>No reviewed place yet</p>
-          <h2>Keep the exact pack selected.</h2>
-          <p>
-            The reports below are useful research, but none has both a verified
-            shop identity and a usable travel or contact action.
-          </p>
+          <span className={styles.emptyResultIcon} aria-hidden="true">
+            <MapPin size={28} />
+          </span>
+          <div>
+            <p className={styles.kicker}>No confirmed place</p>
+            <h2>Nothing ready yet.</h2>
+            <p>These reports still need a shop or route check.</p>
+          </div>
         </div>
       )}
 
       {researchRecords.length ? (
-        <section
-          className={styles.researchRecords}
-          aria-labelledby="market-research-records"
-        >
-          <div className={styles.recordsIntro}>
-            <p className={styles.kicker}>
-              Not ranked · do not travel from these
-            </p>
-            <h3 id="market-research-records">Recent reports and warnings</h3>
-            <p>Preserved for verification, not presented as places to try.</p>
+        <details className={styles.researchRecords}>
+          <summary className={styles.recordsSummary}>
+            <span className={styles.recordsIcon} aria-hidden="true">
+              <History size={20} />
+            </span>
+            <span className={styles.recordsSummaryCopy}>
+              <strong>Other reports and warnings</strong>
+              <small>
+                {researchRecords.length}{" "}
+                {researchRecords.length === 1 ? "record needs" : "records need"}{" "}
+                checking
+              </small>
+            </span>
+            <ChevronDown
+              className={styles.disclosureChevron}
+              size={20}
+              aria-hidden="true"
+            />
+          </summary>
+          <div className={styles.recordsBody}>
+            <ul className={`${styles.resultList} ${styles.compactResultList}`}>
+              {researchRecords.map((lead) => (
+                <LeadCard
+                  key={lead.slug}
+                  lead={lead}
+                  marketSlug={marketSlug}
+                  product={product}
+                  compact
+                />
+              ))}
+            </ul>
           </div>
-          <ul className={styles.resultList}>
-            {researchRecords.map((lead) => (
-              <LeadCard
-                key={lead.slug}
-                lead={lead}
-                marketSlug={marketSlug}
-                product={product}
-              />
-            ))}
-          </ul>
-        </section>
+        </details>
       ) : null}
     </>
   );

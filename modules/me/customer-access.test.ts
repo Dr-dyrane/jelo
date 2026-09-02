@@ -25,6 +25,7 @@ test("sign-in continuation accepts roots and exact bounded member Product destin
     "/me",
     "/me/explore",
     "/me/shelf",
+    "/me/shelf/add",
     "/me/routine",
     "/me/consult",
     "/me/orders",
@@ -53,7 +54,6 @@ test("sign-in continuation accepts roots and exact bounded member Product destin
   );
 
   for (const unsafe of [
-    "/me/shelf/add",
     "/me/shelf/request/private-request-id",
     "/me/consult/private-thread",
     "/me/product/exact-product",
@@ -82,7 +82,6 @@ test("sign-in continuation accepts roots and exact bounded member Product destin
   assert.equal(resolveSignInIntent("/ops"), "operator");
   assert.equal(customerSignInPath(), "/sign-in?next=/me");
   assert.equal(customerSignInPath("/ops"), "/sign-in?next=/me");
-  assert.equal(customerSignInPath("/me/shelf/add"), "/sign-in?next=/me");
   assert.equal(
     customerSignInPath("/me/shelf/request/private-request-id"),
     "/sign-in?next=/me",
@@ -90,6 +89,7 @@ test("sign-in continuation accepts roots and exact bounded member Product destin
   for (const continuation of [
     "/me/explore",
     "/me/shelf",
+    "/me/shelf/add",
     "/me/routine",
     "/me/consult",
     "/me/orders",
@@ -150,6 +150,7 @@ test("signed-out released Me routes carry only canonical continuations through O
   for (const continuation of [
     "/me/explore",
     "/me/shelf",
+    "/me/shelf/add",
     "/me/routine",
     "/me/consult",
     "/me/orders",
@@ -158,7 +159,11 @@ test("signed-out released Me routes carry only canonical continuations through O
   ]) {
     assert.match(continuationBlock, new RegExp(`["']${continuation}["']`));
   }
-  assert.doesNotMatch(continuationBlock, /shelf-add|shelf-request/);
+  assert.match(
+    continuationBlock,
+    /route\.kind === ["']shelf-add["'][\s\S]*\? ["']\/me\/shelf\/add["']/,
+  );
+  assert.doesNotMatch(continuationBlock, /shelf-request/);
   assert.match(productRoute, /requireCustomer\(continuation\)/);
   assert.doesNotMatch(
     productRoute,

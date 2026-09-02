@@ -58,7 +58,7 @@ test("operator access changes are admin-only, guarded, and separately audited", 
       readSource("lib/email/templates.ts"),
     ]);
 
-  assert.match(actions, /assertCan\(actor, 'operators\.manage'\)/);
+  assert.match(actions, /assertCan\(actor, ["']operators\.manage["']\)/);
   assert.match(
     actions,
     /inviteInput = z\.object\(\{\s*email: operatorEmailSchema/,
@@ -67,18 +67,30 @@ test("operator access changes are admin-only, guarded, and separately audited", 
   assert.match(actions, /hasTransactionalEmailConfig\(\)/);
   assert.match(actions, /recordOperatorInvitationDelivery/);
   assert.match(actions, /Access updates aren’t ready yet\./);
-  assert.match(actions, /deliverInvitation\(sql, actor, invitation, 'first'\)/);
-  assert.match(actions, /deliverInvitation\(sql, actor, invitation, 'again'\)/);
   assert.match(
     actions,
-    /error\.code === 'existing_invitation'[\s\S]*error\.targetId/,
+    /deliverInvitation\(sql, actor, invitation, ["']first["']\)/,
+  );
+  assert.match(
+    actions,
+    /deliverInvitation\(sql, actor, invitation, ["']again["']\)/,
+  );
+  assert.match(
+    actions,
+    /error\.code === ["']existing_invitation["'][\s\S]*error\.targetId/,
   );
   assert.match(actions, /Invitation already saved\. Open it to send again\./);
   assert.doesNotMatch(actions, /Email is not connected/);
   assert.match(actions, /signInLink: operatorSignInUrl\(\)/);
   assert.match(signInUrl, /https:\/\/www\.jelocare\.com/);
-  assert.match(signInUrl, /const url = new URL\('\/sign-in', LIVE_SITE\)/);
-  assert.match(signInUrl, /url\.searchParams\.set\('next', '\/ops'\)/);
+  assert.match(
+    signInUrl,
+    /const url = new URL\(["']\/sign-in["'], LIVE_SITE\)/,
+  );
+  assert.match(
+    signInUrl,
+    /url\.searchParams\.set\(["']next["'], ["']\/ops["']\)/,
+  );
   assert.match(signInUrl, /return url\.toString\(\)/);
   assert.doesNotMatch(
     signInUrl,
@@ -97,7 +109,7 @@ test("operator access changes are admin-only, guarded, and separately audited", 
   assert.match(access, /public readonly targetId\?: string/);
   assert.match(
     access,
-    /new OperatorAccessError\(\s*'existing_invitation',\s*existingInvitations\[0\]\.id/,
+    /new OperatorAccessError\(\s*["']existing_invitation["'],\s*existingInvitations\[0\]\.id/,
   );
   assert.match(access, /self_role_change/);
   assert.match(access, /self_deactivation/);
@@ -105,7 +117,10 @@ test("operator access changes are admin-only, guarded, and separately audited", 
   assert.match(access, /lockActiveAdmin\(tx, actor\)/);
   assert.match(access, /pg_advisory_xact_lock/);
   assert.match(access, /lockOperatorEmail\(tx, email\)/);
-  assert.match(access, /invitation\.delivery_status !== 'not_configured'/);
+  assert.match(
+    access,
+    /invitation\.delivery_status !== ["']not_configured["']/,
+  );
   assert.match(access, /Transactional database access is required/);
   assert.doesNotMatch(access, /:\s*run\(sql\)/);
   assert.match(access, /insert into moderation_operator_access_audit/);
@@ -133,8 +148,8 @@ test("the Operators route is a title-only split-view workspace with honest state
   assert.match(page, /signInHref=\{operatorSignInUrl\(\)\}/);
   assert.doesNotMatch(page, /\blede=|<h1|read-only|auth subject/i);
 
-  assert.match(directory, /presentation: 'feature-shelf'/);
-  assert.match(directory, /presentation: 'compact-rows'/);
+  assert.match(directory, /presentation: ["']feature-shelf["']/);
+  assert.match(directory, /presentation: ["']compact-rows["']/);
   assert.match(directory, /useContextFab/);
   assert.match(directory, /Add admin/);
   assert.match(directory, /type="email"/);
@@ -151,11 +166,11 @@ test("the Operators route is a title-only split-view workspace with honest state
   assert.match(directory, /navigator\.clipboard\.writeText\(signInHref\)/);
   assert.match(
     directory,
-    /row\.status === 'expired' \? 'Renew invitation' : null/,
+    /row\.status === ["']expired["'] \? ["']Renew invitation["'] : null/,
   );
   assert.match(
     directory,
-    /const canCopySignInLink = row\.status !== 'expired'/,
+    /const canCopySignInLink = row\.status !== ["']expired["']/,
   );
   assert.match(directory, /Save invitation/);
   assert.match(directory, /Try email again/);
@@ -168,7 +183,7 @@ test("the Operators route is a title-only split-view workspace with honest state
   assert.doesNotMatch(directory, /operator\.authSubject|Signal ID|Operator ID/);
 
   assert.doesNotMatch(loading, /useSearchParams|searchParams|selectedId/);
-  assert.match(loading, /matchMedia\('\(min-width: 1180px\)'\)/);
+  assert.match(loading, /matchMedia\(["']\(min-width: 1180px\)["']\)/);
   assert.match(
     loading,
     /if \(!isDesktop \|\| !detailPortalTarget\) return null/,

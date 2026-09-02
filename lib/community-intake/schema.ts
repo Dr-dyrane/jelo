@@ -5,8 +5,62 @@ const conciseText = z
   .transform((value) => value.normalize("NFKC").trim())
   .pipe(z.string().min(1).max(120));
 
-export const contributionKindSchema = z.enum(["product", "routine", "store"]);
+export const standardContributionKindSchema = z.enum([
+  "product",
+  "routine",
+  "store",
+]);
+export type StandardContributionKind = z.infer<
+  typeof standardContributionKindSchema
+>;
+
+export const contributionKindSchema = z.enum([
+  "product",
+  "routine",
+  "store",
+  "market_report",
+]);
 export type ContributionKind = z.infer<typeof contributionKindSchema>;
+
+const marketContextSlugSchema = z
+  .string()
+  .min(1)
+  .max(120)
+  .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+
+export const marketReportOutcomeSchema = z.enum([
+  "found_bought",
+  "shop_exists_no_stock",
+  "location_wrong",
+  "shop_closed",
+]);
+export type MarketReportOutcome = z.infer<typeof marketReportOutcomeSchema>;
+
+export const marketReportContextHintSchema = z
+  .object({
+    marketSlug: marketContextSlugSchema,
+    productSlug: marketContextSlugSchema,
+    shopSlug: marketContextSlugSchema,
+  })
+  .strict();
+export type MarketReportContextHint = z.infer<
+  typeof marketReportContextHintSchema
+>;
+
+export const lockedMarketReportContextSchema = z
+  .object({
+    marketId: z.uuid(),
+    marketSlug: marketContextSlugSchema,
+    productIdentityVersionId: z.uuid(),
+    productSlug: marketContextSlugSchema,
+    retailerLocationId: z.uuid(),
+    shopSlug: marketContextSlugSchema,
+    outcome: marketReportOutcomeSchema.nullable(),
+  })
+  .strict();
+export type LockedMarketReportContext = z.infer<
+  typeof lockedMarketReportContextSchema
+>;
 
 export const adaptiveValueSchema = z
   .object({
@@ -25,7 +79,7 @@ const purchaseDateSchema = z
     return Number.isFinite(parsed.valueOf()) && parsed <= new Date();
   }, "Purchase date cannot be in the future.");
 
-export const contributionDraftSchema = z
+const contributionDraftObjectSchema = z
   .object({
     kind: contributionKindSchema,
     purposes: z.array(adaptiveValueSchema).max(8).default([]),
@@ -39,12 +93,61 @@ export const contributionDraftSchema = z
       .nullable()
       .default(null),
     currentStep: z.number().int().min(1).max(9),
+    marketReport: lockedMarketReportContextSchema.optional(),
   })
   .strict();
+
+export const contributionDraftSchema =
+  contributionDraftObjectSchema.superRefine((draft, context) => {
+    if (draft.kind === "market_report") {
+      if (!draft.marketReport) {
+        context.addIssue({
+          code: "custom",
+          path: ["marketReport"],
+          message: "A locked market report context is required.",
+        });
+      }
+      if (
+        draft.purposes.length ||
+        draft.products.length ||
+        draft.brands.length ||
+        draft.retailers.length ||
+        draft.priceNgn != null ||
+        draft.purchaseDate != null ||
+        draft.outcome != null ||
+        draft.currentStep !== 1
+      ) {
+        context.addIssue({
+          code: "custom",
+          path: ["kind"],
+          message: "Market reports cannot carry general contribution fields.",
+        });
+      }
+      return;
+    }
+
+    if (draft.marketReport) {
+      context.addIssue({
+        code: "custom",
+        path: ["marketReport"],
+        message: "Market context is only valid for a market report.",
+      });
+    }
+  });
 export type ContributionDraft = z.infer<typeof contributionDraftSchema>;
 
 export const finalContributionSchema = contributionDraftSchema.superRefine(
   (draft, context) => {
+    if (draft.kind === "market_report") {
+      if (!draft.marketReport?.outcome)
+        context.addIssue({
+          code: "custom",
+          path: ["marketReport", "outcome"],
+          message: "Choose what happened at this shop.",
+        });
+      return;
+    }
+
     if (!draft.purposes.length)
       context.addIssue({
         code: "custom",
@@ -143,17 +246,36 @@ export const saveDraftRequestSchema = z
     events: z.array(intakeEventSchema).max(50).default([]),
     website: z.string().max(0).optional(),
   })
-  .strict();
+  .strict()
+  .superRefine((input, context) => {
+    if (input.draft.kind === "market_report" && input.events.length) {
+      context.addIssue({
+        code: "custom",
+        path: ["events"],
+        message: "Market reports do not accept general intake events.",
+      });
+    }
+  });
 
-export const createDraftRequestSchema = z
-  .object({
-    kind: contributionKindSchema,
-    website: z.string().max(0).optional(),
-  })
-  .strict();
+export const createDraftRequestSchema = z.discriminatedUnion("kind", [
+  z
+    .object({
+      kind: standardContributionKindSchema,
+      website: z.string().max(0).optional(),
+    })
+    .strict(),
+  z
+    .object({
+      kind: z.literal("market_report"),
+      context: marketReportContextHintSchema,
+      website: z.string().max(0).optional(),
+    })
+    .strict(),
+]);
+export type CreateDraftRequest = z.infer<typeof createDraftRequestSchema>;
 
 export function emptyContributionDraft(
-  kind: ContributionKind = "product",
+  kind: StandardContributionKind = "product",
 ): ContributionDraft {
   return {
     kind,
@@ -165,6 +287,23 @@ export function emptyContributionDraft(
     purchaseDate: null,
     outcome: null,
     currentStep: 1,
+  };
+}
+
+export function marketReportContributionDraft(
+  marketReport: LockedMarketReportContext,
+): ContributionDraft {
+  return {
+    kind: "market_report",
+    purposes: [],
+    products: [],
+    brands: [],
+    retailers: [],
+    priceNgn: null,
+    purchaseDate: null,
+    outcome: null,
+    currentStep: 1,
+    marketReport,
   };
 }
 

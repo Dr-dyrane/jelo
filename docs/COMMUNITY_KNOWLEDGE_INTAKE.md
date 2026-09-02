@@ -26,24 +26,36 @@ Routine and store paths skip irrelevant questions. The page saves immediately on
 
 ### Contextual Market Finder mode
 
-[ADR 0019](adr/0019-product-to-place-market-finder.md) adds a development-only
-interaction prototype at:
+[ADR 0019](adr/0019-product-to-place-market-finder.md) adds a development
+interaction fixture and a separately gated database-backed production path at:
 
 `/contribute?mode=market-report&market=<marketSlug>&product=<productSlug>&shop=<shopSlug>`
 
-The route accepts exactly one value for each key, resolves all three entities
-through the bounded fixture server helpers, and fails closed for missing,
-repeated, unknown, ambiguous, or non-development context. The exact product,
-market, and shop are locked; the preview offers only `found_bought`,
+The route accepts exactly one value for each key and fails closed for missing,
+repeated, unknown, or ambiguous context. Development resolves through bounded
+fixture helpers. Production re-resolves a current database-backed market,
+exact product identity, and reviewed shop. The exact product, market, and shop
+are locked; both paths offer only `found_bought`,
 `shop_exists_no_stock`, `location_wrong`, and `shop_closed`.
 
-The prototype creates no anonymous draft, makes no API request, and stores
-nothing. Normal `/contribute` behavior is unchanged. If production reporting is
-later accepted, this contextual journey must use the same draft endpoints,
-HttpOnly edit capability, same-site and rate-limit controls, optimistic
-revision, idempotent submission, immutable parent contribution, and retention
-policy as every other contribution. There will be no separate
+The fixture route creates no anonymous draft, makes no API request, and stores
+nothing. Normal `/contribute` behavior is unchanged. The local Phase 1
+persistence path is present but activates only when a database-backed route
+passes server-resolved `submissionContext`, public reads are enabled for the
+exact `trade-fair` allowlist, and the server-only
+`MARKET_FINDER_REPORT_INTAKE_ENABLED` gate is explicitly `true`. All flags
+default off. Create, save, and submit each recheck the report gate, so disabling
+it also closes drafts already in progress. The path reuses the same draft
+endpoints, HttpOnly edit capability, same-site and rate-limit controls,
+optimistic revision, idempotent submission, immutable parent contribution,
+and retention policy as every other contribution. There is no separate
 `/api/markets/reports` intake.
+
+An unresolved product is a different task from a shop update. Market Finder
+hands “Share the exact pack” to the existing private `/me/shelf/add` request,
+which requires the brand, full pack name, and printed size or variant and can
+accept a separately consented private photo. Generic `/contribute` may surface
+a research lead, but it cannot establish an exact package identity.
 
 ## Reusable selector
 
@@ -82,7 +94,7 @@ API:
 
 The edit capability lives in an HttpOnly cookie. Saves use a monotonically increasing revision. A repeated final submission returns the original contribution.
 
-The future Market Finder persistence contract is one immutable
+The Market Finder persistence contract is one immutable
 `community_contributions` parent plus at most one typed
 `market_finder_reports` child, joined by a unique, non-null `contribution_id`.
 The child carries fixed report outcome and server-resolved physical context; it
@@ -92,10 +104,19 @@ rejection or retention expiry must keep the child out of active review and
 public-data decisions.
 
 This child is distinct from the shipped `community_observations` price and
-experience rows. It is also distinct from the future
+experience rows. It is also distinct from the
 `physical_product_observations` evidence history: only a separate attributable
-physical-evidence decision may append or supersede that history. No current
-migration implements this contract.
+physical-evidence decision may append or supersede that history. Migration
+`0053_physical_market_finder.sql` implements this contract locally. Follow-on
+`0054_market_finder_report_current_context.sql` makes current positive exact-pack
+evidence plus a current reviewed public action a database-enforced prerequisite
+for creating a report. Correction migration
+`0055_market_finder_atomic_context.sql` preserves original reviewer attribution
+when evidence is superseded and serializes report validation with mutations of
+all eight current-context relations. The application report transaction is
+explicitly READ COMMITTED, and the database rejects report insertion at another
+isolation level. All three exact files passed production-derived rehearsal, but
+none has been applied to production and no canonical market data exists.
 
 Migration `0015_community_knowledge_intake.sql` keeps drafts, immutable contributions, custom-value moderation, events and community-reported graph edges separate from JeloCare-reviewed records.
 
@@ -151,7 +172,7 @@ allowlisted operator, prints only aggregate data by default, dry-runs every muta
 unless `--apply` is present, requires a rationale, and appends the decision to the
 same audit trail as the console.
 
-A future Market Finder report stays attached to its parent in
+A Market Finder report stays attached to its parent in
 `/ops/contributions`. Operators review the immutable contribution first, then
 make a separate typed child decision about its exact product and physical-place
 scope. Parent approval never silently approves the report, and report
@@ -190,9 +211,12 @@ Public contributor counts and trust labels must be derived from moderated, retai
 
 Photos and receipts are not collected. They require private quarantine storage and a reviewed upload pipeline. Accounts, public stories, ratings, comments and alerts remain deferred under ADR 0001.
 
-The contextual Market Finder report remains a development-only, no-write
-preview. Production activation requires a separately authorized and rehearsed
-migration for the typed one-to-one projection, strict server validation, parent
-rejection and retention behavior, `/ops/contributions` child review, audit,
-abuse tests, and a fail-closed rollout. The prototype is not production market
-data and must never be described as live reporting.
+The fixture-backed contextual Market Finder report remains a development-only,
+no-write preview. The typed one-to-one projection, strict server validation,
+parent rejection and retention behavior, `/ops/contributions` child review,
+audit, and production Contribute handoff now exist locally behind default-off
+public-read, exact-market, and report-intake gates. Production activation still
+requires authorized production application of migrations `0053`, `0054`, and
+`0055`, reviewed canonical data, abuse and operator acceptance, and a
+fail-closed release. Public reads and report intake remain off. The prototype
+is not production market data and must never be described as live reporting.

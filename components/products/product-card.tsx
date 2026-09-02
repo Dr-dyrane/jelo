@@ -1,17 +1,19 @@
-import Link from 'next/link';
-import type { Product } from '@/data/products';
-import type { Offer } from '@/data/products';
-import type { Market } from '@/data/prices';
-import { MarketPrice } from './market-price';
-import { SafeProductImage } from './safe-product-image';
-import styles from './product-card.module.css';
+import Link from "next/link";
+import { PackageSearch } from "lucide-react";
+import type { Product } from "@/data/products";
+import type { Offer } from "@/data/products";
+import type { Market } from "@/data/prices";
+import { MarketPrice } from "./market-price";
+import { SafeProductImage } from "./safe-product-image";
+import styles from "./product-card.module.css";
 
 export type ProductCardProduct = {
   slug: string;
   brand: string;
   name: string;
   size: string;
-  image: string;
+  image?: string;
+  imageUnavailableLabel?: string;
   offers?: Offer[];
   priceLabel?: string | null;
 };
@@ -25,37 +27,72 @@ export type ProductCardContext = {
 
 export function ProductCard({
   product,
-  market = 'NG',
+  market = "NG",
   href,
   context,
   footer,
-  density = 'default',
+  density = "default",
 }: {
   product: ProductCardProduct;
   market?: Market;
   href?: string;
   context?: ProductCardContext;
   footer?: React.ReactNode;
-  density?: 'default' | 'compact';
+  density?: "default" | "compact";
 }) {
   const linkHref = href ?? `/products/${product.slug}`;
-  const priceLabel = product.offers
-    ? <MarketPrice offers={product.offers} market={market} />
-    : product.priceLabel ?? '';
+  const priceLabel = product.offers ? (
+    <MarketPrice offers={product.offers} market={market} />
+  ) : (
+    (product.priceLabel ?? "")
+  );
   const contextBadges = context
     ? [
-      context.onShelf ? <span key="shelf">On your Shelf</span> : null,
-      context.inRoutine ? <span key="routine">In your routine</span> : null,
-      context.reviewedConcern ? <span key="concern">Reviewed concern support</span> : null,
-      ...(context.retailerNames ?? []).map(name => <span key={`retailer-${name}`}>{name}</span>),
-    ].filter(Boolean)
+        context.onShelf ? <span key="shelf">On your Shelf</span> : null,
+        context.inRoutine ? <span key="routine">In your routine</span> : null,
+        context.reviewedConcern ? (
+          <span key="concern">Reviewed concern support</span>
+        ) : null,
+        ...(context.retailerNames ?? []).map((name) => (
+          <span key={`retailer-${name}`}>{name}</span>
+        )),
+      ].filter(Boolean)
     : [];
-  const densityClass = density === 'compact' ? styles.compact : '';
+  const densityClass = density === "compact" ? styles.compact : "";
+  const missingVisual = (
+    <div
+      className={styles.missingVisual}
+      role="img"
+      aria-label={product.imageUnavailableLabel ?? "Product image unavailable"}
+    >
+      <PackageSearch size={34} aria-hidden="true" />
+      <small>{product.imageUnavailableLabel ?? "Image unavailable"}</small>
+    </div>
+  );
   return (
-    <article className={`${styles.card} ${densityClass} product-card`}>
-      <Link className={styles.link} href={linkHref} aria-label={`${product.brand} ${product.name}`}>
+    <article
+      className={`${styles.card} ${densityClass} product-card`}
+      data-image={product.image ? "ready" : "missing"}
+    >
+      <Link
+        className={styles.link}
+        href={linkHref}
+        aria-label={`${product.brand} ${product.name}, ${product.size}`}
+      >
         <div className={`${styles.visual} product-visual`}>
-          <SafeProductImage src={product.image} alt={`${product.brand} ${product.name}`} />
+          {product.image ? (
+            <SafeProductImage
+              src={product.image}
+              alt={`${product.brand} ${product.name}`}
+              fallback={
+                product.imageUnavailableLabel !== undefined
+                  ? missingVisual
+                  : undefined
+              }
+            />
+          ) : (
+            missingVisual
+          )}
         </div>
         <div className={`${styles.copy} product-copy`}>
           <p className="eyebrow">{product.brand}</p>
@@ -64,7 +101,9 @@ export function ProductCard({
             <span>{product.size}</span>
             <span>{priceLabel}</span>
           </div>
-          {contextBadges.length ? <div className={styles.context}>{contextBadges}</div> : null}
+          {contextBadges.length ? (
+            <div className={styles.context}>{contextBadges}</div>
+          ) : null}
         </div>
       </Link>
       {footer ? <div className={styles.footer}>{footer}</div> : null}
@@ -72,6 +111,12 @@ export function ProductCard({
   );
 }
 
-export function ProductCardFromProduct({ product, market = 'NG' }: { product: Product; market?: Market }) {
+export function ProductCardFromProduct({
+  product,
+  market = "NG",
+}: {
+  product: Product;
+  market?: Market;
+}) {
   return <ProductCard product={product} market={market} />;
 }

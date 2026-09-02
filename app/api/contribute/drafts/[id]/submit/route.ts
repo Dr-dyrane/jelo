@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { submitCommunityDraft } from "@/lib/community-intake/repository";
+import { MarketFinderReportIntakeUnavailableError } from "@/lib/markets/activation";
 import {
   allowCommunityAction,
   editSecretFromRequest,
@@ -58,6 +59,12 @@ export async function POST(
       confidence: "community_reported",
     });
   } catch (error) {
+    if (error instanceof MarketFinderReportIntakeUnavailableError) {
+      return NextResponse.json(
+        { error: "This market report is not available." },
+        { status: 404 },
+      );
+    }
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         {

@@ -1,5 +1,11 @@
 import "server-only";
 
+import { productBySlug } from "@/data/catalogue";
+export {
+  deriveMarketPrimaryAction,
+  type MarketPrimaryAction,
+} from "@/lib/markets/action";
+
 export const MARKET_FIXTURE_ACCESS = {
   mode: "development-only",
   productionBehavior: "not-found",
@@ -9,14 +15,18 @@ export const DEFAULT_MARKET_FIXTURE_PRODUCT =
   "cosrx-aloe-soothing-sun-cream-50ml";
 
 export type MarketFixtureState =
-  "purchase-report" | "location-lead" | "unavailable" | "disputed";
+  | "ready"
+  | "purchase-report"
+  | "location-lead"
+  | "stale"
+  | "unavailable"
+  | "disputed";
 
 export type MarketFixtureProduct = {
   slug: string;
   brand: string;
   name: string;
   size: string;
-  image?: string;
   identityNote: string;
 };
 
@@ -41,6 +51,8 @@ export type MarketFixtureLead = {
   evidenceNote: string;
   observedAt: string;
   observedAtLabel: string;
+  expiresAt?: string;
+  expiresAtLabel?: string;
   directions: readonly string[];
   actionEvidence: {
     exactProductIdentity: true;
@@ -50,34 +62,24 @@ export type MarketFixtureLead = {
   };
 };
 
-export type MarketPrimaryAction = {
-  kind: "directions" | "contact" | "alternative" | "paused";
-  label: string;
-  enabled: boolean;
-};
-
-export const MARKET_FIXTURE_PRODUCTS = [
+export const MARKET_FIXTURE_PRODUCTS: readonly MarketFixtureProduct[] = [
   {
     slug: DEFAULT_MARKET_FIXTURE_PRODUCT,
     brand: "COSRX",
     name: "Aloe Soothing Sun Cream",
     size: "50 ml",
-    image:
-      "https://www.cosrx.com/cdn/shop/files/aloe-soothing-sun-cream-spf50-pa-cosrx-official-1.jpg?v=1724835559&width=600",
     identityNote:
-      "Exact 50 ml identity retained with the official COSRX packshot as a recognition reference.",
+      "Exact 50 ml identity retained; a reviewed transparent packshot is still pending.",
   },
   {
     slug: "miracle-natural-hair-anti-dandruff-shampoo",
     brand: "BEAUTIFUL YOU · MIRACLE",
     name: "Natural Hair Anti-Dandruff & Anti-Itch Shampoo",
     size: "400 ml",
-    image:
-      "https://m6aftkbqbwtkxooa.public.blob.vercel-storage.com/products/beautiful-you-miracle/miracle-natural-hair-anti-dandruff-shampoo/packshot.webp",
     identityNote:
-      "Exact catalogue pack retained while physical Trade Fair evidence is still missing.",
+      "Exact 400 ml identity retained; a reviewed transparent packshot is still pending.",
   },
-] as const satisfies readonly MarketFixtureProduct[];
+] as const;
 
 export const MARKET_FIXTURE_MARKETS = [
   {
@@ -90,6 +92,61 @@ export const MARKET_FIXTURE_MARKETS = [
 ] as const satisfies readonly MarketFixture[];
 
 export const MARKET_FIXTURE_LEADS = [
+  {
+    kind: "shop",
+    slug: "fixture-beauty-supply-route-rehearsal",
+    marketSlug: "trade-fair",
+    productSlug: "miracle-natural-hair-anti-dandruff-shampoo",
+    name: "Fixture Beauty Supply",
+    state: "ready",
+    stateLabel: "Reviewed fixture · route enabled",
+    locationLabel: "Prototype Plaza · Shop D01 (fictional)",
+    identityLabel: "Fictional shop identity used only for interaction testing",
+    evidenceLabel: "Synthetic reviewed observation · 1 Sep 2026",
+    evidenceNote:
+      "This is deliberately fictional data for testing an eligible result, text directions and browser navigation. It is not Trade Fair evidence.",
+    observedAt: "2026-09-01",
+    observedAtLabel: "1 Sep 2026",
+    expiresAt: "2026-09-03",
+    expiresAtLabel: "3 Sep 2026",
+    directions: [
+      "Start at the entrance labelled Prototype Entrance in this development fixture.",
+      "Continue to the fictional Prototype Plaza and follow the D-row signs.",
+      "Stop at fictional Shop D01 and confirm the exact 400 ml pack before buying.",
+    ],
+    actionEvidence: {
+      exactProductIdentity: true,
+      retailerLocationVerified: true,
+      observationReviewed: true,
+      usableAction: "directions",
+    },
+  },
+  {
+    kind: "shop",
+    slug: "fixture-hair-supply-stale-observation",
+    marketSlug: "trade-fair",
+    productSlug: "miracle-natural-hair-anti-dandruff-shampoo",
+    name: "Fixture Hair Supply · expired observation",
+    state: "stale",
+    stateLabel: "Evidence expired · recheck needed",
+    locationLabel: "Prototype Hair Section · Shop H02 (fictional)",
+    identityLabel:
+      "Fictional verified location; product evidence is no longer current",
+    evidenceLabel: "Synthetic observation · expired 30 Aug 2026",
+    evidenceNote:
+      "This fictional record tests fail-closed freshness. The shop can remain verified while an expired product observation removes the travel action.",
+    observedAt: "2026-08-01",
+    observedAtLabel: "1 Aug 2026",
+    expiresAt: "2026-08-30",
+    expiresAtLabel: "30 Aug 2026",
+    directions: [],
+    actionEvidence: {
+      exactProductIdentity: true,
+      retailerLocationVerified: true,
+      observationReviewed: true,
+      usableAction: null,
+    },
+  },
   {
     kind: "shop",
     slug: "shop-beside-cyncel-lead",
@@ -186,18 +243,25 @@ export const MARKET_FIXTURE_LEADS = [
 
 export const MARKET_UNRESOLVED_REQUESTS = [
   {
+    slug: "kuza-black-castor-oil",
     query: "Kuza black castor oil",
     reason: "Exact variant and size are unresolved.",
   },
   {
+    slug: "moroccan-argan-oil",
     query: "Moroccan argan oil",
     reason: "Brand, format and size are unresolved.",
   },
   {
+    slug: "lush-relaxer",
     query: "Lush relaxer",
     reason: "Exact product name, variant and size are unresolved.",
   },
 ] as const;
+
+export function findMarketUnresolvedRequest(slug: string) {
+  return MARKET_UNRESOLVED_REQUESTS.find((request) => request.slug === slug);
+}
 
 export function isMarketFixtureEnabled(
   nodeEnvironment: string | undefined = process.env.NODE_ENV,
@@ -207,6 +271,22 @@ export function isMarketFixtureEnabled(
 
 export function listMarketFixtureProducts(): readonly MarketFixtureProduct[] {
   return MARKET_FIXTURE_PRODUCTS;
+}
+
+export function resolveMarketFixtureProductPackshot(
+  product: MarketFixtureProduct,
+) {
+  const publishedProduct = productBySlug(product.slug);
+  if (
+    !publishedProduct ||
+    publishedProduct.brand !== product.brand ||
+    publishedProduct.name !== product.name ||
+    publishedProduct.size !== product.size
+  ) {
+    return undefined;
+  }
+
+  return publishedProduct.image;
 }
 
 export function findMarketFixtureProduct(slug: string) {
@@ -250,52 +330,4 @@ export function findMarketFixtureShop(
       lead.productSlug === productSlug &&
       lead.slug === shopSlug,
   );
-}
-
-export function deriveMarketPrimaryAction(
-  lead: Pick<
-    MarketFixtureLead,
-    "kind" | "state" | "directions" | "actionEvidence"
-  >,
-): MarketPrimaryAction {
-  if (lead.kind === "direction-alert" || lead.state === "disputed") {
-    return { kind: "paused", label: "Directions paused", enabled: false };
-  }
-
-  if (lead.state === "unavailable") {
-    return {
-      kind: "alternative",
-      label: "No travel action",
-      enabled: false,
-    };
-  }
-
-  const evidence = lead.actionEvidence;
-  const isEligible =
-    evidence.exactProductIdentity &&
-    evidence.retailerLocationVerified &&
-    evidence.observationReviewed &&
-    evidence.usableAction;
-
-  if (!isEligible) {
-    return { kind: "paused", label: "Research record only", enabled: false };
-  }
-
-  if (evidence.usableAction === "directions" && lead.directions.length > 0) {
-    return {
-      kind: "directions",
-      label: "View text directions",
-      enabled: true,
-    };
-  }
-
-  if (evidence.usableAction === "contact") {
-    return {
-      kind: "contact",
-      label: "Contact shop",
-      enabled: true,
-    };
-  }
-
-  return { kind: "paused", label: "Research record only", enabled: false };
 }

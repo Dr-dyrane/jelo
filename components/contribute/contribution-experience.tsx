@@ -13,7 +13,7 @@ import {
   finalContributionSchema,
   type AdaptiveValue,
   type ContributionDraft,
-  type ContributionKind,
+  type StandardContributionKind,
   type IntakeEvent,
 } from "@/lib/community-intake/schema";
 import styles from "@/app/(site)/contribute/contribute.module.css";
@@ -163,7 +163,7 @@ export function ContributionExperience({
       if (restored?.draft) {
         const parsed = contributionDraftSchema.safeParse(restored.draft);
         const partial = parsed.success ? parsed.data : null;
-        if (partial) {
+        if (partial && partial.kind !== "market_report") {
           setDraft(partial);
           setHasKind(Boolean(restored.hasKind));
           setStepIndex(Math.max(0, Math.min(partial.currentStep - 1, 8)));
@@ -230,36 +230,43 @@ export function ContributionExperience({
     return () => window.clearTimeout(timer);
   }, [saveState]);
 
-  const ensureRemoteDraft = useCallback(async (kind: ContributionKind) => {
-    if (draftIdRef.current) return draftIdRef.current;
-    if (createPromiseRef.current) return createPromiseRef.current;
-    createPromiseRef.current = (async () => {
-      try {
-        const response = await fetch("/api/contribute/drafts", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ kind, website: "" }),
-        });
-        if (!response.ok) return null;
-        const data = (await response.json()) as {
-          draftId: string;
-          revision: number;
-        };
-        draftIdRef.current = data.draftId;
-        revisionRef.current = data.revision;
-        return data.draftId;
-      } catch {
-        return null;
-      } finally {
-        createPromiseRef.current = null;
-      }
-    })();
-    return createPromiseRef.current;
-  }, []);
+  const ensureRemoteDraft = useCallback(
+    async (kind: StandardContributionKind) => {
+      if (draftIdRef.current) return draftIdRef.current;
+      if (createPromiseRef.current) return createPromiseRef.current;
+      createPromiseRef.current = (async () => {
+        try {
+          const response = await fetch("/api/contribute/drafts", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ kind, website: "" }),
+          });
+          if (!response.ok) return null;
+          const data = (await response.json()) as {
+            draftId: string;
+            revision: number;
+          };
+          draftIdRef.current = data.draftId;
+          revisionRef.current = data.revision;
+          return data.draftId;
+        } catch {
+          return null;
+        } finally {
+          createPromiseRef.current = null;
+        }
+      })();
+      return createPromiseRef.current;
+    },
+    [],
+  );
 
   const saveSnapshot = useCallback(
     async (snapshot: ContributionDraft, events: IntakeEvent[]) => {
       setSaveState("saving");
+      if (snapshot.kind === "market_report") {
+        setSaveState("error");
+        return;
+      }
       const draftId = await ensureRemoteDraft(snapshot.kind);
       if (!draftId) {
         setSaveState("saved");
@@ -352,7 +359,7 @@ export function ContributionExperience({
   function chooseKind(values: AdaptiveValue[]) {
     const value = values[0];
     if (!value) return;
-    const kind = value.id as ContributionKind;
+    const kind = value.id as StandardContributionKind;
     const next = emptyContributionDraft(kind);
     setCatalogueHandoff(false);
     setHasKind(true);

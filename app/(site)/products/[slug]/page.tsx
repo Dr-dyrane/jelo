@@ -21,6 +21,16 @@ import {
   findCatalogueProduct,
   listCatalogueProducts,
 } from "@/lib/catalogue/repository";
+import {
+  isMarketFinderPublicReadEnabled,
+  marketFinderPublicMarketSlug,
+} from "@/lib/markets/activation";
+import {
+  findMarketFixtureProduct,
+  isMarketFixtureEnabled,
+  listMarketFixtures,
+} from "@/lib/markets/fixture";
+import { readMarketFinderDirectory } from "@/lib/markets/repository";
 import { productSocialCard, publicSocialMetadata } from "@/lib/og/social-card";
 import {
   productStructuredData,
@@ -82,6 +92,49 @@ async function RelatedProducts({
   );
 }
 
+type CatalogueProduct = NonNullable<
+  Awaited<ReturnType<typeof findCatalogueProduct>>
+>;
+
+async function resolveProductMarketEntry(product: CatalogueProduct) {
+  if (isMarketFixtureEnabled()) {
+    const fixtureProduct = findMarketFixtureProduct(product.slug);
+    const exactIdentity =
+      fixtureProduct?.brand === product.brand &&
+      fixtureProduct.name === product.name &&
+      fixtureProduct.size === product.size;
+    const [market] = exactIdentity ? listMarketFixtures() : [];
+    return market
+      ? {
+          href: `/markets/${market.slug}?product=${encodeURIComponent(product.slug)}`,
+          label: `Find at ${market.name}`,
+          detail: "Development preview",
+        }
+      : undefined;
+  }
+
+  const marketSlug = marketFinderPublicMarketSlug();
+  if (!isMarketFinderPublicReadEnabled() || !marketSlug) return undefined;
+  const directory = await readMarketFinderDirectory(marketSlug);
+  if (
+    directory.state !== "current" ||
+    !directory.products.some(
+      (candidate) =>
+        candidate.slug === product.slug &&
+        candidate.brand === product.brand &&
+        candidate.variant === product.name &&
+        candidate.size === product.size,
+    )
+  ) {
+    return undefined;
+  }
+  return {
+    href: `/markets/${directory.market.slug}?product=${encodeURIComponent(product.slug)}`,
+    label: `Check ${directory.market.name}`,
+    detail: "Exact pack · reviewed places",
+  };
+}
+
 export default async function ProductPage({
   params,
 }: {
@@ -91,7 +144,10 @@ export default async function ProductPage({
   const product = await findCatalogueProduct(slug);
   if (!product) notFound();
 
-  const panelData = await readProductPanelData(product);
+  const [panelData, marketFinderEntry] = await Promise.all([
+    readProductPanelData(product),
+    resolveProductMarketEntry(product),
+  ]);
   const registeredRetailers = new Set(
     nigeriaRetailers.map((retailer) => retailer.name),
   );
@@ -153,7 +209,14 @@ export default async function ProductPage({
               <ProductSizeSelector family={productFamily} />
             ) : null
           }
-          quickPanel={<ProductQuickPanel {...panelData} />}
+          quickPanel={
+            <ProductQuickPanel
+              {...panelData}
+              marketFinderHref={marketFinderEntry?.href}
+              marketFinderLabel={marketFinderEntry?.label}
+              marketFinderDetail={marketFinderEntry?.detail}
+            />
+          }
           basketAction={
             <AddToBasketButton
               slug={product.slug}

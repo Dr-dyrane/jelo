@@ -1,15 +1,43 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ExactProductAnchor } from "@/components/markets/exact-product-anchor";
-import { MarketResultList } from "@/components/markets/market-result-list";
 import {
-  deriveMarketPrimaryAction,
+  ArrowLeft,
+  ArrowRight,
+  MapPin,
+  PackageSearch,
+  ShieldAlert,
+  ShieldCheck,
+} from "lucide-react";
+import { ExactProductAnchor } from "@/components/markets/exact-product-anchor";
+import {
+  MarketResultList,
+  type MarketResultLead,
+} from "@/components/markets/market-result-list";
+import { SmartBackLink } from "@/components/navigation/smart-back-link";
+import {
+  isMarketFinderPublicMarketAllowed,
+  isMarketFinderPublicReadEnabled,
+} from "@/lib/markets/activation";
+import { deriveMarketPrimaryAction } from "@/lib/markets/action";
+import type { MarketFinderReadModel } from "@/lib/markets/domain";
+import {
   findMarketFixture,
+  findMarketUnresolvedRequest,
   isMarketFixtureEnabled,
   listMarketFixtureLeads,
+  resolveMarketFixtureProductPackshot,
   resolveMarketFixtureProductQuery,
 } from "@/lib/markets/fixture";
+import {
+  presentMarketFinderLocation,
+  presentMarketFinderMarket,
+  presentMarketFinderProduct,
+  presentMarketFinderResearchRecord,
+  type MarketSurfaceMarket,
+  type MarketSurfaceProduct,
+} from "@/lib/markets/presentation";
+import { readMarketFinder } from "@/lib/markets/repository";
 import styles from "@/components/markets/market-finder.module.css";
 
 type MarketPageProps = {
@@ -17,91 +45,216 @@ type MarketPageProps = {
   searchParams: Promise<{ product?: string | string[] }>;
 };
 
+type ResultViewModel = {
+  market: MarketSurfaceMarket;
+  product: MarketSurfaceProduct;
+  leads: readonly MarketResultLead[];
+  preview: boolean;
+  state: MarketFinderReadModel["state"] | "fixture";
+};
+
+function resultStateLabel(view: ResultViewModel): string {
+  if (view.preview) return "Development preview";
+  if (view.state === "current") return "Current observation";
+  if (view.state === "stale") return "Evidence expired";
+  if (view.state === "disputed") return "Location under review";
+  if (view.state === "unavailable") return "No visit action";
+  return "No confirmed place";
+}
+
+async function readResultViewModel(
+  marketSlug: string,
+  productQuery: string | string[] | undefined,
+): Promise<ResultViewModel | null> {
+  if (isMarketFixtureEnabled()) {
+    const product = resolveMarketFixtureProductQuery(productQuery);
+    const market = findMarketFixture(marketSlug);
+    if (!market || !product) return null;
+    return {
+      market,
+      product: {
+        ...product,
+        image: resolveMarketFixtureProductPackshot(product),
+      },
+      leads: listMarketFixtureLeads(market.slug, product.slug).map((lead) => ({
+        ...lead,
+        detailRecordAvailable: lead.kind === "shop",
+      })),
+      preview: true,
+      state: "fixture",
+    };
+  }
+
+  if (
+    !isMarketFinderPublicReadEnabled() ||
+    !isMarketFinderPublicMarketAllowed(marketSlug) ||
+    typeof productQuery !== "string"
+  ) {
+    return null;
+  }
+
+  const model = await readMarketFinder({
+    marketSlug,
+    productSlug: productQuery,
+  });
+  if (
+    model.state === "unavailable" &&
+    model.reason === "repository-unavailable"
+  ) {
+    throw new Error("Market Finder is temporarily unavailable.");
+  }
+  if (!model.context) return null;
+
+  return {
+    market: presentMarketFinderMarket(model.context.market),
+    product: presentMarketFinderProduct(model.context.product),
+    leads: [
+      ...(model.state === "current"
+        ? model.locations.map((location) =>
+            presentMarketFinderLocation(model.context, location),
+          )
+        : []),
+      ...model.researchRecords.map((record) =>
+        presentMarketFinderResearchRecord(model.context!, record),
+      ),
+    ],
+    preview: false,
+    state: model.state,
+  };
+}
+
 export async function generateMetadata({
   params,
   searchParams,
 }: MarketPageProps): Promise<Metadata> {
-  if (!isMarketFixtureEnabled()) {
-    return {
-      title: "Not found · JeloCare",
-      robots: { index: false, follow: false },
-    };
-  }
-
   const [{ marketSlug }, query] = await Promise.all([params, searchParams]);
-  const product = resolveMarketFixtureProductQuery(query.product);
-  const market = findMarketFixture(marketSlug);
-
-  if (!market || !product) return { robots: { index: false, follow: false } };
+  const view = await readResultViewModel(marketSlug, query.product);
+  if (!view) return { robots: { index: false, follow: false } };
 
   return {
-    title: `${product.name} at ${market.name} · research fixture`,
-    description: `Development-only exact-product market finder fixture for ${product.brand} ${product.name}, ${product.size}.`,
+    title: `${view.product.name} at ${view.market.name}`,
+    description: `Reviewed physical-market guidance for ${view.product.brand} ${view.product.name}, ${view.product.size}.`,
     robots: { index: false, follow: false },
   };
 }
 
-export default async function MarketFixturePage({
-  params,
-  searchParams,
-}: MarketPageProps) {
-  if (!isMarketFixtureEnabled()) notFound();
-
-  const [{ marketSlug }, query] = await Promise.all([params, searchParams]);
-  const product = resolveMarketFixtureProductQuery(query.product);
+function UnresolvedFixtureProduct({
+  marketSlug,
+  productSlug,
+}: {
+  marketSlug: string;
+  productSlug: string;
+}) {
   const market = findMarketFixture(marketSlug);
-
-  if (!market || !product) notFound();
-
-  const leads = listMarketFixtureLeads(market.slug, product.slug);
-  const readyLeadCount = leads.filter(
-    (lead) => deriveMarketPrimaryAction(lead).enabled,
-  ).length;
-  const researchRecordCount = leads.length - readyLeadCount;
+  const request = findMarketUnresolvedRequest(productSlug);
+  if (!market || !request) notFound();
 
   return (
     <main className={styles.main}>
-      <section className={styles.marketHero} aria-labelledby="market-title">
-        <Link className={styles.marketBreadcrumb} href="/markets">
-          Market Finder research fixture
-        </Link>
-        <h1 id="market-title">{market.name}</h1>
-        <p className={styles.marketLead}>{market.summary}</p>
-        <div className={styles.marketMeta} aria-label="Fixture boundaries">
-          <span>{market.location}</span>
-          <span>List-first</span>
-          <span>No GPS required</span>
-          <span>Not public guidance</span>
+      <section className={styles.routeState}>
+        <div className={styles.routeStatePanel}>
+          <PackageSearch size={28} aria-hidden="true" />
+          <p className={styles.kicker}>Exact pack needed</p>
+          <h1>{request.query}</h1>
+          <p>{request.reason}</p>
+          <div className={styles.routeStateActions}>
+            <Link href="/contribute">
+              Share the pack <ArrowRight size={17} aria-hidden="true" />
+            </Link>
+            <Link href="/markets#exact-products-title">Choose another</Link>
+          </div>
         </div>
       </section>
+    </main>
+  );
+}
 
-      <div className={styles.resultsLayout}>
-        <ExactProductAnchor product={product} />
+export default async function MarketPage({
+  params,
+  searchParams,
+}: MarketPageProps) {
+  const [{ marketSlug }, query] = await Promise.all([params, searchParams]);
+  const view = await readResultViewModel(marketSlug, query.product);
 
-        <section
-          className={styles.resultsColumn}
-          aria-labelledby="lead-results-title"
-        >
-          <div className={styles.resultsIntro}>
-            <div>
-              <p className={styles.kicker}>Eligibility before ranking</p>
-              <h2 id="lead-results-title">Places ready to try.</h2>
-            </div>
-            <p>
-              {readyLeadCount} reviewed place{" "}
-              {readyLeadCount === 1 ? "lead" : "leads"}. {researchRecordCount}{" "}
-              research {researchRecordCount === 1 ? "record is" : "records are"}{" "}
-              kept below, outside the ranked list.
-            </p>
+  if (!view) {
+    if (isMarketFixtureEnabled() && typeof query.product === "string") {
+      return (
+        <UnresolvedFixtureProduct
+          marketSlug={marketSlug}
+          productSlug={query.product}
+        />
+      );
+    }
+    notFound();
+  }
+
+  const readyLeadCount = view.leads.filter(
+    (lead) => deriveMarketPrimaryAction(lead).enabled,
+  ).length;
+
+  return (
+    <main className={styles.main}>
+      <section className={styles.resultHero} aria-labelledby="market-title">
+        <div className={styles.resultHeroCopy}>
+          <SmartBackLink className={styles.backLink} fallbackHref="/markets">
+            <ArrowLeft size={17} aria-hidden="true" />
+            Back
+          </SmartBackLink>
+          <p className="eyebrow">{view.market.location}</p>
+          <h1 id="market-title">{view.market.name}</h1>
+          <p className={styles.heroLead}>
+            {readyLeadCount
+              ? `${readyLeadCount} ${readyLeadCount === 1 ? "place is" : "places are"} ready for this exact pack.`
+              : "No place is ready for this exact pack yet."}
+          </p>
+          <div className={styles.truthChips} aria-label="Result status">
+            <span>
+              <MapPin size={15} aria-hidden="true" /> Physical market
+            </span>
+            {readyLeadCount ? (
+              <span>
+                <ShieldCheck size={15} aria-hidden="true" /> Reviewed before
+                travel
+              </span>
+            ) : null}
+            <span>
+              {view.preview ? (
+                <ShieldAlert size={15} aria-hidden="true" />
+              ) : (
+                <ShieldCheck size={15} aria-hidden="true" />
+              )}
+              {resultStateLabel(view)}
+            </span>
           </div>
+        </div>
 
-          <MarketResultList
-            leads={leads}
-            marketSlug={market.slug}
-            product={product}
-          />
-        </section>
-      </div>
+        <ExactProductAnchor product={view.product} />
+      </section>
+
+      <section
+        className={styles.resultsSection}
+        aria-labelledby="lead-results-title"
+      >
+        <div className={styles.sectionHeading}>
+          <div>
+            <p className="eyebrow">02 · Place</p>
+            <h2 id="lead-results-title">
+              {readyLeadCount ? "Where to go." : "Nothing ready."}
+            </h2>
+          </div>
+          <p>
+            {readyLeadCount
+              ? "The strongest current route appears first."
+              : "Choose another product or check back after review."}
+          </p>
+        </div>
+
+        <MarketResultList
+          leads={view.leads}
+          marketSlug={view.market.slug}
+          product={view.product}
+        />
+      </section>
     </main>
   );
 }

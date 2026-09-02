@@ -268,7 +268,7 @@ test("catalogue and concern filters acknowledge changes and stay reversible", as
     /requireCustomer|getSession|customerSignInPath|sign-in/,
   );
   assert.match(customerAccess, /redirect\(customerSignInPath\(\)\)/);
-  assert.match(signInIntent, /return '\/sign-in\?next=\/me'/);
+  assert.match(signInIntent, /return ["']\/sign-in\?next=\/me["']/);
   assert.match(catalogueMotion, /prefers-reduced-motion/);
   assert.match(concernMotion, /prefers-reduced-motion/);
 });

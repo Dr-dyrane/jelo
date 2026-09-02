@@ -145,13 +145,15 @@ Rejected here: a bespoke email/password system (needless credential storage and 
 - **Increment 3 (wired end to end):** `@neondatabase/auth` (Managed Better Auth, pinned `0.4.2-beta`) is wired against its real types — `lib/auth/server.ts` (`createNeonAuth`, lazy so an unconfigured env stays deny-by-default), `lib/auth/subject.ts` (`getAuthSubject` via `getSession()`), the catch-all `app/api/auth/[...path]/route.ts` (404s until configured), and `operatorAuthSubject` delegates to the verified session. The operator sign-in surface lives in its own `app/(auth)/` shell at `/sign-in`: `emailOtp.sendVerificationOtp` sends a one-time code, `signIn.emailOtp` verifies it, and the browser then performs a full navigation to `/ops` so the server guard can claim any pending invitation for that exact verified email. `npm run ops:seed-operator` remains the bootstrap path for the first allowlisted operator. It all comes alive once the Neon Auth and JeloCare transactional-email environment are configured.
 - **Increment 4 (accountability shell shipped):** `/ops/activity` reads the append-only decision trail with operator identity, action, target, rationale, and time. Admins can read `/ops/operators`, a role-gated operator directory with active status and recent decision activity.
 - **Increment 5 (operator access lifecycle):** migration `0025_operator_access_lifecycle.sql` adds pending email invitations and a separate append-only access audit. An invitation grants no access. Neon Auth must first verify the exact normalized mailbox and provide its stable subject; only then may the server transaction create an active operator and accept the invitation. Admins can invite, resend, change another operator's role, pause or restore access, and revoke a pending invitation. The server prevents duplicate access, self-demotion, self-deactivation, and removal of the last active admin. Delivery failure is recorded and shown honestly. The directory remains readable during migration rollout while every mutation fails closed until the lifecycle schema exists.
-- **Market Finder extension (accepted architecture, not shipped):** the
-  development-only contextual `/contribute` prototype has no write. A future
-  reviewed migration may add one `market_finder_reports` row per immutable
-  contribution and extend `/ops/contributions` with the typed context and
-  child-decision controls. It must reuse the current console guard, audit,
-  parent rejection cascade, and retention behavior. No separate public report
-  API, public moderation route, or automatic physical observation is accepted.
+- **Market Finder extension (local foundation, not released):** migration
+  `0053_physical_market_finder.sql` passed an exact-byte production-derived
+  rehearsal and implements one `market_finder_reports` row per immutable
+  contribution. `/ops/contributions` shows the locked typed context and keeps
+  parent and child decisions separate. Report decisions and physical-evidence
+  operations use distinct capabilities and transactionally coupled audit. The
+  development fixture still passes no submission context and performs no
+  write. There is no separate public report API, production market data,
+  automatic physical observation, or activated public route.
 - **Next delivery sequence:** [Operations console delivery](../operations/console/README.md) turns this accepted architecture into dependency-ordered workspace, triage, retailer-workflow, and governance phases. It does not authorize any new data mutation or access-management capability by itself.
 
 ## Alternatives rejected

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { saveCommunityDraft } from "@/lib/community-intake/repository";
 import { saveDraftRequestSchema } from "@/lib/community-intake/schema";
+import { MarketFinderReportIntakeUnavailableError } from "@/lib/markets/activation";
 import {
   allowCommunityAction,
   editSecretFromRequest,
@@ -56,6 +57,12 @@ export async function PUT(
         { status: 409 },
       );
     }
+    if (!result.ok && result.reason === "locked") {
+      return NextResponse.json(
+        { error: "Market report context cannot be changed." },
+        { status: 409 },
+      );
+    }
     if (!result.ok)
       return NextResponse.json({ error: "Draft not found." }, { status: 404 });
     return NextResponse.json({
@@ -63,6 +70,12 @@ export async function PUT(
       savedAt: new Date().toISOString(),
     });
   } catch (error) {
+    if (error instanceof MarketFinderReportIntakeUnavailableError) {
+      return NextResponse.json(
+        { error: "This market report is not available." },
+        { status: 404 },
+      );
+    }
     const message =
       error instanceof Error && error.message === "payload_too_large"
         ? "Contribution is too large."

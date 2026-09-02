@@ -11,9 +11,9 @@ Two "structured event" needs sit on the roadmap and had been conflated:
 1. **Community observations.** Community intake (`submitCommunityDraft`) already preserves the original submission immutably in `community_contributions.payload` and emits typed `community_knowledge_edges` (product / retailer / price / purpose / outcome triples, `pending`). But price and outcome live only as blob fields and ephemeral edges — there is no first-class, queryable observation row.
 2. **Behavioural / commerce events.** `docs/ANALYTICS.md` defines a taxonomy (`store_click`, `share_click`, `offer_impression`, …) as _proposed_. Today only cookieless Vercel page traffic and the `/go` UTM attribution ship; no structured behavioural event is recorded.
 
-A later physical-market report introduces a third shape, but not a third public
+A physical-market report introduces a third shape, but not a third public
 intake. [ADR 0019](0019-product-to-place-market-finder.md) reuses
-`/contribute` and its immutable `community_contributions` record, then proposes
+`/contribute` and its immutable `community_contributions` record, then uses
 a typed `market_finder_reports` child for physical location and availability
 claims. Those claims are materially different from the general price and
 experience-outcome rows decided here.
@@ -34,7 +34,7 @@ Build both as strict, enum-and-bounded-int structured events, **community observ
 
 `community_observations` remains limited to the shipped `price` and `outcome`
 vocabulary. It must not be widened to hold Market Finder outcomes, shop
-identity, directions, or stock claims. A future `market_finder_reports` table
+identity, directions, or stock claims. The `market_finder_reports` table
 is a one-to-one typed projection whose unique, non-null `contribution_id`
 references `community_contributions.id`; it inherits the contribution's anonymous intake,
 retention, rejection, and moderation lineage. It is still only a moderation
@@ -51,7 +51,7 @@ relabeling or promoting a `community_observations` row in place.
 - The `community_observations` queue and a private, measurement-only
   `commerce_events` view are triaged in the shipped
   [ADR 0007](0007-internal-moderation-operations-console.md) console.
-- A future Market Finder child projection is reviewed from its parent in
+- A Market Finder child projection is reviewed from its parent in
   `/ops/contributions`; it does not create a second public endpoint or reuse the
   general `/ops/observations` queue as if price, experience, and physical stock
   were the same evidence class.
