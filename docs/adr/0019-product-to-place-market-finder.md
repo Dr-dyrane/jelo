@@ -329,6 +329,36 @@ Unknown shops remain private research leads until the business and location
 are resolved. A description such as "beside Cyncel" cannot become a canonical
 retailer or public location by itself.
 
+When exact reviewed physical evidence resolves such a lead to a business that
+has no admissible exact online offer, a protected physical-only promotion may
+create the missing canonical `retailers` parent from its active, assigned custom
+retailer-identity research task. The task must have a current retained,
+non-rejected source mention and its custom identity must match the proposed
+canonical name and slug after normalization, unless the manifest records an
+explicit reviewed alias mapping. The operation requires an external private
+evidence artifact whose bytes match the reviewed digest and a PII-free opaque
+`private-ledger:<canonical lowercase non-zero UUID>` lookup key rather than raw
+evidence, URI, path, or contact data, the exact retailer ID, slug, and name, and
+an explicit evidence-supported trust score because the current retailer schema
+has no unrated state. It atomically records the existing
+private `existing-canonical-retailer` resolution, closes the task, and appends a
+`community_research_task` `promote` audit with `canonical_write=true`. It does
+not create a location, offer, price, channel, stock observation, or application
+decision. If a reviewed trust score is unavailable, the schema limitation keeps
+promotion blocked rather than allowing an invented default.
+
+All runtime canonical-retailer identity writers share one transaction-scoped
+advisory lock. Promotion uses explicit `READ COMMITTED`, acquires the blocking
+lock as its first statement, and performs identity reads afterward so a
+concurrent writer's committed identity is visible before the case-insensitive
+name-conflict check.
+
+This is not the retailer path for an exact online offer. An online-offer
+retailer remains coupled to catalogue publication release and reconciliation so
+the canonical retailer and product-level offer evidence land together. The
+physical-only promotion exists solely to unblock a truthful parent for later,
+separately reviewed Market Finder location evidence.
+
 ### 4. `retailer_location_channels`
 
 Independently reviewed order or contact paths for a location, such as physical
@@ -605,6 +635,12 @@ and require the protected release sequence below.
 - Resolve and approve one canonical market, its initial place hierarchy,
   canonical retailer locations, public channels, and exact product
   observations.
+- When a physical-only business lacks the canonical retailer parent, use the
+  protected retailer-promotion manifest only from an assigned custom retailer
+  identity task with verified retained evidence and a reviewed trust score. Its
+  retailer create, private resolution, task closure, and canonical-write audit
+  are one atomic unit; exact online-offer retailers continue through catalogue
+  release and reconciliation instead.
 - Use the protected onboarding manifest to resolve an existing canonical
   retailer and active published product identity, create the reviewed place and
   location rows, and optionally append the first attributable product

@@ -29,6 +29,7 @@ import { catalogueBrandSlug } from "../lib/catalogue/slug";
 import { priceAmountToStorageInteger } from "../lib/inventory/price-storage";
 import { assertRetailerResponseScope } from "../modules/retail-intelligence/response-scope";
 import { requireAdminDatabaseUrl } from "./lib/admin-database";
+import { acquireCanonicalRetailerIdentityLock } from "./lib/retailer-identity-lock";
 
 type ProductAssetRecord = {
   sourceUrl: string;
@@ -434,11 +435,28 @@ async function main() {
         // Reapply the idempotent verified-offer projection here so dossier-
         // released intake products receive newly admitted retailer evidence as
         // well as the legacy reviewed catalogue records merged in data/catalogue.
-        for (const offer of materializeRetailOffersForCatalogueSeed(
+        const retailOffers = materializeRetailOffersForCatalogueSeed(
           product,
           product.offers,
-        )) {
+        );
+        if (retailOffers.length > 0) {
+          await acquireCanonicalRetailerIdentityLock(tx);
+        }
+        for (const offer of retailOffers) {
           const retailerSlug = slugify(offer.retailer);
+          const conflictingRetailerNames = await tx<{ slug: string }[]>`
+            select slug
+            from retailers
+            where lower(btrim(name)) = lower(btrim(${offer.retailer}))
+              and slug <> ${retailerSlug}
+            order by slug
+            limit 1
+          `;
+          if (conflictingRetailerNames.length > 0) {
+            throw new Error(
+              "Canonical retailer name conflicts with a different slug.",
+            );
+          }
           const [retailer] = await tx<{ id: string }[]>`
           insert into retailers (slug, name, trust_score)
           values (${retailerSlug}, ${offer.retailer}, ${offer.trust})

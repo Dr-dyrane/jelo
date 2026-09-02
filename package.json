@@ -81,6 +81,7 @@
     "catalogue:packshots:remote:verify": "tsx scripts/validate-external-packshot-manifest.ts --remote",
     "community:intake:purge": "tsx scripts/purge-community-intake-drafts.ts",
     "community:moderate": "tsx scripts/manage-community-data.ts",
+    "market-finder:retailer:promote": "tsx scripts/promote-canonical-retailer.ts",
     "market-finder:onboard": "tsx scripts/onboard-market-finder-pilot.ts",
     "market-finder:evidence": "tsx scripts/record-market-finder-physical-evidence.ts",
     "market-finder:readiness": "tsx scripts/audit-market-finder-readiness.ts",

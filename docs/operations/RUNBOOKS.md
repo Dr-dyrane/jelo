@@ -1526,6 +1526,94 @@ MODERATION_OPERATOR_EMAIL=admin@example.com \
   --rationale "Return this work to the shared queue."
 ```
 
+### Promote a physical-only canonical retailer
+
+Use this bounded operator only when reviewed physical-market work needs a
+canonical retailer parent and there is no admissible exact online offer. If an
+exact product-level online offer exists, admit it through the catalogue
+publication release and `db:reconcile`; that established projection creates or
+updates its retailer together with the reviewed offer evidence. This physical
+path must not be used to bypass that release.
+
+The input must be an active, custom `retailer-identity` research task in
+`assigned` state and assigned to the acting admin; `blocked` and `retry` tasks
+cannot create a retailer. Claim or assign that exact task through the existing
+`community:moderate` workflow first. A current retained, non-rejected task
+mention is checked from source rows at execution time; the materialized
+`signal_count` alone is not evidence. Keep a private version-1 manifest and its
+evidence artifact outside the repository. The manifest binds the task ID,
+original task reference and label; an exact normalized identity match or an
+explicit reviewed alias mapping; exact retailer ID, slug, name, and reviewed
+integer trust score; review rationale and time; and one current identity source,
+PII-free opaque `private-ledger:<canonical lowercase non-zero UUID>` source
+reference, absolute artifact path,
+expected SHA-256, observation time, and expiry. A source reference is a lookup
+key only; never place a URL, magic link, contact detail, credential, or raw
+evidence in it. Allowed identity sources are `field_visit`,
+`retailer_confirmation`, `branch_online_record`, and
+`partnership_application`.
+
+Set `provenance.researchTask.identityBinding.method` to
+`exact-normalized-task-identity` only when the stored custom reference maps to
+the proposed slug and the stored label maps to the proposed name after
+normalization. Otherwise use `reviewed-alias` and include the exact stored
+`taskAlias`, proposed `canonicalName`, and a bounded mapping `rationale`; the
+operator verifies those redundant bindings instead of accepting a free task-to-
+retailer pairing. The opaque source reference must match exactly
+`private-ledger:<canonical lowercase non-zero UUID>`; URI-, contact-, and
+path-like values fail validation.
+
+The existing `retailers.trust_score` column is non-null and has no unrated
+state. This operator therefore refuses a missing or out-of-range score. Do not
+invent a neutral value: if the retained evidence and rationale do not support an
+explicit reviewed `0`–`100` score, canonical retailer creation remains blocked.
+The score, evidence digest, and every identity input are bound into the manifest
+fingerprint.
+
+Both this operator and the catalogue seed path acquire the same
+transaction-scoped canonical-retailer identity lock before identity reads or
+writes. Promotion uses explicit `READ COMMITTED`, takes the blocking lock as its
+first statement, and performs identity reads afterward so a concurrent writer's
+committed identity is visible before the case-insensitive conflict check.
+
+For a proposed create, the evidence artifact path must be absolute, outside the
+repository, point directly to a non-empty regular file rather than a symlink, be
+no larger than 32 MiB, and still hash to the declared lowercase SHA-256. The
+operator recomputes those bytes before returning a create dry run or writing an
+apply. It never prints or stores the artifact path or artifact contents. The
+private resolution and audit retain the source reference and verified digest;
+command output omits them, the rationale, database URL, and admin identity.
+
+Run the read-only preflight first:
+
+```bash
+MIGRATION_DATABASE_URL='postgresql://protected-admin@direct-host/database' \
+MODERATION_OPERATOR_EMAIL=admin@example.invalid \
+npm run market-finder:retailer:promote -- \
+  --manifest=/absolute/private/canonical-retailer.json
+```
+
+Review the bounded ID, slug, name, trust score, research-task outcome, and
+`writes:false` plan. Then repeat the exact command with `--apply`. Apply requires
+the protected direct database URL and exactly one active admin. One atomic
+`READ COMMITTED` transaction inserts only the canonical retailer, records the
+existing `existing-canonical-retailer` private resolution, closes and clears
+the task, and appends `community_research_task` / `promote` audit with
+`canonical_write=true`. The resolution remains correctly marked
+`canonical_write=false` and `private-research-only`; the audit is the distinct
+record of the canonical retailer write.
+
+An exact rerun is a no-op only when the retailer identity and score, private
+resolution, closed task, and canonical-write audit all match the manifest
+fingerprint. Once that complete triad is proved, the no-op does not depend on a
+later materialized signal count, evidence freshness, or retained artifact. Any
+partial state, extra conflicting task-promotion audit, or conflict on retailer
+ID, slug, case-insensitive name, or trust score stops without repair or update.
+This operator never creates or changes an offer, price, market, place, retailer
+location, channel, physical stock observation, or retailer application. After a
+successful promotion, run the separate Market Finder location onboarding below
+only when its own reviewed location and exact-product evidence are ready.
+
 ### Market Finder physical evidence
 
 A Market Finder community report remains a private claim even after its typed
