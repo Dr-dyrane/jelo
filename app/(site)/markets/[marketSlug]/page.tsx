@@ -158,10 +158,15 @@ function UnresolvedFixtureProduct({
           <h1>{request.query}</h1>
           <p>{request.reason}</p>
           <div className={styles.routeStateActions}>
-            <Link href="/contribute">
-              Share the pack <ArrowRight size={17} aria-hidden="true" />
+            <Link className={styles.routeStatePrimary} href="/me/shelf/add">
+              Share the exact pack <ArrowRight size={17} aria-hidden="true" />
             </Link>
-            <Link href="/markets#exact-products-title">Choose another</Link>
+            <Link
+              className={styles.routeStateSecondary}
+              href="/markets#exact-products-title"
+            >
+              Choose another
+            </Link>
           </div>
         </div>
       </section>

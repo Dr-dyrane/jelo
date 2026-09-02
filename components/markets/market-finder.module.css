@@ -1197,6 +1197,16 @@
   color: var(--ink);
 }
 
+.routeStateActions .routeStatePrimary {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.routeStateActions .routeStateSecondary {
+  background: var(--paper);
+  color: var(--ink);
+}
+
 .routeStateSkeleton {
   width: min(54rem, 100%);
   display: grid;
@@ -1437,8 +1447,15 @@
 
   .productAnchorHeader > span,
   .changeProduct {
-    min-height: 2.4rem;
     padding-block: 0.4rem;
+  }
+
+  .productAnchorHeader > span {
+    min-height: 2.4rem;
+  }
+
+  .changeProduct {
+    min-height: 2.75rem;
   }
 
   .packshotStage {
@@ -1461,7 +1478,7 @@
 
   .resultCard {
     padding: 1rem;
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: 1fr;
     gap: 0.9rem;
     border-radius: 1.5rem;
   }
@@ -1493,22 +1510,8 @@
     font-size: clamp(1.8rem, 9vw, 2.65rem);
   }
 
-  .resultEvidence {
-    grid-column: 1 / -1;
-  }
-
-  .resultActions {
-    grid-column: 1 / -1;
-  }
-
   .resultCardCompact {
-    grid-template-columns: auto minmax(0, 1fr);
-  }
-
-  .recordNote,
-  .recordAction,
-  .resultCardCompact .pausedAction {
-    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
   }
 
   .emptyResults {

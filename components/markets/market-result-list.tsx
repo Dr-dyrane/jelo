@@ -49,7 +49,8 @@ export type MarketResultLead = {
   };
 };
 
-function StateIcon({ state }: { state: MarketResultLead["state"] }) {
+function StateIcon({ lead }: { lead: MarketResultLead }) {
+  const { state } = lead;
   if (state === "ready") {
     return <CircleCheck size={17} aria-hidden="true" />;
   }
@@ -57,7 +58,11 @@ function StateIcon({ state }: { state: MarketResultLead["state"] }) {
     return <CircleHelp size={17} aria-hidden="true" />;
   }
   if (state === "location-lead") {
-    return <PhoneOff size={17} aria-hidden="true" />;
+    return lead.actionEvidence.retailerLocationVerified ? (
+      <CircleHelp size={17} aria-hidden="true" />
+    ) : (
+      <PhoneOff size={17} aria-hidden="true" />
+    );
   }
   if (state === "stale") return <History size={17} aria-hidden="true" />;
   if (state === "unavailable") return <CircleX size={17} aria-hidden="true" />;
@@ -98,7 +103,10 @@ function freshnessLabel(lead: MarketResultLead) {
   if (!lead.observedAt || !lead.observedAtLabel) return null;
 
   return {
-    label: lead.state === "ready" ? "Checked" : "Reported",
+    label:
+      lead.state === "ready" || lead.actionEvidence.retailerLocationVerified
+        ? "Checked"
+        : "Reported",
     dateTime: lead.observedAt,
     date: lead.observedAtLabel,
   };
@@ -128,7 +136,7 @@ function LeadCard({
       <span className={styles.resultVisual} data-state={lead.state}>
         <PlaceIcon lead={lead} compact={compact} />
         <span className={styles.resultVisualState}>
-          <StateIcon state={lead.state} />
+          <StateIcon lead={lead} />
         </span>
       </span>
 
@@ -268,7 +276,7 @@ export function MarketResultList({
           <div>
             <p className={styles.kicker}>No confirmed place</p>
             <h2>Nothing ready yet.</h2>
-            <p>These reports still need a shop or route check.</p>
+            <p>These records still need checking.</p>
           </div>
         </div>
       )}

@@ -137,7 +137,8 @@ export function MarketShopDetail({
             </a>
           ) : (
             <div className={styles.directionsWithheld} data-state={lead.state}>
-              {lead.state === "location-lead" ? (
+              {lead.state === "location-lead" &&
+              !lead.actionEvidence.retailerLocationVerified ? (
                 <PhoneOff size={24} aria-hidden="true" />
               ) : (
                 <ShieldAlert size={24} aria-hidden="true" />
@@ -146,7 +147,9 @@ export function MarketShopDetail({
                 <strong>No directions shown.</strong>
                 <p>
                   {lead.state === "location-lead"
-                    ? "Shop identity or contact still needs review."
+                    ? lead.actionEvidence.retailerLocationVerified
+                      ? "The shop is verified, but exact-pack branch stock still needs review."
+                      : "Shop identity or contact still needs review."
                     : lead.state === "purchase-report"
                       ? "The purchase is reported, but the exact shop is unresolved."
                       : lead.state === "stale"

@@ -130,7 +130,7 @@ export default async function MarketsPage() {
 
         <div
           className={styles.heroStage}
-          aria-label={`${products.length} exact products in the ${market.name} pilot`}
+          aria-label={`${products.length} exact ${products.length === 1 ? "product" : "products"} in the ${market.name} pilot`}
         >
           <div className={styles.stageLabel}>
             <span>Pilot market</span>
@@ -172,7 +172,9 @@ export default async function MarketsPage() {
           <div className={styles.heroMetrics}>
             <span>
               <strong>{products.length}</strong>
-              <small>exact packs</small>
+              <small>
+                {products.length === 1 ? "exact pack" : "exact packs"}
+              </small>
             </span>
             <span>
               <strong>1</strong>

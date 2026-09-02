@@ -9,8 +9,10 @@ import {
   DEFAULT_MARKET_FIXTURE_PRODUCT,
   MARKET_FIXTURE_ACCESS,
   MARKET_UNRESOLVED_REQUESTS,
+  ROUTE_REHEARSAL_MARKET_FIXTURE_PRODUCT,
   deriveMarketPrimaryAction,
   findMarketFixtureProduct,
+  findMarketUnresolvedRequest,
   isMarketFixtureEnabled,
   listMarketFixtureProducts,
   listMarketFixtureLeads,
@@ -54,7 +56,7 @@ test("unknown or unresolved product names never become market results", () => {
   assert.equal(
     resolveMarketFixtureProductQuery([
       DEFAULT_MARKET_FIXTURE_PRODUCT,
-      "miracle-natural-hair-anti-dandruff-shampoo",
+      ROUTE_REHEARSAL_MARKET_FIXTURE_PRODUCT,
     ]),
     undefined,
   );
@@ -69,20 +71,33 @@ test("unknown or unresolved product names never become market results", () => {
   assert.deepEqual(unresolvedQueries, [
     "Kuza black castor oil",
     "Moroccan argan oil",
+    "Miracle anti-dandruff shampoo",
     "Lush relaxer",
   ]);
   for (const request of MARKET_UNRESOLVED_REQUESTS) {
     assert.match(request.reason, /unresolved/i);
     assert.match(request.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
   }
+  assert.equal(
+    findMarketUnresolvedRequest("miracle-natural-hair-anti-dandruff-shampoo")
+      ?.slug,
+    "miracle-anti-dandruff-shampoo",
+  );
 });
 
 test("fixture media fails closed until an exact transparent packshot is reviewed", () => {
   const products = listMarketFixtureProducts();
-  assert.equal(products.length, 2);
+  assert.equal(products.length, 1);
   for (const product of products) {
     assert.equal(resolveMarketFixtureProductPackshot(product), undefined);
   }
+  const routeRehearsal = findMarketFixtureProduct(
+    ROUTE_REHEARSAL_MARKET_FIXTURE_PRODUCT,
+  );
+  assert.ok(routeRehearsal);
+  assert.equal(routeRehearsal.listed, false);
+  assert.match(routeRehearsal.identityNote, /fictional/i);
+  assert.equal(resolveMarketFixtureProductPackshot(routeRehearsal), undefined);
 
   const fixtureSource = readFileSync("lib/markets/fixture.ts", "utf8");
   assert.match(fixtureSource, /productBySlug\(product\.slug\)/);
@@ -116,6 +131,39 @@ test("shop action states preserve uncertainty instead of inventing routes", () =
     label: "Research record only",
     enabled: false,
   });
+  assert.equal(locationLead.actionEvidence.retailerLocationVerified, true);
+  assert.equal(locationLead.actionEvidence.observationReviewed, false);
+  assert.equal(locationLead.actionEvidence.usableAction, null);
+  assert.match(locationLead.locationLabel, /Shop A43, Akwa-Ibom Plaza/);
+  assert.match(locationLead.evidenceNote, /official site confirms Shop A43/i);
+  assert.match(
+    locationLead.evidenceNote,
+    /does not establish A43 shelf stock/i,
+  );
+  assert.match(
+    locationLead.evidenceNote,
+    /not attributed as the unnamed seller/i,
+  );
+  const resultListSource = readFileSync(
+    "components/markets/market-result-list.tsx",
+    "utf8",
+  );
+  const detailSource = readFileSync(
+    "components/markets/market-shop-detail.tsx",
+    "utf8",
+  );
+  assert.match(
+    resultListSource,
+    /location-lead[\s\S]*retailerLocationVerified[\s\S]*CircleHelp/,
+  );
+  assert.match(
+    resultListSource,
+    /state === "ready" \|\|[\s\S]*retailerLocationVerified[\s\S]*"Checked"/,
+  );
+  assert.match(
+    detailSource,
+    /retailerLocationVerified[\s\S]*exact-pack branch stock still needs review/,
+  );
   assert.equal(deriveMarketPrimaryAction(unavailable).enabled, false);
   assert.deepEqual(deriveMarketPrimaryAction(disputed), {
     kind: "paused",
@@ -133,7 +181,7 @@ test("shop action states preserve uncertainty instead of inventing routes", () =
 test("fictional fixture states exercise an eligible route and fail-closed expiry", () => {
   const leads = listMarketFixtureLeads(
     "trade-fair",
-    "miracle-natural-hair-anti-dandruff-shampoo",
+    ROUTE_REHEARSAL_MARKET_FIXTURE_PRODUCT,
   );
   const ready = leads.find(
     (lead) => lead.slug === "fixture-beauty-supply-route-rehearsal",
@@ -375,6 +423,14 @@ test("the full Market Finder flow reuses native JeloCare composition", () => {
   assert.doesNotMatch(entrySource, /<Link href=["']\/contribute["']>/);
   assert.doesNotMatch(entrySource, /styles\.productOption/);
   assert.match(resultPageSource, /SmartBackLink/);
+  assert.match(
+    resultPageSource,
+    /className=\{styles\.routeStatePrimary\}[\s\S]*href=["']\/me\/shelf\/add["'][\s\S]*Share the exact pack/,
+  );
+  assert.doesNotMatch(
+    resultPageSource,
+    /function UnresolvedFixtureProduct[\s\S]*href=["']\/contribute["']/,
+  );
   assert.match(shopPageSource, /SmartBackLink/);
   assert.match(shopPageSource, /<ExactProductAnchor product=\{product\}/);
   assert.match(
@@ -397,6 +453,22 @@ test("the full Market Finder flow reuses native JeloCare composition", () => {
   assert.match(
     stylesheet,
     /@media \(max-width: 900px\)[\s\S]*?\.productAnchor\s*\{[\s\S]*?grid-template-columns:\s*clamp\(/,
+  );
+  assert.match(
+    stylesheet,
+    /@media \(max-width: 640px\) \{[\s\S]*?\.changeProduct\s*\{\s*min-height:\s*2\.75rem;/,
+  );
+  assert.match(
+    stylesheet,
+    /@media \(max-width: 640px\) \{[\s\S]*?\.resultCard\s*\{\s*padding:\s*1rem;\s*grid-template-columns:\s*1fr;/,
+  );
+  assert.match(
+    stylesheet,
+    /@media \(max-width: 640px\) \{[\s\S]*?\.resultCardCompact\s*\{\s*grid-template-columns:\s*1fr;/,
+  );
+  assert.match(
+    stylesheet,
+    /\.routeStateActions \.routeStatePrimary\s*\{\s*background:\s*var\(--ink\);\s*color:\s*var\(--cream\);/,
   );
   assert.doesNotMatch(stylesheet, /marketResultsPage\s+\.productAnchor/);
   assert.doesNotMatch(stylesheet, /Product-to-place result flow/);

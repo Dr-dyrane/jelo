@@ -13,6 +13,8 @@ export const MARKET_FIXTURE_ACCESS = {
 
 export const DEFAULT_MARKET_FIXTURE_PRODUCT =
   "cosrx-aloe-soothing-sun-cream-50ml";
+export const ROUTE_REHEARSAL_MARKET_FIXTURE_PRODUCT =
+  "fixture-exact-pack-route-rehearsal";
 
 export type MarketFixtureState =
   | "ready"
@@ -28,6 +30,7 @@ export type MarketFixtureProduct = {
   name: string;
   size: string;
   identityNote: string;
+  listed: boolean;
 };
 
 export type MarketFixture = {
@@ -70,14 +73,16 @@ export const MARKET_FIXTURE_PRODUCTS: readonly MarketFixtureProduct[] = [
     size: "50 ml",
     identityNote:
       "Exact 50 ml identity retained; a reviewed transparent packshot is still pending.",
+    listed: true,
   },
   {
-    slug: "miracle-natural-hair-anti-dandruff-shampoo",
-    brand: "BEAUTIFUL YOU · MIRACLE",
-    name: "Natural Hair Anti-Dandruff & Anti-Itch Shampoo",
-    size: "400 ml",
+    slug: ROUTE_REHEARSAL_MARKET_FIXTURE_PRODUCT,
+    brand: "DEVELOPMENT FIXTURE",
+    name: "Exact Pack Route Rehearsal",
+    size: "400 ml · fictional",
     identityNote:
-      "Exact 400 ml identity retained; a reviewed transparent packshot is still pending.",
+      "Fictional exact-pack identity used only to exercise the ready-route UI.",
+    listed: false,
   },
 ] as const;
 
@@ -96,7 +101,7 @@ export const MARKET_FIXTURE_LEADS = [
     kind: "shop",
     slug: "fixture-beauty-supply-route-rehearsal",
     marketSlug: "trade-fair",
-    productSlug: "miracle-natural-hair-anti-dandruff-shampoo",
+    productSlug: ROUTE_REHEARSAL_MARKET_FIXTURE_PRODUCT,
     name: "Fixture Beauty Supply",
     state: "ready",
     stateLabel: "Reviewed fixture · route enabled",
@@ -112,7 +117,7 @@ export const MARKET_FIXTURE_LEADS = [
     directions: [
       "Start at the entrance labelled Prototype Entrance in this development fixture.",
       "Continue to the fictional Prototype Plaza and follow the D-row signs.",
-      "Stop at fictional Shop D01 and confirm the exact 400 ml pack before buying.",
+      "Stop at fictional Shop D01 and confirm the fictional 400 ml rehearsal pack.",
     ],
     actionEvidence: {
       exactProductIdentity: true,
@@ -125,7 +130,7 @@ export const MARKET_FIXTURE_LEADS = [
     kind: "shop",
     slug: "fixture-hair-supply-stale-observation",
     marketSlug: "trade-fair",
-    productSlug: "miracle-natural-hair-anti-dandruff-shampoo",
+    productSlug: ROUTE_REHEARSAL_MARKET_FIXTURE_PRODUCT,
     name: "Fixture Hair Supply · expired observation",
     state: "stale",
     stateLabel: "Evidence expired · recheck needed",
@@ -175,20 +180,20 @@ export const MARKET_FIXTURE_LEADS = [
     slug: "cyncel-a43-lead",
     marketSlug: "trade-fair",
     productSlug: DEFAULT_MARKET_FIXTURE_PRODUCT,
-    name: "Cyncel Cosmetics · A43 lead",
+    name: "Cyncel Cosmetics · A43 branch",
     state: "location-lead",
-    stateLabel: "Location lead · contact missing",
-    locationLabel: "Shop A43, Akwa-Ibom Plaza · reported, not resolved",
-    identityLabel: "Name and unit are leads, not reviewed branch identity",
-    evidenceLabel: "Location lead · stock not checked",
+    stateLabel: "Branch verified · exact pack check needed",
+    locationLabel: "Shop A43, Akwa-Ibom Plaza",
+    identityLabel: "Official branch identity and public contact verified",
+    evidenceLabel: "Official branch and product pages · reviewed 2 Sep 2026",
     evidenceNote:
-      "This record preserves the reported Cyncel and A43 reference without treating it as a resolved shop identity or a stock observation.",
-    observedAt: "2026-09-01",
-    observedAtLabel: "1 Sep 2026",
+      "Cyncel’s official site confirms Shop A43, Akwa-Ibom Plaza and public contact details. Its current product page lists COSRX Aloe Soothing Sun Cream as in stock online, but it omits the pack size and does not establish A43 shelf stock. Cyncel is not attributed as the unnamed seller in the purchase report.",
+    observedAt: "2026-09-02",
+    observedAtLabel: "2 Sep 2026",
     directions: [],
     actionEvidence: {
       exactProductIdentity: true,
-      retailerLocationVerified: false,
+      retailerLocationVerified: true,
       observationReviewed: false,
       usableAction: null,
     },
@@ -253,14 +258,26 @@ export const MARKET_UNRESOLVED_REQUESTS = [
     reason: "Brand, format and size are unresolved.",
   },
   {
+    slug: "miracle-anti-dandruff-shampoo",
+    query: "Miracle anti-dandruff shampoo",
+    reason: "Natural Hair or Processed Hair variant and size are unresolved.",
+  },
+  {
     slug: "lush-relaxer",
     query: "Lush relaxer",
     reason: "Exact product name, variant and size are unresolved.",
   },
 ] as const;
 
+const MARKET_UNRESOLVED_REQUEST_ALIASES: Readonly<Record<string, string>> = {
+  "miracle-natural-hair-anti-dandruff-shampoo": "miracle-anti-dandruff-shampoo",
+};
+
 export function findMarketUnresolvedRequest(slug: string) {
-  return MARKET_UNRESOLVED_REQUESTS.find((request) => request.slug === slug);
+  const canonicalSlug = MARKET_UNRESOLVED_REQUEST_ALIASES[slug] ?? slug;
+  return MARKET_UNRESOLVED_REQUESTS.find(
+    (request) => request.slug === canonicalSlug,
+  );
 }
 
 export function isMarketFixtureEnabled(
@@ -270,7 +287,7 @@ export function isMarketFixtureEnabled(
 }
 
 export function listMarketFixtureProducts(): readonly MarketFixtureProduct[] {
-  return MARKET_FIXTURE_PRODUCTS;
+  return MARKET_FIXTURE_PRODUCTS.filter((product) => product.listed);
 }
 
 export function resolveMarketFixtureProductPackshot(
