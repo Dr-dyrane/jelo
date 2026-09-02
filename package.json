@@ -83,6 +83,7 @@
     "community:moderate": "tsx scripts/manage-community-data.ts",
     "market-finder:onboard": "tsx scripts/onboard-market-finder-pilot.ts",
     "market-finder:evidence": "tsx scripts/record-market-finder-physical-evidence.ts",
+    "market-finder:readiness": "tsx scripts/audit-market-finder-readiness.ts",
     "community:research:signals": "tsx scripts/report-community-research-signals.ts",
     "community:research:resolve": "tsx scripts/resolve-community-research-task.ts",
     "community:retailer-research:resolve": "tsx scripts/resolve-community-retailer-research-task.ts",

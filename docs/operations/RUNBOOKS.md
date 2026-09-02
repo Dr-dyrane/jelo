@@ -1631,13 +1631,46 @@ pending, and public reads and report intake remain gated. Keep
 `MARKET_FINDER_PUBLIC_READ_ENABLED=false`,
 `MARKET_FINDER_PUBLIC_MARKET_SLUG` unset, and
 `MARKET_FINDER_REPORT_INTAKE_ENABLED=false` through migration, data onboarding,
-observation approval, abuse checks, and operator acceptance. Then set the
-public market slug to exactly `trade-fair` and enable public reads for the
-read-only smoke. Enable report intake only after that smoke and its separate
-abuse/Ops acceptance. Create, save, and submit all close when the report flag is
-false. While public Market Finder reads remain inactive, no cache purge is
-needed: both the route and repository gates return before cached reads, and the
-first activated revision has no older Market Finder cache to clear. For every
+observation approval, abuse checks, and operator acceptance. Before changing
+either public-read variable, place both the protected direct administrator URL
+and the restricted `jelocare_app_runtime` application URL in the operator
+process without writing either credential to shell history, then run the
+bounded production-data preflight from an authenticated `neonctl` session:
+
+```bash
+npm run --silent market-finder:readiness
+unset MIGRATION_DATABASE_URL APP_DATABASE_URL
+```
+
+The command first binds both credentials through Neon's read-only control plane
+to the repository-owned production project, primary/default branch, `neondb`
+database and enabled endpoint. The administrator connection reads only the
+governed migration ledger. Product and location reads authenticate separately
+as the exact application runtime role inside one repeatable-read, read-only
+snapshot, so owner authority cannot mask a runtime grant failure and a
+concurrent catalogue change cannot create a torn pass.
+
+It exits `2` unless migrations `0053`–`0055` are applied unchanged and the
+`trade-fair` directory contains only exact published product identities whose
+current reads each have at least one usable reviewed location and one native
+catalogue packshot binding. Its output contains only fixed status labels,
+public product slugs and bounded counts; unexpected failures emit one generic
+message. A packshot binding does not prove that the deployed asset loads, so
+the command deliberately reports `asset-delivery=not-assessed`. Before calling
+the release live, use the production browser to verify every affected exact
+product route loads its bound image and preserves the native transparent
+presentation. `public-read-data-ready=true` does not approve activation:
+founder pilot approval is still required, and the command also reports
+`report-intake=not-assessed` because privacy, abuse and Ops acceptance remain a
+separate human gate.
+
+After that preflight and approval, set the public market slug to exactly
+`trade-fair` and enable public reads for the read-only smoke. Enable report
+intake only after that smoke and its separate abuse/Ops acceptance. Create,
+save, and submit all close when the report flag is false. While public Market
+Finder reads remain inactive, no cache purge is needed: both the route and
+repository gates return before cached reads, and the first activated revision
+has no older Market Finder cache to clear. For every
 later approved evidence, location, or public-action change while reads are live,
 verify that the applied command returned `cacheScope.marketSlug` equal to the
 reviewed `trade-fair` pilot, then hard-delete the shared market tag from the

@@ -133,7 +133,17 @@ export type MarketFinderRepositoryOptions = {
   client?: PostgresClient;
   environment?: MarketFinderActivationEnvironment;
   now?: Date;
+  logErrors?: boolean;
 };
+
+function logRepositoryError(
+  options: MarketFinderRepositoryOptions,
+  event: string,
+  error: unknown,
+) {
+  if (options.logErrors === false) return;
+  console.error(event, error instanceof Error ? error.message : "unknown");
+}
 
 function iso(value: DateValue): string {
   const date = value instanceof Date ? value : new Date(value);
@@ -1014,10 +1024,7 @@ export async function readMarketFinderDirectory(
       now,
     });
   } catch (error) {
-    console.error(
-      "market_finder_directory_unavailable",
-      error instanceof Error ? error.message : "unknown",
-    );
+    logRepositoryError(options, "market_finder_directory_unavailable", error);
     return marketFinderDirectoryNonCurrent({
       state: "unavailable",
       reason: "repository-unavailable",
@@ -1090,10 +1097,7 @@ export async function readMarketFinder(
           });
     return enforceMarketFinderFreshness(model, now);
   } catch (error) {
-    console.error(
-      "market_finder_read_unavailable",
-      error instanceof Error ? error.message : "unknown",
-    );
+    logRepositoryError(options, "market_finder_read_unavailable", error);
     return marketFinderNonCurrent({
       state: "unavailable",
       reason: "repository-unavailable",
@@ -1312,10 +1316,7 @@ export async function resolveMarketReportTargetContext(
       },
     };
   } catch (error) {
-    console.error(
-      "market_report_context_unavailable",
-      error instanceof Error ? error.message : "unknown",
-    );
+    logRepositoryError(options, "market_report_context_unavailable", error);
     return { status: "unresolved", reason: "repository-unavailable" };
   }
 }
