@@ -5,6 +5,7 @@ import type {
   MarketFinderProductIdentity,
   MarketFinderReadModel,
 } from "@/lib/markets/domain";
+import { resolveMarketFinderProductPackshotDecision } from "@/lib/markets/market-finder-packshot-binding";
 
 export const MARKET_FINDER_REQUIRED_MIGRATIONS = [
   "0053_physical_market_finder.sql",
@@ -15,7 +16,6 @@ export const MARKET_FINDER_REQUIRED_MIGRATIONS = [
 export type MarketFinderReadinessProductCheck = {
   product: MarketFinderProductIdentity;
   readModel: MarketFinderReadModel;
-  hasPackshot: boolean;
 };
 
 export type MarketFinderReadinessReport = {
@@ -176,7 +176,9 @@ export function evaluateMarketFinderReadiness(input: {
           if (!sameProductIdentity(product, check.product)) {
             blockers.add(`directory-identity-mismatch:${product.slug}`);
           }
-          if (!check.hasPackshot) {
+          const packshotDecision =
+            resolveMarketFinderProductPackshotDecision(product);
+          if (packshotDecision.status !== "accepted") {
             blockers.add(`packshot-missing:${product.slug}`);
           } else {
             packshotCount += 1;

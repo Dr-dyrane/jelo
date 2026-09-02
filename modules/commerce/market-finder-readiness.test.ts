@@ -12,6 +12,7 @@ import type {
 import {
   evaluateMarketFinderReadiness,
   MARKET_FINDER_REQUIRED_MIGRATIONS,
+  type MarketFinderReadinessProductCheck,
 } from "@/lib/markets/readiness";
 import {
   MARKET_FINDER_READ_SNAPSHOT,
@@ -121,26 +122,26 @@ test("readiness stops at the governed migration gate before reading pilot data",
   );
 });
 
-test("readiness passes only for exact current reads with native packshots", () => {
+test("readiness blocks exact current reads until the shared packshot decision accepts", () => {
   const report = evaluateMarketFinderReadiness({
     migrationPlan: migrationPlan(),
     runtimeRoleAttested: true,
     directory,
-    productChecks: [{ product, readModel: currentRead, hasPackshot: true }],
+    productChecks: [{ product, readModel: currentRead }],
   });
 
-  assert.equal(report.state, "ready");
-  assert.equal(report.publicReadDataReady, true);
+  assert.equal(report.state, "blocked");
+  assert.equal(report.publicReadDataReady, false);
   assert.equal(report.reportIntakeAssessment, "not-assessed");
   assert.equal(report.assetDeliveryAssessment, "not-assessed");
   assert.equal(report.runtime.roleAssessment, "attested");
-  assert.deepEqual(report.blockers, []);
+  assert.deepEqual(report.blockers, ["packshot-missing:exact-product-50ml"]);
   assert.deepEqual(report.data, {
     checked: true,
     directoryState: "current",
     productCount: 1,
     productCheckCount: 1,
-    packshotCount: 1,
+    packshotCount: 0,
     currentLocationCount: 1,
   });
 });
@@ -158,7 +159,7 @@ test("missing packshots and non-current exact reads block activation", () => {
     migrationPlan: migrationPlan(),
     runtimeRoleAttested: true,
     directory,
-    productChecks: [{ product, readModel: unavailable, hasPackshot: false }],
+    productChecks: [{ product, readModel: unavailable }],
   });
 
   assert.equal(report.state, "blocked");
@@ -195,15 +196,33 @@ test("a product read from another market can never satisfy the directory", () =>
             market: { ...market, id: "another-market-id" },
           },
         },
-        hasPackshot: true,
       },
     ],
   });
 
   assert.equal(report.state, "blocked");
   assert.deepEqual(report.blockers, [
+    "packshot-missing:exact-product-50ml",
     "read-market-mismatch:exact-product-50ml",
   ]);
+});
+
+test("a caller-forged packshot boolean cannot satisfy readiness", () => {
+  const forgedCheck = {
+    product,
+    readModel: currentRead,
+    hasPackshot: true,
+  } as unknown as MarketFinderReadinessProductCheck;
+  const report = evaluateMarketFinderReadiness({
+    migrationPlan: migrationPlan(),
+    runtimeRoleAttested: true,
+    directory,
+    productChecks: [forgedCheck],
+  });
+
+  assert.equal(report.state, "blocked");
+  assert.equal(report.data.packshotCount, 0);
+  assert.deepEqual(report.blockers, ["packshot-missing:exact-product-50ml"]);
 });
 
 test("missing application-runtime attestation blocks data evaluation", () => {

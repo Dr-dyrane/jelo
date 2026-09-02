@@ -262,6 +262,16 @@ This preserves the exact-product and publication rules in the
 [Catalogue publication gate](../CATALOGUE_PUBLICATION_GATE.md). Market Finder
 may enrich an already reviewed exact identity; it cannot create or repair one.
 
+Market Finder also cannot accept a packshot merely because a catalogue image
+URL exists. Its supplemental binding must intersect that exact already-public
+catalogue product and image, then bind the full Market Finder identity version,
+the content-addressed image URL, SHA-256, MIME type and native dimensions,
+measured alpha evidence, reviewed rights and treatment fingerprint, source and
+output subject bounds proving no upscale, and the native `contain` treatment.
+Missing, duplicate, malformed, or mismatched bindings fail closed to the honest
+image-unavailable state. This binding grants no catalogue publication or media
+repair authority.
+
 ## Separate physical-market domain
 
 The existing catalogue `offers` domain remains the source for exact online
@@ -653,8 +663,10 @@ Production activation additionally requires:
 - successful validation, production-shaped rehearsal, and protected operator
   application under the [Operations runbooks](../operations/RUNBOOKS.md);
 - exact identity-version coverage for every surfaced product;
-- one reviewed transparent packshot for every surfaced product, rendered with
-  the native catalogue image treatment rather than a crop or opaque fallback;
+- one reviewed transparent packshot binding for every surfaced product, with
+  the exact supplemental evidence above accepted by the same decision used by
+  readiness and presentation, and rendered with the native catalogue `contain`
+  treatment rather than a crop, transformed URL, or opaque fallback;
 - attributable location, channel, and stock evidence for every public claim;
 - `/ops/contributions` support for the typed report, with separate child,
   location, and physical-observation capabilities and audit;

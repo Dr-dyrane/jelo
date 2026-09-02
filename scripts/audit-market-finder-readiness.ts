@@ -16,7 +16,6 @@ import {
   readMarketFinder,
   readMarketFinderDirectory,
 } from "@/lib/markets/repository";
-import { resolveMarketFinderProductPackshot } from "@/lib/markets/presentation";
 import { requireAdminDatabaseUrl } from "./lib/admin-database";
 import { readCanonicalMigrationInventory } from "./lib/migration-files";
 import { attestMarketFinderProductionDatabase } from "./lib/neon-production-attestation";
@@ -101,8 +100,6 @@ export async function auditMarketFinderReadiness(input: {
         for (const product of directory.products) {
           productChecks.push({
             product,
-            hasPackshot:
-              resolveMarketFinderProductPackshot(product) !== undefined,
             readModel: await readMarketFinder(
               { marketSlug: "trade-fair", productSlug: product.slug },
               {
