@@ -20,6 +20,22 @@ import {
   resolveMarketFixtureProductQuery,
 } from "../../lib/markets/fixture";
 
+function cssBlock(source: string, marker: string): string {
+  const markerIndex = source.indexOf(marker);
+  assert.notEqual(markerIndex, -1, `Missing CSS block: ${marker}`);
+  const openingBrace = source.indexOf("{", markerIndex);
+  assert.notEqual(openingBrace, -1, `Missing opening brace: ${marker}`);
+
+  let depth = 0;
+  for (let index = openingBrace; index < source.length; index += 1) {
+    if (source[index] === "{") depth += 1;
+    if (source[index] === "}") depth -= 1;
+    if (depth === 0) return source.slice(openingBrace + 1, index);
+  }
+
+  assert.fail(`Missing closing brace: ${marker}`);
+}
+
 test("the Market Finder fixture is development-only and fails closed elsewhere", () => {
   assert.deepEqual(MARKET_FIXTURE_ACCESS, {
     mode: "development-only",
@@ -456,10 +472,55 @@ test("the full Market Finder flow reuses native JeloCare composition", () => {
     stylesheet,
     /@media \(max-width: 900px\)[\s\S]*?\.finderHero \.heroStage\s*\{\s*display:\s*none;/,
   );
-  assert.match(
+  const productAnchorRule = cssBlock(stylesheet, ".productAnchor {");
+  assert.match(productAnchorRule, /--product-anchor-inset:/);
+  assert.match(productAnchorRule, /padding:\s*var\(--product-anchor-inset\)/);
+  assert.match(productAnchorRule, /overflow:\s*hidden/);
+  const packshotRule = cssBlock(stylesheet, ".packshot {");
+  assert.match(packshotRule, /max-height:\s*none/);
+  assert.match(packshotRule, /display:\s*block/);
+  assert.match(packshotRule, /object-fit:\s*contain/);
+  const stagedPackshotRule = cssBlock(
     stylesheet,
-    /@media \(max-width: 900px\)[\s\S]*?\.productAnchor\s*\{[\s\S]*?grid-template-columns:\s*clamp\(/,
+    ".packshotStage > .packshot {",
   );
+  assert.match(stagedPackshotRule, /position:\s*absolute/);
+  assert.match(stagedPackshotRule, /inset:\s*0/);
+
+  const compactMediaRules = cssBlock(stylesheet, "@media (max-width: 900px)");
+  const compactProductAnchorRule = cssBlock(
+    compactMediaRules,
+    ".productAnchor {\n    --product-anchor-inset",
+  );
+  assert.match(compactProductAnchorRule, /--product-anchor-inset:/);
+  assert.match(compactProductAnchorRule, /grid-template-columns:\s*clamp\(/);
+  const compactPackshotStageRule = cssBlock(
+    compactMediaRules,
+    ".packshotStage {",
+  );
+  assert.match(compactPackshotStageRule, /height:\s*auto/);
+  assert.match(compactPackshotStageRule, /align-self:\s*stretch/);
+  assert.match(compactPackshotStageRule, /grid-column:\s*1/);
+  assert.match(compactPackshotStageRule, /grid-row:\s*1\s*\/\s*3/);
+  assert.match(
+    compactPackshotStageRule,
+    /margin-block:\s*calc\(-1 \* var\(--product-anchor-inset\)\)/,
+  );
+  assert.match(
+    compactPackshotStageRule,
+    /margin-inline:\s*calc\(-1 \* var\(--product-anchor-inset\)\) 0/,
+  );
+  const compactMissingRule = cssBlock(compactMediaRules, ".packshotMissing {");
+  assert.match(compactMissingRule, /width:\s*100%/);
+  assert.match(compactMissingRule, /height:\s*100%/);
+
+  const narrowMediaRules = cssBlock(stylesheet, "@media (max-width: 640px)");
+  const narrowProductAnchorRule = cssBlock(
+    narrowMediaRules,
+    ".productAnchor {\n    --product-anchor-inset",
+  );
+  assert.match(narrowProductAnchorRule, /--product-anchor-inset:/);
+  assert.doesNotMatch(narrowProductAnchorRule, /grid-template-columns/);
   assert.match(
     stylesheet,
     /@media \(max-width: 640px\) \{[\s\S]*?\.changeProduct\s*\{\s*min-height:\s*2\.75rem;/,
