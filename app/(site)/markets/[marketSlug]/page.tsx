@@ -216,7 +216,11 @@ export default async function MarketPage({
               ? `${readyLeadCount} ${readyLeadCount === 1 ? "place is" : "places are"} ready for this exact pack.`
               : "No place is ready for this exact pack yet."}
           </p>
-          <div className={styles.truthChips} aria-label="Result status">
+          <div
+            className={styles.truthChips}
+            role="group"
+            aria-label="Result status"
+          >
             <span>
               <MapPin size={15} aria-hidden="true" /> Physical market
             </span>

@@ -1,4 +1,10 @@
 .main {
+  --market-muted-strong: color-mix(in srgb, var(--muted) 80%, var(--ink));
+  --market-success-strong: color-mix(
+    in srgb,
+    var(--state-success) 85%,
+    var(--ink)
+  );
   min-height: 100vh;
   padding-top: 4.75rem;
   background: var(--cream);
@@ -111,7 +117,7 @@
   gap: 0.4rem;
   border-radius: 999px;
   background: color-mix(in srgb, var(--paper) 62%, transparent);
-  color: var(--muted);
+  color: var(--market-muted-strong);
   font-size: 0.64rem;
   font-weight: 600;
 }
@@ -720,7 +726,7 @@
 .resultStatus[data-state="ready"],
 .detailStatus[data-state="ready"] {
   background: var(--state-success-bg);
-  color: var(--state-success);
+  color: var(--market-success-strong);
 }
 
 .resultStatus[data-state="stale"],
@@ -743,7 +749,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: var(--muted);
+  color: var(--market-muted-strong);
   font-size: 0.66rem;
 }
 
@@ -763,7 +769,7 @@
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  color: var(--muted);
+  color: var(--market-muted-strong);
   line-height: 1.5;
 }
 

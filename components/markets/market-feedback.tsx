@@ -50,7 +50,11 @@ export function MarketFeedback({
             Reporting is not open for this record yet.
           </p>
         )}
-        <div className={styles.reportBoundary} aria-label="Report privacy">
+        <div
+          className={styles.reportBoundary}
+          role="group"
+          aria-label="Report privacy"
+        >
           <span>
             <LockKeyhole size={14} aria-hidden="true" /> Private
           </span>

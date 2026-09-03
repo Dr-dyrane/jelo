@@ -114,7 +114,11 @@ export default async function MarketsPage() {
             Start with the exact pack. Separate useful leads from places ready
             to visit.
           </p>
-          <div className={styles.truthChips} aria-label="Market Finder status">
+          <div
+            className={styles.truthChips}
+            role="group"
+            aria-label="Market Finder status"
+          >
             <span>
               <MapPin size={15} aria-hidden="true" /> {market.name}
             </span>

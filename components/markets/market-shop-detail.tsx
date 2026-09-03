@@ -65,7 +65,11 @@ export function MarketShopDetail({
             <MapPin size={18} aria-hidden="true" />
             {lead.locationLabel}
           </p>
-          <div className={styles.truthChips} aria-label="Shop record context">
+          <div
+            className={styles.truthChips}
+            role="group"
+            aria-label="Shop record context"
+          >
             <span>
               <Clock3 size={15} aria-hidden="true" />
               <time dateTime={lead.observedAt}>
@@ -187,7 +191,11 @@ export function MarketShopDetail({
             </div>
           </details>
 
-          <div className={styles.journeyChips} aria-label="Journey checks">
+          <div
+            className={styles.journeyChips}
+            role="group"
+            aria-label="Journey checks"
+          >
             <span>Confirm exact pack</span>
             <span>Stock can change</span>
             <span>
