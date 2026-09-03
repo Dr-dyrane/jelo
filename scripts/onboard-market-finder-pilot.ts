@@ -263,7 +263,7 @@ const onboardingManifestSchema = z
       });
     }
 
-    if (manifest.place?.parentPlaceId === manifest.place?.id) {
+    if (manifest.place && manifest.place.parentPlaceId === manifest.place.id) {
       context.addIssue({
         code: "custom",
         path: ["place", "parentPlaceId"],

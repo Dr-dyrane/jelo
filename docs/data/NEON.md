@@ -207,8 +207,8 @@ was applied once and skipped once on fresh production-derived, expiring branch
 accepted current reviewed directions and a current verified channel, rejected
 missing, expired, negative-successor, actionless, and unusable-channel targets,
 and left no synthetic market rows. A separate two-session probe confirmed that
-the parent-contribution lock blocks a concurrent moderation write. Production
-migrations `0053` and `0054` remain unapplied.
+the parent-contribution lock blocks a concurrent moderation write. Their
+protected production application is recorded with `0055` below.
 
 Correction migration `0055_market_finder_atomic_context.sql` used the same
 unchanged-byte boundary on 2026-09-02. Exact SHA-256
@@ -223,8 +223,23 @@ reviewer attribution, found all eight current-context statement-lock triggers,
 proved both context-blocks-report and report-blocks-context directions,
 rejected non-READ-COMMITTED report transactions, and left zero synthetic rows.
 This corrects report-current-context atomicity without converting a community
-report into public evidence. Production migrations `0053`, `0054`, and `0055`,
-canonical physical-market rows, report intake, and public reads remain pending.
+report into public evidence.
+
+On 2026-09-02 the protected production runner applied `0053`, `0054`, and
+`0055` in canonical order with the exact hashes above. All three ledger rows
+use `runner_atomic` provenance and `neondb_owner`; post-apply status reported a
+governed immutable ledger with 56 applied, zero pending, and zero drift, and a
+second runner pass skipped every migration unchanged. Production acceptance
+found all seven Market Finder tables, 21 core triggers, eight context-lock
+triggers, and the expected restricted `jelocare_app_runtime` grants.
+
+The separately reviewed location-only onboarding published the `trade-fair`
+market and verified Nectar Beauty Hub's Tradefair outlet, directions, and
+public phone. It deliberately omitted both `product` and
+`initialObservation`, so it created no price or physical-stock claim. Public
+readiness therefore remains fail-closed at `no-approved-observation`; public
+reads and report intake remain off pending branch-attributable exact-product
+evidence and their separate release gates.
 
 ### Protected agent migration when no local admin URL exists
 

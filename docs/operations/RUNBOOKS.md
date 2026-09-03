@@ -1720,8 +1720,17 @@ applied `0053`, `0054`, and `0055`; the second skipped all three unchanged, and
 Rollback-safe acceptance preserved evidence and observation attribution,
 confirmed all eight context-lock triggers and both blocking directions,
 rejected a non-READ-COMMITTED report transaction, and left zero synthetic rows.
-This is rehearsal evidence only: production `0053`, `0054`, and `0055` remain
-pending, and public reads and report intake remain gated. Keep
+On 2026-09-02 the protected production runner applied `0053`, `0054`, and
+`0055` in canonical order with their exact rehearsed hashes. Post-apply status
+reported a governed immutable ledger with 56 applied, zero pending, and zero
+drift; the idempotent rerun skipped all three unchanged. Production acceptance
+found all seven tables, all 21 core triggers, all eight context-lock triggers,
+and the expected restricted runtime grants. A separate location-only operation
+then published the `trade-fair` market and verified Nectar Beauty Hub's
+Tradefair outlet without creating any product relation, price, or stock
+observation. Public readiness remains fail-closed at
+`directory-empty:no-approved-observation`, and public reads and report intake
+remain gated. Keep
 `MARKET_FINDER_PUBLIC_READ_ENABLED=false`,
 `MARKET_FINDER_PUBLIC_MARKET_SLUG` unset, and
 `MARKET_FINDER_REPORT_INTAKE_ENABLED=false` through migration, data onboarding,

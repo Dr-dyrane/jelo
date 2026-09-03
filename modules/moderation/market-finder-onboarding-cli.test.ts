@@ -604,6 +604,17 @@ test("dry-run resolves exact canonical parents in a read-only transaction and em
   assert.doesNotMatch(output, /Approve one evidence-bound/);
 });
 
+test("location-only manifest may omit an unneeded market place", () => {
+  const manifest = locationOnlyOnboardingManifest();
+  delete manifest.place;
+
+  const parsed = parseMarketFinderOnboardingManifest(manifest, now);
+
+  assert.equal(parsed.place, undefined);
+  assert.equal(parsed.product, undefined);
+  assert.equal(parsed.initialObservation, undefined);
+});
+
 test("location-only dry-run omits product planning and product output", async () => {
   const fixture = onboardingFixture({
     manifest: locationOnlyOnboardingManifest(),

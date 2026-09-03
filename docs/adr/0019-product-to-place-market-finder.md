@@ -1,6 +1,6 @@
 # ADR 0019: Product-to-place Market Finder
 
-- **Status:** Phase 1 foundation implemented locally; production data activation pending
+- **Status:** Phase 1 foundation released; production product-data activation pending
 - **Date:** 2026-09-01
 - **Decision owner:** Founder
 - **Extends:** [ADR 0002](0002-anonymous-community-knowledge-intake.md),
@@ -91,10 +91,14 @@ targeted cache tags. Public reads require both
 `MARKET_FINDER_PUBLIC_READ_ENABLED=true` and the exact
 `MARKET_FINDER_PUBLIC_MARKET_SLUG=trade-fair` allowlist. Anonymous Market
 report create, save, and submit additionally require the default-off
-`MARKET_FINDER_REPORT_INTAKE_ENABLED=true` gate. These are local implementation
-facts, not a production release. The production database has
-not received migrations `0053`, `0054`, or `0055`, no market or shop row was
-seeded, and all three production gates remain off.
+`MARKET_FINDER_REPORT_INTAKE_ENABLED=true` gate. On 2026-09-02 the protected
+production runner applied migrations `0053`, `0054`, and `0055` in canonical
+order with `runner_atomic` provenance; the post-apply ledger reported 56
+applied, zero pending, and zero drift. The schema application seeded no rows.
+A separate reviewed, location-only onboarding then published the `trade-fair`
+market and verified Nectar Beauty Hub's Tradefair outlet, directions, and
+public phone without creating a product relation, price, or stock observation.
+All three production gates remain off.
 
 ## Product-to-place journey
 
@@ -231,11 +235,11 @@ The UI contract is deliberately strict:
 The development fixture exercises this complete visual decision tree. The
 production read adapters, locked report context, location-correction and
 physical-evidence operations, targeted cache invalidation, and rollback-safe
-public-read gate are now implemented locally, but that does not make the
-production loop complete. Activation still requires the protected production
-migration, canonical Trade Fair onboarding, attributable review of the first
-location and product observations, and the explicit flag sequence below. Those
-release requirements must not be
+public-read gate are implemented and the protected production schema is
+applied, but that does not make the production loop complete. Activation still
+requires an exact active published product identity, attributable review of the
+first location-bound product observation, and the explicit flag sequence
+below. Those release requirements must not be
 represented as finished merely because the local journey is visually complete.
 
 Canonical onboarding may stop at a reviewed retailer location without choosing
@@ -738,10 +742,11 @@ Production activation additionally requires:
 
 ### Release proof
 
-Prototype completion is local or test evidence only. It is never described as
-live. A future production release requires the exact authorized revision to
-pass focused and integration gates, the exact Vercel deployment to become
-ready, and affected-route smoke tests to read the reviewed database records.
+Application and schema release are distinct from public data activation. The
+route remains fail-closed while its release flags are off or the reviewed data
+contract is incomplete. A public activation requires the exact authorized
+revision to pass focused and integration gates, the exact Vercel deployment to
+become ready, and affected-route smoke tests to read reviewed database records.
 The release record must distinguish local, pushed, deployed-unverified, and
 live-verified states.
 
@@ -760,6 +765,7 @@ and `physical_product_observations` preserves clear evidence lineage from a
 community claim to an attributable public-data decision.
 
 The development fixture can now answer the interaction question quickly.
-Production remains closed until migrations `0053`, `0054`, and `0055` are
-applied, operator authority is exercised, exact Trade Fair data is reviewed,
-and the explicit read and report gates are released in order.
+Production now contains migrations `0053`, `0054`, and `0055` plus reviewed
+location-only Trade Fair groundwork. Public reads remain closed until an exact
+published product and attributable current branch observation are reviewed,
+readiness passes, and the explicit read and report gates are released in order.
