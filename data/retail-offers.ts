@@ -1372,6 +1372,21 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "in-stock",
       },
     ),
+    exactNg(
+      "Cyncel Cosmetics",
+      "https://cyncelcosmetics.com/product/anua-niacinamide-10-txa-4-serum-30ml/",
+      86,
+      22275,
+      "Anua Niacinamide 10% + TXA 4% Serum 30ml",
+      "30 ml",
+      {
+        observedAt: "2026-09-03T21:35:36Z",
+        expiresAt: "2026-09-10T21:35:36Z",
+        stock: "in-stock",
+        available: true,
+        verificationMethod: "api",
+      },
+    ),
   ],
   "face-facts-wonder-cream-fragrance-free": [
     exactNg(

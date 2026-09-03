@@ -29,6 +29,7 @@ The runtime registry is `data/retailers.ts`. The initial reviewed set is:
 - Lux Beauty — <https://www.luxbeautyng.com/>
 - MakeupAlleyNG — <https://makeupalleyng.com/>
 - CSi Grocery — <https://www.csigrocery.com/skincare/>
+- Cyncel Cosmetics — <https://cyncelcosmetics.com/>
 - Konga Health — <https://www.konga.com/content/health>
 - Deoset — <https://deoset.com/>
 - Nectar Beauty Hub — <https://nectarbeautyhub.com/>

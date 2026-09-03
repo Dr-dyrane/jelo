@@ -374,6 +374,24 @@ export const nigeriaRetailers: RetailerReference[] = [
     note: "Nigeria retailer named by CeraVe; exact listings can expose structured manufacturer GTINs and Naira pricing.",
   },
   {
+    name: "Cyncel Cosmetics",
+    homepage: "https://cyncelcosmetics.com/",
+    market: "NG",
+    kind: "retailer",
+    trust: 86,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    identityEvidence: {
+      observedAt: "2026-09-03T21:35:36Z",
+      sourceUrl:
+        "https://cyncelcosmetics.com/product/anua-niacinamide-10-txa-4-serum-30ml/",
+      basis: "self-published-contact",
+      scope: "self-published",
+    },
+    searchUrl: wordpressSearch("https://cyncelcosmetics.com/"),
+    note: "Trade Fair retailer whose own product pages expose its Shop A43 address, Naira pricing and live stock; links remain advisory only.",
+  },
+  {
     name: "Perona Beauty",
     homepage: "https://peronabeauty.com/",
     market: "NG",
