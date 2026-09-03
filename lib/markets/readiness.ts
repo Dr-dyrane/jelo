@@ -5,10 +5,7 @@ import type {
   MarketFinderProductIdentity,
   MarketFinderReadModel,
 } from "@/lib/markets/domain";
-import {
-  evaluateMarketFinderPackshotRegistryIntegrity,
-  resolveMarketFinderProductPackshotDecision,
-} from "@/lib/markets/market-finder-packshot-binding";
+import { resolveMarketFinderProductPackshot } from "@/lib/markets/presentation";
 
 export const MARKET_FINDER_REQUIRED_MIGRATIONS = [
   "0053_physical_market_finder.sql",
@@ -137,14 +134,6 @@ export function evaluateMarketFinderReadiness(input: {
   }
 
   if (migrationsReady && runtimeRoleAttested) {
-    const packshotRegistryIssues =
-      evaluateMarketFinderPackshotRegistryIntegrity();
-    const invalidBindingSlugs = new Set<string>();
-    for (const issue of packshotRegistryIssues) {
-      if (issue.slug) invalidBindingSlugs.add(issue.slug);
-      blockers.add(`packshot-registry-invalid:${issue.entry}:${issue.reason}`);
-    }
-
     if (!input.directory) {
       blockers.add("directory-not-checked");
     } else {
@@ -189,20 +178,10 @@ export function evaluateMarketFinderReadiness(input: {
           if (!sameProductIdentity(product, check.product)) {
             blockers.add(`directory-identity-mismatch:${product.slug}`);
           }
-          const packshotDecision =
-            resolveMarketFinderProductPackshotDecision(product);
-          if (packshotDecision.status === "accepted") {
+          if (resolveMarketFinderProductPackshot(product)) {
             packshotCount += 1;
           } else {
             packshotUnavailableCount += 1;
-            if (
-              packshotDecision.reason !== "binding-missing" &&
-              !invalidBindingSlugs.has(product.slug)
-            ) {
-              blockers.add(
-                `packshot-invalid:${product.slug}:${packshotDecision.reason}`,
-              );
-            }
           }
           if (check.readModel.state !== "current") {
             blockers.add(

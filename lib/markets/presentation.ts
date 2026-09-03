@@ -1,3 +1,4 @@
+import { productBySlug } from "@/data/catalogue";
 import type {
   CurrentMarketFinderLocation,
   MarketFinderContext,
@@ -6,7 +7,6 @@ import type {
   MarketFinderResearchLocation,
   MarketFinderResearchRecord,
 } from "@/lib/markets/domain";
-import { resolveMarketFinderProductPackshotDecision } from "@/lib/markets/market-finder-packshot-binding";
 
 export type MarketSurfaceProduct = {
   slug: string;
@@ -139,10 +139,21 @@ function externalAction(
 }
 
 export function resolveMarketFinderProductPackshot(
-  product: MarketFinderProductIdentity,
+  product: Pick<
+    MarketFinderProductIdentity,
+    "slug" | "brand" | "variant" | "size"
+  >,
 ): string | undefined {
-  const decision = resolveMarketFinderProductPackshotDecision(product);
-  return decision.status === "accepted" ? decision.image.url : undefined;
+  const published = productBySlug(product.slug);
+  if (
+    !published ||
+    published.brand !== product.brand ||
+    published.name !== product.variant ||
+    published.size !== product.size
+  ) {
+    return undefined;
+  }
+  return published.image;
 }
 
 export function presentMarketFinderProduct(

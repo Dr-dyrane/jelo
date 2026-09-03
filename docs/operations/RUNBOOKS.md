@@ -1784,17 +1784,17 @@ concurrent catalogue change cannot create a torn pass.
 
 It exits `2` unless migrations `0053`–`0055` are applied unchanged and the
 `trade-fair` directory contains only exact published product identities whose
-current reads each have at least one usable reviewed location. An absent
-Market Finder packshot binding is reported as unavailable media and renders the
-native image-unavailable state; it does not block public reads. Any present
-binding that fails exact identity, catalogue metadata, alpha, subject-bounds,
-rights, or fingerprint validation blocks readiness as a configuration-integrity
-failure. Output contains only fixed status labels, public product slugs and
-bounded counts; unexpected failures emit one generic message. A valid binding
-does not prove that the deployed asset loads, so the command deliberately
-reports `asset-delivery=not-assessed`. Before calling the release live, use the
-production browser to verify every bound image preserves the native transparent
-presentation and every unbound product shows the native unavailable state.
+current reads each have at least one usable reviewed location. Product media is
+resolved through the canonical public catalogue, with exact slug, brand,
+variant, and size equality. A missing or mismatched catalogue product is
+reported as unavailable media and renders the native image-unavailable state;
+it does not block public reads. Output contains only fixed status labels,
+public product slugs and bounded counts; unexpected failures emit one generic
+message. A catalogue match does not prove that the deployed asset loads, so the
+command deliberately reports `asset-delivery=not-assessed`. Before calling the
+release live, use the production browser to verify every matched image
+preserves the native transparent presentation and every unmatched product shows
+the native unavailable state.
 `public-read-data-ready=true` does not approve activation:
 founder pilot approval is still required, and the command also reports
 `report-intake=not-assessed` because privacy, abuse and Ops acceptance remain a

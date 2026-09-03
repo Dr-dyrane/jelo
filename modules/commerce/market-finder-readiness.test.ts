@@ -2,7 +2,6 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { marketFinderPackshotBindings } from "@/data/market-finder-packshot-bindings";
 import type { MigrationPlan } from "@/lib/database/migration-governance";
 import type {
   MarketFinderDirectoryModel,
@@ -123,7 +122,7 @@ test("readiness stops at the governed migration gate before reading pilot data",
   );
 });
 
-test("readiness permits an exact current read without optional Market Finder media", () => {
+test("readiness permits an exact current read without a canonical catalogue image", () => {
   const report = evaluateMarketFinderReadiness({
     migrationPlan: migrationPlan(),
     runtimeRoleAttested: true,
@@ -146,6 +145,38 @@ test("readiness permits an exact current read without optional Market Finder med
     packshotUnavailableCount: 1,
     currentLocationCount: 1,
   });
+});
+
+test("readiness counts the exact ANUA image from the canonical catalogue", () => {
+  const anua: MarketFinderProductIdentity = {
+    identityVersionId: "22222222-2222-4222-8222-222222222222",
+    productId: "33333333-3333-4333-8333-333333333333",
+    slug: "anua-niacinamide-10-txa-4-serum",
+    brand: "ANUA",
+    variant: "Niacinamide 10% + TXA 4% Serum",
+    size: "30 ml",
+    packageVersion: "v1",
+    formulaVersion: "v1",
+  };
+  const report = evaluateMarketFinderReadiness({
+    migrationPlan: migrationPlan(),
+    runtimeRoleAttested: true,
+    directory: { ...directory, products: [anua] },
+    productChecks: [
+      {
+        product: anua,
+        readModel: {
+          ...currentRead,
+          context: { market, product: anua },
+        },
+      },
+    ],
+  });
+
+  assert.equal(report.state, "ready");
+  assert.equal(report.data.packshotCount, 1);
+  assert.equal(report.data.packshotUnavailableCount, 0);
+  assert.deepEqual(report.blockers, []);
 });
 
 test("non-current exact reads still block activation when media is unavailable", () => {
@@ -224,51 +255,6 @@ test("a caller-forged packshot boolean cannot change media coverage", () => {
   assert.equal(report.data.packshotCount, 0);
   assert.equal(report.data.packshotUnavailableCount, 1);
   assert.deepEqual(report.blockers, []);
-});
-
-test("a declared invalid binding remains a readiness blocker", () => {
-  const bindings = marketFinderPackshotBindings as unknown as unknown[];
-  bindings.push({ identity: { slug: product.slug } });
-
-  try {
-    const report = evaluateMarketFinderReadiness({
-      migrationPlan: migrationPlan(),
-      runtimeRoleAttested: true,
-      directory,
-      productChecks: [{ product, readModel: currentRead }],
-    });
-
-    assert.equal(report.state, "blocked");
-    assert.equal(report.data.packshotCount, 0);
-    assert.equal(report.data.packshotUnavailableCount, 1);
-    assert.deepEqual(report.blockers, [
-      "packshot-registry-invalid:1:binding-invalid",
-    ]);
-  } finally {
-    bindings.pop();
-  }
-});
-
-test("a malformed binding without a usable slug cannot disappear as missing media", () => {
-  const bindings = marketFinderPackshotBindings as unknown as unknown[];
-  bindings.push({});
-
-  try {
-    const report = evaluateMarketFinderReadiness({
-      migrationPlan: migrationPlan(),
-      runtimeRoleAttested: true,
-      directory,
-      productChecks: [{ product, readModel: currentRead }],
-    });
-
-    assert.equal(report.state, "blocked");
-    assert.equal(report.data.packshotUnavailableCount, 1);
-    assert.deepEqual(report.blockers, [
-      "packshot-registry-invalid:1:binding-invalid",
-    ]);
-  } finally {
-    bindings.pop();
-  }
 });
 
 test("missing application-runtime attestation blocks data evaluation", () => {
@@ -423,6 +409,8 @@ test("the operator command uses a stable read-only runtime snapshot and bounded 
   );
   assert.match(source, /asset-delivery=not-assessed/);
   assert.match(source, /report-intake=not-assessed/);
+  assert.match(source, /catalogue-packshots=/);
+  assert.doesNotMatch(source, /packshot-bindings=/);
   assert.match(source, /packshot-unavailable=/);
   assert.match(
     source,

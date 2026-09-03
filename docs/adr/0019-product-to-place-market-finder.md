@@ -274,17 +274,14 @@ This preserves the exact-product and publication rules in the
 [Catalogue publication gate](../CATALOGUE_PUBLICATION_GATE.md). Market Finder
 may enrich an already reviewed exact identity; it cannot create or repair one.
 
-Market Finder also cannot accept a packshot merely because a catalogue image
-URL exists. Its supplemental binding must intersect that exact already-public
-catalogue product and image, then bind the full Market Finder identity version,
-the content-addressed image URL, SHA-256, MIME type and native dimensions,
-measured alpha evidence, reviewed rights and treatment fingerprint, source and
-output subject bounds proving no upscale, and the native `contain` treatment.
-An absent binding fails closed to the honest image-unavailable state and is
-reported as media coverage rather than blocking otherwise truthful location
-guidance. A present duplicate, malformed, or mismatched binding also renders no
-image, but blocks readiness as a configuration-integrity failure. This binding
-grants no catalogue publication or media repair authority.
+Market Finder owns no second product-media schema. It may project an image only
+when the physical observation's product slug, brand, variant, and size exactly
+match a product already admitted by the canonical public catalogue projection.
+That projection remains the single owner of publication release, rights holds,
+asset review, transparency, minimum dimensions, and display approval. A missing
+or mismatched catalogue product fails closed to the native image-unavailable
+state without withholding otherwise truthful location guidance. Market Finder
+cannot publish, approve, transform, or repair a product image.
 
 ## Separate physical-market domain
 
@@ -714,10 +711,10 @@ Production activation additionally requires:
 - successful validation, production-shaped rehearsal, and protected operator
   application under the [Operations runbooks](../operations/RUNBOOKS.md);
 - exact identity-version coverage for every surfaced product;
-- every rendered product image has the exact supplemental evidence above
-  accepted by the same decision used by readiness and presentation, and uses
-  the native catalogue `contain` treatment rather than a crop, transformed URL,
-  or opaque fallback; a product without an accepted binding renders the native
+- every rendered product image comes from the exact canonical public catalogue
+  intersection used by both readiness and presentation, and uses the native
+  catalogue `contain` treatment rather than a crop, transformed URL, or opaque
+  fallback; a product without that exact match renders the native
   image-unavailable state and does not withhold truthful location guidance;
 - attributable location, channel, and stock evidence for every public claim;
 - `/ops/contributions` support for the typed report, with separate child,
