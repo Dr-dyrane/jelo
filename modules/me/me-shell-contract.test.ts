@@ -535,6 +535,10 @@ test("Me context stays truthful and expands into useful route shortcuts", () => 
     "utf8",
   );
   const modalHook = readFileSync("components/ui/use-modal-dialog.ts", "utf8");
+  const controlledHook = readFileSync(
+    "components/ui/use-controlled-dialog.ts",
+    "utf8",
+  );
   assert.match(capsule, /data-workspace-dock-context-action/);
   assert.match(
     capsule,
@@ -554,6 +558,14 @@ test("Me context stays truthful and expands into useful route shortcuts", () => 
   assert.match(modalHook, /element\.showModal\(\)/);
   assert.match(modalHook, /scrollOwner\.style\.overflow = ['"]hidden['"]/);
   assert.match(modalHook, /trigger\?\.isConnected\) trigger\.focus/);
+  assert.match(
+    controlledHook,
+    /dialogElement\.addEventListener\(["']close["'], syncControlledClose\)/,
+  );
+  assert.match(
+    controlledHook,
+    /event\.key === ["']Escape["']\) syncControlledClose\(\)/,
+  );
   assert.match(sheet, /onCancel=\{handleCancel\}/);
 });
 
@@ -1042,8 +1054,9 @@ test("account avatar owns one accessible extensible modal sheet", () => {
   assert.match(sheet, /href="\/me\/shelf\/export"/);
   assert.match(
     sheet,
-    /shelfAvailable \? \([\s\S]*href="\/me\/shelf\/export"[\s\S]*<button type="button" disabled>/,
+    /shelfAvailable && concernsAvailable \? \([\s\S]*href="\/me\/shelf\/export"[\s\S]*<button type="button" disabled>/,
   );
+  assert.match(sheet, /Export my data/);
   assert.match(sheet, /Clear Shelf/);
   assert.match(sheet, /<ThemeToggle \/>/);
   assert.match(
@@ -1142,10 +1155,10 @@ test("unavailable Shelf states fail closed while synthetic state stays explicitl
     /localStorage|sessionStorage|document\.cookie/,
   );
   assert.match(account, /Preview only · resets on reload/);
-  assert.match(account, /jelocare-preview-shelf\.json/);
+  assert.match(account, /jelocare-preview-data\.json/);
   assert.match(
     account,
-    /shelfAvailable \? \([\s\S]*Export Shelf[\s\S]*<button type="button" disabled>/,
+    /shelfAvailable && concernsAvailable \? \([\s\S]*Export my data[\s\S]*<button type="button" disabled>/,
   );
 });
 

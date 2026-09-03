@@ -604,7 +604,11 @@ test("all current authenticated Me reads and mutations use the private aggregate
     [requestImage, "{ surface: 'product_requests', operation: 'save' }"],
     [requestImage, "{ surface: 'product_requests', operation: 'remove' }"],
   ] as const) {
-    assert.ok(source.includes(dimensions), dimensions);
+    assert.ok(
+      source.includes(dimensions) ||
+        source.includes(dimensions.replaceAll("'", '"')),
+      dimensions,
+    );
   }
   assert.match(
     requestCollection,

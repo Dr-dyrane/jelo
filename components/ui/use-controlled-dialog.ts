@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useRef, type RefObject } from 'react';
-import { useModalDialog } from './use-modal-dialog';
+import { useCallback, useEffect, useRef, type RefObject } from "react";
+import { useModalDialog } from "./use-modal-dialog";
 
 type ControlledDialogOptions = {
   open: boolean;
@@ -34,12 +34,45 @@ export function useControlledDialog({
   scrollOwnerSelector,
   inertTargetSelectors,
 }: ControlledDialogOptions) {
-  const { dialogRef, triggerRef, open: openDialog, close: closeDialog } = useModalDialog({
+  const {
+    dialogRef,
+    triggerRef,
+    open: openDialog,
+    close: closeDialog,
+  } = useModalDialog({
     scrollOwnerSelector,
     inertTargetSelectors,
   });
   const onCloseRef = useRef(onClose);
-  useEffect(() => { onCloseRef.current = onClose; }, [onClose]);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+  const openRef = useRef(open);
+  useEffect(() => {
+    openRef.current = open;
+  }, [open]);
+
+  useEffect(() => {
+    const dialogElement = dialogRef.current;
+    if (!dialogElement) return;
+
+    function syncControlledClose() {
+      if (!openRef.current) return;
+      openRef.current = false;
+      onCloseRef.current();
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") syncControlledClose();
+    }
+
+    dialogElement.addEventListener("close", syncControlledClose);
+    dialogElement.addEventListener("keydown", handleKeyDown);
+    return () => {
+      dialogElement.removeEventListener("close", syncControlledClose);
+      dialogElement.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [dialogRef]);
 
   const wasOpenRef = useRef(false);
   useEffect(() => {
@@ -47,7 +80,9 @@ export function useControlledDialog({
       wasOpenRef.current = true;
       openDialog();
       if (initialFocusRef?.current) {
-        queueMicrotask(() => initialFocusRef.current?.focus({ preventScroll: true }));
+        queueMicrotask(() =>
+          initialFocusRef.current?.focus({ preventScroll: true }),
+        );
       }
     } else {
       closeDialog();
@@ -64,9 +99,12 @@ export function useControlledDialog({
     onCloseRef.current();
   }, []);
 
-  const handleBackdropClick = useCallback((event: React.MouseEvent<HTMLDialogElement>) => {
-    if (event.target === event.currentTarget) onCloseRef.current();
-  }, []);
+  const handleBackdropClick = useCallback(
+    (event: React.MouseEvent<HTMLDialogElement>) => {
+      if (event.target === event.currentTarget) onCloseRef.current();
+    },
+    [],
+  );
 
   return {
     dialogRef,

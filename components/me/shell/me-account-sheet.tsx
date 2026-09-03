@@ -169,8 +169,19 @@ export function MeAccountSheet({
     });
   }
 
-  function exportPreviewShelf() {
-    const payload = createPreviewShelfExport(shelfItems);
+  function exportPreviewData() {
+    const shelfExport = createPreviewShelfExport(shelfItems);
+    const payload = {
+      ...shelfExport,
+      format: "jelocare-preview-data-export-v1",
+      concerns: concerns.map((concern) => ({
+        slug: concern.slug,
+        name: concern.name,
+        area: concern.area,
+        kind: concern.kind,
+        source: concern.source,
+      })),
+    };
     const url = URL.createObjectURL(
       new Blob([JSON.stringify(payload, null, 2)], {
         type: "application/json",
@@ -178,12 +189,12 @@ export function MeAccountSheet({
     );
     const link = document.createElement("a");
     link.href = url;
-    link.download = "jelocare-preview-shelf.json";
+    link.download = "jelocare-preview-data.json";
     document.body.append(link);
     link.click();
     link.remove();
     window.setTimeout(() => URL.revokeObjectURL(url), 1_000);
-    setLifecycleFeedback("Preview Shelf exported.");
+    setLifecycleFeedback("Preview data exported.");
   }
 
   return (
@@ -259,6 +270,29 @@ export function MeAccountSheet({
 
         <section
           className={styles.lifecycle}
+          aria-labelledby="me-data-export-title"
+        >
+          <div>
+            <strong id="me-data-export-title">My data</strong>
+            <span>Shelf and saved concerns</span>
+          </div>
+          {account.synthetic ? (
+            <button type="button" onClick={exportPreviewData}>
+              <Download size={18} aria-hidden="true" /> Export my data
+            </button>
+          ) : shelfAvailable && concernsAvailable ? (
+            <a href="/me/shelf/export" download>
+              <Download size={18} aria-hidden="true" /> Export my data
+            </a>
+          ) : (
+            <button type="button" disabled>
+              <Download size={18} aria-hidden="true" /> Export my data
+            </button>
+          )}
+        </section>
+
+        <section
+          className={styles.lifecycle}
           aria-labelledby="me-shelf-data-title"
         >
           <div>
@@ -274,21 +308,6 @@ export function MeAccountSheet({
               Preview only · resets on reload
             </p>
           ) : null}
-          {shelfAvailable ? (
-            account.synthetic ? (
-              <button type="button" onClick={exportPreviewShelf}>
-                <Download size={18} aria-hidden="true" /> Export Shelf
-              </button>
-            ) : (
-              <a href="/me/shelf/export" download>
-                <Download size={18} aria-hidden="true" /> Export Shelf
-              </a>
-            )
-          ) : (
-            <button type="button" disabled>
-              <Download size={18} aria-hidden="true" /> Export Shelf
-            </button>
-          )}
           <button
             type="button"
             onClick={clearShelf}
