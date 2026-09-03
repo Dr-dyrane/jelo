@@ -15,8 +15,8 @@ ledger, or an authorization to mutate production data or configuration.
 
 The integration branch is `main`. The latest application revision observed by
 this receipt is
-`fe4cfdf568a57e2189609ac221938f6bc5f46806`. Its exact production deployment
-is `dpl_GevNohodzYfbwTrT76grXoVqYQ4E`, which is READY and aliased to
+`e6a2fa35794d85bcedc95731d2930c3670b7f407`. Its exact production deployment
+is `dpl_A7PhmnwiiSwm8V5HEP9f8H4vC8DU`, which is READY and aliased to
 `www.jelocare.com` and `jelocare.com`.
 
 The shared checkout still contains protected, unrelated work in
@@ -53,6 +53,7 @@ cell because each cell was integrated on `main`.
 | Postgres reconnect-delay clamp                   | `2ad29208e8d960ef7f8585a52d50aff88929900c` | `dpl_9osvqHJqNAjHxgeFvm1aPoDdMFSv` | The exact Postgres 3.4.7 ESM and CommonJS sources receive one version- and hash-pinned non-negative reconnect clamp during install.                   |
 | Global product care source and Ask handoff       | `3d5dc34fabca8678f138189d2ece14ea63c8e23b` | `dpl_DhmwSjCYwv4BtRFMHYzauTXDC4x4` | All 163 products expose a truthful care boundary and editable Ask handoff; source roles fail closed without blanket clinical promotion.               |
 | Ask selected-context owner verification          | `93df3a618c80af5bd64e646c26178af3d2f072d3` | `dpl_DVfAwVqUp9WW3JXjXP9WJghF2ggK` | Submitted Concern, Shelf, and Routine slugs influence Ask only after server-side owner verification; private responses are never cacheable.           |
+| Private-service and Ops health guards            | `e6a2fa35794d85bcedc95731d2930c3670b7f407` | `dpl_A7PhmnwiiSwm8V5HEP9f8H4vC8DU` | Approved private-service fast-burn and order queue-age policies run read-only on staggered natural schedules and emit aggregate zero-write evidence.  |
 
 ## Integrated verification
 
@@ -174,6 +175,25 @@ care state and editable Ask prompt; and two warmed-cache rounds produced
 163 of 163 hits without state, prompt, action, redirect, presentation, ETag, or
 obsolete-copy drift.
 
+The private-service and Ops health cell passed 49 focused tests after its
+single clock-boundary correction, typecheck, documentation validation, scoped
+lint, formatting for every newly owned file, and whitespace verification. The
+full current-base integration run executed 1,855 tests: 1,852 passed, three
+expected environment tests were skipped, and none failed. All 56 canonical
+migrations also validated. One independent read-only review rejected use of
+the Vercel host clock against database timestamps; the corrected read model
+returns facts and one `asOf` value from the same database-enforced read-only
+transaction, retains the clock for an empty queue, and the route evaluates
+only against that value. The correction recheck returned PASS.
+
+Exact Git deployment `dpl_A7PhmnwiiSwm8V5HEP9f8H4vC8DU` cloned
+`e6a2fa35794d85bcedc95731d2930c3670b7f407`, reached READY, and acquired both
+canonical aliases. `/`, `/basket`, `/checkout`, `/order`, and `/me/orders`
+returned HTTP 200. Unauthenticated probes of both new health routes returned
+HTTP 401 with private no-store boundaries. No scheduled route, queue, claim,
+retry, cache invalidation, database write, payment reconciliation, or order
+transition was invoked manually.
+
 ## Capacity, configuration, and authorized private-journey follow-up
 
 Fresh action-time authority upgraded the shared eight-project Neon installation
@@ -225,7 +245,7 @@ this receipt, and no external publication occurred.
 | Authentication                              | Password lifecycle containment, bounded OTP intent and recovery, successful post-upgrade auth, and the authorized disposable-account journey                                          | Provider-capacity and final post-fix product-request create/edit/delete gates closed                            |
 | Payment integrity                           | Signed settlement-time binding, preserved payment-attempt reservations, governed evidence tests, and exact READY deployment                                                           | Code and release cell closed; provider fees and other business inputs remain gate 9                             |
 | Inventory automation and failure accounting | Separate retry, contradiction, deferral, stale, and watchdog accounting; guarded proposal integration; post-upgrade natural health evidence                                           | Code/release and provider-capacity cells closed; the current degraded backlog remains scheduled-owner work      |
-| Production observability                    | Exact-deployment runtime logs, health watchdog, private aggregate telemetry, deterministic 28-day evaluator, and approved 15-minute fast-burn policy                                  | Alert code/policy prepared; external delivery, dated 672-hour report, and drill remain gate 4                   |
+| Production observability                    | Exact-deployment runtime logs, health watchdog, private aggregate telemetry, deterministic 28-day evaluator, and live 15-minute fast-burn/queue-age owners                            | Read-only scheduled alerts are live; external delivery, dated 672-hour report, and drills remain gates 4 and 5  |
 | Customer and commerce flows                 | Global care handoffs, governed Ask assessment, server-verified selected context, compact accessibility, owner isolation, export privacy, bounded recovery and production route smokes | Released and authorized destructive behavior closed; external or lane-owned gates 6, 11, and 12 remain          |
 | Business evidence                           | Private read-only 30-day aggregate, exact payment/SLA proof rules, source-first cost-null policy, and the successful post-upgrade natural 05:23 run                                   | Code/release, scheduled observation, provider-capacity, and missing-input treatment closed; sources remain open |
 | Final release record                        | Exact revision-to-READY bindings, production smokes, independent review, protected-path accounting, all first natural owner observations, and the controlled private-request proof    | Required runtime proof is closed; this receipt's final release binding remains pending                          |
@@ -278,7 +298,16 @@ The natural scheduled observations are:
   deployment `dpl_A9dF8J8b3TX9PYRGdW2QxDe8HtJk`: HTTP 200,
   `clinical_review_health_checked`, `attention_required`, exact manifest digest
   `d4af5339f885b43baebe697654eb6fa4122db95846276995ce6b6ff418224d6d`, and
-  `writesPerformed: 0`.
+  `writesPerformed: 0`;
+- private-service fast-burn health at 23:17:29 UTC on exact READY production
+  deployment `dpl_A7PhmnwiiSwm8V5HEP9f8H4vC8DU`: HTTP 200,
+  `customer_private_telemetry_fast_burn_checked`, `not-evaluable`, exact
+  completed window 23:00–23:15 UTC, zero read and write operations, and
+  `writesPerformed: 0`; and
+- Ops order queue-age health at 23:22:08 UTC on the same deployment: HTTP 503,
+  `ops_order_queue_age_health_checked`, `critical`, five general
+  operator-action orders, oldest age 29,889 minutes, zero payment-review and
+  open-return-review orders, no missing wait clocks, and `writesPerformed: 0`.
 
 The 02:07, 02:17, and 05:23 results prove all three owners fired naturally;
 scheduler silence is not the cause. The business-evidence route failed closed
@@ -293,6 +322,12 @@ truth: business evidence can query successfully, while inventory health still
 reports the actual deferred and stale backlog. The all-product clinical owner
 also met its fixed acceptance rule on its first natural slot. None of these
 routes was invoked manually and every observed route reported zero writes.
+
+The first health-guard slots also fired naturally on the exact release. Empty
+private-service traffic remained explicitly not evaluable rather than falsely
+healthy or permanently paging. The Ops owner surfaced a real critical backlog
+without inventing clocks or mutating orders. HTTP 503 is the policy's intended
+warning/critical signal and not evidence of a failed scheduler invocation.
 
 ## Authority, policy, and residual-risk register
 
@@ -324,17 +359,21 @@ items are not closed by code or local tests:
    are 1,000 reads and 200 writes. The private-safe fast-burn owner uses the
    last completed UTC quarter, explicit 100-read/50-write minimums, strict
    greater-than 1%/2% failure thresholds, a staggered 15-minute cadence, and
-   JeloCare Operations ownership. A dated fully instrumented 672-hour report,
-   recovery drill, and external alert delivery/deduplication evidence remain
-   open; low traffic stays `not-evaluable` and is never relabelled healthy.
+   JeloCare Operations ownership. The first natural slot returned HTTP 200,
+   `not-evaluable`, and zero writes for an empty completed quarter. A dated
+   fully instrumented 672-hour report, recovery drill, and external alert
+   delivery/deduplication evidence remain open; low traffic is never relabelled
+   healthy.
 5. **Ops queue-age policy.** The approved order-only policy warns at four hours
    and is critical at 24 hours for general operator work, warns at 30 minutes
    and is critical at two hours for payment review, and warns at two hours and
    is critical at eight hours for an open return. JeloCare Operations owns the
    response. The read-only scheduled health source uses the append-only wait
-   clock and treats missing clock evidence as critical. External alert
-   delivery/deduplication and a read-only production response drill remain
-   open; the thresholds are operational guardrails, not customer SLAs.
+   clock and treats missing clock evidence as critical. Its first natural slot
+   truthfully returned HTTP 503 for five critical general-action orders and
+   zero writes. External alert delivery/deduplication and a read-only
+   production response drill remain open; the thresholds are operational
+   guardrails, not customer SLAs.
 6. **Concern retention.** Founder policy is recorded in the dated
    [policy and business decision receipt](./2026-09-03-policy-and-business-decisions.md):
    Concerns are health-shaped sensitive personal context; removal/clear and
