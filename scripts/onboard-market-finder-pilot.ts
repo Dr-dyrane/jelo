@@ -12,6 +12,8 @@ const FORBIDDEN_PUBLIC_CHARACTERS =
 const PLACEHOLDER_PUBLIC_WORDS =
   /\b(?:demo|example|fake|fixture|placeholder|sample|test)\b/i;
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const POSTGRES_UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
 const evidenceMaximumDays = {
   field_visit: 180,
@@ -55,7 +57,8 @@ type TransactionSql = Sql & {
 class OnboardingConflictError extends Error {}
 
 const exactUuidSchema = z
-  .uuid()
+  .string()
+  .regex(POSTGRES_UUID_PATTERN, "Use the canonical lowercase UUID form.")
   .refine((value) => value !== UUID_ZERO, "A non-zero UUID is required.")
   .refine((value) => value === value.toLowerCase(), {
     message: "Use the canonical lowercase UUID form.",

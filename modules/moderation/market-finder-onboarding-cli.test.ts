@@ -578,6 +578,25 @@ test("the manifest and command are strict, dry-run-first, and evidence-window bo
   );
 });
 
+test("the manifest accepts deterministic PostgreSQL product identity UUIDs", () => {
+  const manifest = onboardingManifest();
+  assert.ok(manifest.product);
+  const identityVersionId = "1014d3aa-7d8c-b236-7181-85cd399f1d6c";
+
+  const parsed = parseMarketFinderOnboardingManifest(
+    {
+      ...manifest,
+      product: {
+        ...manifest.product,
+        identityVersionId,
+      },
+    },
+    now,
+  );
+
+  assert.equal(parsed.product?.identityVersionId, identityVersionId);
+});
+
 test("dry-run resolves exact canonical parents in a read-only transaction and emits no sensitive evidence", async () => {
   const fixture = onboardingFixture();
   const result = await runMarketFinderOnboarding(
