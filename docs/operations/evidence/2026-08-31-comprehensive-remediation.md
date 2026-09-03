@@ -219,16 +219,16 @@ this receipt, and no external publication occurred.
 
 ## Objective closure matrix
 
-| Remediation domain                          | Current proof                                                                                                                                                                         | Closure state                                                                                                    |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Release-blocking security                   | Zero-audit dependency floors, exact Shelf-role attestation, production database-alias containment, private operator logs, and six dedicated rate-limit secret bindings                | Code, release, and dedicated-secret configuration cells closed                                                   |
-| Authentication                              | Password lifecycle containment, bounded OTP intent and recovery, successful post-upgrade auth, and the authorized disposable-account journey                                          | Provider-capacity and final post-fix product-request create/edit/delete gates closed                             |
-| Payment integrity                           | Signed settlement-time binding, preserved payment-attempt reservations, governed evidence tests, and exact READY deployment                                                           | Code and release cell closed; provider fees and other business inputs remain gate 9                              |
-| Inventory automation and failure accounting | Separate retry, contradiction, deferral, stale, and watchdog accounting; guarded proposal integration; post-upgrade natural health evidence                                           | Code/release and provider-capacity cells closed; the current degraded backlog remains scheduled-owner work       |
-| Production observability                    | Exact-deployment runtime logs, health watchdog, private aggregate telemetry, and deterministic 28-day evaluator                                                                       | Instrumentation closed; approved traffic floors, alert ownership, dated 672-hour report, and drill remain gate 4 |
-| Customer and commerce flows                 | Global care handoffs, governed Ask assessment, server-verified selected context, compact accessibility, owner isolation, export privacy, bounded recovery and production route smokes | Released and authorized destructive behavior closed; policy and lane-owned gates 5, 6, 11, and 12 remain         |
-| Business evidence                           | Private read-only 30-day aggregate with exact payment and SLA proof rules, explicit cost-null behavior, and the successful post-upgrade natural 05:23 run                             | Code/release, scheduled observation, and provider-capacity cells closed; unavailable inputs remain gate 9        |
-| Final release record                        | Exact revision-to-READY bindings, production smokes, independent review, protected-path accounting, all first natural owner observations, and the controlled private-request proof    | Required runtime proof is closed; this receipt's final release binding remains pending                           |
+| Remediation domain                          | Current proof                                                                                                                                                                         | Closure state                                                                                                   |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Release-blocking security                   | Zero-audit dependency floors, exact Shelf-role attestation, production database-alias containment, private operator logs, and six dedicated rate-limit secret bindings                | Code, release, and dedicated-secret configuration cells closed                                                  |
+| Authentication                              | Password lifecycle containment, bounded OTP intent and recovery, successful post-upgrade auth, and the authorized disposable-account journey                                          | Provider-capacity and final post-fix product-request create/edit/delete gates closed                            |
+| Payment integrity                           | Signed settlement-time binding, preserved payment-attempt reservations, governed evidence tests, and exact READY deployment                                                           | Code and release cell closed; provider fees and other business inputs remain gate 9                             |
+| Inventory automation and failure accounting | Separate retry, contradiction, deferral, stale, and watchdog accounting; guarded proposal integration; post-upgrade natural health evidence                                           | Code/release and provider-capacity cells closed; the current degraded backlog remains scheduled-owner work      |
+| Production observability                    | Exact-deployment runtime logs, health watchdog, private aggregate telemetry, deterministic 28-day evaluator, and approved 15-minute fast-burn policy                                  | Alert code/policy prepared; external delivery, dated 672-hour report, and drill remain gate 4                   |
+| Customer and commerce flows                 | Global care handoffs, governed Ask assessment, server-verified selected context, compact accessibility, owner isolation, export privacy, bounded recovery and production route smokes | Released and authorized destructive behavior closed; external or lane-owned gates 6, 11, and 12 remain          |
+| Business evidence                           | Private read-only 30-day aggregate, exact payment/SLA proof rules, source-first cost-null policy, and the successful post-upgrade natural 05:23 run                                   | Code/release, scheduled observation, provider-capacity, and missing-input treatment closed; sources remain open |
+| Final release record                        | Exact revision-to-READY bindings, production smokes, independent review, protected-path accounting, all first natural owner observations, and the controlled private-request proof    | Required runtime proof is closed; this receipt's final release binding remains pending                          |
 
 ## Scheduled-owner observations
 
@@ -320,28 +320,32 @@ items are not closed by code or local tests:
    transaction defect tracked in issue
    [1189](https://github.com/porsager/postgres/issues/1189). The exact clean
    production build applied both patches and emitted no negative-delay warning.
-4. **Private-service SLO proof.** No dated production 672-hour SLO report or
-   recovery-drill receipt exists. Minimum read and write traffic populations,
-   a 15-minute alert source/cadence, and the accountable response owner require
-   recorded approval; this receipt does not invent them.
-5. **Ops queue-age policy.** Pending counts and oldest timestamps are
-   measurable, but warning/critical thresholds, escalation cadence and
-   channel, response owner, and recovery drill have not been approved. A
-   repository authority search found lifecycle SLA distributions and fixed
-   inventory-backlog alerts, but no order-specific policy to reuse; the
-   inventory thresholds must not be relabelled as customer-order authority.
-6. **Concern retention.** Concern persistence exists, but classification,
-   current/removed export policy, hard-delete versus tombstone behavior, live
-   and backup retention, and account-deletion treatment remain undecided. The
-   current Shelf export expressly omits Concern data, full provider-account
-   deletion is expressly unimplemented, and the production roadmap reserves
-   the retention and deletion promise as a founder decision; Shelf policy is
-   therefore not implicit authority for Concerns.
-7. **Ask retention operations.** The bounded operator exists, but no cadence or
-   production apply receipt exists. The 30-day `retain_until` boundary is only
-   eligibility, not an automatic-deletion promise; the runbook deliberately
-   excludes Vercel, cron, queue, and cache ownership. Any production deletion
-   requires a freshly resolved target and batch plus action-time authority.
+4. **Private-service SLO proof.** The approved long-window traffic populations
+   are 1,000 reads and 200 writes. The private-safe fast-burn owner uses the
+   last completed UTC quarter, explicit 100-read/50-write minimums, strict
+   greater-than 1%/2% failure thresholds, a staggered 15-minute cadence, and
+   JeloCare Operations ownership. A dated fully instrumented 672-hour report,
+   recovery drill, and external alert delivery/deduplication evidence remain
+   open; low traffic stays `not-evaluable` and is never relabelled healthy.
+5. **Ops queue-age policy.** The approved order-only policy warns at four hours
+   and is critical at 24 hours for general operator work, warns at 30 minutes
+   and is critical at two hours for payment review, and warns at two hours and
+   is critical at eight hours for an open return. JeloCare Operations owns the
+   response. The read-only scheduled health source uses the append-only wait
+   clock and treats missing clock evidence as critical. External alert
+   delivery/deduplication and a read-only production response drill remain
+   open; the thresholds are operational guardrails, not customer SLAs.
+6. **Concern retention.** Founder policy is recorded in the dated
+   [policy and business decision receipt](./2026-09-03-policy-and-business-decisions.md):
+   Concerns are health-shaped sensitive personal context; removal/clear and
+   account deletion hard-delete live rows, and export contains current active
+   Concerns only. Repository/migration delivery, exact provider backup-window
+   evidence, and authorized production verification remain open.
+7. **Ask retention operations.** The approved operating policy is daily owner
+   review and deletion within 24 hours after 30-day eligibility. The bounded
+   protected operator remains dry-run first and outside Vercel, cron, queue,
+   and cache ownership. Every target-specific production apply still requires
+   fresh action-time authority and an aggregate-only receipt.
 8. **Authenticated destructive journey — closed.** Fresh authority
    covered the disposable account, OTP transmission, export, Shelf clear,
    Shelf removal, Routine deletion, and the final product-request sequence.
@@ -351,15 +355,18 @@ items are not closed by code or local tests:
    sequence succeeded on its exact READY descendant deployment. The account
    ended with zero saved products and zero private product requests, and the
    session ended signed out.
-9. **Business inputs.** No accepted durable source exists for Stripe fees,
-   operator labour, messaging or AI cost, retailer variance, customer
-   acquisition cost, chargeback/refund loss, contribution margin, or repeat
-   cohort proof. The private register marks each unavailable rather than
-   estimating it.
-10. **Commercial and legal decisions.** Product-data/image licensing,
-    redistribution permissions, clinical-review ownership, and other
-    commercial or legal decisions require human evidence and cannot be inferred
-    from repository provenance.
+9. **Business inputs — treatment closed, sources open.** The approved
+   source-first policy prohibits estimates and keeps Stripe fees, operator
+   labour, messaging/AI cost, retailer variance, acquisition cost,
+   chargeback/refund loss, contribution margin, and repeat-cohort proof
+   `unavailable` until each has a dated durable source and calculation rule.
+10. **Commercial and legal direction recorded.** The founder sanctioned the
+    disclosed purchasing-agent, exact-quote/reapproval, governed payment and
+    returns, and clinical-governance directions already recorded in ADRs 0016
+    and 0018. This does not manufacture third-party image/data rights,
+    contracts, tax treatment, merchant-of-record treatment, clinician/premises
+    evidence, or redistribution permission. Pending, unclear, and unverified
+    sources remain withheld or require a dated rights/contract record.
 11. **Clinical outcome ranking.** The current Clinical wisdom lane owns
     `modules/recommendations/clinical-product-filter.ts`. A read-only review
     found that a product marked `didnt-help` can still receive the previous-

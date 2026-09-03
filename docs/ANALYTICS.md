@@ -24,9 +24,10 @@ We measure behaviour to answer one question: does JeloCare help someone choose b
 - Authenticated JeloCare Me reads and mutations emit only fixed surface,
   operation, success/failure, and coarse latency enums. Server-side
   `next/server` `after` scheduling keeps measurement off the response path.
-  Environment-separated UTC-hour Redis hashes expire no later than 35 days
-  after their hour begins. They contain no owner, account, session, or request
-  identifier and no product, concern,
+  Environment-separated UTC-hour and UTC-quarter Redis hashes carry the same
+  privacy boundary. The hashes expire no later than 35 days after their hour
+  begins. They contain no owner, account, session, or request identifier and no
+  product, concern,
   query, routine, location, order, device, referrer, path, URL, or free-text
   value. No client event or public reader exists. The operator command
   `npm run customer:telemetry:report` reads only the 672 exact production
@@ -45,20 +46,34 @@ We measure behaviour to answer one question: does JeloCare help someone choose b
 
   ```bash
   npm run customer:telemetry:slo -- \
-    --minimum-read <approved-positive-integer> \
-    --minimum-write <approved-positive-integer>
+    --minimum-read 1000 \
+    --minimum-write 200
   ```
 
-  Both minimum-traffic values are required policy inputs. They have no code
-  defaults and require a recorded approval before an evaluation is evidence.
+  The approved minimum-traffic policy is 1,000 read operations and 200 write
+  operations, the smallest long-window populations that expose one failure at
+  the respective 99.9% and 99.5% objectives. The command keeps both values
+  explicit and has no implicit fallback.
   The evaluator rejects every non-production, non-28-day, malformed, or
   incomplete window. It compares raw aggregate counts with the 99.9% read and
   99.5% write targets and emits aggregate-only JSON. `pass` means both signals
   reached approved traffic and met target. `fail` means at least one signal
   reached traffic and missed target. `not-evaluable` means no known failure is
   present but at least one signal has not reached approved traffic; it is never
-  a pass. The report's hourly buckets cannot prove the roadmap's separate
-  15-minute rollback signal.
+  a pass.
+
+  The separate fast-burn signal uses the same private-safe enums in a
+  quarter-hour hash. At minutes 2, 17, 32, and 47, the authenticated
+  `/api/cron/private-service-health` owner reads only the last completed UTC
+  quarter. With at least 100 reads and 50 writes, strictly more than 1% read
+  failures or 2% write failures produces `rollback-required` and HTTP 503.
+  Lower traffic remains explicitly `not-evaluable` with HTTP 200; it is not
+  relabelled healthy and does not create a permanent low-traffic page. A read
+  or configuration failure returns HTTP 500. Every outcome is aggregate-only,
+  private, no-store, deterministic, and reports `writesPerformed: 0`.
+  JeloCare Operations owns the response. External delivery and deduplication
+  remain a deployment-level alerting gate; the route itself sends no email and
+  mutates no state.
 
   Exit status is `0` for pass, `1` for fail, `2` for not-evaluable, and `3` for
   invalid input, unavailable reporting, or another fail-closed error. Retain

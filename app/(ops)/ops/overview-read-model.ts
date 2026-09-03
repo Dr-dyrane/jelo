@@ -6,6 +6,10 @@ import { humanizeRef } from "@/lib/humanize/refs";
 import { can, type Capability } from "@/lib/moderation/capabilities";
 import type { ModerationRole } from "@/lib/moderation/access";
 import { resolveOpsProductImages } from "@/lib/moderation/ops-product-visuals";
+import type {
+  OpsOrderQueueAgeFact,
+  OpsOrderQueueAgeKind,
+} from "@/lib/commerce/order-queue-age-policy";
 import {
   buildOverviewBriefing,
   overviewQueueKindForAuditQueue,
@@ -40,6 +44,112 @@ type OverviewOldestItemRow = {
   summary: string;
   product_ref: string | null;
 };
+
+type OpsOrderQueueAgeRow = {
+  as_of: string;
+  policy_kind: OpsOrderQueueAgeKind | null;
+  actionable_count: number;
+  clocked_count: number;
+  oldest_waiting_at: string | null;
+};
+
+export type OpsOrderQueueAgeSnapshot = {
+  asOf: string;
+  facts: OpsOrderQueueAgeFact[];
+};
+
+export async function readOpsOrderQueueAgeFacts(
+  sql: Sql,
+): Promise<OpsOrderQueueAgeSnapshot> {
+  return sql.begin("read only", async (transaction) => {
+    const rows = await transaction<OpsOrderQueueAgeRow[]>`
+      with database_clock as (
+        select now() as as_of
+      ),
+      ops_order_waiting as (
+        select
+          orders.id,
+          case
+            when orders.state = 'delivered' then open_return.created_at
+            else wait_anchor.created_at
+          end as waiting_since,
+          case
+            when orders.state = 'delivered' then 'return_review'
+            when wait_anchor.action = 'payment_review_required' then 'payment_review'
+            else 'operator_action'
+          end as policy_kind
+        from assisted_orders as orders
+        cross join database_clock
+        left join lateral (
+          select requested_return.created_at
+          from assisted_order_events as requested_return
+          where requested_return.order_id = orders.id
+            and requested_return.action = 'return_requested'
+            and not exists (
+              select 1 from assisted_order_events as return_decision
+              where return_decision.order_id = orders.id
+                and return_decision.sequence_id > requested_return.sequence_id
+                and return_decision.action in ('return_declined', 'refund_pending')
+            )
+          order by requested_return.sequence_id desc
+          limit 1
+        ) as open_return on orders.state = 'delivered'
+        left join lateral (
+          select anchor.created_at, anchor.action
+          from assisted_order_events as anchor
+          where anchor.order_id = orders.id
+            and anchor.to_state = orders.state
+            and (
+              anchor.from_state is distinct from anchor.to_state
+              or anchor.action = 'payment_review_required'
+            )
+          order by anchor.sequence_id desc
+          limit 1
+        ) as wait_anchor on orders.state <> 'delivered'
+        where orders.retain_until > database_clock.as_of
+          and (
+            orders.state in (
+              'requested', 'quoting', 'needs_response', 'payment_pending',
+              'paid', 'procurement', 'retailer_confirmed', 'out_for_delivery',
+              'refund_pending'
+            )
+            or (orders.state = 'delivered' and open_return.created_at is not null)
+          )
+      )
+      select
+        database_clock.as_of::text as as_of,
+        ops_order_waiting.policy_kind,
+        count(ops_order_waiting.id)::int as actionable_count,
+        count(ops_order_waiting.waiting_since)::int as clocked_count,
+        min(ops_order_waiting.waiting_since)::text as oldest_waiting_at
+      from database_clock
+      left join ops_order_waiting on true
+      group by database_clock.as_of, ops_order_waiting.policy_kind
+      order by ops_order_waiting.policy_kind
+    `;
+
+    const asOf = rows[0]?.as_of;
+    if (!asOf || rows.some((row) => row.as_of !== asOf)) {
+      throw new Error("Ops order queue age database clock is unavailable.");
+    }
+
+    return {
+      asOf,
+      facts: rows.flatMap((row) =>
+        row.policy_kind
+          ? [
+              {
+                kind: row.policy_kind,
+                actionableCount: row.actionable_count,
+                clockedCount: row.clocked_count,
+                oldestWaitingAt: row.oldest_waiting_at,
+              },
+            ]
+          : [],
+      ),
+    };
+  });
+}
 
 async function listOverviewQueueFacts(sql: Sql): Promise<OverviewQueueFact[]> {
   const rows = await sql<OverviewQueueRow[]>`

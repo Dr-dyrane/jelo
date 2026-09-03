@@ -139,12 +139,12 @@ production report and requires both approved traffic-policy values explicitly:
 
 ```bash
 npm run customer:telemetry:slo -- \
-  --minimum-read <approved-positive-integer> \
-  --minimum-write <approved-positive-integer>
+  --minimum-read 1000 \
+  --minimum-write 200
 ```
 
-Do not invent either value during an incident. The minimum read and write
-traffic values remain policy inputs requiring recorded approval. Exit `0`
+The approved minimum read and write populations are 1,000 and 200. Keep them
+explicit; do not replace them during an incident. Exit `0`
 means both signals reached minimum traffic and passed (read at least 99.9%,
 write at least 99.5%). Exit `1` means a traffic-qualified signal failed. Exit
 `2` means the result is not evaluable because at least one signal lacks minimum
@@ -156,9 +156,20 @@ For production evidence, retain the exact JSON and exit status with a UTC
 capture time, the report's start and end hour, exact application revision and
 deployment, exact command, the recorded approval reference for both minimums,
 operator/reviewer references, and a SHA-256 checksum. Never record Redis
-credentials or add private dimensions. Hourly hashes can evaluate the 28-day
-target, but they cannot prove the separate 15-minute rollback signal; that
-requires a separately approved finer-grained alert source.
+credentials or add private dimensions.
+
+The quarter-hour rollback owner runs at minutes 2, 17, 32, and 47 so deferred
+telemetry writes can settle before the last completed UTC quarter is read. It
+uses minimum populations of 100 reads and 50 writes. Strictly more than 1% read
+failures or 2% write failures returns HTTP 503 and requires JeloCare Operations
+to inspect the exact deployment and private-safe aggregate before rollback.
+`not-evaluable` is HTTP 200 but remains visibly not evaluable; it must not be
+recorded as healthy. Report/configuration failure is HTTP 500. Do not manually
+invoke the route to manufacture evidence, and do not copy a Redis credential
+or any private customer dimension into the incident record. External alert
+delivery and deduplication must be bound separately to the structured
+`customer_private_telemetry_fast_burn_checked` and
+`customer_private_telemetry_fast_burn_failed` signals.
 
 Use this non-destructive operator-report recovery drill contract:
 
@@ -255,7 +266,25 @@ append an event merely to test the clock:
 If the projection differs from those facts, retain only the order reference,
 state, anchor action, event sequence, event time, application revision, and UTC
 capture time needed for a bounded forward fix. Do not rewrite the event ledger,
-backdate rows, add an alert, or invent an escalation threshold.
+backdate rows, or invent an escalation threshold.
+
+The approved order-only queue-age policy is read-only and owned by JeloCare
+Operations:
+
+| Ops-owned work          |    Warning | Critical |
+| ----------------------- | ---------: | -------: |
+| General operator action |    4 hours | 24 hours |
+| Payment review          | 30 minutes |  2 hours |
+| Open return review      |    2 hours |  8 hours |
+
+`/api/cron/ops-order-health` runs at minutes 7, 22, 37, and 52. It reads the
+same append-only clocks in a database-enforced read-only transaction, returns
+HTTP 503 for warning or critical work, and emits only aggregate counts, oldest
+ages, thresholds, status, and `writesPerformed: 0`. A missing immutable wait
+clock is critical because an age must never be invented. A query or policy
+failure returns HTTP 500. The route does not send mail, append an order event,
+or change an order. External alert delivery/deduplication and a read-only
+production response drill remain separate release evidence.
 
 ## A migration fails
 

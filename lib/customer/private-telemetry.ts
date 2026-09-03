@@ -32,10 +32,7 @@ export const customerPrivateTelemetryOperations = [
   "update",
   "delete",
 ] as const;
-export const customerPrivateTelemetryOutcomes = [
-  "success",
-  "failure",
-] as const;
+export const customerPrivateTelemetryOutcomes = ["success", "failure"] as const;
 export const customerPrivateTelemetryLatencyBuckets = [
   "under_100ms",
   "100_499ms",
@@ -69,7 +66,7 @@ type CustomerPrivateTelemetryDimensions = Pick<
 
 type Schedule = (task: () => Promise<void>) => void;
 type WriteCounter = (
-  key: string,
+  keys: readonly [hourKey: string, quarterKey: string],
   field: string,
   expiresAtUnixSeconds: number,
 ) => Promise<boolean>;
@@ -94,16 +91,18 @@ export type CustomerPrivateTelemetryReportDependencies = {
   readHours?: ReadHours | null;
 };
 
-export const CUSTOMER_PRIVATE_TELEMETRY_RETENTION_SECONDS =
-  35 * 24 * 60 * 60;
+export const CUSTOMER_PRIVATE_TELEMETRY_RETENTION_SECONDS = 35 * 24 * 60 * 60;
 export const CUSTOMER_PRIVATE_TELEMETRY_DEFAULT_REPORT_DAYS = 28;
+export const CUSTOMER_PRIVATE_TELEMETRY_QUARTER_MINUTES = 15;
 export const CUSTOMER_PRIVATE_TELEMETRY_PREFIX =
   "jelocare:me:private-telemetry:v1";
 
 const incrementAndExpireScript = `
-local total = redis.call("HINCRBY", KEYS[1], ARGV[1], 1)
-redis.call("EXPIREAT", KEYS[1], ARGV[2])
-return total
+for index = 1, #KEYS do
+  redis.call("HINCRBY", KEYS[index], ARGV[1], 1)
+  redis.call("EXPIREAT", KEYS[index], ARGV[2])
+end
+return 1
 `;
 
 let redis: Redis | undefined;
@@ -142,10 +141,7 @@ export function parseCustomerPrivateTelemetryEvent(
       !isFixedValue(customerPrivateTelemetrySurfaces, event.surface) ||
       !isFixedValue(customerPrivateTelemetryOperations, event.operation) ||
       !isFixedValue(customerPrivateTelemetryOutcomes, event.outcome) ||
-      !isFixedValue(
-        customerPrivateTelemetryLatencyBuckets,
-        event.latencyBucket,
-      )
+      !isFixedValue(customerPrivateTelemetryLatencyBuckets, event.latencyBucket)
     ) {
       return null;
     }
@@ -191,6 +187,30 @@ export function customerPrivateTelemetryHourKey(
 ) {
   const safeEnvironment = parseCustomerPrivateTelemetryEnvironment(environment);
   return `${CUSTOMER_PRIVATE_TELEMETRY_PREFIX}:${safeEnvironment}:${customerPrivateTelemetryUtcHour(recordedAt)}`;
+}
+
+export function customerPrivateTelemetryUtcQuarter(recordedAt: Date) {
+  const timestamp = recordedAt.valueOf();
+  if (!Number.isFinite(timestamp)) {
+    throw new Error("customer_private_telemetry_time_invalid");
+  }
+  const quarter = new Date(timestamp);
+  quarter.setUTCMinutes(
+    Math.floor(
+      quarter.getUTCMinutes() / CUSTOMER_PRIVATE_TELEMETRY_QUARTER_MINUTES,
+    ) * CUSTOMER_PRIVATE_TELEMETRY_QUARTER_MINUTES,
+    0,
+    0,
+  );
+  return `${quarter.toISOString().slice(0, 16)}Z`;
+}
+
+export function customerPrivateTelemetryQuarterKey(
+  environment: CustomerPrivateTelemetryEnvironment,
+  recordedAt: Date,
+) {
+  const safeEnvironment = parseCustomerPrivateTelemetryEnvironment(environment);
+  return `${CUSTOMER_PRIVATE_TELEMETRY_PREFIX}:quarter:${safeEnvironment}:${customerPrivateTelemetryUtcQuarter(recordedAt)}`;
 }
 
 export function customerPrivateTelemetryExpiresAt(recordedAt: Date) {
@@ -243,7 +263,7 @@ function configuredRedis() {
 }
 
 async function writeCounter(
-  key: string,
+  keys: readonly [hourKey: string, quarterKey: string],
   field: string,
   expiresAtUnixSeconds: number,
 ) {
@@ -251,7 +271,7 @@ async function writeCounter(
   if (!client) return false;
   await client.eval(
     incrementAndExpireScript,
-    [key],
+    [...keys],
     [field, expiresAtUnixSeconds],
   );
   return true;
@@ -270,11 +290,16 @@ export async function recordCustomerPrivateTelemetry(
     if (!writer) return false;
     const recordedAt = (dependencies.now ?? (() => new Date()))();
     const environment = parseCustomerPrivateTelemetryEnvironment(
-      (dependencies.environment ?? (() =>
-        customerPrivateTelemetryEnvironment()))(),
+      (
+        dependencies.environment ??
+        (() => customerPrivateTelemetryEnvironment())
+      )(),
     );
     return await writer(
-      customerPrivateTelemetryHourKey(environment, recordedAt),
+      [
+        customerPrivateTelemetryHourKey(environment, recordedAt),
+        customerPrivateTelemetryQuarterKey(environment, recordedAt),
+      ],
       customerPrivateTelemetryField(event),
       customerPrivateTelemetryExpiresAt(recordedAt),
     );
@@ -348,12 +373,7 @@ export function measureCustomerPrivateOperation<T>(
   operation: () => Promise<T>,
   dependencies: CustomerPrivateTelemetryMeasurementDependencies = {},
 ) {
-  return measureOperation(
-    dimensions,
-    operation,
-    () => "success",
-    dependencies,
-  );
+  return measureOperation(dimensions, operation, () => "success", dependencies);
 }
 
 export function measureCustomerPrivateResponseOperation<T extends Response>(
@@ -413,10 +433,9 @@ async function readHours(keys: readonly string[]) {
   try {
     const pipeline = client.pipeline();
     for (const key of keys) pipeline.hgetall(key);
-    return (await pipeline.exec()) as readonly (
-      | Readonly<Record<string, unknown>>
-      | null
-    )[];
+    return (await pipeline.exec()) as readonly (Readonly<
+      Record<string, unknown>
+    > | null)[];
   } catch {
     throw new Error("customer_private_telemetry_report_unavailable");
   }
@@ -512,5 +531,83 @@ export async function readCustomerPrivateTelemetryReport(
       successRate: rate(writeSuccess, writeTotal),
     },
     counts,
+  };
+}
+
+export async function readCustomerPrivateTelemetryCompletedQuarterReport(
+  input: { environment?: CustomerPrivateTelemetryEnvironment } = {},
+  dependencies: CustomerPrivateTelemetryReportDependencies = {},
+) {
+  const environment = parseCustomerPrivateTelemetryEnvironment(
+    input.environment ?? "production",
+  );
+  const now = (dependencies.now ?? (() => new Date()))();
+  if (!Number.isFinite(now.valueOf())) {
+    throw new Error("customer_private_telemetry_time_invalid");
+  }
+  const endMinuteExclusive = new Date(now.valueOf());
+  endMinuteExclusive.setUTCMinutes(
+    Math.floor(
+      endMinuteExclusive.getUTCMinutes() /
+        CUSTOMER_PRIVATE_TELEMETRY_QUARTER_MINUTES,
+    ) * CUSTOMER_PRIVATE_TELEMETRY_QUARTER_MINUTES,
+    0,
+    0,
+  );
+  const startMinute = new Date(
+    endMinuteExclusive.valueOf() -
+      CUSTOMER_PRIVATE_TELEMETRY_QUARTER_MINUTES * 60 * 1_000,
+  );
+  const reader =
+    dependencies.readHours === undefined ? readHours : dependencies.readHours;
+  if (!reader) {
+    throw new Error("customer_private_telemetry_redis_not_configured");
+  }
+  const records = await reader([
+    customerPrivateTelemetryQuarterKey(environment, startMinute),
+  ]);
+  if (records.length !== 1) {
+    throw new Error("customer_private_telemetry_report_incomplete");
+  }
+  let readSuccess = 0;
+  let readFailure = 0;
+  let writeSuccess = 0;
+  let writeFailure = 0;
+  const record = records[0];
+  if (record) {
+    for (const [field, rawCount] of Object.entries(record)) {
+      const event = parseCustomerPrivateTelemetryField(field);
+      const count = telemetryCount(rawCount);
+      if (!event || count === null) continue;
+      const isRead = event.operation === "read" || event.operation === "export";
+      if (isRead && event.outcome === "success") readSuccess += count;
+      else if (isRead) readFailure += count;
+      else if (event.outcome === "success") writeSuccess += count;
+      else writeFailure += count;
+    }
+  }
+  const readTotal = readSuccess + readFailure;
+  const writeTotal = writeSuccess + writeFailure;
+  return {
+    environment,
+    window: {
+      minutes: CUSTOMER_PRIVATE_TELEMETRY_QUARTER_MINUTES,
+      startMinute: customerPrivateTelemetryUtcQuarter(startMinute),
+      endMinuteExclusive:
+        customerPrivateTelemetryUtcQuarter(endMinuteExclusive),
+    },
+    read: {
+      total: readTotal,
+      success: readSuccess,
+      failure: readFailure,
+      successRate: rate(readSuccess, readTotal),
+    },
+    write: {
+      total: writeTotal,
+      success: writeSuccess,
+      failure: writeFailure,
+      successRate: rate(writeSuccess, writeTotal),
+    },
+    writesPerformed: 0 as const,
   };
 }

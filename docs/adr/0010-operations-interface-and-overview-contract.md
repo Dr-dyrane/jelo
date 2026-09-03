@@ -72,12 +72,12 @@ while evidence and metadata scroll above it.
 
 Every route has one declared mode:
 
-| Mode | Job | Examples |
-| --- | --- | --- |
-| Briefing | Orient the operator, preserve system topology, select a queue, and recommend the next useful action. | `/ops` |
-| Triage | Scan a queue, inspect evidence, and make an attributable decision. | `/ops/observations`, `/ops/contributions` |
-| Monitor | Read a historical or operational signal without changing its source. | `/ops/activity`, `/ops/signals` |
-| Manage | Inspect governed people or configuration under an explicit authority boundary. | `/ops/operators` |
+| Mode     | Job                                                                                                  | Examples                                  |
+| -------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| Briefing | Orient the operator, preserve system topology, select a queue, and recommend the next useful action. | `/ops`                                    |
+| Triage   | Scan a queue, inspect evidence, and make an attributable decision.                                   | `/ops/observations`, `/ops/contributions` |
+| Monitor  | Read a historical or operational signal without changing its source.                                 | `/ops/activity`, `/ops/signals`           |
+| Manage   | Inspect governed people or configuration under an explicit authority boundary.                       | `/ops/operators`                          |
 
 A route may link to another mode. It must not quietly absorb that mode's entire
 workflow. New work declares its mode in the lane contract before visual design
@@ -96,13 +96,13 @@ contracts.
 
 The current maturity is:
 
-| Surface | Maturity |
-| --- | --- |
-| Shared Ops shell | Implemented contract; changes require a shell-owned lane. |
-| Observations | Interaction and density reference candidate. |
-| Overview | Briefing candidate under product review. |
-| Contributions | First triage transfer candidate; browser and automated evidence recorded, product acceptance still required. |
-| Relationships | Next transfer trial; not accepted by resemblance alone. |
+| Surface          | Maturity                                                                                                     |
+| ---------------- | ------------------------------------------------------------------------------------------------------------ |
+| Shared Ops shell | Implemented contract; changes require a shell-owned lane.                                                    |
+| Observations     | Interaction and density reference candidate.                                                                 |
+| Overview         | Briefing candidate under product review.                                                                     |
+| Contributions    | First triage transfer candidate; browser and automated evidence recorded, product acceptance still required. |
+| Relationships    | Next transfer trial; not accepted by resemblance alone.                                                      |
 
 Words such as `current`, `resolved`, or `accepted correction` inside historical
 notes describe the direction of that draft, not product acceptance. Only an
@@ -170,16 +170,16 @@ promotional, clinical, bureaucratic, or chatty.
 
 ### Preferred language
 
-| Avoid | Use |
-| --- | --- |
-| `Priority: Observations` | `Review observations` plus a visible reason such as `Oldest item waiting` |
-| `12 records pending ingestion` | `12 items need attention` |
-| `Navigate to queue` | `Review contributions` |
-| `Median price` | `Typical price` when the calculation really represents it |
-| `SLA breach detected` | `Oldest item has waited 2 days` |
-| `Action completed successfully` | `Observation approved` |
-| `No data available` | `Nothing awaiting review` or a state-specific alternative |
-| `An unexpected exception occurred` | `Couldn’t load this view` |
+| Avoid                              | Use                                                                       |
+| ---------------------------------- | ------------------------------------------------------------------------- |
+| `Priority: Observations`           | `Review observations` plus a visible reason such as `Oldest item waiting` |
+| `12 records pending ingestion`     | `12 items need attention`                                                 |
+| `Navigate to queue`                | `Review contributions`                                                    |
+| `Median price`                     | `Typical price` when the calculation really represents it                 |
+| `SLA breach detected`              | `Oldest item has waited 2 days`                                           |
+| `Action completed successfully`    | `Observation approved`                                                    |
+| `No data available`                | `Nothing awaiting review` or a state-specific alternative                 |
+| `An unexpected exception occurred` | `Couldn’t load this view`                                                 |
 
 Raw system terms may appear in Metadata or an audit detail when operators need
 them. They do not become the primary interface voice merely because the data
@@ -330,9 +330,20 @@ mutable order `updated_at` value:
 
 Notification-preference changes and every other same-state write are not wait
 anchors. A later state transition supersedes an earlier payment-review anchor.
-These rules define a truthful clock only; they do not define an escalation,
-alert, or service threshold. Equal queue timestamps continue to use the
-documented Overview topology order as their deterministic tie-break.
+The first approved order-only escalation policy keeps those clocks unchanged:
+
+- general operator work warns at four hours and is critical at 24 hours;
+- payment review warns at 30 minutes and is critical at two hours;
+- open return review warns at two hours and is critical at eight hours; and
+- any actionable order without its immutable wait anchor is critical rather
+  than assigned an invented age.
+
+The read-only health owner evaluates the same ledger facts every 15 minutes,
+staggered from other scheduled owners, and emits aggregate structured evidence
+for JeloCare Operations. It does not change Overview ordering, append an event,
+send a customer message, or define a customer-facing contractual SLA. Equal
+queue timestamps continue to use the documented Overview topology order as
+their deterministic tie-break.
 
 Future safety or freshness rules may outrank age only after the rule, source,
 and operator response are explicitly defined and tested. Queue volume alone is
@@ -372,12 +383,12 @@ remain separate governed Manage or Triage workflows.
 
 Insights keeps four evidence classes visibly distinct:
 
-| Evidence class | Meaning |
-| --- | --- |
-| Observed fact | A count, state, value, or timestamp read directly from its named source. |
-| Community-reported pattern | An aggregate over approved, retained anonymous notes; it remains reported experience, not established truth. |
-| Research outcome | A documented resolution, match, rejection, or completed research task with its own confidence and provenance. |
-| Operator decision | An immutable audit projection of an attributable action, target, rationale, and time. |
+| Evidence class             | Meaning                                                                                                       |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Observed fact              | A count, state, value, or timestamp read directly from its named source.                                      |
+| Community-reported pattern | An aggregate over approved, retained anonymous notes; it remains reported experience, not established truth.  |
+| Research outcome           | A documented resolution, match, rejection, or completed research task with its own confidence and provenance. |
+| Operator decision          | An immutable audit projection of an attributable action, target, rationale, and time.                         |
 
 Every aggregate or comparison names its denominator, time window, source, and
 freshness where those affect interpretation. Say `25 approved notes`, not `25
@@ -535,13 +546,13 @@ static information feel interactive.
 The operations shell's five bands remain load-bearing. Overview preserves the
 same reading order while changing composition:
 
-| Band | Overview composition |
-| --- | --- |
-| Phone, `<430px` | One workspace column, a readable horizontal `Up next` rail, and bottom-sheet selected-queue context. The route CTA remains above the bottom bar. |
-| Touch, `430–819px` | A content-driven one- or two-column workspace, with the feature shelf preserving readable measure and selected-queue context in a bottom sheet. Navigation remains an overlay. |
-| Compact tablet, `820–1179px` | Persistent shell navigation; queue rows own the workspace; selected-queue context opens in a right side sheet. No squeezed dashboard grid. |
-| Balanced desktop, `1180–1439px` | Persistent sidebar, queue workspace, and contextual inspector are visible as three related planes. |
-| Expanded desktop, `≥1440px` | Preserve the same three-plane hierarchy with a comfortable measure; do not add widgets merely to fill space. |
+| Band                            | Overview composition                                                                                                                                                           |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Phone, `<430px`                 | One workspace column, a readable horizontal `Up next` rail, and bottom-sheet selected-queue context. The route CTA remains above the bottom bar.                               |
+| Touch, `430–819px`              | A content-driven one- or two-column workspace, with the feature shelf preserving readable measure and selected-queue context in a bottom sheet. Navigation remains an overlay. |
+| Compact tablet, `820–1179px`    | Persistent shell navigation; queue rows own the workspace; selected-queue context opens in a right side sheet. No squeezed dashboard grid.                                     |
+| Balanced desktop, `1180–1439px` | Persistent sidebar, queue workspace, and contextual inspector are visible as three related planes.                                                                             |
+| Expanded desktop, `≥1440px`     | Preserve the same three-plane hierarchy with a comfortable measure; do not add widgets merely to fill space.                                                                   |
 
 At every width:
 
@@ -684,18 +695,18 @@ implementation of this ADR. The table is retained as design history; it is not
 a description of the current route and must not override the later candidate
 contract.
 
-| Finding | Why it breaks integrity | Required correction |
-| --- | --- | --- |
-| The route renders one complete queue based on current counts. | `/ops` changes identity unpredictably and duplicates triage. | Keep a stable briefing with queue-level rows and an inspector; route action opens the chosen queue. |
-| Priority is a hard-coded `if` order. | The interface presents policy without an evidence-backed reason. | Move recommendation into a typed, tested read model based initially on oldest actionable work. |
-| Other queues disappear. | The operator loses system topology and may misread the total. | Show every accessible queue as a selectable row, with its count. |
-| Decisions can execute on Overview. | Monitor and triage responsibilities blur; canonical queue URLs lose meaning. | Keep approve, reject, map, and rationale controls on queue routes only. |
-| Selection becomes `/ops?id=…`. | The URL identifies an individual record without its owning queue. | Use queue-level selection (`?queue=` when shareability is needed), then link to the canonical queue route. |
-| Overview imports observation route CSS. | A route-specific visual repair becomes a shared page dependency. | Give Overview a route-owned module and consume only stable shell primitives. |
-| Up to 100 rows are fetched and product-enriched. | A briefing pays queue-work cost and couples to catalogue presentation. | Read a small Overview projection. |
-| `Stats` is an action-shaped no-op in the shell. | The interface promises an action and provides no response. | Hide it until a real stats workflow and query exist; coordinate through the shell lane. |
-| Overview has no dedicated loading or error anatomy. | Transitions cannot preserve the intended briefing hierarchy. | Add route-owned loading and error states. |
-| Legacy tile styles remain beside the new draft. | Two incompatible Overview systems remain available to copy. | Remove dead Overview styles when the replacement ships. |
+| Finding                                                       | Why it breaks integrity                                                      | Required correction                                                                                        |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| The route renders one complete queue based on current counts. | `/ops` changes identity unpredictably and duplicates triage.                 | Keep a stable briefing with queue-level rows and an inspector; route action opens the chosen queue.        |
+| Priority is a hard-coded `if` order.                          | The interface presents policy without an evidence-backed reason.             | Move recommendation into a typed, tested read model based initially on oldest actionable work.             |
+| Other queues disappear.                                       | The operator loses system topology and may misread the total.                | Show every accessible queue as a selectable row, with its count.                                           |
+| Decisions can execute on Overview.                            | Monitor and triage responsibilities blur; canonical queue URLs lose meaning. | Keep approve, reject, map, and rationale controls on queue routes only.                                    |
+| Selection becomes `/ops?id=…`.                                | The URL identifies an individual record without its owning queue.            | Use queue-level selection (`?queue=` when shareability is needed), then link to the canonical queue route. |
+| Overview imports observation route CSS.                       | A route-specific visual repair becomes a shared page dependency.             | Give Overview a route-owned module and consume only stable shell primitives.                               |
+| Up to 100 rows are fetched and product-enriched.              | A briefing pays queue-work cost and couples to catalogue presentation.       | Read a small Overview projection.                                                                          |
+| `Stats` is an action-shaped no-op in the shell.               | The interface promises an action and provides no response.                   | Hide it until a real stats workflow and query exist; coordinate through the shell lane.                    |
+| Overview has no dedicated loading or error anatomy.           | Transitions cannot preserve the intended briefing hierarchy.                 | Add route-owned loading and error states.                                                                  |
+| Legacy tile styles remain beside the new draft.               | Two incompatible Overview systems remain available to copy.                  | Remove dead Overview styles when the replacement ships.                                                    |
 
 The Observations route remains the queue reference candidate. Its files are an
 independent review lane and must not be changed merely to make Overview easier
@@ -937,11 +948,11 @@ image.
 The three contribution kinds adapt the inspector instead of rendering one
 schema-shaped property list:
 
-| Kind | Primary context |
-| --- | --- |
-| Product | Product, brand, uses, store, reported price and date when supplied, and reported outcome. |
-| Routine | Products used together, uses, and reported outcome. Product count supplements the names; it does not replace them. |
-| Store | Store and the uses people associated with it. Product, price, purchase, and outcome rows are absent rather than empty. |
+| Kind    | Primary context                                                                                                        |
+| ------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Product | Product, brand, uses, store, reported price and date when supplied, and reported outcome.                              |
+| Routine | Products used together, uses, and reported outcome. Product count supplements the names; it does not replace them.     |
+| Store   | Store and the uses people associated with it. Product, price, purchase, and outcome rows are absent rather than empty. |
 
 Call the primary section `Submitted details`. Use `Note` for the optional
 operator rationale. The selected kind appears once where it aids orientation;
@@ -997,21 +1008,21 @@ never becomes the sole path.
 
 ### State and recovery matrix
 
-| State | Required behavior |
-| --- | --- |
-| Loading | Preserve the Contributions sections and reserve the docked desktop inspector because the populated ready state auto-selects. Do not wait for `id` and do not auto-open a side or bottom sheet. Use one polite loading announcement. |
-| Initial populated | Select the oldest available contribution synchronously, then reconcile the URL. The inspector never flashes empty. |
-| Selecting | Tone and mark the row busy immediately; mount the matching detail skeleton in the current presentation before navigation resolves. |
-| Populated | Show only kind-relevant submitted details, new-value state, human time and one decision region. |
-| Approving | Change only the submitted action label, disable duplicate decisions, preserve selection, and announce the outcome concisely. |
-| Rejecting | Open the cascade confirmation first; while settling, preserve the selected context and identify the submitted action. |
-| Settled | Remove the item, rebalance sections, advance URL and selection, and place focus predictably. |
-| Conflict | Keep the item visible until fresh data resolves; say that someone already handled it and offer a safe refresh. |
-| Empty | Use the quiet workspace anatomy: `Nothing awaiting review` and `New contributions will appear here.` Do not add an elevated success card. |
-| Partial | State what is shown without claiming the bounded client set is the global end. Preserve a visible load path when one exists. |
-| Error | Preserve the shell, say `Couldn't load contributions`, offer `Try again`, and keep diagnostics private. |
-| Denied | Keep the fail-closed access boundary. Do not render decision controls and do not describe internal permission implementation. |
-| Long or high-count | Preserve complete accessible names, stable card measure, bounded pagination, selection, and a reachable final action. |
+| State              | Required behavior                                                                                                                                                                                                                   |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Loading            | Preserve the Contributions sections and reserve the docked desktop inspector because the populated ready state auto-selects. Do not wait for `id` and do not auto-open a side or bottom sheet. Use one polite loading announcement. |
+| Initial populated  | Select the oldest available contribution synchronously, then reconcile the URL. The inspector never flashes empty.                                                                                                                  |
+| Selecting          | Tone and mark the row busy immediately; mount the matching detail skeleton in the current presentation before navigation resolves.                                                                                                  |
+| Populated          | Show only kind-relevant submitted details, new-value state, human time and one decision region.                                                                                                                                     |
+| Approving          | Change only the submitted action label, disable duplicate decisions, preserve selection, and announce the outcome concisely.                                                                                                        |
+| Rejecting          | Open the cascade confirmation first; while settling, preserve the selected context and identify the submitted action.                                                                                                               |
+| Settled            | Remove the item, rebalance sections, advance URL and selection, and place focus predictably.                                                                                                                                        |
+| Conflict           | Keep the item visible until fresh data resolves; say that someone already handled it and offer a safe refresh.                                                                                                                      |
+| Empty              | Use the quiet workspace anatomy: `Nothing awaiting review` and `New contributions will appear here.` Do not add an elevated success card.                                                                                           |
+| Partial            | State what is shown without claiming the bounded client set is the global end. Preserve a visible load path when one exists.                                                                                                        |
+| Error              | Preserve the shell, say `Couldn't load contributions`, offer `Try again`, and keep diagnostics private.                                                                                                                             |
+| Denied             | Keep the fail-closed access boundary. Do not render decision controls and do not describe internal permission implementation.                                                                                                       |
+| Long or high-count | Preserve complete accessible names, stable card measure, bounded pagination, selection, and a reachable final action.                                                                                                               |
 
 The responsive evidence matrix is `390 × 844`, `600 × 900`, `1000 × 800`,
 `1300 × 900`, `1440 × 900`, and `320px` at `200%` zoom. At `1300` and `1440`
@@ -1330,21 +1341,21 @@ disable duplicate decisions, keep context visible, announce a concise result,
 handle already-settled conflicts, advance predictably, and never expose
 arbitrary exception text.
 
-| State | Required behavior |
-| --- | --- |
-| Loading | Preserve relationship-row geometry and reserve the docked inspector without reading `id`; do not auto-open a temporary sheet. |
-| Initial populated | Select the oldest eligible relationship and reconcile the URL without an empty inspector flash. |
-| Selecting | Mark the chosen row busy immediately and show its detail skeleton in the current inspector plane. |
-| Populated | Show one human relationship, its reported value, evidence time, any matching work, progressive metadata, and one decision region. |
-| Approving | Change only the submitted action label, prevent duplicates, preserve context, and announce the result. |
-| Rejecting | Show the inline single-relationship consequence before submitting. |
-| Settled | Remove the item, advance URL and selection, and restore focus to a valid next target. |
-| Conflict | Keep context until fresh data resolves; say another operator already handled it and offer safe recovery. |
-| Empty | `Nothing awaiting review` and `New relationships will appear here.` on the bare workspace. |
-| Partial | Continue from a stable cursor through scroll loading with a `Load more` fallback; do not claim completeness. |
-| Error | Preserve the shell, say `Couldn't load relationships`, offer `Try again`, and keep diagnostics private. |
-| Denied | Hide decisions and use plain operator language without describing permission internals. |
-| Long content | Preserve full accessible meaning, readable wrapping, stable media measure, and reachable actions. |
+| State             | Required behavior                                                                                                                 |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Loading           | Preserve relationship-row geometry and reserve the docked inspector without reading `id`; do not auto-open a temporary sheet.     |
+| Initial populated | Select the oldest eligible relationship and reconcile the URL without an empty inspector flash.                                   |
+| Selecting         | Mark the chosen row busy immediately and show its detail skeleton in the current inspector plane.                                 |
+| Populated         | Show one human relationship, its reported value, evidence time, any matching work, progressive metadata, and one decision region. |
+| Approving         | Change only the submitted action label, prevent duplicates, preserve context, and announce the result.                            |
+| Rejecting         | Show the inline single-relationship consequence before submitting.                                                                |
+| Settled           | Remove the item, advance URL and selection, and restore focus to a valid next target.                                             |
+| Conflict          | Keep context until fresh data resolves; say another operator already handled it and offer safe recovery.                          |
+| Empty             | `Nothing awaiting review` and `New relationships will appear here.` on the bare workspace.                                        |
+| Partial           | Continue from a stable cursor through scroll loading with a `Load more` fallback; do not claim completeness.                      |
+| Error             | Preserve the shell, say `Couldn't load relationships`, offer `Try again`, and keep diagnostics private.                           |
+| Denied            | Hide decisions and use plain operator language without describing permission internals.                                           |
+| Long content      | Preserve full accessible meaning, readable wrapping, stable media measure, and reachable actions.                                 |
 
 The evidence matrix is `390 × 844`, `600 × 800`, `1000 × 800`, `1300 × 820`,
 `1440 × 900`, and `320 × 640`, plus keyboard-only, dark mode,

@@ -10,6 +10,14 @@
       "schedule": "7 * * * *"
     },
     {
+      "path": "/api/cron/private-service-health",
+      "schedule": "2,17,32,47 * * * *"
+    },
+    {
+      "path": "/api/cron/ops-order-health",
+      "schedule": "7,22,37,52 * * * *"
+    },
+    {
       "path": "/api/cron/reconcile-requests",
       "schedule": "37 4 * * *"
     },

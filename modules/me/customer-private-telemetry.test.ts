@@ -4,16 +4,20 @@ import test from "node:test";
 import {
   CUSTOMER_PRIVATE_TELEMETRY_DEFAULT_REPORT_DAYS,
   CUSTOMER_PRIVATE_TELEMETRY_PREFIX,
+  CUSTOMER_PRIVATE_TELEMETRY_QUARTER_MINUTES,
   CUSTOMER_PRIVATE_TELEMETRY_RETENTION_SECONDS,
   customerPrivateTelemetryEnvironment,
   customerPrivateTelemetryExpiresAt,
   customerPrivateTelemetryField,
   customerPrivateTelemetryHourKey,
   customerPrivateTelemetryLatencyBucket,
+  customerPrivateTelemetryQuarterKey,
+  customerPrivateTelemetryUtcQuarter,
   measureCustomerPrivateOperation,
   measureCustomerPrivateResponseOperation,
   measureCustomerPrivateResultOperation,
   parseCustomerPrivateTelemetryEvent,
+  readCustomerPrivateTelemetryCompletedQuarterReport,
   readCustomerPrivateTelemetryReport,
   recordCustomerPrivateTelemetry,
   type CustomerPrivateTelemetryEvent,
@@ -83,12 +87,21 @@ test("private telemetry accepts only its four enum fields", () => {
   );
 });
 
-test("hour keys use a UTC hour and a fixed deployment environment", () => {
+test("hour and quarter keys use UTC boundaries and a fixed deployment environment", () => {
   const recordedAt = new Date("2026-08-13T23:45:12-07:00");
   assert.equal(
     customerPrivateTelemetryHourKey("production", recordedAt),
     `${CUSTOMER_PRIVATE_TELEMETRY_PREFIX}:production:2026-08-14T06Z`,
   );
+  assert.equal(
+    customerPrivateTelemetryQuarterKey("production", recordedAt),
+    `${CUSTOMER_PRIVATE_TELEMETRY_PREFIX}:quarter:production:2026-08-14T06:45Z`,
+  );
+  assert.equal(
+    customerPrivateTelemetryUtcQuarter(new Date("2026-08-14T06:59:59.999Z")),
+    "2026-08-14T06:45Z",
+  );
+  assert.equal(CUSTOMER_PRIVATE_TELEMETRY_QUARTER_MINUTES, 15);
   assert.equal(customerPrivateTelemetryEnvironment("production"), "production");
   assert.equal(customerPrivateTelemetryEnvironment("preview"), "preview");
   assert.equal(
@@ -102,7 +115,7 @@ test("hour keys use a UTC hour and a fixed deployment environment", () => {
     /customer_private_telemetry_environment_invalid/,
   );
 
-  const keyAndField = `${customerPrivateTelemetryHourKey("preview", recordedAt)}:${customerPrivateTelemetryField(validEvent)}`;
+  const keyAndField = `${customerPrivateTelemetryHourKey("preview", recordedAt)}:${customerPrivateTelemetryQuarterKey("preview", recordedAt)}:${customerPrivateTelemetryField(validEvent)}`;
   for (const privateValue of [
     "customer-private-subject",
     "owner@example.com",
@@ -127,8 +140,8 @@ test("latency is reduced to a bounded coarse enum", () => {
   assert.equal(customerPrivateTelemetryLatencyBucket(2_000), "at_least_2s");
 });
 
-test("recording writes one hourly counter with a fixed 35-day bucket expiry", async () => {
-  const writes: Array<[string, string, number]> = [];
+test("recording atomically writes hourly and quarter counters with one fixed expiry", async () => {
+  const writes: Array<[readonly [string, string], string, number]> = [];
   const recordedAt = [
     new Date("2026-08-14T06:01:00.000Z"),
     new Date("2026-08-14T06:59:59.999Z"),
@@ -136,8 +149,12 @@ test("recording writes one hourly counter with a fixed 35-day bucket expiry", as
   const dependencies = {
     now: () => recordedAt.shift()!,
     environment: () => "preview",
-    write: async (key: string, field: string, expiresAtUnixSeconds: number) => {
-      writes.push([key, field, expiresAtUnixSeconds]);
+    write: async (
+      keys: readonly [string, string],
+      field: string,
+      expiresAtUnixSeconds: number,
+    ) => {
+      writes.push([keys, field, expiresAtUnixSeconds]);
       return true;
     },
   } as const;
@@ -154,12 +171,18 @@ test("recording writes one hourly counter with a fixed 35-day bucket expiry", as
   );
   assert.deepEqual(writes, [
     [
-      `${CUSTOMER_PRIVATE_TELEMETRY_PREFIX}:preview:2026-08-14T06Z`,
+      [
+        `${CUSTOMER_PRIVATE_TELEMETRY_PREFIX}:preview:2026-08-14T06Z`,
+        `${CUSTOMER_PRIVATE_TELEMETRY_PREFIX}:quarter:preview:2026-08-14T06:00Z`,
+      ],
       "shelf:add:success:100_499ms",
       fixedExpiry,
     ],
     [
-      `${CUSTOMER_PRIVATE_TELEMETRY_PREFIX}:preview:2026-08-14T06Z`,
+      [
+        `${CUSTOMER_PRIVATE_TELEMETRY_PREFIX}:preview:2026-08-14T06Z`,
+        `${CUSTOMER_PRIVATE_TELEMETRY_PREFIX}:quarter:preview:2026-08-14T06:45Z`,
+      ],
       "shelf:add:success:100_499ms",
       fixedExpiry,
     ],
@@ -448,6 +471,43 @@ test("non-production reports require a fixed explicit environment and config err
     readCustomerPrivateTelemetryReport({}, { readHours: null }),
     /customer_private_telemetry_redis_not_configured/,
   );
+});
+
+test("the fast-burn report reads only the last completed UTC quarter", async () => {
+  let requestedKeys: readonly string[] = [];
+  const report = await readCustomerPrivateTelemetryCompletedQuarterReport(
+    { environment: "production" },
+    {
+      now: () => new Date("2026-08-14T06:37:42.123Z"),
+      readHours: async (keys) => {
+        requestedKeys = keys;
+        return [
+          {
+            "home:read:success:under_100ms": "99",
+            "home:read:failure:500_999ms": "1",
+            "shelf:add:success:100_499ms": "49",
+            "shelf:add:failure:at_least_2s": "1",
+            "owner@example.com:read:success:under_100ms": "100",
+          },
+        ];
+      },
+    },
+  );
+
+  assert.deepEqual(requestedKeys, [
+    `${CUSTOMER_PRIVATE_TELEMETRY_PREFIX}:quarter:production:2026-08-14T06:15Z`,
+  ]);
+  assert.deepEqual(report, {
+    environment: "production",
+    window: {
+      minutes: 15,
+      startMinute: "2026-08-14T06:15Z",
+      endMinuteExclusive: "2026-08-14T06:30Z",
+    },
+    read: { total: 100, success: 99, failure: 1, successRate: 0.99 },
+    write: { total: 50, success: 49, failure: 1, successRate: 0.98 },
+    writesPerformed: 0,
+  });
 });
 
 test("all current authenticated Me reads and mutations use the private aggregate helper", () => {
