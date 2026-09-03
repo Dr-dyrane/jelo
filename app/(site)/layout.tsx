@@ -6,12 +6,16 @@ import { NavigationMemory } from "@/components/navigation/navigation-memory";
 import { BasketProvider } from "@/components/commerce/basket-provider";
 import { PublicBasketPill } from "@/components/commerce/public-basket-pill";
 import { listCatalogueProducts } from "@/lib/catalogue/repository";
+import { resolveMarketFinderNavigationHref } from "@/lib/markets/navigation";
 
 // Public chrome. The html/body shell, fonts, and theme come from the root layout.
 export default async function SiteLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const products = await listCatalogueProducts();
+  const [products, marketFinderHref] = await Promise.all([
+    listCatalogueProducts(),
+    resolveMarketFinderNavigationHref(),
+  ]);
   const basketProducts = products.map(({ slug, brand, name, image }) => ({
     slug,
     brand,
@@ -25,7 +29,7 @@ export default async function SiteLayout({
       <a className="site-skip-link" href="#main-content">
         Skip to main content
       </a>
-      <SiteHeader />
+      <SiteHeader marketFinderHref={marketFinderHref ?? undefined} />
       <div id="main-content" tabIndex={-1}>
         {children}
       </div>
@@ -49,6 +53,9 @@ export default async function SiteLayout({
             <Link href="/lagos">Lagos Daily Desk</Link>
             <Link href="/bundle">Bundle finder</Link>
             <Link href="/retailers">Retailers</Link>
+            {marketFinderHref ? (
+              <Link href={marketFinderHref}>Market Finder</Link>
+            ) : null}
           </div>
           <div className="footer-group">
             <strong>Your care</strong>

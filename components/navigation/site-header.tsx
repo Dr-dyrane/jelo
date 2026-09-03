@@ -20,7 +20,11 @@ const mobileLinks = [
   { href: "/me", label: "Me", detail: "Your care workspace" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({
+  marketFinderHref,
+}: {
+  marketFinderHref?: string;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const isHome = pathname === "/";
@@ -204,6 +208,11 @@ export function SiteHeader() {
             <Link href="/retailers" onClick={closeMenu}>
               Retailers
             </Link>
+            {marketFinderHref ? (
+              <Link href={marketFinderHref} onClick={closeMenu}>
+                Market Finder
+              </Link>
+            ) : null}
           </div>
         </div>
       </dialog>
