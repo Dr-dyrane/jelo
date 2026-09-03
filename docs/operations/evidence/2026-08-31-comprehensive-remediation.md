@@ -1,7 +1,7 @@
 # Comprehensive remediation evidence register
 
 Date: 2026-08-31
-Status: **release cells live; natural clinical-owner verification and named
+Status: **release cells live; controlled private-customer proof closed; named
 authority-bound or lane-owned residual risks retained below**
 
 This receipt records the bounded JeloCare comprehensive audit remediation
@@ -13,14 +13,14 @@ ledger, or an authorization to mutate production data or configuration.
 
 ## Release boundary
 
-The integration branch is `main`. The latest application revision captured by
+The integration branch is `main`. The latest application revision observed by
 this receipt is
-`93df3a618c80af5bd64e646c26178af3d2f072d3`. Its exact production deployment
-is `dpl_DVfAwVqUp9WW3JXjXP9WJghF2ggK`, which is READY and aliased to
+`fe4cfdf568a57e2189609ac221938f6bc5f46806`. Its exact production deployment
+is `dpl_GevNohodzYfbwTrT76grXoVqYQ4E`, which is READY and aliased to
 `www.jelocare.com` and `jelocare.com`.
 
 The shared checkout still contains protected, unrelated work in
-`.codex/context-system/work-ledger.md`, `LANES.md`,
+`.codex/context-system/work-ledger.md`, `AGENTS.md`, `LANES.md`,
 `lib/inventory/repository.ts`,
 `docs/operations/evidence/2026-08-31-clinical-review-scheduled-owner.md`, and the untracked
 `public/campaigns/social/2026-08-27-x-reply-desk-v2/**` tree. This program did
@@ -201,22 +201,34 @@ PostgreSQL advisory-lock key. Exact fix
 `c44846e23fc5a8d3372640abeebbac235fb87935` replaced that separator with a safe
 domain delimiter, passed independent review and the complete 1,726-test suite
 with 1,723 passes, three expected skips, and zero failures, and shipped through
-READY deployment `dpl_GeWDGR7cj6z2sm2zFa1QiAJB7Hgn`. A fresh OTP has been sent;
-the final post-fix request create/edit/delete proof remains pending that newest
-code and is not inferred from the green deployment.
+READY deployment `dpl_GeWDGR7cj6z2sm2zFa1QiAJB7Hgn`.
+
+The final post-fix proof completed on 3 September 2026 against READY deployment
+`dpl_GevNohodzYfbwTrT76grXoVqYQ4E`, sourced from
+`fe4cfdf568a57e2189609ac221938f6bc5f46806`, which contains the fix revision.
+A fresh OTP sign-in reached an initially empty Shelf. An exact-catalogue search
+confirmed that the labelled synthetic identity was absent; the private draft
+then created successfully, its printed variant changed from the initial
+synthetic value to an edited synthetic value, and the rendered detail reflected
+the change. After explicit action-time confirmation, the destructive dialog
+deleted the request. The returned Shelf showed `0 exact products`, `0 requests`,
+`Private request deleted.`, and no private product requests. Sign-out restored
+the `/sign-in?next=/me` boundary. No photo was attached, the draft was never
+submitted for review, no customer identifier or private row identifier entered
+this receipt, and no external publication occurred.
 
 ## Objective closure matrix
 
-| Remediation domain                          | Current proof                                                                                                                                                                         | Closure state                                                                                                        |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Release-blocking security                   | Zero-audit dependency floors, exact Shelf-role attestation, production database-alias containment, private operator logs, and six dedicated rate-limit secret bindings                | Code, release, and dedicated-secret configuration cells closed                                                       |
-| Authentication                              | Password lifecycle containment, bounded OTP intent and recovery, successful post-upgrade auth, and the authorized disposable-account journey                                          | Provider-capacity gate closed; final post-fix product-request create/edit/delete proof remains in gate 8             |
-| Payment integrity                           | Signed settlement-time binding, preserved payment-attempt reservations, governed evidence tests, and exact READY deployment                                                           | Code and release cell closed; provider fees and other business inputs remain gate 9                                  |
-| Inventory automation and failure accounting | Separate retry, contradiction, deferral, stale, and watchdog accounting; guarded proposal integration; post-upgrade natural health evidence                                           | Code/release and provider-capacity cells closed; the current degraded backlog remains scheduled-owner work           |
-| Production observability                    | Exact-deployment runtime logs, health watchdog, private aggregate telemetry, and deterministic 28-day evaluator                                                                       | Instrumentation closed; approved traffic floors, alert ownership, dated 672-hour report, and drill remain gate 4     |
-| Customer and commerce flows                 | Global care handoffs, governed Ask assessment, server-verified selected context, compact accessibility, owner isolation, export privacy, bounded recovery and production route smokes | Non-destructive released behavior closed; policy/private-action gates 5, 6, 8, 11, and 12 remain                     |
-| Business evidence                           | Private read-only 30-day aggregate with exact payment and SLA proof rules, explicit cost-null behavior, and the successful post-upgrade natural 05:23 run                             | Code/release, scheduled observation, and provider-capacity cells closed; unavailable inputs remain gate 9            |
-| Final release record                        | Exact revision-to-READY bindings, production smokes, independent review, protected-path accounting, and all first natural owner observations                                          | Clinical scheduled evidence is closed; final private-request proof and this receipt's release binding remain pending |
+| Remediation domain                          | Current proof                                                                                                                                                                         | Closure state                                                                                                    |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Release-blocking security                   | Zero-audit dependency floors, exact Shelf-role attestation, production database-alias containment, private operator logs, and six dedicated rate-limit secret bindings                | Code, release, and dedicated-secret configuration cells closed                                                   |
+| Authentication                              | Password lifecycle containment, bounded OTP intent and recovery, successful post-upgrade auth, and the authorized disposable-account journey                                          | Provider-capacity and final post-fix product-request create/edit/delete gates closed                             |
+| Payment integrity                           | Signed settlement-time binding, preserved payment-attempt reservations, governed evidence tests, and exact READY deployment                                                           | Code and release cell closed; provider fees and other business inputs remain gate 9                              |
+| Inventory automation and failure accounting | Separate retry, contradiction, deferral, stale, and watchdog accounting; guarded proposal integration; post-upgrade natural health evidence                                           | Code/release and provider-capacity cells closed; the current degraded backlog remains scheduled-owner work       |
+| Production observability                    | Exact-deployment runtime logs, health watchdog, private aggregate telemetry, and deterministic 28-day evaluator                                                                       | Instrumentation closed; approved traffic floors, alert ownership, dated 672-hour report, and drill remain gate 4 |
+| Customer and commerce flows                 | Global care handoffs, governed Ask assessment, server-verified selected context, compact accessibility, owner isolation, export privacy, bounded recovery and production route smokes | Released and authorized destructive behavior closed; policy and lane-owned gates 5, 6, 11, and 12 remain         |
+| Business evidence                           | Private read-only 30-day aggregate with exact payment and SLA proof rules, explicit cost-null behavior, and the successful post-upgrade natural 05:23 run                             | Code/release, scheduled observation, and provider-capacity cells closed; unavailable inputs remain gate 9        |
+| Final release record                        | Exact revision-to-READY bindings, production smokes, independent review, protected-path accounting, all first natural owner observations, and the controlled private-request proof    | Required runtime proof is closed; this receipt's final release binding remains pending                           |
 
 ## Scheduled-owner observations
 
@@ -284,10 +296,9 @@ routes was invoked manually and every observed route reported zero writes.
 
 ## Authority, policy, and residual-risk register
 
-Items 1, 2, and 3 are retained in place for audit traceability and are now
-closed by action-time authority plus exact production evidence. Item 8 is
-partially closed and names its one remaining post-fix proof. The other items
-are not closed by code or local tests:
+Items 1, 2, 3, and 8 are retained in place for audit traceability and are now
+closed by action-time authority plus exact production evidence. The other
+items are not closed by code or local tests:
 
 1. **Neon capacity — closed.** The authorized `launch_v3` upgrade completed,
    a production read-only connection probe succeeded, and the next natural
@@ -331,13 +342,15 @@ are not closed by code or local tests:
    eligibility, not an automatic-deletion promise; the runbook deliberately
    excludes Vercel, cron, queue, and cache ownership. Any production deletion
    requires a freshly resolved target and batch plus action-time authority.
-8. **Authenticated destructive journey — partially closed.** Fresh authority
+8. **Authenticated destructive journey — closed.** Fresh authority
    covered the disposable account, OTP transmission, export, Shelf clear,
    Shelf removal, Routine deletion, and the final product-request sequence.
    Every mutation actually completed reconciled to the empty UI and sign-out
    boundary. The pre-fix request create failed without a row, the bounded
-   advisory-lock fix is live, and its authorized post-fix create/edit/delete
-   proof still awaits the newest OTP.
+   advisory-lock fix is live, and the authorized post-fix create/edit/delete
+   sequence succeeded on its exact READY descendant deployment. The account
+   ended with zero saved products and zero private product requests, and the
+   session ended signed out.
 9. **Business inputs.** No accepted durable source exists for Stripe fees,
    operator labour, messaging or AI cost, retailer variance, customer
    acquisition cost, chargeback/refund loss, contribution margin, or repeat
