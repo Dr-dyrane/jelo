@@ -10,6 +10,7 @@ import {
   INVENTORY_DEFERRED_RECHECK_MS,
   INVENTORY_REFRESH_FRESHNESS_MS,
   INVENTORY_REFRESH_LEASE_MS,
+  InventoryRefreshFailure,
   inventoryRefreshFailureSettlement,
   inventoryRefreshLastError,
   isInventoryRefreshTerminalReason,
@@ -34,6 +35,7 @@ import {
 } from "@/lib/inventory/ai-extraction";
 
 const REQUEST_TIMEOUT_MS = 12_000;
+export const INVENTORY_REFRESH_EXTRACTION_BUDGET_MS = 25_000;
 const MAX_RESPONSE_BYTES = 1_500_000;
 const MAX_ATTEMPTS = 5;
 const EXHAUSTED_LEASE_DEFERRED_ERROR = inventoryRefreshLastError({
@@ -67,11 +69,192 @@ const WOO_API_HOSTS = new Map<string, string>([
 // back to the Playwright browser fetch instead of being skipped entirely.
 const BLOCKED_HOSTS = new Set(["jumia.com.ng"]);
 
-type RetailerObservation = RetailerExtraction & {
+export type RetailerObservation = RetailerExtraction & {
   adapterKey: string;
   responseUrl: string;
   verificationMethod: string;
 };
+
+export type InventoryObservationScope = {
+  requestedUrl: string;
+  expectedTitle: string;
+  expectedTitleAliases?: string[];
+  expectedSize: string;
+  marketCode: string;
+};
+
+export function inventoryObservationEvidenceGaps(
+  observation: RetailerObservation,
+) {
+  const gaps: string[] = [];
+  if (!observation.productTitle?.trim()) gaps.push("product title");
+  if (!observation.productSize?.trim()) gaps.push("measurable product size");
+  if (observation.priceMinor != null && !observation.currencyCode) {
+    gaps.push("price currency");
+  }
+  if (
+    observation.inventoryStatus === "unknown" &&
+    observation.priceMinor == null
+  ) {
+    gaps.push("price or stock evidence");
+  }
+  return gaps;
+}
+
+export function inventoryObservationScopeGap(
+  scope: InventoryObservationScope,
+  observation: RetailerObservation,
+): string | undefined {
+  try {
+    assertClassifiedInventoryRefreshScope(() => {
+      assertRetailerResponseScope({
+        requestedUrl: scope.requestedUrl,
+        responseUrl: observation.responseUrl,
+        canonicalUrl: observation.canonicalUrl,
+        expectedTitle: scope.expectedTitle,
+        expectedTitleAliases: scope.expectedTitleAliases,
+        expectedSize: scope.expectedSize,
+        observedTitle: observation.productTitle?.trim()
+          ? observation.productTitle
+          : scope.expectedTitle,
+        observedSize: observation.productSize?.trim()
+          ? observation.productSize
+          : scope.expectedSize,
+        marketCode: scope.marketCode,
+        currencyCode: observation.currencyCode,
+      });
+    });
+    return undefined;
+  } catch (error) {
+    if (
+      error instanceof InventoryRefreshFailure &&
+      error.reason === "evidence_incomplete"
+    ) {
+      return "unverifiable exact-scope evidence";
+    }
+    throw error;
+  }
+}
+
+export function combineRetailerObservations(
+  existing: RetailerObservation | undefined,
+  supplemental: RetailerObservation,
+): RetailerObservation {
+  const normalizedSupplemental =
+    supplemental.priceMinor != null && supplemental.currencyCode == null
+      ? { ...supplemental, priceMinor: null }
+      : supplemental;
+  if (!existing) return normalizedSupplemental;
+
+  const existingHasPrice =
+    existing.priceMinor != null && existing.currencyCode != null;
+  const verificationMethod =
+    existing.verificationMethod === "ai_extraction" ||
+    normalizedSupplemental.verificationMethod === "ai_extraction"
+      ? "ai_extraction"
+      : normalizedSupplemental.verificationMethod;
+  const adapterKey = [
+    ...new Set([existing.adapterKey, normalizedSupplemental.adapterKey]),
+  ]
+    .filter(Boolean)
+    .join("+");
+
+  return {
+    inventoryStatus:
+      existing.inventoryStatus !== "unknown"
+        ? existing.inventoryStatus
+        : normalizedSupplemental.inventoryStatus,
+    priceMinor: existingHasPrice
+      ? existing.priceMinor
+      : normalizedSupplemental.priceMinor,
+    currencyCode: existingHasPrice
+      ? existing.currencyCode
+      : (normalizedSupplemental.currencyCode ?? existing.currencyCode),
+    productTitle:
+      normalizedSupplemental.productTitle?.trim() ||
+      existing.productTitle?.trim()
+        ? normalizedSupplemental.productTitle?.trim() ||
+          existing.productTitle?.trim()
+        : undefined,
+    productSize:
+      normalizedSupplemental.productSize?.trim() || existing.productSize?.trim()
+        ? normalizedSupplemental.productSize?.trim() ||
+          existing.productSize?.trim()
+        : undefined,
+    canonicalUrl: normalizedSupplemental.canonicalUrl ?? existing.canonicalUrl,
+    evidence: [
+      ...new Set([...existing.evidence, ...normalizedSupplemental.evidence]),
+    ],
+    confidence:
+      verificationMethod === "ai_extraction"
+        ? Math.min(
+            50,
+            Math.max(existing.confidence, normalizedSupplemental.confidence),
+          )
+        : Math.max(existing.confidence, normalizedSupplemental.confidence),
+    adapterKey,
+    responseUrl: normalizedSupplemental.responseUrl,
+    verificationMethod,
+  };
+}
+
+function directFetchFailureOutcome(error: unknown): string {
+  if (!(error instanceof Error)) return "request failed";
+  if (error.name === "AbortError") return "request timed out";
+  if (error.message.startsWith("Retailer returned HTTP ")) {
+    return error.message.replace(/\.$/, "");
+  }
+  if (error.message.startsWith("Expected HTML but received ")) {
+    return "non-HTML response";
+  }
+  if (
+    error.message === "Retailer page is too large to inspect safely." ||
+    error.message === "Retailer page exceeded the inspection size limit."
+  ) {
+    return "response exceeded size limit";
+  }
+  return "request failed";
+}
+
+export function inventoryExtractionDeadlineAt(
+  claimDeadlineAt: number | undefined,
+  now = Date.now(),
+) {
+  const perJobDeadlineAt = now + INVENTORY_REFRESH_EXTRACTION_BUDGET_MS;
+  return claimDeadlineAt == null
+    ? perJobDeadlineAt
+    : Math.min(perJobDeadlineAt, claimDeadlineAt);
+}
+
+export function inventoryRequestTimeoutMs(
+  extractionDeadlineAt: number,
+  now = Date.now(),
+): number | undefined {
+  const remainingMs = Math.floor(extractionDeadlineAt - now);
+  return remainingMs > 0
+    ? Math.min(REQUEST_TIMEOUT_MS, remainingMs)
+    : undefined;
+}
+
+async function runBeforeInventoryExtractionDeadline<T>(
+  extractionDeadlineAt: number,
+  operation: () => Promise<T>,
+): Promise<T | undefined> {
+  const timeoutMs = inventoryRequestTimeoutMs(extractionDeadlineAt);
+  if (timeoutMs == null) return undefined;
+
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      operation(),
+      new Promise<undefined>((resolve) => {
+        timeout = setTimeout(() => resolve(undefined), timeoutMs);
+      }),
+    ]);
+  } finally {
+    if (timeout) clearTimeout(timeout);
+  }
+}
 
 export type InventoryRefreshResult = {
   jobId: string;
@@ -94,6 +277,22 @@ export type InventoryRefreshResult = {
   failureReason?: InventoryRefreshFailureReason;
   error?: string;
 };
+
+/** @internal Exported for deterministic batch-orchestration tests. */
+export function summarizeInventoryRefreshClaimBatch(
+  batch: readonly (InventoryRefreshResult | undefined)[],
+  canClaimMore: boolean,
+) {
+  const results = batch.filter(
+    (result): result is InventoryRefreshResult => result !== undefined,
+  );
+  const stoppedByDeadline = !canClaimMore;
+  return {
+    results,
+    shouldStop: stoppedByDeadline || results.length !== batch.length,
+    stoppedByDeadline,
+  };
+}
 
 type ClaimedJob = {
   job_id: string;
@@ -314,6 +513,7 @@ function isBlockedHost(url: string): boolean {
 
 async function fetchWooStoreApi(
   url: string,
+  extractionDeadlineAt: number,
 ): Promise<RetailerObservation | undefined> {
   const origin = wooHostFromUrl(url);
   if (!origin) return undefined;
@@ -325,8 +525,10 @@ async function fetchWooStoreApi(
   const slug = segments[segments.length - 1]?.replace(/\/+$/, "") ?? "";
   if (!slug) return undefined;
 
+  const requestTimeoutMs = inventoryRequestTimeoutMs(extractionDeadlineAt);
+  if (requestTimeoutMs == null) return undefined;
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  const timeout = setTimeout(() => controller.abort(), requestTimeoutMs);
   try {
     const apiUrl = `${origin}/wp-json/wc/store/v1/products?slug=${encodeURIComponent(slug)}`;
     const response = await fetch(apiUrl, {
@@ -391,6 +593,7 @@ async function fetchWooStoreApi(
       priceMinor,
       currencyCode,
       productTitle: product.name,
+      canonicalUrl: product.permalink,
       evidence,
       confidence,
       adapterKey: "woo-store-api",
@@ -409,9 +612,14 @@ async function fetchWooStoreApi(
  * fallback path when fetchRetailerPage throws (e.g. non-HTML content type) but
  * we still want the HTML for AI Gateway extraction.
  */
-async function fetchPageHtml(url: string): Promise<string | undefined> {
+async function fetchPageHtml(
+  url: string,
+  extractionDeadlineAt: number,
+): Promise<string | undefined> {
+  const requestTimeoutMs = inventoryRequestTimeoutMs(extractionDeadlineAt);
+  if (requestTimeoutMs == null) return undefined;
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  const timeout = setTimeout(() => controller.abort(), requestTimeoutMs);
   try {
     const response = await fetch(url, {
       redirect: "follow",
@@ -432,9 +640,14 @@ async function fetchPageHtml(url: string): Promise<string | undefined> {
   }
 }
 
-async function fetchRetailerPage(url: string): Promise<RetailerObservation> {
+async function fetchRetailerPage(
+  url: string,
+  extractionDeadlineAt: number,
+): Promise<RetailerObservation | undefined> {
+  const requestTimeoutMs = inventoryRequestTimeoutMs(extractionDeadlineAt);
+  if (requestTimeoutMs == null) return undefined;
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  const timeout = setTimeout(() => controller.abort(), requestTimeoutMs);
   try {
     const response = await fetch(url, {
       redirect: "follow",
@@ -808,26 +1021,99 @@ export async function processNextInventoryRefreshJob(
   if (!job) return undefined;
 
   try {
+    // Never spend the route's post-claim reserve on extraction. A final
+    // concurrent claim batch may start close to claimDeadlineAt, so every
+    // network layer shares the earlier of that cutoff and a per-job budget.
+    const extractionDeadlineAt = inventoryExtractionDeadlineAt(
+      options.claimDeadlineAt,
+    );
     // Track which fetch layers were attempted and their outcomes so that
     // when all layers fail, the error message identifies the failing layer
     // instead of reporting a generic "all strategies failed" message.
     const layerOutcomes: Array<{ layer: string; outcome: string }> = [];
+    const observationScope: InventoryObservationScope = {
+      requestedUrl: job.url,
+      expectedTitle: `${job.brand_name} ${job.product_name}`,
+      expectedTitleAliases: VERIFIED_PRODUCT_TITLE_ALIASES[job.product_slug],
+      expectedSize: job.product_size,
+      marketCode: job.market_code,
+    };
+    let accumulatedObservation: RetailerObservation | undefined;
+    let observation: RetailerObservation | undefined;
+
+    const acceptObservation = (
+      layer: string,
+      candidate: RetailerObservation,
+    ): RetailerObservation | undefined => {
+      // A complete contradiction from any retailer-controlled layer remains
+      // terminal. Missing or non-measurable evidence stays eligible for a
+      // later layer to complete.
+      const candidateScopeGap = inventoryObservationScopeGap(
+        observationScope,
+        candidate,
+      );
+      accumulatedObservation = combineRetailerObservations(
+        accumulatedObservation,
+        candidateScopeGap
+          ? { ...candidate, productSize: undefined }
+          : candidate,
+      );
+      const gaps = inventoryObservationEvidenceGaps(accumulatedObservation);
+      const accumulatedScopeGap = inventoryObservationScopeGap(
+        observationScope,
+        accumulatedObservation,
+      );
+      if (accumulatedScopeGap) gaps.push(accumulatedScopeGap);
+
+      if (gaps.length === 0) {
+        return accumulatedObservation;
+      }
+      layerOutcomes.push({
+        layer,
+        outcome: `incomplete: ${[...new Set(gaps)].join(", ")}`,
+      });
+      return undefined;
+    };
 
     // Try the Woo Store API first for known Woo retailers — it's more reliable
-    // than HTML scraping and gives structured price/stock data directly.
-    let observation = await fetchWooStoreApi(job.url);
-    if (!observation) {
+    // than HTML scraping for price and stock. Its product response frequently
+    // omits measurable pack size, so retain its commerce fields and continue
+    // to the exact product page until the identity evidence is also complete.
+    const wooObservation = await fetchWooStoreApi(
+      job.url,
+      extractionDeadlineAt,
+    );
+    if (wooObservation) {
+      observation =
+        acceptObservation("woo-store-api", wooObservation) ?? observation;
+    } else {
       if (wooHostFromUrl(job.url)) {
         layerOutcomes.push({
           layer: "woo-store-api",
           outcome: "no match or error",
         });
       }
-      observation = await fetchRetailerPage(job.url);
-      if (!observation) {
+    }
+
+    if (!observation) {
+      try {
+        const directObservation = await fetchRetailerPage(
+          job.url,
+          extractionDeadlineAt,
+        );
+        if (directObservation) {
+          observation =
+            acceptObservation("http-fetch", directObservation) ?? observation;
+        } else {
+          layerOutcomes.push({
+            layer: "http-fetch",
+            outcome: "no extraction",
+          });
+        }
+      } catch (error) {
         layerOutcomes.push({
           layer: "http-fetch",
-          outcome: "no extraction or error",
+          outcome: directFetchFailureOutcome(error),
         });
       }
     }
@@ -837,11 +1123,16 @@ export async function processNextInventoryRefreshJob(
     let cachedBrowserHtml: string | undefined;
     let cachedBrowserUrl: string | undefined;
 
-    // If HTTP fetch failed and the host is known to block server-side requests
-    // (e.g. Jumia/Cloudflare), fall back to a headless browser fetch. The
-    // browser renders the page like a real user, bypassing bot detection.
-    if (!observation && isBlockedHost(job.url) && isBrowserFetchAvailable()) {
-      const browserResult = await fetchRetailerPageWithBrowser(job.url);
+    // Known-blocked hosts and any incomplete direct-page extraction can use a
+    // rendered page to complete identity evidence before the AI fallback.
+    const browserFallbackEligible =
+      isBlockedHost(job.url) ||
+      layerOutcomes.some((outcome) => outcome.layer === "http-fetch");
+    if (!observation && browserFallbackEligible && isBrowserFetchAvailable()) {
+      const browserResult = await runBeforeInventoryExtractionDeadline(
+        extractionDeadlineAt,
+        () => fetchRetailerPageWithBrowser(job.url),
+      );
       if (browserResult) {
         cachedBrowserHtml = browserResult.html;
         cachedBrowserUrl = browserResult.responseUrl;
@@ -849,18 +1140,14 @@ export async function processNextInventoryRefreshJob(
           url: new URL(browserResult.responseUrl),
           html: browserResult.html,
         });
-        observation = {
+        const browserObservation: RetailerObservation = {
           ...result.extraction,
           adapterKey: result.adapterKey,
           responseUrl: browserResult.responseUrl,
           verificationMethod: "retailer_page",
         };
-        if (!observation) {
-          layerOutcomes.push({
-            layer: "browser-fetch",
-            outcome: "no extraction",
-          });
-        }
+        observation =
+          acceptObservation("browser-fetch", browserObservation) ?? observation;
       } else {
         layerOutcomes.push({ layer: "browser-fetch", outcome: "fetch failed" });
       }
@@ -882,21 +1169,21 @@ export async function processNextInventoryRefreshJob(
         // Re-fetch the page HTML directly for AI extraction — the earlier
         // fetchRetailerPage call may have thrown before returning HTML.
         try {
-          htmlForAi = await fetchPageHtml(job.url);
+          htmlForAi = await fetchPageHtml(job.url, extractionDeadlineAt);
           if (htmlForAi) {
-            // Try structured extraction first from this HTML
+            // Give a later direct response one more deterministic structured
+            // pass before asking the AI to complete the evidence.
             const result = extractRetailerPage({
               url: new URL(job.url),
               html: htmlForAi,
             });
-            if (result.extraction.confidence >= 60) {
-              observation = {
+            observation =
+              acceptObservation("http-fetch-retry", {
                 ...result.extraction,
                 adapterKey: result.adapterKey,
                 responseUrl: job.url,
                 verificationMethod: "retailer_page",
-              };
-            }
+              }) ?? observation;
           }
         } catch {
           // If we can't get HTML, AI extraction can't run either
@@ -904,19 +1191,26 @@ export async function processNextInventoryRefreshJob(
       }
 
       if (!observation && htmlForAi) {
-        const aiResult = await extractRetailerPageWithAi({
-          html: htmlForAi,
-          url: urlForAi,
-          productSlug: job.product_slug,
-          productName: job.product_name,
-          productSize: job.product_size,
-        });
+        const aiHtml = htmlForAi;
+        const aiUrl = urlForAi;
+        const aiResult = await runBeforeInventoryExtractionDeadline(
+          extractionDeadlineAt,
+          () =>
+            extractRetailerPageWithAi({
+              html: aiHtml,
+              url: aiUrl,
+              productSlug: job.product_slug,
+              productName: job.product_name,
+              productSize: job.product_size,
+            }),
+        );
         if (aiResult) {
-          observation = {
-            ...aiResult,
-            adapterKey: "ai-gateway-extraction",
-            responseUrl: urlForAi,
-          };
+          observation =
+            acceptObservation("ai-gateway", {
+              ...aiResult,
+              adapterKey: "ai-gateway-extraction",
+              responseUrl: aiUrl,
+            }) ?? observation;
         } else {
           layerOutcomes.push({ layer: "ai-gateway", outcome: "no extraction" });
         }
@@ -933,11 +1227,14 @@ export async function processNextInventoryRefreshJob(
         layerOutcomes.length > 0
           ? layerOutcomes.map((o) => `${o.layer}=${o.outcome}`).join("; ")
           : "no layers attempted";
+      const incompleteEvidence = accumulatedObservation != null;
       const settlement = await failJob(
         job,
         transientInventoryRefreshFailure(
-          "fetch_unavailable",
-          `All fetch strategies failed. Layers attempted: ${layerDetail}.`,
+          incompleteEvidence ? "evidence_incomplete" : "fetch_unavailable",
+          incompleteEvidence
+            ? `Retailer evidence remained incomplete. Layers attempted: ${layerDetail}.`
+            : `All fetch strategies failed. Layers attempted: ${layerDetail}.`,
         ),
       );
       return {
@@ -1040,17 +1337,14 @@ export async function processInventoryRefreshBatch(
         processNextInventoryRefreshJob(options),
       ),
     );
-    for (const result of batch) {
-      if (!result) {
-        stoppedByDeadline = !canClaimInventoryRefreshJob(
-          options.claimDeadlineAt,
-        );
-        break;
-      }
-      results.push(result);
-      processed += 1;
-    }
-    if (batch.some((result) => !result)) break;
+    const claimBatch = summarizeInventoryRefreshClaimBatch(
+      batch,
+      canClaimInventoryRefreshJob(options.claimDeadlineAt),
+    );
+    results.push(...claimBatch.results);
+    processed += claimBatch.results.length;
+    stoppedByDeadline = claimBatch.stoppedByDeadline;
+    if (claimBatch.shouldStop) break;
   }
   return { results, stoppedByDeadline };
 }

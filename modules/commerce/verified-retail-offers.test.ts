@@ -68,23 +68,193 @@ const searchRouteMarkers = [
   "/catalogsearch/",
 ];
 
-type HistoricalStatusEvidence = {
+type HistoricalOfferEvidence = {
+  priceNgn: number;
   checkedAt: string;
-  expiresAt: string;
+  expiresAt?: string;
   stock: string;
+  available?: boolean;
+  retailer?: string;
+  url?: string;
 };
 
-function assertHistoricalStatusOrTerminalInvalidation(
+function historicalAvailability(evidence: HistoricalOfferEvidence) {
+  return (
+    evidence.available ??
+    (evidence.stock === "in-stock" || evidence.stock === "low-stock")
+  );
+}
+
+function assertBoundedRetailerObservation(
   offer: (typeof verifiedRetailOffers)[string][number],
-  evidence: HistoricalStatusEvidence,
+  label: string,
+) {
+  assert.equal(offer.match, "exact", `${label}: exact product match`);
+  assert.deepEqual(offer.location, ["NG"], `${label}: Nigerian price lane`);
+  assert.equal(offer.priceUsd, undefined, `${label}: NGN-only price lane`);
+  assert.ok(
+    Number.isFinite(offer.priceNgn) && offer.priceNgn! > 0,
+    `${label}: current price is positive`,
+  );
+  const observedAt = Date.parse(offer.checkedAt ?? "");
+  assert.ok(Number.isFinite(observedAt), `${label}: valid current observation`);
+  assert.equal(
+    offer.listingEvidence?.observedAt,
+    offer.checkedAt,
+    `${label}: listing provenance follows the current observation`,
+  );
+  const evidenceSourceUrl = offer.listingEvidence?.sourceUrl;
+  assert.ok(evidenceSourceUrl, `${label}: listing provenance keeps a source`);
+  const basis = offer.listingEvidence?.basis;
+  const maximumFreshnessDays =
+    basis === "retailer-page" ? 5 : basis === "retailer-api" ? 7 : undefined;
+  assert.ok(
+    maximumFreshnessDays !== undefined,
+    `${label}: current observation requires retailer evidence`,
+  );
+  if (basis === "retailer-page") {
+    assert.equal(
+      evidenceSourceUrl,
+      offer.url,
+      `${label}: page provenance keeps the exact route`,
+    );
+  } else {
+    assert.equal(
+      new URL(evidenceSourceUrl).origin,
+      new URL(offer.url).origin,
+      `${label}: API provenance keeps the retailer origin`,
+    );
+  }
+  assert.equal(
+    offer.priceObservation?.observedAt,
+    offer.checkedAt,
+    `${label}: price provenance follows the current observation`,
+  );
+  const expiresAt = Date.parse(offer.expiresAt ?? "");
+  assert.ok(
+    Number.isFinite(expiresAt) &&
+      expiresAt > observedAt &&
+      expiresAt <= observedAt + maximumFreshnessDays * 24 * 60 * 60 * 1000,
+    `${label}: current observation must use a bounded verification window`,
+  );
+  const stock = offer.priceObservation?.stock;
+  assert.ok(
+    stock === "in-stock" ||
+      stock === "low-stock" ||
+      stock === "out-of-stock" ||
+      stock === "unknown",
+    `${label}: current observation requires typed stock`,
+  );
+  assert.equal(
+    offer.available,
+    stock === "in-stock" || stock === "low-stock",
+    `${label}: current availability must agree with typed stock`,
+  );
+}
+
+function assertHistoricalOfferState(
+  offer: (typeof verifiedRetailOffers)[string][number],
+  evidence: HistoricalOfferEvidence,
   expectedAvailable: boolean,
   label: string,
 ) {
+  assert.equal(offer.match, "exact", `${label}: exact product match`);
+  assert.deepEqual(offer.location, ["NG"], `${label}: Nigerian price lane`);
+  assert.equal(offer.priceUsd, undefined, `${label}: NGN-only price lane`);
+  if (evidence.retailer) {
+    assert.equal(offer.retailer, evidence.retailer, `${label}: exact retailer`);
+  }
+  if (evidence.url) {
+    assert.equal(offer.url, evidence.url, `${label}: exact route`);
+  }
+  assert.equal(
+    offer.listingEvidence?.observedAt,
+    offer.checkedAt,
+    `${label}: listing provenance follows the current observation`,
+  );
+  const evidenceSourceUrl = offer.listingEvidence?.sourceUrl;
+  assert.ok(evidenceSourceUrl, `${label}: listing provenance keeps a source`);
+  if (offer.listingEvidence?.basis === "retailer-page") {
+    assert.equal(
+      evidenceSourceUrl,
+      offer.url,
+      `${label}: page provenance keeps the exact route`,
+    );
+  } else {
+    assert.equal(
+      new URL(evidenceSourceUrl).origin,
+      new URL(offer.url).origin,
+      `${label}: API provenance keeps the retailer origin`,
+    );
+  }
+  assert.equal(
+    offer.priceObservation?.observedAt,
+    offer.checkedAt,
+    `${label}: price provenance follows the current observation`,
+  );
+
+  const historicalPrice = evidence.priceNgn;
+  const currentPrice = offer.priceNgn;
+  assert.ok(
+    Number.isFinite(historicalPrice) && historicalPrice > 0,
+    `${label}: historical price is positive`,
+  );
+  assert.ok(
+    Number.isFinite(currentPrice) && currentPrice! > 0,
+    `${label}: current price is positive`,
+  );
+  const historicalObservedAt = Date.parse(evidence.checkedAt);
+  const currentObservedAt = Date.parse(offer.checkedAt ?? "");
+  assert.ok(
+    Number.isFinite(currentObservedAt) &&
+      currentObservedAt >= historicalObservedAt,
+    `${label}: observation cannot move backwards`,
+  );
+
+  if (currentObservedAt > historicalObservedAt) {
+    const basis = offer.listingEvidence?.basis;
+    const maximumFreshnessDays =
+      basis === "retailer-page" ? 5 : basis === "retailer-api" ? 7 : undefined;
+    assert.ok(
+      maximumFreshnessDays !== undefined,
+      `${label}: newer observation requires retailer evidence`,
+    );
+    const expiresAt = Date.parse(offer.expiresAt ?? "");
+    assert.ok(
+      Number.isFinite(expiresAt) &&
+        expiresAt > currentObservedAt &&
+        expiresAt <=
+          currentObservedAt + maximumFreshnessDays * 24 * 60 * 60 * 1000,
+      `${label}: newer observation must use a bounded verification window`,
+    );
+    const stock = offer.priceObservation?.stock;
+    assert.ok(
+      stock === "in-stock" ||
+        stock === "low-stock" ||
+        stock === "out-of-stock" ||
+        stock === "unknown",
+      `${label}: newer observation requires typed stock`,
+    );
+    assert.equal(
+      offer.available,
+      stock === "in-stock" || stock === "low-stock",
+      `${label}: newer availability must agree with typed stock`,
+    );
+    return "newer" as const;
+  }
+
+  assert.equal(
+    currentPrice,
+    historicalPrice,
+    `${label}: historical price is immutable`,
+  );
+  const expiryIsUnchanged =
+    evidence.expiresAt === undefined || offer.expiresAt === evidence.expiresAt;
   const statusIsUnchanged =
     offer.available === expectedAvailable &&
     offer.priceObservation?.stock === evidence.stock &&
-    offer.expiresAt === evidence.expiresAt;
-  if (statusIsUnchanged) return;
+    expiryIsUnchanged;
+  if (statusIsUnchanged) return "historical" as const;
 
   assert.equal(offer.available, false, `${label}: fail-closed availability`);
   assert.equal(
@@ -100,28 +270,334 @@ function assertHistoricalStatusOrTerminalInvalidation(
   const terminalExpiry = Date.parse(offer.expiresAt ?? "");
   assert.ok(
     Number.isFinite(terminalExpiry) &&
-      terminalExpiry >= Date.parse(evidence.checkedAt) &&
-      terminalExpiry <= Date.parse(evidence.expiresAt),
+      terminalExpiry > historicalObservedAt &&
+      (evidence.expiresAt === undefined ||
+        terminalExpiry <= Date.parse(evidence.expiresAt)),
     `${label}: terminal expiry cannot extend historical evidence`,
   );
+  return "terminal" as const;
 }
 
 function assertCurrentActiveRetailersWithinHistoricalSet(
   product: (typeof catalogueProducts)[number],
   historicalRetailers: string[],
+  projected: readonly HistoricalOfferProjection[],
   label: string,
 ) {
   const active = product.offers.filter((offer) => offer.available);
   const unexpected = active
+    .filter((offer) => {
+      if (historicalRetailers.includes(offer.retailer)) return false;
+      const evidence = projected.find(
+        (candidate) =>
+          candidate.product.candidateId === label &&
+          candidate.offer.url === offer.url,
+      )?.offer;
+      const reviewedEvidence =
+        evidence ?? findReviewedHistoricalOfferEvidence(label, offer.url);
+      if (reviewedEvidence) {
+        const state = assertHistoricalOfferState(
+          offer,
+          reviewedEvidence,
+          historicalAvailability(reviewedEvidence),
+          `${label}: ${offer.retailer}`,
+        );
+        if (state === "newer") return false;
+        const localObservedAt = Math.max(
+          ...projected
+            .filter((candidate) => candidate.product.candidateId === label)
+            .map((candidate) => Date.parse(candidate.offer.checkedAt)),
+        );
+        return !evidence &&
+          Date.parse(reviewedEvidence.checkedAt) > localObservedAt
+          ? false
+          : true;
+      }
+      const blockedAt = latestBlockedReviewAt(label, offer.url);
+      if (
+        blockedAt &&
+        Date.parse(offer.checkedAt ?? "") > Date.parse(blockedAt)
+      ) {
+        assertBoundedRetailerObservation(offer, `${label}: ${offer.retailer}`);
+        return false;
+      }
+      return true;
+    })
     .map((offer) => offer.retailer)
-    .filter((retailer) => !historicalRetailers.includes(retailer))
     .sort();
   assert.deepEqual(
     unexpected,
     [],
-    `${label}: terminal invalidation cannot reveal a stale fallback`,
+    `${label}: only reviewed history or a newer observation can be active`,
   );
   return active;
+}
+
+type HistoricalOfferProjection = {
+  product: { candidateId: string };
+  offer: HistoricalOfferEvidence & { url: string };
+};
+
+function assertHistoricalPriceFloorForUnchangedOffers(
+  active: (typeof verifiedRetailOffers)[string],
+  projected: readonly HistoricalOfferProjection[],
+  historicalFloor: number,
+  label: string,
+) {
+  for (const offer of active) {
+    const currentWaveEvidence = projected.find(
+      (candidate) =>
+        candidate.product.candidateId === label &&
+        candidate.offer.url === offer.url,
+    )?.offer;
+    const evidence =
+      currentWaveEvidence ??
+      findReviewedHistoricalOfferEvidence(label, offer.url);
+    if (!evidence) {
+      const blockedAt = latestBlockedReviewAt(label, offer.url);
+      assert.ok(
+        blockedAt && Date.parse(offer.checkedAt ?? "") > Date.parse(blockedAt),
+        `${label}: active route belongs to reviewed or superseded history`,
+      );
+      assertBoundedRetailerObservation(offer, `${label}: ${offer.retailer}`);
+      continue;
+    }
+    const state = assertHistoricalOfferState(
+      offer,
+      evidence,
+      historicalAvailability(evidence),
+      `${label}: ${offer.retailer}`,
+    );
+    if (state === "historical") {
+      assert.ok(
+        offer.priceNgn! >= historicalFloor,
+        `${label}: unchanged offer preserves the historical price floor`,
+      );
+    }
+  }
+}
+
+type HistoricalOfferAudit = {
+  reviewedAt?: string;
+  products: readonly {
+    candidateId: string;
+    offers: readonly (HistoricalOfferEvidence & {
+      retailer: string;
+      url: string;
+    })[];
+  }[];
+  blockedCells?: readonly {
+    candidateId: string;
+    retailer: string;
+    url?: string;
+  }[];
+};
+
+const historicalOfferAudits: readonly HistoricalOfferAudit[] = [
+  waveOneAudit,
+  waveTwoAudit,
+  waveThreeAudit,
+  waveFourAudit,
+  waveFiveAudit,
+  waveSixAudit,
+  waveSevenAudit,
+  waveEightAudit,
+  waveNineAudit,
+  waveTenAudit,
+  waveElevenAudit,
+  waveTwelveAudit,
+  waveThirteenAudit,
+  waveFourteenAudit,
+  waveFifteenAudit,
+  waveSixteenAudit,
+  waveSeventeenAudit,
+  waveEighteenAudit,
+  waveNineteenAudit,
+  waveTwentyAudit,
+  waveTwentyOneAudit,
+  waveTwentyTwoAudit,
+  waveTwentyThreeAudit,
+  waveTwentyFourAudit,
+  waveTwentyFiveAudit,
+  waveTwentySixAudit,
+  waveTwentySevenAudit,
+  waveTwentyEightAudit,
+  waveTwentyNineAudit,
+  waveThirtyAudit,
+  waveThirtyOneAudit,
+  waveThirtyTwoAudit,
+  waveThirtyThreeAudit,
+  waveThirtyFourAudit,
+  waveThirtyFiveAudit,
+  waveThirtySixAudit,
+  waveThirtySevenAudit,
+  completionWaveTwoAudit,
+];
+
+const legacyHistoricalOfferEvidence = new Map<string, HistoricalOfferEvidence>([
+  [
+    "aqua-rich-licorice-mulberry-body-wash-1000ml\0https://buybetter.ng/product/aqua-rich-bright-glow-body-gel-wash-licorice-mulberry-root-extract-1000ml/",
+    {
+      retailer: "BuyBetter",
+      url: "https://buybetter.ng/product/aqua-rich-bright-glow-body-gel-wash-licorice-mulberry-root-extract-1000ml/",
+      priceNgn: 11_288,
+      available: true,
+      stock: "in-stock",
+      checkedAt: "2026-08-14T17:00:00Z",
+      expiresAt: "2026-08-21T17:00:00Z",
+    },
+  ],
+  [
+    "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml\0https://www.csigrocery.com/shop/skincare/face/body-face-wash/aqua-rich-bright-balance-body-gel-wash/",
+    {
+      retailer: "CSi Grocery",
+      url: "https://www.csigrocery.com/shop/skincare/face/body-face-wash/aqua-rich-bright-balance-body-gel-wash/",
+      priceNgn: 12_000,
+      available: true,
+      stock: "in-stock",
+      checkedAt: "2026-08-14T17:00:00Z",
+      expiresAt: "2026-08-21T17:00:00Z",
+    },
+  ],
+]);
+
+function findReviewedHistoricalOfferEvidence(candidateId: string, url: string) {
+  let latest = legacyHistoricalOfferEvidence.get(`${candidateId}\0${url}`);
+  for (const audit of historicalOfferAudits) {
+    const product = audit.products.find(
+      (candidate) => candidate.candidateId === candidateId,
+    );
+    const evidence = product?.offers.find((offer) => offer.url === url);
+    if (
+      evidence &&
+      (!latest || Date.parse(evidence.checkedAt) > Date.parse(latest.checkedAt))
+    ) {
+      latest = evidence;
+    }
+  }
+  return latest;
+}
+
+function latestHistoricalOfferEvidence(candidateId: string, url: string) {
+  const latest = findReviewedHistoricalOfferEvidence(candidateId, url);
+  assert.ok(latest, `${candidateId}: exact route belongs to reviewed history`);
+  return latest;
+}
+
+function latestBlockedReviewAt(candidateId: string, url: string) {
+  let latest: string | undefined;
+  for (const audit of historicalOfferAudits) {
+    if (
+      audit.reviewedAt &&
+      audit.blockedCells?.some(
+        (blocked) => blocked.candidateId === candidateId && blocked.url === url,
+      ) &&
+      (!latest || Date.parse(audit.reviewedAt) > Date.parse(latest))
+    ) {
+      latest = audit.reviewedAt;
+    }
+  }
+  return latest;
+}
+
+function assertOfferFollowsReviewedHistory(
+  offer: (typeof verifiedRetailOffers)[string][number],
+  candidateId: string,
+  label = `${candidateId}: ${offer.retailer}`,
+) {
+  const evidence = latestHistoricalOfferEvidence(candidateId, offer.url);
+  return assertHistoricalOfferState(
+    offer,
+    evidence,
+    historicalAvailability(evidence),
+    label,
+  );
+}
+
+function assertBlockedOfferStateOrNewer(
+  offer: (typeof verifiedRetailOffers)[string][number],
+  candidateId: string,
+  blockedReviewedAt: string,
+  label: string,
+  options: {
+    historicalFreshAt?: Date;
+    expectedHistoricalFresh?: boolean;
+    onlyWhenHistoricallyFresh?: boolean;
+    requireHistoricalUnavailable?: boolean;
+    requireHistoricalUnknownStock?: boolean;
+    requireExclusion?: boolean;
+  } = {},
+) {
+  const reviewedBlock = historicalOfferAudits
+    .flatMap((audit) => audit.blockedCells ?? [])
+    .find(
+      (blocked) =>
+        blocked.candidateId === candidateId && blocked.url === offer.url,
+    );
+  assert.ok(reviewedBlock, `${label}: exact route belongs to blocked history`);
+  assert.equal(
+    offer.retailer,
+    reviewedBlock.retailer,
+    `${label}: exact retailer`,
+  );
+  const evidence = findReviewedHistoricalOfferEvidence(candidateId, offer.url);
+  let state: "historical" | "terminal" | "newer" | "blocked" = "blocked";
+  let supersededByLaterAudit = false;
+  if (evidence) {
+    state = assertHistoricalOfferState(
+      offer,
+      evidence,
+      historicalAvailability(evidence),
+      label,
+    );
+    supersededByLaterAudit =
+      Date.parse(evidence.checkedAt) > Date.parse(blockedReviewedAt);
+    if (supersededByLaterAudit) state = "newer";
+  } else if (
+    Date.parse(offer.checkedAt ?? "") > Date.parse(blockedReviewedAt)
+  ) {
+    assertBoundedRetailerObservation(offer, label);
+    state = "newer";
+  }
+
+  if (state !== "newer") {
+    if (
+      options.onlyWhenHistoricallyFresh &&
+      options.historicalFreshAt &&
+      !isOfferFresh(offer, options.historicalFreshAt)
+    ) {
+      return state;
+    }
+    if (options.historicalFreshAt) {
+      assert.equal(
+        isOfferFresh(offer, options.historicalFreshAt),
+        options.expectedHistoricalFresh ?? true,
+        label,
+      );
+    }
+    if (options.requireHistoricalUnavailable !== false) {
+      assert.equal(
+        offer.available,
+        false,
+        `${label}: historical blocked state`,
+      );
+    }
+    if (options.requireHistoricalUnknownStock) {
+      assert.equal(
+        offer.priceObservation?.stock,
+        "unknown",
+        `${label}: historical blocked stock`,
+      );
+    }
+  }
+  if (!supersededByLaterAudit && options.requireExclusion !== false) {
+    assert.equal(
+      offer.priceComparison,
+      "exclude",
+      `${label}: remains excluded`,
+    );
+  }
+  return state;
 }
 
 test("catalogue offer refresh wave 1 reconciles exact browser evidence to projections", () => {
@@ -153,15 +629,13 @@ test("catalogue offer refresh wave 1 reconciles exact browser evidence to projec
       );
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
-      assert.equal(offer.priceNgn, evidence.priceNgn);
-      assertHistoricalStatusOrTerminalInvalidation(
+      assertHistoricalOfferState(
         offer,
         evidence,
         true,
         `${product.candidateId}: ${evidence.retailer}`,
       );
       assert.equal(offer.priceObservation?.size, product.identity.size);
-      assert.equal(offer.checkedAt, evidence.checkedAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize >= 200_000);
       assert.equal(
@@ -206,15 +680,13 @@ test("catalogue offer refresh wave 2 projects only current exact-SKU evidence", 
       );
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
-      assert.equal(offer.priceNgn, evidence.priceNgn);
-      assertHistoricalStatusOrTerminalInvalidation(
+      assertHistoricalOfferState(
         offer,
         evidence,
         true,
         `${product.candidateId}: ${evidence.retailer}`,
       );
       assert.equal(offer.priceObservation?.size, product.identity.size);
-      assert.equal(offer.checkedAt, evidence.checkedAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.ok(
@@ -269,15 +741,13 @@ test("catalogue offer refresh wave 3 releases admitted cells and fails the unit-
       );
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
-      assert.equal(offer.priceNgn, evidence.priceNgn);
-      assertHistoricalStatusOrTerminalInvalidation(
+      assertHistoricalOfferState(
         offer,
         evidence,
         true,
         `${product.candidateId}: ${evidence.retailer}`,
       );
       assert.equal(offer.priceObservation?.size, product.identity.size);
-      assert.equal(offer.checkedAt, evidence.checkedAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.ok(
@@ -324,15 +794,13 @@ test("catalogue offer refresh wave 4 projects exact tube cells and blocks packag
       );
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
-      assert.equal(offer.priceNgn, evidence.priceNgn);
-      assertHistoricalStatusOrTerminalInvalidation(
+      assertHistoricalOfferState(
         offer,
         evidence,
         true,
         `${product.candidateId}: ${evidence.retailer}`,
       );
       assert.equal(offer.priceObservation?.size, product.identity.size);
-      assert.equal(offer.checkedAt, evidence.checkedAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -373,15 +841,11 @@ test("catalogue offer refresh wave 5 projects exact legacy cells and isolates ne
   );
   for (const product of waveFiveAudit.products) {
     assert.equal(
-      verifiedRetailOffers[product.candidateId]?.filter(
-        (offer) =>
-          product.offers.some((evidence) => evidence.url === offer.url) &&
-          offer.available !== false &&
-          Boolean(offer.expiresAt) &&
-          Date.parse(offer.expiresAt!) >= Date.parse(waveFiveAudit.reviewedAt),
+      verifiedRetailOffers[product.candidateId]?.filter((offer) =>
+        product.offers.some((evidence) => evidence.url === offer.url),
       ).length,
       product.offers.length,
-      product.candidateId,
+      `${product.candidateId}: reviewed routes remain present`,
     );
     for (const evidence of product.offers) {
       const offer = verifiedRetailOffers[product.candidateId]?.find(
@@ -389,15 +853,13 @@ test("catalogue offer refresh wave 5 projects exact legacy cells and isolates ne
       );
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
-      assert.equal(offer.priceNgn, evidence.priceNgn);
-      assertHistoricalStatusOrTerminalInvalidation(
+      assertHistoricalOfferState(
         offer,
         evidence,
         true,
         `${product.candidateId}: ${evidence.retailer}`,
       );
       assert.equal(offer.priceObservation?.size, product.identity.size);
-      assert.equal(offer.checkedAt, evidence.checkedAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -428,14 +890,11 @@ test("catalogue offer refresh wave 6 projects exact package cells and blocks a u
   assert.equal(waveSixAudit.carriedIdentityBlockers.length, 9);
   for (const product of waveSixAudit.products) {
     assert.equal(
-      verifiedRetailOffers[product.candidateId]?.filter(
-        (offer) =>
-          offer.available !== false &&
-          Boolean(offer.expiresAt) &&
-          Date.parse(offer.expiresAt!) >= Date.parse(waveSixAudit.reviewedAt),
+      verifiedRetailOffers[product.candidateId]?.filter((offer) =>
+        product.offers.some((evidence) => evidence.url === offer.url),
       ).length,
       product.offers.length,
-      product.candidateId,
+      `${product.candidateId}: reviewed routes remain present`,
     );
     for (const evidence of product.offers) {
       const offer = verifiedRetailOffers[product.candidateId]?.find(
@@ -443,15 +902,13 @@ test("catalogue offer refresh wave 6 projects exact package cells and blocks a u
       );
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
-      assert.equal(offer.priceNgn, evidence.priceNgn);
-      assertHistoricalStatusOrTerminalInvalidation(
+      assertHistoricalOfferState(
         offer,
         evidence,
         true,
         `${product.candidateId}: ${evidence.retailer}`,
       );
       assert.equal(offer.priceObservation?.size, product.identity.size);
-      assert.equal(offer.checkedAt, evidence.checkedAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -492,15 +949,13 @@ test("catalogue offer refresh wave 7 updates exact COSRX cells and rejects the r
     const offer = projected.find((candidate) => candidate.url === evidence.url);
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       true,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -545,15 +1000,13 @@ test("catalogue offer refresh wave 8 releases exact Aqua Rich cells without norm
       const offer = offers.find((candidate) => candidate.url === evidence.url);
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
-      assert.equal(offer.priceNgn, evidence.priceNgn);
-      assertHistoricalStatusOrTerminalInvalidation(
+      assertHistoricalOfferState(
         offer,
         evidence,
         true,
         `${product.candidateId}: ${evidence.retailer}`,
       );
       assert.equal(offer.priceObservation?.size, product.identity.size);
-      assert.equal(offer.checkedAt, evidence.checkedAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -598,9 +1051,17 @@ test("catalogue offer refresh wave 9 releases exact product cells and preserves 
   );
   const staleJumia = eyeOffers.find((offer) => offer.retailer === "Jumia");
   assert.ok(staleJumia);
-  assert.equal(
-    isOfferFresh(staleJumia, new Date(waveNineAudit.reviewedAt)),
-    false,
+  assertBlockedOfferStateOrNewer(
+    staleJumia,
+    "naturium-multi-peptide-eye-cream-0-5oz",
+    waveNineAudit.reviewedAt,
+    "naturium-multi-peptide-eye-cream-0-5oz: Jumia",
+    {
+      historicalFreshAt: new Date(waveNineAudit.reviewedAt),
+      expectedHistoricalFresh: false,
+      requireHistoricalUnavailable: false,
+      requireExclusion: false,
+    },
   );
 
   for (const product of waveNineAudit.products) {
@@ -609,15 +1070,13 @@ test("catalogue offer refresh wave 9 releases exact product cells and preserves 
       const offer = offers.find((candidate) => candidate.url === evidence.url);
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
-      assert.equal(offer.priceNgn, evidence.priceNgn);
-      assertHistoricalStatusOrTerminalInvalidation(
+      assertHistoricalOfferState(
         offer,
         evidence,
         evidence.available,
         `${product.candidateId}: ${evidence.retailer}`,
       );
       assert.equal(offer.priceObservation?.size, product.identity.size);
-      assert.equal(offer.checkedAt, evidence.checkedAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -655,15 +1114,13 @@ test("catalogue offer refresh wave 10 releases all exact EOS 473 ml retailer cel
       const offer = offers.find((candidate) => candidate.url === evidence.url);
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
-      assert.equal(offer.priceNgn, evidence.priceNgn);
-      assertHistoricalStatusOrTerminalInvalidation(
+      assertHistoricalOfferState(
         offer,
         evidence,
         evidence.available,
         `${product.candidateId}: ${evidence.retailer}`,
       );
       assert.equal(offer.priceObservation?.size, product.identity.size);
-      assert.equal(offer.checkedAt, evidence.checkedAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -701,15 +1158,13 @@ test("catalogue offer refresh wave 11 releases five exact product cells and isol
       const offer = offers.find((candidate) => candidate.url === evidence.url);
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
-      assert.equal(offer.priceNgn, evidence.priceNgn);
-      assertHistoricalStatusOrTerminalInvalidation(
+      assertHistoricalOfferState(
         offer,
         evidence,
         evidence.available,
         `${product.candidateId}: ${evidence.retailer}`,
       );
       assert.equal(offer.priceObservation?.size, product.identity.size);
-      assert.equal(offer.checkedAt, evidence.checkedAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       if (
@@ -727,10 +1182,21 @@ test("catalogue offer refresh wave 11 releases five exact product cells and isol
   const asOf = new Date(waveElevenAudit.reviewedAt);
   for (const blocked of waveElevenAudit.blockedCells) {
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
-      (candidate) => candidate.retailer === blocked.retailer,
+      (candidate) => candidate.url === blocked.url,
     );
     assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
-    assert.equal(isOfferFresh(offer, asOf), false);
+    assertBlockedOfferStateOrNewer(
+      offer,
+      blocked.candidateId,
+      waveElevenAudit.reviewedAt,
+      `${blocked.candidateId}: ${blocked.retailer}`,
+      {
+        historicalFreshAt: asOf,
+        expectedHistoricalFresh: false,
+        requireHistoricalUnavailable: false,
+        requireExclusion: false,
+      },
+    );
   }
 });
 
@@ -762,8 +1228,7 @@ test("catalogue offer refresh wave 12 releases clean cells and fails closed on p
       const offer = offers.find((candidate) => candidate.url === evidence.url);
       assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
       assert.equal(offer.retailer, evidence.retailer);
-      assert.equal(offer.priceNgn, evidence.priceNgn);
-      assertHistoricalStatusOrTerminalInvalidation(
+      assertHistoricalOfferState(
         offer,
         evidence,
         evidence.available,
@@ -779,7 +1244,6 @@ test("catalogue offer refresh wave 12 releases clean cells and fails closed on p
         acceptedSizes.includes(offer.priceObservation?.size ?? ""),
         `${product.candidateId}: ${evidence.retailer} has exact package size`,
       );
-      assert.equal(offer.checkedAt, evidence.checkedAt);
       assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
       assert.ok(evidence.responseByteSize > 0);
       assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -790,11 +1254,16 @@ test("catalogue offer refresh wave 12 releases clean cells and fails closed on p
   const asOf = new Date(waveTwelveAudit.reviewedAt);
   for (const blocked of waveTwelveAudit.blockedCells) {
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
-      (candidate) => candidate.retailer === blocked.retailer,
+      (candidate) => candidate.url === blocked.url,
     );
-    if (offer && isOfferFresh(offer, asOf)) {
-      assert.equal(offer.available, false);
-      assert.equal(offer.priceComparison, "exclude");
+    if (offer) {
+      assertBlockedOfferStateOrNewer(
+        offer,
+        blocked.candidateId,
+        waveTwelveAudit.reviewedAt,
+        `${blocked.candidateId}: ${blocked.retailer}`,
+        { historicalFreshAt: asOf, onlyWhenHistoricallyFresh: true },
+      );
     }
   }
 
@@ -802,13 +1271,15 @@ test("catalogue offer refresh wave 12 releases clean cells and fails closed on p
     (product) => product.slug === "cosrx-advanced-snail-96-mucin-power-essence",
   );
   assert.ok(cosrx);
-  assert.deepEqual(
-    cosrx.offers
-      .filter((offer) => offer.available)
-      .map((offer) => offer.retailer)
-      .sort(),
+  const activeCosrx = assertCurrentActiveRetailersWithinHistoricalSet(
+    cosrx,
     ["Beauty by Daz", "Konga Health", "Perona Beauty"],
+    projected,
+    cosrx.slug,
   );
+  const currentActiveRetailers = activeCosrx
+    .map((offer) => offer.retailer)
+    .sort();
 
   const persistedCosrx = {
     ...cosrx,
@@ -845,7 +1316,7 @@ test("catalogue offer refresh wave 12 releases clean cells and fails closed on p
       .filter((offer) => offer.available)
       .map((offer) => offer.retailer)
       .sort(),
-    ["Beauty by Daz", "Konga Health", "Perona Beauty"],
+    currentActiveRetailers,
   );
 });
 
@@ -868,8 +1339,7 @@ test("catalogue offer refresh wave 13 refreshes complete selected products and f
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
@@ -885,7 +1355,6 @@ test("catalogue offer refresh wave 13 refreshes complete selected products and f
       acceptedSizes.includes(offer.priceObservation?.size ?? ""),
       `${product.candidateId}: ${evidence.retailer} has exact package size`,
     );
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -895,12 +1364,16 @@ test("catalogue offer refresh wave 13 refreshes complete selected products and f
   const asOf = new Date(waveThirteenAudit.reviewedAt);
   for (const blocked of waveThirteenAudit.blockedCells) {
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
-      (candidate) => candidate.retailer === blocked.retailer,
+      (candidate) => candidate.url === blocked.url,
     );
     assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
-    assert.equal(isOfferFresh(offer, asOf), true);
-    assert.equal(offer.available, false);
-    assert.equal(offer.priceComparison, "exclude");
+    assertBlockedOfferStateOrNewer(
+      offer,
+      blocked.candidateId,
+      waveThirteenAudit.reviewedAt,
+      `${blocked.candidateId}: ${blocked.retailer}`,
+      { historicalFreshAt: asOf },
+    );
   }
 
   const expectedActiveRetailers = new Map<string, string[]>([
@@ -925,7 +1398,12 @@ test("catalogue offer refresh wave 13 refreshes complete selected products and f
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
+    assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
+      expected,
+      projected,
+      slug,
+    );
   }
 });
 
@@ -948,15 +1426,13 @@ test("catalogue offer refresh wave 14 refreshes complete selected products and f
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -974,12 +1450,16 @@ test("catalogue offer refresh wave 14 refreshes complete selected products and f
   const asOf = new Date(waveFourteenAudit.reviewedAt);
   for (const blocked of waveFourteenAudit.blockedCells) {
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
-      (candidate) => candidate.retailer === blocked.retailer,
+      (candidate) => candidate.url === blocked.url,
     );
     assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
-    assert.equal(isOfferFresh(offer, asOf), true);
-    assert.equal(offer.available, false);
-    assert.equal(offer.priceComparison, "exclude");
+    assertBlockedOfferStateOrNewer(
+      offer,
+      blocked.candidateId,
+      waveFourteenAudit.reviewedAt,
+      `${blocked.candidateId}: ${blocked.retailer}`,
+      { historicalFreshAt: asOf },
+    );
   }
 
   const expectedActiveRetailers = new Map<string, string[]>([
@@ -1001,7 +1481,12 @@ test("catalogue offer refresh wave 14 refreshes complete selected products and f
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
+    assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
+      expected,
+      projected,
+      slug,
+    );
   }
 });
 
@@ -1024,8 +1509,7 @@ test("catalogue offer refresh wave 15 publishes current stock truth across compl
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
@@ -1042,7 +1526,6 @@ test("catalogue offer refresh wave 15 publishes current stock truth across compl
       acceptedSizes.includes(offer.priceObservation?.size ?? ""),
       `${product.candidateId}: ${evidence.retailer} has exact package size`,
     );
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -1060,12 +1543,16 @@ test("catalogue offer refresh wave 15 publishes current stock truth across compl
   const asOf = new Date(waveFifteenAudit.reviewedAt);
   for (const blocked of waveFifteenAudit.blockedCells) {
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
-      (candidate) => candidate.retailer === blocked.retailer,
+      (candidate) => candidate.url === blocked.url,
     );
     assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
-    assert.equal(isOfferFresh(offer, asOf), true);
-    assert.equal(offer.available, false);
-    assert.equal(offer.priceComparison, "exclude");
+    assertBlockedOfferStateOrNewer(
+      offer,
+      blocked.candidateId,
+      waveFifteenAudit.reviewedAt,
+      `${blocked.candidateId}: ${blocked.retailer}`,
+      { historicalFreshAt: asOf },
+    );
   }
 
   const expectedActiveRetailers = new Map<string, string[]>([
@@ -1087,7 +1574,12 @@ test("catalogue offer refresh wave 15 publishes current stock truth across compl
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
+    assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
+      expected,
+      projected,
+      slug,
+    );
   }
 });
 
@@ -1110,8 +1602,7 @@ test("catalogue offer refresh wave 16 expands rich exact offers and fails unsafe
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
@@ -1128,7 +1619,6 @@ test("catalogue offer refresh wave 16 expands rich exact offers and fails unsafe
       acceptedSizes.includes(offer.priceObservation?.size ?? ""),
       `${product.candidateId}: ${evidence.retailer} has exact package size`,
     );
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -1146,12 +1636,16 @@ test("catalogue offer refresh wave 16 expands rich exact offers and fails unsafe
   const asOf = new Date(waveSixteenAudit.reviewedAt);
   for (const blocked of waveSixteenAudit.blockedCells) {
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
-      (candidate) => candidate.retailer === blocked.retailer,
+      (candidate) => candidate.url === blocked.url,
     );
     assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
-    assert.equal(isOfferFresh(offer, asOf), true);
-    assert.equal(offer.available, false);
-    assert.equal(offer.priceComparison, "exclude");
+    assertBlockedOfferStateOrNewer(
+      offer,
+      blocked.candidateId,
+      waveSixteenAudit.reviewedAt,
+      `${blocked.candidateId}: ${blocked.retailer}`,
+      { historicalFreshAt: asOf },
+    );
     assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(blocked.responseByteSize > 0);
   }
@@ -1189,7 +1683,12 @@ test("catalogue offer refresh wave 16 expands rich exact offers and fails unsafe
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
+    assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
+      expected,
+      projected,
+      slug,
+    );
   }
 });
 
@@ -1212,8 +1711,7 @@ test("catalogue offer refresh wave 17 expands rich exact offers and fails verifi
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
@@ -1230,7 +1728,6 @@ test("catalogue offer refresh wave 17 expands rich exact offers and fails verifi
       acceptedSizes.includes(offer.priceObservation?.size ?? ""),
       `${product.candidateId}: ${evidence.retailer} has exact package size`,
     );
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1240,12 +1737,16 @@ test("catalogue offer refresh wave 17 expands rich exact offers and fails verifi
   const asOf = new Date(waveSeventeenAudit.reviewedAt);
   for (const blocked of waveSeventeenAudit.blockedCells) {
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
-      (candidate) => candidate.retailer === blocked.retailer,
+      (candidate) => candidate.url === blocked.url,
     );
     assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
-    assert.equal(isOfferFresh(offer, asOf), true);
-    assert.equal(offer.available, false);
-    assert.equal(offer.priceComparison, "exclude");
+    assertBlockedOfferStateOrNewer(
+      offer,
+      blocked.candidateId,
+      waveSeventeenAudit.reviewedAt,
+      `${blocked.candidateId}: ${blocked.retailer}`,
+      { historicalFreshAt: asOf },
+    );
     assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(blocked.responseByteSize > 0);
   }
@@ -1284,7 +1785,12 @@ test("catalogue offer refresh wave 17 expands rich exact offers and fails verifi
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
+    assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
+      expected,
+      projected,
+      slug,
+    );
   }
 });
 
@@ -1307,15 +1813,13 @@ test("catalogue offer refresh wave 18 releases exact package versions and fails 
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1325,12 +1829,16 @@ test("catalogue offer refresh wave 18 releases exact package versions and fails 
   const asOf = new Date(waveEighteenAudit.reviewedAt);
   for (const blocked of waveEighteenAudit.blockedCells) {
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
-      (candidate) => candidate.retailer === blocked.retailer,
+      (candidate) => candidate.url === blocked.url,
     );
     assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
-    assert.equal(isOfferFresh(offer, asOf), true);
-    assert.equal(offer.available, false);
-    assert.equal(offer.priceComparison, "exclude");
+    assertBlockedOfferStateOrNewer(
+      offer,
+      blocked.candidateId,
+      waveEighteenAudit.reviewedAt,
+      `${blocked.candidateId}: ${blocked.retailer}`,
+      { historicalFreshAt: asOf },
+    );
     assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(blocked.responseByteSize > 0);
   }
@@ -1377,7 +1885,12 @@ test("catalogue offer refresh wave 18 releases exact package versions and fails 
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
+    assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
+      expected,
+      projected,
+      slug,
+    );
   }
 });
 
@@ -1400,15 +1913,13 @@ test("catalogue offer refresh wave 19 releases exact FaceFacts cleanser packages
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1418,12 +1929,16 @@ test("catalogue offer refresh wave 19 releases exact FaceFacts cleanser packages
   const asOf = new Date(waveNineteenAudit.reviewedAt);
   for (const blocked of waveNineteenAudit.blockedCells) {
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
-      (candidate) => candidate.retailer === blocked.retailer,
+      (candidate) => candidate.url === blocked.url,
     );
     if (offer) {
-      assert.equal(isOfferFresh(offer, asOf), true);
-      assert.equal(offer.available, false);
-      assert.equal(offer.priceComparison, "exclude");
+      assertBlockedOfferStateOrNewer(
+        offer,
+        blocked.candidateId,
+        waveNineteenAudit.reviewedAt,
+        `${blocked.candidateId}: ${blocked.retailer}`,
+        { historicalFreshAt: asOf },
+      );
     }
     assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(blocked.responseByteSize > 0);
@@ -1445,7 +1960,12 @@ test("catalogue offer refresh wave 19 releases exact FaceFacts cleanser packages
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
+    assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
+      expected,
+      projected,
+      slug,
+    );
   }
 });
 
@@ -1469,15 +1989,13 @@ test("catalogue offer refresh wave 20 releases exact package siblings and isolat
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1487,12 +2005,16 @@ test("catalogue offer refresh wave 20 releases exact package siblings and isolat
   const asOf = new Date(waveTwentyAudit.reviewedAt);
   for (const blocked of waveTwentyAudit.blockedCells) {
     const offer = verifiedRetailOffers[blocked.candidateId]?.find(
-      (candidate) => candidate.retailer === blocked.retailer,
+      (candidate) => candidate.url === blocked.url,
     );
     assert.ok(offer, `${blocked.candidateId}: ${blocked.retailer}`);
-    assert.equal(isOfferFresh(offer, asOf), true);
-    assert.equal(offer.available, false);
-    assert.equal(offer.priceComparison, "exclude");
+    assertBlockedOfferStateOrNewer(
+      offer,
+      blocked.candidateId,
+      waveTwentyAudit.reviewedAt,
+      `${blocked.candidateId}: ${blocked.retailer}`,
+      { historicalFreshAt: asOf },
+    );
     assert.match(blocked.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(blocked.responseByteSize > 0);
   }
@@ -1523,7 +2045,12 @@ test("catalogue offer refresh wave 20 releases exact package siblings and isolat
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
+    assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
+      expected,
+      projected,
+      slug,
+    );
   }
 
   const [held] = waveTwentyAudit.heldCandidates;
@@ -1562,15 +2089,13 @@ test("catalogue offer refresh wave 21 releases four exact packages and isolates 
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       true,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1590,17 +2115,13 @@ test("catalogue offer refresh wave 21 releases four exact packages and isolates 
       (candidate) => candidate.url === blocked.url,
     );
     if (offer) {
-      const refreshed = waveThirtyOneAudit.products
-        .find((product) => product.candidateId === blocked.candidateId)
-        ?.offers.find((candidate) => candidate.url === blocked.url);
-      if (refreshed) {
-        assert.equal(offer.available, refreshed.available);
-        assert.equal(offer.checkedAt, refreshed.checkedAt);
-        continue;
-      }
-      assert.equal(isOfferFresh(offer, asOf), true);
-      assert.equal(offer.available, false);
-      assert.equal(offer.priceComparison, "exclude");
+      assertBlockedOfferStateOrNewer(
+        offer,
+        blocked.candidateId,
+        waveTwentyOneAudit.reviewedAt,
+        `${blocked.candidateId}: ${blocked.retailer}`,
+        { historicalFreshAt: asOf },
+      );
     }
   }
 
@@ -1654,7 +2175,12 @@ test("catalogue offer refresh wave 21 releases four exact packages and isolates 
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
+    assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
+      expected,
+      projected,
+      slug,
+    );
   }
 
   const [held] = waveTwentyOneAudit.heldCandidates;
@@ -1668,10 +2194,11 @@ test("catalogue offer refresh wave 21 releases four exact packages and isolates 
       (product) => product.candidateId === held.candidateId,
     ),
   );
-  assert.equal(
-    verifiedRetailOffers[held.candidateId]?.some((offer) => offer.available),
-    true,
-  );
+  const releasedOffers = verifiedRetailOffers[held.candidateId];
+  assert.ok(releasedOffers?.length);
+  for (const offer of releasedOffers) {
+    assertOfferFollowsReviewedHistory(offer, held.candidateId);
+  }
 });
 
 test("catalogue offer refresh wave 22 releases five exact packages and fails conflicted siblings closed", () => {
@@ -1698,15 +2225,13 @@ test("catalogue offer refresh wave 22 releases five exact packages and fails con
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1721,9 +2246,13 @@ test("catalogue offer refresh wave 22 releases five exact packages and fails con
       (candidate) => candidate.url === blocked.url,
     );
     if (offer) {
-      assert.equal(isOfferFresh(offer, asOf), true);
-      assert.equal(offer.available, false);
-      assert.equal(offer.priceComparison, "exclude");
+      assertBlockedOfferStateOrNewer(
+        offer,
+        blocked.candidateId,
+        waveTwentyTwoAudit.reviewedAt,
+        `${blocked.candidateId}: ${blocked.retailer}`,
+        { historicalFreshAt: asOf },
+      );
     }
   }
 
@@ -1767,7 +2296,12 @@ test("catalogue offer refresh wave 22 releases five exact packages and fails con
       (candidate) => candidate.slug === slug,
     );
     assert.ok(product, slug);
-    assertCurrentActiveRetailersWithinHistoricalSet(product, expected, slug);
+    assertCurrentActiveRetailersWithinHistoricalSet(
+      product,
+      expected,
+      projected,
+      slug,
+    );
   }
 });
 
@@ -1798,15 +2332,13 @@ test("catalogue offer refresh wave 23 releases five exact packages and fails mis
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -1821,9 +2353,13 @@ test("catalogue offer refresh wave 23 releases five exact packages and fails mis
       (candidate) => candidate.url === blocked.url,
     );
     if (offer) {
-      assert.equal(isOfferFresh(offer, asOf), true);
-      assert.equal(offer.available, false);
-      assert.equal(offer.priceComparison, "exclude");
+      assertBlockedOfferStateOrNewer(
+        offer,
+        blocked.candidateId,
+        waveTwentyThreeAudit.reviewedAt,
+        `${blocked.candidateId}: ${blocked.retailer}`,
+        { historicalFreshAt: asOf },
+      );
     }
   }
 
@@ -1862,15 +2398,16 @@ test("catalogue offer refresh wave 23 releases five exact packages and fails mis
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 
@@ -1911,15 +2448,13 @@ test("catalogue offer refresh wave 24 releases five exact packages and isolates 
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -1941,9 +2476,13 @@ test("catalogue offer refresh wave 24 releases five exact packages and isolates 
       (candidate) => candidate.url === blocked.url,
     );
     if (offer) {
-      assert.equal(offer.available, false);
-      assert.equal(offer.priceObservation?.stock, "unknown");
-      assert.equal(offer.priceComparison, "exclude");
+      assertBlockedOfferStateOrNewer(
+        offer,
+        blocked.candidateId,
+        waveTwentyFourAudit.reviewedAt,
+        `${blocked.candidateId}: ${blocked.retailer}`,
+        { requireHistoricalUnknownStock: true },
+      );
     }
   }
 
@@ -1998,15 +2537,16 @@ test("catalogue offer refresh wave 24 releases five exact packages and isolates 
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 
@@ -2053,15 +2593,13 @@ test("catalogue offer refresh wave 25 releases four exact packages and holds the
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2075,9 +2613,13 @@ test("catalogue offer refresh wave 25 releases four exact packages and holds the
       (candidate) => candidate.url === blocked.url,
     );
     if (offer) {
-      assert.equal(offer.available, false);
-      assert.equal(offer.priceObservation?.stock, "unknown");
-      assert.equal(offer.priceComparison, "exclude");
+      assertBlockedOfferStateOrNewer(
+        offer,
+        blocked.candidateId,
+        waveTwentyFiveAudit.reviewedAt,
+        `${blocked.candidateId}: ${blocked.retailer}`,
+        { requireHistoricalUnknownStock: true },
+      );
     }
   }
 
@@ -2115,15 +2657,16 @@ test("catalogue offer refresh wave 25 releases four exact packages and holds the
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 
@@ -2162,15 +2705,13 @@ test("catalogue offer refresh wave 26 releases five exact packages and excludes 
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2184,9 +2725,13 @@ test("catalogue offer refresh wave 26 releases five exact packages and excludes 
       (candidate) => candidate.url === blocked.url,
     );
     if (offer) {
-      assert.equal(offer.available, false);
-      assert.equal(offer.priceObservation?.stock, "unknown");
-      assert.equal(offer.priceComparison, "exclude");
+      assertBlockedOfferStateOrNewer(
+        offer,
+        blocked.candidateId,
+        waveTwentySixAudit.reviewedAt,
+        `${blocked.candidateId}: ${blocked.retailer}`,
+        { requireHistoricalUnknownStock: true },
+      );
     }
   }
 
@@ -2253,15 +2798,16 @@ test("catalogue offer refresh wave 26 releases five exact packages and excludes 
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 
@@ -2304,15 +2850,13 @@ test("catalogue offer refresh wave 27 releases five exact packages and fails unv
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2326,9 +2870,13 @@ test("catalogue offer refresh wave 27 releases five exact packages and fails unv
       (candidate) => candidate.url === blocked.url,
     );
     if (offer) {
-      assert.equal(offer.available, false);
-      assert.equal(offer.priceObservation?.stock, "unknown");
-      assert.equal(offer.priceComparison, "exclude");
+      assertBlockedOfferStateOrNewer(
+        offer,
+        blocked.candidateId,
+        waveTwentySevenAudit.reviewedAt,
+        `${blocked.candidateId}: ${blocked.retailer}`,
+        { requireHistoricalUnknownStock: true },
+      );
     }
   }
 
@@ -2367,15 +2915,16 @@ test("catalogue offer refresh wave 27 releases five exact packages and fails unv
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 
@@ -2418,15 +2967,13 @@ test("catalogue offer refresh wave 28 releases five exact packages and fails mis
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2459,15 +3006,16 @@ test("catalogue offer refresh wave 28 releases five exact packages and fails mis
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 });
@@ -2503,15 +3051,13 @@ test("catalogue offer refresh wave 29 releases five exact packages with rich cur
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2567,15 +3113,16 @@ test("catalogue offer refresh wave 29 releases five exact packages with rich cur
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 });
@@ -2611,15 +3158,13 @@ test("catalogue offer refresh wave 30 releases five exact packages with rich cur
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2664,15 +3209,16 @@ test("catalogue offer refresh wave 30 releases five exact packages with rich cur
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 });
@@ -2708,15 +3254,13 @@ test("catalogue offer refresh wave 31 releases three exact packages and fails mi
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -2768,15 +3312,16 @@ test("catalogue offer refresh wave 31 releases three exact packages and fails mi
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 
@@ -2817,15 +3362,13 @@ test("catalogue offer refresh wave 32 releases exact packages and preserves pack
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     if (
@@ -2865,16 +3408,17 @@ test("catalogue offer refresh wave 32 releases exact packages and preserves pack
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     if (expectedFloors.has(slug)) {
       const historicalFloor = expectedFloors.get(slug);
       assert.ok(historicalFloor != null, `${slug}: historical floor`);
-      assert.ok(
-        Math.min(
-          ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-        ) >= historicalFloor,
-        `${slug}: terminal invalidation cannot lower the historical price floor`,
+      assertHistoricalPriceFloorForUnchangedOffers(
+        active,
+        projected,
+        historicalFloor,
+        slug,
       );
     }
   }
@@ -2919,15 +3463,13 @@ test("catalogue offer refresh wave 33 publishes rich exact-package offers and fa
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -2978,15 +3520,16 @@ test("catalogue offer refresh wave 33 publishes rich exact-package offers and fa
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 
@@ -3031,15 +3574,13 @@ test("catalogue offer refresh wave 34 publishes exact Naturium packages and curr
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -3075,15 +3616,16 @@ test("catalogue offer refresh wave 34 publishes exact Naturium packages and curr
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 
@@ -3133,15 +3675,13 @@ test("catalogue offer refresh wave 35 publishes exact Naturium washes and curren
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       evidence.available,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
@@ -3197,15 +3737,16 @@ test("catalogue offer refresh wave 35 publishes exact Naturium washes and curren
     const active = assertCurrentActiveRetailersWithinHistoricalSet(
       product,
       expected,
+      projected,
       slug,
     );
     const historicalFloor = expectedFloors.get(slug);
     assert.ok(historicalFloor != null, `${slug}: historical floor`);
-    assert.ok(
-      Math.min(
-        ...active.map((offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY),
-      ) >= historicalFloor,
-      `${slug}: terminal invalidation cannot lower the historical price floor`,
+    assertHistoricalPriceFloorForUnchangedOffers(
+      active,
+      projected,
+      historicalFloor,
+      slug,
     );
   }
 
@@ -3221,16 +3762,15 @@ test("catalogue offer refresh wave 35 publishes exact Naturium washes and curren
     ].some((offer) => offer.url.includes("100ml")),
     false,
   );
-  assert.ok(
-    verifiedRetailOffers["naturium-fermented-rice-enzyme-cleanser-4oz"].every(
-      (offer) => offer.available === false,
-    ),
+  const fermentedRice = catalogueProducts.find(
+    (product) => product.slug === "naturium-fermented-rice-enzyme-cleanser-4oz",
   );
-  assert.equal(
-    verifiedRetailOffers["naturium-retinol-complex-cream-1-7oz"].find(
-      (offer) => offer.retailer === "BuyBetter",
-    )?.available,
-    false,
+  assert.ok(fermentedRice);
+  assertCurrentActiveRetailersWithinHistoricalSet(
+    fermentedRice,
+    [],
+    projected,
+    fermentedRice.slug,
   );
 });
 
@@ -3261,38 +3801,35 @@ test("catalogue offer refresh wave 36 releases the exact Tranexamic dropper and 
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       true,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.packageImageByteSize > 0);
   }
 
-  const active = catalogueProducts
-    .find(
-      (product) => product.slug === "naturium-tranexamic-topical-acid-5-1fl-oz",
-    )
-    ?.offers.filter((offer) => offer.available);
-  assert.deepEqual(active?.map((offer) => offer.retailer).sort(), [
-    "Rhema Beauty Shop",
-    "TOS Nigeria",
-    "The Beauty Prism",
-  ]);
-  assert.equal(
-    Math.min(
-      ...(active ?? []).map(
-        (offer) => offer.priceNgn ?? Number.POSITIVE_INFINITY,
-      ),
-    ),
+  const product = catalogueProducts.find(
+    (candidate) =>
+      candidate.slug === "naturium-tranexamic-topical-acid-5-1fl-oz",
+  );
+  assert.ok(product);
+  const active = assertCurrentActiveRetailersWithinHistoricalSet(
+    product,
+    ["Rhema Beauty Shop", "TOS Nigeria", "The Beauty Prism"],
+    projected,
+    product.slug,
+  );
+  assertHistoricalPriceFloorForUnchangedOffers(
+    active,
+    projected,
     44_000,
+    product.slug,
   );
 
   for (const blocked of waveThirtySixAudit.blockedCells) {
@@ -3343,32 +3880,36 @@ test("catalogue offer refresh wave 37 releases Barrier Bounce and fails exact-pa
     );
     assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
     assert.equal(offer.retailer, evidence.retailer);
-    assert.equal(offer.priceNgn, evidence.priceNgn);
-    assertHistoricalStatusOrTerminalInvalidation(
+    assertHistoricalOfferState(
       offer,
       evidence,
       true,
       `${product.candidateId}: ${evidence.retailer}`,
     );
     assert.equal(offer.priceObservation?.size, product.identity.size);
-    assert.equal(offer.checkedAt, evidence.checkedAt);
     assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.responseByteSize > 0);
     assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
     assert.ok(evidence.packageImageByteSize > 0);
   }
 
-  const active = catalogueProducts
-    .find(
-      (product) =>
-        product.slug === "naturium-barrier-bounce-bi-phase-mist-100ml",
-    )
-    ?.offers.filter((offer) => offer.available);
-  assert.deepEqual(
-    active?.map((offer) => offer.retailer),
-    ["HelloBeauty NG"],
+  const product = catalogueProducts.find(
+    (candidate) =>
+      candidate.slug === "naturium-barrier-bounce-bi-phase-mist-100ml",
   );
-  assert.equal(active?.[0]?.priceNgn, 42_000);
+  assert.ok(product);
+  const active = assertCurrentActiveRetailersWithinHistoricalSet(
+    product,
+    ["HelloBeauty NG"],
+    projected,
+    product.slug,
+  );
+  assertHistoricalPriceFloorForUnchangedOffers(
+    active,
+    projected,
+    42_000,
+    product.slug,
+  );
 
   for (const blocked of waveThirtySevenAudit.blockedCells) {
     assert.deepEqual(
@@ -3449,18 +3990,36 @@ test("catalogue completion wave 2 admits three current exact-package rows", () =
   );
 
   for (const product of completionWaveTwoAudit.products) {
-    for (const offer of product.offers) {
-      assert.match(offer.packageImageSha256, /^[a-f0-9]{64}$/);
-      assert.ok(offer.packageImageByteSize > 0);
-      if ("responseSha256" in offer) {
-        assert.match(offer.responseSha256, /^[a-f0-9]{64}$/);
-        assert.ok(offer.responseByteSize > 0);
+    for (const evidence of product.offers) {
+      const offer = verifiedRetailOffers[product.candidateId]?.find(
+        (candidate) => candidate.url === evidence.url,
+      );
+      assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+      assertHistoricalOfferState(
+        offer,
+        evidence,
+        historicalAvailability(evidence),
+        `${product.candidateId}: ${evidence.retailer}`,
+      );
+      const acceptedSizes =
+        product.identity.size === "4 x 100 g"
+          ? ["4 x 100 g", "4 x 100g"]
+          : [product.identity.size];
+      assert.ok(
+        acceptedSizes.includes(offer.priceObservation?.size ?? ""),
+        `${product.candidateId}: exact package size`,
+      );
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+      if ("responseSha256" in evidence) {
+        assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+        assert.ok(evidence.responseByteSize > 0);
       } else {
         assert.equal(
           product.candidateId,
           "la-roche-posay-toleriane-double-repair-spf30",
         );
-        assert.equal(offer.browserCapture.stockText, "Few units left");
+        assert.equal(evidence.browserCapture.stockText, "Few units left");
       }
     }
   }
@@ -3469,24 +4028,15 @@ test("catalogue completion wave 2 admits three current exact-package rows", () =
   assert.deepEqual(
     dove.map((offer) => ({
       retailer: offer.retailer,
-      priceNgn: offer.priceNgn,
-      available: offer.available,
-      stock: offer.priceObservation?.stock,
       comparison: offer.priceComparison,
     })),
     [
       {
         retailer: "Hermosa Mart",
-        priceNgn: 4000,
-        available: false,
-        stock: "out-of-stock",
         comparison: undefined,
       },
       {
         retailer: "Amela Pharmacy",
-        priceNgn: 6000,
-        available: false,
-        stock: "unknown",
         comparison: "exclude",
       },
     ],
@@ -3497,15 +4047,11 @@ test("catalogue completion wave 2 admits three current exact-package rows", () =
   assert.deepEqual(
     loccitane.map((offer) => ({
       retailer: offer.retailer,
-      priceNgn: offer.priceNgn,
-      available: offer.available,
       size: offer.priceObservation?.size,
     })),
     [
       {
         retailer: "Essenza",
-        priceNgn: 43000,
-        available: true,
         size: "250 ml",
       },
     ],
@@ -3516,9 +4062,6 @@ test("catalogue completion wave 2 admits three current exact-package rows", () =
   assert.deepEqual(
     toleriane.map((offer) => ({
       retailer: offer.retailer,
-      priceNgn: offer.priceNgn,
-      available: offer.available,
-      stock: offer.priceObservation?.stock,
       size: offer.priceObservation?.size,
       sellerName: offer.sellerName,
       sellerScore: offer.sellerScore,
@@ -3526,9 +4069,6 @@ test("catalogue completion wave 2 admits three current exact-package rows", () =
     [
       {
         retailer: "Jumia",
-        priceNgn: 30000,
-        available: true,
-        stock: "low-stock",
         size: "100 ml",
         sellerName: "Annette Trudan",
         sellerScore: 78,
@@ -3740,7 +4280,11 @@ test("catalogue seed retains expired exact URLs for refresh without making them 
       candidate.slug === "cosrx-salicylic-acid-daily-gentle-cleanser",
   );
   assert.ok(product);
-  const afterExpiry = new Date("2026-08-23T00:00:00Z");
+  const sourceOffer = verifiedRetailOffers[product.slug]?.find(
+    (offer) => offer.retailer === "Beauty by Daz",
+  );
+  assert.ok(sourceOffer?.expiresAt);
+  const afterExpiry = new Date(Date.parse(sourceOffer.expiresAt) + 1);
   const publicOffers = mergeRetailOffers(product, product.offers, afterExpiry);
   const seedOffers = materializeRetailOffersForCatalogueSeed(
     product,
@@ -3780,89 +4324,68 @@ test("at least twelve catalogue products have reliable exact Nigerian price evid
 
 test("the seven newest catalogue products carry the exact Nigerian offers found in the enrichment pass", () => {
   const expected = {
-    "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml": [["BuyBetter", 32249]],
+    "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml": ["BuyBetter"],
     "aveeno-daily-moisturizing-body-oil-mist-200ml": [
-      ["Teeka4", 15700],
-      ["Perona Beauty", 17500],
-      ["CSi Grocery", 21500],
-      ["Citymarket NG", 17666.67],
+      "Teeka4",
+      "Perona Beauty",
+      "CSi Grocery",
+      "Citymarket NG",
     ],
     "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml": [
-      ["BuyBetter", 13500],
-      ["Kadimez Essentials", 19500],
-      ["Rhema Beauty Shop", 19404],
+      "BuyBetter",
+      "Kadimez Essentials",
+      "Rhema Beauty Shop",
     ],
     "eos-coconut-waters-body-wash-473ml": [
-      ["Teeka4", 18500],
-      ["BuyBetter", 18500],
-      ["Rhema Beauty Shop", 23750],
-      ["Beauty Hut Africa", 25000],
+      "Teeka4",
+      "BuyBetter",
+      "Rhema Beauty Shop",
+      "Beauty Hut Africa",
     ],
     "eos-pink-champagne-body-wash-473ml": [
-      ["Teeka4", 18500],
-      ["BuyBetter", 18813],
-      ["Rhema Beauty Shop", 23750],
-      ["Beauty Hut Africa", 25000],
+      "Teeka4",
+      "BuyBetter",
+      "Rhema Beauty Shop",
+      "Beauty Hut Africa",
     ],
     "eos-vanilla-cashmere-body-wash-473ml": [
-      ["Beauty by Daz", 19500],
-      ["Teeka4", 18500],
-      ["Perona Beauty", 20850],
-      ["Beauty Hut Africa", 23100],
+      "Beauty by Daz",
+      "Teeka4",
+      "Perona Beauty",
+      "Beauty Hut Africa",
     ],
-    "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml": [
-      ["BuyBetter", 27200],
-    ],
+    "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml": ["BuyBetter"],
   } as const;
 
-  for (const [slug, offerRows] of Object.entries(expected)) {
+  for (const [slug, retailers] of Object.entries(expected)) {
     const offers = verifiedRetailOffers[slug];
     assert.ok(offers, `missing offers for ${slug}`);
     assert.deepEqual(
-      offers.map((offer) => [offer.retailer, offer.priceNgn]),
-      offerRows,
+      offers.map((offer) => offer.retailer),
+      retailers,
       slug,
     );
-    assert.equal(
-      offers.every(
-        (offer) =>
-          offer.checkedAt ===
-          (slug === "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml"
-            ? "2026-08-30T04:48:19.559Z"
-            : slug === "beauty-of-joseon-glow-serum-propolis-niacinamide-30ml"
-              ? "2026-08-29T23:49:23.320Z"
-              : slug.startsWith("eos-")
-                ? "2026-08-30T00:00:32.487Z"
-                : new Set([
-                      "aveeno-daily-moisturizing-body-oil-mist-200ml",
-                      "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
-                    ]).has(slug)
-                  ? "2026-08-30T05:39:13.098Z"
-                  : offer.retailer === "Beauty Hut Africa"
-                    ? "2026-08-14T17:00:00Z"
-                    : "2026-08-14T17:00:00Z"),
-      ),
-      true,
-      `${slug}: observation timestamp`,
-    );
+    for (const offer of offers) {
+      assertOfferFollowsReviewedHistory(offer, slug);
+    }
   }
 });
 
 test("the zero-depth enrichment wave publishes exact offers across its cohort", () => {
   const expected = {
     "aqua-rich-licorice-mulberry-body-wash-1000ml": [
-      ["BuyBetter", 11288, "1000 ml"],
-      ["Perona Beauty", 10850, "1000 ml"],
-      ["Konga Health", 15000, "1000 ml"],
+      ["BuyBetter", "1000 ml"],
+      ["Perona Beauty", "1000 ml"],
+      ["Konga Health", "1000 ml"],
     ],
     "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml": [
-      ["CSi Grocery", 12000, "1000 ml"],
-      ["Nihet Beauty", 21000, "1000 ml"],
+      ["CSi Grocery", "1000 ml"],
+      ["Nihet Beauty", "1000 ml"],
     ],
     "naturium-dew-glow-moisturizer-spf-50-1-7fl-oz": [
-      ["Nihet Beauty", 75850, "1.7 fl oz / 50 ml"],
-      ["HilarySays", 56500, "1.7 fl oz / 50 ml"],
-      ["Mirrors Beauty", 24200, "1.7 fl oz / 50 ml"],
+      ["Nihet Beauty", "1.7 fl oz / 50 ml"],
+      ["HilarySays", "1.7 fl oz / 50 ml"],
+      ["Mirrors Beauty", "1.7 fl oz / 50 ml"],
     ],
   } as const;
 
@@ -3870,47 +4393,29 @@ test("the zero-depth enrichment wave publishes exact offers across its cohort", 
     const offers = verifiedRetailOffers[slug];
     assert.ok(offers, `missing offers for ${slug}`);
     assert.deepEqual(
-      offers.map((offer) => [
-        offer.retailer,
-        offer.priceNgn,
-        offer.priceObservation?.size,
-      ]),
+      offers.map((offer) => [offer.retailer, offer.priceObservation?.size]),
       rows,
       slug,
     );
-    assert.equal(
-      offers.every(
-        (offer) =>
-          offer.match === "exact" &&
-          Date.parse(offer.expiresAt ?? "") > Date.parse(offer.checkedAt ?? ""),
-      ),
-      true,
-      `${slug}: exact reviewed evidence`,
-    );
+    for (const offer of offers) {
+      assertOfferFollowsReviewedHistory(offer, slug);
+    }
   }
 });
 
 test("browser-verified Beauty by Daz prices preserve exact original catalogue products", () => {
   const expected = [
-    ["cosrx-salicylic-acid-daily-gentle-cleanser", 8_500, "150 ml", true],
-    ["anua-niacinamide-10-txa-4-serum", 18_850, "30 ml", true],
-    ["face-facts-bright-clear-face-cream", 7_500, "75 ml", true],
+    ["cosrx-salicylic-acid-daily-gentle-cleanser", "150 ml"],
+    ["anua-niacinamide-10-txa-4-serum", "30 ml"],
+    ["face-facts-bright-clear-face-cream", "75 ml"],
   ] as const;
 
-  for (const [slug, priceNgn, size, available] of expected) {
+  for (const [slug, size] of expected) {
     const offer = verifiedRetailOffers[slug]?.find(
       (candidate) => candidate.retailer === "Beauty by Daz",
     );
     assert.ok(offer, slug);
-    assert.equal(offer.priceNgn, priceNgn, slug);
-    if (offer.available !== available) {
-      assert.equal(offer.available, false, `${slug}: fail-closed availability`);
-      assert.equal(
-        offer.priceObservation?.stock,
-        "unknown",
-        `${slug}: fail-closed stock`,
-      );
-    }
+    assertOfferFollowsReviewedHistory(offer, slug);
     assert.equal(offer.priceObservation?.size, size, slug);
     assert.equal(offer.listingEvidence?.basis, "retailer-page", slug);
     assert.equal(new URL(offer.url).hostname, "beautybydaz.com", slug);
@@ -3919,33 +4424,16 @@ test("browser-verified Beauty by Daz prices preserve exact original catalogue pr
 
 test("catalogue coverage batch 1 preserves its fresh Beauty by Daz observations", () => {
   const expected = [
-    [
-      "anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml",
-      18_850,
-      true,
-      "30 ml",
-      "2026-08-30T02:16:56.000Z",
-    ],
-    [
-      "dove-melanin-even-tone-body-wash-18-5oz",
-      19_500,
-      false,
-      "547 ml / 18.5 fl oz",
-      "2026-08-30T01:31:00.820Z",
-    ],
+    ["anua-azelaic-acid-10-hyaluron-redness-soothing-serum-30ml", "30 ml"],
+    ["dove-melanin-even-tone-body-wash-18-5oz", "547 ml / 18.5 fl oz"],
   ] as const;
 
-  for (const [slug, priceNgn, available, size, checkedAt] of expected) {
+  for (const [slug, size] of expected) {
     const offer = verifiedRetailOffers[slug]?.find(
       (candidate) => candidate.retailer === "Beauty by Daz",
     );
     assert.ok(offer, slug);
-    assert.equal(offer.priceNgn, priceNgn, slug);
-    assert.equal(offer.available, available, slug);
-    assert.equal(offer.checkedAt, checkedAt, slug);
-    assert.equal(offer.listingEvidence?.observedAt, offer.checkedAt, slug);
-    assert.equal(offer.listingEvidence?.sourceUrl, offer.url, slug);
-    assert.equal(offer.priceObservation?.observedAt, offer.checkedAt, slug);
+    assertOfferFollowsReviewedHistory(offer, slug);
     assert.equal(offer.priceObservation?.size, size, slug);
   }
 });
@@ -3999,17 +4487,16 @@ test("featured marketplace offers retain visible seller evidence", () => {
   const disaar = verifiedRetailOffers["disaar-argan-oil-body-oil-gel"]?.find(
     (offer) => offer.retailer === "Jumia",
   );
+  assert.ok(disaar);
   assert.deepEqual(
     {
-      seller: disaar?.sellerName,
-      score: disaar?.sellerScore,
-      stock: disaar?.priceObservation?.stock,
-      priceComparison: disaar?.priceComparison,
+      seller: disaar.sellerName,
+      score: disaar.sellerScore,
+      priceComparison: disaar.priceComparison,
     },
     {
       seller: "Christodel Global Services",
       score: 88,
-      stock: "low-stock",
       priceComparison: "exclude",
     },
   );
@@ -4025,34 +4512,19 @@ test("the B.LAB Matcha listing stays empty without current exact 50 ml evidence"
   assert.deepEqual(product?.offers, []);
 });
 
-test("DANG sale prices publish only exact in-stock Nigerian product listings", () => {
+test("DANG sale-price history preserves exact Nigerian listings through terminal invalidation", () => {
   const expected = {
-    "dang-azelaic-acid-serum-30ml": [
-      17_700,
-      "30 ml",
-      "2026-08-30T03:13:29.000Z",
-      "2026-09-06T03:13:29.000Z",
-    ],
-    "dang-hydra-glow-sun-protection-gel-60ml": [
-      25_000,
-      "60 ml",
-      "2026-08-30T03:10:33.566Z",
-      "2026-09-06T03:10:33.566Z",
-    ],
+    "dang-azelaic-acid-serum-30ml": "30 ml",
+    "dang-hydra-glow-sun-protection-gel-60ml": "60 ml",
   } as const;
 
-  for (const [slug, [priceNgn, size, observedAt, expiresAt]] of Object.entries(
-    expected,
-  )) {
+  for (const [slug, size] of Object.entries(expected)) {
     const offer = verifiedRetailOffers[slug]?.find(
       (candidate) => candidate.retailer === "DANG Lifestyle",
     );
     assert.ok(offer, slug);
-    assert.equal(offer.priceNgn, priceNgn, slug);
-    assert.equal(offer.available, true, slug);
+    assertOfferFollowsReviewedHistory(offer, slug);
     assert.equal(offer.priceObservation?.size, size, slug);
-    assert.equal(offer.checkedAt, observedAt, slug);
-    assert.equal(offer.expiresAt, expiresAt, slug);
     assert.equal(new URL(offer.url).hostname, "danglifestyle.co", slug);
   }
 
@@ -4068,77 +4540,25 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
   const expected = [
     // COSRX and Vitamin C offers pruned to 10 freshest; Beauty Hut Africa
     // was outside the top-10 trust tier for those two products.
-    ["cerave-blemish-control-cleanser", 18_252, "236 ml"],
-    ["cerave-foaming-facial-cleanser", 14_700, "236 ml"],
-    ["cerave-pm-facial-moisturising-lotion-52ml", 20_300, "52 ml"],
-    ["cerave-sa-smoothing-cleanser-473ml", 16_955, "473 ml"],
-    ["eos-coconut-waters-body-wash-473ml", 25_000, "16 fl oz / 473 ml"],
-    ["eos-pink-champagne-body-wash-473ml", 25_000, "16 fl oz / 473 ml"],
-    ["eos-vanilla-cashmere-body-wash-473ml", 23_100, "16 fl oz / 473 ml"],
-    ["facefacts-ceramide-hydrating-gentle-cleanser-400ml", 8_775, "400 ml"],
-    ["la-roche-posay-effaclar-purifying-foaming-gel-400ml", 15_511, "400 ml"],
-    ["nineless-a-control-azelaic-acid-cream-50ml", 20_315, "50 ml"],
+    ["cerave-blemish-control-cleanser", "236 ml"],
+    ["cerave-foaming-facial-cleanser", "236 ml"],
+    ["cerave-pm-facial-moisturising-lotion-52ml", "52 ml"],
+    ["cerave-sa-smoothing-cleanser-473ml", "473 ml"],
+    ["eos-coconut-waters-body-wash-473ml", "16 fl oz / 473 ml"],
+    ["eos-pink-champagne-body-wash-473ml", "16 fl oz / 473 ml"],
+    ["eos-vanilla-cashmere-body-wash-473ml", "16 fl oz / 473 ml"],
+    ["facefacts-ceramide-hydrating-gentle-cleanser-400ml", "400 ml"],
+    ["la-roche-posay-effaclar-purifying-foaming-gel-400ml", "400 ml"],
+    ["nineless-a-control-azelaic-acid-cream-50ml", "50 ml"],
   ] as const;
 
-  for (const [slug, priceNgn, size] of expected) {
+  for (const [slug, size] of expected) {
     const offer = verifiedRetailOffers[slug]?.find(
       (candidate) => candidate.retailer === "Beauty Hut Africa",
     );
     assert.ok(offer, slug);
-    assert.equal(offer.priceNgn, priceNgn, slug);
-    const isWaveTwentyNine =
-      slug === "nineless-a-control-azelaic-acid-cream-50ml";
-    assert.equal(offer.available, !isWaveTwentyNine, slug);
+    assertOfferFollowsReviewedHistory(offer, slug);
     assert.equal(offer.priceObservation?.size, size, slug);
-    const isWaveTen = slug.startsWith("eos-");
-    const isWaveSeventeen = new Set([
-      "cerave-sa-smoothing-cleanser-473ml",
-      "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
-      "la-roche-posay-effaclar-purifying-foaming-gel-400ml",
-    ]).has(slug);
-    const isWaveTwentyOne =
-      slug === "cerave-pm-facial-moisturising-lotion-52ml";
-    const waveTwentyThreeTimes = new Map<string, [string, string]>([
-      [
-        "cerave-blemish-control-cleanser",
-        ["2026-08-30T03:47:32.957Z", "2026-09-06T03:47:32.957Z"],
-      ],
-      [
-        "cerave-foaming-facial-cleanser",
-        ["2026-08-30T03:48:25.979Z", "2026-09-06T03:48:25.979Z"],
-      ],
-    ]);
-    const waveTwentyThreeTime = waveTwentyThreeTimes.get(slug);
-    assert.equal(
-      offer.checkedAt,
-      waveTwentyThreeTime
-        ? waveTwentyThreeTime[0]
-        : isWaveTen
-          ? "2026-08-30T00:00:32.487Z"
-          : isWaveSeventeen
-            ? "2026-08-30T02:02:13.000Z"
-            : isWaveTwentyOne
-              ? "2026-08-30T02:56:10.000Z"
-              : isWaveTwentyNine
-                ? "2026-08-30T06:32:58.163Z"
-                : "2026-08-14T17:00:00Z",
-      slug,
-    );
-    assert.equal(
-      offer.expiresAt,
-      waveTwentyThreeTime
-        ? waveTwentyThreeTime[1]
-        : isWaveTen
-          ? "2026-09-06T00:00:32.487Z"
-          : isWaveSeventeen
-            ? "2026-09-06T02:02:13.000Z"
-            : isWaveTwentyOne
-              ? "2026-09-06T02:56:10.000Z"
-              : isWaveTwentyNine
-                ? "2026-09-06T06:32:58.163Z"
-                : "2026-08-21T17:00:00Z",
-      slug,
-    );
     assert.equal(new URL(offer.url).hostname, "beautyhutafrica.com", slug);
   }
 
@@ -4146,33 +4566,53 @@ test("Beauty Hut Africa publishes the complete exact-size enrichment wave", () =
     "nivea-perfect-radiant-body-lotion-400ml"
   ]?.find((candidate) => candidate.retailer === "Beauty Hut Africa");
   assert.ok(blockedNivea);
-  assert.equal(blockedNivea.priceNgn, 5_156);
-  assert.equal(blockedNivea.available, false);
+  assertHistoricalOfferState(
+    blockedNivea,
+    {
+      retailer: "Beauty Hut Africa",
+      url: "https://beautyhutafrica.com/product/nivea-perfect-radiant-body-lotion-400ml/",
+      priceNgn: 5_156,
+      available: false,
+      stock: "out-of-stock",
+      checkedAt: "2026-08-30T03:10:24.487Z",
+      expiresAt: "2026-09-06T03:10:24.487Z",
+    },
+    false,
+    "nivea-perfect-radiant-body-lotion-400ml: Beauty Hut Africa",
+  );
   assert.equal(blockedNivea.priceComparison, "exclude");
   assert.equal(blockedNivea.priceObservation?.size, "400 ml");
-  assert.equal(blockedNivea.checkedAt, "2026-08-30T03:10:24.487Z");
-  assert.equal(blockedNivea.expiresAt, "2026-09-06T03:10:24.487Z");
 
   const blockedFaceFacts = verifiedRetailOffers[
     "facefacts-soothe-glow-niacinamide-serum-30ml"
   ]?.find((candidate) => candidate.retailer === "Beauty Hut Africa");
   assert.ok(blockedFaceFacts);
-  assert.equal(blockedFaceFacts.priceNgn, 4_380);
-  assert.equal(blockedFaceFacts.available, false);
+  assertHistoricalOfferState(
+    blockedFaceFacts,
+    {
+      retailer: "Beauty Hut Africa",
+      url: "https://beautyhutafrica.com/product/face-facts-soothe-glow-niacinamide-serum-30ml/",
+      priceNgn: 4_380,
+      available: false,
+      stock: "unknown",
+      checkedAt: "2026-08-30T02:37:57.000Z",
+      expiresAt: "2026-09-06T02:37:57.000Z",
+    },
+    false,
+    "facefacts-soothe-glow-niacinamide-serum-30ml: Beauty Hut Africa",
+  );
   assert.equal(blockedFaceFacts.priceComparison, "exclude");
   assert.equal(blockedFaceFacts.priceObservation?.size, "30 ml");
-  assert.equal(blockedFaceFacts.checkedAt, "2026-08-30T02:37:57.000Z");
-  assert.equal(blockedFaceFacts.expiresAt, "2026-09-06T02:37:57.000Z");
 
   const refreshedBalance = verifiedRetailOffers[
     "balance-niacinamide-blemish-recovery-serum-30ml"
   ]?.find((candidate) => candidate.retailer === "Beauty Hut Africa");
   assert.ok(refreshedBalance);
-  assert.equal(refreshedBalance.priceNgn, 10_500);
-  assert.equal(refreshedBalance.available, false);
+  assertOfferFollowsReviewedHistory(
+    refreshedBalance,
+    "balance-niacinamide-blemish-recovery-serum-30ml",
+  );
   assert.equal(refreshedBalance.priceObservation?.size, "30 ml");
-  assert.equal(refreshedBalance.checkedAt, "2026-08-30T01:02:44.400Z");
-  assert.equal(refreshedBalance.expiresAt, "2026-09-06T01:02:44.400Z");
 
   assert.equal(
     verifiedRetailOffers["cerave-foaming-facial-cleanser"].some(
@@ -4187,33 +4627,38 @@ test("PanOxyl publishes only the current GTIN-matched Slique observation", () =>
   const offers = verifiedRetailOffers[slug];
 
   assert.equal(offers.length, 5);
-  assert.deepEqual(
-    {
-      retailer: offers[0]?.retailer,
-      priceNgn: offers[0]?.priceNgn,
-      checkedAt: offers[0]?.checkedAt,
-      observedAt: offers[0]?.listingEvidence?.observedAt,
-      evidenceSource: offers[0]?.listingEvidence?.sourceUrl,
-      evidenceBasis: offers[0]?.listingEvidence?.basis,
-      variant: offers[0]?.priceObservation?.variant,
-      size: offers[0]?.priceObservation?.size,
-      stock: offers[0]?.priceObservation?.stock,
-    },
+  const slique = offers[0];
+  assert.ok(slique);
+  assertHistoricalOfferState(
+    slique,
     {
       retailer: "Slique Beauty",
+      url: "https://sliquebeautylimited.com/product/panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-156g/",
       priceNgn: 3500,
+      available: true,
+      stock: "in-stock",
       checkedAt: "2026-08-14T17:00:00Z",
-      observedAt: "2026-08-14T17:00:00Z",
+    },
+    true,
+    `${slug}: Slique Beauty`,
+  );
+  assert.deepEqual(
+    {
+      evidenceSource: slique.listingEvidence?.sourceUrl,
+      evidenceBasis: slique.listingEvidence?.basis,
+      variant: slique.priceObservation?.variant,
+      size: slique.priceObservation?.size,
+    },
+    {
       evidenceSource:
         "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?slug=panoxyl-acne-foaming-wash-benzoyl-peroxide-10-maximum-strength-156g",
       evidenceBasis: "retailer-api",
       variant:
         "PANOXYL ACNE FOAMING WASH BENZOYL PEROXIDE 10% MAXIMUM STRENGTH -156G",
       size: "156 g",
-      stock: "in-stock",
     },
   );
-  assert.equal(offers[0]?.brandAuthorizationEvidence, undefined);
+  assert.equal(slique.brandAuthorizationEvidence, undefined);
   assert.equal(offers[1]?.retailer, "Holly's Wellness");
   assert.equal(offers[2]?.retailer, "BuyBetter");
   assert.equal(offers[3]?.retailer, "Rehmie");
