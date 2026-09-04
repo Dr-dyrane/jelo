@@ -136,7 +136,8 @@ The cron is a freshness operator. It does not replace deliberate publication evi
 - Neon PostgreSQL: durable application data.
 - Vercel Blob: canonical public product and editorial media.
 - Upstash Redis: rate limiting, coordination, the private immutable campaign
-  ledger, and identifier-free Daily Desk aggregate counters.
+  ledger, the separate immutable Daily Desk acceptance record, and
+  identifier-free Daily Desk aggregate counters.
 - Hostinger Agentic Mail API, with SMTP fallback: retailer magic links.
 - Vercel Analytics: public usage analytics.
 

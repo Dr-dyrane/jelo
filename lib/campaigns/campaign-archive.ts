@@ -108,6 +108,17 @@ async function acceptedProductionRecordForDate(date: string) {
   return records[0] ?? null;
 }
 
+function dailyDeskAcceptedCampaignKey(date: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    throw new Error("campaign_production_date_invalid");
+  }
+  return `${ledgerPrefix}:daily-desk:production:${date}:campaign`;
+}
+
+export async function acceptedDailyDeskCampaignRecordKeyForDate(date: string) {
+  return campaignLedger().get<string>(dailyDeskAcceptedCampaignKey(date));
+}
+
 async function claimProductionCampaignForDate(archive: ArchivedCampaign) {
   const date = productionCampaignDate(archive);
   const key = `${ledgerPrefix}:production:${date}:campaign`;
@@ -123,6 +134,55 @@ export async function acceptedProductionCampaignJsonForDate(date: string) {
   const campaignRecordKey = await acceptedProductionRecordForDate(date);
   if (!campaignRecordKey) return null;
   return campaignLedger().get<string>(campaignRecordKey);
+}
+
+/**
+ * The Daily Desk is an immutable public market projection, not an operator
+ * delivery receipt. Keep its acceptance record separate so an email-only
+ * editorial fallback cannot consume the day's public evidence slot.
+ */
+export async function acceptedDailyDeskCampaignJsonForDate(date: string) {
+  const campaignRecordKey =
+    await acceptedDailyDeskCampaignRecordKeyForDate(date);
+  if (campaignRecordKey) return campaignLedger().get<string>(campaignRecordKey);
+
+  // Existing accepted market packets remain readable during the rollout. A
+  // later dedicated Desk acceptance can supersede this compatibility fallback.
+  return acceptedProductionCampaignJsonForDate(date);
+}
+
+export async function acceptDailyDeskCampaign(input: {
+  archive: ArchivedCampaign;
+  acceptedAt: string;
+}) {
+  if (
+    input.archive.mode !== "production" ||
+    input.archive.dailyDeskEligible !== true
+  ) {
+    throw new Error("daily_desk_campaign_ineligible");
+  }
+  if (!Number.isFinite(Date.parse(input.acceptedAt))) {
+    throw new Error("daily_desk_acceptance_time_invalid");
+  }
+  const date = productionCampaignDate(input.archive);
+  const key = dailyDeskAcceptedCampaignKey(date);
+  const stored = await campaignLedger().set(
+    key,
+    input.archive.campaignRecordKey,
+    {
+      nx: true,
+    },
+  );
+  const campaignRecordKey =
+    stored === "OK"
+      ? input.archive.campaignRecordKey
+      : await campaignLedger().get<string>(key);
+  if (!campaignRecordKey) throw new Error("daily_desk_acceptance_unreadable");
+
+  return {
+    accepted: campaignRecordKey === input.archive.campaignRecordKey,
+    campaignRecordKey,
+  } as const;
 }
 
 function safeDailyDeskSegment(value: string, pattern: RegExp, error: string) {

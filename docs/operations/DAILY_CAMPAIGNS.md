@@ -1,6 +1,6 @@
 # Daily campaign handoff
 
-Updated: 2026-08-23
+Updated: 2026-09-04
 
 The daily campaign lane prepares one evidence-bound review packet and privately
 emails it to the three configured campaign operators. It does not post to
@@ -105,14 +105,26 @@ image creation inside the daily production cron.
 
 ## Lagos Daily Desk
 
-`/lagos` is a public, read-only projection of the day's accepted production
-campaign. It never reads preview or test runs. The projection resolves the
-accepted-production index for the current `Africa/Lagos` calendar date and
-publishes only the product identity, campaign copy, exact `/share/<slug>` CTA,
-verified **Market** image, evidence count, evidence boundary, and checked-at
-time. Useful and Relatable remain in the private operator packet. An editorial
-fallback delivery is deliberately excluded from the accepted-production Daily
-Desk index, so a no-price day cannot masquerade as public price evidence.
+`/lagos` is a public, read-only projection of the day's accepted Daily Desk
+record. It never reads preview or test runs. The dedicated Desk reconciler runs
+at minute 42 of each hour, after the inventory refresh window. It uses the
+same exact-product, dossier, image, and fresh-offer gates as the campaign
+selector, but does not use email/social rotation cooldowns: the Desk is current
+market context, while the operator packet is a separately rotated delivery.
+
+When `DAILY_DESK_RECONCILIATION_ENABLED=true`, the reconciler accepts at most
+one evidence-qualified Market record for an `Africa/Lagos` date. The per-date
+`SET NX` record is immutable, revalidated at `/lagos`, and contains no delivery
+or recipient information. It never resolves recipients, reserves a campaign
+delivery, sends email, posts to a social channel, creates a retailer, or admits
+a new offer. An early email-only editorial fallback therefore cannot prevent a
+later verified offer observation from making the Desk ready.
+
+The projection publishes only product identity, campaign copy, exact
+`/share/<slug>` CTA, verified **Market** image, evidence count, evidence
+boundary, and checked-at time. Useful and Relatable remain in the private
+operator packet. Editorial fallbacks are ineligible for the Desk, so a no-price
+day cannot masquerade as public price evidence.
 
 The projection fails closed. A missing ledger, missing accepted campaign,
 invalid action URL, stale campaign date, non-positive offer price, non-share-
@@ -145,8 +157,9 @@ The campaign trail uses the stores already attached to the project:
 - Upstash Redis holds the private append-only campaign record, three-file
   checksum manifest, recipient-specific delivery intents, and recipient-
   specific accepted/failed outcomes. `SET NX` is the one-send reservation; a
-  scored accepted-production index drives the 14-day rotation and authorizes
-  the minimal `/lagos` Market projection. Separate aggregate Daily Desk counters
+  scored accepted-production index drives the 14-day operator-packet rotation.
+  A separate immutable, date-scoped Daily Desk acceptance record authorizes the
+  minimal `/lagos` Market projection. Separate aggregate Daily Desk counters
   retain only date, public campaign id, and event kind.
 
 Redis keys and records contain source facts, evidence boundary, copy and
@@ -170,6 +183,11 @@ are never exposed to one another.
 6. Verify the next run reports three accepted private deliveries, each mailbox
    receives exactly one packet, and `/lagos` still projects only an evidence-
    eligible Market creative.
+7. Separately inspect a rendered evidence-qualified Desk candidate, obtain
+   public-projection activation approval, set
+   `DAILY_DESK_RECONCILIATION_ENABLED=true`, and deploy the changed
+   environment. Verify one protected reconciliation accepts a current record,
+   sends no email, and refreshes `/lagos`.
 
 Changing an environment variable affects only a subsequent deployment. Never
 put recipient addresses, credentials, Blob/Redis tokens, or raw recipient

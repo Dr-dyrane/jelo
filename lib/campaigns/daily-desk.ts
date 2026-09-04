@@ -1,7 +1,7 @@
 import "server-only";
 
 import { z } from "zod";
-import { acceptedProductionCampaignJsonForDate } from "@/lib/campaigns/campaign-archive";
+import { acceptedDailyDeskCampaignJsonForDate } from "@/lib/campaigns/campaign-archive";
 import { lagosDateKey } from "@/lib/campaigns/daily-campaign-policy";
 
 const httpsUrl = z.string().url().startsWith("https://");
@@ -116,7 +116,7 @@ type DailyDeskDependencies = {
 };
 
 const defaultDependencies: DailyDeskDependencies = {
-  readAcceptedCampaign: acceptedProductionCampaignJsonForDate,
+  readAcceptedCampaign: acceptedDailyDeskCampaignJsonForDate,
 };
 
 function previousCalendarDate(date: string) {

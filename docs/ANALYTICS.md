@@ -16,9 +16,9 @@ We measure behaviour to answer one question: does JeloCare help someone choose b
 - The `store_click` event, recorded server-side there exactly once for the exact-offer branch. `priceRank`, `position`, and `freshnessDays` come from the same ranking and market summary the product page shows ([price-rank.ts](../modules/commerce/price-rank.ts)); the write goes through `next/server` `after` so it never delays the redirect, no-ops without Neon, and is bounded by a strict schema ([commerce-events.ts](../lib/analytics/commerce-events.ts), table `commerce_events` in `db/migrations/0019_commerce_events.sql`). See [ADR 0005](./adr/0005-structured-observation-events.md).
 - Trust-bridge view, alternative-selection, cancellation, and pre-navigation continue events are not collected. The former unauthenticated `/api/handoff` collector and invalid `handoff_*` `commerce_events` writer were removed because migration `0019` permits only the complete `store_click` shape. This leaves an explicit measurement gap: current evidence can count successful exact-offer outbound continuations, but cannot measure trust-bridge impressions, abandonment, alternative selection, or cancellation. Closing that gap requires a separately governed, abuse-resistant aggregate design and is deferred to the business-evidence register; it must not be inferred from `store_click`.
 - Two write-only Lagos Daily Desk counters, `view` and `compare_click`. The
-  client sends only the current public campaign id and enum event, with cookies
+  client sends only the current accepted Daily Desk campaign id and enum event, with cookies
   omitted and referrer suppressed. The server re-resolves today's accepted
-  production campaign before an aggregate Redis increment. Keys contain only
+  Daily Desk record before an aggregate Redis increment. Keys contain only
   Lagos date, public campaign id, and event; they expire after 90 days and have
   no public read endpoint.
 - Authenticated JeloCare Me reads and mutations emit only fixed surface,

@@ -220,6 +220,7 @@ delivery or identifies a provider or credential.
 | ------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------- |
 | `CRON_SECRET`                         | Production              | Bearer secret for every `/api/cron/*` route                                              |
 | `CAMPAIGN_DAILY_ENABLED`              | Daily campaign          | Exact `true` activates delivery; every other value is off                                |
+| `DAILY_DESK_RECONCILIATION_ENABLED`   | Lagos Daily Desk        | Exact `true` permits evidence-only public Desk acceptance; never sends an email          |
 | `CAMPAIGN_TEST_EMAIL`                 | Protected campaign test | Test-only destination                                                                    |
 | `CAMPAIGN_DAILY_OPERATOR_EMAILS_JSON` | Campaign production     | Exactly three unique active operator mailboxes; separate private deliveries, no fallback |
 | `CAMPAIGN_ALERT_EMAIL`                | Campaign alerts         | Optional no-candidate alert destination                                                  |
