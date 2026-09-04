@@ -57,6 +57,28 @@ function lowDiskServerlessArgs(args: string[]): string[] {
   ];
 }
 
+async function releaseServerlessExecutable(executablePath: string) {
+  try {
+    // Linux keeps an executing inode available to the running process after
+    // unlink. Chromium uses --single-process here, so the 191 MiB binary is no
+    // longer needed on disk once launch has completed. A later disconnected
+    // browser will re-expand a fresh executable before relaunching.
+    await rm(executablePath, { force: true });
+    console.info(
+      JSON.stringify({ event: "browser_runtime_executable_released" }),
+    );
+  } catch (error) {
+    console.warn(
+      JSON.stringify({
+        event: "browser_runtime_disk_reclaim_failed",
+        reason: error instanceof Error ? error.name : "unknown",
+      }),
+    );
+  } finally {
+    serverlessExecutablePathPromise = undefined;
+  }
+}
+
 async function serverlessBrowserLaunchOptions() {
   const packUrl = serverlessBrowserPackUrl();
   if (!packUrl) {
@@ -96,6 +118,7 @@ async function sharedServerlessBrowser(
         args: launchOptions.args,
         executablePath: launchOptions.executablePath,
       });
+      await releaseServerlessExecutable(launchOptions.executablePath);
       browser.on("disconnected", () => {
         serverlessBrowserPromise = undefined;
       });
@@ -116,7 +139,21 @@ export async function prepareBrowserFetchRuntime(): Promise<boolean> {
   try {
     const playwright = await import("playwright-core");
     const ready = await Promise.race([
-      sharedServerlessBrowser(playwright.chromium).then(() => true),
+      sharedServerlessBrowser(playwright.chromium).then(async (browser) => {
+        // Launch alone does not exercise Chromium's writable profile. Open one
+        // isolated page so a constrained /tmp is surfaced before jobs are
+        // leased for real retailer navigation.
+        const context = await browser.newContext({ serviceWorkers: "block" });
+        try {
+          const page = await context.newPage();
+          await page.setContent(
+            "<!doctype html><title>inventory prewarm</title>",
+          );
+        } finally {
+          await context.close();
+        }
+        return true;
+      }),
       new Promise<false>((resolve) => {
         timeout = setTimeout(() => resolve(false), BROWSER_PREWARM_TIMEOUT_MS);
       }),
