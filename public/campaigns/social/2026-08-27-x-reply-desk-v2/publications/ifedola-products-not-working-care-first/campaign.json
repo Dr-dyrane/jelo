@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-29-ifedola-products-not-working-care-first-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-29T22:58:02.910Z",
+  "dataCheckedAt": "2026-08-29T22:58:02.910Z",
+  "objective": "respond to a Nigerian shopper's frustration with a serious, care-first question that gathers routine context without diagnosing or prescribing",
+  "sourcePost": {
+    "url": "https://x.com/dynamicifedola/status/2093780393715458224",
+    "handle": "@dynamicifedola",
+    "displayName": "Ifedola",
+    "observedText": "i haven’t really been in a good mood today, and one of the main reasons is these skincare products I recently got not working. 😭 I just want to rant to you people abeg. 😂",
+    "visibleEngagementBeforeReply": {
+      "replies": 1,
+      "reposts": 0,
+      "likes": 5,
+      "bookmarks": 0,
+      "views": 185
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-29T22:58:02.910Z",
+      "query": "from:jelocare conversation_id:2093780393715458224",
+      "result": "no-results",
+      "timingNote": "Checked immediately before publication; the publication timestamp is the exact X snowflake timestamp and bounds this check."
+    },
+    "threadContextObserved": "The only visible reply before JeloCare said 'Pele 😭'; the source author had not yet provided product, duration, routine or irritation details."
+  },
+  "copy": {
+    "post": "That’s frustrating, especially after spending on a new routine. How long have you used the products, and did you introduce everything at once?",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": false,
+    "rightsBoundary": "The reply uses X's native reply relationship and attaches no third-party or JeloCare media."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-29T22:58:02.910Z",
+      "externalId": "2093835598444613969",
+      "publicUrl": "https://x.com/jelocare/status/2093835598444613969",
+      "replyTo": "https://x.com/dynamicifedola/status/2093780393715458224",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @dynamicifedola"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact target and exact text-only reply; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-29T22:59:00Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 2,
+      "reposts": 0,
+      "likes": 5,
+      "bookmarks": 0,
+      "views": 188
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "Acknowledge the shopper's frustration, then ask only the two context questions needed to understand whether the issue may involve duration or multiple simultaneous changes.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints and treat any answer as conversation context, not a diagnosis."
+  },
+  "careBoundary": "Supportive and non-diagnostic. Do not infer a condition, prescribe a routine, recommend a product, promise an outcome or judge suitability from the source post.",
+  "claimBoundary": "The reply makes no product, price, stock, retailer, efficacy, suitability, treatment or clinical claim.",
+  "channels": ["x-organic"]
+}

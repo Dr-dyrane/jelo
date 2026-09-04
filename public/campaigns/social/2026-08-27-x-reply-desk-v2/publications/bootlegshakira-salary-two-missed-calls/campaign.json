@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-31-bootlegshakira-salary-two-missed-calls-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-31T05:09:31Z",
+  "dataCheckedAt": "2026-08-31T05:05:47.339Z",
+  "objective": "join a fast-moving beauty-budget post with one compact consequence that gives the source author and audience an easy comeback",
+  "sourcePost": {
+    "url": "https://x.com/bootlegshakira/status/2094253119211540702",
+    "externalId": "2094253119211540702",
+    "publishedAt": "2026-08-31T02:37:07.618Z",
+    "timestampSource": "X status Snowflake",
+    "handle": "@bootlegshakira",
+    "observedText": "makeup and skincare ran out at the same time",
+    "media": {
+      "kind": "native-x-gif",
+      "attachedToJeloCareReply": false,
+      "rightsBoundary": "The source GIF remained on the source X post. JeloCare did not download, copy, edit, archive, or attach it."
+    },
+    "actionTimeAudit": {
+      "checkedAt": "2026-08-31T05:05:47.339Z",
+      "method": "read-only inspection of the exact public X source and visible reply thread",
+      "existingJeloCareReply": false,
+      "authorResponsiveness": "The visible thread contained several direct replies from @bootlegshakira to commenters.",
+      "visibleEngagement": {
+        "replies": 9,
+        "reposts": 1,
+        "quotes": null,
+        "likes": 91,
+        "bookmarks": 0,
+        "views": 1045
+      }
+    }
+  },
+  "copy": {
+    "post": "Salary, you have 2 missed calls 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "rightsBoundary": "The JeloCare reply is text-only and reuses no third-party media."
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "category-transplant",
+    "setup": "Makeup and skincare both need replacing at once.",
+    "punchline": "Salary, you have 2 missed calls 😭",
+    "culturalCue": "A salary receiving urgent missed calls from two spending categories.",
+    "fictionalDialogue": true
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-31T05:06:40.391Z",
+      "timestampSource": "X status Snowflake",
+      "externalId": "2094290753749193076",
+      "publicUrl": "https://x.com/jelocare/status/2094290753749193076",
+      "replyTo": "https://x.com/bootlegshakira/status/2094253119211540702",
+      "liveVerifiedAt": "2026-08-31T05:08:07.600Z",
+      "spend": null,
+      "audienceSummary": "Public text-only reply from @jelocare to @bootlegshakira"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "evidence": "Dyrane instructed ‘post’ immediately after the exact target, final copy, no-added-media pairing, platform, action, and fresh evidence were shown.",
+    "boundary": "Authority covered this one exact X reply only and grants no follow-up, like, repost, quote-post, follow, direct message, download, schedule, spend, clip, or cross-channel publication."
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-31T05:08:07.600Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": null
+    },
+    "sourceAfterPublication": {
+      "checkedAt": "2026-08-31T05:07:46.622Z",
+      "replies": 10,
+      "reposts": 1,
+      "likes": 91,
+      "bookmarks": 0,
+      "views": 1045
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "firstCheckpointEvidence": null,
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "mechanism": "The reply turns salary into the recipient of simultaneous calls from two spending categories, extending the source with a familiar consequence instead of repeating it.",
+  "claimBoundary": "No product, price, stock, retailer, authenticity, efficacy, suitability, result, availability, delivery, savings, or clinical claim is made.",
+  "careBoundary": "Humour targets the simultaneous replacement expense, not the person, her skin, or her spending choices.",
+  "externalActionScope": {
+    "performed": "one text-only X reply",
+    "notPerformed": [
+      "like",
+      "repost",
+      "quote-post",
+      "follow",
+      "direct-message",
+      "download",
+      "schedule",
+      "spend",
+      "clip",
+      "cross-channel-publication"
+    ]
+  },
+  "channels": ["x-organic"]
+}

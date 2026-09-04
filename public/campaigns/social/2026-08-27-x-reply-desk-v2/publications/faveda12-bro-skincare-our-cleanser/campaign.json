@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-28-faveda12-bro-skincare-our-cleanser-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-28T18:53:57.987Z",
+  "dataCheckedAt": "2026-08-28T18:54:47.633Z",
+  "objective": "join a Nigerian skincare-routine reaction post with one immediate shared-products punchline",
+  "sourcePost": {
+    "url": "https://x.com/faveda12/status/2093361005791166935",
+    "handle": "@faveda12",
+    "displayName": "Ada is a girl 💗",
+    "observedText": "when i find out bro has a skincare routine",
+    "visibleEngagementBeforeReply": {
+      "replies": 7,
+      "reposts": 9,
+      "likes": 17,
+      "bookmarks": 1,
+      "views": 225
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-28T18:51:07.489Z",
+      "query": "from:jelocare conversation_id:2093361005791166935",
+      "result": "no-results"
+    },
+    "threadActivityObserved": "The author was visibly answering replies in the thread."
+  },
+  "copy": {
+    "post": "His cleanser don become our cleanser 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": true,
+    "sourceMediaObserved": "8-second X-native reaction video",
+    "rightsBoundary": "The reply uses X's native reply relationship. The source video was not downloaded, copied, edited, re-uploaded or archived by JeloCare."
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "innocent-prompt-shared-ownership-reply",
+    "setup": "Someone reacts to discovering that a man has a skincare routine.",
+    "punchline": "His cleanser don become our cleanser 😭",
+    "culturalCue": "don",
+    "fictionalDialogue": false
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-28T18:53:57.987Z",
+      "externalId": "2093411777111576776",
+      "publicUrl": "https://x.com/jelocare/status/2093411777111576776",
+      "replyTo": "https://x.com/faveda12/status/2093361005791166935",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @faveda12"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact target and exact text-only reply; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-28T18:54:47.633Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": null
+    },
+    "sourceAfterPublication": {
+      "checkedAt": "2026-08-28T18:53:57.987Z",
+      "replies": 8,
+      "reposts": 9,
+      "likes": 17,
+      "bookmarks": 1,
+      "views": 225
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The source reaction creates an opening to turn a private skincare routine into instantly shared relationship property.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "claimBoundary": "The reply makes no product, price, stock, retailer, efficacy, suitability, care-outcome, relationship-status or clinical claim.",
+  "channels": ["x-organic"]
+}

@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "renderer": "jelocare-reply-thread-clip/v1",
+  "engine": {
+    "sharpVersion": "0.35.3"
+  },
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "background": {
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "alpha": 1
+    }
+  },
+  "layers": [
+    {
+      "id": "thread-connector",
+      "kind": "svg",
+      "svg": "<svg width=\"1080\" height=\"1920\"><line x1=\"93\" y1=\"158\" x2=\"93\" y2=\"1718\" stroke=\"#39414a\" stroke-width=\"4\"/></svg>",
+      "position": {
+        "left": 0,
+        "top": 0
+      }
+    },
+    {
+      "id": "source-avatar",
+      "kind": "crop",
+      "path": "private-reference-live-thread-browser-capture.jpg",
+      "extract": {
+        "left": 254,
+        "top": 86,
+        "width": 60,
+        "height": 57
+      },
+      "resize": {
+        "width": 116,
+        "height": 110,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 35,
+        "top": 55
+      }
+    },
+    {
+      "id": "source-identity",
+      "kind": "crop",
+      "path": "private-reference-live-thread-browser-capture.jpg",
+      "extract": {
+        "left": 316,
+        "top": 86,
+        "width": 300,
+        "height": 62
+      },
+      "resize": {
+        "width": 480,
+        "height": 99,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 160,
+        "top": 62
+      }
+    },
+    {
+      "id": "source-copy",
+      "kind": "crop",
+      "path": "private-reference-live-thread-browser-capture.jpg",
+      "extract": {
+        "left": 254,
+        "top": 163,
+        "width": 340,
+        "height": 38
+      },
+      "resize": {
+        "width": 680,
+        "height": 76,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 160,
+        "top": 156
+      }
+    },
+    {
+      "id": "source-collage",
+      "kind": "image",
+      "path": "private-reference-source-collage-user-supplied.png",
+      "resize": {
+        "width": 780,
+        "height": 1388,
+        "fit": "fill"
+      },
+      "radius": 28,
+      "position": {
+        "left": 150,
+        "top": 245
+      }
+    },
+    {
+      "id": "watermark-overlay",
+      "kind": "image",
+      "path": "watermark-overlay.png",
+      "resize": {
+        "width": 1080,
+        "height": 1920,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 0,
+        "top": 0
+      }
+    },
+    {
+      "id": "reply-avatar",
+      "kind": "crop",
+      "path": "private-reference-live-thread-browser-capture.jpg",
+      "extract": {
+        "left": 254,
+        "top": 1187,
+        "width": 60,
+        "height": 60
+      },
+      "resize": {
+        "width": 116,
+        "height": 116,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 35,
+        "top": 1652
+      }
+    },
+    {
+      "id": "reply-identity",
+      "kind": "crop",
+      "path": "private-reference-live-thread-browser-capture.jpg",
+      "extract": {
+        "left": 316,
+        "top": 1187,
+        "width": 210,
+        "height": 35
+      },
+      "resize": {
+        "width": 420,
+        "height": 70,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 160,
+        "top": 1658
+      }
+    },
+    {
+      "id": "reply-copy",
+      "kind": "crop",
+      "path": "private-reference-live-thread-browser-capture.jpg",
+      "extract": {
+        "left": 316,
+        "top": 1225,
+        "width": 610,
+        "height": 38
+      },
+      "resize": {
+        "width": 854,
+        "height": 53,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 160,
+        "top": 1738
+      }
+    }
+  ],
+  "outputs": {
+    "poster": {
+      "path": "fanzy-girl-maintenance-recurrent-expenditure-zapshot.png",
+      "sha256": "4635d14976aea8e96a4add36c7be769bf913561a4cf334d31097b45b7c3ec99c"
+    }
+  }
+}

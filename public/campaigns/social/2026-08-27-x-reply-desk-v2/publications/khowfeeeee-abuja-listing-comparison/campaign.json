@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-30-khowfeeeee-abuja-listing-comparison-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-30T11:34:08.855Z",
+  "dataCheckedAt": "2026-08-30T11:35:49.831Z",
+  "objective": "answer a genuine Abuja skincare-shopping request with a factual JeloCare listing-comparison offer while avoiding any unsupported authenticity, availability or suitability claim",
+  "sourcePost": {
+    "url": "https://x.com/Khowfeeeee/status/2093989565925109774",
+    "handle": "@Khowfeeeee",
+    "displayName": "Ma’ammah 🌸",
+    "postedAtVisible": "2:09 AM · Aug 30, 2026",
+    "observedText": "Where can I get original skincare products in Abuja, please? 😩",
+    "visibleEngagementBeforeReply": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 16,
+      "checkedAt": "2026-08-30T11:34:08.855Z"
+    },
+    "existingJeloCareReplyCheck": {
+      "query": "from:jelocare conversation_id:2093989565925109774",
+      "checkedAt": "2026-08-30T11:34:25.317Z",
+      "result": "no-results"
+    },
+    "threadContextObserved": "The source had no visible replies before JeloCare responded and contained no attached media."
+  },
+  "selection": {
+    "state": "published-live-verified",
+    "editorSelectedReply": "Which products are you looking for? Send the exact names or links and we’ll help compare current Nigerian listings and the seller information available.",
+    "mechanism": "A direct high-intent service opening that asks for exact product identity before JeloCare compares current public listings and available seller information.",
+    "mediaDecision": "text-only; the source is a genuine shopping question and a reaction asset would distract from the useful response"
+  },
+  "copy": {
+    "post": "Which products are you looking for? Send the exact names or links and we’ll help compare current Nigerian listings and the seller information available.",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": false
+  },
+  "serviceBoundary": "JeloCare offered to compare current Nigerian listings and surface seller information available in those listings after the user supplies exact product names or links. The reply did not promise fulfilment, Abuja delivery, product availability, retailer verification or authenticity certification.",
+  "claimBoundary": "The reply makes no product, price, stock, saving, retailer-quality, authenticity, suitability, efficacy or clinical claim. It does not endorse a specific seller or call any listing original.",
+  "careBoundary": "The reply requests exact product identity before any product discussion and gives no diagnosis, routine prescription or suitability recommendation.",
+  "rightsBoundary": "The native X reply relies only on the platform thread relationship. JeloCare attached no media and did not download, copy, edit, re-upload or archive source pixels or identity assets.",
+  "publicationAuthorized": true,
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "Text-only X reply to the exact Ma’ammah Abuja source using the exact selected service copy",
+    "timing": "same turn immediately before the action-time source and duplicate rechecks"
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-30T11:35:28.102Z",
+      "externalId": "2094026209395179653",
+      "publicUrl": "https://x.com/jelocare/status/2094026209395179653",
+      "replyTo": "https://x.com/Khowfeeeee/status/2093989565925109774",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @Khowfeeeee",
+      "platformReceipt": "X displayed 'Your post was sent.' and the reply appeared in the source conversation."
+    }
+  ],
+  "liveVerification": {
+    "checkedAt": "2026-08-30T11:35:49.831Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "parentConversationVisible": true,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "viewsVisible": null
+    },
+    "sourceAfterPublication": {
+      "replies": 1,
+      "reposts": 0,
+      "likes": 0,
+      "views": 18
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "High-intent service response inviting exact product names or links before comparison.",
+    "note": "This is a conversion-quality opening, not a reach benchmark. Any later reply from the source should be handled as a fresh care and evidence decision."
+  },
+  "channels": ["x-reply"]
+}

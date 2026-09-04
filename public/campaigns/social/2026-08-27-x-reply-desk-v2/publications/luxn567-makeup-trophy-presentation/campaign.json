@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-31-luxn567-makeup-trophy-presentation-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-31T07:18:30.411Z",
+  "dataCheckedAt": "2026-08-31T07:17:50.122Z",
+  "objective": "join a fresh Nigerian makeup celebration with one compact sports-category escalation that leaves the source author and audience room to riff",
+  "sourcePost": {
+    "url": "https://x.com/luxn567/status/2094306186895987114",
+    "externalId": "2094306186895987114",
+    "publishedAt": "2026-08-31T06:07:59.940Z",
+    "timestampSource": "X status Snowflake",
+    "handle": "@luxn567",
+    "displayName": "mommy",
+    "observedText": "love a good makeup day 🫢",
+    "nativeMedia": {
+      "kind": "x-native-video",
+      "observedDurationSeconds": 13,
+      "observedDimensions": {
+        "width": 720,
+        "height": 1280
+      },
+      "reusedByJeloCare": false
+    },
+    "activeAuthorEvidence": {
+      "observedReply": "lmao 😂you don come o",
+      "url": "https://x.com/luxn567/status/2094307925749608865",
+      "note": "The source author visibly answered another participant inside the exact thread before JeloCare published."
+    },
+    "actionTimeAudit": {
+      "checkedAt": "2026-08-31T07:17:50.122Z",
+      "method": "fresh signed-in inspection of the exact public X source thread immediately before publication",
+      "existingJeloCareReply": false,
+      "replyComposerOpen": true,
+      "visibleEngagement": {
+        "replies": 3,
+        "reposts": 2,
+        "quotes": null,
+        "likes": 73,
+        "bookmarks": 5,
+        "views": 810
+      }
+    }
+  },
+  "copy": {
+    "post": "Good makeup day? This one came with trophy presentation 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": true,
+    "rightsBoundary": "The source creator's native X video remains only in its original thread. JeloCare did not download, attach, edit, repost, archive or cross-publish it."
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "submittedAt": "2026-08-31T07:18:29.004Z",
+      "publishedAt": "2026-08-31T07:18:30.411Z",
+      "timestampSource": "X status Snowflake",
+      "externalId": "2094323930777739326",
+      "publicUrl": "https://x.com/jelocare/status/2094323930777739326",
+      "replyTo": "https://x.com/luxn567/status/2094306186895987114",
+      "liveVerifiedAt": "2026-08-31T07:19:12.889Z",
+      "spend": null,
+      "audienceSummary": "Public text-only reply from @jelocare to @luxn567"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact target and previously shown text-only reply; no attached media, like, repost, quote-post, follow, direct message, schedule, spend or cross-post",
+    "timing": "the next user turn after the exact target, copy, media boundary and proposed X reply action were shown"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-31T07:19:29.855Z",
+    "urlMatched": true,
+    "parentSourceMatched": true,
+    "copyMatched": true,
+    "emojiMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 4,
+      "reposts": 2,
+      "likes": 73,
+      "bookmarks": 5,
+      "views": 810
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "note": "Immediate source growth and initial reply counters are baselines, not proof that this mechanism caused distribution or interaction."
+  },
+  "mechanism": "A sports-category transplant upgrades the creator's understated 'good makeup day' into a trophy ceremony while her native video supplies the visual evidence and the audience retains easy football-riff extensions.",
+  "careBoundary": "Beauty-community humour only; no condition, symptom, routine, suitability or outcome is inferred.",
+  "claimBoundary": "No product, price, stock, retailer, efficacy, suitability, treatment, savings, availability, delivery, endorsement or clinical claim is made.",
+  "externalActionScope": {
+    "performed": "one text-only X reply",
+    "notPerformed": [
+      "like",
+      "repost",
+      "quote-post",
+      "follow",
+      "direct-message",
+      "download",
+      "schedule",
+      "spend",
+      "clip",
+      "cross-channel-publication"
+    ]
+  },
+  "channels": ["x-organic"]
+}

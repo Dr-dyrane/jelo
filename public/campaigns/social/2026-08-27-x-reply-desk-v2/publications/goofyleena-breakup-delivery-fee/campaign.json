@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-goofyleena-breakup-delivery-fee-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-28T05:37:58.055Z",
+  "dataCheckedAt": "2026-08-28T05:39:03Z",
+  "objective": "join a public skincare-cost lament with a short Nigerian delivery-fee punchline and an X-native reaction GIF",
+  "sourcePost": {
+    "url": "https://x.com/goofyleena/status/2092904785066205455",
+    "handle": "@goofyleena",
+    "displayName": "HER🦋🎀",
+    "observedText": "Forget breakups, have you bought expensive skincare products that didn’t work..kaiii 🤦‍♀️🥲🥹.",
+    "visibleEngagementBeforeReply": {
+      "replies": 1,
+      "reposts": 4,
+      "likes": 11,
+      "views": 237
+    },
+    "visibleEngagementCheckedAt": "2026-08-28T05:37:06.765Z",
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-28T05:37:29.667Z",
+      "result": "no-results"
+    }
+  },
+  "copy": {
+    "post": "At least breakup no collect delivery fee 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "x-native-third-party-gif-picker-selection",
+    "pickerLabel": "Cry Love GIF by Showmax",
+    "publishedViaNativePicker": true,
+    "localBytesUploadedToX": false,
+    "userSuppliedPrivateReference": {
+      "path": "private-reference-showmax-cry-love-user-supplied.gif",
+      "repositoryTracked": false,
+      "sha256": "e3b230152023576fbb2f4dd855d847466dd138c4bf7b9a4d5b5c34077c3bbcec",
+      "bytes": 2648815,
+      "width": 480,
+      "height": 480,
+      "frames": 41,
+      "frameDelayMs": 40,
+      "loop": 0
+    },
+    "observedBranding": ["Showmax red mark", "MOUKA sponsor background"],
+    "rightsBoundary": "The GIF is third-party GIPHY/Showmax media depicting an identifiable person. X-native availability and visible branding are not a reuse licence. The downloaded reference is retained only as an ignored private clipping input; do not crop attribution, imply ownership, commit or deploy the bytes, or republish them to WhatsApp, Instagram, paid media, or another channel without compatible permission and fresh confirmation."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-28T05:37:58.055Z",
+      "externalId": "2093211465645948942",
+      "publicUrl": "https://x.com/jelocare/status/2093211465645948942",
+      "replyTo": "https://x.com/goofyleena/status/2092904785066205455",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @goofyleena"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "evidence": "Dyrane instructed: ‘found it too for cliping, post it so i can screenshot for cliping save the gif.’",
+    "timing": "same turn immediately before publication",
+    "confirmedUnit": "the exact target, exact reply copy, and Cry Love GIF by Showmax selected through X's native GIF picker"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-28T05:39:03Z",
+    "evidence": "user-supplied live thread screenshot",
+    "urlMatched": true,
+    "copyMatched": true,
+    "nativeGifPresent": true,
+    "replyVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "views": 1
+    },
+    "sourceVisibleEngagement": {
+      "replies": 2,
+      "reposts": 4,
+      "likes": 11,
+      "views": 238
+    }
+  },
+  "privateDerivative": {
+    "status": "local-private-unpublished",
+    "formatName": "Zapshot",
+    "traceId": "LT·002",
+    "capturePath": "private-reference-live-thread-user-supplied.png",
+    "captureSha256": "89f7acf8e1348d98809f48ecfd56b428d3bf103f8a72c360fd559f2eebf65435",
+    "captureRepositoryTracked": false,
+    "posterPath": "goofyleena-breakup-delivery-fee-thread-clip.png",
+    "posterSha256": "4823b5b23da28bdc092354cc25be9aea4ce083809eb6b19436799172db7c898b",
+    "gifPath": "goofyleena-breakup-delivery-fee-thread-clip.gif",
+    "gifSha256": "cd00ba9b51542841c48d686e7eb2e7da99e8ad7b179a65d326a15ff92f23a260",
+    "repositoryTrackedOutputs": false,
+    "publicationAuthorized": false,
+    "pixelPolicy": "Source identity, source copy, reply identity, reply copy, GIF and ALT pills are screenshot-derived or supplied source pixels. The entire thread remains static; only the declared 900 × 900 GIF panel animates."
+  },
+  "mechanism": "The source compares failed expensive skincare with breakup pain; the reply escalates the financial joke by observing that heartbreak at least arrives without a delivery charge, while the reaction GIF supplies the silent ‘pain’ beat.",
+  "claimBoundary": "The reply makes no product, price, stock, retailer, delivery-price, efficacy, suitability, care-outcome or clinical claim. Visible metrics are time-stamped context only and do not establish caused engagement or conversion."
+}

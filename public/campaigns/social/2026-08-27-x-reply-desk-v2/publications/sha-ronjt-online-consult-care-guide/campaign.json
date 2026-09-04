@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-31-sha-ronjt-online-consult-care-guide-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-31T06:17:10.831Z",
+  "dataCheckedAt": "2026-08-31T06:15:47.189Z",
+  "objective": "answer a genuine Lagos skincare-consultation request with JeloCare's public online Ask JeloCare service while keeping the guidance non-diagnostic",
+  "sourcePost": {
+    "url": "https://x.com/sha_ronjt/status/2094273290801967238",
+    "externalId": "2094273290801967238",
+    "handle": "@sha_ronjt",
+    "displayName": "Sharon Dada.",
+    "observedText": "hi people! does anyone know any skincare shop that gives free consultation in Lagos?🥹",
+    "community": {
+      "name": "The Skincare Space",
+      "url": "https://x.com/i/communities/1866246676458946633",
+      "observedRuleBoundary": "Keep participation respectful and on topic; insults, snide remarks and unrelated topics are prohibited."
+    },
+    "actionTimeAudit": {
+      "checkedAt": "2026-08-31T06:15:47.189Z",
+      "method": "fresh inspection of the exact public X source thread immediately before publication",
+      "existingJeloCareReply": false,
+      "visibleEngagement": {
+        "replies": 0,
+        "reposts": 0,
+        "quotes": null,
+        "likes": 1,
+        "bookmarks": 0,
+        "views": 35
+      }
+    }
+  },
+  "serviceEvidence": {
+    "url": "https://www.jelocare.com/consult",
+    "checkedAt": "2026-08-31T06:19:34.941Z",
+    "title": "Ask JeloCare · JeloCare",
+    "headline": "Tell us what you notice.",
+    "description": "Describe it in your own words. We’ll build a sourced care guide—not a diagnosis.",
+    "action": "Create my guide"
+  },
+  "copy": {
+    "post": "Not a physical shop, but if online works for you, tell Ask JeloCare what you’ve noticed and we’ll build a sourced care guide, not a diagnosis: https://www.jelocare.com/consult",
+    "embeddedUrl": "https://www.jelocare.com/consult"
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": false,
+    "rightsBoundary": "The reply is text-only and uses only X's native reply relationship and JeloCare's public consultation URL."
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-31T06:17:10.831Z",
+      "externalId": "2094308500008776019",
+      "publicUrl": "https://x.com/jelocare/status/2094308500008776019",
+      "replyTo": "https://x.com/sha_ronjt/status/2094273290801967238",
+      "liveVerifiedAt": "2026-08-31T06:17:57.802Z",
+      "spend": null,
+      "audienceSummary": "Public text-only reply from @jelocare inside The Skincare Space community thread"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "jelcoare should consult. we use ai for the sole purpise of that so yes, lets reply",
+    "confirmedUnit": "the exact target and previously shown text-only reply; no attached media, like, repost, quote-post, follow, direct message, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-31T06:19:10.485Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "linkCardPresent": true,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 1,
+      "reposts": 0,
+      "likes": 1,
+      "bookmarks": 0,
+      "views": 37
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "A direct service answer routes a real consultation request to JeloCare's public sourced-care-guide surface without turning it into a joke or product pitch.",
+    "note": "Source totals are conversation context. Judge reply performance only from its own later checkpoints."
+  },
+  "careBoundary": "Supportive, sourced and non-diagnostic. The reply does not diagnose, prescribe, promise a result or replace urgent or in-person care.",
+  "claimBoundary": "The reply makes no product, price, stock, retailer, authenticity, efficacy, suitability, treatment or outcome claim and does not claim that JeloCare is a physical Lagos shop.",
+  "externalActionScope": {
+    "performed": "one text-only X reply",
+    "notPerformed": [
+      "like",
+      "repost",
+      "quote-post",
+      "follow",
+      "direct-message",
+      "download",
+      "schedule",
+      "spend",
+      "clip",
+      "cross-channel-publication"
+    ]
+  },
+  "channels": ["x-organic"]
+}

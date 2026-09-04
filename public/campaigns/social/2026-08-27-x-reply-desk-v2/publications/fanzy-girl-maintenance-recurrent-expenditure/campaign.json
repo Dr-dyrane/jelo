@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-fanzy-girl-maintenance-recurrent-expenditure-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-28T06:40:25.582Z",
+  "dataCheckedAt": "2026-08-28T07:14:53.283Z",
+  "objective": "join a public girl-maintenance collage with a concise Nigerian accounting-category punchline",
+  "sourcePost": {
+    "url": "https://x.com/Ifanyima/status/2092912952668016921",
+    "handle": "@Ifanyima",
+    "displayName": "Fanzy 💫",
+    "observedText": "Girl maintenance 🥹❤️",
+    "visibleEngagementAtClipCheck": {
+      "replies": 17,
+      "reposts": 844,
+      "likes": 3265,
+      "bookmarks": 127,
+      "views": 46514
+    },
+    "visibleEngagementCheckedAt": "2026-08-28T07:14:53.283Z",
+    "existingJeloCareReplyCheckBeforePublication": {
+      "checkedAt": "2026-08-28T06:24:59.836Z",
+      "result": "no-results"
+    }
+  },
+  "copy": {
+    "post": "This one no be maintenance again. Na recurrent expenditure 😭",
+    "embeddedUrl": null
+  },
+  "media": null,
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-28T06:40:25.582Z",
+      "externalId": "2093227183913533489",
+      "publicUrl": "https://x.com/jelocare/status/2093227183913533489",
+      "replyTo": "https://x.com/Ifanyima/status/2092912952668016921",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @Ifanyima"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "evidence": "Dyrane instructed ‘post’ after reviewing the exact source, text-only copy, engagement snapshot, and no-existing-reply result.",
+    "timing": "same turn immediately before publication",
+    "confirmedUnit": "the exact target and exact text-only reply"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-28T06:40:48.477Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "evidence": "The public reply URL opened with the exact parent post and exact JeloCare copy."
+  },
+  "privateDerivative": {
+    "status": "local-private-unpublished",
+    "formatName": "Zapshot",
+    "traceId": "LT·003",
+    "capturePath": "private-reference-live-thread-browser-capture.jpg",
+    "captureSha256": "d340a9c6f79c06823268ca609837d3b6d34a8c9c9a755ff74ab9b761b1d6d72b",
+    "captureRepositoryTracked": false,
+    "sourceCollagePath": "private-reference-source-collage-user-supplied.png",
+    "sourceCollageSha256": "9564c571dc37561165060ecba11570f24a18bac5513a210bb84059eadb3e2165",
+    "sourceCollageRepositoryTracked": false,
+    "posterPath": "fanzy-girl-maintenance-recurrent-expenditure-zapshot.png",
+    "posterSha256": "4635d14976aea8e96a4add36c7be769bf913561a4cf334d31097b45b7c3ec99c",
+    "repositoryTrackedOutput": false,
+    "publicationAuthorized": false,
+    "pixelPolicy": "Source identity, source copy, reply identity and reply copy are exact crops from the live X capture. The media panel uses the exact user-supplied collage pixels. Counts, timestamps, action rows, compose controls and unrelated replies are omitted rather than reconstructed."
+  },
+  "mechanism": "The source labels a large beauty-care collage as maintenance; the reply reclassifies its visible scale as recurring expenditure.",
+  "claimBoundary": "The reply makes no product, price, stock, retailer, efficacy, suitability, care-outcome or clinical claim. Visible source engagement is time-stamped context only and does not establish JeloCare-caused engagement.",
+  "rightsBoundary": "The source account identity, wording and collage are third-party pixels. The private Zapshot is not licensed for WhatsApp, Instagram, paid media or other cross-platform publication. Compatible permission and fresh action-time confirmation are required before any such use."
+}

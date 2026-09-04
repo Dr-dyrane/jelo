@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-31-omolasho-skincare-cares-era-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-31T22:23:47.706Z",
+  "dataCheckedAt": "2026-08-31T22:22:58.252Z",
+  "objective": "join a Nigerian skincare-result conversation with a natural prompt that invites the author to share her routine and creates a useful second-turn opening for JeloCare",
+  "sourcePost": {
+    "url": "https://x.com/omolasho_/status/2094490941235089486",
+    "externalId": "2094490941235089486",
+    "publishedAt": "2026-08-31T18:22:08.807Z",
+    "timestampSource": "X status Snowflake",
+    "handle": "@omolasho_",
+    "displayName": "Guanyin",
+    "observedText": "In my era where my skincare cares again",
+    "sourceMedia": {
+      "kind": "three-image-post",
+      "reuse": "none",
+      "rightsBoundary": "The reply uses X's native reply relationship only. The author's photographs were not downloaded, copied, transformed or attached."
+    },
+    "visibleEngagementBeforeReply": {
+      "replies": 9,
+      "reposts": 2,
+      "quotes": null,
+      "likes": 55,
+      "bookmarks": null,
+      "views": 936
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-31T22:22:58.252Z",
+      "method": "read-only inspection of the exact public X conversation",
+      "result": "no-visible-jelocare-reply"
+    }
+  },
+  "copy": {
+    "post": "Drop the list abeg, this era cannot be for one person 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "rightsBoundary": "Text-only reply; no source, third-party or JeloCare media attached."
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-31T22:23:47.706Z",
+      "timestampSource": "X status Snowflake",
+      "externalId": "2094551754025414951",
+      "publicUrl": "https://x.com/jelocare/status/2094551754025414951",
+      "replyTo": "https://x.com/omolasho_/status/2094490941235089486",
+      "spend": null,
+      "audienceSummary": "Public text-only reply from @jelocare to @omolasho_"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact target and exact text-only reply; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-31T22:24:14.950Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "emojiMatchedByAltText": true,
+    "mediaPresent": false,
+    "platformConfirmation": "Your post was sent.",
+    "sourceAfterPublication": {
+      "replies": 10,
+      "reposts": 2,
+      "quotes": null,
+      "likes": 55,
+      "bookmarks": null,
+      "views": 936
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The author frames her improved routine as a new era and is already offering a product list to another commenter. JeloCare asks for that list in the same conversational register, creating an easy author response and a later evidence-led comparison opening without selling into the first turn."
+  },
+  "claimBoundary": "No product, price, stock, retailer, efficacy, suitability, treatment, savings, availability, delivery or clinical claim is made.",
+  "careBoundary": "Humour only; the reply does not infer a condition, treatment result or routine suitability.",
+  "channels": ["x-organic"]
+}

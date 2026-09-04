@@ -1,0 +1,234 @@
+{
+  "schemaVersion": 1,
+  "renderer": "jelocare-reply-thread-clip/v1",
+  "engine": {
+    "sharpVersion": "0.34.5"
+  },
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "background": {
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "alpha": 1
+    }
+  },
+  "layers": [
+    {
+      "id": "thread-connector",
+      "kind": "svg",
+      "svg": "<svg width=\"1080\" height=\"1920\"><line x1=\"93\" y1=\"266\" x2=\"93\" y2=\"458\" stroke=\"#39414a\" stroke-width=\"4\"/></svg>",
+      "position": {
+        "left": 0,
+        "top": 0
+      }
+    },
+    {
+      "id": "source-avatar",
+      "kind": "crop",
+      "path": "private-reference-live-thread-user-supplied.png",
+      "extract": {
+        "left": 41,
+        "top": 35,
+        "width": 141,
+        "height": 141
+      },
+      "resize": {
+        "width": 116,
+        "height": 116,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 35,
+        "top": 150
+      }
+    },
+    {
+      "id": "source-identity",
+      "kind": "crop",
+      "path": "private-reference-live-thread-user-supplied.png",
+      "extract": {
+        "left": 203,
+        "top": 30,
+        "width": 455,
+        "height": 65
+      },
+      "resize": {
+        "width": 530,
+        "height": 76,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 160,
+        "top": 160
+      }
+    },
+    {
+      "id": "source-copy",
+      "kind": "crop",
+      "path": "private-reference-live-thread-user-supplied.png",
+      "extract": {
+        "left": 203,
+        "top": 105,
+        "width": 1180,
+        "height": 115
+      },
+      "resize": {
+        "width": 850,
+        "height": 83,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 160,
+        "top": 238
+      }
+    },
+    {
+      "id": "reply-avatar",
+      "kind": "crop",
+      "path": "private-reference-live-thread-user-supplied.png",
+      "extract": {
+        "left": 41,
+        "top": 403,
+        "width": 141,
+        "height": 141
+      },
+      "resize": {
+        "width": 116,
+        "height": 116,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 35,
+        "top": 400
+      }
+    },
+    {
+      "id": "reply-identity",
+      "kind": "crop",
+      "path": "private-reference-live-thread-user-supplied.png",
+      "extract": {
+        "left": 203,
+        "top": 403,
+        "width": 455,
+        "height": 62
+      },
+      "resize": {
+        "width": 530,
+        "height": 72,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 160,
+        "top": 410
+      }
+    },
+    {
+      "id": "reply-copy",
+      "kind": "crop",
+      "path": "private-reference-live-thread-user-supplied.png",
+      "extract": {
+        "left": 203,
+        "top": 477,
+        "width": 850,
+        "height": 55
+      },
+      "resize": {
+        "width": 850,
+        "height": 55,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 160,
+        "top": 485
+      }
+    },
+    {
+      "id": "reply-gif",
+      "kind": "animated-image",
+      "path": "private-reference-showmax-cry-love-user-supplied.gif",
+      "resize": {
+        "width": 900,
+        "height": 900,
+        "fit": "fill"
+      },
+      "radius": 28,
+      "position": {
+        "left": 150,
+        "top": 560
+      }
+    },
+    {
+      "id": "native-gif-pill",
+      "kind": "crop",
+      "path": "private-reference-live-thread-user-supplied.png",
+      "extract": {
+        "left": 226,
+        "top": 1646,
+        "width": 116,
+        "height": 70
+      },
+      "resize": {
+        "width": 88,
+        "height": 53,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 162,
+        "top": 1386
+      }
+    },
+    {
+      "id": "native-alt-pill",
+      "kind": "crop",
+      "path": "private-reference-live-thread-user-supplied.png",
+      "extract": {
+        "left": 355,
+        "top": 1646,
+        "width": 85,
+        "height": 70
+      },
+      "resize": {
+        "width": 64,
+        "height": 53,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 260,
+        "top": 1386
+      }
+    },
+    {
+      "id": "watermark-overlay",
+      "kind": "image",
+      "path": "watermark-overlay.png",
+      "resize": {
+        "width": 1080,
+        "height": 1920,
+        "fit": "fill"
+      },
+      "position": {
+        "left": 0,
+        "top": 0
+      }
+    }
+  ],
+  "animation": {
+    "loop": 0,
+    "fallbackDelayMs": 40,
+    "colours": 256,
+    "effort": 7,
+    "dither": 0.2
+  },
+  "outputs": {
+    "poster": {
+      "path": "goofyleena-breakup-delivery-fee-thread-clip.png",
+      "sha256": "4823b5b23da28bdc092354cc25be9aea4ce083809eb6b19436799172db7c898b"
+    },
+    "gif": {
+      "path": "goofyleena-breakup-delivery-fee-thread-clip.gif",
+      "sha256": "cd00ba9b51542841c48d686e7eb2e7da99e8ad7b179a65d326a15ff92f23a260"
+    }
+  }
+}

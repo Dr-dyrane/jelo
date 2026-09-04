@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-29-cuddles-testimonial-not-enough-evidence-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-29T23:08:13.819Z",
+  "dataCheckedAt": "2026-08-29T23:08:13.819Z",
+  "objective": "respond to a marketplace skincare testimonial with a serious product-information principle without adopting the source author's claims",
+  "sourcePost": {
+    "url": "https://x.com/_manddie/status/2093780237679006038",
+    "handle": "@_manddie",
+    "displayName": "Cuddles",
+    "observedText": "You people that buy skincare products from Temu are so bold. Bleaching product btw",
+    "visibleEngagementBeforeReply": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 1,
+      "bookmarks": 0,
+      "views": 301
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-29T23:08:13.819Z",
+      "query": "from:jelocare conversation_id:2093780237679006038",
+      "result": "no-results",
+      "timingNote": "Checked immediately before publication; the publication timestamp is the exact X snowflake timestamp and bounds this check."
+    },
+    "quoteContextObserved": "The source quoted a seller testimonial recommending an unfamiliar face cream listed on Temu and showed two product images.",
+    "evidenceBoundary": "The source author's 'bleaching' description and the quoted seller's product experience are unverified third-party statements. JeloCare did not repeat or adopt them as evidence of product identity, authenticity, ingredients, safety, efficacy or suitability."
+  },
+  "copy": {
+    "post": "A testimonial isn’t enough evidence for skincare. Check the ingredient list, manufacturer and seller before putting an unfamiliar cream on your face.",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": true,
+    "sourceMediaObserved": "The quoted third-party post contains two product images.",
+    "rightsBoundary": "The reply uses X's native reply relationship. JeloCare viewed the third-party images in place and did not download, copy, edit, re-upload or archive them."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-29T23:08:13.819Z",
+      "externalId": "2093838160782667989",
+      "publicUrl": "https://x.com/jelocare/status/2093838160782667989",
+      "replyTo": "https://x.com/_manddie/status/2093780237679006038",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @_manddie"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact target and exact text-only reply; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-29T23:08:49Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 1,
+      "reposts": 0,
+      "likes": 1,
+      "bookmarks": 0,
+      "views": 302
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The reply turns an unverified marketplace testimonial into a concise evidence habit: inspect the ingredient list, manufacturer and seller before facial use.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "careBoundary": "Serious, preventive and non-diagnostic. The reply advises checking available product and seller information but does not determine whether the cream is safe, harmful, authentic or suitable for any person.",
+  "claimBoundary": "The reply makes no bleaching, counterfeit, authenticity, ingredient, product, efficacy, safety, suitability, seller, manufacturer, treatment or clinical claim.",
+  "channels": ["x-organic"]
+}

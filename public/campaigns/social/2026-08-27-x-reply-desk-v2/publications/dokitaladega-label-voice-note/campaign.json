@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-30-dokitaladega-label-voice-note-x-reply-v2",
+  "status": "published",
+  "createdAt": "2026-08-30T03:33:40.429Z",
+  "dataCheckedAt": "2026-08-30T03:34:50.877Z",
+  "objective": "join a Nigerian ingredient-reading conversation with one compact practical absurdity while preserving the source's care context",
+  "sourcePost": {
+    "url": "https://x.com/dokitaladega/status/2093040198619697281",
+    "handle": "@dokitaladega",
+    "displayName": "Dr. Ladega",
+    "postedAtVisible": "11:17 AM · Aug 27, 2026",
+    "observedTextSummary": "The source asks Nigerians to turn personal-care products around, read ingredient lists, and avoid assuming that every long chemical name is dangerous.",
+    "historicalSourceRecord": "../../drafts/dokitaladega-ingredient-list-group-chat-x-reply-v1/campaign.json",
+    "visibleEngagementBeforeReply": {
+      "replies": 6,
+      "reposts": 43,
+      "likes": 62,
+      "bookmarks": 28,
+      "views": 3171,
+      "checkedAt": "2026-08-30T03:33:40.429Z"
+    },
+    "existingJeloCareReplyCheck": {
+      "query": "from:jelocare conversation_id:2093040198619697281",
+      "checkedAt": "2026-08-30T03:33:58.779Z",
+      "result": "no-results"
+    },
+    "authorActivityObserved": "The author had replied within the source conversation, leaving an active discussion beneath the post."
+  },
+  "selection": {
+    "state": "published-live-verified",
+    "editorSelectedReply": "This label should just send voice note 😭",
+    "mechanism": "An impossibly dense ingredient label is treated like a long message that should switch to a voice note.",
+    "mediaDecision": "text-only; the source supplies the ingredient-list setup and attached reaction media would repeat the same beat",
+    "supersedes": "2026-08-27-dokitaladega-ingredient-list-group-chat-x-reply-v1"
+  },
+  "copy": {
+    "post": "This label should just send voice note 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": true
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "impossible-practical-response",
+    "setup": "A doctor presents a long list of difficult personal-care ingredient names and asks readers to inspect their labels.",
+    "punchline": "This label should just send voice note 😭",
+    "culturalCue": "Nigerian conversational voice-note behaviour",
+    "fictionalDialogue": false,
+    "explanationDebt": "none; the source list supplies the setup"
+  },
+  "claimBoundary": "The reply jokes only about the length and pronunciation burden of ingredient labels. It makes no ingredient-safety, efficacy, product, price, stock, suitability, authenticity or clinical claim.",
+  "careBoundary": "The reply does not contradict, diagnose from, or extend the source's health guidance and does not imply that long chemical names are dangerous.",
+  "rightsBoundary": "The native X reply relies only on the platform thread relationship. JeloCare did not download, copy, edit, re-upload or archive the source image, author identity or source pixels.",
+  "publicationAuthorized": true,
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "X reply to the exact Dr. Ladega target with the exact selected text and no attached media",
+    "timing": "same turn immediately before the action-time source and duplicate rechecks"
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-30T03:34:32.910Z",
+      "externalId": "2093905181834662073",
+      "publicUrl": "https://x.com/jelocare/status/2093905181834662073",
+      "replyTo": "https://x.com/dokitaladega/status/2093040198619697281",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @dokitaladega",
+      "platformReceipt": "X displayed 'Your post was sent.' and linked to the new reply."
+    }
+  ],
+  "liveVerification": {
+    "checkedAt": "2026-08-30T03:34:50.877Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "parentConversationVisible": true,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 7,
+      "reposts": 43,
+      "likes": 62,
+      "bookmarks": 28,
+      "views": 3173
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The source carries the care context; the reply adds one social-native voice-note solution without repeating the guidance.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "channels": ["x-reply"]
+}

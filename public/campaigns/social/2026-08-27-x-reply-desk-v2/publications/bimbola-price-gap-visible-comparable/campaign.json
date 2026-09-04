@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-29-bimbola-price-gap-visible-comparable-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-29T22:46:27.531Z",
+  "dataCheckedAt": "2026-08-29T22:46:27.531Z",
+  "objective": "join a Nigerian skincare price-friction post with a serious principle of visible, comparable prices before checkout",
+  "sourcePost": {
+    "url": "https://x.com/Bimbola25/status/2093798269046657518",
+    "handle": "@Bimbola25",
+    "displayName": "Bimbola 💊 🔬 🎓 ⚓ 🇬🇧 🇰🇷",
+    "observedText": "Just stocked up on my tretiheal cream. I was able to get 3 packs because the price was literally half of the price that I last got it. I am pleased and angry at the same time. Why do people over price their goods? The first time I got tretiheal cream, I got it for 3,500 naira. Fast forward 2 years after, the only place I knew of that had it sold it at 10k. About 2 weeks ago, I Googled tretiheal and saw a skincare shop/website selling it for 5,160 naira.",
+    "visibleEngagementBeforeReply": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 22
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-29T22:46:27.531Z",
+      "query": "from:jelocare conversation_id:2093798269046657518",
+      "result": "no-results",
+      "timingNote": "Checked immediately before publication; the publication timestamp is the exact X snowflake timestamp and bounds this check."
+    },
+    "evidenceBoundary": "The source prices and product experience are the author's report. JeloCare did not independently verify or repeat them as current offer, authenticity, stock, efficacy or suitability evidence."
+  },
+  "copy": {
+    "post": "Skincare prices should be visible and easy to compare before checkout. What you pay shouldn’t depend on the first store you find.",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": true,
+    "sourceMediaObserved": "The source quotes the author's earlier X-native tretinoin progress post with embedded video and an image.",
+    "rightsBoundary": "The reply uses X's native reply relationship. JeloCare did not download, copy, edit, re-upload or archive any third-party media."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-29T22:46:27.531Z",
+      "externalId": "2093832681813598478",
+      "publicUrl": "https://x.com/jelocare/status/2093832681813598478",
+      "replyTo": "https://x.com/Bimbola25/status/2093798269046657518",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @Bimbola25"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact target and exact text-only reply; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-29T22:48:20Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 1,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 23
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The reply converts a user-reported price-friction story into JeloCare's shopper-facing principle: prices should be visible and comparable before checkout.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "claimBoundary": "The reply makes no current price, stock, retailer, authenticity, product, efficacy, suitability, treatment or clinical claim and gives no tretinoin advice.",
+  "channels": ["x-organic"]
+}

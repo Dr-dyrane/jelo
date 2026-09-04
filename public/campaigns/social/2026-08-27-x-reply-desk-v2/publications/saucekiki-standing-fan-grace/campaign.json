@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-30-saucekiki-standing-fan-grace-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-30T11:42:05.832Z",
+  "dataCheckedAt": "2026-08-30T11:44:03.694Z",
+  "objective": "join an early-velocity Nigerian makeup question with one instantly recognisable survival-kit joke without making a sweat-proof or product-performance claim",
+  "sourcePost": {
+    "url": "https://x.com/SauceKiki/status/2094023762542817287",
+    "handle": "@SauceKiki",
+    "displayName": "kiki ,The Clothing Vendor",
+    "postedAtVisible": "4:25 AM · Aug 30, 2026",
+    "observedText": "Girlies, whats your secret to long lasting, sweat proof makeup? 😩",
+    "visibleEngagementBeforeReply": {
+      "replies": 2,
+      "reposts": 5,
+      "likes": 6,
+      "bookmarks": 1,
+      "views": 157,
+      "checkedAt": "2026-08-30T11:42:05.832Z"
+    },
+    "existingJeloCareReplyCheck": {
+      "query": "from:jelocare conversation_id:2094023762542817287",
+      "checkedAt": "2026-08-30T11:42:21.348Z",
+      "result": "no-results"
+    },
+    "threadContextObserved": "The visible thread included another person asking for the answer and an unrelated money-and-men remark. No standing-fan, grace-of-God or equivalent survival-kit punchline was visible before publication.",
+    "priorAuthorInteractionBoundary": "JeloCare had replied to a different @SauceKiki post three days earlier. This source, question and reply mechanism were new."
+  },
+  "selection": {
+    "state": "published-live-verified",
+    "editorSelectedReply": "Setting spray, one standing fan and the grace of God 😭",
+    "mechanism": "An impossible practical response turns the requested makeup secret into a three-part Nigerian heat-survival kit.",
+    "mediaDecision": "text-only; the source question supplies the setup and a reaction asset would slow or repeat the punchline"
+  },
+  "copy": {
+    "post": "Setting spray, one standing fan and the grace of God 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": false
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "impossible-practical-response",
+    "setup": "A Nigerian creator asks for the secret to long-lasting, sweat-proof makeup.",
+    "punchline": "Setting spray, one standing fan and the grace of God 😭",
+    "culturalCue": "standing fan and grace of God",
+    "fictionalDialogue": false,
+    "explanationDebt": "none; the three-part list supplies the comic escalation in one breath"
+  },
+  "claimBoundary": "The reply names generic setting spray only as one element in an obvious joke. It does not claim that setting spray, a fan or any product makes makeup sweat-proof, long-lasting, safe or suitable and names no brand, retailer, price or stock state.",
+  "careBoundary": "The reply does not diagnose, prescribe, ridicule appearance or make any skin or makeup outcome promise.",
+  "rightsBoundary": "The native X reply relies only on the platform thread relationship. JeloCare attached no media and did not download, copy, edit, re-upload or archive source pixels or identity assets.",
+  "publicationAuthorized": true,
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "Text-only X reply to the exact SauceKiki sweat-proof makeup source using the exact selected joke",
+    "timing": "same turn immediately before the action-time source and duplicate rechecks"
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-30T11:43:42.509Z",
+      "externalId": "2094028283088429238",
+      "publicUrl": "https://x.com/jelocare/status/2094028283088429238",
+      "replyTo": "https://x.com/SauceKiki/status/2094023762542817287",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @SauceKiki",
+      "platformReceipt": "X displayed 'Your post was sent.' and the reply appeared in the source conversation."
+    }
+  ],
+  "liveVerification": {
+    "checkedAt": "2026-08-30T11:44:03.694Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "parentConversationVisible": true,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 4,
+      "reposts": 7,
+      "likes": 8,
+      "bookmarks": 1,
+      "views": 165
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The source asks for a beauty secret; the reply answers with one plausible item followed by two increasingly impractical Nigerian survival tools.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "channels": ["x-reply"]
+}

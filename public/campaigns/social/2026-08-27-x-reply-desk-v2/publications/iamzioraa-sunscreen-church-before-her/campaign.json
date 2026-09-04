@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-30-iamzioraa-sunscreen-church-before-her-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-30T17:38:06.377Z",
+  "dataCheckedAt": "2026-08-30T17:38:06.377Z",
+  "objective": "join a public sunscreen-white-cast joke with a concise Nigerian church-arrival turn and a user-sourced reaction video",
+  "sourcePost": {
+    "url": "https://x.com/iamzioraa/status/2093990699339264159",
+    "handle": "@iamzioraa",
+    "displayName": "Victoria A",
+    "observedText": "My neighbor is ready for church and sunscreen no gree blend 😂😩",
+    "visibleEngagementBeforeReply": {
+      "replies": 5,
+      "reposts": 7,
+      "likes": 18,
+      "bookmarks": 0,
+      "views": 908
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-30T17:38:06.377Z",
+      "method": "fresh inspection of the exact X source thread immediately before publication",
+      "result": "no-existing-jelocare-reply-visible",
+      "timingNote": "The check completed immediately before the X snowflake publication timestamp."
+    }
+  },
+  "copy": {
+    "post": "Sunscreen don reach church before her 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "user-supplied-third-party-reaction-video",
+    "sourceReferenceUrl": "https://x.com/xxfw1da/status/2093822322243223608",
+    "uploadedFilename": "pooja.mp4",
+    "repositoryStored": false,
+    "localBytesUploadedToX": true,
+    "sha256": "a2444cdf8639dadc41650a4be272a1f85811db7b2e97d9523adb666139d6d4b1",
+    "bytes": 5236418,
+    "width": 720,
+    "height": 888,
+    "durationSeconds": 31.84541496598639,
+    "videoCodec": "H.264",
+    "audioCodec": "MPEG-4 AAC",
+    "xRenderedDurationLabel": "0:30",
+    "rightsBoundary": "Dyrane stated that he would source the meme asset, then supplied this exact MP4 after approving the target, copy and media pairing. That supplies the action basis for this single JeloCare X reply; it does not establish JeloCare ownership or authorize repository storage, editing, clipping, paid use, or WhatsApp/Instagram/cross-platform republication."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-30T17:38:06.377Z",
+      "externalId": "2094117470215061726",
+      "publicUrl": "https://x.com/jelocare/status/2094117470215061726",
+      "replyTo": "https://x.com/iamzioraa/status/2093990699339264159",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @iamzioraa"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "evidence": "Dyrane instructed 'post' after the exact target, reply copy and reaction-media reference were shown, then supplied pooja.mp4 after the missing-file gate was explained.",
+    "confirmedUnit": "X reply to the exact @iamzioraa source with 'Sunscreen don reach church before her 😭' and the exact user-supplied pooja.mp4; no like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "the approval remained active while the single missing media-file prerequisite was supplied"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-30T17:39:26Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": true,
+    "mediaRenderedAs": "embedded video",
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": null
+    },
+    "sourceAfterPublication": {
+      "replies": 6,
+      "reposts": 7,
+      "likes": 18,
+      "bookmarks": 0,
+      "views": 910
+    }
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "setup-reaction",
+    "setup": "A neighbor is dressed for church but her sunscreen remains visibly unblended.",
+    "punchline": "Sunscreen don reach church before her 😭",
+    "culturalCue": "church arrival",
+    "fictionalDialogue": false
+  },
+  "mechanism": "The reply personifies the visible sunscreen as arriving at church first; the supplied dressing reaction video provides the physical entrance beat rather than another explanation.",
+  "careBoundary": "The joke stays on the sunscreen's visible white cast and does not diagnose, shame the person, judge her skin, or recommend a product or routine.",
+  "claimBoundary": "The reply makes no efficacy, suitability, treatment, price, stock, retailer, authenticity, safety or clinical claim.",
+  "channels": ["x-organic"]
+}

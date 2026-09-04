@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-30-ifedola-three-weeks-care-follow-up-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-30T12:34:45.875Z",
+  "dataCheckedAt": "2026-08-30T12:34:45.875Z",
+  "objective": "continue a serious, care-first conversation after the shopper clarified that most products were introduced together about three weeks ago",
+  "sourcePost": {
+    "url": "https://x.com/dynamicifedola/status/2094010267558379665",
+    "handle": "@dynamicifedola",
+    "displayName": "Ifedola",
+    "observedText": "Honestlyyy 😭 I’ve used them for about [3 weeks], and yes, I introduced most of them around the same time. I was really hoping to see some improvement by now. 🥲",
+    "visibleEngagementBeforeReply": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 12
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-30T12:34:45.875Z",
+      "method": "fresh inspection of the exact X source thread immediately before publication",
+      "result": "no-existing-jelocare-child-reply",
+      "timingNote": "The check completed immediately before the X snowflake publication timestamp."
+    },
+    "threadContextObserved": "The source author said most products were started together about three weeks earlier and that they hoped to see improvement; no burning, swelling or rash was disclosed."
+  },
+  "copy": {
+    "post": "Three weeks can feel long when you’re checking every morning 🥲 Send the product names or links and what you hoped would change. Since you started several together, we can review them one at a time. If there’s burning, swelling or a rash, stop them and speak with a dermatologist.",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": false,
+    "rightsBoundary": "The reply uses X's native reply relationship and attaches no third-party or JeloCare media."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-30T12:34:45.875Z",
+      "externalId": "2094041131776614534",
+      "publicUrl": "https://x.com/jelocare/status/2094041131776614534",
+      "replyTo": "https://x.com/dynamicifedola/status/2094010267558379665",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @dynamicifedola"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post short",
+    "confirmedUnit": "the exact 280-character short text-only reply shown immediately beforehand; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-30T12:35:32Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 1,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 13
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "Acknowledge that three weeks can feel long, request the exact products and intended change, then offer a one-at-a-time routine review with a bounded symptom escalation.",
+    "note": "Source totals are conversation context. Judge reply performance only from its own later checkpoints and do not use engagement to infer care suitability."
+  },
+  "careBoundary": "Supportive and non-diagnostic. Do not infer a condition, prescribe a routine, promise an outcome or judge product suitability without exact product and routine context. Burning, swelling or rash is treated only as a stop-and-seek-professional-care boundary.",
+  "claimBoundary": "The reply makes no product, price, stock, retailer, efficacy, suitability, treatment or clinical claim.",
+  "channels": ["x-organic"]
+}

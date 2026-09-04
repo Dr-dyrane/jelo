@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-28-yettydlaw-mtn-customer-care-sat-up-straight-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-28T18:36:09.187Z",
+  "dataCheckedAt": "2026-08-28T18:36:47.715Z",
+  "objective": "join a fast-moving Nigerian service-accountability thread with one concise brand-side consequence",
+  "sourcePost": {
+    "url": "https://x.com/yettydlaw_/status/2093245996448809334",
+    "handle": "@yettydlaw_",
+    "displayName": "Arike Sugar Sugar ❤️✨",
+    "observedText": "Dear @MTNNG, it is with a heart filled with joy I use to inform you that you have until 11:59pm Monday, 31st of August to duly respond to my comprehensive well broken down mail with a duly comprehensive report and review 🤝",
+    "visibleEngagementBeforeReply": {
+      "replies": 871,
+      "reposts": 6003,
+      "likes": 15793,
+      "bookmarks": 1854,
+      "views": 1324466
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-28T18:35:34.068Z",
+      "query": "from:jelocare conversation_id:2093245996448809334",
+      "result": "no-results"
+    },
+    "threadActivityObserved": "The source was still gaining replies, reposts, likes, bookmarks and views at the action-time check."
+  },
+  "copy": {
+    "post": "Every customer care team in Nigeria just sat up straight 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": true,
+    "rightsBoundary": "The reply uses X's native reply relationship. The source screenshots were not downloaded, copied, edited, re-uploaded or archived by JeloCare."
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "action-visible-consequence",
+    "setup": "A customer publishes a detailed, fast-moving accountability request to a telecom provider.",
+    "punchline": "Every customer care team in Nigeria just sat up straight 😭",
+    "culturalCue": "Nigeria",
+    "fictionalDialogue": false,
+    "score": 17,
+    "scoreMaximum": 18
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-28T18:36:09.187Z",
+      "externalId": "2093407302447768056",
+      "publicUrl": "https://x.com/jelocare/status/2093407302447768056",
+      "replyTo": "https://x.com/yettydlaw_/status/2093245996448809334",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @yettydlaw_"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact target and exact text-only reply; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-28T18:36:47.715Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": null
+    },
+    "sourceAfterPublication": {
+      "replies": 879,
+      "reposts": 6016,
+      "likes": 15821,
+      "bookmarks": 1858,
+      "views": 1328032
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "A detailed customer-accountability post produces a visible consequence for every customer-facing brand, including JeloCare, without claiming superiority.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "claimBoundary": "The reply makes no claim about MTN's data usage, the source author's account, JeloCare service performance, or any product, price, stock, retailer, efficacy, suitability, care outcome or clinical matter.",
+  "channels": ["x-organic"]
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-08-28T07:14:53.283Z",
+  "captureKind": "browser-captured-live-thread-plus-user-supplied-source-collage",
+  "sourcePostUrl": "https://x.com/Ifanyima/status/2092912952668016921",
+  "sourceReplyUrl": "https://x.com/jelocare/status/2093227183913533489",
+  "capture": {
+    "path": "private-reference-live-thread-browser-capture.jpg",
+    "repositoryTracked": false,
+    "width": 1263,
+    "height": 1726,
+    "bytes": 184336,
+    "sha256": "d340a9c6f79c06823268ca609837d3b6d34a8c9c9a755ff74ab9b761b1d6d72b"
+  },
+  "sourceCollage": {
+    "path": "private-reference-source-collage-user-supplied.png",
+    "repositoryTracked": false,
+    "width": 506,
+    "height": 900,
+    "bytes": 626788,
+    "sha256": "9564c571dc37561165060ecba11570f24a18bac5513a210bb84059eadb3e2165",
+    "screenshotMatch": "The user-supplied collage visibly matches the media displayed in the captured source post; it is retained as a higher-resolution private layout input, not as proof of a reuse licence."
+  },
+  "pixelPolicy": "Every visible account identity, avatar, verification badge, source sentence and reply sentence is an exact crop of the retained live-thread capture. The media panel uses the exact user-supplied collage. No identity, interface wording, face or product image was regenerated.",
+  "motionPolicy": "Static source, static reply and static media. No motion is invented because the source asset is not motion-native.",
+  "omittedByCrop": [
+    "source timestamp",
+    "reply timestamp",
+    "source and reply engagement counts",
+    "source and reply action rows",
+    "compose controls",
+    "Grok controls",
+    "overflow menus",
+    "unrelated replies"
+  ],
+  "preservedOverlays": ["@jelocare edit mark", "LT·003 trace identifier"],
+  "cropMap": {
+    "sourceAvatar": { "left": 254, "top": 86, "width": 60, "height": 57 },
+    "sourceIdentity": { "left": 316, "top": 86, "width": 300, "height": 62 },
+    "sourceCopy": { "left": 254, "top": 163, "width": 340, "height": 38 },
+    "replyAvatar": { "left": 254, "top": 1187, "width": 60, "height": 60 },
+    "replyIdentity": { "left": 316, "top": 1187, "width": 210, "height": 35 },
+    "replyCopy": { "left": 316, "top": 1225, "width": 610, "height": 38 }
+  },
+  "output": {
+    "canvas": { "width": 1080, "height": 1920 },
+    "sourceMediaRect": {
+      "left": 150,
+      "top": 245,
+      "width": 780,
+      "height": 1388
+    },
+    "posterSha256": "4635d14976aea8e96a4add36c7be769bf913561a4cf334d31097b45b7c3ec99c",
+    "watermarkOverlaySha256": "307e3bb7cd5be33f96045ea00ea56651682d6673e4e702cfa97cbdf068ae0ded",
+    "sharpVersion": "0.35.3"
+  },
+  "watermarkPolicy": {
+    "presentInSourceScreenshot": false,
+    "static": true,
+    "primaryText": "@jelocare",
+    "traceId": "LT·003",
+    "placement": "The short marks sit on the editorial composite to survive simple cropping while the source account identity remains fully visible.",
+    "ownershipBoundary": "The watermark identifies JeloCare's edit; it is not a licence, ownership claim or authority to reuse the source account's identity, wording or collage."
+  },
+  "imageGeneration": {
+    "used": false,
+    "reason": "Exact screenshot crop-and-compose preserves the live exchange and avoids fabricated identity, body, product or interface pixels."
+  },
+  "publicationBoundary": "The Zapshot remains ignored, local, private and unpublished. Cross-platform publication requires compatible third-party rights and fresh action-time confirmation."
+}

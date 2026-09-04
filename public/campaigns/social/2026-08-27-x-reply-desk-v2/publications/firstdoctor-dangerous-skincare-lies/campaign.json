@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-31-firstdoctor-dangerous-skincare-lies-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-31T08:03:29.481Z",
+  "dataCheckedAt": "2026-08-31T08:02:49.904Z",
+  "objective": "join a fresh Nigerian public-health prompt with two concise skincare safety myths without diagnosing, naming a product or making a treatment claim",
+  "sourcePost": {
+    "url": "https://x.com/FirstDoctor/status/2094325565549695068",
+    "externalId": "2094325565549695068",
+    "publishedAt": "2026-08-31T07:25:00Z",
+    "timestampSource": "live X time plus status chronology",
+    "handle": "@FirstDoctor",
+    "displayName": "First Doctor",
+    "observedText": "Tell me two dangerous lies some people believe.\n\nI will go first:\n\n1. That sunscreen causes cancer and should be replaced with natural oils.\n\n2. That drinking Borax will detoxify the body and cure arthritis.",
+    "actionTimeAudit": {
+      "checkedAt": "2026-08-31T08:02:49.904Z",
+      "method": "fresh signed-in inspection of the exact public X thread immediately before submission",
+      "existingJeloCareReply": false,
+      "replyComposerOpen": true,
+      "sourceStable": true,
+      "visibleEngagement": {
+        "replies": 2,
+        "reposts": 4,
+        "likes": 14,
+        "bookmarks": 0,
+        "views": 4307
+      }
+    }
+  },
+  "copy": {
+    "post": "1. “If it burns, it’s working.”\n2. “Natural means harmless.”\n\nSkincare has suffered in the hands of both lies 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "submittedAt": "2026-08-31T08:03:29.481Z",
+      "publicUrl": "https://x.com/jelocare/status/2094335254643576890",
+      "externalId": "2094335254643576890",
+      "replyTo": "https://x.com/FirstDoctor/status/2094325565549695068",
+      "liveVerifiedAt": "2026-08-31T08:04:13.287Z",
+      "spend": null,
+      "audienceSummary": "Public text-only reply from @jelocare to @FirstDoctor"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact First Doctor target and previously shown text-only reply; no media, like, repost, quote-post, follow, direct message, schedule, spend or cross-post",
+    "timing": "the user instructed publication immediately before the action-time recheck"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-31T08:04:13.287Z",
+    "urlMatched": true,
+    "parentSourceMatched": true,
+    "copyMatched": true,
+    "emojiMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    }
+  },
+  "mechanism": "Two familiar absolute-sounding skincare myths are answered in the same numbered rhythm as the source prompt, then tied together with one human reaction line.",
+  "careBoundary": "General myth-warning language only. The reply does not diagnose an individual, assess a reaction or tell anyone to continue or stop a treatment.",
+  "claimBoundary": "The reply rejects burning as an efficacy test and naturalness as a safety guarantee. It makes no product, ingredient, brand, treatment, price, stock or outcome claim.",
+  "externalActionScope": {
+    "performed": "one text-only X reply",
+    "notPerformed": [
+      "like",
+      "repost",
+      "quote-post",
+      "follow",
+      "direct-message",
+      "download",
+      "schedule",
+      "spend",
+      "cross-channel-publication"
+    ]
+  },
+  "channels": ["x-organic"]
+}

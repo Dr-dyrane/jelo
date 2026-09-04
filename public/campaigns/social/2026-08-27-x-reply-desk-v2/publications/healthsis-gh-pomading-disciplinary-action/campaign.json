@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-31-healthsis-gh-pomading-disciplinary-action-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-31T23:18:42.136Z",
+  "dataCheckedAt": "2026-08-31T23:18:01.272Z",
+  "objective": "join an active West African body-care joke with a compact Nigerian-English punchline that sounds human without inserting a product or sales claim",
+  "sourcePost": {
+    "url": "https://x.com/healthsis_gh/status/2094500041910305081",
+    "externalId": "2094500041910305081",
+    "publishedAt": "2026-08-31T18:58:18.577Z",
+    "timestampSource": "X status Snowflake",
+    "handle": "@healthsis_gh",
+    "displayName": "Your Ghanaian Health Sis",
+    "observedText": "So are you pomading your body or you're slapping your body? Because what's this pahrn pahrn sound that your body has been making anytime you're pomading it??",
+    "visibleEngagementBeforeReply": {
+      "replies": 8,
+      "reposts": 20,
+      "quotes": null,
+      "likes": 44,
+      "bookmarks": null,
+      "views": 1056
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-31T23:18:01.272Z",
+      "method": "read-only inspection of the exact public X conversation",
+      "result": "no-visible-jelocare-reply"
+    }
+  },
+  "copy": {
+    "post": "At this point, na moisturising or disciplinary action? 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": false,
+    "rightsBoundary": "Text-only reply; no source, third-party or JeloCare media attached."
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-31T23:18:42.136Z",
+      "timestampSource": "X status Snowflake",
+      "externalId": "2094565571866354070",
+      "publicUrl": "https://x.com/jelocare/status/2094565571866354070",
+      "replyTo": "https://x.com/healthsis_gh/status/2094500041910305081",
+      "spend": null,
+      "audienceSummary": "Public text-only reply from @jelocare to @healthsis_gh"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact target and exact text-only reply; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-31T23:19:07.949Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "emojiMatchedByAltText": true,
+    "mediaPresent": false,
+    "platformConfirmation": "Your post was sent.",
+    "sourceAfterPublication": {
+      "replies": 9,
+      "reposts": 20,
+      "quotes": null,
+      "likes": 44,
+      "bookmarks": null,
+      "views": 1056
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The source contrasts moisturising with audible slapping. JeloCare extends that contrast into 'disciplinary action', keeping the joke instantly legible and leaving the creator an easy comeback."
+  },
+  "claimBoundary": "No product, price, stock, retailer, efficacy, suitability, treatment, savings, availability, delivery or clinical claim is made.",
+  "careBoundary": "Humour only; the reply does not infer a condition, symptom, product need or routine suitability.",
+  "channels": ["x-organic"]
+}

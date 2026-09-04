@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-30-aproko-doctor-creams-forming-innocent-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-30T11:01:56.931Z",
+  "dataCheckedAt": "2026-08-30T11:03:44.277Z",
+  "objective": "join a Nigerian skin-health teaser with one compact product-personification joke while avoiding speculation about the person, cream or outcome",
+  "sourcePost": {
+    "url": "https://x.com/aproko_doctor/status/2093647703779512795",
+    "handle": "@aproko_doctor",
+    "displayName": "Aproko Doctor Global",
+    "postedAtVisible": "3:31 AM · Aug 29, 2026",
+    "observedText": "She Used This Cream Everyday. 3 Months Later, This Happened To Her Skin! Guest: @flakydancindoc",
+    "visibleEngagementBeforeReply": {
+      "replies": 7,
+      "reposts": 44,
+      "likes": 163,
+      "bookmarks": 66,
+      "viewsVisible": "52.5K",
+      "checkedAt": "2026-08-30T11:01:56.931Z"
+    },
+    "existingJeloCareReplyCheck": {
+      "query": "from:jelocare conversation_id:2093647703779512795",
+      "checkedAt": "2026-08-30T11:01:59.048Z",
+      "result": "no-results"
+    },
+    "threadContextObserved": "The source post is a 50-second skin-health video teaser and links to a longer video. Visible replies discussed long-term cream use and skin-lightening risks; JeloCare did not restate or extend those claims."
+  },
+  "selection": {
+    "state": "published-live-verified",
+    "editorSelectedReply": "Now every cream in the bathroom is forming innocent 😭",
+    "mechanism": "The teaser turns the bathroom creams into a comic suspect lineup without naming a product or outcome.",
+    "mediaDecision": "text-only; the source video supplies the setup and attached media could overplay the joke or imply an unsupported product or skin outcome"
+  },
+  "copy": {
+    "post": "Now every cream in the bathroom is forming innocent 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": true
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "category-transplant-suspect-lineup",
+    "setup": "A skin-health teaser says a daily-use cream led to an unnamed skin outcome after three months.",
+    "punchline": "Now every cream in the bathroom is forming innocent 😭",
+    "culturalCue": "forming innocent",
+    "fictionalDialogue": false,
+    "explanationDebt": "none; the teaser supplies the mystery and the reply recasts the products as suspects"
+  },
+  "claimBoundary": "The reply does not identify a cream, repeat a causal claim, describe the outcome, allege wrongdoing or make a product, price, stock, authenticity, suitability, efficacy or clinical claim.",
+  "careBoundary": "The joke targets the mystery around the products, not the person or skin outcome. It does not diagnose, prescribe, promise an outcome, endorse the video's guidance or infer facts from the teaser.",
+  "rightsBoundary": "The native X reply relies only on the platform thread relationship. JeloCare attached no media and did not download, copy, edit, re-upload or archive the source video, participant identity or source pixels.",
+  "publicationAuthorized": true,
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "X reply to the exact Aproko Doctor target with the exact selected text and no attached media",
+    "timing": "same turn immediately before the action-time source and duplicate rechecks"
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-30T11:03:07.701Z",
+      "externalId": "2094018070763405561",
+      "publicUrl": "https://x.com/jelocare/status/2094018070763405561",
+      "replyTo": "https://x.com/aproko_doctor/status/2093647703779512795",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @aproko_doctor",
+      "platformReceipt": "X displayed 'Your post was sent.' and the reply appeared in the source conversation."
+    }
+  ],
+  "liveVerification": {
+    "checkedAt": "2026-08-30T11:03:44.277Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "parentConversationVisible": true,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 8,
+      "reposts": 44,
+      "likes": 163,
+      "bookmarks": 66,
+      "viewsVisible": "52.5K"
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The source carries the health context; the reply adds a compact suspect-lineup reframe without repeating the medical content.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "channels": ["x-reply"]
+}

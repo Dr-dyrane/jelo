@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-28-deejay-sequence-body-care-public-private-sector-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-28T17:57:00.464Z",
+  "dataCheckedAt": "2026-08-28T17:59:01Z",
+  "objective": "join an active Nigerian body-care thread with a concise institutional-category punchline",
+  "sourcePost": {
+    "url": "https://x.com/Deejay_Sequence/status/2093011693701935534",
+    "handle": "@Deejay_Sequence",
+    "displayName": "Deejay_Sequence",
+    "observedText": "I no even fit dey follow una do skin care. Me wey dey wear clothes before I cream body. 😭😂 Na only the visible parts I dey cream after I don wear clothes. 😂",
+    "visibleEngagementBeforeReply": {
+      "replies": 19,
+      "reposts": 14,
+      "likes": 136,
+      "bookmarks": 2,
+      "views": 2607
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": null,
+      "result": "no-results",
+      "timestampNote": "The duplicate search was completed immediately before publication; an exact browser-event timestamp was not captured."
+    },
+    "authorActivityObserved": "The author was visibly answering replies as recently as six hours before the action-time check."
+  },
+  "copy": {
+    "post": "So body care don get public and private sector 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": false,
+    "rightsBoundary": "The reply uses X's native reply relationship and attaches no third-party or JeloCare media."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-28T17:57:00.464Z",
+      "externalId": "2093397451189415952",
+      "publicUrl": "https://x.com/jelocare/status/2093397451189415952",
+      "replyTo": "https://x.com/Deejay_Sequence/status/2093011693701935534",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @Deejay_Sequence"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact target and exact text-only reply; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-28T17:59:01Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 20,
+      "reposts": 14,
+      "likes": 136,
+      "bookmarks": 2,
+      "views": 2609
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The source divides body care by visible and covered skin; the reply reclassifies that split as public and private sectors.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "claimBoundary": "The reply makes no product, price, stock, retailer, efficacy, suitability, care-outcome or clinical claim.",
+  "channels": ["x-organic"]
+}

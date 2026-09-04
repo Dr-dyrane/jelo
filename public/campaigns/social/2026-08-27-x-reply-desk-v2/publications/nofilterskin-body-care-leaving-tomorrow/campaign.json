@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-30-nofilterskin-body-care-leaving-tomorrow-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-30T11:11:48.523Z",
+  "dataCheckedAt": "2026-08-30T11:13:17.193Z",
+  "objective": "join a high-momentum body-care routine thread with one instantly legible elapsed-time joke without endorsing the routine's care claims",
+  "sourcePost": {
+    "url": "https://x.com/NoFilterSkin/status/2093694149165736338",
+    "handle": "@NoFilterSkin",
+    "displayName": "No filter Skin",
+    "postedAtVisible": "6:35 AM · Aug 29, 2026",
+    "observedTextSummary": "The source opens with a question about why someone smells good, then lists nine hygiene and body-care steps. The creator's visible self-thread adds six more steps.",
+    "visibleEngagementBeforeReply": {
+      "replies": 5,
+      "reposts": 330,
+      "likesVisible": "3K",
+      "bookmarksVisible": "1.8K",
+      "viewsVisible": "133.2K",
+      "checkedAt": "2026-08-30T11:11:48.523Z"
+    },
+    "existingJeloCareReplyCheck": {
+      "query": "from:jelocare conversation_id:2093694149165736338",
+      "checkedAt": "2026-08-30T11:11:50.674Z",
+      "result": "no-results"
+    },
+    "threadContextObserved": "The creator's self-reply extended the routine with six additional steps. Visible outside replies discussed clothing and hygiene preferences; no visible leaving-tomorrow variation appeared."
+  },
+  "selection": {
+    "state": "published-live-verified",
+    "editorSelectedReply": "So she’s leaving the house tomorrow? 😭",
+    "mechanism": "The unusually long routine is treated as consuming the rest of the day and delaying departure until tomorrow.",
+    "mediaDecision": "text-only; the source list supplies the visual length and a waiting or clock reaction would merely repeat the punchline"
+  },
+  "copy": {
+    "post": "So she’s leaving the house tomorrow? 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": false
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "absurdly-literal-time-consequence",
+    "setup": "A body-care routine continues through fifteen visible steps.",
+    "punchline": "So she’s leaving the house tomorrow? 😭",
+    "culturalCue": null,
+    "fictionalDialogue": false,
+    "explanationDebt": "none; the list length supplies the setup and the reply names the smallest absurd consequence"
+  },
+  "claimBoundary": "The reply makes no hygiene, ingredient, product, price, stock, retailer, authenticity, suitability, efficacy or clinical claim and does not state that any listed step is necessary or effective.",
+  "careBoundary": "The joke targets the routine's length, not a person, body, smell or health concern. It does not diagnose, prescribe, endorse or repeat the source's care guidance.",
+  "rightsBoundary": "The native X reply relies only on the platform thread relationship. JeloCare attached no media and did not download, copy, edit, re-upload or archive source pixels or identity assets.",
+  "publicationAuthorized": true,
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "X reply to the exact No Filter Skin target with the exact selected English text and no attached media",
+    "timing": "same turn immediately before the action-time source and duplicate rechecks"
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-30T11:12:44.728Z",
+      "externalId": "2094020490990100562",
+      "publicUrl": "https://x.com/jelocare/status/2094020490990100562",
+      "replyTo": "https://x.com/NoFilterSkin/status/2093694149165736338",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @NoFilterSkin",
+      "platformReceipt": "X displayed 'Your post was sent.' and the reply appeared in the source conversation."
+    }
+  ],
+  "liveVerification": {
+    "checkedAt": "2026-08-30T11:13:17.193Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "parentConversationVisible": true,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 6,
+      "reposts": 332,
+      "likesVisible": "3K",
+      "viewsVisible": "133K"
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The source list supplies the routine overload; the reply converts its length into one immediate departure-time consequence.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "channels": ["x-reply"]
+}

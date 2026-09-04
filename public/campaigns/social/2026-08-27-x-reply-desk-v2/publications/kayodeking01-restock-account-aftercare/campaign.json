@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-31-kayodeking01-restock-account-aftercare-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-31T23:45:57.015Z",
+  "dataCheckedAt": "2026-08-31T23:45:35.642Z",
+  "objective": "join a Nigerian skincare-restock cost joke with a compact aftercare category transplant that sounds human without adding a product or sales claim",
+  "sourcePost": {
+    "url": "https://x.com/kayodeking01/status/2094393734515323375",
+    "externalId": "2094393734515323375",
+    "publishedAt": "2026-08-31T11:55:52.919Z",
+    "timestampSource": "X status Snowflake",
+    "handle": "@kayodeking01",
+    "displayName": "Rosco from deeper life",
+    "observedText": "just restocked my skincare\nmy chest i beating fast!",
+    "visibleEngagementBeforeReply": {
+      "replies": 2,
+      "reposts": 3,
+      "quotes": null,
+      "likes": 12,
+      "bookmarks": null,
+      "views": 673
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-31T23:45:35.642Z",
+      "method": "read-only inspection of the exact public X conversation",
+      "result": "no-visible-jelocare-reply"
+    }
+  },
+  "copy": {
+    "post": "Your skin is calm. Na your account needs aftercare now 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": false,
+    "rightsBoundary": "Text-only reply; no source, third-party or JeloCare media attached."
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-31T23:45:57.015Z",
+      "timestampSource": "X status Snowflake",
+      "externalId": "2094572429045891190",
+      "publicUrl": "https://x.com/jelocare/status/2094572429045891190",
+      "replyTo": "https://x.com/kayodeking01/status/2094393734515323375",
+      "spend": null,
+      "audienceSummary": "Public text-only reply from @jelocare to @kayodeking01"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact target and exact text-only reply; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-31T23:46:21.139Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "emojiMatchedByAltText": true,
+    "mediaPresent": false,
+    "platformConfirmation": "Your post was sent.",
+    "sourceAfterPublication": {
+      "replies": 3,
+      "reposts": 3,
+      "quotes": null,
+      "likes": 12,
+      "bookmarks": null,
+      "views": 673
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The source turns a skincare restock into cost shock. JeloCare applies the skincare idea of aftercare to the account, keeping the reply short and leaving the author an easy comeback."
+  },
+  "claimBoundary": "No product, price, stock, retailer, efficacy, suitability, treatment, savings, availability, delivery or clinical claim is made.",
+  "careBoundary": "Humour only; the reply does not infer a condition, symptom, product need or routine suitability.",
+  "channels": ["x-organic"]
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-30-heybidemi-makeup-cleanser-handover-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-30T23:50:34.851Z",
+  "dataCheckedAt": "2026-08-30T23:49:52.818Z",
+  "objective": "join a fast-moving Nigerian beauty-life post with a compact cleanser personification that gives the source author an easy comeback",
+  "sourcePost": {
+    "url": "https://x.com/HEYBIDEMI/status/2094201788765229298",
+    "externalId": "2094201788765229298",
+    "publishedAt": "2026-08-30T23:13:09.486Z",
+    "timestampSource": "X status Snowflake",
+    "handle": "@HEYBIDEMI",
+    "displayName": "KOMISI HQ",
+    "observedText": "I saw my sister sleeping on one side because she said she wasn’t going to wash off her ₦50K makeup E shock me 😂😂😂 Check the time,I’ve been dragging her since morning she still carried the makeup out this evening sha. Never I can’t 😂😂😂",
+    "actionTimeAudit": {
+      "checkedAt": "2026-08-30T23:49:52.818Z",
+      "method": "read-only inspection of the exact public X source and reply thread",
+      "existingJeloCareReply": false,
+      "visibleEngagement": {
+        "replies": 0,
+        "reposts": 1,
+        "quotes": null,
+        "likes": 3,
+        "bookmarks": 1,
+        "views": 1102
+      }
+    }
+  },
+  "selectionEvidence": {
+    "firstSnapshot": {
+      "checkedAtApproximate": "2026-08-30T23:34Z",
+      "views": 780
+    },
+    "secondSnapshot": {
+      "checkedAt": "2026-08-30T23:44:35.072Z",
+      "views": 1102
+    },
+    "viewDelta": 322,
+    "replyCrowdingAtSelection": 0,
+    "authorResponsePropensity": "The source author had published numerous direct replies during the preceding hour.",
+    "boundary": "The first snapshot time is minute-level workflow evidence; the exact second and action-time checks are retained separately. Velocity is descriptive, not causal."
+  },
+  "copy": {
+    "post": "Cleanser don dey wait for handover since yesterday 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "rightsBoundary": "The JeloCare reply contains text only. The source video was not downloaded, copied, edited, archived, or attached."
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-30T23:50:34.851Z",
+      "timestampSource": "X status Snowflake",
+      "externalId": "2094211206508859639",
+      "publicUrl": "https://x.com/jelocare/status/2094211206508859639",
+      "replyTo": "https://x.com/HEYBIDEMI/status/2094201788765229298",
+      "liveVerifiedAt": "2026-08-30T23:51:06.330Z",
+      "spend": null,
+      "audienceSummary": "Public text-only reply from @jelocare to @HEYBIDEMI"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "evidence": "Dyrane instructed ‘post’ immediately after the exact target, final copy, no-media pairing, platform, action, and fresh evidence were shown.",
+    "boundary": "Authority covered this one exact X reply only and grants no follow-up, like, repost, follow, direct message, clip, or cross-channel publication."
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "firstCheckpointEvidence": null
+  },
+  "mechanism": "The source makes expensive makeup behave like a two-day commitment. JeloCare adds a second voice by personifying the waiting cleanser and reframing removal as an overdue handover.",
+  "claimBoundary": "No product, price, stock, retailer, authenticity, efficacy, suitability, result, availability, delivery, savings, or clinical claim is made.",
+  "careBoundary": "Humour targets the waiting product situation, not the person or her skin. No diagnosis, outcome, or personalized care instruction is implied.",
+  "externalActionScope": {
+    "performed": "one text-only X reply",
+    "notPerformed": [
+      "like",
+      "repost",
+      "quote-post",
+      "follow",
+      "direct-message",
+      "download",
+      "schedule",
+      "spend",
+      "cross-channel-publication"
+    ]
+  }
+}

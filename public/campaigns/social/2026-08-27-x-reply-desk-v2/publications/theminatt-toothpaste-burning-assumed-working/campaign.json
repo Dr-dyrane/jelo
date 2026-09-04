@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-30-theminatt-toothpaste-burning-assumed-working-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-30T05:50:14.119Z",
+  "dataCheckedAt": "2026-08-30T05:52:12.018Z",
+  "objective": "join a Nigerian acne-remedy confession thread with a concise shared-memory joke that rejects sensation as proof without diagnosing or prescribing",
+  "sourcePost": {
+    "url": "https://x.com/theminatt/status/2093651580075540904",
+    "handle": "@theminatt",
+    "displayName": "Tshirtsboss",
+    "postedAtVisible": "3:46 AM · Aug 29, 2026",
+    "observedText": "What’s the craziest thing you’ve ever put on your face to get rid of acne? Mine: soda soap",
+    "visibleEngagementBeforeReply": {
+      "replies": 13,
+      "reposts": 16,
+      "likes": 17,
+      "bookmarks": 1,
+      "views": 675,
+      "checkedAt": "2026-08-30T05:50:14.119Z"
+    },
+    "existingJeloCareReplyCheck": {
+      "query": "from:jelocare conversation_id:2093651580075540904",
+      "checkedAt": "2026-08-30T05:50:16.148Z",
+      "result": "no-results"
+    },
+    "threadContextObserved": "Visible participants shared prior home-remedy attempts, including toothpaste, egg yolk, bitter leaf, aloe vera, apple-cider vinegar and soda soap. The source author replied within the thread."
+  },
+  "selection": {
+    "state": "published-live-verified",
+    "editorSelectedReply": "Toothpaste. If it burned, we assumed it was working 😭",
+    "mechanism": "A familiar acne home remedy is reframed through the mistaken belief that a burning sensation proves efficacy.",
+    "mediaDecision": "text-only; the source question supplies the confession format and attached media would repeat or over-explain the punchline"
+  },
+  "copy": {
+    "post": "Toothpaste. If it burned, we assumed it was working 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": false
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "shared-confession-with-calm-reset",
+    "setup": "A skincare creator asks people to name the strangest thing they tried for acne.",
+    "punchline": "Toothpaste. If it burned, we assumed it was working 😭",
+    "culturalCue": null,
+    "fictionalDialogue": false,
+    "explanationDebt": "none; the reply answers the source question directly and the second sentence supplies the turn"
+  },
+  "claimBoundary": "The reply does not say toothpaste treats acne or that burning indicates effectiveness. It makes no product, price, stock, retailer, authenticity, suitability, efficacy or clinical claim.",
+  "careBoundary": "The joke targets a mistaken home-remedy heuristic, not acne or the people discussing it. It does not diagnose, prescribe, promise an outcome or instruct anyone to apply toothpaste.",
+  "rightsBoundary": "The native X reply relies only on the platform thread relationship. JeloCare attached no media and did not download, copy, edit, re-upload or archive source pixels or identity assets.",
+  "publicationAuthorized": true,
+  "actionTimeConfirmation": {
+    "userInstruction": "now post",
+    "confirmedUnit": "X reply to the exact Tshirtsboss target with the clarified English text and no attached media",
+    "timing": "same turn immediately before the action-time source and duplicate rechecks"
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-30T05:51:13.088Z",
+      "externalId": "2093939575987331080",
+      "publicUrl": "https://x.com/jelocare/status/2093939575987331080",
+      "replyTo": "https://x.com/theminatt/status/2093651580075540904",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @theminatt",
+      "platformReceipt": "X displayed 'Your post was sent.' and the reply appeared in the source conversation."
+    }
+  ],
+  "liveVerification": {
+    "checkedAt": "2026-08-30T05:52:12.018Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "parentConversationVisible": true,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 2
+    },
+    "sourceAfterPublication": {
+      "replies": 14,
+      "reposts": 16,
+      "likes": 17,
+      "bookmarks": 1,
+      "views": 677
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The source asks for confessions; the reply contributes one familiar example and exposes the flawed sensation-equals-efficacy reasoning in one beat.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "channels": ["x-reply"]
+}

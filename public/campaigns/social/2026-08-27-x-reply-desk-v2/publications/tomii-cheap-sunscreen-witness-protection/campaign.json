@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-27-tomii-cheap-sunscreen-witness-protection-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-27T21:54:52.575Z",
+  "dataCheckedAt": "2026-08-27T21:55:28.764Z",
+  "objective": "join an active Nigerian cheap-sunscreen meme with a compact second beat while letting the source image carry the visual joke",
+  "sourcePost": {
+    "url": "https://x.com/Tomi__juice/status/2093031749362045068",
+    "handle": "@Tomi__juice",
+    "displayName": "Tomii 💜",
+    "observedText": "Me after applying my cheap sunscreen",
+    "visibleEngagementBeforeReply": {
+      "replies": 31,
+      "reposts": 63,
+      "likes": 85,
+      "bookmarks": 1,
+      "views": 975
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-27T21:52:16Z",
+      "result": "no-results-in-visible-thread",
+      "visibleArticlesChecked": 23
+    },
+    "authorActivityObserved": "The author was visibly answering multiple replies in the thread at the action-time check."
+  },
+  "copy": {
+    "post": "No be sunscreen again. Na witness protection 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsImage": true,
+    "rightsBoundary": "The reply uses X's native reply relationship and attaches no media. The source image was not downloaded, copied, edited, quoted, re-uploaded or archived by JeloCare."
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-27T21:54:52.575Z",
+      "externalId": "2093094924896075962",
+      "publicUrl": "https://x.com/jelocare/status/2093094924896075962",
+      "replyTo": "https://x.com/Tomi__juice/status/2093031749362045068",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @Tomi__juice"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "publish",
+    "confirmedUnit": "same target, exact approved text-only copy, no attached media",
+    "timestampNote": "Confirmation was received immediately before publication; an exact message-event timestamp was not captured."
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-27T21:55:28.764Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": null
+    },
+    "sourceAfterPublication": {
+      "replies": 32,
+      "reposts": 63,
+      "likes": 86,
+      "bookmarks": 2,
+      "views": 989
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The source image exaggerates visible sunscreen cast; the reply renames that consequence as witness protection, adding an alternate system without restating the visual.",
+    "note": "Judge the reply only from its own later checkpoints. Source totals are context and the source reply count includes JeloCare after publication."
+  },
+  "claimBoundary": "No product identity, SPF level, price, stock, retailer, suitability, care outcome or clinical claim. The joke targets the exaggerated meme image, not the author's appearance or a skin concern.",
+  "channels": ["x-organic"]
+}

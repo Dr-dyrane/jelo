@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-30-marianoreeledit-full-squad-one-at-a-time-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-30T19:07:51.175Z",
+  "dataCheckedAt": "2026-08-30T19:10:53Z",
+  "objective": "use the creator's own routine caveat to add a care-first attribution reminder with an original JeloCare living card",
+  "sourcePost": {
+    "url": "https://x.com/marianoreeledit/status/2093751839699148830",
+    "handle": "@marianoreeledit",
+    "displayName": "marianothelight| SM Marketing |Video editor",
+    "postedAtVisible": "10:25 AM · Aug 29, 2026",
+    "observedText": "The wonders FACEFACTS serum did to my face within a month is >>>>>\nNote: it’s not the only product in my routine",
+    "lastClockedPreApprovalCheck": {
+      "checkedAt": "2026-08-30T18:44:16Z",
+      "method": "read-only inspection of the exact X source thread",
+      "sourceTextUnchanged": true,
+      "visibleEngagement": {
+        "replies": 6,
+        "reposts": 10,
+        "likes": 37,
+        "bookmarks": 35,
+        "views": 10472
+      },
+      "visibleJeloCareReplyArticles": 0,
+      "result": "no-visible-jelocare-reply"
+    },
+    "actionTimeDuplicateCheck": {
+      "timing": "immediately-before-publish",
+      "sourceTextUnchangedFromLastClockedCheck": true,
+      "visibleEngagement": {
+        "replies": 6,
+        "reposts": 10,
+        "likes": 37,
+        "bookmarks": 35,
+        "views": 10472
+      },
+      "visibleJeloCareReplyArticles": 0,
+      "result": "no-visible-jelocare-reply",
+      "timestampBoundary": "No separate wall-clock timestamp was captured for this second check; it is bound to the publication action rather than assigned an invented time."
+    }
+  },
+  "copy": {
+    "post": "That last sentence is important. Before we give one serum all the glory, abeg show us the full squad 👏🏽",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "jelocare-original-animated-living-card",
+    "publishedFilename": "facefacts-full-squad-living-card-v1.mp4",
+    "repositoryPath": "../../drafts/facefacts-full-squad-living-card-v1/facefacts-full-squad-living-card-v1.mp4",
+    "localBytesUploadedToX": true,
+    "repositoryStored": true,
+    "sha256": "99a3ebe1a1318b3a554ae4121d65e183217cfb4c10cfee48e85942510c1c58f7",
+    "bytes": 2364258,
+    "width": 1080,
+    "height": 1080,
+    "frames": 180,
+    "fps": 24,
+    "durationSeconds": 7.5,
+    "videoCodec": "H.264",
+    "audioTracks": 0,
+    "generationRoute": "built-in-imagegen source art plus deterministic Sharp SVG frames plus AVFoundation H.264",
+    "provenance": {
+      "classification": "original generated fictional unbranded object art",
+      "draftCampaignRecord": "../../drafts/facefacts-full-squad-living-card-v1/campaign.json",
+      "generationRecord": "../../drafts/facefacts-full-squad-living-card-v1/generation-provenance.json",
+      "qaRecord": "../../drafts/facefacts-full-squad-living-card-v1/motion-qa.json",
+      "checksumRecord": "../../drafts/facefacts-full-squad-living-card-v1/SHA256SUMS",
+      "sourceSpriteBoardSha256": "92700fb829498a1831d426a96b4729eccc9006bdc76ccb54c22a1b42986d28c7"
+    },
+    "checksumValidation": {
+      "algorithm": "SHA-256",
+      "expected": "99a3ebe1a1318b3a554ae4121d65e183217cfb4c10cfee48e85942510c1c58f7",
+      "observed": "99a3ebe1a1318b3a554ae4121d65e183217cfb4c10cfee48e85942510c1c58f7",
+      "match": true,
+      "draftPackageChecksumVerification": "pass"
+    },
+    "rightsBoundary": "The attached media uses original generated fictional unbranded object art. No source-post screenshot, creator face, creator video, source audio, FACEFACTS logo or package, or celebrity/creator lookalike was reused. This receipt records only the exact X upload authorized here and does not authorize another publication action."
+  },
+  "publicationAuthorized": true,
+  "actionTimeConfirmation": {
+    "userInstruction": "post facefacts",
+    "confirmedUnit": "one public X reply to the exact @marianoreeledit source with the exact approved copy and exact MP4 whose SHA-256 is 99a3ebe1a1318b3a554ae4121d65e183217cfb4c10cfee48e85942510c1c58f7",
+    "timing": "same user turn immediately before the action-time source and duplicate recheck"
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-08-30T19:07:51.175Z",
+      "timestampSource": "X status Snowflake",
+      "externalId": "2094140055694819433",
+      "publicUrl": "https://x.com/jelocare/status/2094140055694819433",
+      "replyTo": "https://x.com/marianoreeledit/status/2093751839699148830",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @marianoreeledit",
+      "platformReceipt": "The JeloCare reply article appeared under the exact parent and opened at the exact public URL with the approved copy and embedded video."
+    }
+  ],
+  "externalActionScope": {
+    "performed": {
+      "platform": "x",
+      "action": "reply",
+      "count": 1,
+      "includedExactMediaUpload": true
+    },
+    "otherExternalInteractionsPerformed": [],
+    "notPerformed": [
+      "like",
+      "repost",
+      "quote-post",
+      "follow",
+      "direct-message",
+      "schedule",
+      "spend",
+      "cross-post"
+    ]
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-30T19:10:53Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "parentConversationVisible": true,
+    "replyArticle": {
+      "relativeAgeVisible": "Now",
+      "displayedAt": "12:07 PM · Aug 30, 2026",
+      "mediaPresent": true,
+      "mediaRenderedAs": "Embedded video",
+      "mediaDurationLabel": "0:06",
+      "visibleEngagement": {
+        "views": 1
+      }
+    },
+    "sourceAfterPublication": {
+      "replies": 7,
+      "reposts": 10,
+      "likes": 37,
+      "bookmarks": 35,
+      "views": 10487
+    },
+    "proofBoundary": "Only the values visibly observed in the post-action proof are recorded; no unobserved reply metrics are inferred."
+  },
+  "mechanism": "The source already cautions that the serum was not the only product in the routine. The reply foregrounds that caveat, while the original living card widens a fictional spotlight from one serum to a complete routine cast and closes with a one-change-at-a-time reminder.",
+  "careBoundary": "The cast is explicitly fictional context, not a prescription. Routine roles vary by person, no universal routine is prescribed, and no result is attributed to one serum.",
+  "claimBoundary": "The reply and media do not endorse FACEFACTS, attribute the creator's result to FACEFACTS or any single product, or make an efficacy, safety, suitability, treatment, price, stock, retailer, authenticity or clinical claim.",
+  "deterministicValidation": {
+    "receiptJsonParse": "pass",
+    "requiredFieldAssertions": "pass",
+    "receiptChecksumFile": "SHA256SUMS",
+    "sourceDraftPackageCommand": "shasum -a 256 -c SHA256SUMS",
+    "sourceDraftPackageResult": "pass",
+    "primaryMediaSha256Matched": true
+  },
+  "channels": ["x-reply"]
+}

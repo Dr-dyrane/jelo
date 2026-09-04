@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-08-28T05:39:03Z",
+  "captureKind": "user-supplied-live-thread-screenshot",
+  "sourcePostUrl": "https://x.com/goofyleena/status/2092904785066205455",
+  "sourceReplyUrl": "https://x.com/jelocare/status/2093211465645948942",
+  "capture": {
+    "path": "private-reference-live-thread-user-supplied.png",
+    "repositoryTracked": false,
+    "width": 1440,
+    "height": 1887,
+    "bytes": 1603527,
+    "sha256": "89f7acf8e1348d98809f48ecfd56b428d3bf103f8a72c360fd559f2eebf65435"
+  },
+  "sourceAnimation": {
+    "path": "private-reference-showmax-cry-love-user-supplied.gif",
+    "repositoryTracked": false,
+    "width": 480,
+    "height": 480,
+    "bytes": 2648815,
+    "sha256": "e3b230152023576fbb2f4dd855d847466dd138c4bf7b9a4d5b5c34077c3bbcec",
+    "frames": 41,
+    "delaysMs": [
+      40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40,
+      40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40,
+      40, 40, 40, 40, 40
+    ],
+    "loop": 0,
+    "screenshotMatch": "The screenshot's 1188 × 1188 media panel closely matches source GIF frame 3 after scale; the saved file is therefore a visual match to the displayed X-native GIF, not a byte-level extraction from X."
+  },
+  "pixelPolicy": "Every visible account identity, avatar, verification badge, source sentence, reply sentence, and native GIF/ALT pill is an exact crop of the retained screenshot. The reaction media uses the exact user-supplied GIF frames. No interface wording, identity, face, or reaction frame was regenerated.",
+  "motionPolicy": "The output preserves all 41 source frames at 40 ms each. Pixels outside the 900 × 900 media rectangle remain identical across every decoded output frame. The fixed native GIF/ALT pills are composited after the moving panel.",
+  "omittedByCrop": [
+    "source timestamp",
+    "reply timestamp",
+    "source and reply engagement counts",
+    "source and reply action rows",
+    "Grok controls",
+    "overflow menus"
+  ],
+  "preservedStaticOverlays": [
+    "native GIF pill",
+    "native ALT pill",
+    "@jelocare edit mark",
+    "LT·002 trace identifier"
+  ],
+  "cropMap": {
+    "sourceAvatar": { "left": 41, "top": 35, "width": 141, "height": 141 },
+    "sourceIdentity": { "left": 203, "top": 30, "width": 455, "height": 65 },
+    "sourceCopy": { "left": 203, "top": 105, "width": 1180, "height": 115 },
+    "replyAvatar": { "left": 41, "top": 403, "width": 141, "height": 141 },
+    "replyIdentity": { "left": 203, "top": 403, "width": 455, "height": 62 },
+    "replyCopy": { "left": 203, "top": 477, "width": 850, "height": 55 },
+    "nativeGifPill": { "left": 226, "top": 1646, "width": 116, "height": 70 },
+    "nativeAltPill": { "left": 355, "top": 1646, "width": 85, "height": 70 }
+  },
+  "output": {
+    "canvas": { "width": 1080, "height": 1920 },
+    "animatedMediaRect": {
+      "left": 150,
+      "top": 560,
+      "width": 900,
+      "height": 900
+    },
+    "posterSha256": "4823b5b23da28bdc092354cc25be9aea4ce083809eb6b19436799172db7c898b",
+    "gifSha256": "cd00ba9b51542841c48d686e7eb2e7da99e8ad7b179a65d326a15ff92f23a260",
+    "watermarkOverlaySha256": "6d29bc7e60ae0cf43533bdf96d8c67afbdfe6f17d462664f4ae2e8cdd3df7d8b",
+    "sharpVersion": "0.34.5"
+  },
+  "watermarkPolicy": {
+    "presentInSourceScreenshot": false,
+    "staticInEveryFrame": true,
+    "primaryText": "@jelocare",
+    "traceId": "LT·002",
+    "placement": "Both marks sit outside the borrowed GIF panel and identify only the JeloCare editorial composition.",
+    "ownershipBoundary": "The watermark identifies JeloCare's edit; it is not a licence, ownership claim, or authority to reuse the Showmax/GIPHY media or the source account's identity and words."
+  },
+  "imageGeneration": {
+    "used": false,
+    "reason": "Exact screenshot and GIF compositing preserves the live exchange and avoids fabricated account, face, or interface pixels."
+  },
+  "publicationBoundary": "The Zapshot poster and GIF remain ignored, local, private, and unpublished. Cross-platform publication requires compatible third-party rights and fresh action-time confirmation."
+}

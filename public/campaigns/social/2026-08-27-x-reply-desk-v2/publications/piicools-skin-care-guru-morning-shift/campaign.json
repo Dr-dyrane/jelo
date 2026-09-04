@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-28-piicools-skin-care-guru-morning-shift-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-28T19:57:26.689Z",
+  "dataCheckedAt": "2026-08-28T19:57:44.154Z",
+  "objective": "join a fast-moving men's hygiene-routine video with one concise Nigerian work-shift category transplant",
+  "sourcePost": {
+    "url": "https://x.com/Piicools/status/2093405834143297657",
+    "handle": "@Piicools",
+    "displayName": "Pico 🎈",
+    "observedText": "We men must learn from him, skin care guru.",
+    "visibleEngagementBeforeReply": {
+      "replies": 10,
+      "reposts": 119,
+      "likes": 154,
+      "bookmarks": 11,
+      "views": 1784
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-08-28T19:57:05.759Z",
+      "query": "from:jelocare conversation_id:2093405834143297657",
+      "result": "no-results"
+    },
+    "threadActivityObserved": "The source was visibly gaining views, reposts and likes, and the author was actively replying on X, including in the source thread."
+  },
+  "copy": {
+    "post": "Routine abi morning shift? 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": true,
+    "sourceMediaObserved": "Approximately 56-second X-native, TikTok-style men's hygiene-routine video",
+    "rightsBoundary": "The reply uses X's native reply relationship. The third-party source video was viewed in place but not downloaded, copied, edited, re-uploaded or archived by JeloCare."
+  },
+  "meme": {
+    "calibrationVersion": "ng-humour-2026-08-25.3",
+    "mechanism": "routine-to-work-shift-category-transplant",
+    "setup": "A long, detailed men's hygiene routine is presented as an example to learn from.",
+    "punchline": "Routine abi morning shift? 😭",
+    "culturalCue": "abi",
+    "fictionalDialogue": false,
+    "score": 17,
+    "scoreMaximum": 18
+  },
+  "publication": [
+    {
+      "channel": "x-reply",
+      "publishedAt": "2026-08-28T19:57:26.689Z",
+      "externalId": "2093427751269405176",
+      "publicUrl": "https://x.com/jelocare/status/2093427751269405176",
+      "replyTo": "https://x.com/Piicools/status/2093405834143297657",
+      "spend": null,
+      "audienceSummary": "Public reply from @jelocare to @Piicools"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact target and exact text-only reply; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-28T19:57:44.154Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 11,
+      "reposts": 119,
+      "likes": 154,
+      "bookmarks": 11,
+      "views": 1789
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The lengthy routine is recategorised as clocking in for a morning work shift, leaving natural overtime, supervisor and closing-time riff space.",
+    "note": "Source totals are context. Judge reply performance only from its own later checkpoints."
+  },
+  "claimBoundary": "The reply makes no product, price, stock, retailer, hygiene, efficacy, suitability, care-outcome, gender or clinical claim.",
+  "channels": ["x-organic"]
+}

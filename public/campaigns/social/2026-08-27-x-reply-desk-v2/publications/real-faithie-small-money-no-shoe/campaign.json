@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-09-01-real-faithie-small-money-no-shoe-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-09-01T00:12:47.268Z",
+  "dataCheckedAt": "2026-09-01T00:10:22.124Z",
+  "objective": "join an active Nigerian skincare-spending joke with a compact household-arrival image that extends the source without narrating its video",
+  "sourcePost": {
+    "url": "https://x.com/real_Faithie/status/2094474392398934205",
+    "externalId": "2094474392398934205",
+    "publishedAt": "2026-08-31T17:16:23.257Z",
+    "timestampSource": "X status Snowflake",
+    "handle": "@real_Faithie",
+    "displayName": "Faith_x",
+    "observedText": "Me when small money enter my hand 😌",
+    "visibleEngagementBeforeReply": {
+      "replies": 30,
+      "reposts": 46,
+      "quotes": null,
+      "likes": 85,
+      "bookmarks": 4,
+      "views": 689
+    },
+    "existingJeloCareReplyCheck": {
+      "checkedAt": "2026-09-01T00:10:22.124Z",
+      "method": "read-only inspection of the exact public X conversation",
+      "result": "no-visible-jelocare-reply"
+    }
+  },
+  "copy": {
+    "post": "The money no even remove shoe before skincare collect am 😭",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": true,
+    "sourceMediaObservation": "The source contains a native X video of a person enthusiastically applying skincare; it remained in the source post and was not downloaded, copied or attached.",
+    "rightsBoundary": "Text-only reply; no source, third-party or JeloCare media attached. Native source media remains attributed and hosted by X."
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-09-01T00:12:47.268Z",
+      "timestampSource": "X status Snowflake",
+      "externalId": "2094579182936416724",
+      "publicUrl": "https://x.com/jelocare/status/2094579182936416724",
+      "replyTo": "https://x.com/real_Faithie/status/2094474392398934205",
+      "spend": null,
+      "audienceSummary": "Public text-only reply from @jelocare to @real_Faithie"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "The money no even remove shoe before skincare collect am 😭 - post",
+    "confirmedUnit": "the exact target and exact text-only reply; no attached media, like, repost, follow, quote, schedule, spend or cross-post",
+    "timing": "same turn immediately before publication"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-09-01T00:13:09.383Z",
+    "urlMatched": true,
+    "copyMatched": true,
+    "emojiMatchedByAltText": true,
+    "mediaPresent": false,
+    "platformConfirmation": "Your post was sent.",
+    "sourceAfterPublication": {
+      "replies": 31,
+      "reposts": 46,
+      "quotes": null,
+      "likes": 85,
+      "bookmarks": 4,
+      "views": 691
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "mechanism": "The source treats a little money as an arrival. JeloCare extends that literal household system: the money is collected by skincare before it can even remove its shoes."
+  },
+  "claimBoundary": "No product, price, stock, retailer, efficacy, suitability, treatment, savings, availability, delivery or clinical claim is made.",
+  "careBoundary": "Humour only; the reply does not infer a condition, symptom, product need or routine suitability.",
+  "channels": ["x-organic"]
+}

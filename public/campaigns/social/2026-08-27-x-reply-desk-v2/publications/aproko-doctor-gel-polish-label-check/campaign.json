@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-08-31-aproko-doctor-gel-polish-label-check-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-08-31T07:38:27.799Z",
+  "dataCheckedAt": "2026-08-31T07:37:53.054Z",
+  "objective": "join a fresh Nigerian nail-safety conversation with one memorable product-identity checkpoint while staying outside diagnosis, chemical identification and treatment advice",
+  "sourcePost": {
+    "url": "https://x.com/aproko_doctor/status/2094309089983500684",
+    "externalId": "2094309089983500684",
+    "publishedAt": "2026-08-31T06:19:32.090Z",
+    "timestampSource": "X status Snowflake",
+    "handle": "@aproko_doctor",
+    "displayName": "Aproko Doctor Global",
+    "observedText": "Avoid this type of gel polish!",
+    "nativeMedia": {
+      "kind": "x-native-video",
+      "observedDurationSeconds": 158,
+      "reusedByJeloCare": false
+    },
+    "activeAuthorEvidence": {
+      "observedReply": "Sharp. Please don’t forget to share.",
+      "url": "https://x.com/aproko_doctor/status/2094314697310843347",
+      "note": "The source author visibly answered participants inside the exact thread before JeloCare published."
+    },
+    "actionTimeAudit": {
+      "checkedAt": "2026-08-31T07:37:53.054Z",
+      "method": "fresh signed-in inspection of the exact public X source thread immediately before publication",
+      "existingJeloCareReply": false,
+      "replyComposerOpen": true,
+      "visibleEngagement": {
+        "replies": 12,
+        "reposts": 126,
+        "quotes": null,
+        "likes": 338,
+        "bookmarks": 124,
+        "views": null,
+        "viewsDisplayed": "16.9K"
+      }
+    }
+  },
+  "copy": {
+    "post": "Before the UV lamp comes on, make the bottle show ID first. Ask to see the label 👏🏽",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "repositoryStored": false,
+    "sourcePostContainsMedia": true,
+    "rightsBoundary": "The source creator's native X video remains only in its original thread. JeloCare did not download, attach, edit, repost, archive or cross-publish it."
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "submittedAt": "2026-08-31T07:38:27.081Z",
+      "publishedAt": "2026-08-31T07:38:27.799Z",
+      "timestampSource": "X status Snowflake",
+      "externalId": "2094328952986939782",
+      "publicUrl": "https://x.com/jelocare/status/2094328952986939782",
+      "replyTo": "https://x.com/aproko_doctor/status/2094309089983500684",
+      "liveVerifiedAt": "2026-08-31T07:40:30.582Z",
+      "spend": null,
+      "audienceSummary": "Public text-only reply from @jelocare to @aproko_doctor"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userInstruction": "post",
+    "confirmedUnit": "the exact Aproko Doctor target and previously shown text-only reply; no attached media, like, repost, quote-post, follow, direct message, schedule, spend or cross-post",
+    "timing": "the next user turn after the exact target, copy, media boundary and proposed X reply action were shown"
+  },
+  "liveVerification": {
+    "checkedAt": "2026-08-31T07:40:30.582Z",
+    "urlMatched": true,
+    "parentSourceMatched": true,
+    "copyMatched": true,
+    "emojiMatched": true,
+    "mediaPresent": false,
+    "initialVisibleEngagement": {
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 1
+    },
+    "sourceAfterPublication": {
+      "replies": 13,
+      "reposts": 134,
+      "likes": 345,
+      "bookmarks": null,
+      "views": null
+    }
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "note": "Immediate source growth and initial reply counters are baselines, not proof that this mechanism caused distribution or interaction."
+  },
+  "mechanism": "A familiar Nigerian identity-check frame turns a broad warning into one easy visual instruction: pause before the lamp and inspect the bottle label.",
+  "careBoundary": "General product-identity caution only; the reply does not diagnose an injury, assess a nail condition or replace professional medical care.",
+  "claimBoundary": "Seeing a label does not itself prove authenticity, safety or suitability. No chemical is identified and no product, salon, brand, treatment, efficacy or clinical outcome is endorsed or claimed.",
+  "externalActionScope": {
+    "performed": "one text-only X reply",
+    "notPerformed": [
+      "like",
+      "repost",
+      "quote-post",
+      "follow",
+      "direct-message",
+      "download",
+      "schedule",
+      "spend",
+      "clip",
+      "cross-channel-publication"
+    ]
+  },
+  "channels": ["x-organic"]
+}
