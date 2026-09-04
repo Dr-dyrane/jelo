@@ -962,7 +962,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T02:16:56.000Z",
-        expiresAt: "2026-09-06T02:16:56.000Z",
+        expiresAt: "2026-09-04T11:43:36Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -988,9 +990,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T02:16:56.000Z",
-        expiresAt: "2026-09-06T02:16:56.000Z",
+        expiresAt: "2026-09-04T11:42:43Z",
         available: false,
-        stock: "out-of-stock",
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -1128,11 +1130,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic Acid Daily Gentle Cleanser – 150ml",
       "150 ml",
       {
-        observedAt: "2026-08-27T21:27:25Z",
-        expiresAt: "2026-09-03T21:27:25Z",
+        observedAt: "2026-09-04T12:18:34Z",
+        expiresAt: "2026-09-05T12:18:34Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 5,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1143,10 +1146,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic Acid Daily Gentle Cleanser 150Ml",
       "150 ml",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
+        observedAt: "2026-09-04T12:18:32Z",
+        expiresAt: "2026-09-05T12:18:32Z",
         stock: "out-of-stock",
         available: false,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1171,10 +1175,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic Acid Daily Gentle Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-08-27T21:27:25Z",
-        expiresAt: "2026-09-03T21:27:25Z",
+        observedAt: "2026-09-04T12:18:34Z",
+        expiresAt: "2026-09-05T12:18:34Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1185,10 +1190,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic Acid Daily Gentle Cleanser – 150ml",
       "150 ml",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
+        observedAt: "2026-09-04T12:18:20Z",
+        expiresAt: "2026-09-05T12:18:20Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1210,12 +1216,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Care to Beauty",
       "https://www.caretobeauty.com/ng/some-by-mi-30-days-miracle-toner-150ml/",
       88,
-      25100,
+      18999,
       "Some By Mi AHA-BHA-PHA 30 Days Miracle Toner",
       "150 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-09-04T12:18:27Z",
+        expiresAt: "2026-09-05T12:18:27Z",
+        available: true,
+        stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1226,10 +1235,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SOME BY MI AHA BHA PHA 30 Days Miracle Toner",
       "150 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-09-04T11:41:46Z",
+        expiresAt: "2026-09-05T11:41:46Z",
         available: false,
         stock: "out-of-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1256,8 +1266,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-14T17:00:00Z",
         expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-        available: true,
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -1326,9 +1336,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "ANUA Niacinamide 10% + TXA 4% Serum",
       "30 ml",
       {
-        observedAt: "2026-08-30T00:11:51.842Z",
-        expiresAt: "2026-09-06T00:11:51.842Z",
+        observedAt: "2026-09-04T11:41:28Z",
+        expiresAt: "2026-09-05T11:41:28Z",
         stock: "in-stock",
+        available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1354,22 +1366,26 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua 10% Niacinamide + 4% TXA Acid Serum",
       "30 ml",
       {
-        observedAt: "2026-08-30T00:11:51.842Z",
-        expiresAt: "2026-09-06T00:11:51.842Z",
+        observedAt: "2026-09-04T11:42:27Z",
+        expiresAt: "2026-09-05T11:42:27Z",
         stock: "in-stock",
+        available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
       "Care to Beauty",
       "https://www.caretobeauty.com/ng/anua-niacinamide-10-txa-4-serum-30ml/",
       88,
-      43683,
+      37017,
       "Anua Niacinamide 10% + TXA 4% Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-08-15T07:02:00Z",
-        expiresAt: "2026-08-22T07:02:00Z",
+        observedAt: "2026-09-04T12:18:27Z",
+        expiresAt: "2026-09-05T12:18:27Z",
         stock: "in-stock",
+        available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1397,10 +1413,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream Fragrance Free",
       "50 ml",
       {
-        observedAt: "2026-08-27T21:53:10.126Z",
-        expiresAt: "2026-09-03T21:53:10.126Z",
+        observedAt: "2026-09-04T11:43:44Z",
+        expiresAt: "2026-09-05T11:43:44Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1411,10 +1428,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Wonder Cream Fragrance Free",
       "50 ml",
       {
-        observedAt: "2026-08-27T21:53:54.787Z",
-        expiresAt: "2026-09-03T21:53:54.787Z",
-        stock: "in-stock",
-        available: true,
+        observedAt: "2026-09-04T11:42:20Z",
+        expiresAt: "2026-09-05T11:42:20Z",
+        stock: "out-of-stock",
+        available: false,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1441,8 +1459,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-14T17:00:00Z",
         expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-        available: true,
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -1469,10 +1487,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Bright + Clear Face Cream",
       "75 ml",
       {
-        observedAt: "2026-08-27T21:54:06.700Z",
-        expiresAt: "2026-09-03T21:54:06.700Z",
+        observedAt: "2026-09-04T11:42:56Z",
+        expiresAt: "2026-09-05T11:42:56Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1483,10 +1502,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream",
       "75 ml",
       {
-        observedAt: "2026-08-27T21:53:35.810Z",
-        expiresAt: "2026-09-03T21:53:35.810Z",
+        observedAt: "2026-09-04T11:43:44Z",
+        expiresAt: "2026-09-05T11:43:44Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1513,8 +1533,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-14T17:00:00Z",
         expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
-        available: true,
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -1525,10 +1545,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Cream - 75ml",
       "75 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-09-04T12:18:17Z",
+        expiresAt: "2026-09-05T12:18:17Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1539,10 +1560,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
+        observedAt: "2026-09-04T12:18:27Z",
+        expiresAt: "2026-09-05T12:18:27Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1643,9 +1665,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "MEDIANA LEAVE IN CONDITIONING MILK 250ML",
       "250 ml",
       {
-        observedAt: "2026-08-30T00:11:51.842Z",
-        expiresAt: "2026-09-06T00:11:51.842Z",
+        observedAt: "2026-09-04T11:41:24Z",
+        expiresAt: "2026-09-05T11:41:24Z",
         stock: "in-stock",
+        available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -1881,10 +1905,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Blemish Control Cleanser 8 fl oz",
       "236 ml",
       {
-        observedAt: "2026-08-30T03:47:27.287Z",
-        expiresAt: "2026-09-06T03:47:27.287Z",
+        observedAt: "2026-09-04T11:41:41Z",
+        expiresAt: "2026-09-05T11:41:41Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -2045,9 +2070,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "100 ml / 3.38 fl oz",
       {
         observedAt: "2026-08-30T00:26:58.532Z",
-        expiresAt: "2026-09-06T00:26:58.532Z",
-        available: true,
-        stock: "in-stock",
+        expiresAt: "2026-09-04T11:42:53Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -2545,7 +2570,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "150 ml",
       {
         observedAt: "2026-08-30T02:02:13.000Z",
-        expiresAt: "2026-09-06T02:02:13.000Z",
+        expiresAt: "2026-09-04T11:43:58Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -2602,10 +2629,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g",
       "454 g",
       {
-        observedAt: "2026-08-30T01:02:44.400Z",
-        expiresAt: "2026-09-06T01:02:44.400Z",
+        observedAt: "2026-09-04T11:42:07Z",
+        expiresAt: "2026-09-05T11:42:07Z",
         available: true,
         stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -2677,8 +2705,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml",
       "473 ml",
       {
-        observedAt: "2026-08-30T02:02:13.000Z",
-        expiresAt: "2026-09-06T02:02:13.000Z",
+        observedAt: "2026-09-04T11:43:03Z",
+        expiresAt: "2026-09-05T11:43:03Z",
+        available: true,
+        stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -2841,9 +2872,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "150 ml",
       {
         observedAt: "2026-08-30T01:02:44.400Z",
-        expiresAt: "2026-09-06T01:02:44.400Z",
-        available: true,
-        stock: "in-stock",
+        expiresAt: "2026-09-04T11:43:43Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -2854,10 +2885,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5fl/150ml",
       "150 ml",
       {
-        observedAt: "2026-08-30T01:02:44.400Z",
-        expiresAt: "2026-09-06T01:02:44.400Z",
+        observedAt: "2026-09-04T11:41:29Z",
+        expiresAt: "2026-09-05T11:41:29Z",
         available: true,
         stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -3062,9 +3094,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "400 ml",
       {
         observedAt: "2026-08-30T02:27:37.000Z",
-        expiresAt: "2026-09-06T02:27:37.000Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-04T11:43:52Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -3179,11 +3211,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Ceramide Moisturising Gel Cream",
       "50 ml",
       {
-        observedAt: "2026-08-30T07:18:54.000Z",
-        expiresAt: "2026-09-06T07:18:54.000Z",
+        observedAt: "2026-09-04T11:41:43Z",
+        expiresAt: "2026-09-05T11:41:43Z",
         stock: "in-stock",
         available: true,
-        verificationMethod: "api",
+        verificationMethod: "retailer_page",
       },
     ),
   ],
@@ -3196,10 +3228,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Blemish Gel Moisturiser",
       "50 ml",
       {
-        observedAt: "2026-08-30T01:31:00.820Z",
-        expiresAt: "2026-09-06T01:31:00.820Z",
-        stock: "in-stock",
-        available: true,
+        observedAt: "2026-09-04T11:41:34Z",
+        expiresAt: "2026-09-05T11:41:34Z",
+        stock: "out-of-stock",
+        available: false,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -3210,10 +3243,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Blemish Gel Moisturizer 50ml",
       "50 ml",
       {
-        observedAt: "2026-08-30T01:31:00.820Z",
-        expiresAt: "2026-09-06T01:31:00.820Z",
+        observedAt: "2026-09-04T11:43:01Z",
+        expiresAt: "2026-09-05T11:43:01Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -3268,10 +3302,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Vitamin C Body Lotion 400ml",
       "400 ml",
       {
-        observedAt: "2026-08-30T01:02:44.400Z",
-        expiresAt: "2026-09-06T01:02:44.400Z",
+        observedAt: "2026-09-04T11:42:07Z",
+        expiresAt: "2026-09-05T11:42:07Z",
         available: true,
         stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -3327,10 +3362,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream 50Ml",
       "50 ml",
       {
-        observedAt: "2026-08-30T01:02:44.400Z",
-        expiresAt: "2026-09-06T01:02:44.400Z",
+        observedAt: "2026-09-04T11:41:29Z",
+        expiresAt: "2026-09-05T11:41:29Z",
         available: true,
         stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -3415,10 +3451,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dove Calming Moisture 3% Body Wash 547ml",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-08-30T03:48:43.690Z",
-        expiresAt: "2026-09-06T03:48:43.690Z",
+        observedAt: "2026-09-04T11:42:16Z",
+        expiresAt: "2026-09-05T11:42:16Z",
         stock: "out-of-stock",
         available: false,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -3565,10 +3602,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "KeraCare Dry And Itchy Conditioner",
       "950 ml",
       {
-        observedAt: "2026-08-30T06:13:45.297Z",
-        expiresAt: "2026-09-06T06:13:45.297Z",
-        stock: "out-of-stock",
-        available: false,
+        observedAt: "2026-09-04T11:42:29Z",
+        expiresAt: "2026-09-05T11:42:29Z",
+        stock: "in-stock",
+        available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -3640,10 +3678,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cécred Moisturizing Deep Conditioner 300ml",
       "300 ml / 10 fl oz",
       {
-        observedAt: "2026-08-30T05:39:13.098Z",
-        expiresAt: "2026-09-06T05:39:13.098Z",
+        observedAt: "2026-09-04T11:42:18Z",
+        expiresAt: "2026-09-05T11:42:18Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
   ],
@@ -3656,10 +3695,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrate + Protect Body Lotion",
       "500 ml",
       {
-        observedAt: "2026-08-30T05:04:28.454Z",
-        expiresAt: "2026-09-06T05:04:28.454Z",
-        stock: "out-of-stock",
-        available: false,
+        observedAt: "2026-09-04T11:41:52Z",
+        expiresAt: "2026-09-05T11:41:52Z",
+        stock: "in-stock",
+        available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -3743,11 +3783,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrate + Protect Body Lotion",
       "500 ml",
       {
-        observedAt: "2026-08-30T05:04:38.543Z",
-        expiresAt: "2026-09-06T05:04:38.543Z",
-        stock: "unknown",
-        available: false,
+        observedAt: "2026-09-04T11:41:47Z",
+        expiresAt: "2026-09-05T11:41:47Z",
+        stock: "in-stock",
+        available: true,
         priceComparison: "exclude",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -3827,14 +3868,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "BuyBetter",
       "https://buybetter.ng/product/skin-by-zaron-vitamin-c-body-wash-650ml/",
       97,
-      11718,
+      11610,
       "Skin by Zaron Vitamin C Body Wash",
       "650 ml",
       {
-        observedAt: "2026-08-30T01:31:00.820Z",
-        expiresAt: "2026-09-06T01:31:00.820Z",
+        observedAt: "2026-09-04T11:41:47Z",
+        expiresAt: "2026-09-05T11:41:47Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -3845,11 +3887,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin by Zaron Vitamin C Body Wash 650ml",
       "650 ml",
       {
-        observedAt: "2026-08-30T01:31:00.820Z",
-        expiresAt: "2026-09-06T01:31:00.820Z",
-        stock: "unknown",
-        available: false,
+        observedAt: "2026-09-04T11:42:09Z",
+        expiresAt: "2026-09-05T11:42:09Z",
+        stock: "in-stock",
+        available: true,
         priceComparison: "exclude",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -3948,10 +3991,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Facial Moisturising Lotion PM 52ml",
       "52 ml",
       {
-        observedAt: "2026-08-30T02:56:10.000Z",
-        expiresAt: "2026-09-06T02:56:10.000Z",
+        observedAt: "2026-09-04T11:42:04Z",
+        expiresAt: "2026-09-05T11:42:04Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -4068,11 +4112,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-08-30T01:31:00.820Z",
-        expiresAt: "2026-09-06T01:31:00.820Z",
-        stock: "unknown",
-        available: false,
+        observedAt: "2026-09-04T11:42:11Z",
+        expiresAt: "2026-09-05T11:42:11Z",
+        stock: "in-stock",
+        available: true,
         priceComparison: "exclude",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -4369,10 +4414,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-08-30T02:16:56.000Z",
-        expiresAt: "2026-09-06T02:16:56.000Z",
+        observedAt: "2026-09-04T11:42:46Z",
+        expiresAt: "2026-09-05T11:42:46Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -4614,10 +4660,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nivea Perfect & Radiant Body Lotion 400ml",
       "400 ml",
       {
-        observedAt: "2026-08-30T03:10:31.728Z",
-        expiresAt: "2026-09-06T03:10:31.728Z",
+        observedAt: "2026-09-04T11:43:03Z",
+        expiresAt: "2026-09-05T11:43:03Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -4643,9 +4690,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "400 ml",
       {
         observedAt: "2026-08-30T03:12:50.603Z",
-        expiresAt: "2026-09-06T03:12:50.603Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-04T11:43:33Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -4729,10 +4776,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind To Skin Refreshing Facial Gel Wash 5.1fl oz / 150ml",
       "150 ml",
       {
-        observedAt: "2026-08-30T07:02:34.000Z",
-        expiresAt: "2026-09-06T07:02:34.000Z",
+        observedAt: "2026-09-04T11:42:25Z",
+        expiresAt: "2026-09-05T11:42:25Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -4755,14 +4803,15 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "BuyBetter",
       "https://buybetter.ng/product/balance-niacinamide-blemish-recovery-serum-clear-30ml/",
       97,
-      8400,
+      10000,
       "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
       "30 ml",
       {
-        observedAt: "2026-08-30T01:02:44.400Z",
-        expiresAt: "2026-09-06T01:02:44.400Z",
-        available: false,
-        stock: "out-of-stock",
+        observedAt: "2026-09-04T11:41:38Z",
+        expiresAt: "2026-09-05T11:41:38Z",
+        available: true,
+        stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -4773,11 +4822,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Niacinamide Calm & Clear Blemish Recovery Serum – 30ml/ 1FL.0Z",
       "30 ml",
       {
-        observedAt: "2026-08-30T01:02:44.400Z",
-        expiresAt: "2026-09-06T01:02:44.400Z",
-        available: false,
-        stock: "unknown",
+        observedAt: "2026-09-04T11:41:38Z",
+        expiresAt: "2026-09-05T11:41:38Z",
+        available: true,
+        stock: "in-stock",
         priceComparison: "exclude",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -5096,8 +5146,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-08-30T02:16:56.000Z",
-        expiresAt: "2026-09-06T02:16:56.000Z",
+        observedAt: "2026-09-04T11:44:22Z",
+        expiresAt: "2026-09-05T11:44:22Z",
+        available: true,
+        stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -5108,8 +5161,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-Pro Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-08-30T02:16:56.000Z",
-        expiresAt: "2026-09-06T02:16:56.000Z",
+        observedAt: "2026-09-04T11:43:50Z",
+        expiresAt: "2026-09-05T11:43:50Z",
+        available: true,
+        stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -5234,9 +5290,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "60 ml",
       {
         observedAt: "2026-08-30T03:10:33.566Z",
-        expiresAt: "2026-09-06T03:10:33.566Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-02T04:18:08Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5277,9 +5333,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "60 ml",
       {
         observedAt: "2026-08-30T03:10:33.566Z",
-        expiresAt: "2026-09-06T03:10:33.566Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-04T11:42:13Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5350,9 +5406,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T03:10:33.566Z",
-        expiresAt: "2026-09-06T03:10:33.566Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-04T11:41:36Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5379,10 +5435,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-08-30T03:13:29.000Z",
-        expiresAt: "2026-09-06T03:13:29.000Z",
+        observedAt: "2026-09-04T11:44:53Z",
+        expiresAt: "2026-09-05T11:44:53Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -5421,10 +5478,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Azelaic Acid Serum - 30ml",
       "30 ml",
       {
-        observedAt: "2026-08-30T03:13:29.000Z",
-        expiresAt: "2026-09-06T03:13:29.000Z",
+        observedAt: "2026-09-04T11:42:31Z",
+        expiresAt: "2026-09-05T11:42:31Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -5466,9 +5524,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "100 ml",
       {
         observedAt: "2026-08-30T01:17:08.285Z",
-        expiresAt: "2026-09-06T01:17:08.285Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-04T11:42:06Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5541,9 +5599,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T06:13:45.297Z",
-        expiresAt: "2026-09-06T06:13:45.297Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-04T11:41:45Z",
+        stock: "unknown",
+        available: false,
       },
     ),
   ],
@@ -5585,9 +5643,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "120 ml",
       {
         observedAt: "2026-08-30T01:17:08.285Z",
-        expiresAt: "2026-09-06T01:17:08.285Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-04T11:41:33Z",
+        stock: "unknown",
+        available: false,
       },
     ),
   ],
@@ -5660,7 +5718,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T01:43:54.671Z",
-        expiresAt: "2026-09-06T01:43:54.671Z",
+        expiresAt: "2026-09-04T12:18:12Z",
         stock: "unknown",
         available: false,
         priceComparison: "exclude",
@@ -5748,9 +5806,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "100 ml",
       {
         observedAt: "2026-08-30T06:48:36.000Z",
-        expiresAt: "2026-09-06T06:48:36.000Z",
-        available: true,
-        stock: "in-stock",
+        expiresAt: "2026-09-04T11:42:10Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -5908,10 +5966,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Niacinamide Soothe + Glow Serum (Purple Pack) 30ml",
       "30 ml",
       {
-        observedAt: "2026-08-30T02:37:57.000Z",
-        expiresAt: "2026-09-06T02:37:57.000Z",
+        observedAt: "2026-09-04T11:41:30Z",
+        expiresAt: "2026-09-05T11:41:30Z",
         stock: "out-of-stock",
         available: false,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -5922,11 +5981,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Soothe & Glow Niacinamide serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-08-30T02:37:57.000Z",
-        expiresAt: "2026-09-06T02:37:57.000Z",
-        stock: "unknown",
-        available: false,
+        observedAt: "2026-09-04T11:42:45Z",
+        expiresAt: "2026-09-05T11:42:45Z",
+        stock: "in-stock",
+        available: true,
         priceComparison: "exclude",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -5967,10 +6027,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Soothe + Glow Niacinamide Serum - 30ml",
       "30 ml",
       {
-        observedAt: "2026-08-30T02:37:57.000Z",
-        expiresAt: "2026-09-06T02:37:57.000Z",
-        stock: "in-stock",
-        available: true,
+        observedAt: "2026-09-04T11:42:07Z",
+        expiresAt: "2026-09-05T11:42:07Z",
+        stock: "out-of-stock",
+        available: false,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -5981,11 +6042,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Soothe Glow Niacinamide Serum - 30ml",
       "30 ml",
       {
-        observedAt: "2026-08-30T02:37:57.000Z",
-        expiresAt: "2026-09-06T02:37:57.000Z",
-        stock: "unknown",
-        available: false,
+        observedAt: "2026-09-04T11:42:49Z",
+        expiresAt: "2026-09-05T11:42:49Z",
+        stock: "in-stock",
+        available: true,
         priceComparison: "exclude",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -6209,10 +6271,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-08-30T02:02:13.000Z",
-        expiresAt: "2026-09-06T02:02:13.000Z",
-        available: false,
-        stock: "out-of-stock",
+        observedAt: "2026-09-04T11:42:47Z",
+        expiresAt: "2026-09-05T11:42:47Z",
+        available: true,
+        stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -6223,8 +6286,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-08-30T02:02:13.000Z",
-        expiresAt: "2026-09-06T02:02:13.000Z",
+        observedAt: "2026-09-04T11:43:03Z",
+        expiresAt: "2026-09-05T11:43:03Z",
+        available: true,
+        stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -6264,8 +6330,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6oz",
       "73.7 g",
       {
-        observedAt: "2026-08-30T02:02:13.000Z",
-        expiresAt: "2026-09-06T02:02:13.000Z",
+        observedAt: "2026-09-04T11:42:55Z",
+        expiresAt: "2026-09-05T11:42:55Z",
+        available: true,
+        stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -6277,9 +6346,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "73.7 g",
       {
         observedAt: "2026-08-30T02:02:13.000Z",
-        expiresAt: "2026-09-06T02:02:13.000Z",
+        expiresAt: "2026-09-04T11:42:05Z",
         available: false,
-        stock: "out-of-stock",
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -6320,11 +6389,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Olay Super Serum Body Wash, Normal Skin; GTIN 030772160350",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-08-30T05:04:46.555Z",
-        expiresAt: "2026-09-06T05:04:46.555Z",
+        observedAt: "2026-09-04T11:43:53Z",
+        expiresAt: "2026-09-05T11:43:53Z",
         inventoryQuantity: 7,
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -6336,9 +6406,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "18.5 fl oz / 547 ml",
       {
         observedAt: "2026-08-30T05:04:46.556Z",
-        expiresAt: "2026-09-06T05:04:46.556Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-04T11:43:58Z",
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -6529,10 +6599,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Tresemme Keratin Smooth Weightless Conditioner 828ml",
       "828 ml",
       {
-        observedAt: "2026-08-30T01:31:00.820Z",
-        expiresAt: "2026-09-06T01:31:00.820Z",
+        observedAt: "2026-09-04T11:42:05Z",
+        expiresAt: "2026-09-05T11:42:05Z",
         available: false,
         stock: "out-of-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -6630,11 +6701,12 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Current verification wall; prior exact listing retained only as an unavailable reference",
       "30 ml",
       {
-        observedAt: "2026-08-30T04:23:14.383Z",
-        expiresAt: "2026-09-06T04:23:14.383Z",
-        available: false,
-        stock: "unknown",
+        observedAt: "2026-09-04T11:42:13Z",
+        expiresAt: "2026-09-05T11:42:13Z",
+        available: true,
+        stock: "in-stock",
         priceComparison: "exclude",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -6661,7 +6733,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T04:23:14.840Z",
-        expiresAt: "2026-09-06T04:23:14.840Z",
+        expiresAt: "2026-09-04T11:43:56Z",
+        available: false,
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -6724,9 +6798,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "400 ml",
       {
         observedAt: "2026-08-30T03:48:49.000Z",
-        expiresAt: "2026-09-06T03:48:49.000Z",
+        expiresAt: "2026-09-04T11:42:30Z",
         available: false,
-        stock: "out-of-stock",
+        stock: "unknown",
       },
     ),
     exactNg(
@@ -7023,9 +7097,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "1.75 fl oz / 52 ml",
       {
         observedAt: "2026-08-30T05:04:40.523Z",
-        expiresAt: "2026-09-06T05:04:40.523Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-04T11:41:55Z",
+        stock: "unknown",
+        available: false,
       },
     ),
 
@@ -7054,7 +7128,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "1.75 fl oz / 52 ml",
       {
         observedAt: "2026-08-30T05:04:43.283Z",
-        expiresAt: "2026-09-06T05:04:43.283Z",
+        expiresAt: "2026-09-04T11:43:07Z",
         stock: "unknown",
         available: false,
         priceComparison: "exclude",
@@ -7069,10 +7143,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Advanced Clinicals® 1.75 Oz. Vitamin C Serum",
       "1.75 fl oz / 52 ml",
       {
-        observedAt: "2026-08-30T05:04:43.284Z",
-        expiresAt: "2026-09-06T05:04:43.284Z",
+        observedAt: "2026-09-04T11:44:53Z",
+        expiresAt: "2026-09-05T11:44:53Z",
         stock: "in-stock",
         available: true,
+        verificationMethod: "retailer_page",
       },
     ),
 
@@ -8700,9 +8775,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "50 g",
       {
         observedAt: "2026-08-30T06:48:36.000Z",
-        expiresAt: "2026-09-06T06:48:36.000Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-04T11:41:21Z",
+        stock: "unknown",
+        available: false,
       },
     ),
   ],
@@ -8954,9 +9029,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         observedAt: "2026-08-30T07:02:34.000Z",
-        expiresAt: "2026-09-06T07:02:34.000Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-09-04T11:42:19Z",
+        stock: "unknown",
+        available: false,
       },
     ),
   ],
