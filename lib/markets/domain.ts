@@ -220,6 +220,7 @@ function normalizedHttpsUrl(value: string): URL | null {
       comparisonHostname === "localhost" ||
       comparisonHostname.endsWith(".localhost") ||
       comparisonHostname.endsWith(".local") ||
+      /(?:^|\.)xn--/u.test(comparisonHostname) ||
       /^\d{1,3}(?:\.\d{1,3}){3}$/u.test(comparisonHostname) ||
       hostname.startsWith("[")
     ) {
