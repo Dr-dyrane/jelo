@@ -314,6 +314,7 @@ function releaseInput(value: Record<string, unknown>, candidateId: string) {
 }
 
 function offerForDossier(
+  dossier: CataloguePublicationDossier,
   offer: CataloguePublicationDossier["nigeria"]["exactOffers"][number],
 ): Offer {
   const retailer = nigeriaRetailers.find(
@@ -323,6 +324,32 @@ function offerForDossier(
     throw new Error(
       `${offer.retailer} is not in the reviewed Nigerian retailer registry.`,
     );
+  if (offer.retailerStatus !== retailer.reviewStatus) {
+    throw new Error(
+      `${offer.retailer} offer status drifted from the reviewed Nigerian retailer registry.`,
+    );
+  }
+  const listingHost = new URL(offer.listingUrl).hostname
+    .replace(/^www\./, "")
+    .toLowerCase();
+  const authorization = dossier.nigeria.brandSellerAuthorizationEvidence.filter(
+    (item) =>
+      normalized(item.retailer) === normalized(retailer.name) &&
+      item.listingHost === listingHost,
+  );
+  if (authorization.length > 1) {
+    throw new Error(
+      `${offer.retailer} has duplicated brand seller authorization evidence.`,
+    );
+  }
+  const brandAuthorizationEvidence = authorization[0]
+    ? {
+        observedAt: authorization[0].evidence.observedAt,
+        sourceUrl: authorization[0].evidence.sourceUrl,
+        basis: "brand-source" as const,
+        brand: dossier.identity.brand,
+      }
+    : undefined;
   return {
     retailer: retailer.name,
     url: offer.listingUrl,
@@ -336,6 +363,7 @@ function offerForDossier(
       sourceUrl: offer.listingUrl,
       basis: "retailer-page",
     },
+    ...(brandAuthorizationEvidence ? { brandAuthorizationEvidence } : {}),
     priceObservation: {
       observedAt: offer.observedAt,
       variant: offer.observedTitle,
@@ -379,7 +407,9 @@ export function materializeCataloguePublicationRelease(
     usage: release.presentation.usage,
     evidence: "emerging",
     verifiedIngredientIds: [],
-    offers: dossier.nigeria.exactOffers.map(offerForDossier),
+    offers: dossier.nigeria.exactOffers.map((offer) =>
+      offerForDossier(dossier, offer),
+    ),
   };
 }
 

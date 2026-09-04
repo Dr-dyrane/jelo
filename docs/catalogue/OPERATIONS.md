@@ -785,10 +785,17 @@ in Nigerian distribution after exhaustive search (25+ retailers checked). The
 limited-availability set is maintained in `limitedAvailabilitySlugs` and
 includes niche, imported, or brand-owned products with narrow distribution.
 
-### Cold-start trend history
+### Price-history projection
 
-When a product has no static or database price history, the static fallback
-in `lib/inventory/static-price-trends.ts` seeds a single anchor observation
-per shareable NG offer. This ensures the `/share` trend chart shows at least
-one point immediately after a product is added. The next cron run adds a
-second observation, creating a visible trend line.
+Public trend lines and movement labels come only from append-only
+`offer_price_history` rows that still bind to one current exact offer. The
+current offer's normalized URL, retailer, price, currency, observed title,
+size, availability, verification method, observation time and expiry must
+agree with the rendered snapshot, and the latest history row must be that same
+current observation.
+
+A new offer with zero or one qualifying history row has no movement yet. A
+missing database, query failure, stale listing, replaced URL, ambiguous offer
+identity or mismatched latest row also produces no movement. Never seed a past
+point from the current snapshot or reinterpret absent history as a flat price.
+`data/price-history.ts` is legacy provenance and is not a public trend fallback.

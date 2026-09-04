@@ -20,6 +20,7 @@ import {
 import { listCatalogueProducts } from "@/lib/catalogue/repository";
 import { publicSocialMetadata, retailerSocialCard } from "@/lib/og/social-card";
 import { buildRetailerProfile } from "@/modules/commerce/retailer-profile";
+import { buildRetailerProfileEvidenceCopy } from "@/modules/commerce/retailer-evidence-copy";
 import styles from "./retailer-profile.module.css";
 
 export const revalidate = 300;
@@ -63,15 +64,6 @@ function sourceLabel(retailer: NonNullable<ReturnType<typeof retailerBySlug>>) {
   return "Direct retailer";
 }
 
-function identityLabel(
-  retailer: NonNullable<ReturnType<typeof retailerBySlug>>,
-) {
-  if (retailer.identityEvidence?.basis === "brand-source")
-    return "Named by a brand source";
-  if (retailer.identityEvidence) return "Store details observed";
-  return "Reference source";
-}
-
 export default async function RetailerProfilePage({
   params,
   searchParams,
@@ -88,9 +80,20 @@ export default async function RetailerProfilePage({
   const profile = buildRetailerProfile(retailer, catalogue);
   const featured = profile.products.slice(0, 3);
   const shopping = query.shopping === "1";
+  const exactOfferCount = profile.products.reduce(
+    (count, product) => count + product.offers.length,
+    0,
+  );
+  const evidenceCopy = buildRetailerProfileEvidenceCopy(
+    retailer,
+    exactOfferCount,
+  );
   const lastObserved = profile.latestObservedAt
     ? dateFormatter.format(new Date(profile.latestObservedAt))
     : "Awaiting price";
+  const identityObserved = evidenceCopy.identityObservedAt
+    ? dateFormatter.format(new Date(evidenceCopy.identityObservedAt))
+    : null;
   const host = new URL(retailer.homepage).hostname.replace(/^www\./, "");
 
   return (
@@ -111,7 +114,7 @@ export default async function RetailerProfilePage({
           <p className={styles.note}>
             {shopping
               ? "Keep adding from this store. Your basket stays with one retailer."
-              : retailer.note}
+              : evidenceCopy.hero}
           </p>
           <div className={styles.heroActions}>
             {shopping ? (
@@ -140,6 +143,7 @@ export default async function RetailerProfilePage({
           {shopping ? null : (
             <div
               className={styles.disclaimerChips}
+              role="group"
               aria-label="Retailer price disclosures"
             >
               <span>Prices may change</span>
@@ -150,6 +154,7 @@ export default async function RetailerProfilePage({
 
         <div
           className={styles.heroStage}
+          role="group"
           aria-label={`${retailer.name} products observed by JeloCare`}
         >
           <div className={styles.stageLabel}>
@@ -157,7 +162,8 @@ export default async function RetailerProfilePage({
               {shopping ? "Your current store" : sourceLabel(retailer)}
             </span>
             <small>
-              {shopping ? "Exact products below" : identityLabel(retailer)}
+              {shopping ? "Exact products below" : evidenceCopy.identityLabel}
+              {!shopping && identityObserved ? ` · ${identityObserved}` : null}
             </small>
           </div>
           {featured.length ? (
@@ -182,6 +188,7 @@ export default async function RetailerProfilePage({
           )}
           <div
             className={styles.metrics}
+            role="group"
             aria-label="Retailer observation summary"
           >
             <span>
@@ -276,6 +283,10 @@ export default async function RetailerProfilePage({
           </h2>
         </div>
         <dl>
+          <div>
+            <dt>Retailer</dt>
+            <dd>{evidenceCopy.limit}</dd>
+          </div>
           <div>
             <dt>Product</dt>
             <dd>Brand, variant and size must match.</dd>

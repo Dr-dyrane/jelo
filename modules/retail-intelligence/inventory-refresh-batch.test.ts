@@ -10,6 +10,8 @@ function completedResult(id: string): InventoryRefreshResult {
     jobId: `job-${id}`,
     offerId: `offer-${id}`,
     productSlug: `product-${id}`,
+    requestedUrl: `https://retailer.example/product-${id}`,
+    marketCode: "NG",
     status: "completed",
     recoveredLease: false,
   };

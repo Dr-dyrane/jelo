@@ -233,6 +233,69 @@ test("the newest exact observation wins for the same retailer and market", () =>
   assert.equal(persistedWins.offers[0]?.priceNgn, 10_500);
 });
 
+test("newer persisted evidence preserves an exact checked-in comparison exclusion", () => {
+  const approvedOffer = exactOffer({
+    url: "https://live.example/product/#reviewed",
+    priceComparison: "exclude",
+    checkedAt: "2026-08-09T12:00:00Z",
+    expiresAt: "2026-08-16T12:00:00Z",
+    listingEvidence: {
+      observedAt: "2026-08-09T12:00:00Z",
+      sourceUrl: "https://live.example/product/#reviewed",
+      basis: "retailer-page",
+    },
+    priceObservation: {
+      observedAt: "2026-08-09T12:00:00Z",
+      variant: "Approved brand Foaming Facial Cleanser",
+      size: "50 ml",
+      stock: "in-stock",
+      landedCost: "unknown",
+    },
+  });
+  const newerPersisted = exactOffer({
+    url: "https://live.example/product",
+    checkedAt: "2026-08-10T12:00:00Z",
+    expiresAt: "2026-08-17T12:00:00Z",
+    listingEvidence: {
+      observedAt: "2026-08-10T12:00:00Z",
+      sourceUrl: "https://live.example/product",
+      basis: "retailer-page",
+    },
+    priceObservation: {
+      observedAt: "2026-08-10T12:00:00Z",
+      variant: "Approved brand Foaming Facial Cleanser",
+      size: "50 ml",
+      stock: "in-stock",
+      landedCost: "unknown",
+    },
+  });
+
+  const [reconciled] = reconcilePublishedCatalogue(
+    [product("approved", { offers: [newerPersisted] })],
+    [product("approved", { offers: [approvedOffer] })],
+  );
+
+  assert.equal(reconciled.offers[0]?.priceComparison, "exclude");
+  assert.equal(
+    hasShareableNgOffer(reconciled, new Date("2026-08-10T12:01:00Z")),
+    false,
+  );
+
+  const siblingUrl = {
+    ...newerPersisted,
+    url: "https://live.example/sibling-product",
+    listingEvidence: {
+      ...newerPersisted.listingEvidence!,
+      sourceUrl: "https://live.example/sibling-product",
+    },
+  };
+  const [siblingReconciled] = reconcilePublishedCatalogue(
+    [product("approved", { offers: [siblingUrl] })],
+    [product("approved", { offers: [approvedOffer] })],
+  );
+  assert.equal(siblingReconciled.offers[0]?.priceComparison, undefined);
+});
+
 test("a newly enriched product remains shareable while Neon still has only stale offers", () => {
   const asOf = new Date("2026-08-09T12:01:00Z");
   const approvedOffer = exactOffer({

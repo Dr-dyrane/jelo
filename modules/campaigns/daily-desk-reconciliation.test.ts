@@ -14,6 +14,7 @@ import {
   reconcileDailyDesk,
   type DailyDeskReconciliationDependencies,
 } from "@/lib/campaigns/daily-desk-reconciliation";
+import type { DailyDeskReadModel } from "@/lib/campaigns/daily-desk";
 
 const now = new Date("2026-09-04T13:42:00.000Z");
 
@@ -43,6 +44,12 @@ function dependencies(
   return {
     now: () => now,
     readAcceptedRecordKey: async () => null,
+    readCurrentDesk: async () =>
+      ({
+        status: "ready",
+        date: "2026-09-04",
+        recency: "current-day",
+      }) as DailyDeskReadModel,
     select: async () => marketSelection,
     render: async () => undefined as never,
     archive: async () => archive,
@@ -136,6 +143,29 @@ test("an accepted Desk stays immutable and skips selection, rendering, and archi
   });
 });
 
+test("an existing acceptance is not called current when its evidence no longer validates", async () => {
+  const result = await reconcileDailyDesk(
+    { requestOrigin: "https://www.jelocare.com" },
+    dependencies({
+      readAcceptedRecordKey: async () => archive.campaignRecordKey,
+      readCurrentDesk: async () => ({
+        status: "evidence-expired",
+        date: "2026-09-04",
+      }),
+      select: async () => {
+        throw new Error("selection should not replace an immutable acceptance");
+      },
+    }),
+  );
+
+  assert.deepEqual(result, {
+    status: "accepted-evidence-invalid",
+    date: "2026-09-04",
+    campaignRecordKey: archive.campaignRecordKey,
+    evidenceStatus: "evidence-expired",
+  });
+});
+
 test("an editorial fallback cannot become a Daily Desk record", async () => {
   const fallbackSelection: DailyCampaignSelection = {
     status: "selected",
@@ -187,6 +217,15 @@ test("the reconciliation path has no recipient, email, or delivery dependency", 
   assert.match(route, /isAuthorizedCronRequest/);
   assert.match(route, /dailyDeskReconciliationEnabled\(\)/);
   assert.match(route, /revalidatePath\("\/lagos"\)/);
+  assert.match(route, /recordScheduledOwnerStarted\(\{/);
+  assert.match(route, /recordScheduledOwnerCompleted\(\{/);
+  assert.match(route, /recordScheduledOwnerFailed\(\{/);
+  assert.match(route, /owner: "daily-desk-reconcile"/);
+  assert.match(route, /createHash\("sha256"\)/);
+  assert.doesNotMatch(route, /message\.replace\(/);
+  assert.match(route, /status: receiptRecorded \? 200 : 503/);
+  assert.match(route, /result\.status === "accepted-evidence-invalid"/);
+  assert.match(source, /readCurrentDesk/);
   assert.deepEqual(
     (
       JSON.parse(vercel) as { crons: Array<{ path: string; schedule: string }> }

@@ -1,6 +1,6 @@
 # ADR 0019: Product-to-place Market Finder
 
-- **Status:** Phase 1 foundation released; production product-data activation pending
+- **Status:** Phase 2 Trade Fair pilot live for reviewed evidence
 - **Date:** 2026-09-01
 - **Decision owner:** Founder
 - **Extends:** [ADR 0002](0002-anonymous-community-knowledge-intake.md),
@@ -98,7 +98,11 @@ applied, zero pending, and zero drift. The schema application seeded no rows.
 A separate reviewed, location-only onboarding then published the `trade-fair`
 market and verified Nectar Beauty Hub's Tradefair outlet, directions, and
 public phone without creating a product relation, price, or stock observation.
-All three production gates remain off.
+The governed schema is applied in production. The Trade Fair public read is
+active only for reviewed current records, and the navigation entry appears only
+when that bounded market is ready. Report intake retains its separate feature
+gate and the existing Contribute moderation path; activating the read does not
+grant a report or evidence record publication authority.
 
 ## Product-to-place journey
 
@@ -606,9 +610,10 @@ checks. Migration `0055` then serializes report validation with statement-level
 mutation of every eligibility relation, preserves original superseded-review
 attribution, and rejects report insertion at another isolation level; the
 application starts an explicit READ COMMITTED transaction. Report intake
-remains off until all three migrations are applied
-through the protected production gate, canonical data is reviewed, and the
-abuse and Ops acceptance pass.
+remains a separate production gate. It may open only while the current report
+contract, abuse controls, canonical data, and Ops acceptance pass are all
+attested; a live public Market Finder read does not imply that write authority
+is enabled.
 
 ## Activation phases
 
@@ -629,11 +634,10 @@ report endpoint, analytics stream, or order behavior.
 
 ### Phase 1: governed data foundation
 
-The schema, read-model, public route, contribution, moderation, protected
+The schema, read model, public route, contribution, moderation, protected
 onboarding code, and shared application/database report-context guard in this
-phase are implemented locally. Production migration application, exact
-canonical evidence, operator acceptance, and route activation remain pending
-and require the protected release sequence below.
+phase are implemented. Migrations `0053` through `0055` were rehearsed and
+applied through the protected runner before the bounded Trade Fair activation.
 
 - Review the seven-table contract and authorize a separately numbered
   migration.
@@ -761,8 +765,10 @@ Keeping the typed report projection separate from both `community_observations`
 and `physical_product_observations` preserves clear evidence lineage from a
 community claim to an attributable public-data decision.
 
-The development fixture can now answer the interaction question quickly.
-Production now contains migrations `0053`, `0054`, and `0055` plus reviewed
-location-only Trade Fair groundwork. Public reads remain closed until an exact
-published product and attributable current branch observation are reviewed,
-readiness passes, and the explicit read and report gates are released in order.
+The development fixture answered the interaction question and remains isolated
+from production. Production contains migrations `0053`, `0054`, and `0055`
+plus the reviewed Trade Fair pilot. Public reads fail closed per exact product,
+location, action and observation; only currently eligible records appear. The
+online offer and price-history chain is linked at the product and retailer
+identity boundaries under [ADR 0020](0020-linked-market-truth-system.md), but
+it never substitutes for physical evidence.

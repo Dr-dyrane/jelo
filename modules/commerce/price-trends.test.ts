@@ -263,6 +263,7 @@ function currentObservation(
     available: true,
     inventoryStatus: "in_stock",
     verificationMethod: "manual",
+    historySource: "manual",
     lastVerifiedAt: "2026-07-22T10:00:00Z",
     verificationExpiresAt: "2026-07-23T10:00:00Z",
     observedTitle: "Exact product",
@@ -432,7 +433,7 @@ test("fails closed when a history identity is duplicated", () => {
   });
 });
 
-test("appends synthetic observation when DB price does not match snapshot", () => {
+test("fails closed when persisted history does not end at the current price", () => {
   const rows = [
     currentObservation(
       "exact",
@@ -450,25 +451,29 @@ test("appends synthetic observation when DB price does not match snapshot", () =
     ),
   ];
 
-  // The snapshot has a different price than the DB. Instead of rejecting,
-  // the function should append a synthetic observation with the snapshot price.
   const snapshotWithDifferentPrice: PriceTrendOfferSnapshot[] = [
     { ...exactSnapshot[0], priceMinor: 13_500 },
   ];
 
-  const selected = selectCurrentPriceObservations(
-    rows,
-    snapshotWithDifferentPrice,
-    asOf,
+  assert.deepEqual(
+    selectCurrentPriceObservations(rows, snapshotWithDifferentPrice, asOf),
+    [],
   );
-  const prices = selected.map((item) => item.priceMinor);
-  assert.ok(
-    prices.includes(13_500),
-    "synthetic observation with snapshot price should be included",
+});
+
+test("fails closed when the latest history row has different provenance", () => {
+  const row = currentObservation(
+    "exact",
+    "Exact store",
+    "https://example.com/exact-product",
+    14_000,
+    "2026-07-22T10:00:00Z",
+    { historySource: "import" },
   );
-  assert.ok(
-    prices.includes(15_000),
-    "historical DB observation should be preserved",
+
+  assert.deepEqual(
+    selectCurrentPriceObservations([row], exactSnapshot, asOf),
+    [],
   );
 });
 
@@ -494,7 +499,7 @@ test("rejects snapshot with wrong currency code", () => {
   );
 });
 
-test("appends synthetic observation when history does not end at the rendered observation", () => {
+test("fails closed when history does not end at the rendered observation", () => {
   const rows = [
     currentObservation(
       "exact",
@@ -512,18 +517,9 @@ test("appends synthetic observation when history does not end at the rendered ob
     ),
   ];
 
-  // The snapshot says 14_000 at 2026-07-22T10:00:00Z but the latest DB row
-  // says 13_000 at 2026-07-22T09:00:00Z. Instead of rejecting, the function
-  // should append a synthetic observation with the snapshot price.
-  const selected = selectCurrentPriceObservations(rows, exactSnapshot, asOf);
-  const prices = selected.map((item) => item.priceMinor);
-  assert.ok(
-    prices.includes(14_000),
-    "synthetic observation with snapshot price should be included",
-  );
-  assert.ok(
-    prices.includes(15_000),
-    "historical DB observation should be preserved",
+  assert.deepEqual(
+    selectCurrentPriceObservations(rows, exactSnapshot, asOf),
+    [],
   );
 });
 
@@ -546,11 +542,7 @@ test("rejects ambiguous rendered snapshots for the same exact listing", () => {
   );
 });
 
-test("uses static catalogue as source of truth regardless of DB listing state", () => {
-  // The static catalogue (snapshot) is the source of truth for whether an
-  // offer is current. DB listing state (available, stock, freshness) no
-  // longer gates trend inclusion because the static catalogue already
-  // enforces freshness via isShareableNgOffer before building the snapshot.
+test("requires persisted listing state to remain current and actionable", () => {
   const unavailable = selectCurrentPriceObservations(
     [
       currentObservation(
@@ -597,17 +589,12 @@ test("uses static catalogue as source of truth regardless of DB listing state", 
     asOf,
   );
 
-  // All three should return observations (the DB history row matches the
-  // snapshot exactly, so no synthetic is needed).
-  assert.equal(unavailable.length > 0, true);
-  assert.equal(outOfStock.length > 0, true);
-  assert.equal(stale.length > 0, true);
+  assert.deepEqual(unavailable, []);
+  assert.deepEqual(outOfStock, []);
+  assert.deepEqual(stale, []);
 });
 
-test("uses static catalogue regardless of DB verification method or completeness", () => {
-  // DB verification method and observed title/size completeness no longer
-  // gate trend inclusion. The static catalogue snapshot is the source of
-  // truth for the current offer identity.
+test("requires persisted verification provenance and exact identity fields", () => {
   const imported = selectCurrentPriceObservations(
     [
       currentObservation(
@@ -637,21 +624,12 @@ test("uses static catalogue regardless of DB verification method or completeness
     asOf,
   );
 
-  assert.equal(imported.length > 0, true);
-  assert.equal(incomplete.length > 0, true);
+  assert.deepEqual(imported, []);
+  assert.deepEqual(incomplete, []);
 });
 
-test("creates synthetic observation for snapshot offers with no DB history", () => {
-  // When a new offer is added to the static catalogue but hasn't been seeded
-  // into Neon yet, there are no DB rows for it. The function should create
-  // a synthetic observation from the snapshot so the offer appears in the
-  // trend chart and is counted in market calculations.
-  const selected = selectCurrentPriceObservations([], exactSnapshot, asOf);
-
-  assert.equal(selected.length, 1);
-  assert.equal(selected[0].priceMinor, 14_000);
-  assert.equal(selected[0].retailer, "Exact store");
-  assert.equal(selected[0].observedAt, "2026-07-22T10:00:00.000Z");
+test("does not reconstruct history from a current snapshot", () => {
+  assert.deepEqual(selectCurrentPriceObservations([], exactSnapshot, asOf), []);
 });
 
 test("market movement excludes a retailer with duplicate exact offer series", () => {

@@ -1,0 +1,1608 @@
+{
+  "schemaVersion": 1,
+  "policy": "private-evidence-packet-only",
+  "publicationStatus": "not-a-catalogue-candidate",
+  "generatedAt": "2026-07-27T18:11:20.602Z",
+  "selection": {
+    "source": "static-priority",
+    "mode": "batch",
+    "requestedCount": 12
+  },
+  "source": {
+    "staticQueueSha256": "38aeaa223d57905244418a20d0687c3016304f657cd1dbd97dbde5decf03ff16",
+    "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
+  },
+  "packets": [
+    {
+      "id": "b619283c79d7d3f73b7e32ec",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 25,
+        "lane": "gentle-cleansing",
+        "priorityScore": 200,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "11d3a6116ccfc1cbce191430",
+          "canonicalProductSlug": "11d3a6116ccfc1cbce191430",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "11d3a6116ccfc1cbce191430",
+        "title": "LA ROCHE-POSAY PURE VITAMIN C Cleanser 200ml",
+        "brandHint": "La Roche Posay",
+        "size": "200ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "11d3a6116ccfc1cbce191430",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "4f26c362e2e99573c016351f",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/la-roche-posay-pure-vitamin-c-cleanser-200ml/",
+            "sourceProductId": 435159,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/435159",
+            "observedAt": "2026-07-27T18:10:55.671Z",
+            "observedTitle": "LA ROCHE-POSAY PURE VITAMIN C Cleanser 200ml",
+            "observedSize": "200ml",
+            "priceNgn": 21500,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/07/3337875923613.jpg?fit=1080%2C1080&quality=89&ssl=1",
+            "response": {
+              "id": "f97d86dc9d59e620c3a9bd61",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=1&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=1&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:10:55.671Z",
+              "responseSha256": "93d1565783b10c1d656504f2d272a024d83333de7a3aa326fc2ac5e614256825",
+              "responseByteSize": 518325,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "3337875923613",
+            "responseEvidenceId": "f97d86dc9d59e620c3a9bd61",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "af7e509f9b6ff6e4c83a0eb6",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 26,
+        "lane": "moisture-barrier",
+        "priorityScore": 200,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+          "canonicalProductSlug": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "4b13a12fadc04b34d8290d5b",
+        "title": "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
+        "brandHint": "AQUA RICH",
+        "size": "500ml",
+        "categoryHint": "Body care",
+        "canonicalSlug": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "f6d26167a613ae709ecbb618",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-bright-glow/",
+            "sourceProductId": 24956,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/24956",
+            "observedAt": "2026-07-27T18:11:12.361Z",
+            "observedTitle": "AQUA RICH BODY LOTION 500ML - BRIGHT + GLOW",
+            "observedSize": "500ml",
+            "priceNgn": 10500,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/11/AQUA-RICH-BODY-LOTION-500ML-BRIGHT-GLOW.webp",
+            "response": {
+              "id": "4ac1251f5670605bdb4d72b5",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:12.361Z",
+              "responseSha256": "9a87ea96d8c0b78a74350ed048d102eef76a01a4a55cebd352fded3c66c4477c",
+              "responseByteSize": 367036,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "Slique Beauty",
+            "value": "4897073187532",
+            "responseEvidenceId": "4ac1251f5670605bdb4d72b5",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "cd954911acc67c77e34a2f54",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 27,
+        "lane": "moisture-barrier",
+        "priorityScore": 200,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "c28f590dd2739ea73f1b5ea3",
+          "canonicalProductSlug": "c28f590dd2739ea73f1b5ea3",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "c28f590dd2739ea73f1b5ea3",
+        "title": "SIMPLE Kind To Skin Replenishing Rich Moisturizer 125ml",
+        "brandHint": "SIMPLE",
+        "size": "125ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "c28f590dd2739ea73f1b5ea3",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "22af3cae333cfc465701f2c7",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/simple-replenishing-rich-mosturiser-125ml/",
+            "sourceProductId": 4685,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4685",
+            "observedAt": "2026-07-27T18:11:20.332Z",
+            "observedTitle": "SIMPLE REPLENISHING RICH MOSTURISER 125ML",
+            "observedSize": "125ml",
+            "priceNgn": 6800,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/simple-replenishing-rich-moisturizer-.jpg",
+            "response": {
+              "id": "2104b1389bb55ce9efbde9dc",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=22&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=22&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:20.332Z",
+              "responseSha256": "15981016ad2966f2530a6a73a09107251b31726e7815ace21581c3e18e214a25",
+              "responseByteSize": 525936,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "Slique Beauty",
+            "value": "5011451103948",
+            "responseEvidenceId": "2104b1389bb55ce9efbde9dc",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "937a0264a9bf90f380fc90a6",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 28,
+        "lane": "acne-care",
+        "priorityScore": 199,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "facefacts-enhance-gel-cream-cleanser-150ml",
+          "canonicalProductSlug": "facefacts-enhance-gel-cream-cleanser-150ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "5db3d843b4cf82e716260338",
+        "title": "FACEFACTS ENHANCE (Salicylic Acid + Rice + Cherry Extract) Gel Cream Cleanser 150ml",
+        "brandHint": "FACEFACTS",
+        "size": "150ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "facefacts-enhance-gel-cream-cleanser-150ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "9b41cb58cdc622ce4689eee1",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/facefacts-enhance-salicylic-acid-rice-cherry-extract-gel-cream-cleanser-150ml/",
+            "sourceProductId": 332247,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332247",
+            "observedAt": "2026-07-27T18:11:06.479Z",
+            "observedTitle": "FACEFACTS ENHANCE (Salicylic Acid + Rice + Cherry Extract) Gel Cream Cleanser 150ml",
+            "observedSize": "150ml",
+            "priceNgn": 6900,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/04/FACEFACTS-ENHANCE-Salicylic-Acid-Rice-Cherry-Extract-Gel-Cream-Cleanser-150ml-1.jpg?fit=900%2C900&quality=89&ssl=1",
+            "response": {
+              "id": "e047c601cb2c7638ad744cde",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=8&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=8&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.479Z",
+              "responseSha256": "a65b265a7c0fe6ee0a08a456d80edf777d6ebebdd130d49e1d3a0d63350cb1c4",
+              "responseByteSize": 641340,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "5031413952803",
+            "responseEvidenceId": "e047c601cb2c7638ad744cde",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "5b30ed9c84df71d748dea61c",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 29,
+        "lane": "acne-care",
+        "priorityScore": 199,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "panoxyl-acne-creamy-wash-4-170g",
+          "canonicalProductSlug": "panoxyl-acne-creamy-wash-4-170g",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "7cfe4bf6d573f111552a8ea7",
+        "title": "PANOXYL Acne Creamy Wash Benzoyl Peroxide Control 4% 170g",
+        "brandHint": "PANOXYL",
+        "size": "170g",
+        "categoryHint": "Face care",
+        "canonicalSlug": "panoxyl-acne-creamy-wash-4-170g",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "437216ec223211206d7b0960",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-control-4/",
+            "sourceProductId": 329722,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329722",
+            "observedAt": "2026-07-27T18:11:11.325Z",
+            "observedTitle": "PANOXYL Acne Creamy Wash Benzoyl Peroxide Control 4% 170g",
+            "observedSize": "170g",
+            "priceNgn": 13250,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/03/odoo-12333.jpg?fit=1024%2C1024&quality=89&ssl=1",
+            "response": {
+              "id": "99e656994f95cf9a13aa35d3",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:11.325Z",
+              "responseSha256": "5ee82d420946c5b368e38c8f53ffd5ff2b8e6877487a3d7e20a76ad1138f635c",
+              "responseByteSize": 651027,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "303160227066",
+            "responseEvidenceId": "99e656994f95cf9a13aa35d3",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "e9ea5ecddcced4bef71fb46d",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 30,
+        "lane": "acne-care",
+        "priorityScore": 198,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "facefacts-ceramide-foaming-cleanser-400ml",
+          "canonicalProductSlug": "facefacts-ceramide-foaming-cleanser-400ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "reviewed-title-size-alias-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "c8e1fc1106808751ac61653e",
+        "title": "FACEFACTS CERAMIDE BLEMISH CLARIFYING FOAMING CLEANSER 400ML",
+        "brandHint": "FACEFACTS",
+        "size": "400ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "facefacts-ceramide-foaming-cleanser-400ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "4f8998e4b75a479849639b76",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/facefacts-ceramide-blemish-clarifying-foaming-cleanser-400ml/",
+            "sourceProductId": 4701,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4701",
+            "observedAt": "2026-07-27T18:11:20.332Z",
+            "observedTitle": "FACEFACTS CERAMIDE BLEMISH CLARIFYING FOAMING CLEANSER 400ML",
+            "observedSize": "400ml",
+            "priceNgn": 8000,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/face-facts-blemish-clarifying-foaming-cleanser.jpg",
+            "response": {
+              "id": "2104b1389bb55ce9efbde9dc",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=22&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=22&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:20.332Z",
+              "responseSha256": "15981016ad2966f2530a6a73a09107251b31726e7815ace21581c3e18e214a25",
+              "responseByteSize": 525936,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "Slique Beauty",
+            "value": "5031413935622",
+            "responseEvidenceId": "2104b1389bb55ce9efbde9dc",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "3a1b3865e0ffdccb01e85b0c",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 31,
+        "lane": "sun-protection",
+        "priorityScore": 196,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+          "canonicalProductSlug": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "a7562a6f718c64e4a046f3e3",
+        "title": "ELF Invisible Sunscreen (Suntouchable) 50ml",
+        "brandHint": "ELF",
+        "size": "50ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "e559afb0e7297a400972e580",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/elf-invisible-sunscreen-suntouchable-50ml/",
+            "sourceProductId": 433434,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/433434",
+            "observedAt": "2026-07-27T18:10:55.671Z",
+            "observedTitle": "ELF Invisible Sunscreen (Suntouchable) 50ml",
+            "observedSize": "50ml",
+            "priceNgn": 28200,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/07/ELF-Invisible-Sunscreen-Suntouchable-50ml.jpg?fit=1080%2C1080&quality=89&ssl=1",
+            "response": {
+              "id": "f97d86dc9d59e620c3a9bd61",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=1&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=1&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:10:55.671Z",
+              "responseSha256": "93d1565783b10c1d656504f2d272a024d83333de7a3aa326fc2ac5e614256825",
+              "responseByteSize": 518325,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "609332818071",
+            "responseEvidenceId": "f97d86dc9d59e620c3a9bd61",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "5c8482cb6cfe6041779b1eb4",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 32,
+        "lane": "sun-protection",
+        "priorityScore": 196,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+          "canonicalProductSlug": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "3c5d97e20316dc501b0d9c64",
+        "title": "EUCERIN Oil Control (DRY TOUCH) Sun Gel Cream Ultra-light 50ml",
+        "brandHint": "Eucerin",
+        "size": "50ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "9111f6dd06dad3ea5af87946",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/eucerin-oil-control-dry-touch-sun-gel-cream-50ml/",
+            "sourceProductId": 328897,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/328897",
+            "observedAt": "2026-07-27T18:11:09.743Z",
+            "observedTitle": "EUCERIN Oil Control (DRY TOUCH) Sun Gel Cream Ultra-light 50ml",
+            "observedSize": "50ml",
+            "priceNgn": 18770,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2019/03/EUCERIN-Oil-Control-DRY-TOUCH-Sun-Gel-Cream-Ultra-light-50ml.webp?fit=310%2C310&quality=80&ssl=1",
+            "response": {
+              "id": "0bf15cb6dd6d62eb74bb1d6f",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=11&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:09.743Z",
+              "responseSha256": "0e38e61afa2e4789c3dc73cc44498bb5b46d3fc3290dc77412dfa81dd916f129",
+              "responseByteSize": 399695,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "8850029013671",
+            "responseEvidenceId": "0bf15cb6dd6d62eb74bb1d6f",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "9370183dc0737244190acff0",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 33,
+        "lane": "sun-protection",
+        "priorityScore": 196,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+          "canonicalProductSlug": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "d3fa39510608390e2ac79f8b",
+        "title": "SHISEIDO Professional -Anessa Perfect UV Sunscreen Skincare Milk 60ml",
+        "brandHint": "SHISEIDO Professional",
+        "size": "60ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "219fa1db1fd4560df2305dda",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/shiseido-professional-anessa-perfect-uv-sunscreen-skincare-milk-60ml/",
+            "sourceProductId": 332291,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/332291",
+            "observedAt": "2026-07-27T18:11:06.479Z",
+            "observedTitle": "SHISEIDO Professional -Anessa Perfect UV Sunscreen Skincare Milk 60ml",
+            "observedSize": "60ml",
+            "priceNgn": 29300,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/05/uyuan0rn-1.png?fit=1000%2C1000&quality=80&ssl=1",
+            "response": {
+              "id": "e047c601cb2c7638ad744cde",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=8&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=8&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:06.479Z",
+              "responseSha256": "a65b265a7c0fe6ee0a08a456d80edf777d6ebebdd130d49e1d3a0d63350cb1c4",
+              "responseByteSize": 641340,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "4909978147105",
+            "responseEvidenceId": "e047c601cb2c7638ad744cde",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "753d5ddcdefddeff096e9677",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 34,
+        "lane": "gentle-cleansing",
+        "priorityScore": 195,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+          "canonicalProductSlug": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "reviewed-title-size-alias-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "9e8f7ba306dec54f087b62f3",
+        "title": "FACEFACTS Vitamin C Brightening JELLY CLEANSER 150ml",
+        "brandHint": "FACEFACTS",
+        "size": "150ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "3319915ef4d871f6ed283608",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/",
+            "sourceProductId": 331554,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/331554",
+            "observedAt": "2026-07-27T18:11:07.194Z",
+            "observedTitle": "FACEFACTS Vitamin C Brightening JELLY CLEANSER 150ml",
+            "observedSize": "150ml",
+            "priceNgn": 4300,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/02/bwd68bry.png?fit=2160%2C2160&quality=80&ssl=1",
+            "response": {
+              "id": "f0661b04a8bbd02e29588c5e",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:07.194Z",
+              "responseSha256": "e62d31bf5fec1870daee26b3471759509795717e918ab7b2d1ac89375a747c1b",
+              "responseByteSize": 652018,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "5031413925968",
+            "responseEvidenceId": "f0661b04a8bbd02e29588c5e",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "116d2cb324ceb714bca986e2",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 35,
+        "lane": "pigment-support",
+        "priorityScore": 194,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "anua-niacinamide-10-txa-4-serum",
+          "canonicalProductSlug": "anua-niacinamide-10-txa-4-serum",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "reviewed-title-size-alias-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "0dec83a881a98e52115f2ac3",
+        "title": "ANUA 10% Niacinamide + 4% TXA Acid Serum 30ml",
+        "brandHint": "ANUA",
+        "size": "30ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "anua-niacinamide-10-txa-4-serum",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "5fdbd96e4061bf697713b25c",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/anua-10-niacinamide-4-txa-acid-serum/",
+            "sourceProductId": 330478,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330478",
+            "observedAt": "2026-07-27T18:11:11.325Z",
+            "observedTitle": "ANUA 10% Niacinamide + 4% TXA Acid Serum 30ml",
+            "observedSize": "30ml",
+            "priceNgn": 18500,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/06/skdbvd-1.jpg?fit=425%2C425&quality=89&ssl=1",
+            "response": {
+              "id": "99e656994f95cf9a13aa35d3",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:11.325Z",
+              "responseSha256": "5ee82d420946c5b368e38c8f53ffd5ff2b8e6877487a3d7e20a76ad1138f635c",
+              "responseByteSize": 651027,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "8809640734526",
+            "responseEvidenceId": "99e656994f95cf9a13aa35d3",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "22ae0fda5f879d1d857b422a",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 36,
+        "lane": "moisture-barrier",
+        "priorityScore": 193,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "facefacts-ceramide-moisturising-gel-cream-50ml",
+          "canonicalProductSlug": "facefacts-ceramide-moisturising-gel-cream-50ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "reviewed-title-size-alias-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "30f6636624f1fe6a5f8bd0d4",
+        "title": "FACEFACTS CERAMIDE Oil Control Moisturizing Gel Cream 50ml",
+        "brandHint": "FACEFACTS",
+        "size": "50ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "facefacts-ceramide-moisturising-gel-cream-50ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "040d289f86c27daf36b6b3a9",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-oil-control-moisturizing-gel-cream-50ml/",
+            "sourceProductId": 331496,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/331496",
+            "observedAt": "2026-07-27T18:11:07.194Z",
+            "observedTitle": "FACEFACTS CERAMIDE Oil Control Moisturizing Gel Cream 50ml",
+            "observedSize": "50ml",
+            "priceNgn": 3500,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/01/b27uxn9y.png?fit=720%2C720&quality=80&ssl=1",
+            "response": {
+              "id": "f0661b04a8bbd02e29588c5e",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:07.194Z",
+              "responseSha256": "e62d31bf5fec1870daee26b3471759509795717e918ab7b2d1ac89375a747c1b",
+              "responseByteSize": 652018,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "5031413953961",
+            "responseEvidenceId": "f0661b04a8bbd02e29588c5e",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    }
+  ]
+}

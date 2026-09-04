@@ -5,41 +5,38 @@
   "publicationAuthority": "none",
   "generatedAt": "2026-08-09T07:28:53.219Z",
   "source": {
-    "researchPacketProjectionSha256": "4267500e9845a84f35c11a5b518a3a2f51f2f99c51b8e78a9ee0208a54e4a64f",
+    "researchPacketProjectionSha256": "882b85ac0292d7237013260b0f795ca961eb7198d1b0e4e3dbb71ea26fb949a8",
     "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
   },
   "selection": {
     "packetCount": 1,
-    "packetIds": [
-      "b08a06cbbfe550825932aec2"
-    ],
+    "packetIds": ["b08a06cbbfe550825932aec2"],
     "responseCount": 2
   },
   "sources": [
     {
-      "sourcePath": "data/catalogue-research-offer-capture-sources/b1089facff9ad35d4e024b35a238727aa8ee1ed470953f0aab5dcea7700421a8.json",
-      "sourceSha256": "b1089facff9ad35d4e024b35a238727aa8ee1ed470953f0aab5dcea7700421a8",
-      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/d2c4e5c6cae3fcc5a63116c20f1816eea9d45c48d14ec94aafe49cd62a8f0028.json",
-      "researchPacketSourceSha256": "d2c4e5c6cae3fcc5a63116c20f1816eea9d45c48d14ec94aafe49cd62a8f0028",
+      "sourcePath": "data/catalogue-research-offer-capture-sources/6529a94194c2a9fedec42630ab8f4261594c338f05ac1f25a46f226858773bee.json",
+      "sourceSha256": "6529a94194c2a9fedec42630ab8f4261594c338f05ac1f25a46f226858773bee",
+      "researchPacketSourcePath": "data/catalogue-research-evidence-packet-sources/bcdef2d9855d61d9d93b7fd37ec235e75fc910e0bfc3f505308602539dc290cb.json",
+      "researchPacketSourceSha256": "bcdef2d9855d61d9d93b7fd37ec235e75fc910e0bfc3f505308602539dc290cb",
       "packetCount": 1,
-      "packetIds": [
-        "b08a06cbbfe550825932aec2"
-      ],
+      "packetIds": ["b08a06cbbfe550825932aec2"],
       "responseCount": 2
     }
   ],
   "qualityCautions": [],
   "captures": [
     {
-      "id": "743e4f9f5338c5d914237a7c",
+      "id": "da85c3fcc79c21fcef65dffe",
       "packetId": "b08a06cbbfe550825932aec2",
       "discoveryId": "02c725b1d7a62394c0144a0a",
+      "offerKey": "ea8d6584cda622273bfcfdcb",
       "retailer": "BuyBetter",
       "retailerStatus": "directory-listed",
       "publicationStatus": "not-a-catalogue-candidate",
       "publicationAuthority": "none",
       "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/02c725b1d7a62394c0144a0a--buybetter.json",
+      "evidencePath": "data/catalogue-offer-source-evidence/02c725b1d7a62394c0144a0a--buybetter--ea8d6584cda622273bfcfdcb.json",
       "source": {
         "productId": 330388,
         "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330388",
@@ -65,15 +62,16 @@
       }
     },
     {
-      "id": "9789400f8b6a0da817efce18",
+      "id": "965e96be3ca94c596ddc9d74",
       "packetId": "b08a06cbbfe550825932aec2",
       "discoveryId": "02c725b1d7a62394c0144a0a",
+      "offerKey": "cccf76ed84b4dc99430338c1",
       "retailer": "Slique Beauty",
       "retailerStatus": "provisional",
       "publicationStatus": "not-a-catalogue-candidate",
       "publicationAuthority": "none",
       "identityAuthority": "none",
-      "evidencePath": "data/catalogue-offer-source-evidence/02c725b1d7a62394c0144a0a--slique-beauty.json",
+      "evidencePath": "data/catalogue-offer-source-evidence/02c725b1d7a62394c0144a0a--slique-beauty--cccf76ed84b4dc99430338c1.json",
       "source": {
         "productId": 4627,
         "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4627",

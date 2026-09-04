@@ -195,17 +195,31 @@ Changing an environment variable affects only a subsequent deployment. Never
 put recipient addresses, credentials, Blob/Redis tokens, or raw recipient
 identifiers in source, logs, campaign records, or screenshots.
 
-## Current state (2026-08-23)
+## Current projection contract
 
-The daily campaign is running but **finds no eligible candidate**. Every
-product is rejected with `no-fresh-shareable-ng-offer` or
-`sent-within-14-day-cooldown`. The Lagos Daily Desk shows the "Today's note is
-being checked" fallback.
+An accepted Daily Desk record is not permanent price authority. Every `/lagos`
+read rebinds its exact product and offers to the current shareable-offer
+predicate. Expiry, terminal invalidation, URL or retailer replacement, price
+mismatch, or missing exact evidence suppresses the accepted story as
+`evidence-expired`. It never falls back to the stored acceptance payload as a
+current price.
 
-This is not a campaign bug — the selector correctly fails closed when no
-product has fresh, shareable Nigerian offer evidence. The root cause is the
-inventory cron blackout. See the
+The hourly reconciler is the single same-day catch-up owner. It can accept a
+newly eligible record after the 07:00 campaign run, but it does not refresh an
+offer, discover a retailer, send a packet, or bypass review. Its bounded
+scheduled-owner receipt distinguishes `accepted`, `already-current`,
+`no-current-candidate`, `disabled`, and `reconciliation-failed` without storing
+product, recipient, URL, or raw-error data. Missing receipt storage is a visible
+owner failure and stops before selection or acceptance; it is not an empty
+candidate result. An immutable accepted key is called `already-current` only
+after its product and exact offers pass the same current-evidence projection.
+
+## Historical incident baseline (2026-08-23)
+
+On 2026-08-23 the campaign found no eligible candidate and `/lagos` showed its
+checking state because current offer evidence was unavailable. This is retained
+as incident history, not a statement of current production health. See the
 [product roadmap](../product/ROADMAP.md#catalogue-and-evidence-debt-2026-08-23)
 and the
 [troubleshooting entry](../catalogue/TROUBLESHOOTING.md#inventory-cron-failure--stale-offers-and-campaign-blackout-2026-08-23)
-for the recovery plan.
+for the incident diagnosis and recovery record.

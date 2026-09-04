@@ -11,10 +11,15 @@ import {
 } from "@/lib/campaigns/daily-campaign";
 import { lagosDateKey } from "@/lib/campaigns/daily-campaign-policy";
 import { renderDailyCampaignStory } from "@/lib/campaigns/campaign-render";
+import {
+  getDailyDeskReadModel,
+  type DailyDeskReadModel,
+} from "@/lib/campaigns/daily-desk";
 
 export type DailyDeskReconciliationDependencies = {
   now: () => Date;
   readAcceptedRecordKey: typeof acceptedDailyDeskCampaignRecordKeyForDate;
+  readCurrentDesk: (input: { now?: Date }) => Promise<DailyDeskReadModel>;
   select: typeof selectDailyCampaign;
   render: typeof renderDailyCampaignStory;
   archive: typeof archiveCampaign;
@@ -24,6 +29,7 @@ export type DailyDeskReconciliationDependencies = {
 const defaultDependencies: DailyDeskReconciliationDependencies = {
   now: () => new Date(),
   readAcceptedRecordKey: acceptedDailyDeskCampaignRecordKeyForDate,
+  readCurrentDesk: (input) => getDailyDeskReadModel(input),
   select: selectDailyCampaign,
   render: renderDailyCampaignStory,
   archive: archiveCampaign,
@@ -39,6 +45,12 @@ export type DailyDeskReconciliationResult =
       dataCheckedAt: string;
     }
   | { status: "already-accepted"; date: string; campaignRecordKey: string }
+  | {
+      status: "accepted-evidence-invalid";
+      date: string;
+      campaignRecordKey: string;
+      evidenceStatus: Exclude<DailyDeskReadModel["status"], "ready">;
+    }
   | {
       status: "no-candidate";
       date: string;
@@ -67,6 +79,34 @@ function noCandidateResult(
   };
 }
 
+async function validateAcceptedDesk(
+  date: string,
+  campaignRecordKey: string,
+  now: Date,
+  dependencies: DailyDeskReconciliationDependencies,
+): Promise<
+  | { current: true }
+  | Extract<
+      DailyDeskReconciliationResult,
+      { status: "accepted-evidence-invalid" }
+    >
+> {
+  const desk = await dependencies.readCurrentDesk({ now });
+  if (
+    desk.status === "ready" &&
+    desk.date === date &&
+    desk.recency === "current-day"
+  ) {
+    return { current: true };
+  }
+  return {
+    status: "accepted-evidence-invalid",
+    date,
+    campaignRecordKey,
+    evidenceStatus: desk.status === "ready" ? "unavailable" : desk.status,
+  };
+}
+
 /**
  * Accepts at most one evidence-qualified market record per Lagos date.
  *
@@ -86,6 +126,13 @@ export async function reconcileDailyDesk(
   const date = lagosDateKey(now);
   const acceptedRecordKey = await dependencies.readAcceptedRecordKey(date);
   if (acceptedRecordKey) {
+    const validation = await validateAcceptedDesk(
+      date,
+      acceptedRecordKey,
+      now,
+      dependencies,
+    );
+    if (!("current" in validation)) return validation;
     return {
       status: "already-accepted",
       date,
@@ -121,12 +168,26 @@ export async function reconcileDailyDesk(
     acceptedAt: now.toISOString(),
   });
   if (!accepted.accepted) {
+    const validation = await validateAcceptedDesk(
+      date,
+      accepted.campaignRecordKey,
+      now,
+      dependencies,
+    );
+    if (!("current" in validation)) return validation;
     return {
       status: "already-accepted",
       date,
       campaignRecordKey: accepted.campaignRecordKey,
     };
   }
+  const validation = await validateAcceptedDesk(
+    date,
+    accepted.campaignRecordKey,
+    now,
+    dependencies,
+  );
+  if (!("current" in validation)) return validation;
   return {
     status: "accepted",
     date,

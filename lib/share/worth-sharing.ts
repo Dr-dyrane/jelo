@@ -3,8 +3,8 @@ import "server-only";
 import { listCatalogueProducts } from "@/lib/catalogue/repository";
 import { getProductsPriceTrends } from "@/lib/inventory/price-trends";
 import {
-  hasTrendEligibleNgOffer,
-  isTrendEligibleNgOffer,
+  hasShareableNgOffer,
+  isShareableNgOffer,
 } from "@/modules/commerce/shareable-offer";
 import {
   buildShareSignalReadModel,
@@ -51,16 +51,16 @@ export async function getWorthSharingReadModel(
   const now = options.now ?? Date.now();
   const catalogue = await listCatalogueProducts();
   const products = catalogue.filter((product) =>
-    hasTrendEligibleNgOffer(product),
+    hasShareableNgOffer(product, now),
   );
   const [trends, aggregateInterest] = await Promise.all([
     getProductsPriceTrends(
       products.map((product) => ({
         slug: product.slug,
         snapshot: product.offers
-          .filter((offer) => isTrendEligibleNgOffer(offer))
+          .filter((offer) => isShareableNgOffer(offer, now))
           .flatMap((offer) => {
-            const snapshot = priceTrendOfferSnapshot(offer, "NG", now, false);
+            const snapshot = priceTrendOfferSnapshot(offer, "NG", now);
             return snapshot ? [snapshot] : [];
           }),
       })),

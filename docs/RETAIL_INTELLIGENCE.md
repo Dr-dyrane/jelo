@@ -58,16 +58,51 @@ Affiliate value, outbound clicks, conversion, popularity, ratings and partner st
 The retail intelligence chain is:
 
 ```text
-products
-  -> retailers
-  -> offers
-  -> inventory verification
-  -> offer price history
-  -> market summaries
-  -> AI purchasing context
+retailer
+  -> exact offer
+  -> verified observation
+  -> append-only offer price history
+  -> product market summary and evidence-qualified movement
+  -> Share / Products / Markets / Daily Desk
 ```
 
 Current prices live on offers. Historical observations live in `offer_price_history`. Refresh workers must preserve previous observations whenever they update a current price.
+
+No public surface owns an independent price. A current action requires the same
+fresh exact-offer predicate everywhere; a historical row may describe movement
+only while it remains bound to that current offer. The legacy checked-in
+`data/price-history.ts` file is retained as provenance, not a runtime trend
+fallback. Missing or mismatched database history produces no line or movement
+claim.
+
+Checked-in `priceComparison: "exclude"` decisions remain part of that same
+predicate. Because the legacy offers table does not persist this field, Ops
+health derives the exclusion from the exact product, retailer and
+raw-or-normalized listing URL identity; it cannot count an intentionally
+non-comparable offer as current. Catalogue reconciliation carries the same
+exact-identity decision onto newer persisted evidence before Products, Share,
+trends or Daily Desk can read it.
+
+## Retailer truth and discovery
+
+`data/retailers.ts` is the reviewed registry for a matched retailer's public
+name, status and trust. A discovery source may mirror those fields but cannot
+silently redefine them. Unmatched sources remain provisional and private.
+
+Discovery distinguishes a new product from an additional retailer offer for a
+known exact product. Both enter the existing private evidence-packet and
+capture workflow, deduplicated by exact product, normalized retailer and
+listing URL. Finding a known product is therefore not a reason to discard a new
+offer. Discovery, a retailer application and partnership approval have no
+direct catalogue or database publication authority.
+
+Retailer identity, contact, location, delivery, service and brand
+authorization are separate evidence dimensions. Free-text registry notes and
+private application answers are not current public facts. When a dimension has
+no reviewed source plus observation window, JeloCare shows it as unknown or
+review-required. Exact offers can establish current listing activity; physical
+Market Finder records can establish a current reviewed location for their own
+scope. Neither is promoted into general retailer service or authorization.
 
 ## Market summaries
 
@@ -182,6 +217,9 @@ The sync is opt-in (`STATIC_FILE_SYNC_ENABLED=true` + `GITHUB_TOKEN` + an
 existing `inventory-sync-review*` `GITHUB_REPO_BRANCH`) and enforces these
 anti-overwrite protections:
 
+- **Exact source identity** — the database offer ID must resolve to one
+  checked-in product, retailer, normalized requested URL, `NG` market and `NGN`
+  currency slot. Zero or multiple matches fail closed.
 - **Never touches manual or AI-only offers** — only confidence-60+
   `retailer_page` and `api` observations are eligible for static sync.
 - **Freshness gate** — only updates if the refreshed `last_verified_at` is strictly newer than the static offer's `checkedAt`/`observedAt`.
@@ -227,4 +265,6 @@ for a second manual merge of a passing proposal.
 5. Show Nigerian prices on the product page before navigation.
 6. Add observation freshness, variant, stock and landed-cost labels.
 7. Compute market summaries and price trends.
-8. Ground Pulse responses in the same structured data.
+8. Reconcile Share, Products, Markets and Daily Desk from that same evidence.
+9. Expose bounded scheduled-owner receipts and actionable exceptions in Ops.
+10. Ground future purchasing context in the same structured data.

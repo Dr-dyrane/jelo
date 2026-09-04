@@ -1052,6 +1052,55 @@ Never heal a mismatched package with generation.
 6. Preserve the prior price in history.
 7. Withhold ambiguous or search-only observations.
 
+## Linked market truth and Ops market health
+
+`/ops/market-health` is the authenticated read-only view of the complete market
+chain. Read it top to bottom: inventory owner, exact offers and history,
+retailer/discovery review, physical-market evidence, Daily Desk, then public
+projection health. An empty queue is not a successful refresh, a missing source
+is not zero, and a recorded review item is not public evidence.
+
+Two mutation owners write privacy-bounded receipts to the existing Upstash
+store:
+
+- `/api/cron/inventory` at minute 17 records `completed`,
+  `completed-with-exceptions`, `no-due-work`, or `unexpected-failure` after its
+  canonical offer/history work;
+- `/api/cron/daily-desk-reconcile` at minute 42 records `accepted`,
+  `already-current`, `no-current-candidate`, `disabled`, or
+  `reconciliation-failed` after current-offer rebinding.
+
+Receipts contain owner, state, timestamps, fixed outcome code, aggregate counts,
+deployment revision and TTL only. They never contain a product payload,
+retailer URL, recipient, contact, customer or raw error. Receipt storage failure
+before start returns HTTP 503 and prevents market mutation. A final settlement
+failure also returns HTTP 503; canonical offer or Desk work that already
+completed is not reversed.
+
+Only the same still-`started` generation may settle. A repeated completion or
+failure cannot overwrite a terminal receipt, owner-incompatible outcome codes
+are invalid, and a future-dated receipt cannot establish current health. An
+existing Daily Desk key must still resolve to a current-day `ready` projection
+before the reconciler records `already-current`. The accepted evidence set must
+equal the complete current exact-offer set; a newly current or removed offer
+suppresses the old projection. A `disabled` outcome always keeps the owner,
+Daily Desk layer and public projections in attention.
+
+For an exception:
+
+1. Open its native action from `/ops/market-health` and note the displayed
+   source time, threshold, owner and fixed reason.
+2. Check the latest natural Vercel run for that exact owner. Do not create a
+   duplicate queue, claim, Desk acceptance or manual scheduler.
+3. For inventory, use the authenticated `?dry-run` probe to inspect aggregate
+   backlog without writes. For Daily Desk, verify the enablement gate and the
+   current exact-offer eligibility; do not substitute the stored acceptance.
+4. Repair only the named authentication, database, receipt-store, evidence or
+   deployment fault. Let the next scheduled owner reconcile it.
+5. Confirm a recent settled receipt and that the affected public route now
+   projects the same current evidence. If the source remains unavailable, keep
+   the exception open and public actions suppressed.
+
 ## Inventory cron fails
 
 ### Quick diagnosis
@@ -1141,7 +1190,9 @@ then create fresh Production and Preview deployments. See
 
 1. Trigger a redeployment so the new env vars are picked up.
 2. Run the dry-run probe to confirm 200 and `writesPerformed: 0`.
-3. Run the full cron to process the backlog:
+3. Prefer the next scheduled minute-17 owner to process the backlog. Only when
+   the incident has explicit protected manual-run authority, invoke the same
+   owner once rather than creating a second worker:
    ```bash
    curl -s -H "Authorization: Bearer $CRON_SECRET" \
      "https://www.jelocare.com/api/cron/inventory"

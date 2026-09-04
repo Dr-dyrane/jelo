@@ -1,0 +1,1859 @@
+{
+  "schemaVersion": 1,
+  "policy": "private-evidence-packet-only",
+  "publicationStatus": "not-a-catalogue-candidate",
+  "generatedAt": "2026-07-27T18:11:20.602Z",
+  "selection": {
+    "source": "static-priority",
+    "mode": "batch",
+    "requestedCount": 12
+  },
+  "source": {
+    "staticQueueSha256": "38aeaa223d57905244418a20d0687c3016304f657cd1dbd97dbde5decf03ff16",
+    "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
+  },
+  "packets": [
+    {
+      "id": "83b6145d27fff46b2657d777",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 1,
+        "lane": "moisture-barrier",
+        "priorityScore": 228,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "garnier-vitamin-c-brightening-day-cream-50ml",
+          "canonicalProductSlug": "garnier-vitamin-c-brightening-day-cream-50ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "7db2cb182bf03a8123d01fd3",
+        "title": "GARNIER Vitamin C (Brightening) Day Cream 50ml",
+        "brandHint": "Garnier",
+        "size": "50ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "garnier-vitamin-c-brightening-day-cream-50ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "ca2c45fda620fac9e6fedab5",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/garnier-vitamin-c-bright-day-cream-50ml/",
+            "sourceProductId": 330308,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330308",
+            "observedAt": "2026-07-27T18:11:11.325Z",
+            "observedTitle": "GARNIER Vitamin C (Brightening) Day Cream 50ml",
+            "observedSize": "50ml",
+            "priceNgn": 12728,
+            "stock": "in-stock",
+            "imageUrl": "https://buybetter.ng/wp-content/uploads/2024/06/Garnier-Vitamin-C-Bright-Day-Cream-50ml.avif",
+            "response": {
+              "id": "99e656994f95cf9a13aa35d3",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:11.325Z",
+              "responseSha256": "5ee82d420946c5b368e38c8f53ffd5ff2b8e6877487a3d7e20a76ad1138f635c",
+              "responseByteSize": 651027,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "offerKey": "e83e78792e5e4d344089e2b6",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/garnier-skinactive-vitamin-c-brightening-day-cream-50ml/",
+            "sourceProductId": 10278,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/10278",
+            "observedAt": "2026-07-27T18:11:16.584Z",
+            "observedTitle": "GARNIER SKIN ACTIVE VITAMIN C BRIGHTENING DAY CREAM - 50ML",
+            "observedSize": "50ml",
+            "priceNgn": 14500,
+            "stock": "low-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/07/Garnier-vitamin-c-Day-Cream-.webp",
+            "response": {
+              "id": "71d07d3ec0c3a0b8b20991fd",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=14&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=14&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:16.584Z",
+              "responseSha256": "5b6962f4beac8fbe22097d6ad8aa6eced8487a416a7024daab967903c9aa364f",
+              "responseByteSize": 384362,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "3600542453110",
+            "responseEvidenceId": "99e656994f95cf9a13aa35d3",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "3600542453110",
+            "responseEvidenceId": "71d07d3ec0c3a0b8b20991fd",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "6f49fcf5d23c06595c5ea1a0",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 2,
+        "lane": "moisture-barrier",
+        "priorityScore": 228,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "skin-by-zaron-vitamin-c-body-lotion-500ml",
+          "canonicalProductSlug": "skin-by-zaron-vitamin-c-body-lotion-500ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "reviewed-title-size-alias-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "d4a8089af679b0a894a715be",
+        "title": "SKIN BY ZARON VITAMIN C (Brightening And Moisturizing) Body Lotion 500ml",
+        "brandHint": "SKIN BY ZARON",
+        "size": "500ml",
+        "categoryHint": "Body care",
+        "canonicalSlug": "skin-by-zaron-vitamin-c-body-lotion-500ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "ce207cf5a368d22134dd4d1e",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/skin-by-zaron-vitamin-c-brightening-moisturizing-body-lotion-500ml/",
+            "sourceProductId": 330896,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330896",
+            "observedAt": "2026-07-27T18:11:07.194Z",
+            "observedTitle": "SKIN BY ZARON VITAMIN C (Brightening And Moisturizing) Body Lotion 500ml",
+            "observedSize": "500ml",
+            "priceNgn": 14800,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2024/09/vecg0cn6.png?fit=1200%2C1200&quality=80&ssl=1",
+            "response": {
+              "id": "f0661b04a8bbd02e29588c5e",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:07.194Z",
+              "responseSha256": "e62d31bf5fec1870daee26b3471759509795717e918ab7b2d1ac89375a747c1b",
+              "responseByteSize": 652018,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "offerKey": "b33a1b1b0884157664d0f507",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/skin-by-zaron-vitamin-c-body-lotion-500ml/",
+            "sourceProductId": 5220,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/5220",
+            "observedAt": "2026-07-27T18:11:19.068Z",
+            "observedTitle": "SKIN BY ZARON VITAMIN C BODY LOTION 500ML",
+            "observedSize": "500ml",
+            "priceNgn": 16780,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/zaron-Vitamin-C-lotion-.webp",
+            "response": {
+              "id": "4774da31ec9d4b1e90868d54",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=19&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=19&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:19.068Z",
+              "responseSha256": "5a1a5531fe5bc146952c50ef9d3a683a34022cf407e9cb3e62ad658753bae79e",
+              "responseByteSize": 514457,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "6908137011095",
+            "responseEvidenceId": "f0661b04a8bbd02e29588c5e",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "6908137011095",
+            "responseEvidenceId": "4774da31ec9d4b1e90868d54",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "c57ca8f70a7cc6557aebdbf9",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 3,
+        "lane": "gentle-cleansing",
+        "priorityScore": 225,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+          "canonicalProductSlug": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "e97b02c874d431d93a34601d",
+        "title": "FACEFACTS Ceramide Hydrating Gentle Cleanser 400ml",
+        "brandHint": "FACEFACTS",
+        "size": "400ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "5eed86909e71d36969e040bb",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-hydrating-gentle-cleanser-400ml/",
+            "sourceProductId": 329526,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329526",
+            "observedAt": "2026-07-27T18:11:11.325Z",
+            "observedTitle": "FACEFACTS Ceramide Hydrating Gentle Cleanser 400ml",
+            "observedSize": "400ml",
+            "priceNgn": 7000,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2022/12/bcfv9pcj.png?fit=474%2C474&quality=80&ssl=1",
+            "response": {
+              "id": "99e656994f95cf9a13aa35d3",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:11.325Z",
+              "responseSha256": "5ee82d420946c5b368e38c8f53ffd5ff2b8e6877487a3d7e20a76ad1138f635c",
+              "responseByteSize": 651027,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "offerKey": "e4df7ebdb120bbc16139b8ae",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/facefacts-ceramide-hydrating-cleanser-400ml/",
+            "sourceProductId": 4705,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4705",
+            "observedAt": "2026-07-27T18:11:20.332Z",
+            "observedTitle": "FACEFACTS CERAMIDE HYDRATING CLEANSER 400ML",
+            "observedSize": "400ml",
+            "priceNgn": 7500,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/facefacts-hydrating-cleanser.jpg",
+            "response": {
+              "id": "2104b1389bb55ce9efbde9dc",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=22&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=22&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:20.332Z",
+              "responseSha256": "15981016ad2966f2530a6a73a09107251b31726e7815ace21581c3e18e214a25",
+              "responseByteSize": 525936,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "5031413928662",
+            "responseEvidenceId": "99e656994f95cf9a13aa35d3",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "5031413928662",
+            "responseEvidenceId": "2104b1389bb55ce9efbde9dc",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "86191734afec29533deb56ef",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 4,
+        "lane": "gentle-cleansing",
+        "priorityScore": 225,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+          "canonicalProductSlug": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "882bb2bca63026ffadaabe18",
+        "title": "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
+        "brandHint": "FACEFACTS",
+        "size": "400ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "aa8c160a73ea7e81af69f1b6",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/",
+            "sourceProductId": 331494,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/331494",
+            "observedAt": "2026-07-27T18:11:07.194Z",
+            "observedTitle": "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
+            "observedSize": "400ml",
+            "priceNgn": 6880,
+            "stock": "in-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/01/ivcaxwdo.png?fit=900%2C900&quality=80&ssl=1",
+            "response": {
+              "id": "f0661b04a8bbd02e29588c5e",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=9&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:07.194Z",
+              "responseSha256": "e62d31bf5fec1870daee26b3471759509795717e918ab7b2d1ac89375a747c1b",
+              "responseByteSize": 652018,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "offerKey": "1ffea7fe4f85f4510567cc8d",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/facefacts-oil-control-foaming-cleanser-400ml/",
+            "sourceProductId": 22186,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/22186",
+            "observedAt": "2026-07-27T18:11:13.231Z",
+            "observedTitle": "FACEFACTS OIL CONTROL FOAMING CLEANSER 400ML",
+            "observedSize": "400ml",
+            "priceNgn": 8000,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/07/FACEFACTS-OIL-CONTROL-FOAMING-CLEANSER-400ML.jpg",
+            "response": {
+              "id": "718cdee18bf69d9a4350d85e",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=6&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:13.231Z",
+              "responseSha256": "066c1fe095176beb0cc0179beb002201a8bd5046717ad7087efda883a3cedd4c",
+              "responseByteSize": 423616,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "5031413953923",
+            "responseEvidenceId": "f0661b04a8bbd02e29588c5e",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "5031413953923",
+            "responseEvidenceId": "718cdee18bf69d9a4350d85e",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "5e5eaf99bf5cf8c6218633cd",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 5,
+        "lane": "pigment-support",
+        "priorityScore": 224,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+          "canonicalProductSlug": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "f8248dfef755c72bc5ba70a1",
+        "title": "AQUA RICH Bright+Balance (Niacinamide+Alpha Arbutin+TXA) Body Gel Wash 1000ml",
+        "brandHint": "AQUA RICH",
+        "size": "1000ml",
+        "categoryHint": "Body care",
+        "canonicalSlug": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "5759a6220b2e0c8dd44336fc",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/aqua-rich-bright-balance-body-gel-wash-1000ml/",
+            "sourceProductId": 377475,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377475",
+            "observedAt": "2026-07-27T18:11:01.414Z",
+            "observedTitle": "AQUA RICH Bright+Balance (Niacinamide+Alpha Arbutin+TXA) Body Gel Wash 1000ml",
+            "observedSize": "1000ml",
+            "priceNgn": 11300,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/10/rkMql.jpg?fit=1024%2C1024&quality=89&ssl=1",
+            "response": {
+              "id": "2cf749d74b28c13f98e9495f",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:01.414Z",
+              "responseSha256": "06db3391c7a83c116d90a7a513efb74e683df5d37c577a2b376dac6aad4a9b6b",
+              "responseByteSize": 646030,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "offerKey": "2d61820c39c81ef8761e6cf2",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-bright-balance/",
+            "sourceProductId": 23688,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23688",
+            "observedAt": "2026-07-27T18:11:12.209Z",
+            "observedTitle": "AQUA RICH BODY GEL WASH 1000ML - BRIGHT + BALANCE",
+            "observedSize": "1000ml",
+            "priceNgn": 10500,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/08/AQUA-RICH-BODY-GEL-WASH-1000ML-BRIGHT-BALANCE.jpg",
+            "response": {
+              "id": "603e2c0cc50ddc16295330aa",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:12.209Z",
+              "responseSha256": "decab11b8a3b0b8b821e43f1aea0b463de3fc4683c5b8cad8ae3451de4d65c51",
+              "responseByteSize": 439703,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "4897073186573",
+            "responseEvidenceId": "2cf749d74b28c13f98e9495f",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "4897073186573",
+            "responseEvidenceId": "603e2c0cc50ddc16295330aa",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "40b98e378e2d706b14d203c6",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 6,
+        "lane": "pigment-support",
+        "priorityScore": 224,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+          "canonicalProductSlug": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "e0574c12b77f4a4eafd63ed0",
+        "title": "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
+        "brandHint": "AQUA RICH",
+        "size": "1000ml",
+        "categoryHint": "Body care",
+        "canonicalSlug": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "7ac1f9289f446fd9ca2c4ee3",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrating-bright-body-gel-wash-1000ml/",
+            "sourceProductId": 377469,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/377469",
+            "observedAt": "2026-07-27T18:11:01.414Z",
+            "observedTitle": "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
+            "observedSize": "1000ml",
+            "priceNgn": 10750,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2025/10/TwrD3.jpg?fit=1024%2C1024&quality=89&ssl=1",
+            "response": {
+              "id": "2cf749d74b28c13f98e9495f",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:01.414Z",
+              "responseSha256": "06db3391c7a83c116d90a7a513efb74e683df5d37c577a2b376dac6aad4a9b6b",
+              "responseByteSize": 646030,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "offerKey": "00452142d4e2b0dc39974ac0",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-hydrating-bright/",
+            "sourceProductId": 23687,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/23687",
+            "observedAt": "2026-07-27T18:11:12.209Z",
+            "observedTitle": "AQUA RICH BODY GEL WASH 1000ML - HYDRATING BRIGHT",
+            "observedSize": "1000ml",
+            "priceNgn": 10500,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/08/AQUA-RICH-BODY-GEL-WASH-1000ML-HYDRATING-BRIGHT.jpg",
+            "response": {
+              "id": "603e2c0cc50ddc16295330aa",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=5&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:12.209Z",
+              "responseSha256": "decab11b8a3b0b8b821e43f1aea0b463de3fc4683c5b8cad8ae3451de4d65c51",
+              "responseByteSize": 439703,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "4897073186566",
+            "responseEvidenceId": "2cf749d74b28c13f98e9495f",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "4897073186566",
+            "responseEvidenceId": "603e2c0cc50ddc16295330aa",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "d1758a9a5e023bc9356c91ae",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 7,
+        "lane": "moisture-barrier",
+        "priorityScore": 218,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+          "canonicalProductSlug": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "228728aa93580571b165ad66",
+        "title": "AVEENO Daily Moisturizing Body Oil Mist (Oat And Jojoba Oil) 200ml",
+        "brandHint": "AVEENO",
+        "size": "200ml",
+        "categoryHint": "Body care",
+        "canonicalSlug": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "88a7d58a7d744bac6aebfe7c",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/aveeno-daily-moisturizing-body-oil-mist-oat-amp-jojoba-oil-200ml/",
+            "sourceProductId": 329860,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/329860",
+            "observedAt": "2026-07-27T18:11:11.325Z",
+            "observedTitle": "AVEENO Daily Moisturizing Body Oil Mist (Oat And Jojoba Oil) 200ml",
+            "observedSize": "200ml",
+            "priceNgn": 16448,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2023/10/tnr7h6vs.png?fit=480%2C480&quality=80&ssl=1",
+            "response": {
+              "id": "99e656994f95cf9a13aa35d3",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=10&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:11.325Z",
+              "responseSha256": "5ee82d420946c5b368e38c8f53ffd5ff2b8e6877487a3d7e20a76ad1138f635c",
+              "responseByteSize": 651027,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "offerKey": "71f4537251295e2ffb694d28",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/aveeno-daily-moisturizing-body-oil-mist-200ml/",
+            "sourceProductId": 13716,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/13716",
+            "observedAt": "2026-07-27T18:11:16.237Z",
+            "observedTitle": "AVEENO DAILY MOISTURIZING BODY OIL MIST 200ML",
+            "observedSize": "200ml",
+            "priceNgn": 21000,
+            "stock": "low-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/08/AVEENO-DAILY-MOISTURIZING-BODY-OIL-MIST.webp",
+            "response": {
+              "id": "4bee98259641cd37ef156ea7",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=12&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=12&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:16.237Z",
+              "responseSha256": "324161734c3e57523e40b9801ed6a27bed02e73d703ff914effbe4ee8bc01ea0",
+              "responseByteSize": 489590,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "381371192731",
+            "responseEvidenceId": "99e656994f95cf9a13aa35d3",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "381371192731",
+            "responseEvidenceId": "4bee98259641cd37ef156ea7",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "bbf66fbbf11405e252430312",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 8,
+        "lane": "acne-care",
+        "priorityScore": 216,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "balance-niacinamide-blemish-recovery-serum-30ml",
+          "canonicalProductSlug": "balance-niacinamide-blemish-recovery-serum-30ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "57a37b961545f71bad67753c",
+        "title": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
+        "brandHint": "BALANCE",
+        "size": "30ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "balance-niacinamide-blemish-recovery-serum-30ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "a937ff771b2ef20e1c7395e4",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/balance-niacinamide-blemish-recovery-serum-30ml/",
+            "sourceProductId": 4692,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4692",
+            "observedAt": "2026-07-27T18:11:20.332Z",
+            "observedTitle": "BALANCE NIACINAMIDE BLEMISH RECOVERY SERUM 30ML",
+            "observedSize": "30ml",
+            "priceNgn": 10700,
+            "stock": "low-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/Balance-niacinamide-serum-.jpg",
+            "response": {
+              "id": "2104b1389bb55ce9efbde9dc",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=22&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=22&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:20.332Z",
+              "responseSha256": "15981016ad2966f2530a6a73a09107251b31726e7815ace21581c3e18e214a25",
+              "responseByteSize": 525936,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "Slique Beauty",
+            "value": "5015833328165",
+            "responseEvidenceId": "2104b1389bb55ce9efbde9dc",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "e746bbaf48eb1b92eecb329f",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 9,
+        "lane": "acne-care",
+        "priorityScore": 211,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+          "canonicalProductSlug": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "8ef9c3aad4a08d8aed3c2715",
+        "title": "FACEFACTS CERAMIDE BLEMISH GEL MOISTURISER 50ML",
+        "brandHint": "FACEFACTS",
+        "size": "50ml",
+        "categoryHint": "Face care",
+        "canonicalSlug": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "91c8f6d6bddf51d0d12acf80",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/facefacts-ceramide-blemish-gel-moisturizer-50ml/",
+            "sourceProductId": 4702,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4702",
+            "observedAt": "2026-07-27T18:11:20.332Z",
+            "observedTitle": "FACEFACTS CERAMIDE BLEMISH GEL MOISTURIZER 50ML",
+            "observedSize": "50ml",
+            "priceNgn": 5000,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2024/06/FaceFacts-Ceramide-Blemish-Gel-Moisturiser.jpg",
+            "response": {
+              "id": "2104b1389bb55ce9efbde9dc",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=22&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=22&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:20.332Z",
+              "responseSha256": "15981016ad2966f2530a6a73a09107251b31726e7815ace21581c3e18e214a25",
+              "responseByteSize": 525936,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "Slique Beauty",
+            "value": "5031413935691",
+            "responseEvidenceId": "2104b1389bb55ce9efbde9dc",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "4e8d74d36d5aecd986956de6",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 10,
+        "lane": "moisture-barrier",
+        "priorityScore": 210,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "aqua-rich-ceramide-body-lotion-500ml",
+          "canonicalProductSlug": "aqua-rich-ceramide-body-lotion-500ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "bfb58bf33c25a01639c05cbd",
+        "title": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
+        "brandHint": "AQUA RICH",
+        "size": "500ml",
+        "categoryHint": "Body care",
+        "canonicalSlug": "aqua-rich-ceramide-body-lotion-500ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "b09303a6d9096fec9be5f289",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrate-protect/",
+            "sourceProductId": 24955,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/24955",
+            "observedAt": "2026-07-27T18:11:12.361Z",
+            "observedTitle": "AQUA RICH BODY LOTION 500ML - HYDRATE + PROTECT",
+            "observedSize": "500ml",
+            "priceNgn": 11000,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/11/AQUA-RICH-BODY-LOTION-500ML-HYDRATE-PROTECT.webp",
+            "response": {
+              "id": "4ac1251f5670605bdb4d72b5",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:12.361Z",
+              "responseSha256": "9a87ea96d8c0b78a74350ed048d102eef76a01a4a55cebd352fded3c66c4477c",
+              "responseByteSize": 367036,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "Slique Beauty",
+            "value": "4897073187549",
+            "responseEvidenceId": "4ac1251f5670605bdb4d72b5",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "c36e29cc737cc9c119eb4df1",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 11,
+        "lane": "moisture-barrier",
+        "priorityScore": 210,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed",
+          "formula-or-active-visible"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "single-retailer-observation",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+          "canonicalProductSlug": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "33a8a8e0a0d873069347393c",
+        "title": "AQUA RICH Hydrating Bright Turmeric And Vitamin C Body Lotion 500ml",
+        "brandHint": "AQUA RICH",
+        "size": "500ml",
+        "categoryHint": "Body care",
+        "canonicalSlug": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "c511aac31d183bb28e6b1fd5",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrating-bright/",
+            "sourceProductId": 24105,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/24105",
+            "observedAt": "2026-07-27T18:11:12.361Z",
+            "observedTitle": "AQUA RICH BODY LOTION 500ML - HYDRATING BRIGHT",
+            "observedSize": "500ml",
+            "priceNgn": 10500,
+            "stock": "low-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2025/09/AQUA-RICH-BODY-LOTION-500ML-HYDRATING-BRIGHT.webp",
+            "response": {
+              "id": "4ac1251f5670605bdb4d72b5",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:12.361Z",
+              "responseSha256": "9a87ea96d8c0b78a74350ed048d102eef76a01a4a55cebd352fded3c66c4477c",
+              "responseByteSize": 367036,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "Slique Beauty",
+            "value": "4897073186542",
+            "responseEvidenceId": "4ac1251f5670605bdb4d72b5",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    },
+    {
+      "id": "d43b8c9cbb25801be150754f",
+      "source": "static-priority",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "research": {
+        "kind": "known-product-additional-offer",
+        "rank": 12,
+        "lane": "body-care",
+        "priorityScore": 206,
+        "reasons": [
+          "known-product-additional-offer-observed",
+          "high-consumer-utility",
+          "directory-retailer-observed",
+          "multi-retailer-observed",
+          "gtin-shaped-identity-lead",
+          "current-stock-observed"
+        ],
+        "cautions": [
+          "known-product-binding-review",
+          "provisional-retailer-offer",
+          "retailer-code-unverified"
+        ],
+        "nextAction": "review-additional-offer-for-known-product",
+        "knownProduct": {
+          "productRef": "dove-skin-replenish-serum-body-wash-547ml",
+          "canonicalProductSlug": "dove-skin-replenish-serum-body-wash-547ml",
+          "catalogueStatus": "public-catalogue",
+          "bindingBasis": "retailer-code-crosswalk-review",
+          "authority": "private-review-target-only"
+        }
+      },
+      "productLead": {
+        "discoveryId": "5a63a184f3c4ab6402f4a586",
+        "title": "DOVE SKIN REPLENISH 2% Body Wash 547ml",
+        "brandHint": "DOVE",
+        "size": "547ml",
+        "categoryHint": "Body care",
+        "canonicalSlug": "dove-skin-replenish-serum-body-wash-547ml",
+        "identityStatus": "known-product-review-binding",
+        "careStatus": "not-reviewed",
+        "imageStatus": "source-url-unreviewed"
+      },
+      "discoveryEvidence": {
+        "sourceSnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7",
+        "observations": [
+          {
+            "offerKey": "bea315351e489befb9c46723",
+            "retailer": "BuyBetter",
+            "retailerStatus": "directory-listed",
+            "listingUrl": "https://buybetter.ng/product/dove-skin-replenish-2-body-wash-547ml/",
+            "sourceProductId": 403178,
+            "sourceProductApiUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/403178",
+            "observedAt": "2026-07-27T18:11:00.796Z",
+            "observedTitle": "DOVE SKIN REPLENISH 2% Body Wash 547ml",
+            "observedSize": "547ml",
+            "priceNgn": 22600,
+            "stock": "low-stock",
+            "imageUrl": "https://i0.wp.com/buybetter.ng/wp-content/uploads/2026/03/odoo-13941.png?fit=1080%2C1079&quality=80&ssl=1",
+            "response": {
+              "id": "15f291ba68c850c00edc8bd4",
+              "retailer": "BuyBetter",
+              "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products?per_page=100&page=4&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:00.796Z",
+              "responseSha256": "06b35427c6c1b042e2a3c37d81afa128039a40bf1f9486c27e29633f9b1c5094",
+              "responseByteSize": 498868,
+              "responseMimeType": "application/json"
+            }
+          },
+          {
+            "offerKey": "4dd7e2fb2586ac8269e8ec7d",
+            "retailer": "Slique Beauty",
+            "retailerStatus": "provisional",
+            "listingUrl": "https://sliquebeautylimited.com/product/dove-body-wash-547ml-skin-replenish/",
+            "sourceProductId": 27563,
+            "sourceProductApiUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/27563",
+            "observedAt": "2026-07-27T18:11:09.932Z",
+            "observedTitle": "DOVE BODY WASH 547ML - SKIN REPLENISH",
+            "observedSize": "547ml",
+            "priceNgn": 24000,
+            "stock": "in-stock",
+            "imageUrl": "https://sliquebeautylimited.com/wp-content/uploads/2026/04/DOVE-BODY-WASH-547ML-SKIN-REPLENISH.webp",
+            "response": {
+              "id": "0c44e7b91ceea188c81e780a",
+              "retailer": "Slique Beauty",
+              "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=2&orderby=id&order=desc",
+              "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products?per_page=100&page=2&orderby=id&order=desc",
+              "retrievedAt": "2026-07-27T18:11:09.932Z",
+              "responseSha256": "d9296354c0765ee0b4549d62be07410ffe45f42277a58d6ddd4d71d79c92d9dc",
+              "responseByteSize": 357192,
+              "responseMimeType": "application/json"
+            }
+          }
+        ],
+        "retailerCodeLeads": [
+          {
+            "retailer": "BuyBetter",
+            "value": "011111055230",
+            "responseEvidenceId": "15f291ba68c850c00edc8bd4",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          },
+          {
+            "retailer": "Slique Beauty",
+            "value": "011111055230",
+            "responseEvidenceId": "0c44e7b91ceea188c81e780a",
+            "treatment": "retailer-local-code-not-manufacturer-identity"
+          }
+        ]
+      },
+      "proofSlots": {
+        "officialIdentity": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "officialProductUrl": null,
+          "manufacturerGtin": null,
+          "exactVariant": null,
+          "exactSize": null,
+          "sourceResponseSha256": null,
+          "reviewedAt": null
+        },
+        "care": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "manufacturerFormulaUrl": null,
+          "independentGuidanceUrl": null,
+          "reviewedAt": null
+        },
+        "exactNigeriaOffers": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "offers": []
+        },
+        "rightsAndSourceBytes": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "rightsStatus": null,
+          "rightsSourceUrl": null,
+          "sourceAssetUrl": null,
+          "sourceResponseSha256": null,
+          "sourceResponseByteSize": null
+        },
+        "finalImage": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "publicImageUrl": null,
+          "imageSha256": null,
+          "imageWidth": null,
+          "imageHeight": null,
+          "imageHasAlpha": null,
+          "packaging": null,
+          "presentationQuality": null
+        },
+        "generation": {
+          "status": "uncollected",
+          "requiredFor": "candidate-intake-only",
+          "provider": null,
+          "model": null,
+          "prompt": null,
+          "outputSha256": null,
+          "generatedAt": null
+        }
+      }
+    }
+  ]
+}

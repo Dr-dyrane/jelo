@@ -242,23 +242,19 @@ export async function getInventoryRefreshBacklogSummary(): Promise<InventoryRefr
  * freshness degradation before users see outdated prices.
  */
 export async function getStaleOfferCount(): Promise<number> {
-  try {
-    const sql = getPostgresClient();
-    const [row] = await sql<{ stale: number }[]>`
-      select count(*)::int as stale
-      from offers o
-      where o.match_kind = 'exact'
-        and o.market_code = 'NG'
-        and o.verification_expires_at is not null
-        and o.verification_expires_at <= now()
-        and not exists (
-          select 1 from inventory_refresh_jobs j
-          where j.offer_id = o.id
-            and j.status in ('queued', 'processing')
-        )
-    `;
-    return row?.stale ?? 0;
-  } catch {
-    return 0;
-  }
+  const sql = getPostgresClient();
+  const [row] = await sql<{ stale: number }[]>`
+    select count(*)::int as stale
+    from offers o
+    where o.match_kind = 'exact'
+      and o.market_code = 'NG'
+      and o.verification_expires_at is not null
+      and o.verification_expires_at <= now()
+      and not exists (
+        select 1 from inventory_refresh_jobs j
+        where j.offer_id = o.id
+          and j.status in ('queued', 'processing')
+      )
+  `;
+  return row?.stale ?? 0;
 }

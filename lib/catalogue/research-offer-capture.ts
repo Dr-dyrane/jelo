@@ -1,39 +1,40 @@
-import { createHash } from 'node:crypto';
-import {
-  lstat,
-  mkdir,
-  readFile,
-  realpath,
-  writeFile,
-} from 'node:fs/promises';
-import path from 'node:path';
+import { createHash } from "node:crypto";
+import { lstat, mkdir, readFile, realpath, writeFile } from "node:fs/promises";
+import path from "node:path";
 import {
   catalogueDiscoverySources,
   type CatalogueDiscoverySource,
-} from '@/data/catalogue-discovery-sources';
+} from "@/data/catalogue-discovery-sources";
+import { retailerByName } from "@/data/retailers";
 import {
   auditCatalogueDiscoverySnapshot,
   type CatalogueDiscoverySnapshot,
   type DiscoveryRetailerObservation,
   type WooStoreProduct,
-} from './discovery-screening';
+} from "./discovery-screening";
 import {
   assertPrivateResearchEvidencePacketManifest,
   type CatalogueResearchEvidencePacketManifest,
-} from './research-evidence-packet';
+} from "./research-evidence-packet";
+import { catalogueResearchOfferKey } from "./research-priority";
 
 export const researchOfferCaptureSchemaVersion = 2 as const;
-export const researchOfferCapturePolicy = 'private-retained-offer-source-evidence-only' as const;
-export const researchOfferCapturePublicationAuthority = 'none' as const;
-export const researchOfferCapturePublicationStatus = 'not-a-catalogue-candidate' as const;
+export const researchOfferCapturePolicy =
+  "private-retained-offer-source-evidence-only" as const;
+export const researchOfferCapturePublicationAuthority = "none" as const;
+export const researchOfferCapturePublicationStatus =
+  "not-a-catalogue-candidate" as const;
 export const maximumResearchOfferCapturePackets = 12;
 export const maximumResearchOfferResponseBytes = 1_000_000;
-export const researchOfferCaptureManifestPath = 'data/catalogue-research-offer-captures.json' as const;
-export const researchOfferCaptureEvidenceDirectory = 'data/catalogue-offer-source-evidence' as const;
+export const researchOfferCaptureManifestPath =
+  "data/catalogue-research-offer-captures.json" as const;
+export const researchOfferCaptureEvidenceDirectory =
+  "data/catalogue-offer-source-evidence" as const;
 
 const digestPattern = /^[0-9a-f]{64}$/;
 const shortDigestPattern = /^[0-9a-f]{24}$/;
-const productApiRoutePattern = /^\/wp-json\/wc\/store\/v1\/products\/([1-9]\d*)\/?$/;
+const productApiRoutePattern =
+  /^\/wp-json\/wc\/store\/v1\/products\/([1-9]\d*)\/?$/;
 
 type CaptureDiscoveryObservation = DiscoveryRetailerObservation & {
   sourceProductId: number;
@@ -43,8 +44,9 @@ type CaptureDiscoveryObservation = DiscoveryRetailerObservation & {
 export type ResearchOfferCapturePlanItem = {
   packetId: string;
   discoveryId: string;
+  offerKey: string;
   retailer: string;
-  retailerStatus: DiscoveryRetailerObservation['retailerStatus'];
+  retailerStatus: DiscoveryRetailerObservation["retailerStatus"];
   listingUrl: string;
   sourceProductId: number;
   sourceProductApiUrl: string;
@@ -55,18 +57,20 @@ export type ResearchOfferCapturePlanItem = {
 
 export type RetailerLocalSku = {
   value: string;
-  treatment: 'retailer-local-code-not-manufacturer-identity';
+  treatment: "retailer-local-code-not-manufacturer-identity";
 } | null;
 
 export type ResearchOfferCaptureRecord = {
   id: string;
   packetId: string;
   discoveryId: string;
+  /** Absent only on immutable historical v1 bindings retained for audit. */
+  offerKey?: string;
   retailer: string;
-  retailerStatus: DiscoveryRetailerObservation['retailerStatus'];
+  retailerStatus: DiscoveryRetailerObservation["retailerStatus"];
   publicationStatus: typeof researchOfferCapturePublicationStatus;
   publicationAuthority: typeof researchOfferCapturePublicationAuthority;
-  identityAuthority: 'none';
+  identityAuthority: "none";
   evidencePath: string;
   source: {
     productId: number;
@@ -76,16 +80,16 @@ export type ResearchOfferCaptureRecord = {
     capturedAt: string;
     responseSha256: string;
     responseByteSize: number;
-    responseMimeType: 'application/json';
+    responseMimeType: "application/json";
   };
   offer: {
     title: string;
     size: string;
     price: {
       amount: number;
-      currency: 'NGN';
+      currency: "NGN";
     };
-    stock: DiscoveryRetailerObservation['stock'];
+    stock: DiscoveryRetailerObservation["stock"];
     retailerSku: RetailerLocalSku;
   };
 };
@@ -93,11 +97,11 @@ export type ResearchOfferCaptureRecord = {
 export type ResearchOfferQualityCaution = {
   captureId: string;
   responseSha256: string;
-  kind: 'cross-product-visual' | 'description-size-conflict';
+  kind: "cross-product-visual" | "description-size-conflict";
   disposition:
-    | 'exclude-source-visual-from-all-use'
-    | 'exclude-description-from-identity-care-and-public-copy';
-  basis: 'retained-response-and-live-listing-review';
+    | "exclude-source-visual-from-all-use"
+    | "exclude-description-from-identity-care-and-public-copy";
+  basis: "retained-response-and-live-listing-review";
   reviewedAt: string;
 };
 
@@ -126,58 +130,62 @@ export type ResearchOfferCaptureManifest = {
 };
 
 function sha256(value: string | Buffer) {
-  return createHash('sha256').update(value).digest('hex');
+  return createHash("sha256").update(value).digest("hex");
 }
 
 function normalizedHost(value: string) {
-  return value.toLowerCase().replace(/^www\./, '');
+  return value.toLowerCase().replace(/^www\./, "");
 }
 
 function retailerSlug(value: string) {
   return value
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 function decodeHtml(value: string) {
   return value
-    .replace(/&amp;/gi, '&')
+    .replace(/&amp;/gi, "&")
     .replace(/&#0*39;|&apos;/gi, "'")
     .replace(/&quot;/gi, '"')
-    .replace(/&#8211;|&ndash;/gi, '-')
+    .replace(/&#8211;|&ndash;/gi, "-")
     .replace(/&#8217;|&rsquo;/gi, "'")
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\s+/g, ' ')
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
 function normalizedText(value: string) {
   return decodeHtml(value)
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/[^a-z0-9]+/g, " ")
     .trim();
 }
 
 function measuredSize(value: string) {
-  const matches = Array.from(decodeHtml(value).matchAll(
-    /\b\d+(?:[.,]\d+)?\s*(?:fl\.?\s*oz|ml|cl|l|mg|kg|g|oz|count|pcs?|pieces?|pack)\b/gi,
-  )).map(match => match[0].replace(/\s+/g, ' ').trim());
-  return Array.from(new Set(matches.map(match => match.toLowerCase()))).join(' / ');
+  const matches = Array.from(
+    decodeHtml(value).matchAll(
+      /\b\d+(?:[.,]\d+)?\s*(?:fl\.?\s*oz|ml|cl|l|mg|kg|g|oz|count|pcs?|pieces?|pack)\b/gi,
+    ),
+  ).map((match) => match[0].replace(/\s+/g, " ").trim());
+  return Array.from(new Set(matches.map((match) => match.toLowerCase()))).join(
+    " / ",
+  );
 }
 
 function exactUrl(value: string) {
   const url = new URL(value);
-  url.hash = '';
+  url.hash = "";
   return url.href;
 }
 
 function sameExactUrl(left: unknown, right: unknown) {
-  if (typeof left !== 'string' || typeof right !== 'string') return false;
+  if (typeof left !== "string" || typeof right !== "string") return false;
   try {
     return exactUrl(left) === exactUrl(right);
   } catch {
@@ -187,7 +195,9 @@ function sameExactUrl(left: unknown, right: unknown) {
 
 function productApiRoute(url: URL, productId: number) {
   const route = productApiRoutePattern.exec(url.pathname);
-  return route != null && Number(route[1]) === productId && !url.search && !url.hash;
+  return (
+    route != null && Number(route[1]) === productId && !url.search && !url.hash
+  );
 }
 
 function assertCaptureRoute(item: ResearchOfferCapturePlanItem) {
@@ -197,33 +207,38 @@ function assertCaptureRoute(item: ResearchOfferCapturePlanItem) {
     listing = new URL(item.listingUrl);
     api = new URL(item.sourceProductApiUrl);
   } catch {
-    throw new Error(`${item.discoveryId}/${item.retailer} has an invalid source URL.`);
+    throw new Error(
+      `${item.discoveryId}/${item.retailer} has an invalid source URL.`,
+    );
   }
   if (
-    listing.protocol !== 'https:'
-    || api.protocol !== 'https:'
-    || normalizedHost(listing.hostname) !== normalizedHost(api.hostname)
-    || listing.port !== api.port
-    || listing.username !== ''
-    || listing.password !== ''
-    || api.username !== ''
-    || api.password !== ''
-    || !listing.pathname.includes('/product/')
-    || !productApiRoute(api, item.sourceProductId)
+    listing.protocol !== "https:" ||
+    api.protocol !== "https:" ||
+    normalizedHost(listing.hostname) !== normalizedHost(api.hostname) ||
+    listing.port !== api.port ||
+    listing.username !== "" ||
+    listing.password !== "" ||
+    api.username !== "" ||
+    api.password !== "" ||
+    !listing.pathname.includes("/product/") ||
+    !productApiRoute(api, item.sourceProductId)
   ) {
-    throw new Error(`${item.discoveryId}/${item.retailer} is outside its exact reviewed product API route.`);
+    throw new Error(
+      `${item.discoveryId}/${item.retailer} is outside its exact reviewed product API route.`,
+    );
   }
 }
 
 function privateSourceByteRetentionGranted(source: CatalogueDiscoverySource) {
   const policy = source.privateSourceByteRetention;
   return (
-    source.contentUse === 'link-only'
-    && policy?.capability === 'private-exact-product-response-audit'
-    && policy.rationale === 'reopen-dated-offer-fields-and-verify-response-integrity'
-    && policy.retentionBoundary === 'private-evidence-repository-only'
-    && policy.publicContentReuse === 'none'
-    && policy.publicImageReuse === 'none'
+    source.contentUse === "link-only" &&
+    policy?.capability === "private-exact-product-response-audit" &&
+    policy.rationale ===
+      "reopen-dated-offer-fields-and-verify-response-integrity" &&
+    policy.retentionBoundary === "private-evidence-repository-only" &&
+    policy.publicContentReuse === "none" &&
+    policy.publicImageReuse === "none"
   );
 }
 
@@ -233,16 +248,15 @@ function privateSourceByteRetentionGranted(source: CatalogueDiscoverySource) {
  */
 function assertPrivateSourceByteRetention(item: ResearchOfferCapturePlanItem) {
   const api = new URL(item.sourceProductApiUrl);
-  const source = catalogueDiscoverySources.find(candidate => {
+  const source = catalogueDiscoverySources.find((candidate) => {
     const endpoint = new URL(candidate.endpoint);
     return (
-      candidate.retailer === item.retailer
-      && normalizedHost(endpoint.hostname) === normalizedHost(api.hostname)
-      && endpoint.protocol === api.protocol
-      && endpoint.port === api.port
-      && api.pathname === (
-        `${endpoint.pathname.replace(/\/+$/, '')}/${item.sourceProductId}`
-      )
+      candidate.retailer === item.retailer &&
+      normalizedHost(endpoint.hostname) === normalizedHost(api.hostname) &&
+      endpoint.protocol === api.protocol &&
+      endpoint.port === api.port &&
+      api.pathname ===
+        `${endpoint.pathname.replace(/\/+$/, "")}/${item.sourceProductId}`
     );
   });
   if (!source || !privateSourceByteRetentionGranted(source)) {
@@ -253,26 +267,46 @@ function assertPrivateSourceByteRetention(item: ResearchOfferCapturePlanItem) {
   return source;
 }
 
-function expectedEvidencePath(discoveryId: string, retailer: string) {
+function expectedEvidencePath(
+  discoveryId: string,
+  retailer: string,
+  offerKey?: string,
+) {
   const slug = retailerSlug(retailer);
-  if (!slug) throw new Error('Retailer name cannot form an evidence path.');
-  return `${researchOfferCaptureEvidenceDirectory}/${discoveryId}--${slug}.json`;
+  if (!slug) throw new Error("Retailer name cannot form an evidence path.");
+  if (offerKey !== undefined && !shortDigestPattern.test(offerKey)) {
+    throw new Error("Exact offer key cannot form an evidence path.");
+  }
+  return (
+    `${researchOfferCaptureEvidenceDirectory}/${discoveryId}--${slug}` +
+    `${offerKey ? `--${offerKey}` : ""}.json`
+  );
 }
 
 function positivePacketCount(value: number) {
-  if (!Number.isSafeInteger(value) || value < 1 || value > maximumResearchOfferCapturePackets) {
-    throw new Error(`Offer capture batch must be between 1 and ${maximumResearchOfferCapturePackets} packets.`);
+  if (
+    !Number.isSafeInteger(value) ||
+    value < 1 ||
+    value > maximumResearchOfferCapturePackets
+  ) {
+    throw new Error(
+      `Offer capture batch must be between 1 and ${maximumResearchOfferCapturePackets} packets.`,
+    );
   }
 }
 
-function captureObservation(value: DiscoveryRetailerObservation): CaptureDiscoveryObservation {
+function captureObservation(
+  value: DiscoveryRetailerObservation,
+): CaptureDiscoveryObservation {
   const observation = value as CaptureDiscoveryObservation;
   if (
-    !Number.isSafeInteger(observation.sourceProductId)
-    || observation.sourceProductId <= 0
-    || typeof observation.sourceProductApiUrl !== 'string'
+    !Number.isSafeInteger(observation.sourceProductId) ||
+    observation.sourceProductId <= 0 ||
+    typeof observation.sourceProductApiUrl !== "string"
   ) {
-    throw new Error(`${observation.retailer} observation lacks an exact source product API endpoint.`);
+    throw new Error(
+      `${observation.retailer} observation lacks an exact source product API endpoint.`,
+    );
   }
   return observation;
 }
@@ -288,111 +322,194 @@ export function buildResearchOfferCapturePlan(
 ): ResearchOfferCapturePlanItem[] {
   assertPrivateResearchEvidencePacketManifest(packetManifest);
   auditCatalogueDiscoverySnapshot(snapshot);
-  const packetCount = typeof packetSelection === 'number'
-    ? packetSelection
-    : packetSelection.length;
+  const packetCount =
+    typeof packetSelection === "number"
+      ? packetSelection
+      : packetSelection.length;
   positivePacketCount(packetCount);
   if (packetCount > packetManifest.packets.length) {
-    throw new Error('Offer capture batch exceeds the checked-in research packet selection.');
+    throw new Error(
+      "Offer capture batch exceeds the checked-in research packet selection.",
+    );
   }
-  const selectedPackets = typeof packetSelection === 'number'
-    ? packetManifest.packets.slice(0, packetSelection)
-    : packetSelection.map(id => {
-      const packet = packetManifest.packets.find(candidate => candidate.id === id);
-      if (!packet) throw new Error(`Offer capture packet ${id} is outside the checked-in shard.`);
-      return packet;
-    });
-  if (new Set(selectedPackets.map(packet => packet.id)).size !== selectedPackets.length) {
-    throw new Error('Offer capture packet selection is duplicated.');
+  const selectedPackets =
+    typeof packetSelection === "number"
+      ? packetManifest.packets.slice(0, packetSelection)
+      : packetSelection.map((id) => {
+          const packet = packetManifest.packets.find(
+            (candidate) => candidate.id === id,
+          );
+          if (!packet)
+            throw new Error(
+              `Offer capture packet ${id} is outside the checked-in shard.`,
+            );
+          return packet;
+        });
+  if (
+    new Set(selectedPackets.map((packet) => packet.id)).size !==
+    selectedPackets.length
+  ) {
+    throw new Error("Offer capture packet selection is duplicated.");
   }
 
   const plan: ResearchOfferCapturePlanItem[] = [];
   const evidencePaths = new Set<string>();
   for (const packet of selectedPackets) {
-    if (packet.source !== 'static-priority') {
-      throw new Error('Offer capture accepts only snapshot-bound static research packets.');
+    if (packet.source !== "static-priority") {
+      throw new Error(
+        "Offer capture accepts only snapshot-bound static research packets.",
+      );
     }
-    const candidate = snapshot.candidates.find(item => item.discoveryId === packet.productLead.discoveryId);
-    if (!candidate) throw new Error(`Research packet ${packet.id} is absent from its discovery snapshot.`);
+    const candidate = snapshot.candidates.find(
+      (item) => item.discoveryId === packet.productLead.discoveryId,
+    );
+    if (!candidate)
+      throw new Error(
+        `Research packet ${packet.id} is absent from its discovery snapshot.`,
+      );
 
-    for (const rawObservation of candidate.retailerObservations) {
-      const packetObservation = packet.discoveryEvidence.observations.find(item =>
-        item.retailer === rawObservation.retailer
-        && sameExactUrl(item.listingUrl, rawObservation.listingUrl));
+    const productRef =
+      packet.research.knownProduct?.productRef ??
+      `discovery:${candidate.discoveryId}`;
+    for (const packetObservation of packet.discoveryEvidence.observations) {
+      if (!shortDigestPattern.test(packetObservation.offerKey)) {
+        throw new Error(
+          `${candidate.discoveryId} packet lacks an exact offer key.`,
+        );
+      }
+      const rawMatches = candidate.retailerObservations.filter(
+        (observation) =>
+          catalogueResearchOfferKey(
+            productRef,
+            retailerByName(observation.retailer)?.name ?? observation.retailer,
+            observation.listingUrl,
+          ) === packetObservation.offerKey,
+      );
+      if (rawMatches.length !== 1) {
+        throw new Error(
+          `${candidate.discoveryId}/${packetObservation.retailer} has ${rawMatches.length} immutable snapshot bindings.`,
+        );
+      }
+      const rawObservation = rawMatches[0]!;
+      const authoritativeRetailer = retailerByName(rawObservation.retailer);
       if (
-        !packetObservation
-        || packetObservation.retailerStatus !== rawObservation.retailerStatus
-        || packetObservation.sourceProductId !== rawObservation.sourceProductId
-        || !sameExactUrl(
+        packetObservation.retailer !==
+          (authoritativeRetailer?.name ?? rawObservation.retailer) ||
+        packetObservation.retailerStatus !==
+          (authoritativeRetailer?.reviewStatus ??
+            rawObservation.retailerStatus) ||
+        packetObservation.sourceProductId !== rawObservation.sourceProductId ||
+        !sameExactUrl(
           packetObservation.sourceProductApiUrl,
           rawObservation.sourceProductApiUrl,
-        )
-        || normalizedText(packetObservation.observedTitle)
-          !== normalizedText(rawObservation.observedTitle)
-        || normalizedText(packetObservation.observedSize)
-          !== normalizedText(rawObservation.observedSize)
+        ) ||
+        normalizedText(packetObservation.observedTitle) !==
+          normalizedText(rawObservation.observedTitle) ||
+        normalizedText(packetObservation.observedSize) !==
+          normalizedText(rawObservation.observedSize)
       ) {
-        throw new Error(`${candidate.discoveryId}/${rawObservation.retailer} is not bound to the research packet.`);
+        throw new Error(
+          `${candidate.discoveryId}/${rawObservation.retailer} is not bound to the research packet.`,
+        );
       }
       const observation = captureObservation(rawObservation);
       const item: ResearchOfferCapturePlanItem = {
         packetId: packet.id,
         discoveryId: candidate.discoveryId,
-        retailer: observation.retailer,
-        retailerStatus: observation.retailerStatus,
-        listingUrl: observation.listingUrl,
+        offerKey: packetObservation.offerKey,
+        retailer: packetObservation.retailer,
+        retailerStatus: packetObservation.retailerStatus,
+        listingUrl: packetObservation.listingUrl,
         sourceProductId: observation.sourceProductId,
         sourceProductApiUrl: observation.sourceProductApiUrl,
         expectedTitle: observation.observedTitle,
         expectedSize: observation.observedSize,
-        evidencePath: expectedEvidencePath(candidate.discoveryId, observation.retailer),
+        evidencePath: expectedEvidencePath(
+          candidate.discoveryId,
+          packetObservation.retailer,
+          packetObservation.offerKey,
+        ),
       };
       assertCaptureRoute(item);
       assertPrivateSourceByteRetention(item);
       if (evidencePaths.has(item.evidencePath)) {
-        throw new Error(`${item.discoveryId}/${item.retailer} collides with another retained evidence path.`);
+        throw new Error(
+          `${item.discoveryId}/${item.retailer} collides with another retained evidence path.`,
+        );
       }
       evidencePaths.add(item.evidencePath);
       plan.push(item);
     }
   }
-  if (!plan.length) throw new Error('Offer capture plan has no exact retailer observations.');
+  if (!plan.length)
+    throw new Error("Offer capture plan has no exact retailer observations.");
   return plan;
 }
 
 function productPrice(product: WooStoreProduct) {
-  if (product.prices?.currency_code !== 'NGN' || typeof product.prices.price !== 'string') {
-    throw new Error('Offer response does not contain an NGN price.');
+  if (
+    product.prices?.currency_code !== "NGN" ||
+    typeof product.prices.price !== "string"
+  ) {
+    throw new Error("Offer response does not contain an NGN price.");
   }
   const raw = Number(product.prices.price);
   const minorUnit = product.prices.currency_minor_unit ?? 0;
-  if (!Number.isSafeInteger(raw) || raw <= 0 || !Number.isInteger(minorUnit) || minorUnit < 0 || minorUnit > 2) {
-    throw new Error('Offer response contains an invalid price.');
+  if (
+    !Number.isSafeInteger(raw) ||
+    raw <= 0 ||
+    !Number.isInteger(minorUnit) ||
+    minorUnit < 0 ||
+    minorUnit > 2
+  ) {
+    throw new Error("Offer response contains an invalid price.");
   }
   const amount = raw / 10 ** minorUnit;
-  if (!Number.isSafeInteger(amount) || amount <= 0) throw new Error('Offer response price is not a whole naira amount.');
+  if (!Number.isSafeInteger(amount) || amount <= 0)
+    throw new Error("Offer response price is not a whole naira amount.");
   return amount;
 }
 
-function productStock(product: WooStoreProduct): DiscoveryRetailerObservation['stock'] {
-  const value = `${product.stock_availability?.class ?? ''} ${product.stock_availability?.text ?? ''}`.toLowerCase();
-  if (/out[ -]?of[ -]?stock|sold out|unavailable/.test(value) || product.is_in_stock === false) return 'out-of-stock';
-  if (/low[ -]?stock|only\s+\d+\s+left/.test(value) || (product.low_stock_remaining ?? 0) > 0) return 'low-stock';
-  if (/in[ -]?stock|available/.test(value) || product.is_in_stock === true) return 'in-stock';
-  return 'unknown';
+function productStock(
+  product: WooStoreProduct,
+): DiscoveryRetailerObservation["stock"] {
+  const value =
+    `${product.stock_availability?.class ?? ""} ${product.stock_availability?.text ?? ""}`.toLowerCase();
+  if (
+    /out[ -]?of[ -]?stock|sold out|unavailable/.test(value) ||
+    product.is_in_stock === false
+  )
+    return "out-of-stock";
+  if (
+    /low[ -]?stock|only\s+\d+\s+left/.test(value) ||
+    (product.low_stock_remaining ?? 0) > 0
+  )
+    return "low-stock";
+  if (/in[ -]?stock|available/.test(value) || product.is_in_stock === true)
+    return "in-stock";
+  return "unknown";
 }
 
 function captureId(item: ResearchOfferCapturePlanItem, responseSha256: string) {
   return sha256(
-    `jelocare-private-retained-offer-v1\n${item.packetId}\n${item.discoveryId}\n`
-    + `${item.retailer}\n${item.sourceProductId}\n${responseSha256}\n`,
+    `jelocare-private-retained-offer-v2\n${item.packetId}\n${item.discoveryId}\n` +
+      `${item.offerKey}\n${item.retailer}\n${item.sourceProductId}\n${responseSha256}\n`,
+  ).slice(0, 24);
+}
+
+function legacyCaptureId(capture: ResearchOfferCaptureRecord) {
+  return sha256(
+    `jelocare-private-retained-offer-v1\n${capture.packetId}\n${capture.discoveryId}\n` +
+      `${capture.retailer}\n${capture.source.productId}\n${capture.source.responseSha256}\n`,
   ).slice(0, 24);
 }
 
 async function boundedResponseBytes(response: Response, maximumBytes: number) {
-  const declaredLength = Number(response.headers.get('content-length') ?? 0);
+  const declaredLength = Number(response.headers.get("content-length") ?? 0);
   if (Number.isFinite(declaredLength) && declaredLength > maximumBytes) {
-    throw new Error('Offer response exceeded the retained evidence byte limit.');
+    throw new Error(
+      "Offer response exceeded the retained evidence byte limit.",
+    );
   }
   if (!response.body) return Buffer.alloc(0);
 
@@ -407,7 +524,9 @@ async function boundedResponseBytes(response: Response, maximumBytes: number) {
       byteSize += chunk.byteLength;
       if (byteSize > maximumBytes) {
         await reader.cancel();
-        throw new Error('Offer response exceeded the retained evidence byte limit.');
+        throw new Error(
+          "Offer response exceeded the retained evidence byte limit.",
+        );
       }
       chunks.push(chunk);
     }
@@ -428,20 +547,24 @@ export async function captureResearchOfferResponse(
   assertCaptureRoute(item);
   assertPrivateSourceByteRetention(item);
   const fetchImpl = options.fetchImpl ?? fetch;
-  const maximumResponseBytes = options.maximumResponseBytes ?? maximumResearchOfferResponseBytes;
+  const maximumResponseBytes =
+    options.maximumResponseBytes ?? maximumResearchOfferResponseBytes;
   if (!Number.isSafeInteger(maximumResponseBytes) || maximumResponseBytes < 1) {
-    throw new Error('Offer response byte limit is invalid.');
+    throw new Error("Offer response byte limit is invalid.");
   }
   const response = await fetchImpl(item.sourceProductApiUrl, {
-    redirect: 'follow',
+    redirect: "follow",
     headers: {
-      Accept: 'application/json',
-      'User-Agent': 'JeloCarePrivateOfferEvidence/1.0 (+https://jelocare.com)',
+      Accept: "application/json",
+      "User-Agent": "JeloCarePrivateOfferEvidence/1.0 (+https://jelocare.com)",
     },
   });
-  if (!response.ok) throw new Error(`${item.retailer} offer endpoint returned HTTP ${response.status}.`);
+  if (!response.ok)
+    throw new Error(
+      `${item.retailer} offer endpoint returned HTTP ${response.status}.`,
+    );
 
-  const responseMimeType = response.headers.get('content-type') ?? '';
+  const responseMimeType = response.headers.get("content-type") ?? "";
   if (!/^application\/json(?:;|$)/i.test(responseMimeType)) {
     throw new Error(`${item.retailer} offer endpoint did not return JSON.`);
   }
@@ -449,41 +572,60 @@ export async function captureResearchOfferResponse(
   const responseRouteItem = { ...item, sourceProductApiUrl: responseUrl };
   assertCaptureRoute(responseRouteItem);
 
-  const responseBytes = await boundedResponseBytes(response, maximumResponseBytes);
-  if (!responseBytes.byteLength) throw new Error(`${item.retailer} offer endpoint returned an empty response.`);
+  const responseBytes = await boundedResponseBytes(
+    response,
+    maximumResponseBytes,
+  );
+  if (!responseBytes.byteLength)
+    throw new Error(
+      `${item.retailer} offer endpoint returned an empty response.`,
+    );
   let parsed: unknown;
   try {
-    parsed = JSON.parse(responseBytes.toString('utf8'));
+    parsed = JSON.parse(responseBytes.toString("utf8"));
   } catch {
     throw new Error(`${item.retailer} offer endpoint returned malformed JSON.`);
   }
-  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
-    throw new Error(`${item.retailer} offer endpoint did not return one product.`);
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    throw new Error(
+      `${item.retailer} offer endpoint did not return one product.`,
+    );
   }
   const product = parsed as WooStoreProduct;
-  if (product.id !== item.sourceProductId) throw new Error(`${item.retailer} offer response product id changed.`);
-  if (typeof product.permalink !== 'string' || exactUrl(product.permalink) !== exactUrl(item.listingUrl)) {
-    throw new Error(`${item.retailer} offer response permalink does not match the retained listing.`);
+  if (product.id !== item.sourceProductId)
+    throw new Error(`${item.retailer} offer response product id changed.`);
+  if (
+    typeof product.permalink !== "string" ||
+    exactUrl(product.permalink) !== exactUrl(item.listingUrl)
+  ) {
+    throw new Error(
+      `${item.retailer} offer response permalink does not match the retained listing.`,
+    );
   }
 
-  const title = decodeHtml(product.name ?? '');
+  const title = decodeHtml(product.name ?? "");
   if (!title || normalizedText(title) !== normalizedText(item.expectedTitle)) {
-    throw new Error(`${item.retailer} offer response title does not match the discovery observation.`);
+    throw new Error(
+      `${item.retailer} offer response title does not match the discovery observation.`,
+    );
   }
   const size = measuredSize(title);
   if (!size || normalizedText(size) !== normalizedText(item.expectedSize)) {
-    throw new Error(`${item.retailer} offer response size does not match the discovery observation.`);
+    throw new Error(
+      `${item.retailer} offer response size does not match the discovery observation.`,
+    );
   }
   const amount = productPrice(product);
   const stock = productStock(product);
   const capturedAt = options.capturedAt ?? new Date().toISOString();
-  if (!Number.isFinite(Date.parse(capturedAt))) throw new Error('Offer capture time is invalid.');
+  if (!Number.isFinite(Date.parse(capturedAt)))
+    throw new Error("Offer capture time is invalid.");
   const responseSha256 = sha256(responseBytes);
   const retailerSku = product.sku?.trim()
     ? {
-      value: product.sku.trim(),
-      treatment: 'retailer-local-code-not-manufacturer-identity' as const,
-    }
+        value: product.sku.trim(),
+        treatment: "retailer-local-code-not-manufacturer-identity" as const,
+      }
     : null;
 
   return {
@@ -492,11 +634,12 @@ export async function captureResearchOfferResponse(
       id: captureId(item, responseSha256),
       packetId: item.packetId,
       discoveryId: item.discoveryId,
+      offerKey: item.offerKey,
       retailer: item.retailer,
       retailerStatus: item.retailerStatus,
       publicationStatus: researchOfferCapturePublicationStatus,
       publicationAuthority: researchOfferCapturePublicationAuthority,
-      identityAuthority: 'none',
+      identityAuthority: "none",
       evidencePath: item.evidencePath,
       source: {
         productId: item.sourceProductId,
@@ -506,12 +649,12 @@ export async function captureResearchOfferResponse(
         capturedAt,
         responseSha256,
         responseByteSize: responseBytes.byteLength,
-        responseMimeType: 'application/json',
+        responseMimeType: "application/json",
       },
       offer: {
         title,
         size,
-        price: { amount, currency: 'NGN' },
+        price: { amount, currency: "NGN" },
         stock,
         retailerSku,
       },
@@ -528,10 +671,14 @@ export function buildResearchOfferCaptureManifest(input: {
   generatedAt?: string;
 }): ResearchOfferCaptureManifest {
   const generatedAt = input.generatedAt ?? new Date().toISOString();
-  const captures = input.captured.map(item => item.record).sort((left, right) =>
-    left.packetId.localeCompare(right.packetId)
-    || left.retailer.localeCompare(right.retailer)
-    || left.id.localeCompare(right.id));
+  const captures = input.captured
+    .map((item) => item.record)
+    .sort(
+      (left, right) =>
+        left.packetId.localeCompare(right.packetId) ||
+        left.retailer.localeCompare(right.retailer) ||
+        left.id.localeCompare(right.id),
+    );
   const manifest: ResearchOfferCaptureManifest = {
     schemaVersion: researchOfferCaptureSchemaVersion,
     policy: researchOfferCapturePolicy,
@@ -547,9 +694,11 @@ export function buildResearchOfferCaptureManifest(input: {
       packetIds: [...input.packetIds],
       responseCount: captures.length,
     },
-    qualityCautions: [...(input.qualityCautions ?? [])].sort((left, right) =>
-      left.captureId.localeCompare(right.captureId)
-      || left.kind.localeCompare(right.kind)),
+    qualityCautions: [...(input.qualityCautions ?? [])].sort(
+      (left, right) =>
+        left.captureId.localeCompare(right.captureId) ||
+        left.kind.localeCompare(right.kind),
+    ),
     captures,
   };
   return assertPrivateResearchOfferCaptureManifest(manifest);
@@ -566,29 +715,35 @@ export function assertResearchOfferCaptureManifestMatchesPlan(
 ) {
   assertPrivateResearchOfferCaptureManifest(manifest);
   if (manifest.captures.length !== plan.length) {
-    throw new Error('Retained offer manifest does not cover its packet-derived capture plan.');
+    throw new Error(
+      "Retained offer manifest does not cover its packet-derived capture plan.",
+    );
   }
-  const planByPath = new Map(plan.map(item => [item.evidencePath, item]));
+  const planByPath = new Map(plan.map((item) => [item.evidencePath, item]));
   if (planByPath.size !== plan.length) {
-    throw new Error('Packet-derived capture plan contains duplicate evidence paths.');
+    throw new Error(
+      "Packet-derived capture plan contains duplicate evidence paths.",
+    );
   }
   for (const capture of manifest.captures) {
     const item = planByPath.get(capture.evidencePath);
     if (
-      !item
-      || capture.packetId !== item.packetId
-      || capture.discoveryId !== item.discoveryId
-      || capture.retailer !== item.retailer
-      || capture.retailerStatus !== item.retailerStatus
-      || capture.source.productId !== item.sourceProductId
-      || !sameExactUrl(capture.source.requestedUrl, item.sourceProductApiUrl)
-      || !sameExactUrl(capture.source.listingUrl, item.listingUrl)
-      || normalizedText(capture.offer.title)
-        !== normalizedText(item.expectedTitle)
-      || normalizedText(capture.offer.size)
-        !== normalizedText(item.expectedSize)
+      !item ||
+      capture.packetId !== item.packetId ||
+      capture.discoveryId !== item.discoveryId ||
+      capture.offerKey !== item.offerKey ||
+      capture.retailer !== item.retailer ||
+      capture.retailerStatus !== item.retailerStatus ||
+      capture.source.productId !== item.sourceProductId ||
+      !sameExactUrl(capture.source.requestedUrl, item.sourceProductApiUrl) ||
+      !sameExactUrl(capture.source.listingUrl, item.listingUrl) ||
+      normalizedText(capture.offer.title) !==
+        normalizedText(item.expectedTitle) ||
+      normalizedText(capture.offer.size) !== normalizedText(item.expectedSize)
     ) {
-      throw new Error('Retained offer manifest drifted from its packet-derived capture plan.');
+      throw new Error(
+        "Retained offer manifest drifted from its packet-derived capture plan.",
+      );
     }
   }
   return manifest;
@@ -598,38 +753,53 @@ function validIso(value: string) {
   return Number.isFinite(Date.parse(value));
 }
 
-function assertCaptureRecord(capture: ResearchOfferCaptureRecord, packetIds: Set<string>) {
+function assertCaptureRecord(
+  capture: ResearchOfferCaptureRecord,
+  packetIds: Set<string>,
+) {
+  const exactOfferBinding = capture.offerKey !== undefined;
   if (
-    !shortDigestPattern.test(capture.id)
-    || !shortDigestPattern.test(capture.packetId)
-    || !shortDigestPattern.test(capture.discoveryId)
-    || !packetIds.has(capture.packetId)
-    || !capture.retailer.trim()
-    || !['directory-listed', 'provisional'].includes(capture.retailerStatus)
-    || capture.publicationStatus !== researchOfferCapturePublicationStatus
-    || capture.publicationAuthority !== researchOfferCapturePublicationAuthority
-    || capture.identityAuthority !== 'none'
-    || capture.evidencePath !== expectedEvidencePath(capture.discoveryId, capture.retailer)
-    || !Number.isSafeInteger(capture.source.productId)
-    || capture.source.productId <= 0
-    || !validIso(capture.source.capturedAt)
-    || !digestPattern.test(capture.source.responseSha256)
-    || !Number.isSafeInteger(capture.source.responseByteSize)
-    || capture.source.responseByteSize < 1
-    || capture.source.responseByteSize > maximumResearchOfferResponseBytes
-    || capture.source.responseMimeType !== 'application/json'
-    || !capture.offer.title.trim()
-    || !capture.offer.size.trim()
-    || !Number.isSafeInteger(capture.offer.price.amount)
-    || capture.offer.price.amount <= 0
-    || capture.offer.price.currency !== 'NGN'
-    || !['in-stock', 'low-stock', 'out-of-stock', 'unknown'].includes(capture.offer.stock)
+    !shortDigestPattern.test(capture.id) ||
+    !shortDigestPattern.test(capture.packetId) ||
+    !shortDigestPattern.test(capture.discoveryId) ||
+    !packetIds.has(capture.packetId) ||
+    !capture.retailer.trim() ||
+    !["directory-listed", "provisional"].includes(capture.retailerStatus) ||
+    capture.publicationStatus !== researchOfferCapturePublicationStatus ||
+    capture.publicationAuthority !== researchOfferCapturePublicationAuthority ||
+    capture.identityAuthority !== "none" ||
+    (exactOfferBinding && !shortDigestPattern.test(capture.offerKey!)) ||
+    capture.evidencePath !==
+      expectedEvidencePath(
+        capture.discoveryId,
+        capture.retailer,
+        capture.offerKey,
+      ) ||
+    !Number.isSafeInteger(capture.source.productId) ||
+    capture.source.productId <= 0 ||
+    !validIso(capture.source.capturedAt) ||
+    !digestPattern.test(capture.source.responseSha256) ||
+    !Number.isSafeInteger(capture.source.responseByteSize) ||
+    capture.source.responseByteSize < 1 ||
+    capture.source.responseByteSize > maximumResearchOfferResponseBytes ||
+    capture.source.responseMimeType !== "application/json" ||
+    !capture.offer.title.trim() ||
+    !capture.offer.size.trim() ||
+    !Number.isSafeInteger(capture.offer.price.amount) ||
+    capture.offer.price.amount <= 0 ||
+    capture.offer.price.currency !== "NGN" ||
+    !["in-stock", "low-stock", "out-of-stock", "unknown"].includes(
+      capture.offer.stock,
+    )
   ) {
-    throw new Error('Private offer capture record is invalid or has publication authority.');
+    throw new Error(
+      "Private offer capture record is invalid or has publication authority.",
+    );
   }
   assertCaptureRoute({
     packetId: capture.packetId,
     discoveryId: capture.discoveryId,
+    offerKey: capture.offerKey ?? "0".repeat(24),
     retailer: capture.retailer,
     retailerStatus: capture.retailerStatus,
     listingUrl: capture.source.listingUrl,
@@ -642,6 +812,7 @@ function assertCaptureRecord(capture: ResearchOfferCaptureRecord, packetIds: Set
   assertPrivateSourceByteRetention({
     packetId: capture.packetId,
     discoveryId: capture.discoveryId,
+    offerKey: capture.offerKey ?? "0".repeat(24),
     retailer: capture.retailer,
     retailerStatus: capture.retailerStatus,
     listingUrl: capture.source.listingUrl,
@@ -657,94 +828,130 @@ function assertCaptureRecord(capture: ResearchOfferCaptureRecord, packetIds: Set
     responseRoute = new URL(capture.source.responseUrl);
     requestedRoute = new URL(capture.source.requestedUrl);
   } catch {
-    throw new Error('Private offer capture response route or digest binding is invalid.');
+    throw new Error(
+      "Private offer capture response route or digest binding is invalid.",
+    );
   }
   if (
-    normalizedHost(responseRoute.hostname) !== normalizedHost(requestedRoute.hostname)
-    || responseRoute.protocol !== 'https:'
-    || responseRoute.port !== requestedRoute.port
-    || responseRoute.username !== ''
-    || responseRoute.password !== ''
-    || !productApiRoute(responseRoute, capture.source.productId)
-    || capture.id !== captureId({
-      packetId: capture.packetId,
-      discoveryId: capture.discoveryId,
-      retailer: capture.retailer,
-      retailerStatus: capture.retailerStatus,
-      listingUrl: capture.source.listingUrl,
-      sourceProductId: capture.source.productId,
-      sourceProductApiUrl: capture.source.requestedUrl,
-      expectedTitle: capture.offer.title,
-      expectedSize: capture.offer.size,
-      evidencePath: capture.evidencePath,
-    }, capture.source.responseSha256)
-  ) throw new Error('Private offer capture response route or digest binding is invalid.');
-  if (capture.offer.retailerSku && (
-    !capture.offer.retailerSku.value.trim()
-    || capture.offer.retailerSku.treatment !== 'retailer-local-code-not-manufacturer-identity'
-  )) throw new Error('Retailer SKU was promoted beyond retailer-local evidence.');
+    normalizedHost(responseRoute.hostname) !==
+      normalizedHost(requestedRoute.hostname) ||
+    responseRoute.protocol !== "https:" ||
+    responseRoute.port !== requestedRoute.port ||
+    responseRoute.username !== "" ||
+    responseRoute.password !== "" ||
+    !productApiRoute(responseRoute, capture.source.productId) ||
+    capture.id !==
+      (exactOfferBinding
+        ? captureId(
+            {
+              packetId: capture.packetId,
+              discoveryId: capture.discoveryId,
+              offerKey: capture.offerKey!,
+              retailer: capture.retailer,
+              retailerStatus: capture.retailerStatus,
+              listingUrl: capture.source.listingUrl,
+              sourceProductId: capture.source.productId,
+              sourceProductApiUrl: capture.source.requestedUrl,
+              expectedTitle: capture.offer.title,
+              expectedSize: capture.offer.size,
+              evidencePath: capture.evidencePath,
+            },
+            capture.source.responseSha256,
+          )
+        : legacyCaptureId(capture))
+  )
+    throw new Error(
+      "Private offer capture response route or digest binding is invalid.",
+    );
+  if (
+    capture.offer.retailerSku &&
+    (!capture.offer.retailerSku.value.trim() ||
+      capture.offer.retailerSku.treatment !==
+        "retailer-local-code-not-manufacturer-identity")
+  )
+    throw new Error(
+      "Retailer SKU was promoted beyond retailer-local evidence.",
+    );
 }
 
-export function assertPrivateResearchOfferCaptureManifest(value: ResearchOfferCaptureManifest) {
+export function assertPrivateResearchOfferCaptureManifest(
+  value: ResearchOfferCaptureManifest,
+) {
   if (
-    value.schemaVersion !== researchOfferCaptureSchemaVersion
-    || value.policy !== researchOfferCapturePolicy
-    || value.publicationStatus !== researchOfferCapturePublicationStatus
-    || value.publicationAuthority !== researchOfferCapturePublicationAuthority
-    || !validIso(value.generatedAt)
-    || !digestPattern.test(value.source.researchPacketsSha256)
-    || !digestPattern.test(value.source.discoverySnapshotSha256)
-    || !Number.isSafeInteger(value.selection.packetCount)
-    || value.selection.packetCount < 1
-    || value.selection.packetCount > maximumResearchOfferCapturePackets
-    || !Array.isArray(value.selection.packetIds)
-    || value.selection.packetIds.length !== value.selection.packetCount
-    || !Array.isArray(value.captures)
-    || value.captures.length < 1
-    || value.selection.responseCount !== value.captures.length
-    || !Array.isArray(value.qualityCautions)
-  ) throw new Error('Offer capture manifest is invalid or has publication authority.');
+    value.schemaVersion !== researchOfferCaptureSchemaVersion ||
+    value.policy !== researchOfferCapturePolicy ||
+    value.publicationStatus !== researchOfferCapturePublicationStatus ||
+    value.publicationAuthority !== researchOfferCapturePublicationAuthority ||
+    !validIso(value.generatedAt) ||
+    !digestPattern.test(value.source.researchPacketsSha256) ||
+    !digestPattern.test(value.source.discoverySnapshotSha256) ||
+    !Number.isSafeInteger(value.selection.packetCount) ||
+    value.selection.packetCount < 1 ||
+    value.selection.packetCount > maximumResearchOfferCapturePackets ||
+    !Array.isArray(value.selection.packetIds) ||
+    value.selection.packetIds.length !== value.selection.packetCount ||
+    !Array.isArray(value.captures) ||
+    value.captures.length < 1 ||
+    value.selection.responseCount !== value.captures.length ||
+    !Array.isArray(value.qualityCautions)
+  )
+    throw new Error(
+      "Offer capture manifest is invalid or has publication authority.",
+    );
 
   const packetIds = new Set(value.selection.packetIds);
-  if (packetIds.size !== value.selection.packetIds.length
-    || value.selection.packetIds.some(id => !shortDigestPattern.test(id))) {
-    throw new Error('Offer capture packet selection is invalid.');
+  if (
+    packetIds.size !== value.selection.packetIds.length ||
+    value.selection.packetIds.some((id) => !shortDigestPattern.test(id))
+  ) {
+    throw new Error("Offer capture packet selection is invalid.");
   }
   const captureIds = new Set<string>();
   const evidencePaths = new Set<string>();
   for (const capture of value.captures) {
     assertCaptureRecord(capture, packetIds);
     if (captureIds.has(capture.id) || evidencePaths.has(capture.evidencePath)) {
-      throw new Error('Offer capture evidence is duplicated.');
+      throw new Error("Offer capture evidence is duplicated.");
     }
     captureIds.add(capture.id);
     evidencePaths.add(capture.evidencePath);
   }
-  const capturesById = new Map(value.captures.map(capture => [capture.id, capture]));
+  const capturesById = new Map(
+    value.captures.map((capture) => [capture.id, capture]),
+  );
   const qualityCautionKeys = new Set<string>();
   for (const caution of value.qualityCautions) {
     const capture = capturesById.get(caution.captureId);
-    const expectedDisposition = caution.kind === 'cross-product-visual'
-      ? 'exclude-source-visual-from-all-use'
-      : caution.kind === 'description-size-conflict'
-        ? 'exclude-description-from-identity-care-and-public-copy'
-        : null;
+    const expectedDisposition =
+      caution.kind === "cross-product-visual"
+        ? "exclude-source-visual-from-all-use"
+        : caution.kind === "description-size-conflict"
+          ? "exclude-description-from-identity-care-and-public-copy"
+          : null;
     const key = `${caution.captureId}:${caution.kind}`;
     if (
-      !capture
-      || capture.source.responseSha256 !== caution.responseSha256
-      || expectedDisposition == null
-      || caution.disposition !== expectedDisposition
-      || caution.basis !== 'retained-response-and-live-listing-review'
-      || !validIso(caution.reviewedAt)
-      || qualityCautionKeys.has(key)
+      !capture ||
+      capture.source.responseSha256 !== caution.responseSha256 ||
+      expectedDisposition == null ||
+      caution.disposition !== expectedDisposition ||
+      caution.basis !== "retained-response-and-live-listing-review" ||
+      !validIso(caution.reviewedAt) ||
+      qualityCautionKeys.has(key)
     ) {
-      throw new Error('Offer capture source-quality caution is invalid or stale.');
+      throw new Error(
+        "Offer capture source-quality caution is invalid or stale.",
+      );
     }
     qualityCautionKeys.add(key);
   }
-  if (Array.from(packetIds).some(id => !value.captures.some(capture => capture.packetId === id))) {
-    throw new Error('Offer capture selection contains a packet without retained evidence.');
+  if (
+    Array.from(packetIds).some(
+      (id) => !value.captures.some((capture) => capture.packetId === id),
+    )
+  ) {
+    throw new Error(
+      "Offer capture selection contains a packet without retained evidence.",
+    );
   }
   return value;
 }
@@ -752,21 +959,24 @@ export function assertPrivateResearchOfferCaptureManifest(value: ResearchOfferCa
 async function writeImmutably(filename: string, bytes: Buffer) {
   await mkdir(path.dirname(filename), { recursive: true });
   try {
-    await writeFile(filename, bytes, { flag: 'wx' });
+    await writeFile(filename, bytes, { flag: "wx" });
     return;
   } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error;
+    if ((error as NodeJS.ErrnoException).code !== "EEXIST") throw error;
   }
   const existing = await readFile(filename);
   if (!existing.equals(bytes)) {
-    throw new Error(`Retained offer evidence is immutable and differs: ${path.basename(filename)}.`);
+    throw new Error(
+      `Retained offer evidence is immutable and differs: ${path.basename(filename)}.`,
+    );
   }
 }
 
 function resolvedRepositoryFile(repositoryRoot: string, relativePath: string) {
   const root = path.resolve(repositoryRoot);
   const resolved = path.resolve(root, relativePath);
-  if (!resolved.startsWith(`${root}${path.sep}`)) throw new Error('Offer evidence path escaped the repository.');
+  if (!resolved.startsWith(`${root}${path.sep}`))
+    throw new Error("Offer evidence path escaped the repository.");
   return resolved;
 }
 
@@ -780,18 +990,24 @@ async function readCanonicalResearchOfferEvidence(
   );
   const filename = resolvedRepositoryFile(repositoryRoot, relativePath);
   if (path.dirname(filename) !== evidenceRoot) {
-    throw new Error(`Retained offer evidence ${relativePath} escaped its canonical directory.`);
+    throw new Error(
+      `Retained offer evidence ${relativePath} escaped its canonical directory.`,
+    );
   }
   const stats = await lstat(filename);
   if (!stats.isFile() || stats.isSymbolicLink()) {
-    throw new Error(`Retained offer evidence ${relativePath} is not a regular checked-in file.`);
+    throw new Error(
+      `Retained offer evidence ${relativePath} is not a regular checked-in file.`,
+    );
   }
   const [rootRealPath, fileRealPath] = await Promise.all([
     realpath(evidenceRoot),
     realpath(filename),
   ]);
   if (path.dirname(fileRealPath) !== rootRealPath) {
-    throw new Error(`Retained offer evidence ${relativePath} resolves outside its canonical directory.`);
+    throw new Error(
+      `Retained offer evidence ${relativePath} resolves outside its canonical directory.`,
+    );
   }
   return readFile(filename);
 }
@@ -803,17 +1019,21 @@ export async function writeResearchOfferCaptureBundle(
   manifestPath: string = researchOfferCaptureManifestPath,
 ) {
   assertPrivateResearchOfferCaptureManifest(manifest);
-  const responses = new Map(captured.map(item => [item.record.id, item]));
-  if (responses.size !== manifest.captures.length) throw new Error('Offer response bytes do not match the manifest.');
+  const responses = new Map(captured.map((item) => [item.record.id, item]));
+  if (responses.size !== manifest.captures.length)
+    throw new Error("Offer response bytes do not match the manifest.");
   for (const record of manifest.captures) {
     const item = responses.get(record.id);
     if (
-      !item
-      || JSON.stringify(item.record) !== JSON.stringify(record)
-      || item.record.evidencePath !== record.evidencePath
-      || sha256(item.responseBytes) !== record.source.responseSha256
-      || item.responseBytes.byteLength !== record.source.responseByteSize
-    ) throw new Error(`Offer response bytes are missing or changed for ${record.id}.`);
+      !item ||
+      JSON.stringify(item.record) !== JSON.stringify(record) ||
+      item.record.evidencePath !== record.evidencePath ||
+      sha256(item.responseBytes) !== record.source.responseSha256 ||
+      item.responseBytes.byteLength !== record.source.responseByteSize
+    )
+      throw new Error(
+        `Offer response bytes are missing or changed for ${record.id}.`,
+      );
   }
   for (const record of manifest.captures) {
     const item = responses.get(record.id)!;
@@ -824,7 +1044,7 @@ export async function writeResearchOfferCaptureBundle(
   }
   await writeImmutably(
     resolvedRepositoryFile(repositoryRoot, manifestPath),
-    Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, 'utf8'),
+    Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, "utf8"),
   );
 }
 
@@ -839,32 +1059,40 @@ export async function verifyResearchOfferCaptureBundle(
       capture.evidencePath,
     );
     if (
-      bytes.byteLength !== capture.source.responseByteSize
-      || sha256(bytes) !== capture.source.responseSha256
-    ) throw new Error(`Retained offer evidence ${capture.evidencePath} does not match its manifest.`);
+      bytes.byteLength !== capture.source.responseByteSize ||
+      sha256(bytes) !== capture.source.responseSha256
+    )
+      throw new Error(
+        `Retained offer evidence ${capture.evidencePath} does not match its manifest.`,
+      );
     let parsed: WooStoreProduct;
     try {
-      parsed = JSON.parse(bytes.toString('utf8')) as WooStoreProduct;
+      parsed = JSON.parse(bytes.toString("utf8")) as WooStoreProduct;
     } catch {
-      throw new Error(`Retained offer evidence ${capture.evidencePath} is not the manifested product JSON.`);
+      throw new Error(
+        `Retained offer evidence ${capture.evidencePath} is not the manifested product JSON.`,
+      );
     }
-    const title = decodeHtml(parsed.name ?? '');
+    const title = decodeHtml(parsed.name ?? "");
     const sku = parsed.sku?.trim()
       ? {
-        value: parsed.sku.trim(),
-        treatment: 'retailer-local-code-not-manufacturer-identity' as const,
-      }
+          value: parsed.sku.trim(),
+          treatment: "retailer-local-code-not-manufacturer-identity" as const,
+        }
       : null;
     if (
-      parsed.id !== capture.source.productId
-      || typeof parsed.permalink !== 'string'
-      || exactUrl(parsed.permalink) !== exactUrl(capture.source.listingUrl)
-      || title !== capture.offer.title
-      || measuredSize(title) !== capture.offer.size
-      || productPrice(parsed) !== capture.offer.price.amount
-      || productStock(parsed) !== capture.offer.stock
-      || JSON.stringify(sku) !== JSON.stringify(capture.offer.retailerSku)
-    ) throw new Error(`Retained offer evidence ${capture.evidencePath} does not match its manifested offer.`);
+      parsed.id !== capture.source.productId ||
+      typeof parsed.permalink !== "string" ||
+      exactUrl(parsed.permalink) !== exactUrl(capture.source.listingUrl) ||
+      title !== capture.offer.title ||
+      measuredSize(title) !== capture.offer.size ||
+      productPrice(parsed) !== capture.offer.price.amount ||
+      productStock(parsed) !== capture.offer.stock ||
+      JSON.stringify(sku) !== JSON.stringify(capture.offer.retailerSku)
+    )
+      throw new Error(
+        `Retained offer evidence ${capture.evidencePath} does not match its manifested offer.`,
+      );
   }
   return {
     packetCount: manifest.selection.packetCount,

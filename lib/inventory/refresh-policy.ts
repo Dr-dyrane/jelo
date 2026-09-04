@@ -12,6 +12,31 @@ const INVENTORY_REFRESH_LAST_ERROR_MAX_LENGTH = 1000;
 export type InventoryRefreshRunStatus =
   "completed" | "retrying" | "deferred" | "failed" | "discarded";
 
+export const INVENTORY_CRON_FAILURE_PHASES = [
+  "dry_run",
+  "receipt",
+  "preflight",
+  "run",
+  "projection",
+  "reporting",
+] as const;
+
+export type InventoryCronFailurePhase =
+  (typeof INVENTORY_CRON_FAILURE_PHASES)[number];
+
+export async function readInventoryRefreshReportingSnapshot<
+  Backlog extends Record<string, unknown>,
+>(input: {
+  readBacklog: () => Promise<Backlog>;
+  readStaleOfferCount: () => Promise<number>;
+}): Promise<Backlog & { staleOffers: number }> {
+  const [backlog, staleOffers] = await Promise.all([
+    input.readBacklog(),
+    input.readStaleOfferCount(),
+  ]);
+  return { ...backlog, staleOffers };
+}
+
 export const INVENTORY_REFRESH_FAILURE_REASONS = [
   "route_scope",
   "product_identity",
@@ -67,6 +92,10 @@ type InventoryRefreshRunItem = {
   productSlug: string;
   recoveredLease: boolean;
   failureReason?: InventoryRefreshFailureReason;
+  terminalInvalidation?: {
+    invalidatedAt: string;
+    reason: InventoryRefreshTerminalReason;
+  };
 };
 
 function errorMessage(error: unknown) {
@@ -187,7 +216,11 @@ export function summarizeInventoryRefreshRun(input: {
   const affectedProductSlugs = [
     ...new Set(
       input.results
-        .filter((result) => result.status === "completed")
+        .filter(
+          (result) =>
+            result.status === "completed" ||
+            result.terminalInvalidation != null,
+        )
         .map((result) => result.productSlug),
     ),
   ].sort();
@@ -220,5 +253,23 @@ export function summarizeInventoryRefreshRun(input: {
     failureReasons,
     stoppedByDeadline: input.stoppedByDeadline,
     affectedProductSlugs,
+  };
+}
+
+export function summarizeInventoryCronFailure(input: {
+  phase: InventoryCronFailurePhase;
+  requestStartedAt: number;
+  failedAt?: number;
+}) {
+  const failedAt = input.failedAt ?? Date.now();
+  return {
+    ok: false as const,
+    status: "failed" as const,
+    phase: input.phase,
+    code: `inventory_refresh_${input.phase}_failed` as const,
+    writesMayHaveOccurred: !["dry_run", "receipt", "preflight"].includes(
+      input.phase,
+    ),
+    durationMs: Math.max(0, failedAt - input.requestStartedAt),
   };
 }

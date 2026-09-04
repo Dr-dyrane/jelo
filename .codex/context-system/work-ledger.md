@@ -1,6 +1,6 @@
 # JeloCare work ledger
 
-Updated: 2026-08-26
+Updated: 2026-09-04
 Current platform-delivery base at the private-member cutover: `6d204da` on `origin/main`
 Production credential-boundary checkpoint: Vercel deployment `dpl_HyFgKwgVXWeHdDWu2KgQR34jcwcC` READY on `www.jelocare.com`
 
@@ -31,6 +31,29 @@ Production credential-boundary checkpoint: Vercel deployment `dpl_HyFgKwgVXWeHdD
 - Standing authority is `ship-after-gates`: a bounded cell may commit and push `main` after focused verification, exact-artifact confirmation, and affected-route smoke.
 - Never mix exact SKU identity across size, package form, image, or offer. A visual family may link independently published SKUs; it never merges them.
 - Release passing catalogue cells independently. Do not hold an admitted product for a blocked sibling.
+
+## 2026-09-04 linked market-truth integration checkpoint
+
+- ADR 0020 makes one evidence chain authoritative: reviewed retailer and exact
+  offer, verified observation, append-only price history, product market
+  summary/trends, then Products, Share, Markets and Daily Desk projections.
+- Known offers retain the hourly inventory owner. Static synchronization now
+  resolves one database offer ID through exact product, retailer, normalized
+  URL, NG market and NGN currency; terminal contradictions invalidate the same
+  public projections as successful observations.
+- Price movement requires time-distinct rows from the same current exact offer.
+  Snapshot reconstruction and static synthetic history are removed. Daily Desk
+  acceptance is rebound to current offer identity and price on every read and
+  becomes `evidence-expired` when that evidence no longer matches.
+- The private discovery queue now retains both new-product and additional-offer
+  candidates for known products. Discovery, retailer partnership intake and
+  community reports still cannot auto-publish a retailer, offer, location,
+  contact, authorization, delivery or service claim.
+- `/ops/market-health` is the read-only operational spine. The inventory and
+  Daily Desk scheduled owners record privacy-bounded outcomes in the existing
+  Redis service; no database migration or new environment variable is part of
+  this change. Exact commit, deployment and production smoke belong to the
+  release handback, not this pre-release checkpoint.
 
 ## 2026-08-14 governed order-lifecycle integration checkpoint
 
@@ -151,7 +174,10 @@ Production credential-boundary checkpoint: Vercel deployment `dpl_HyFgKwgVXWeHdD
 
 - The public catalogue contains exactly 150 products. The latest checked-in offer wave added Beauty Hut coverage and two current DANG sale prices in `ba7e6ff`.
 - The 2026-08-09 zero-depth offer cell adds seven exact Nigerian listings across four products: both Aqua Rich 1000 ml washes, Naturium Dew-Glow Moisturizer SPF 50 50 ml, and Naturium Multi-Peptide Eye Cream 15 ml.
-- Price history is owned by Neon (`offers` + append-only `offer_price_history`) and refreshed through the twice-daily inventory cron. Static `data/price-history.ts` is fallback only and must not invent prior observations for newly discovered offers.
+- At this historical checkpoint, price history was already owned by Neon
+  (`offers` + append-only `offer_price_history`). The former twice-daily/static-
+  fallback description is superseded by ADR 0020: hourly known-offer refresh,
+  exact current-offer lineage, and no synthetic history fallback.
 - Product news has no released persistence contract. The smallest safe next foundation is an identity-version-bound private news table plus a published-only runtime view. Applying it is blocked until the protected non-Vercel `MIGRATION_DATABASE_URL` is available.
 - The strongest current news signal is an Argentina-specific ANMAT registration/traceability action naming three exact catalogue products. It must never be presented as a Nigerian recall or as evidence that every global unit is unsafe or counterfeit.
 

@@ -2,8 +2,10 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import type { Product } from "@/data/products";
 import { dailyDeskAggregateMetricKey } from "@/lib/campaigns/campaign-archive";
 import {
+  dailyDeskEvidenceIsCurrent,
   getDailyDeskReadModel,
   projectAcceptedCampaignForDailyDesk,
 } from "@/lib/campaigns/daily-desk";
@@ -23,7 +25,16 @@ function acceptedRecord(overrides: Record<string, unknown> = {}) {
       size: "50 ml",
       packageVersion: "Current package",
     },
-    offerEvidence: [{ priceNgn: 12_000 }],
+    offerEvidence: [
+      {
+        retailer: "Exact store",
+        listingUrl: "https://retailer.example/exact-product",
+        priceNgn: 12_000,
+        stock: "in-stock",
+        observedAt: "2026-08-13T07:00:00.000Z",
+        checkedAt: "2026-08-13T07:00:00.000Z",
+      },
+    ],
     evidenceBoundary:
       "Price/share-ready only: 1 fresh, exact, evidence-bound Nigerian listing.",
     copy: {
@@ -54,6 +65,61 @@ function acceptedRecord(overrides: Record<string, unknown> = {}) {
   });
 }
 
+function currentProduct(offerOverrides: Record<string, unknown> = {}): Product {
+  return {
+    slug: "exact-product",
+    brand: "Exact Brand",
+    name: "Exact Product",
+    size: "50 ml",
+    category: "Face",
+    step: "Treat",
+    image: "/exact-product.png",
+    displayLine: "Treat",
+    bestFor: [],
+    concerns: [],
+    skinTypes: [],
+    sensitiveFriendly: true,
+    usage: "Use as directed.",
+    evidence: "moderate",
+    offers: [
+      {
+        retailer: "Exact store",
+        url: "https://retailer.example/exact-product",
+        trust: 90,
+        available: true,
+        priceNgn: 12_000,
+        checkedAt: "2026-08-13T07:00:00.000Z",
+        expiresAt: "2026-08-20T07:00:00.000Z",
+        match: "exact",
+        listingEvidence: {
+          sourceUrl: "https://retailer.example/exact-product",
+          observedAt: "2026-08-13T07:00:00.000Z",
+          basis: "retailer-page",
+        },
+        priceObservation: {
+          observedAt: "2026-08-13T07:00:00.000Z",
+          variant: "Exact Brand Exact Product",
+          size: "50 ml",
+          stock: "in-stock",
+          landedCost: "unknown",
+        },
+        location: ["NG"],
+        ...offerOverrides,
+      },
+    ],
+  };
+}
+
+function dependencies(
+  readAcceptedCampaign: (date: string) => Promise<string | null>,
+  product: Product | null = currentProduct(),
+) {
+  return {
+    readAcceptedCampaign,
+    readProduct: async () => product,
+  };
+}
+
 test("the Daily Desk projects only a current accepted share-ready campaign", () => {
   const result = projectAcceptedCampaignForDailyDesk(acceptedRecord(), date);
   assert.equal(result?.status, "ready");
@@ -64,6 +130,10 @@ test("the Daily Desk projects only a current accepted share-ready campaign", () 
     "https://www.jelocare.com/share/exact-product",
   );
   assert.equal(result?.evidence.offerCount, 1);
+  assert.equal(
+    result?.evidence.offers[0]?.listingUrl,
+    "https://retailer.example/exact-product",
+  );
   assert.deepEqual(result?.product, {
     slug: "exact-product",
     brand: "Exact Brand",
@@ -113,17 +183,15 @@ test("malformed, stale, non-price, or unverified creative records fail closed", 
 test("missing or unreadable accepted records become bounded fallback states", async () => {
   const noCampaign = await getDailyDeskReadModel(
     { now: new Date("2026-08-13T08:00:00Z") },
-    { readAcceptedCampaign: async () => null },
+    dependencies(async () => null),
   );
   assert.deepEqual(noCampaign, { status: "no-campaign", date });
 
   const unavailable = await getDailyDeskReadModel(
     { now: new Date("2026-08-13T08:00:00Z") },
-    {
-      readAcceptedCampaign: async () => {
-        throw new Error("ledger unavailable");
-      },
-    },
+    dependencies(async () => {
+      throw new Error("ledger unavailable");
+    }),
   );
   assert.deepEqual(unavailable, { status: "unavailable", date });
 });
@@ -132,12 +200,10 @@ test("the previous accepted Desk bridges only the next Lagos calendar day", asyn
   const requestedDates: string[] = [];
   const result = await getDailyDeskReadModel(
     { now: new Date("2026-08-14T01:00:00Z") },
-    {
-      readAcceptedCampaign: async (requestedDate) => {
-        requestedDates.push(requestedDate);
-        return requestedDate === date ? acceptedRecord() : null;
-      },
-    },
+    dependencies(async (requestedDate) => {
+      requestedDates.push(requestedDate);
+      return requestedDate === date ? acceptedRecord() : null;
+    }),
   );
 
   assert.deepEqual(requestedDates, ["2026-08-14", "2026-08-13"]);
@@ -152,16 +218,67 @@ test("a malformed current-day record fails closed instead of carrying yesterday"
   const requestedDates: string[] = [];
   const result = await getDailyDeskReadModel(
     { now: new Date("2026-08-14T01:00:00Z") },
-    {
-      readAcceptedCampaign: async (requestedDate) => {
-        requestedDates.push(requestedDate);
-        return requestedDate === "2026-08-14" ? "not-json" : acceptedRecord();
-      },
-    },
+    dependencies(async (requestedDate) => {
+      requestedDates.push(requestedDate);
+      return requestedDate === "2026-08-14" ? "not-json" : acceptedRecord();
+    }),
   );
 
   assert.deepEqual(requestedDates, ["2026-08-14"]);
   assert.deepEqual(result, { status: "unavailable", date: "2026-08-14" });
+});
+
+test("an accepted Desk is suppressed when its exact offer is no longer current", async () => {
+  const accepted = projectAcceptedCampaignForDailyDesk(acceptedRecord(), date);
+  assert.ok(accepted);
+  assert.equal(
+    dailyDeskEvidenceIsCurrent(
+      accepted,
+      currentProduct({ priceNgn: 12_500 }),
+      new Date("2026-08-13T08:00:00Z"),
+    ),
+    false,
+  );
+
+  const result = await getDailyDeskReadModel(
+    { now: new Date("2026-08-13T08:00:00Z") },
+    dependencies(
+      async () => acceptedRecord(),
+      currentProduct({ available: false }),
+    ),
+  );
+  assert.deepEqual(result, { status: "evidence-expired", date });
+});
+
+test("an accepted Desk is suppressed when the current exact-offer set grows", () => {
+  const accepted = projectAcceptedCampaignForDailyDesk(acceptedRecord(), date);
+  assert.ok(accepted);
+  const product = currentProduct();
+  product.offers.push({
+    ...product.offers[0]!,
+    retailer: "New exact store",
+    url: "https://new-retailer.example/exact-product",
+    priceNgn: 10_500,
+    checkedAt: "2026-08-13T07:30:00.000Z",
+    listingEvidence: {
+      sourceUrl: "https://new-retailer.example/exact-product",
+      observedAt: "2026-08-13T07:30:00.000Z",
+      basis: "retailer-page",
+    },
+    priceObservation: {
+      ...product.offers[0]!.priceObservation!,
+      observedAt: "2026-08-13T07:30:00.000Z",
+    },
+  });
+
+  assert.equal(
+    dailyDeskEvidenceIsCurrent(
+      accepted,
+      product,
+      new Date("2026-08-13T08:00:00Z"),
+    ),
+    false,
+  );
 });
 
 test("aggregate keys contain only date, public campaign identity, and event", () => {

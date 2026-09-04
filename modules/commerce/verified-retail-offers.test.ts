@@ -2220,10 +2220,31 @@ test("catalogue offer refresh wave 22 releases five exact packages and fails con
   assert.equal(waveTwentyTwoAudit.scheduledOwner.manifestRecurringOwner, null);
 
   for (const { product, offer: evidence } of projected) {
-    const offer = verifiedRetailOffers[product.candidateId]?.find(
+    const productOffers = verifiedRetailOffers[product.candidateId] ?? [];
+    const offer = productOffers.find(
       (candidate) => candidate.url === evidence.url,
     );
-    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    if (!offer) {
+      // A historical packet may retain a second marketplace route after the
+      // runtime source has selected one canonical product-retailer slot.
+      const canonicalRetailerOffers = productOffers.filter(
+        (candidate) => candidate.retailer === evidence.retailer,
+      );
+      assert.equal(
+        canonicalRetailerOffers.length,
+        1,
+        `${product.candidateId}: ${evidence.retailer} canonical source slot`,
+      );
+      assertOfferFollowsReviewedHistory(
+        canonicalRetailerOffers[0]!,
+        product.candidateId,
+      );
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize > 0);
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+      continue;
+    }
     assert.equal(offer.retailer, evidence.retailer);
     assertHistoricalOfferState(
       offer,
@@ -2700,10 +2721,31 @@ test("catalogue offer refresh wave 26 releases five exact packages and excludes 
   );
 
   for (const { product, offer: evidence } of projected) {
-    const offer = verifiedRetailOffers[product.candidateId]?.find(
+    const productOffers = verifiedRetailOffers[product.candidateId] ?? [];
+    const offer = productOffers.find(
       (candidate) => candidate.url === evidence.url,
     );
-    assert.ok(offer, `${product.candidateId}: ${evidence.retailer}`);
+    if (!offer) {
+      // A historical packet may retain a second marketplace route after the
+      // runtime source has selected one canonical product-retailer slot.
+      const canonicalRetailerOffers = productOffers.filter(
+        (candidate) => candidate.retailer === evidence.retailer,
+      );
+      assert.equal(
+        canonicalRetailerOffers.length,
+        1,
+        `${product.candidateId}: ${evidence.retailer} canonical source slot`,
+      );
+      assertOfferFollowsReviewedHistory(
+        canonicalRetailerOffers[0]!,
+        product.candidateId,
+      );
+      assert.match(evidence.responseSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.responseByteSize > 0);
+      assert.match(evidence.packageImageSha256, /^[a-f0-9]{64}$/);
+      assert.ok(evidence.packageImageByteSize > 0);
+      continue;
+    }
     assert.equal(offer.retailer, evidence.retailer);
     assertHistoricalOfferState(
       offer,

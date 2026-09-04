@@ -71,11 +71,14 @@ export type OverviewRecentDecision = {
 
 export type OverviewAttentionItem = {
   id: string;
-  queueKind: OverviewQueueKind;
+  queueKind: OverviewQueueKind | null;
   title: string;
   summary: string;
   observedAt: string;
-  reasonCode: "waiting-time-unavailable";
+  reasonCode: "waiting-time-unavailable" | "market-truth-exception";
+  threshold: string;
+  owner: string;
+  runbook: string;
   actionLabel: string;
   actionHref: string;
 };
@@ -207,6 +210,7 @@ export function buildOverviewBriefing({
   recentDecisions = [],
   recentDecisionsByQueue = {},
   recentDecisionsUnavailable = false,
+  systemAttentionItems = [],
   generatedAt = new Date().toISOString(),
 }: {
   queueFacts: readonly OverviewQueueFact[];
@@ -218,6 +222,7 @@ export function buildOverviewBriefing({
     Record<OverviewQueueKind, readonly OverviewAuditEntry[]>
   >;
   recentDecisionsUnavailable?: boolean;
+  systemAttentionItems?: readonly OverviewAttentionItem[];
   generatedAt?: string;
 }): OverviewBriefingReadModel {
   const facts = new Map(queueFacts.map((fact) => [fact.kind, fact]));
@@ -300,19 +305,25 @@ export function buildOverviewBriefing({
         };
       }),
     upNextUnavailable,
-    attentionItems: queues
-      .filter((queue) => queue.pendingCount > 0 && !queue.oldestPendingAt)
-      .map((queue) => ({
-        id: `waiting-time-unavailable:${queue.kind}`,
-        queueKind: queue.kind,
-        title: `${queue.label} waiting time unavailable`,
-        summary: `${queue.pendingCount} ${queue.pendingCount === 1 ? "item is" : "items are"} waiting, but age could not be read.`,
-        observedAt: generatedAt,
-        reasonCode: "waiting-time-unavailable" as const,
-        actionLabel: queue.operatorCanAct
-          ? `Review ${queue.label.toLowerCase()}`
-          : `View ${queue.label.toLowerCase()}`,
-        actionHref: queue.href,
-      })),
+    attentionItems: [
+      ...systemAttentionItems,
+      ...queues
+        .filter((queue) => queue.pendingCount > 0 && !queue.oldestPendingAt)
+        .map((queue) => ({
+          id: `waiting-time-unavailable:${queue.kind}`,
+          queueKind: queue.kind,
+          title: `${queue.label} waiting time unavailable`,
+          summary: `${queue.pendingCount} ${queue.pendingCount === 1 ? "item is" : "items are"} waiting, but age could not be read.`,
+          observedAt: generatedAt,
+          reasonCode: "waiting-time-unavailable" as const,
+          threshold: "Every waiting item has an immutable queue time",
+          owner: "Queue operations",
+          runbook: "Operations overview · Queue age recovery",
+          actionLabel: queue.operatorCanAct
+            ? `Review ${queue.label.toLowerCase()}`
+            : `View ${queue.label.toLowerCase()}`,
+          actionHref: queue.href,
+        })),
+    ],
   };
 }

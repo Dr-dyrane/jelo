@@ -3,8 +3,10 @@ import test from "node:test";
 import {
   applyStaticOfferRefreshes,
   describeStaticFileSyncGetFailure,
+  normalizeStaticOfferUrl,
   staticFileSyncConfig,
   staticFileSyncConfiguration,
+  type StaticFileInvalidatedOffer,
   type StaticFileRefreshedOffer,
 } from "@/lib/inventory/static-file-sync";
 
@@ -31,8 +33,12 @@ function offer(
   overrides: Partial<StaticFileRefreshedOffer> = {},
 ): StaticFileRefreshedOffer {
   return {
+    offerId: "offer-exact-product-exact-store-ng",
     productSlug: "exact-product",
     retailer: "Exact Store",
+    requestedUrl: "https://store.example/exact-product",
+    marketCode: "NG",
+    currencyCode: "NGN",
     priceNgn: 12_000,
     available: true,
     inventoryStatus: "in_stock",
@@ -40,6 +46,22 @@ function offer(
     verificationExpiresAt: new Date("2026-08-14T10:00:00Z"),
     verificationMethod: "retailer_page",
     extractionConfidence: 85,
+    ...overrides,
+  };
+}
+
+function invalidatedOffer(
+  overrides: Partial<StaticFileInvalidatedOffer> = {},
+): StaticFileInvalidatedOffer {
+  return {
+    offerId: "offer-exact-product-exact-store-ng",
+    productSlug: "exact-product",
+    retailer: "Exact Store",
+    requestedUrl: "https://store.example/exact-product",
+    marketCode: "NG",
+    currencyCode: "NGN",
+    invalidatedAt: new Date("2026-08-12T10:00:00Z"),
+    reason: "package_size",
     ...overrides,
   };
 }
@@ -152,18 +174,103 @@ test("eligible observations preserve provenance and their shorter actual expiry"
   assert.match(result.content, /verificationMethod: "retailer_page"/);
 });
 
+test("static offer URLs normalize without weakening exact route identity", () => {
+  assert.equal(
+    normalizeStaticOfferUrl(
+      " https://STORE.example/exact-product/#retailer-fragment ",
+    ),
+    "https://store.example/exact-product",
+  );
+  assert.equal(
+    normalizeStaticOfferUrl("https://store.example/exact-product?seller=2"),
+    "https://store.example/exact-product?seller=2",
+  );
+  assert.equal(normalizeStaticOfferUrl("http://store.example/product"), null);
+});
+
+test("one offer id and normalized URL select one retailer source slot", () => {
+  const duplicateRetailerContent = content.replace(
+    "  ],\n};",
+    `    exactNg(
+      "Exact Store",
+      "https://store.example/exact-product-alternate",
+      90,
+      9000,
+      "Exact Product",
+      "50 ml",
+      {
+        observedAt: "2026-08-10T10:00:00Z",
+        expiresAt: "2026-08-15T10:00:00Z",
+      },
+    ),
+  ],
+};`,
+  );
+  const result = applyStaticOfferRefreshes({
+    content: duplicateRetailerContent,
+    refreshedOffers: [offer()],
+  });
+
+  assert.equal(result.synced, 1);
+  assert.equal(result.skipped, 0);
+  assert.match(
+    result.content,
+    /"https:\/\/store\.example\/exact-product",[\s\S]*?\b12000,/,
+  );
+  assert.match(
+    result.content,
+    /"https:\/\/store\.example\/exact-product-alternate",[\s\S]*?\b9000,/,
+  );
+});
+
+test("zero or multiple exact source identities fail closed", () => {
+  const missing = applyStaticOfferRefreshes({
+    content,
+    refreshedOffers: [
+      offer({ requestedUrl: "https://store.example/not-this-product" }),
+    ],
+  });
+  assert.equal(missing.synced, 0);
+  assert.equal(missing.skipped, 1);
+  assert.match(missing.errors[0] ?? "", /found 0/);
+
+  const repeated = content.replace(
+    "  ],\n};",
+    `${content.slice(
+      content.indexOf("    exactNg("),
+      content.indexOf("  ],\n};"),
+    )}  ],\n};`,
+  );
+  const ambiguous = applyStaticOfferRefreshes({
+    content: repeated,
+    refreshedOffers: [offer()],
+  });
+  assert.equal(ambiguous.synced, 0);
+  assert.equal(ambiguous.skipped, 1);
+  assert.match(ambiguous.errors[0] ?? "", /found 2/);
+});
+
+test("non-Nigerian market or currency identities cannot enter NG static offers", () => {
+  for (const scopedOffer of [
+    offer({ marketCode: "US" }),
+    offer({ currencyCode: "USD" }),
+  ]) {
+    const result = applyStaticOfferRefreshes({
+      content,
+      refreshedOffers: [scopedOffer],
+    });
+    assert.equal(result.synced, 0);
+    assert.equal(result.skipped, 1);
+    assert.equal(result.content, content);
+    assert.match(result.errors[0] ?? "", /only accepts (NG|NGN) offers/);
+  }
+});
+
 test("terminal contradictions propose unavailable expired static fallback without deleting provenance", () => {
   const result = applyStaticOfferRefreshes({
     content,
     refreshedOffers: [],
-    invalidatedOffers: [
-      {
-        productSlug: "exact-product",
-        retailer: "Exact Store",
-        invalidatedAt: new Date("2026-08-12T10:00:00Z"),
-        reason: "package_size",
-      },
-    ],
+    invalidatedOffers: [invalidatedOffer()],
   });
 
   assert.equal(result.synced, 0);
@@ -181,25 +288,16 @@ test("an already-applied terminal invalidation is an idempotent safe skip", () =
   const first = applyStaticOfferRefreshes({
     content,
     refreshedOffers: [],
-    invalidatedOffers: [
-      {
-        productSlug: "exact-product",
-        retailer: "Exact Store",
-        invalidatedAt: new Date("2026-08-12T10:00:00Z"),
-        reason: "product_identity",
-      },
-    ],
+    invalidatedOffers: [invalidatedOffer({ reason: "product_identity" })],
   });
   const repeated = applyStaticOfferRefreshes({
     content: first.content,
     refreshedOffers: [],
     invalidatedOffers: [
-      {
-        productSlug: "exact-product",
-        retailer: "Exact Store",
+      invalidatedOffer({
         invalidatedAt: new Date("2026-08-13T10:00:00Z"),
         reason: "product_identity",
-      },
+      }),
     ],
   });
 
@@ -220,43 +318,34 @@ test("no terminal invalidation leaves static fallback bytes unchanged", () => {
   assert.equal(result.content, content);
 });
 
-test("a missing product slug is a counted no-op without a sync error", () => {
+test("a missing product slug is a counted fail-closed no-op", () => {
   const result = applyStaticOfferRefreshes({
     content,
     refreshedOffers: [],
-    invalidatedOffers: [
-      {
-        productSlug: "not-checked-in",
-        retailer: "Exact Store",
-        invalidatedAt: new Date("2026-08-12T10:00:00Z"),
-        reason: "product_identity",
-      },
-    ],
+    invalidatedOffers: [invalidatedOffer({ productSlug: "not-checked-in" })],
   });
 
   assert.equal(result.invalidated, 0);
   assert.equal(result.skipped, 1);
-  assert.deepEqual(result.errors, []);
+  assert.match(result.errors[0] ?? "", /found 0/);
   assert.equal(result.content, content);
 });
 
-test("a missing exact retailer pair is a counted no-op without a sync error", () => {
+test("a missing exact retailer pair is a counted fail-closed no-op", () => {
   const result = applyStaticOfferRefreshes({
     content,
     refreshedOffers: [],
     invalidatedOffers: [
-      {
-        productSlug: "exact-product",
+      invalidatedOffer({
         retailer: "Not Checked-In Store",
-        invalidatedAt: new Date("2026-08-12T10:00:00Z"),
         reason: "route_scope",
-      },
+      }),
     ],
   });
 
   assert.equal(result.invalidated, 0);
   assert.equal(result.skipped, 1);
-  assert.deepEqual(result.errors, []);
+  assert.match(result.errors[0] ?? "", /found 0/);
   assert.equal(result.content, content);
 });
 
@@ -265,12 +354,10 @@ test("a stale terminal invalidation cannot override newer static evidence", () =
     content,
     refreshedOffers: [],
     invalidatedOffers: [
-      {
-        productSlug: "exact-product",
-        retailer: "Exact Store",
+      invalidatedOffer({
         invalidatedAt: new Date("2026-08-09T10:00:00Z"),
         reason: "route_scope",
-      },
+      }),
     ],
   });
   assert.equal(result.invalidated, 0);

@@ -1,33 +1,34 @@
 # APIs and security
 
-Updated: 2026-08-13
+Updated: 2026-09-04
 
 Route handlers validate at the boundary, keep secrets server-only, and fail closed when durable storage or required credentials are unavailable.
 
 ## Route catalogue
 
-| Route                                        | Method       | Purpose                               | Main controls                                                                                                                                                       |
-| -------------------------------------------- | ------------ | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/api/consult`                               | `POST`       | Guided skin education                 | Browser provenance check, 64 KiB body, Zod bounds, deterministic safety gate, filtered catalogue, production-fail-closed Upstash limit                              |
-| `/api/products/suggestions`                  | `GET`        | Bounded public catalogue typeahead    | Minimal public projection, normalized 2–120 character query, indexed Neon lookup, market allowlist, seven-result cap, short shared cache, hashed-network read limit |
-| `/api/contribute/drafts`                     | `POST`       | Start anonymous draft                 | Same-site check, honeypot, rate limit, PostgreSQL requirement                                                                                                       |
-| `/api/contribute/drafts/[id]`                | `PUT`        | Save draft and events                 | HttpOnly edit secret, optimistic revision, 64 KiB body                                                                                                              |
-| `/api/contribute/drafts/[id]/submit`         | `POST`       | Submit contribution                   | Edit secret, UUID idempotency key, rate limit, final schema                                                                                                         |
-| `/api/retailers/applications`                | `POST`       | Start retailer application            | Same-site check, consent, honeypot, rate limit, PostgreSQL                                                                                                          |
-| `/api/retailers/applications/[id]`           | `GET`, `PUT` | Restore or save retailer application  | HttpOnly private token, optimistic revision                                                                                                                         |
-| `/api/retailers/applications/[id]/send-link` | `POST`       | Resend private link                   | Edit secret, rate limit, mail availability                                                                                                                          |
-| `/api/retailers/applications/[id]/submit`    | `POST`       | Submit retailer application           | Edit secret, UUID idempotency key, final schema                                                                                                                     |
-| `/api/retailers/magic`                       | `GET`        | Open and verify private link          | Token hash, expiry, rate limit, HttpOnly cookie                                                                                                                     |
-| `/api/orders`                                | `POST`       | Create one retailer-scoped order      | Same-site check, bounded exact lines, server-recomputed offers, rate limit, hashed guest capability, no-store response                                              |
-| `/api/orders/current`                        | `GET`        | Read current guest order              | Order-scoped HttpOnly capability, expiry, private no-store response                                                                                                 |
-| `/api/orders/current/decision`               | `POST`       | Approve or decline exact quote        | Guest capability or server-derived owner, quote version, optimistic order revision, expiry, rate limit                                                              |
-| `/api/orders/recovery`                       | `POST`       | Request replacement recovery link     | Generic response, reference/email match, replacement invalidates prior unused capabilities, rate limit                                                              |
-| `/api/orders/recover`                        | `GET`        | Exchange one-time recovery link       | Hashed token, atomic consume, session rotation, clean redirect, no-store/no-referrer                                                                                |
-| `/api/cron/inventory`                        | `GET`        | Refresh due retail offers             | Bearer `CRON_SECRET`, bounded batch                                                                                                                                 |
-| `/api/cron/daily-campaign`                   | `GET`        | Prepare and email one campaign draft  | Bearer `CRON_SECRET`, disabled-by-default production gate, dossier/share evidence gate, immutable Redis send reservation, exact active-operator resolution          |
-| `/api/cron/daily-desk-reconcile`             | `GET`        | Accept one evidence-ready public Desk | Bearer `CRON_SECRET`, separate disabled-by-default gate, immutable per-Lagos-date Desk record, never resolves recipients or sends email                             |
-| `/api/campaigns/daily-desk/events`           | `POST`       | Increment Daily Desk aggregate event  | Same-site check, 64 KiB body, strict public campaign-id/event schema, current accepted-Daily-Desk match, no cookies or visitor identifiers stored, no public read   |
-| `/go`                                        | `GET`        | Outbound retailer redirect            | Allowlisted offer lookup and attribution logic                                                                                                                      |
+| Route                                        | Method       | Purpose                               | Main controls                                                                                                                                                              |
+| -------------------------------------------- | ------------ | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/api/consult`                               | `POST`       | Guided skin education                 | Browser provenance check, 64 KiB body, Zod bounds, deterministic safety gate, filtered catalogue, production-fail-closed Upstash limit                                     |
+| `/api/products/suggestions`                  | `GET`        | Bounded public catalogue typeahead    | Minimal public projection, normalized 2–120 character query, indexed Neon lookup, market allowlist, seven-result cap, short shared cache, hashed-network read limit        |
+| `/api/contribute/drafts`                     | `POST`       | Start anonymous draft                 | Same-site check, honeypot, rate limit, PostgreSQL requirement                                                                                                              |
+| `/api/contribute/drafts/[id]`                | `PUT`        | Save draft and events                 | HttpOnly edit secret, optimistic revision, 64 KiB body                                                                                                                     |
+| `/api/contribute/drafts/[id]/submit`         | `POST`       | Submit contribution                   | Edit secret, UUID idempotency key, rate limit, final schema                                                                                                                |
+| `/api/retailers/applications`                | `POST`       | Start retailer application            | Same-site check, consent, honeypot, rate limit, PostgreSQL                                                                                                                 |
+| `/api/retailers/applications/[id]`           | `GET`, `PUT` | Restore or save retailer application  | HttpOnly private token, optimistic revision                                                                                                                                |
+| `/api/retailers/applications/[id]/send-link` | `POST`       | Resend private link                   | Edit secret, rate limit, mail availability                                                                                                                                 |
+| `/api/retailers/applications/[id]/submit`    | `POST`       | Submit retailer application           | Edit secret, UUID idempotency key, final schema                                                                                                                            |
+| `/api/retailers/magic`                       | `GET`        | Open and verify private link          | Token hash, expiry, rate limit, HttpOnly cookie                                                                                                                            |
+| `/api/orders`                                | `POST`       | Create one retailer-scoped order      | Same-site check, bounded exact lines, server-recomputed offers, rate limit, hashed guest capability, no-store response                                                     |
+| `/api/orders/current`                        | `GET`        | Read current guest order              | Order-scoped HttpOnly capability, expiry, private no-store response                                                                                                        |
+| `/api/orders/current/decision`               | `POST`       | Approve or decline exact quote        | Guest capability or server-derived owner, quote version, optimistic order revision, expiry, rate limit                                                                     |
+| `/api/orders/recovery`                       | `POST`       | Request replacement recovery link     | Generic response, reference/email match, replacement invalidates prior unused capabilities, rate limit                                                                     |
+| `/api/orders/recover`                        | `GET`        | Exchange one-time recovery link       | Hashed token, atomic consume, session rotation, clean redirect, no-store/no-referrer                                                                                       |
+| `/api/cron/inventory`                        | `GET`        | Refresh due retail offers             | Bearer `CRON_SECRET`, bounded batch, exact-offer identity, append-only history, safe scheduled-owner receipt                                                               |
+| `/api/cron/inventory-health`                 | `GET`        | Inspect inventory owner health        | Bearer `CRON_SECRET`, aggregate read-only checks, no queue/lease/cache mutation                                                                                            |
+| `/api/cron/daily-campaign`                   | `GET`        | Prepare and email one campaign draft  | Bearer `CRON_SECRET`, disabled-by-default production gate, dossier/share evidence gate, immutable Redis send reservation, exact active-operator resolution                 |
+| `/api/cron/daily-desk-reconcile`             | `GET`        | Accept one evidence-ready public Desk | Bearer `CRON_SECRET`, separate disabled-by-default gate, immutable per-Lagos-date Desk record, current exact-offer rebind, safe scheduled-owner receipt, never sends email |
+| `/api/campaigns/daily-desk/events`           | `POST`       | Increment Daily Desk aggregate event  | Same-site check, 64 KiB body, strict public campaign-id/event schema, current accepted-Daily-Desk match, no cookies or visitor identifiers stored, no public read          |
+| `/go`                                        | `GET`        | Outbound retailer redirect            | Allowlisted offer lookup and attribution logic                                                                                                                             |
 
 JeloCare Me Shelf mutations are authenticated server actions rather than public
 API routes. `/me/shelf/export` is an authenticated, private, no-store download.
@@ -51,7 +52,9 @@ path, query, form, or JSON body.
   private Redis delivery trail stores only a `CRON_SECRET`-keyed recipient HMAC;
   the production mailbox must resolve to exactly one active operator before send.
 - `/lagos` reads only the current day's accepted Daily Desk record and projects
-  a strict public allowlist. Its aggregate event route accepts no free
+  a strict public allowlist. The accepted exact offers are rebound to current
+  evidence on every read; expiry, invalidation, replacement or price mismatch
+  yields `evidence-expired`, never a stored-price fallback. Its aggregate event route accepts no free
   text, omits cookies and referrer client-side, stores no request metadata, and
   exposes no metric read endpoint.
 - Private Shelf operations use a dedicated exact-role connection, transaction-
@@ -60,6 +63,11 @@ path, query, form, or JSON body.
 - Catalogue suggestions query indexed public search text and approved GTIN fields, then fail over to a deterministic checked-in projection containing only slug, brand, name, size, approved GTIN, and source. They never import or expose private candidates, community drafts, moderation records, dossiers, or the 1,000-record discovery queue.
 - Catalogue suggestion reads use a hashed network key with a lightweight Upstash window. Missing Redis configuration is the only fail-open state; partial configuration and provider failures return `429` with `Retry-After`.
 - Ask Jelo uses a separate 20-request-per-hour Upstash window and an HMAC-derived network key. Production denies requests when Redis configuration is missing or the configured provider is unavailable; local development may run without Redis.
+- `/ops/market-health` is operator-authenticated and read-only. It combines
+  aggregate canonical database facts with bounded receipts for the inventory
+  and Daily Desk owners. Receipts contain fixed outcome codes, aggregate counts,
+  revision and timestamps only; no product, retailer URL, recipient, customer,
+  contact, or raw-error payload is stored or rendered.
 
 ## Data classification
 
@@ -100,7 +108,7 @@ classification call.
 
 ## Known controls to preserve
 
-- `CRON_SECRET` must exist in production and be at least 16 characters. `isAuthorizedCronRequest` rejects shorter secrets, causing the inventory, reconcile-requests, and daily-campaign crons to return 401. See [Troubleshooting: Inventory cron is not running](../catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running).
+- `CRON_SECRET` must exist in production and be at least 16 characters. `isAuthorizedCronRequest` rejects shorter secrets, causing every protected cron route to return 401. See [Troubleshooting: Inventory cron is not running](../catalogue/TROUBLESHOOTING.md#inventory-cron-is-not-running).
 - `APP_DATABASE_URL` must be set in Vercel Production with the exact `jelocare_app_runtime` role. The owned Neon resource remains disconnected from Vercel, and `DATABASE_URL` plus every owner-bearing compatibility alias must be absent. See [NEON.md](../data/NEON.md#restricted-vercel-runtime-and-the-owned-neon-resource).
 - Non-consult public limiters retain their documented local/failover behavior. Ask Jelo specifically requires Upstash in production and fails closed.
 - The Agentic Mail API token is preferred. SMTP remains a mailbox-password fallback.

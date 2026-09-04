@@ -5,8 +5,6 @@ import { getProductsPriceTrends } from "@/lib/inventory/price-trends";
 import {
   hasShareableNgOffer,
   isShareableNgOffer,
-  isTrendEligibleNgOffer,
-  hasTrendEligibleNgOffer,
 } from "@/modules/commerce/shareable-offer";
 import { priceTrendOfferSnapshot } from "@/modules/commerce/price-trends";
 import {
@@ -24,20 +22,20 @@ export async function getMarketTrendsReadModel(
   const now = options.now ?? Date.now();
   const products = await listCatalogueProducts();
 
-  // Use trend-eligible (not freshness-gated) offers for trend computation so
-  // stale offers don't suppress price drops/increases. The summary stats and
-  // OOS alerts below still use freshness-gated shareable offers.
+  // A public movement stays attached to the same current, actionable exact
+  // offers used by Products, Share and Daily Desk. Append-only history may be
+  // older, but a stale current listing cannot sponsor a shopper-facing trend.
   const trendEligibleProducts = products.filter((product) =>
-    hasTrendEligibleNgOffer(product),
+    hasShareableNgOffer(product, now),
   );
 
   const trendsPromise = getProductsPriceTrends(
     trendEligibleProducts.map((product) => ({
       slug: product.slug,
       snapshot: product.offers
-        .filter((offer) => isTrendEligibleNgOffer(offer))
+        .filter((offer) => isShareableNgOffer(offer, now))
         .flatMap((offer) => {
-          const snapshot = priceTrendOfferSnapshot(offer, "NG", now, false);
+          const snapshot = priceTrendOfferSnapshot(offer, "NG", now);
           return snapshot ? [snapshot] : [];
         }),
     })),

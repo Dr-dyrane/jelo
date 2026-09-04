@@ -10,10 +10,6 @@ import {
   type PriceTrendOfferSnapshot,
   type ProductPriceTrends,
 } from "@/modules/commerce/price-trends";
-import {
-  computeStaticPriceTrends,
-  computeStaticPriceHistory,
-} from "./static-price-trends";
 
 type ObservationRow = CurrentPriceObservation;
 type ProductObservationRow = ObservationRow & {
@@ -95,7 +91,7 @@ export async function getProductsPriceTrends(
   }
 
   if (!hasPostgresConfig() || snapshots.size === 0) {
-    return computeStaticPriceTrends(requests);
+    return results;
   }
 
   const slugs = [...snapshots.keys()];
@@ -112,6 +108,7 @@ export async function getProductsPriceTrends(
         o.available,
         o.inventory_status as "inventoryStatus",
         o.verification_method as "verificationMethod",
+        h.source as "historySource",
         o.last_verified_at::text as "lastVerifiedAt",
         o.verification_expires_at::text as "verificationExpiresAt",
         o.observed_title as "observedTitle",
@@ -149,25 +146,17 @@ export async function getProductsPriceTrends(
         rowsBySlug.get(slug) ?? [],
         snapshot,
       );
-      // If the DB produced no NG trend data, fall back to static history
-      // so the /share page still shows price drops and increases.
-      if (dbTrends.NG) {
-        results.set(slug, dbTrends);
-      } else {
-        const staticTrends = computeStaticPriceTrends([{ slug, snapshot }]);
-        const staticResult = staticTrends.get(slug);
-        results.set(slug, staticResult ?? dbTrends);
-      }
+      results.set(slug, dbTrends);
     }
     return results;
   } catch (error) {
     console.error(
       `Price history unavailable for ${slugs.length} ${
         slugs.length === 1 ? "product" : "products"
-      }; falling back to static trends.`,
+      }; trend evidence is unavailable.`,
       error,
     );
-    return computeStaticPriceTrends(requests);
+    return results;
   }
 }
 
@@ -198,7 +187,7 @@ export async function getProductPriceHistory(
   const historyCutoff = new Date(referenceNow - 90 * 86_400_000);
 
   if (!hasPostgresConfig()) {
-    return computeStaticPriceHistory(slug, snapshot);
+    return [];
   }
 
   try {
@@ -213,6 +202,7 @@ export async function getProductPriceHistory(
         o.available,
         o.inventory_status as "inventoryStatus",
         o.verification_method as "verificationMethod",
+        h.source as "historySource",
         o.last_verified_at::text as "lastVerifiedAt",
         o.verification_expires_at::text as "verificationExpiresAt",
         o.observed_title as "observedTitle",
@@ -233,16 +223,12 @@ export async function getProductPriceHistory(
         and h.observed_at >= ${historyCutoff}
       order by h.observed_at asc, h.created_at asc, h.id asc
     `;
-    const dbObservations = selectCurrentPriceObservations(rows, snapshot);
-    if (dbObservations.length > 0) return dbObservations;
-    // DB has no history for this product; fall back to static history
-    // so the trend chart still shows price points.
-    return computeStaticPriceHistory(slug, snapshot);
+    return selectCurrentPriceObservations(rows, snapshot);
   } catch (error) {
     console.error(
-      `Price history query failed for ${slug}; falling back to static.`,
+      `Price history query failed for ${slug}; trend evidence is unavailable.`,
       error,
     );
-    return computeStaticPriceHistory(slug, snapshot);
+    return [];
   }
 }

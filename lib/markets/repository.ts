@@ -283,6 +283,7 @@ async function queryPublishedMarket(
 async function queryDirectoryProducts(
   sql: PostgresClient,
   marketId: string,
+  now: Date,
 ): Promise<ProductIdentityRow[]> {
   return sql<ProductIdentityRow[]>`
     select distinct
@@ -294,17 +295,91 @@ async function queryDirectoryProducts(
       identity_version.size_at_review as product_size,
       identity_version.package_version_at_review as package_version,
       identity_version.formula_version_at_review as formula_version
-    from physical_product_observations directory_observation
-    join retailer_locations directory_location
-      on directory_location.id = directory_observation.retailer_location_id
-      and directory_location.market_id = ${marketId}
+    from retailer_locations directory_location
+    left join physical_market_places directory_place
+      on directory_place.id = directory_location.primary_place_id
+      and directory_place.market_id = directory_location.market_id
+    join lateral (
+      select distinct on (approved_observation.product_identity_version_id)
+        approved_observation.*
+      from physical_product_observations approved_observation
+      where approved_observation.retailer_location_id = directory_location.id
+        and approved_observation.moderation_status = 'approved'
+        and not exists (
+          select 1
+          from physical_product_observations approved_successor
+          where approved_successor.supersedes_observation_id = approved_observation.id
+            and approved_successor.moderation_status = 'approved'
+        )
+      order by
+        approved_observation.product_identity_version_id,
+        approved_observation.observed_at desc,
+        approved_observation.created_at desc,
+        approved_observation.id desc
+    ) directory_observation on true
     join catalogue_product_identity_versions identity_version
       on identity_version.identity_version_id = directory_observation.product_identity_version_id
       and identity_version.lifecycle_state = 'active'
     join products product
       on product.id = identity_version.product_id
       and product.is_published = true
-    where directory_observation.moderation_status = 'approved'
+    where directory_location.market_id = ${marketId}
+      and directory_location.location_state = 'verified'
+      and directory_location.verification_expires_at > ${now}
+      and (
+        directory_location.primary_place_id is null
+        or directory_place.place_state = 'verified'
+      )
+      and directory_observation.expires_at > ${now}
+      and directory_observation.availability in ('in_stock', 'low_stock')
+      and exists (
+        select 1
+        from retailer_location_evidence identity_evidence
+        where identity_evidence.retailer_location_id = directory_location.id
+          and identity_evidence.evidence_scope = 'location_identity'
+          and identity_evidence.channel_id is null
+          and identity_evidence.decision = 'approved'
+          and identity_evidence.source_method in (
+            'field_visit',
+            'retailer_confirmation',
+            'branch_online_record',
+            'partnership_application'
+          )
+          and identity_evidence.expires_at > ${now}
+      )
+      and (
+        exists (
+          select 1
+          from retailer_location_evidence directions_evidence
+          where directory_location.public_directions is not null
+            and directions_evidence.retailer_location_id = directory_location.id
+            and directions_evidence.evidence_scope = 'public_directions'
+            and directions_evidence.channel_id is null
+            and directions_evidence.decision = 'approved'
+            and directions_evidence.expires_at > ${now}
+            and public.market_finder_public_action_is_usable(
+              'directions',
+              directory_location.public_directions
+            )
+        )
+        or exists (
+          select 1
+          from retailer_location_channels directory_channel
+          join retailer_location_evidence channel_evidence
+            on channel_evidence.channel_id = directory_channel.id
+            and channel_evidence.retailer_location_id = directory_location.id
+            and channel_evidence.evidence_scope = 'channel_ownership'
+            and channel_evidence.decision = 'approved'
+          where directory_channel.retailer_location_id = directory_location.id
+            and directory_channel.channel_state = 'verified'
+            and directory_channel.expires_at > ${now}
+            and channel_evidence.expires_at > ${now}
+            and public.market_finder_public_action_is_usable(
+              directory_channel.channel_kind::text,
+              directory_channel.public_destination
+            )
+        )
+      )
     order by
       identity_version.brand_at_review,
       identity_version.variant_at_review,
@@ -331,6 +406,7 @@ async function queryMarketFinderDirectory(input: {
   const productRows = await queryDirectoryProducts(
     input.client,
     marketRow.market_id,
+    input.now,
   );
   if (productRows.length === 0) {
     return marketFinderDirectoryNonCurrent({

@@ -9,11 +9,25 @@ import {
   INVENTORY_DEFERRED_RECHECK_MS,
   INVENTORY_REFRESH_LEASE_MS,
   inventoryRefreshFailureSettlement,
+  readInventoryRefreshReportingSnapshot,
   inventoryRefreshLastError,
+  summarizeInventoryCronFailure,
   summarizeInventoryRefreshRun,
   transientInventoryRefreshFailure,
 } from "@/lib/inventory/refresh-policy";
 import { assertRetailerResponseScope } from "./response-scope";
+
+test("reporting query failures propagate instead of becoming a zero count", async () => {
+  await assert.rejects(
+    readInventoryRefreshReportingSnapshot({
+      readBacklog: async () => ({ due: 4 }),
+      readStaleOfferCount: async () => {
+        throw new Error("stale-query-failed");
+      },
+    }),
+    /stale-query-failed/,
+  );
+});
 
 const validScope = {
   requestedUrl: "https://retailer.example/exact-product",
@@ -172,6 +186,10 @@ test("the structured run summary separates retries, deferred rechecks, and failu
         productSlug: "deferred-lotion",
         recoveredLease: true,
         failureReason: "package_size",
+        terminalInvalidation: {
+          invalidatedAt: "2026-09-04T12:00:00Z",
+          reason: "package_size",
+        },
       },
       {
         status: "discarded",
@@ -196,8 +214,42 @@ test("the structured run summary separates retries, deferred rechecks, and failu
       fetch_unavailable: 1,
     },
     stoppedByDeadline: true,
-    affectedProductSlugs: ["alpha-serum", "zinc-cleanser"],
+    affectedProductSlugs: ["alpha-serum", "deferred-lotion", "zinc-cleanser"],
   });
+});
+
+test("cron failures expose bounded phases without claiming unknown writes", () => {
+  assert.deepEqual(
+    summarizeInventoryCronFailure({
+      phase: "preflight",
+      requestStartedAt: 1_000,
+      failedAt: 1_025,
+    }),
+    {
+      ok: false,
+      status: "failed",
+      phase: "preflight",
+      code: "inventory_refresh_preflight_failed",
+      writesMayHaveOccurred: false,
+      durationMs: 25,
+    },
+  );
+  assert.equal(
+    summarizeInventoryCronFailure({
+      phase: "receipt",
+      requestStartedAt: 1_000,
+      failedAt: 1_010,
+    }).writesMayHaveOccurred,
+    false,
+  );
+  assert.equal(
+    summarizeInventoryCronFailure({
+      phase: "run",
+      requestStartedAt: 1_000,
+      failedAt: 999,
+    }).writesMayHaveOccurred,
+    true,
+  );
 });
 
 test("terminal and exhausted outcomes use a bounded daily recheck window", () => {

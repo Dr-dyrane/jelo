@@ -27,7 +27,7 @@ export function filterRetailerDirectory(
 
   return items.filter((item) => {
     const haystack = searchable(
-      `${item.name} ${item.kind} ${item.productCount} products trust ${item.trust} ${item.evidenceNote}`,
+      `${item.name} ${item.kind} ${item.productCount} products source score ${item.trust} ${item.evidenceNote}`,
     );
     return tokens.every((token) => haystack.includes(token));
   });

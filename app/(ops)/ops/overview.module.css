@@ -107,13 +107,58 @@
   gap: 2px;
 }
 
+.attentionObserved {
+  color: var(--muted);
+  font-size: var(--text-label);
+  line-height: 1.35;
+}
+
+.attentionResponse {
+  color: var(--muted);
+  font-size: var(--text-label);
+}
+
+.attentionResponse summary {
+  width: fit-content;
+  min-height: 32px;
+  cursor: pointer;
+  line-height: 32px;
+}
+
+.attentionResponse summary:focus-visible {
+  outline: 2px solid var(--ops-focus-ring);
+  outline-offset: 2px;
+}
+
+.attentionResponse dl {
+  display: grid;
+  gap: var(--space-1);
+  margin: var(--space-1) 0 0;
+}
+
+.attentionResponse dl > div {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: var(--space-2);
+}
+
+.attentionResponse dt,
+.attentionResponse dd {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.attentionResponse dd {
+  color: var(--ops-ink);
+}
+
 .attentionCopy > span:first-child {
   color: var(--ops-ink);
   font-size: var(--text-cell);
   font-weight: var(--weight-medium);
 }
 
-.attentionCopy > span:last-child {
+.attentionSummary {
   color: var(--ops-muted);
   font-size: var(--text-caption);
 }

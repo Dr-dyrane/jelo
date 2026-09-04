@@ -3933,20 +3933,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
   ],
   "skin-by-zaron-vitamin-c-body-lotion-500ml": [
     exactNg(
-      "BuyBetter",
-      "https://buybetter.ng/product/skin-by-zaron-vitamin-c-brightening-moisturizing-body-lotion-500ml/",
-      97,
-      16780,
-      "Skin by Zaron Vitamin C Body Lotion",
-      "500 ml",
-      {
-        observedAt: "2026-08-14T17:00:00Z",
-        expiresAt: "2026-08-21T17:00:00Z",
-        available: false,
-        stock: "unknown",
-      },
-    ),
-    exactNg(
       "Deoset",
       "https://deoset.com/product/skin-by-zaron-vitamin-c-brightening-moisturizing-body-lotion-500ml/",
       86,
@@ -4823,20 +4809,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       },
     ),
     exactNg(
-      "Konga Health",
-      "https://www.konga.com/product/nivea-nivea-perfect-radiant-body-lotion-400ml-6958362",
-      80,
-      8990,
-      "Nivea Nivea Perfect Radiant Body Lotion 400ml",
-      "400 ml",
-      {
-        observedAt: "2026-08-30T03:11:51.792Z",
-        expiresAt: "2026-09-06T03:11:51.792Z",
-        stock: "in-stock",
-        available: true,
-      },
-    ),
-    exactNg(
       "Allure Beauty",
       "https://allure.com.ng/nivea-perfect-radiant-body-lotion/",
       84,
@@ -5093,21 +5065,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
         stock: "unknown",
         available: false,
         priceComparison: "exclude",
-      },
-    ),
-    exactNg(
-      "Konga Health",
-      "https://www.konga.com/product/balance-active-formula-salicylic-acid-zinc-clarifying-toner-200ml-6927398",
-      80,
-      12500,
-      "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner - 200ml",
-      "200 ml",
-      {
-        observedAt: "2026-09-04T13:12:10Z",
-        expiresAt: "2026-09-05T13:12:10Z",
-        stock: "in-stock",
-        available: true,
-        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -6307,22 +6264,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     ),
     exactNg(
       "Konga Health",
-      "https://www.konga.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml-6987001",
-      80,
-      15000,
-      "Aqua Rich Hydrating Bright Body Lotion With Turmeric & Vitamin C - 500ml",
-      "500 ml",
-      {
-        observedAt: "2026-09-04T13:09:57Z",
-        expiresAt: "2026-09-05T13:09:57Z",
-        stock: "in-stock",
-        available: true,
-        sellerName: "Trendy's place",
-        verificationMethod: "retailer_page",
-      },
-    ),
-    exactNg(
-      "Konga Health",
       "https://www.konga.com/product/aqua-rich-hydrating-bright-body-lotion-with-turmeric-and-vitamin-c-500ml-6925177?cid=2279",
       80,
       15000,
@@ -6737,21 +6678,6 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-30T05:06:22.000Z",
         expiresAt: "2026-09-04T14:18:04Z",
-        stock: "unknown",
-        available: false,
-        priceComparison: "exclude",
-      },
-    ),
-    exactNg(
-      "Perfect Trust Beauty",
-      "https://perfecttrustbeauty.com/products/raw-shea-butter-deep-treatment-masque-340g",
-      78,
-      12700,
-      "SheaMoisture Raw Shea Butter Deep Treatment Masque 340g",
-      "13 fl oz / 384 ml",
-      {
-        observedAt: "2026-08-30T05:06:22.000Z",
-        expiresAt: "2026-09-04T13:09:15Z",
         stock: "unknown",
         available: false,
         priceComparison: "exclude",
@@ -9366,6 +9292,28 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
     ),
   ],
 };
+
+export function assertVerifiedRetailOfferSourceInvariant(
+  source: Record<
+    string,
+    readonly Pick<Offer, "retailer">[]
+  > = verifiedRetailOffers,
+) {
+  for (const [productSlug, offers] of Object.entries(source)) {
+    const retailerSlots = new Set<string>();
+    for (const offer of offers) {
+      const retailerSlot = offer.retailer.trim().toLocaleLowerCase("en");
+      if (!retailerSlot || retailerSlots.has(retailerSlot)) {
+        throw new Error(
+          `Verified retail offers must contain one source slot per product and retailer: ${productSlug} / ${offer.retailer || "missing-retailer"}.`,
+        );
+      }
+      retailerSlots.add(retailerSlot);
+    }
+  }
+}
+
+assertVerifiedRetailOfferSourceInvariant();
 
 const excludedRetailers: Partial<Record<string, string[]>> = {
   // The old route is the 236 ml product, not this catalogue's 355 ml size.

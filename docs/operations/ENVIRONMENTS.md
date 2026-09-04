@@ -1,6 +1,6 @@
 # Environments
 
-Updated: 2026-08-13
+Updated: 2026-09-04
 
 Canonical variables use the same names across local development, Vercel Preview,
 and Vercel Production. The PostgreSQL compatibility aliases documented below
@@ -80,7 +80,7 @@ separate secrets, and the canary described in
 | `CUSTOMER_SHELF_DATABASE_URL` | Private Shelf and Routine runtime | Pooled postgres.js URL whose username is exactly `jelocare_shelf_runtime`; require `sslmode=verify-full`, omit `channel_binding`, server-only                                                                                    |
 | `POSTGRES_URL`                | Local development/test only       | Final compatibility alias after `APP_DATABASE_URL` and `DATABASE_URL`. It is ignored in production mode and must be absent from every Vercel scope.                                                                              |
 | `NEON_PROJECT_ID`             | Operator convenience              | Not read by application runtime                                                                                                                                                                                                  |
-| `CRON_SECRET`                 | Production cron endpoints         | Bearer token for `/api/cron/inventory`, `/api/cron/reconcile-requests`, and `/api/cron/daily-campaign`. Must be at least 16 characters; `isAuthorizedCronRequest` rejects shorter secrets.                                       |
+| `CRON_SECRET`                 | Production cron endpoints         | Bearer token for every protected `/api/cron/*` route. Must be at least 16 characters; `isAuthorizedCronRequest` rejects shorter secrets.                                                                                         |
 
 Production-mode application resolution means `NODE_ENV=production` or
 `VERCEL_ENV=preview|production`. It considers only `APP_DATABASE_URL` and fails
@@ -165,6 +165,14 @@ The daily campaign lane also requires `KV_REST_API_URL` and
 outcome trail, and accepted-production rotation index. It fails closed when
 either value is absent. `KV_REST_API_READ_ONLY_TOKEN`, `KV_URL`, and `REDIS_URL`
 remain compatibility values and are not used by the current runtime.
+
+The linked market-truth monitor reuses those same Upstash credentials for two
+bounded scheduled-owner receipts: inventory refresh and Daily Desk
+reconciliation. No new environment variable or parallel queue is introduced.
+If a receipt cannot start, the owner returns a visible failure before market
+mutation. If final receipt settlement fails after canonical work completes,
+the owner still returns a visible failure and never rewrites or rolls back that
+canonical operation.
 
 ### Location suggestions
 

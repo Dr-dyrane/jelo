@@ -4,6 +4,7 @@ import {
   hasListingEvidence,
 } from "@/modules/commerce/offer-evidence";
 import { assertRetailerResponseScope } from "@/modules/retail-intelligence/response-scope";
+import { comparisonOfferIdentityKey } from "@/modules/commerce/offer-comparison-identity";
 
 function sameIdentity(left: Product, right: Product) {
   return (
@@ -78,11 +79,24 @@ function offerObservedAt(offer: Product["offers"][number]) {
  * strictly newer, matching the seed reconciliation rule.
  */
 function reconcileScopedOffers(
+  productSlug: string,
   approvedOffers: Product["offers"],
   persistedOffers: Product["offers"],
 ) {
   const merged = new Map(
     approvedOffers.map((offer) => [offerScopeKey(offer), offer]),
+  );
+  const checkedInComparisonPolicies = new Map(
+    approvedOffers.flatMap((offer) => {
+      const identity = comparisonOfferIdentityKey({
+        productSlug,
+        retailer: offer.retailer,
+        url: offer.url,
+      });
+      return identity && offer.priceComparison
+        ? [[identity, offer.priceComparison] as const]
+        : [];
+    }),
   );
 
   for (const persistedOffer of persistedOffers) {
@@ -92,7 +106,20 @@ function reconcileScopedOffers(
       !approvedOffer ||
       offerObservedAt(persistedOffer) > offerObservedAt(approvedOffer)
     ) {
-      merged.set(key, persistedOffer);
+      const exactIdentity = comparisonOfferIdentityKey({
+        productSlug,
+        retailer: persistedOffer.retailer,
+        url: persistedOffer.url,
+      });
+      const priceComparison = exactIdentity
+        ? checkedInComparisonPolicies.get(exactIdentity)
+        : undefined;
+      merged.set(
+        key,
+        priceComparison
+          ? { ...persistedOffer, priceComparison }
+          : persistedOffer,
+      );
     }
   }
 
@@ -128,7 +155,11 @@ export function reconcilePublishedCatalogue(
       {
         ...approvedProduct,
         offers: persistedOffers.length
-          ? reconcileScopedOffers(approvedScopedOffers, persistedOffers)
+          ? reconcileScopedOffers(
+              approvedProduct.slug,
+              approvedScopedOffers,
+              persistedOffers,
+            )
           : approvedProduct.offers,
       },
     ];

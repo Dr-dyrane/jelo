@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 2,
+  "policy": "private-retained-offer-source-evidence-only",
+  "publicationStatus": "not-a-catalogue-candidate",
+  "publicationAuthority": "none",
+  "generatedAt": "2026-08-09T07:28:53.219Z",
+  "source": {
+    "researchPacketsSha256": "bcdef2d9855d61d9d93b7fd37ec235e75fc910e0bfc3f505308602539dc290cb",
+    "discoverySnapshotSha256": "6681c955fc3627691dd89bf6893e07c2a9399e4acc32ab2cb2a786eb940d27d7"
+  },
+  "selection": {
+    "packetCount": 1,
+    "packetIds": ["b08a06cbbfe550825932aec2"],
+    "responseCount": 2
+  },
+  "qualityCautions": [],
+  "captures": [
+    {
+      "id": "da85c3fcc79c21fcef65dffe",
+      "packetId": "b08a06cbbfe550825932aec2",
+      "discoveryId": "02c725b1d7a62394c0144a0a",
+      "offerKey": "ea8d6584cda622273bfcfdcb",
+      "retailer": "BuyBetter",
+      "retailerStatus": "directory-listed",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/02c725b1d7a62394c0144a0a--buybetter--ea8d6584cda622273bfcfdcb.json",
+      "source": {
+        "productId": 330388,
+        "requestedUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330388",
+        "responseUrl": "https://buybetter.ng/wp-json/wc/store/v1/products/330388",
+        "listingUrl": "https://buybetter.ng/product/disaar-cocoa-deep-moisturizing-body-oil-gel-200ml-2/",
+        "capturedAt": "2026-08-09T07:28:52.867Z",
+        "responseSha256": "4c6a8052fc2f972feb2ac1ca0f31c7b922b1f1fc7fe4aea24c59b9c146458d48",
+        "responseByteSize": 4654,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "DISAAR (Cocoa Deep Moisturizing) Body oil gel 200ml",
+        "size": "200ml",
+        "price": {
+          "amount": 4461,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "6932511228021",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    },
+    {
+      "id": "965e96be3ca94c596ddc9d74",
+      "packetId": "b08a06cbbfe550825932aec2",
+      "discoveryId": "02c725b1d7a62394c0144a0a",
+      "offerKey": "cccf76ed84b4dc99430338c1",
+      "retailer": "Slique Beauty",
+      "retailerStatus": "provisional",
+      "publicationStatus": "not-a-catalogue-candidate",
+      "publicationAuthority": "none",
+      "identityAuthority": "none",
+      "evidencePath": "data/catalogue-offer-source-evidence/02c725b1d7a62394c0144a0a--slique-beauty--cccf76ed84b4dc99430338c1.json",
+      "source": {
+        "productId": 4627,
+        "requestedUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4627",
+        "responseUrl": "https://sliquebeautylimited.com/wp-json/wc/store/v1/products/4627",
+        "listingUrl": "https://sliquebeautylimited.com/product/disaar-cocoa-body-gel-oil-200ml/",
+        "capturedAt": "2026-08-09T07:28:53.217Z",
+        "responseSha256": "385fb39761270331dfcfb61366f7dba3de96a5485451a3c627cbc3deaa4d1fac",
+        "responseByteSize": 4657,
+        "responseMimeType": "application/json"
+      },
+      "offer": {
+        "title": "DISAAR COCOA BODY GEL OIL 200ML",
+        "size": "200ml",
+        "price": {
+          "amount": 4000,
+          "currency": "NGN"
+        },
+        "stock": "low-stock",
+        "retailerSku": {
+          "value": "6932511228021",
+          "treatment": "retailer-local-code-not-manufacturer-identity"
+        }
+      }
+    }
+  ]
+}

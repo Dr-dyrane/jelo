@@ -37,7 +37,7 @@ export function RetailerDirectory({
       items.map((item) => ({
         href: `/retailers/${item.slug}`,
         name: item.name,
-        detail: `${item.kind} · ${item.productCount} ${item.productCount === 1 ? "product" : "products"} · trust ${item.trust}`,
+        detail: `${item.kind} · ${item.productCount} ${item.productCount === 1 ? "product" : "products"} · source score ${item.trust}`,
         searchText: item.evidenceNote,
       })),
     [items],
@@ -75,7 +75,7 @@ export function RetailerDirectory({
                 {item.productCount === 1 ? "product" : "products"} observed
               </small>
               <small>
-                Trust {item.trust}
+                Source score {item.trust}
                 {item.latestObservedAt
                   ? ` · ${formatDate(item.latestObservedAt)}`
                   : ""}

@@ -15,6 +15,11 @@ import {
 import type { Offer, Product } from "@/data/products";
 import { buildRetailerProfile } from "./retailer-profile";
 import { isShareableNgOffer } from "./shareable-offer";
+import {
+  buildRetailerDirectoryEvidenceNote,
+  buildRetailerProfileEvidenceCopy,
+} from "./retailer-evidence-copy";
+import type { RetailerReference } from "@/data/retailers";
 
 const now = new Date("2026-08-30T02:44:24Z");
 
@@ -113,6 +118,73 @@ test("retailer profiles expose only that store current exact Nigerian offers", (
   }
 });
 
+function evidenceRetailer(
+  overrides: Partial<RetailerReference> = {},
+): RetailerReference {
+  return {
+    name: "Evidence Store",
+    homepage: "https://retailer.example/",
+    market: "NG",
+    kind: "retailer",
+    trust: 80,
+    reviewStatus: "directory-listed",
+    contentUse: "link-only",
+    searchUrl: (query) =>
+      `https://retailer.example/search?q=${encodeURIComponent(query)}`,
+    note: "Undated Lagos delivery and live stock claim.",
+    ...overrides,
+  };
+}
+
+test("retailer profile copy projects registry identity and current exact offers without legacy prose", () => {
+  const registryOnly = buildRetailerProfileEvidenceCopy(evidenceRetailer(), 2);
+  assert.equal(
+    registryOnly.hero,
+    "Registry reference only. 2 fresh exact offers support the products below.",
+  );
+  assert.match(registryOnly.limit, /claims are not inferred/);
+  assert.doesNotMatch(registryOnly.hero, /Lagos|delivery|live stock/i);
+
+  const selfPublished = buildRetailerProfileEvidenceCopy(
+    evidenceRetailer({
+      identityEvidence: {
+        observedAt: "2026-08-30T03:48:39.688Z",
+        sourceUrl: "https://retailer.example/",
+        basis: "self-published-contact",
+        scope: "self-published",
+      },
+    }),
+    1,
+  );
+  assert.equal(
+    selfPublished.hero,
+    "Self-published identity recorded. 1 fresh exact offer supports the products below.",
+  );
+  assert.equal(selfPublished.identityObservedAt, "2026-08-30T03:48:39.688Z");
+  assert.match(selfPublished.limit, /separate reviewed evidence/);
+
+  const marketplace = buildRetailerProfileEvidenceCopy(
+    evidenceRetailer({ kind: "marketplace" }),
+    0,
+  );
+  assert.equal(
+    marketplace.hero,
+    "Marketplace registry source. No fresh exact offer is public here yet.",
+  );
+  assert.match(marketplace.limit, /exact offer carries matching evidence/);
+
+  const brandSource = retailerBySlug("medplus");
+  assert.ok(brandSource);
+  assert.equal(
+    buildRetailerProfileEvidenceCopy(brandSource, 1).identityLabel,
+    "Named by a brand source",
+  );
+  assert.equal(
+    buildRetailerDirectoryEvidenceNote(brandSource),
+    "Named by a brand source. No regulator match.",
+  );
+});
+
 test("public retailer routes reuse product cards and keep store links evidence-scoped", async () => {
   const root = process.cwd();
   const [profilePage, directoryPage, directoryComponent] = await Promise.all([
@@ -134,11 +206,17 @@ test("public retailer routes reuse product cards and keep store links evidence-s
     /\/go\?product=\$\{encodeURIComponent\(product\.slug\)\}&retailer=/,
   );
   assert.match(profilePage, /Listing ≠ genuine/);
+  assert.match(profilePage, /buildRetailerProfileEvidenceCopy/);
+  assert.doesNotMatch(profilePage, /retailer\.note/);
   assert.match(
     directoryPage,
     /<RetailerDirectory items=\{directoryItems\} \/>/,
   );
+  assert.match(directoryPage, /buildRetailerDirectoryEvidenceNote\(store\)/);
+  assert.doesNotMatch(directoryPage, /Self-published contact details observed/);
   assert.match(directoryComponent, /href=\{`\/retailers\/\$\{item\.slug\}`\}/);
+  assert.match(directoryComponent, /Source score \{item\.trust\}/);
+  assert.doesNotMatch(directoryComponent, />\s*Trust \{item\.trust\}/);
 });
 
 test("retailer search preserves source positions while narrowing by name and kind", () => {

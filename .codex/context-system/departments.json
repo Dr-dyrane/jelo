@@ -19,6 +19,35 @@
           "manualOnly": "Diagnose a failed scheduled run without duplicating its queue, claim, retry, or cache work"
         },
         {
+          "outcome": "inventory-health-watchdog",
+          "scheduledOwner": "Vercel cron GET /api/cron/inventory-health",
+          "departments": ["platform-delivery", "catalogue-evidence"],
+          "routineScope": "Hourly aggregate read-only assessment of inventory completion, failures, deferred work, leases, backlog and offer freshness",
+          "manualOnly": "Diagnose authentication, database, deployment or threshold failures without replaying inventory work"
+        },
+        {
+          "outcome": "daily-desk-reconciliation",
+          "scheduledOwner": "Vercel cron GET /api/cron/daily-desk-reconcile",
+          "departments": [
+            "platform-delivery",
+            "catalogue-evidence",
+            "public-experience"
+          ],
+          "routineScope": "Hourly same-day acceptance of one evidence-qualified Lagos Daily Desk after current exact-offer revalidation; no delivery or social publication",
+          "manualOnly": "Diagnose a missing, disabled, stale, failed or source-unavailable outcome without refreshing offers or bypassing campaign evidence gates"
+        },
+        {
+          "outcome": "daily-campaign-operator-packet",
+          "scheduledOwner": "Vercel cron GET /api/cron/daily-campaign",
+          "departments": [
+            "growth-campaigns",
+            "platform-delivery",
+            "catalogue-evidence"
+          ],
+          "routineScope": "Daily evidence-bound campaign selection, deterministic creative validation, archive and separately gated private operator delivery",
+          "manualOnly": "Preview, test, activate or diagnose the exact campaign operation under its approval and idempotency gates"
+        },
+        {
           "outcome": "inventory-static-integration",
           "scheduledOwner": "GitHub Actions inventory-static-integration.yml",
           "departments": ["platform-delivery", "catalogue-evidence"],

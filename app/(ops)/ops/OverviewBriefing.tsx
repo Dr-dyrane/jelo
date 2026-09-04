@@ -335,10 +335,32 @@ export function OverviewBriefing({
                 <span className={styles.attentionIcon} aria-hidden="true">
                   <CircleAlert size={20} strokeWidth={1.7} />
                 </span>
-                <span className={styles.attentionCopy}>
+                <div className={styles.attentionCopy}>
                   <span>{item.title}</span>
-                  <span>{item.summary}</span>
-                </span>
+                  <span className={styles.attentionSummary}>
+                    {item.summary}
+                  </span>
+                  <span className={styles.attentionObserved}>
+                    Observed <RelativeTime iso={item.observedAt} />
+                  </span>
+                  <details className={styles.attentionResponse}>
+                    <summary>Response</summary>
+                    <dl>
+                      <div>
+                        <dt>Owner</dt>
+                        <dd>{item.owner}</dd>
+                      </div>
+                      <div>
+                        <dt>Threshold</dt>
+                        <dd>{item.threshold}</dd>
+                      </div>
+                      <div>
+                        <dt>Runbook</dt>
+                        <dd>{item.runbook}</dd>
+                      </div>
+                    </dl>
+                  </details>
+                </div>
                 <Link href={item.actionHref}>
                   {item.actionLabel}
                   <ChevronRight size={15} aria-hidden="true" />

@@ -1,6 +1,6 @@
 # Application architecture
 
-Updated: 2026-08-13
+Updated: 2026-09-04
 
 JeloCare is a Next.js App Router application deployed on Vercel. It keeps reviewed clinical guidance, retail observations, community signals, and retailer applications in separate trust lanes.
 
@@ -44,6 +44,8 @@ Browser
 | `/consult`                         | Ask Jelo guided assessment                                                       |
 | `/contribute`                      | Anonymous community knowledge intake                                             |
 | `/retailers`                       | Retailer guide and partnership entry                                             |
+| `/share` and `/share/[slug]`       | Current exact offers and evidence-qualified price movement                       |
+| `/markets` and `/markets/[slug]`   | Reviewed physical-market product-to-place guidance                               |
 | `/lagos`                           | One accepted, evidence-checked Nigerian campaign story for the current Lagos day |
 | `/basket`, `/checkout`, `/order`   | Guest-first one-retailer assisted procurement and private status                 |
 | `/image-audit`                     | Browser-facing media audit                                                       |
@@ -74,8 +76,8 @@ Community contribution
 
 Retailer partnership application
   -> private business submission
-  -> verification
-  -> canonical retailer and offer records
+  -> private verification or research handoff
+  -> separate reviewed retailer and exact-offer admission
 
 Discovery and frozen bulk data
   -> private research only
@@ -103,9 +105,27 @@ authority that belongs to deterministic code and reviewed data.
 
 See [Ask Jelo](../ASK_JELO_EXPERIENCE.md), [concern knowledge](../CONCERN_KNOWLEDGE.md), and [ingredient review](../INGREDIENT_REVIEW.md).
 
+## Linked market truth
+
+Retailer, offer, observation, history and public projections form one governed
+chain. The inventory worker refreshes only already-reviewed exact offers; it
+does not discover or admit a retailer, listing or product. Discovery produces a
+private `new-product` or `additional-offer-for-known-product` review candidate,
+and partnership approval remains noncanonical.
+
+Physical-market observations stay separate from online listing evidence. They
+join through the exact product and reviewed retailer, but neither lane can
+prove facts owned by the other. Public price actions, product market summaries,
+Share, market trends and Daily Desk all require the same current exact-offer
+predicate. Movement comes only from append-only `offer_price_history`; a
+current snapshot is never manufactured into a past observation.
+
+See [ADR 0020](../adr/0020-linked-market-truth-system.md) for the identity,
+freshness, projection and exception contract.
+
 ## Retail refresh
 
-The daily Vercel cron calls `/api/cron/inventory`.
+The hourly Vercel cron calls `/api/cron/inventory` at minute 17.
 
 1. Bearer authentication checks `CRON_SECRET`.
 2. Only due, published, exact HTTPS offers enter `inventory_refresh_jobs`; active
@@ -125,11 +145,24 @@ The daily Vercel cron calls `/api/cron/inventory`.
    agree, and the offer has not received a newer manual or administrative
    update.
 9. Failures retry with bounded exponential backoff.
-10. Successful product slugs invalidate the affected product, share, and list
-    surfaces. The response and log contain separate run and active-backlog
-    summaries.
+10. Successful observations and terminal contradictions invalidate the exact
+    product and Share projections plus their catalogue lists.
+11. Static integration binds a database offer ID back to one checked-in
+    product + retailer + normalized URL + NG/NGN source slot. Zero or multiple
+    matches stop for review.
+12. The response and log contain separate run, active-backlog and bounded
+    exception summaries. Private scheduled-owner receipts distinguish a
+    successful, empty, disabled or failed run without storing raw errors or
+    listing data.
 
 The cron is a freshness operator. It does not replace deliberate publication evidence.
+
+The Daily Desk reconciler runs hourly at minute 42. It may accept the first
+evidence-qualified Market record for the Lagos day after fresh observations
+arrive, even when the 07:00 operator campaign run had no candidate. The archive
+is immutable; `/lagos` rechecks the accepted record against the current exact
+offers and removes its price story after expiry, invalidation, replacement or a
+price mismatch.
 
 ## External services
 

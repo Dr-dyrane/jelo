@@ -9,7 +9,7 @@ import {
   selectRetailerPriceMovement,
   type PriceMovement,
 } from "@/modules/commerce/price-trends";
-import { isTrendEligibleNgOffer } from "@/modules/commerce/shareable-offer";
+import { isShareableNgOffer } from "@/modules/commerce/shareable-offer";
 import { selectRepresentativeOffers } from "@/modules/commerce/representative-offers";
 import { formatCampaignProductSize } from "@/lib/share/campaign-story";
 import { observedStockLabel } from "@/modules/commerce/offer-evidence";
@@ -64,7 +64,7 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
 
   const now = Date.now();
   const offers = product.offers
-    .filter((offer) => isTrendEligibleNgOffer(offer))
+    .filter((offer) => isShareableNgOffer(offer, now))
     .sort((a, b) => (a.priceNgn as number) - (b.priceNgn as number));
   if (offers.length === 0) return null;
 
@@ -72,7 +72,7 @@ export async function buildShareData(slug: string): Promise<ShareData | null> {
   const priceTrends = await getProductPriceTrends(
     product.slug,
     offers.flatMap((offer) => {
-      const snapshot = priceTrendOfferSnapshot(offer, "NG", now, false);
+      const snapshot = priceTrendOfferSnapshot(offer, "NG", now);
       return snapshot ? [snapshot] : [];
     }),
   );

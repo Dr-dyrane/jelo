@@ -79,10 +79,7 @@ test("share cards carry compact market and exact-store movement without steady n
     data,
     /getProductPriceTrends\(\s*product\.slug,\s*offers\.flatMap/,
   );
-  assert.match(
-    data,
-    /priceTrendOfferSnapshot\(offer, (?:'NG'|"NG"), now, false\)/,
-  );
+  assert.match(data, /priceTrendOfferSnapshot\(offer, (?:'NG'|"NG"), now\)/);
   assert.match(
     data,
     /preferredPriceMovement\(\s*priceTrends\.NG,\s*(?:movement|\(movement\)) =>/,
@@ -113,7 +110,7 @@ test("share cards carry compact market and exact-store movement without steady n
   );
   assert.match(
     worthSharing,
-    /priceTrendOfferSnapshot\(offer, (?:'NG'|"NG"), now, false\)/,
+    /priceTrendOfferSnapshot\(offer, (?:'NG'|"NG"), now\)/,
   );
   assert.doesNotMatch(
     worthSharing,
@@ -124,10 +121,10 @@ test("share cards carry compact market and exact-store movement without steady n
   assert.match(priceModel, /observedTitle:\s*string/);
   assert.match(priceModel, /observedSize:\s*string/);
   assert.doesNotMatch(card, /Steady|Median|Average/);
-  // The repository falls back to static price history when the DB has no
-  // data, so that the /share page always shows price drops and increases.
-  assert.match(repository, /computeStaticPriceTrends/);
-  assert.match(repository, /computeStaticPriceHistory/);
+  // Public movement uses append-only database observations only. Missing or
+  // mismatched history stays empty instead of reconstructing a timeline.
+  assert.doesNotMatch(repository, /computeStaticPriceTrends/);
+  assert.doesNotMatch(repository, /computeStaticPriceHistory/);
   assert.match(repository, /return results;/);
   assert.match(repository, /referenceNow - 90 \* 86_400_000/);
   assert.match(repository, /h\.observed_at >= \$\{historyCutoff\}/);

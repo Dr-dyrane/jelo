@@ -8,7 +8,7 @@ import {
   type PriceObservation,
   type PriceTrendOfferSnapshot,
 } from "@/modules/commerce/price-trends";
-import { isTrendEligibleNgOffer } from "@/modules/commerce/shareable-offer";
+import { isShareableNgOffer } from "@/modules/commerce/shareable-offer";
 import { selectRepresentativeOffers } from "@/modules/commerce/representative-offers";
 
 export type TrendPricePoint = {
@@ -87,7 +87,7 @@ export async function getProductTrendData(
 
   const now = Date.now();
   const offers = product.offers
-    .filter((offer) => isTrendEligibleNgOffer(offer))
+    .filter((offer) => isShareableNgOffer(offer, now))
     .sort((a, b) => (a.priceNgn as number) - (b.priceNgn as number));
   if (offers.length === 0) return null;
 
@@ -103,7 +103,7 @@ export async function getProductTrendData(
   // history belonged to a retailer that had since fallen out of the
   // representative set.
   const fullSnapshots = offers.flatMap((offer) => {
-    const snap = priceTrendOfferSnapshot(offer, "NG", now, false);
+    const snap = priceTrendOfferSnapshot(offer, "NG", now);
     return snap ? [snap] : [];
   });
   const rawObservations = await fetchRawObservations(
@@ -202,59 +202,6 @@ export async function getProductTrendData(
       priceNaira: obs.priceMinor,
       observedAt: obs.observedAt,
     }));
-
-  // ── Final guarantee: every representative retailer has ≥ 2 dated points ──
-  //
-  // The history pipeline (DB → selectCurrentPriceObservations → static
-  // fallback → cold-start seed) has multiple layers that can each fail to
-  // produce matching points for the current offers. Instead of patching
-  // each layer, this guarantee sits at the single chokepoint — after all
-  // upstream filtering — and seeds any missing points directly from the
-  // current offer snapshots.
-  //
-  // For each representative retailer that has fewer than 2 points, we add
-  // a second point at the same price 7 days before the current observation.
-  // This is honest: "we have no evidence of a price change" → flat line.
-  // Real DB history or static history always takes precedence because
-  // those points are already in the array; this only fills gaps.
-  const pointsByRetailer = new Map<string, TrendPricePoint[]>();
-  for (const point of points) {
-    const key = retailerKey(point.retailer);
-    pointsByRetailer.set(key, [...(pointsByRetailer.get(key) ?? []), point]);
-  }
-  const SEED_ANCHOR_DAYS = 7;
-  for (const offer of representativeOffers) {
-    const key = retailerKey(offer.retailer);
-    const existing = pointsByRetailer.get(key) ?? [];
-    if (existing.length >= 2) continue;
-    const priceNaira = offer.priceNgn as number;
-    const observedAt =
-      offer.checkedAt ?? offer.priceObservation?.observedAt ?? null;
-    if (!observedAt || priceNaira <= 0) continue;
-    const currentMs = Date.parse(observedAt);
-    if (Number.isNaN(currentMs)) continue;
-    const anchorMs = currentMs - SEED_ANCHOR_DAYS * 86_400_000;
-    const anchorIso = new Date(anchorMs).toISOString();
-    // If we have 1 real point, add 1 anchor. If we have 0, add both.
-    if (existing.length === 1) {
-      points.push({
-        retailer: offer.retailer,
-        priceNaira,
-        observedAt: anchorIso,
-      });
-    } else {
-      points.push({
-        retailer: offer.retailer,
-        priceNaira,
-        observedAt: anchorIso,
-      });
-      points.push({
-        retailer: offer.retailer,
-        priceNaira,
-        observedAt: new Date(currentMs).toISOString(),
-      });
-    }
-  }
 
   points.sort(
     (left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt),

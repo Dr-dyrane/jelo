@@ -63,9 +63,7 @@ function directoryClient() {
         },
       ];
     }
-    if (
-      query.includes("from physical_product_observations directory_observation")
-    ) {
+    if (query.includes("from retailer_locations directory_location")) {
       return [
         {
           product_identity_version_id: "00000000-0000-4000-8000-000000000002",
@@ -534,7 +532,7 @@ test("public reads require the exact kill switch and Trade Fair pilot allowlist"
   );
 });
 
-test("directory discovery is gated before IO and admits observation-backed identities", async () => {
+test("directory discovery is gated before IO and admits only visit-ready identities", async () => {
   const fixture = directoryClient();
   const now = new Date("2026-09-01T10:00:00.000Z");
 
@@ -572,7 +570,28 @@ test("directory discovery is gated before IO and admits observation-backed ident
   assert.equal(fixture.state.queries.length, 2);
   assert.match(
     fixture.state.queries[1] ?? "",
-    /directory_observation\.moderation_status = 'approved'/,
+    /approved_observation\.moderation_status = 'approved'/,
+  );
+  assert.match(
+    fixture.state.queries[1] ?? "",
+    /distinct on \(approved_observation\.product_identity_version_id\)/,
+  );
+  assert.doesNotMatch(fixture.state.queries[1] ?? "", /limit 1/);
+  assert.match(
+    fixture.state.queries[1] ?? "",
+    /directory_observation\.expires_at > \?/,
+  );
+  assert.match(
+    fixture.state.queries[1] ?? "",
+    /directory_observation\.availability in \('in_stock', 'low_stock'\)/,
+  );
+  assert.match(
+    fixture.state.queries[1] ?? "",
+    /directory_location\.location_state = 'verified'/,
+  );
+  assert.match(
+    fixture.state.queries[1] ?? "",
+    /market_finder_public_action_is_usable/,
   );
   assert.match(
     fixture.state.queries[1] ?? "",

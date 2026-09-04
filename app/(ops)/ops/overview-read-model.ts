@@ -6,6 +6,7 @@ import { humanizeRef } from "@/lib/humanize/refs";
 import { can, type Capability } from "@/lib/moderation/capabilities";
 import type { ModerationRole } from "@/lib/moderation/access";
 import { resolveOpsProductImages } from "@/lib/moderation/ops-product-visuals";
+import { loadMarketTruthReadModel } from "@/lib/market-truth/loader";
 import type {
   OpsOrderQueueAgeFact,
   OpsOrderQueueAgeKind,
@@ -17,6 +18,7 @@ import {
   type OverviewBriefingReadModel,
   type OverviewAuditEntry,
   type OverviewFeaturedItemFact,
+  type OverviewAttentionItem,
   type OverviewQueueFact,
   type OverviewQueueKind,
 } from "./overview-briefing";
@@ -395,23 +397,28 @@ export async function loadOverviewBriefing(
   sql: Sql,
   role: ModerationRole,
 ): Promise<OverviewBriefingReadModel> {
-  const [queueFacts, oldestItemsResult, auditResult] = await Promise.all([
-    listOverviewQueueFacts(sql),
-    listOverviewOldestItems(sql).then(
-      (rows) => ({ rows, unavailable: false }),
-      (error) => {
-        console.error("Could not load oldest operations records.", error);
-        return { rows: [], unavailable: true };
-      },
-    ),
-    listOverviewDecisionHistory(sql, 5, 3).then(
-      (rows) => ({ rows, unavailable: false }),
-      (error) => {
-        console.error("Could not load recent operations decisions.", error);
-        return { rows: [], unavailable: true };
-      },
-    ),
-  ]);
+  const [queueFacts, oldestItemsResult, auditResult, marketTruthResult] =
+    await Promise.all([
+      listOverviewQueueFacts(sql),
+      listOverviewOldestItems(sql).then(
+        (rows) => ({ rows, unavailable: false }),
+        (error) => {
+          console.error("Could not load oldest operations records.", error);
+          return { rows: [], unavailable: true };
+        },
+      ),
+      listOverviewDecisionHistory(sql, 5, 3).then(
+        (rows) => ({ rows, unavailable: false }),
+        (error) => {
+          console.error("Could not load recent operations decisions.", error);
+          return { rows: [], unavailable: true };
+        },
+      ),
+      loadMarketTruthReadModel(sql).then(
+        (model) => ({ model, unavailable: false }),
+        () => ({ model: null, unavailable: true }),
+      ),
+    ]);
 
   const productImages = await resolveOpsProductImages(
     auditResult.rows.map((row) => row.productRef),
@@ -449,6 +456,39 @@ export async function loadOverviewBriefing(
     });
   }
 
+  const marketTruthAttention: OverviewAttentionItem[] = marketTruthResult.model
+    ? marketTruthResult.model.exceptions
+        .filter((item) => item.overviewEligible)
+        .slice(0, 3)
+        .map((item) => ({
+          id: `market-truth:${item.id}`,
+          queueKind: null,
+          title: item.title,
+          summary: item.summary,
+          observedAt: item.observedAt,
+          reasonCode: "market-truth-exception" as const,
+          threshold: item.threshold,
+          owner: item.owner,
+          runbook: item.runbook,
+          actionLabel: item.actionLabel,
+          actionHref: item.actionHref,
+        }))
+    : [
+        {
+          id: "market-truth:read-unavailable",
+          queueKind: null,
+          title: "Market truth status unavailable",
+          summary: "The linked evidence chain could not be read.",
+          observedAt: new Date().toISOString(),
+          reasonCode: "market-truth-exception",
+          threshold: "Readable on every overview load",
+          owner: "Platform operations",
+          runbook: "Linked market truth · Source recovery",
+          actionLabel: "Inspect market health",
+          actionHref: "/ops/market-health",
+        },
+      ];
+
   return buildOverviewBriefing({
     queueFacts,
     actionableQueueKinds: OVERVIEW_QUEUES.filter((queue) =>
@@ -459,5 +499,6 @@ export async function loadOverviewBriefing(
     recentDecisions,
     recentDecisionsByQueue,
     recentDecisionsUnavailable: auditResult.unavailable,
+    systemAttentionItems: marketTruthAttention,
   });
 }

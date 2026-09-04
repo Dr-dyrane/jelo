@@ -1,10 +1,6 @@
 import type { Market } from "@/data/prices";
 import type { Offer } from "@/data/products";
-import {
-  observedMarketPrice,
-  observedMarketPriceForTrends,
-} from "./offer-evidence";
-import { isOfferFresh } from "./offer-freshness";
+import { observedMarketPrice } from "./offer-evidence";
 
 export type PriceObservation = {
   historyId: string;
@@ -32,6 +28,7 @@ export type CurrentPriceObservation = PriceObservation & {
   available: boolean;
   inventoryStatus: "in_stock" | "low_stock" | "out_of_stock" | "unknown";
   verificationMethod: "manual" | "retailer_page" | "api" | "import";
+  historySource: "manual" | "retailer_page" | "api" | "import";
   lastVerifiedAt: string | null;
   verificationExpiresAt: string | null;
   observedTitle: string | null;
@@ -220,11 +217,8 @@ export function priceTrendOfferSnapshot(
   offer: Offer,
   market: Market,
   now: number | Date = Date.now(),
-  requireFresh = true,
 ): PriceTrendOfferSnapshot | null {
-  const price = requireFresh
-    ? observedMarketPrice(offer, market, now)
-    : observedMarketPriceForTrends(offer, market);
+  const price = observedMarketPrice(offer, market, now);
   const observation = offer.priceObservation;
   const observedAt = normalizedTimestamp(observation?.observedAt);
   const priceMinor = market === "US" ? Math.round((price ?? 0) * 100) : price;
@@ -313,6 +307,8 @@ export function selectCurrentPriceObservations(
 
     return [
       {
+        key: key!,
+        current: row,
         snapshot: expected,
         observation: {
           historyId: row.historyId,
@@ -326,96 +322,66 @@ export function selectCurrentPriceObservations(
     ];
   });
 
-  const byOffer = new Map<string, typeof candidates>();
+  const bySnapshot = new Map<string, typeof candidates>();
   for (const candidate of candidates) {
-    const offerId = candidate.observation.offerId;
-    byOffer.set(offerId, [...(byOffer.get(offerId) ?? []), candidate]);
+    bySnapshot.set(candidate.key, [
+      ...(bySnapshot.get(candidate.key) ?? []),
+      candidate,
+    ]);
   }
 
-  // Track which snapshot offers found at least one DB row so we can create
-  // synthetic observations for offers with no DB history at all (e.g. newly
-  // added offers that haven't been seeded into Neon yet).
-  const matchedSnapshotKeys = new Set<string>();
-  for (const candidate of candidates) {
-    const url = normalizedOfferUrl(candidate.snapshot.url);
-    const retailer = normalizedRetailer(candidate.snapshot.retailer);
-    if (url && retailer) {
-      matchedSnapshotKeys.add(
-        `${candidate.snapshot.market}\u0000${retailer}\u0000${url}`,
-      );
+  return [...bySnapshot.values()].flatMap((entries) => {
+    const offerIds = new Set(entries.map((entry) => entry.observation.offerId));
+    if (offerIds.size !== 1) return [];
+
+    const first = entries[0];
+    if (!first) return [];
+    const { current: persisted, snapshot: expected } = first;
+    const lastVerifiedAt = normalizedTimestamp(persisted.lastVerifiedAt);
+    const verificationExpiresAt = normalizedTimestamp(
+      persisted.verificationExpiresAt,
+    );
+    const observedTitle = persisted.observedTitle?.trim();
+    const observedSize = persisted.observedSize?.trim();
+    if (
+      !persisted.available ||
+      persisted.inventoryStatus === "out_of_stock" ||
+      !["manual", "retailer_page", "api"].includes(
+        persisted.verificationMethod,
+      ) ||
+      !lastVerifiedAt ||
+      lastVerifiedAt !== expected.observedAt ||
+      !verificationExpiresAt ||
+      Date.parse(verificationExpiresAt) <= current.getTime() ||
+      observedTitle !== expected.observedTitle ||
+      observedSize !== expected.observedSize ||
+      persisted.currentPriceMinor !== expected.priceMinor ||
+      persisted.currentCurrencyCode !== expected.currencyCode
+    ) {
+      return [];
     }
-  }
 
-  const fromDb = [...byOffer.values()].flatMap((entries) => {
     const orderedObservations = orderedPriceObservations(
       entries.map((entry) => entry.observation),
     );
     if (!orderedObservations) return [];
-    const entriesByHistoryId = new Map(
-      entries.map((entry) => [entry.observation.historyId, entry] as const),
-    );
-    const ordered = orderedObservations.flatMap((observation) => {
-      const entry = entriesByHistoryId.get(observation.historyId);
-      return entry ? [entry] : [];
-    });
-    const latest = ordered.at(-1);
-    if (!latest) return [];
-
-    // If the latest DB history row matches the snapshot price (even if the
-    // verification date differs), the DB history is accurate for trend
-    // purposes — the price hasn't changed, only the verification date was
-    // refreshed. Return the DB history as-is without appending a synthetic
-    // observation. Appending a synthetic observation at the newer snapshot
-    // date would push `asOf` forward and push real price changes outside
-    // the trend windows.
-    if (latest.observation.priceMinor === latest.snapshot.priceMinor) {
-      return ordered.map((entry) => entry.observation);
+    const latest = orderedObservations.at(-1);
+    const latestEntry = latest
+      ? entries.find(
+          (entry) => entry.observation.historyId === latest.historyId,
+        )
+      : null;
+    if (
+      !latest ||
+      !latestEntry ||
+      latest.priceMinor !== expected.priceMinor ||
+      normalizedTimestamp(latest.observedAt) !== expected.observedAt ||
+      latestEntry.current.historySource !== persisted.verificationMethod
+    ) {
+      return [];
     }
-
-    // The DB price differs from the snapshot price — the static catalogue
-    // has a newer price that hasn't been seeded into Neon yet. Append the
-    // snapshot as a synthetic current observation so trends can still be
-    // computed from the static catalogue's current price against past DB
-    // history.
-    const syntheticId = `snapshot:${latest.snapshot.retailer}:${latest.snapshot.url}`;
-    const synthetic: PriceObservation = {
-      historyId: syntheticId,
-      offerId: latest.observation.offerId,
-      retailer: latest.snapshot.retailer,
-      priceMinor: latest.snapshot.priceMinor,
-      observedAt: latest.snapshot.observedAt,
-      recordedAt: latest.snapshot.observedAt,
-    };
-    const withSynthetic = [
-      ...ordered.map((entry) => entry.observation),
-      synthetic,
-    ];
-    const reordered = orderedPriceObservations(withSynthetic);
-    return reordered ?? withSynthetic;
+    return orderedObservations;
   });
-
-  // For snapshot offers with no DB history at all, create a single synthetic
-  // observation from the static catalogue so the chart shows at least one
-  // point and the offer is counted in trend calculations.
-  const syntheticOnly = [...allowed.values()].flatMap((snap) => {
-    const url = normalizedOfferUrl(snap.url);
-    const retailer = normalizedRetailer(snap.retailer);
-    const key = `${snap.market}\u0000${retailer}\u0000${url}`;
-    if (matchedSnapshotKeys.has(key)) return [];
-    const syntheticId = `snapshot-only:${retailer}:${url}`;
-    return [
-      {
-        historyId: syntheticId,
-        offerId: syntheticId,
-        retailer: snap.retailer,
-        priceMinor: snap.priceMinor,
-        observedAt: snap.observedAt,
-        recordedAt: snap.observedAt,
-      } satisfies PriceObservation,
-    ];
-  });
-
-  return [...fromDb, ...syntheticOnly];
 }
 
 type ComparablePair = {

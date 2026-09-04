@@ -8,10 +8,7 @@ import {
   compactPriceMovementLabel,
   type ProductPriceTrends,
 } from "./price-trends";
-import {
-  hasShareableNgOffer,
-  hasTrendEligibleNgOffer,
-} from "./shareable-offer";
+import { hasShareableNgOffer } from "./shareable-offer";
 
 // --- Thresholds ---
 
@@ -80,7 +77,7 @@ function selectMovements(
   const results: MarketTrendMovement[] = [];
 
   for (const { product, trends } of items) {
-    if (!hasTrendEligibleNgOffer(product)) continue;
+    if (!hasShareableNgOffer(product, now)) continue;
     const movement = [trends.NG?.thirtyDay, trends.NG?.sevenDay].find(
       (candidate) =>
         candidate?.direction === direction &&
@@ -178,7 +175,7 @@ export async function buildMarketTrendsReadModel(
 ): Promise<MarketTrendsReadModel> {
   const now = options.now ?? Date.now();
   const products = (await productsPromise).filter((product) =>
-    hasTrendEligibleNgOffer(product),
+    hasShareableNgOffer(product, now),
   );
   const trends = await trendsPromise;
 

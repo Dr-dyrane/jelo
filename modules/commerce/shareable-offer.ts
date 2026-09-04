@@ -1,8 +1,5 @@
 import type { Offer } from "@/data/products";
-import {
-  comparableMarketPrice,
-  comparableMarketPriceForTrends,
-} from "./offer-evidence";
+import { comparableMarketPrice } from "./offer-evidence";
 
 /**
  * A Nigerian offer that can back an honest share card: an exact (not a search
@@ -33,25 +30,4 @@ export function hasShareableNgOffer(
   now: number | Date = Date.now(),
 ): boolean {
   return product.offers.some((offer) => isShareableNgOffer(offer, now));
-}
-
-/**
- * Same as `isShareableNgOffer` but does NOT require freshness.
- *
- * Trend computation and the share price card should still render when offers
- * are stale — the observed price and date are valid historical data points.
- * The freshness gate is a shopper-facing concern ("is this price still
- * actionable today?"), not a data-display concern.
- */
-export function isTrendEligibleNgOffer(offer: Offer): boolean {
-  return (
-    offer.match !== "search" &&
-    offer.location.includes("NG") &&
-    comparableMarketPriceForTrends(offer, "NG") != null
-  );
-}
-
-/** True when a product has at least one trend-eligible NG offer. */
-export function hasTrendEligibleNgOffer(product: { offers: Offer[] }): boolean {
-  return product.offers.some((offer) => isTrendEligibleNgOffer(offer));
 }

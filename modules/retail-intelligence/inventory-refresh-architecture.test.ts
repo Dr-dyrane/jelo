@@ -87,7 +87,7 @@ test("one hourly Vercel cron has three-pass daily capacity for the exact offer s
   );
   assert.match(
     route,
-    /processInventoryRefreshBatch\(INVENTORY_CRON_BATCH_SIZE,\s*\{[\s\S]*claimDeadlineAt[\s\S]*\}\)/,
+    /processInventoryRefreshBatch\(\s*INVENTORY_CRON_BATCH_SIZE,\s*\{[\s\S]*claimDeadlineAt[\s\S]*\}\s*,?\s*\)/,
   );
   assert.match(route, /attemptSlotsPerDay/);
   assert.match(route, /targetFreshnessHours/);
@@ -216,6 +216,9 @@ test("the cron stops claims before maxDuration and invalidates only after succes
     /revalidatePath\(['"]\/concerns['"]\)/,
     /revalidatePath\(['"]\/concerns\/\[slug\]['"],\s*['"]page['"]\)/,
     /revalidatePath\(['"]\/share['"]\)/,
+    /revalidatePath\(['"]\/retailers['"]\)/,
+    /revalidatePath\(['"]\/retailers\/\[slug\]['"],\s*['"]page['"]\)/,
+    /revalidatePath\(['"]\/lagos['"]\)/,
     /revalidatePath\(`\/products\/\$\{slug\}`\)/,
     /revalidatePath\(`\/share\/\$\{slug\}`\)/,
   ]) {
@@ -223,7 +226,76 @@ test("the cron stops claims before maxDuration and invalidates only after succes
   }
   assert.match(route, /getInventoryRefreshBacklogSummary\(\)/);
   assert.match(route, /event: ['"]inventory_refresh_cron_completed['"]/);
-  assert.match(route, /return Response\.json\(summary\)/);
+  assert.match(
+    route,
+    /return Response\.json\(summary, \{ status: receiptRecorded \? 200 : 503 \}\)/,
+  );
+  assert.match(
+    route,
+    /result\.status === ["']completed["'] \|\| result\.terminalInvalidation != null/,
+  );
+});
+
+test("static review proposals bind one current exact NG offer identity", () => {
+  assert.match(route, /o\.id::text as offer_id/);
+  assert.match(route, /o\.url as requested_url/);
+  assert.match(route, /o\.market_code/);
+  assert.match(route, /o\.currency_code/);
+  assert.match(route, /o\.match_kind = ['"]exact['"]/);
+  assert.match(route, /normalizeStaticOfferUrl\(row\.requested_url\)/);
+  assert.match(route, /normalizeStaticOfferUrl\(result\.requestedUrl\)/);
+  assert.match(route, /identity\.requestedUrl !== requestedUrl/);
+  assert.match(route, /identity\.marketCode !== result\.marketCode/);
+  assert.match(route, /identity\.currencyCode !== result\.currencyCode/);
+  assert.match(worker, /requestedUrl: job\.url/);
+  assert.match(worker, /marketCode: job\.market_code/);
+  assert.match(route, /static_file_sync_offer_identity_not_found/);
+});
+
+test("inventory cron stages report structured fail-closed exceptions", () => {
+  assert.match(route, /event: ["']inventory_refresh_cron_failed["']/);
+  assert.match(route, /summarizeInventoryCronFailure\(input\)/);
+  assert.match(route, /\{ failure, capacity: inventoryRefreshCapacity\(\) \}/);
+  assert.match(route, /\{ status: 503 \}/);
+  for (const phase of [
+    "dry_run",
+    "receipt",
+    "preflight",
+    "run",
+    "projection",
+    "reporting",
+  ]) {
+    assert.ok(route.includes(`"${phase}"`), `missing failure phase ${phase}`);
+  }
+  assert.ok(
+    route.indexOf("if (!receiptStarted)") <
+      route.indexOf("prepareBrowserFetchRuntime()"),
+    "a missing receipt must stop before inventory mutations",
+  );
+  const staleCountStart = repository.indexOf(
+    "export async function getStaleOfferCount",
+  );
+  const staleCountEnd = repository.indexOf("\n}\n", staleCountStart) + 3;
+  const staleCountBody = repository.slice(staleCountStart, staleCountEnd);
+  assert.doesNotMatch(staleCountBody, /catch\s*\{/);
+  assert.ok(
+    route.indexOf("readInventoryRefreshReportingSnapshot({") <
+      route.indexOf("recordInventoryReceiptCompleted({"),
+    "reporting must settle before a completed receipt",
+  );
+});
+
+test("inventory cron writes one bounded scheduled-owner outcome", () => {
+  assert.match(route, /recordScheduledOwnerStarted\(\{/);
+  assert.match(route, /recordScheduledOwnerCompleted\(\{/);
+  assert.match(route, /recordScheduledOwnerFailed\(\{/);
+  assert.match(route, /owner: ["']inventory-refresh["']/);
+  assert.match(route, /outcomeCode: input\.outcomeCode/);
+  assert.match(route, /event: ["']market_truth_receipt_write_failed["']/);
+  assert.doesNotMatch(
+    route,
+    /market_truth_receipt_write_failed[\s\S]{0,160}error/,
+  );
 });
 
 test("the refresh worker tries the Woo Store API before HTML scraping", () => {

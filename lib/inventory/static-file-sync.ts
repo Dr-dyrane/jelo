@@ -31,8 +31,12 @@ export type StaticFileSyncConfiguration =
   | { status: "ready"; config: StaticFileSyncConfig };
 
 export type StaticFileRefreshedOffer = {
+  offerId: string;
   productSlug: string;
   retailer: string;
+  requestedUrl: string;
+  marketCode: string;
+  currencyCode: string;
   priceNgn: number | null;
   available: boolean;
   inventoryStatus: string;
@@ -43,8 +47,12 @@ export type StaticFileRefreshedOffer = {
 };
 
 export type StaticFileInvalidatedOffer = {
+  offerId: string;
   productSlug: string;
   retailer: string;
+  requestedUrl: string;
+  marketCode: string;
+  currencyCode: string;
   invalidatedAt: Date;
   reason: InventoryRefreshTerminalReason;
 };
@@ -137,6 +145,25 @@ export function staticFileSyncConfig(
 /** Escape a string for safe use inside a `RegExp`. */
 function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Produce the stable URL identity used to bind a database offer to one static
+ * source entry. Tracking/search parameters remain part of the identity because
+ * two retailer routes can represent different sellers or variants.
+ */
+export function normalizeStaticOfferUrl(value: string): string | null {
+  try {
+    const url = new URL(value.trim());
+    if (url.protocol !== "https:" || url.username || url.password) return null;
+    url.hash = "";
+    if (url.pathname !== "/") {
+      url.pathname = url.pathname.replace(/\/+$/, "");
+    }
+    return url.toString();
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -270,28 +297,33 @@ function findSlugSection(
 }
 
 /**
- * Within a slug section, find the `exactNg(…)` call whose first argument
- * (retailer name) matches `retailer`.
+ * Collect the `exactNg(…)` calls in one slug section together with their
+ * retailer and requested URL identity fields.
  *
- * Returns the half-open range `[start, end)` covering the entire call
- * including the trailing comma if present.
+ * Each range covers the entire call including its trailing comma when present.
  */
-function findExactNgCall(
+type ExactNgCall = {
+  start: number;
+  end: number;
+  retailer: string;
+  requestedUrl: string;
+};
+
+function findExactNgCalls(
   content: string,
   sectionStart: number,
   sectionEnd: number,
-  retailer: string,
-): { start: number; end: number } | null {
+): ExactNgCall[] {
   const section = content.slice(sectionStart, sectionEnd);
   const exactNgRegex = /exactNg\(\s*"/g;
+  const calls: ExactNgCall[] = [];
   let match: RegExpExecArray | null;
 
   while ((match = exactNgRegex.exec(section)) !== null) {
-    // Extract the retailer name (first string argument)
-    const retailerMatch = /^exactNg\(\s*"([^"]+)"/.exec(
+    const identityMatch = /^exactNg\(\s*"([^"]+)"\s*,\s*"([^"]+)"/.exec(
       section.slice(match.index),
     );
-    if (!retailerMatch || retailerMatch[1] !== retailer) continue;
+    if (!identityMatch) continue;
 
     // Find the end of the exactNg call using parenthesis matching
     const parenPos = section.indexOf("(", match.index);
@@ -304,12 +336,62 @@ function findExactNgCall(
     let end = endParen + 1;
     if (section[end] === ",") end++;
 
-    return {
+    calls.push({
       start: sectionStart + match.index,
       end: sectionStart + end,
+      retailer: identityMatch[1],
+      requestedUrl: identityMatch[2],
+    });
+  }
+  return calls;
+}
+
+type StaticOfferTarget = Pick<
+  StaticFileRefreshedOffer,
+  | "offerId"
+  | "productSlug"
+  | "retailer"
+  | "requestedUrl"
+  | "marketCode"
+  | "currencyCode"
+>;
+
+function exactStaticOfferCall(
+  content: string,
+  sectionStart: number,
+  sectionEnd: number,
+  offer: StaticOfferTarget,
+): { call: ExactNgCall } | { error: string } {
+  if (offer.marketCode.trim().toUpperCase() !== "NG") {
+    return {
+      error: `Static sync only accepts NG offers: ${offer.offerId}`,
     };
   }
-  return null;
+  if (offer.currencyCode.trim().toUpperCase() !== "NGN") {
+    return {
+      error: `Static sync only accepts NGN offers: ${offer.offerId}`,
+    };
+  }
+  const requestedUrl = normalizeStaticOfferUrl(offer.requestedUrl);
+  if (!offer.offerId.trim() || !requestedUrl) {
+    return {
+      error: `Static sync offer identity is invalid: ${offer.offerId || "missing-offer-id"}`,
+    };
+  }
+
+  const matches = findExactNgCalls(content, sectionStart, sectionEnd).filter(
+    (call) =>
+      call.retailer === offer.retailer &&
+      normalizeStaticOfferUrl(call.requestedUrl) === requestedUrl,
+  );
+  if (matches.length !== 1) {
+    return {
+      error:
+        `Static sync expected one exact source match but found ${matches.length}: ` +
+        `${offer.offerId} / ${offer.productSlug} / ${offer.retailer}`,
+    };
+  }
+  return { call: matches[0] };
 }
 
 /**
@@ -582,24 +664,25 @@ function updateOfferInContent(
     return {
       updated: false,
       content,
-      error: `Product slug not found in static file: ${offer.productSlug}`,
+      error: `Static sync expected one exact source match but found 0: ${offer.offerId} / ${offer.productSlug} / ${offer.retailer}`,
     };
   }
 
-  // 2. Find the exactNg call for this retailer
-  const call = findExactNgCall(
+  // 2. Bind the database offer to one source call by retailer and URL.
+  const target = exactStaticOfferCall(
     content,
     section.start,
     section.end,
-    offer.retailer,
+    offer,
   );
-  if (!call) {
+  if ("error" in target) {
     return {
       updated: false,
       content,
-      error: `Offer not found in static file: ${offer.productSlug} / ${offer.retailer}`,
+      error: target.error,
     };
   }
+  const { call } = target;
 
   const offerText = content.slice(call.start, call.end);
 
@@ -733,18 +816,23 @@ function invalidateOfferInContent(
 ): { updated: boolean; content: string; error?: string } {
   const section = findSlugSection(content, offer.productSlug);
   if (!section) {
-    return { updated: false, content };
+    return {
+      updated: false,
+      content,
+      error: `Static sync expected one exact source match but found 0: ${offer.offerId} / ${offer.productSlug} / ${offer.retailer}`,
+    };
   }
 
-  const call = findExactNgCall(
+  const target = exactStaticOfferCall(
     content,
     section.start,
     section.end,
-    offer.retailer,
+    offer,
   );
-  if (!call) {
-    return { updated: false, content };
+  if ("error" in target) {
+    return { updated: false, content, error: target.error };
   }
+  const { call } = target;
 
   if (!Number.isFinite(offer.invalidatedAt.valueOf())) {
     return {
@@ -960,15 +1048,17 @@ async function commitFileToGitHub(
  *    AI extraction remains database-only and can never enter static share data.
  * 3. Only updates `priceNgn`, `available`, `inventoryStatus` (→ `stock`),
  *    `checkedAt` (→ `observedAt`), `expiresAt`, and verification provenance.
- * 4. Never modifies `url`, `trust`, `match`, `variant`, `size`, or any other
+ * 4. Requires one exact offer id + normalized requested URL + NG/NGN scope;
+ *    zero or multiple source matches are rejected instead of guessing.
+ * 5. Never modifies `url`, `trust`, `match`, `variant`, `size`, or any other
  *    manually-set field.
- * 5. Uses a diff-based approach — reads the current file, applies only the
+ * 6. Uses a diff-based approach — reads the current file, applies only the
  *    changed offers, and writes back. Never blindly overwrites the whole file.
- * 6. Only runs when `STATIC_FILE_SYNC_ENABLED=true`, `GITHUB_TOKEN` is set,
+ * 7. Only runs when `STATIC_FILE_SYNC_ENABLED=true`, `GITHUB_TOKEN` is set,
  *    and `GITHUB_REPO_BRANCH` names an `inventory-sync-review*` branch.
- * 7. Typed terminal contradictions can only mark the exact fallback unavailable
+ * 8. Typed terminal contradictions can only mark the exact fallback unavailable
  *    and expired; they preserve price, URL, title, size, and observation provenance.
- * 8. Safe to call with empty arrays or when the GitHub API is down —
+ * 9. Safe to call with empty arrays or when the GitHub API is down —
  *    returns errors, never throws.
  */
 export function applyStaticOfferRefreshes(input: {

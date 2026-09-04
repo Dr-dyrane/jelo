@@ -1,9 +1,16 @@
+import { createHash } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import {
   dailyDeskReconciliationEnabled,
   reconcileDailyDesk,
 } from "@/lib/campaigns/daily-desk-reconciliation";
 import { isAuthorizedCronRequest } from "@/modules/retail-intelligence/cron-auth";
+import {
+  recordScheduledOwnerCompleted,
+  recordScheduledOwnerFailed,
+  recordScheduledOwnerStarted,
+} from "@/lib/market-truth/scheduled-owner-receipts";
+import type { ScheduledOwnerOutcomeCode } from "@/lib/market-truth/types";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -16,9 +23,84 @@ function errorResponse(code: string, status: number) {
 }
 
 function safeFailureCode(cause: unknown) {
-  const message = cause instanceof Error ? cause.message : "";
-  const code = message.replace(/[^a-z0-9_-]+/gi, "-").slice(0, 80);
-  return code || "daily-desk-reconciliation-failed";
+  const fingerprint =
+    cause instanceof Error
+      ? `${cause.name}:${cause.message}`
+      : `UnknownError:${String(cause)}`;
+  const digest = createHash("sha256")
+    .update(fingerprint, "utf8")
+    .digest("hex")
+    .slice(0, 12);
+  return `daily-desk-reconciliation-failed-${digest}`;
+}
+
+async function recordDeskStarted(startedAt: string) {
+  try {
+    await recordScheduledOwnerStarted({
+      owner: "daily-desk-reconcile",
+      startedAt,
+    });
+    return true;
+  } catch {
+    console.error(
+      JSON.stringify({
+        event: "market_truth_receipt_write_failed",
+        owner: "daily-desk-reconcile",
+        phase: "started",
+      }),
+    );
+    return false;
+  }
+}
+
+async function recordDeskCompleted(input: {
+  startedAt: string;
+  receiptStarted: boolean;
+  outcomeCode: ScheduledOwnerOutcomeCode;
+  counts: Record<string, number>;
+}) {
+  if (!input.receiptStarted) return false;
+  try {
+    await recordScheduledOwnerCompleted({
+      owner: "daily-desk-reconcile",
+      startedAt: input.startedAt,
+      completedAt: new Date().toISOString(),
+      outcomeCode: input.outcomeCode,
+      counts: input.counts,
+    });
+    return true;
+  } catch {
+    console.error(
+      JSON.stringify({
+        event: "market_truth_receipt_write_failed",
+        owner: "daily-desk-reconcile",
+        phase: "completed",
+      }),
+    );
+    return false;
+  }
+}
+
+async function recordDeskFailed(startedAt: string, receiptStarted: boolean) {
+  if (!receiptStarted) return false;
+  try {
+    await recordScheduledOwnerFailed({
+      owner: "daily-desk-reconcile",
+      startedAt,
+      failedAt: new Date().toISOString(),
+      outcomeCode: "reconciliation-failed",
+    });
+    return true;
+  } catch {
+    console.error(
+      JSON.stringify({
+        event: "market_truth_receipt_write_failed",
+        owner: "daily-desk-reconcile",
+        phase: "failed",
+      }),
+    );
+    return false;
+  }
 }
 
 export async function GET(request: Request) {
@@ -31,10 +113,28 @@ export async function GET(request: Request) {
     return errorResponse("unauthorized", 401);
   }
 
+  const startedAt = new Date().toISOString();
+  const receiptStarted = await recordDeskStarted(startedAt);
+  if (!receiptStarted) {
+    return errorResponse("market-truth-receipt-start-failed", 503);
+  }
   if (!dailyDeskReconciliationEnabled()) {
+    const receiptRecorded = await recordDeskCompleted({
+      startedAt,
+      receiptStarted,
+      outcomeCode: "disabled",
+      counts: { accepted: 0 },
+    });
     return Response.json(
-      { status: "disabled", timeZone: "Africa/Lagos" },
-      { headers: { "Cache-Control": "no-store" } },
+      {
+        status: "disabled",
+        timeZone: "Africa/Lagos",
+        receipt: { recorded: receiptRecorded, outcomeCode: "disabled" },
+      },
+      {
+        status: receiptRecorded ? 200 : 503,
+        headers: { "Cache-Control": "no-store" },
+      },
     );
   }
 
@@ -53,13 +153,47 @@ export async function GET(request: Request) {
         campaignId: "campaignId" in result ? result.campaignId : null,
       }),
     );
-    if (result.status === "accepted" || result.status === "already-accepted") {
+    if (
+      result.status === "accepted" ||
+      result.status === "already-accepted" ||
+      result.status === "accepted-evidence-invalid"
+    ) {
       revalidatePath("/lagos");
     }
-    return Response.json(result, {
-      headers: { "Cache-Control": "no-store", "X-Robots-Tag": "noindex" },
+    const outcomeCode: ScheduledOwnerOutcomeCode =
+      result.status === "accepted"
+        ? "accepted"
+        : result.status === "already-accepted"
+          ? "already-current"
+          : result.status === "accepted-evidence-invalid"
+            ? "completed-with-exceptions"
+            : "no-current-candidate";
+    const receiptRecorded = await recordDeskCompleted({
+      startedAt,
+      receiptStarted,
+      outcomeCode,
+      counts:
+        result.status === "no-candidate"
+          ? {
+              accepted: 0,
+              rejectedCandidates: result.rejectedCandidateCount,
+            }
+          : result.status === "accepted-evidence-invalid"
+            ? { accepted: 0, invalidAcceptedRecord: 1 }
+            : { accepted: 1 },
     });
+    return Response.json(
+      {
+        ...result,
+        receipt: { recorded: receiptRecorded, outcomeCode },
+      },
+      {
+        status: receiptRecorded ? 200 : 503,
+        headers: { "Cache-Control": "no-store", "X-Robots-Tag": "noindex" },
+      },
+    );
   } catch (cause) {
+    await recordDeskFailed(startedAt, receiptStarted);
     const code = safeFailureCode(cause);
     console.error(
       JSON.stringify({ event: "daily_desk_reconciliation_failed", code }),

@@ -89,17 +89,29 @@ export default async function LagosDailyDeskPage() {
   const desk = await getDailyDeskReadModel();
 
   if (desk.status !== "ready") {
+    const emptyCopy =
+      desk.status === "evidence-expired"
+        ? {
+            heading: "This price note needs a fresh check.",
+            body: "Its last exact listing is no longer current, so we have taken the price story down.",
+          }
+        : desk.status === "unavailable"
+          ? {
+              heading: "Price notes are temporarily unavailable.",
+              body: "We cannot verify the market record right now, so no price is being shown.",
+            }
+          : {
+              heading: "Today’s note is being checked.",
+              body: "We only put a price story here after its product, source and current Nigerian listing evidence pass review.",
+            };
     return (
       <main className={styles.page}>
         <section className={styles.emptyPage}>
           <div className={styles.emptyState}>
             <p className={styles.kicker}>Lagos</p>
             <p className={styles.date}>{displayDate(desk.date)}</p>
-            <h1>Today&apos;s note is being checked.</h1>
-            <p>
-              We only put a price story here after its product, source and
-              current Nigerian listing evidence pass review.
-            </p>
+            <h1>{emptyCopy.heading}</h1>
+            <p>{emptyCopy.body}</p>
             <Link className={styles.guideLink} href="/concerns">
               Explore skin guides <ArrowRight size={16} aria-hidden="true" />
             </Link>

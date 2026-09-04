@@ -18,6 +18,7 @@ import {
   RefreshCw,
   Store,
   UsersRound,
+  Waypoints,
   X,
 } from "lucide-react";
 import { authClient } from "@/lib/auth/client";
@@ -178,11 +179,13 @@ export function OpsChrome({
       ? "Refresh insights"
       : pathname === "/ops/signals"
         ? "Refresh signals"
-        : pathname === "/ops/operators"
-          ? "Refresh operators"
-          : pathname === "/ops"
-            ? "Refresh queue overview"
-            : "Refresh this queue";
+        : pathname === "/ops/market-health"
+          ? "Refresh market health"
+          : pathname === "/ops/operators"
+            ? "Refresh operators"
+            : pathname === "/ops"
+              ? "Refresh queue overview"
+              : "Refresh this queue";
   const defaultContextFab: ContextFabConfig = {
     icon: RefreshCw,
     label: defaultContextLabel,
@@ -252,6 +255,12 @@ export function OpsChrome({
 
   const monitorItems = [
     { href: "/ops", label: "Queue overview", icon: Home, count: null },
+    {
+      href: "/ops/market-health",
+      label: "Market health",
+      icon: Waypoints,
+      count: null,
+    },
     { href: "/ops/activity", label: "Insights", icon: History, count: null },
     { href: "/ops/signals", label: "Signals", icon: Activity, count: null },
     {

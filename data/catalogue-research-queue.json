@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "generatedAt": "2026-07-27T18:11:20.602Z",
   "policy": "private-research-only",
   "selectionPolicy": "clinical-utility-traceability-v1",
@@ -10,7 +10,14 @@
     "selectedCount": 1000
   },
   "targetCount": 48,
-  "selectedCount": 48,
+  "selectedCount": 95,
+  "selection": {
+    "newProductTargetCount": 48,
+    "newProductSelectedCount": 48,
+    "additionalOfferTargetCount": 48,
+    "additionalOfferSelectedCount": 47,
+    "additionalOfferObservationCount": 58
+  },
   "laneTargets": {
     "sun-protection": 6,
     "gentle-cleansing": 8,
@@ -21,17 +28,2189 @@
     "body-care": 4
   },
   "laneCounts": {
-    "sun-protection": 6,
-    "gentle-cleansing": 8,
-    "moisture-barrier": 10,
-    "acne-care": 8,
-    "pigment-support": 6,
-    "hair-scalp": 6,
-    "body-care": 4
+    "sun-protection": 10,
+    "gentle-cleansing": 14,
+    "moisture-barrier": 22,
+    "acne-care": 18,
+    "pigment-support": 10,
+    "hair-scalp": 7,
+    "body-care": 14
   },
   "items": [
     {
       "rank": 1,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "7db2cb182bf03a8123d01fd3",
+      "title": "GARNIER Vitamin C (Brightening) Day Cream 50ml",
+      "brandHint": "Garnier",
+      "size": "50ml",
+      "categoryHint": "Face care",
+      "lane": "moisture-barrier",
+      "priorityScore": 228,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "ca2c45fda620fac9e6fedab5",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/garnier-vitamin-c-bright-day-cream-50ml/"
+        },
+        {
+          "offerKey": "e83e78792e5e4d344089e2b6",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/garnier-skinactive-vitamin-c-brightening-day-cream-50ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "garnier-vitamin-c-brightening-day-cream-50ml",
+        "canonicalProductSlug": "garnier-vitamin-c-brightening-day-cream-50ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "03600542453110",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 2,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "d4a8089af679b0a894a715be",
+      "title": "SKIN BY ZARON VITAMIN C (Brightening And Moisturizing) Body Lotion 500ml",
+      "brandHint": "SKIN BY ZARON",
+      "size": "500ml",
+      "categoryHint": "Body care",
+      "lane": "moisture-barrier",
+      "priorityScore": 228,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "ce207cf5a368d22134dd4d1e",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/skin-by-zaron-vitamin-c-brightening-moisturizing-body-lotion-500ml/"
+        },
+        {
+          "offerKey": "b33a1b1b0884157664d0f507",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/skin-by-zaron-vitamin-c-body-lotion-500ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "skin-by-zaron-vitamin-c-body-lotion-500ml",
+        "canonicalProductSlug": "skin-by-zaron-vitamin-c-body-lotion-500ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "reviewed-title-size-alias-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "06908137011095",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 3,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "e97b02c874d431d93a34601d",
+      "title": "FACEFACTS Ceramide Hydrating Gentle Cleanser 400ml",
+      "brandHint": "FACEFACTS",
+      "size": "400ml",
+      "categoryHint": "Face care",
+      "lane": "gentle-cleansing",
+      "priorityScore": 225,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "5eed86909e71d36969e040bb",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-hydrating-gentle-cleanser-400ml/"
+        },
+        {
+          "offerKey": "e4df7ebdb120bbc16139b8ae",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/facefacts-ceramide-hydrating-cleanser-400ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+        "canonicalProductSlug": "facefacts-ceramide-hydrating-gentle-cleanser-400ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "05031413928662",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 4,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "882bb2bca63026ffadaabe18",
+      "title": "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
+      "brandHint": "FACEFACTS",
+      "size": "400ml",
+      "categoryHint": "Face care",
+      "lane": "gentle-cleansing",
+      "priorityScore": 225,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "aa8c160a73ea7e81af69f1b6",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-oil-control-foaming-cleanser-400ml/"
+        },
+        {
+          "offerKey": "1ffea7fe4f85f4510567cc8d",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/facefacts-oil-control-foaming-cleanser-400ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+        "canonicalProductSlug": "facefacts-ceramide-oil-control-foaming-cleanser-400ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "05031413953923",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 5,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "f8248dfef755c72bc5ba70a1",
+      "title": "AQUA RICH Bright+Balance (Niacinamide+Alpha Arbutin+TXA) Body Gel Wash 1000ml",
+      "brandHint": "AQUA RICH",
+      "size": "1000ml",
+      "categoryHint": "Body care",
+      "lane": "pigment-support",
+      "priorityScore": 224,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "5759a6220b2e0c8dd44336fc",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/aqua-rich-bright-balance-body-gel-wash-1000ml/"
+        },
+        {
+          "offerKey": "2d61820c39c81ef8761e6cf2",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-bright-balance/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+        "canonicalProductSlug": "aqua-rich-niacinamide-alpha-arbutin-body-wash-1000ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "04897073186573",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 6,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "e0574c12b77f4a4eafd63ed0",
+      "title": "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
+      "brandHint": "AQUA RICH",
+      "size": "1000ml",
+      "categoryHint": "Body care",
+      "lane": "pigment-support",
+      "priorityScore": 224,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "7ac1f9289f446fd9ca2c4ee3",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/aqua-rich-hydrating-bright-body-gel-wash-1000ml/"
+        },
+        {
+          "offerKey": "00452142d4e2b0dc39974ac0",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-hydrating-bright/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+        "canonicalProductSlug": "aqua-rich-turmeric-vitamin-c-body-wash-1000ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "04897073186566",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 7,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "228728aa93580571b165ad66",
+      "title": "AVEENO Daily Moisturizing Body Oil Mist (Oat And Jojoba Oil) 200ml",
+      "brandHint": "AVEENO",
+      "size": "200ml",
+      "categoryHint": "Body care",
+      "lane": "moisture-barrier",
+      "priorityScore": 218,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "88a7d58a7d744bac6aebfe7c",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/aveeno-daily-moisturizing-body-oil-mist-oat-amp-jojoba-oil-200ml/"
+        },
+        {
+          "offerKey": "71f4537251295e2ffb694d28",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/aveeno-daily-moisturizing-body-oil-mist-200ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+        "canonicalProductSlug": "aveeno-daily-moisturizing-body-oil-mist-200ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00381371192731",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 8,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "57a37b961545f71bad67753c",
+      "title": "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
+      "brandHint": "BALANCE",
+      "size": "30ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 216,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "a937ff771b2ef20e1c7395e4",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/balance-niacinamide-blemish-recovery-serum-30ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "balance-niacinamide-blemish-recovery-serum-30ml",
+        "canonicalProductSlug": "balance-niacinamide-blemish-recovery-serum-30ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "05015833328165",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 9,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "8ef9c3aad4a08d8aed3c2715",
+      "title": "FACEFACTS CERAMIDE BLEMISH GEL MOISTURISER 50ML",
+      "brandHint": "FACEFACTS",
+      "size": "50ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 211,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "91c8f6d6bddf51d0d12acf80",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/facefacts-ceramide-blemish-gel-moisturizer-50ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+        "canonicalProductSlug": "facefacts-ceramide-blemish-gel-moisturiser-50ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "05031413935691",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 10,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "bfb58bf33c25a01639c05cbd",
+      "title": "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
+      "brandHint": "AQUA RICH",
+      "size": "500ml",
+      "categoryHint": "Body care",
+      "lane": "moisture-barrier",
+      "priorityScore": 210,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "b09303a6d9096fec9be5f289",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrate-protect/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "aqua-rich-ceramide-body-lotion-500ml",
+        "canonicalProductSlug": "aqua-rich-ceramide-body-lotion-500ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "04897073187549",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 11,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "33a8a8e0a0d873069347393c",
+      "title": "AQUA RICH Hydrating Bright Turmeric And Vitamin C Body Lotion 500ml",
+      "brandHint": "AQUA RICH",
+      "size": "500ml",
+      "categoryHint": "Body care",
+      "lane": "moisture-barrier",
+      "priorityScore": 210,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "c511aac31d183bb28e6b1fd5",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-hydrating-bright/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+        "canonicalProductSlug": "aqua-rich-turmeric-vitamin-c-body-lotion-500ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "04897073186542",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 12,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "5a63a184f3c4ab6402f4a586",
+      "title": "DOVE SKIN REPLENISH 2% Body Wash 547ml",
+      "brandHint": "DOVE",
+      "size": "547ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 206,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "bea315351e489befb9c46723",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/dove-skin-replenish-2-body-wash-547ml/"
+        },
+        {
+          "offerKey": "4dd7e2fb2586ac8269e8ec7d",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/dove-body-wash-547ml-skin-replenish/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "dove-skin-replenish-serum-body-wash-547ml",
+        "canonicalProductSlug": "dove-skin-replenish-serum-body-wash-547ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00011111055230",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 13,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "e3e002f6425926e8343cb8e9",
+      "title": "EOS Evolution Of smooth Cashmere Body Wash Coconut Water 16oz/473ml",
+      "brandHint": "EOS",
+      "size": "16oz / 473ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 206,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "55c0426a3905498514e138cc",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/eos-shea-better-cashmere-body-wash-coconut-waters-16-oz/"
+        },
+        {
+          "offerKey": "00e94eb975ffd4c9876b3865",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/eos-cashmere-body-wash-473ml-coconut-waters/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "eos-coconut-waters-body-wash-473ml",
+        "canonicalProductSlug": "eos-coconut-waters-body-wash-473ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00840044714088",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 14,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "af4cf984d6ae1296e4ffd1b0",
+      "title": "EOS Evolution Of smooth Cashmere Body Wash Vanilla Cashmere 16oz/473ml",
+      "brandHint": "EOS",
+      "size": "16oz / 473ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 206,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "afbf132331c867dd934d7712",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/byoma-creamy-jelly-face-cleanser-unscented/"
+        },
+        {
+          "offerKey": "9617ee92419a985b56806aaf",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/eos-cashmere-body-wash-473ml-vanilla-cashmere/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "eos-vanilla-cashmere-body-wash-473ml",
+        "canonicalProductSlug": "eos-vanilla-cashmere-body-wash-473ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00840044714163",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 15,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "0b79938ca156f8c9fac4469f",
+      "title": "EOS Shea Better Cashmere (Pink Champagne) Body Wash 473ml",
+      "brandHint": "EOS",
+      "size": "473ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 206,
+      "retailerObservationCount": 2,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "1e0c7e1dd41b933fa4d53af2",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/eos-shea-better-cashmere-body-wash-pink-champagne-16-oz/"
+        },
+        {
+          "offerKey": "ea42ed3a414ba1731f603c51",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/eos-cashmere-body-wash-473ml-pink-champagne/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "eos-pink-champagne-body-wash-473ml",
+        "canonicalProductSlug": "eos-pink-champagne-body-wash-473ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00840044714101",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "multi-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 16,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "f234692457fb9dcea6ab4000",
+      "title": "NINELESS MELA-PRO Tranexamic Acid Sunscreen 100ml",
+      "brandHint": "NINELESS",
+      "size": "100ml",
+      "categoryHint": "Face care",
+      "lane": "sun-protection",
+      "priorityScore": 206,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "dffc7f4ef1863f6d53f124a7",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/nineless-mela-pro-tranexamic-acid-sunscreen-100ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+        "canonicalProductSlug": "nineless-mela-pro-tranexamic-acid-sunscreen-100ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "08809875270158",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 17,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "41ed533ef6415b6cea8ea251",
+      "title": "SKIN BY ZARON VITAMIN C Body Wash 650ml",
+      "brandHint": "SKIN BY ZARON",
+      "size": "650ml",
+      "categoryHint": "Body care",
+      "lane": "pigment-support",
+      "priorityScore": 206,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "eb469dda003cca727dcf4c15",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/skin-by-zaron-vitamin-c-body-wash-650ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "skin-by-zaron-vitamin-c-body-wash-650ml",
+        "canonicalProductSlug": "skin-by-zaron-vitamin-c-body-wash-650ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "06908137011248",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 18,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "2a187a80b6e379d729664032",
+      "title": "FACEFACTS Ceramide Moisturizing Gel Cream 50ml",
+      "brandHint": "FACEFACTS",
+      "size": "50ml",
+      "categoryHint": "Face care",
+      "lane": "moisture-barrier",
+      "priorityScore": 205,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "f16f00895e5fe053149e0795",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/facefacts-ceramide-moisturising-gel-cream-50ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "facefacts-ceramide-moisturising-gel-cream-50ml",
+        "canonicalProductSlug": "facefacts-ceramide-moisturising-gel-cream-50ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "05031413928570",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 19,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "2c6d463cc24ed30e0826c48f",
+      "title": "FACEFACTS Vitamin C Body Lotion 400ml",
+      "brandHint": "FACEFACTS",
+      "size": "400ml",
+      "categoryHint": "Body care",
+      "lane": "moisture-barrier",
+      "priorityScore": 205,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "fe3b00fd8e41134cbf37f44b",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/facefacts-vitamin-c-body-lotion-400ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "facefacts-vitamin-c-body-lotion-400ml",
+        "canonicalProductSlug": "facefacts-vitamin-c-body-lotion-400ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "05031413929089",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 20,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "68dd71a67def9960124cd112",
+      "title": "ABIB Azelaic Acid 7% Sea Moss 0.325% Serum 30ml",
+      "brandHint": "ABIB",
+      "size": "30ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 204,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "e5f3bd2cd136c0602d31eb0c",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/abib-azelaic-acid-7-sea-moss-0-325-serum-30ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "abib-clear-spot-serum-7-325-30ml",
+        "canonicalProductSlug": "abib-clear-spot-serum-7-325-30ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "08800280693693",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 21,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "7903807e2e097371344a660a",
+      "title": "CERAVE Acne Foaming Cream Cleanser 4% Benzoyl Peroxide 150ml",
+      "brandHint": "CERAVE",
+      "size": "150ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 204,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "7075d3c3300e1ed0ffeeceb4",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/cerave-acne-foaming-cream-cleanser-4-benzoyl-peroxide-150ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "cerave-acne-foaming-cream-cleanser-4-150ml",
+        "canonicalProductSlug": "cerave-acne-foaming-cream-cleanser-4-150ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "03606000512238",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 22,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "f87e67c0fb61e9574f74ef21",
+      "title": "GARNIER -Pure Active (Tea Tree + Salicylic Acid) Tissue Masks 23g",
+      "brandHint": "Garnier",
+      "size": "23g",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 204,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "f81eacfa039c3176bfebbcd8",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/garnier-pure-active-tea-tree-salicylic-acid-tissue-masks-23g/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+        "canonicalProductSlug": "garnier-pure-active-tea-tree-salicylic-acid-tissue-mask",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "03600542368810",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 23,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "f6fdad85c61090e67bea6ec9",
+      "title": "NINELESS A-Control Azelaic Acid Cream 50ml",
+      "brandHint": "NINELESS",
+      "size": "50ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 204,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "f247122532e58af95e580b9b",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/nineless-a-control-azelaic-acid-cream-50ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "nineless-a-control-azelaic-acid-cream-50ml",
+        "canonicalProductSlug": "nineless-a-control-azelaic-acid-cream-50ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "08809875270189",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 24,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "005fe384576be5e38689857f",
+      "title": "REPLENIX 10% Acne Wash + Aloe Vera (Benzoyl peroxide) Acne Wash 200ml",
+      "brandHint": "Replenix",
+      "size": "200ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 204,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "45da5b3e3f5922943966fb27",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/replenix-bp-10-acne-wash-aloe-vera-200ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+        "canonicalProductSlug": "replenix-bp-10-acne-wash-aloe-vera-7oz",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00358211113003",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 25,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "11d3a6116ccfc1cbce191430",
+      "title": "LA ROCHE-POSAY PURE VITAMIN C Cleanser 200ml",
+      "brandHint": "La Roche Posay",
+      "size": "200ml",
+      "categoryHint": "Face care",
+      "lane": "gentle-cleansing",
+      "priorityScore": 200,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "4f26c362e2e99573c016351f",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/la-roche-posay-pure-vitamin-c-cleanser-200ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "11d3a6116ccfc1cbce191430",
+        "canonicalProductSlug": "11d3a6116ccfc1cbce191430",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "03337875923613",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 26,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "4b13a12fadc04b34d8290d5b",
+      "title": "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
+      "brandHint": "AQUA RICH",
+      "size": "500ml",
+      "categoryHint": "Body care",
+      "lane": "moisture-barrier",
+      "priorityScore": 200,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "f6d26167a613ae709ecbb618",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-lotion-500ml-bright-glow/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+        "canonicalProductSlug": "aqua-rich-licorice-mulberry-body-lotion-500ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "04897073187532",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 27,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "c28f590dd2739ea73f1b5ea3",
+      "title": "SIMPLE Kind To Skin Replenishing Rich Moisturizer 125ml",
+      "brandHint": "SIMPLE",
+      "size": "125ml",
+      "categoryHint": "Face care",
+      "lane": "moisture-barrier",
+      "priorityScore": 200,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "22af3cae333cfc465701f2c7",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/simple-replenishing-rich-mosturiser-125ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "c28f590dd2739ea73f1b5ea3",
+        "canonicalProductSlug": "c28f590dd2739ea73f1b5ea3",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "05011451103948",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 28,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "5db3d843b4cf82e716260338",
+      "title": "FACEFACTS ENHANCE (Salicylic Acid + Rice + Cherry Extract) Gel Cream Cleanser 150ml",
+      "brandHint": "FACEFACTS",
+      "size": "150ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 199,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "9b41cb58cdc622ce4689eee1",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/facefacts-enhance-salicylic-acid-rice-cherry-extract-gel-cream-cleanser-150ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "facefacts-enhance-gel-cream-cleanser-150ml",
+        "canonicalProductSlug": "facefacts-enhance-gel-cream-cleanser-150ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "05031413952803",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 29,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "7cfe4bf6d573f111552a8ea7",
+      "title": "PANOXYL Acne Creamy Wash Benzoyl Peroxide Control 4% 170g",
+      "brandHint": "PANOXYL",
+      "size": "170g",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 199,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "437216ec223211206d7b0960",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/panoxyl-acne-creamy-wash-benzoyl-peroxide-control-4/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "panoxyl-acne-creamy-wash-4-170g",
+        "canonicalProductSlug": "panoxyl-acne-creamy-wash-4-170g",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00303160227066",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 30,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "c8e1fc1106808751ac61653e",
+      "title": "FACEFACTS CERAMIDE BLEMISH CLARIFYING FOAMING CLEANSER 400ML",
+      "brandHint": "FACEFACTS",
+      "size": "400ml",
+      "categoryHint": "Face care",
+      "lane": "acne-care",
+      "priorityScore": 198,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "4f8998e4b75a479849639b76",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/facefacts-ceramide-blemish-clarifying-foaming-cleanser-400ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "facefacts-ceramide-foaming-cleanser-400ml",
+        "canonicalProductSlug": "facefacts-ceramide-foaming-cleanser-400ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "reviewed-title-size-alias-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "05031413935622",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 31,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "a7562a6f718c64e4a046f3e3",
+      "title": "ELF Invisible Sunscreen (Suntouchable) 50ml",
+      "brandHint": "ELF",
+      "size": "50ml",
+      "categoryHint": "Face care",
+      "lane": "sun-protection",
+      "priorityScore": 196,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "e559afb0e7297a400972e580",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/elf-invisible-sunscreen-suntouchable-50ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+        "canonicalProductSlug": "elf-suntouchable-invisible-sunscreen-spf-35-50ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00609332818071",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 32,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "3c5d97e20316dc501b0d9c64",
+      "title": "EUCERIN Oil Control (DRY TOUCH) Sun Gel Cream Ultra-light 50ml",
+      "brandHint": "Eucerin",
+      "size": "50ml",
+      "categoryHint": "Face care",
+      "lane": "sun-protection",
+      "priorityScore": 196,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "9111f6dd06dad3ea5af87946",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/eucerin-oil-control-dry-touch-sun-gel-cream-50ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+        "canonicalProductSlug": "eucerin-oil-control-sun-gel-cream-spf50-50ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "08850029013671",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 33,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "d3fa39510608390e2ac79f8b",
+      "title": "SHISEIDO Professional -Anessa Perfect UV Sunscreen Skincare Milk 60ml",
+      "brandHint": "SHISEIDO Professional",
+      "size": "60ml",
+      "categoryHint": "Face care",
+      "lane": "sun-protection",
+      "priorityScore": 196,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "219fa1db1fd4560df2305dda",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/shiseido-professional-anessa-perfect-uv-sunscreen-skincare-milk-60ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+        "canonicalProductSlug": "anessa-perfect-uv-sunscreen-skincare-milk-na-60ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "04909978147105",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 34,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "9e8f7ba306dec54f087b62f3",
+      "title": "FACEFACTS Vitamin C Brightening JELLY CLEANSER 150ml",
+      "brandHint": "FACEFACTS",
+      "size": "150ml",
+      "categoryHint": "Face care",
+      "lane": "gentle-cleansing",
+      "priorityScore": 195,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "3319915ef4d871f6ed283608",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/facefacts-vitamin-c-brightening-jelly-cleanser-150ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+        "canonicalProductSlug": "facefacts-vitamin-c-brightening-jelly-cleanser-150ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "reviewed-title-size-alias-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "05031413925968",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 35,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "0dec83a881a98e52115f2ac3",
+      "title": "ANUA 10% Niacinamide + 4% TXA Acid Serum 30ml",
+      "brandHint": "ANUA",
+      "size": "30ml",
+      "categoryHint": "Face care",
+      "lane": "pigment-support",
+      "priorityScore": 194,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "5fdbd96e4061bf697713b25c",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/anua-10-niacinamide-4-txa-acid-serum/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "anua-niacinamide-10-txa-4-serum",
+        "canonicalProductSlug": "anua-niacinamide-10-txa-4-serum",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "reviewed-title-size-alias-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "08809640734526",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 36,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "30f6636624f1fe6a5f8bd0d4",
+      "title": "FACEFACTS CERAMIDE Oil Control Moisturizing Gel Cream 50ml",
+      "brandHint": "FACEFACTS",
+      "size": "50ml",
+      "categoryHint": "Face care",
+      "lane": "moisture-barrier",
+      "priorityScore": 193,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "040d289f86c27daf36b6b3a9",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/facefacts-ceramide-oil-control-moisturizing-gel-cream-50ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "facefacts-ceramide-moisturising-gel-cream-50ml",
+        "canonicalProductSlug": "facefacts-ceramide-moisturising-gel-cream-50ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "reviewed-title-size-alias-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "05031413953961",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed",
+        "formula-or-active-visible"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 37,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "89c7891623cf8efa611f7057",
+      "title": "OLAY SUPER SERUM BODY WASH 547ML - NORMAL SKIN",
+      "brandHint": "OLAY",
+      "size": "547ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 192,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "536abbd77e619a3f8f24430a",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/olay-super-serum-body-wash-547ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "olay-super-serum-body-wash-normal-skin-547ml",
+        "canonicalProductSlug": "olay-super-serum-body-wash-normal-skin-547ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00030772160350",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 38,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "4e67e33c8599337cebdc132f",
+      "title": "BENTON Honest Cleansing Foam 150g",
+      "brandHint": "BENTON",
+      "size": "150g",
+      "categoryHint": "Face care",
+      "lane": "gentle-cleansing",
+      "priorityScore": 190,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "941d4774e6342be871e91311",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/benton-honest-cleansing-foam-5-29-oz-150g/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "benton-honest-cleansing-foam-150g",
+        "canonicalProductSlug": "benton-honest-cleansing-foam-150g",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "08809540510251",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 39,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "1fe5e2ca1f13ed038a56e835",
+      "title": "CERAVE SA Smoothing Cleanser 473ml",
+      "brandHint": "CERAVE",
+      "size": "473ml",
+      "categoryHint": "Face care",
+      "lane": "gentle-cleansing",
+      "priorityScore": 190,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "f682acb07bba65d7072d7040",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/cerave-sa-smoothing-cleanser-face-and-body-wash-with-salicylic-acid-for-dry-rough-amp-bumpy-skin-473ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "cerave-sa-smoothing-cleanser-473ml",
+        "canonicalProductSlug": "cerave-sa-smoothing-cleanser-473ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "03337875795456",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 40,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "d718a5b673cda94099fd02a4",
+      "title": "NATURIUM Multi-Peptide Advanced Serum 1.0 oz 30ml",
+      "brandHint": "Naturium",
+      "size": "1.0 oz / 30ml",
+      "categoryHint": "Face care",
+      "lane": "moisture-barrier",
+      "priorityScore": 188,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "68bff467170962a7516842c0",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/naturium-multi-peptide-advanced-serum/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "naturium-multi-peptide-advanced-serum-1fl-oz",
+        "canonicalProductSlug": "naturium-multi-peptide-advanced-serum-1fl-oz",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00810120260921",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 41,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "9fc5cda37324b6c43ce2ccb2",
+      "title": "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
+      "brandHint": "Neutrogena",
+      "size": "8.5 oz / 250ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 188,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "b39cc4ace7058ae8931bbf2c",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/neutrogena-light-sesame-formula-body-oil-8-5-oz-250ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "neutrogena-light-sesame-body-oil-8-5oz",
+        "canonicalProductSlug": "neutrogena-light-sesame-body-oil-8-5oz",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00070501618202",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 42,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "7e605cd6690ac73d599d9c2b",
+      "title": "AQUA RICH Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract) 1000ml",
+      "brandHint": "AQUA RICH",
+      "size": "1000ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 188,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "2fed3951f9b3278b24e92c7b",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/aqua-rich-body-gel-wash-1000ml-bright-glow/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+        "canonicalProductSlug": "aqua-rich-licorice-mulberry-body-wash-1000ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "04897073187587",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 43,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "3d1fc594ae79e1f38b4b8260",
+      "title": "DOVE CALMING MOISTURE 3% Body Wash 547ml",
+      "brandHint": "DOVE",
+      "size": "547ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 188,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "b3043fa79e87352af724face",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/dove-body-wash-547ml-calming-moisture/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "dove-calming-moisture-body-wash-547ml",
+        "canonicalProductSlug": "dove-calming-moisture-body-wash-547ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00011111049437",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 44,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "0052c84ff426e61395e65e05",
+      "title": "DOVE MELANIN EVEN TONE 5% Body Wash 547ml",
+      "brandHint": "DOVE",
+      "size": "547ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 188,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "091e29ecdcd463aad172972e",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/dove-body-wash-547ml-melanin-even-tone/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "dove-melanin-even-tone-body-wash-18-5oz",
+        "canonicalProductSlug": "dove-melanin-even-tone-body-wash-18-5oz",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00011111040090",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 45,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "07638932c92af511bdf56019",
+      "title": "DR TEALS (Nourish And protect) Coconut Oil Body Wash 710ml",
+      "brandHint": "Dr Teals",
+      "size": "710ml",
+      "categoryHint": "Body care",
+      "lane": "body-care",
+      "priorityScore": 188,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "bf69f21f0f5086a520b812e3",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/dr-teals-body-wash-710ml-coconut-oil/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "dr-teals-nourish-protect-coconut-oil-body-wash-710ml",
+        "canonicalProductSlug": "dr-teals-nourish-protect-coconut-oil-body-wash-710ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00811068015857",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 46,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "7afa2f6eac15547f92afd336",
+      "title": "SALTAIR Santal Bloom Moisture Bound Hair Oil Rich 50ml",
+      "brandHint": "SALTAIR",
+      "size": "50ml",
+      "categoryHint": "Hair & scalp",
+      "lane": "hair-scalp",
+      "priorityScore": 182,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "d1ce2df93af906256359ce09",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+        "canonicalProductSlug": "saltair-santal-bloom-moisture-bound-hair-oil-rich-50ml",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "00810083682860",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "directory-retailer-observed",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 47,
+      "researchKind": "known-product-additional-offer",
+      "discoveryId": "47cac9978659c1cbf054ab7e",
+      "title": "COSRX ADVANCED ALL IN ONE CREAM 100G",
+      "brandHint": "COSRX",
+      "size": "100g",
+      "categoryHint": "Face care",
+      "lane": "moisture-barrier",
+      "priorityScore": 182,
+      "retailerObservationCount": 1,
+      "directoryRetailerCount": 0,
+      "offerTargets": [
+        {
+          "offerKey": "6e5d2b1a4e82451273822b94",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/cosrx-advanced-all-in-one-cream/"
+        }
+      ],
+      "knownProduct": {
+        "productRef": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
+        "canonicalProductSlug": "cosrx-advanced-snail-92-all-in-one-cream-100g-jar",
+        "catalogueStatus": "public-catalogue",
+        "bindingBasis": "retailer-code-crosswalk-review",
+        "authority": "private-review-target-only"
+      },
+      "identityLead": "08809416470016",
+      "identityLeadStatus": "unverified-retailer-code",
+      "reasons": [
+        "known-product-additional-offer-observed",
+        "high-consumer-utility",
+        "gtin-shaped-identity-lead",
+        "current-stock-observed"
+      ],
+      "cautions": [
+        "known-product-binding-review",
+        "provisional-retailer-offer",
+        "single-retailer-observation",
+        "retailer-code-unverified"
+      ],
+      "nextAction": "review-additional-offer-for-known-product",
+      "publicationStatus": "private-research-only"
+    },
+    {
+      "rank": 48,
+      "researchKind": "new-product-identity",
       "discoveryId": "138dd87819a57f6a7a3f68ca",
       "title": "DISAAR -Vitamin C Skin Brightening Body Lotion 480ml",
       "brandHint": "DISAAR",
@@ -41,6 +2220,20 @@
       "priorityScore": 180,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "e50b3716787fa174422593f9",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/disaar-vitamin-c-skin-brightening-body-lotion-480ml/"
+        },
+        {
+          "offerKey": "7ada565d97aa22d72685ef67",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/disaar-vitamin-c-body-lotion-480ml/"
+        }
+      ],
       "identityLead": "06932511218466",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -51,14 +2244,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 2,
+      "rank": 49,
+      "researchKind": "new-product-identity",
       "discoveryId": "d67dbac2f6d48cf84f59a3a7",
       "title": "ESTELIN 5D Hyaluronic Acid (Vitamin C + Niacinamide) Moisturizing Toner 13.52 oz 400ml",
       "brandHint": "ESTELIN",
@@ -68,6 +2260,20 @@
       "priorityScore": 180,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "44e57a570bab23dbaae3d9c3",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/estelin-hyaluronic-acid-moisturizing-toner-400ml/"
+        },
+        {
+          "offerKey": "f2503f3b4fbe4e66b0b665e6",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/estelin-5d-hyaluronic-acid-moisturizing-toner-400ml/"
+        }
+      ],
       "identityLead": "06971764157610",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -78,14 +2284,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 3,
+      "rank": 50,
+      "researchKind": "new-product-identity",
       "discoveryId": "a8e84b742d88d567a304c6f6",
       "title": "NIU SKIN Extra Plant Extracts More Luminous (With Alpha Arbutin, Niacinamide and Vitamin C) OUD WOOD Body Lotion 480ml",
       "brandHint": "NIU SKIN",
@@ -95,6 +2300,20 @@
       "priorityScore": 180,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "2b99d887fc33a2cbc01472c0",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/niu-skin-extra-plant-extracts-more-luminous-480ml/"
+        },
+        {
+          "offerKey": "d0970d78aa785a942300812b",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/niu-skin-extra-plant-extracts-perfumed-body-lotion-oud-wood-480ml/"
+        }
+      ],
       "identityLead": "06946818911623",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -105,14 +2324,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 4,
+      "rank": 51,
+      "researchKind": "new-product-identity",
       "discoveryId": "5aa8e27696b33a24ccc3d594",
       "title": "NIU SKIN More Vitamin Extra Radiance (With Alpha Arbutin, Niacinamide And Vitamin C) Body Lotion NO.5 480ML",
       "brandHint": "NIU SKIN",
@@ -122,6 +2340,20 @@
       "priorityScore": 180,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "c60d412e6d0bcfccddb41b28",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/niu-skin-with-alpha-arbutin-niacinamide-and-vitamin-c-body-lotion-480ml-no-5/"
+        },
+        {
+          "offerKey": "1ba41f0f9dbdd75f40bc6ae0",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/niu-skin-vitamins-extra-radiance-perfumed-body-lotion-480ml/"
+        }
+      ],
       "identityLead": "06946818911616",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -132,14 +2364,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 5,
+      "rank": 52,
+      "researchKind": "new-product-identity",
       "discoveryId": "d54e619a7ab95a080c216402",
       "title": "PRO LAB Skin Barrier Repair Ceramide Body Lotion 500ml",
       "brandHint": "PRO LAB",
@@ -149,6 +2380,20 @@
       "priorityScore": 180,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "48ec57176d2f77b2cf6f7650",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/pro-lab-skin-barrier-repair-ceramide-body-lotion-500ml/"
+        },
+        {
+          "offerKey": "75e2e44427f7f19d410d272f",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/pro-lab-ceramide-body-lotion-500ml/"
+        }
+      ],
       "identityLead": "08804435184562",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -159,14 +2404,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 6,
+      "rank": 53,
+      "researchKind": "new-product-identity",
       "discoveryId": "0f6340275dfe1257901f0bf0",
       "title": "ESTELIN ALL IN ONE MULTI-DEFENSE Tinted Sunscreen SPF 70+++ 50g",
       "brandHint": "ESTELIN",
@@ -176,6 +2420,20 @@
       "priorityScore": 178,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "2cb0c9434cb37c38260ac885",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/estelin-all-in-one-multi-defense-tinted-sunscreen-spf-70-50g/"
+        },
+        {
+          "offerKey": "4cb7896bee8c400ee153a8f8",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/estelin-sunsreen-all-in-one-50g/"
+        }
+      ],
       "identityLead": "06971764154589",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -185,14 +2443,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 7,
+      "rank": 54,
+      "researchKind": "new-product-identity",
       "discoveryId": "73f96c6c3931cdc9b240b758",
       "title": "ESTELIN Ultra Light Hydrating Invisible Sunscreen SPF 50+++ 50g",
       "brandHint": "ESTELIN",
@@ -202,6 +2459,20 @@
       "priorityScore": 178,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "81bcbee63993ea509d09cdd1",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/estelin-ultra-light-hydrating-invisible-sunscreen-spf-50-50g/"
+        },
+        {
+          "offerKey": "b1ad400db8a560bd7a561de8",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/estelin-sunscreen-ultra-light-50g/"
+        }
+      ],
       "identityLead": "06971764154558",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -211,14 +2482,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 8,
+      "rank": 55,
+      "researchKind": "new-product-identity",
       "discoveryId": "c7e76dd320bb3c521744597c",
       "title": "NIU SKIN Glowing (Niacinamide, Vitamin C And AHA) Body Wash 800ml",
       "brandHint": "NIU SKIN",
@@ -228,6 +2498,20 @@
       "priorityScore": 176,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "c72994a413e54989661d198c",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/niu-skin-glowing-niacinamide-vitamin-c-aha-body-wash-800ml/"
+        },
+        {
+          "offerKey": "b0894ffc16314202f1f67c30",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/niu-skin-glowing-body-wash-800ml/"
+        }
+      ],
       "identityLead": "06974525213150",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -238,14 +2522,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 9,
+      "rank": 56,
+      "researchKind": "new-product-identity",
       "discoveryId": "17bd496cb38c558d4e8a56f9",
       "title": "DR TEALS (Vitamin C And Citrus) Body Lotion with Essential oil 532ml",
       "brandHint": "DR",
@@ -255,6 +2538,20 @@
       "priorityScore": 175,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "48d36ba71ed2b4e88d1e1f27",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/dr-teals-body-lotion-with-vitamin-c-532ml/"
+        },
+        {
+          "offerKey": "a72ddc70c53915229b3509c8",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/dr-teals-glow-radiance-body-lotion-citrus/"
+        }
+      ],
       "identityLead": "00811068019237",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -265,14 +2562,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 10,
+      "rank": 57,
+      "researchKind": "new-product-identity",
       "discoveryId": "9a010c0186b1418272fce5bb",
       "title": "ADVANCED CLINICALS Vitamin C (Anti-aging) Serum 52ml",
       "brandHint": "ADVANCED",
@@ -282,6 +2578,20 @@
       "priorityScore": 171,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "29bcbf81c1ec61bb3b688e1e",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/advanced-clinicals-vitamin-c-anti-aging-serum-52ml/"
+        },
+        {
+          "offerKey": "c6521696fc3d1905715d944f",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/advanced-clinicals-vitamin-c-serum-52ml/"
+        }
+      ],
       "identityLead": "00819265008016",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -292,14 +2602,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 11,
+      "rank": 58,
+      "researchKind": "new-product-identity",
       "discoveryId": "fd07898619801a68999f2850",
       "title": "FACEFACTS Soothe Glow (Niacinamide) Face Serum 30ml",
       "brandHint": "FACEFACTS",
@@ -309,6 +2618,20 @@
       "priorityScore": 171,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "6a5ebf2da8c8d6261b51aa69",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/facefacts-niacinamide-face-serum-30ml/"
+        },
+        {
+          "offerKey": "0c1ba1c655f80399a3495340",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/facefacts-niacinamide-serum-50ml/"
+        }
+      ],
       "identityLead": "05031413940619",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -319,14 +2642,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 12,
+      "rank": 59,
+      "researchKind": "new-product-identity",
       "discoveryId": "6635e9027b7821ef2ff04dbd",
       "title": "ADVANCED KOREAN SKIN Active Fair Face Cream 100g",
       "brandHint": "Advanced Korean Skin",
@@ -336,6 +2658,20 @@
       "priorityScore": 170,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "60681f7072b90b3e67baffc9",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/advanced-korean-skin-active-fair-face-cream-100g/"
+        },
+        {
+          "offerKey": "c96851c7590f44bb48ef71d5",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-skin-active-fair-cream-100g/"
+        }
+      ],
       "identityLead": "06156000469720",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -345,14 +2681,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 13,
+      "rank": 60,
+      "researchKind": "new-product-identity",
       "discoveryId": "f1ebe655a947668241b4d240",
       "title": "ADVANCED KOREAN SKIN Bright And Moisture Body Lotion 17.6 oz 500ml",
       "brandHint": "Advanced Korean Skin",
@@ -362,6 +2697,20 @@
       "priorityScore": 170,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "053c2908cdcd3775191d7dfe",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/advanced-korean-skin-bright-moisture-body-lotion-17-6-oz-500ml/"
+        },
+        {
+          "offerKey": "32d917ad481a6e5fbb09f006",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-skin-bright-moisture-body-lotion-500ml/"
+        }
+      ],
       "identityLead": "06156000469782",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -371,14 +2720,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 14,
+      "rank": 61,
+      "researchKind": "new-product-identity",
       "discoveryId": "b7c8a1240541dd5a7869b2eb",
       "title": "ADVANCED KOREAN SKIN Bright And Smooth Body Lotion 500ml",
       "brandHint": "Advanced Korean Skin",
@@ -388,6 +2736,20 @@
       "priorityScore": 170,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "0f0c2fd4c866ed543b5a1eb1",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/advanced-korean-skin-bright-smooth-body-lotion-500ml/"
+        },
+        {
+          "offerKey": "4205cd534f93338d364e5516",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-skin-bright-smooth-body-lotion-500ml/"
+        }
+      ],
       "identityLead": "06156000469751",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -397,14 +2759,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 15,
+      "rank": 62,
+      "researchKind": "new-product-identity",
       "discoveryId": "02c725b1d7a62394c0144a0a",
       "title": "DISAAR (Cocoa Deep Moisturizing) Body oil gel 200ml",
       "brandHint": "DISAAR",
@@ -414,6 +2775,20 @@
       "priorityScore": 170,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "ea8d6584cda622273bfcfdcb",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/disaar-cocoa-deep-moisturizing-body-oil-gel-200ml-2/"
+        },
+        {
+          "offerKey": "cccf76ed84b4dc99430338c1",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/disaar-cocoa-body-gel-oil-200ml/"
+        }
+      ],
       "identityLead": "06932511228021",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -423,14 +2798,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 16,
+      "rank": 63,
+      "researchKind": "new-product-identity",
       "discoveryId": "814c2d49e6ef3327cebd67d5",
       "title": "DR TEALS Shea Sugar Scrub (Citrus Essential Oils With Vitamin C) 538g",
       "brandHint": "Dr Teals",
@@ -440,6 +2814,20 @@
       "priorityScore": 168,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "766d66f2fb737291896c012d",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/dr-teals-shea-sugar-scrub-with-vitamin-c-538g/"
+        },
+        {
+          "offerKey": "ae9a871c7f5b151273f7c1ba",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/dr-teals-shea-sugar-scrub-with-vit-c/"
+        }
+      ],
       "identityLead": "00810021207254",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -451,6 +2839,7 @@
         "formula-or-active-visible"
       ],
       "cautions": [
+        "provisional-retailer-offer",
         "retailer-code-unverified",
         "abrasive-or-peel-review"
       ],
@@ -458,7 +2847,8 @@
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 17,
+      "rank": 64,
+      "researchKind": "new-product-identity",
       "discoveryId": "bf9ba6790a3343c9ef316925",
       "title": "ACWELL Licorice pH Balancing Cleansing Toner 150ml",
       "brandHint": "ACWELL",
@@ -468,6 +2858,20 @@
       "priorityScore": 167,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "4f61e6d65aaa0f0b0b958c6b",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/acwell-licorice-ph-balancing-cleansing-toner/"
+        },
+        {
+          "offerKey": "6745bc73f6bd489ba43d4870",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/acwell-licorice-cleansing-toner-150ml/"
+        }
+      ],
       "identityLead": "08809129643189",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -477,14 +2881,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 18,
+      "rank": 65,
+      "researchKind": "new-product-identity",
       "discoveryId": "492cfec4b5d57894f3917ecc",
       "title": "ST IVES -Exfoliating (Fresh Peach and Jasmine) Body Wash 650ml",
       "brandHint": "ST IVES",
@@ -494,6 +2897,20 @@
       "priorityScore": 158,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "49871b3e6e56c900a60a73a2",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/st-ives-exfoliating-body-wash-fresh-peach-jasmine-650ml/"
+        },
+        {
+          "offerKey": "6bc9caca4e23dae9e6a9c014",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/st-ives-exfoliating-body-wash-fresh-peach-jasmine-650ml/"
+        }
+      ],
       "identityLead": "00077043003213",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -503,14 +2920,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 19,
+      "rank": 66,
+      "researchKind": "new-product-identity",
       "discoveryId": "fe369f475a0d890702084b1b",
       "title": "COS DE BAHA [AZ15] Azelaic Acid 15 MSM Serum 30ml",
       "brandHint": "COS DE BAHA",
@@ -520,6 +2936,14 @@
       "priorityScore": 156,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "65ff9dccd076bc5ad4f21c7d",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/cos-de-baha-az15-azelaic-acid-15-msm-serum-30ml/"
+        }
+      ],
       "identityLead": "08809240319406",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -529,15 +2953,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 20,
+      "rank": 67,
+      "researchKind": "new-product-identity",
       "discoveryId": "0b73f42e4c3d2f14656610ae",
       "title": "PURITO Azelaic Acid 10 Kojic Tea Tree Serum 30ml",
       "brandHint": "PURITO",
@@ -547,6 +2969,14 @@
       "priorityScore": 156,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "f2d2d14644e3f0563ea774aa",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/purito-azelaic-acid-10-kojic-tea-tree-serum-30ml/"
+        }
+      ],
       "identityLead": "08809563103980",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -556,15 +2986,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 21,
+      "rank": 68,
+      "researchKind": "new-product-identity",
       "discoveryId": "cd29efd703d9f5ad9192bf01",
       "title": "SKIN BY ZARON SALICYLIC ACID 2% (Clarifying, Brightening, Exfoliating) Toner 150ml",
       "brandHint": "SKIN BY ZARON",
@@ -574,6 +3002,14 @@
       "priorityScore": 156,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "d18ef4d8090764b0cf29b46d",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/skin-by-zaron-salicylic-acid-2-clarifying-brightening-exfoliating-toner-150ml/"
+        }
+      ],
       "identityLead": "06908137011460",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -583,15 +3019,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 22,
+      "rank": 69,
+      "researchKind": "new-product-identity",
       "discoveryId": "1eefdc1c039c1961f1ecb4a5",
       "title": "ADVANCED KOREAN Brightest Body Oil 280ml",
       "brandHint": "ADVANCED",
@@ -601,6 +3035,20 @@
       "priorityScore": 153,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "f54fb1f5b6f7cfe1f0fe16a5",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/advanced-korean-brightest-body-oil-280ml/"
+        },
+        {
+          "offerKey": "200a186decf3e3ddd8b1ddcc",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/advanced-korean-brightest-body-oil-280ml/"
+        }
+      ],
       "identityLead": "06156000469706",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -610,14 +3058,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 23,
+      "rank": 70,
+      "researchKind": "new-product-identity",
       "discoveryId": "76cb646ee768be4a06ba8e99",
       "title": "DOVE DEEPLY NOURISHING BODY WASH 750ML",
       "brandHint": "DOVE",
@@ -627,6 +3074,20 @@
       "priorityScore": 153,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "4a2f088799ef9b49573c75a0",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/dove-deeply-nourishing-body-wash-750ml/"
+        },
+        {
+          "offerKey": "e4f8a9a18e315073044d380c",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/dove-deeply-nourishing-body-wash-750ml/"
+        }
+      ],
       "identityLead": "08712561594424",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -636,14 +3097,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 24,
+      "rank": 71,
+      "researchKind": "new-product-identity",
       "discoveryId": "1574cd56b431a85795ed0ce7",
       "title": "DOVE Nourishing Silk Body Wash 750ml",
       "brandHint": "DOVE",
@@ -653,6 +3113,20 @@
       "priorityScore": 153,
       "retailerObservationCount": 2,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "7d9b48fdccf0826b0e10ab17",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/dove-silk-glow-body-wash-750ml/"
+        },
+        {
+          "offerKey": "ec194094090d96eeba1afab3",
+          "retailer": "Slique Beauty",
+          "retailerStatus": "provisional",
+          "listingUrl": "https://sliquebeautylimited.com/product/dove-nourishing-silk-body-wash-750ml/"
+        }
+      ],
       "identityLead": "08712561626569",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -662,14 +3136,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "retailer-code-unverified"
-      ],
+      "cautions": ["provisional-retailer-offer", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 25,
+      "rank": 72,
+      "researchKind": "new-product-identity",
       "discoveryId": "b9f9c3fe07895c6ce9945f8a",
       "title": "GLAMFOX Double Effect (Retinol + Collagen) Foam Cleanser 120ml",
       "brandHint": "GLAMFOX",
@@ -679,6 +3152,14 @@
       "priorityScore": 152,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "a5e21684ea9a03e227a74c87",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/glamfox-double-effect-retinol-collagen-foam-cleanser-120ml/"
+        }
+      ],
       "identityLead": "08809109689688",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -688,15 +3169,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 26,
+      "rank": 73,
+      "researchKind": "new-product-identity",
       "discoveryId": "980f4a6663d7e3bdca521609",
       "title": "MEDICUBE PDRN Pink Niacinamide Whip Cleanser 120g",
       "brandHint": "MEDICUBE",
@@ -706,6 +3185,14 @@
       "priorityScore": 152,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "84a718ea6c57ca07d082a66e",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/medicube-pdrn-pink-niacinamide-whip-cleanser-120g/"
+        }
+      ],
       "identityLead": "08800289473159",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -715,15 +3202,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 27,
+      "rank": 74,
+      "researchKind": "new-product-identity",
       "discoveryId": "7f5e4463688a37e008b523ff",
       "title": "ANUA Zero Cast Moisturizing Finnish Sunscreen 50ml",
       "brandHint": "ANUA",
@@ -733,6 +3218,14 @@
       "priorityScore": 148,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "31e9df01287ffc3cacc3a4b7",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/anua-zero-cast-moisturizing-finnish-sunscreen-50ml/"
+        }
+      ],
       "identityLead": "08809640739507",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -741,15 +3234,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 28,
+      "rank": 75,
+      "researchKind": "new-product-identity",
       "discoveryId": "9454deec37a4fc5fcd1e7fa7",
       "title": "PACCI PRISTINE SUN HAVEN Aqua SPF50++ Sunscreen 80ml",
       "brandHint": "PACCI PRISTINE",
@@ -759,6 +3250,14 @@
       "priorityScore": 148,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "36f5715a1c3f0b0769586383",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/pacci-pristine-sun-haven-aqua-spf50-sunscreen-80ml/"
+        }
+      ],
       "identityLead": "07222408428368",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -767,15 +3266,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 29,
+      "rank": 76,
+      "researchKind": "new-product-identity",
       "discoveryId": "fe5f1f274910514b3aa73df6",
       "title": "SHISEIDO Professional -Anessa Perfect UV Sunscreen Skincare Gel 90g",
       "brandHint": "SHISEIDO Professional",
@@ -785,6 +3282,14 @@
       "priorityScore": 148,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "352e82855a1763ad2f505fac",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/shiseido-professional-anessa-perfect-uv-sunscreen-skincare-gel-90g/"
+        }
+      ],
       "identityLead": "04909978147112",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -793,15 +3298,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 30,
+      "rank": 77,
+      "researchKind": "new-product-identity",
       "discoveryId": "73a9a185be892d6ee54262dc",
       "title": "SUPERGOOP - Unseen SPF 40 Sunscreen Stick 20g",
       "brandHint": "SUPERGOOP",
@@ -811,6 +3314,14 @@
       "priorityScore": 148,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "006c6c2dd1dc4530a5140b32",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/supergoop-unseen-spf-40-sunscreen-stick-20g/"
+        }
+      ],
       "identityLead": "00816218028329",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -819,15 +3330,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 31,
+      "rank": 78,
+      "researchKind": "new-product-identity",
       "discoveryId": "c65508f695a5dcd240da0eb3",
       "title": "GLAMFOX Glowing And Moisturizing Rice Niacinamide Foam Cleanser 230g",
       "brandHint": "GLAMFOX",
@@ -837,6 +3346,14 @@
       "priorityScore": 147,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "55fc5f025421d19de2eec3eb",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/glamfox-glowing-moisturizing-rice-niacinamide-foam-cleanser-230g/"
+        }
+      ],
       "identityLead": "08809109680876",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -846,15 +3363,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 32,
+      "rank": 79,
+      "researchKind": "new-product-identity",
       "discoveryId": "860730ad73fa749bf2599ba4",
       "title": "ABIB -Heartleaf Acne Foam Cleanser 150ml",
       "brandHint": "ABIB",
@@ -864,6 +3379,14 @@
       "priorityScore": 146,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "7a9df843ecb382102d29dee9",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/abib-heartleaf-acne-foam-cleanser-150ml/"
+        }
+      ],
       "identityLead": "08809864769229",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -872,15 +3395,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 33,
+      "rank": 80,
+      "researchKind": "new-product-identity",
       "discoveryId": "e187cb58e2c4a6f75aef8299",
       "title": "BALANCE Active Formula Vitamin C Brightening Fluid Protect SPF 50 50ml",
       "brandHint": "BALANCE",
@@ -890,6 +3411,14 @@
       "priorityScore": 146,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "8ddd4b9ae67988c0072863da",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/balance-active-formula-vitamin-c-brightening-fluid-protect-spf-50-50ml/"
+        }
+      ],
       "identityLead": "05015833000986",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -899,15 +3428,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 34,
+      "rank": 81,
+      "researchKind": "new-product-identity",
       "discoveryId": "3701e49c3044d45b559ab7f2",
       "title": "BALANCE VITAMIN C (Brightening, Glow and Radiance) SUPERSIZE Serum 60ml",
       "brandHint": "BALANCE",
@@ -917,6 +3444,14 @@
       "priorityScore": 146,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "f16903d9348c11f6b2d32c81",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/balance-vitamin-c-brightening-glow-and-radiance-supersize-serum-60ml/"
+        }
+      ],
       "identityLead": "05015833328189",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -926,15 +3461,13 @@
         "current-stock-observed",
         "formula-or-active-visible"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 35,
+      "rank": 82,
+      "researchKind": "new-product-identity",
       "discoveryId": "5a7b8f18c791cfb6a61354ac",
       "title": "BIODERMA Sebium Hydra Ultra-Moisturizing Cream Very Dry Acne Prone Skin 40ml",
       "brandHint": "Bioderma",
@@ -944,6 +3477,14 @@
       "priorityScore": 146,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "55ebe518d5e9004b0ca1aeeb",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/bioderma-sebium-hydra-ultra-moisturising-cream-very-dry-acne-prone-skin-40ml/"
+        }
+      ],
       "identityLead": "03401348840421",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -952,15 +3493,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 36,
+      "rank": 83,
+      "researchKind": "new-product-identity",
       "discoveryId": "e16bef398ccb4bbef30078b2",
       "title": "CELIMAX -The Real NONI Acne Bubble Cleanser 155ml",
       "brandHint": "CELIMAX",
@@ -970,6 +3509,14 @@
       "priorityScore": 146,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "045a4125f1a1b9e3c771dc12",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/celimax-the-real-noni-acne-bubble-cleanser-155ml/"
+        }
+      ],
       "identityLead": "08809463993223",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -978,15 +3525,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 37,
+      "rank": 84,
+      "researchKind": "new-product-identity",
       "discoveryId": "90712aba930db88df002dc55",
       "title": "CERAVE Blemish Control Cleanser 473ML",
       "brandHint": "CERAVE",
@@ -996,6 +3541,14 @@
       "priorityScore": 146,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "0c2bd6f0d286c8d3838c300d",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/cerave-blemish-control-cleanser-16-0-oz-473ml/"
+        }
+      ],
       "identityLead": "03337875923859",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1004,15 +3557,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 38,
+      "rank": 85,
+      "researchKind": "new-product-identity",
       "discoveryId": "2b711f31d76d3d5c8d6a79e2",
       "title": "ELF Skin Blemish Breakthrough Acne Fighting Spot Gel 7.5ml",
       "brandHint": "ELF",
@@ -1022,6 +3573,14 @@
       "priorityScore": 146,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "55c01fefd68866b0b4bf061c",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/elf-skin-blemish-breakthrough-acne-fighting-spot-gel-7-5ml/"
+        }
+      ],
       "identityLead": "00609332572508",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1030,15 +3589,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 39,
+      "rank": 86,
+      "researchKind": "new-product-identity",
       "discoveryId": "8ac4f70510214db024b57c46",
       "title": "BEAUTY FORMULAS Gentle Soft Apricot Cleansing Facial Wipes 30pcs",
       "brandHint": "BEAUTY FORMULA",
@@ -1048,6 +3605,14 @@
       "priorityScore": 142,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "f47b2c688e65f6eb285edb09",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/beauty-formulas-gentle-soft-apricot-cleansing-facial-wipes-30pcs/"
+        }
+      ],
       "identityLead": "05012251009423",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1056,15 +3621,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 40,
+      "rank": 87,
+      "researchKind": "new-product-identity",
       "discoveryId": "4a65be1a58dd495b7eab8b5b",
       "title": "BIOBALANCE Derma Age Rejuvenating Facial Cleansing Gel 250ml",
       "brandHint": "BIOBALANCE",
@@ -1074,6 +3637,14 @@
       "priorityScore": 142,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "7d94163357e8a7b33f2961e7",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/bio-balance-derma-age-rejuvenating-facial-cleansing-gel-250ml/"
+        }
+      ],
       "identityLead": "08697711701023",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1082,15 +3653,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 41,
+      "rank": 88,
+      "researchKind": "new-product-identity",
       "discoveryId": "a3844e0ff4ce89736040eb4e",
       "title": "BIOBALANCE Dermasebum Purifying Facial Cleansing Gel 250ml",
       "brandHint": "BIOBALANCE",
@@ -1100,6 +3669,14 @@
       "priorityScore": 142,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "c462572a017960b4d6930d3e",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/biobalance-dermasebum-purifying-facial-cleansing-gel-250ml/"
+        }
+      ],
       "identityLead": "08697711701009",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1108,15 +3685,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 42,
+      "rank": 89,
+      "researchKind": "new-product-identity",
       "discoveryId": "537651002741cf6e4ab4486f",
       "title": "BIOBALANCE Dermasoothe Soothing Facial Cleansing Gel 250ml",
       "brandHint": "BIOBALANCE",
@@ -1126,6 +3701,14 @@
       "priorityScore": 142,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "c034f0851a1cd3fc29f9c5d6",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/biobalance-demasoothe-soothing-facial-cleansing-gel-250ml/"
+        }
+      ],
       "identityLead": "08697711701016",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1134,15 +3717,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 43,
+      "rank": 90,
+      "researchKind": "new-product-identity",
       "discoveryId": "f67f222e9d4c90404e22904d",
       "title": "Amika - The kure Conditioner 275ml",
       "brandHint": "Amika",
@@ -1152,6 +3733,14 @@
       "priorityScore": 134,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "a75b85ea7d8d85ad06c7a783",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/amika-the-kure-conditioner-275ml/"
+        }
+      ],
       "identityLead": "00840117807082",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1160,15 +3749,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 44,
+      "rank": 91,
+      "researchKind": "new-product-identity",
       "discoveryId": "409d46e2deb8d4a892997d7c",
       "title": "MEDICUBE -Soymint Scaling Shampoo 490ml",
       "brandHint": "MEDICUBE",
@@ -1178,6 +3765,14 @@
       "priorityScore": 134,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "405c86e7767097c65131318b",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/medicube-soymint-scaling-shampoo-490ml/"
+        }
+      ],
       "identityLead": "08800256112487",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1186,15 +3781,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 45,
+      "rank": 92,
+      "researchKind": "new-product-identity",
       "discoveryId": "434e6d0e45a3bea8326d0911",
       "title": "SEAPURI Scalpy Hair Serum 20ml",
       "brandHint": "SEAPURI",
@@ -1204,6 +3797,14 @@
       "priorityScore": 134,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "533cec54f3ca4a73c135479a",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/seapuri-scalpy-hair-serum-20ml/"
+        }
+      ],
       "identityLead": "08809934860870",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1212,15 +3813,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 46,
+      "rank": 93,
+      "researchKind": "new-product-identity",
       "discoveryId": "0defb63ca2f722fc93d4e0d5",
       "title": "SHISEIDO Professional -SUBLIMIC Fuente Forte SHAMPOO (Oily Scalp) 1000ml",
       "brandHint": "SHISEIDO Professional",
@@ -1230,6 +3829,14 @@
       "priorityScore": 134,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "10ba37d82a7671388efaed7b",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/shiseido-professional-sublimic-fuente-forte-shampoo-oily-scalp-1000ml/"
+        }
+      ],
       "identityLead": "04901872933303",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1238,15 +3845,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 47,
+      "rank": 94,
+      "researchKind": "new-product-identity",
       "discoveryId": "5154a75f6a4315ba69ff7bdf",
       "title": "KERACARE Dry And Itchy Shampoo 950ml",
       "brandHint": "KERACARE",
@@ -1256,6 +3861,14 @@
       "priorityScore": 129,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "82fcf1d29b67137ad6dd708f",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/keracare-no1-dry-and-itchy-scalp-anti-dandruff-moisturizing-shampoo-950ml/"
+        }
+      ],
       "identityLead": "00796708350188",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1264,15 +3877,13 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     },
     {
-      "rank": 48,
+      "rank": 95,
+      "researchKind": "new-product-identity",
       "discoveryId": "464a9907d5db1b62751eea4f",
       "title": "NATURES GENTLE TOUCH -Tea Tree Anti-Dandruff Instant Conditioner (250ml)",
       "brandHint": "NATURES",
@@ -1282,6 +3893,14 @@
       "priorityScore": 129,
       "retailerObservationCount": 1,
       "directoryRetailerCount": 1,
+      "offerTargets": [
+        {
+          "offerKey": "2e847d3489898db5241340b6",
+          "retailer": "BuyBetter",
+          "retailerStatus": "directory-listed",
+          "listingUrl": "https://buybetter.ng/product/natures-gentle-touch-tea-tree-anti-dandruff-instant-conditioner-250ml/"
+        }
+      ],
       "identityLead": "00608887047080",
       "identityLeadStatus": "unverified-retailer-code",
       "reasons": [
@@ -1290,10 +3909,7 @@
         "gtin-shaped-identity-lead",
         "current-stock-observed"
       ],
-      "cautions": [
-        "single-retailer-observation",
-        "retailer-code-unverified"
-      ],
+      "cautions": ["single-retailer-observation", "retailer-code-unverified"],
       "nextAction": "confirm-official-manufacturer-identity",
       "publicationStatus": "private-research-only"
     }

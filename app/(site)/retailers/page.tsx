@@ -7,7 +7,7 @@ import { nigeriaRetailers, retailerSlug } from "@/data/retailers";
 import { listCatalogueProducts } from "@/lib/catalogue/repository";
 import { publicSocialMetadata, staticSocialCard } from "@/lib/og/social-card";
 import { buildRetailerProfile } from "@/modules/commerce/retailer-profile";
-import { hasRegulatorMatch } from "@/modules/commerce/offer-evidence";
+import { buildRetailerDirectoryEvidenceNote } from "@/modules/commerce/retailer-evidence-copy";
 import styles from "./retailers.module.css";
 
 export const revalidate = 3600;
@@ -46,18 +46,7 @@ export default async function RetailersPage() {
     .map((label) => ({ id: brandId(label), label }));
   const directoryItems = nigeriaRetailers.map((store, index) => {
     const profile = buildRetailerProfile(store, catalogue);
-    const evidenceNote = hasRegulatorMatch({
-      reviewStatus: store.reviewStatus,
-      contentUse: store.contentUse,
-      identity: store.identityEvidence,
-      regulatorMatch: store.regulatorMatchEvidence,
-    })
-      ? "Regulator number matched to an independent register."
-      : store.identityEvidence
-        ? "Self-published contact details observed. No regulator match."
-        : store.kind === "marketplace"
-          ? "Seller identity is checked per offer when evidence exists."
-          : "No identity or regulator match recorded.";
+    const evidenceNote = buildRetailerDirectoryEvidenceNote(store);
 
     return {
       rank: index + 1,

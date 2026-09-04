@@ -1,8 +1,29 @@
 # Product roadmap
 
-Updated: 2026-08-23
+Updated: 2026-09-04
 
 The roadmap is ordered by dependency, not novelty.
+
+## Linked market truth (2026-09-04)
+
+The active market goal is one governed chain, not a price scraper:
+
+`Retailer → exact offer → verified observation → price history → product market summary/trends → Share / Products / Markets / Daily Desk`
+
+Known reviewed offers refresh on the hourly inventory owner. Current offer
+facts and matching append-only history drive every online public projection;
+synthetic history and stale accepted-Desk prices are not fallbacks. New products
+and additional offers remain private candidates until the existing evidence
+packet, identity, authorization and publication review admits them. Retailer
+contact, location, delivery and service claims remain unknown until separately
+reviewed evidence supports them. Ops owns one read-only exception surface at
+`/ops/market-health` and the inventory and Daily Desk owners emit bounded
+receipts so missing work cannot look like an empty result.
+
+Release proof for this contract is focused evidence tests, one repository gate,
+rendered public and authenticated Ops checks, exact revision/deployment proof,
+and affected-route production smoke. Counts below are retained only as the
+historical baseline that prompted this work.
 
 ## Catalogue and evidence debt (2026-08-23)
 
@@ -11,7 +32,7 @@ keep offer evidence fresh have not been running reliably. The catalogue, daily
 campaign, and price-story surfaces all depend on fresh evidence, and the
 absence of it is now visible to customers.
 
-### Current state (2026-08-23)
+### Historical state (2026-08-23)
 
 - **158 public catalogue products**, but only **60 have any Nigerian offers**
   (38%). **98 products (62%) have zero offers** and cannot show a price, store
@@ -55,7 +76,7 @@ absence of it is now visible to customers.
    the trend engine has no comparison windows and the Daily Desk cannot show
    price movement.
 
-### Recovery plan
+### Historical recovery plan
 
 1. **Verify the inventory cron is running.** Check Vercel cron settings, the
    `CRON_SECRET` environment variable, and the Neon `inventory_refresh_jobs`

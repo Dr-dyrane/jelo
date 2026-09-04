@@ -264,6 +264,8 @@ export type InventoryRefreshResult = {
   jobId: string;
   offerId: string;
   productSlug: string;
+  requestedUrl: string;
+  marketCode: string;
   retailer?: string;
   status: InventoryRefreshRunStatus;
   recoveredLease: boolean;
@@ -1245,6 +1247,8 @@ export async function processNextInventoryRefreshJob(
         jobId: job.job_id,
         offerId: job.offer_id,
         productSlug: job.product_slug,
+        requestedUrl: job.url,
+        marketCode: job.market_code,
         retailer: job.retailer_name,
         status: settlement.status,
         recoveredLease: job.recovered_lease,
@@ -1273,6 +1277,8 @@ export async function processNextInventoryRefreshJob(
       jobId: job.job_id,
       offerId: job.offer_id,
       productSlug: job.product_slug,
+      requestedUrl: job.url,
+      marketCode: job.market_code,
       retailer: job.retailer_name,
       status: settlement.status,
       recoveredLease: job.recovered_lease,
@@ -1310,6 +1316,8 @@ export async function processNextInventoryRefreshJob(
       jobId: job.job_id,
       offerId: job.offer_id,
       productSlug: job.product_slug,
+      requestedUrl: job.url,
+      marketCode: job.market_code,
       retailer: job.retailer_name,
       status: settlement.status,
       recoveredLease: job.recovered_lease,

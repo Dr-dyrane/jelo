@@ -566,125 +566,50 @@ production fail-closure from the worker result alone.
 
 The chart SVG is absent or shows no series with two or more dated points.
 
-**Root cause:** The trend chart requires at least 2 dated observations per
-retailer to render a line. The history pipeline has multiple layers — DB
-query, `selectCurrentPriceObservations`, `computeStaticPriceHistory`,
-cold-start seeding — and each layer can independently fail to produce
-matching points for the current offers. Common failure modes:
-
-1. The production `APP_DATABASE_URL` points to a different Neon database
-   than the one used for manual data insertion (e.g. via the Neon MCP
-   tool). The `offer_price_history` table has zero rows in production.
-2. The DB has rows for old retailers/URLs that no longer match the current
-   offers. `selectCurrentPriceObservations` returns only synthetic
-   observations (1 per retailer), which is insufficient.
-3. Static history anchors in `data/price-history.ts` reference retailers
-   that are no longer in the current offer set.
-4. Any future mismatch in the history pipeline.
-
-**Fix (definitive):** A final guarantee in `getProductTrendData`
-(`lib/share/product-trends.ts`) runs AFTER all upstream filtering and
-seeds any missing points directly from the current offer snapshots. For
-each representative retailer with fewer than 2 dated points, it adds a
-second point at the same price 7 days before the current observation.
-This renders a flat "no observed change" line, which is honest: we have
-no evidence of a price change.
-
-```ts
-// After all upstream filtering, guarantee 2+ dated points per
-// representative retailer:
-for (const offer of representativeOffers) {
-  const key = retailerKey(offer.retailer);
-  const existing = pointsByRetailer.get(key) ?? [];
-  if (existing.length >= 2) continue;
-  // ... seed anchor 7 days before current at same price
-}
-```
-
-Real DB history and static history always take precedence because those
-points are already in the array; the guarantee only fills gaps. This
-makes the chart immune to any upstream mismatch.
+**Root cause:** An empty chart is a valid fail-closed state. The exact current
+offer may have fewer than two qualifying append-only observations, or the
+database row and rendered offer may disagree on URL, retailer, price, currency,
+title, size, availability, method, observation time or expiry. A database or
+query failure also withholds movement.
 
 **Debugging steps for recurrence:**
 
-1. Check the share page for the empty-state class:
-   ```js
-   document.querySelector("section[aria-label*=Price] [class*=noChart]");
-   ```
-2. If the empty state appears, the guarantee in `getProductTrendData`
-   is not running. Check that `representativeOffers` is non-empty and
-   that each offer has a valid `checkedAt` or `priceObservation.observedAt`.
-3. Confirm the production `APP_DATABASE_URL` points to the same Neon
-   database where history rows were inserted. The Neon MCP project and
-   the Vercel env var may diverge.
+1. Confirm the product still has a fresh exact shareable Nigerian offer.
+2. Query the current offer and its `offer_price_history` rows by offer ID.
+3. Confirm the latest history price and `observed_at` exactly match the
+   current offer's price and `last_verified_at`.
+4. Confirm the URL, retailer, title, size, currency, availability,
+   verification method and expiry match the rendered offer snapshot.
+5. Confirm at least two time-distinct rows fall inside the selected window.
 
-**Prevention:** The final guarantee in `getProductTrendData` is the
-single source of truth for chart rendering. Do not add more fallback
-layers to the history pipeline — the guarantee handles all cases. If
-real history data becomes available (via cron or manual insertion), it
-automatically takes precedence over seeded points.
+**Prevention:** Repair the observation or identity at its authoritative source
+and let the normal refresh/reconciliation path append evidence. Never add a
+static, snapshot-derived or retimed row simply to make the chart appear.
 
 ### Market trends shows 0 price drops and almost no increases
 
-**Symptom:** The `/share` market-trends page shows 0 price drops and
-only 1-2 price increases out of 158 products, despite the static price
-history containing 143 matched entries with real price changes.
+**Symptom:** `/share` market trends has few or no price movements even while
+Products still shows current offers.
 
-**Root cause:** Three compounding issues:
-
-1. **Static history dates fall in the trend-window gap.** The 7-day
-   window looks for anchors 7-14 days before `asOf`. The 30-day window
-   looks for anchors 30-45 days before `asOf`. There is a gap between
-   14 and 30 days. Static history dates at `2026-07-16` were 29 days
-   before `asOf = 2026-08-14`, falling in this gap. Both windows
-   excluded all 143 anchors, so no movements were detected.
-
-2. **`asOf` defaults to the wall clock.** `calculatePriceTrends` used
-   `new Date()` as `asOf`, but observations can be days old. This
-   shifted both windows forward, pushing real anchors outside. The fix
-   uses the latest observation time as `asOf` instead.
-
-3. **Synthetic observations push `asOf` forward.** When the DB's latest
-   price matches the snapshot price but the verification date differs,
-   `selectCurrentPriceObservations` appended a synthetic observation at
-   the newer snapshot date. This pushed `asOf` forward and pushed real
-   anchors outside the windows. The fix returns the DB history as-is
-   when the price matches, without appending a synthetic observation.
-
-**Fix:**
-
-1. Shift static history dates in `data/price-history.ts` to fall within
-   the 30-day window. For `asOf` around 2026-08-14, dates at
-   `2026-07-14` fall within `[2026-06-30, 2026-07-15]`.
-
-2. Compute `asOf` from the latest observation time, not the wall clock,
-   in `calculateProductPriceTrends` (`lib/inventory/price-trends.ts`).
-
-3. In `selectCurrentPriceObservations`
-   (`modules/commerce/price-trends.ts`), return the DB history as-is
-   when the latest DB price matches the snapshot price, without
-   appending a synthetic observation at the newer verification date.
+**Root cause:** Current availability and historical comparability are distinct.
+A product can have a valid current price but no prior time-distinct observation
+in the 7-day, 30-day or bounded recent window. A movement also disappears when
+the current offer/history lineage is stale, ambiguous or mismatched.
 
 **Debugging steps for recurrence:**
 
 1. Run a local script that calls `getMarketTrendsReadModel()` and
    checks `priceDrops.length` and `priceIncreases.length`.
-2. If both are 0, check the static history dates in
-   `data/price-history.ts` against the trend windows:
-   - 7-day window: `[asOf - 14d, asOf - 7d]`
-   - 30-day window: `[asOf - 45d, asOf - 30d]`
-3. If the dates fall in the gap between 14 and 30 days, shift them to
-   fall within the 30-day window.
-4. Check that `asOf` is computed from the latest observation, not the
-   wall clock.
-5. Check that synthetic observations are not appended when the DB price
-   matches the snapshot price.
+2. Inspect qualifying current-offer count separately from qualifying history-
+   series count.
+3. For one missing product, run the exact-offer checks from the empty-chart
+   section above.
+4. Confirm the inventory owner is appending history on successful refreshes
+   and its latest scheduled-owner receipt is current.
 
-**Prevention:** When updating offer verification dates (e.g. during
-re-verification), ensure static history dates remain within the 30-day
-trend window relative to the new `asOf`. The 30-day window requires
-anchors to be 30-45 days before `asOf`, so static history dates should
-be approximately 31-32 days before the expected `asOf`.
+**Prevention:** Monitor current-offer coverage and history coverage as separate
+market-health metrics. Sparse truthful movement is preferable to a populated
+chart built from invented anchors.
 
 ## Inventory cron failure — stale offers and campaign blackout (2026-08-23)
 

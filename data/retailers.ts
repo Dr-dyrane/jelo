@@ -1593,10 +1593,30 @@ export function retailerBySlug(slug: string) {
   );
 }
 
+function normalizedRetailerName(value: string) {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("en-NG")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+/**
+ * Resolve retailer authority from the reviewed static registry. Discovery
+ * feeds may locate a store, but they never get to mint or upgrade its trust.
+ */
+export function retailerByName(retailerName: string) {
+  const key = normalizedRetailerName(retailerName);
+  return nigeriaRetailers.find(
+    (retailer) => normalizedRetailerName(retailer.name) === key,
+  );
+}
+
 export function retailerEvidenceFor(
   retailerName: string,
 ): RetailerEvidence | undefined {
-  const retailer = nigeriaRetailers.find((item) => item.name === retailerName);
+  const retailer = retailerByName(retailerName);
   if (!retailer) return undefined;
   return {
     reviewStatus: retailer.reviewStatus,
