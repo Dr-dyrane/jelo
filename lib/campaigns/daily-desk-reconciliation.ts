@@ -111,6 +111,7 @@ export async function reconcileDailyDesk(
   });
   const archive = await dependencies.archive({
     mode: "production",
+    archiveScope: "daily-desk",
     iteration: 1,
     draft: selection.draft,
     rendered,

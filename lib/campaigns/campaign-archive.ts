@@ -16,6 +16,7 @@ import type {
 } from "@/lib/campaigns/campaign-render";
 
 export type CampaignRunMode = "preview" | "test" | "production";
+export type CampaignArchiveScope = "campaign" | "daily-desk";
 
 export type ArchivedCampaignImage<Role extends CampaignPacketRole> = {
   role: Role;
@@ -251,11 +252,61 @@ function runPrefix(mode: CampaignRunMode) {
   return mode === "test" ? "campaigns/tests" : "campaigns/previews";
 }
 
+function archiveRunPath(
+  mode: CampaignRunMode,
+  scope: CampaignArchiveScope,
+  date: string,
+  campaignId: string,
+  iteration: number,
+) {
+  const scopePath = scope === "daily-desk" ? "/daily-desk" : "";
+  return `${runPrefix(mode)}/${date}${scopePath}/${campaignId}/v${iteration}`;
+}
+
+function archiveRecordPrefix(
+  mode: CampaignRunMode,
+  scope: CampaignArchiveScope,
+  campaignId: string,
+  iteration: number,
+) {
+  const scopeKey = scope === "daily-desk" ? ":daily-desk-archive" : "";
+  return `${ledgerPrefix}${scopeKey}:${mode}:${campaignId}:v${iteration}`;
+}
+
 function safeIteration(value: number) {
   if (!Number.isSafeInteger(value) || value < 1 || value > 99) {
     throw new Error("campaign_iteration_invalid");
   }
   return value;
+}
+
+export function campaignArchiveIdentity(input: {
+  mode: CampaignRunMode;
+  archiveScope?: CampaignArchiveScope;
+  campaignId: string;
+  iteration: number;
+}) {
+  const iteration = safeIteration(input.iteration);
+  const scope = input.archiveScope ?? "campaign";
+  const date = input.campaignId.slice(0, 10);
+  const runPath = archiveRunPath(
+    input.mode,
+    scope,
+    date,
+    input.campaignId,
+    iteration,
+  );
+  const recordPrefix = archiveRecordPrefix(
+    input.mode,
+    scope,
+    input.campaignId,
+    iteration,
+  );
+  return {
+    runPath,
+    campaignRecordKey: `${recordPrefix}:campaign`,
+    checksumKey: `${recordPrefix}:checksum`,
+  } as const;
 }
 
 function jsonBytes(value: unknown) {
@@ -338,14 +389,16 @@ type StoredCampaignRecord = {
 
 function archivedCampaignFromStoredRecord(
   mode: CampaignRunMode,
+  scope: CampaignArchiveScope,
   iteration: number,
   stored: StoredCampaignRecord,
 ): ArchivedCampaign {
-  const date = stored.campaignId.slice(0, 10);
-  const runPath = `${runPrefix(mode)}/${date}/${stored.campaignId}/v${iteration}`;
-  const recordPrefix = `${ledgerPrefix}:${mode}:${stored.campaignId}:v${iteration}`;
-  const campaignRecordKey = `${recordPrefix}:campaign`;
-  const checksumKey = `${recordPrefix}:checksum`;
+  const { runPath, campaignRecordKey, checksumKey } = campaignArchiveIdentity({
+    mode,
+    archiveScope: scope,
+    campaignId: stored.campaignId,
+    iteration,
+  });
 
   const packet = stored.packet ?? [];
   if (packet.length < 3) {
@@ -366,16 +419,21 @@ function archivedCampaignFromStoredRecord(
 
 async function readExistingArchive(
   mode: CampaignRunMode,
+  scope: CampaignArchiveScope,
   iteration: number,
   campaignId: string,
 ): Promise<ArchivedCampaign | null> {
-  const recordPrefix = `${ledgerPrefix}:${mode}:${campaignId}:v${iteration}`;
-  const campaignRecordKey = `${recordPrefix}:campaign`;
+  const { campaignRecordKey } = campaignArchiveIdentity({
+    mode,
+    archiveScope: scope,
+    campaignId,
+    iteration,
+  });
   const existing = await campaignLedger().get<string>(campaignRecordKey);
   if (!existing) return null;
   try {
     const parsed = JSON.parse(existing) as StoredCampaignRecord;
-    return archivedCampaignFromStoredRecord(mode, iteration, parsed);
+    return archivedCampaignFromStoredRecord(mode, scope, iteration, parsed);
   } catch {
     return null;
   }
@@ -383,13 +441,19 @@ async function readExistingArchive(
 
 export async function archiveCampaign(input: {
   mode: CampaignRunMode;
+  archiveScope?: CampaignArchiveScope;
   iteration: number;
   draft: DailyCampaignDraft;
   rendered: RenderedCampaignPacket;
 }): Promise<ArchivedCampaign> {
   const iteration = safeIteration(input.iteration);
-  const date = input.draft.campaignId.slice(0, 10);
-  const runPath = `${runPrefix(input.mode)}/${date}/${input.draft.campaignId}/v${iteration}`;
+  const archiveScope = input.archiveScope ?? "campaign";
+  const { runPath, campaignRecordKey, checksumKey } = campaignArchiveIdentity({
+    mode: input.mode,
+    archiveScope,
+    campaignId: input.draft.campaignId,
+    iteration,
+  });
 
   // Idempotency: if this campaign was already archived (e.g. a previous cron
   // run archived successfully but failed during delivery, and Vercel retried),
@@ -399,6 +463,7 @@ export async function archiveCampaign(input: {
   // the retry.
   const existing = await readExistingArchive(
     input.mode,
+    archiveScope,
     iteration,
     input.draft.campaignId,
   );
@@ -407,6 +472,7 @@ export async function archiveCampaign(input: {
       JSON.stringify({
         event: "campaign_archive_already_exists",
         mode: input.mode,
+        archiveScope,
         campaignId: input.draft.campaignId,
         iteration,
       }),
@@ -453,9 +519,6 @@ export async function archiveCampaign(input: {
     use.archived,
     remember.archived,
   ];
-  const recordPrefix = `${ledgerPrefix}:${input.mode}:${input.draft.campaignId}:v${iteration}`;
-  const campaignRecordKey = `${recordPrefix}:campaign`;
-  const checksumKey = `${recordPrefix}:checksum`;
   const campaignRecord = {
     ...input.draft,
     creative: [

@@ -2,7 +2,10 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
-import type { ArchivedCampaign } from "@/lib/campaigns/campaign-archive";
+import {
+  campaignArchiveIdentity,
+  type ArchivedCampaign,
+} from "@/lib/campaigns/campaign-archive";
 import type {
   DailyCampaignDraft,
   DailyCampaignSelection,
@@ -51,9 +54,34 @@ function dependencies(
   } as DailyDeskReconciliationDependencies;
 }
 
+test("Daily Desk archive identity is isolated from operator production retries", () => {
+  const common = {
+    mode: "production" as const,
+    campaignId: marketDraft.campaignId,
+    iteration: 1,
+  };
+  const operator = campaignArchiveIdentity(common);
+  const desk = campaignArchiveIdentity({
+    ...common,
+    archiveScope: "daily-desk",
+  });
+  const deskRetry = campaignArchiveIdentity({
+    ...common,
+    archiveScope: "daily-desk",
+  });
+
+  assert.notEqual(desk.runPath, operator.runPath);
+  assert.notEqual(desk.campaignRecordKey, operator.campaignRecordKey);
+  assert.notEqual(desk.checksumKey, operator.checksumKey);
+  assert.match(desk.runPath, /\/daily-desk\//);
+  assert.match(desk.campaignRecordKey, /:daily-desk-archive:production:/);
+  assert.deepEqual(deskRetry, desk);
+});
+
 test("an email-only fallback cannot starve a later qualified Daily Desk", async () => {
   let selectedProductCooldownCount: number | null = null;
   let selectedBrandCooldownCount: number | null = null;
+  let archiveScope: string | null = null;
   let archived = false;
   const result = await reconcileDailyDesk(
     { requestOrigin: "https://www.jelocare.com" },
@@ -63,8 +91,9 @@ test("an email-only fallback cannot starve a later qualified Daily Desk", async 
         selectedBrandCooldownCount = input.recentBrands?.size ?? null;
         return marketSelection;
       },
-      archive: async () => {
+      archive: async (input) => {
         archived = true;
+        archiveScope = input.archiveScope ?? null;
         return archive;
       },
     }),
@@ -78,6 +107,7 @@ test("an email-only fallback cannot starve a later qualified Daily Desk", async 
     dataCheckedAt: now.toISOString(),
   });
   assert.equal(archived, true);
+  assert.equal(archiveScope, "daily-desk");
   assert.equal(selectedProductCooldownCount, 0);
   assert.equal(selectedBrandCooldownCount, 0);
 });

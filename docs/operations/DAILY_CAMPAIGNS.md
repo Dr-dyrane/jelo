@@ -158,8 +158,10 @@ The campaign trail uses the stores already attached to the project:
   checksum manifest, recipient-specific delivery intents, and recipient-
   specific accepted/failed outcomes. `SET NX` is the one-send reservation; a
   scored accepted-production index drives the 14-day operator-packet rotation.
-  A separate immutable, date-scoped Daily Desk acceptance record authorizes the
-  minimal `/lagos` Market projection. Separate aggregate Daily Desk counters
+  A separate Daily Desk archive namespace and immutable, date-scoped acceptance
+  record authorize the minimal `/lagos` Market projection. This prevents an
+  earlier failed operator-packet archive with the same campaign id from
+  supplying an older market snapshot. Separate aggregate Daily Desk counters
   retain only date, public campaign id, and event kind.
 
 Redis keys and records contain source facts, evidence boundary, copy and
