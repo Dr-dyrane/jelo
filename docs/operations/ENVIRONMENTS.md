@@ -244,10 +244,15 @@ GitHub Actions, not Vercel cron, owns the subsequent idempotent integration;
 that workflow has repository contents write authority but receives no database,
 cron, cache, Vercel, or publication credential.
 
-The browser fetch fallback (Phase 1) requires no environment variable — it is
-active whenever `playwright-core` is installed in the deployment. The
-`@playwright/browser-chromium` package provides the Chromium binary at build
-time.
+The browser fetch fallback (Phase 1) requires no operator secret. Local
+development uses Playwright's installed Chromium. A production install packages
+the matching `@sparticuz/chromium` binary into the deployment as the ignored
+`public/chromium-pack.tar`; the runtime resolves that pack through JeloCare's
+public canonical origin using `@sparticuz/chromium-min` because protected Vercel
+deployment URLs require SSO. Concurrent refresh jobs share one production
+browser and use isolated contexts. `next.config.ts` explicitly traces
+Playwright's non-code browser registry so a successful dependency import is not
+mistaken for a usable browser runtime.
 
 Vercel builds have no database-migration, rehearsal, repair, or seed switch. They verify, build,
 and may perform bounded staged public-asset promotion only. All PostgreSQL

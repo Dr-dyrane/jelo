@@ -16,6 +16,7 @@ import {
   processInventoryRefreshBatch,
   type InventoryRefreshResult,
 } from "@/lib/inventory/refresh-worker";
+import { prepareBrowserFetchRuntime } from "@/lib/inventory/browser-fetch";
 import { sendRefreshAlertIfNeeded } from "@/lib/inventory/refresh-alerting";
 import { isAuthorizedCronRequest } from "@/modules/retail-intelligence/cron-auth";
 import {
@@ -65,6 +66,11 @@ export async function GET(request: Request) {
     );
     return Response.json(summary);
   }
+
+  // Warm the single shared production browser before any offer receives a
+  // processing lease. A cold pack download or extraction therefore cannot
+  // consume the per-offer evidence budget or strand browser contexts.
+  await prepareBrowserFetchRuntime();
 
   const claimDeadlineAt = requestStartedAt + INVENTORY_CRON_CLAIM_BUDGET_MS;
   const enqueue = await enqueueDueInventoryOffers(

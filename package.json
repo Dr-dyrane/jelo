@@ -88,12 +88,13 @@
     "community:research:signals": "tsx scripts/report-community-research-signals.ts",
     "community:research:resolve": "tsx scripts/resolve-community-research-task.ts",
     "community:retailer-research:resolve": "tsx scripts/resolve-community-retailer-research-task.ts",
+    "postinstall": "node scripts/prepare-browser-runtime.mjs",
     "prepare": "node scripts/apply-postgres-reconnect-patch.mjs && husky"
   },
   "dependencies": {
     "@ai-sdk/react": "3.0.221",
     "@neondatabase/auth": "0.5.0-beta",
-    "@playwright/browser-chromium": "^1.62.1",
+    "@sparticuz/chromium-min": "149.0.0",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.38.0",
     "@vercel/analytics": "2.0.1",
@@ -104,7 +105,7 @@
     "lucide-react": "1.25.0",
     "next": "16.3.3",
     "nodemailer": "9.0.3",
-    "playwright-core": "^1.62.1",
+    "playwright-core": "1.61.1",
     "postgres": "3.4.7",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -112,6 +113,8 @@
     "zod": "4.1.12"
   },
   "devDependencies": {
+    "@playwright/browser-chromium": "1.61.1",
+    "@sparticuz/chromium": "149.0.0",
     "@types/node": "24.10.1",
     "@types/nodemailer": "8.0.1",
     "@types/react": "19.2.18",
@@ -138,6 +141,6 @@
     "postcss": "8.5.23"
   },
   "allowScripts": {
-    "@playwright/browser-chromium@1.62.1": true
+    "@playwright/browser-chromium@1.61.1": true
   }
 }

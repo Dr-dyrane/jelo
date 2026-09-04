@@ -23,6 +23,7 @@ __pycache__/
 
 # generated asset operation output
 data/asset-import-results.json
+public/chromium-pack.tar
 tmp/
 
 # catalogue intake asset binaries — promoted to Vercel Blob on deploy.

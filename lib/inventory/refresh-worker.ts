@@ -238,17 +238,21 @@ export function inventoryRequestTimeoutMs(
 
 async function runBeforeInventoryExtractionDeadline<T>(
   extractionDeadlineAt: number,
-  operation: () => Promise<T>,
+  operation: (signal: AbortSignal) => Promise<T>,
 ): Promise<T | undefined> {
   const timeoutMs = inventoryRequestTimeoutMs(extractionDeadlineAt);
   if (timeoutMs == null) return undefined;
 
+  const controller = new AbortController();
   let timeout: ReturnType<typeof setTimeout> | undefined;
   try {
     return await Promise.race([
-      operation(),
+      operation(controller.signal),
       new Promise<undefined>((resolve) => {
-        timeout = setTimeout(() => resolve(undefined), timeoutMs);
+        timeout = setTimeout(() => {
+          controller.abort();
+          resolve(undefined);
+        }, timeoutMs);
       }),
     ]);
   } finally {
@@ -1131,7 +1135,7 @@ export async function processNextInventoryRefreshJob(
     if (!observation && browserFallbackEligible && isBrowserFetchAvailable()) {
       const browserResult = await runBeforeInventoryExtractionDeadline(
         extractionDeadlineAt,
-        () => fetchRetailerPageWithBrowser(job.url),
+        (signal) => fetchRetailerPageWithBrowser(job.url, { signal }),
       );
       if (browserResult) {
         cachedBrowserHtml = browserResult.html;

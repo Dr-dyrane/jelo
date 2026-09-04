@@ -16,6 +16,14 @@ const developmentScriptDirectives =
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
+  // Playwright is externalized by Next.js. Its runtime registry reads this
+  // non-code asset before it can launch the serverless Chromium executable.
+  outputFileTracingIncludes: {
+    "/*": [
+      "./node_modules/playwright-core/browsers.json",
+      "./node_modules/@sparticuz/chromium-min/**/*",
+    ],
+  },
   typescript: {
     ignoreBuildErrors: verifiedVercelProductionBuild,
   },

@@ -29,7 +29,7 @@ test("an empty direct fetch remains inside the bounded fallback pipeline", () =>
     "const directObservation = await fetchRetailerPage(",
   );
   const browserFallback = worker.indexOf(
-    "fetchRetailerPageWithBrowser(job.url)",
+    "fetchRetailerPageWithBrowser(job.url",
     directFetch,
   );
   const aiFallback = worker.indexOf(
@@ -62,7 +62,7 @@ test("a thrown direct fetch is classified without escaping the fallback pipeline
     directFetch,
   );
   const browserFallback = worker.indexOf(
-    "fetchRetailerPageWithBrowser(job.url)",
+    "fetchRetailerPageWithBrowser(job.url",
     caughtFailure,
   );
 
@@ -214,8 +214,9 @@ test("every network layer shares a deterministic per-job extraction deadline", (
   );
   assert.match(
     worker,
-    /runBeforeInventoryExtractionDeadline\(\s*extractionDeadlineAt,\s*\(\) => fetchRetailerPageWithBrowser\(job\.url\)/,
+    /runBeforeInventoryExtractionDeadline\(\s*extractionDeadlineAt,\s*\(signal\) =>\s*fetchRetailerPageWithBrowser\(job\.url,\s*\{\s*signal\s*\}\)/,
   );
+  assert.match(worker, /controller\.abort\(\)/);
   assert.match(worker, /fetchPageHtml\(job\.url, extractionDeadlineAt\)/);
   assert.match(
     worker,

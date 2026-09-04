@@ -1,4 +1,5 @@
 import "server-only";
+import { serverlessBrowserPackUrl } from "@/lib/inventory/browser-runtime";
 
 // Browser-based fallback fetch for retailer pages that block plain server-side
 // HTTP (e.g. Jumia/Cloudflare 403). This module is a pure fetch mechanism: it
@@ -7,8 +8,10 @@ import "server-only";
 // is responsible for extraction and persistence using the existing
 // confidence-gated logic.
 //
-// playwright-core is dynamically imported inside the function so that it never
-// affects cold start when the browser fallback is not needed.
+// Browser dependencies are dynamically imported inside the function so that
+// they never affect cold start when the fallback is not needed. Production
+// uses a compact, self-hosted Chromium pack that can run inside a Vercel
+// Function; local development keeps Playwright's normal browser resolution.
 
 export type BrowserFetchResult = {
   html: string;
@@ -17,8 +20,92 @@ export type BrowserFetchResult = {
 };
 
 const BROWSER_FETCH_TIMEOUT_MS = 15_000;
+const BROWSER_PREWARM_TIMEOUT_MS = 45_000;
 const BROWSER_USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+let serverlessExecutablePathPromise: Promise<string> | undefined;
+let serverlessBrowserPromise:
+  Promise<import("playwright-core").Browser> | undefined;
+
+async function serverlessBrowserLaunchOptions() {
+  const packUrl = serverlessBrowserPackUrl();
+  if (!packUrl) {
+    throw new Error(
+      "Vercel browser runtime is missing its public production pack URL.",
+    );
+  }
+
+  const serverlessChromium = (await import("@sparticuz/chromium-min")).default;
+  serverlessExecutablePathPromise ??= serverlessChromium
+    .executablePath(packUrl)
+    .catch((error) => {
+      serverlessExecutablePathPromise = undefined;
+      throw error;
+    });
+
+  return {
+    args: serverlessChromium.args,
+    executablePath: await serverlessExecutablePathPromise,
+  };
+}
+
+async function sharedServerlessBrowser(
+  chromium: typeof import("playwright-core").chromium,
+) {
+  if (!serverlessBrowserPromise) {
+    serverlessBrowserPromise = (async () => {
+      const launchOptions = await serverlessBrowserLaunchOptions();
+      const browser = await chromium.launch({
+        headless: true,
+        args: launchOptions.args,
+        executablePath: launchOptions.executablePath,
+      });
+      browser.on("disconnected", () => {
+        serverlessBrowserPromise = undefined;
+      });
+      return browser;
+    })().catch((error) => {
+      serverlessBrowserPromise = undefined;
+      throw error;
+    });
+  }
+
+  return serverlessBrowserPromise;
+}
+
+export async function prepareBrowserFetchRuntime(): Promise<boolean> {
+  if (process.env.VERCEL !== "1" || !isBrowserFetchAvailable()) return false;
+
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  try {
+    const playwright = await import("playwright-core");
+    const ready = await Promise.race([
+      sharedServerlessBrowser(playwright.chromium).then(() => true),
+      new Promise<false>((resolve) => {
+        timeout = setTimeout(() => resolve(false), BROWSER_PREWARM_TIMEOUT_MS);
+      }),
+    ]);
+    console.info(
+      JSON.stringify({
+        event: ready
+          ? "browser_runtime_prepared"
+          : "browser_runtime_prepare_failed",
+        reason: ready ? undefined : "timeout",
+      }),
+    );
+    return ready;
+  } catch (error) {
+    console.warn(
+      JSON.stringify({
+        event: "browser_runtime_prepare_failed",
+        reason: error instanceof Error ? error.message : String(error),
+      }),
+    );
+    return false;
+  } finally {
+    if (timeout) clearTimeout(timeout);
+  }
+}
 
 /**
  * Reports whether the Playwright browser fallback is available without
@@ -32,6 +119,10 @@ export function isBrowserFetchAvailable(): boolean {
     // loading the module into memory. Wrapped in try/catch so a missing
     // package degrades gracefully to false.
     require.resolve("playwright-core");
+    if (process.env.VERCEL === "1") {
+      require.resolve("@sparticuz/chromium-min");
+      return serverlessBrowserPackUrl() != null;
+    }
     return true;
   } catch {
     return false;
@@ -48,6 +139,7 @@ export function isBrowserFetchAvailable(): boolean {
  */
 export async function fetchRetailerPageWithBrowser(
   url: string,
+  options: { signal?: AbortSignal } = {},
 ): Promise<BrowserFetchResult | undefined> {
   // Lazy-load playwright-core so the dependency never impacts cold start.
   let chromium: typeof import("playwright-core").chromium;
@@ -68,18 +160,31 @@ export async function fetchRetailerPageWithBrowser(
     return undefined;
   }
 
+  const useSharedServerlessBrowser = process.env.VERCEL === "1";
   let browser: import("playwright-core").Browser | undefined;
+  let context: import("playwright-core").BrowserContext | undefined;
+  const closeContextOnAbort = () => {
+    if (context) void context.close().catch(() => undefined);
+  };
+  options.signal?.addEventListener("abort", closeContextOnAbort, {
+    once: true,
+  });
   try {
-    browser = await chromium.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
-    const context = await browser.newContext({
+    if (options.signal?.aborted) return undefined;
+    browser = useSharedServerlessBrowser
+      ? await sharedServerlessBrowser(chromium)
+      : await chromium.launch({
+          headless: true,
+          args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        });
+    if (options.signal?.aborted) return undefined;
+    context = await browser.newContext({
       userAgent: BROWSER_USER_AGENT,
     });
+    if (options.signal?.aborted) return undefined;
     const page = await context.newPage();
     const response = await page.goto(url, {
-      waitUntil: "networkidle",
+      waitUntil: "domcontentloaded",
       timeout: BROWSER_FETCH_TIMEOUT_MS,
     });
     if (response && !response.ok()) {
@@ -95,9 +200,9 @@ export async function fetchRetailerPageWithBrowser(
     const html = await page.content();
     const responseUrl = page.url();
     const status = response?.status() ?? 200;
-    await context.close();
     return { html, responseUrl, status };
   } catch (error) {
+    if (options.signal?.aborted) return undefined;
     console.warn(
       JSON.stringify({
         event: "browser_fetch_failed",
@@ -107,7 +212,15 @@ export async function fetchRetailerPageWithBrowser(
     );
     return undefined;
   } finally {
-    if (browser) {
+    options.signal?.removeEventListener("abort", closeContextOnAbort);
+    if (context) {
+      try {
+        await context.close();
+      } catch {
+        // Browser failure may already have torn down the isolated context.
+      }
+    }
+    if (browser && !useSharedServerlessBrowser) {
       try {
         await browser.close();
       } catch {

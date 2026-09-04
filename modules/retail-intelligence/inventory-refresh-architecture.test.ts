@@ -10,6 +10,7 @@ import {
   INVENTORY_DEFERRED_RECHECK_MS,
   INVENTORY_REFRESH_FRESHNESS_MS,
 } from "@/lib/inventory/refresh-policy";
+import { serverlessBrowserPackUrl } from "@/lib/inventory/browser-runtime";
 
 const root = process.cwd();
 const repository = readFileSync(
@@ -36,6 +37,26 @@ const workerScript = readFileSync(
   resolve(root, "scripts/process-inventory-refresh.ts"),
   "utf8",
 );
+const browserFetch = readFileSync(
+  resolve(root, "lib/inventory/browser-fetch.ts"),
+  "utf8",
+);
+const browserRuntime = readFileSync(
+  resolve(root, "lib/inventory/browser-runtime.ts"),
+  "utf8",
+);
+const browserRuntimePack = readFileSync(
+  resolve(root, "scripts/prepare-browser-runtime.mjs"),
+  "utf8",
+);
+const nextConfig = readFileSync(resolve(root, "next.config.ts"), "utf8");
+const packageJson = JSON.parse(
+  readFileSync(resolve(root, "package.json"), "utf8"),
+) as {
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+  scripts?: Record<string, string>;
+};
 const vercel = JSON.parse(
   readFileSync(resolve(root, "vercel.json"), "utf8"),
 ) as { crons?: Array<{ path: string; schedule: string }> };
@@ -225,6 +246,79 @@ test("the refresh worker falls back to browser fetch for Jumia offers that block
   assert.match(worker, /isBlockedHost\(job\.url\)/);
   assert.match(worker, /fetchRetailerPageWithBrowser/);
   assert.match(worker, /isBrowserFetchAvailable/);
+});
+
+test("the browser fallback ships a version-aligned serverless Chromium runtime", () => {
+  assert.equal(packageJson.dependencies?.["playwright-core"], "1.61.1");
+  assert.equal(
+    packageJson.dependencies?.["@sparticuz/chromium-min"],
+    "149.0.0",
+  );
+  assert.equal(
+    packageJson.devDependencies?.["@playwright/browser-chromium"],
+    "1.61.1",
+  );
+  assert.equal(packageJson.devDependencies?.["@sparticuz/chromium"], "149.0.0");
+  assert.equal(
+    packageJson.scripts?.postinstall,
+    "node scripts/prepare-browser-runtime.mjs",
+  );
+
+  assert.match(browserFetch, /import\(["']@sparticuz\/chromium-min["']\)/);
+  assert.match(browserRuntime, /https:\/\/www\.jelocare\.com/);
+  assert.match(
+    browserFetch,
+    /serverlessChromium\s*\.executablePath\(packUrl\)/,
+  );
+  assert.match(browserFetch, /serverlessBrowserPromise/);
+  assert.match(browserFetch, /sharedServerlessBrowser/);
+  assert.match(browserFetch, /prepareBrowserFetchRuntime/);
+  assert.match(browserFetch, /addEventListener\(["']abort["']/);
+  assert.match(
+    worker,
+    /fetchRetailerPageWithBrowser\(job\.url,\s*\{\s*signal\s*\}\)/,
+  );
+  assert.match(route, /await prepareBrowserFetchRuntime\(\)/);
+  assert.match(browserFetch, /waitUntil:\s*["']domcontentloaded["']/);
+  assert.match(browserRuntimePack, /VERCEL_ENV === ["']production["']/);
+  assert.match(browserRuntimePack, /@sparticuz\/chromium/);
+  assert.match(browserRuntimePack, /chromium-pack\.tar/);
+  assert.match(nextConfig, /playwright-core\/browsers\.json/);
+  assert.match(nextConfig, /@sparticuz\/chromium-min\/\*\*\/\*/);
+});
+
+test("the serverless browser pack URL stays on JeloCare's public production origin", () => {
+  assert.equal(
+    serverlessBrowserPackUrl({
+      VERCEL: "1",
+      VERCEL_ENV: "production",
+    }),
+    "https://www.jelocare.com/chromium-pack.tar",
+  );
+  assert.equal(
+    serverlessBrowserPackUrl({
+      VERCEL: "1",
+      VERCEL_ENV: "production",
+      NEXT_PUBLIC_SITE_URL: "https://www.jelocare.com",
+    }),
+    "https://www.jelocare.com/chromium-pack.tar",
+  );
+  assert.equal(serverlessBrowserPackUrl({ VERCEL: "0" }), undefined);
+  assert.equal(
+    serverlessBrowserPackUrl({
+      VERCEL: "1",
+      VERCEL_ENV: "preview",
+    }),
+    undefined,
+  );
+  assert.equal(
+    serverlessBrowserPackUrl({
+      VERCEL: "1",
+      VERCEL_ENV: "production",
+      NEXT_PUBLIC_SITE_URL: "https://attacker.example",
+    }),
+    undefined,
+  );
 });
 
 test("all Woo retailers in the extraction adapters have a matching Woo API host", () => {
