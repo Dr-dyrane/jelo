@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "jobId": "replace-with-stable-id",
+  "goal": "next-reply",
+  "requestedChannel": "x-reply",
+  "sourceUrl": null,
+  "replyUrl": null,
+  "attachedFiles": [],
+  "mediaRights": "unknown",
+  "operatorNotes": null,
+  "capabilities": {
+    "files": null,
+    "imageInspection": null,
+    "publicWeb": null,
+    "signedInX": null,
+    "python": null,
+    "ffmpeg": null,
+    "scheduling": null
+  },
+  "state": "draft"
+}

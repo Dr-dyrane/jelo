@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "renderer": "jelocare-portable-zapshot/1",
+  "traceId": "LT·NNN",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 24,
+    "durationSeconds": 6.5,
+    "background": "black"
+  },
+  "layers": [
+    {
+      "id": "thread-connector",
+      "kind": "crop",
+      "path": "assets/complete-native-thread.png",
+      "crop": { "left": 0, "top": 0, "width": 8, "height": 1000 },
+      "resize": { "width": 6, "height": 1200 },
+      "position": { "left": 92, "top": 180 }
+    },
+    {
+      "id": "source-avatar",
+      "kind": "crop",
+      "path": "assets/complete-native-thread.png",
+      "crop": { "left": 0, "top": 0, "width": 140, "height": 150 },
+      "resize": { "width": 112, "height": 120 },
+      "position": { "left": 34, "top": 30 }
+    },
+    {
+      "id": "source-identity",
+      "kind": "crop",
+      "path": "assets/complete-native-thread.png",
+      "crop": { "left": 0, "top": 0, "width": 600, "height": 80 },
+      "resize": { "width": 500, "height": 67 },
+      "position": { "left": 180, "top": 36 }
+    },
+    {
+      "id": "source-copy",
+      "kind": "crop",
+      "path": "assets/complete-native-thread.png",
+      "crop": { "left": 0, "top": 0, "width": 1200, "height": 320 },
+      "resize": { "width": 840, "height": 224 },
+      "position": { "left": 180, "top": 110 }
+    },
+    {
+      "id": "moving-media",
+      "kind": "media",
+      "path": "assets/authorized-source-media.mp4",
+      "startSeconds": 0,
+      "fit": "contain",
+      "radius": 28,
+      "resize": { "width": 594, "height": 1056 },
+      "position": { "left": 243, "top": 390 },
+      "audio": "preserve-if-present"
+    },
+    {
+      "id": "reply-avatar",
+      "kind": "crop",
+      "path": "assets/complete-native-thread.png",
+      "crop": { "left": 0, "top": 0, "width": 170, "height": 170 },
+      "resize": { "width": 146, "height": 146 },
+      "position": { "left": 21, "top": 1490 }
+    },
+    {
+      "id": "reply-identity",
+      "kind": "crop",
+      "path": "assets/complete-native-thread.png",
+      "crop": { "left": 0, "top": 0, "width": 500, "height": 80 },
+      "resize": { "width": 375, "height": 60 },
+      "position": { "left": 180, "top": 1510 }
+    },
+    {
+      "id": "reply-copy",
+      "kind": "crop",
+      "path": "assets/complete-native-thread.png",
+      "crop": { "left": 0, "top": 0, "width": 1150, "height": 180 },
+      "resize": { "width": 805, "height": 126 },
+      "position": { "left": 180, "top": 1585 }
+    }
+  ],
+  "watermark": {
+    "text": "@jelocare",
+    "traceText": "LT·NNN",
+    "fontFile": null,
+    "fontSize": 27,
+    "traceFontSize": 18,
+    "colour": "#fffaf4",
+    "position": { "left": 270, "top": 1435 },
+    "tracePosition": { "left": 800, "top": 425 }
+  },
+  "audio": {
+    "mode": "preserve-if-present",
+    "gainDb": 0
+  },
+  "outputs": {
+    "directory": "output",
+    "basename": "jelocare-zapshot-ltNNN",
+    "gifFallback": true
+  },
+  "qa": {
+    "posterTimeSeconds": 1,
+    "compareFrameTimesSeconds": [0.5, 3.5],
+    "maximumDecodedStaticChannelDelta": 20,
+    "phoneProofWidth": 390
+  },
+  "rights": {
+    "state": "unknown",
+    "scope": "local-private-unpublished",
+    "authorizedChannels": [],
+    "sourceUrl": null,
+    "replyUrl": null
+  }
+}

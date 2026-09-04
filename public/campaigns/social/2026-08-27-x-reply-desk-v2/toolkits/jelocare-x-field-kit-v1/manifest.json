@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "packetId": "jelocare-x-field-kit",
+  "name": "JeloCare X Field Kit",
+  "version": "1.0.0",
+  "createdAt": "2026-09-04T04:46:37Z",
+  "defaultState": "draft",
+  "entrypoints": {
+    "human": "START_HERE.md",
+    "singleFileAi": "JeloCare-X-Field-Kit.md",
+    "skillAwareAi": "SKILL.md",
+    "capabilityMatrix": "CAPABILITY_MATRIX.md",
+    "renderer": "scripts/render_zapshot.py",
+    "selfTest": "scripts/self_test.py",
+    "validator": "scripts/validate_packet.py",
+    "archiveBuilder": "scripts/build_packet.py"
+  },
+  "commands": [
+    "BOOT",
+    "NEXT",
+    "REPLY",
+    "FOLLOWUPS",
+    "ZAPSHOT",
+    "ARTICLE",
+    "SPOTLIGHT",
+    "REPURPOSE",
+    "MEASURE",
+    "AUDIT",
+    "POST"
+  ],
+  "capabilityModes": ["desk", "live-read", "render", "publish", "monitor"],
+  "states": [
+    "draft",
+    "ready-for-approval",
+    "local-private-unpublished",
+    "not-submitted",
+    "submitted-unverified",
+    "live-verified"
+  ],
+  "runtime": {
+    "editorial": "Any AI that can read Markdown and supplied evidence",
+    "render": "Python 3.9+ and FFmpeg, or imageio-ffmpeg 0.6.0",
+    "publication": "A host-controlled signed-in X session plus explicit action-time confirmation"
+  },
+  "portableBoundaries": {
+    "credentialsIncluded": false,
+    "browserSessionIncluded": false,
+    "thirdPartyMediaIncluded": false,
+    "customerDataIncluded": false,
+    "liveWebGuaranteed": false,
+    "postingGuaranteed": false,
+    "crossRuntimeByteIdentityGuaranteed": false
+  },
+  "primaryOutputs": [
+    "capability report",
+    "candidate or reply preview",
+    "campaign record",
+    "Zapshot render recipe and derivatives when rendering exists",
+    "publication preview and receipt when publication exists",
+    "performance observation"
+  ]
+}

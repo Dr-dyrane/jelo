@@ -1,0 +1,3 @@
+# The renderer itself uses Python's standard library and an FFmpeg executable.
+# Install this pinned fallback only when the host has no system ffmpeg binary.
+imageio-ffmpeg==0.6.0
