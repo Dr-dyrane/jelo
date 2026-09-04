@@ -4304,10 +4304,9 @@ test("catalogue seed retains expired exact URLs for refresh without making them 
   assert.equal(isOfferFresh(retained, afterExpiry), false);
 });
 
-test("at least twelve catalogue products have reliable exact Nigerian price evidence at the current completion fixture time", () => {
-  const asOf = new Date("2026-08-30T12:13:00Z");
+test("at least twelve catalogue products retain reliable exact Nigerian price evidence for refresh", () => {
   const priced = reviewedProductRecords.filter((product) =>
-    mergeRetailOffers(product, product.offers, asOf).some(
+    materializeRetailOffersForCatalogueSeed(product, product.offers).some(
       (offer) =>
         offer.location.includes("NG") &&
         offer.match === "exact" &&

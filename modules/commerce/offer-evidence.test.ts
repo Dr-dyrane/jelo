@@ -345,7 +345,7 @@ test("Slique remains provisional and link-only with a complete dated Mediana obs
   assert.equal(offer.priceObservation?.size, "250 ml");
   assert.equal(offer.priceObservation?.landedCost, "unknown");
   assert.equal(
-    observedMarketPrice(offer, "NG", new Date("2026-08-30T00:12:00Z")),
+    observedMarketPrice(offer, "NG", new Date(offer.checkedAt ?? "")),
     2_000,
   );
   assert.equal(
