@@ -99,13 +99,18 @@ Do not merge around a red gate. Read the exact failing log.
 Production builds run through `scripts/vercel-build.ts`.
 
 ```text
-release verification
+verify or create immutable staged assets
+  -> release verification
   -> next build
-  -> promote staged assets
 ```
 
-Production verification and the Next build must both pass before staged Blob
-promotion can mutate external state. Vercel never receives
+Staged-asset promotion is the one pre-gate production operation: it first
+validates the reviewed local bytes and exact manifest binding, then either
+verifies the existing remote object or creates it with overwrites disabled and
+re-verifies its bytes. A later failed gate can therefore leave only an
+unreferenced, content-addressed Blob; it cannot replace a live asset or publish
+catalogue data. Release verification and the Next build must still pass before
+the deployment can reference that object. Vercel never receives
 `MIGRATION_DATABASE_URL` and never applies migrations, seeds or database
 reconciliation. Those are explicit protected operator jobs completed before a
 dependent application deployment. Preview and local builds stay on the fast
