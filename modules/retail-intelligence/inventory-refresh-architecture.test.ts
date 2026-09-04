@@ -107,67 +107,6 @@ test("runtime enqueue skips active jobs before limiting candidates", () => {
   );
 });
 
-test("manual full-refresh seeding is cutoff-keyed and idempotent", () => {
-  const manualSeedStart = repository.indexOf(
-    "export async function seedManualInventoryRefreshRun",
-  );
-  const backlogStart = repository.indexOf(
-    "export type InventoryRefreshBacklogSummary",
-    manualSeedStart,
-  );
-  assert.ok(manualSeedStart >= 0 && backlogStart > manualSeedStart);
-
-  const manualSeed = repository.slice(manualSeedStart, backlogStart);
-  assert.match(manualSeed, /\^\[A-Z\]\{2\}\$/);
-  assert.match(manualSeed, /runCutoff instanceof Date/);
-  assert.match(
-    manualSeed,
-    /runCutoff\.getTime\(\) > Date\.now\(\) \+ 5 \* 60 \* 1000/,
-  );
-  assert.match(
-    manualSeed,
-    /eligible as \([\s\S]*p\.is_published = true[\s\S]*o\.match_kind = 'exact'[\s\S]*o\.url ~\* '\^https:\/\/'[\s\S]*o\.market_code = \$\{input\.marketCode\}[\s\S]*o\.last_verified_at is null[\s\S]*o\.last_verified_at < \$\{input\.runCutoff\}/,
-  );
-
-  const requeuedStart = manualSeed.indexOf("), requeued as (");
-  const insertCandidatesStart = manualSeed.indexOf(
-    "), insert_candidates as (",
-    requeuedStart,
-  );
-  assert.ok(requeuedStart >= 0 && insertCandidatesStart > requeuedStart);
-  const requeued = manualSeed.slice(requeuedStart, insertCandidatesStart);
-  assert.match(requeued, /job\.status = 'queued'/);
-  assert.match(requeued, /job\.requested_at < \$\{input\.runCutoff\}/);
-  assert.match(requeued, /requested_at = \$\{input\.runCutoff\}/);
-  assert.match(requeued, /next_attempt_at = now\(\)/);
-  assert.match(requeued, /priority = greatest\(job\.priority, 200\)/);
-  assert.match(requeued, /started_at = null/);
-  assert.match(requeued, /completed_at = null/);
-  assert.doesNotMatch(requeued, /attempt_count\s*=/);
-
-  assert.match(
-    manualSeed,
-    /insert_candidates as \([\s\S]*active_job\.status in \('queued', 'processing'\)[\s\S]*seeded_job\.requested_at >= \$\{input\.runCutoff\}/,
-  );
-  assert.match(
-    manualSeed,
-    /insert into inventory_refresh_jobs \([\s\S]*offer_id,[\s\S]*requested_at,[\s\S]*next_attempt_at,[\s\S]*priority[\s\S]*select insert_candidates\.id, \$\{input\.runCutoff\}, now\(\), 200[\s\S]*on conflict do nothing/,
-  );
-  for (const field of [
-    "eligible_offers",
-    "eligible_products",
-    "inserted",
-    "requeued",
-    "withdrawn",
-    "processing_active",
-  ]) {
-    assert.ok(
-      manualSeed.includes(field),
-      `missing manual seed count: ${field}`,
-    );
-  }
-});
-
 test("manual workers can scope every claim-side mutation to one market", () => {
   assert.match(
     worker,
@@ -330,94 +269,11 @@ test("the cron dry-run returns before every write-capable operation", () => {
   );
 });
 
-test("manual full refresh is POST-only, bounded, and sanitized", () => {
-  assert.match(
+test("the production cron exposes no manual full-refresh mutation surface", () => {
+  assert.doesNotMatch(route, /export async function POST/);
+  assert.doesNotMatch(
     route,
-    /const MANUAL_REFRESH_CONFIRMATION = ["']refresh-all-exact-offers["']/,
-  );
-  assert.match(
-    route,
-    /const MANUAL_REFRESH_MAX_AGE_MS = 24 \* 60 \* 60 \* 1000/,
-  );
-
-  const parserStart = route.indexOf(
-    "function parseManualInventoryRefreshOptions",
-  );
-  const projectionStart = route.indexOf(
-    "function manualRefreshResults",
-    parserStart,
-  );
-  const runnerStart = route.indexOf(
-    "async function runInventoryRefresh",
-    projectionStart,
-  );
-  const getStart = route.indexOf("export async function GET", runnerStart);
-  const postStart = route.indexOf("export async function POST", getStart);
-  assert.ok(
-    parserStart >= 0 &&
-      projectionStart > parserStart &&
-      runnerStart > projectionStart &&
-      getStart > runnerStart &&
-      postStart > getStart,
-  );
-
-  const parser = route.slice(parserStart, projectionStart);
-  assert.match(parser, /mode !== ["']full["'] && mode !== ["']continue["']/);
-  assert.match(parser, /confirmation !== MANUAL_REFRESH_CONFIRMATION/);
-  assert.match(parser, /cutoff\.getTime\(\) > now \+ 5 \* 60 \* 1000/);
-  assert.match(parser, /cutoff\.getTime\(\) < now - MANUAL_REFRESH_MAX_AGE_MS/);
-
-  const projection = route.slice(projectionStart, runnerStart);
-  assert.match(projection, /failureReason: result\.failureReason/);
-  assert.doesNotMatch(projection, /\berror\s*:/);
-
-  const runner = route.slice(runnerStart, getStart);
-  assert.match(
-    runner,
-    /isAuthorizedCronRequest\([\s\S]*process\.env\.CRON_SECRET/,
-  );
-  assert.match(
-    runner,
-    /manualOptions\?\.mode === ["']full["'][\s\S]*await seedManualInventoryRefreshRun\(\{[\s\S]*marketCode: manualOptions\.marketCode,[\s\S]*runCutoff: manualOptions\.cutoff,[\s\S]*\}\)[\s\S]*: null/,
-  );
-  const enqueueSummaryStart = runner.indexOf(
-    "const enqueueSummary = manualSeed",
-  );
-  const processBatchStart = runner.indexOf(
-    "const batch = await processInventoryRefreshBatch",
-    enqueueSummaryStart,
-  );
-  assert.ok(
-    enqueueSummaryStart >= 0 && processBatchStart > enqueueSummaryStart,
-  );
-  const enqueueSummary = runner.slice(enqueueSummaryStart, processBatchStart);
-  assert.match(
-    enqueueSummary,
-    /manualSeed[\s\S]*: manualOptions[\s\S]*\? \{ queued: 0, withdrawn: 0 \}[\s\S]*: await scheduledEnqueue\(\)/,
-  );
-  assert.equal(
-    runner.match(/await scheduledEnqueue\(\)/g)?.length,
-    1,
-    "only the no-manual scheduled path may enqueue due offers",
-  );
-  assert.equal(
-    runner.match(/enqueueDueInventoryOffers\(/g)?.length,
-    1,
-    "manual continuation must not call the scheduled enqueue repository",
-  );
-  assert.match(
-    runner,
-    /processInventoryRefreshBatch\(INVENTORY_CRON_BATCH_SIZE, \{[\s\S]*marketCode: manualOptions\?\.marketCode/,
-  );
-
-  const getHandler = route.slice(getStart, postStart);
-  const postHandler = route.slice(postStart);
-  assert.match(getHandler, /return runInventoryRefresh\(request\)/);
-  assert.doesNotMatch(getHandler, /parseManualInventoryRefreshOptions/);
-  assert.match(postHandler, /parseManualInventoryRefreshOptions\(request\)/);
-  assert.match(
-    postHandler,
-    /return runInventoryRefresh\(request, manualOptions\)/,
+    /seedManualInventoryRefreshRun|MANUAL_REFRESH_CONFIRMATION|manualRefresh/,
   );
 });
 

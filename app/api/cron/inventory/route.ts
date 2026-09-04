@@ -3,7 +3,6 @@ import {
   enqueueDueInventoryOffers,
   getInventoryRefreshBacklogSummary,
   getStaleOfferCount,
-  seedManualInventoryRefreshRun,
 } from "@/lib/inventory/repository";
 import {
   INVENTORY_CRON_BATCH_SIZE,
@@ -28,15 +27,6 @@ import {
 export const runtime = "nodejs";
 export const maxDuration = 300;
 
-const MANUAL_REFRESH_CONFIRMATION = "refresh-all-exact-offers";
-const MANUAL_REFRESH_MAX_AGE_MS = 24 * 60 * 60 * 1000;
-
-type ManualInventoryRefreshOptions = {
-  mode: "full" | "continue";
-  marketCode: string;
-  cutoff: Date;
-};
-
 function inventoryRefreshCapacity() {
   return {
     scheduledRunsPerDay: INVENTORY_CRON_RUNS_PER_DAY,
@@ -47,59 +37,7 @@ function inventoryRefreshCapacity() {
   };
 }
 
-function parseManualInventoryRefreshOptions(
-  request: Request,
-): ManualInventoryRefreshOptions {
-  const searchParams = new URL(request.url).searchParams;
-  const mode = searchParams.get("manual");
-  const marketCode = searchParams.get("market")?.toUpperCase();
-  const cutoffValue = searchParams.get("cutoff");
-  const confirmation = searchParams.get("confirm");
-
-  if (mode !== "full" && mode !== "continue") {
-    throw new Error("Manual inventory refresh mode must be full or continue.");
-  }
-  if (!marketCode || !/^[A-Z]{2}$/.test(marketCode)) {
-    throw new Error(
-      "Manual inventory refresh market must be a two-letter code.",
-    );
-  }
-  if (confirmation !== MANUAL_REFRESH_CONFIRMATION) {
-    throw new Error("Manual inventory refresh confirmation is missing.");
-  }
-
-  const cutoff = cutoffValue ? new Date(cutoffValue) : new Date(Number.NaN);
-  const now = Date.now();
-  if (
-    Number.isNaN(cutoff.getTime()) ||
-    cutoff.getTime() > now + 5 * 60 * 1000 ||
-    cutoff.getTime() < now - MANUAL_REFRESH_MAX_AGE_MS
-  ) {
-    throw new Error(
-      "Manual inventory refresh cutoff is outside the allowed window.",
-    );
-  }
-
-  return { mode, marketCode, cutoff };
-}
-
-function manualRefreshResults(results: readonly InventoryRefreshResult[]) {
-  return results.map((result) => ({
-    offerId: result.offerId,
-    productSlug: result.productSlug,
-    retailer: result.retailer,
-    status: result.status,
-    failureReason: result.failureReason,
-    inventoryStatus: result.inventoryStatus,
-    priceMinor: result.priceMinor,
-    currencyCode: result.currencyCode,
-  }));
-}
-
-async function runInventoryRefresh(
-  request: Request,
-  manualOptions?: ManualInventoryRefreshOptions,
-) {
+export async function GET(request: Request) {
   const requestStartedAt = Date.now();
   if (
     !isAuthorizedCronRequest(
@@ -129,35 +67,16 @@ async function runInventoryRefresh(
   }
 
   const claimDeadlineAt = requestStartedAt + INVENTORY_CRON_CLAIM_BUDGET_MS;
-  const scheduledEnqueue = async () => {
-    const enqueue = await enqueueDueInventoryOffers(
-      INVENTORY_CRON_BATCH_SIZE,
-      INVENTORY_CRON_LOOKAHEAD_HOURS,
-    );
-    return enqueue;
-  };
-  const manualSeed =
-    manualOptions?.mode === "full"
-      ? await seedManualInventoryRefreshRun({
-          marketCode: manualOptions.marketCode,
-          runCutoff: manualOptions.cutoff,
-        })
-      : null;
-  const enqueueSummary = manualSeed
-    ? {
-        queued: manualSeed.inserted + manualSeed.requeued,
-        withdrawn: manualSeed.withdrawn,
-      }
-    : manualOptions
-      ? { queued: 0, withdrawn: 0 }
-      : await scheduledEnqueue();
+  const enqueue = await enqueueDueInventoryOffers(
+    INVENTORY_CRON_BATCH_SIZE,
+    INVENTORY_CRON_LOOKAHEAD_HOURS,
+  );
 
   const batch = await processInventoryRefreshBatch(INVENTORY_CRON_BATCH_SIZE, {
     claimDeadlineAt,
-    marketCode: manualOptions?.marketCode,
   });
   const run = summarizeInventoryRefreshRun({
-    ...enqueueSummary,
+    ...enqueue,
     results: batch.results,
     stoppedByDeadline: batch.stoppedByDeadline,
   });
@@ -299,43 +218,10 @@ async function runInventoryRefresh(
     backlog: backlogWithStale,
     capacity: inventoryRefreshCapacity(),
     staticFileSync,
-    ...(manualOptions
-      ? {
-          manualRefresh: {
-            mode: manualOptions.mode,
-            marketCode: manualOptions.marketCode,
-            cutoff: manualOptions.cutoff.toISOString(),
-            seed: manualSeed,
-            results: manualRefreshResults(batch.results),
-          },
-        }
-      : {}),
   };
 
   console.info(
     JSON.stringify({ event: "inventory_refresh_cron_completed", ...summary }),
   );
   return Response.json(summary);
-}
-
-export async function GET(request: Request) {
-  return runInventoryRefresh(request);
-}
-
-export async function POST(request: Request) {
-  let manualOptions: ManualInventoryRefreshOptions;
-  try {
-    manualOptions = parseManualInventoryRefreshOptions(request);
-  } catch (error) {
-    return Response.json(
-      {
-        error:
-          error instanceof Error
-            ? error.message
-            : "Manual inventory refresh request is invalid.",
-      },
-      { status: 400 },
-    );
-  }
-  return runInventoryRefresh(request, manualOptions);
 }

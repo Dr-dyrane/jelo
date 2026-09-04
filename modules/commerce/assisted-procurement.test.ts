@@ -26,20 +26,41 @@ import {
 } from "@/lib/commerce/shopping-session";
 import type { CreateAssistedOrderInput } from "@/lib/commerce/assisted-procurement-schema";
 import { productBySlug } from "@/data/catalogue";
-import { mergeRetailOffers } from "@/data/retail-offers";
+import type { Offer } from "@/data/products";
 
 const assistedProcurementFixtureAsOf = new Date("2026-08-14T17:01:00Z");
 
 function productWithHistoricalOffers(slug: string) {
   const product = productBySlug(slug);
   if (!product) return undefined;
+  const url = "https://assisted-procurement-fixture.example/exact-product";
+  const observedAt = "2026-08-14T17:00:00Z";
+  const offer: Offer = {
+    retailer: "Assisted Procurement Fixture",
+    url,
+    trust: 95,
+    available: true,
+    priceNgn: 11_288,
+    checkedAt: observedAt,
+    expiresAt: "2026-08-21T17:00:00Z",
+    match: "exact",
+    location: ["NG"],
+    listingEvidence: {
+      observedAt,
+      sourceUrl: url,
+      basis: "retailer-page",
+    },
+    priceObservation: {
+      observedAt,
+      variant: `${product.brand} ${product.name}`,
+      size: product.size,
+      stock: "in-stock",
+      landedCost: "unknown",
+    },
+  };
   return {
     ...product,
-    offers: mergeRetailOffers(
-      product,
-      product.offers,
-      assistedProcurementFixtureAsOf,
-    ),
+    offers: [offer],
   };
 }
 

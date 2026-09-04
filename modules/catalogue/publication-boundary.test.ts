@@ -2,8 +2,6 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
-import { products as staticProducts } from "@/data/catalogue";
-import { mergeRetailOffers } from "@/data/retail-offers";
 import type { Offer, Product } from "@/data/products";
 import {
   mergeDossierReleasedCatalogue,
@@ -236,16 +234,26 @@ test("the newest exact observation wins for the same retailer and market", () =>
 });
 
 test("a newly enriched product remains shareable while Neon still has only stale offers", () => {
-  const staticProduct = staticProducts.find(
-    (product) =>
-      product.slug === "aqua-rich-licorice-mulberry-body-wash-1000ml",
-  );
-  assert.ok(staticProduct);
-  const asOf = new Date("2026-08-29T23:31:00Z");
-  const approved = {
-    ...staticProduct,
-    offers: mergeRetailOffers(staticProduct, staticProduct.offers, asOf),
-  };
+  const asOf = new Date("2026-08-09T12:01:00Z");
+  const approvedOffer = exactOffer({
+    retailer: "New retailer",
+    url: "https://new.example/product",
+    checkedAt: "2026-08-09T12:00:00Z",
+    expiresAt: "2026-08-16T12:00:00Z",
+    listingEvidence: {
+      observedAt: "2026-08-09T12:00:00Z",
+      sourceUrl: "https://new.example/product",
+      basis: "retailer-page",
+    },
+    priceObservation: {
+      observedAt: "2026-08-09T12:00:00Z",
+      variant: "Approved brand Foaming Facial Cleanser",
+      size: "50 ml",
+      stock: "in-stock",
+      landedCost: "unknown",
+    },
+  });
+  const approved = product("newly-enriched", { offers: [approvedOffer] });
 
   const stalePersisted = exactOffer({
     retailer: "Stale retailer",
@@ -270,13 +278,13 @@ test("a newly enriched product remains shareable while Neon still has only stale
   );
 
   assert.equal(hasShareableNgOffer(reconciled, asOf), true);
-  assert.deepEqual(
-    reconciled.offers
-      .filter((offer) =>
-        ["Perona Beauty", "Konga Health"].includes(offer.retailer),
-      )
-      .map((offer) => offer.retailer),
-    ["Perona Beauty", "Konga Health"],
+  assert.equal(
+    reconciled.offers.find((offer) => offer.retailer === "New retailer"),
+    approvedOffer,
+  );
+  assert.equal(
+    hasShareableNgOffer({ ...reconciled, offers: [stalePersisted] }, asOf),
+    false,
   );
 });
 

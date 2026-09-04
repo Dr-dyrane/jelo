@@ -2,24 +2,40 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import { verifiedRetailOffers } from "@/data/retail-offers";
 import { dailyCampaignEmail } from "@/lib/campaigns/campaign-email";
 import { selectDailyCampaign } from "@/lib/campaigns/daily-campaign";
+import { lagosDateKey } from "@/lib/campaigns/daily-campaign-policy";
 
 const root = process.cwd();
+const currentOfferSnapshot = new Date(
+  Math.max(
+    ...Object.values(verifiedRetailOffers)
+      .flat()
+      .filter((offer) => offer.available && offer.checkedAt)
+      .map((offer) => Date.parse(offer.checkedAt ?? "")),
+  ),
+);
 
 test("a fixed current snapshot produces one dossier-bound deterministic draft", async () => {
   const result = await selectDailyCampaign({
-    now: new Date("2026-08-30T07:02:00Z"),
+    now: currentOfferSnapshot,
   });
+  assert.deepEqual(
+    await selectDailyCampaign({ now: currentOfferSnapshot }),
+    result,
+  );
   assert.equal(result.status, "selected");
   if (result.status !== "selected") return;
 
   const { draft } = result;
   assert.equal(draft.campaignKind, "market-plus-editorial");
   if (draft.campaignKind !== "market-plus-editorial") return;
-  assert.match(draft.campaignId, /^2026-08-30-[a-z0-9-]+-price-/);
-  assert.equal(draft.product.brand, "DANG! Lifestyle");
-  assert.notEqual(draft.product.brand, "Advanced Clinicals");
+  assert.ok(
+    draft.campaignId.startsWith(
+      `${lagosDateKey(currentOfferSnapshot)}-${draft.product.slug}-price-`,
+    ),
+  );
   assert.ok(draft.selection.catalogueProductCount >= 150);
   assert.ok(draft.selection.freshPriceCandidateCount > 1);
   assert.ok(draft.offerEvidence.length > 0);
@@ -44,7 +60,7 @@ test("a fixed current snapshot produces one dossier-bound deterministic draft", 
 
 test("the reminder email presents one complete responsive Daily Three packet", async () => {
   const result = await selectDailyCampaign({
-    now: new Date("2026-08-30T07:02:00Z"),
+    now: currentOfferSnapshot,
   });
   assert.equal(result.status, "selected");
   if (result.status !== "selected") return;
@@ -142,7 +158,7 @@ test("the reminder email presents one complete responsive Daily Three packet", a
 
 test("the Daily Three email escapes campaign copy and rejects unsafe URLs", async () => {
   const result = await selectDailyCampaign({
-    now: new Date("2026-08-30T07:02:00Z"),
+    now: currentOfferSnapshot,
   });
   assert.equal(result.status, "selected");
   if (result.status !== "selected") return;

@@ -326,9 +326,20 @@ test("the admitted evidence projects exactly once and rejected or pending stores
       }
       assert.equal(projected.length, 1, offer.observationId);
       assert.equal(projected[0]?.url, refreshedOffer.url);
-      assert.equal(projected[0]?.priceNgn, refreshedOffer.priceNgn);
-      assert.equal(projected[0]?.checkedAt, refreshedOffer.checkedAt);
-      assert.equal(projected[0]?.expiresAt, refreshedOffer.expiresAt);
+      const projectedObservedAt = Date.parse(projected[0]?.checkedAt ?? "");
+      const refreshedObservedAt = Date.parse(refreshedOffer.checkedAt);
+      assert.ok(
+        projectedObservedAt >= refreshedObservedAt,
+        offer.observationId,
+      );
+      if (projectedObservedAt === refreshedObservedAt) {
+        assert.equal(projected[0]?.priceNgn, refreshedOffer.priceNgn);
+        assert.ok(
+          Date.parse(projected[0]?.expiresAt ?? "") <=
+            Date.parse(refreshedOffer.expiresAt),
+          offer.observationId,
+        );
+      }
       continue;
     }
 

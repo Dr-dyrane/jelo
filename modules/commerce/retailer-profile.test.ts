@@ -12,11 +12,44 @@ import {
   retailerBySlug,
   retailerSlug,
 } from "@/data/retailers";
-import { mergeRetailOffers } from "@/data/retail-offers";
+import type { Offer, Product } from "@/data/products";
 import { buildRetailerProfile } from "./retailer-profile";
 import { isShareableNgOffer } from "./shareable-offer";
 
 const now = new Date("2026-08-30T02:44:24Z");
+
+function profileOffer(
+  product: Product,
+  retailer: string,
+  observedAt: string,
+  expiresAt: string,
+  suffix: string,
+): Offer {
+  const url = `https://retailer.example/${product.slug}/${suffix}`;
+  return {
+    retailer,
+    url,
+    trust: 95,
+    available: true,
+    priceNgn: 12_000,
+    checkedAt: observedAt,
+    expiresAt,
+    match: "exact",
+    location: ["NG"],
+    listingEvidence: {
+      observedAt,
+      sourceUrl: url,
+      basis: "retailer-page",
+    },
+    priceObservation: {
+      observedAt,
+      variant: `${product.brand} ${product.name}`,
+      size: product.size,
+      stock: "in-stock",
+      landedCost: "unknown",
+    },
+  };
+}
 
 test("every registered retailer has one stable public slug", () => {
   const slugs = nigeriaRetailers.map((retailer) => retailerSlug(retailer.name));
@@ -29,14 +62,48 @@ test("every registered retailer has one stable public slug", () => {
 test("retailer profiles expose only that store current exact Nigerian offers", () => {
   const beautyHut = retailerBySlug("beauty-hut-africa");
   assert.ok(beautyHut);
-  const historicalProducts = products.map((product) => ({
-    ...product,
-    offers: mergeRetailOffers(product, product.offers, now),
-  }));
-  const profile = buildRetailerProfile(beautyHut, historicalProducts, now);
+  const sourceProduct = products[0];
+  assert.ok(sourceProduct);
+  const currentOffer = profileOffer(
+    sourceProduct,
+    beautyHut.name,
+    "2026-08-30T02:40:00Z",
+    "2026-09-06T02:40:00Z",
+    "current",
+  );
+  const profile = buildRetailerProfile(
+    beautyHut,
+    [
+      {
+        ...sourceProduct,
+        offers: [
+          currentOffer,
+          profileOffer(
+            sourceProduct,
+            beautyHut.name,
+            "2026-08-20T02:40:00Z",
+            "2026-08-27T02:40:00Z",
+            "expired",
+          ),
+          profileOffer(
+            sourceProduct,
+            "BuyBetter",
+            "2026-08-30T02:40:00Z",
+            "2026-09-06T02:40:00Z",
+            "other-retailer",
+          ),
+        ],
+      },
+    ],
+    now,
+  );
 
-  assert.ok(profile.productCount >= 13);
-  assert.ok(profile.latestObservedAt);
+  assert.equal(profile.productCount, 1);
+  assert.equal(
+    profile.latestObservedAt,
+    new Date(currentOffer.checkedAt ?? "").toISOString(),
+  );
+  assert.equal(profile.products[0]?.slug, sourceProduct.slug);
   for (const product of profile.products) {
     assert.ok(product.offers.length > 0);
     assert.ok(
