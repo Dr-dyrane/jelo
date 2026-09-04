@@ -272,6 +272,13 @@ test("the browser fallback ships a version-aligned serverless Chromium runtime",
   );
   assert.match(browserFetch, /serverlessBrowserPromise/);
   assert.match(browserFetch, /sharedServerlessBrowser/);
+  assert.match(browserFetch, /reclaimServerlessBrowserDisk/);
+  assert.match(browserFetch, /SERVERLESS_BROWSER_PACK_DIRECTORY/);
+  assert.match(browserFetch, /SERVERLESS_BROWSER_PROFILE_PREFIX/);
+  assert.match(browserFetch, /setGraphicsMode\s*=\s*false/);
+  assert.match(browserFetch, /--disk-cache-size=0/);
+  assert.match(browserFetch, /--media-cache-size=0/);
+  assert.match(browserFetch, /serviceWorkers:\s*["']block["']/);
   assert.match(browserFetch, /prepareBrowserFetchRuntime/);
   assert.match(browserFetch, /addEventListener\(["']abort["']/);
   assert.match(

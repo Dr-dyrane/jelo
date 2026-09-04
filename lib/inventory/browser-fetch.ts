@@ -1,4 +1,7 @@
 import "server-only";
+import { readdir, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { serverlessBrowserPackUrl } from "@/lib/inventory/browser-runtime";
 
 // Browser-based fallback fetch for retailer pages that block plain server-side
@@ -21,11 +24,38 @@ export type BrowserFetchResult = {
 
 const BROWSER_FETCH_TIMEOUT_MS = 15_000;
 const BROWSER_PREWARM_TIMEOUT_MS = 45_000;
+const SERVERLESS_BROWSER_PACK_DIRECTORY = "chromium-pack";
+const SERVERLESS_BROWSER_PROFILE_PREFIX = "playwright_chromiumdev_profile-";
 const BROWSER_USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 let serverlessExecutablePathPromise: Promise<string> | undefined;
 let serverlessBrowserPromise:
   Promise<import("playwright-core").Browser> | undefined;
+
+async function reclaimServerlessBrowserDisk(): Promise<void> {
+  const temporaryDirectory = tmpdir();
+  const entries = await readdir(temporaryDirectory).catch(() => []);
+  const disposableEntries = entries.filter(
+    (entry) =>
+      entry === SERVERLESS_BROWSER_PACK_DIRECTORY ||
+      entry.startsWith(SERVERLESS_BROWSER_PROFILE_PREFIX),
+  );
+
+  await Promise.all(
+    disposableEntries.map((entry) =>
+      rm(join(temporaryDirectory, entry), { force: true, recursive: true }),
+    ),
+  );
+}
+
+function lowDiskServerlessArgs(args: string[]): string[] {
+  return [
+    ...args.filter((argument) => !argument.startsWith("--disk-cache-size=")),
+    "--disk-cache-size=0",
+    "--media-cache-size=0",
+    "--disable-application-cache",
+  ];
+}
 
 async function serverlessBrowserLaunchOptions() {
   const packUrl = serverlessBrowserPackUrl();
@@ -36,6 +66,7 @@ async function serverlessBrowserLaunchOptions() {
   }
 
   const serverlessChromium = (await import("@sparticuz/chromium-min")).default;
+  serverlessChromium.setGraphicsMode = false;
   serverlessExecutablePathPromise ??= serverlessChromium
     .executablePath(packUrl)
     .catch((error) => {
@@ -44,7 +75,7 @@ async function serverlessBrowserLaunchOptions() {
     });
 
   return {
-    args: serverlessChromium.args,
+    args: lowDiskServerlessArgs(serverlessChromium.args),
     executablePath: await serverlessExecutablePathPromise,
   };
 }
@@ -55,6 +86,11 @@ async function sharedServerlessBrowser(
   if (!serverlessBrowserPromise) {
     serverlessBrowserPromise = (async () => {
       const launchOptions = await serverlessBrowserLaunchOptions();
+      // chromium-min expands the remote pack beside the executable. Once the
+      // expansion is complete those compressed inputs are redundant, while
+      // Playwright profiles left by a crashed browser can consume the rest of
+      // Vercel's bounded /tmp volume. Reclaim both before every fresh launch.
+      await reclaimServerlessBrowserDisk();
       const browser = await chromium.launch({
         headless: true,
         args: launchOptions.args,
@@ -180,6 +216,7 @@ export async function fetchRetailerPageWithBrowser(
     if (options.signal?.aborted) return undefined;
     context = await browser.newContext({
       userAgent: BROWSER_USER_AGENT,
+      serviceWorkers: "block",
     });
     if (options.signal?.aborted) return undefined;
     const page = await context.newPage();
