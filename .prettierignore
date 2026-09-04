@@ -1,4 +1,12 @@
 # Canonical JSON evidence files must remain in compact sorted-key form.
 # Prettier would reformat them and break the snapshot hash verification.
 data/catalogue-identity-evidence/
+data/catalogue-identity-source-evidence/
+data/catalogue-offer-source-evidence/
+data/catalogue-publication-sources/
+data/catalogue-discovery-screening.json
+data/catalogue-research-queue.json
+data/catalogue-research-evidence-packets.json
 data/catalogue-research-evidence-packet-sources/
+data/catalogue-research-offer-captures.json
+data/catalogue-research-offer-capture-sources/
