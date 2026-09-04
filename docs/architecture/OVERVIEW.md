@@ -159,17 +159,17 @@ The cron is a freshness operator. It does not replace deliberate publication evi
 
 The Daily Desk reconciler runs hourly at minute 42. It may accept the first
 evidence-qualified Market record for the Lagos day after fresh observations
-arrive, even when the 07:00 operator campaign run had no candidate. The archive
-is immutable; `/lagos` rechecks the accepted record against the current exact
-offers and removes its price story after expiry, invalidation, replacement or a
-price mismatch.
+arrive, even when the 07:00 operator campaign run had no candidate. It also
+archives and promotes a new immutable revision when the current revision no
+longer matches exact-offer truth. Promotion compare-and-sets the date pointer;
+`/lagos` suppresses the old story until a qualified replacement wins.
 
 ## External services
 
 - Neon PostgreSQL: durable application data.
 - Vercel Blob: canonical public product and editorial media.
 - Upstash Redis: rate limiting, coordination, the private immutable campaign
-  ledger, the separate immutable Daily Desk acceptance record, and
+  ledger, immutable Daily Desk revisions with their current-date pointer, and
   identifier-free Daily Desk aggregate counters.
 - Hostinger Agentic Mail API, with SMTP fallback: retailer magic links.
 - Vercel Analytics: public usage analytics.

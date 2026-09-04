@@ -1,6 +1,6 @@
 # ADR 0020: Linked market-truth system
 
-- **Status:** Accepted; implementation complete, release verification pending
+- **Status:** Accepted; implementation complete
 - **Date:** 2026-09-04
 - **Decision owner:** Founder
 - **Extends:** [ADR 0002](0002-anonymous-community-knowledge-intake.md),
@@ -46,7 +46,8 @@ authorization, delivery, or authenticity.
 | Verified observation    | Current title, size, URL, price, availability, stock and verification window | Earlier prices                                           |
 | Price-history row       | Append-only observed price for one offer ID and time                         | A new URL or a current actionable listing                |
 | Physical observation    | Exact product at one reviewed retailer location and time                     | Online availability or fulfilment                        |
-| Daily Desk acceptance   | Immutable editorial receipt for one evidence-qualified Lagos-day selection   | Continuing validity after its underlying offer changes   |
+| Daily Desk revision     | Immutable editorial snapshot for one evidence-qualified Lagos-day selection  | Continuing validity after its underlying offer changes   |
+| Daily Desk pointer      | Current accepted revision for the Lagos day                                  | Permission to rewrite an archived revision               |
 | Scheduled-owner receipt | Safe operational outcome, aggregate counts and revision                      | Product, customer, URL or raw-error evidence             |
 
 ## Identity and freshness contract
@@ -143,24 +144,25 @@ separately approved and migrated.
 
 ## Projection matrix
 
-| Surface                | Reads                                                                      | Required behavior                                                                                                |
-| ---------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Products               | Exact current offers plus dated last-known rows                            | Current actions only from the shared current predicate; stale rows say check stock/last known                    |
-| Share index/detail     | Current offers and qualifying append-only history                          | No stale outbound offer, invented point, flat inference or mismatched series                                     |
-| Product market summary | Same current offer set                                                     | Lowest/range/store count recompute from current exact evidence                                                   |
-| Market trends          | Current offer identities plus their history                                | Hide movement when lineage or comparison depth is insufficient                                                   |
-| Markets                | Exact products with at least one current actionable physical observation   | Directory and destination use the same visit-ready gate; never fall back to an online offer or unreviewed report |
-| Retailers              | Reviewed retailer identity plus dated current evidence                     | Never promote private intake or prose notes into current facts                                                   |
-| Daily Desk             | Immutable accepted campaign checked against the complete current offer set | Suppress the story after expiry, invalidation, replacement, price mismatch or offer-set change                   |
-| Ops market health      | Safe receipts and aggregate canonical health reads                         | Distinguish no evidence, source unavailable, stale, failed and review-required                                   |
+| Surface                | Reads                                                                                   | Required behavior                                                                                                |
+| ---------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Products               | Exact current offers plus dated last-known rows                                         | Current actions only from the shared current predicate; stale rows say check stock/last known                    |
+| Share index/detail     | Current offers and qualifying append-only history                                       | No stale outbound offer, invented point, flat inference or mismatched series                                     |
+| Product market summary | Same current offer set                                                                  | Lowest/range/store count recompute from current exact evidence                                                   |
+| Market trends          | Current offer identities plus their history                                             | Hide movement when lineage or comparison depth is insufficient                                                   |
+| Markets                | Exact products with at least one current actionable physical observation                | Directory and destination use the same visit-ready gate; never fall back to an online offer or unreviewed report |
+| Retailers              | Reviewed retailer identity plus dated current evidence                                  | Never promote private intake or prose notes into current facts                                                   |
+| Daily Desk             | Current pointer to an immutable revision checked against the complete current offer set | Replace an invalid revision from current evidence; suppress it while no qualified replacement exists             |
+| Ops market health      | Safe receipts and aggregate canonical health reads                                      | Distinguish no evidence, source unavailable, stale, failed and review-required                                   |
 
 ## Scheduled owners and reconciliation
 
 The existing owners stay single-purpose and replay-safe:
 
 1. `:17` hourly inventory refreshes known reviewed offers and writes history.
-2. `:42` hourly Daily Desk reconciliation creates the day's record when
-   evidence becomes eligible after the 07:00 campaign run.
+2. `:42` hourly Daily Desk reconciliation creates or advances the day's
+   current revision when evidence becomes eligible or changes after the 07:00
+   campaign run.
 3. `:47` hourly GitHub static integration validates and integrates exact
    checked-in offer proposals.
 4. `:07` hourly inventory health evaluates the preceding inventory window.
@@ -176,10 +178,14 @@ Receipt start must succeed before canonical mutation. Settlement is accepted
 only for the same still-started generation, so a duplicate completion or
 failure cannot rewrite an already terminal receipt. Receipt parsing rejects
 owner-incompatible outcomes and future timestamps beyond bounded clock skew.
-An existing Daily Desk acceptance is never treated as already current until
-the current-day public projection validates one-to-one equality with the full
-current exact-offer set. A disabled reconciliation owner remains an attention
-state even when an older accepted Desk record still validates.
+An existing Daily Desk pointer is never treated as already current until the
+current-day public projection validates one-to-one equality with the full
+current exact-offer set. If it is invalid, the owner selects and archives a new
+immutable revision, then advances the pointer only when it still names the
+expected prior revision. A concurrent winner is re-read and validated. With no
+qualified replacement, the old story stays suppressed and the receipt records
+the exception. A disabled owner remains an attention state even when an older
+accepted Desk record still validates.
 
 There is no second refresh queue and no public manual-run button. Ops receives
 one read-only native monitor with source time, threshold, responsible owner and

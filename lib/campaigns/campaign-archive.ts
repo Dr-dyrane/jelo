@@ -59,6 +59,18 @@ const dailyDeskRateLimitPerMinute = 500;
 const campaignPacketRoles = ["proof", "use", "remember"] as const;
 let redis: Redis | undefined;
 
+export const ADVANCE_DAILY_DESK_POINTER_IF_CURRENT_SCRIPT = `
+local current = redis.call("GET", KEYS[1])
+local expected = ARGV[1]
+if expected == "" then
+  if current then return {0, current} end
+elseif current ~= expected then
+  return {0, current or ""}
+end
+redis.call("SET", KEYS[1], ARGV[2])
+return {1, ARGV[2]}
+`;
+
 export type DailyDeskAggregateEvent = "view" | "compare_click";
 
 function productionCampaignDate(archive: ArchivedCampaign) {
@@ -138,9 +150,9 @@ export async function acceptedProductionCampaignJsonForDate(date: string) {
 }
 
 /**
- * The Daily Desk is an immutable public market projection, not an operator
- * delivery receipt. Keep its acceptance record separate so an email-only
- * editorial fallback cannot consume the day's public evidence slot.
+ * The Daily Desk points at an immutable public market projection, not an
+ * operator delivery receipt. Keep its current pointer separate so an
+ * email-only editorial fallback cannot consume the day's public evidence slot.
  */
 export async function acceptedDailyDeskCampaignJsonForDate(date: string) {
   const campaignRecordKey =
@@ -155,6 +167,7 @@ export async function acceptedDailyDeskCampaignJsonForDate(date: string) {
 export async function acceptDailyDeskCampaign(input: {
   archive: ArchivedCampaign;
   acceptedAt: string;
+  expectedCurrentRecordKey: string | null;
 }) {
   if (
     input.archive.mode !== "production" ||
@@ -167,21 +180,21 @@ export async function acceptDailyDeskCampaign(input: {
   }
   const date = productionCampaignDate(input.archive);
   const key = dailyDeskAcceptedCampaignKey(date);
-  const stored = await campaignLedger().set(
-    key,
-    input.archive.campaignRecordKey,
-    {
-      nx: true,
-    },
+  const [advanced, campaignRecordKey] = await campaignLedger().eval<
+    [string, string],
+    [number, string]
+  >(
+    ADVANCE_DAILY_DESK_POINTER_IF_CURRENT_SCRIPT,
+    [key],
+    [input.expectedCurrentRecordKey ?? "", input.archive.campaignRecordKey],
   );
-  const campaignRecordKey =
-    stored === "OK"
-      ? input.archive.campaignRecordKey
-      : await campaignLedger().get<string>(key);
   if (!campaignRecordKey) throw new Error("daily_desk_acceptance_unreadable");
+  if (advanced !== 0 && advanced !== 1) {
+    throw new Error("daily_desk_acceptance_invalid_result");
+  }
 
   return {
-    accepted: campaignRecordKey === input.archive.campaignRecordKey,
+    accepted: advanced === 1,
     campaignRecordKey,
   } as const;
 }

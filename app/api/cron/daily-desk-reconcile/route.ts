@@ -156,7 +156,8 @@ export async function GET(request: Request) {
     if (
       result.status === "accepted" ||
       result.status === "already-accepted" ||
-      result.status === "accepted-evidence-invalid"
+      result.status === "accepted-evidence-invalid" ||
+      result.status === "no-replacement-candidate"
     ) {
       revalidatePath("/lagos");
     }
@@ -167,7 +168,9 @@ export async function GET(request: Request) {
           ? "already-current"
           : result.status === "accepted-evidence-invalid"
             ? "completed-with-exceptions"
-            : "no-current-candidate";
+            : result.status === "no-replacement-candidate"
+              ? "completed-with-exceptions"
+              : "no-current-candidate";
     const receiptRecorded = await recordDeskCompleted({
       startedAt,
       receiptStarted,
@@ -180,7 +183,18 @@ export async function GET(request: Request) {
             }
           : result.status === "accepted-evidence-invalid"
             ? { accepted: 0, invalidAcceptedRecord: 1 }
-            : { accepted: 1 },
+            : result.status === "no-replacement-candidate"
+              ? {
+                  accepted: 0,
+                  invalidAcceptedRecord: 1,
+                  replacementCandidates: 0,
+                  rejectedCandidates: result.rejectedCandidateCount,
+                }
+              : {
+                  accepted: 1,
+                  replaced:
+                    result.status === "accepted" && result.replaced ? 1 : 0,
+                },
     });
     return Response.json(
       {

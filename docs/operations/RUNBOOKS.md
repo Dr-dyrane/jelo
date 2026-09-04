@@ -1068,7 +1068,9 @@ store:
   canonical offer/history work;
 - `/api/cron/daily-desk-reconcile` at minute 42 records `accepted`,
   `already-current`, `no-current-candidate`, `disabled`, or
-  `reconciliation-failed` after current-offer rebinding.
+  `reconciliation-failed` after current-offer rebinding. An invalid current
+  revision with no eligible replacement records `completed-with-exceptions`
+  and bounded invalid/replacement counts.
 
 Receipts contain owner, state, timestamps, fixed outcome code, aggregate counts,
 deployment revision and TTL only. They never contain a product payload,
@@ -1083,8 +1085,11 @@ are invalid, and a future-dated receipt cannot establish current health. An
 existing Daily Desk key must still resolve to a current-day `ready` projection
 before the reconciler records `already-current`. The accepted evidence set must
 equal the complete current exact-offer set; a newly current or removed offer
-suppresses the old projection. A `disabled` outcome always keeps the owner,
-Daily Desk layer and public projections in attention.
+suppresses the old projection. The owner then archives a new immutable revision
+and compare-and-sets the date pointer from the exact prior key; a concurrent
+winner is re-read instead of overwritten. With no eligible replacement, the
+projection stays suppressed and the exception remains open. A `disabled`
+outcome always keeps the owner, Daily Desk layer and public projections in attention.
 
 For an exception:
 

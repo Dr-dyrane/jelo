@@ -112,10 +112,11 @@ same exact-product, dossier, image, and fresh-offer gates as the campaign
 selector, but does not use email/social rotation cooldowns: the Desk is current
 market context, while the operator packet is a separately rotated delivery.
 
-When `DAILY_DESK_RECONCILIATION_ENABLED=true`, the reconciler accepts at most
-one evidence-qualified Market record for an `Africa/Lagos` date. The per-date
-`SET NX` record is immutable, revalidated at `/lagos`, and contains no delivery
-or recipient information. It never resolves recipients, reserves a campaign
+When `DAILY_DESK_RECONCILIATION_ENABLED=true`, the reconciler keeps one current
+evidence-qualified Market revision for an `Africa/Lagos` date. Every archived
+revision is immutable. The per-date pointer advances with compare-and-set only
+from the revision the owner validated, and `/lagos` revalidates its target. It
+contains no delivery or recipient information. The owner never resolves recipients, reserves a campaign
 delivery, sends email, posts to a social channel, creates a retailer, or admits
 a new offer. An early email-only editorial fallback therefore cannot prevent a
 later verified offer observation from making the Desk ready.
@@ -205,13 +206,17 @@ mismatch, or missing exact evidence suppresses the accepted story as
 current price.
 
 The hourly reconciler is the single same-day catch-up owner. It can accept a
-newly eligible record after the 07:00 campaign run, but it does not refresh an
-offer, discover a retailer, send a packet, or bypass review. Its bounded
+newly eligible record after the 07:00 campaign run and replace an invalid
+same-day pointer with a newly archived immutable revision. If no current
+candidate exists, the old story remains suppressed and the result says
+`no-replacement-candidate`. It does not refresh an offer, discover a retailer,
+send a packet, or bypass review. Its bounded
 scheduled-owner receipt distinguishes `accepted`, `already-current`,
-`no-current-candidate`, `disabled`, and `reconciliation-failed` without storing
-product, recipient, URL, or raw-error data. Missing receipt storage is a visible
-owner failure and stops before selection or acceptance; it is not an empty
-candidate result. An immutable accepted key is called `already-current` only
+`no-current-candidate`, `completed-with-exceptions`, `disabled`, and
+`reconciliation-failed` without storing product, recipient, URL, or raw-error
+data. Missing receipt storage is a visible owner failure and stops before
+selection or acceptance; it is not an empty candidate result. A current
+pointer is called `already-current` only
 after its product and exact offers pass the same current-evidence projection.
 
 ## Historical incident baseline (2026-08-23)

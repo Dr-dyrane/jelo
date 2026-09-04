@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import {
+  ADVANCE_DAILY_DESK_POINTER_IF_CURRENT_SCRIPT,
   campaignArchiveIdentity,
   type ArchivedCampaign,
 } from "@/lib/campaigns/campaign-archive";
@@ -11,6 +12,7 @@ import type {
   DailyCampaignSelection,
 } from "@/lib/campaigns/daily-campaign";
 import {
+  dailyDeskRevisionDraft,
   reconcileDailyDesk,
   type DailyDeskReconciliationDependencies,
 } from "@/lib/campaigns/daily-desk-reconciliation";
@@ -109,9 +111,10 @@ test("an email-only fallback cannot starve a later qualified Daily Desk", async 
   assert.deepEqual(result, {
     status: "accepted",
     date: "2026-09-04",
-    campaignId: marketDraft.campaignId,
+    campaignId: dailyDeskRevisionDraft(marketDraft, 1).campaignId,
     campaignRecordKey: archive.campaignRecordKey,
     dataCheckedAt: now.toISOString(),
+    replaced: false,
   });
   assert.equal(archived, true);
   assert.equal(archiveScope, "daily-desk");
@@ -143,7 +146,66 @@ test("an accepted Desk stays immutable and skips selection, rendering, and archi
   });
 });
 
-test("an existing acceptance is not called current when its evidence no longer validates", async () => {
+test("invalid same-day evidence is replaced with the next immutable revision", async () => {
+  const replacementArchive = {
+    ...archive,
+    runPath: "campaigns/daily/2026-09-04/exact-product-price-context/v2",
+    campaignRecordKey:
+      "jelocare:campaigns:v1:daily-desk-archive:production:exact-product-price-context:v2:campaign",
+  };
+  let deskReads = 0;
+  let archivedIteration: number | null = null;
+  let expectedCurrentRecordKey: string | null | undefined;
+  const result = await reconcileDailyDesk(
+    { requestOrigin: "https://www.jelocare.com" },
+    dependencies({
+      readAcceptedRecordKey: async () => archive.campaignRecordKey,
+      readCurrentDesk: async () => {
+        deskReads += 1;
+        return deskReads === 1
+          ? { status: "evidence-expired", date: "2026-09-04" }
+          : ({
+              status: "ready",
+              date: "2026-09-04",
+              recency: "current-day",
+            } as DailyDeskReadModel);
+      },
+      archive: async (input) => {
+        archivedIteration = input.iteration;
+        return replacementArchive;
+      },
+      accept: async (input) => {
+        expectedCurrentRecordKey = input.expectedCurrentRecordKey;
+        return {
+          accepted: true,
+          campaignRecordKey: replacementArchive.campaignRecordKey,
+        };
+      },
+    }),
+  );
+
+  assert.deepEqual(result, {
+    status: "accepted",
+    date: "2026-09-04",
+    campaignId: dailyDeskRevisionDraft(marketDraft, 2).campaignId,
+    campaignRecordKey: replacementArchive.campaignRecordKey,
+    dataCheckedAt: now.toISOString(),
+    replaced: true,
+  });
+  assert.equal(archivedIteration, 2);
+  assert.equal(expectedCurrentRecordKey, archive.campaignRecordKey);
+});
+
+test("invalid same-day evidence reports when no current replacement exists", async () => {
+  const fallbackSelection: DailyCampaignSelection = {
+    status: "selected",
+    draft: {
+      campaignId: "2026-09-04-editorial-review-packet",
+      dataCheckedAt: now.toISOString(),
+      dailyDeskEligible: false,
+      selection: { rejectedCandidates: [{ slug: "x", blocker: "stale" }] },
+    } as unknown as DailyCampaignDraft,
+  };
   const result = await reconcileDailyDesk(
     { requestOrigin: "https://www.jelocare.com" },
     dependencies({
@@ -152,18 +214,62 @@ test("an existing acceptance is not called current when its evidence no longer v
         status: "evidence-expired",
         date: "2026-09-04",
       }),
-      select: async () => {
-        throw new Error("selection should not replace an immutable acceptance");
-      },
+      select: async () => fallbackSelection,
     }),
   );
 
   assert.deepEqual(result, {
-    status: "accepted-evidence-invalid",
+    status: "no-replacement-candidate",
     date: "2026-09-04",
     campaignRecordKey: archive.campaignRecordKey,
     evidenceStatus: "evidence-expired",
+    checkedAt: now.toISOString(),
+    rejectedCandidateCount: 1,
   });
+});
+
+test("a concurrent replacement winner is re-read as the current Desk", async () => {
+  const winnerKey =
+    "jelocare:campaigns:v1:daily-desk-archive:production:winner:v2:campaign";
+  let deskReads = 0;
+  const result = await reconcileDailyDesk(
+    { requestOrigin: "https://www.jelocare.com" },
+    dependencies({
+      readAcceptedRecordKey: async () => archive.campaignRecordKey,
+      readCurrentDesk: async () => {
+        deskReads += 1;
+        return deskReads === 1
+          ? { status: "evidence-expired", date: "2026-09-04" }
+          : ({
+              status: "ready",
+              date: "2026-09-04",
+              recency: "current-day",
+            } as DailyDeskReadModel);
+      },
+      accept: async () => ({ accepted: false, campaignRecordKey: winnerKey }),
+    }),
+  );
+
+  assert.deepEqual(result, {
+    status: "already-accepted",
+    date: "2026-09-04",
+    campaignRecordKey: winnerKey,
+  });
+});
+
+test("the Daily Desk pointer advances only from its expected prior value", () => {
+  assert.match(
+    ADVANCE_DAILY_DESK_POINTER_IF_CURRENT_SCRIPT,
+    /current ~= expected/,
+  );
+  assert.match(
+    ADVANCE_DAILY_DESK_POINTER_IF_CURRENT_SCRIPT,
+    /return \{0, current/,
+  );
+  assert.match(
+    ADVANCE_DAILY_DESK_POINTER_IF_CURRENT_SCRIPT,
+    /SET[\s\S]*ARGV\[2\]/,
+  );
 });
 
 test("an editorial fallback cannot become a Daily Desk record", async () => {

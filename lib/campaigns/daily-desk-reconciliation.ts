@@ -1,5 +1,7 @@
 import "server-only";
 
+import { createHash } from "node:crypto";
+
 import {
   acceptDailyDeskCampaign,
   acceptedDailyDeskCampaignRecordKeyForDate,
@@ -7,6 +9,7 @@ import {
 } from "@/lib/campaigns/campaign-archive";
 import {
   selectDailyCampaign,
+  type DailyCampaignDraft,
   type DailyCampaignSelection,
 } from "@/lib/campaigns/daily-campaign";
 import { lagosDateKey } from "@/lib/campaigns/daily-campaign-policy";
@@ -43,6 +46,7 @@ export type DailyDeskReconciliationResult =
       campaignId: string;
       campaignRecordKey: string;
       dataCheckedAt: string;
+      replaced: boolean;
     }
   | { status: "already-accepted"; date: string; campaignRecordKey: string }
   | {
@@ -50,6 +54,14 @@ export type DailyDeskReconciliationResult =
       date: string;
       campaignRecordKey: string;
       evidenceStatus: Exclude<DailyDeskReadModel["status"], "ready">;
+    }
+  | {
+      status: "no-replacement-candidate";
+      date: string;
+      campaignRecordKey: string;
+      evidenceStatus: Exclude<DailyDeskReadModel["status"], "ready">;
+      checkedAt: string;
+      rejectedCandidateCount: number;
     }
   | {
       status: "no-candidate";
@@ -62,7 +74,7 @@ function noCandidateResult(
   date: string,
   selection: DailyCampaignSelection,
   checkedAt: string,
-): DailyDeskReconciliationResult {
+): Extract<DailyDeskReconciliationResult, { status: "no-candidate" }> {
   if (selection.status === "no-candidate") {
     return {
       status: "no-candidate",
@@ -77,6 +89,36 @@ function noCandidateResult(
     checkedAt,
     rejectedCandidateCount: selection.draft.selection.rejectedCandidates.length,
   };
+}
+
+function nextDailyDeskArchiveIteration(campaignRecordKey: string | null) {
+  if (!campaignRecordKey) return 1;
+  const match = campaignRecordKey.match(/:v(\d+):campaign$/);
+  const current = match ? Number(match[1]) : Number.NaN;
+  if (!Number.isSafeInteger(current) || current < 1 || current >= 99) {
+    throw new Error("daily_desk_revision_invalid");
+  }
+  return current + 1;
+}
+
+export function dailyDeskRevisionDraft(
+  draft: DailyCampaignDraft,
+  iteration: number,
+): DailyCampaignDraft {
+  const date = draft.campaignId.slice(0, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || draft.campaignId[10] !== "-") {
+    throw new Error("daily_desk_campaign_id_invalid");
+  }
+  const digest = createHash("sha256")
+    .update(JSON.stringify({ iteration, draft }), "utf8")
+    .digest("hex")
+    .slice(0, 12);
+  const marker = `-r${iteration}-${digest}`;
+  const stem = draft.campaignId
+    .slice(11, 11 + 180 - marker.length)
+    .replace(/-+$/, "");
+  if (!stem) throw new Error("daily_desk_campaign_id_invalid");
+  return { ...draft, campaignId: `${date}-${stem}${marker}` };
 }
 
 async function validateAcceptedDesk(
@@ -108,7 +150,8 @@ async function validateAcceptedDesk(
 }
 
 /**
- * Accepts at most one evidence-qualified market record per Lagos date.
+ * Keeps one current evidence-qualified market record per Lagos date while
+ * retaining every superseded archive as an immutable revision.
  *
  * This intentionally uses the same evidence selector as campaign production,
  * but no social/email delivery cooldown. The Daily Desk is a current market
@@ -125,6 +168,12 @@ export async function reconcileDailyDesk(
   }
   const date = lagosDateKey(now);
   const acceptedRecordKey = await dependencies.readAcceptedRecordKey(date);
+  let invalidAccepted:
+    | Extract<
+        DailyDeskReconciliationResult,
+        { status: "accepted-evidence-invalid" }
+      >
+    | undefined;
   if (acceptedRecordKey) {
     const validation = await validateAcceptedDesk(
       date,
@@ -132,12 +181,14 @@ export async function reconcileDailyDesk(
       now,
       dependencies,
     );
-    if (!("current" in validation)) return validation;
-    return {
-      status: "already-accepted",
-      date,
-      campaignRecordKey: acceptedRecordKey,
-    };
+    if ("current" in validation) {
+      return {
+        status: "already-accepted",
+        date,
+        campaignRecordKey: acceptedRecordKey,
+      };
+    }
+    invalidAccepted = validation;
   }
 
   const selection = await dependencies.select({
@@ -149,23 +200,37 @@ export async function reconcileDailyDesk(
     selection.status === "no-candidate" ||
     selection.draft.dailyDeskEligible !== true
   ) {
+    if (acceptedRecordKey && invalidAccepted) {
+      const noCandidate = noCandidateResult(date, selection, now.toISOString());
+      return {
+        status: "no-replacement-candidate",
+        date,
+        campaignRecordKey: acceptedRecordKey,
+        evidenceStatus: invalidAccepted.evidenceStatus,
+        checkedAt: noCandidate.checkedAt,
+        rejectedCandidateCount: noCandidate.rejectedCandidateCount,
+      };
+    }
     return noCandidateResult(date, selection, now.toISOString());
   }
 
+  const iteration = nextDailyDeskArchiveIteration(acceptedRecordKey);
+  const revisionDraft = dailyDeskRevisionDraft(selection.draft, iteration);
   const rendered = await dependencies.render({
-    draft: selection.draft,
+    draft: revisionDraft,
     requestOrigin: input.requestOrigin,
   });
   const archive = await dependencies.archive({
     mode: "production",
     archiveScope: "daily-desk",
-    iteration: 1,
-    draft: selection.draft,
+    iteration,
+    draft: revisionDraft,
     rendered,
   });
   const accepted = await dependencies.accept({
     archive,
     acceptedAt: now.toISOString(),
+    expectedCurrentRecordKey: acceptedRecordKey,
   });
   if (!accepted.accepted) {
     const validation = await validateAcceptedDesk(
@@ -191,9 +256,10 @@ export async function reconcileDailyDesk(
   return {
     status: "accepted",
     date,
-    campaignId: selection.draft.campaignId,
+    campaignId: revisionDraft.campaignId,
     campaignRecordKey: accepted.campaignRecordKey,
-    dataCheckedAt: selection.draft.dataCheckedAt,
+    dataCheckedAt: revisionDraft.dataCheckedAt,
+    replaced: acceptedRecordKey !== null,
   };
 }
 
