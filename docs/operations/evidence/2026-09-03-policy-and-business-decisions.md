@@ -25,9 +25,28 @@ customer promise is:
   configured provider backup window, are not customer-restorable, and must not
   be described as immediately erased until that window is evidenced.
 
-The policy is approved. Repository and migration implementation, provider
-backup-window evidence, and one authorized production verification remain
-separate delivery gates.
+The policy is approved. Repository and migration implementation plus one
+authorized production verification remain separate delivery gates.
+
+On 4 September 2026, a read-only Neon project inspection reported
+`history_retention_seconds: 21600`, an exact six-hour instant-restore history
+for JeloCare project `spring-field-93817903`. The project exposed no saved
+snapshots and the production `main` branch exposed no automated snapshot
+schedule. Neon documents that the project history setting powers instant
+restore and Time Travel in its
+[project-management guide](https://neon.com/docs/manage/projects), while its
+[security overview](https://neon.com/docs/security/security-overview) states
+that encrypted customer-data backup copies are retained for 30 days. Neon's
+[Data Processing Agreement](https://neon.com/pdf/DPA.pdf) says archived backup
+data is isolated from further processing and deleted under its deletion
+practices.
+
+The accurate deletion promise is therefore layered: the live Concern row is
+hard-deleted when the governed migration and repository release completes;
+JeloCare does not expose customer restoration; the provider can retain prior
+states in the configured six-hour restore history and encrypted backup copies
+for up to 30 days. This closes the provider backup-window evidence without
+claiming immediate physical erasure or changing the provider configuration.
 
 ## Ask JeloCare retention operations
 

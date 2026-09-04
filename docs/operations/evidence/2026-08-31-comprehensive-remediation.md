@@ -397,8 +397,10 @@ items are not closed by code or local tests:
    [policy and business decision receipt](./2026-09-03-policy-and-business-decisions.md):
    Concerns are health-shaped sensitive personal context; removal/clear and
    account deletion hard-delete live rows, and export contains current active
-   Concerns only. Repository/migration delivery, exact provider backup-window
-   evidence, and authorized production verification remain open.
+   Concerns only. Read-only provider evidence now records JeloCare's exact
+   six-hour Neon restore history, no saved or scheduled snapshots, and Neon's
+   published 30-day encrypted backup-copy retention. Repository/migration
+   delivery and authorized production verification remain open.
 7. **Ask retention operations.** The approved operating policy is daily owner
    review and deletion within 24 hours after 30-day eligibility. The bounded
    protected operator remains dry-run first and outside Vercel, cron, queue,
