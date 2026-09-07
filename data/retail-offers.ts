@@ -1170,8 +1170,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic acid Daily Gentle Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-09-05T18:18:45Z",
-        expiresAt: "2026-09-06T18:18:45Z",
+        observedAt: "2026-09-07T23:17:59Z",
+        expiresAt: "2026-09-08T23:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2844,8 +2844,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe SA Smoothing Cleanser 473ml/16oz US Version",
       "473 ml",
       {
-        observedAt: "2026-09-05T18:18:53Z",
-        expiresAt: "2026-09-06T18:18:53Z",
+        observedAt: "2026-09-07T23:18:00Z",
+        expiresAt: "2026-09-08T23:18:00Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
