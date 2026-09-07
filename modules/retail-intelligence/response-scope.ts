@@ -37,6 +37,7 @@ function normalizeKnownBrandPhrases(value: string) {
     .replace(/\bPanOxyl\b/gi, "panoxyl")
     .replace(/\bKeraCare\b/gi, "keracare")
     .replace(/\bSheaMoisture\b/gi, "sheamoisture")
+    .replace(/\bDANG!?\s+Lifestyle(?:\s+Inc\.?)?/gi, "dang")
     .replace(/\bBalance Active Formula\b/gi, "balance")
     .replace(/\bsun\s*screen\b/gi, "sunscreen");
 }

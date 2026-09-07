@@ -31,6 +31,7 @@ const BROWSER_USER_AGENT =
 let serverlessExecutablePathPromise: Promise<string> | undefined;
 let serverlessBrowserPromise:
   Promise<import("playwright-core").Browser> | undefined;
+let serverlessBrowserCleanupPromise: Promise<void> | undefined;
 
 async function reclaimServerlessBrowserDisk(): Promise<void> {
   const temporaryDirectory = tmpdir();
@@ -59,10 +60,9 @@ function lowDiskServerlessArgs(args: string[]): string[] {
 
 async function releaseServerlessExecutable(executablePath: string) {
   try {
-    // Linux keeps an executing inode available to the running process after
-    // unlink. Chromium uses --single-process here, so the 191 MiB binary is no
-    // longer needed on disk once launch has completed. A later disconnected
-    // browser will re-expand a fresh executable before relaunching.
+    // Keep the executable available for Chromium's entire connected lifetime.
+    // A replacement browser waits for this cleanup before expanding or launching
+    // again, so it can never race an unlink of the previous runtime.
     await rm(executablePath, { force: true });
     console.info(
       JSON.stringify({ event: "browser_runtime_executable_released" }),
@@ -77,6 +77,17 @@ async function releaseServerlessExecutable(executablePath: string) {
   } finally {
     serverlessExecutablePathPromise = undefined;
   }
+}
+
+function queueServerlessExecutableRelease(executablePath: string) {
+  const cleanupPromise = releaseServerlessExecutable(executablePath);
+  serverlessBrowserCleanupPromise = cleanupPromise;
+  void cleanupPromise.finally(() => {
+    if (serverlessBrowserCleanupPromise === cleanupPromise) {
+      serverlessBrowserCleanupPromise = undefined;
+    }
+  });
+  return cleanupPromise;
 }
 
 async function serverlessBrowserLaunchOptions() {
@@ -105,9 +116,15 @@ async function serverlessBrowserLaunchOptions() {
 async function sharedServerlessBrowser(
   chromium: typeof import("playwright-core").chromium,
 ) {
+  if (serverlessBrowserCleanupPromise) {
+    await serverlessBrowserCleanupPromise;
+  }
+
   if (!serverlessBrowserPromise) {
-    serverlessBrowserPromise = (async () => {
+    let executablePath: string | undefined;
+    const launchPromise = (async () => {
       const launchOptions = await serverlessBrowserLaunchOptions();
+      executablePath = launchOptions.executablePath;
       // chromium-min expands the remote pack beside the executable. Once the
       // expansion is complete those compressed inputs are redundant, while
       // Playwright profiles left by a crashed browser can consume the rest of
@@ -118,22 +135,37 @@ async function sharedServerlessBrowser(
         args: launchOptions.args,
         executablePath: launchOptions.executablePath,
       });
-      await releaseServerlessExecutable(launchOptions.executablePath);
-      browser.on("disconnected", () => {
-        serverlessBrowserPromise = undefined;
-      });
+      let executableReleaseQueued = false;
+      const releaseExecutableAfterDisconnect = () => {
+        if (executableReleaseQueued) return;
+        executableReleaseQueued = true;
+        if (serverlessBrowserPromise === cachedPromise) {
+          serverlessBrowserPromise = undefined;
+        }
+        queueServerlessExecutableRelease(launchOptions.executablePath);
+      };
+      browser.on("disconnected", releaseExecutableAfterDisconnect);
+      if (!browser.isConnected()) releaseExecutableAfterDisconnect();
       return browser;
-    })().catch((error) => {
-      serverlessBrowserPromise = undefined;
+    })();
+    const cachedPromise = launchPromise.catch(async (error) => {
+      if (serverlessBrowserPromise === cachedPromise) {
+        serverlessBrowserPromise = undefined;
+      }
+      if (executablePath) {
+        await queueServerlessExecutableRelease(executablePath);
+      }
       throw error;
     });
+    serverlessBrowserPromise = cachedPromise;
   }
 
   return serverlessBrowserPromise;
 }
 
 export async function prepareBrowserFetchRuntime(): Promise<boolean> {
-  if (process.env.VERCEL !== "1" || !isBrowserFetchAvailable()) return false;
+  if (!isBrowserFetchAvailable()) return false;
+  if (process.env.VERCEL !== "1") return true;
 
   let timeout: ReturnType<typeof setTimeout> | undefined;
   try {

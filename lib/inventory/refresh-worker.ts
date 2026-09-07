@@ -377,6 +377,7 @@ export async function closeInventoryRefreshClient() {
 type InventoryRefreshWorkerOptions = {
   claimDeadlineAt?: number;
   marketCode?: string;
+  browserRuntimeReady?: boolean;
 };
 
 function normalizeMarketCode(marketCode: string | undefined) {
@@ -1017,10 +1018,7 @@ async function failJob(
 }
 
 export async function processNextInventoryRefreshJob(
-  options: {
-    claimDeadlineAt?: number;
-    marketCode?: string;
-  } = {},
+  options: InventoryRefreshWorkerOptions = {},
 ): Promise<InventoryRefreshResult | undefined> {
   if (!canClaimInventoryRefreshJob(options.claimDeadlineAt)) return undefined;
   const job = await claimJob(options);
@@ -1134,28 +1132,44 @@ export async function processNextInventoryRefreshJob(
     const browserFallbackEligible =
       isBlockedHost(job.url) ||
       layerOutcomes.some((outcome) => outcome.layer === "http-fetch");
-    if (!observation && browserFallbackEligible && isBrowserFetchAvailable()) {
-      const browserResult = await runBeforeInventoryExtractionDeadline(
-        extractionDeadlineAt,
-        (signal) => fetchRetailerPageWithBrowser(job.url, { signal }),
-      );
-      if (browserResult) {
-        cachedBrowserHtml = browserResult.html;
-        cachedBrowserUrl = browserResult.responseUrl;
-        const result = extractRetailerPage({
-          url: new URL(browserResult.responseUrl),
-          html: browserResult.html,
-        });
-        const browserObservation: RetailerObservation = {
-          ...result.extraction,
-          adapterKey: result.adapterKey,
-          responseUrl: browserResult.responseUrl,
-          verificationMethod: "retailer_page",
-        };
-        observation =
-          acceptObservation("browser-fetch", browserObservation) ?? observation;
+    if (!observation && browserFallbackEligible) {
+      const browserFallbackAvailable =
+        options.browserRuntimeReady !== false && isBrowserFetchAvailable();
+      if (browserFallbackAvailable) {
+        const browserResult = await runBeforeInventoryExtractionDeadline(
+          extractionDeadlineAt,
+          (signal) => fetchRetailerPageWithBrowser(job.url, { signal }),
+        );
+        if (browserResult) {
+          cachedBrowserHtml = browserResult.html;
+          cachedBrowserUrl = browserResult.responseUrl;
+          const result = extractRetailerPage({
+            url: new URL(browserResult.responseUrl),
+            html: browserResult.html,
+          });
+          const browserObservation: RetailerObservation = {
+            ...result.extraction,
+            adapterKey: result.adapterKey,
+            responseUrl: browserResult.responseUrl,
+            verificationMethod: "retailer_page",
+          };
+          observation =
+            acceptObservation("browser-fetch", browserObservation) ??
+            observation;
+        } else {
+          layerOutcomes.push({
+            layer: "browser-fetch",
+            outcome: "fetch failed",
+          });
+        }
       } else {
-        layerOutcomes.push({ layer: "browser-fetch", outcome: "fetch failed" });
+        layerOutcomes.push({
+          layer: "browser-fetch",
+          outcome:
+            options.browserRuntimeReady === false
+              ? "runtime prewarm unavailable"
+              : "runtime unavailable",
+        });
       }
     }
 

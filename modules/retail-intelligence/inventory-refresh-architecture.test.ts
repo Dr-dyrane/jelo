@@ -87,7 +87,7 @@ test("one hourly Vercel cron has three-pass daily capacity for the exact offer s
   );
   assert.match(
     route,
-    /processInventoryRefreshBatch\(\s*INVENTORY_CRON_BATCH_SIZE,\s*\{[\s\S]*claimDeadlineAt[\s\S]*\}\s*,?\s*\)/,
+    /processInventoryRefreshBatch\(\s*INVENTORY_CRON_BATCH_SIZE,\s*\{[\s\S]*claimDeadlineAt[\s\S]*browserRuntimeReady[\s\S]*\}\s*,?\s*\)/,
   );
   assert.match(route, /attemptSlotsPerDay/);
   assert.match(route, /targetFreshnessHours/);
@@ -351,6 +351,8 @@ test("the browser fallback ships a version-aligned serverless Chromium runtime",
   assert.match(browserFetch, /--disk-cache-size=0/);
   assert.match(browserFetch, /--media-cache-size=0/);
   assert.match(browserFetch, /releaseServerlessExecutable/);
+  assert.match(browserFetch, /queueServerlessExecutableRelease/);
+  assert.match(browserFetch, /serverlessBrowserCleanupPromise/);
   assert.match(browserFetch, /browser_runtime_executable_released/);
   assert.match(browserFetch, /browser_runtime_disk_reclaim_failed/);
   assert.match(browserFetch, /rm\(executablePath,\s*\{\s*force:\s*true\s*\}\)/);
@@ -362,7 +364,19 @@ test("the browser fallback ships a version-aligned serverless Chromium runtime",
     worker,
     /fetchRetailerPageWithBrowser\(job\.url,\s*\{\s*signal\s*\}\)/,
   );
-  assert.match(route, /await prepareBrowserFetchRuntime\(\)/);
+  assert.match(
+    browserFetch,
+    /browser\.on\(["']disconnected["'],\s*releaseExecutableAfterDisconnect\)/,
+  );
+  assert.doesNotMatch(
+    browserFetch,
+    /await releaseServerlessExecutable\(launchOptions\.executablePath\)/,
+  );
+  assert.match(
+    route,
+    /const browserRuntimeReady = await prepareBrowserFetchRuntime\(\)/,
+  );
+  assert.match(route, /\{ claimDeadlineAt, browserRuntimeReady \}/);
   assert.match(browserFetch, /waitUntil:\s*["']domcontentloaded["']/);
   assert.match(browserRuntimePack, /VERCEL_ENV === ["']production["']/);
   assert.match(browserRuntimePack, /@sparticuz\/chromium/);

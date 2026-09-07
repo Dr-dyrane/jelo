@@ -13,6 +13,7 @@ import {
   type RetailerObservation,
 } from "@/lib/inventory/refresh-worker";
 import { InventoryRefreshFailure } from "@/lib/inventory/refresh-policy";
+import { assertRetailerResponseScope } from "@/modules/retail-intelligence/response-scope";
 
 const worker = readFileSync(
   resolve(process.cwd(), "lib/inventory/refresh-worker.ts"),
@@ -90,6 +91,62 @@ test("direct-fetch diagnostics stay bounded and do not weaken scope checks", () 
   assert.match(worker, /expectedSize: job\.product_size/);
   assert.match(worker, /marketCode: job\.market_code/);
   assert.match(worker, /currencyCode: observation\.currencyCode/);
+});
+
+test("the cron readiness result gates browser fallback without stopping safer layers", () => {
+  assert.match(
+    worker,
+    /options\.browserRuntimeReady !== false && isBrowserFetchAvailable\(\)/,
+  );
+  assert.match(worker, /runtime prewarm unavailable/);
+
+  const directFetch = worker.indexOf(
+    "const directObservation = await fetchRetailerPage(",
+  );
+  const readinessGate = worker.indexOf(
+    "options.browserRuntimeReady !== false",
+    directFetch,
+  );
+  const aiFallback = worker.indexOf(
+    "extractRetailerPageWithAi({",
+    readinessGate,
+  );
+  assert.ok(readinessGate > directFetch);
+  assert.ok(aiFallback > readinessGate);
+});
+
+test("the worker never creates a universal brand-free product-name alias", () => {
+  assert.doesNotMatch(
+    worker,
+    /expectedTitleAliases:\s*\[?\s*job\.product_name/,
+  );
+  assert.match(
+    worker,
+    /expectedTitleAliases: VERIFIED_PRODUCT_TITLE_ALIASES\[job\.product_slug\]/,
+  );
+});
+
+test("reviewed brand suffix normalization retains cross-brand rejection", () => {
+  const dang = {
+    requestedUrl: "https://shop.example/dang-azelaic-acid-serum",
+    responseUrl: "https://shop.example/dang-azelaic-acid-serum",
+    expectedTitle: "DANG! Lifestyle Azelaic Acid Serum",
+    expectedSize: "30 ml",
+    observedTitle: "DANG Azelaic Acid Serum 30ml",
+    observedSize: "30 ml",
+    marketCode: "NG",
+    currencyCode: "NGN",
+  };
+
+  assert.doesNotThrow(() => assertRetailerResponseScope(dang));
+  assert.throws(
+    () =>
+      assertRetailerResponseScope({
+        ...dang,
+        observedTitle: "NINELESS A-Control 10% Azelaic Acid Serum 30ml",
+      }),
+    /title/,
+  );
 });
 
 const scope: InventoryObservationScope = {

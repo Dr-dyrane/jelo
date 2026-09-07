@@ -255,7 +255,7 @@ export async function GET(request: Request) {
     // Warm the single shared production browser before any offer receives a
     // processing lease. A cold pack download or extraction therefore cannot
     // consume the per-offer evidence budget or strand browser contexts.
-    await prepareBrowserFetchRuntime();
+    const browserRuntimeReady = await prepareBrowserFetchRuntime();
 
     failurePhase = "run";
     const claimDeadlineAt = requestStartedAt + INVENTORY_CRON_CLAIM_BUDGET_MS;
@@ -266,7 +266,7 @@ export async function GET(request: Request) {
 
     const batch = await processInventoryRefreshBatch(
       INVENTORY_CRON_BATCH_SIZE,
-      { claimDeadlineAt },
+      { claimDeadlineAt, browserRuntimeReady },
     );
     const run = summarizeInventoryRefreshRun({
       ...enqueue,

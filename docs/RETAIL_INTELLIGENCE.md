@@ -175,6 +175,13 @@ Extraction order is conservative, with four fallback layers:
 
 Page-wide purchase copy is not stock evidence. Every refresh records the adapter, confidence, evidence labels, observed product title and same-origin canonical URL. Confidence controls admission and the evidence note, not a longer public freshness claim.
 
+The refresh worker normalizes reviewed brand styling and suffix variants only
+while preserving a brand marker (for example, `DANG! Lifestyle` to `DANG`). It
+does not admit a brand-free title as a universal product-name shortcut; any such
+exception needs a product-specific reviewed alias. Exact route/canonical URL,
+measurable package size, market currency and sibling-variant checks remain
+mandatory.
+
 Production services the exact-offer queue hourly and checks up to 100 attempts
 per run. Accepted observations expire after 24 hours and become queue candidates
 within one hour of expiry. The current 2,400-attempt daily capacity is tested
