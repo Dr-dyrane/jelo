@@ -44,6 +44,15 @@ test("Vercel builds cannot migrate, seed, or opt into external discovery", async
   assert.match(source, /await Promise\.all\(\s*phase\.map/);
 });
 
+test("release tests cannot retain a production serverless browser", async () => {
+  const source = await readFile("scripts/verify-release.ts", "utf8");
+
+  assert.match(source, /if \(script === ["']test["']\)/);
+  assert.match(source, /delete childEnvironment\.VERCEL;/);
+  assert.match(source, /delete childEnvironment\.VERCEL_ENV;/);
+  assert.match(source, /env:\s*childEnvironment/);
+});
+
 test("Next skips its duplicate TypeScript pass only after production verification", async () => {
   const [buildSource, nextConfigSource] = await Promise.all([
     readFile("scripts/vercel-build.ts", "utf8"),

@@ -53,19 +53,21 @@ const releaseGateGroups = [
 
 function runNpmScript(script: string) {
   return new Promise<void>((resolve, reject) => {
+    const childEnvironment = { ...process.env };
+    if (script === "test") {
+      childEnvironment.NODE_ENV = "test";
+      childEnvironment.KV_REST_API_URL = "";
+      childEnvironment.KV_REST_API_TOKEN = "";
+      // A Vercel build is still a test runner here, not a deployed Function.
+      // Prevent integration tests with unreachable URLs from launching and
+      // retaining the production-only persistent Chromium context.
+      delete childEnvironment.VERCEL;
+      delete childEnvironment.VERCEL_ENV;
+    }
     const child = spawn("npm", ["run", script], {
       stdio: "inherit",
       shell: process.platform === "win32",
-      env: {
-        ...process.env,
-        ...(script === "test"
-          ? {
-              NODE_ENV: "test",
-              KV_REST_API_URL: "",
-              KV_REST_API_TOKEN: "",
-            }
-          : {}),
-      },
+      env: childEnvironment,
     });
 
     child.once("error", reject);
