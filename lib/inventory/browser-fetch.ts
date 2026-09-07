@@ -25,13 +25,15 @@ export type BrowserFetchResult = {
 const BROWSER_FETCH_TIMEOUT_MS = 15_000;
 const BROWSER_PREWARM_TIMEOUT_MS = 45_000;
 const SERVERLESS_BROWSER_PACK_DIRECTORY = "chromium-pack";
+const SERVERLESS_BROWSER_PROFILE_DIRECTORY = "inventory-browser-profile";
 const SERVERLESS_BROWSER_PROFILE_PREFIX = "playwright_chromiumdev_profile-";
 const BROWSER_USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 let serverlessExecutablePathPromise: Promise<string> | undefined;
-let serverlessBrowserPromise:
-  Promise<import("playwright-core").Browser> | undefined;
+let serverlessBrowserContextPromise:
+  Promise<import("playwright-core").BrowserContext> | undefined;
 let serverlessBrowserCleanupPromise: Promise<void> | undefined;
+let serverlessPageQueue: Promise<void> = Promise.resolve();
 
 async function reclaimServerlessBrowserDisk(): Promise<void> {
   const temporaryDirectory = tmpdir();
@@ -39,6 +41,7 @@ async function reclaimServerlessBrowserDisk(): Promise<void> {
   const disposableEntries = entries.filter(
     (entry) =>
       entry === SERVERLESS_BROWSER_PACK_DIRECTORY ||
+      entry === SERVERLESS_BROWSER_PROFILE_DIRECTORY ||
       entry.startsWith(SERVERLESS_BROWSER_PROFILE_PREFIX),
   );
 
@@ -58,12 +61,18 @@ function lowDiskServerlessArgs(args: string[]): string[] {
   ];
 }
 
-async function releaseServerlessExecutable(executablePath: string) {
+async function releaseServerlessExecutable(
+  executablePath: string,
+  profileDirectory: string,
+) {
   try {
     // Keep the executable available for Chromium's entire connected lifetime.
     // A replacement browser waits for this cleanup before expanding or launching
     // again, so it can never race an unlink of the previous runtime.
-    await rm(executablePath, { force: true });
+    await Promise.all([
+      rm(executablePath, { force: true }),
+      rm(profileDirectory, { force: true, recursive: true }),
+    ]);
     console.info(
       JSON.stringify({ event: "browser_runtime_executable_released" }),
     );
@@ -79,8 +88,14 @@ async function releaseServerlessExecutable(executablePath: string) {
   }
 }
 
-function queueServerlessExecutableRelease(executablePath: string) {
-  const cleanupPromise = releaseServerlessExecutable(executablePath);
+function queueServerlessExecutableRelease(
+  executablePath: string,
+  profileDirectory: string,
+) {
+  const cleanupPromise = releaseServerlessExecutable(
+    executablePath,
+    profileDirectory,
+  );
   serverlessBrowserCleanupPromise = cleanupPromise;
   void cleanupPromise.finally(() => {
     if (serverlessBrowserCleanupPromise === cleanupPromise) {
@@ -113,15 +128,27 @@ async function serverlessBrowserLaunchOptions() {
   };
 }
 
-async function sharedServerlessBrowser(
+async function sharedServerlessBrowserContext(
   chromium: typeof import("playwright-core").chromium,
 ) {
   if (serverlessBrowserCleanupPromise) {
     await serverlessBrowserCleanupPromise;
   }
 
-  if (!serverlessBrowserPromise) {
+  if (!serverlessBrowserContextPromise) {
     let executablePath: string | undefined;
+    const profileDirectory = join(
+      tmpdir(),
+      SERVERLESS_BROWSER_PROFILE_DIRECTORY,
+    );
+    let runtimeCleanupPromise: Promise<void> | undefined;
+    const cleanupRuntime = () => {
+      runtimeCleanupPromise ??= queueServerlessExecutableRelease(
+        executablePath ?? join(tmpdir(), "chromium"),
+        profileDirectory,
+      );
+      return runtimeCleanupPromise;
+    };
     const launchPromise = (async () => {
       const launchOptions = await serverlessBrowserLaunchOptions();
       executablePath = launchOptions.executablePath;
@@ -130,37 +157,83 @@ async function sharedServerlessBrowser(
       // Playwright profiles left by a crashed browser can consume the rest of
       // Vercel's bounded /tmp volume. Reclaim both before every fresh launch.
       await reclaimServerlessBrowserDisk();
-      const browser = await chromium.launch({
+      // Sparticuz documents that incognito BrowserContext creation can fail
+      // with Target.closed in serverless Chromium. A persistent launch owns
+      // Chromium's default context, so jobs share only an anonymous context
+      // while every page is serialized and cleared below.
+      const context = await chromium.launchPersistentContext(profileDirectory, {
         headless: true,
         args: launchOptions.args,
         executablePath: launchOptions.executablePath,
+        userAgent: BROWSER_USER_AGENT,
+        serviceWorkers: "block",
       });
-      let executableReleaseQueued = false;
-      const releaseExecutableAfterDisconnect = () => {
-        if (executableReleaseQueued) return;
-        executableReleaseQueued = true;
-        if (serverlessBrowserPromise === cachedPromise) {
-          serverlessBrowserPromise = undefined;
+      await context.addInitScript(() => {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+        } catch {
+          // Opaque origins do not expose storage; retailer origins do.
         }
-        queueServerlessExecutableRelease(launchOptions.executablePath);
+      });
+      const browser = context.browser();
+      if (!browser) {
+        await context.close();
+        throw new Error(
+          "Serverless browser did not expose a connected runtime.",
+        );
+      }
+      const releaseExecutableAfterDisconnect = () => {
+        if (serverlessBrowserContextPromise === cachedPromise) {
+          serverlessBrowserContextPromise = undefined;
+        }
+        void cleanupRuntime();
       };
       browser.on("disconnected", releaseExecutableAfterDisconnect);
-      if (!browser.isConnected()) releaseExecutableAfterDisconnect();
-      return browser;
+      if (!browser.isConnected()) {
+        releaseExecutableAfterDisconnect();
+        throw new Error("Serverless browser disconnected during launch.");
+      }
+      return context;
     })();
     const cachedPromise = launchPromise.catch(async (error) => {
-      if (serverlessBrowserPromise === cachedPromise) {
-        serverlessBrowserPromise = undefined;
+      if (serverlessBrowserContextPromise === cachedPromise) {
+        serverlessBrowserContextPromise = undefined;
       }
       if (executablePath) {
-        await queueServerlessExecutableRelease(executablePath);
+        await cleanupRuntime();
       }
       throw error;
     });
-    serverlessBrowserPromise = cachedPromise;
+    serverlessBrowserContextPromise = cachedPromise;
   }
 
-  return serverlessBrowserPromise;
+  return serverlessBrowserContextPromise;
+}
+
+async function withServerlessPageLease<Result>(
+  operation: () => Promise<Result>,
+): Promise<Result> {
+  const previous = serverlessPageQueue;
+  let release: () => void = () => undefined;
+  serverlessPageQueue = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await previous;
+  try {
+    return await operation();
+  } finally {
+    release();
+  }
+}
+
+async function resetServerlessBrowserContext(
+  context: import("playwright-core").BrowserContext,
+) {
+  await Promise.all(
+    context.pages().map((page) => page.close().catch(() => undefined)),
+  );
+  await Promise.all([context.clearCookies(), context.clearPermissions()]);
 }
 
 export async function prepareBrowserFetchRuntime(): Promise<boolean> {
@@ -171,18 +244,22 @@ export async function prepareBrowserFetchRuntime(): Promise<boolean> {
   try {
     const playwright = await import("playwright-core");
     const ready = await Promise.race([
-      sharedServerlessBrowser(playwright.chromium).then(async (browser) => {
+      withServerlessPageLease(async () => {
+        const context = await sharedServerlessBrowserContext(
+          playwright.chromium,
+        );
         // Launch alone does not exercise Chromium's writable profile. Open one
-        // isolated page so a constrained /tmp is surfaced before jobs are
-        // leased for real retailer navigation.
-        const context = await browser.newContext({ serviceWorkers: "block" });
+        // page in its default anonymous context so a constrained /tmp is
+        // surfaced before jobs are leased for real retailer navigation.
+        await resetServerlessBrowserContext(context);
+        const page = await context.newPage();
         try {
-          const page = await context.newPage();
           await page.setContent(
             "<!doctype html><title>inventory prewarm</title>",
           );
         } finally {
-          await context.close();
+          await page.close();
+          await resetServerlessBrowserContext(context);
         }
         return true;
       }),
@@ -266,72 +343,100 @@ export async function fetchRetailerPageWithBrowser(
   }
 
   const useSharedServerlessBrowser = process.env.VERCEL === "1";
-  let browser: import("playwright-core").Browser | undefined;
-  let context: import("playwright-core").BrowserContext | undefined;
-  const closeContextOnAbort = () => {
-    if (context) void context.close().catch(() => undefined);
-  };
-  options.signal?.addEventListener("abort", closeContextOnAbort, {
-    once: true,
-  });
-  try {
-    if (options.signal?.aborted) return undefined;
-    browser = useSharedServerlessBrowser
-      ? await sharedServerlessBrowser(chromium)
-      : await chromium.launch({
+  const fetchOnce = async () => {
+    let browser: import("playwright-core").Browser | undefined;
+    let context: import("playwright-core").BrowserContext | undefined;
+    let page: import("playwright-core").Page | undefined;
+    const closePageOnAbort = () => {
+      if (page) void page.close().catch(() => undefined);
+    };
+    options.signal?.addEventListener("abort", closePageOnAbort, {
+      once: true,
+    });
+    try {
+      if (options.signal?.aborted) return undefined;
+      if (useSharedServerlessBrowser) {
+        context = await sharedServerlessBrowserContext(chromium);
+        await resetServerlessBrowserContext(context);
+      } else {
+        browser = await chromium.launch({
           headless: true,
           args: ["--no-sandbox", "--disable-setuid-sandbox"],
         });
-    if (options.signal?.aborted) return undefined;
-    context = await browser.newContext({
-      userAgent: BROWSER_USER_AGENT,
-      serviceWorkers: "block",
-    });
-    if (options.signal?.aborted) return undefined;
-    const page = await context.newPage();
-    const response = await page.goto(url, {
-      waitUntil: "domcontentloaded",
-      timeout: BROWSER_FETCH_TIMEOUT_MS,
-    });
-    if (response && !response.ok()) {
+        context = await browser.newContext({
+          userAgent: BROWSER_USER_AGENT,
+          serviceWorkers: "block",
+        });
+      }
+      if (options.signal?.aborted) return undefined;
+      page = await context.newPage();
+      // The worker deadline can fire while Chromium is creating the target.
+      // Recheck after newPage so an already-aborted request never navigates or
+      // holds the shared serverless lease beyond its deadline.
+      if (options.signal?.aborted) return undefined;
+      const response = await page.goto(url, {
+        waitUntil: "domcontentloaded",
+        timeout: BROWSER_FETCH_TIMEOUT_MS,
+      });
+      if (response && !response.ok()) {
+        console.warn(
+          JSON.stringify({
+            event: "browser_fetch_failed",
+            url,
+            error: `Browser received HTTP ${response.status()}`,
+          }),
+        );
+        return undefined;
+      }
+      const html = await page.content();
+      const responseUrl = page.url();
+      const status = response?.status() ?? 200;
+      return { html, responseUrl, status };
+    } catch (error) {
+      if (options.signal?.aborted) return undefined;
       console.warn(
         JSON.stringify({
           event: "browser_fetch_failed",
           url,
-          error: `Browser received HTTP ${response.status()}`,
+          error: error instanceof Error ? error.message : String(error),
         }),
       );
       return undefined;
-    }
-    const html = await page.content();
-    const responseUrl = page.url();
-    const status = response?.status() ?? 200;
-    return { html, responseUrl, status };
-  } catch (error) {
-    if (options.signal?.aborted) return undefined;
-    console.warn(
-      JSON.stringify({
-        event: "browser_fetch_failed",
-        url,
-        error: error instanceof Error ? error.message : String(error),
-      }),
-    );
-    return undefined;
-  } finally {
-    options.signal?.removeEventListener("abort", closeContextOnAbort);
-    if (context) {
-      try {
-        await context.close();
-      } catch {
-        // Browser failure may already have torn down the isolated context.
+    } finally {
+      options.signal?.removeEventListener("abort", closePageOnAbort);
+      if (page) {
+        try {
+          await page.close();
+        } catch {
+          // Browser failure may already have torn down the page.
+        }
+      }
+      if (context && useSharedServerlessBrowser) {
+        try {
+          await resetServerlessBrowserContext(context);
+        } catch {
+          // Browser failure may already have torn down the shared context.
+        }
+      }
+      if (context && !useSharedServerlessBrowser) {
+        try {
+          await context.close();
+        } catch {
+          // Browser failure may already have torn down the isolated context.
+        }
+      }
+      if (browser && !useSharedServerlessBrowser) {
+        try {
+          await browser.close();
+        } catch {
+          // Best-effort cleanup; a failed launch may have already torn down.
+        }
       }
     }
-    if (browser && !useSharedServerlessBrowser) {
-      try {
-        await browser.close();
-      } catch {
-        // Best-effort cleanup; a failed launch may have already torn down.
-      }
-    }
+  };
+
+  if (useSharedServerlessBrowser) {
+    return withServerlessPageLease(fetchOnce);
   }
+  return fetchOnce();
 }

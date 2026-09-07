@@ -1339,10 +1339,14 @@ overwrites of higher-quality data.
 - **When:** a retailer host blocks server-side HTTP (e.g. Jumia/Cloudflare 403).
 - **How:** launches a headless browser, navigates to the URL, extracts rendered HTML, and passes it through the same structured-data extraction as HTTP fetch.
 - **No env vars required** — active whenever `playwright-core` is installed.
-- **Runtime lifecycle:** production prewarms one shared browser before the batch,
-  retains its executable while Chromium is connected, and removes it only after
-  disconnect. A replacement launch waits for that cleanup, avoiding executable
-  unlink races inside the bounded `/tmp` volume.
+- **Runtime lifecycle:** production prewarms one shared default persistent
+  context before the batch because the serverless Chromium runtime can close
+  isolated contexts during target creation. Browser pages are serialized,
+  closed, and have cookies, permissions, local storage and session storage
+  cleared between offers. The process retains its executable and profile while
+  Chromium is connected and removes both only after disconnect. A replacement
+  launch waits for that cleanup, avoiding runtime unlink races inside the
+  bounded `/tmp` volume.
 - **Degraded mode:** if prewarm fails, direct HTTP, Woo and AI layers still run;
   browser-eligible offers record `runtime prewarm unavailable` instead of
   repeatedly launching a broken runtime within the same batch.

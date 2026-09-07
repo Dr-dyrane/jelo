@@ -342,8 +342,12 @@ test("the browser fallback ships a version-aligned serverless Chromium runtime",
     browserFetch,
     /serverlessChromium\s*\.executablePath\(packUrl\)/,
   );
-  assert.match(browserFetch, /serverlessBrowserPromise/);
-  assert.match(browserFetch, /sharedServerlessBrowser/);
+  assert.match(browserFetch, /serverlessBrowserContextPromise/);
+  assert.match(browserFetch, /sharedServerlessBrowserContext/);
+  assert.match(browserFetch, /launchPersistentContext/);
+  assert.match(browserFetch, /withServerlessPageLease/);
+  assert.match(browserFetch, /resetServerlessBrowserContext/);
+  assert.match(browserFetch, /context\.pages\(\)\.map/);
   assert.match(browserFetch, /reclaimServerlessBrowserDisk/);
   assert.match(browserFetch, /SERVERLESS_BROWSER_PACK_DIRECTORY/);
   assert.match(browserFetch, /SERVERLESS_BROWSER_PROFILE_PREFIX/);
@@ -357,9 +361,19 @@ test("the browser fallback ships a version-aligned serverless Chromium runtime",
   assert.match(browserFetch, /browser_runtime_disk_reclaim_failed/);
   assert.match(browserFetch, /rm\(executablePath,\s*\{\s*force:\s*true\s*\}\)/);
   assert.match(browserFetch, /page\.setContent\(/);
+  assert.match(browserFetch, /await page\.close\(\)/);
+  assert.match(browserFetch, /context\.clearCookies\(\)/);
+  assert.match(browserFetch, /context\.clearPermissions\(\)/);
+  assert.match(browserFetch, /context\.addInitScript\(/);
+  assert.match(browserFetch, /localStorage\.clear\(\)/);
+  assert.match(browserFetch, /sessionStorage\.clear\(\)/);
   assert.match(browserFetch, /serviceWorkers:\s*["']block["']/);
   assert.match(browserFetch, /prepareBrowserFetchRuntime/);
   assert.match(browserFetch, /addEventListener\(["']abort["']/);
+  assert.match(
+    browserFetch,
+    /page = await context\.newPage\(\);[\s\S]*?if \(options\.signal\?\.aborted\) return undefined;[\s\S]*?page\.goto\(/,
+  );
   assert.match(
     worker,
     /fetchRetailerPageWithBrowser\(job\.url,\s*\{\s*signal\s*\}\)/,
