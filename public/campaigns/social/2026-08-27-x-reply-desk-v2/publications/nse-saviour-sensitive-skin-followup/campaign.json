@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "nse-saviour-sensitive-skin-followup",
+  "status": "published",
+  "createdAt": null,
+  "dataCheckedAt": null,
+  "dataCheckedAtApproximate": "2026-09-05T17:44:00Z",
+  "objective": "Supportive, non-diagnostic response to a direct skincare follow-up",
+  "sourcePost": {
+    "url": "https://x.com/nse_saviour/status/2095774477002911975",
+    "externalId": "2095774477002911975",
+    "priorJeloCareReply": "https://x.com/jelocare/status/2095659091410751911",
+    "visibleTime": "12:22 AM · Sep 4, 2026",
+    "visibleTimeZone": "America/Los_Angeles",
+    "actionTimeAudit": {
+      "duplicateCheck": "Refreshed exact source before submission: zero replies and no existing JeloCare answer to this follow-up.",
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "views": 6
+    }
+  },
+  "copy": {
+    "post": "Abeg, don’t force a soap because it works for other people. Which ones have caused trouble? Since this keeps happening, a dermatologist can help you work out what may be triggering it.",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "text-only",
+    "assets": []
+  },
+  "careBoundary": "No diagnosis, product recommendation, treatment promise, or endorsement of the original blanket soap list. Encourages professional review for a recurring concern.",
+  "careReference": {
+    "url": "https://www.aad.org/public/everyday-care/skin-care-secrets/prevent-skin-problems/test-skin-care-products",
+    "reviewed": "Checked during preceding drafting turn on 2026-09-05."
+  },
+  "channels": ["x"],
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-09-05T17:45:04.429Z",
+      "publishedAtBasis": "Derived from observed X status ID; X displayed 10:45 AM · Sep 5, 2026.",
+      "externalId": "2096293550845780357",
+      "publicUrl": "https://x.com/jelocare/status/2096293550845780357",
+      "replyTo": "https://x.com/nse_saviour/status/2095774477002911975",
+      "composerRecipients": ["@nse_saviour", "@OlayemiKomolaf4"],
+      "liveVerifiedAt": null,
+      "liveVerifiedAtApproximate": "2026-09-05T17:46:00Z",
+      "verification": "Navigated to permanent reply URL and observed exact approved text, JeloCare verified identity, no attached media, and the intended SAVY parent in the conversation.",
+      "spend": null,
+      "audienceSummary": "Public X reply in the existing conversation"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userMessage": "postreply",
+    "scope": "Exact previously presented copy and text-only media pairing"
+  },
+  "externalActionScope": "One approved X reply only.",
+  "repositoryStateAtRecordCreation": "local-uncommitted"
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "preview": {
+    "platformAction": "x-reply",
+    "targetUrl": null,
+    "checkedAt": null,
+    "duplicateCheck": "not-run",
+    "exactCopy": null,
+    "mediaFilename": null,
+    "mediaSha256": null,
+    "additionalActions": [],
+    "state": "draft"
+  },
+  "confirmation": {
+    "received": false,
+    "receivedAt": null,
+    "confirmedTargetUrl": null,
+    "confirmedExactCopy": null,
+    "confirmedMediaSha256": null
+  },
+  "receipt": {
+    "publicUrl": null,
+    "externalId": null,
+    "submittedAt": null,
+    "verifiedAt": null,
+    "targetMatched": null,
+    "copyMatched": null,
+    "mediaMatched": null,
+    "replyAncestryMatched": null,
+    "state": "not-submitted"
+  }
+}

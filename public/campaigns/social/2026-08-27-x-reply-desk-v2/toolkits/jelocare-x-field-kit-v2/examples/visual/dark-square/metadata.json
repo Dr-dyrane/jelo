@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 2,
+  "exampleId": "dark-square",
+  "synthetic": true,
+  "provenance": "Original local code-native geometric test imagery and synthetic sine; no real account, engagement, capture or third-party media.",
+  "fontPolicy": "Local font is rasterized for test imagery; no system font file is included.",
+  "sourceText": "Only this colour block should move.\nKeep the full sentence: SUNRISE.",
+  "replyText": "Keep this complete reply.\nFinal word: LANTERN.",
+  "sourceLastWord": "SUNRISE.",
+  "replyLastWord": "LANTERN.",
+  "audio": {
+    "present": false,
+    "kind": "none"
+  },
+  "durationSeconds": 2,
+  "fps": 18,
+  "mediaSize": [540, 540],
+  "mediaFirstFrame": "Screenshot media region equals the decoded first frame, pixel for pixel.",
+  "requiredOmissions": [
+    "relative ages",
+    "absolute timestamp",
+    "action controls",
+    "engagement zeros",
+    "legacy media strip",
+    "composer",
+    "navigation"
+  ],
+  "screenshotSha256": "a70710e9bec4ed9245621ac8bde8c15d228591070e7d4a9ef0334ae9fac00562",
+  "videoSha256": "d3564bbebe2f2efa431042ce145b5653cbc33cd2fccd3caf60ece7890549b9ea",
+  "coordinateSpace": {
+    "width": 720,
+    "height": 1288
+  },
+  "source_media_match": true,
+  "theme": "dark",
+  "trace": "DEMO-01"
+}

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "g4na-xo-moisturiser-panel-inquiry",
+  "status": "published",
+  "createdAt": "2026-09-05T00:50:01Z",
+  "dataCheckedAt": null,
+  "objective": "Source-fitting Nigerian humour reply about needless scrutiny of men doing skincare",
+  "sourcePost": {
+    "url": "https://x.com/g4na_xo/status/2095899160008356026",
+    "externalId": "2095899160008356026",
+    "authorHandle": "@g4na_xo",
+    "authorDisplayName": "iloveyourmummyjsyk",
+    "visibleTime": "8:37 AM · Sep 4, 2026",
+    "visibleTimeZone": "Browser local time; America/Los_Angeles",
+    "observedText": "Nigeria btw, you go do skincare as a guy, dem go dey call you gay😂",
+    "actionTimeAudit": {
+      "checkedAtApproximate": "2026-09-05T00:48:00Z",
+      "duplicateCheck": "No JeloCare reply in the refreshed visible conversation; no source ID, handle, or exact draft match in local desk records.",
+      "replies": 40,
+      "reposts": 52,
+      "likes": 137,
+      "bookmarks": 3,
+      "views": 1489,
+      "authorActivity": "Author replies visible from six hours earlier; not claimed active at posting time."
+    }
+  },
+  "copy": {
+    "post": "Ordinary moisturiser, dem don open panel of inquiry.",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "text-only",
+    "assets": [],
+    "rightsBoundary": "No source-media download or reuse; no media attached."
+  },
+  "channels": ["x"],
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-09-05T00:48:57.747Z",
+      "publishedAtBasis": "Derived from the observed X status ID; displayed time was 5:48 PM · Sep 4, 2026 in the browser.",
+      "externalId": "2096037838047568366",
+      "publicUrl": "https://x.com/jelocare/status/2096037838047568366",
+      "replyTo": "https://x.com/g4na_xo/status/2095899160008356026",
+      "liveVerifiedAt": null,
+      "liveVerifiedAtApproximate": "2026-09-05T00:49:00Z",
+      "verification": "Opened the published reply URL and observed JeloCare identity, exact approved text, no attached media, and the intended parent post.",
+      "spend": null,
+      "audienceSummary": "Public X reply"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "userMessage": "post",
+    "scope": "The exact previously presented text-only reply on the specified source post",
+    "finalCopy": "Ordinary moisturiser, dem don open panel of inquiry.",
+    "finalMedia": "none"
+  },
+  "claimBoundary": "No price, product-performance, stock, authenticity, endorsement, or clinical claims.",
+  "careBoundary": "Targets needless scrutiny, not sexual orientation or skin appearance; non-diagnostic.",
+  "externalActionScope": "One approved public X reply only.",
+  "repositoryStateAtRecordCreation": "local-uncommitted"
+}

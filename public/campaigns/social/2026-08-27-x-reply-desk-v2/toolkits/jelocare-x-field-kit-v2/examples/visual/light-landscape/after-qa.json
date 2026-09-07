@@ -1,0 +1,26 @@
+{
+  "synthetic": true,
+  "qa": {
+    "sampleTimes": [0.0, 0.4062, 0.8318, 1.3154, 1.9344],
+    "sourceMotion": 5.366030092592593,
+    "outputMotion": 5.640965496368039,
+    "maxOutsideMediaDelta": 5,
+    "fixedOutsideLimit": 20,
+    "sourceFrameDifferences": [
+      2.0805137844611528, 2.075187969924812, 2.1146616541353382,
+      2.1088345864661653, 2.11359649122807
+    ],
+    "sourceAudioPresent": true,
+    "outputAudioPresent": true,
+    "audioCheck": {
+      "sourceRms": 0.010588564909994602,
+      "correlationWithin20ms": 0.9999639987945557
+    },
+    "wholeFileDecodes": true
+  },
+  "fullRenderSha256": "176f07e6bcfa96d360f3f2d748e6dd63aef53eb314960cee2407925608202366",
+  "afterSha256": "1d434823c98b8dd9983f2fb4501d522ef943cfee7c8bdce972a04a52e7b88214",
+  "afterDurationSeconds": 2,
+  "afterIsStreamCopiedOneCycleExcerpt": true,
+  "visualReview": "Root inspected full and phone proofs; complete fictional identities and sentinel words."
+}

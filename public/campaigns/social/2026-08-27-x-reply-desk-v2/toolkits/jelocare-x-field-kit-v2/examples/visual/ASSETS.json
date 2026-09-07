@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "synthetic": true,
+  "assets": [
+    {
+      "path": "examples/visual/dark-portrait/after.mp4",
+      "sha256": "c3768d56d3c15eb0fa937a3e0b9b0abddd305bad5ee1f603ca692479833ef33b",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/dark-portrait/after.png",
+      "sha256": "b15d6defcecc1ca3cae1914451b300ae402e246e34c7e281fd7b236e5cd4197a",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/dark-portrait/crops.png",
+      "sha256": "2910bf8bfafd6913580cd0275889ca61ccda0407be8a640a04107659409a5521",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/dark-portrait/media.mp4",
+      "sha256": "6479b8bfe4c8709f121b0470aeaefb583023095a87c177e5e93a8263b2850b80",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/dark-portrait/phone.png",
+      "sha256": "c00712da58fda55433bf39736a094fe526d03ac61f87f405867f37e9a9087d3b",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/dark-portrait/screenshot.png",
+      "sha256": "844e5ea4f3f89d5c5a090bfa46701f17317a1f6653f1c7abf021f50ca7a13235",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/dark-square/after.mp4",
+      "sha256": "4a37a3b7ad4925ce55b9568ef5062dd6d12de888aa236e8cdd8c254e13473e2e",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/dark-square/after.png",
+      "sha256": "e240170adcf4069b344a19d9410c61f5d135bc02a3e4dcfa1fad82e0874a3287",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/dark-square/crops.png",
+      "sha256": "37874912ef47f8ec59726528d4d8e0c120db9cde13ffe8207e7f1f8a9f0dc457",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/dark-square/media.mp4",
+      "sha256": "d3564bbebe2f2efa431042ce145b5653cbc33cd2fccd3caf60ece7890549b9ea",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/dark-square/phone.png",
+      "sha256": "e309f79805f4dd7f67abf1d7182b4dce90ddf29ee88aa3edcb00fe2521660011",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/dark-square/screenshot.png",
+      "sha256": "a70710e9bec4ed9245621ac8bde8c15d228591070e7d4a9ef0334ae9fac00562",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/light-landscape/after.mp4",
+      "sha256": "1d434823c98b8dd9983f2fb4501d522ef943cfee7c8bdce972a04a52e7b88214",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/light-landscape/after.png",
+      "sha256": "b21489ce6c957c5b0c86d88e808d42a5b0d49ba2939d00774aeab7f9e1cd53dc",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/light-landscape/crops.png",
+      "sha256": "308f58672fd0c73c962f421b74550435acc885238154be54e1864150437ddf05",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/light-landscape/media.mp4",
+      "sha256": "e00a16ada1770ce037d3b191b1e3eb6e171369a8739f1a3d8e13ca4c67ad63ca",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/light-landscape/phone.png",
+      "sha256": "2e3612ea7090294f83f9c07388ee6dd572be4aee2ff463a4039b459ff4bc4482",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/light-landscape/screenshot.png",
+      "sha256": "570f7b7d9ead5514f676c72a09c8d1f3c5b2d5e20764a7c346559462c4ea9d70",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/teaching-cards/01-timestamps.png",
+      "sha256": "6037d3c710d9740ea172fb4eeb75ccaf1fa394c3ff29027deda13a117d2030c4",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/teaching-cards/02-aspect-ratio.png",
+      "sha256": "e499efee53b297b07010ddcb62b27d335fa44b6840dfd0d74df6e54b411f9407",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/teaching-cards/03-final-word.png",
+      "sha256": "8d799d9dd6f7f3d7548c3d124b8cb1c181edf9575871b82b6099c8083458837e",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/teaching-cards/04-old-media-strip.png",
+      "sha256": "f04e281a584dcb71f29e4c7befb18d661e52f3c9adb4907973470ce33002e72c",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/teaching-cards/05-controls.png",
+      "sha256": "9594acd52f6cb21a4cd111615629657c1c10a98f1c51d81f0ec1b071d2d637c9",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    },
+    {
+      "path": "examples/visual/teaching-cards/06-media-match.png",
+      "sha256": "7c65fc0862c3646cebfe92cd98761f0da694462dcd9d2de8bb72383c6ecb7f0f",
+      "provenance": "Original fictional code-native fixture or its deterministic derivative; not third-party media."
+    }
+  ]
+}

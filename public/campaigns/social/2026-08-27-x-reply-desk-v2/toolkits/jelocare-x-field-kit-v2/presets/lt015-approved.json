@@ -1,0 +1,34 @@
+{
+  "id": "lt015-approved-exact-input-pair",
+  "originalScreenshotSha256": "6170dcc32c2ec36c3ac7cf6bce1d85161796c53984674fea089d9187444fc0bd",
+  "videoSha256": "a77d6603231d9345e2e2d34e578b3c86feceeebbc6dcdeb3dabeca3e3f78c822",
+  "durationSeconds": 6.6,
+  "regions": {
+    "schemaVersion": 2,
+    "screenshotSha256": "6170dcc32c2ec36c3ac7cf6bce1d85161796c53984674fea089d9187444fc0bd",
+    "videoSha256": "a77d6603231d9345e2e2d34e578b3c86feceeebbc6dcdeb3dabeca3e3f78c822",
+    "coordinateSpace": { "width": 1440, "height": 3120 },
+    "theme": "dark",
+    "trace": "LT·015",
+    "source_media_match": true,
+    "regions": {
+      "source_avatar": [38, 750, 152, 152],
+      "source_identity": [208, 750, 706, 66],
+      "source_text": [208, 824, 1192, 240],
+      "media": [210, 1084, 1188, 1188],
+      "reply_avatar": [38, 2450, 152, 152],
+      "reply_identity": [208, 2450, 458, 66],
+      "reply_text": [208, 2526, 330, 78]
+    }
+  },
+  "layout": {
+    "source_avatar": { "x": 38, "y": 230, "w": 114, "h": 114 },
+    "source_identity": { "x": 176, "y": 236, "w": 512, "h": 48 },
+    "source_text": { "x": 176, "y": 300, "w": 864, "h": 174 },
+    "media": { "x": 176, "y": 510, "w": 840, "h": 840 },
+    "reply_avatar": { "x": 38, "y": 1398, "w": 114, "h": 114 },
+    "reply_identity": { "x": 176, "y": 1400, "w": 344, "h": 50 },
+    "reply_text": { "x": 176, "y": 1466, "w": 248, "h": 59 }
+  },
+  "boundary": "Coordinates and hashes only; no third-party media bundled. Exact-input replay of a reviewed layout, not unseen generalization or publication approval."
+}

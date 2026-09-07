@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "packetId": "jelocare-x-field-kit",
+  "name": "JeloCare X Field Kit",
+  "version": "2.0.0",
+  "createdAt": "2026-09-07T19:30:00Z",
+  "defaultState": "draft",
+  "entrypoints": {
+    "human": "START_HERE.md",
+    "singleFileAi": "JeloCare-X-Field-Kit.md",
+    "skillAwareAi": "SKILL.md",
+    "capabilityMatrix": "CAPABILITY_MATRIX.md",
+    "renderer": "scripts/zapshot.py",
+    "cropPlaybook": "PLAYBOOK.md",
+    "selfTest": "scripts/self_test.py",
+    "validator": "scripts/validate_packet.py",
+    "archiveBuilder": "scripts/build_packet.py"
+  },
+  "commands": [
+    "BOOT",
+    "NEXT",
+    "REPLY",
+    "FOLLOWUPS",
+    "ZAPSHOT",
+    "ARTICLE",
+    "SPOTLIGHT",
+    "REPURPOSE",
+    "MEASURE",
+    "AUDIT",
+    "POST"
+  ],
+  "capabilityModes": ["desk", "live-read", "render", "publish", "monitor"],
+  "states": [
+    "draft",
+    "ready-for-approval",
+    "local-private-unpublished",
+    "not-submitted",
+    "submitted-unverified",
+    "live-verified"
+  ],
+  "runtime": {
+    "editorial": "Any AI that can read Markdown and supplied evidence",
+    "render": "Python 3.9+, Pillow 11.3.0, numpy 2.0.2, imageio-ffmpeg 0.6.0; image/file viewing and executable-code host required",
+    "publication": "A host-controlled signed-in X session plus explicit action-time confirmation"
+  },
+  "portableBoundaries": {
+    "credentialsIncluded": false,
+    "browserSessionIncluded": false,
+    "thirdPartyMediaIncluded": false,
+    "customerDataIncluded": false,
+    "liveWebGuaranteed": false,
+    "postingGuaranteed": false,
+    "crossRuntimeByteIdentityGuaranteed": false
+  },
+  "zapshotV2": {
+    "safeEntryPoint": "scripts/zapshot.py",
+    "knownInputReplay": "Exact screenshot and media SHA-256 pair only",
+    "unseenInputs": "Guided seven-region extraction plus agent visual review; no arbitrary-case success guarantee",
+    "examples": "Three original fictional worked inputs and six bad-versus-good cards",
+    "sourceAudio": "Retained with video from the same start; silent only when source lacks audio",
+    "qaThresholdsEditableInRecipe": false,
+    "publicationAuthority": false
+  },
+  "primaryOutputs": [
+    "capability report",
+    "candidate or reply preview",
+    "campaign record",
+    "Zapshot render recipe and derivatives when rendering exists",
+    "publication preview and receipt when publication exists",
+    "performance observation"
+  ]
+}

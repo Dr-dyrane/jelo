@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "x-post-id-or-local-id",
+  "source": {
+    "url": null,
+    "authorHandle": null,
+    "displayName": null,
+    "exactVisibleText": null,
+    "visibleTime": null,
+    "checkedAt": null,
+    "liveVerified": false,
+    "visibleEngagement": {
+      "replies": null,
+      "reposts": null,
+      "likes": null,
+      "bookmarks": null,
+      "views": null
+    },
+    "authorActivelyReplying": null,
+    "mediaKind": "none",
+    "audioPresent": null
+  },
+  "ancestry": {
+    "answersUrl": null,
+    "existingJeloCareReply": null,
+    "duplicateCheck": "not-run"
+  },
+  "classification": "ignore",
+  "flags": [],
+  "mechanism": null,
+  "proposedReply": null,
+  "recommendedMedia": "none",
+  "rightsState": "unknown",
+  "conceptScore": {
+    "sourceFit": 0,
+    "naturalVoice": 0,
+    "secondBeat": 0,
+    "riffSpace": 0,
+    "jeloCareRelevance": 0,
+    "safety": 0,
+    "evidence": 0,
+    "rights": 0,
+    "packageFit": 0,
+    "total": 0,
+    "maximum": 18
+  },
+  "state": "draft"
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "2026-09-05-virtuousii-skincare-perfume-staff-meeting-x-reply-v1",
+  "status": "published",
+  "createdAt": "2026-09-05T00:36:45Z",
+  "dataCheckedAt": "2026-09-05T00:34:00Z",
+  "objective": "join a fresh skincare-restock moment with a compact personification that leaves an easy comeback",
+  "sourcePost": {
+    "url": "https://x.com/virtuousii/status/2095985258751484176",
+    "externalId": "2095985258751484176",
+    "publishedAt": "2026-09-04T21:20:01.866Z",
+    "timestampSource": "X status Snowflake",
+    "handle": "@virtuousii",
+    "displayName": "EA has her PVC",
+    "observedText": "My skincare products and my perfumes finished at the same time. I’m about to focken pass out!",
+    "actionTimeAudit": {
+      "checkedAt": "2026-09-05T00:34:00Z",
+      "method": "read-only inspection of the exact public X source and visible reply thread",
+      "existingJeloCareReply": false,
+      "visibleEngagement": {
+        "replies": 1,
+        "reposts": 22,
+        "quotes": null,
+        "likes": 132,
+        "bookmarks": 2,
+        "views": 2190
+      }
+    }
+  },
+  "copy": {
+    "post": "Skincare and perfume both resigned on the same day? Na emergency staff meeting, not restock.",
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none-attached-to-reply",
+    "rightsBoundary": "The JeloCare reply contains text only. No source media was downloaded, copied, edited, archived, or attached."
+  },
+  "publication": [
+    {
+      "platform": "x",
+      "channel": "x-reply",
+      "action": "reply",
+      "publishedAt": "2026-09-05T00:34:16.849Z",
+      "timestampSource": "X status Snowflake",
+      "externalId": "2096034143293583510",
+      "publicUrl": "https://x.com/jelocare/status/2096034143293583510",
+      "replyTo": "https://x.com/virtuousii/status/2095985258751484176",
+      "liveVerifiedAt": "2026-09-05T00:34:30Z",
+      "spend": null,
+      "audienceSummary": "Public text-only reply from @jelocare to @virtuousii"
+    }
+  ],
+  "actionTimeConfirmation": {
+    "evidence": "Dyrane instructed ‘post both’ immediately after the exact targets, final copies, no-media pairing, platform action, and fresh evidence were shown.",
+    "boundary": "Authority covered these two exact X replies only and grants no follow-up, like, repost, quote-post, follow, direct message, clip, or cross-channel publication."
+  },
+  "measurement": {
+    "scheduledCheckpoints": ["1h", "6h", "24h"],
+    "firstCheckpointEvidence": null
+  },
+  "mechanism": "The source frames simultaneous empty skincare and perfume shelves as overwhelm. JeloCare names the situation as a coordinated staff resignation, leaving the author room to extend the premise.",
+  "claimBoundary": "No product, price, stock, retailer, authenticity, efficacy, suitability, result, availability, delivery, savings, or clinical claim is made.",
+  "careBoundary": "Humour targets the restock situation, not the author or her skin. No diagnosis, outcome, or personalized care instruction is implied.",
+  "externalActionScope": {
+    "performed": "one text-only X reply",
+    "notPerformed": [
+      "like",
+      "repost",
+      "quote-post",
+      "follow",
+      "direct-message",
+      "download",
+      "schedule",
+      "spend",
+      "cross-channel-publication"
+    ]
+  }
+}

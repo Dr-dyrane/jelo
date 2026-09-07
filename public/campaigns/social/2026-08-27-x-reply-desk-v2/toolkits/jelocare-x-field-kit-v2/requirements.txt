@@ -1,0 +1,5 @@
+# The renderer itself uses Python's standard library and an FFmpeg executable.
+# Install this pinned fallback only when the host has no system ffmpeg binary.
+imageio-ffmpeg==0.6.0
+Pillow==11.3.0
+numpy==2.0.2

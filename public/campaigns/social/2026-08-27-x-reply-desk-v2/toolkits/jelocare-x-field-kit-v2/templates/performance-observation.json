@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "postId": null,
+  "publicUrl": null,
+  "checkpoint": "cross-sectional",
+  "observedAt": null,
+  "visibleMetrics": {
+    "replies": null,
+    "reposts": null,
+    "likes": null,
+    "bookmarks": null,
+    "views": null
+  },
+  "sourcePostVisibleMetrics": null,
+  "authorResponded": null,
+  "audienceContinuation": null,
+  "observation": null,
+  "inference": null,
+  "causalityClaimed": false
+}

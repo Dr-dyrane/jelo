@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 2,
+  "screenshotSha256": "844e5ea4f3f89d5c5a090bfa46701f17317a1f6653f1c7abf021f50ca7a13235",
+  "videoSha256": "6479b8bfe4c8709f121b0470aeaefb583023095a87c177e5e93a8263b2850b80",
+  "coordinateSpace": {
+    "width": 720,
+    "height": 1383
+  },
+  "regions": {
+    "source_avatar": [34, 122, 62, 62],
+    "source_identity": [114, 122, 209, 61],
+    "source_text": [114, 203, 435, 58],
+    "media": [116, 285, 360, 640],
+    "reply_avatar": [34, 1056, 62, 62],
+    "reply_identity": [114, 1056, 191, 61],
+    "reply_text": [114, 1137, 452, 58]
+  },
+  "source_media_match": true,
+  "theme": "dark",
+  "trace": "DEMO-03"
+}

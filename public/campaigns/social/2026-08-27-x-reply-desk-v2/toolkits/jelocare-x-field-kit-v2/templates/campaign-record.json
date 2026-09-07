@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "replace-with-stable-id",
+  "status": "draft",
+  "createdAt": null,
+  "dataCheckedAt": null,
+  "channels": [],
+  "objective": null,
+  "sourcePost": {
+    "url": null,
+    "handle": null,
+    "observedText": null,
+    "visibleEngagement": null,
+    "existingJeloCareReplyCheck": null
+  },
+  "copy": {
+    "post": null,
+    "embeddedUrl": null
+  },
+  "media": {
+    "kind": "none",
+    "path": null,
+    "sha256": null,
+    "sourceAudioPresent": null,
+    "primaryOutputAudioPresent": null
+  },
+  "claimBoundary": null,
+  "careBoundary": null,
+  "rightsBoundary": null,
+  "sourceProvenance": [],
+  "publicationAuthorized": false,
+  "actionTimeConfirmation": null,
+  "publication": [],
+  "liveVerification": null,
+  "state": "draft"
+}

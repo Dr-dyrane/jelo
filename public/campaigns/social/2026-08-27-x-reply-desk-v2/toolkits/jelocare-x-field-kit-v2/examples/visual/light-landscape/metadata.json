@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 2,
+  "exampleId": "light-landscape",
+  "synthetic": true,
+  "provenance": "Original local code-native geometric test imagery and synthetic sine; no real account, engagement, capture or third-party media.",
+  "fontPolicy": "Local font is rasterized for test imagery; no system font file is included.",
+  "sourceText": "The wide frame has room to travel.\nKeep every edge: HORIZON.",
+  "replyText": "The test tone follows the frame.\nFinal word: MEADOW.",
+  "sourceLastWord": "HORIZON.",
+  "replyLastWord": "MEADOW.",
+  "audio": {
+    "present": true,
+    "kind": "synthetic 440 Hz sine"
+  },
+  "durationSeconds": 2,
+  "fps": 18,
+  "mediaSize": [540, 304],
+  "mediaFirstFrame": "Screenshot media region equals the decoded first frame, pixel for pixel.",
+  "requiredOmissions": [
+    "relative ages",
+    "absolute timestamp",
+    "action controls",
+    "engagement zeros",
+    "legacy media strip",
+    "composer",
+    "navigation"
+  ],
+  "screenshotSha256": "570f7b7d9ead5514f676c72a09c8d1f3c5b2d5e20764a7c346559462c4ea9d70",
+  "videoSha256": "e00a16ada1770ce037d3b191b1e3eb6e171369a8739f1a3d8e13ca4c67ad63ca",
+  "coordinateSpace": {
+    "width": 720,
+    "height": 1052
+  },
+  "source_media_match": true,
+  "theme": "light",
+  "trace": "DEMO-02"
+}

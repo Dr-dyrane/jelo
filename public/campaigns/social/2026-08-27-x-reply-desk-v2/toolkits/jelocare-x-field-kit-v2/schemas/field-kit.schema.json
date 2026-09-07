@@ -1,0 +1,424 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.jelocare.com/schemas/x-field-kit-v1.json",
+  "title": "JeloCare X Field Kit contracts",
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/$defs/workOrder" },
+    { "$ref": "#/$defs/publicationUnit" },
+    { "$ref": "#/$defs/zapshotRecipe" }
+  ],
+  "$defs": {
+    "state": {
+      "enum": [
+        "draft",
+        "ready-for-approval",
+        "local-private-unpublished",
+        "submitted-unverified",
+        "live-verified"
+      ]
+    },
+    "rightsState": {
+      "enum": ["owned", "licensed", "platform-native-only", "unknown"]
+    },
+    "capabilities": {
+      "type": "object",
+      "properties": {
+        "files": { "type": ["boolean", "null"] },
+        "imageInspection": { "type": ["boolean", "null"] },
+        "publicWeb": { "type": ["boolean", "null"] },
+        "signedInX": { "type": ["boolean", "null"] },
+        "python": { "type": ["boolean", "null"] },
+        "ffmpeg": { "type": ["boolean", "null"] },
+        "scheduling": { "type": ["boolean", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "workOrder": {
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "jobId",
+        "goal",
+        "requestedChannel",
+        "capabilities",
+        "state"
+      ],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "jobId": { "type": "string", "minLength": 1 },
+        "goal": {
+          "enum": [
+            "next-reply",
+            "reply",
+            "followups",
+            "zapshot",
+            "article",
+            "spotlight",
+            "repurpose",
+            "measure",
+            "audit",
+            "post"
+          ]
+        },
+        "requestedChannel": { "type": "string", "minLength": 1 },
+        "sourceUrl": { "type": ["string", "null"] },
+        "replyUrl": { "type": ["string", "null"] },
+        "attachedFiles": { "type": "array", "items": { "type": "string" } },
+        "mediaRights": { "$ref": "#/$defs/rightsState" },
+        "operatorNotes": { "type": ["string", "null"] },
+        "capabilities": { "$ref": "#/$defs/capabilities" },
+        "state": { "$ref": "#/$defs/state" }
+      },
+      "additionalProperties": false
+    },
+    "publicationPreview": {
+      "type": "object",
+      "required": [
+        "platformAction",
+        "targetUrl",
+        "checkedAt",
+        "duplicateCheck",
+        "exactCopy",
+        "additionalActions",
+        "state"
+      ],
+      "properties": {
+        "platformAction": { "type": "string", "minLength": 1 },
+        "targetUrl": { "type": ["string", "null"] },
+        "checkedAt": { "type": ["string", "null"], "format": "date-time" },
+        "duplicateCheck": { "enum": ["clear", "duplicate", "not-run"] },
+        "exactCopy": { "type": ["string", "null"] },
+        "mediaFilename": { "type": ["string", "null"] },
+        "mediaSha256": {
+          "anyOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+          ]
+        },
+        "additionalActions": { "type": "array", "maxItems": 0 },
+        "state": { "enum": ["draft", "ready-for-approval"] }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "state": { "const": "ready-for-approval" } }
+          },
+          "then": {
+            "properties": {
+              "targetUrl": {
+                "type": "string",
+                "format": "uri",
+                "minLength": 1
+              },
+              "checkedAt": { "type": "string", "format": "date-time" },
+              "duplicateCheck": { "const": "clear" },
+              "exactCopy": { "type": "string", "minLength": 1 },
+              "additionalActions": { "type": "array", "maxItems": 0 }
+            }
+          }
+        },
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "mediaFilename": { "type": "null" },
+                "mediaSha256": { "type": "null" }
+              }
+            },
+            {
+              "properties": {
+                "mediaFilename": { "type": "string", "minLength": 1 },
+                "mediaSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+              }
+            }
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "publicationReceipt": {
+      "type": "object",
+      "required": [
+        "publicUrl",
+        "externalId",
+        "submittedAt",
+        "verifiedAt",
+        "targetMatched",
+        "copyMatched",
+        "mediaMatched",
+        "replyAncestryMatched",
+        "state"
+      ],
+      "properties": {
+        "publicUrl": { "type": ["string", "null"] },
+        "externalId": { "type": ["string", "null"] },
+        "submittedAt": { "type": ["string", "null"], "format": "date-time" },
+        "verifiedAt": { "type": ["string", "null"], "format": "date-time" },
+        "targetMatched": { "type": ["boolean", "null"] },
+        "copyMatched": { "type": ["boolean", "null"] },
+        "mediaMatched": { "type": ["boolean", "null"] },
+        "replyAncestryMatched": { "type": ["boolean", "null"] },
+        "state": {
+          "enum": ["not-submitted", "submitted-unverified", "live-verified"]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "state": { "const": "not-submitted" } } },
+          "then": {
+            "properties": {
+              "publicUrl": { "type": "null" },
+              "externalId": { "type": "null" },
+              "submittedAt": { "type": "null" },
+              "verifiedAt": { "type": "null" },
+              "targetMatched": { "type": "null" },
+              "copyMatched": { "type": "null" },
+              "mediaMatched": { "type": "null" },
+              "replyAncestryMatched": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "state": { "const": "submitted-unverified" } }
+          },
+          "then": {
+            "properties": {
+              "submittedAt": { "type": "string", "format": "date-time" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "state": { "const": "live-verified" } } },
+          "then": {
+            "properties": {
+              "publicUrl": {
+                "type": "string",
+                "format": "uri",
+                "minLength": 1
+              },
+              "externalId": { "type": "string", "minLength": 1 },
+              "submittedAt": { "type": "string", "format": "date-time" },
+              "verifiedAt": { "type": "string", "format": "date-time" },
+              "targetMatched": { "const": true },
+              "copyMatched": { "const": true },
+              "mediaMatched": { "const": true },
+              "replyAncestryMatched": { "const": true }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "publicationConfirmation": {
+      "type": "object",
+      "required": [
+        "received",
+        "receivedAt",
+        "confirmedTargetUrl",
+        "confirmedExactCopy",
+        "confirmedMediaSha256"
+      ],
+      "properties": {
+        "received": { "type": "boolean" },
+        "receivedAt": { "type": ["string", "null"], "format": "date-time" },
+        "confirmedTargetUrl": { "type": ["string", "null"] },
+        "confirmedExactCopy": { "type": ["string", "null"] },
+        "confirmedMediaSha256": {
+          "anyOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "received": { "const": true } } },
+          "then": {
+            "properties": {
+              "receivedAt": { "type": "string", "format": "date-time" },
+              "confirmedTargetUrl": {
+                "type": "string",
+                "format": "uri",
+                "minLength": 1
+              },
+              "confirmedExactCopy": { "type": "string", "minLength": 1 }
+            }
+          },
+          "else": {
+            "properties": {
+              "receivedAt": { "type": "null" },
+              "confirmedTargetUrl": { "type": "null" },
+              "confirmedExactCopy": { "type": "null" },
+              "confirmedMediaSha256": { "type": "null" }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "publicationUnit": {
+      "type": "object",
+      "required": ["schemaVersion", "preview", "confirmation", "receipt"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "preview": { "$ref": "#/$defs/publicationPreview" },
+        "confirmation": { "$ref": "#/$defs/publicationConfirmation" },
+        "receipt": { "$ref": "#/$defs/publicationReceipt" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "receipt": {
+                "properties": {
+                  "state": { "enum": ["submitted-unverified", "live-verified"] }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "preview": {
+                "properties": { "state": { "const": "ready-for-approval" } }
+              },
+              "confirmation": {
+                "properties": { "received": { "const": true } }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "confirmation": {
+                "properties": { "received": { "const": true } }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "preview": {
+                "properties": { "state": { "const": "ready-for-approval" } }
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "zapshotRecipe": {
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "renderer",
+        "traceId",
+        "canvas",
+        "layers",
+        "watermark",
+        "audio",
+        "outputs",
+        "qa",
+        "rights"
+      ],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "renderer": { "const": "jelocare-portable-zapshot/1" },
+        "traceId": { "type": "string", "minLength": 1 },
+        "canvas": {
+          "type": "object",
+          "required": [
+            "width",
+            "height",
+            "fps",
+            "durationSeconds",
+            "background"
+          ],
+          "properties": {
+            "width": { "type": "integer", "minimum": 1 },
+            "height": { "type": "integer", "minimum": 1 },
+            "fps": { "type": "integer", "minimum": 1 },
+            "durationSeconds": { "type": "number", "exclusiveMinimum": 0 },
+            "background": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "layers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "kind", "path", "resize", "position"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "kind": { "enum": ["crop", "image", "media"] },
+              "path": { "type": "string", "minLength": 1 },
+              "crop": { "type": "object" },
+              "resize": { "type": "object" },
+              "position": { "type": "object" },
+              "startSeconds": { "type": "number", "minimum": 0 },
+              "fit": { "enum": ["contain", "cover", "fill"] },
+              "radius": { "type": "integer", "minimum": 0 },
+              "audio": { "enum": ["preserve-if-present", "required", "silent"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        "watermark": { "type": "object" },
+        "audio": { "type": "object" },
+        "outputs": { "type": "object" },
+        "qa": { "type": "object" },
+        "rights": {
+          "type": "object",
+          "required": ["state", "scope", "authorizedChannels"],
+          "properties": {
+            "state": { "$ref": "#/$defs/rightsState" },
+            "scope": {
+              "enum": [
+                "local-private-unpublished",
+                "platform-native-only",
+                "public-channel-authorized"
+              ]
+            },
+            "authorizedChannels": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "uniqueItems": true
+            },
+            "sourceUrl": { "type": ["string", "null"] },
+            "replyUrl": { "type": ["string", "null"] }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "scope": { "const": "public-channel-authorized" }
+                }
+              },
+              "then": {
+                "properties": {
+                  "state": { "enum": ["owned", "licensed"] },
+                  "authorizedChannels": { "minItems": 1 }
+                }
+              },
+              "else": {
+                "properties": { "authorizedChannels": { "maxItems": 0 } }
+              }
+            },
+            {
+              "if": { "properties": { "state": { "const": "unknown" } } },
+              "then": {
+                "properties": {
+                  "scope": { "const": "local-private-unpublished" }
+                }
+              }
+            }
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
