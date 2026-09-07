@@ -61,17 +61,17 @@ const vercel = JSON.parse(
   readFileSync(resolve(root, "vercel.json"), "utf8"),
 ) as { crons?: Array<{ path: string; schedule: string }> };
 
-test("one hourly Vercel cron has three-pass daily capacity for the exact offer set", () => {
+test("one redundant Vercel cron has three-pass daily capacity for the exact offer set", () => {
   const inventoryCrons = vercel.crons?.filter(
     (cron) => cron.path === "/api/cron/inventory",
   );
   assert.deepEqual(inventoryCrons, [
     {
       path: "/api/cron/inventory",
-      schedule: "17 * * * *",
+      schedule: "17,47 * * * *",
     },
   ]);
-  assert.equal(INVENTORY_CRON_RUNS_PER_DAY, 24);
+  assert.equal(INVENTORY_CRON_RUNS_PER_DAY, 48);
   assert.equal(INVENTORY_CRON_BATCH_SIZE, 100);
   assert.equal(INVENTORY_CRON_LOOKAHEAD_HOURS, 1);
   assert.equal(INVENTORY_REFRESH_FRESHNESS_MS, 24 * 60 * 60 * 1000);

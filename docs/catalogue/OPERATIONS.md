@@ -741,14 +741,16 @@ canvas with at least 10% padding margin before staging.
 
 ## Inventory cron and alerting
 
-The inventory cron (`/api/cron/inventory`) runs hourly at minute 17, enqueues
+The inventory cron (`/api/cron/inventory`) runs at minutes 17 and 47, enqueues
 offers that are expired or within one hour of expiry, processes up to 100
-attempts, and revalidates affected paths. Every successful automated
-observation expires after 24 hours. At 24 runs per day, the owner exposes 2,400
-attempt slots: at least three slots for each of the current 609 exact-offer
-population, with a regression test that fails when catalogue growth consumes
-that headroom. Capacity is emitted in every completed-run summary. The alerting
-system (`lib/inventory/refresh-alerting.ts`) sends email alerts when:
+attempts, and revalidates affected paths. The second invocation hedges the
+platform's no-retry cron delivery; the locked queue makes duplicate delivery an
+idempotent skip. Every successful automated observation expires after 24 hours.
+At 48 runs per day, the owner exposes 4,800 attempt slots: at least three slots
+for each of the current 609 exact-offer population, with a regression test that
+fails when catalogue growth consumes that headroom. Capacity is emitted in
+every completed-run summary. The alerting system
+(`lib/inventory/refresh-alerting.ts`) sends email alerts when:
 
 1. **5+ offers enter deferred recheck** (critical) — proven fail-closed
    conflicts or exhausted transient attempts need operator visibility.

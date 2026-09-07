@@ -182,13 +182,15 @@ exception needs a product-specific reviewed alias. Exact route/canonical URL,
 measurable package size, market currency and sibling-variant checks remain
 mandatory.
 
-Production services the exact-offer queue hourly and checks up to 100 attempts
-per run. Accepted observations expire after 24 hours and become queue candidates
-within one hour of expiry. The current 2,400-attempt daily capacity is tested
-against three times the checked-in exact-offer population, so catalogue growth
-must deliberately raise capacity before consuming retry headroom. The cron
-route is bearer-authenticated, ignores store-search URLs and uses the existing
-locked job queue so overlapping requests cannot claim the same offer. Public
+Production services the exact-offer queue at minutes 17 and 47 and checks up to
+100 attempts per run. The second invocation is a delivery fallback because the
+platform does not retry a missed or failed cron invocation. Accepted
+observations expire after 24 hours and become queue candidates within one hour
+of expiry. The current 4,800-attempt daily capacity is tested against three
+times the checked-in exact-offer population, so catalogue growth must
+deliberately raise capacity before consuming retry headroom. The cron route is
+bearer-authenticated, ignores store-search URLs and uses the existing locked job
+queue so overlapping or duplicate requests cannot claim the same offer. Public
 price and availability claims honor the exact 24-hour expiry recorded by the
 worker.
 

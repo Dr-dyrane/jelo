@@ -125,7 +125,10 @@ freshness, projection and exception contract.
 
 ## Retail refresh
 
-The hourly Vercel cron calls `/api/cron/inventory` at minute 17.
+The Vercel cron calls `/api/cron/inventory` at minutes 17 and 47. The second
+invocation is a delivery hedge because Vercel does not retry a missed or failed
+cron event; the database claim and lease contract keeps duplicate delivery
+idempotent.
 
 1. Bearer authentication checks `CRON_SECRET`.
 2. Only due, published, exact HTTPS offers enter `inventory_refresh_jobs`; active
@@ -134,7 +137,7 @@ The hourly Vercel cron calls `/api/cron/inventory` at minute 17.
    A processing job older than the two-minute lease can be reclaimed below the
    attempt cap; an expired job at the cap becomes terminal.
 4. The route stops claiming at an absolute 270-second deadline, before the
-   300-second Vercel limit. A 100-job cap lets the daily run drain the current
+   300-second Vercel limit. A 100-job cap lets each run drain the current
    catalogue when retailers respond quickly; the deadline remains the primary
    bound when they do not.
 5. Retailer HTML is bounded by time, type, and byte size.

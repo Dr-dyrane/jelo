@@ -1063,7 +1063,7 @@ is not zero, and a recorded review item is not public evidence.
 Two mutation owners write privacy-bounded receipts to the existing Upstash
 store:
 
-- `/api/cron/inventory` at minute 17 records `completed`,
+- `/api/cron/inventory` at minutes 17 and 47 records `completed`,
   `completed-with-exceptions`, `no-due-work`, or `unexpected-failure` after its
   canonical offer/history work;
 - `/api/cron/daily-desk-reconcile` at minute 42 records `accepted`,
@@ -1146,7 +1146,7 @@ For an exception:
    ```sql
    SELECT status, count(*) FROM inventory_refresh_jobs GROUP BY status;
    ```
-   An empty table means no jobs have been enqueued. The hourly cron's
+   An empty table means no jobs have been enqueued. The twice-hourly cron's
    `enqueueDueInventoryOffers` step creates jobs for offers whose verification
    has expired or will expire within the one-hour lookahead window. A completed
    run reports `capacity.scheduledRunsPerDay`, `batchAttemptLimit`,
@@ -1435,7 +1435,10 @@ gate without that authority.
 ### Independent inventory health watchdog
 
 `/api/cron/inventory-health` runs hourly at minute 7, separately from the
-minute-17 inventory processor. It authenticates with the same cron boundary,
+minute-17 and minute-47 inventory processor. The second processor invocation is
+the bounded delivery fallback because Vercel does not retry a missed or failed
+cron event; the existing queue claim and two-minute lease keep duplicate
+delivery idempotent. The watchdog authenticates with the same cron boundary,
 executes aggregate `SELECT` queries only, and reports recent completion,
 failure, deferred-recheck, backlog, expired-lease, and stale-offer counts. A
 missed state, five or more deferred rechecks, expired leases, or degraded
