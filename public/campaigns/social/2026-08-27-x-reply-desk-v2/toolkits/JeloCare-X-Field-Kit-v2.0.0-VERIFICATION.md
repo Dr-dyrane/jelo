@@ -6,8 +6,16 @@ Subsequent Git archival/publication is recorded by repository history; this
 report is evidence of the frozen build and trials, not current deployment or
 social publication state. Git archival does not change source-media reuse rights.
 
-Archive: `JeloCare-X-Field-Kit-v2.0.0.zip`, 14,448,321 bytes.
-SHA-256: `47247d3af73a9d2010d56209c078365c05a38d20e087e43ceb8d0f61de4f67d5`.
+Archive: `JeloCare-X-Field-Kit-v2.0.0.zip`, 14,448,569 bytes.
+SHA-256: `498a4f0d4c463d2a10ec3f4fe0bc78b23efac2e28ea1339700a1ec1bf1bed4db`.
+
+The independent trial used the pre-commit-formatting candidate, SHA-256
+`47247d3af73a9d2010d56209c078365c05a38d20e087e43ceb8d0f61de4f67d5`.
+The repository's automatic commit formatter then normalized Markdown/JSON.
+Renderer scripts, source media, and parsed JSON values were verified unchanged.
+Checksums and the ZIP were rebuilt from the formatted tracked files; clean
+extraction, internal hashes, packet validation and byte-identical ZIP rebuilding
+passed again. The smaller-model trial was not rerun for formatting-only changes.
 
 ## Reproducibility and technical gates
 
