@@ -1,10 +1,9 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import test from "node:test";
+import test, { after, before, mock } from "node:test";
 import { verifiedRetailOffers } from "@/data/retail-offers";
 import { dailyCampaignEmail } from "@/lib/campaigns/campaign-email";
-import { selectDailyCampaign } from "@/lib/campaigns/daily-campaign";
 import { lagosDateKey } from "@/lib/campaigns/daily-campaign-policy";
 
 const root = process.cwd();
@@ -16,6 +15,16 @@ const currentOfferSnapshot = new Date(
       .map((offer) => Date.parse(offer.checkedAt ?? "")),
   ),
 );
+let selectDailyCampaign: typeof import("@/lib/campaigns/daily-campaign").selectDailyCampaign;
+
+before(async () => {
+  // The static catalogue filters expired offers when it is imported. Pin that
+  // clock as well as the selector clock, without changing any recorded evidence.
+  mock.method(Date, "now", () => currentOfferSnapshot.valueOf());
+  ({ selectDailyCampaign } = await import("@/lib/campaigns/daily-campaign"));
+});
+
+after(() => mock.restoreAll());
 
 test("a fixed current snapshot produces one dossier-bound deterministic draft", async () => {
   const result = await selectDailyCampaign({
@@ -56,6 +65,25 @@ test("a fixed current snapshot produces one dossier-bound deterministic draft", 
   assert.match(draft.publicationEvidence.dossierFingerprint, /^[0-9a-f]{64}$/);
   assert.equal(draft.publication.length, 0);
   assert.match(draft.copy.caption, /^[\s\S]{20,240}$/);
+});
+
+test("the fixed snapshot still suppresses price claims after its offers expire", async () => {
+  const afterExpiry = new Date(
+    Math.max(
+      ...Object.values(verifiedRetailOffers)
+        .flat()
+        .filter((offer) => offer.expiresAt)
+        .map((offer) => Date.parse(offer.expiresAt ?? "")),
+    ) + 1,
+  );
+  const result = await selectDailyCampaign({ now: afterExpiry });
+  assert.equal(result.status, "selected");
+  if (result.status !== "selected") return;
+  assert.equal(result.draft.campaignKind, "editorial-fallback");
+  assert.equal(result.draft.dailyDeskEligible, false);
+  assert.equal(result.draft.product, null);
+  assert.deepEqual(result.draft.offerEvidence, []);
+  assert.equal(result.draft.selection.freshPriceCandidateCount, 0);
 });
 
 test("the reminder email presents one complete responsive Daily Three packet", async () => {

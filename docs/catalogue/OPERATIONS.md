@@ -56,6 +56,13 @@ Pending `community-first` tasks precede the bulk discovery leads. The shared pri
 
 `data/catalogue-research-queue.json` is a deterministic projection. Do not hand-edit its status.
 
+Known-offer matching retains exact historical retailer URLs for the existing
+public product set, with the normal identity exclusions still applied. An
+expired price is not a newly discovered retailer URL: shopper-facing offers
+still expire, while research identity matching remains independent of the
+wall clock. Catalogue identity or reviewed-URL changes require regenerating
+the queue and its immutable packet bindings through the commands below.
+
 After identity research, record exactly one reviewed outcome. The command is a
 dry-run unless `--apply` is present and requires the allowlisted
 `MODERATION_OPERATOR_EMAIL`.

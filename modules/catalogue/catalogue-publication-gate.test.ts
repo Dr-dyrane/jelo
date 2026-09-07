@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { reviewedProductRecords } from "@/data/catalogue";
+import { mergeRetailOffers, verifiedRetailOffers } from "@/data/retail-offers";
 import {
   assessCatalogueQuality,
   catalogueApprovalScope,
@@ -266,11 +267,21 @@ test("the same audit surfaces reviewed-product formula, evidence, Nigeria and ri
   const product = reviewedProductRecords.find(
     (item) => item.slug === "anua-niacinamide-10-txa-4-serum",
   )!;
-  const audit = auditReviewedProductQuality(
-    product,
-    undefined,
-    Date.parse("2026-08-30T00:12:00Z"),
+  const recordedOffers = verifiedRetailOffers[product.slug];
+  const observedAt = Math.max(
+    ...recordedOffers
+      .filter((offer) => offer.available && offer.checkedAt)
+      .map((offer) => Date.parse(offer.checkedAt!)),
   );
+  // The public catalogue filters expired offers at import time. Rebuild only
+  // this test's offer snapshot at its recorded observation, keeping the actual
+  // evidence and expiry boundaries rather than renewing any dates.
+  const snapshot = {
+    ...product,
+    offers: mergeRetailOffers(product, [], observedAt),
+  };
+  const originalProduct = structuredClone(product);
+  const audit = auditReviewedProductQuality(snapshot, undefined, observedAt);
 
   assert.equal(audit.productSlug, product.slug);
   assert.equal(audit.publicationEligibilityChanged, false);
@@ -279,6 +290,19 @@ test("the same audit surfaces reviewed-product formula, evidence, Nigeria and ri
   assert.ok(audit.assessment.dimensions.evidence > 0);
   assert.equal(audit.assessment.dimensions.nigeria, 15);
   assert.equal(audit.assessment.dimensions.rights, 0);
+
+  const expiredAudit = auditReviewedProductQuality(
+    snapshot,
+    undefined,
+    Math.max(
+      ...recordedOffers
+        .filter((offer) => offer.expiresAt)
+        .map((offer) => Date.parse(offer.expiresAt!)),
+    ) + 1,
+  );
+  assert.equal(expiredAudit.assessment.dimensions.nigeria, 0);
+  assert.equal(expiredAudit.publicationEligibilityChanged, false);
+  assert.deepEqual(product, originalProduct);
 });
 
 test("bulk candidates stay private without a deliberate approval", () => {

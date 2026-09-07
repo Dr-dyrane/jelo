@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
@@ -435,6 +436,66 @@ test("fails closed on ambiguous known-product binding and unregistered public el
     () => buildCatalogueResearchQueue(snapshot([unregistered]), digest, 1),
     /cannot retain directory eligibility outside the reviewed retailer registry/,
   );
+});
+
+test("research identities retain known expired URLs without changing shopper freshness", () => {
+  // Reload the actual catalogue modules under each clock: reusing the imported
+  // identity array would miss the former import-time expiry dependency.
+  const inspectAt = (phase: "observed" | "expired") => {
+    const result = spawnSync(
+      process.execPath,
+      [
+        "--import",
+        "tsx",
+        "-e",
+        `
+          const { createHash } = require("node:crypto");
+          const { readFileSync } = require("node:fs");
+          const { verifiedRetailOffers } = require("./data/retail-offers");
+          const slug = "facefacts-ceramide-foaming-cleanser-400ml";
+          const offer = verifiedRetailOffers[slug].find(value => value.retailer === "Slique Beauty");
+          if (!offer?.priceObservation?.observedAt || !offer.expiresAt) {
+            throw new Error("The regression offer needs dated observation and expiry evidence.");
+          }
+          const now = Date.parse(process.argv[1] === "observed"
+            ? offer.priceObservation.observedAt : offer.expiresAt) + 1;
+          Date.now = () => now;
+          const { catalogueResearchKnownIdentities: identities } = require("./data/catalogue-research-identities");
+          const { products } = require("./data/catalogue");
+          const { buildCatalogueResearchQueue, catalogueResearchQueueDigest } = require("./lib/catalogue/research-priority");
+          const bytes = readFileSync("data/catalogue-discovery-screening.json");
+          const queue = buildCatalogueResearchQueue(JSON.parse(bytes), catalogueResearchQueueDigest(bytes), 48, identities);
+          const product = products.find(value => value.slug === slug);
+          const identity = identities.find(value => value.productRef === slug);
+          const hash = value => createHash("sha256").update(JSON.stringify(value)).digest("hex");
+          console.log(JSON.stringify({
+            identities: hash(identities),
+            queue: hash(queue),
+            publicRefs: products.map(value => value.slug).sort(),
+            researchPublicRefs: identities.filter(value => value.catalogueStatus === "public-catalogue").map(value => value.productRef).sort(),
+            knownUrl: identity.offers.some(value => value.retailer === offer.retailer && value.listingUrl === offer.url),
+            shopperUrl: product.offers.some(value => value.retailer === offer.retailer && value.url === offer.url),
+            remainingTarget: queue.items.some(value => value.offerTargets.some(target => target.listingUrl === offer.url)),
+          }));
+        `,
+        phase,
+      ],
+      { cwd: process.cwd(), encoding: "utf8", timeout: 20_000 },
+    );
+    assert.equal(result.status, 0, result.stderr || result.error?.message);
+    return JSON.parse(result.stdout);
+  };
+  const observed = inspectAt("observed");
+  const expired = inspectAt("expired");
+  assert.equal(observed.identities, expired.identities);
+  assert.equal(observed.queue, expired.queue);
+  for (const state of [observed, expired]) {
+    assert.equal(state.knownUrl, true);
+    assert.equal(state.remainingTarget, false);
+    assert.deepEqual(state.researchPublicRefs, state.publicRefs);
+  }
+  assert.equal(observed.shopperUrl, true);
+  assert.equal(expired.shopperUrl, false);
 });
 
 test("the checked-in queue is an exact deterministic projection of the discovery evidence", async () => {

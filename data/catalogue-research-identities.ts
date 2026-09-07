@@ -1,5 +1,9 @@
 import { products as publicProducts } from "@/data/catalogue";
 import { catalogueIntakeCandidates } from "@/data/catalogue-intake";
+import { expandedProducts } from "@/data/expanded-products";
+import { products as coreProducts } from "@/data/products";
+import { publishedIntakeProducts } from "@/data/published-intake-products";
+import { materializeRetailOffersForCatalogueSeed } from "@/data/retail-offers";
 import { catalogueGtinForIdentity } from "@/lib/catalogue/canonical-identity";
 import type { KnownCatalogueIdentity } from "@/lib/catalogue/research-priority";
 
@@ -32,15 +36,28 @@ function exactOfferReferences(
 const intakeById = new Map(
   catalogueIntakeCandidates.map((candidate) => [candidate.id, candidate]),
 );
+const sourceProductsBySlug = new Map(
+  [...coreProducts, ...expandedProducts, ...publishedIntakeProducts].map(
+    (product) => [product.slug, product],
+  ),
+);
 
 /**
  * The public catalogue is the canonical known-product set. Intake identities
  * only augment aliases/GTINs and contribute the one still-private reviewed
  * identity, so a discovery lead cannot invent a public product binding.
+ * Known URLs come from retained canonical records, not the time-filtered
+ * shopper offer list. Expiry makes an offer due for refresh, not undiscovered.
  */
 export const catalogueResearchKnownIdentities: KnownCatalogueIdentity[] =
   publicProducts.map((product) => {
     const candidate = intakeById.get(product.slug);
+    const sourceProduct = sourceProductsBySlug.get(product.slug);
+    if (!sourceProduct) {
+      throw new Error(
+        `${product.slug} has no canonical research identity source.`,
+      );
+    }
     return {
       productRef: product.slug,
       catalogueStatus: "public-catalogue",
@@ -64,7 +81,10 @@ export const catalogueResearchKnownIdentities: KnownCatalogueIdentity[] =
         ? { gtin: catalogueGtinForIdentity(candidate.identity) }
         : {}),
       offers: exactOfferReferences([
-        ...product.offers,
+        ...materializeRetailOffersForCatalogueSeed(
+          sourceProduct,
+          sourceProduct.offers,
+        ),
         ...(candidate?.nigeria.exactOffers ?? []),
       ]),
     };

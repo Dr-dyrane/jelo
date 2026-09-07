@@ -1,19 +1,40 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import test from "node:test";
-import { GET as renderCampaignStory } from "@/app/(site)/share/[slug]/story/route";
-import {
-  buildEditorialFallbackCampaign,
-  selectDailyCampaign,
-} from "@/lib/campaigns/daily-campaign";
+import test, { after, before, mock } from "node:test";
+import { verifiedRetailOffers } from "@/data/retail-offers";
+
+const currentOfferSnapshot = new Date(
+  Math.max(
+    ...Object.values(verifiedRetailOffers)
+      .flat()
+      .filter((offer) => offer.available && offer.checkedAt)
+      .map((offer) => Date.parse(offer.checkedAt ?? "")),
+  ),
+);
+let selectDailyCampaign: typeof import("@/lib/campaigns/daily-campaign").selectDailyCampaign;
+let buildEditorialFallbackCampaign: typeof import("@/lib/campaigns/daily-campaign").buildEditorialFallbackCampaign;
+let renderCampaignStory: typeof import("@/app/(site)/share/[slug]/story/route").GET;
+
+before(async () => {
+  // Both consumers import the static catalogue, whose offer filtering happens
+  // at module load. Use the same recorded clock for that load and selection.
+  mock.method(Date, "now", () => currentOfferSnapshot.valueOf());
+  ({ selectDailyCampaign, buildEditorialFallbackCampaign } =
+    await import("@/lib/campaigns/daily-campaign"));
+  ({ GET: renderCampaignStory } =
+    await import("@/app/(site)/share/[slug]/story/route"));
+});
+
+after(() => mock.restoreAll());
 
 test("daily campaign selection emits the exact proof-use-remember render order", async () => {
   const selection = await selectDailyCampaign({
-    now: new Date("2026-08-30T07:02:00Z"),
+    now: currentOfferSnapshot,
   });
   assert.equal(selection.status, "selected");
   if (selection.status !== "selected") return;
+  assert.equal(selection.draft.campaignKind, "market-plus-editorial");
 
   const { creativePlan } = selection.draft;
   assert.deepEqual(

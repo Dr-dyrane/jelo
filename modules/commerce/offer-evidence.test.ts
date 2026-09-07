@@ -3,6 +3,7 @@ import test from "node:test";
 import { reviewedProductRecords } from "@/data/catalogue";
 import productAssets from "@/data/product-assets.json";
 import type { Offer } from "@/data/products";
+import { mergeRetailOffers, verifiedRetailOffers } from "@/data/retail-offers";
 import {
   hasBrandAuthorizationEvidence,
   hasCompletePriceObservation,
@@ -331,7 +332,16 @@ test("Slique remains provisional and link-only with a complete dated Mediana obs
     (product) => product.slug === "mediana-leave-in-conditioning-milk",
   );
   assert.ok(mediana);
-  const offer = mediana.offers.find(
+  const observation = verifiedRetailOffers[mediana.slug].find(
+    (item) => item.retailer === "Slique Beauty",
+  );
+  assert.ok(observation);
+  assert.ok(observation.checkedAt);
+  assert.ok(observation.expiresAt);
+  const observedAt = new Date(observation.checkedAt);
+  const expiresAt = new Date(observation.expiresAt);
+  // Verify dated evidence at capture time, not through today's freshness filter.
+  const offer = mergeRetailOffers(mediana, [], observedAt).find(
     (item) => item.retailer === "Slique Beauty",
   );
 
@@ -344,9 +354,14 @@ test("Slique remains provisional and link-only with a complete dated Mediana obs
   assert.equal(hasCompletePriceObservation(offer), true);
   assert.equal(offer.priceObservation?.size, "250 ml");
   assert.equal(offer.priceObservation?.landedCost, "unknown");
+  assert.equal(observedMarketPrice(offer, "NG", observedAt), 2_000);
+  assert.equal(observedMarketPrice(offer, "NG", expiresAt), null);
   assert.equal(
-    observedMarketPrice(offer, "NG", new Date(offer.checkedAt ?? "")),
-    2_000,
+    mergeRetailOffers(mediana, [offer], expiresAt).some(
+      (item) => item.retailer === "Slique Beauty",
+    ),
+    false,
+    "expired reviewed evidence must not reappear through embedded catalogue offers",
   );
   assert.equal(
     mediana.image,

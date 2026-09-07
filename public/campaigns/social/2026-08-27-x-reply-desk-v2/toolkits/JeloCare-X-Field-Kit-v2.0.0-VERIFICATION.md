@@ -109,7 +109,7 @@ renders and 27 rejection checks passed, and repeated render bytes matched.
 The four archived public-reply records passed their checksum and linkage checks;
 two repository-state fields were labelled explicitly as record-creation state.
 
-Git publication is held: `npm run verify:release` failed its Node-test gate,
+At this checkpoint Git publication was held: `npm run verify:release` failed its Node-test gate,
 including daily-campaign expectations, the stored catalogue research-queue
 projection, and the expected Slique Beauty offer for Mediana. These application
 and catalogue files are outside this archive change. No test, catalogue data,
@@ -117,3 +117,35 @@ release threshold, or production configuration was changed to bypass the gate.
 The archive can be retained as a local commit; a push requires resolving the
 repository failure under a separately authorized scope. No social action or
 manual deployment was performed.
+
+## Authorized release-blocker repair — 7 September 2026
+
+Dyrane separately approved correcting the release blockers and reconciling the
+private research chain. Historical campaign and offer-audit tests now use the
+recorded observation clock and explicitly test expiry suppression. Research
+known-URL matching retains historical canonical references without changing
+shopper freshness, public identity eligibility, prices, or publication gates.
+
+The deterministic research queue was regenerated to 86 priorities, including
+all 48 new-product slots. Eight new immutable packet sources were generated;
+all previous packet, capture and raw-response bytes remain unchanged.
+Two bounded batch captures failed closed on BuyBetter permalink mismatches.
+The governed single-packet Slique capture for discovery
+`57a37b961545f71bad67753c` passed on 7 September and supplies one current
+packet/capture binding. This is not fresh coverage of all 86 priorities.
+Private research integrity passed with that binding and historical sources
+retained. No catalogue offer or public product was created by the capture.
+
+The independent repair review found no blockers. The final local
+`npm run verify:release` passed: 1,909 Node tests passed, three were skipped,
+and none failed; all catalogue, research, image, asset, documentation,
+typecheck, lint and migration-inventory gates passed. The non-production
+`env VERCEL=0 npm run build` passed, including
+the public search-bundle isolation check. No database mutation or manual
+deployment was performed.
+
+The ZIP SHA-256 remains
+`498a4f0d4c463d2a10ec3f4fe0bc78b23efac2e28ea1339700a1ec1bf1bed4db`.
+This repair does not change the frozen kit, its trial results, source-media
+rights, or social publication authority. Final Git publication and deployment
+state must be verified against the exact release revision.
