@@ -93,6 +93,21 @@ follow-ups after a successful test. A recipient change invalidates old previews.
 
 ## Jelo's private editorial desk
 
+`/campaign-review` is the manual preview entry point. It requires the same
+verified campaign-email session as the report desk. Opening or refreshing it
+only checks access; an explicit confirmed Server Action runs the existing capped
+preview runner. Each action reauthorizes before any paid work. This entry point
+forces AI and email off for its run, even if their environment switches are on.
+It returns only a validated private report path and item count, not credentials,
+recipient identifiers or an email-send capability. It never resets reservations
+or retries automatically. Jelo can open the resulting report herself without
+knowing or rotating the shared `CRON_SECRET`.
+
+The exact root continuation `/campaign-review` is allowed through the existing
+email-OTP sign-in. Arbitrary query strings and external continuations remain
+rejected. Production still requires the review switch, protected credentials and
+a valid pilot deadline; shipping this entry point does not activate them.
+
 Dyrane is not an operational approval dependency. Jelo is the campaign operator
 and can make editorial decisions independently. The protected inbox configuration
 is the explicit campaign-only allowlist; it does not grant any Ops role or access

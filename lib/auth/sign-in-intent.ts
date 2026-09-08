@@ -14,6 +14,7 @@ export const SIGN_IN_CONTINUATIONS = [
   "/me/orders",
   "/me/notifications",
   "/me/locations",
+  "/campaign-review",
   "/ops",
 ] as const;
 export const MEMBER_PRODUCT_CONTINUATION_ORIGINS = [
@@ -133,7 +134,11 @@ export function resolveSignInContinuation(value: unknown): SignInContinuation {
 export function resolveSignInIntent(
   continuation: SignInContinuation,
 ): SignInIntent {
-  if (continuation.startsWith("/campaign-review/")) return "campaign";
+  if (
+    continuation === "/campaign-review" ||
+    continuation.startsWith("/campaign-review/")
+  )
+    return "campaign";
   return continuation === "/ops" ? "operator" : "customer";
 }
 

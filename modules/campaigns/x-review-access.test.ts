@@ -117,6 +117,11 @@ function fixture() {
 }
 
 test("campaign continuation accepts only one exact local report path, preserves other intents", () => {
+  assert.equal(
+    resolveSignInContinuation("/campaign-review"),
+    "/campaign-review",
+  );
+  assert.equal(resolveSignInIntent("/campaign-review"), "campaign");
   const path = campaignReviewPath(id)!;
   assert.equal(resolveSignInContinuation(path), path);
   assert.equal(resolveSignInIntent(path), "campaign");
@@ -128,6 +133,11 @@ test("campaign continuation accepts only one exact local report path, preserves 
     `${path}/../ops`,
     path.replace("x-review-", "%78-review-"),
     "/campaign-review/x-review-" + "-".repeat(36),
+    "/campaign-review?next=/ops",
+    "/campaign-review/",
+    "/campaign-review#x",
+    "https://evil.invalid/campaign-review",
+    "//evil.invalid/campaign-review",
   ])
     assert.equal(resolveSignInContinuation(invalid), "/ops");
   assert.equal(resolveSignInContinuation([path, "/ops"]), "/ops");
