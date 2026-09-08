@@ -257,7 +257,7 @@ export function MarketReportPrototype({
           >
             <div className={styles.contextHeading}>
               <div>
-                <p>Exact visit</p>
+                <p>Exact record</p>
                 <h2 id="market-report-context">Locked context</h2>
               </div>
               <LockKeyhole size={20} aria-hidden="true" />
@@ -324,7 +324,7 @@ export function MarketReportPrototype({
             <div
               className={styles.outcomes}
               role="radiogroup"
-              aria-label="Market visit outcome"
+              aria-label="Market report outcome"
             >
               {MARKET_REPORT_OUTCOMES.map((option) => {
                 const selected = outcome === option.id;

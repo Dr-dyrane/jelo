@@ -325,6 +325,7 @@ test("shop reports hand exact fixture context to Contribute without writing", ()
     contributePageSource,
     /if \(!market \|\| !product \|\| !shop\) notFound\(\)/,
   );
+  assert.match(contributePageSource, /shop\.state === ["']stale["']/);
   assert.match(contributePageSource, /<ContributionExperience/);
   assert.match(reportPrototypeSource, /MARKET_REPORT_OUTCOMES\.map/);
   assert.match(reportPrototypeSource, /Nothing is saved or sent/);
@@ -337,6 +338,13 @@ test("shop reports hand exact fixture context to Contribute without writing", ()
     /submissionContext=\{\{ marketSlug, productSlug, shopSlug \}\}/,
   );
   assert.match(contributePageSource, /title:\s*["']Report a market update["']/);
+  assert.match(contributePageSource, /selectMarketReportDisplayTarget/);
+  assert.match(contributePageSource, /presentMarketFinderResearchRecord/);
+  assert.match(reportPrototypeSource, /Exact record/);
+  assert.match(
+    reportPrototypeSource,
+    /aria-label=["']Market report outcome["']/,
+  );
   assert.doesNotMatch(reportPrototypeSource, /localStorage|sessionStorage/);
 });
 
@@ -605,6 +613,17 @@ test("the full Market Finder flow reuses native JeloCare composition", () => {
     "utf8",
   );
   assert.doesNotMatch(resultList, /@\/lib\/markets\/fixture/);
+  assert.match(resultList, /lead\.state === ["']stale["']/);
+  assert.match(resultList, /marketReportContributionHref/);
+  assert.match(resultList, /Report a change/);
+  assert.match(
+    readFileSync("lib/markets/feedback.ts", "utf8"),
+    /reportTargetAvailable !== true/,
+  );
+  assert.match(
+    readFileSync("app\/(site)\/markets\/[marketSlug]\/page.tsx", "utf8"),
+    /bindReportTargets[\s\S]*resolveMarketReportTargetContext/,
+  );
   assert.ok(
     resultList.indexOf("className={styles.resultActions}") <
       resultList.indexOf("className={styles.resultEvidence}"),

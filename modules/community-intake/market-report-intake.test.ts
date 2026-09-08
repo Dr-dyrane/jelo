@@ -276,4 +276,10 @@ test("the existing draft API owns the contextual create, save and submit flow", 
     /submissionContext=\{\{ marketSlug, productSlug, shopSlug \}\}/,
   );
   assert.match(developmentPage, /if \(isMarketFixtureEnabled\(\)\)/);
+  assert.match(developmentPage, /selectMarketReportDisplayTarget/);
+  assert.match(developmentPage, /presentMarketFinderResearchRecord/);
+  assert.match(
+    developmentPage,
+    /`\/markets\/\$\{market\.slug\}\?product=\$\{encodeURIComponent\(product\.slug\)\}`/,
+  );
 });

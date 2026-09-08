@@ -390,17 +390,41 @@ async function roleAttestation(sql: Sql | TransactionSql) {
       ) as routine_steps_public_privileges,
       concern_relation.relrowsecurity as concerns_relrowsecurity,
       concern_relation.relforcerowsecurity as concerns_relforcerowsecurity,
-      coalesce((
-        select pg_catalog.array_agg(
-          privilege.privilege_type || ':' || privilege.is_grantable::text
-          order by privilege.privilege_type
+      case when exists (
+        select 1
+        from pg_catalog.pg_attribute attribute
+        where attribute.attrelid = concern_relation.oid
+          and attribute.attname = 'removed_at'
+          and not attribute.attisdropped
+      ) then
+        coalesce((
+          select pg_catalog.array_agg(
+            privilege.privilege_type || ':' || privilege.is_grantable::text
+            order by privilege.privilege_type
+          )
+          from pg_catalog.aclexplode(coalesce(
+            concern_relation.relacl,
+            pg_catalog.acldefault('r', concern_relation.relowner)
+          )) privilege
+          where privilege.grantee = role.oid
+        ), array[]::text[]) in (
+          array['INSERT:false', 'SELECT:false', 'UPDATE:false']::text[],
+          array['DELETE:false', 'INSERT:false', 'SELECT:false', 'UPDATE:false']::text[]
         )
-        from pg_catalog.aclexplode(coalesce(
-          concern_relation.relacl,
-          pg_catalog.acldefault('r', concern_relation.relowner)
-        )) privilege
-        where privilege.grantee = role.oid
-      ), array[]::text[]) = array['INSERT:false', 'SELECT:false', 'UPDATE:false']::text[]
+      else
+        coalesce((
+          select pg_catalog.array_agg(
+            privilege.privilege_type || ':' || privilege.is_grantable::text
+            order by privilege.privilege_type
+          )
+          from pg_catalog.aclexplode(coalesce(
+            concern_relation.relacl,
+            pg_catalog.acldefault('r', concern_relation.relowner)
+          )) privilege
+          where privilege.grantee = role.oid
+        ), array[]::text[]) =
+          array['DELETE:false', 'INSERT:false', 'SELECT:false']::text[]
+      end
       and not exists (
         select 1
         from pg_catalog.pg_attribute attribute
@@ -1193,33 +1217,35 @@ async function exerciseConcernOwnerCrud(
     from public.customer_concerns
     where owner_subject = ${ownerA}
       and id = ${concernId}
-      and removed_at is null
   `;
   if (ownerConcernRead[0]?.count !== 1)
     throw new Error("Customer Concern owner read audit failed.");
 
   const ownerConcernRemove = await transaction<{ id: string }[]>`
-    update public.customer_concerns
-    set removed_at = now()
+    delete from public.customer_concerns
     where owner_subject = ${ownerA}
       and id = ${concernId}
-      and removed_at is null
     returning id
   `;
   if (ownerConcernRemove.length !== 1)
     throw new Error("Customer Concern owner remove audit failed.");
 
-  const ownerConcernRestore = await transaction<{ id: string }[]>`
-    update public.customer_concerns
-    set removed_at = null,
-        saved_at = now()
-    where owner_subject = ${ownerA}
-      and id = ${concernId}
-      and removed_at is not null
+  const ownerConcernReAdd = await transaction<{ id: string }[]>`
+    insert into public.customer_concerns (
+      id,
+      owner_subject,
+      concern_slug,
+      origin
+    ) values (
+      ${concernId},
+      ${ownerA},
+      ${concernSlug},
+      'synthetic-development'
+    )
     returning id
   `;
-  if (ownerConcernRestore.length !== 1)
-    throw new Error("Customer Concern owner restore audit failed.");
+  if (ownerConcernReAdd.length !== 1)
+    throw new Error("Customer Concern owner re-add audit failed.");
 
   await expectPrivilegeDenial(
     transaction,
@@ -1247,23 +1273,20 @@ async function exerciseConcernOwnerCrud(
   if (crossOwnerConcernRead[0]?.count !== 0)
     throw new Error("Customer Concern cross-owner read audit failed.");
 
-  const crossOwnerConcernUpdate = await transaction<{ id: string }[]>`
-    update public.customer_concerns
-    set removed_at = now()
+  const crossOwnerConcernDelete = await transaction<{ id: string }[]>`
+    delete from public.customer_concerns
     where owner_subject = ${ownerA}
       and id = ${concernId}
     returning id
   `;
-  if (crossOwnerConcernUpdate.length !== 0)
-    throw new Error("Customer Concern cross-owner update audit failed.");
+  if (crossOwnerConcernDelete.length !== 0)
+    throw new Error("Customer Concern cross-owner delete audit failed.");
 
   await transaction`select pg_catalog.set_config('app.customer_subject', ${ownerA}, true)`;
   const ownerConcernClear = await transaction<{ id: string }[]>`
-    update public.customer_concerns
-    set removed_at = now()
+    delete from public.customer_concerns
     where owner_subject = ${ownerA}
       and id = ${concernId}
-      and removed_at is null
     returning id
   `;
   if (ownerConcernClear.length !== 1)

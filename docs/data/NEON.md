@@ -1,6 +1,6 @@
 # Neon and data operations
 
-Updated: 2026-09-01
+Updated: 2026-09-07
 
 Neon PostgreSQL is the durable store. Checked-in reviewed data remains a deliberate public fallback.
 
@@ -225,6 +225,64 @@ rejected non-READ-COMMITTED report transactions, and left zero synthetic rows.
 This corrects report-current-context atomicity without converting a community
 report into public evidence.
 
+Customer-retention hard deletion uses an app-first expand/contract release.
+Expansion migration `0056_customer_concern_hard_delete.sql`, exact SHA-256
+`9940857df263513c10ad5c8bc0b49d5cb55b88e375183b50d07f79a186f99043`,
+deletes inherited Concern tombstones and grants `DELETE` while deliberately
+retaining `removed_at`, its partial uniqueness, and the legacy `UPDATE` grant.
+The dual-compatible application must be live before protected migration. It
+lists through a schema-neutral row projection, uses soft removal before the
+new grant exists, switches to hard deletion once it does, and accepts only the
+three exact Concern ACL states needed during cutover: `INSERT/SELECT/UPDATE`,
+`DELETE/INSERT/SELECT/UPDATE`, and final `DELETE/INSERT/SELECT`.
+
+Contract migration `0058_customer_concern_hard_delete_contract.sql`, exact
+SHA-256
+`045154ce319dd245553ee10fd7a26f1d299678e2e7911e53f77bf297e94e5433`,
+re-cleans tombstones from any in-flight legacy request, drops `removed_at` and
+its partial index, installs unconditional owner-and-slug uniqueness, and
+revokes `UPDATE`. The full cutover was accepted on 2026-09-07 on fresh
+production-derived branch
+`rehearsal/customer-concern-cutover-market-renewal-20260907`
+(`br-falling-glade-avvu1zmv`, expiry `2026-09-11T23:59:59Z`). Acceptance proved
+bridge CRUD in the legacy state, hard-delete CRUD after `0056`, final schema
+and exact grants after `0058`, restricted-role attestation, owner isolation,
+and a complete unchanged replay. The disposable branch was deleted, and exact
+`0058` bytes were promoted unchanged. The earlier one-step `0056` rehearsals
+were superseded by this compatibility correction; their disposable branches
+were also deleted.
+
+After independent review coupled each allowed ACL to its matching schema, a
+second fresh production-derived branch
+`rehearsal/customer-concern-schema-acl-final-20260907`
+(`br-green-credit-avs1w41o`, expiry `2026-09-11T23:59:59Z`) repeated the entire
+legacy → expanded → final sequence and all-skip replay. The final restricted
+role rollback exercise passed. A deliberate final-schema `UPDATE` re-grant was
+rejected by the operator attestation; after revocation, the exact final audit
+passed again. The `0057` acceptance matrix also passed with zero retained
+synthetic rows. The disposable branch was deleted after acceptance.
+
+Market Finder renewal `0057_market_finder_expired_report_renewal.sql`, exact
+SHA-256
+`a10889302c60148e739211b0649b281219e4006d0184f8b7474e9d6d4522dd92`,
+was first rehearsed on fresh production-derived branch
+`rehearsal/market-finder-expired-report-renewal-20260907`
+(`br-floral-dawn-avjzsozm`, expiring `2026-09-10T23:59:59Z`). The first runner
+pass applied the then-current predecessor followed by candidate `0057`; the
+second skipped both unchanged. The real expired Trade Fair record for Cyncel
+Cosmetics A43 and the exact ANUA serum was rejected by the `0055` validator,
+then accepted as a pending report after `0057`. A current out-of-stock
+successor superseded that expired observation without rewriting its original
+reviewer and blocked a new report. Rollback-safe controls accepted a current
+actionful result, rejected a current result without a public action, a
+pending-only observation, an expired location, and expired location-identity
+evidence, left zero synthetic rows, and left every temporarily disabled
+trigger enabled. The final cutover rehearsal above reapplied these controls
+against the exact unchanged `0057` bytes between corrected `0056` and `0058`.
+Both disposable branches were deleted and `0057` was promoted unchanged.
+Rehearsal and promotion do not by themselves establish protected production
+application.
+
 On 2026-09-02 the protected production runner applied `0053`, `0054`, and
 `0055` in canonical order with the exact hashes above. All three ledger rows
 use `runner_atomic` provenance and `neondb_owner`; post-apply status reported a
@@ -237,9 +295,10 @@ The separately reviewed location-only onboarding published the `trade-fair`
 market and verified Nectar Beauty Hub's Tradefair outlet, directions, and
 public phone. It deliberately omitted both `product` and
 `initialObservation`, so it created no price or physical-stock claim. Public
-readiness therefore remains fail-closed at `no-approved-observation`; public
-reads and report intake remain off pending branch-attributable exact-product
-evidence and their separate release gates.
+readiness was therefore fail-closed at `no-approved-observation` at that
+checkpoint. Later reviewed exact-product observations must be assessed from the
+current production snapshot, never inferred from this historical onboarding
+record. Public read and report intake remain separate release gates.
 
 ### Protected agent migration when no local admin URL exists
 
@@ -304,6 +363,11 @@ closed, so the option does not make that pathway release-ready.
   reconcile PostgreSQL, or run the private Shelf import.
 - Database reconciliation is an explicit protected operator job completed and
   audited before the application deployment that depends on it.
+- The `0056`/`0058` Customer Concern expand/contract cutover is the documented
+  exception: first deploy and smoke the dual-compatible bridge against the
+  legacy schema, then apply `0056` → `0057` → `0058`, audit the final state,
+  and retain that bridge revision as the rollback floor. The bridge keeps
+  expired Market report renewal hidden until the database has exact `0057`.
 - For first Shelf activation, the dry run, additive apply, actual-insert and
   final-accepted-set checks, and receipt verification also finish before the
   interactive Shelf deployment.

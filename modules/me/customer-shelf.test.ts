@@ -618,6 +618,10 @@ test("Shelf role attestation rejects every elevated or indirect authority path",
     assert.match(source, /as shelf_app_privileges/);
     assert.match(source, /as shelf_public_privileges/);
     assert.match(source, /as requests_shelf_privileges_exact/);
+    assert.match(
+      source,
+      /request_relation\.relacl,[\s\S]*?where privilege\.grantee = role\.oid[\s\S]*?array\['INSERT:false', 'SELECT:false', 'UPDATE:false'\]::text\[\][\s\S]*?as requests_shelf_privileges_exact/,
+    );
     assert.match(source, /as images_shelf_privileges_exact/);
     assert.match(source, /as mutations_shelf_privileges_exact/);
     assert.match(source, /as cleanup_shelf_privileges_exact/);
@@ -632,7 +636,7 @@ test("Shelf role attestation rejects every elevated or indirect authority path",
     );
     assert.match(
       source,
-      /array\['INSERT:false', 'SELECT:false', 'UPDATE:false'\]::text\[\][\s\S]*as concerns_shelf_privileges_exact/,
+      /concern_relation\.relacl,[\s\S]*?where privilege\.grantee = role\.oid[\s\S]*?array\['INSERT:false', 'SELECT:false', 'UPDATE:false'\]::text\[\][\s\S]*?array\['DELETE:false', 'INSERT:false', 'SELECT:false', 'UPDATE:false'\]::text\[\][\s\S]*?array\['DELETE:false', 'INSERT:false', 'SELECT:false'\]::text\[\][\s\S]*?as concerns_shelf_privileges_exact/,
     );
     assert.match(
       source,
@@ -936,10 +940,10 @@ test("the real Shelf role and owner isolation audit is explicit and rolls writes
   assert.match(script, /ownerConcernCreate\.length !== 1/);
   assert.match(script, /ownerConcernRead\[0\]\?\.count !== 1/);
   assert.match(script, /ownerConcernRemove\.length !== 1/);
-  assert.match(script, /ownerConcernRestore\.length !== 1/);
+  assert.match(script, /ownerConcernReAdd\.length !== 1/);
   assert.match(script, /forged concern owner insert/);
   assert.match(script, /crossOwnerConcernRead\[0\]\?\.count !== 0/);
-  assert.match(script, /crossOwnerConcernUpdate\.length !== 0/);
+  assert.match(script, /crossOwnerConcernDelete\.length !== 0/);
   assert.match(script, /ownerConcernClear\.length !== 1/);
   assert.match(script, /from public\.customer_concerns\) as concerns/);
   assert.match(script, /insert into public\.customer_product_requests/);

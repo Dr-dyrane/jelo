@@ -56,15 +56,28 @@ function governedRow(migration: MigrationDefinition): MigrationLedgerRow {
 
 test("checked-in migrations have contiguous strict names and one pinned legacy duplicate", async () => {
   const inventory = buildMigrationInventory(await checkedInSources());
-  assert.equal(inventory.length, 56);
+  const migrationsByFilename = new Map(
+    inventory.map((migration) => [migration.filename, migration]),
+  );
+  assert.equal(inventory.length, 59);
   assert.equal(inventory[0]?.filename, "0001_catalogue_foundation.sql");
   assert.equal(
     inventory.at(-1)?.filename,
-    "0055_market_finder_atomic_context.sql",
+    "0058_customer_concern_hard_delete_contract.sql",
   );
   assert.equal(
     inventory.at(-1)?.checksumSha256,
-    "e0a5e58ee2e39f54976031d5afc64d9e8a966e76cfe116e5130b2fd5d2bdc22d",
+    "045154ce319dd245553ee10fd7a26f1d299678e2e7911e53f77bf297e94e5433",
+  );
+  assert.equal(
+    migrationsByFilename.get("0056_customer_concern_hard_delete.sql")
+      ?.checksumSha256,
+    "9940857df263513c10ad5c8bc0b49d5cb55b88e375183b50d07f79a186f99043",
+  );
+  assert.equal(
+    migrationsByFilename.get("0057_market_finder_expired_report_renewal.sql")
+      ?.checksumSha256,
+    "a10889302c60148e739211b0649b281219e4006d0184f8b7474e9d6d4522dd92",
   );
   assert.deepEqual(
     inventory

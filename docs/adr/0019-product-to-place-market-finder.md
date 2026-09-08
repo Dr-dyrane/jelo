@@ -1,6 +1,6 @@
 # ADR 0019: Product-to-place Market Finder
 
-- **Status:** Phase 2 Trade Fair pilot live for reviewed evidence
+- **Status:** Phase 2 Trade Fair pilot live; expired-record renewal accepted
 - **Date:** 2026-09-01
 - **Decision owner:** Founder
 - **Extends:** [ADR 0002](0002-anonymous-community-knowledge-intake.md),
@@ -83,6 +83,36 @@ proved blocking in both directions, rejected non-READ-COMMITTED report
 transactions, preserved evidence and observation attribution, and left zero
 synthetic rows.
 
+### Expired-record renewal amendment
+
+Migration `0057_market_finder_expired_report_renewal.sql` keeps every `0055`
+parent, moderation, transaction, market, place, location, identity, and latest
+non-superseded observation guard. It changes only the final observation
+eligibility rule: the newest approved observation may anchor a report after it
+expires, because that stale exact record is the record a shopper can help
+renew. A current observation still requires `in_stock` or `low_stock` plus a
+current safe public action. Expiry therefore creates no travel or stock claim.
+
+Exact SHA-256
+`a10889302c60148e739211b0649b281219e4006d0184f8b7474e9d6d4522dd92`
+was rehearsed on 2026-09-07 in production-derived branch
+`rehearsal/market-finder-expired-report-renewal-20260907`
+(`br-floral-dawn-avjzsozm`, expiring `2026-09-10T23:59:59Z`). The first runner
+pass applied the then-current predecessor then candidate `0057`; the second
+skipped both unchanged. The real expired Trade Fair record for Cyncel Cosmetics A43 and the
+exact ANUA serum changed from rejected report context under `0055` to one
+accepted pending report under `0057`. A current out-of-stock successor then
+superseded that expired row without rewriting its original reviewer and blocked
+a new report. Rollback-safe controls accepted current positive evidence with a
+safe action; rejected current/no-action, pending-only, expired-location, and
+expired-location-identity contexts; left zero synthetic rows; and left every
+temporarily disabled trigger enabled. The branch was deleted and the migration
+was promoted unchanged. The corrected cutover rehearsal on
+`br-falling-glade-avvu1zmv` subsequently reapplied the exact unchanged `0057`
+bytes between corrected expansion `0056` and contract `0058`, reran the full
+acceptance matrix, and completed an all-skip replay before branch deletion.
+Protected production application remains a separate release step.
+
 The application foundation now includes the fail-closed database read model,
 database-backed public route adapters, strict contextual contribution
 transaction, typed child review in `/ops/contributions`, separately audited
@@ -99,10 +129,11 @@ A separate reviewed, location-only onboarding then published the `trade-fair`
 market and verified Nectar Beauty Hub's Tradefair outlet, directions, and
 public phone without creating a product relation, price, or stock observation.
 The governed schema is applied in production. The Trade Fair public read is
-active only for reviewed current records, and the navigation entry appears only
-when that bounded market is ready. Report intake retains its separate feature
-gate and the existing Contribute moderation path; activating the read does not
-grant a report or evidence record publication authority.
+active only for reviewed records. Current actionable records lead to shop
+details; expired observations remain visibly stale research records with no
+travel action. Report intake retains its separate feature gate and the existing
+Contribute moderation path; activating the read does not grant a report or
+evidence record publication authority.
 
 ## Product-to-place journey
 
@@ -117,8 +148,9 @@ exact product
   -> physical market
   -> verified place hierarchy
   -> canonical retailer location
-  -> current physical observation
-  -> one clear next action
+  -> newest approved, non-superseded physical observation
+       -> current positive evidence + safe action -> shop journey
+       -> expired evidence -> no travel action + report renewal
 ```
 
 Results should prefer a calm list with place breadcrumbs, shop label,
@@ -128,7 +160,7 @@ coordinate has an explicit precision. It is not the source of truth, and a
 plaza- or entrance-level coordinate must not be presented as an exact stall
 pin.
 
-A `Report an update` action stays within the existing anonymous contribution
+A `Report a change` action stays within the existing anonymous contribution
 system. It carries bounded market, exact-product, and shop navigation hints to
 `/contribute`; the server re-resolves all three before showing a fixed-outcome
 journey. It never posts to a Market Finder-specific public API.
@@ -299,9 +331,12 @@ The production contract uses exactly seven additive tables. These names and
 relationships are implemented by locally checked-in migration `0053`; the
 report-current-context guard is implemented by follow-on migration `0054`, and
 its attribution-preserving atomic context correction by migration `0055`.
-All three unchanged byte sets passed governed rehearsal under the
+Migration `0057` adds the expired-record renewal rule without adding a table,
+grant, or data mutation. All four unchanged Market Finder byte sets passed
+governed rehearsal under the
 [Neon data operating guide](../data/NEON.md). Rehearsal and local promotion do
-not authorize applying them to production or inserting canonical rows.
+not authorize applying a pending migration to production or inserting
+canonical rows.
 
 ```text
 physical_markets
@@ -599,17 +634,22 @@ gate off, Market Finder returns `notFound()`. With it on, the exact Trade Fair
 allowlist resolves only published database identities supported by an approved
 physical observation. A current shop additionally requires current location,
 location-identity, product-observation, and usable-action evidence. Repository
-failure reaches the route error boundary; stale or missing authority cannot
-become a fixture or catalogue-only result. The contextual production report
-uses the existing Contribute draft lifecycle only after all three URL hints are
-re-resolved by the application to that current database result. Migration
+failure reaches the route error boundary; missing authority cannot become a
+fixture or catalogue-only result. An expired approved observation may appear
+only as a stale research record with no travel action. When report intake is
+enabled, that record exposes one native “Report a change” handoff. The
+contextual production report uses the existing Contribute draft lifecycle only
+after all three URL hints are re-resolved by the application to a current
+eligible result or that exact expired record. Migration
 `0054` makes the database insert trigger require the same newest approved,
 non-superseded, current positive exact-product observation and usable public
 action, in addition to the `0053` parent, market, location, and product-identity
 checks. Migration `0055` then serializes report validation with statement-level
 mutation of every eligibility relation, preserves original superseded-review
 attribution, and rejects report insertion at another isolation level; the
-application starts an explicit READ COMMITTED transaction. Report intake
+application starts an explicit READ COMMITTED transaction. Migration `0057`
+adds only the expired-observation alternative while preserving every other
+guard. Report intake
 remains a separate production gate. It may open only while the current report
 contract, abuse controls, canonical data, and Ops acceptance pass are all
 attested; a live public Market Finder read does not imply that write authority
@@ -730,7 +770,12 @@ Production activation additionally requires:
   reviewed public action, while the latter preserves superseded-review
   attribution and makes that current-context decision atomic against all eight
   eligible relation mutations;
-- server-side freshness enforcement and fail-closed stale behavior;
+- protected production application of rehearsed migration `0057`, whose only
+  expansion is an expired newest approved, non-superseded observation while the
+  parent, market, place, location, identity, moderation, and transaction guards
+  remain current and enforced;
+- server-side freshness enforcement and fail-closed stale travel/action
+  behavior;
 - no cache purge before first activation, because disabled reads return before
   a cache can be populated; later public evidence changes hard-delete only the
   exact reviewed market tag through the authenticated Vercel CLI;
@@ -767,8 +812,10 @@ community claim to an attributable public-data decision.
 
 The development fixture answered the interaction question and remains isolated
 from production. Production contains migrations `0053`, `0054`, and `0055`
-plus the reviewed Trade Fair pilot. Public reads fail closed per exact product,
-location, action and observation; only currently eligible records appear. The
+plus the reviewed Trade Fair pilot; `0057` is the accepted, rehearsed renewal
+release candidate. Public reads fail closed per exact product, location,
+identity, action, and observation. Current records may lead to a shop; expired
+records may only request renewal. The
 online offer and price-history chain is linked at the product and retailer
 identity boundaries under [ADR 0020](0020-linked-market-truth-system.md), but
 it never substitutes for physical evidence.

@@ -40,7 +40,9 @@ The system stores:
 - contribution-scoped knowledge edges marked `community_reported` and `pending`;
 - optional typed domain projections, each keyed one-to-one to its immutable
   parent contribution and accepted only through a separately reviewed
-  migration; Market Finder's local foundation is migration `0053`;
+  migration; Market Finder's production foundation is migrations `0053`–`0055`,
+  and expired-record report renewal is governed by migration `0057` and
+  [ADR 0019](0019-product-to-place-market-finder.md);
 - deduplicated interaction events that record modes and counts, never search text;
 - one separate first-touch campaign record with bounded source, medium,
   campaign, creative label, and landing path;

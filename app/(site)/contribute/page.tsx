@@ -28,7 +28,9 @@ import {
   presentMarketFinderLocation,
   presentMarketFinderMarket,
   presentMarketFinderProduct,
+  presentMarketFinderResearchRecord,
 } from "@/lib/markets/presentation";
+import { selectMarketReportDisplayTarget } from "@/lib/markets/report-target";
 import { readMarketFinder } from "@/lib/markets/repository";
 import { publicSocialMetadata, staticSocialCard } from "@/lib/og/social-card";
 import styles from "./contribute.module.css";
@@ -110,7 +112,11 @@ export default async function ContributePage({
             locationLabel: shop.locationLabel,
             stateLabel: shop.stateLabel,
           }}
-          returnHref={`/markets/${market.slug}/shops/${shop.slug}?product=${encodeURIComponent(product.slug)}`}
+          returnHref={
+            shop.state === "stale"
+              ? `/markets/${market.slug}?product=${encodeURIComponent(product.slug)}`
+              : `/markets/${market.slug}/shops/${shop.slug}?product=${encodeURIComponent(product.slug)}`
+          }
         />
       );
     }
@@ -136,20 +142,32 @@ export default async function ContributePage({
     ) {
       throw new Error("Market reporting is temporarily unavailable.");
     }
-    if (model.state !== "current") notFound();
-    const location = model.locations.find((item) => item.slug === shopSlug);
-    if (!location) notFound();
+    const reportTarget = selectMarketReportDisplayTarget(model, shopSlug);
+    if (!reportTarget) notFound();
 
-    const product = presentMarketFinderProduct(model.context.product);
-    const market = presentMarketFinderMarket(model.context.market);
-    const shop = presentMarketFinderLocation(model.context, location);
+    const product = presentMarketFinderProduct(reportTarget.context.product);
+    const market = presentMarketFinderMarket(reportTarget.context.market);
+    const shop =
+      reportTarget.kind === "current"
+        ? presentMarketFinderLocation(
+            reportTarget.context,
+            reportTarget.location,
+          )
+        : presentMarketFinderResearchRecord(
+            reportTarget.context,
+            reportTarget.location,
+          );
+    const returnHref =
+      reportTarget.kind === "current"
+        ? `/markets/${market.slug}/shops/${shop.slug}?product=${encodeURIComponent(product.slug)}`
+        : `/markets/${market.slug}?product=${encodeURIComponent(product.slug)}`;
 
     return (
       <MarketReportPrototype
         product={product}
         market={market}
         shop={shop}
-        returnHref={`/markets/${market.slug}/shops/${shop.slug}?product=${encodeURIComponent(product.slug)}`}
+        returnHref={returnHref}
         submissionContext={{ marketSlug, productSlug, shopSlug }}
       />
     );

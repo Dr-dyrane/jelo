@@ -16,6 +16,7 @@ import {
   Store,
 } from "lucide-react";
 import { deriveMarketPrimaryAction } from "@/lib/markets/action";
+import { marketReportContributionHrefForLead } from "@/lib/markets/feedback";
 import type { MarketSurfaceProduct } from "@/lib/markets/presentation";
 import styles from "./market-finder.module.css";
 
@@ -41,6 +42,7 @@ export type MarketResultLead = {
   expiresAtLabel?: string;
   directions: readonly string[];
   detailRecordAvailable?: boolean;
+  reportTargetAvailable?: boolean;
   actionEvidence: {
     exactProductIdentity: true;
     retailerLocationVerified: boolean;
@@ -116,16 +118,24 @@ function LeadCard({
   lead,
   marketSlug,
   product,
+  reportingEnabled,
   compact = false,
 }: {
   lead: MarketResultLead;
   marketSlug: string;
   product: MarketSurfaceProduct;
+  reportingEnabled: boolean;
   compact?: boolean;
 }) {
   const action = deriveMarketPrimaryAction(lead);
   const freshness = freshnessLabel(lead);
   const shopHref = `/markets/${marketSlug}/shops/${lead.slug}?product=${encodeURIComponent(product.slug)}`;
+  const reportHref = marketReportContributionHrefForLead({
+    reportingEnabled,
+    marketSlug,
+    productSlug: product.slug,
+    lead,
+  });
   const actionLabel = action.enabled ? "View shop" : action.label;
 
   return (
@@ -168,7 +178,21 @@ function LeadCard({
         {compact ? (
           <>
             <p className={styles.recordNote}>{lead.evidenceNote}</p>
-            {lead.kind === "shop" && lead.detailRecordAvailable === true ? (
+            {reportHref ? (
+              <div className={styles.recordActions}>
+                <span className={styles.pausedAction} aria-disabled="true">
+                  No travel action
+                </span>
+                <Link
+                  className={styles.recordAction}
+                  href={reportHref}
+                  aria-label={`Report a change for ${lead.name}`}
+                >
+                  Report a change
+                  <ChevronRight size={17} aria-hidden="true" />
+                </Link>
+              </div>
+            ) : lead.kind === "shop" && lead.detailRecordAvailable === true ? (
               <Link
                 className={styles.recordAction}
                 href={shopHref}
@@ -227,10 +251,12 @@ export function MarketResultList({
   leads,
   marketSlug,
   product,
+  reportingEnabled = false,
 }: {
   leads: readonly MarketResultLead[];
   marketSlug: string;
   product: MarketSurfaceProduct;
+  reportingEnabled?: boolean;
 }) {
   if (!leads.length) {
     return (
@@ -265,6 +291,7 @@ export function MarketResultList({
               lead={lead}
               marketSlug={marketSlug}
               product={product}
+              reportingEnabled={reportingEnabled}
             />
           ))}
         </ol>
@@ -309,6 +336,7 @@ export function MarketResultList({
                   lead={lead}
                   marketSlug={marketSlug}
                   product={product}
+                  reportingEnabled={reportingEnabled}
                   compact
                 />
               ))}

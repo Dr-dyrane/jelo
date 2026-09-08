@@ -922,6 +922,19 @@
   margin-top: 0.75rem;
 }
 
+.recordActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.recordActions .recordAction,
+.recordActions .pausedAction {
+  margin-top: 0;
+}
+
 .recordAction {
   min-height: 2.75rem;
   margin-top: 0.75rem;

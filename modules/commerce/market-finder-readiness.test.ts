@@ -52,10 +52,10 @@ function migrationPlan(
     immutable: true,
     errors: [],
     canApply: state === "pending",
-    entries: MARKET_FINDER_REQUIRED_MIGRATIONS.map((filename, index) => ({
+    entries: MARKET_FINDER_REQUIRED_MIGRATIONS.map((filename) => ({
       filename,
-      version: 53 + index,
-      migrationOrder: 54 + index,
+      version: Number(filename.slice(0, 4)),
+      migrationOrder: Number(filename.slice(0, 4)) + 1,
       checksumSha256: "a".repeat(64),
       state,
     })),

@@ -77,7 +77,10 @@ cannot make an excluded offer shareable.
 Products may retain an explicitly dated last-known row after expiry, with no
 current-price or store-opening claim. Markets may retain stale, disputed or
 unavailable research records, but only a current approved physical observation
-with a reviewed action becomes travel guidance.
+with a reviewed action becomes travel guidance. The newest approved expired
+record for an exact product and reviewed location may seed a report-renewal
+context while the location and identity evidence remain current; it exposes no
+route, contact, or visit action and cannot publish a replacement observation.
 
 ## Price-history contract
 
@@ -144,16 +147,16 @@ separately approved and migrated.
 
 ## Projection matrix
 
-| Surface                | Reads                                                                                   | Required behavior                                                                                                |
-| ---------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Products               | Exact current offers plus dated last-known rows                                         | Current actions only from the shared current predicate; stale rows say check stock/last known                    |
-| Share index/detail     | Current offers and qualifying append-only history                                       | No stale outbound offer, invented point, flat inference or mismatched series                                     |
-| Product market summary | Same current offer set                                                                  | Lowest/range/store count recompute from current exact evidence                                                   |
-| Market trends          | Current offer identities plus their history                                             | Hide movement when lineage or comparison depth is insufficient                                                   |
-| Markets                | Exact products with at least one current actionable physical observation                | Directory and destination use the same visit-ready gate; never fall back to an online offer or unreviewed report |
-| Retailers              | Reviewed retailer identity plus dated current evidence                                  | Never promote private intake or prose notes into current facts                                                   |
-| Daily Desk             | Current pointer to an immutable revision checked against the complete current offer set | Replace an invalid revision from current evidence; suppress it while no qualified replacement exists             |
-| Ops market health      | Safe receipts and aggregate canonical health reads                                      | Distinguish no evidence, source unavailable, stale, failed and review-required                                   |
+| Surface                | Reads                                                                                                                      | Required behavior                                                                                                                                  |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Products               | Exact current offers plus dated last-known rows                                                                            | Current actions only from the shared current predicate; stale rows say check stock/last known                                                      |
+| Share index/detail     | Current offers and qualifying append-only history                                                                          | No stale outbound offer, invented point, flat inference or mismatched series                                                                       |
+| Product market summary | Same current offer set                                                                                                     | Lowest/range/store count recompute from current exact evidence                                                                                     |
+| Market trends          | Current offer identities plus their history                                                                                | Hide movement when lineage or comparison depth is insufficient                                                                                     |
+| Markets                | Exact products with current actionable physical evidence, plus the newest approved expired exact record for report renewal | Directory and travel actions use the same visit-ready gate; an expired record exposes only no-travel state and the existing reviewed report intake |
+| Retailers              | Reviewed retailer identity plus dated current evidence                                                                     | Never promote private intake or prose notes into current facts                                                                                     |
+| Daily Desk             | Current pointer to an immutable revision checked against the complete current offer set                                    | Replace an invalid revision from current evidence; suppress it while no qualified replacement exists                                               |
+| Ops market health      | Safe receipts and aggregate canonical health reads                                                                         | Distinguish no evidence, source unavailable, stale, failed and review-required                                                                     |
 
 ## Scheduled owners and reconciliation
 

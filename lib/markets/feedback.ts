@@ -48,3 +48,30 @@ export function marketReportContributionHref(
   });
   return `/contribute?${params.toString()}#contribution-form`;
 }
+
+export function marketReportContributionHrefForLead(input: {
+  reportingEnabled: boolean;
+  marketSlug: string;
+  productSlug: string;
+  lead: {
+    kind: "shop" | "direction-alert";
+    state: string;
+    slug: string;
+    reportTargetAvailable?: boolean;
+  };
+}): string | null {
+  if (
+    !input.reportingEnabled ||
+    input.lead.kind !== "shop" ||
+    input.lead.state !== "stale" ||
+    input.lead.reportTargetAvailable !== true
+  ) {
+    return null;
+  }
+
+  return marketReportContributionHref({
+    marketSlug: input.marketSlug,
+    productSlug: input.productSlug,
+    shopSlug: input.lead.slug,
+  });
+}

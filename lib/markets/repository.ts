@@ -124,9 +124,10 @@ type MarketReportTargetRow = {
     "pending" | "approved" | "rejected" | "superseded";
   observation_availability: MarketFinderResearchLocation["observation"]["availability"];
   observation_expires_at: DateValue;
-  action_kind: MarketFinderActionKind;
-  action_destination: string;
-  action_expires_at: DateValue;
+  action_kind: MarketFinderActionKind | null;
+  action_destination: string | null;
+  action_expires_at: DateValue | null;
+  expired_report_renewal_available: boolean;
 };
 
 export type MarketFinderRepositoryOptions = {
@@ -1238,7 +1239,13 @@ export async function resolveMarketReportTargetContext(
         observation.expires_at as observation_expires_at,
         action.action_kind,
         action.action_destination,
-        action.action_expires_at
+        action.action_expires_at,
+        position(
+          'current eligible result or an expired reviewed exact-product record'
+          in pg_catalog.pg_get_functiondef(
+            'public.market_finder_validate_report_context()'::regprocedure
+          )
+        ) > 0 as expired_report_renewal_available
       from physical_markets market
       join retailer_locations location
         on location.market_id = market.id
@@ -1286,7 +1293,7 @@ export async function resolveMarketReportTargetContext(
           approved_observation.id desc
         limit 1
       ) observation on true
-      join lateral (
+      left join lateral (
         select candidate.*
         from (
           select
@@ -1344,35 +1351,55 @@ export async function resolveMarketReportTargetContext(
           location.primary_place_id is null
           or place.place_state = 'verified'
         )
-        and observation.expires_at > ${now}
-        and observation.availability in ('in_stock', 'low_stock')
+        and (
+          observation.expires_at <= ${now}
+          or (
+            observation.expires_at > ${now}
+            and observation.availability in ('in_stock', 'low_stock')
+            and action.action_expires_at > ${now}
+          )
+        )
       order by action.preference, action.action_expires_at desc
     `;
 
     const nowMs = now.getTime();
-    const isCurrent = (value: DateValue) => {
-      const timestamp = new Date(value).getTime();
-      return Number.isFinite(timestamp) && timestamp > nowMs;
+    const timestamp = (value: DateValue | null) =>
+      value === null ? Number.NaN : new Date(value).getTime();
+    const isCurrent = (value: DateValue | null) => {
+      const valueMs = timestamp(value);
+      return Number.isFinite(valueMs) && valueMs > nowMs;
     };
-    const row = rows.find(
-      (candidate) =>
+    const isExpired = (value: DateValue | null) => {
+      const valueMs = timestamp(value);
+      return Number.isFinite(valueMs) && valueMs <= nowMs;
+    };
+    const row = rows.find((candidate) => {
+      const currentPositiveResult =
+        isCurrent(candidate.observation_expires_at) &&
+        (candidate.observation_availability === "in_stock" ||
+          candidate.observation_availability === "low_stock") &&
+        isCurrent(candidate.action_expires_at) &&
+        candidate.action_kind !== null &&
+        candidate.action_destination !== null &&
+        Boolean(
+          normalizeMarketFinderPublicAction({
+            kind: candidate.action_kind,
+            destination: candidate.action_destination,
+          }),
+        );
+      const expiredReviewedRecord =
+        candidate.expired_report_renewal_available &&
+        isExpired(candidate.observation_expires_at);
+      return (
         candidate.location_state === "verified" &&
         isCurrent(candidate.location_expires_at) &&
         (candidate.place_state === null ||
           candidate.place_state === "verified") &&
         isCurrent(candidate.identity_evidence_expires_at) &&
         candidate.observation_moderation_status === "approved" &&
-        isCurrent(candidate.observation_expires_at) &&
-        (candidate.observation_availability === "in_stock" ||
-          candidate.observation_availability === "low_stock") &&
-        isCurrent(candidate.action_expires_at) &&
-        Boolean(
-          normalizeMarketFinderPublicAction({
-            kind: candidate.action_kind,
-            destination: candidate.action_destination,
-          }),
-        ),
-    );
+        (currentPositiveResult || expiredReviewedRecord)
+      );
+    });
     if (!row) return { status: "unresolved", reason: "unknown-context" };
     return {
       status: "resolved",

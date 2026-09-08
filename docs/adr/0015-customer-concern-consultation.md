@@ -1,6 +1,6 @@
 # ADR 0015: Customer Concern Consultation
 
-- **Status:** Accepted; implementation open
+- **Status:** Accepted; hard-delete expand/contract release candidate
 - **Date:** 2026-08-06
 - **Decision owner:** Founder
 - **Extends:** [ADR 0013](0013-founder-led-jelocare-me.md), [ADR 0014](0014-customer-shelf-data-boundary.md)
@@ -24,8 +24,8 @@ This decision introduces:
 1. a pure concern-matching function that maps free search text to reviewed
    concern content;
 2. a Consult surface that shows concern content above product results;
-3. a customer concern store mirroring the Shelf and Routine persistence
-   pattern (PostgreSQL, RLS, append-only lifecycle);
+3. a customer concern store using the Shelf and Routine security pattern
+   (PostgreSQL, forced RLS, and customer-controlled hard deletion);
 4. a concern service with `list`, `add`, `remove`, and `clear` operations;
 5. wiring from the concern store into the route read models so Explore, Home,
    and the product page receive the customer's concerns; and
@@ -131,9 +131,10 @@ Products already carry `supportedConcernSlugs` derived from the care review
 pipeline. In `lib/customer/portal-model.ts`:
 
 ```ts
-const supportedConcernSlugs = care?.careState === 'supportive_eligible'
-  ? [...new Set(care.approvedUses.flatMap(use => use.concernSlugs ?? []))]
-  : [];
+const supportedConcernSlugs =
+  care?.careState === "supportive_eligible"
+    ? [...new Set(care.approvedUses.flatMap((use) => use.concernSlugs ?? []))]
+    : [];
 ```
 
 This binding is reviewed, governed, and already shipped. No new product
@@ -144,10 +145,10 @@ classification is needed.
 `lib/customer/explore-model.ts` already has concern filtering infrastructure:
 
 ```ts
-matchedConcernSlugs: product.supportedConcernSlugs.filter(slug => {
+matchedConcernSlugs: product.supportedConcernSlugs.filter((slug) => {
   const concern = supportedConcernBySlug.get(slug);
   return Boolean(concern && concernAreaMatchesProduct(concern, product));
-})
+});
 ```
 
 The "For your concerns" section in the explore projection already exists. The
@@ -305,13 +306,8 @@ create table customer_concerns (
     ),
   origin customer_concern_origin not null default 'customer',
   saved_at timestamptz not null default now(),
-  removed_at timestamptz,
-  unique (owner_subject, concern_slug, removed_at)
+  unique (owner_subject, concern_slug)
 );
-
-create index customer_concerns_owner_active_idx
-  on customer_concerns (owner_subject, concern_slug)
-  where removed_at is null;
 
 create index customer_concerns_owner_saved_idx
   on customer_concerns (owner_subject, saved_at desc);
@@ -330,31 +326,64 @@ revoke all privileges on table public.customer_concerns from jelocare_app_runtim
 revoke all privileges on table public.customer_concerns from jelocare_shelf_runtime;
 
 grant usage on type public.customer_concern_origin to jelocare_shelf_runtime;
-grant select, insert, update on table public.customer_concerns to jelocare_shelf_runtime;
+grant select, insert, delete on table public.customer_concerns to jelocare_shelf_runtime;
 
 commit;
 ```
 
 Design notes:
 
-- **Append-only lifecycle.** Removing a concern sets `removed_at` rather than
-  deleting the row. This preserves history for export and audit, matching the
-  Shelf pattern's lifecycle states.
-- **Unique constraint includes `removed_at`.** This allows a concern to be
-  removed and later re-added. The partial index on `where removed_at is null`
-  enforces one active row per concern per customer.
-- **No `updated_at`.** A concern row is created once and optionally retired.
-  There is no edit operation.
+- **Active-until-action lifecycle.** A live row remains until the customer
+  removes that Concern, clears all Concerns, or deletes the account. Removal
+  and clear hard-delete the owned live rows; they do not create a reversible
+  customer-linked tombstone.
+- **One live row per Concern.** The unconditional owner-and-slug uniqueness
+  constraint prevents duplicates. A customer can add the Concern again after
+  deletion, creating a new live row and a new `saved_at` value.
+- **No `updated_at`.** A Concern row is either live or deleted. There is no
+  edit or restoration operation.
 - **No foreign key to a concerns table.** The concern slug is a text column
   bounded by a check constraint, not a foreign key. The knowledge library is
   a reviewed code asset, not a database table. This avoids coupling the
   customer store to the content library's lifecycle.
-- **No TRUNCATE, REFERENCES, or TRIGGER privileges.** The runtime role can
-  SELECT, INSERT, and UPDATE (for `removed_at`) but cannot TRUNCATE, create
-  foreign keys, or add triggers. This matches the Shelf and Routine privilege
-  contract.
+- **No UPDATE, TRUNCATE, REFERENCES, or TRIGGER privileges.** The runtime role
+  can SELECT, INSERT, and DELETE only. It cannot retain or restore removed
+  customer context, create foreign keys, or add triggers.
 - **Migration number.** The next available migration number after `0037`. The
   migration file will be `0038_customer_concerns.sql`.
+- **Retention amendment and cutover.** Migration
+  `0056_customer_concern_hard_delete.sql`, exact SHA-256
+  `9940857df263513c10ad5c8bc0b49d5cb55b88e375183b50d07f79a186f99043`,
+  is the non-breaking expansion: it deletes inherited tombstones and grants
+  DELETE while retaining the legacy `removed_at` column, partial live-row
+  index, and UPDATE authority. The bridge application accepts only the old,
+  expanded, or final exact Concern ACL and couples each ACL to whether the
+  legacy column is present; reads exclude tombstones through a
+  schema-neutral projection, and remove/clear use UPDATE only while DELETE is
+  unavailable. Migration `0058_customer_concern_hard_delete_contract.sql`,
+  exact SHA-256
+  `045154ce319dd245553ee10fd7a26f1d299678e2e7911e53f77bf297e94e5433`,
+  re-cleans any in-flight legacy tombstone, removes `removed_at` and the
+  partial index, installs unconditional owner-and-slug uniqueness, and revokes
+  UPDATE. The bridge must be live before protected production application of
+  `0056`–`0058`; after `0058`, only SELECT, INSERT, and DELETE remain.
+- **Final rehearsal evidence.** On 2026-09-07, production-derived branch
+  `rehearsal/customer-concern-cutover-market-renewal-20260907`
+  (`br-falling-glade-avvu1zmv`) proved bridge CRUD before expansion, hard-delete
+  CRUD after `0056`, unchanged Market Finder `0057`, the final contract after
+  `0058`, and a full unchanged replay. The restricted Shelf-role and
+  rolled-back owner-isolation audits passed after contraction. The branch was
+  deleted after acceptance, and exact `0058` bytes were promoted unchanged.
+  After the independent ACL review correction, a second fresh branch
+  (`br-green-credit-avs1w41o`) repeated the complete sequence and all-skip
+  replay. It also proved the final attestation rejects a deliberately
+  re-granted `UPDATE`, passes again after revocation, and keeps the Market
+  renewal acceptance matrix intact. That branch was deleted after acceptance.
+  Protected production application remains a separate release step.
+- **Export and account deletion.** Customer exports include current active
+  Concerns only. Account deletion must delete every live Concern row owned by
+  that account. Recovery-only provider backups remain governed by the exact
+  evidenced provider backup window and are not customer-restorable.
 
 ### 4. Concern repository
 
@@ -365,13 +394,19 @@ A new `lib/customer/concern-repository.ts` module mirrors
 export type CustomerConcernRecord = {
   concernSlug: string;
   savedAt: string;
-  origin: 'customer' | 'synthetic-development';
+  origin: "customer" | "synthetic-development";
 };
 
 export type CustomerConcernRepository = {
   list(ownerSubject: string): Promise<CustomerConcernRecord[]>;
-  add(ownerSubject: string, concernSlug: string): Promise<'added' | 'already_saved'>;
-  remove(ownerSubject: string, concernSlug: string): Promise<'removed' | 'already_removed'>;
+  add(
+    ownerSubject: string,
+    concernSlug: string,
+  ): Promise<"added" | "already_saved">;
+  remove(
+    ownerSubject: string,
+    concernSlug: string,
+  ): Promise<"removed" | "already_removed">;
   clear(ownerSubject: string): Promise<number>;
 };
 ```
@@ -382,10 +417,10 @@ The repository:
 - uses the same `getCustomerShelfPostgresClient` connection (shared
   `jelocare_shelf_runtime` role);
 - asserts RLS via `assertCustomerShelfRlsRole` in each transaction;
-- `list` returns only active concerns (`where removed_at is null`);
-- `add` inserts a new row or reactivates a previously removed row;
-- `remove` sets `removed_at` on the active row;
-- `clear` sets `removed_at` on all active rows for the owner; and
+- `list` returns the owner's current live Concern rows;
+- `add` inserts one live row and returns `already_saved` on conflict;
+- `remove` deletes the matching owned live row;
+- `clear` deletes every live row for the owner; and
 - validates `ownerSubject` via `isValidCustomerShelfOwnerSubject`.
 
 ### 5. Concern policy and service
@@ -428,8 +463,8 @@ The policy:
 A new `lib/customer/concern-service.ts` wires the repository to the policy:
 
 ```ts
-import { postgresCustomerConcernRepository } from './concern-repository';
-import { createCustomerConcernService } from './concern-policy';
+import { postgresCustomerConcernRepository } from "./concern-repository";
+import { createCustomerConcernService } from "./concern-policy";
 
 export const customerConcernService = createCustomerConcernService(
   postgresCustomerConcernRepository,
@@ -448,15 +483,20 @@ The concerns are mapped from `CustomerConcernRecord` to
 
 ```ts
 const concerns = records
-  .map(record => {
-    const knowledge = knowledgeLibraryConcerns.find(c => c.slug === record.concernSlug);
+  .map((record) => {
+    const knowledge = knowledgeLibraryConcerns.find(
+      (c) => c.slug === record.concernSlug,
+    );
     if (!knowledge) return null; // slug retired from library
     return {
       slug: knowledge.slug,
       name: knowledge.name,
       area: knowledge.area,
       kind: knowledge.kind,
-      source: record.origin === 'synthetic-development' ? 'synthetic-development' as const : 'customer' as const,
+      source:
+        record.origin === "synthetic-development"
+          ? ("synthetic-development" as const)
+          : ("customer" as const),
     };
   })
   .filter((c): c is CustomerPortalConcernReference => c !== null);
@@ -620,7 +660,7 @@ The UI does **not** use:
 - The "See products" button has `aria-controls` pointing to the product
   results region.
 - The concern content region has `aria-label="Concern information for
-  [concern name]"`.
+[concern name]"`.
 - Screen readers receive the full concern content including sources.
 - Dynamic Type may wrap concern content without clipping.
 - Colour is never the sole indicator of saved vs. unsaved state.
@@ -666,9 +706,8 @@ The UI does **not** use:
 - Add server actions for add/remove/clear.
 - Add synthetic preview state (`useMeConcernState`).
 - Wire the "I'm dealing with this" button to the service.
-- Test: adding a concern persists to the database; removing sets `removed_at`;
-  clearing sets `removed_at` on all active rows; synthetic mode uses preview
-  state.
+- Test: adding a concern persists to the database; remove and clear hard-delete
+  only the owner's live rows; synthetic mode uses preview state.
 
 ### Slice 4: Read model wiring
 
@@ -748,12 +787,12 @@ Tests must prove:
 
 - only `kind: 'concern'` slugs can be saved (condition-patterns rejected);
 - unknown slugs are rejected;
-- adding a concern persists a row with `removed_at` null;
+- adding a concern persists one live row;
 - adding an already-saved concern returns `already_saved`;
-- removing a concern sets `removed_at`;
-- removing an already-removed concern returns `already_removed`;
-- clearing sets `removed_at` on all active rows;
-- listing returns only active concerns;
+- removing a concern deletes its live row;
+- removing an absent concern returns `already_removed`;
+- clearing deletes all live rows for that owner;
+- listing returns the owner's current live Concerns only;
 - synthetic identity returns unavailable/error;
 - RLS is enforced — a query without `app.customer_subject` returns no rows;
 - the runtime role cannot TRUNCATE, REFERENCES, or TRIGGER; and

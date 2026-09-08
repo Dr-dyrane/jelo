@@ -1,6 +1,6 @@
 # Operational runbooks
 
-Updated: 2026-08-31
+Updated: 2026-09-07
 
 Lead with evidence. Preserve data. Prefer a forward repair.
 
@@ -644,10 +644,11 @@ npm run db:reconcile
 
 The ledger must include `0034_customer_shelf.sql`, followed by
 `0035_runtime_database_roles.sql`, `0036_customer_product_requests.sql`, and
-`0037_customer_routines.sql`.
+`0037_customer_routines.sql`, then `0038_customer_concerns.sql`.
 Migration `0035` rejects an absent or unsafe role before applying grants;
 `0036` adds the private request boundary and its pinned research bridge;
-`0037` adds the forced-RLS Routine boundary and exact runtime grants. The
+`0037` adds the forced-RLS Routine boundary and exact runtime grants; `0038`
+adds the owner-isolated Concern boundary. The
 reconciler runs `db:migrate`, `db:seed`,
 `assets:product:seed`, and `assets:editorial:seed` in that order. These are
 idempotent public-data operators; none imports a customer Shelf. Do not pass
@@ -659,6 +660,43 @@ skip every ledgered file, and a second reconciliation must not create a new
 identity version or change an immutable reviewed snapshot. Record the branch,
 revision, migration filenames, counts, and pass/fail result only. Do not retain
 connection strings, role passwords, customer identifiers, or row contents.
+
+Concern hard deletion is the separately governed app-first expand/contract
+cutover. Expansion migration `0056_customer_concern_hard_delete.sql`, canonical
+SHA-256
+`9940857df263513c10ad5c8bc0b49d5cb55b88e375183b50d07f79a186f99043`,
+deletes inherited tombstones and grants `DELETE` while retaining the legacy
+column, partial uniqueness, and `UPDATE` grant. Contract migration
+`0058_customer_concern_hard_delete_contract.sql`, canonical SHA-256
+`045154ce319dd245553ee10fd7a26f1d299678e2e7911e53f77bf297e94e5433`,
+re-cleans transitional tombstones, removes `removed_at` and its index, installs
+unconditional owner-and-slug uniqueness, and revokes `UPDATE`.
+
+Deploy and verify the dual-compatible application before the protected runner
+applies `0056`, intervening canonical migration `0057`, and `0058` in order.
+The bridge must list against both schemas, use soft removal without `DELETE`,
+switch to hard removal once `DELETE` exists, accept only the legacy or expanded
+ACL while `removed_at` exists, and accept only the final ACL after that column
+is absent. After `0058`, no pre-bridge application is a rollback candidate.
+
+On 2026-09-07 the complete sequence passed on fresh production-derived branch
+`rehearsal/customer-concern-cutover-market-renewal-20260907`
+(`br-falling-glade-avvu1zmv`, expiry `2026-09-11T23:59:59Z`). It proved bridge
+CRUD before expansion, hard-delete CRUD after `0056`, unchanged Market Finder
+`0057`, final schema and ACL contraction after `0058`, restricted Shelf-role
+attestation, rolled-back owner isolation, and an all-skip replay. Exact `0058`
+bytes were promoted unchanged and the disposable branch was deleted. Earlier
+one-step `0056` rehearsal branches were superseded and deleted. Production
+still requires pre-status, an exact bridge deployment at `READY`, protected
+apply, post-status, idempotent rerun, and final read-only audit; never use the
+Shelf runtime URL for migration.
+
+After the independent ACL review correction, fresh production-derived branch
+`br-green-credit-avs1w41o` repeated the complete sequence and all-skip replay.
+The final rolled-back owner audit passed; a deliberate final-schema `UPDATE`
+re-grant was rejected by the operator attestation; revocation restored a
+passing exact final audit; and the `0057` acceptance matrix left zero synthetic
+rows. The disposable branch was deleted after acceptance.
 
 ### 3. Audit roles, grants, and RLS
 
@@ -703,7 +741,8 @@ where oid in (
   pg_catalog.to_regclass('public.customer_product_request_mutations'),
   pg_catalog.to_regclass('public.customer_product_request_blob_cleanup'),
   pg_catalog.to_regclass('public.customer_routines'),
-  pg_catalog.to_regclass('public.customer_routine_steps')
+  pg_catalog.to_regclass('public.customer_routine_steps'),
+  pg_catalog.to_regclass('public.customer_concerns')
 )
 order by relname;
 
@@ -751,6 +790,7 @@ where grantee = 'PUBLIC'
     'customer_product_request_research_mentions',
     'customer_routines',
     'customer_routine_steps',
+    'customer_concerns',
     'schema_migrations'
   )
 order by table_name, privilege_type;
@@ -760,16 +800,21 @@ Require exactly two `LOGIN NOINHERIT` rows with every elevated attribute,
 `is_member_of_another_role`, and ownership value false. PostgreSQL 17 may show
 an incoming creator/administrator membership; that direction is allowed and is
 recorded separately. Require enabled and forced RLS, all six connection/schema/
-type booleans true, and no `PUBLIC` row for the Shelf, Routine, or receipt tables. The app
-role must have no Shelf, Routine, receipt, or migration-ledger privilege. The Shelf role
-must have only `SELECT`, `INSERT`, and `DELETE` on
-`public.customer_shelf_items`, the migration-`0036` request/image/idempotency/
-cleanup grants, exact CRUD on the migration-`0037` Routine tables, the exact
+type booleans true, and no `PUBLIC` row for the Shelf, Routine, Concern, or
+receipt tables. The app role must have no Shelf, Routine, Concern, receipt, or
+migration-ledger privilege. The Shelf role must have only `SELECT`, `INSERT`,
+and `DELETE` on `public.customer_shelf_items`. The bridge attestation accepts
+only the three Concern cutover states `INSERT/SELECT/UPDATE`,
+`DELETE/INSERT/SELECT/UPDATE`, and `DELETE/INSERT/SELECT`; final production
+after `0058` must expose only `DELETE`, `INSERT`, and `SELECT` on
+`public.customer_concerns`. It must retain the migration-`0036`
+request/image/idempotency/cleanup grants, exact CRUD on the migration-`0037`
+Routine tables, the exact
 reviewed catalogue column grants, and execute on the
 pinned request-signal bridge. It must have no direct request-research-mention,
 community-task, `TRUNCATE`, receipt, Auth, moderation, intake, or other
-private-table access. Migrations `0035`, `0036`, and `0037` grant no default privileges
-to either runtime role; review each later table explicitly.
+private-table access. Migrations `0035`, `0036`, `0037`, and `0038` grant no
+default privileges to either runtime role; review each later table explicitly.
 
 Inject only the protected `CUSTOMER_SHELF_DATABASE_URL` and run the checked-in
 runtime attestation, then its deliberately explicit rolled-back lifecycle and
@@ -791,9 +836,11 @@ and the app runtime cannot execute the pinned bridge while the Shelf runtime
 can execute it without grant option. An incoming PostgreSQL 17
 creator/administrator edge is allowed.
 
-The second command preserves the existing Shelf and Routine exercise and adds
-one private product-request lifecycle under random synthetic owners. It proves
-request create, mutation-key replay, optimistic update, bounded image metadata,
+The second command preserves the existing Shelf and Routine exercise, proves
+Concern create/read/hard-delete/re-add/clear plus cross-owner isolation, and
+adds one private product-request lifecycle under random synthetic owners. It
+proves request create, mutation-key replay, optimistic update, bounded image
+metadata,
 consent revocation without identity-field change, submit/bridge retry,
 withdrawal scrubbing, cleanup enqueue, owner-A visibility, owner-B invisibility,
 cross-mutation denial, owner mutation/deletion, and routine-step cascade. It
@@ -811,7 +858,8 @@ supplement them with transactions that prove:
 
 - missing `app.customer_subject` returns zero rows and rejects writes;
 - A and B can independently add, list, remove, and clear Shelf plus create,
-  list, update, and delete Routine;
+  list, update, and delete Routine and independently add, list, hard-delete,
+  re-add, and clear Concerns;
 - a duplicate add creates one row;
 - `set row_security = off` does not expose rows; and
 - the Shelf role cannot query the receipt, Auth, moderation, intake, or
@@ -970,10 +1018,10 @@ clear the imported launch Shelf merely for smoke because the receipt correctly
 prevents re-import; exercise the destructive clear result only with an approved
 disposable account. Confirm another account cannot see the rows, the public
 reporting helper sends no private state, Synthetic Amara is absent, and Concern
-remains unpersisted. Prove Routine and Shelf cross-owner denial with the
-checked-in deterministic rollback audit when a disposable customer is not
-already authorized. Do not claim full provider-account deletion; it is not
-implemented.
+list/add/reload/remove/re-add/clear persists only the intended active state.
+Prove Routine, Shelf, and Concern cross-owner denial with the checked-in
+deterministic rollback audit when a disposable customer is not already
+authorized. Do not claim full provider-account deletion; it is not implemented.
 
 Preview must render public routes and keep signed-out `/me` behind the sign-in
 boundary while remaining unable to persist private state: it has no app URL,
@@ -990,15 +1038,17 @@ use a bounded maintenance window. Do not change the role name or grants during
 a credential-only rotation.
 
 Record the rollback floor as the first exact application revision proven with
-the restricted roles, together with the ledger through
-`0046_fix_customer_request_signal_bridge.sql` and the passing audit. A failed
-later application deployment may roll back only to that revision
-or another role-compatible revision. Do not down-migrate, restore an owner URL,
-or delete Shelf rows. The current code has neither an activation flag nor an
-independent recovery-only export/delete path. Disable behavior with a reviewed
+the restricted roles. For the current Concern cutover, record the exact
+dual-compatible bridge revision, the ledger through
+`0058_customer_concern_hard_delete_contract.sql`, and the passing final-schema
+audit. A failed later deployment may roll back only to that bridge revision or
+another final-schema-compatible revision; no pre-bridge application is a
+candidate after `0058`. Do not down-migrate, restore an owner URL, or delete
+Shelf rows. The current code has neither an activation flag nor an independent
+recovery-only export/delete path. Disable behavior with a reviewed
 role-compatible release; removing `CUSTOMER_SHELF_DATABASE_URL` is an emergency
 total fail-closed action that disables Shelf list, add, remove, clear, export,
-and Routine persistence together. Preserve rows and forward-fix.
+Routine, and Concern persistence together. Preserve rows and forward-fix.
 
 This operation creates no cron and changes no inventory schedule, queue, lease,
 worker, or manual-observation behavior.
@@ -1803,11 +1853,19 @@ reviewed. Do not enable report intake until follow-on migration
 and correction migration `0055_market_finder_atomic_context.sql`, canonical
 SHA-256
 `e0a5e58ee2e39f54976031d5afc64d9e8a966e76cfe116e5130b2fd5d2bdc22d`,
-have both passed that protected production gate. Migration `0055` preserves
+and renewal migration `0057_market_finder_expired_report_renewal.sql`, canonical
+SHA-256
+`a10889302c60148e739211b0649b281219e4006d0184f8b7474e9d6d4522dd92`,
+have passed that protected production gate. Migration `0055` preserves
 the original reviewer attribution when evidence is superseded and makes report
 validation and all eight current-context table mutations share one transaction
 lock. The application report transaction is explicitly READ COMMITTED; the
-database rejects report insertion at another isolation level.
+database rejects report insertion at another isolation level. Migration `0057`
+allows the newest approved, non-superseded exact-product observation to anchor
+a renewal report after that observation expires. It does not relax the current
+market, location, place, identity, parent-retention, moderation, or transaction
+guards; a current observation still requires positive availability and a
+current safe public action.
 
 The exact `0055` bytes were rehearsed on 2026-09-02 in Neon project
 `spring-field-93817903`, fresh production-derived branch
@@ -1818,6 +1876,27 @@ applied `0053`, `0054`, and `0055`; the second skipped all three unchanged, and
 Rollback-safe acceptance preserved evidence and observation attribution,
 confirmed all eight context-lock triggers and both blocking directions,
 rejected a non-READ-COMMITTED report transaction, and left zero synthetic rows.
+
+The exact `0057` bytes were first rehearsed on 2026-09-07 in project
+`spring-field-93817903`, fresh production-derived branch
+`rehearsal/market-finder-expired-report-renewal-20260907`
+(`br-floral-dawn-avjzsozm`, expiring `2026-09-10T23:59:59Z`). The first runner
+pass applied the then-current predecessor and candidate `0057`; the second
+skipped both unchanged, and `0057` was promoted unchanged. Before migration, the real
+expired Trade Fair record for Cyncel Cosmetics A43 and the exact ANUA serum was
+rejected; after migration it created one pending report. A current out-of-stock
+successor then superseded the expired observation without changing its
+original reviewer, and a new report was rejected. Rollback-safe controls kept
+the current positive/actionful path open while rejecting current/no-action,
+pending-only, expired-location, and expired-location-identity contexts. They
+left zero synthetic rows and every temporarily disabled trigger enabled. The
+disposable branch was deleted after acceptance. The final corrected cutover
+rehearsal on `br-falling-glade-avvu1zmv` then applied the exact unchanged `0057`
+bytes between corrected `0056` and contract `0058`, reran the same acceptance
+matrix, and completed an all-skip replay before deletion. This is rehearsal
+evidence; protected production application is still required before releasing
+dependent application behavior.
+
 On 2026-09-02 the protected production runner applied `0053`, `0054`, and
 `0055` in canonical order with their exact rehearsed hashes. Post-apply status
 reported a governed immutable ledger with 56 applied, zero pending, and zero
@@ -1826,14 +1905,16 @@ found all seven tables, all 21 core triggers, all eight context-lock triggers,
 and the expected restricted runtime grants. A separate location-only operation
 then published the `trade-fair` market and verified Nectar Beauty Hub's
 Tradefair outlet without creating any product relation, price, or stock
-observation. Public readiness remains fail-closed at
-`directory-empty:no-approved-observation`, and public reads and report intake
-remain gated. Keep
-`MARKET_FINDER_PUBLIC_READ_ENABLED=false`,
+observation. Readiness was fail-closed at
+`directory-empty:no-approved-observation` at that historical checkpoint; later
+reviewed observations must be evaluated from a fresh production snapshot.
+For a new or paused pilot, keep `MARKET_FINDER_PUBLIC_READ_ENABLED=false`,
 `MARKET_FINDER_PUBLIC_MARKET_SLUG` unset, and
 `MARKET_FINDER_REPORT_INTAKE_ENABLED=false` through migration, data onboarding,
-observation approval, abuse checks, and operator acceptance. Before changing
-either public-read variable, place both the protected direct administrator URL
+observation approval, abuse checks, and operator acceptance. An already live
+public-read gate does not authorize report intake or bypass this migration
+check. Before changing either public-read variable, place both the protected
+direct administrator URL
 and the restricted `jelocare_app_runtime` application URL in the operator
 process without writing either credential to shell history, then run the
 bounded production-data preflight from an authenticated `neonctl` session:
@@ -1851,7 +1932,8 @@ as the exact application runtime role inside one repeatable-read, read-only
 snapshot, so owner authority cannot mask a runtime grant failure and a
 concurrent catalogue change cannot create a torn pass.
 
-It exits `2` unless migrations `0053`–`0055` are applied unchanged and the
+It exits `2` unless Market Finder migrations `0053`, `0054`, `0055`, and `0057`
+are applied unchanged and the
 `trade-fair` directory contains only exact published product identities whose
 current reads each have at least one usable reviewed location. Product media is
 resolved through the canonical public catalogue, with exact slug, brand,

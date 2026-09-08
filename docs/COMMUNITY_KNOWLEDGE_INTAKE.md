@@ -34,8 +34,11 @@ interaction fixture and a separately gated database-backed production path at:
 The route accepts exactly one value for each key and fails closed for missing,
 repeated, unknown, or ambiguous context. Development resolves through bounded
 fixture helpers. Production re-resolves a current database-backed market,
-exact product identity, and reviewed shop. The exact product, market, and shop
-are locked; both paths offer only `found_bought`,
+exact product identity, and reviewed shop. It may also re-resolve the newest
+approved, non-superseded observation after that observation expires so a
+shopper can renew the record; the market, location, place, and identity
+evidence must still be current. The exact product, market, and shop are locked;
+both paths offer only `found_bought`,
 `shop_exists_no_stock`, `location_wrong`, and `shop_closed`.
 
 The fixture route creates no anonymous draft, makes no API request, and stores
@@ -115,8 +118,13 @@ for creating a report. Correction migration
 when evidence is superseded and serializes report validation with mutations of
 all eight current-context relations. The application report transaction is
 explicitly READ COMMITTED, and the database rejects report insertion at another
-isolation level. All three exact files passed production-derived rehearsal, but
-none has been applied to production and no canonical market data exists.
+isolation level. Renewal migration
+`0057_market_finder_expired_report_renewal.sql` admits only the newest approved,
+non-superseded expired observation as report context; a current observation
+still requires positive availability and a current safe public action. The
+`0053`–`0055` foundation is applied in production with reviewed Trade Fair
+data. Exact `0057` bytes passed production-derived rehearsal and unchanged-byte
+promotion; protected production application remains a separate release step.
 
 Migration `0015_community_knowledge_intake.sql` keeps drafts, immutable contributions, custom-value moderation, events and community-reported graph edges separate from JeloCare-reviewed records.
 
@@ -216,7 +224,8 @@ no-write preview. The typed one-to-one projection, strict server validation,
 parent rejection and retention behavior, `/ops/contributions` child review,
 audit, and production Contribute handoff now exist locally behind default-off
 public-read, exact-market, and report-intake gates. Production activation still
-requires authorized production application of migrations `0053`, `0054`, and
-`0055`, reviewed canonical data, abuse and operator acceptance, and a
-fail-closed release. Public reads and report intake remain off. The prototype
-is not production market data and must never be described as live reporting.
+requires authorized production application of renewal migration `0057`,
+reviewed canonical data, abuse and operator acceptance, and a fail-closed
+release. Public reads and report intake remain independently gated; activating
+one never authorizes the other. The fixture is not production market data and
+must never be described as live reporting.

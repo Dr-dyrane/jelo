@@ -19,6 +19,7 @@ import { productRequestEntryHref } from "@/lib/customer/product-request-entry";
 import {
   isMarketFinderPublicMarketAllowed,
   isMarketFinderPublicReadEnabled,
+  isMarketFinderReportIntakeEnabled,
 } from "@/lib/markets/activation";
 import { deriveMarketPrimaryAction } from "@/lib/markets/action";
 import type { MarketFinderReadModel } from "@/lib/markets/domain";
@@ -38,7 +39,10 @@ import {
   type MarketSurfaceMarket,
   type MarketSurfaceProduct,
 } from "@/lib/markets/presentation";
-import { readMarketFinder } from "@/lib/markets/repository";
+import {
+  readMarketFinder,
+  resolveMarketReportTargetContext,
+} from "@/lib/markets/repository";
 import styles from "@/components/markets/market-finder.module.css";
 
 type MarketPageProps = {
@@ -51,8 +55,33 @@ type ResultViewModel = {
   product: MarketSurfaceProduct;
   leads: readonly MarketResultLead[];
   preview: boolean;
+  reportingEnabled: boolean;
   state: MarketFinderReadModel["state"] | "fixture";
 };
+
+async function bindReportTargets(input: {
+  marketSlug: string;
+  productSlug: string;
+  reportingEnabled: boolean;
+  leads: readonly MarketResultLead[];
+}): Promise<MarketResultLead[]> {
+  if (!input.reportingEnabled) return [...input.leads];
+
+  return Promise.all(
+    input.leads.map(async (lead) => {
+      if (lead.kind !== "shop" || lead.state !== "stale") return lead;
+      const resolution = await resolveMarketReportTargetContext({
+        marketSlug: input.marketSlug,
+        productSlug: input.productSlug,
+        locationSlug: lead.slug,
+      });
+      return {
+        ...lead,
+        reportTargetAvailable: resolution.status === "resolved",
+      };
+    }),
+  );
+}
 
 function resultStateLabel(view: ResultViewModel): string {
   if (view.preview) return "Development preview";
@@ -80,8 +109,10 @@ async function readResultViewModel(
       leads: listMarketFixtureLeads(market.slug, product.slug).map((lead) => ({
         ...lead,
         detailRecordAvailable: lead.kind === "shop",
+        reportTargetAvailable: lead.kind === "shop" && lead.state === "stale",
       })),
       preview: true,
+      reportingEnabled: true,
       state: "fixture",
     };
   }
@@ -106,20 +137,29 @@ async function readResultViewModel(
   }
   if (!model.context) return null;
 
+  const reportingEnabled = isMarketFinderReportIntakeEnabled();
+  const leads: MarketResultLead[] = [
+    ...(model.state === "current"
+      ? model.locations.map((location) =>
+          presentMarketFinderLocation(model.context, location),
+        )
+      : []),
+    ...model.researchRecords.map((record) =>
+      presentMarketFinderResearchRecord(model.context!, record),
+    ),
+  ];
+
   return {
     market: presentMarketFinderMarket(model.context.market),
     product: presentMarketFinderProduct(model.context.product),
-    leads: [
-      ...(model.state === "current"
-        ? model.locations.map((location) =>
-            presentMarketFinderLocation(model.context, location),
-          )
-        : []),
-      ...model.researchRecords.map((record) =>
-        presentMarketFinderResearchRecord(model.context!, record),
-      ),
-    ],
+    leads: await bindReportTargets({
+      marketSlug: model.context.market.slug,
+      productSlug: model.context.product.slug,
+      reportingEnabled,
+      leads,
+    }),
     preview: false,
+    reportingEnabled,
     state: model.state,
   };
 }
@@ -266,6 +306,7 @@ export default async function MarketPage({
           leads={view.leads}
           marketSlug={view.market.slug}
           product={view.product}
+          reportingEnabled={view.reportingEnabled}
         />
       </section>
     </main>

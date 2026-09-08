@@ -11,6 +11,7 @@ export const MARKET_FINDER_REQUIRED_MIGRATIONS = [
   "0053_physical_market_finder.sql",
   "0054_market_finder_report_current_context.sql",
   "0055_market_finder_atomic_context.sql",
+  "0057_market_finder_expired_report_renewal.sql",
 ] as const;
 
 export type MarketFinderReadinessProductCheck = {

@@ -298,6 +298,7 @@ function reportTargetRow(
     action_kind: "phone",
     action_destination: "+2348000000000",
     action_expires_at: "2026-09-02T10:00:00.000Z",
+    expired_report_renewal_available: true,
     ...overrides,
   };
 }
@@ -751,7 +752,7 @@ test("exact reads keep safe reviewed history beside current results without acti
   );
 });
 
-test("report targets resolve only for a current exact result with a safe action", async () => {
+test("report targets resolve for a current exact result or its expired reviewed record", async () => {
   const now = new Date("2026-09-01T10:00:00.000Z");
   const current = reportTargetClient([
     reportTargetRow({
@@ -774,15 +775,63 @@ test("report targets resolve only for a current exact result with a safe action"
   );
   assert.equal(resolved.status, "resolved");
 
+  const expired = reportTargetClient([
+    reportTargetRow({
+      observation_availability: "out_of_stock",
+      observation_expires_at: "2026-09-01T10:00:00.000Z",
+      action_kind: null,
+      action_destination: null,
+      action_expires_at: null,
+    }),
+  ]);
+  const expiredResolution = await resolveMarketReportTargetContext(
+    {
+      marketSlug: "trade-fair",
+      locationSlug: "verified-shop",
+      productSlug: "exact-product",
+    },
+    {
+      client: expired.client,
+      environment: enabledPublicReadEnvironment,
+      now,
+    },
+  );
+  assert.equal(expiredResolution.status, "resolved");
+
   const rejectedCases = [
+    reportTargetRow({ observation_availability: "out_of_stock" }),
     reportTargetRow({
       observation_expires_at: "2026-09-01T10:00:00.000Z",
+      action_kind: null,
+      action_destination: null,
+      action_expires_at: null,
+      expired_report_renewal_available: false,
     }),
-    reportTargetRow({ observation_availability: "out_of_stock" }),
     reportTargetRow({ location_state: "disputed" }),
     reportTargetRow({ place_state: "disputed" }),
     reportTargetRow({
+      location_expires_at: "2026-09-01T10:00:00.000Z",
+      observation_expires_at: "2026-09-01T10:00:00.000Z",
+      action_kind: null,
+      action_destination: null,
+      action_expires_at: null,
+    }),
+    reportTargetRow({
       identity_evidence_expires_at: "2026-09-01T10:00:00.000Z",
+    }),
+    reportTargetRow({
+      place_state: "disputed",
+      observation_expires_at: "2026-09-01T10:00:00.000Z",
+      action_kind: null,
+      action_destination: null,
+      action_expires_at: null,
+    }),
+    reportTargetRow({
+      identity_evidence_expires_at: "2026-09-01T10:00:00.000Z",
+      observation_expires_at: "2026-09-01T10:00:00.000Z",
+      action_kind: null,
+      action_destination: null,
+      action_expires_at: null,
     }),
     reportTargetRow({
       action_kind: "website",
@@ -791,7 +840,19 @@ test("report targets resolve only for a current exact result with a safe action"
     reportTargetRow({
       action_expires_at: "2026-09-01T10:00:00.000Z",
     }),
-    reportTargetRow({ observation_moderation_status: "pending" }),
+    reportTargetRow({
+      action_kind: null,
+      action_destination: null,
+      action_expires_at: null,
+    }),
+    reportTargetRow({
+      observation_moderation_status: "pending",
+      observation_expires_at: "2026-09-01T10:00:00.000Z",
+      action_kind: null,
+      action_destination: null,
+      action_expires_at: null,
+    }),
+    reportTargetRow({ observation_expires_at: "not-a-date" }),
   ];
   for (const candidate of rejectedCases) {
     const fixture = reportTargetClient([candidate]);
@@ -814,13 +875,19 @@ test("report targets resolve only for a current exact result with a safe action"
   }
 
   const reportQuery = current.state.queries[0] ?? "";
+  assert.match(reportQuery, /observation\.expires_at <= \?/);
   assert.match(reportQuery, /observation\.expires_at > \?/);
   assert.match(
     reportQuery,
     /observation\.availability in \('in_stock', 'low_stock'\)/,
   );
+  assert.match(
+    reportQuery,
+    /current eligible result or an expired reviewed exact-product record/,
+  );
   assert.match(reportQuery, /identity_evidence\.expires_at > \?/);
   assert.match(reportQuery, /candidate\.action_expires_at > \?/);
+  assert.match(reportQuery, /left join lateral/);
   assert.match(reportQuery, /approved_successor\.supersedes_observation_id/);
 });
 

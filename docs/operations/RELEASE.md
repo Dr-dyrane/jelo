@@ -1,6 +1,6 @@
 # Release process
 
-Updated: 2026-08-14
+Updated: 2026-09-07
 
 Release small, auditable changes. A push is not complete until CI and the exact production deployment are verified.
 
@@ -140,6 +140,24 @@ For every release that depends on new schema:
 7. Deploy the dependent application only after the production ledger and
    domain audit pass. Vercel remains unable to migrate or reconcile.
 
+The Customer Concern hard-delete cutover is the deliberate exception to step
+7 because `0058` removes a column and privilege used by the legacy
+application. Its mandatory order is:
+
+1. Pass rehearsal and release gates with the dual-compatible application plus
+   exact migrations `0056`, `0057`, and `0058`.
+2. Deploy that bridge revision first, require Vercel `READY`, and smoke it
+   against the legacy schema. Market expired-report renewal remains hidden
+   until the database exposes the exact `0057` validator contract.
+3. Confirm the custom domain serves the bridge revision, then use the protected
+   owner runner to apply `0056` → `0057` → `0058` atomically per file and in
+   canonical order.
+4. Require post-status with zero pending/drift, an all-skip rerun, final
+   Concern schema and `DELETE/INSERT/SELECT` ACL audit, and Market renewal
+   acceptance.
+5. Record the exact bridge revision and ledger through `0058` as the rollback
+   floor. No pre-bridge deployment is compatible after contraction.
+
 The exceptional `0048`/`0049` effects-without-ledger state follows the exact
 [repair runbook](./RUNBOOKS.md#reconcile-the-00480049-ledger-gap). Never use a
 manual insert, a generic mark-applied switch, or the normal runner to infer
@@ -170,7 +188,7 @@ NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS` with
 db:reconcile`. Require the ordered ledger through
    `0034_customer_shelf.sql`, `0035_runtime_database_roles.sql`, and
    `0036_customer_product_requests.sql`, followed by
-   `0037_customer_routines.sql`, plus the
+   `0037_customer_routines.sql` and `0038_customer_concerns.sql`, plus the
    reviewed public catalogue and asset-metadata reconciliation required by that
    exact revision. Do not run the Shelf import yet or opt into external
    discovery.
@@ -181,10 +199,14 @@ db:reconcile`. Require the ordered ledger through
    catalogue identity versions. On the selected rehearsal branch, run `npm run
 customer:shelf:audit` followed by `npm run customer:shelf:audit --
 --exercise-rollback` to prove exact runtime attestation and rolled-back two-
-   owner isolation. The attestation must match migration `0036`'s exact Shelf
-   grants, effective app/PUBLIC denials, four-column aggregate mention exposure,
-   and bridge execution boundary. The rollback exercise covers the existing
-   Shelf/Routine flow plus synthetic request create, replay-safe mutation,
+   owner isolation. The attestation must match the exact Shelf grants,
+   effective app/PUBLIC denials, four-column aggregate mention exposure, and
+   bridge execution boundary. During the Concern hard-delete cutover it accepts
+   only the legacy or expanded ACL while `removed_at` exists, and only the
+   final ACL after it is absent; after `0058`, final production must expose
+   exactly `DELETE`, `INSERT`, and `SELECT` on Concerns. The
+   rollback exercise covers the existing Shelf/Routine/Concern flow plus
+   synthetic request create, replay-safe mutation,
    optimistic update, image metadata, consent revocation, withdrawal scrub,
    cleanup queue, and cross-owner behavior without calling Blob. In production,
    run the read-only attestation; run the rollback exercise only if the release
@@ -227,19 +249,21 @@ customer:shelf:audit` followed by `npm run customer:shelf:audit --
 9. **Smoke.** Through the exact production deployment and one verified account,
    prove sign-in, Shelf read/add/reload/remove, missing-product create/edit/
    delete, Routine list/create/update/delete, private-photo owner isolation, JSON export, the clear
-   confirmation flow, sign-out isolation, and the public reporting helper. Do
+   confirmation flow, Concern list/add/reload/remove/re-add/clear, sign-out
+   isolation, and the public reporting helper. Do
    not clear the imported launch Shelf merely for smoke; exercise the destructive
    result only with an approved disposable account. Confirm Synthetic Amara is
-   absent and Concern persistence is absent. Prove another owner cannot read or
-   mutate the Shelf or Routine rows through the checked-in deterministic audit.
+   absent. Prove another owner cannot read or mutate the Shelf, Routine, or
+   Concern rows through the checked-in deterministic audit.
 10. **Rotate the former owner.** Rotate or revoke every owner/admin credential
     that Vercel previously held, remove any provider integration that can
     reconstruct it, and re-run restricted runtime and production smoke checks.
     Keep only the protected operator copy of `MIGRATION_DATABASE_URL`.
 11. **Declare the rollback floor.** Record the exact compatible application
-    revision, the ledger through `0037`, the two runtime role names, and the
-    passing audit. Older owner-dependent deployments are no longer rollback
-    candidates.
+    revision, the ledger through `0058`, the two runtime role names, and the
+    passing audit. The dual-compatible Concern bridge revision is the oldest
+    rollback candidate after `0058`; older owner-dependent or pre-bridge
+    deployments are not rollback candidates.
 
 Failed private product-request Blob deletions are drained only through the
 protected, bounded `customer:product-request-blobs:drain` operator with
