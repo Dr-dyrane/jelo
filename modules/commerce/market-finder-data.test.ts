@@ -533,7 +533,7 @@ test("public reads require the exact kill switch and Trade Fair pilot allowlist"
   );
 });
 
-test("directory discovery is gated before IO and admits only visit-ready identities", async () => {
+test("directory discovery admits visit-ready and governed renewal identities", async () => {
   const fixture = directoryClient();
   const now = new Date("2026-09-01T10:00:00.000Z");
 
@@ -580,11 +580,17 @@ test("directory discovery is gated before IO and admits only visit-ready identit
   assert.doesNotMatch(fixture.state.queries[1] ?? "", /limit 1/);
   assert.match(
     fixture.state.queries[1] ?? "",
-    /directory_observation\.expires_at > \?/,
+    /directory_observation\.expires_at <= \? or \( directory_observation\.expires_at > \? and directory_observation\.availability in \('in_stock', 'low_stock'\) and \( exists \(/,
   );
-  assert.match(
+  assert.equal(
+    fixture.state.queries[1]?.match(
+      /directory_observation\.availability in \('in_stock', 'low_stock'\)/g,
+    )?.length,
+    1,
+  );
+  assert.doesNotMatch(
     fixture.state.queries[1] ?? "",
-    /directory_observation\.availability in \('in_stock', 'low_stock'\)/,
+    /directory_observation\.expires_at <= \? and directory_observation\.availability/,
   );
   assert.match(
     fixture.state.queries[1] ?? "",

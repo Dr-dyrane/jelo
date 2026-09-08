@@ -331,8 +331,6 @@ async function queryDirectoryProducts(
         directory_location.primary_place_id is null
         or directory_place.place_state = 'verified'
       )
-      and directory_observation.expires_at > ${now}
-      and directory_observation.availability in ('in_stock', 'low_stock')
       and exists (
         select 1
         from retailer_location_evidence identity_evidence
@@ -349,36 +347,43 @@ async function queryDirectoryProducts(
           and identity_evidence.expires_at > ${now}
       )
       and (
-        exists (
-          select 1
-          from retailer_location_evidence directions_evidence
-          where directory_location.public_directions is not null
-            and directions_evidence.retailer_location_id = directory_location.id
-            and directions_evidence.evidence_scope = 'public_directions'
-            and directions_evidence.channel_id is null
-            and directions_evidence.decision = 'approved'
-            and directions_evidence.expires_at > ${now}
-            and public.market_finder_public_action_is_usable(
-              'directions',
-              directory_location.public_directions
+        directory_observation.expires_at <= ${now}
+        or (
+          directory_observation.expires_at > ${now}
+          and directory_observation.availability in ('in_stock', 'low_stock')
+          and (
+            exists (
+              select 1
+              from retailer_location_evidence directions_evidence
+              where directory_location.public_directions is not null
+                and directions_evidence.retailer_location_id = directory_location.id
+                and directions_evidence.evidence_scope = 'public_directions'
+                and directions_evidence.channel_id is null
+                and directions_evidence.decision = 'approved'
+                and directions_evidence.expires_at > ${now}
+                and public.market_finder_public_action_is_usable(
+                  'directions',
+                  directory_location.public_directions
+                )
             )
-        )
-        or exists (
-          select 1
-          from retailer_location_channels directory_channel
-          join retailer_location_evidence channel_evidence
-            on channel_evidence.channel_id = directory_channel.id
-            and channel_evidence.retailer_location_id = directory_location.id
-            and channel_evidence.evidence_scope = 'channel_ownership'
-            and channel_evidence.decision = 'approved'
-          where directory_channel.retailer_location_id = directory_location.id
-            and directory_channel.channel_state = 'verified'
-            and directory_channel.expires_at > ${now}
-            and channel_evidence.expires_at > ${now}
-            and public.market_finder_public_action_is_usable(
-              directory_channel.channel_kind::text,
-              directory_channel.public_destination
+            or exists (
+              select 1
+              from retailer_location_channels directory_channel
+              join retailer_location_evidence channel_evidence
+                on channel_evidence.channel_id = directory_channel.id
+                and channel_evidence.retailer_location_id = directory_location.id
+                and channel_evidence.evidence_scope = 'channel_ownership'
+                and channel_evidence.decision = 'approved'
+              where directory_channel.retailer_location_id = directory_location.id
+                and directory_channel.channel_state = 'verified'
+                and directory_channel.expires_at > ${now}
+                and channel_evidence.expires_at > ${now}
+                and public.market_finder_public_action_is_usable(
+                  directory_channel.channel_kind::text,
+                  directory_channel.public_destination
+                )
             )
+          )
         )
       )
     order by
@@ -1044,8 +1049,10 @@ async function readCachedMarketFinderDirectory(
 /**
  * Database-backed product discovery for the single activated pilot market.
  * Products enter this directory only through an approved observation attached
- * to their current published identity; fixture and catalogue-only products are
- * never fallbacks.
+ * to their current published identity. A current result must remain visit-ready;
+ * an expired result may remain discoverable only while its verified location
+ * and identity evidence are still eligible for the governed renewal flow.
+ * Fixture and catalogue-only products are never fallbacks.
  */
 export async function readMarketFinderDirectory(
   marketSlug: string,
