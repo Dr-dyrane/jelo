@@ -305,6 +305,7 @@ export const NON_INDEXABLE_ROUTE_COVERAGE = [
     reason: "transitional retailer handoff — not a destination page",
   },
   { family: "/sign-in", reason: "authentication" },
+  { family: "/campaign-review", reason: "private campaign review" },
   { family: "/me", reason: "private customer workspace" },
   { family: "/ops", reason: "private operations workspace" },
 ] as const;

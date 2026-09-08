@@ -1,0 +1,170 @@
+.shell {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+  line-height: 1.6;
+}
+.shell h1 {
+  font:
+    400 clamp(2.2rem, 6vw, 3.2rem)/1.12 var(--font-display),
+    serif;
+  margin: 18px 0;
+}
+.shell h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+.shell a {
+  color: var(--wine);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  overflow-wrap: anywhere;
+}
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
+.meta {
+  color: var(--muted);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+.notice {
+  padding: 14px 18px;
+  background: var(--surface-2);
+  border-radius: 14px;
+  font-size: 0.9rem;
+}
+.card {
+  background: var(--paper);
+  border-radius: 22px;
+  margin-top: 24px;
+  padding: 26px;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.prose {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.label {
+  display: block;
+  margin: 18px 0 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.card textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--cream);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+}
+.card textarea:disabled {
+  opacity: 0.75;
+}
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 0;
+  font-size: 0.85rem;
+  min-height: 44px;
+  cursor: pointer;
+}
+.check input {
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  accent-color: var(--wine);
+  flex: 0 0 20px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border-radius: 100px;
+  min-height: 44px;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0;
+}
+.shell .primary {
+  background: var(--accent-solid);
+  color: var(--on-accent);
+  text-decoration: none;
+}
+.shell .secondary {
+  background: var(--surface-2);
+  color: var(--ink);
+  text-decoration: none;
+}
+.shell button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.shell :is(a, button, input, textarea, summary):focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 4px;
+}
+.context {
+  margin: 18px 0;
+  font-size: 0.9rem;
+}
+.context summary {
+  min-height: 44px;
+  display: list-item;
+  align-content: center;
+  cursor: pointer;
+  color: var(--wine);
+}
+.feedback {
+  font-size: 0.85rem;
+  color: var(--wine);
+  margin-bottom: 0;
+  min-height: 1.5em;
+}
+.footer {
+  margin-top: 30px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+@media (max-width: 480px) {
+  .shell {
+    padding: 28px 16px 56px;
+  }
+  .card {
+    padding: 20px 16px;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .actions button {
+    width: 100%;
+  }
+}

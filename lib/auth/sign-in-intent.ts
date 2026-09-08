@@ -34,8 +34,21 @@ export type MemberShelfAddContinuation = Exclude<
 export type SignInContinuation =
   | (typeof SIGN_IN_CONTINUATIONS)[number]
   | MemberProductContinuation
-  | MemberShelfAddContinuation;
-export type SignInIntent = "customer" | "operator";
+  | MemberShelfAddContinuation
+  | CampaignReviewContinuation;
+export type CampaignReviewContinuation = `/campaign-review/x-review-${string}`;
+export type SignInIntent = "customer" | "operator" | "campaign";
+
+export function campaignReviewPath(
+  value: unknown,
+): CampaignReviewContinuation | null {
+  return typeof value === "string" &&
+    /^x-review-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(
+      value,
+    )
+    ? (`/campaign-review/${value}` as CampaignReviewContinuation)
+    : null;
+}
 
 const MAX_MEMBER_PRODUCT_SLUG_LENGTH = 180;
 const MAX_MEMBER_PRODUCT_CONTINUATION_LENGTH = 205;
@@ -88,6 +101,11 @@ export function resolveSignInContinuation(value: unknown): SignInContinuation {
     return value as SignInContinuation;
   if (typeof value !== "string") return "/ops";
 
+  const campaignPath = campaignReviewPath(
+    value.replace(/^\/campaign-review\//, ""),
+  );
+  if (campaignPath === value) return campaignPath;
+
   const shelfAddContinuation = resolveMemberShelfAddContinuation(value);
   if (shelfAddContinuation) return shelfAddContinuation;
 
@@ -115,6 +133,7 @@ export function resolveSignInContinuation(value: unknown): SignInContinuation {
 export function resolveSignInIntent(
   continuation: SignInContinuation,
 ): SignInIntent {
+  if (continuation.startsWith("/campaign-review/")) return "campaign";
   return continuation === "/ops" ? "operator" : "customer";
 }
 

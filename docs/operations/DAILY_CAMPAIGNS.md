@@ -6,6 +6,10 @@ The daily campaign lane prepares one evidence-bound review packet and privately
 emails it to the three configured campaign operators. It does not post to
 WhatsApp, Instagram, Snapchat, or an ad account.
 
+The separate [X private review pilot](./X_REVIEW_PILOT.md) has its own recipient,
+budget and approval gates; it does not change this daily campaign schedule or
+operator list.
+
 ## Schedule and states
 
 Vercel calls `/api/cron/daily-campaign` at `07:00 UTC`, which is `08:00` in
