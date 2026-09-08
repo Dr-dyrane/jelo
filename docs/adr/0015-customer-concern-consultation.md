@@ -379,7 +379,11 @@ Design notes:
   replay. It also proved the final attestation rejects a deliberately
   re-granted `UPDATE`, passes again after revocation, and keeps the Market
   renewal acceptance matrix intact. That branch was deleted after acceptance.
-  Protected production application remains a separate release step.
+  The dual-compatible bridge was deployed at commit `1e8211a0`, then the
+  protected 2026-09-07 runner applied `0056`, `0057`, and `0058` in order.
+  Production now reports 59 applied migrations, zero pending and zero drift;
+  an unchanged rerun skipped all files. The final-schema Shelf attestation
+  passed with `DELETE`, `INSERT`, and `SELECT` only on `customer_concerns`.
 - **Export and account deletion.** Customer exports include current active
   Concerns only. Account deletion must delete every live Concern row owned by
   that account. Recovery-only provider backups remain governed by the exact

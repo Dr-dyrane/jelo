@@ -280,8 +280,15 @@ evidence, left zero synthetic rows, and left every temporarily disabled
 trigger enabled. The final cutover rehearsal above reapplied these controls
 against the exact unchanged `0057` bytes between corrected `0056` and `0058`.
 Both disposable branches were deleted and `0057` was promoted unchanged.
-Rehearsal and promotion do not by themselves establish protected production
-application.
+
+On 2026-09-07 bridge commit `1e8211a0` reached Vercel `READY` before the
+protected production runner applied `0056`, `0057`, and `0058` in canonical
+order. Post-apply status reported a governed immutable ledger with 59 applied,
+zero pending, and zero drift; the second run skipped every migration unchanged.
+Read-only final assertions found the exact three hashes, the `0057` renewal
+validator, no legacy Concern column/index/constraint, unconditional
+owner-and-slug uniqueness, and only `DELETE`, `INSERT`, and `SELECT` for the
+Shelf role. The restricted production Shelf attestation passed.
 
 On 2026-09-02 the protected production runner applied `0053`, `0054`, and
 `0055` in canonical order with the exact hashes above. All three ledger rows
@@ -299,6 +306,11 @@ readiness was therefore fail-closed at `no-approved-observation` at that
 checkpoint. Later reviewed exact-product observations must be assessed from the
 current production snapshot, never inferred from this historical onboarding
 record. Public read and report intake remain separate release gates.
+At the 2026-09-07 release snapshot, the expired ANUA/Cyncel record remained
+non-actionable for travel but was admitted to the exact-product directory as a
+governed renewal target. Production deployment
+`dpl_C8TTjD16DrQ2tJ9z2sUK4ATjRpmU` enabled the separate report-intake gate and
+live-verified the locked context without creating a report.
 
 ### Protected agent migration when no local admin URL exists
 

@@ -111,7 +111,19 @@ was promoted unchanged. The corrected cutover rehearsal on
 `br-falling-glade-avvu1zmv` subsequently reapplied the exact unchanged `0057`
 bytes between corrected expansion `0056` and contract `0058`, reran the full
 acceptance matrix, and completed an all-skip replay before branch deletion.
-Protected production application remains a separate release step.
+The dual-compatible bridge was then deployed at commit `1e8211a0`, and the
+protected 2026-09-07 production runner applied `0056`–`0058` in order. The
+governed ledger reports 59 applied, zero pending, and zero drift; an unchanged
+runner replay skipped every migration.
+
+The production directory now admits either a current visit-ready observation
+or an expired observation that retains the current verified location and
+identity evidence required by `0057`. This keeps the exact product and its
+renewal route discoverable without restoring a stock, price, or travel claim.
+Commit `5520c11b` and production deployment
+`dpl_C8TTjD16DrQ2tJ9z2sUK4ATjRpmU` enabled the report-intake gate and
+live-verified that boundary at mobile and desktop viewports without submitting
+a report.
 
 The application foundation now includes the fail-closed database read model,
 database-backed public route adapters, strict contextual contribution
@@ -811,11 +823,11 @@ and `physical_product_observations` preserves clear evidence lineage from a
 community claim to an attributable public-data decision.
 
 The development fixture answered the interaction question and remains isolated
-from production. Production contains migrations `0053`, `0054`, and `0055`
-plus the reviewed Trade Fair pilot; `0057` is the accepted, rehearsed renewal
-release candidate. Public reads fail closed per exact product, location,
-identity, action, and observation. Current records may lead to a shop; expired
-records may only request renewal. The
+from production. Production contains migrations `0053`–`0058`, the reviewed
+Trade Fair pilot, and the separately gated expired-record renewal. Public reads
+fail closed per exact product, location, identity, action, and observation.
+Current records may lead to a shop; expired records remain discoverable only to
+request renewal and never regain a travel action. The
 online offer and price-history chain is linked at the product and retailer
 identity boundaries under [ADR 0020](0020-linked-market-truth-system.md), but
 it never substitutes for physical evidence.

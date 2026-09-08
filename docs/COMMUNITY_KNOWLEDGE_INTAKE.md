@@ -124,7 +124,9 @@ non-superseded expired observation as report context; a current observation
 still requires positive availability and a current safe public action. The
 `0053`–`0055` foundation is applied in production with reviewed Trade Fair
 data. Exact `0057` bytes passed production-derived rehearsal and unchanged-byte
-promotion; protected production application remains a separate release step.
+promotion, then the protected 2026-09-07 runner applied `0056`–`0058` in order.
+The governed ledger reports 59 applied, zero pending, and zero drift; an
+unchanged rerun skipped every migration.
 
 Migration `0015_community_knowledge_intake.sql` keeps drafts, immutable contributions, custom-value moderation, events and community-reported graph edges separate from JeloCare-reviewed records.
 
@@ -220,12 +222,12 @@ Public contributor counts and trust labels must be derived from moderated, retai
 Photos and receipts are not collected. They require private quarantine storage and a reviewed upload pipeline. Accounts, public stories, ratings, comments and alerts remain deferred under ADR 0001.
 
 The fixture-backed contextual Market Finder report remains a development-only,
-no-write preview. The typed one-to-one projection, strict server validation,
-parent rejection and retention behavior, `/ops/contributions` child review,
-audit, and production Contribute handoff now exist locally behind default-off
-public-read, exact-market, and report-intake gates. Production activation still
-requires authorized production application of renewal migration `0057`,
-reviewed canonical data, abuse and operator acceptance, and a fail-closed
-release. Public reads and report intake remain independently gated; activating
-one never authorizes the other. The fixture is not production market data and
-must never be described as live reporting.
+no-write preview. Production uses the typed one-to-one projection, strict
+server validation, parent rejection and retention behavior,
+`/ops/contributions` child review, audit, and the same Contribute handoff. The
+Trade Fair public-read, exact-market, and report-intake gates are active after
+the protected `0057` application and accepted production smoke. Expired exact
+records remain research-only with no travel action; their directory presence
+exists solely to make governed renewal discoverable. Public reads and report
+intake remain independently gated, and neither a community report nor the
+fixture becomes public physical evidence automatically.

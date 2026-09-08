@@ -686,10 +686,12 @@ CRUD before expansion, hard-delete CRUD after `0056`, unchanged Market Finder
 `0057`, final schema and ACL contraction after `0058`, restricted Shelf-role
 attestation, rolled-back owner isolation, and an all-skip replay. Exact `0058`
 bytes were promoted unchanged and the disposable branch was deleted. Earlier
-one-step `0056` rehearsal branches were superseded and deleted. Production
-still requires pre-status, an exact bridge deployment at `READY`, protected
-apply, post-status, idempotent rerun, and final read-only audit; never use the
-Shelf runtime URL for migration.
+one-step `0056` rehearsal branches were superseded and deleted. On 2026-09-07
+bridge commit `1e8211a0` reached Vercel `READY`, then the protected production
+runner applied `0056` → `0057` → `0058`. Post-status reported 59 applied, zero
+pending, and zero drift; the idempotent rerun skipped every file, final schema
+assertions passed, and the restricted Shelf role audit passed. The Shelf runtime
+URL was not used for migration.
 
 After the independent ACL review correction, fresh production-derived branch
 `br-green-credit-avs1w41o` repeated the complete sequence and all-skip replay.
@@ -1894,8 +1896,14 @@ disposable branch was deleted after acceptance. The final corrected cutover
 rehearsal on `br-falling-glade-avvu1zmv` then applied the exact unchanged `0057`
 bytes between corrected `0056` and contract `0058`, reran the same acceptance
 matrix, and completed an all-skip replay before deletion. This is rehearsal
-evidence; protected production application is still required before releasing
-dependent application behavior.
+evidence. The protected 2026-09-07 production sequence subsequently applied
+the exact `0057` bytes between `0056` and `0058`; the ledger, unchanged replay,
+validator marker, and final restricted-role audit passed. Commit `5520c11b`
+keeps an expired but otherwise eligible exact product in the directory solely
+as a renewal target, while its result remains stale and exposes no travel
+action. Deployment `dpl_C8TTjD16DrQ2tJ9z2sUK4ATjRpmU` enabled the separate
+report-intake gate and passed the mobile and desktop locked-context smoke
+without submitting a report.
 
 On 2026-09-02 the protected production runner applied `0053`, `0054`, and
 `0055` in canonical order with their exact rehearsed hashes. Post-apply status

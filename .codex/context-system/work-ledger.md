@@ -1,8 +1,9 @@
 # JeloCare work ledger
 
-Updated: 2026-09-04
-Current platform-delivery base at the private-member cutover: `6d204da` on `origin/main`
+Updated: 2026-09-07
+Current shared-checkout release base: `5520c11bace78b8ffc6d497e13383e78a2ce69f0` on `origin/main`
 Production credential-boundary checkpoint: Vercel deployment `dpl_HyFgKwgVXWeHdDWu2KgQR34jcwcC` READY on `www.jelocare.com`
+Current Market Finder release checkpoint: Vercel deployment `dpl_C8TTjD16DrQ2tJ9z2sUK4ATjRpmU` READY on `www.jelocare.com`
 
 ## 2026-08-26 orchestrator rotation checkpoint
 
@@ -31,6 +32,51 @@ Production credential-boundary checkpoint: Vercel deployment `dpl_HyFgKwgVXWeHdD
 - Standing authority is `ship-after-gates`: a bounded cell may commit and push `main` after focused verification, exact-artifact confirmation, and affected-route smoke.
 - Never mix exact SKU identity across size, package form, image, or offer. A visual family may link independently published SKUs; it never merges them.
 - Release passing catalogue cells independently. Do not hold an admitted product for a blocked sibling.
+
+## 2026-09-07 Concern cutover and Market renewal release handback
+
+- Customer Concern hard deletion is an app-first expand/contract release:
+  `0056_customer_concern_hard_delete.sql` SHA-256
+  `9940857df263513c10ad5c8bc0b49d5cb55b88e375183b50d07f79a186f99043`
+  grants hard-delete authority without removing the legacy contract;
+  `0058_customer_concern_hard_delete_contract.sql` SHA-256
+  `045154ce319dd245553ee10fd7a26f1d299678e2e7911e53f77bf297e94e5433`
+  performs the final schema and ACL contraction only after the dual-compatible
+  application is live.
+- Market Finder renewal remains the unchanged
+  `0057_market_finder_expired_report_renewal.sql` SHA-256
+  `a10889302c60148e739211b0649b281219e4006d0184f8b7474e9d6d4522dd92`.
+  App-first deployment cannot expose the expired-report CTA until that exact
+  database validator is present.
+- Fresh production-derived branch `br-falling-glade-avvu1zmv` proved legacy,
+  expanded, and final Concern behavior; `0057` acceptance; restricted-role
+  isolation; and unchanged replay. The disposable branch was deleted and exact
+  migration bytes were promoted.
+- After schema-coupling the ACL attestation, fresh branch
+  `br-green-credit-avs1w41o` repeated the complete cutover and unchanged replay,
+  passed the final owner-isolation and `0057` acceptance checks, rejected a
+  deliberately re-granted final-schema `UPDATE`, passed again after revocation,
+  and was deleted.
+- Bridge commit `1e8211a0` was pushed and reached Vercel `READY` before the
+  protected production runner applied `0056` → `0057` → `0058`. The governed
+  ledger reports 59 applied, zero pending, zero drift; an unchanged rerun
+  skipped every migration. Exact final schema/hash assertions and the restricted
+  Shelf-role audit passed.
+- Release-blocking live diagnosis found that current-only directory gating made
+  an otherwise valid expired renewal target undiscoverable. Commit `5520c11b`
+  aligns the directory with the `0057` validator: current rows still require a
+  safe action, while expired rows require current verified location and identity
+  evidence and regain no stock, price, or travel claim. The isolated release
+  gate passed 1,930 tests with four intentional skips plus type, lint,
+  documentation, migration, catalogue, search, dossier, release, and media
+  verification.
+- `MARKET_FINDER_REPORT_INTAKE_ENABLED` is active in Vercel Production.
+  Deployment `dpl_C8TTjD16DrQ2tJ9z2sUK4ATjRpmU` is `READY` for exact commit
+  `5520c11b`. Production smoke at 390×844 and 1440×1000 verified homepage
+  discovery, the one-product Market Finder directory, stale ANUA/Cyncel
+  disclosure with no travel action, exact report URL, locked market/product/shop
+  context, and disabled-before-choice/enabled-after-choice behavior with zero
+  horizontal overflow or browser errors. No production report was submitted.
 
 ## 2026-09-04 linked market-truth integration checkpoint
 
