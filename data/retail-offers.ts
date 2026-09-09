@@ -1364,8 +1364,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha.Bha.Pha 30 Days Miracle Toner 150ml",
       "150 ml",
       {
-        observedAt: "2026-09-08T21:48:26Z",
-        expiresAt: "2026-09-09T21:48:26Z",
+        observedAt: "2026-09-09T21:18:22Z",
+        expiresAt: "2026-09-10T21:18:22Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1905,8 +1905,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Foaming Cleanser For Normal To Oily Skin 8fl oz 236ml",
       "236 ml",
       {
-        observedAt: "2026-09-08T21:48:25Z",
-        expiresAt: "2026-09-09T21:48:25Z",
+        observedAt: "2026-09-09T21:18:00Z",
+        expiresAt: "2026-09-10T21:18:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3575,8 +3575,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dove Calming Moisture 3% Body Wash 547ml",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-09-08T21:48:26Z",
-        expiresAt: "2026-09-09T21:48:26Z",
+        observedAt: "2026-09-09T21:18:00Z",
+        expiresAt: "2026-09-10T21:18:00Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4462,8 +4462,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Cleanser (16fl Oz/473ml)",
       "473 ml",
       {
-        observedAt: "2026-09-08T21:48:10Z",
-        expiresAt: "2026-09-09T21:48:10Z",
+        observedAt: "2026-09-09T21:17:59Z",
+        expiresAt: "2026-09-10T21:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
