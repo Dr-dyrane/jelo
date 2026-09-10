@@ -1534,8 +1534,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-09-09T20:48:01Z",
-        expiresAt: "2026-09-10T20:48:01Z",
+        observedAt: "2026-09-10T20:18:00Z",
+        expiresAt: "2026-09-11T20:18:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4748,8 +4748,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NIVEA PERFECT & RADIANT BODY LOTION 400ML",
       "400 ml",
       {
-        observedAt: "2026-09-09T20:48:01Z",
-        expiresAt: "2026-09-10T20:48:01Z",
+        observedAt: "2026-09-10T20:17:59Z",
+        expiresAt: "2026-09-11T20:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
