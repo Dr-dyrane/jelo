@@ -6258,8 +6258,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-09T12:47:52Z",
-        expiresAt: "2026-09-10T12:47:52Z",
+        observedAt: "2026-09-10T11:47:55Z",
+        expiresAt: "2026-09-11T11:47:55Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
