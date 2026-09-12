@@ -8614,7 +8614,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-14T17:00:00Z",
         expiresAt: "2026-08-21T17:00:00Z",
-        stock: "in-stock",
+        stock: "unknown",
+        available: false,
       },
     ),
   ],
@@ -8874,8 +8875,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-30T08:45:57.000Z",
         expiresAt: "2026-09-06T08:45:57.000Z",
-        stock: "in-stock",
-        available: true,
+        stock: "unknown",
+        available: false,
         verificationMethod: "api",
       },
     ),
