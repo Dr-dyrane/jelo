@@ -3734,8 +3734,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "KeraCare Dry And Itchy Conditioner",
       "950 ml",
       {
-        observedAt: "2026-09-11T17:51:19Z",
-        expiresAt: "2026-09-12T17:51:19Z",
+        observedAt: "2026-09-12T17:47:56Z",
+        expiresAt: "2026-09-13T17:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4239,8 +4239,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-11T18:18:00Z",
-        expiresAt: "2026-09-12T18:18:00Z",
+        observedAt: "2026-09-12T17:47:58Z",
+        expiresAt: "2026-09-13T17:47:58Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -9193,8 +9193,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NATURIUM -Retinol Complex Cream 50ml",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-09-11T17:51:31Z",
-        expiresAt: "2026-09-12T17:51:31Z",
+        observedAt: "2026-09-12T17:47:59Z",
+        expiresAt: "2026-09-13T17:47:59Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
