@@ -3379,8 +3379,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FACEFACTS -CERAMIDE BLEMISH GEL MOISTURISER 50ML",
       "50 ml",
       {
-        observedAt: "2026-09-05T17:18:51Z",
-        expiresAt: "2026-09-06T17:18:51Z",
+        observedAt: "2026-09-12T22:48:42Z",
+        expiresAt: "2026-09-13T22:48:42Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
