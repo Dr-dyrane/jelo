@@ -6262,8 +6262,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-11T11:17:56Z",
-        expiresAt: "2026-09-12T11:17:56Z",
+        observedAt: "2026-09-12T10:18:00Z",
+        expiresAt: "2026-09-13T10:18:00Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -7971,8 +7971,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Body Oil 100ml",
       "3.4 fl oz / 100 mL",
       {
-        observedAt: "2026-09-11T10:18:44Z",
-        expiresAt: "2026-09-12T10:18:44Z",
+        observedAt: "2026-09-12T10:17:57Z",
+        expiresAt: "2026-09-13T10:17:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
