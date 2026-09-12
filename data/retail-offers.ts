@@ -1370,8 +1370,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha.Bha.Pha 30 Days Miracle Toner 150ml",
       "150 ml",
       {
-        observedAt: "2026-09-11T21:17:59Z",
-        expiresAt: "2026-09-12T21:17:59Z",
+        observedAt: "2026-09-12T22:18:01Z",
+        expiresAt: "2026-09-13T22:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1536,8 +1536,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-09-11T21:17:59Z",
-        expiresAt: "2026-09-12T21:17:59Z",
+        observedAt: "2026-09-12T22:18:01Z",
+        expiresAt: "2026-09-13T22:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
