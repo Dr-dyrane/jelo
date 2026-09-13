@@ -5101,8 +5101,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-12T18:47:56Z",
-        expiresAt: "2026-09-13T18:47:56Z",
+        observedAt: "2026-09-13T18:18:02Z",
+        expiresAt: "2026-09-14T18:18:02Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5299,8 +5299,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-Pro Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-12T18:47:58Z",
-        expiresAt: "2026-09-13T18:47:58Z",
+        observedAt: "2026-09-13T18:18:00Z",
+        expiresAt: "2026-09-14T18:18:00Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
