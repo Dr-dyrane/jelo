@@ -1989,8 +1989,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Blemish Control Face Cleanser",
       "236 ml",
       {
-        observedAt: "2026-09-12T09:17:55Z",
-        expiresAt: "2026-09-13T09:17:55Z",
+        observedAt: "2026-09-13T08:48:01Z",
+        expiresAt: "2026-09-14T08:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2080,8 +2080,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Azelaic Acid Suspension 10% | 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-12T09:17:57Z",
-        expiresAt: "2026-09-13T09:17:57Z",
+        observedAt: "2026-09-13T08:48:00Z",
+        expiresAt: "2026-09-14T08:48:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4042,8 +4042,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening Exfoliating Body Wash",
       "650 ml",
       {
-        observedAt: "2026-09-12T09:17:57Z",
-        expiresAt: "2026-09-13T09:17:57Z",
+        observedAt: "2026-09-13T08:48:01Z",
+        expiresAt: "2026-09-14T08:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4647,8 +4647,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Urea Repair Plus 10% Urea Lotion 250ml",
       "250 ml",
       {
-        observedAt: "2026-09-12T09:17:57Z",
-        expiresAt: "2026-09-13T09:17:57Z",
+        observedAt: "2026-09-13T08:47:59Z",
+        expiresAt: "2026-09-14T08:47:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
