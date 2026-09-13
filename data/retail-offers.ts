@@ -2050,8 +2050,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Azelaic Acid Suspension 10%",
       "30 ml",
       {
-        observedAt: "2026-09-11T23:47:58Z",
-        expiresAt: "2026-09-12T23:47:58Z",
+        observedAt: "2026-09-13T00:17:54Z",
+        expiresAt: "2026-09-14T00:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3673,8 +3673,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "DOVE SKIN REPLENISH 2% Body Wash 547ml",
       "547 ml",
       {
-        observedAt: "2026-09-11T23:47:58Z",
-        expiresAt: "2026-09-12T23:47:58Z",
+        observedAt: "2026-09-13T00:17:53Z",
+        expiresAt: "2026-09-14T00:17:53Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6521,8 +6521,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6Oz",
       "2.6 oz / 73.7 g",
       {
-        observedAt: "2026-09-11T23:47:58Z",
-        expiresAt: "2026-09-12T23:47:58Z",
+        observedAt: "2026-09-13T00:17:54Z",
+        expiresAt: "2026-09-14T00:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
