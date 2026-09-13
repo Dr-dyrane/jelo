@@ -1178,8 +1178,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic acid Daily Gentle Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-09-12T01:47:57Z",
-        expiresAt: "2026-09-13T01:47:57Z",
+        observedAt: "2026-09-13T02:17:59Z",
+        expiresAt: "2026-09-14T02:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7865,8 +7865,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-12T01:48:00Z",
-        expiresAt: "2026-09-13T01:48:00Z",
+        observedAt: "2026-09-13T02:17:59Z",
+        expiresAt: "2026-09-14T02:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
