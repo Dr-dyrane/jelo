@@ -2532,8 +2532,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-09-13T17:20:15Z",
-        expiresAt: "2026-09-14T17:20:15Z",
+        observedAt: "2026-09-14T17:47:55Z",
+        expiresAt: "2026-09-15T17:47:55Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -4239,8 +4239,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-13T17:48:04Z",
-        expiresAt: "2026-09-14T17:48:04Z",
+        observedAt: "2026-09-14T17:47:58Z",
+        expiresAt: "2026-09-15T17:47:58Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -5101,8 +5101,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-13T18:18:02Z",
-        expiresAt: "2026-09-14T18:18:02Z",
+        observedAt: "2026-09-14T17:48:12Z",
+        expiresAt: "2026-09-15T17:48:12Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5299,8 +5299,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-Pro Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-13T18:18:00Z",
-        expiresAt: "2026-09-14T18:18:00Z",
+        observedAt: "2026-09-14T17:48:14Z",
+        expiresAt: "2026-09-15T17:48:14Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
