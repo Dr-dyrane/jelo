@@ -1911,8 +1911,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Foaming Cleanser For Normal To Oily Skin 8fl oz 236ml",
       "236 ml",
       {
-        observedAt: "2026-09-14T18:49:52Z",
-        expiresAt: "2026-09-15T18:49:52Z",
+        observedAt: "2026-09-15T18:18:01Z",
+        expiresAt: "2026-09-16T18:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3581,8 +3581,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dove Calming Moisture 3% Body Wash 547ml",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-09-14T18:49:50Z",
-        expiresAt: "2026-09-15T18:49:50Z",
+        observedAt: "2026-09-15T18:18:02Z",
+        expiresAt: "2026-09-16T18:18:02Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4468,8 +4468,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Cleanser (16fl Oz/473ml)",
       "473 ml",
       {
-        observedAt: "2026-09-14T18:49:41Z",
-        expiresAt: "2026-09-15T18:49:41Z",
+        observedAt: "2026-09-15T18:18:01Z",
+        expiresAt: "2026-09-16T18:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
