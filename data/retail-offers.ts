@@ -2774,8 +2774,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave moisturizing Cream 16 OZ (453g) USA version",
       "453 g",
       {
-        observedAt: "2026-09-15T23:48:30Z",
-        expiresAt: "2026-09-16T23:48:30Z",
+        observedAt: "2026-09-16T23:18:14Z",
+        expiresAt: "2026-09-17T23:18:14Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -4028,8 +4028,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin by Zaron Vitamin C Body Wash 650ml",
       "650 ml",
       {
-        observedAt: "2026-09-15T23:48:35Z",
-        expiresAt: "2026-09-16T23:48:35Z",
+        observedAt: "2026-09-16T23:18:14Z",
+        expiresAt: "2026-09-17T23:18:14Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4530,8 +4530,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-15T23:48:35Z",
-        expiresAt: "2026-09-16T23:48:35Z",
+        observedAt: "2026-09-16T23:18:14Z",
+        expiresAt: "2026-09-17T23:18:14Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
