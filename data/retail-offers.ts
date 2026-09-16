@@ -101,8 +101,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Bright + Glow Licorice & Mulberry Root Body Gel Wash - 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-09-15T06:47:55Z",
-        expiresAt: "2026-09-16T06:47:55Z",
+        observedAt: "2026-09-16T06:17:49Z",
+        expiresAt: "2026-09-17T06:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3488,8 +3488,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream 50Ml",
       "50 ml",
       {
-        observedAt: "2026-09-15T06:47:59Z",
-        expiresAt: "2026-09-16T06:47:59Z",
+        observedAt: "2026-09-16T06:17:53Z",
+        expiresAt: "2026-09-17T06:17:53Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6656,8 +6656,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SheaMoisture Jamaican Black Castor Oil Strengthen & Restore Shampoo - 13 Oz",
       "384 ml",
       {
-        observedAt: "2026-09-15T06:47:55Z",
-        expiresAt: "2026-09-16T06:47:55Z",
+        observedAt: "2026-09-16T06:17:49Z",
+        expiresAt: "2026-09-17T06:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7640,8 +7640,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS A-Control Azelaic Acid Cream",
       "50 ml",
       {
-        observedAt: "2026-09-15T06:47:55Z",
-        expiresAt: "2026-09-16T06:47:55Z",
+        observedAt: "2026-09-16T06:17:49Z",
+        expiresAt: "2026-09-17T06:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
