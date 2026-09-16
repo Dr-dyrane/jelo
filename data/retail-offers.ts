@@ -6432,8 +6432,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-09-15T19:19:33Z",
-        expiresAt: "2026-09-16T19:19:33Z",
+        observedAt: "2026-09-16T19:18:04Z",
+        expiresAt: "2026-09-17T19:18:04Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
