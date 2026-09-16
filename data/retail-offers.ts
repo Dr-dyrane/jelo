@@ -1926,8 +1926,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Foaming Facial Cleanser 8 oz (237ml) US Version",
       "236 ml",
       {
-        observedAt: "2026-09-15T10:47:51Z",
-        expiresAt: "2026-09-16T10:47:51Z",
+        observedAt: "2026-09-16T10:18:00Z",
+        expiresAt: "2026-09-17T10:18:00Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -3518,8 +3518,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "GARNIER Vitamin C (Brightening) Day Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-15T10:47:51Z",
-        expiresAt: "2026-09-16T10:47:51Z",
+        observedAt: "2026-09-16T10:17:59Z",
+        expiresAt: "2026-09-17T10:17:59Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
