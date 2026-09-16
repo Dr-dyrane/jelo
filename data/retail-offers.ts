@@ -3226,8 +3226,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-09-15T18:47:59Z",
-        expiresAt: "2026-09-16T18:47:59Z",
+        observedAt: "2026-09-16T18:18:01Z",
+        expiresAt: "2026-09-17T18:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4407,8 +4407,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Facial Cleanser, Face wash for Normal to Dry skin 473ml (US Version)",
       "473 ml",
       {
-        observedAt: "2026-09-15T18:47:59Z",
-        expiresAt: "2026-09-16T18:47:59Z",
+        observedAt: "2026-09-16T18:18:00Z",
+        expiresAt: "2026-09-17T18:18:00Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
