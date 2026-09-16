@@ -1370,8 +1370,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha.Bha.Pha 30 Days Miracle Toner 150ml",
       "150 ml",
       {
-        observedAt: "2026-09-15T21:18:28Z",
-        expiresAt: "2026-09-16T21:18:28Z",
+        observedAt: "2026-09-16T20:48:43Z",
+        expiresAt: "2026-09-17T20:48:43Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1536,8 +1536,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-09-15T21:18:27Z",
-        expiresAt: "2026-09-16T21:18:27Z",
+        observedAt: "2026-09-16T20:49:01Z",
+        expiresAt: "2026-09-17T20:49:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3379,8 +3379,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FACEFACTS -CERAMIDE BLEMISH GEL MOISTURISER 50ML",
       "50 ml",
       {
-        observedAt: "2026-09-15T21:18:27Z",
-        expiresAt: "2026-09-16T21:18:27Z",
+        observedAt: "2026-09-16T20:49:01Z",
+        expiresAt: "2026-09-17T20:49:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4239,8 +4239,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-14T17:47:58Z",
-        expiresAt: "2026-09-15T17:47:58Z",
+        observedAt: "2026-09-16T20:48:44Z",
+        expiresAt: "2026-09-17T20:48:44Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
