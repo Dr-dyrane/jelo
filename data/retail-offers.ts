@@ -3214,8 +3214,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Oil Control Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-09-16T22:47:58Z",
-        expiresAt: "2026-09-17T22:47:58Z",
+        observedAt: "2026-09-17T22:18:23Z",
+        expiresAt: "2026-09-18T22:18:23Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4981,8 +4981,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Niacinamide Blemish Recovery Serum 30ml (1oz)",
       "30 ml",
       {
-        observedAt: "2026-09-16T22:18:00Z",
-        expiresAt: "2026-09-17T22:18:00Z",
+        observedAt: "2026-09-17T22:18:27Z",
+        expiresAt: "2026-09-18T22:18:27Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
