@@ -3443,8 +3443,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion 13.53fl oz 400ml",
       "400 ml",
       {
-        observedAt: "2026-09-16T16:18:00Z",
-        expiresAt: "2026-09-17T16:18:00Z",
+        observedAt: "2026-09-17T18:47:59Z",
+        expiresAt: "2026-09-18T18:47:59Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6434,8 +6434,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-09-16T19:18:04Z",
-        expiresAt: "2026-09-17T19:18:04Z",
+        observedAt: "2026-09-17T18:47:59Z",
+        expiresAt: "2026-09-18T18:47:59Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
