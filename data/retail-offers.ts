@@ -1178,8 +1178,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic acid Daily Gentle Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-09-16T01:17:56Z",
-        expiresAt: "2026-09-17T01:17:56Z",
+        observedAt: "2026-09-17T01:18:01Z",
+        expiresAt: "2026-09-18T01:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2852,8 +2852,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe SA Smoothing Cleanser 473ml/16oz US Version",
       "473 ml",
       {
-        observedAt: "2026-09-16T00:17:58Z",
-        expiresAt: "2026-09-17T00:17:58Z",
+        observedAt: "2026-09-17T01:18:01Z",
+        expiresAt: "2026-09-18T01:18:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5027,8 +5027,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-16T00:17:58Z",
-        expiresAt: "2026-09-17T00:17:58Z",
+        observedAt: "2026-09-17T01:18:01Z",
+        expiresAt: "2026-09-18T01:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7866,8 +7866,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-16T01:17:56Z",
-        expiresAt: "2026-09-17T01:17:56Z",
+        observedAt: "2026-09-17T01:18:01Z",
+        expiresAt: "2026-09-18T01:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
