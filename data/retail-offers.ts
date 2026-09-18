@@ -287,8 +287,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AXIS-Y Vegan Collagen Eye Serum",
       "10 ml / 0.33 fl oz",
       {
-        observedAt: "2026-09-17T11:47:55Z",
-        expiresAt: "2026-09-18T11:47:55Z",
+        observedAt: "2026-09-18T10:47:58Z",
+        expiresAt: "2026-09-19T10:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1134,8 +1134,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10 + Hyaluron Redness Soothing Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-17T11:47:56Z",
-        expiresAt: "2026-09-18T11:47:56Z",
+        observedAt: "2026-09-18T10:48:00Z",
+        expiresAt: "2026-09-19T10:48:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3521,8 +3521,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "GARNIER Vitamin C (Brightening) Day Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-17T11:17:59Z",
-        expiresAt: "2026-09-18T11:17:59Z",
+        observedAt: "2026-09-18T10:48:02Z",
+        expiresAt: "2026-09-19T10:48:02Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -5798,8 +5798,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Everyday Gentle Foaming Face Wash - 120ml",
       "120 ml",
       {
-        observedAt: "2026-09-17T11:47:55Z",
-        expiresAt: "2026-09-18T11:47:55Z",
+        observedAt: "2026-09-18T10:47:58Z",
+        expiresAt: "2026-09-19T10:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
