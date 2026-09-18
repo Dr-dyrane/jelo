@@ -1990,8 +1990,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Blemish Control Face Cleanser",
       "236 ml",
       {
-        observedAt: "2026-09-17T06:17:58Z",
-        expiresAt: "2026-09-18T06:17:58Z",
+        observedAt: "2026-09-18T05:47:56Z",
+        expiresAt: "2026-09-19T05:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
