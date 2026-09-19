@@ -2424,8 +2424,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Acne Foaming Wash Benzoyl Peroxide 10% | 5.5oz",
       "156 g",
       {
-        observedAt: "2026-09-18T13:48:05Z",
-        expiresAt: "2026-09-19T13:48:05Z",
+        observedAt: "2026-09-19T13:17:55Z",
+        expiresAt: "2026-09-20T13:17:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5376,8 +5376,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-pro Rice & Txa Toner - 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-18T13:47:54Z",
-        expiresAt: "2026-09-19T13:47:54Z",
+        observedAt: "2026-09-19T13:17:56Z",
+        expiresAt: "2026-09-20T13:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5588,8 +5588,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-18T13:48:19Z",
-        expiresAt: "2026-09-19T13:48:19Z",
+        observedAt: "2026-09-19T13:18:14Z",
+        expiresAt: "2026-09-20T13:18:14Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6541,8 +6541,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Olay Super Serum Body Wash, Normal Skin; GTIN 030772160350",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-09-18T13:47:58Z",
-        expiresAt: "2026-09-19T13:47:58Z",
+        observedAt: "2026-09-19T13:17:58Z",
+        expiresAt: "2026-09-20T13:17:58Z",
         inventoryQuantity: 7,
         stock: "in-stock",
         available: true,
