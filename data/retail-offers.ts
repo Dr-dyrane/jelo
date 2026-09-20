@@ -5059,8 +5059,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-19T13:48:00Z",
-        expiresAt: "2026-09-20T13:48:00Z",
+        observedAt: "2026-09-20T13:18:02Z",
+        expiresAt: "2026-09-21T13:18:02Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -7689,8 +7689,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS A Control Azelaic Acid Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-19T13:47:56Z",
-        expiresAt: "2026-09-20T13:47:56Z",
+        observedAt: "2026-09-20T13:17:58Z",
+        expiresAt: "2026-09-21T13:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8196,8 +8196,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Brightener Vitamin C Brightening Body Wash 16.9floz/500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-09-19T13:47:57Z",
-        expiresAt: "2026-09-20T13:47:57Z",
+        observedAt: "2026-09-20T13:17:55Z",
+        expiresAt: "2026-09-21T13:17:55Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8539,8 +8539,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Niacinamide Cleansing Gelée 3% - 210ml",
       "7.1 fl oz / 210 mL",
       {
-        observedAt: "2026-09-19T13:47:57Z",
-        expiresAt: "2026-09-20T13:47:57Z",
+        observedAt: "2026-09-20T13:17:57Z",
+        expiresAt: "2026-09-21T13:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
