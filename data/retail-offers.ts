@@ -643,8 +643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Perfector  Salicylic Acid Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-09-19T18:18:19Z",
-        expiresAt: "2026-09-20T18:18:19Z",
+        observedAt: "2026-09-20T19:18:07Z",
+        expiresAt: "2026-09-21T19:18:07Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4242,8 +4242,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-19T19:17:59Z",
-        expiresAt: "2026-09-20T19:17:59Z",
+        observedAt: "2026-09-20T19:18:05Z",
+        expiresAt: "2026-09-21T19:18:05Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -5104,8 +5104,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-19T18:18:51Z",
-        expiresAt: "2026-09-20T18:18:51Z",
+        observedAt: "2026-09-20T19:17:59Z",
+        expiresAt: "2026-09-21T19:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5302,8 +5302,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-Pro Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-19T18:18:57Z",
-        expiresAt: "2026-09-20T18:18:57Z",
+        observedAt: "2026-09-20T19:18:01Z",
+        expiresAt: "2026-09-21T19:18:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
