@@ -101,8 +101,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Bright + Glow Licorice & Mulberry Root Body Gel Wash - 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-09-19T04:47:55Z",
-        expiresAt: "2026-09-20T04:47:55Z",
+        observedAt: "2026-09-20T04:17:57Z",
+        expiresAt: "2026-09-21T04:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3491,8 +3491,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream 50Ml",
       "50 ml",
       {
-        observedAt: "2026-09-19T04:47:58Z",
-        expiresAt: "2026-09-20T04:47:58Z",
+        observedAt: "2026-09-20T04:18:00Z",
+        expiresAt: "2026-09-21T04:18:00Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
