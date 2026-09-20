@@ -9322,8 +9322,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-30T12:12:31.000Z",
         expiresAt: "2026-09-06T12:12:31.000Z",
-        stock: "low-stock",
-        available: true,
+        stock: "unknown",
+        available: false,
         sellerName: "Annette Trudan",
         sellerScore: 78,
         verificationMethod: "retailer_page",
