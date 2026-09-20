@@ -3060,8 +3060,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-09-19T20:47:49Z",
-        expiresAt: "2026-09-20T20:47:49Z",
+        observedAt: "2026-09-20T19:47:59Z",
+        expiresAt: "2026-09-21T19:47:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
