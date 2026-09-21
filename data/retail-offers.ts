@@ -2775,8 +2775,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave moisturizing Cream 16 OZ (453g) USA version",
       "453 g",
       {
-        observedAt: "2026-09-20T01:47:54Z",
-        expiresAt: "2026-09-21T01:47:54Z",
+        observedAt: "2026-09-21T01:48:02Z",
+        expiresAt: "2026-09-22T01:48:02Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -4030,8 +4030,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin by Zaron Vitamin C Body Wash 650ml",
       "650 ml",
       {
-        observedAt: "2026-09-20T01:47:54Z",
-        expiresAt: "2026-09-21T01:47:54Z",
+        observedAt: "2026-09-21T01:48:02Z",
+        expiresAt: "2026-09-22T01:48:02Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4532,8 +4532,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-20T01:47:54Z",
-        expiresAt: "2026-09-21T01:47:54Z",
+        observedAt: "2026-09-21T01:48:02Z",
+        expiresAt: "2026-09-22T01:48:02Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7869,8 +7869,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-20T01:47:54Z",
-        expiresAt: "2026-09-21T01:47:54Z",
+        observedAt: "2026-09-21T01:48:01Z",
+        expiresAt: "2026-09-22T01:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
