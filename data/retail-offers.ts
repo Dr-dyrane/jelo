@@ -2533,8 +2533,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-09-20T17:17:53Z",
-        expiresAt: "2026-09-21T17:17:53Z",
+        observedAt: "2026-09-21T16:18:12Z",
+        expiresAt: "2026-09-22T16:18:12Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -3414,8 +3414,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion",
       "400 ml",
       {
-        observedAt: "2026-09-20T17:17:50Z",
-        expiresAt: "2026-09-21T17:17:50Z",
+        observedAt: "2026-09-21T16:18:14Z",
+        expiresAt: "2026-09-22T16:18:14Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4875,8 +4875,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind to Skin Refreshing Facial Gel Wash 150ML",
       "150 ml",
       {
-        observedAt: "2026-09-20T17:17:52Z",
-        expiresAt: "2026-09-21T17:17:52Z",
+        observedAt: "2026-09-21T16:18:20Z",
+        expiresAt: "2026-09-22T16:18:20Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
