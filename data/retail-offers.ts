@@ -6659,8 +6659,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SheaMoisture Jamaican Black Castor Oil Strengthen & Restore Shampoo - 13 Oz",
       "384 ml",
       {
-        observedAt: "2026-09-20T03:47:49Z",
-        expiresAt: "2026-09-21T03:47:49Z",
+        observedAt: "2026-09-21T02:47:55Z",
+        expiresAt: "2026-09-22T02:47:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7644,8 +7644,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS A-Control Azelaic Acid Cream",
       "50 ml",
       {
-        observedAt: "2026-09-20T03:47:50Z",
-        expiresAt: "2026-09-21T03:47:50Z",
+        observedAt: "2026-09-21T02:47:54Z",
+        expiresAt: "2026-09-22T02:47:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
