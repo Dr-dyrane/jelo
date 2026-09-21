@@ -1179,8 +1179,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic acid Daily Gentle Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-09-20T01:47:54Z",
-        expiresAt: "2026-09-21T01:47:54Z",
+        observedAt: "2026-09-21T01:18:42Z",
+        expiresAt: "2026-09-22T01:18:42Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1627,8 +1627,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-09-16T22:18:00Z",
-        expiresAt: "2026-09-17T22:18:00Z",
+        observedAt: "2026-09-21T01:18:43Z",
+        expiresAt: "2026-09-22T01:18:43Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3676,8 +3676,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "DOVE SKIN REPLENISH 2% Body Wash 547ml",
       "547 ml",
       {
-        observedAt: "2026-09-16T22:18:00Z",
-        expiresAt: "2026-09-17T22:18:00Z",
+        observedAt: "2026-09-21T01:18:42Z",
+        expiresAt: "2026-09-22T01:18:42Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6524,8 +6524,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6Oz",
       "2.6 oz / 73.7 g",
       {
-        observedAt: "2026-09-16T22:18:00Z",
-        expiresAt: "2026-09-17T22:18:00Z",
+        observedAt: "2026-09-21T01:18:42Z",
+        expiresAt: "2026-09-22T01:18:42Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
