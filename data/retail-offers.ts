@@ -5059,8 +5059,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-20T13:18:02Z",
-        expiresAt: "2026-09-21T13:18:02Z",
+        observedAt: "2026-09-21T12:47:58Z",
+        expiresAt: "2026-09-22T12:47:58Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -8539,8 +8539,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Niacinamide Cleansing Gelée 3% - 210ml",
       "7.1 fl oz / 210 mL",
       {
-        observedAt: "2026-09-20T13:17:57Z",
-        expiresAt: "2026-09-21T13:17:57Z",
+        observedAt: "2026-09-21T12:47:59Z",
+        expiresAt: "2026-09-22T12:47:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
