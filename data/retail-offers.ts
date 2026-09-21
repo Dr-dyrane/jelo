@@ -3216,8 +3216,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Oil Control Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-09-20T20:47:55Z",
-        expiresAt: "2026-09-21T20:47:55Z",
+        observedAt: "2026-09-21T19:47:57Z",
+        expiresAt: "2026-09-22T19:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
