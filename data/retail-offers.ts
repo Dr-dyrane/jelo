@@ -5949,8 +5949,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Multi Function Formula Snail Mucin Repair Serum For Face 100ml",
       "100 ml",
       {
-        observedAt: "2026-09-20T10:17:58Z",
-        expiresAt: "2026-09-21T10:17:58Z",
+        observedAt: "2026-09-21T09:48:03Z",
+        expiresAt: "2026-09-22T09:48:03Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7962,8 +7962,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Body Oil 100ml",
       "3.4 fl oz / 100 mL",
       {
-        observedAt: "2026-09-20T10:17:58Z",
-        expiresAt: "2026-09-21T10:17:58Z",
+        observedAt: "2026-09-21T09:47:58Z",
+        expiresAt: "2026-09-22T09:47:58Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8275,8 +8275,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-09-20T10:17:57Z",
-        expiresAt: "2026-09-21T10:17:57Z",
+        observedAt: "2026-09-21T09:47:57Z",
+        expiresAt: "2026-09-22T09:47:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
