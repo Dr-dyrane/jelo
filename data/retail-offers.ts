@@ -487,8 +487,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-09-20T15:48:34Z",
-        expiresAt: "2026-09-21T15:48:34Z",
+        observedAt: "2026-09-21T15:18:00Z",
+        expiresAt: "2026-09-22T15:18:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7013,8 +7013,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Enhance Gel Cream Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-09-20T15:48:31Z",
-        expiresAt: "2026-09-21T15:48:31Z",
+        observedAt: "2026-09-21T15:18:00Z",
+        expiresAt: "2026-09-22T15:18:00Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
