@@ -2082,8 +2082,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Azelaic Acid Suspension 10% | 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-21T04:47:57Z",
-        expiresAt: "2026-09-22T04:47:57Z",
+        observedAt: "2026-09-22T04:17:55Z",
+        expiresAt: "2026-09-23T04:17:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4047,8 +4047,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening Exfoliating Body Wash",
       "650 ml",
       {
-        observedAt: "2026-09-21T04:47:57Z",
-        expiresAt: "2026-09-22T04:47:57Z",
+        observedAt: "2026-09-22T04:17:55Z",
+        expiresAt: "2026-09-23T04:17:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4652,8 +4652,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Urea Repair Plus 10% Urea Lotion 250ml",
       "250 ml",
       {
-        observedAt: "2026-09-21T04:47:57Z",
-        expiresAt: "2026-09-22T04:47:57Z",
+        observedAt: "2026-09-22T04:17:55Z",
+        expiresAt: "2026-09-23T04:17:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
