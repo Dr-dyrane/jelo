@@ -1032,8 +1032,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10% Hyaluron Redness Soothing Serum",
       "30 ml",
       {
-        observedAt: "2026-09-21T17:49:06Z",
-        expiresAt: "2026-09-22T17:49:06Z",
+        observedAt: "2026-09-22T17:17:57Z",
+        expiresAt: "2026-09-23T17:17:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
