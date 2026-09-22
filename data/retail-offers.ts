@@ -1403,8 +1403,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "ANUA Niacinamide 10% + TXA 4% Serum",
       "30 ml",
       {
-        observedAt: "2026-09-21T05:18:12Z",
-        expiresAt: "2026-09-22T05:18:12Z",
+        observedAt: "2026-09-22T05:17:59Z",
+        expiresAt: "2026-09-23T05:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
