@@ -1495,8 +1495,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Wonder Cream Fragrance Free",
       "50 ml",
       {
-        observedAt: "2026-09-21T18:48:33Z",
-        expiresAt: "2026-09-22T18:48:33Z",
+        observedAt: "2026-09-22T19:18:00Z",
+        expiresAt: "2026-09-23T19:18:00Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -3217,8 +3217,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Oil Control Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-09-21T19:47:57Z",
-        expiresAt: "2026-09-22T19:47:57Z",
+        observedAt: "2026-09-22T19:17:59Z",
+        expiresAt: "2026-09-23T19:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
