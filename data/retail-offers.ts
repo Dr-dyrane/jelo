@@ -6661,8 +6661,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SheaMoisture Jamaican Black Castor Oil Strengthen & Restore Shampoo - 13 Oz",
       "384 ml",
       {
-        observedAt: "2026-09-21T02:47:55Z",
-        expiresAt: "2026-09-22T02:47:55Z",
+        observedAt: "2026-09-22T02:18:14Z",
+        expiresAt: "2026-09-23T02:18:14Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
