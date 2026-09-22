@@ -4985,8 +4985,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Niacinamide Blemish Recovery Serum 30ml (1oz)",
       "30 ml",
       {
-        observedAt: "2026-09-21T20:17:58Z",
-        expiresAt: "2026-09-22T20:17:58Z",
+        observedAt: "2026-09-22T19:47:58Z",
+        expiresAt: "2026-09-23T19:47:58Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
