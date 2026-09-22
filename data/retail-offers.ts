@@ -101,8 +101,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Bright + Glow Licorice & Mulberry Root Body Gel Wash - 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-09-21T03:47:55Z",
-        expiresAt: "2026-09-22T03:47:55Z",
+        observedAt: "2026-09-22T02:47:57Z",
+        expiresAt: "2026-09-23T02:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7871,8 +7871,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-21T01:48:01Z",
-        expiresAt: "2026-09-22T01:48:01Z",
+        observedAt: "2026-09-22T02:47:59Z",
+        expiresAt: "2026-09-23T02:47:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
