@@ -4035,8 +4035,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin by Zaron Vitamin C Body Wash 650ml",
       "650 ml",
       {
-        observedAt: "2026-09-22T01:48:34Z",
-        expiresAt: "2026-09-23T01:48:34Z",
+        observedAt: "2026-09-23T01:48:02Z",
+        expiresAt: "2026-09-24T01:48:02Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4537,8 +4537,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-22T01:48:34Z",
-        expiresAt: "2026-09-23T01:48:34Z",
+        observedAt: "2026-09-23T01:48:14Z",
+        expiresAt: "2026-09-24T01:48:14Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6664,8 +6664,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SheaMoisture Jamaican Black Castor Oil Strengthen & Restore Shampoo - 13 Oz",
       "384 ml",
       {
-        observedAt: "2026-09-22T02:18:14Z",
-        expiresAt: "2026-09-23T02:18:14Z",
+        observedAt: "2026-09-23T01:48:16Z",
+        expiresAt: "2026-09-24T01:48:16Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
