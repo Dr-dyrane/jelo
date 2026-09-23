@@ -1357,8 +1357,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha Bha Pha 30 Days Miracle Toner - 5.07oz",
       "150 ml",
       {
-        observedAt: "2026-09-22T11:17:56Z",
-        expiresAt: "2026-09-23T11:17:56Z",
+        observedAt: "2026-09-23T10:47:56Z",
+        expiresAt: "2026-09-24T10:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2427,8 +2427,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Acne Foaming Wash Benzoyl Peroxide 10% | 5.5oz",
       "156 g",
       {
-        observedAt: "2026-09-22T11:17:56Z",
-        expiresAt: "2026-09-23T11:17:56Z",
+        observedAt: "2026-09-23T10:47:59Z",
+        expiresAt: "2026-09-24T10:47:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5381,8 +5381,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-pro Rice & Txa Toner - 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-22T11:17:56Z",
-        expiresAt: "2026-09-23T11:17:56Z",
+        observedAt: "2026-09-23T10:47:56Z",
+        expiresAt: "2026-09-24T10:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
