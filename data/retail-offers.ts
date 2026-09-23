@@ -2327,8 +2327,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "COSRX Advanced Snail 92 All in One Cream — jar",
       "100 g / 3.52 oz",
       {
-        observedAt: "2026-09-22T17:49:04Z",
-        expiresAt: "2026-09-23T17:49:04Z",
+        observedAt: "2026-09-23T17:17:55Z",
+        expiresAt: "2026-09-24T17:17:55Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5218,8 +5218,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-30T02:55:03.814Z",
         expiresAt: "2026-09-06T02:55:03.814Z",
-        stock: "in-stock",
-        available: true,
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -7588,8 +7588,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Neutrogena Moisturizing Body Oil, Light Sesame Formula Original | 8.5 fl oz",
       "8.5 fl oz",
       {
-        observedAt: "2026-09-22T17:47:59Z",
-        expiresAt: "2026-09-23T17:47:59Z",
+        observedAt: "2026-09-23T17:17:59Z",
+        expiresAt: "2026-09-24T17:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
