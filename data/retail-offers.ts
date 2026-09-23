@@ -3973,8 +3973,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening and Moisturizing Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-22T18:18:08Z",
-        expiresAt: "2026-09-23T18:18:08Z",
+        observedAt: "2026-09-23T17:47:53Z",
+        expiresAt: "2026-09-24T17:47:53Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 10,
