@@ -548,8 +548,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Vanilla Cashmere Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-09-22T18:48:28Z",
-        expiresAt: "2026-09-23T18:48:28Z",
+        observedAt: "2026-09-23T19:47:56Z",
+        expiresAt: "2026-09-24T19:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1211,8 +1211,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic Acid Daily Gentle Cleanser 150Ml",
       "150 ml",
       {
-        observedAt: "2026-09-22T18:49:44Z",
-        expiresAt: "2026-09-23T18:49:44Z",
+        observedAt: "2026-09-23T19:48:07Z",
+        expiresAt: "2026-09-24T19:48:07Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -6441,8 +6441,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-09-22T18:48:46Z",
-        expiresAt: "2026-09-23T18:48:46Z",
+        observedAt: "2026-09-23T19:48:04Z",
+        expiresAt: "2026-09-24T19:48:04Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -8903,8 +8903,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS MELA-PRO Tranexamic Acid Sun Screen 100ml",
       "100 ml",
       {
-        observedAt: "2026-09-22T18:49:46Z",
-        expiresAt: "2026-09-23T18:49:46Z",
+        observedAt: "2026-09-23T19:47:56Z",
+        expiresAt: "2026-09-24T19:47:56Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
