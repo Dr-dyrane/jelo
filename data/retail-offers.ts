@@ -2538,9 +2538,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml / 1 oz",
       {
         observedAt: "2026-09-22T15:47:55Z",
-        expiresAt: "2026-09-23T15:47:55Z",
+        expiresAt: "2026-09-23T14:48:32Z",
         available: false,
-        stock: "out-of-stock",
+        stock: "unknown",
         verificationMethod: "retailer_page",
       },
     ),
