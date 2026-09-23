@@ -3372,8 +3372,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Blemish Gel Moisturizer 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-22T13:47:58Z",
-        expiresAt: "2026-09-23T13:47:58Z",
+        observedAt: "2026-09-23T13:17:57Z",
+        expiresAt: "2026-09-24T13:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4143,7 +4143,7 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-09-22T12:49:10Z",
         expiresAt: "2026-09-23T12:49:10Z",
-        stock: "out-of-stock",
+        stock: "unknown",
         available: false,
         verificationMethod: "retailer_page",
       },
@@ -4641,8 +4641,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml",
       "250 ml",
       {
-        observedAt: "2026-09-22T13:47:58Z",
-        expiresAt: "2026-09-23T13:47:58Z",
+        observedAt: "2026-09-23T13:18:00Z",
+        expiresAt: "2026-09-24T13:18:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
