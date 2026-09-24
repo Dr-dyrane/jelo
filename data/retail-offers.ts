@@ -2083,8 +2083,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Azelaic Acid Suspension 10% | 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-23T03:48:14Z",
-        expiresAt: "2026-09-24T03:48:14Z",
+        observedAt: "2026-09-24T03:17:57Z",
+        expiresAt: "2026-09-25T03:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2310,8 +2310,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "COSRX Advanced Snail 92 All in One Cream — jar",
       "100 g / 3.52 oz",
       {
-        observedAt: "2026-09-23T04:17:55Z",
-        expiresAt: "2026-09-24T04:17:55Z",
+        observedAt: "2026-09-24T03:17:57Z",
+        expiresAt: "2026-09-25T03:17:57Z",
         available: true,
         stock: "in-stock",
         sellerName: "luxury skincare",
@@ -4053,8 +4053,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening Exfoliating Body Wash",
       "650 ml",
       {
-        observedAt: "2026-09-23T03:47:57Z",
-        expiresAt: "2026-09-24T03:47:57Z",
+        observedAt: "2026-09-24T03:17:57Z",
+        expiresAt: "2026-09-25T03:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4658,8 +4658,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Urea Repair Plus 10% Urea Lotion 250ml",
       "250 ml",
       {
-        observedAt: "2026-09-23T03:48:14Z",
-        expiresAt: "2026-09-24T03:48:14Z",
+        observedAt: "2026-09-24T03:17:57Z",
+        expiresAt: "2026-09-25T03:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
