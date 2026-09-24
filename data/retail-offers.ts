@@ -101,8 +101,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Bright + Glow Licorice & Mulberry Root Body Gel Wash - 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-09-23T02:17:56Z",
-        expiresAt: "2026-09-24T02:17:56Z",
+        observedAt: "2026-09-24T01:47:50Z",
+        expiresAt: "2026-09-25T01:47:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4540,8 +4540,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-23T01:48:14Z",
-        expiresAt: "2026-09-24T01:48:14Z",
+        observedAt: "2026-09-24T01:47:51Z",
+        expiresAt: "2026-09-25T01:47:51Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7878,8 +7878,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-23T02:17:56Z",
-        expiresAt: "2026-09-24T02:17:56Z",
+        observedAt: "2026-09-24T01:47:51Z",
+        expiresAt: "2026-09-25T01:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
