@@ -2889,6 +2889,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-30T02:02:13.000Z",
         expiresAt: "2026-09-06T02:02:13.000Z",
+        available: false,
+        stock: "unknown",
       },
     ),
   ],
@@ -4036,8 +4038,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin by Zaron Vitamin C Body Wash 650ml",
       "650 ml",
       {
-        observedAt: "2026-09-23T01:48:02Z",
-        expiresAt: "2026-09-24T01:48:02Z",
+        observedAt: "2026-09-24T01:17:51Z",
+        expiresAt: "2026-09-25T01:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6665,8 +6667,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SheaMoisture Jamaican Black Castor Oil Strengthen & Restore Shampoo - 13 Oz",
       "384 ml",
       {
-        observedAt: "2026-09-23T01:48:16Z",
-        expiresAt: "2026-09-24T01:48:16Z",
+        observedAt: "2026-09-24T01:18:04Z",
+        expiresAt: "2026-09-25T01:18:04Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7653,8 +7655,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-09-21T02:47:54Z",
         expiresAt: "2026-09-22T02:47:54Z",
-        stock: "in-stock",
-        available: true,
+        stock: "unknown",
+        available: false,
         verificationMethod: "retailer_page",
       },
     ),
