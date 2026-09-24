@@ -1135,8 +1135,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10 + Hyaluron Redness Soothing Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-23T08:17:58Z",
-        expiresAt: "2026-09-24T08:17:58Z",
+        observedAt: "2026-09-24T07:47:50Z",
+        expiresAt: "2026-09-25T07:47:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3528,8 +3528,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "GARNIER Vitamin C (Brightening) Day Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-23T08:17:57Z",
-        expiresAt: "2026-09-24T08:17:57Z",
+        observedAt: "2026-09-24T07:47:51Z",
+        expiresAt: "2026-09-25T07:47:51Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
