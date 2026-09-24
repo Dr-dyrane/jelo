@@ -4569,8 +4569,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-23T15:48:56Z",
-        expiresAt: "2026-09-24T15:48:56Z",
+        observedAt: "2026-09-24T15:47:51Z",
+        expiresAt: "2026-09-25T15:47:51Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -8269,8 +8269,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-09-23T15:49:57Z",
-        expiresAt: "2026-09-24T15:49:57Z",
+        observedAt: "2026-09-24T15:48:02Z",
+        expiresAt: "2026-09-25T15:48:02Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
