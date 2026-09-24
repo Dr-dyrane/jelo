@@ -1404,8 +1404,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "ANUA Niacinamide 10% + TXA 4% Serum",
       "30 ml",
       {
-        observedAt: "2026-09-23T04:48:00Z",
-        expiresAt: "2026-09-24T04:48:00Z",
+        observedAt: "2026-09-24T04:17:54Z",
+        expiresAt: "2026-09-25T04:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6790,8 +6790,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-09-23T04:18:16Z",
-        expiresAt: "2026-09-24T04:18:16Z",
+        observedAt: "2026-09-24T04:17:48Z",
+        expiresAt: "2026-09-25T04:17:48Z",
         inventoryQuantity: 2,
         stock: "out-of-stock",
         available: false,
