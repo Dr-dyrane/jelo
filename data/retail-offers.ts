@@ -5596,8 +5596,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-23T11:18:04Z",
-        expiresAt: "2026-09-24T11:18:04Z",
+        observedAt: "2026-09-24T11:17:51Z",
+        expiresAt: "2026-09-25T11:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
