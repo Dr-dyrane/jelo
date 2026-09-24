@@ -1629,8 +1629,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-09-23T23:47:52Z",
-        expiresAt: "2026-09-24T23:47:52Z",
+        observedAt: "2026-09-24T23:17:56Z",
+        expiresAt: "2026-09-25T23:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
