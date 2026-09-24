@@ -2398,8 +2398,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "PANOXYL Acne Foaming Wash Benzoyl Peroxide 10% - 156g",
       "156 g",
       {
-        observedAt: "2026-09-23T22:47:56Z",
-        expiresAt: "2026-09-24T22:47:56Z",
+        observedAt: "2026-09-24T22:17:49Z",
+        expiresAt: "2026-09-25T22:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7560,8 +7560,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
       "8.5 fl oz",
       {
-        observedAt: "2026-09-23T22:47:55Z",
-        expiresAt: "2026-09-24T22:47:55Z",
+        observedAt: "2026-09-24T22:17:53Z",
+        expiresAt: "2026-09-25T22:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
