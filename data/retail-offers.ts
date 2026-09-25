@@ -1357,8 +1357,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha Bha Pha 30 Days Miracle Toner - 5.07oz",
       "150 ml",
       {
-        observedAt: "2026-09-24T10:17:57Z",
-        expiresAt: "2026-09-25T10:17:57Z",
+        observedAt: "2026-09-25T09:47:49Z",
+        expiresAt: "2026-09-26T09:47:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2428,8 +2428,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Acne Foaming Wash Benzoyl Peroxide 10% | 5.5oz",
       "156 g",
       {
-        observedAt: "2026-09-24T10:18:01Z",
-        expiresAt: "2026-09-25T10:18:01Z",
+        observedAt: "2026-09-25T09:47:51Z",
+        expiresAt: "2026-09-26T09:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2462,8 +2462,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-09-24T10:17:56Z",
-        expiresAt: "2026-09-25T10:17:56Z",
+        observedAt: "2026-09-25T09:47:48Z",
+        expiresAt: "2026-09-26T09:47:48Z",
         verificationMethod: "retailer_page",
         available: true,
         stock: "in-stock",
@@ -5384,8 +5384,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-pro Rice & Txa Toner - 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-24T10:17:57Z",
-        expiresAt: "2026-09-25T10:17:57Z",
+        observedAt: "2026-09-25T09:47:49Z",
+        expiresAt: "2026-09-26T09:47:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
