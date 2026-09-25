@@ -3793,8 +3793,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-30T05:39:13.098Z",
         expiresAt: "2026-09-06T05:39:13.098Z",
-        stock: "in-stock",
-        available: true,
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -4250,8 +4250,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-24T19:18:52Z",
-        expiresAt: "2026-09-25T19:18:52Z",
+        observedAt: "2026-09-25T18:49:37Z",
+        expiresAt: "2026-09-26T18:49:37Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -5112,8 +5112,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-24T19:19:01Z",
-        expiresAt: "2026-09-25T19:19:01Z",
+        observedAt: "2026-09-25T18:49:41Z",
+        expiresAt: "2026-09-26T18:49:41Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5310,8 +5310,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-Pro Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-24T19:19:07Z",
-        expiresAt: "2026-09-25T19:19:07Z",
+        observedAt: "2026-09-25T18:50:33Z",
+        expiresAt: "2026-09-26T18:50:33Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7939,8 +7939,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-09-24T19:19:02Z",
-        expiresAt: "2026-09-25T19:19:02Z",
+        observedAt: "2026-09-25T18:49:43Z",
+        expiresAt: "2026-09-26T18:49:43Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
