@@ -548,8 +548,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Vanilla Cashmere Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-09-25T19:20:32Z",
-        expiresAt: "2026-09-26T19:20:32Z",
+        observedAt: "2026-09-26T19:47:53Z",
+        expiresAt: "2026-09-27T19:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1211,8 +1211,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic Acid Daily Gentle Cleanser 150Ml",
       "150 ml",
       {
-        observedAt: "2026-09-25T19:20:32Z",
-        expiresAt: "2026-09-26T19:20:32Z",
+        observedAt: "2026-09-26T19:47:53Z",
+        expiresAt: "2026-09-27T19:47:53Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -2053,8 +2053,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Azelaic Acid Suspension 10%",
       "30 ml",
       {
-        observedAt: "2026-09-25T19:20:35Z",
-        expiresAt: "2026-09-26T19:20:35Z",
+        observedAt: "2026-09-26T19:47:50Z",
+        expiresAt: "2026-09-27T19:47:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
