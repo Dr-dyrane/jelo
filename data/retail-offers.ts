@@ -8516,8 +8516,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Multi-Peptide Moisturizer - 50ml",
       "1.7 oz / 50 mL",
       {
-        observedAt: "2026-09-25T14:47:51Z",
-        expiresAt: "2026-09-26T14:47:51Z",
+        observedAt: "2026-09-26T13:47:56Z",
+        expiresAt: "2026-09-27T13:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8782,8 +8782,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Exfoliating Body Wash16.9 oz",
       "16.9 oz / 500 mL",
       {
-        observedAt: "2026-09-25T14:47:51Z",
-        expiresAt: "2026-09-26T14:47:51Z",
+        observedAt: "2026-09-26T13:47:57Z",
+        expiresAt: "2026-09-27T13:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
