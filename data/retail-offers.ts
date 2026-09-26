@@ -3960,8 +3960,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SKIN BY ZARON -VITAMIN C (Brightening & Moisturizing) Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-25T10:17:51Z",
-        expiresAt: "2026-09-26T10:17:51Z",
+        observedAt: "2026-09-26T09:47:57Z",
+        expiresAt: "2026-09-27T09:47:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5067,8 +5067,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-25T10:17:55Z",
-        expiresAt: "2026-09-26T10:17:55Z",
+        observedAt: "2026-09-26T09:47:58Z",
+        expiresAt: "2026-09-27T09:47:58Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -7971,8 +7971,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Body Oil 100ml",
       "3.4 fl oz / 100 mL",
       {
-        observedAt: "2026-09-25T07:47:52Z",
-        expiresAt: "2026-09-26T07:47:52Z",
+        observedAt: "2026-09-26T09:47:56Z",
+        expiresAt: "2026-09-27T09:47:56Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8284,8 +8284,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-09-25T07:47:50Z",
-        expiresAt: "2026-09-26T07:47:50Z",
+        observedAt: "2026-09-26T09:47:58Z",
+        expiresAt: "2026-09-27T09:47:58Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
