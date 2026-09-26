@@ -3528,8 +3528,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "GARNIER Vitamin C (Brightening) Day Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-25T07:17:54Z",
-        expiresAt: "2026-09-26T07:17:54Z",
+        observedAt: "2026-09-26T06:47:53Z",
+        expiresAt: "2026-09-27T06:47:53Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
