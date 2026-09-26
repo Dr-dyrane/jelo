@@ -4250,8 +4250,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-25T18:49:37Z",
-        expiresAt: "2026-09-26T18:49:37Z",
+        observedAt: "2026-09-26T18:18:17Z",
+        expiresAt: "2026-09-27T18:18:17Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -5112,8 +5112,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-25T18:49:41Z",
-        expiresAt: "2026-09-26T18:49:41Z",
+        observedAt: "2026-09-26T18:18:28Z",
+        expiresAt: "2026-09-27T18:18:28Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7939,8 +7939,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-09-25T18:49:43Z",
-        expiresAt: "2026-09-26T18:49:43Z",
+        observedAt: "2026-09-26T18:18:23Z",
+        expiresAt: "2026-09-27T18:18:23Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
