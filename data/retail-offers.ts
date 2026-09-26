@@ -379,8 +379,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Glow Serum : Propolis + Niacinamide",
       "30 ml",
       {
-        observedAt: "2026-09-25T14:48:37Z",
-        expiresAt: "2026-09-26T14:48:37Z",
+        observedAt: "2026-09-26T15:47:57Z",
+        expiresAt: "2026-09-27T15:47:57Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -8825,8 +8825,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Exfoliating Body Wash 500ml",
       "16.9 oz / 500 mL",
       {
-        observedAt: "2026-09-25T14:48:23Z",
-        expiresAt: "2026-09-26T14:48:23Z",
+        observedAt: "2026-09-26T15:47:58Z",
+        expiresAt: "2026-09-27T15:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
