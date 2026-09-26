@@ -4883,8 +4883,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind to Skin Refreshing Facial Gel Wash 150ML",
       "150 ml",
       {
-        observedAt: "2026-09-25T14:17:51Z",
-        expiresAt: "2026-09-26T14:17:51Z",
+        observedAt: "2026-09-26T13:18:36Z",
+        expiresAt: "2026-09-27T13:18:36Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
