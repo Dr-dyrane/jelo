@@ -4038,8 +4038,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin by Zaron Vitamin C Body Wash 650ml",
       "650 ml",
       {
-        observedAt: "2026-09-26T23:47:52Z",
-        expiresAt: "2026-09-27T23:47:52Z",
+        observedAt: "2026-09-27T23:47:51Z",
+        expiresAt: "2026-09-28T23:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
