@@ -5112,8 +5112,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-26T18:18:28Z",
-        expiresAt: "2026-09-27T18:18:28Z",
+        observedAt: "2026-09-27T17:47:52Z",
+        expiresAt: "2026-09-28T17:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7939,8 +7939,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-09-26T18:18:23Z",
-        expiresAt: "2026-09-27T18:18:23Z",
+        observedAt: "2026-09-27T17:47:52Z",
+        expiresAt: "2026-09-28T17:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
