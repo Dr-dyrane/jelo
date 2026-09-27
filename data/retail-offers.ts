@@ -1539,8 +1539,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-09-26T19:20:04Z",
-        expiresAt: "2026-09-27T19:20:04Z",
+        observedAt: "2026-09-27T19:20:46Z",
+        expiresAt: "2026-09-28T19:20:46Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4989,8 +4989,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Niacinamide Blemish Recovery Serum 30ml (1oz)",
       "30 ml",
       {
-        observedAt: "2026-09-26T19:20:10Z",
-        expiresAt: "2026-09-27T19:20:10Z",
+        observedAt: "2026-09-27T19:20:50Z",
+        expiresAt: "2026-09-28T19:20:50Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -6837,8 +6837,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-09-26T19:20:25Z",
-        expiresAt: "2026-09-27T19:20:25Z",
+        observedAt: "2026-09-27T19:20:49Z",
+        expiresAt: "2026-09-28T19:20:49Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
