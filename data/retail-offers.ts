@@ -1032,8 +1032,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10% Hyaluron Redness Soothing Serum",
       "30 ml",
       {
-        observedAt: "2026-09-26T14:48:54Z",
-        expiresAt: "2026-09-27T14:48:54Z",
+        observedAt: "2026-09-27T14:17:56Z",
+        expiresAt: "2026-09-28T14:17:56Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -2537,8 +2537,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-09-26T14:48:35Z",
-        expiresAt: "2026-09-27T14:48:35Z",
+        observedAt: "2026-09-27T14:17:55Z",
+        expiresAt: "2026-09-28T14:17:55Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -4569,8 +4569,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-26T14:48:44Z",
-        expiresAt: "2026-09-27T14:48:44Z",
+        observedAt: "2026-09-27T14:17:57Z",
+        expiresAt: "2026-09-28T14:17:57Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -8269,8 +8269,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-09-26T14:48:44Z",
-        expiresAt: "2026-09-27T14:48:44Z",
+        observedAt: "2026-09-27T14:17:57Z",
+        expiresAt: "2026-09-28T14:17:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
