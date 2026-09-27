@@ -2428,8 +2428,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Acne Foaming Wash Benzoyl Peroxide 10% | 5.5oz",
       "156 g",
       {
-        observedAt: "2026-09-26T08:48:39Z",
-        expiresAt: "2026-09-27T08:48:39Z",
+        observedAt: "2026-09-27T08:18:16Z",
+        expiresAt: "2026-09-28T08:18:16Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2462,8 +2462,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-09-26T08:48:35Z",
-        expiresAt: "2026-09-27T08:48:35Z",
+        observedAt: "2026-09-27T08:17:55Z",
+        expiresAt: "2026-09-28T08:17:55Z",
         verificationMethod: "retailer_page",
         available: true,
         stock: "in-stock",
@@ -5384,8 +5384,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-pro Rice & Txa Toner - 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-26T08:48:36Z",
-        expiresAt: "2026-09-27T08:48:36Z",
+        observedAt: "2026-09-27T08:17:56Z",
+        expiresAt: "2026-09-28T08:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8205,8 +8205,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Brightener Vitamin C Brightening Body Wash 16.9floz/500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-09-26T09:17:54Z",
-        expiresAt: "2026-09-27T09:17:54Z",
+        observedAt: "2026-09-27T08:18:12Z",
+        expiresAt: "2026-09-28T08:18:12Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
