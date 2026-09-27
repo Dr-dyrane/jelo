@@ -1992,8 +1992,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Blemish Control Face Cleanser",
       "236 ml",
       {
-        observedAt: "2026-09-26T01:18:18Z",
-        expiresAt: "2026-09-27T01:18:18Z",
+        observedAt: "2026-09-27T00:50:03Z",
+        expiresAt: "2026-09-28T00:50:03Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3498,8 +3498,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream 50Ml",
       "50 ml",
       {
-        observedAt: "2026-09-26T01:18:17Z",
-        expiresAt: "2026-09-27T01:18:17Z",
+        observedAt: "2026-09-27T00:50:05Z",
+        expiresAt: "2026-09-28T00:50:05Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4540,8 +4540,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-26T00:19:34Z",
-        expiresAt: "2026-09-27T00:19:34Z",
+        observedAt: "2026-09-27T00:49:46Z",
+        expiresAt: "2026-09-28T00:49:46Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7878,8 +7878,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-26T00:19:34Z",
-        expiresAt: "2026-09-27T00:19:34Z",
+        observedAt: "2026-09-27T00:50:02Z",
+        expiresAt: "2026-09-28T00:50:02Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
