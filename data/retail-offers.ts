@@ -1992,8 +1992,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Blemish Control Face Cleanser",
       "236 ml",
       {
-        observedAt: "2026-09-28T00:17:58Z",
-        expiresAt: "2026-09-29T00:17:58Z",
+        observedAt: "2026-09-28T23:48:00Z",
+        expiresAt: "2026-09-29T23:48:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3498,8 +3498,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream 50Ml",
       "50 ml",
       {
-        observedAt: "2026-09-28T00:18:19Z",
-        expiresAt: "2026-09-29T00:18:19Z",
+        observedAt: "2026-09-28T23:48:18Z",
+        expiresAt: "2026-09-29T23:48:18Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
