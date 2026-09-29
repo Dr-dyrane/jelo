@@ -1032,8 +1032,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10% Hyaluron Redness Soothing Serum",
       "30 ml",
       {
-        observedAt: "2026-09-28T13:19:06Z",
-        expiresAt: "2026-09-29T13:19:06Z",
+        observedAt: "2026-09-29T14:18:01Z",
+        expiresAt: "2026-09-30T14:18:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -2327,8 +2327,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "COSRX Advanced Snail 92 All in One Cream — jar",
       "100 g / 3.52 oz",
       {
-        observedAt: "2026-09-28T13:47:55Z",
-        expiresAt: "2026-09-29T13:47:55Z",
+        observedAt: "2026-09-29T14:18:01Z",
+        expiresAt: "2026-09-30T14:18:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -3975,8 +3975,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening and Moisturizing Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-28T14:48:40Z",
-        expiresAt: "2026-09-29T14:48:40Z",
+        observedAt: "2026-09-29T14:18:01Z",
+        expiresAt: "2026-09-30T14:18:01Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 10,
@@ -8825,8 +8825,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Exfoliating Body Wash 500ml",
       "16.9 oz / 500 mL",
       {
-        observedAt: "2026-09-28T15:17:56Z",
-        expiresAt: "2026-09-29T15:17:56Z",
+        observedAt: "2026-09-29T14:17:59Z",
+        expiresAt: "2026-09-30T14:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
