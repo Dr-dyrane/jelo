@@ -71,8 +71,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract)",
       "1000 ml",
       {
-        observedAt: "2026-09-28T12:49:23Z",
-        expiresAt: "2026-09-29T12:49:23Z",
+        observedAt: "2026-09-29T14:47:54Z",
+        expiresAt: "2026-09-30T14:47:54Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -379,8 +379,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Glow Serum : Propolis + Niacinamide",
       "30 ml",
       {
-        observedAt: "2026-09-28T15:17:57Z",
-        expiresAt: "2026-09-29T15:17:57Z",
+        observedAt: "2026-09-29T14:47:51Z",
+        expiresAt: "2026-09-30T14:47:51Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -3421,8 +3421,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion",
       "400 ml",
       {
-        observedAt: "2026-09-28T12:49:00Z",
-        expiresAt: "2026-09-29T12:49:00Z",
+        observedAt: "2026-09-29T14:47:54Z",
+        expiresAt: "2026-09-30T14:47:54Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
