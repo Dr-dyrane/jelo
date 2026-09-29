@@ -578,8 +578,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Shea Better Vanilla Cashmere Body Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-09-28T11:17:50Z",
-        expiresAt: "2026-09-29T11:17:50Z",
+        observedAt: "2026-09-29T10:17:54Z",
+        expiresAt: "2026-09-30T10:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2007,8 +2007,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Blemish Control Face Cleanser With 2% Salicylic Acid & Niacinamide Blemish-Prone Skin 236ml",
       "236 ml",
       {
-        observedAt: "2026-09-28T11:17:50Z",
-        expiresAt: "2026-09-29T11:17:50Z",
+        observedAt: "2026-09-29T10:17:54Z",
+        expiresAt: "2026-09-30T10:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3374,8 +3374,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Blemish Gel Moisturizer 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-28T11:17:51Z",
-        expiresAt: "2026-09-29T11:17:51Z",
+        observedAt: "2026-09-29T10:17:58Z",
+        expiresAt: "2026-09-30T10:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4643,8 +4643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml",
       "250 ml",
       {
-        observedAt: "2026-09-28T11:17:54Z",
-        expiresAt: "2026-09-29T11:17:54Z",
+        observedAt: "2026-09-29T10:18:01Z",
+        expiresAt: "2026-09-30T10:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
