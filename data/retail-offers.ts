@@ -1629,8 +1629,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-09-28T21:17:56Z",
-        expiresAt: "2026-09-29T21:17:56Z",
+        observedAt: "2026-09-29T20:19:03Z",
+        expiresAt: "2026-09-30T20:19:03Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4250,8 +4250,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-28T21:17:50Z",
-        expiresAt: "2026-09-29T21:17:50Z",
+        observedAt: "2026-09-29T20:18:35Z",
+        expiresAt: "2026-09-30T20:18:35Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
