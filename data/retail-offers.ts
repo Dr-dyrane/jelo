@@ -5112,8 +5112,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-28T17:17:53Z",
-        expiresAt: "2026-09-29T17:17:53Z",
+        observedAt: "2026-09-29T16:17:59Z",
+        expiresAt: "2026-09-30T16:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
