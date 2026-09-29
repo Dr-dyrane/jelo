@@ -455,8 +455,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Shea Better Coconut Waters Body Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-09-28T03:17:54Z",
-        expiresAt: "2026-09-29T03:17:54Z",
+        observedAt: "2026-09-29T02:47:48Z",
+        expiresAt: "2026-09-30T02:47:48Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -517,8 +517,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Pink Champagne Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-09-28T03:17:56Z",
-        expiresAt: "2026-09-29T03:17:56Z",
+        observedAt: "2026-09-29T02:47:50Z",
+        expiresAt: "2026-09-30T02:47:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7668,8 +7668,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A-Control Azelaic Acid Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-28T03:17:58Z",
-        expiresAt: "2026-09-29T03:17:58Z",
+        observedAt: "2026-09-29T02:47:50Z",
+        expiresAt: "2026-09-30T02:47:50Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
