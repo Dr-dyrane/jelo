@@ -6443,8 +6443,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-09-29T17:49:17Z",
-        expiresAt: "2026-09-30T17:49:17Z",
+        observedAt: "2026-09-30T17:47:54Z",
+        expiresAt: "2026-10-01T17:47:54Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -7479,8 +7479,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Effaclar Purifying Foaming Gel Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-09-29T17:49:10Z",
-        expiresAt: "2026-09-30T17:49:10Z",
+        observedAt: "2026-09-30T17:47:53Z",
+        expiresAt: "2026-10-01T17:47:53Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
