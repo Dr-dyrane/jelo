@@ -1539,8 +1539,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-09-29T19:19:13Z",
-        expiresAt: "2026-09-30T19:19:13Z",
+        observedAt: "2026-09-30T18:49:10Z",
+        expiresAt: "2026-10-01T18:49:10Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2053,8 +2053,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Azelaic Acid Suspension 10%",
       "30 ml",
       {
-        observedAt: "2026-09-29T19:19:33Z",
-        expiresAt: "2026-09-30T19:19:33Z",
+        observedAt: "2026-09-30T18:49:10Z",
+        expiresAt: "2026-10-01T18:49:10Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2398,8 +2398,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "PANOXYL Acne Foaming Wash Benzoyl Peroxide 10% - 156g",
       "156 g",
       {
-        observedAt: "2026-09-29T19:19:42Z",
-        expiresAt: "2026-09-30T19:19:42Z",
+        observedAt: "2026-09-30T18:49:05Z",
+        expiresAt: "2026-10-01T18:49:05Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4989,8 +4989,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Niacinamide Blemish Recovery Serum 30ml (1oz)",
       "30 ml",
       {
-        observedAt: "2026-09-29T19:19:13Z",
-        expiresAt: "2026-09-30T19:19:13Z",
+        observedAt: "2026-09-30T18:49:10Z",
+        expiresAt: "2026-10-01T18:49:10Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
