@@ -7939,8 +7939,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-09-29T16:47:50Z",
-        expiresAt: "2026-09-30T16:47:50Z",
+        observedAt: "2026-09-30T16:17:49Z",
+        expiresAt: "2026-10-01T16:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
