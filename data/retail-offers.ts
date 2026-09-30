@@ -1180,8 +1180,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic acid Daily Gentle Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-09-29T01:19:02Z",
-        expiresAt: "2026-09-30T01:19:02Z",
+        observedAt: "2026-09-30T01:18:35Z",
+        expiresAt: "2026-10-01T01:18:35Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5760,8 +5760,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Collagen & Hydrating Serum With Ceramides - 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-29T02:17:49Z",
-        expiresAt: "2026-09-30T02:17:49Z",
+        observedAt: "2026-09-30T01:18:34Z",
+        expiresAt: "2026-10-01T01:18:34Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
