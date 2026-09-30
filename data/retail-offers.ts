@@ -455,8 +455,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Shea Better Coconut Waters Body Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-09-29T02:47:48Z",
-        expiresAt: "2026-09-30T02:47:48Z",
+        observedAt: "2026-09-30T01:49:06Z",
+        expiresAt: "2026-10-01T01:49:06Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -517,8 +517,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Pink Champagne Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-09-29T02:47:50Z",
-        expiresAt: "2026-09-30T02:47:50Z",
+        observedAt: "2026-09-30T01:48:59Z",
+        expiresAt: "2026-10-01T01:48:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
