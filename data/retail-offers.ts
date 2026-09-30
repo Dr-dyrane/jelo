@@ -487,8 +487,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-09-29T11:17:50Z",
-        expiresAt: "2026-09-30T11:17:50Z",
+        observedAt: "2026-09-30T10:47:52Z",
+        expiresAt: "2026-10-01T10:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5159,8 +5159,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-29T11:17:50Z",
-        expiresAt: "2026-09-30T11:17:50Z",
+        observedAt: "2026-09-30T10:47:50Z",
+        expiresAt: "2026-10-01T10:47:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7021,8 +7021,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Enhance Gel Cream Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-09-29T11:17:50Z",
-        expiresAt: "2026-09-30T11:17:50Z",
+        observedAt: "2026-09-30T10:47:52Z",
+        expiresAt: "2026-10-01T10:47:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
