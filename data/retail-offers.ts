@@ -7879,8 +7879,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-09-30T23:17:51Z",
-        expiresAt: "2026-10-01T23:17:51Z",
+        observedAt: "2026-10-01T23:17:51Z",
+        expiresAt: "2026-10-02T23:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
