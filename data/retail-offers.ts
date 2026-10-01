@@ -379,8 +379,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Glow Serum : Propolis + Niacinamide",
       "30 ml",
       {
-        observedAt: "2026-09-30T14:18:17Z",
-        expiresAt: "2026-10-01T14:18:17Z",
+        observedAt: "2026-10-01T14:47:58Z",
+        expiresAt: "2026-10-02T14:47:58Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5112,8 +5112,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-09-30T15:47:51Z",
-        expiresAt: "2026-10-01T15:47:51Z",
+        observedAt: "2026-10-01T14:47:56Z",
+        expiresAt: "2026-10-02T14:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8953,8 +8953,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinaldehyde Cream Serum 0.05% 50ml /1.7fl",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-09-30T15:47:52Z",
-        expiresAt: "2026-10-01T15:47:52Z",
+        observedAt: "2026-10-01T14:48:04Z",
+        expiresAt: "2026-10-02T14:48:04Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
