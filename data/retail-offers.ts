@@ -71,8 +71,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract)",
       "1000 ml",
       {
-        observedAt: "2026-09-30T14:18:23Z",
-        expiresAt: "2026-10-01T14:18:23Z",
+        observedAt: "2026-10-01T14:18:52Z",
+        expiresAt: "2026-10-02T14:18:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -2903,8 +2903,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Acne Foaming Cream Cleanser 4% Benzoyl Peroxide",
       "150 ml / 5 fl oz",
       {
-        observedAt: "2026-09-30T14:47:52Z",
-        expiresAt: "2026-10-01T14:47:52Z",
+        observedAt: "2026-10-01T14:18:55Z",
+        expiresAt: "2026-10-02T14:18:55Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -3421,8 +3421,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion",
       "400 ml",
       {
-        observedAt: "2026-09-30T14:18:24Z",
-        expiresAt: "2026-10-01T14:18:24Z",
+        observedAt: "2026-10-01T14:18:54Z",
+        expiresAt: "2026-10-02T14:18:54Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
