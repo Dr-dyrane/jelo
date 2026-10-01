@@ -4822,8 +4822,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nivea Perfect & Radiant Body Lotion 400ml",
       "400 ml",
       {
-        observedAt: "2026-09-30T00:49:27Z",
-        expiresAt: "2026-10-01T00:49:27Z",
+        observedAt: "2026-10-01T00:48:00Z",
+        expiresAt: "2026-10-02T00:48:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5760,8 +5760,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Collagen & Hydrating Serum With Ceramides - 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-30T01:18:34Z",
-        expiresAt: "2026-10-01T01:18:34Z",
+        observedAt: "2026-10-01T00:47:49Z",
+        expiresAt: "2026-10-02T00:47:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8595,8 +8595,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Niacinamide Serum 12% Plus Zinc 2% 30ml",
       "1.0 fl oz / 30 mL",
       {
-        observedAt: "2026-09-30T00:48:49Z",
-        expiresAt: "2026-10-01T00:48:49Z",
+        observedAt: "2026-10-01T00:47:54Z",
+        expiresAt: "2026-10-02T00:47:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
