@@ -1929,8 +1929,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Foaming Facial Cleanser 8 oz (237ml) US Version",
       "236 ml",
       {
-        observedAt: "2026-09-30T06:47:51Z",
-        expiresAt: "2026-10-01T06:47:51Z",
+        observedAt: "2026-10-01T06:17:50Z",
+        expiresAt: "2026-10-02T06:17:50Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -2428,8 +2428,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Acne Foaming Wash Benzoyl Peroxide 10% | 5.5oz",
       "156 g",
       {
-        observedAt: "2026-09-30T06:47:51Z",
-        expiresAt: "2026-10-01T06:47:51Z",
+        observedAt: "2026-10-01T06:17:52Z",
+        expiresAt: "2026-10-02T06:17:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4295,8 +4295,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche Posay Mela B3 Serum – Dark Spot Corrector – 30ml",
       "30 ml",
       {
-        observedAt: "2026-09-30T06:47:51Z",
-        expiresAt: "2026-10-01T06:47:51Z",
+        observedAt: "2026-10-01T06:17:50Z",
+        expiresAt: "2026-10-02T06:17:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8205,8 +8205,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Brightener Vitamin C Brightening Body Wash 16.9floz/500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-09-30T06:47:50Z",
-        expiresAt: "2026-10-01T06:47:50Z",
+        observedAt: "2026-10-01T06:17:50Z",
+        expiresAt: "2026-10-02T06:17:50Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
