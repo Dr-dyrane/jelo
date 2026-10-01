@@ -1992,8 +1992,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Blemish Control Face Cleanser",
       "236 ml",
       {
-        observedAt: "2026-09-30T22:48:04Z",
-        expiresAt: "2026-10-01T22:48:04Z",
+        observedAt: "2026-10-01T22:17:51Z",
+        expiresAt: "2026-10-02T22:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3498,8 +3498,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream 50Ml",
       "50 ml",
       {
-        observedAt: "2026-09-30T22:48:01Z",
-        expiresAt: "2026-10-01T22:48:01Z",
+        observedAt: "2026-10-01T22:17:54Z",
+        expiresAt: "2026-10-02T22:17:54Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4053,8 +4053,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening Exfoliating Body Wash",
       "650 ml",
       {
-        observedAt: "2026-09-30T22:47:55Z",
-        expiresAt: "2026-10-01T22:47:55Z",
+        observedAt: "2026-10-01T22:17:50Z",
+        expiresAt: "2026-10-02T22:17:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4540,8 +4540,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-09-30T22:47:56Z",
-        expiresAt: "2026-10-01T22:47:56Z",
+        observedAt: "2026-10-01T22:17:51Z",
+        expiresAt: "2026-10-02T22:17:51Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
