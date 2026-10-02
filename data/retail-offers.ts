@@ -1300,8 +1300,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SOME BY MI AHA BHA PHA 30 Days Miracle Toner",
       "150 ml",
       {
-        observedAt: "2026-10-01T13:49:11Z",
-        expiresAt: "2026-10-02T13:49:11Z",
+        observedAt: "2026-10-02T13:18:02Z",
+        expiresAt: "2026-10-03T13:18:02Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -7759,8 +7759,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Creamy Acne Wash 4% Benzoyl Peroxide 6.0O",
       "170 g",
       {
-        observedAt: "2026-10-01T13:48:36Z",
-        expiresAt: "2026-10-02T13:48:36Z",
+        observedAt: "2026-10-02T13:17:51Z",
+        expiresAt: "2026-10-03T13:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8970,8 +8970,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinaldehyde Cream Serum 0.10% 50ml / 1.7fl",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-10-01T13:49:12Z",
-        expiresAt: "2026-10-02T13:49:12Z",
+        observedAt: "2026-10-02T13:18:02Z",
+        expiresAt: "2026-10-03T13:18:02Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
