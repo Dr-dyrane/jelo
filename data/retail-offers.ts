@@ -3236,8 +3236,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-01T16:48:02Z",
-        expiresAt: "2026-10-02T16:48:02Z",
+        observedAt: "2026-10-02T16:47:52Z",
+        expiresAt: "2026-10-03T16:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3451,8 +3451,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion 13.53fl oz 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-01T16:48:02Z",
-        expiresAt: "2026-10-02T16:48:02Z",
+        observedAt: "2026-10-02T16:47:52Z",
+        expiresAt: "2026-10-03T16:47:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4418,8 +4418,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Facial Cleanser, Face wash for Normal to Dry skin 473ml (US Version)",
       "473 ml",
       {
-        observedAt: "2026-10-01T16:48:02Z",
-        expiresAt: "2026-10-02T16:48:02Z",
+        observedAt: "2026-10-02T16:47:52Z",
+        expiresAt: "2026-10-03T16:47:52Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
