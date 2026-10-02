@@ -4643,8 +4643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml",
       "250 ml",
       {
-        observedAt: "2026-10-01T09:18:22Z",
-        expiresAt: "2026-10-02T09:18:22Z",
+        observedAt: "2026-10-02T09:17:50Z",
+        expiresAt: "2026-10-03T09:17:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
