@@ -5730,8 +5730,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Collagen And Hydrating Serum With Ceramides 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-01T02:47:57Z",
-        expiresAt: "2026-10-02T02:47:57Z",
+        observedAt: "2026-10-02T02:18:01Z",
+        expiresAt: "2026-10-03T02:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6275,8 +6275,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-01T02:47:56Z",
-        expiresAt: "2026-10-02T02:47:56Z",
+        observedAt: "2026-10-02T02:18:02Z",
+        expiresAt: "2026-10-03T02:18:02Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
