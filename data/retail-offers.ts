@@ -4883,8 +4883,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind to Skin Refreshing Facial Gel Wash 150ML",
       "150 ml",
       {
-        observedAt: "2026-10-01T11:48:26Z",
-        expiresAt: "2026-10-02T11:48:26Z",
+        observedAt: "2026-10-02T11:47:57Z",
+        expiresAt: "2026-10-03T11:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7590,8 +7590,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Neutrogena Moisturizing Body Oil, Light Sesame Formula Original | 8.5 fl oz",
       "8.5 fl oz",
       {
-        observedAt: "2026-10-01T12:17:51Z",
-        expiresAt: "2026-10-02T12:17:51Z",
+        observedAt: "2026-10-02T11:47:51Z",
+        expiresAt: "2026-10-03T11:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
