@@ -3451,8 +3451,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion 13.53fl oz 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-02T16:47:52Z",
-        expiresAt: "2026-10-03T16:47:52Z",
+        observedAt: "2026-10-03T16:17:54Z",
+        expiresAt: "2026-10-04T16:17:54Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4418,8 +4418,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Facial Cleanser, Face wash for Normal to Dry skin 473ml (US Version)",
       "473 ml",
       {
-        observedAt: "2026-10-02T16:47:52Z",
-        expiresAt: "2026-10-03T16:47:52Z",
+        observedAt: "2026-10-03T16:17:53Z",
+        expiresAt: "2026-10-04T16:17:53Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -4761,8 +4761,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NIVEA PERFECT & RADIANT BODY LOTION 400ML",
       "400 ml",
       {
-        observedAt: "2026-10-02T16:18:47Z",
-        expiresAt: "2026-10-03T16:18:47Z",
+        observedAt: "2026-10-03T16:17:54Z",
+        expiresAt: "2026-10-04T16:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
