@@ -7560,8 +7560,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
       "8.5 fl oz",
       {
-        observedAt: "2026-10-02T18:18:09Z",
-        expiresAt: "2026-10-03T18:18:09Z",
+        observedAt: "2026-10-03T17:47:49Z",
+        expiresAt: "2026-10-04T17:47:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
