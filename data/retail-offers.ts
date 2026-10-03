@@ -1629,8 +1629,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-10-02T18:48:57Z",
-        expiresAt: "2026-10-03T18:48:57Z",
+        observedAt: "2026-10-03T18:19:00Z",
+        expiresAt: "2026-10-04T18:19:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2857,8 +2857,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe SA Smoothing Cleanser 473ml/16oz US Version",
       "473 ml",
       {
-        observedAt: "2026-10-02T18:48:51Z",
-        expiresAt: "2026-10-03T18:48:51Z",
+        observedAt: "2026-10-03T18:18:53Z",
+        expiresAt: "2026-10-04T18:18:53Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -3576,8 +3576,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "DOVE CALMING MOISTURE 3% Body Wash 547ml",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-10-02T18:48:52Z",
-        expiresAt: "2026-10-03T18:48:52Z",
+        observedAt: "2026-10-03T18:18:53Z",
+        expiresAt: "2026-10-04T18:18:53Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5037,8 +5037,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-02T18:48:56Z",
-        expiresAt: "2026-10-03T18:48:56Z",
+        observedAt: "2026-10-03T18:18:53Z",
+        expiresAt: "2026-10-04T18:18:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
