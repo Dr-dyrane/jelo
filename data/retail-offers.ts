@@ -3310,8 +3310,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Oil Control Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-02T07:48:00Z",
-        expiresAt: "2026-10-03T07:48:00Z",
+        observedAt: "2026-10-03T07:17:55Z",
+        expiresAt: "2026-10-04T07:17:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6226,8 +6226,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Soothe + Glow Niacinamide Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-02T07:47:55Z",
-        expiresAt: "2026-10-03T07:47:55Z",
+        observedAt: "2026-10-03T07:17:53Z",
+        expiresAt: "2026-10-04T07:17:53Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
