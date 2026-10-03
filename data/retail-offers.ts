@@ -1135,8 +1135,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10 + Hyaluron Redness Soothing Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-02T04:48:07Z",
-        expiresAt: "2026-10-03T04:48:07Z",
+        observedAt: "2026-10-03T05:18:19Z",
+        expiresAt: "2026-10-04T05:18:19Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3727,8 +3727,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dove Skin Replenish Pink Lily Body Wash With 2% Niacinamide & BHA Refining Serum 547ml",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-10-02T04:48:06Z",
-        expiresAt: "2026-10-03T04:48:06Z",
+        observedAt: "2026-10-03T05:17:58Z",
+        expiresAt: "2026-10-04T05:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8766,8 +8766,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Body Lotion 234ml",
       "8 fl oz / 234 mL",
       {
-        observedAt: "2026-10-02T04:48:08Z",
-        expiresAt: "2026-10-03T04:48:08Z",
+        observedAt: "2026-10-03T05:18:18Z",
+        expiresAt: "2026-10-04T05:18:18Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
