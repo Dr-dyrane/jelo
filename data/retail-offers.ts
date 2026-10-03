@@ -1539,8 +1539,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-10-02T17:18:29Z",
-        expiresAt: "2026-10-03T17:18:29Z",
+        observedAt: "2026-10-03T16:48:38Z",
+        expiresAt: "2026-10-04T16:48:38Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2398,8 +2398,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "PANOXYL Acne Foaming Wash Benzoyl Peroxide 10% - 156g",
       "156 g",
       {
-        observedAt: "2026-10-02T17:18:23Z",
-        expiresAt: "2026-10-03T17:18:23Z",
+        observedAt: "2026-10-03T16:48:34Z",
+        expiresAt: "2026-10-04T16:48:34Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3236,8 +3236,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-02T16:47:52Z",
-        expiresAt: "2026-10-03T16:47:52Z",
+        observedAt: "2026-10-03T16:48:37Z",
+        expiresAt: "2026-10-04T16:48:37Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
