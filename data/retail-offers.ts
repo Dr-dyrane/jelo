@@ -7972,8 +7972,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Body Oil 100ml",
       "3.4 fl oz / 100 mL",
       {
-        observedAt: "2026-10-02T07:47:54Z",
-        expiresAt: "2026-10-03T07:47:54Z",
+        observedAt: "2026-10-03T06:48:12Z",
+        expiresAt: "2026-10-04T06:48:12Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8144,8 +8144,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Bio-Lipid Restoring Body Lotion 414ml",
       "14 fl oz / 414 mL",
       {
-        observedAt: "2026-10-02T07:47:50Z",
-        expiresAt: "2026-10-03T07:47:50Z",
+        observedAt: "2026-10-03T06:48:09Z",
+        expiresAt: "2026-10-04T06:48:09Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8285,8 +8285,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-10-02T07:47:52Z",
-        expiresAt: "2026-10-03T07:47:52Z",
+        observedAt: "2026-10-03T06:48:10Z",
+        expiresAt: "2026-10-04T06:48:10Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
