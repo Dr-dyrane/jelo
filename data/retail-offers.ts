@@ -487,8 +487,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-02T09:48:01Z",
-        expiresAt: "2026-10-03T09:48:01Z",
+        observedAt: "2026-10-03T09:17:49Z",
+        expiresAt: "2026-10-04T09:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4643,8 +4643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml",
       "250 ml",
       {
-        observedAt: "2026-10-02T09:17:50Z",
-        expiresAt: "2026-10-03T09:17:50Z",
+        observedAt: "2026-10-03T09:17:51Z",
+        expiresAt: "2026-10-04T09:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5159,8 +5159,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-02T09:47:53Z",
-        expiresAt: "2026-10-03T09:47:53Z",
+        observedAt: "2026-10-03T09:17:51Z",
+        expiresAt: "2026-10-04T09:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7021,8 +7021,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Enhance Gel Cream Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-02T09:48:06Z",
-        expiresAt: "2026-10-03T09:48:06Z",
+        observedAt: "2026-10-03T09:17:59Z",
+        expiresAt: "2026-10-04T09:17:59Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
