@@ -7698,8 +7698,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS A Control Azelaic Acid Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-03T06:18:47Z",
-        expiresAt: "2026-10-04T06:18:47Z",
+        observedAt: "2026-10-04T06:17:53Z",
+        expiresAt: "2026-10-05T06:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7972,8 +7972,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Body Oil 100ml",
       "3.4 fl oz / 100 mL",
       {
-        observedAt: "2026-10-03T06:48:12Z",
-        expiresAt: "2026-10-04T06:48:12Z",
+        observedAt: "2026-10-04T06:17:55Z",
+        expiresAt: "2026-10-05T06:17:55Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8144,8 +8144,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Bio-Lipid Restoring Body Lotion 414ml",
       "14 fl oz / 414 mL",
       {
-        observedAt: "2026-10-03T06:48:09Z",
-        expiresAt: "2026-10-04T06:48:09Z",
+        observedAt: "2026-10-04T06:17:51Z",
+        expiresAt: "2026-10-05T06:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8285,8 +8285,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-10-03T06:48:10Z",
-        expiresAt: "2026-10-04T06:48:10Z",
+        observedAt: "2026-10-04T06:17:57Z",
+        expiresAt: "2026-10-05T06:17:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
