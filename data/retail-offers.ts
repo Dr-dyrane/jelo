@@ -2779,8 +2779,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave moisturizing Cream 16 OZ (453g) USA version",
       "453 g",
       {
-        observedAt: "2026-10-03T19:51:41Z",
-        expiresAt: "2026-10-04T19:51:41Z",
+        observedAt: "2026-10-04T19:18:44Z",
+        expiresAt: "2026-10-05T19:18:44Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
