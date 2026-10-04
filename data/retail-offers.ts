@@ -2492,8 +2492,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-10-03T14:47:56Z",
-        expiresAt: "2026-10-04T14:47:56Z",
+        observedAt: "2026-10-04T16:47:54Z",
+        expiresAt: "2026-10-05T16:47:54Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -3236,8 +3236,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-03T16:48:37Z",
-        expiresAt: "2026-10-04T16:48:37Z",
+        observedAt: "2026-10-04T16:47:50Z",
+        expiresAt: "2026-10-05T16:47:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5247,8 +5247,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A-Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-03T14:47:57Z",
-        expiresAt: "2026-10-04T14:47:57Z",
+        observedAt: "2026-10-04T16:47:54Z",
+        expiresAt: "2026-10-05T16:47:54Z",
         stock: "out-of-stock",
         available: false,
         inventoryQuantity: 2,
