@@ -7940,8 +7940,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-03T14:17:55Z",
-        expiresAt: "2026-10-04T14:17:55Z",
+        observedAt: "2026-10-04T13:48:22Z",
+        expiresAt: "2026-10-05T13:48:22Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8826,8 +8826,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Exfoliating Body Wash 500ml",
       "16.9 oz / 500 mL",
       {
-        observedAt: "2026-10-02T12:17:56Z",
-        expiresAt: "2026-10-03T12:17:56Z",
+        observedAt: "2026-10-04T13:48:09Z",
+        expiresAt: "2026-10-05T13:48:09Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
