@@ -3359,8 +3359,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Blemish Gel Moisturiser",
       "50 ml",
       {
-        observedAt: "2026-10-03T23:18:16Z",
-        expiresAt: "2026-10-04T23:18:16Z",
+        observedAt: "2026-10-04T23:17:54Z",
+        expiresAt: "2026-10-05T23:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4958,8 +4958,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-03T23:47:55Z",
-        expiresAt: "2026-10-04T23:47:55Z",
+        observedAt: "2026-10-04T23:17:54Z",
+        expiresAt: "2026-10-05T23:17:54Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
