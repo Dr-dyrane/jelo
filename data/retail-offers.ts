@@ -2398,8 +2398,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "PANOXYL Acne Foaming Wash Benzoyl Peroxide 10% - 156g",
       "156 g",
       {
-        observedAt: "2026-10-03T16:48:34Z",
-        expiresAt: "2026-10-04T16:48:34Z",
+        observedAt: "2026-10-04T16:17:55Z",
+        expiresAt: "2026-10-05T16:17:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
