@@ -3975,8 +3975,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening and Moisturizing Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-04T11:17:50Z",
-        expiresAt: "2026-10-05T11:17:50Z",
+        observedAt: "2026-10-05T10:47:49Z",
+        expiresAt: "2026-10-06T10:47:49Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 10,
@@ -7021,8 +7021,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Enhance Gel Cream Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-04T11:17:53Z",
-        expiresAt: "2026-10-05T11:17:53Z",
+        observedAt: "2026-10-05T10:47:52Z",
+        expiresAt: "2026-10-06T10:47:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
