@@ -71,8 +71,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract)",
       "1000 ml",
       {
-        observedAt: "2026-10-04T12:17:54Z",
-        expiresAt: "2026-10-05T12:17:54Z",
+        observedAt: "2026-10-05T11:47:59Z",
+        expiresAt: "2026-10-06T11:47:59Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -1300,8 +1300,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SOME BY MI AHA BHA PHA 30 Days Miracle Toner",
       "150 ml",
       {
-        observedAt: "2026-10-04T12:17:56Z",
-        expiresAt: "2026-10-05T12:17:56Z",
+        observedAt: "2026-10-05T11:47:58Z",
+        expiresAt: "2026-10-06T11:47:58Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -2903,8 +2903,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Acne Foaming Cream Cleanser 4% Benzoyl Peroxide",
       "150 ml / 5 fl oz",
       {
-        observedAt: "2026-10-04T12:18:00Z",
-        expiresAt: "2026-10-05T12:18:00Z",
+        observedAt: "2026-10-05T11:48:24Z",
+        expiresAt: "2026-10-06T11:48:24Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -3421,8 +3421,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion",
       "400 ml",
       {
-        observedAt: "2026-10-04T12:17:54Z",
-        expiresAt: "2026-10-05T12:17:54Z",
+        observedAt: "2026-10-05T11:47:59Z",
+        expiresAt: "2026-10-06T11:47:59Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
