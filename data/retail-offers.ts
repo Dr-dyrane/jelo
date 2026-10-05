@@ -2779,8 +2779,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave moisturizing Cream 16 OZ (453g) USA version",
       "453 g",
       {
-        observedAt: "2026-10-04T19:18:44Z",
-        expiresAt: "2026-10-05T19:18:44Z",
+        observedAt: "2026-10-05T19:17:53Z",
+        expiresAt: "2026-10-06T19:17:53Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -4038,8 +4038,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin by Zaron Vitamin C Body Wash 650ml",
       "650 ml",
       {
-        observedAt: "2026-10-04T19:47:57Z",
-        expiresAt: "2026-10-05T19:47:57Z",
+        observedAt: "2026-10-05T19:17:54Z",
+        expiresAt: "2026-10-06T19:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
