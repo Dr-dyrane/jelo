@@ -5730,8 +5730,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Collagen And Hydrating Serum With Ceramides 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-04T01:17:51Z",
-        expiresAt: "2026-10-05T01:17:51Z",
+        observedAt: "2026-10-05T00:17:56Z",
+        expiresAt: "2026-10-06T00:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
