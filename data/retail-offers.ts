@@ -2428,8 +2428,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Acne Foaming Wash Benzoyl Peroxide 10% | 5.5oz",
       "156 g",
       {
-        observedAt: "2026-10-04T04:18:00Z",
-        expiresAt: "2026-10-05T04:18:00Z",
+        observedAt: "2026-10-05T03:48:24Z",
+        expiresAt: "2026-10-06T03:48:24Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7081,8 +7081,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "ANUA Zero Cast Moisturizing Finish Sunscreen",
       "50 ml",
       {
-        observedAt: "2026-10-04T04:18:02Z",
-        expiresAt: "2026-10-05T04:18:02Z",
+        observedAt: "2026-10-05T03:48:25Z",
+        expiresAt: "2026-10-06T03:48:25Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8206,8 +8206,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Brightener Vitamin C Brightening Body Wash 16.9floz/500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-10-04T04:18:02Z",
-        expiresAt: "2026-10-05T04:18:02Z",
+        observedAt: "2026-10-05T03:48:25Z",
+        expiresAt: "2026-10-06T03:48:25Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
