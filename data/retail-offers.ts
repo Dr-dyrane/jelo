@@ -4540,8 +4540,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-04T20:49:04Z",
-        expiresAt: "2026-10-05T20:49:04Z",
+        observedAt: "2026-10-05T20:50:17Z",
+        expiresAt: "2026-10-06T20:50:17Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7879,8 +7879,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-04T21:19:36Z",
-        expiresAt: "2026-10-05T21:19:36Z",
+        observedAt: "2026-10-05T20:50:17Z",
+        expiresAt: "2026-10-06T20:50:17Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
