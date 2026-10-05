@@ -8970,8 +8970,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinaldehyde Cream Serum 0.10% 50ml / 1.7fl",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-10-04T12:17:54Z",
-        expiresAt: "2026-10-05T12:17:54Z",
+        observedAt: "2026-10-05T12:17:55Z",
+        expiresAt: "2026-10-06T12:17:55Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
