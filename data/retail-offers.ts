@@ -1539,8 +1539,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-10-04T17:18:37Z",
-        expiresAt: "2026-10-05T17:18:37Z",
+        observedAt: "2026-10-05T16:48:01Z",
+        expiresAt: "2026-10-06T16:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2053,8 +2053,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Azelaic Acid Suspension 10%",
       "30 ml",
       {
-        observedAt: "2026-10-04T17:18:37Z",
-        expiresAt: "2026-10-05T17:18:37Z",
+        observedAt: "2026-10-05T16:48:02Z",
+        expiresAt: "2026-10-06T16:48:02Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4989,8 +4989,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Niacinamide Blemish Recovery Serum 30ml (1oz)",
       "30 ml",
       {
-        observedAt: "2026-10-04T17:18:41Z",
-        expiresAt: "2026-10-05T17:18:41Z",
+        observedAt: "2026-10-05T16:48:01Z",
+        expiresAt: "2026-10-06T16:48:01Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -7560,8 +7560,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
       "8.5 fl oz",
       {
-        observedAt: "2026-10-04T17:18:41Z",
-        expiresAt: "2026-10-05T17:18:41Z",
+        observedAt: "2026-10-05T16:47:49Z",
+        expiresAt: "2026-10-06T16:47:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
