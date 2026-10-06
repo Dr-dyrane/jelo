@@ -1629,8 +1629,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-10-05T17:17:54Z",
-        expiresAt: "2026-10-06T17:17:54Z",
+        observedAt: "2026-10-06T16:47:53Z",
+        expiresAt: "2026-10-07T16:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2857,8 +2857,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe SA Smoothing Cleanser 473ml/16oz US Version",
       "473 ml",
       {
-        observedAt: "2026-10-05T17:17:55Z",
-        expiresAt: "2026-10-06T17:17:55Z",
+        observedAt: "2026-10-06T16:48:01Z",
+        expiresAt: "2026-10-07T16:48:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5037,8 +5037,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-05T17:17:54Z",
-        expiresAt: "2026-10-06T17:17:54Z",
+        observedAt: "2026-10-06T16:47:53Z",
+        expiresAt: "2026-10-07T16:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
