@@ -643,8 +643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Perfector  Salicylic Acid Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-10-04T22:17:56Z",
-        expiresAt: "2026-10-05T22:17:56Z",
+        observedAt: "2026-10-06T00:17:51Z",
+        expiresAt: "2026-10-07T00:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
