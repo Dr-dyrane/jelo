@@ -3498,8 +3498,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream 50Ml",
       "50 ml",
       {
-        observedAt: "2026-10-05T20:18:33Z",
-        expiresAt: "2026-10-06T20:18:33Z",
+        observedAt: "2026-10-06T20:18:05Z",
+        expiresAt: "2026-10-07T20:18:05Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4250,8 +4250,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-04T18:18:06Z",
-        expiresAt: "2026-10-05T18:18:06Z",
+        observedAt: "2026-10-06T20:17:51Z",
+        expiresAt: "2026-10-07T20:17:51Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -4540,8 +4540,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-05T20:50:17Z",
-        expiresAt: "2026-10-06T20:50:17Z",
+        observedAt: "2026-10-06T20:17:52Z",
+        expiresAt: "2026-10-07T20:17:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
