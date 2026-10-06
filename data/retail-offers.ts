@@ -578,8 +578,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Shea Better Vanilla Cashmere Body Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-05T06:48:04Z",
-        expiresAt: "2026-10-06T06:48:04Z",
+        observedAt: "2026-10-06T06:18:48Z",
+        expiresAt: "2026-10-07T06:18:48Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3374,8 +3374,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Blemish Gel Moisturizer 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-05T06:48:07Z",
-        expiresAt: "2026-10-06T06:48:07Z",
+        observedAt: "2026-10-06T06:18:39Z",
+        expiresAt: "2026-10-07T06:18:39Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4143,8 +4143,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe PM Facial Moisturising Lotion 52ml",
       "52 ml",
       {
-        observedAt: "2026-10-05T06:48:01Z",
-        expiresAt: "2026-10-06T06:48:01Z",
+        observedAt: "2026-10-06T06:18:48Z",
+        expiresAt: "2026-10-07T06:18:48Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6210,8 +6210,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Soothe Glow Niacinamide Serum - 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-05T07:18:14Z",
-        expiresAt: "2026-10-06T07:18:14Z",
+        observedAt: "2026-10-06T06:18:34Z",
+        expiresAt: "2026-10-07T06:18:34Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
