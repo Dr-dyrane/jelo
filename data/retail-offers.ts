@@ -1992,8 +1992,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Blemish Control Face Cleanser",
       "236 ml",
       {
-        observedAt: "2026-10-05T20:17:51Z",
-        expiresAt: "2026-10-06T20:17:51Z",
+        observedAt: "2026-10-06T19:18:56Z",
+        expiresAt: "2026-10-07T19:18:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2083,8 +2083,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Azelaic Acid Suspension 10% | 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-05T20:17:50Z",
-        expiresAt: "2026-10-06T20:17:50Z",
+        observedAt: "2026-10-06T19:18:59Z",
+        expiresAt: "2026-10-07T19:18:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2779,8 +2779,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave moisturizing Cream 16 OZ (453g) USA version",
       "453 g",
       {
-        observedAt: "2026-10-05T19:17:53Z",
-        expiresAt: "2026-10-06T19:17:53Z",
+        observedAt: "2026-10-06T19:18:41Z",
+        expiresAt: "2026-10-07T19:18:41Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -4038,8 +4038,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin by Zaron Vitamin C Body Wash 650ml",
       "650 ml",
       {
-        observedAt: "2026-10-05T19:17:54Z",
-        expiresAt: "2026-10-06T19:17:54Z",
+        observedAt: "2026-10-06T19:18:41Z",
+        expiresAt: "2026-10-07T19:18:41Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
