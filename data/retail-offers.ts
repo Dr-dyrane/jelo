@@ -4479,8 +4479,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Cleanser (16fl Oz/473ml)",
       "473 ml",
       {
-        observedAt: "2026-10-06T09:48:10Z",
-        expiresAt: "2026-10-07T09:48:10Z",
+        observedAt: "2026-10-07T09:17:53Z",
+        expiresAt: "2026-10-08T09:17:53Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4883,8 +4883,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind to Skin Refreshing Facial Gel Wash 150ML",
       "150 ml",
       {
-        observedAt: "2026-10-06T09:47:53Z",
-        expiresAt: "2026-10-07T09:47:53Z",
+        observedAt: "2026-10-07T09:17:52Z",
+        expiresAt: "2026-10-08T09:17:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6323,8 +6323,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Lotion with Turmeric and Vitamin C; GTIN 4897073186542",
       "500 ml",
       {
-        observedAt: "2026-10-06T09:48:16Z",
-        expiresAt: "2026-10-07T09:48:16Z",
+        observedAt: "2026-10-07T09:17:56Z",
+        expiresAt: "2026-10-08T09:17:56Z",
         inventoryQuantity: 3,
         stock: "in-stock",
         available: true,
