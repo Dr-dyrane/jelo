@@ -487,8 +487,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-06T07:19:14Z",
-        expiresAt: "2026-10-07T07:19:14Z",
+        observedAt: "2026-10-07T06:47:55Z",
+        expiresAt: "2026-10-08T06:47:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4941,8 +4941,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind To Skin Refreshing Facial Gel Wash - 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-06T07:19:12Z",
-        expiresAt: "2026-10-07T07:19:12Z",
+        observedAt: "2026-10-07T06:47:55Z",
+        expiresAt: "2026-10-08T06:47:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5159,8 +5159,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-06T07:19:18Z",
-        expiresAt: "2026-10-07T07:19:18Z",
+        observedAt: "2026-10-07T06:47:59Z",
+        expiresAt: "2026-10-08T06:47:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6150,8 +6150,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Soothe & Glow Niacinamide serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-06T07:19:13Z",
-        expiresAt: "2026-10-07T07:19:13Z",
+        observedAt: "2026-10-07T06:47:55Z",
+        expiresAt: "2026-10-08T06:47:55Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
