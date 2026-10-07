@@ -4357,8 +4357,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Vitamin C Gel Moussant Purifying Cleanser - 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-06T05:17:55Z",
-        expiresAt: "2026-10-07T05:17:55Z",
+        observedAt: "2026-10-07T04:47:55Z",
+        expiresAt: "2026-10-08T04:47:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
