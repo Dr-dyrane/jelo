@@ -6104,8 +6104,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Vitamin C Concentrated Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-06T20:51:25Z",
-        expiresAt: "2026-10-07T20:51:25Z",
+        observedAt: "2026-10-07T20:18:12Z",
+        expiresAt: "2026-10-08T20:18:12Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
