@@ -2857,8 +2857,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe SA Smoothing Cleanser 473ml/16oz US Version",
       "473 ml",
       {
-        observedAt: "2026-10-06T16:48:01Z",
-        expiresAt: "2026-10-07T16:48:01Z",
+        observedAt: "2026-10-07T16:18:30Z",
+        expiresAt: "2026-10-08T16:18:30Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
