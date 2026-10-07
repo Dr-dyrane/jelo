@@ -1300,8 +1300,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SOME BY MI AHA BHA PHA 30 Days Miracle Toner",
       "150 ml",
       {
-        observedAt: "2026-10-06T11:17:53Z",
-        expiresAt: "2026-10-07T11:17:53Z",
+        observedAt: "2026-10-07T10:47:53Z",
+        expiresAt: "2026-10-08T10:47:53Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
