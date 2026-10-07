@@ -6196,8 +6196,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Soothe + Glow Niacinamide Serum - 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-06T13:47:56Z",
-        expiresAt: "2026-10-07T13:47:56Z",
+        observedAt: "2026-10-07T13:18:05Z",
+        expiresAt: "2026-10-08T13:18:05Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -8425,8 +8425,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Hydrating Body Wash - 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-10-06T13:47:52Z",
-        expiresAt: "2026-10-07T13:47:52Z",
+        observedAt: "2026-10-07T13:17:59Z",
+        expiresAt: "2026-10-08T13:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8691,8 +8691,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinol Complex Serum – 30ml",
       "1.0 fl oz / 30 mL",
       {
-        observedAt: "2026-10-06T13:47:52Z",
-        expiresAt: "2026-10-07T13:47:52Z",
+        observedAt: "2026-10-07T13:17:58Z",
+        expiresAt: "2026-10-08T13:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
