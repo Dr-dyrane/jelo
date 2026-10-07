@@ -2053,8 +2053,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Azelaic Acid Suspension 10%",
       "30 ml",
       {
-        observedAt: "2026-10-06T15:48:55Z",
-        expiresAt: "2026-10-07T15:48:55Z",
+        observedAt: "2026-10-07T15:47:51Z",
+        expiresAt: "2026-10-08T15:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4989,8 +4989,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Niacinamide Blemish Recovery Serum 30ml (1oz)",
       "30 ml",
       {
-        observedAt: "2026-10-06T15:48:54Z",
-        expiresAt: "2026-10-07T15:48:54Z",
+        observedAt: "2026-10-07T15:47:51Z",
+        expiresAt: "2026-10-08T15:47:51Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
