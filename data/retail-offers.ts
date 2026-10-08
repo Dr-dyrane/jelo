@@ -7760,8 +7760,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Creamy Acne Wash 4% Benzoyl Peroxide 6.0O",
       "170 g",
       {
-        observedAt: "2026-10-07T10:18:04Z",
-        expiresAt: "2026-10-08T10:18:04Z",
+        observedAt: "2026-10-08T09:47:51Z",
+        expiresAt: "2026-10-09T09:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
