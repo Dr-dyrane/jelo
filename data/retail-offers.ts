@@ -1300,8 +1300,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SOME BY MI AHA BHA PHA 30 Days Miracle Toner",
       "150 ml",
       {
-        observedAt: "2026-10-07T10:47:53Z",
-        expiresAt: "2026-10-08T10:47:53Z",
+        observedAt: "2026-10-08T10:17:58Z",
+        expiresAt: "2026-10-09T10:17:58Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -7022,8 +7022,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Enhance Gel Cream Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-07T09:47:58Z",
-        expiresAt: "2026-10-08T09:47:58Z",
+        observedAt: "2026-10-08T10:18:07Z",
+        expiresAt: "2026-10-09T10:18:07Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
