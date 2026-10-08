@@ -3236,8 +3236,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-07T15:17:52Z",
-        expiresAt: "2026-10-08T15:17:52Z",
+        observedAt: "2026-10-08T15:17:51Z",
+        expiresAt: "2026-10-09T15:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4418,8 +4418,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Facial Cleanser, Face wash for Normal to Dry skin 473ml (US Version)",
       "473 ml",
       {
-        observedAt: "2026-10-07T14:48:34Z",
-        expiresAt: "2026-10-08T14:48:34Z",
+        observedAt: "2026-10-08T15:17:51Z",
+        expiresAt: "2026-10-09T15:17:51Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -4761,8 +4761,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NIVEA PERFECT & RADIANT BODY LOTION 400ML",
       "400 ml",
       {
-        observedAt: "2026-10-07T14:48:34Z",
-        expiresAt: "2026-10-08T14:48:34Z",
+        observedAt: "2026-10-08T15:17:52Z",
+        expiresAt: "2026-10-09T15:17:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
