@@ -1914,8 +1914,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Foaming Cleanser For Normal To Oily Skin 8fl oz 236ml",
       "236 ml",
       {
-        observedAt: "2026-10-07T09:47:59Z",
-        expiresAt: "2026-10-08T09:47:59Z",
+        observedAt: "2026-10-08T09:18:00Z",
+        expiresAt: "2026-10-09T09:18:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3975,8 +3975,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening and Moisturizing Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-07T09:47:55Z",
-        expiresAt: "2026-10-08T09:47:55Z",
+        observedAt: "2026-10-08T09:17:57Z",
+        expiresAt: "2026-10-09T09:17:57Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 10,
