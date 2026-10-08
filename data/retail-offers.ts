@@ -2734,8 +2734,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g",
       "454 g",
       {
-        observedAt: "2026-10-08T00:17:49Z",
-        expiresAt: "2026-10-09T00:17:49Z",
+        observedAt: "2026-10-08T23:19:28Z",
+        expiresAt: "2026-10-09T23:19:28Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5777,8 +5777,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Everyday Gentle Foaming Face Wash | 120ml",
       "120 ml",
       {
-        observedAt: "2026-10-08T00:17:49Z",
-        expiresAt: "2026-10-09T00:17:49Z",
+        observedAt: "2026-10-08T23:19:31Z",
+        expiresAt: "2026-10-09T23:19:31Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6060,8 +6060,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Vitamin C Concentrated Serum For Face (Oil Free) 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-08T00:17:49Z",
-        expiresAt: "2026-10-09T00:17:49Z",
+        observedAt: "2026-10-08T23:19:29Z",
+        expiresAt: "2026-10-09T23:19:29Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
