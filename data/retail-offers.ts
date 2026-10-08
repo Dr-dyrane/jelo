@@ -71,8 +71,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract)",
       "1000 ml",
       {
-        observedAt: "2026-10-07T11:18:00Z",
-        expiresAt: "2026-10-08T11:18:00Z",
+        observedAt: "2026-10-08T10:48:03Z",
+        expiresAt: "2026-10-09T10:48:03Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -2903,8 +2903,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Acne Foaming Cream Cleanser 4% Benzoyl Peroxide",
       "150 ml / 5 fl oz",
       {
-        observedAt: "2026-10-07T11:17:57Z",
-        expiresAt: "2026-10-08T11:17:57Z",
+        observedAt: "2026-10-08T10:47:54Z",
+        expiresAt: "2026-10-09T10:47:54Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -3421,8 +3421,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion",
       "400 ml",
       {
-        observedAt: "2026-10-07T11:18:00Z",
-        expiresAt: "2026-10-08T11:18:00Z",
+        observedAt: "2026-10-08T10:48:03Z",
+        expiresAt: "2026-10-09T10:48:03Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8971,8 +8971,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinaldehyde Cream Serum 0.10% 50ml / 1.7fl",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-10-07T11:18:00Z",
-        expiresAt: "2026-10-08T11:18:00Z",
+        observedAt: "2026-10-08T10:47:56Z",
+        expiresAt: "2026-10-09T10:47:56Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
