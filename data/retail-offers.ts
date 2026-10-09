@@ -1539,8 +1539,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-10-08T14:48:58Z",
-        expiresAt: "2026-10-09T14:48:58Z",
+        observedAt: "2026-10-09T15:48:45Z",
+        expiresAt: "2026-10-10T15:48:45Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1629,8 +1629,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-10-08T16:17:55Z",
-        expiresAt: "2026-10-09T16:17:55Z",
+        observedAt: "2026-10-09T15:48:45Z",
+        expiresAt: "2026-10-10T15:48:45Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5037,8 +5037,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-08T16:17:54Z",
-        expiresAt: "2026-10-09T16:17:54Z",
+        observedAt: "2026-10-09T15:48:45Z",
+        expiresAt: "2026-10-10T15:48:45Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
