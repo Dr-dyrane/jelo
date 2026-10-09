@@ -1914,8 +1914,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Foaming Cleanser For Normal To Oily Skin 8fl oz 236ml",
       "236 ml",
       {
-        observedAt: "2026-10-08T09:18:00Z",
-        expiresAt: "2026-10-09T09:18:00Z",
+        observedAt: "2026-10-09T08:48:41Z",
+        expiresAt: "2026-10-10T08:48:41Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3975,8 +3975,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening and Moisturizing Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-08T09:17:57Z",
-        expiresAt: "2026-10-09T09:17:57Z",
+        observedAt: "2026-10-09T08:48:35Z",
+        expiresAt: "2026-10-10T08:48:35Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 10,
@@ -7760,8 +7760,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Creamy Acne Wash 4% Benzoyl Peroxide 6.0O",
       "170 g",
       {
-        observedAt: "2026-10-08T09:47:51Z",
-        expiresAt: "2026-10-09T09:47:51Z",
+        observedAt: "2026-10-09T08:48:39Z",
+        expiresAt: "2026-10-10T08:48:39Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
