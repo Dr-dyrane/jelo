@@ -487,8 +487,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-09T05:47:53Z",
-        expiresAt: "2026-10-10T05:47:53Z",
+        observedAt: "2026-10-10T05:18:12Z",
+        expiresAt: "2026-10-11T05:18:12Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4941,8 +4941,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind To Skin Refreshing Facial Gel Wash - 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-09T05:47:54Z",
-        expiresAt: "2026-10-10T05:47:54Z",
+        observedAt: "2026-10-10T05:18:19Z",
+        expiresAt: "2026-10-11T05:18:19Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
