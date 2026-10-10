@@ -5159,8 +5159,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-09T06:47:50Z",
-        expiresAt: "2026-10-10T06:47:50Z",
+        observedAt: "2026-10-10T05:47:56Z",
+        expiresAt: "2026-10-11T05:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6822,8 +6822,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner",
       "240 ml",
       {
-        observedAt: "2026-10-09T06:47:49Z",
-        expiresAt: "2026-10-10T06:47:49Z",
+        observedAt: "2026-10-10T05:47:53Z",
+        expiresAt: "2026-10-11T05:47:53Z",
         inventoryQuantity: 1,
         stock: "in-stock",
         available: true,
@@ -8039,8 +8039,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA Liquid Exfoliant 2% 120ml",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-10-09T06:47:51Z",
-        expiresAt: "2026-10-10T06:47:51Z",
+        observedAt: "2026-10-10T05:47:56Z",
+        expiresAt: "2026-10-11T05:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8518,8 +8518,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Multi-Peptide Moisturizer - 50ml",
       "1.7 oz / 50 mL",
       {
-        observedAt: "2026-10-09T06:47:52Z",
-        expiresAt: "2026-10-10T06:47:52Z",
+        observedAt: "2026-10-10T05:47:56Z",
+        expiresAt: "2026-10-11T05:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
