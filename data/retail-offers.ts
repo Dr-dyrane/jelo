@@ -3882,8 +3882,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-09T12:47:57Z",
-        expiresAt: "2026-10-10T12:47:57Z",
+        observedAt: "2026-10-10T12:47:51Z",
+        expiresAt: "2026-10-11T12:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
