@@ -3498,8 +3498,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream 50Ml",
       "50 ml",
       {
-        observedAt: "2026-10-09T18:18:02Z",
-        expiresAt: "2026-10-10T18:18:02Z",
+        observedAt: "2026-10-10T17:18:47Z",
+        expiresAt: "2026-10-11T17:18:47Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4250,8 +4250,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-09T18:17:51Z",
-        expiresAt: "2026-10-10T18:17:51Z",
+        observedAt: "2026-10-10T17:18:43Z",
+        expiresAt: "2026-10-11T17:18:43Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -4540,8 +4540,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-09T18:17:50Z",
-        expiresAt: "2026-10-10T18:17:50Z",
+        observedAt: "2026-10-10T17:18:48Z",
+        expiresAt: "2026-10-11T17:18:48Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7097,8 +7097,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Zero Cast Moisturizing Finish Sunscreen 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-09T18:17:49Z",
-        expiresAt: "2026-10-10T18:17:49Z",
+        observedAt: "2026-10-10T17:18:38Z",
+        expiresAt: "2026-10-11T17:18:38Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
