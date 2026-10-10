@@ -2053,8 +2053,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Azelaic Acid Suspension 10%",
       "30 ml",
       {
-        observedAt: "2026-10-09T15:18:51Z",
-        expiresAt: "2026-10-10T15:18:51Z",
+        observedAt: "2026-10-10T14:48:01Z",
+        expiresAt: "2026-10-11T14:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2857,8 +2857,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe SA Smoothing Cleanser 473ml/16oz US Version",
       "473 ml",
       {
-        observedAt: "2026-10-09T15:18:51Z",
-        expiresAt: "2026-10-10T15:18:51Z",
+        observedAt: "2026-10-10T14:48:01Z",
+        expiresAt: "2026-10-11T14:48:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4418,8 +4418,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Facial Cleanser, Face wash for Normal to Dry skin 473ml (US Version)",
       "473 ml",
       {
-        observedAt: "2026-10-09T15:18:51Z",
-        expiresAt: "2026-10-10T15:18:51Z",
+        observedAt: "2026-10-10T14:48:01Z",
+        expiresAt: "2026-10-11T14:48:01Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -4761,8 +4761,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NIVEA PERFECT & RADIANT BODY LOTION 400ML",
       "400 ml",
       {
-        observedAt: "2026-10-09T15:18:51Z",
-        expiresAt: "2026-10-10T15:18:51Z",
+        observedAt: "2026-10-10T14:48:01Z",
+        expiresAt: "2026-10-11T14:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
