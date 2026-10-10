@@ -4643,8 +4643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml",
       "250 ml",
       {
-        observedAt: "2026-10-09T06:47:55Z",
-        expiresAt: "2026-10-10T06:47:55Z",
+        observedAt: "2026-10-10T06:17:55Z",
+        expiresAt: "2026-10-11T06:17:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5325,8 +5325,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-09T06:47:56Z",
-        expiresAt: "2026-10-10T06:47:56Z",
+        observedAt: "2026-10-10T06:17:55Z",
+        expiresAt: "2026-10-11T06:17:55Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8784,8 +8784,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Exfoliating Body Wash16.9 oz",
       "16.9 oz / 500 mL",
       {
-        observedAt: "2026-10-09T06:47:54Z",
-        expiresAt: "2026-10-10T06:47:54Z",
+        observedAt: "2026-10-10T06:17:54Z",
+        expiresAt: "2026-10-11T06:17:54Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
