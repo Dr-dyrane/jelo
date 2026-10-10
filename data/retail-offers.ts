@@ -3576,8 +3576,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "DOVE CALMING MOISTURE 3% Body Wash 547ml",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-10-09T16:18:39Z",
-        expiresAt: "2026-10-10T16:18:39Z",
+        observedAt: "2026-10-10T16:18:36Z",
+        expiresAt: "2026-10-11T16:18:36Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
