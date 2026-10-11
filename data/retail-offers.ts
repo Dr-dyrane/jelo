@@ -8827,8 +8827,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Exfoliating Body Wash 500ml",
       "16.9 oz / 500 mL",
       {
-        observedAt: "2026-10-10T10:48:22Z",
-        expiresAt: "2026-10-11T10:48:22Z",
+        observedAt: "2026-10-11T10:17:56Z",
+        expiresAt: "2026-10-12T10:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
