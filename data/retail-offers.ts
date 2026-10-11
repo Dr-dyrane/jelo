@@ -7022,8 +7022,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Enhance Gel Cream Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-10T08:47:58Z",
-        expiresAt: "2026-10-11T08:47:58Z",
+        observedAt: "2026-10-11T08:18:26Z",
+        expiresAt: "2026-10-12T08:18:26Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
