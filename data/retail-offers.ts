@@ -5067,8 +5067,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-10T01:17:52Z",
-        expiresAt: "2026-10-11T01:17:52Z",
+        observedAt: "2026-10-11T00:47:52Z",
+        expiresAt: "2026-10-12T00:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5912,8 +5912,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Multipurpose Retinal Cream 0.05% (30ml)",
       "30 ml",
       {
-        observedAt: "2026-10-10T01:17:50Z",
-        expiresAt: "2026-10-11T01:17:50Z",
+        observedAt: "2026-10-11T00:47:53Z",
+        expiresAt: "2026-10-12T00:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6791,8 +6791,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-10-10T01:17:56Z",
-        expiresAt: "2026-10-11T01:17:56Z",
+        observedAt: "2026-10-11T00:47:52Z",
+        expiresAt: "2026-10-12T00:47:52Z",
         inventoryQuantity: 2,
         stock: "out-of-stock",
         available: false,
@@ -7897,8 +7897,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-10T01:18:00Z",
-        expiresAt: "2026-10-11T01:18:00Z",
+        observedAt: "2026-10-11T00:47:53Z",
+        expiresAt: "2026-10-12T00:47:53Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
