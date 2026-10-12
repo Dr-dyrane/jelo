@@ -6838,8 +6838,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-10-11T15:18:01Z",
-        expiresAt: "2026-10-12T15:18:01Z",
+        observedAt: "2026-10-12T14:48:25Z",
+        expiresAt: "2026-10-13T14:48:25Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -9210,8 +9210,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NATURIUM -Retinol Complex Cream 50ml",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-10-11T15:18:01Z",
-        expiresAt: "2026-10-12T15:18:01Z",
+        observedAt: "2026-10-12T14:48:03Z",
+        expiresAt: "2026-10-13T14:48:03Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
