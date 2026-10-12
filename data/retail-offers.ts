@@ -2398,8 +2398,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "PANOXYL Acne Foaming Wash Benzoyl Peroxide 10% - 156g",
       "156 g",
       {
-        observedAt: "2026-10-11T12:47:49Z",
-        expiresAt: "2026-10-12T12:47:49Z",
+        observedAt: "2026-10-12T11:47:57Z",
+        expiresAt: "2026-10-13T11:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3882,8 +3882,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-11T12:17:54Z",
-        expiresAt: "2026-10-12T12:17:54Z",
+        observedAt: "2026-10-12T11:48:01Z",
+        expiresAt: "2026-10-13T11:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8908,8 +8908,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS MELA-PRO Tranexamic Acid Sun Screen 100ml",
       "100 ml",
       {
-        observedAt: "2026-10-11T12:47:53Z",
-        expiresAt: "2026-10-12T12:47:53Z",
+        observedAt: "2026-10-12T11:48:02Z",
+        expiresAt: "2026-10-13T11:48:02Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
