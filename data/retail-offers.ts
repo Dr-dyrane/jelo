@@ -643,8 +643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Perfector  Salicylic Acid Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-10-11T23:50:17Z",
-        expiresAt: "2026-10-12T23:50:17Z",
+        observedAt: "2026-10-12T23:17:56Z",
+        expiresAt: "2026-10-13T23:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5067,8 +5067,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-11T23:50:18Z",
-        expiresAt: "2026-10-12T23:50:18Z",
+        observedAt: "2026-10-12T23:17:58Z",
+        expiresAt: "2026-10-13T23:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5912,8 +5912,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Multipurpose Retinal Cream 0.05% (30ml)",
       "30 ml",
       {
-        observedAt: "2026-10-11T23:50:21Z",
-        expiresAt: "2026-10-12T23:50:21Z",
+        observedAt: "2026-10-12T23:17:56Z",
+        expiresAt: "2026-10-13T23:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
