@@ -2812,8 +2812,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml",
       "473 ml",
       {
-        observedAt: "2026-10-11T13:18:03Z",
-        expiresAt: "2026-10-12T13:18:03Z",
+        observedAt: "2026-10-12T12:48:04Z",
+        expiresAt: "2026-10-13T12:48:04Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8024,8 +8024,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA Liquid Exfoliant 2% 4.0 FL OZ /120ml",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-10-11T12:48:03Z",
-        expiresAt: "2026-10-12T12:48:03Z",
+        observedAt: "2026-10-12T12:47:59Z",
+        expiresAt: "2026-10-13T12:47:59Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
