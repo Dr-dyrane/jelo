@@ -4479,8 +4479,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Cleanser (16fl Oz/473ml)",
       "473 ml",
       {
-        observedAt: "2026-10-11T07:18:18Z",
-        expiresAt: "2026-10-12T07:18:18Z",
+        observedAt: "2026-10-12T06:18:41Z",
+        expiresAt: "2026-10-13T06:18:41Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6323,8 +6323,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Lotion with Turmeric and Vitamin C; GTIN 4897073186542",
       "500 ml",
       {
-        observedAt: "2026-10-11T07:18:19Z",
-        expiresAt: "2026-10-12T07:18:19Z",
+        observedAt: "2026-10-12T06:18:44Z",
+        expiresAt: "2026-10-13T06:18:44Z",
         inventoryQuantity: 3,
         stock: "in-stock",
         available: true,
