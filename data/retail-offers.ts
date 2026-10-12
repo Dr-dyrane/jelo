@@ -1556,8 +1556,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Bright + Clear Face Cream",
       "75 ml",
       {
-        observedAt: "2026-10-11T19:17:51Z",
-        expiresAt: "2026-10-12T19:17:51Z",
+        observedAt: "2026-10-12T18:47:52Z",
+        expiresAt: "2026-10-13T18:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5760,8 +5760,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Collagen & Hydrating Serum With Ceramides - 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-11T19:17:50Z",
-        expiresAt: "2026-10-12T19:17:50Z",
+        observedAt: "2026-10-12T18:47:49Z",
+        expiresAt: "2026-10-13T18:47:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
