@@ -1180,8 +1180,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic acid Daily Gentle Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-11T19:48:28Z",
-        expiresAt: "2026-10-12T19:48:28Z",
+        observedAt: "2026-10-12T19:47:56Z",
+        expiresAt: "2026-10-13T19:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
