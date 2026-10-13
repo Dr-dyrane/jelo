@@ -1449,8 +1449,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Niacinamide 10% + TXA 4% Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-12T09:18:33Z",
-        expiresAt: "2026-10-13T09:18:33Z",
+        observedAt: "2026-10-13T08:47:48Z",
+        expiresAt: "2026-10-14T08:47:48Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3067,8 +3067,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-10-12T09:18:35Z",
-        expiresAt: "2026-10-13T09:18:35Z",
+        observedAt: "2026-10-13T08:48:00Z",
+        expiresAt: "2026-10-14T08:48:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6944,8 +6944,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Beauty Formulas Glowing Serum 2% Vitamin C",
       "30 ml",
       {
-        observedAt: "2026-10-12T09:18:34Z",
-        expiresAt: "2026-10-13T09:18:34Z",
+        observedAt: "2026-10-13T08:47:49Z",
+        expiresAt: "2026-10-14T08:47:49Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7941,8 +7941,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-12T09:18:35Z",
-        expiresAt: "2026-10-13T09:18:35Z",
+        observedAt: "2026-10-13T08:48:01Z",
+        expiresAt: "2026-10-14T08:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
