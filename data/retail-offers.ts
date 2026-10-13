@@ -2537,8 +2537,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-10-11T05:48:35Z",
-        expiresAt: "2026-10-12T05:48:35Z",
+        observedAt: "2026-10-13T08:17:55Z",
+        expiresAt: "2026-10-14T08:17:55Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
