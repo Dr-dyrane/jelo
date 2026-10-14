@@ -1977,8 +1977,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Blemish Control Cleanser 8 fl oz",
       "236 ml",
       {
-        observedAt: "2026-10-13T19:18:37Z",
-        expiresAt: "2026-10-14T19:18:37Z",
+        observedAt: "2026-10-14T18:48:36Z",
+        expiresAt: "2026-10-15T18:48:36Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
