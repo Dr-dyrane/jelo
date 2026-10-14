@@ -4479,8 +4479,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Cleanser (16fl Oz/473ml)",
       "473 ml",
       {
-        observedAt: "2026-10-13T05:51:15Z",
-        expiresAt: "2026-10-14T05:51:15Z",
+        observedAt: "2026-10-14T05:17:53Z",
+        expiresAt: "2026-10-15T05:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
