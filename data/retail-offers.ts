@@ -4958,8 +4958,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-13T18:19:01Z",
-        expiresAt: "2026-10-14T18:19:01Z",
+        observedAt: "2026-10-14T19:18:00Z",
+        expiresAt: "2026-10-15T19:18:00Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
