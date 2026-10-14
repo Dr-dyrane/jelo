@@ -2779,8 +2779,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave moisturizing Cream 16 OZ (453g) USA version",
       "453 g",
       {
-        observedAt: "2026-10-13T15:18:29Z",
-        expiresAt: "2026-10-14T15:18:29Z",
+        observedAt: "2026-10-14T15:47:57Z",
+        expiresAt: "2026-10-15T15:47:57Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -3576,8 +3576,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "DOVE CALMING MOISTURE 3% Body Wash 547ml",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-10-13T15:47:55Z",
-        expiresAt: "2026-10-14T15:47:55Z",
+        observedAt: "2026-10-14T15:47:57Z",
+        expiresAt: "2026-10-15T15:47:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4989,8 +4989,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Niacinamide Blemish Recovery Serum 30ml (1oz)",
       "30 ml",
       {
-        observedAt: "2026-10-13T15:47:55Z",
-        expiresAt: "2026-10-14T15:47:55Z",
+        observedAt: "2026-10-14T15:47:57Z",
+        expiresAt: "2026-10-15T15:47:57Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -5037,8 +5037,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-13T15:47:54Z",
-        expiresAt: "2026-10-14T15:47:54Z",
+        observedAt: "2026-10-14T15:47:57Z",
+        expiresAt: "2026-10-15T15:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
