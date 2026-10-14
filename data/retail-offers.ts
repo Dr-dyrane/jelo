@@ -920,8 +920,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Crystal Retinal 3",
       "30 ml",
       {
-        observedAt: "2026-10-13T18:19:00Z",
-        expiresAt: "2026-10-14T18:19:00Z",
+        observedAt: "2026-10-14T18:18:38Z",
+        expiresAt: "2026-10-15T18:18:38Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -1180,8 +1180,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic acid Daily Gentle Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-13T18:48:38Z",
-        expiresAt: "2026-10-14T18:48:38Z",
+        observedAt: "2026-10-14T18:18:55Z",
+        expiresAt: "2026-10-15T18:18:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1404,8 +1404,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "ANUA Niacinamide 10% + TXA 4% Serum",
       "30 ml",
       {
-        observedAt: "2026-10-13T18:18:55Z",
-        expiresAt: "2026-10-14T18:18:55Z",
+        observedAt: "2026-10-14T18:18:37Z",
+        expiresAt: "2026-10-15T18:18:37Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6533,8 +6533,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6Oz",
       "2.6 oz / 73.7 g",
       {
-        observedAt: "2026-10-13T18:18:51Z",
-        expiresAt: "2026-10-14T18:18:51Z",
+        observedAt: "2026-10-14T18:18:47Z",
+        expiresAt: "2026-10-15T18:18:47Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
