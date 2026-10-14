@@ -1357,8 +1357,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha Bha Pha 30 Days Miracle Toner - 5.07oz",
       "150 ml",
       {
-        observedAt: "2026-10-13T04:47:49Z",
-        expiresAt: "2026-10-14T04:47:49Z",
+        observedAt: "2026-10-14T03:47:55Z",
+        expiresAt: "2026-10-15T03:47:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4643,8 +4643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml",
       "250 ml",
       {
-        observedAt: "2026-10-13T04:17:58Z",
-        expiresAt: "2026-10-14T04:17:58Z",
+        observedAt: "2026-10-14T03:48:00Z",
+        expiresAt: "2026-10-15T03:48:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5325,8 +5325,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-13T04:17:58Z",
-        expiresAt: "2026-10-14T04:17:58Z",
+        observedAt: "2026-10-14T03:48:01Z",
+        expiresAt: "2026-10-15T03:48:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8518,8 +8518,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Multi-Peptide Moisturizer - 50ml",
       "1.7 oz / 50 mL",
       {
-        observedAt: "2026-10-13T04:18:09Z",
-        expiresAt: "2026-10-14T04:18:09Z",
+        observedAt: "2026-10-14T03:47:57Z",
+        expiresAt: "2026-10-15T03:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
