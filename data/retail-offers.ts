@@ -71,8 +71,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Bright + Glow Body Gel Wash (Licorice Mulberry Root Extract)",
       "1000 ml",
       {
-        observedAt: "2026-10-13T07:47:54Z",
-        expiresAt: "2026-10-14T07:47:54Z",
+        observedAt: "2026-10-14T07:19:05Z",
+        expiresAt: "2026-10-15T07:19:05Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -2537,8 +2537,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-10-13T08:17:55Z",
-        expiresAt: "2026-10-14T08:17:55Z",
+        observedAt: "2026-10-14T07:19:01Z",
+        expiresAt: "2026-10-15T07:19:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
