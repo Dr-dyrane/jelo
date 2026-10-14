@@ -3067,8 +3067,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-10-13T08:48:00Z",
-        expiresAt: "2026-10-14T08:48:00Z",
+        observedAt: "2026-10-14T08:17:49Z",
+        expiresAt: "2026-10-15T08:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7941,8 +7941,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-13T08:48:01Z",
-        expiresAt: "2026-10-14T08:48:01Z",
+        observedAt: "2026-10-14T08:17:49Z",
+        expiresAt: "2026-10-15T08:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
