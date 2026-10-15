@@ -1211,8 +1211,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic Acid Daily Gentle Cleanser 150Ml",
       "150 ml",
       {
-        observedAt: "2026-10-14T10:48:38Z",
-        expiresAt: "2026-10-15T10:48:38Z",
+        observedAt: "2026-10-15T10:18:40Z",
+        expiresAt: "2026-10-16T10:18:40Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -3143,8 +3143,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-14T10:48:37Z",
-        expiresAt: "2026-10-15T10:48:37Z",
+        observedAt: "2026-10-15T10:18:41Z",
+        expiresAt: "2026-10-16T10:18:41Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7561,8 +7561,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
       "8.5 fl oz",
       {
-        observedAt: "2026-10-14T10:48:35Z",
-        expiresAt: "2026-10-15T10:48:35Z",
+        observedAt: "2026-10-15T10:18:35Z",
+        expiresAt: "2026-10-16T10:18:35Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
