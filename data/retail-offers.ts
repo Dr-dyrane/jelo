@@ -487,8 +487,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-14T03:17:56Z",
-        expiresAt: "2026-10-15T03:17:56Z",
+        observedAt: "2026-10-15T02:47:50Z",
+        expiresAt: "2026-10-16T02:47:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6822,8 +6822,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner",
       "240 ml",
       {
-        observedAt: "2026-10-14T03:17:56Z",
-        expiresAt: "2026-10-15T03:17:56Z",
+        observedAt: "2026-10-15T02:47:49Z",
+        expiresAt: "2026-10-16T02:47:49Z",
         inventoryQuantity: 1,
         stock: "in-stock",
         available: true,
@@ -8039,8 +8039,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA Liquid Exfoliant 2% 120ml",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-10-14T03:18:11Z",
-        expiresAt: "2026-10-15T03:18:11Z",
+        observedAt: "2026-10-15T02:47:55Z",
+        expiresAt: "2026-10-16T02:47:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8784,8 +8784,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Exfoliating Body Wash16.9 oz",
       "16.9 oz / 500 mL",
       {
-        observedAt: "2026-10-14T03:18:07Z",
-        expiresAt: "2026-10-15T03:18:07Z",
+        observedAt: "2026-10-15T02:47:53Z",
+        expiresAt: "2026-10-16T02:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
