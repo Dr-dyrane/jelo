@@ -4643,8 +4643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml",
       "250 ml",
       {
-        observedAt: "2026-10-14T03:48:00Z",
-        expiresAt: "2026-10-15T03:48:00Z",
+        observedAt: "2026-10-15T03:17:58Z",
+        expiresAt: "2026-10-16T03:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8518,8 +8518,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Multi-Peptide Moisturizer - 50ml",
       "1.7 oz / 50 mL",
       {
-        observedAt: "2026-10-14T03:47:57Z",
-        expiresAt: "2026-10-15T03:47:57Z",
+        observedAt: "2026-10-15T03:17:51Z",
+        expiresAt: "2026-10-16T03:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
