@@ -1977,8 +1977,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Blemish Control Cleanser 8 fl oz",
       "236 ml",
       {
-        observedAt: "2026-10-14T18:48:36Z",
-        expiresAt: "2026-10-15T18:48:36Z",
+        observedAt: "2026-10-15T18:18:37Z",
+        expiresAt: "2026-10-16T18:18:37Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4958,8 +4958,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-14T19:18:00Z",
-        expiresAt: "2026-10-15T19:18:00Z",
+        observedAt: "2026-10-15T18:18:39Z",
+        expiresAt: "2026-10-16T18:18:39Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
