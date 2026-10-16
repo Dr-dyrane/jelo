@@ -517,8 +517,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Pink Champagne Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-14T17:48:01Z",
-        expiresAt: "2026-10-15T17:48:01Z",
+        observedAt: "2026-10-16T19:18:37Z",
+        expiresAt: "2026-10-17T19:18:37Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
