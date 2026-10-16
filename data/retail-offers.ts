@@ -2554,8 +2554,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Niacinamide Serum; UPC 0810019610530",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-10-15T17:18:13Z",
-        expiresAt: "2026-10-16T17:18:13Z",
+        observedAt: "2026-10-16T16:48:19Z",
+        expiresAt: "2026-10-17T16:48:19Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -2857,8 +2857,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe SA Smoothing Cleanser 473ml/16oz US Version",
       "473 ml",
       {
-        observedAt: "2026-10-15T16:18:53Z",
-        expiresAt: "2026-10-16T16:18:53Z",
+        observedAt: "2026-10-16T16:47:55Z",
+        expiresAt: "2026-10-17T16:47:55Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4761,8 +4761,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NIVEA PERFECT & RADIANT BODY LOTION 400ML",
       "400 ml",
       {
-        observedAt: "2026-10-15T16:18:52Z",
-        expiresAt: "2026-10-16T16:18:52Z",
+        observedAt: "2026-10-16T16:47:55Z",
+        expiresAt: "2026-10-17T16:47:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4822,8 +4822,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nivea Perfect & Radiant Body Lotion 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-15T17:17:59Z",
-        expiresAt: "2026-10-16T17:17:59Z",
+        observedAt: "2026-10-16T16:48:08Z",
+        expiresAt: "2026-10-17T16:48:08Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
