@@ -2083,8 +2083,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Azelaic Acid Suspension 10% | 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-15T14:17:55Z",
-        expiresAt: "2026-10-16T14:17:55Z",
+        observedAt: "2026-10-16T13:47:51Z",
+        expiresAt: "2026-10-17T13:47:51Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4434,8 +4434,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Hydrating Cleanser 16oz",
       "473 ml",
       {
-        observedAt: "2026-10-15T14:17:55Z",
-        expiresAt: "2026-10-16T14:17:55Z",
+        observedAt: "2026-10-16T13:47:51Z",
+        expiresAt: "2026-10-17T13:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4658,8 +4658,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Urea Repair Plus 10% Urea Lotion 250ml",
       "250 ml",
       {
-        observedAt: "2026-10-15T14:17:55Z",
-        expiresAt: "2026-10-16T14:17:55Z",
+        observedAt: "2026-10-16T13:47:51Z",
+        expiresAt: "2026-10-17T13:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5005,8 +5005,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Niacinamide Blemish Recovery Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-15T14:17:54Z",
-        expiresAt: "2026-10-16T14:17:54Z",
+        observedAt: "2026-10-16T13:47:51Z",
+        expiresAt: "2026-10-17T13:47:51Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
