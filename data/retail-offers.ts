@@ -4342,8 +4342,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La roche Posay Vitamin c Gel Moussant Purifying Cleanser 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-15T07:48:04Z",
-        expiresAt: "2026-10-16T07:48:04Z",
+        observedAt: "2026-10-16T07:18:35Z",
+        expiresAt: "2026-10-17T07:18:35Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5112,8 +5112,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-15T07:48:09Z",
-        expiresAt: "2026-10-16T07:48:09Z",
+        observedAt: "2026-10-16T07:18:35Z",
+        expiresAt: "2026-10-17T07:18:35Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8084,8 +8084,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA liquid Exfoliant 2% 120 ML / 4.0 FL OZ",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-10-15T08:17:50Z",
-        expiresAt: "2026-10-16T08:17:50Z",
+        observedAt: "2026-10-16T07:18:37Z",
+        expiresAt: "2026-10-17T07:18:37Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
