@@ -2812,8 +2812,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml",
       "473 ml",
       {
-        observedAt: "2026-10-16T10:18:37Z",
-        expiresAt: "2026-10-17T10:18:37Z",
+        observedAt: "2026-10-17T09:48:04Z",
+        expiresAt: "2026-10-18T09:48:04Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5310,8 +5310,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-Pro Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-16T10:18:34Z",
-        expiresAt: "2026-10-17T10:18:34Z",
+        observedAt: "2026-10-17T09:47:50Z",
+        expiresAt: "2026-10-18T09:47:50Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8024,8 +8024,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA Liquid Exfoliant 2% 4.0 FL OZ /120ml",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-10-16T10:18:36Z",
-        expiresAt: "2026-10-17T10:18:36Z",
+        observedAt: "2026-10-17T09:47:51Z",
+        expiresAt: "2026-10-18T09:47:51Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
