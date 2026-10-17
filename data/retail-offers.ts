@@ -1449,8 +1449,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Niacinamide 10% + TXA 4% Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-16T06:17:48Z",
-        expiresAt: "2026-10-17T06:17:48Z",
+        observedAt: "2026-10-17T05:47:48Z",
+        expiresAt: "2026-10-18T05:47:48Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2537,8 +2537,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-10-16T06:17:48Z",
-        expiresAt: "2026-10-17T06:17:48Z",
+        observedAt: "2026-10-17T05:47:48Z",
+        expiresAt: "2026-10-18T05:47:48Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6944,8 +6944,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Beauty Formulas Glowing Serum 2% Vitamin C",
       "30 ml",
       {
-        observedAt: "2026-10-16T06:17:49Z",
-        expiresAt: "2026-10-17T06:17:49Z",
+        observedAt: "2026-10-17T05:48:01Z",
+        expiresAt: "2026-10-18T05:48:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
