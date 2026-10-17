@@ -1464,8 +1464,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Niacinamide 10% + TXA 4% Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-16T20:47:54Z",
-        expiresAt: "2026-10-17T20:47:54Z",
+        observedAt: "2026-10-17T19:48:31Z",
+        expiresAt: "2026-10-18T19:48:31Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3528,8 +3528,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "GARNIER Vitamin C (Brightening) Day Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-16T20:17:51Z",
-        expiresAt: "2026-10-17T20:17:51Z",
+        observedAt: "2026-10-17T19:48:30Z",
+        expiresAt: "2026-10-18T19:48:30Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -5263,8 +5263,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A-Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-16T20:47:49Z",
-        expiresAt: "2026-10-17T20:47:49Z",
+        observedAt: "2026-10-17T19:48:32Z",
+        expiresAt: "2026-10-18T19:48:32Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 3,
@@ -8706,8 +8706,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinol Complex Serum 1.0 FL 0Z/30 ml(Packaging may Vary)",
       "1.0 fl oz / 30 mL",
       {
-        observedAt: "2026-10-16T20:47:50Z",
-        expiresAt: "2026-10-17T20:47:50Z",
+        observedAt: "2026-10-17T19:48:09Z",
+        expiresAt: "2026-10-18T19:48:09Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
