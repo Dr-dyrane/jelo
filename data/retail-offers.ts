@@ -920,8 +920,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Crystal Retinal 3",
       "30 ml",
       {
-        observedAt: "2026-10-16T17:18:18Z",
-        expiresAt: "2026-10-17T17:18:18Z",
+        observedAt: "2026-10-17T16:47:51Z",
+        expiresAt: "2026-10-18T16:47:51Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -1404,8 +1404,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "ANUA Niacinamide 10% + TXA 4% Serum",
       "30 ml",
       {
-        observedAt: "2026-10-16T17:18:19Z",
-        expiresAt: "2026-10-17T17:18:19Z",
+        observedAt: "2026-10-17T16:47:51Z",
+        expiresAt: "2026-10-18T16:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
