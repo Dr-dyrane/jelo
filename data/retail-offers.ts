@@ -643,8 +643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Perfector  Salicylic Acid Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-10-16T01:20:58Z",
-        expiresAt: "2026-10-17T01:20:58Z",
+        observedAt: "2026-10-17T02:17:57Z",
+        expiresAt: "2026-10-18T02:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3820,8 +3820,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cécred Moisturizing Deep Conditioner 300ml",
       "300 ml / 10 fl oz",
       {
-        observedAt: "2026-10-16T03:17:50Z",
-        expiresAt: "2026-10-17T03:17:50Z",
+        observedAt: "2026-10-17T02:17:59Z",
+        expiresAt: "2026-10-18T02:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
