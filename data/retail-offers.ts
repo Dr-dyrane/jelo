@@ -4479,8 +4479,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Cleanser (16fl Oz/473ml)",
       "473 ml",
       {
-        observedAt: "2026-10-16T04:17:51Z",
-        expiresAt: "2026-10-17T04:17:51Z",
+        observedAt: "2026-10-17T03:48:05Z",
+        expiresAt: "2026-10-18T03:48:05Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4643,8 +4643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml",
       "250 ml",
       {
-        observedAt: "2026-10-16T03:47:51Z",
-        expiresAt: "2026-10-17T03:47:51Z",
+        observedAt: "2026-10-17T03:48:00Z",
+        expiresAt: "2026-10-18T03:48:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5325,8 +5325,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-16T03:47:51Z",
-        expiresAt: "2026-10-17T03:47:51Z",
+        observedAt: "2026-10-17T03:48:00Z",
+        expiresAt: "2026-10-18T03:48:00Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
