@@ -8518,8 +8518,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Multi-Peptide Moisturizer - 50ml",
       "1.7 oz / 50 mL",
       {
-        observedAt: "2026-10-17T01:49:47Z",
-        expiresAt: "2026-10-18T01:49:47Z",
+        observedAt: "2026-10-18T01:17:58Z",
+        expiresAt: "2026-10-19T01:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
