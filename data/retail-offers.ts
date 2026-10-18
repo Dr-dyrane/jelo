@@ -1372,8 +1372,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha.Bha.Pha 30 Days Miracle Toner 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-17T10:19:32Z",
-        expiresAt: "2026-10-18T10:19:32Z",
+        observedAt: "2026-10-18T10:17:51Z",
+        expiresAt: "2026-10-19T10:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3451,8 +3451,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion 13.53fl oz 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-17T10:19:32Z",
-        expiresAt: "2026-10-18T10:19:32Z",
+        observedAt: "2026-10-18T10:17:50Z",
+        expiresAt: "2026-10-19T10:17:50Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
