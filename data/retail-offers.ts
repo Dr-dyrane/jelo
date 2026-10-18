@@ -3744,8 +3744,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "KeraCare Dry And Itchy Conditioner",
       "950 ml",
       {
-        observedAt: "2026-10-17T12:17:53Z",
-        expiresAt: "2026-10-18T12:17:53Z",
+        observedAt: "2026-10-18T11:18:37Z",
+        expiresAt: "2026-10-19T11:18:37Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6838,8 +6838,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-10-17T12:17:49Z",
-        expiresAt: "2026-10-18T12:17:49Z",
+        observedAt: "2026-10-18T11:18:34Z",
+        expiresAt: "2026-10-19T11:18:34Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -9210,8 +9210,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NATURIUM -Retinol Complex Cream 50ml",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-10-17T12:17:53Z",
-        expiresAt: "2026-10-18T12:17:53Z",
+        observedAt: "2026-10-18T11:18:37Z",
+        expiresAt: "2026-10-19T11:18:37Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
