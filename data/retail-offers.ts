@@ -3389,8 +3389,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FACEFACTS -CERAMIDE BLEMISH GEL MOISTURISER 50ML",
       "50 ml",
       {
-        observedAt: "2026-10-17T10:19:12Z",
-        expiresAt: "2026-10-18T10:19:12Z",
+        observedAt: "2026-10-18T10:48:48Z",
+        expiresAt: "2026-10-19T10:48:48Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3882,8 +3882,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Hydrate + Protect Body Lotion (Ceramide) 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-17T10:19:32Z",
-        expiresAt: "2026-10-18T10:19:32Z",
+        observedAt: "2026-10-18T10:48:48Z",
+        expiresAt: "2026-10-19T10:48:48Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
