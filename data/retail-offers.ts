@@ -4038,8 +4038,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin by Zaron Vitamin C Body Wash 650ml",
       "650 ml",
       {
-        observedAt: "2026-10-17T17:47:58Z",
-        expiresAt: "2026-10-18T17:47:58Z",
+        observedAt: "2026-10-18T17:17:57Z",
+        expiresAt: "2026-10-19T17:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4540,8 +4540,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-17T17:47:57Z",
-        expiresAt: "2026-10-18T17:47:57Z",
+        observedAt: "2026-10-18T17:17:57Z",
+        expiresAt: "2026-10-19T17:17:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
