@@ -6944,8 +6944,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Beauty Formulas Glowing Serum 2% Vitamin C",
       "30 ml",
       {
-        observedAt: "2026-10-17T05:48:01Z",
-        expiresAt: "2026-10-18T05:48:01Z",
+        observedAt: "2026-10-18T05:17:49Z",
+        expiresAt: "2026-10-19T05:17:49Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
