@@ -502,8 +502,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-18T22:18:41Z",
-        expiresAt: "2026-10-19T22:18:41Z",
+        observedAt: "2026-10-19T21:47:57Z",
+        expiresAt: "2026-10-20T21:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
