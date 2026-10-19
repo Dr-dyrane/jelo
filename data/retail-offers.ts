@@ -1180,8 +1180,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic acid Daily Gentle Cleanser 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-18T17:48:52Z",
-        expiresAt: "2026-10-19T17:48:52Z",
+        observedAt: "2026-10-19T18:17:53Z",
+        expiresAt: "2026-10-20T18:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3683,8 +3683,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "DOVE SKIN REPLENISH 2% Body Wash 547ml",
       "547 ml",
       {
-        observedAt: "2026-10-18T17:48:52Z",
-        expiresAt: "2026-10-19T17:48:52Z",
+        observedAt: "2026-10-19T18:17:53Z",
+        expiresAt: "2026-10-20T18:17:53Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
