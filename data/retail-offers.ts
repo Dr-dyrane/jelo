@@ -920,8 +920,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Crystal Retinal 3",
       "30 ml",
       {
-        observedAt: "2026-10-18T16:18:18Z",
-        expiresAt: "2026-10-19T16:18:18Z",
+        observedAt: "2026-10-19T15:47:58Z",
+        expiresAt: "2026-10-20T15:47:58Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -1404,8 +1404,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "ANUA Niacinamide 10% + TXA 4% Serum",
       "30 ml",
       {
-        observedAt: "2026-10-18T16:18:16Z",
-        expiresAt: "2026-10-19T16:18:16Z",
+        observedAt: "2026-10-19T15:48:00Z",
+        expiresAt: "2026-10-20T15:48:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1977,8 +1977,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Blemish Control Cleanser 8 fl oz",
       "236 ml",
       {
-        observedAt: "2026-10-18T16:47:51Z",
-        expiresAt: "2026-10-19T16:47:51Z",
+        observedAt: "2026-10-19T15:48:05Z",
+        expiresAt: "2026-10-20T15:48:05Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4958,8 +4958,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-18T16:47:52Z",
-        expiresAt: "2026-10-19T16:47:52Z",
+        observedAt: "2026-10-19T15:48:07Z",
+        expiresAt: "2026-10-20T15:48:07Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
