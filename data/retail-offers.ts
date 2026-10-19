@@ -3820,8 +3820,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cécred Moisturizing Deep Conditioner 300ml",
       "300 ml / 10 fl oz",
       {
-        observedAt: "2026-10-18T01:51:20Z",
-        expiresAt: "2026-10-19T01:51:20Z",
+        observedAt: "2026-10-19T01:17:55Z",
+        expiresAt: "2026-10-20T01:17:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
