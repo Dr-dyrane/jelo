@@ -1539,8 +1539,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-10-19T14:47:56Z",
-        expiresAt: "2026-10-20T14:47:56Z",
+        observedAt: "2026-10-20T14:47:52Z",
+        expiresAt: "2026-10-21T14:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2857,8 +2857,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe SA Smoothing Cleanser 473ml/16oz US Version",
       "473 ml",
       {
-        observedAt: "2026-10-19T15:17:50Z",
-        expiresAt: "2026-10-20T15:17:50Z",
+        observedAt: "2026-10-20T14:47:52Z",
+        expiresAt: "2026-10-21T14:47:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4418,8 +4418,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Facial Cleanser, Face wash for Normal to Dry skin 473ml (US Version)",
       "473 ml",
       {
-        observedAt: "2026-10-19T14:48:00Z",
-        expiresAt: "2026-10-20T14:48:00Z",
+        observedAt: "2026-10-20T14:47:52Z",
+        expiresAt: "2026-10-21T14:47:52Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
