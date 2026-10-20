@@ -2537,8 +2537,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-10-19T05:17:53Z",
-        expiresAt: "2026-10-20T05:17:53Z",
+        observedAt: "2026-10-20T04:47:50Z",
+        expiresAt: "2026-10-21T04:47:50Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -3067,8 +3067,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-10-19T05:17:49Z",
-        expiresAt: "2026-10-20T05:17:49Z",
+        observedAt: "2026-10-20T04:47:49Z",
+        expiresAt: "2026-10-21T04:47:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7941,8 +7941,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-19T05:17:50Z",
-        expiresAt: "2026-10-20T05:17:50Z",
+        observedAt: "2026-10-20T04:47:50Z",
+        expiresAt: "2026-10-21T04:47:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
