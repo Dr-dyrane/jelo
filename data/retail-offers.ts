@@ -1211,8 +1211,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic Acid Daily Gentle Cleanser 150Ml",
       "150 ml",
       {
-        observedAt: "2026-10-19T08:17:58Z",
-        expiresAt: "2026-10-20T08:17:58Z",
+        observedAt: "2026-10-20T07:51:32Z",
+        expiresAt: "2026-10-21T07:51:32Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -2812,8 +2812,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16fl oz 473ml",
       "473 ml",
       {
-        observedAt: "2026-10-19T08:18:15Z",
-        expiresAt: "2026-10-20T08:18:15Z",
+        observedAt: "2026-10-20T07:51:32Z",
+        expiresAt: "2026-10-21T07:51:32Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -3143,8 +3143,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-19T08:17:54Z",
-        expiresAt: "2026-10-20T08:17:54Z",
+        observedAt: "2026-10-20T07:51:32Z",
+        expiresAt: "2026-10-21T07:51:32Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8024,8 +8024,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA Liquid Exfoliant 2% 4.0 FL OZ /120ml",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-10-19T08:17:52Z",
-        expiresAt: "2026-10-20T08:17:52Z",
+        observedAt: "2026-10-20T07:51:31Z",
+        expiresAt: "2026-10-21T07:51:31Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
