@@ -411,8 +411,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Coconut Waters Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-20T06:18:10Z",
-        expiresAt: "2026-10-21T06:18:10Z",
+        observedAt: "2026-10-21T05:47:53Z",
+        expiresAt: "2026-10-22T05:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1496,8 +1496,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Wonder Cream Fragrance Free",
       "50 ml",
       {
-        observedAt: "2026-10-20T06:18:10Z",
-        expiresAt: "2026-10-21T06:18:10Z",
+        observedAt: "2026-10-21T05:47:53Z",
+        expiresAt: "2026-10-22T05:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6196,8 +6196,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Soothe + Glow Niacinamide Serum - 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-20T06:18:11Z",
-        expiresAt: "2026-10-21T06:18:11Z",
+        observedAt: "2026-10-21T05:47:52Z",
+        expiresAt: "2026-10-22T05:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6444,8 +6444,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-20T06:18:11Z",
-        expiresAt: "2026-10-21T06:18:11Z",
+        observedAt: "2026-10-21T05:47:54Z",
+        expiresAt: "2026-10-22T05:47:54Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
