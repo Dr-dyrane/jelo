@@ -379,8 +379,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Glow Serum : Propolis + Niacinamide",
       "30 ml",
       {
-        observedAt: "2026-10-20T10:17:50Z",
-        expiresAt: "2026-10-21T10:17:50Z",
+        observedAt: "2026-10-21T09:47:52Z",
+        expiresAt: "2026-10-22T09:47:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6276,8 +6276,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Lotion With Turmeric And Vitamin C 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-20T10:17:52Z",
-        expiresAt: "2026-10-21T10:17:52Z",
+        observedAt: "2026-10-21T09:47:51Z",
+        expiresAt: "2026-10-22T09:47:51Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -8767,8 +8767,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Body Lotion 234ml",
       "8 fl oz / 234 mL",
       {
-        observedAt: "2026-10-20T10:17:51Z",
-        expiresAt: "2026-10-21T10:17:51Z",
+        observedAt: "2026-10-21T09:47:54Z",
+        expiresAt: "2026-10-22T09:47:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
