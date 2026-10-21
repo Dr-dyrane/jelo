@@ -2068,8 +2068,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Azelaic Acid Suspension 10% 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-20T13:17:51Z",
-        expiresAt: "2026-10-21T13:17:51Z",
+        observedAt: "2026-10-21T12:17:56Z",
+        expiresAt: "2026-10-22T12:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3544,8 +3544,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-20T13:17:51Z",
-        expiresAt: "2026-10-21T13:17:51Z",
+        observedAt: "2026-10-21T12:17:58Z",
+        expiresAt: "2026-10-22T12:17:58Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7880,8 +7880,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-20T13:17:55Z",
-        expiresAt: "2026-10-21T13:17:55Z",
+        observedAt: "2026-10-21T12:18:00Z",
+        expiresAt: "2026-10-22T12:18:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
