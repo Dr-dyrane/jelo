@@ -1539,8 +1539,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-10-21T15:18:02Z",
-        expiresAt: "2026-10-22T15:18:02Z",
+        observedAt: "2026-10-22T14:47:58Z",
+        expiresAt: "2026-10-23T14:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4418,8 +4418,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Facial Cleanser, Face wash for Normal to Dry skin 473ml (US Version)",
       "473 ml",
       {
-        observedAt: "2026-10-21T15:18:02Z",
-        expiresAt: "2026-10-22T15:18:02Z",
+        observedAt: "2026-10-22T14:47:58Z",
+        expiresAt: "2026-10-23T14:47:58Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -4761,8 +4761,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NIVEA PERFECT & RADIANT BODY LOTION 400ML",
       "400 ml",
       {
-        observedAt: "2026-10-21T15:18:02Z",
-        expiresAt: "2026-10-22T15:18:02Z",
+        observedAt: "2026-10-22T14:47:59Z",
+        expiresAt: "2026-10-23T14:47:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
