@@ -1629,8 +1629,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-10-21T10:47:51Z",
-        expiresAt: "2026-10-22T10:47:51Z",
+        observedAt: "2026-10-22T09:47:57Z",
+        expiresAt: "2026-10-23T09:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2083,8 +2083,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Azelaic Acid Suspension 10% | 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-21T10:47:52Z",
-        expiresAt: "2026-10-22T10:47:52Z",
+        observedAt: "2026-10-22T09:47:58Z",
+        expiresAt: "2026-10-23T09:47:58Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -3744,8 +3744,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "KeraCare Dry And Itchy Conditioner",
       "950 ml",
       {
-        observedAt: "2026-10-21T10:47:54Z",
-        expiresAt: "2026-10-22T10:47:54Z",
+        observedAt: "2026-10-22T09:48:05Z",
+        expiresAt: "2026-10-23T09:48:05Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4658,8 +4658,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Urea Repair Plus 10% Urea Lotion 250ml",
       "250 ml",
       {
-        observedAt: "2026-10-21T10:47:53Z",
-        expiresAt: "2026-10-22T10:47:53Z",
+        observedAt: "2026-10-22T09:47:58Z",
+        expiresAt: "2026-10-23T09:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
