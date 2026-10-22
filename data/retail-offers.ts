@@ -950,8 +950,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Medik8 Crystal Retinal 3 (30ml)",
       "30 ml",
       {
-        observedAt: "2026-10-21T11:17:49Z",
-        expiresAt: "2026-10-22T11:17:49Z",
+        observedAt: "2026-10-22T10:47:50Z",
+        expiresAt: "2026-10-23T10:47:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
