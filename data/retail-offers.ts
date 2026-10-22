@@ -686,8 +686,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Perfector Salicylic Acid Skin Smoothing Body Wash",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-10-21T16:18:03Z",
-        expiresAt: "2026-10-22T16:18:03Z",
+        observedAt: "2026-10-22T15:48:16Z",
+        expiresAt: "2026-10-23T15:48:16Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2734,8 +2734,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Moisturizing Cream For Dry To Very Dry Skin - 454g",
       "454 g",
       {
-        observedAt: "2026-10-21T16:18:03Z",
-        expiresAt: "2026-10-22T16:18:03Z",
+        observedAt: "2026-10-22T15:48:13Z",
+        expiresAt: "2026-10-23T15:48:13Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8301,8 +8301,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 7.7 fl oz / 232 ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-10-21T16:18:08Z",
-        expiresAt: "2026-10-22T16:18:08Z",
+        observedAt: "2026-10-22T15:48:15Z",
+        expiresAt: "2026-10-23T15:48:15Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
