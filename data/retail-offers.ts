@@ -517,8 +517,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Pink Champagne Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-21T15:47:51Z",
-        expiresAt: "2026-10-22T15:47:51Z",
+        observedAt: "2026-10-22T15:17:49Z",
+        expiresAt: "2026-10-23T15:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5037,8 +5037,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-21T15:47:54Z",
-        expiresAt: "2026-10-22T15:47:54Z",
+        observedAt: "2026-10-22T15:17:52Z",
+        expiresAt: "2026-10-23T15:17:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7912,8 +7912,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-21T15:47:52Z",
-        expiresAt: "2026-10-22T15:47:52Z",
+        observedAt: "2026-10-22T15:17:49Z",
+        expiresAt: "2026-10-23T15:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
