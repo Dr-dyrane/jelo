@@ -2053,8 +2053,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Azelaic Acid Suspension 10%",
       "30 ml",
       {
-        observedAt: "2026-10-21T16:47:53Z",
-        expiresAt: "2026-10-22T16:47:53Z",
+        observedAt: "2026-10-22T16:48:02Z",
+        expiresAt: "2026-10-23T16:48:02Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
