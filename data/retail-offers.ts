@@ -5310,8 +5310,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-Pro Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-22T06:48:59Z",
-        expiresAt: "2026-10-23T06:48:59Z",
+        observedAt: "2026-10-23T06:18:11Z",
+        expiresAt: "2026-10-24T06:18:11Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8084,8 +8084,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA liquid Exfoliant 2% 120 ML / 4.0 FL OZ",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-10-22T06:49:00Z",
-        expiresAt: "2026-10-23T06:49:00Z",
+        observedAt: "2026-10-23T06:18:10Z",
+        expiresAt: "2026-10-24T06:18:10Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
