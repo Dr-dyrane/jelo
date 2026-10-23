@@ -4295,8 +4295,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche Posay Mela B3 Serum – Dark Spot Corrector – 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-22T20:48:44Z",
-        expiresAt: "2026-10-23T20:48:44Z",
+        observedAt: "2026-10-23T21:48:46Z",
+        expiresAt: "2026-10-24T21:48:46Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7699,8 +7699,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS A Control Azelaic Acid Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-22T20:48:46Z",
-        expiresAt: "2026-10-23T20:48:46Z",
+        observedAt: "2026-10-23T21:48:47Z",
+        expiresAt: "2026-10-24T21:48:47Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
