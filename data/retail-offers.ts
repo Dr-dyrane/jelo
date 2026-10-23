@@ -487,8 +487,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-22T21:48:35Z",
-        expiresAt: "2026-10-23T21:48:35Z",
+        observedAt: "2026-10-23T21:18:40Z",
+        expiresAt: "2026-10-24T21:18:40Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1929,8 +1929,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Foaming Facial Cleanser 8 oz (237ml) US Version",
       "236 ml",
       {
-        observedAt: "2026-10-22T20:48:44Z",
-        expiresAt: "2026-10-23T20:48:44Z",
+        observedAt: "2026-10-23T21:18:56Z",
+        expiresAt: "2026-10-24T21:18:56Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -8039,8 +8039,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA Liquid Exfoliant 2% 120ml",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-10-22T21:48:37Z",
-        expiresAt: "2026-10-23T21:48:37Z",
+        observedAt: "2026-10-23T21:18:59Z",
+        expiresAt: "2026-10-24T21:18:59Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -8518,8 +8518,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Multi-Peptide Moisturizer - 50ml",
       "1.7 oz / 50 mL",
       {
-        observedAt: "2026-10-22T21:48:41Z",
-        expiresAt: "2026-10-23T21:48:41Z",
+        observedAt: "2026-10-23T21:19:01Z",
+        expiresAt: "2026-10-24T21:19:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
