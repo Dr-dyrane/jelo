@@ -1300,8 +1300,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SOME BY MI AHA BHA PHA 30 Days Miracle Toner",
       "150 ml",
       {
-        observedAt: "2026-10-22T02:48:09Z",
-        expiresAt: "2026-10-23T02:48:09Z",
+        observedAt: "2026-10-23T01:48:46Z",
+        expiresAt: "2026-10-24T01:48:46Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -1449,8 +1449,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Niacinamide 10% + TXA 4% Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-22T02:48:01Z",
-        expiresAt: "2026-10-23T02:48:01Z",
+        observedAt: "2026-10-23T01:48:39Z",
+        expiresAt: "2026-10-24T01:48:39Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2903,8 +2903,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Acne Foaming Cream Cleanser 4% Benzoyl Peroxide",
       "150 ml / 5 fl oz",
       {
-        observedAt: "2026-10-22T02:47:51Z",
-        expiresAt: "2026-10-23T02:47:51Z",
+        observedAt: "2026-10-23T01:48:35Z",
+        expiresAt: "2026-10-24T01:48:35Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8971,8 +8971,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinaldehyde Cream Serum 0.10% 50ml / 1.7fl",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-10-22T02:48:09Z",
-        expiresAt: "2026-10-23T02:48:09Z",
+        observedAt: "2026-10-23T01:48:37Z",
+        expiresAt: "2026-10-24T01:48:37Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
