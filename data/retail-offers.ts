@@ -1914,8 +1914,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Foaming Cleanser For Normal To Oily Skin 8fl oz 236ml",
       "236 ml",
       {
-        observedAt: "2026-10-23T23:48:00Z",
-        expiresAt: "2026-10-24T23:48:00Z",
+        observedAt: "2026-10-24T23:17:53Z",
+        expiresAt: "2026-10-25T23:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3975,8 +3975,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening and Moisturizing Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-23T23:47:58Z",
-        expiresAt: "2026-10-24T23:47:58Z",
+        observedAt: "2026-10-24T23:17:51Z",
+        expiresAt: "2026-10-25T23:17:51Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 10,
@@ -4479,8 +4479,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Cleanser (16fl Oz/473ml)",
       "473 ml",
       {
-        observedAt: "2026-10-23T23:48:00Z",
-        expiresAt: "2026-10-24T23:48:00Z",
+        observedAt: "2026-10-24T23:17:53Z",
+        expiresAt: "2026-10-25T23:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5325,8 +5325,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-23T23:48:00Z",
-        expiresAt: "2026-10-24T23:48:00Z",
+        observedAt: "2026-10-24T23:17:55Z",
+        expiresAt: "2026-10-25T23:17:55Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
