@@ -1255,8 +1255,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cosrx Salicylic Acid Daily Gentle Cleanser – 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-23T16:47:53Z",
-        expiresAt: "2026-10-24T16:47:53Z",
+        observedAt: "2026-10-24T16:17:53Z",
+        expiresAt: "2026-10-25T16:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3528,8 +3528,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "GARNIER Vitamin C (Brightening) Day Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-23T16:47:50Z",
-        expiresAt: "2026-10-24T16:47:50Z",
+        observedAt: "2026-10-24T16:17:51Z",
+        expiresAt: "2026-10-25T16:17:51Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -8224,8 +8224,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Energizer Mandelic Acid Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-10-23T16:47:52Z",
-        expiresAt: "2026-10-24T16:47:52Z",
+        observedAt: "2026-10-24T16:17:55Z",
+        expiresAt: "2026-10-25T16:17:55Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
