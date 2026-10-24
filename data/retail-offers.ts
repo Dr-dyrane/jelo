@@ -1062,8 +1062,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10% + Hyaluron Redness Soothing Serum – 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-23T11:47:50Z",
-        expiresAt: "2026-10-24T11:47:50Z",
+        observedAt: "2026-10-24T10:47:56Z",
+        expiresAt: "2026-10-25T10:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2477,8 +2477,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; UPC 0810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-10-23T11:47:51Z",
-        expiresAt: "2026-10-24T11:47:51Z",
+        observedAt: "2026-10-24T10:47:57Z",
+        expiresAt: "2026-10-25T10:47:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7127,8 +7127,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Zero Cast Moisturizing Finish Sunscreen - 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-23T11:47:50Z",
-        expiresAt: "2026-10-24T11:47:50Z",
+        observedAt: "2026-10-24T10:47:56Z",
+        expiresAt: "2026-10-25T10:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8501,8 +8501,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Multi-Peptide Advanced Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-10-23T11:47:50Z",
-        expiresAt: "2026-10-24T11:47:50Z",
+        observedAt: "2026-10-24T10:47:56Z",
+        expiresAt: "2026-10-25T10:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
