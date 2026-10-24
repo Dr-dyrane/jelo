@@ -950,8 +950,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Medik8 Crystal Retinal 3 (30ml)",
       "30 ml",
       {
-        observedAt: "2026-10-23T09:48:34Z",
-        expiresAt: "2026-10-24T09:48:34Z",
+        observedAt: "2026-10-24T09:20:33Z",
+        expiresAt: "2026-10-25T09:20:33Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1629,8 +1629,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-10-23T09:18:54Z",
-        expiresAt: "2026-10-24T09:18:54Z",
+        observedAt: "2026-10-24T09:20:34Z",
+        expiresAt: "2026-10-25T09:20:34Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
