@@ -548,8 +548,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Vanilla Cashmere Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-23T04:48:04Z",
-        expiresAt: "2026-10-24T04:48:04Z",
+        observedAt: "2026-10-24T04:47:58Z",
+        expiresAt: "2026-10-25T04:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
