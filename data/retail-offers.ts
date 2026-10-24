@@ -3221,8 +3221,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Oil Control Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-10-23T03:48:00Z",
-        expiresAt: "2026-10-24T03:48:00Z",
+        observedAt: "2026-10-24T03:17:50Z",
+        expiresAt: "2026-10-25T03:17:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4851,8 +4851,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nivea Perfect & Radiant Body Lotion For Women - 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-23T03:48:00Z",
-        expiresAt: "2026-10-24T03:48:00Z",
+        observedAt: "2026-10-24T03:17:51Z",
+        expiresAt: "2026-10-25T03:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8425,8 +8425,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Hydrating Body Wash - 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-10-23T03:48:02Z",
-        expiresAt: "2026-10-24T03:48:02Z",
+        observedAt: "2026-10-24T03:18:13Z",
+        expiresAt: "2026-10-25T03:18:13Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
