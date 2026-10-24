@@ -3067,8 +3067,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-10-23T02:18:41Z",
-        expiresAt: "2026-10-24T02:18:41Z",
+        observedAt: "2026-10-24T01:48:35Z",
+        expiresAt: "2026-10-25T01:48:35Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4883,8 +4883,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind to Skin Refreshing Facial Gel Wash 150ML",
       "150 ml",
       {
-        observedAt: "2026-10-23T02:18:37Z",
-        expiresAt: "2026-10-24T02:18:37Z",
+        observedAt: "2026-10-24T01:48:40Z",
+        expiresAt: "2026-10-25T01:48:40Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6791,8 +6791,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-10-23T02:18:36Z",
-        expiresAt: "2026-10-24T02:18:36Z",
+        observedAt: "2026-10-24T01:48:44Z",
+        expiresAt: "2026-10-25T01:48:44Z",
         inventoryQuantity: 2,
         stock: "out-of-stock",
         available: false,
@@ -7941,8 +7941,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-23T02:18:36Z",
-        expiresAt: "2026-10-24T02:18:36Z",
+        observedAt: "2026-10-24T01:48:35Z",
+        expiresAt: "2026-10-25T01:48:35Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
