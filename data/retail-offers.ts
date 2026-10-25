@@ -3113,8 +3113,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-22T17:48:31Z",
-        expiresAt: "2026-10-23T17:48:31Z",
+        observedAt: "2026-10-25T20:47:52Z",
+        expiresAt: "2026-10-26T20:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5067,8 +5067,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-22T18:18:10Z",
-        expiresAt: "2026-10-23T18:18:10Z",
+        observedAt: "2026-10-25T20:47:53Z",
+        expiresAt: "2026-10-26T20:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6490,8 +6490,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6oz",
       "73.7 g",
       {
-        observedAt: "2026-10-22T17:48:29Z",
-        expiresAt: "2026-10-23T17:48:29Z",
+        observedAt: "2026-10-25T20:47:53Z",
+        expiresAt: "2026-10-26T20:47:53Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
