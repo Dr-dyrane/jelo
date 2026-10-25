@@ -8425,8 +8425,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Hydrating Body Wash - 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-10-24T03:18:13Z",
-        expiresAt: "2026-10-25T03:18:13Z",
+        observedAt: "2026-10-25T02:47:53Z",
+        expiresAt: "2026-10-26T02:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
