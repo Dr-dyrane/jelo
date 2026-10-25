@@ -502,8 +502,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-24T18:48:03Z",
-        expiresAt: "2026-10-25T18:48:03Z",
+        observedAt: "2026-10-25T18:17:53Z",
+        expiresAt: "2026-10-26T18:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1571,8 +1571,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream",
       "75 ml",
       {
-        observedAt: "2026-10-24T18:48:00Z",
-        expiresAt: "2026-10-25T18:48:00Z",
+        observedAt: "2026-10-25T18:18:01Z",
+        expiresAt: "2026-10-26T18:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6550,8 +6550,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Olay Super Serum Body Wash, Normal Skin; GTIN 030772160350",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-10-24T18:48:08Z",
-        expiresAt: "2026-10-25T18:48:08Z",
+        observedAt: "2026-10-25T18:17:50Z",
+        expiresAt: "2026-10-26T18:17:50Z",
         inventoryQuantity: 7,
         stock: "in-stock",
         available: true,
