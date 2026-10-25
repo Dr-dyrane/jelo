@@ -487,8 +487,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-24T20:47:56Z",
-        expiresAt: "2026-10-25T20:47:56Z",
+        observedAt: "2026-10-25T20:17:57Z",
+        expiresAt: "2026-10-26T20:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8039,8 +8039,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA Liquid Exfoliant 2% 120ml",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-10-24T20:48:16Z",
-        expiresAt: "2026-10-25T20:48:16Z",
+        observedAt: "2026-10-25T20:18:02Z",
+        expiresAt: "2026-10-26T20:18:02Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -8518,8 +8518,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Multi-Peptide Moisturizer - 50ml",
       "1.7 oz / 50 mL",
       {
-        observedAt: "2026-10-24T20:48:15Z",
-        expiresAt: "2026-10-25T20:48:15Z",
+        observedAt: "2026-10-25T20:17:58Z",
+        expiresAt: "2026-10-26T20:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
