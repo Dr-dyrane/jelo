@@ -3221,8 +3221,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Oil Control Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-10-24T03:17:50Z",
-        expiresAt: "2026-10-25T03:17:50Z",
+        observedAt: "2026-10-25T02:17:57Z",
+        expiresAt: "2026-10-26T02:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4851,8 +4851,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nivea Perfect & Radiant Body Lotion For Women - 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-24T03:17:51Z",
-        expiresAt: "2026-10-25T03:17:51Z",
+        observedAt: "2026-10-25T02:17:57Z",
+        expiresAt: "2026-10-26T02:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
