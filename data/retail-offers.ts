@@ -1556,8 +1556,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Bright + Clear Face Cream",
       "75 ml",
       {
-        observedAt: "2026-10-25T15:17:52Z",
-        expiresAt: "2026-10-26T15:17:52Z",
+        observedAt: "2026-10-26T14:47:53Z",
+        expiresAt: "2026-10-27T14:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2053,8 +2053,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Azelaic Acid Suspension 10%",
       "30 ml",
       {
-        observedAt: "2026-10-25T15:17:54Z",
-        expiresAt: "2026-10-26T15:17:54Z",
+        observedAt: "2026-10-26T14:47:52Z",
+        expiresAt: "2026-10-27T14:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3513,8 +3513,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream",
       "50 ml",
       {
-        observedAt: "2026-10-25T15:17:50Z",
-        expiresAt: "2026-10-26T15:17:50Z",
+        observedAt: "2026-10-26T14:47:56Z",
+        expiresAt: "2026-10-27T14:47:56Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5263,8 +5263,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A-Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-25T15:17:52Z",
-        expiresAt: "2026-10-26T15:17:52Z",
+        observedAt: "2026-10-26T14:47:51Z",
+        expiresAt: "2026-10-27T14:47:51Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 3,
