@@ -2598,8 +2598,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Niacinamide Serum",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-10-25T03:48:26Z",
-        expiresAt: "2026-10-26T03:48:26Z",
+        observedAt: "2026-10-26T02:48:38Z",
+        expiresAt: "2026-10-27T02:48:38Z",
         sellerName: "luxury skincare",
         available: true,
         stock: "in-stock",
@@ -7480,8 +7480,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Effaclar Purifying Foaming Gel Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-25T03:48:28Z",
-        expiresAt: "2026-10-26T03:48:28Z",
+        observedAt: "2026-10-26T02:48:39Z",
+        expiresAt: "2026-10-27T02:48:39Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -8691,8 +8691,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinol Complex Serum – 30ml",
       "1.0 fl oz / 30 mL",
       {
-        observedAt: "2026-10-25T03:48:28Z",
-        expiresAt: "2026-10-26T03:48:28Z",
+        observedAt: "2026-10-26T02:48:43Z",
+        expiresAt: "2026-10-27T02:48:43Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8908,8 +8908,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS MELA-PRO Tranexamic Acid Sun Screen 100ml",
       "100 ml",
       {
-        observedAt: "2026-10-25T03:48:28Z",
-        expiresAt: "2026-10-26T03:48:28Z",
+        observedAt: "2026-10-26T02:48:40Z",
+        expiresAt: "2026-10-27T02:48:40Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
