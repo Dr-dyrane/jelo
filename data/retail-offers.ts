@@ -1357,8 +1357,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha Bha Pha 30 Days Miracle Toner - 5.07oz",
       "150 ml",
       {
-        observedAt: "2026-10-25T22:18:28Z",
-        expiresAt: "2026-10-26T22:18:28Z",
+        observedAt: "2026-10-26T21:47:50Z",
+        expiresAt: "2026-10-27T21:47:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4643,8 +4643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml",
       "250 ml",
       {
-        observedAt: "2026-10-25T22:18:30Z",
-        expiresAt: "2026-10-26T22:18:30Z",
+        observedAt: "2026-10-26T21:47:52Z",
+        expiresAt: "2026-10-27T21:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4941,8 +4941,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind To Skin Refreshing Facial Gel Wash - 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-25T22:18:06Z",
-        expiresAt: "2026-10-26T22:18:06Z",
+        observedAt: "2026-10-26T21:47:50Z",
+        expiresAt: "2026-10-27T21:47:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
