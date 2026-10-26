@@ -950,8 +950,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Medik8 Crystal Retinal 3 (30ml)",
       "30 ml",
       {
-        observedAt: "2026-10-25T08:47:49Z",
-        expiresAt: "2026-10-26T08:47:49Z",
+        observedAt: "2026-10-26T07:48:34Z",
+        expiresAt: "2026-10-27T07:48:34Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1629,8 +1629,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-10-25T08:47:57Z",
-        expiresAt: "2026-10-26T08:47:57Z",
+        observedAt: "2026-10-26T07:48:41Z",
+        expiresAt: "2026-10-27T07:48:41Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4250,8 +4250,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-25T07:49:10Z",
-        expiresAt: "2026-10-26T07:49:10Z",
+        observedAt: "2026-10-26T07:48:36Z",
+        expiresAt: "2026-10-27T07:48:36Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -7097,8 +7097,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Zero Cast Moisturizing Finish Sunscreen 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-25T07:49:03Z",
-        expiresAt: "2026-10-26T07:49:03Z",
+        observedAt: "2026-10-26T07:48:37Z",
+        expiresAt: "2026-10-27T07:48:37Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
