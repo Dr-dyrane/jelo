@@ -578,8 +578,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Shea Better Vanilla Cashmere Body Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-26T18:17:49Z",
-        expiresAt: "2026-10-27T18:17:49Z",
+        observedAt: "2026-10-27T17:17:57Z",
+        expiresAt: "2026-10-28T17:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1571,8 +1571,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream",
       "75 ml",
       {
-        observedAt: "2026-10-26T17:48:00Z",
-        expiresAt: "2026-10-27T17:48:00Z",
+        observedAt: "2026-10-27T17:17:57Z",
+        expiresAt: "2026-10-28T17:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2114,8 +2114,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Anthelios UVmune 400 Oil Control Fluid SPF50+ | 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-26T18:17:50Z",
-        expiresAt: "2026-10-27T18:17:50Z",
+        observedAt: "2026-10-27T17:17:57Z",
+        expiresAt: "2026-10-28T17:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6550,8 +6550,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Olay Super Serum Body Wash, Normal Skin; GTIN 030772160350",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-10-26T17:47:58Z",
-        expiresAt: "2026-10-27T17:47:58Z",
+        observedAt: "2026-10-27T17:17:57Z",
+        expiresAt: "2026-10-28T17:17:57Z",
         inventoryQuantity: 7,
         stock: "in-stock",
         available: true,
