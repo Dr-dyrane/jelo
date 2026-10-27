@@ -2539,8 +2539,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-10-21T03:48:57Z",
         expiresAt: "2026-10-22T03:48:57Z",
-        available: true,
-        stock: "in-stock",
+        available: false,
+        stock: "unknown",
         verificationMethod: "retailer_page",
       },
     ),
