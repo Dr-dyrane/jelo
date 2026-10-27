@@ -3960,8 +3960,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SKIN BY ZARON -VITAMIN C (Brightening & Moisturizing) Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-26T19:47:58Z",
-        expiresAt: "2026-10-27T19:47:58Z",
+        observedAt: "2026-10-27T19:17:51Z",
+        expiresAt: "2026-10-28T19:17:51Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8039,8 +8039,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA Liquid Exfoliant 2% 120ml",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-10-26T19:48:01Z",
-        expiresAt: "2026-10-27T19:48:01Z",
+        observedAt: "2026-10-27T19:17:53Z",
+        expiresAt: "2026-10-28T19:17:53Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
