@@ -4776,8 +4776,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nivea Perfect and Radiant Body Lotion 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-26T19:17:50Z",
-        expiresAt: "2026-10-27T19:17:50Z",
+        observedAt: "2026-10-27T18:17:55Z",
+        expiresAt: "2026-10-28T18:17:55Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -6746,8 +6746,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Tresemme Keratin Smooth Weightless Conditioner 828ml",
       "828 ml",
       {
-        observedAt: "2026-10-26T19:17:52Z",
-        expiresAt: "2026-10-27T19:17:52Z",
+        observedAt: "2026-10-27T18:17:58Z",
+        expiresAt: "2026-10-28T18:17:58Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -7186,8 +7186,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Zero Cast Moisturizing Finish Sunscreen 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-26T19:17:49Z",
-        expiresAt: "2026-10-27T19:17:49Z",
+        observedAt: "2026-10-27T18:17:57Z",
+        expiresAt: "2026-10-28T18:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
