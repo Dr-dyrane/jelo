@@ -502,8 +502,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-26T17:47:53Z",
-        expiresAt: "2026-10-27T17:47:53Z",
+        observedAt: "2026-10-27T16:48:01Z",
+        expiresAt: "2026-10-28T16:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7451,8 +7451,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Effaclar Gel Moussant Purifying Foaming Gel for Oily Sensitive Skin 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-26T17:17:55Z",
-        expiresAt: "2026-10-27T17:17:55Z",
+        observedAt: "2026-10-27T16:48:01Z",
+        expiresAt: "2026-10-28T16:48:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
