@@ -1300,8 +1300,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SOME BY MI AHA BHA PHA 30 Days Miracle Toner",
       "150 ml",
       {
-        observedAt: "2026-10-26T23:18:09Z",
-        expiresAt: "2026-10-27T23:18:09Z",
+        observedAt: "2026-10-27T22:47:53Z",
+        expiresAt: "2026-10-28T22:47:53Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -5325,8 +5325,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-26T22:17:55Z",
-        expiresAt: "2026-10-27T22:17:55Z",
+        observedAt: "2026-10-27T22:47:52Z",
+        expiresAt: "2026-10-28T22:47:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8971,8 +8971,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinaldehyde Cream Serum 0.10% 50ml / 1.7fl",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-10-26T23:18:09Z",
-        expiresAt: "2026-10-27T23:18:09Z",
+        observedAt: "2026-10-27T22:47:53Z",
+        expiresAt: "2026-10-28T22:47:53Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
