@@ -3236,8 +3236,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-10-26T10:20:24Z",
-        expiresAt: "2026-10-27T10:20:24Z",
+        observedAt: "2026-10-27T10:17:58Z",
+        expiresAt: "2026-10-28T10:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7880,8 +7880,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-26T10:20:24Z",
-        expiresAt: "2026-10-27T10:20:24Z",
+        observedAt: "2026-10-27T10:17:59Z",
+        expiresAt: "2026-10-28T10:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
