@@ -517,8 +517,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Pink Champagne Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-26T12:17:51Z",
-        expiresAt: "2026-10-27T12:17:51Z",
+        observedAt: "2026-10-27T11:17:54Z",
+        expiresAt: "2026-10-28T11:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7912,8 +7912,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-26T12:17:49Z",
-        expiresAt: "2026-10-27T12:17:49Z",
+        observedAt: "2026-10-27T11:17:54Z",
+        expiresAt: "2026-10-28T11:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
