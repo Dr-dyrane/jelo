@@ -1914,8 +1914,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Foaming Cleanser For Normal To Oily Skin 8fl oz 236ml",
       "236 ml",
       {
-        observedAt: "2026-10-26T22:17:58Z",
-        expiresAt: "2026-10-27T22:17:58Z",
+        observedAt: "2026-10-27T21:48:17Z",
+        expiresAt: "2026-10-28T21:48:17Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4479,8 +4479,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Cleanser (16fl Oz/473ml)",
       "473 ml",
       {
-        observedAt: "2026-10-26T22:17:57Z",
-        expiresAt: "2026-10-27T22:17:57Z",
+        observedAt: "2026-10-27T21:48:01Z",
+        expiresAt: "2026-10-28T21:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
