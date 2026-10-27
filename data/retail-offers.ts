@@ -3513,8 +3513,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream",
       "50 ml",
       {
-        observedAt: "2026-10-26T14:47:56Z",
-        expiresAt: "2026-10-27T14:47:56Z",
+        observedAt: "2026-10-27T14:17:55Z",
+        expiresAt: "2026-10-28T14:17:55Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4540,8 +4540,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-26T14:19:21Z",
-        expiresAt: "2026-10-27T14:19:21Z",
+        observedAt: "2026-10-27T14:17:52Z",
+        expiresAt: "2026-10-28T14:17:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6533,8 +6533,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6Oz",
       "2.6 oz / 73.7 g",
       {
-        observedAt: "2026-10-26T14:19:21Z",
-        expiresAt: "2026-10-27T14:19:21Z",
+        observedAt: "2026-10-27T14:17:53Z",
+        expiresAt: "2026-10-28T14:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
