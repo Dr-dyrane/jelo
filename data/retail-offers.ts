@@ -1929,8 +1929,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Foaming Facial Cleanser 8 oz (237ml) US Version",
       "236 ml",
       {
-        observedAt: "2026-10-26T21:18:00Z",
-        expiresAt: "2026-10-27T21:18:00Z",
+        observedAt: "2026-10-27T23:18:46Z",
+        expiresAt: "2026-10-28T23:18:46Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -4295,8 +4295,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche Posay Mela B3 Serum – Dark Spot Corrector – 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-26T21:18:00Z",
-        expiresAt: "2026-10-27T21:18:00Z",
+        observedAt: "2026-10-27T23:18:42Z",
+        expiresAt: "2026-10-28T23:18:42Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5159,8 +5159,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-26T21:18:01Z",
-        expiresAt: "2026-10-27T21:18:01Z",
+        observedAt: "2026-10-27T23:18:42Z",
+        expiresAt: "2026-10-28T23:18:42Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6944,8 +6944,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Beauty Formulas Glowing Serum 2% Vitamin C",
       "30 ml",
       {
-        observedAt: "2026-10-26T23:47:50Z",
-        expiresAt: "2026-10-27T23:47:50Z",
+        observedAt: "2026-10-27T23:18:45Z",
+        expiresAt: "2026-10-28T23:18:45Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
