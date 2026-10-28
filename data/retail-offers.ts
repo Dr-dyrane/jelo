@@ -1629,8 +1629,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-10-27T07:17:55Z",
-        expiresAt: "2026-10-28T07:17:55Z",
+        observedAt: "2026-10-28T06:48:00Z",
+        expiresAt: "2026-10-29T06:48:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3744,8 +3744,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "KeraCare Dry And Itchy Conditioner",
       "950 ml",
       {
-        observedAt: "2026-10-27T06:48:15Z",
-        expiresAt: "2026-10-28T06:48:15Z",
+        observedAt: "2026-10-28T06:48:00Z",
+        expiresAt: "2026-10-29T06:48:00Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -9210,8 +9210,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NATURIUM -Retinol Complex Cream 50ml",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-10-27T06:48:13Z",
-        expiresAt: "2026-10-28T06:48:13Z",
+        observedAt: "2026-10-28T06:47:59Z",
+        expiresAt: "2026-10-29T06:47:59Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
