@@ -3975,8 +3975,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening and Moisturizing Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-10-27T01:47:53Z",
-        expiresAt: "2026-10-28T01:47:53Z",
+        observedAt: "2026-10-28T00:47:59Z",
+        expiresAt: "2026-10-29T00:47:59Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 10,
@@ -8271,8 +8271,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-10-27T01:47:52Z",
-        expiresAt: "2026-10-28T01:47:52Z",
+        observedAt: "2026-10-28T00:47:58Z",
+        expiresAt: "2026-10-29T00:47:58Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
