@@ -2055,8 +2055,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Azelaic Acid Suspension 10%",
       "30 ml",
       {
-        observedAt: "2026-10-27T13:48:32Z",
-        expiresAt: "2026-10-28T13:48:32Z",
+        observedAt: "2026-10-28T13:48:01Z",
+        expiresAt: "2026-10-29T13:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3515,8 +3515,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream",
       "50 ml",
       {
-        observedAt: "2026-10-27T14:17:55Z",
-        expiresAt: "2026-10-28T14:17:55Z",
+        observedAt: "2026-10-28T13:48:19Z",
+        expiresAt: "2026-10-29T13:48:19Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6536,8 +6536,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6Oz",
       "2.6 oz / 73.7 g",
       {
-        observedAt: "2026-10-27T14:17:53Z",
-        expiresAt: "2026-10-28T14:17:53Z",
+        observedAt: "2026-10-28T13:48:01Z",
+        expiresAt: "2026-10-29T13:48:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
