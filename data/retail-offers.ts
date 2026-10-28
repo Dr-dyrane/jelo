@@ -4344,8 +4344,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La roche Posay Vitamin c Gel Moussant Purifying Cleanser 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-28T00:17:57Z",
-        expiresAt: "2026-10-29T00:17:57Z",
+        observedAt: "2026-10-28T23:48:30Z",
+        expiresAt: "2026-10-29T23:48:30Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5114,8 +5114,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-28T00:17:57Z",
-        expiresAt: "2026-10-29T00:17:57Z",
+        observedAt: "2026-10-28T23:48:31Z",
+        expiresAt: "2026-10-29T23:48:31Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6794,8 +6794,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-10-28T00:18:03Z",
-        expiresAt: "2026-10-29T00:18:03Z",
+        observedAt: "2026-10-28T23:48:44Z",
+        expiresAt: "2026-10-29T23:48:44Z",
         inventoryQuantity: 2,
         stock: "out-of-stock",
         available: false,
@@ -7944,8 +7944,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-28T00:17:57Z",
-        expiresAt: "2026-10-29T00:17:57Z",
+        observedAt: "2026-10-28T23:48:44Z",
+        expiresAt: "2026-10-29T23:48:44Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
