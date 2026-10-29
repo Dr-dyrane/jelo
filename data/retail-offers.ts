@@ -133,8 +133,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Bright + Balance Body Gel Wash",
       "1000 ml",
       {
-        observedAt: "2026-10-28T15:18:21Z",
-        expiresAt: "2026-10-29T15:18:21Z",
+        observedAt: "2026-10-29T14:48:09Z",
+        expiresAt: "2026-10-30T14:48:09Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -195,8 +195,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Multi-Peptide Eye Cream",
       "0.5 fl oz / 15 ml",
       {
-        observedAt: "2026-10-28T15:18:21Z",
-        expiresAt: "2026-10-29T15:18:21Z",
+        observedAt: "2026-10-29T14:48:28Z",
+        expiresAt: "2026-10-30T14:48:28Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -1285,8 +1285,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi AHA-BHA-PHA 30 Days Miracle Toner",
       "150 ml",
       {
-        observedAt: "2026-10-28T15:18:22Z",
-        expiresAt: "2026-10-29T15:18:22Z",
+        observedAt: "2026-10-29T14:48:13Z",
+        expiresAt: "2026-10-30T14:48:13Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -1435,8 +1435,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua 10% Niacinamide + 4% TXA Acid Serum",
       "30 ml",
       {
-        observedAt: "2026-10-28T15:18:19Z",
-        expiresAt: "2026-10-29T15:18:19Z",
+        observedAt: "2026-10-29T14:48:05Z",
+        expiresAt: "2026-10-30T14:48:05Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
