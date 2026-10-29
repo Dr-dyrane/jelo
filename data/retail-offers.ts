@@ -1512,8 +1512,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml – Fragrance Free",
       "50 ml",
       {
-        observedAt: "2026-10-28T11:18:33Z",
-        expiresAt: "2026-10-29T11:18:33Z",
+        observedAt: "2026-10-29T10:47:55Z",
+        expiresAt: "2026-10-30T10:47:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5357,8 +5357,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-Pro Rice & TXA Toner - 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-28T11:18:34Z",
-        expiresAt: "2026-10-29T11:18:34Z",
+        observedAt: "2026-10-29T10:47:56Z",
+        expiresAt: "2026-10-30T10:47:56Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -7915,8 +7915,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-28T11:20:17Z",
-        expiresAt: "2026-10-29T11:20:17Z",
+        observedAt: "2026-10-29T10:47:55Z",
+        expiresAt: "2026-10-30T10:47:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
