@@ -472,8 +472,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-10-28T08:47:59Z",
-        expiresAt: "2026-10-29T08:47:59Z",
+        observedAt: "2026-10-29T08:18:00Z",
+        expiresAt: "2026-10-30T08:18:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3008,8 +3008,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5fl/150ml",
       "150 ml",
       {
-        observedAt: "2026-10-28T08:47:58Z",
-        expiresAt: "2026-10-29T08:47:58Z",
+        observedAt: "2026-10-29T08:17:58Z",
+        expiresAt: "2026-10-30T08:17:58Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
