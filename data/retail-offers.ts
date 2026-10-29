@@ -6749,8 +6749,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Tresemme Keratin Smooth Weightless Conditioner 828ml",
       "828 ml",
       {
-        observedAt: "2026-10-28T17:47:58Z",
-        expiresAt: "2026-10-29T17:47:58Z",
+        observedAt: "2026-10-29T17:18:00Z",
+        expiresAt: "2026-10-30T17:18:00Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -7189,8 +7189,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Zero Cast Moisturizing Finish Sunscreen 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-28T17:47:57Z",
-        expiresAt: "2026-10-29T17:47:57Z",
+        observedAt: "2026-10-29T17:17:57Z",
+        expiresAt: "2026-10-30T17:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
