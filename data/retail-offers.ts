@@ -5327,8 +5327,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-28T22:17:59Z",
-        expiresAt: "2026-10-29T22:17:59Z",
+        observedAt: "2026-10-29T21:48:29Z",
+        expiresAt: "2026-10-30T21:48:29Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6947,8 +6947,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Beauty Formulas Glowing Serum 2% Vitamin C",
       "30 ml",
       {
-        observedAt: "2026-10-28T22:47:55Z",
-        expiresAt: "2026-10-29T22:47:55Z",
+        observedAt: "2026-10-29T21:48:22Z",
+        expiresAt: "2026-10-30T21:48:22Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
