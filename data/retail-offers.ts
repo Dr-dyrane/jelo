@@ -1358,8 +1358,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha Bha Pha 30 Days Miracle Toner - 5.07oz",
       "150 ml",
       {
-        observedAt: "2026-10-29T19:47:56Z",
-        expiresAt: "2026-10-30T19:47:56Z",
+        observedAt: "2026-10-30T19:18:22Z",
+        expiresAt: "2026-10-31T19:18:22Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4943,8 +4943,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind To Skin Refreshing Facial Gel Wash - 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-29T19:47:56Z",
-        expiresAt: "2026-10-30T19:47:56Z",
+        observedAt: "2026-10-30T19:18:21Z",
+        expiresAt: "2026-10-31T19:18:21Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7702,8 +7702,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS A Control Azelaic Acid Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-29T19:47:57Z",
-        expiresAt: "2026-10-30T19:47:57Z",
+        observedAt: "2026-10-30T19:18:29Z",
+        expiresAt: "2026-10-31T19:18:29Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
