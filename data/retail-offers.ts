@@ -2844,8 +2844,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe SA Smoothing Cleanser",
       "473 ml",
       {
-        observedAt: "2026-10-29T15:47:57Z",
-        expiresAt: "2026-10-30T15:47:57Z",
+        observedAt: "2026-10-30T15:17:50Z",
+        expiresAt: "2026-10-31T15:17:50Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -3839,8 +3839,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrate + Protect Body Lotion",
       "500 ml",
       {
-        observedAt: "2026-10-29T15:48:07Z",
-        expiresAt: "2026-10-30T15:48:07Z",
+        observedAt: "2026-10-30T15:18:24Z",
+        expiresAt: "2026-10-31T15:18:24Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7900,8 +7900,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-29T15:48:13Z",
-        expiresAt: "2026-10-30T15:48:13Z",
+        observedAt: "2026-10-30T15:19:37Z",
+        expiresAt: "2026-10-31T15:19:37Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
