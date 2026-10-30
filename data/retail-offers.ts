@@ -643,8 +643,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Perfector  Salicylic Acid Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-10-29T20:48:16Z",
-        expiresAt: "2026-10-30T20:48:16Z",
+        observedAt: "2026-10-30T20:17:59Z",
+        expiresAt: "2026-10-31T20:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1450,8 +1450,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Niacinamide 10% + TXA 4% Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-29T20:48:15Z",
-        expiresAt: "2026-10-30T20:48:15Z",
+        observedAt: "2026-10-30T20:17:58Z",
+        expiresAt: "2026-10-31T20:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1916,8 +1916,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Foaming Cleanser For Normal To Oily Skin 8fl oz 236ml",
       "236 ml",
       {
-        observedAt: "2026-10-29T20:48:19Z",
-        expiresAt: "2026-10-30T20:48:19Z",
+        observedAt: "2026-10-30T20:18:01Z",
+        expiresAt: "2026-10-31T20:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4481,8 +4481,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Cleanser (16fl Oz/473ml)",
       "473 ml",
       {
-        observedAt: "2026-10-29T20:48:20Z",
-        expiresAt: "2026-10-30T20:48:20Z",
+        observedAt: "2026-10-30T20:18:02Z",
+        expiresAt: "2026-10-31T20:18:02Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
