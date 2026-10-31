@@ -1631,8 +1631,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-10-30T05:48:31Z",
-        expiresAt: "2026-10-31T05:48:31Z",
+        observedAt: "2026-10-31T05:18:01Z",
+        expiresAt: "2026-11-01T05:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7564,8 +7564,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
       "8.5 fl oz",
       {
-        observedAt: "2026-10-30T05:48:31Z",
-        expiresAt: "2026-10-31T05:48:31Z",
+        observedAt: "2026-10-31T05:17:55Z",
+        expiresAt: "2026-11-01T05:17:55Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
