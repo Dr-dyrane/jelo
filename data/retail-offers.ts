@@ -5327,8 +5327,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-10-30T21:18:12Z",
-        expiresAt: "2026-10-31T21:18:12Z",
+        observedAt: "2026-10-31T20:47:58Z",
+        expiresAt: "2026-11-01T20:47:58Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6153,8 +6153,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Soothe & Glow Niacinamide serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-10-30T21:18:10Z",
-        expiresAt: "2026-10-31T21:18:10Z",
+        observedAt: "2026-10-31T20:47:56Z",
+        expiresAt: "2026-11-01T20:47:56Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -6947,8 +6947,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Beauty Formulas Glowing Serum 2% Vitamin C",
       "30 ml",
       {
-        observedAt: "2026-10-30T21:18:09Z",
-        expiresAt: "2026-10-31T21:18:09Z",
+        observedAt: "2026-10-31T20:47:56Z",
+        expiresAt: "2026-11-01T20:47:56Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
