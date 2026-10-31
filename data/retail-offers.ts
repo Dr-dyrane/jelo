@@ -3839,8 +3839,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrate + Protect Body Lotion",
       "500 ml",
       {
-        observedAt: "2026-10-30T15:18:24Z",
-        expiresAt: "2026-10-31T15:18:24Z",
+        observedAt: "2026-10-31T14:47:56Z",
+        expiresAt: "2026-11-01T14:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7900,8 +7900,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-10-30T15:19:37Z",
-        expiresAt: "2026-10-31T15:19:37Z",
+        observedAt: "2026-10-31T14:47:56Z",
+        expiresAt: "2026-11-01T14:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
