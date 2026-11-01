@@ -3361,8 +3361,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Blemish Gel Moisturiser",
       "50 ml",
       {
-        observedAt: "2026-10-31T08:47:58Z",
-        expiresAt: "2026-11-01T08:47:58Z",
+        observedAt: "2026-11-01T08:18:02Z",
+        expiresAt: "2026-11-02T08:18:02Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
