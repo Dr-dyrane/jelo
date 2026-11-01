@@ -1358,8 +1358,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha Bha Pha 30 Days Miracle Toner - 5.07oz",
       "150 ml",
       {
-        observedAt: "2026-10-31T18:47:56Z",
-        expiresAt: "2026-11-01T18:47:56Z",
+        observedAt: "2026-11-01T17:47:58Z",
+        expiresAt: "2026-11-02T17:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4943,8 +4943,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind To Skin Refreshing Facial Gel Wash - 150ml",
       "150 ml",
       {
-        observedAt: "2026-10-31T18:47:56Z",
-        expiresAt: "2026-11-01T18:47:56Z",
+        observedAt: "2026-11-01T17:47:58Z",
+        expiresAt: "2026-11-02T17:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
