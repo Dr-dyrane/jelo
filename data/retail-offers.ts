@@ -4885,8 +4885,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind to Skin Refreshing Facial Gel Wash 150ML",
       "150 ml",
       {
-        observedAt: "2026-10-31T22:48:16Z",
-        expiresAt: "2026-11-01T22:48:16Z",
+        observedAt: "2026-11-01T22:18:09Z",
+        expiresAt: "2026-11-02T22:18:09Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8274,8 +8274,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-10-31T22:48:15Z",
-        expiresAt: "2026-11-01T22:48:15Z",
+        observedAt: "2026-11-01T22:18:09Z",
+        expiresAt: "2026-11-02T22:18:09Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
