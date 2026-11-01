@@ -3069,8 +3069,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-10-31T03:49:37Z",
-        expiresAt: "2026-11-01T03:49:37Z",
+        observedAt: "2026-11-01T03:18:01Z",
+        expiresAt: "2026-11-02T03:18:01Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -3423,8 +3423,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion",
       "400 ml",
       {
-        observedAt: "2026-10-31T03:49:37Z",
-        expiresAt: "2026-11-01T03:49:37Z",
+        observedAt: "2026-11-01T03:18:01Z",
+        expiresAt: "2026-11-02T03:18:01Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -7317,8 +7317,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Advanced Clinicals® 1.75 Oz. Vitamin C Serum",
       "1.75 fl oz / 52 ml",
       {
-        observedAt: "2026-10-31T03:49:36Z",
-        expiresAt: "2026-11-01T03:49:36Z",
+        observedAt: "2026-11-01T03:17:59Z",
+        expiresAt: "2026-11-02T03:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8289,8 +8289,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-10-31T03:49:34Z",
-        expiresAt: "2026-11-01T03:49:34Z",
+        observedAt: "2026-11-01T03:17:57Z",
+        expiresAt: "2026-11-02T03:17:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
