@@ -7702,8 +7702,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS A Control Azelaic Acid Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-10-31T18:48:01Z",
-        expiresAt: "2026-11-01T18:48:01Z",
+        observedAt: "2026-11-01T18:17:56Z",
+        expiresAt: "2026-11-02T18:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
