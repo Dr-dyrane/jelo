@@ -1573,8 +1573,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream",
       "75 ml",
       {
-        observedAt: "2026-11-01T14:17:56Z",
-        expiresAt: "2026-11-02T14:17:56Z",
+        observedAt: "2026-11-02T13:47:57Z",
+        expiresAt: "2026-11-03T13:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5915,8 +5915,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Multipurpose Retinal Cream 0.05% (30ml)",
       "30 ml",
       {
-        observedAt: "2026-11-01T14:17:57Z",
-        expiresAt: "2026-11-02T14:17:57Z",
+        observedAt: "2026-11-02T13:48:20Z",
+        expiresAt: "2026-11-03T13:48:20Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
