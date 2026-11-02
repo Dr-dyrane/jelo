@@ -1512,8 +1512,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml – Fragrance Free",
       "50 ml",
       {
-        observedAt: "2026-11-01T09:17:56Z",
-        expiresAt: "2026-11-02T09:17:56Z",
+        observedAt: "2026-11-02T08:47:59Z",
+        expiresAt: "2026-11-03T08:47:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7915,8 +7915,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-11-01T09:17:57Z",
-        expiresAt: "2026-11-02T09:17:57Z",
+        observedAt: "2026-11-02T08:47:57Z",
+        expiresAt: "2026-11-03T08:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
