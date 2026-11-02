@@ -3746,8 +3746,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "KeraCare Dry And Itchy Conditioner",
       "950 ml",
       {
-        observedAt: "2026-11-01T05:17:59Z",
-        expiresAt: "2026-11-02T05:17:59Z",
+        observedAt: "2026-11-02T05:18:18Z",
+        expiresAt: "2026-11-03T05:18:18Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -6841,8 +6841,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-11-01T05:17:59Z",
-        expiresAt: "2026-11-02T05:17:59Z",
+        observedAt: "2026-11-02T05:18:21Z",
+        expiresAt: "2026-11-03T05:18:21Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
