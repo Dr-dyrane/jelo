@@ -2874,8 +2874,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave SA smoothing cleanser For Dry Rough Bumpy Skin 16oz",
       "473 ml",
       {
-        observedAt: "2026-11-01T15:47:58Z",
-        expiresAt: "2026-11-02T15:47:58Z",
+        observedAt: "2026-11-02T15:17:56Z",
+        expiresAt: "2026-11-03T15:17:56Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6749,8 +6749,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Tresemme Keratin Smooth Weightless Conditioner 828ml",
       "828 ml",
       {
-        observedAt: "2026-11-01T15:47:58Z",
-        expiresAt: "2026-11-02T15:47:58Z",
+        observedAt: "2026-11-02T15:17:58Z",
+        expiresAt: "2026-11-03T15:17:58Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -6932,8 +6932,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Beauty Formulas Glowing Serum 2% Vitamin C",
       "30 ml",
       {
-        observedAt: "2026-11-01T15:47:55Z",
-        expiresAt: "2026-11-02T15:47:55Z",
+        observedAt: "2026-11-02T15:17:56Z",
+        expiresAt: "2026-11-03T15:17:56Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
