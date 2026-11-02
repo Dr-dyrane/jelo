@@ -1558,8 +1558,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Bright + Clear Face Cream",
       "75 ml",
       {
-        observedAt: "2026-11-01T11:17:59Z",
-        expiresAt: "2026-11-02T11:17:59Z",
+        observedAt: "2026-11-02T10:47:52Z",
+        expiresAt: "2026-11-03T10:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2494,8 +2494,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-01T11:18:11Z",
-        expiresAt: "2026-11-02T11:18:11Z",
+        observedAt: "2026-11-02T10:47:53Z",
+        expiresAt: "2026-11-03T10:47:53Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -3854,8 +3854,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrate + Protect Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-11-01T11:17:59Z",
-        expiresAt: "2026-11-02T11:17:59Z",
+        observedAt: "2026-11-02T10:47:52Z",
+        expiresAt: "2026-11-03T10:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4763,8 +4763,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NIVEA PERFECT & RADIANT BODY LOTION 400ML",
       "400 ml",
       {
-        observedAt: "2026-11-01T11:17:58Z",
-        expiresAt: "2026-11-02T11:17:58Z",
+        observedAt: "2026-11-02T10:47:56Z",
+        expiresAt: "2026-11-03T10:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
