@@ -1631,8 +1631,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-11-01T04:47:58Z",
-        expiresAt: "2026-11-02T04:47:58Z",
+        observedAt: "2026-11-02T04:17:57Z",
+        expiresAt: "2026-11-03T04:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4252,8 +4252,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-01T04:17:59Z",
-        expiresAt: "2026-11-02T04:17:59Z",
+        observedAt: "2026-11-02T04:17:58Z",
+        expiresAt: "2026-11-03T04:17:58Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -7564,8 +7564,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
       "8.5 fl oz",
       {
-        observedAt: "2026-11-01T04:47:57Z",
-        expiresAt: "2026-11-02T04:47:57Z",
+        observedAt: "2026-11-02T04:18:07Z",
+        expiresAt: "2026-11-03T04:18:07Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
