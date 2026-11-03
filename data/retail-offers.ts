@@ -5915,8 +5915,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Multipurpose Retinal Cream 0.05% (30ml)",
       "30 ml",
       {
-        observedAt: "2026-11-02T13:48:20Z",
-        expiresAt: "2026-11-03T13:48:20Z",
+        observedAt: "2026-11-03T13:17:59Z",
+        expiresAt: "2026-11-04T13:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
