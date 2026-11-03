@@ -2905,8 +2905,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Acne Foaming Cream Cleanser 4% Benzoyl Peroxide",
       "150 ml / 5 fl oz",
       {
-        observedAt: "2026-11-02T23:48:15Z",
-        expiresAt: "2026-11-03T23:48:15Z",
+        observedAt: "2026-11-03T23:47:59Z",
+        expiresAt: "2026-11-04T23:47:59Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
