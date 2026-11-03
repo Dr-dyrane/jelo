@@ -2494,8 +2494,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-02T10:47:53Z",
-        expiresAt: "2026-11-03T10:47:53Z",
+        observedAt: "2026-11-03T10:18:13Z",
+        expiresAt: "2026-11-04T10:18:13Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4763,8 +4763,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NIVEA PERFECT & RADIANT BODY LOTION 400ML",
       "400 ml",
       {
-        observedAt: "2026-11-02T10:47:56Z",
-        expiresAt: "2026-11-03T10:47:56Z",
+        observedAt: "2026-11-03T10:17:57Z",
+        expiresAt: "2026-11-04T10:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
