@@ -578,8 +578,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Shea Better Vanilla Cashmere Body Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-02T14:18:02Z",
-        expiresAt: "2026-11-03T14:18:02Z",
+        observedAt: "2026-11-04T16:49:23Z",
+        expiresAt: "2026-11-05T16:49:23Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7702,8 +7702,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS A Control Azelaic Acid Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-11-03T17:17:57Z",
-        expiresAt: "2026-11-04T17:17:57Z",
+        observedAt: "2026-11-04T16:49:23Z",
+        expiresAt: "2026-11-05T16:49:23Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
