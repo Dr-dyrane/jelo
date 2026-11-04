@@ -2781,8 +2781,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave moisturizing Cream 16 OZ (453g) USA version",
       "453 g",
       {
-        observedAt: "2026-11-03T11:17:53Z",
-        expiresAt: "2026-11-04T11:17:53Z",
+        observedAt: "2026-11-04T10:18:09Z",
+        expiresAt: "2026-11-05T10:18:09Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -3578,8 +3578,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "DOVE CALMING MOISTURE 3% Body Wash 547ml",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-11-03T11:17:52Z",
-        expiresAt: "2026-11-04T11:17:52Z",
+        observedAt: "2026-11-04T10:18:08Z",
+        expiresAt: "2026-11-05T10:18:08Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8227,8 +8227,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Energizer Mandelic Acid Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-11-03T11:17:52Z",
-        expiresAt: "2026-11-04T11:17:52Z",
+        observedAt: "2026-11-04T10:18:07Z",
+        expiresAt: "2026-11-05T10:18:07Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
