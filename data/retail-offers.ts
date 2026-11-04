@@ -195,8 +195,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Multi-Peptide Eye Cream",
       "0.5 fl oz / 15 ml",
       {
-        observedAt: "2026-11-03T12:17:57Z",
-        expiresAt: "2026-11-04T12:17:57Z",
+        observedAt: "2026-11-04T11:47:57Z",
+        expiresAt: "2026-11-05T11:47:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
