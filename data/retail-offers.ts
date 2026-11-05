@@ -2464,8 +2464,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-04T08:47:56Z",
-        expiresAt: "2026-11-05T08:47:56Z",
+        observedAt: "2026-11-05T08:21:42Z",
+        expiresAt: "2026-11-06T08:21:42Z",
         verificationMethod: "retailer_page",
         available: true,
         stock: "in-stock",
@@ -2539,8 +2539,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-03T06:17:57Z",
-        expiresAt: "2026-11-04T06:17:57Z",
+        observedAt: "2026-11-05T08:21:45Z",
+        expiresAt: "2026-11-06T08:21:45Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
