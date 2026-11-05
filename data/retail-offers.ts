@@ -4312,8 +4312,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay MelaB3 Serum Intense Anti-Dark Spot Serum for Hyperpigmentation 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-04T15:47:56Z",
-        expiresAt: "2026-11-05T15:47:56Z",
+        observedAt: "2026-11-05T14:47:58Z",
+        expiresAt: "2026-11-06T14:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
