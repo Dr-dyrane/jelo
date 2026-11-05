@@ -6153,8 +6153,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Soothe & Glow Niacinamide serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-04T18:47:57Z",
-        expiresAt: "2026-11-05T18:47:57Z",
+        observedAt: "2026-11-05T18:17:56Z",
+        expiresAt: "2026-11-06T18:17:56Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -6947,8 +6947,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Beauty Formulas Glowing Serum 2% Vitamin C",
       "30 ml",
       {
-        observedAt: "2026-11-04T18:47:56Z",
-        expiresAt: "2026-11-05T18:47:56Z",
+        observedAt: "2026-11-05T18:17:55Z",
+        expiresAt: "2026-11-06T18:17:55Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8974,8 +8974,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinaldehyde Cream Serum 0.10% 50ml / 1.7fl",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-11-04T18:47:58Z",
-        expiresAt: "2026-11-05T18:47:58Z",
+        observedAt: "2026-11-05T18:17:58Z",
+        expiresAt: "2026-11-06T18:17:58Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
