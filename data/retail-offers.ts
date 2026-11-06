@@ -4252,8 +4252,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-05T03:17:57Z",
-        expiresAt: "2026-11-06T03:17:57Z",
+        observedAt: "2026-11-06T03:18:00Z",
+        expiresAt: "2026-11-07T03:18:00Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
