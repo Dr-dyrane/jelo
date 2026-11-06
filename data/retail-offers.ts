@@ -5022,8 +5022,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula 15% Niacinamide Blemish Recovery Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-05T12:17:55Z",
-        expiresAt: "2026-11-06T12:17:55Z",
+        observedAt: "2026-11-06T11:47:57Z",
+        expiresAt: "2026-11-07T11:47:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5916,8 +5916,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Multipurpose Retinal Cream 0.05% (30ml)",
       "30 ml",
       {
-        observedAt: "2026-11-05T12:17:55Z",
-        expiresAt: "2026-11-06T12:17:55Z",
+        observedAt: "2026-11-06T11:47:57Z",
+        expiresAt: "2026-11-07T11:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
