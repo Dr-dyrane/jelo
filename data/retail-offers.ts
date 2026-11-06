@@ -1135,8 +1135,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10 + Hyaluron Redness Soothing Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-05T01:17:58Z",
-        expiresAt: "2026-11-06T01:17:58Z",
+        observedAt: "2026-11-06T00:47:57Z",
+        expiresAt: "2026-11-07T00:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3069,8 +3069,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Foaming Cleanser",
       "400 ml",
       {
-        observedAt: "2026-11-05T01:18:07Z",
-        expiresAt: "2026-11-06T01:18:07Z",
+        observedAt: "2026-11-06T00:47:57Z",
+        expiresAt: "2026-11-07T00:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
