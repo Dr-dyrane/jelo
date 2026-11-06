@@ -3423,8 +3423,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion",
       "400 ml",
       {
-        observedAt: "2026-11-05T00:48:18Z",
-        expiresAt: "2026-11-06T00:48:18Z",
+        observedAt: "2026-11-06T00:17:56Z",
+        expiresAt: "2026-11-07T00:17:56Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7317,8 +7317,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Advanced Clinicals® 1.75 Oz. Vitamin C Serum",
       "1.75 fl oz / 52 ml",
       {
-        observedAt: "2026-11-05T00:48:20Z",
-        expiresAt: "2026-11-06T00:48:20Z",
+        observedAt: "2026-11-06T00:17:58Z",
+        expiresAt: "2026-11-07T00:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8289,8 +8289,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-11-05T00:48:18Z",
-        expiresAt: "2026-11-06T00:48:18Z",
+        observedAt: "2026-11-06T00:17:56Z",
+        expiresAt: "2026-11-07T00:17:56Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
