@@ -517,8 +517,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Pink Champagne Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-05T06:47:55Z",
-        expiresAt: "2026-11-06T06:47:55Z",
+        observedAt: "2026-11-06T06:17:54Z",
+        expiresAt: "2026-11-07T06:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3238,8 +3238,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FACEFACTS CERAMIDE Oil Control Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-05T06:48:00Z",
-        expiresAt: "2026-11-06T06:48:00Z",
+        observedAt: "2026-11-06T06:17:59Z",
+        expiresAt: "2026-11-07T06:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7883,8 +7883,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-11-05T06:47:59Z",
-        expiresAt: "2026-11-06T06:47:59Z",
+        observedAt: "2026-11-06T06:18:00Z",
+        expiresAt: "2026-11-07T06:18:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
