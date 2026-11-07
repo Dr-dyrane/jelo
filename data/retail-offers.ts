@@ -8229,8 +8229,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Energizer Mandelic Acid Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-11-06T09:17:57Z",
-        expiresAt: "2026-11-07T09:17:57Z",
+        observedAt: "2026-11-07T08:51:27Z",
+        expiresAt: "2026-11-08T08:51:27Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
