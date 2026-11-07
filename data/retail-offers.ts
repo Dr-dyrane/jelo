@@ -5022,8 +5022,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula 15% Niacinamide Blemish Recovery Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-06T11:47:57Z",
-        expiresAt: "2026-11-07T11:47:57Z",
+        observedAt: "2026-11-07T11:17:50Z",
+        expiresAt: "2026-11-08T11:17:50Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6249,8 +6249,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "OGX Renewing+ Argan Oil of Morocco Extra Penetrating Oil 100ml",
       "3.3 fl oz",
       {
-        observedAt: "2026-11-06T11:17:55Z",
-        expiresAt: "2026-11-07T11:17:55Z",
+        observedAt: "2026-11-07T11:17:50Z",
+        expiresAt: "2026-11-08T11:17:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
