@@ -8306,8 +8306,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 7.7 fl oz / 232 ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-11-06T06:47:55Z",
-        expiresAt: "2026-11-07T06:47:55Z",
+        observedAt: "2026-11-07T06:18:36Z",
+        expiresAt: "2026-11-08T06:18:36Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
