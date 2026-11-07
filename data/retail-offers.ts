@@ -1631,8 +1631,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Bright + Clear Face Cream 75ml",
       "75 ml",
       {
-        observedAt: "2026-11-06T02:48:37Z",
-        expiresAt: "2026-11-07T02:48:37Z",
+        observedAt: "2026-11-07T02:17:58Z",
+        expiresAt: "2026-11-08T02:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3746,8 +3746,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "KeraCare Dry And Itchy Conditioner",
       "950 ml",
       {
-        observedAt: "2026-11-06T02:48:49Z",
-        expiresAt: "2026-11-07T02:48:49Z",
+        observedAt: "2026-11-07T02:18:01Z",
+        expiresAt: "2026-11-08T02:18:01Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -6842,8 +6842,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-11-06T02:48:46Z",
-        expiresAt: "2026-11-07T02:48:46Z",
+        observedAt: "2026-11-07T02:17:56Z",
+        expiresAt: "2026-11-08T02:17:56Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -7566,8 +7566,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NEUTROGENA Light Sesame Formula Body Oil 8.5 oz 250ml",
       "8.5 fl oz",
       {
-        observedAt: "2026-11-06T02:48:34Z",
-        expiresAt: "2026-11-07T02:48:34Z",
+        observedAt: "2026-11-07T02:18:01Z",
+        expiresAt: "2026-11-08T02:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
