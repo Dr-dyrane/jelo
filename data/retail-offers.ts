@@ -256,8 +256,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AXIS-Y Vegan Collagen Eye Serum; GTIN 8809634610881",
       "10 ml / 0.33 fl oz",
       {
-        observedAt: "2026-11-06T07:48:01Z",
-        expiresAt: "2026-11-07T07:48:01Z",
+        observedAt: "2026-11-07T07:18:09Z",
+        expiresAt: "2026-11-08T07:18:09Z",
         inventoryQuantity: 104,
         stock: "in-stock",
         available: true,
@@ -1541,8 +1541,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-11-06T07:48:09Z",
-        expiresAt: "2026-11-07T07:48:09Z",
+        observedAt: "2026-11-07T07:18:12Z",
+        expiresAt: "2026-11-08T07:18:12Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2464,8 +2464,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-06T07:47:59Z",
-        expiresAt: "2026-11-07T07:47:59Z",
+        observedAt: "2026-11-07T07:17:49Z",
+        expiresAt: "2026-11-08T07:17:49Z",
         verificationMethod: "retailer_page",
         available: true,
         stock: "in-stock",
@@ -3438,8 +3438,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Vitamin C Body Lotion 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-06T07:47:59Z",
-        expiresAt: "2026-11-07T07:47:59Z",
+        observedAt: "2026-11-07T07:17:49Z",
+        expiresAt: "2026-11-08T07:17:49Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
