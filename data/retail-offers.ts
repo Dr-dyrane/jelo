@@ -1135,8 +1135,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10 + Hyaluron Redness Soothing Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-06T23:47:58Z",
-        expiresAt: "2026-11-07T23:47:58Z",
+        observedAt: "2026-11-07T23:17:50Z",
+        expiresAt: "2026-11-08T23:17:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3423,8 +3423,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion",
       "400 ml",
       {
-        observedAt: "2026-11-06T23:47:58Z",
-        expiresAt: "2026-11-07T23:47:58Z",
+        observedAt: "2026-11-07T23:18:12Z",
+        expiresAt: "2026-11-08T23:18:12Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7319,8 +7319,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Advanced Clinicals® 1.75 Oz. Vitamin C Serum",
       "1.75 fl oz / 52 ml",
       {
-        observedAt: "2026-11-06T23:48:15Z",
-        expiresAt: "2026-11-07T23:48:15Z",
+        observedAt: "2026-11-07T23:18:14Z",
+        expiresAt: "2026-11-08T23:18:14Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8291,8 +8291,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-11-06T23:48:12Z",
-        expiresAt: "2026-11-07T23:48:12Z",
+        observedAt: "2026-11-07T23:18:11Z",
+        expiresAt: "2026-11-08T23:18:11Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
