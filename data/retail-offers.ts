@@ -6948,8 +6948,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Beauty Formulas Glowing Serum 2% Vitamin C",
       "30 ml",
       {
-        observedAt: "2026-11-07T16:48:34Z",
-        expiresAt: "2026-11-08T16:48:34Z",
+        observedAt: "2026-11-08T16:17:50Z",
+        expiresAt: "2026-11-09T16:17:50Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8977,8 +8977,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinaldehyde Cream Serum 0.10% 50ml / 1.7fl",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-11-07T16:48:37Z",
-        expiresAt: "2026-11-08T16:48:37Z",
+        observedAt: "2026-11-08T16:17:52Z",
+        expiresAt: "2026-11-09T16:17:52Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
