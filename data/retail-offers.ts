@@ -5249,8 +5249,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A-Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-08T08:47:56Z",
-        expiresAt: "2026-11-09T08:47:56Z",
+        observedAt: "2026-11-09T08:17:56Z",
+        expiresAt: "2026-11-10T08:17:56Z",
         stock: "out-of-stock",
         available: false,
         inventoryQuantity: 2,
@@ -7088,8 +7088,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "ANUA Zero Cast Moisturizing Finish Sunscreen",
       "50 ml",
       {
-        observedAt: "2026-11-08T08:47:55Z",
-        expiresAt: "2026-11-09T08:47:55Z",
+        observedAt: "2026-11-09T08:17:51Z",
+        expiresAt: "2026-11-10T08:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
