@@ -686,8 +686,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Perfector Salicylic Acid Skin Smoothing Body Wash",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-11-08T05:18:12Z",
-        expiresAt: "2026-11-09T05:18:12Z",
+        observedAt: "2026-11-09T04:47:56Z",
+        expiresAt: "2026-11-10T04:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2556,8 +2556,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Niacinamide Serum; UPC 0810019610530",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-08T05:18:13Z",
-        expiresAt: "2026-11-09T05:18:13Z",
+        observedAt: "2026-11-09T04:48:01Z",
+        expiresAt: "2026-11-10T04:48:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7885,8 +7885,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-11-08T05:18:15Z",
-        expiresAt: "2026-11-09T05:18:15Z",
+        observedAt: "2026-11-09T04:48:04Z",
+        expiresAt: "2026-11-10T04:48:04Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7917,8 +7917,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-11-08T05:18:12Z",
-        expiresAt: "2026-11-09T05:18:12Z",
+        observedAt: "2026-11-09T04:47:56Z",
+        expiresAt: "2026-11-10T04:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
