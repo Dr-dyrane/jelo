@@ -2055,8 +2055,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Azelaic Acid Suspension 10%",
       "30 ml",
       {
-        observedAt: "2026-11-08T09:48:03Z",
-        expiresAt: "2026-11-09T09:48:03Z",
+        observedAt: "2026-11-09T10:48:05Z",
+        expiresAt: "2026-11-10T10:48:05Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2781,8 +2781,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave moisturizing Cream 16 OZ (453g) USA version",
       "453 g",
       {
-        observedAt: "2026-11-08T09:48:18Z",
-        expiresAt: "2026-11-09T09:48:18Z",
+        observedAt: "2026-11-09T10:48:04Z",
+        expiresAt: "2026-11-10T10:48:04Z",
         available: true,
         stock: "in-stock",
         priceComparison: "exclude",
@@ -3578,8 +3578,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "DOVE CALMING MOISTURE 3% Body Wash 547ml",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-11-08T09:48:07Z",
-        expiresAt: "2026-11-09T09:48:07Z",
+        observedAt: "2026-11-09T10:48:05Z",
+        expiresAt: "2026-11-10T10:48:05Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6538,8 +6538,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6Oz",
       "2.6 oz / 73.7 g",
       {
-        observedAt: "2026-11-08T09:48:03Z",
-        expiresAt: "2026-11-09T09:48:03Z",
+        observedAt: "2026-11-09T10:48:05Z",
+        expiresAt: "2026-11-10T10:48:05Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
