@@ -1032,8 +1032,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10% Hyaluron Redness Soothing Serum",
       "30 ml",
       {
-        observedAt: "2026-11-08T13:17:57Z",
-        expiresAt: "2026-11-09T13:17:57Z",
+        observedAt: "2026-11-09T12:47:54Z",
+        expiresAt: "2026-11-10T12:47:54Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -2329,8 +2329,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "COSRX Advanced Snail 92 All in One Cream — jar",
       "100 g / 3.52 oz",
       {
-        observedAt: "2026-11-08T13:18:04Z",
-        expiresAt: "2026-11-09T13:18:04Z",
+        observedAt: "2026-11-09T12:48:19Z",
+        expiresAt: "2026-11-10T12:48:19Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -3822,8 +3822,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cécred Moisturizing Deep Conditioner 300ml",
       "300 ml / 10 fl oz",
       {
-        observedAt: "2026-11-08T13:18:02Z",
-        expiresAt: "2026-11-09T13:18:02Z",
+        observedAt: "2026-11-09T12:48:16Z",
+        expiresAt: "2026-11-10T12:48:16Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7598,8 +7598,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Neutrogena Moisturizing Body Oil, Light Sesame Formula Original | 8.5 fl oz",
       "8.5 fl oz",
       {
-        observedAt: "2026-11-08T13:18:01Z",
-        expiresAt: "2026-11-09T13:18:01Z",
+        observedAt: "2026-11-09T12:48:18Z",
+        expiresAt: "2026-11-10T12:48:18Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
