@@ -256,8 +256,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AXIS-Y Vegan Collagen Eye Serum; GTIN 8809634610881",
       "10 ml / 0.33 fl oz",
       {
-        observedAt: "2026-11-08T06:19:03Z",
-        expiresAt: "2026-11-09T06:19:03Z",
+        observedAt: "2026-11-09T05:47:50Z",
+        expiresAt: "2026-11-10T05:47:50Z",
         inventoryQuantity: 104,
         stock: "in-stock",
         available: true,
@@ -2464,8 +2464,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-08T06:19:05Z",
-        expiresAt: "2026-11-09T06:19:05Z",
+        observedAt: "2026-11-09T05:48:01Z",
+        expiresAt: "2026-11-10T05:48:01Z",
         verificationMethod: "retailer_page",
         available: true,
         stock: "in-stock",
@@ -6765,10 +6765,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "TRESemme Keratin Smooth Weightless Conditioner 828ml",
       "828 ml",
       {
-        observedAt: "2026-08-30T01:31:00.820Z",
-        expiresAt: "2026-08-30T18:38:51Z",
+        observedAt: "2026-11-09T05:49:52Z",
+        expiresAt: "2026-11-10T05:49:52Z",
         available: false,
-        stock: "unknown",
+        stock: "out-of-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
@@ -8306,8 +8307,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 7.7 fl oz / 232 ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-11-08T06:19:05Z",
-        expiresAt: "2026-11-09T06:19:05Z",
+        observedAt: "2026-11-09T05:48:03Z",
+        expiresAt: "2026-11-10T05:48:03Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
