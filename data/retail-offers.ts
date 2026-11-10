@@ -2070,8 +2070,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Azelaic Acid Suspension 10% 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-09T02:17:55Z",
-        expiresAt: "2026-11-10T02:17:55Z",
+        observedAt: "2026-11-10T01:17:57Z",
+        expiresAt: "2026-11-11T01:17:57Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4510,8 +4510,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Hydrating Cleanser 473ml",
       "473 ml",
       {
-        observedAt: "2026-11-09T02:17:55Z",
-        expiresAt: "2026-11-10T02:17:55Z",
+        observedAt: "2026-11-10T01:17:57Z",
+        expiresAt: "2026-11-11T01:17:57Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -4794,8 +4794,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nivea Perfect & Radiant Body lotion | 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-09T02:17:56Z",
-        expiresAt: "2026-11-10T02:17:56Z",
+        observedAt: "2026-11-10T01:17:59Z",
+        expiresAt: "2026-11-11T01:17:59Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -6813,8 +6813,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-11-09T02:17:55Z",
-        expiresAt: "2026-11-10T02:17:55Z",
+        observedAt: "2026-11-10T01:17:57Z",
+        expiresAt: "2026-11-11T01:17:57Z",
         verificationMethod: "retailer_page",
         available: true,
         stock: "in-stock",
