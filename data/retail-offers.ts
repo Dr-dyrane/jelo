@@ -256,8 +256,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AXIS-Y Vegan Collagen Eye Serum; GTIN 8809634610881",
       "10 ml / 0.33 fl oz",
       {
-        observedAt: "2026-11-09T05:47:50Z",
-        expiresAt: "2026-11-10T05:47:50Z",
+        observedAt: "2026-11-10T04:47:54Z",
+        expiresAt: "2026-11-11T04:47:54Z",
         inventoryQuantity: 104,
         stock: "in-stock",
         available: true,
