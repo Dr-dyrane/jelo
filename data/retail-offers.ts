@@ -2009,8 +2009,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Blemish Control Face Cleanser With 2% Salicylic Acid & Niacinamide Blemish-Prone Skin 236ml",
       "236 ml",
       {
-        observedAt: "2026-11-09T20:47:55Z",
-        expiresAt: "2026-11-10T20:47:55Z",
+        observedAt: "2026-11-10T20:17:50Z",
+        expiresAt: "2026-11-11T20:17:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4571,8 +4571,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-11-09T20:47:57Z",
-        expiresAt: "2026-11-10T20:47:57Z",
+        observedAt: "2026-11-10T20:17:53Z",
+        expiresAt: "2026-11-11T20:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7768,8 +7768,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Panoxyl Creamy Acne Wash 4% Benzoyl Peroxide 6.0O",
       "170 g",
       {
-        observedAt: "2026-11-09T20:47:57Z",
-        expiresAt: "2026-11-10T20:47:57Z",
+        observedAt: "2026-11-10T20:17:53Z",
+        expiresAt: "2026-11-11T20:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8092,8 +8092,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA liquid Exfoliant 2% 120 ML / 4.0 FL OZ",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-11-09T20:47:56Z",
-        expiresAt: "2026-11-10T20:47:56Z",
+        observedAt: "2026-11-10T20:17:50Z",
+        expiresAt: "2026-11-11T20:17:50Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
