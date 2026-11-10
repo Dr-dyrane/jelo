@@ -4329,8 +4329,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La roche Posay Vitamin c Gel Moussant Purifying Cleanser 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-09T18:18:02Z",
-        expiresAt: "2026-11-10T18:18:02Z",
+        observedAt: "2026-11-10T17:18:46Z",
+        expiresAt: "2026-11-11T17:18:46Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4885,8 +4885,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind to Skin Refreshing Facial Gel Wash 150ML",
       "150 ml",
       {
-        observedAt: "2026-11-09T18:18:00Z",
-        expiresAt: "2026-11-10T18:18:00Z",
+        observedAt: "2026-11-10T17:18:45Z",
+        expiresAt: "2026-11-11T17:18:45Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8279,8 +8279,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-11-09T18:18:01Z",
-        expiresAt: "2026-11-10T18:18:01Z",
+        observedAt: "2026-11-10T17:18:48Z",
+        expiresAt: "2026-11-11T17:18:48Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8963,8 +8963,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinaldehyde Cream Serum 0.05% 50ml /1.7fl",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-11-09T18:18:02Z",
-        expiresAt: "2026-11-10T18:18:02Z",
+        observedAt: "2026-11-10T17:18:47Z",
+        expiresAt: "2026-11-11T17:18:47Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
