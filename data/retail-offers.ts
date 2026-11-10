@@ -7995,8 +7995,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Body Oil 100ml",
       "3.4 fl oz / 100 mL",
       {
-        observedAt: "2026-11-09T03:48:44Z",
-        expiresAt: "2026-11-10T03:48:44Z",
+        observedAt: "2026-11-10T03:17:59Z",
+        expiresAt: "2026-11-11T03:17:59Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
