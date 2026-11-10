@@ -4344,8 +4344,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La roche Posay Vitamin c Gel Moussant Purifying Cleanser 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-09T17:18:20Z",
-        expiresAt: "2026-11-10T17:18:20Z",
+        observedAt: "2026-11-10T16:19:32Z",
+        expiresAt: "2026-11-11T16:19:32Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7949,8 +7949,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-11-09T17:18:20Z",
-        expiresAt: "2026-11-10T17:18:20Z",
+        observedAt: "2026-11-10T16:19:32Z",
+        expiresAt: "2026-11-11T16:19:32Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
