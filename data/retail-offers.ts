@@ -487,8 +487,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-10T11:18:04Z",
-        expiresAt: "2026-11-11T11:18:04Z",
+        observedAt: "2026-11-11T11:48:10Z",
+        expiresAt: "2026-11-12T11:48:10Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1358,8 +1358,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Some By Mi Aha Bha Pha 30 Days Miracle Toner - 5.07oz",
       "150 ml",
       {
-        observedAt: "2026-11-10T12:47:56Z",
-        expiresAt: "2026-11-11T12:47:56Z",
+        observedAt: "2026-11-11T11:48:22Z",
+        expiresAt: "2026-11-12T11:48:22Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7430,8 +7430,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Effaclar Purifying Foaming Gel Cleanser for Oily Sensitive Skin 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-10T12:47:56Z",
-        expiresAt: "2026-11-11T12:47:56Z",
+        observedAt: "2026-11-11T11:48:01Z",
+        expiresAt: "2026-11-12T11:48:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
