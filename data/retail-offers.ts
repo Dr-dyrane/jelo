@@ -6599,8 +6599,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Olay Super Serum Body Wash for Normal Skin 18.5 fl oz",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-11-10T13:17:50Z",
-        expiresAt: "2026-11-11T13:17:50Z",
+        observedAt: "2026-11-11T12:47:51Z",
+        expiresAt: "2026-11-12T12:47:51Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
