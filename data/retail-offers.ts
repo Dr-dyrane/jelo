@@ -256,8 +256,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AXIS-Y Vegan Collagen Eye Serum; GTIN 8809634610881",
       "10 ml / 0.33 fl oz",
       {
-        observedAt: "2026-11-10T04:47:54Z",
-        expiresAt: "2026-11-11T04:47:54Z",
+        observedAt: "2026-11-11T03:48:35Z",
+        expiresAt: "2026-11-12T03:48:35Z",
         inventoryQuantity: 104,
         stock: "in-stock",
         available: true,
@@ -686,8 +686,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Perfector Salicylic Acid Skin Smoothing Body Wash",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-11-10T04:18:28Z",
-        expiresAt: "2026-11-11T04:18:28Z",
+        observedAt: "2026-11-11T03:48:36Z",
+        expiresAt: "2026-11-12T03:48:36Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7888,8 +7888,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-11-10T04:18:28Z",
-        expiresAt: "2026-11-11T04:18:28Z",
+        observedAt: "2026-11-11T03:48:38Z",
+        expiresAt: "2026-11-12T03:48:38Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7920,8 +7920,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-11-10T04:18:29Z",
-        expiresAt: "2026-11-11T04:18:29Z",
+        observedAt: "2026-11-11T03:48:37Z",
+        expiresAt: "2026-11-12T03:48:37Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
