@@ -2464,8 +2464,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-10T05:17:56Z",
-        expiresAt: "2026-11-11T05:17:56Z",
+        observedAt: "2026-11-11T04:19:02Z",
+        expiresAt: "2026-11-12T04:19:02Z",
         verificationMethod: "retailer_page",
         available: true,
         stock: "in-stock",
@@ -6767,8 +6767,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "TRESemme Keratin Smooth Weightless Conditioner 828ml",
       "828 ml",
       {
-        observedAt: "2026-11-10T05:18:07Z",
-        expiresAt: "2026-11-11T05:18:07Z",
+        observedAt: "2026-11-11T04:19:07Z",
+        expiresAt: "2026-11-12T04:19:07Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -8309,8 +8309,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 7.7 fl oz / 232 ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-11-10T05:17:58Z",
-        expiresAt: "2026-11-11T05:17:58Z",
+        observedAt: "2026-11-11T04:19:04Z",
+        expiresAt: "2026-11-12T04:19:04Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
