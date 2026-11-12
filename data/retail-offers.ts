@@ -1465,8 +1465,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Niacinamide 10% + TXA 4% Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-11T04:48:33Z",
-        expiresAt: "2026-11-12T04:48:33Z",
+        observedAt: "2026-11-12T03:49:11Z",
+        expiresAt: "2026-11-13T03:49:11Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2464,8 +2464,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-11T04:19:02Z",
-        expiresAt: "2026-11-12T04:19:02Z",
+        observedAt: "2026-11-12T03:48:47Z",
+        expiresAt: "2026-11-13T03:48:47Z",
         verificationMethod: "retailer_page",
         available: true,
         stock: "in-stock",
@@ -6767,8 +6767,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "TRESemme Keratin Smooth Weightless Conditioner 828ml",
       "828 ml",
       {
-        observedAt: "2026-11-11T04:19:07Z",
-        expiresAt: "2026-11-12T04:19:07Z",
+        observedAt: "2026-11-12T03:48:50Z",
+        expiresAt: "2026-11-13T03:48:50Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
