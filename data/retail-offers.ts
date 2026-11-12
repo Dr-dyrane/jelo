@@ -3962,8 +3962,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SKIN BY ZARON -VITAMIN C (Brightening & Moisturizing) Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-11-11T10:19:00Z",
-        expiresAt: "2026-11-12T10:19:00Z",
+        observedAt: "2026-11-12T10:19:48Z",
+        expiresAt: "2026-11-13T10:19:48Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4312,8 +4312,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay MelaB3 Serum Intense Anti-Dark Spot Serum for Hyperpigmentation 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-11T10:49:03Z",
-        expiresAt: "2026-11-12T10:49:03Z",
+        observedAt: "2026-11-12T10:19:44Z",
+        expiresAt: "2026-11-13T10:19:44Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4943,8 +4943,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind To Skin Refreshing Facial Gel Wash - 150ml",
       "150 ml",
       {
-        observedAt: "2026-11-11T10:49:01Z",
-        expiresAt: "2026-11-12T10:49:01Z",
+        observedAt: "2026-11-12T10:19:42Z",
+        expiresAt: "2026-11-13T10:19:42Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
