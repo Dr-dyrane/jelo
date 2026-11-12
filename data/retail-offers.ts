@@ -256,8 +256,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AXIS-Y Vegan Collagen Eye Serum; GTIN 8809634610881",
       "10 ml / 0.33 fl oz",
       {
-        observedAt: "2026-11-11T03:48:35Z",
-        expiresAt: "2026-11-12T03:48:35Z",
+        observedAt: "2026-11-12T03:17:50Z",
+        expiresAt: "2026-11-13T03:17:50Z",
         inventoryQuantity: 104,
         stock: "in-stock",
         available: true,
@@ -7888,8 +7888,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-11-11T03:48:38Z",
-        expiresAt: "2026-11-12T03:48:38Z",
+        observedAt: "2026-11-12T03:17:51Z",
+        expiresAt: "2026-11-13T03:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
