@@ -3822,8 +3822,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cécred Moisturizing Deep Conditioner 300ml",
       "300 ml / 10 fl oz",
       {
-        observedAt: "2026-11-12T10:47:52Z",
-        expiresAt: "2026-11-13T10:47:52Z",
+        observedAt: "2026-11-13T10:21:53Z",
+        expiresAt: "2026-11-14T10:21:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3962,8 +3962,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "SKIN BY ZARON -VITAMIN C (Brightening & Moisturizing) Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-11-12T10:19:48Z",
-        expiresAt: "2026-11-13T10:19:48Z",
+        observedAt: "2026-11-13T10:21:29Z",
+        expiresAt: "2026-11-14T10:21:29Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7430,8 +7430,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Effaclar Purifying Foaming Gel Cleanser for Oily Sensitive Skin 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-12T11:17:52Z",
-        expiresAt: "2026-11-13T11:17:52Z",
+        observedAt: "2026-11-13T10:22:18Z",
+        expiresAt: "2026-11-14T10:22:18Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7599,8 +7599,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Neutrogena Moisturizing Body Oil, Light Sesame Formula Original | 8.5 fl oz",
       "8.5 fl oz",
       {
-        observedAt: "2026-11-12T10:47:51Z",
-        expiresAt: "2026-11-13T10:47:51Z",
+        observedAt: "2026-11-13T10:21:53Z",
+        expiresAt: "2026-11-14T10:21:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
