@@ -613,8 +613,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Perfector Salicylic Acid Body Wash",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-11-12T09:17:52Z",
-        expiresAt: "2026-11-13T09:17:52Z",
+        observedAt: "2026-11-13T08:17:56Z",
+        expiresAt: "2026-11-14T08:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4542,8 +4542,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Oil Control Sun Gel-Cream Dry Touch SPF50+ 50ml",
       "50 ml",
       {
-        observedAt: "2026-11-12T09:17:52Z",
-        expiresAt: "2026-11-13T09:17:52Z",
+        observedAt: "2026-11-13T08:17:58Z",
+        expiresAt: "2026-11-14T08:17:58Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8418,8 +8418,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Hydrating Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-11-12T09:17:50Z",
-        expiresAt: "2026-11-13T09:17:50Z",
+        observedAt: "2026-11-13T08:17:56Z",
+        expiresAt: "2026-11-14T08:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
