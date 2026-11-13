@@ -4268,8 +4268,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche Posay Mela B3 Serum - Dark Spot Corrector - 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-12T13:18:01Z",
-        expiresAt: "2026-11-13T13:18:01Z",
+        observedAt: "2026-11-13T12:47:52Z",
+        expiresAt: "2026-11-14T12:47:52Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4645,8 +4645,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin UreaRepair Plus 10% Urea Body Lotion, for Very Dry Skin, 250ml",
       "250 ml",
       {
-        observedAt: "2026-11-12T13:18:07Z",
-        expiresAt: "2026-11-13T13:18:07Z",
+        observedAt: "2026-11-13T12:47:53Z",
+        expiresAt: "2026-11-14T12:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7707,8 +7707,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS A Control Azelaic Acid Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-11-12T13:18:06Z",
-        expiresAt: "2026-11-13T13:18:06Z",
+        observedAt: "2026-11-13T12:47:53Z",
+        expiresAt: "2026-11-14T12:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
