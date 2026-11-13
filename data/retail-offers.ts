@@ -455,8 +455,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Shea Better Coconut Waters Body Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-12T07:48:34Z",
-        expiresAt: "2026-11-13T07:48:34Z",
+        observedAt: "2026-11-13T06:50:41Z",
+        expiresAt: "2026-11-14T06:50:41Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5600,8 +5600,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-12T06:50:29Z",
-        expiresAt: "2026-11-13T06:50:29Z",
+        observedAt: "2026-11-13T06:50:50Z",
+        expiresAt: "2026-11-14T06:50:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7858,8 +7858,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Bright + Glow Body Lotion (Licorice Mulberry Root Extract) 500ml",
       "500 ml",
       {
-        observedAt: "2026-11-12T07:18:39Z",
-        expiresAt: "2026-11-13T07:18:39Z",
+        observedAt: "2026-11-13T06:50:46Z",
+        expiresAt: "2026-11-14T06:50:46Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8729,8 +8729,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Retinol Complex Serum - 30ml",
       "1.0 fl oz / 30 mL",
       {
-        observedAt: "2026-11-12T06:50:29Z",
-        expiresAt: "2026-11-13T06:50:29Z",
+        observedAt: "2026-11-13T06:50:44Z",
+        expiresAt: "2026-11-14T06:50:44Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
