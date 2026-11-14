@@ -4312,8 +4312,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay MelaB3 Serum Intense Anti-Dark Spot Serum for Hyperpigmentation 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-13T09:47:54Z",
-        expiresAt: "2026-11-14T09:47:54Z",
+        observedAt: "2026-11-14T08:48:47Z",
+        expiresAt: "2026-11-15T08:48:47Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4943,8 +4943,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind To Skin Refreshing Facial Gel Wash - 150ml",
       "150 ml",
       {
-        observedAt: "2026-11-13T09:47:51Z",
-        expiresAt: "2026-11-14T09:47:51Z",
+        observedAt: "2026-11-14T08:48:36Z",
+        expiresAt: "2026-11-15T08:48:36Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
