@@ -1916,8 +1916,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Foaming Cleanser For Normal To Oily Skin 8fl oz 236ml",
       "236 ml",
       {
-        observedAt: "2026-11-13T13:17:53Z",
-        expiresAt: "2026-11-14T13:17:53Z",
+        observedAt: "2026-11-14T12:18:08Z",
+        expiresAt: "2026-11-15T12:18:08Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3376,8 +3376,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Blemish Gel Moisturizer 50ml",
       "50 ml",
       {
-        observedAt: "2026-11-13T13:17:53Z",
-        expiresAt: "2026-11-14T13:17:53Z",
+        observedAt: "2026-11-14T12:18:08Z",
+        expiresAt: "2026-11-15T12:18:08Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6433,8 +6433,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Hydrating Gentle Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-13T13:17:52Z",
-        expiresAt: "2026-11-14T13:17:52Z",
+        observedAt: "2026-11-14T12:18:08Z",
+        expiresAt: "2026-11-15T12:18:08Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
