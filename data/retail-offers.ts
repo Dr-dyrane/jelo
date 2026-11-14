@@ -2070,8 +2070,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Azelaic Acid Suspension 10% 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-13T23:17:49Z",
-        expiresAt: "2026-11-14T23:17:49Z",
+        observedAt: "2026-11-14T22:17:55Z",
+        expiresAt: "2026-11-15T22:17:55Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4510,8 +4510,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Hydrating Cleanser 473ml",
       "473 ml",
       {
-        observedAt: "2026-11-13T23:17:49Z",
-        expiresAt: "2026-11-14T23:17:49Z",
+        observedAt: "2026-11-14T22:17:58Z",
+        expiresAt: "2026-11-15T22:17:58Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -6814,8 +6814,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-11-13T23:17:49Z",
-        expiresAt: "2026-11-14T23:17:49Z",
+        observedAt: "2026-11-14T22:17:58Z",
+        expiresAt: "2026-11-15T22:17:58Z",
         verificationMethod: "retailer_page",
         available: true,
         stock: "in-stock",
@@ -8032,8 +8032,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA Liquid Exfoliant 2% 4.0 FL OZ /120ml",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-11-13T23:17:54Z",
-        expiresAt: "2026-11-14T23:17:54Z",
+        observedAt: "2026-11-14T22:17:57Z",
+        expiresAt: "2026-11-15T22:17:57Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
