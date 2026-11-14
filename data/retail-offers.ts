@@ -6200,8 +6200,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Soothe + Glow Niacinamide Serum - 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-13T16:47:52Z",
-        expiresAt: "2026-11-14T16:47:52Z",
+        observedAt: "2026-11-14T16:17:58Z",
+        expiresAt: "2026-11-15T16:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
