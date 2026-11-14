@@ -3423,8 +3423,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion",
       "400 ml",
       {
-        observedAt: "2026-11-13T20:19:13Z",
-        expiresAt: "2026-11-14T20:19:13Z",
+        observedAt: "2026-11-14T19:48:38Z",
+        expiresAt: "2026-11-15T19:48:38Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
