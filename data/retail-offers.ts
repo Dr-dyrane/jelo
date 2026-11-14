@@ -3822,8 +3822,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cécred Moisturizing Deep Conditioner 300ml",
       "300 ml / 10 fl oz",
       {
-        observedAt: "2026-11-13T10:21:53Z",
-        expiresAt: "2026-11-14T10:21:53Z",
+        observedAt: "2026-11-14T09:48:11Z",
+        expiresAt: "2026-11-15T09:48:11Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7430,8 +7430,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Effaclar Purifying Foaming Gel Cleanser for Oily Sensitive Skin 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-13T10:22:18Z",
-        expiresAt: "2026-11-14T10:22:18Z",
+        observedAt: "2026-11-14T09:48:12Z",
+        expiresAt: "2026-11-15T09:48:12Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7599,8 +7599,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Neutrogena Moisturizing Body Oil, Light Sesame Formula Original | 8.5 fl oz",
       "8.5 fl oz",
       {
-        observedAt: "2026-11-13T10:21:53Z",
-        expiresAt: "2026-11-14T10:21:53Z",
+        observedAt: "2026-11-14T09:48:00Z",
+        expiresAt: "2026-11-15T09:48:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
