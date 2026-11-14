@@ -4794,8 +4794,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nivea Perfect & Radiant Body lotion | 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-13T23:17:56Z",
-        expiresAt: "2026-11-14T23:17:56Z",
+        observedAt: "2026-11-14T22:47:52Z",
+        expiresAt: "2026-11-15T22:47:52Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
