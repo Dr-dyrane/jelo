@@ -578,8 +578,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Shea Better Vanilla Cashmere Body Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-14T13:47:49Z",
-        expiresAt: "2026-11-15T13:47:49Z",
+        observedAt: "2026-11-15T13:17:49Z",
+        expiresAt: "2026-11-16T13:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5327,8 +5327,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-14T13:47:53Z",
-        expiresAt: "2026-11-15T13:47:53Z",
+        observedAt: "2026-11-15T13:17:57Z",
+        expiresAt: "2026-11-16T13:17:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
