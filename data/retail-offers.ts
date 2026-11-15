@@ -3361,8 +3361,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Blemish Gel Moisturiser",
       "50 ml",
       {
-        observedAt: "2026-11-14T03:17:58Z",
-        expiresAt: "2026-11-15T03:17:58Z",
+        observedAt: "2026-11-15T02:47:53Z",
+        expiresAt: "2026-11-16T02:47:53Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4420,8 +4420,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Facial Cleanser, Face wash for Normal to Dry skin 473ml (US Version)",
       "473 ml",
       {
-        observedAt: "2026-11-14T03:17:56Z",
-        expiresAt: "2026-11-15T03:17:56Z",
+        observedAt: "2026-11-15T02:47:52Z",
+        expiresAt: "2026-11-16T02:47:52Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -4960,8 +4960,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-14T03:17:58Z",
-        expiresAt: "2026-11-15T03:17:58Z",
+        observedAt: "2026-11-15T02:47:54Z",
+        expiresAt: "2026-11-16T02:47:54Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6509,8 +6509,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Acne Treatment With 10% Sulfur Ointment 2.6 oz 73.7g",
       "73.7 g",
       {
-        observedAt: "2026-11-14T03:17:55Z",
-        expiresAt: "2026-11-15T03:17:55Z",
+        observedAt: "2026-11-15T02:47:53Z",
+        expiresAt: "2026-11-16T02:47:53Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
