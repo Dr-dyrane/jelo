@@ -1135,8 +1135,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10 + Hyaluron Redness Soothing Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-14T19:18:35Z",
-        expiresAt: "2026-11-15T19:18:35Z",
+        observedAt: "2026-11-15T18:48:35Z",
+        expiresAt: "2026-11-16T18:48:35Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6154,8 +6154,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Soothe & Glow Niacinamide serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-14T19:18:34Z",
-        expiresAt: "2026-11-15T19:18:34Z",
+        observedAt: "2026-11-15T18:48:35Z",
+        expiresAt: "2026-11-16T18:48:35Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -8294,8 +8294,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-11-14T19:18:35Z",
-        expiresAt: "2026-11-15T19:18:35Z",
+        observedAt: "2026-11-15T18:48:35Z",
+        expiresAt: "2026-11-16T18:48:35Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
