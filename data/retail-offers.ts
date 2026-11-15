@@ -150,8 +150,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dew-Glow Moisturizer SPF 50",
       "1.7 fl oz / 50 ml",
       {
-        observedAt: "2026-11-14T23:47:51Z",
-        expiresAt: "2026-11-15T23:47:51Z",
+        observedAt: "2026-11-15T22:47:57Z",
+        expiresAt: "2026-11-16T22:47:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4252,8 +4252,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-14T23:47:53Z",
-        expiresAt: "2026-11-15T23:47:53Z",
+        observedAt: "2026-11-15T22:47:58Z",
+        expiresAt: "2026-11-16T22:47:58Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -8464,8 +8464,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium KP Body Scrub & Mask - 226g",
       "8 oz / 226 g",
       {
-        observedAt: "2026-11-14T23:47:53Z",
-        expiresAt: "2026-11-15T23:47:53Z",
+        observedAt: "2026-11-15T22:47:58Z",
+        expiresAt: "2026-11-16T22:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
