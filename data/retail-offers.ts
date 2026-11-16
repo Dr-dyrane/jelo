@@ -4145,8 +4145,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe PM Facial Moisturising Lotion 52ml",
       "52 ml",
       {
-        observedAt: "2026-11-14T07:20:03Z",
-        expiresAt: "2026-11-15T07:20:03Z",
+        observedAt: "2026-11-16T09:47:49Z",
+        expiresAt: "2026-11-17T09:47:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
