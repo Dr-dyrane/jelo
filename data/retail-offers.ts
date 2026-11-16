@@ -548,8 +548,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Vanilla Cashmere Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-15T16:18:03Z",
-        expiresAt: "2026-11-16T16:18:03Z",
+        observedAt: "2026-11-16T15:48:09Z",
+        expiresAt: "2026-11-17T15:48:09Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -2600,8 +2600,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Niacinamide Serum",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-15T16:17:57Z",
-        expiresAt: "2026-11-16T16:17:57Z",
+        observedAt: "2026-11-16T15:47:50Z",
+        expiresAt: "2026-11-17T15:47:50Z",
         sellerName: "luxury skincare",
         available: true,
         stock: "in-stock",
@@ -8793,8 +8793,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Exfoliating Body Wash16.9 oz",
       "16.9 oz / 500 mL",
       {
-        observedAt: "2026-11-15T16:17:58Z",
-        expiresAt: "2026-11-16T16:17:58Z",
+        observedAt: "2026-11-16T15:47:58Z",
+        expiresAt: "2026-11-17T15:47:58Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -8917,8 +8917,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS MELA-PRO Tranexamic Acid Sun Screen 100ml",
       "100 ml",
       {
-        observedAt: "2026-11-15T16:17:58Z",
-        expiresAt: "2026-11-16T16:17:58Z",
+        observedAt: "2026-11-16T15:48:09Z",
+        expiresAt: "2026-11-17T15:48:09Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
