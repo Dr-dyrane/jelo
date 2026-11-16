@@ -8607,8 +8607,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Niacinamide Serum 12% Plus Zinc 2% 30ml",
       "1.0 fl oz / 30 mL",
       {
-        observedAt: "2026-11-15T23:17:55Z",
-        expiresAt: "2026-11-16T23:17:55Z",
+        observedAt: "2026-11-16T22:47:53Z",
+        expiresAt: "2026-11-17T22:47:53Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -9221,8 +9221,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NATURIUM -Retinol Complex Cream 50ml",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-11-15T23:17:57Z",
-        expiresAt: "2026-11-16T23:17:57Z",
+        observedAt: "2026-11-16T22:47:58Z",
+        expiresAt: "2026-11-17T22:47:58Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
