@@ -3822,8 +3822,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cécred Moisturizing Deep Conditioner 300ml",
       "300 ml / 10 fl oz",
       {
-        observedAt: "2026-11-15T09:18:07Z",
-        expiresAt: "2026-11-16T09:18:07Z",
+        observedAt: "2026-11-16T08:47:54Z",
+        expiresAt: "2026-11-17T08:47:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7430,8 +7430,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Effaclar Purifying Foaming Gel Cleanser for Oily Sensitive Skin 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-15T09:18:05Z",
-        expiresAt: "2026-11-16T09:18:05Z",
+        observedAt: "2026-11-16T08:47:52Z",
+        expiresAt: "2026-11-17T08:47:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
