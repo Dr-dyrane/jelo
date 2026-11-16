@@ -7599,8 +7599,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Neutrogena Moisturizing Body Oil, Light Sesame Formula Original | 8.5 fl oz",
       "8.5 fl oz",
       {
-        observedAt: "2026-11-15T09:17:52Z",
-        expiresAt: "2026-11-16T09:17:52Z",
+        observedAt: "2026-11-16T08:17:58Z",
+        expiresAt: "2026-11-17T08:17:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
