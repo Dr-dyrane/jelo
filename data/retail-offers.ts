@@ -967,8 +967,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Medik8 Crystal Retinal 6 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-15T15:18:01Z",
-        expiresAt: "2026-11-16T15:18:01Z",
+        observedAt: "2026-11-16T14:47:53Z",
+        expiresAt: "2026-11-17T14:47:53Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -1497,8 +1497,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Wonder Cream Fragrance Free",
       "50 ml",
       {
-        observedAt: "2026-11-15T15:17:57Z",
-        expiresAt: "2026-11-16T15:17:57Z",
+        observedAt: "2026-11-16T14:47:53Z",
+        expiresAt: "2026-11-17T14:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4928,8 +4928,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Simple Kind To Skin Refreshing Facial Gel Wash 5.1fl oz / 150ml",
       "150 ml",
       {
-        observedAt: "2026-11-15T15:17:58Z",
-        expiresAt: "2026-11-16T15:17:58Z",
+        observedAt: "2026-11-16T14:47:53Z",
+        expiresAt: "2026-11-17T14:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
