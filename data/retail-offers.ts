@@ -1932,8 +1932,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Foaming Facial Cleanser 8 oz (237ml) US Version",
       "236 ml",
       {
-        observedAt: "2026-11-16T13:18:05Z",
-        expiresAt: "2026-11-17T13:18:05Z",
+        observedAt: "2026-11-17T12:47:53Z",
+        expiresAt: "2026-11-18T12:47:53Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -4299,8 +4299,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche Posay Mela B3 Serum – Dark Spot Corrector – 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-16T13:18:05Z",
-        expiresAt: "2026-11-17T13:18:05Z",
+        observedAt: "2026-11-17T12:47:54Z",
+        expiresAt: "2026-11-18T12:47:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4346,8 +4346,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La roche Posay Vitamin c Gel Moussant Purifying Cleanser 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-16T13:18:02Z",
-        expiresAt: "2026-11-17T13:18:02Z",
+        observedAt: "2026-11-17T12:47:52Z",
+        expiresAt: "2026-11-18T12:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7951,8 +7951,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash With Turmeric And Vitamin C 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-11-16T13:18:02Z",
-        expiresAt: "2026-11-17T13:18:02Z",
+        observedAt: "2026-11-17T12:47:52Z",
+        expiresAt: "2026-11-18T12:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
