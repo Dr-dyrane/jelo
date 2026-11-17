@@ -5359,8 +5359,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-Pro Rice & TXA Toner - 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-16T16:18:23Z",
-        expiresAt: "2026-11-17T16:18:23Z",
+        observedAt: "2026-11-17T15:47:51Z",
+        expiresAt: "2026-11-18T15:47:51Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -7490,8 +7490,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Effaclar Purifying Foaming Gel Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-16T16:18:26Z",
-        expiresAt: "2026-11-17T16:18:26Z",
+        observedAt: "2026-11-17T15:47:54Z",
+        expiresAt: "2026-11-18T15:47:54Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
