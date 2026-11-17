@@ -3979,8 +3979,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening and Moisturizing Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-11-16T13:47:53Z",
-        expiresAt: "2026-11-17T13:47:53Z",
+        observedAt: "2026-11-17T13:17:53Z",
+        expiresAt: "2026-11-18T13:17:53Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 10,
@@ -5116,8 +5116,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-16T13:47:51Z",
-        expiresAt: "2026-11-17T13:47:51Z",
+        observedAt: "2026-11-17T13:17:51Z",
+        expiresAt: "2026-11-18T13:17:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5163,8 +5163,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-16T13:47:51Z",
-        expiresAt: "2026-11-17T13:47:51Z",
+        observedAt: "2026-11-17T13:17:56Z",
+        expiresAt: "2026-11-18T13:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6800,8 +6800,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-11-16T13:47:51Z",
-        expiresAt: "2026-11-17T13:47:51Z",
+        observedAt: "2026-11-17T13:17:52Z",
+        expiresAt: "2026-11-18T13:17:52Z",
         inventoryQuantity: 2,
         stock: "out-of-stock",
         available: false,
