@@ -287,8 +287,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AXIS-Y Vegan Collagen Eye Serum",
       "10 ml / 0.33 fl oz",
       {
-        observedAt: "2026-11-17T09:47:50Z",
-        expiresAt: "2026-11-18T09:47:50Z",
+        observedAt: "2026-11-18T08:47:54Z",
+        expiresAt: "2026-11-19T08:47:54Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -1391,8 +1391,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "30 ml",
       {
         available: true,
-        observedAt: "2026-11-17T09:47:52Z",
-        expiresAt: "2026-11-18T09:47:52Z",
+        observedAt: "2026-11-18T08:47:57Z",
+        expiresAt: "2026-11-19T08:47:57Z",
         stock: "in-stock",
         verificationMethod: "retailer_page",
       },
@@ -1450,8 +1450,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Niacinamide 10% + TXA 4% Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-17T09:47:49Z",
-        expiresAt: "2026-11-18T09:47:49Z",
+        observedAt: "2026-11-18T08:47:54Z",
+        expiresAt: "2026-11-19T08:47:54Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4453,8 +4453,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Hydrating Cleanser 473ml Uk Version",
       "473 ml",
       {
-        observedAt: "2026-11-17T09:47:53Z",
-        expiresAt: "2026-11-18T09:47:53Z",
+        observedAt: "2026-11-18T08:47:57Z",
+        expiresAt: "2026-11-19T08:47:57Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
