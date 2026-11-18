@@ -5163,8 +5163,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-17T13:17:56Z",
-        expiresAt: "2026-11-18T13:17:56Z",
+        observedAt: "2026-11-18T12:48:00Z",
+        expiresAt: "2026-11-19T12:48:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
