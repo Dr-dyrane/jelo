@@ -7165,8 +7165,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Zero cast Moisturizing Finish Sunscreen 50ml",
       "50 ml",
       {
-        observedAt: "2026-11-18T02:48:32Z",
-        expiresAt: "2026-11-19T02:48:32Z",
+        observedAt: "2026-11-19T02:17:51Z",
+        expiresAt: "2026-11-20T02:17:51Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
