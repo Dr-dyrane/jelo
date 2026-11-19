@@ -563,8 +563,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Vanilla Cashmere Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-18T21:19:43Z",
-        expiresAt: "2026-11-19T21:19:43Z",
+        observedAt: "2026-11-19T20:48:38Z",
+        expiresAt: "2026-11-20T20:48:38Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7551,8 +7551,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Abib Clear Spot Serum 7.325 Pump With Seamoss Extract - 30ml",
       "30 ml / 1.01 fl oz",
       {
-        observedAt: "2026-11-18T20:47:56Z",
-        expiresAt: "2026-11-19T20:47:56Z",
+        observedAt: "2026-11-19T20:48:36Z",
+        expiresAt: "2026-11-20T20:48:36Z",
         stock: "in-stock",
         available: true,
         sellerName: "Radiant ageless beauty hub",
@@ -8607,8 +8607,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Niacinamide Serum 12% Plus Zinc 2% 30ml",
       "1.0 fl oz / 30 mL",
       {
-        observedAt: "2026-11-18T21:19:43Z",
-        expiresAt: "2026-11-19T21:19:43Z",
+        observedAt: "2026-11-19T20:48:39Z",
+        expiresAt: "2026-11-20T20:48:39Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -9221,8 +9221,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NATURIUM -Retinol Complex Cream 50ml",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-11-18T21:19:44Z",
-        expiresAt: "2026-11-19T21:19:44Z",
+        observedAt: "2026-11-19T20:48:38Z",
+        expiresAt: "2026-11-20T20:48:38Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
