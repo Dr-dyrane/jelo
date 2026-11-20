@@ -1932,8 +1932,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Foaming Facial Cleanser 8 oz (237ml) US Version",
       "236 ml",
       {
-        observedAt: "2026-11-19T11:48:04Z",
-        expiresAt: "2026-11-20T11:48:04Z",
+        observedAt: "2026-11-20T10:48:41Z",
+        expiresAt: "2026-11-21T10:48:41Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -2557,8 +2557,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Niacinamide Serum; UPC 0810019610530",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-19T08:50:56Z",
-        expiresAt: "2026-11-20T08:50:56Z",
+        observedAt: "2026-11-20T10:48:35Z",
+        expiresAt: "2026-11-21T10:48:35Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4299,8 +4299,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche Posay Mela B3 Serum – Dark Spot Corrector – 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-19T11:48:04Z",
-        expiresAt: "2026-11-20T11:48:04Z",
+        observedAt: "2026-11-20T10:48:41Z",
+        expiresAt: "2026-11-21T10:48:41Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5116,8 +5116,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-19T11:47:57Z",
-        expiresAt: "2026-11-20T11:47:57Z",
+        observedAt: "2026-11-20T10:48:35Z",
+        expiresAt: "2026-11-21T10:48:35Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
