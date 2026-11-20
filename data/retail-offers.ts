@@ -1541,8 +1541,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-11-19T23:47:54Z",
-        expiresAt: "2026-11-20T23:47:54Z",
+        observedAt: "2026-11-20T22:48:38Z",
+        expiresAt: "2026-11-21T22:48:38Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5812,8 +5812,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Everyday Gentle Foaming Face Wash - 120ml",
       "120 ml",
       {
-        observedAt: "2026-11-19T00:17:55Z",
-        expiresAt: "2026-11-20T00:17:55Z",
+        observedAt: "2026-11-20T22:48:37Z",
+        expiresAt: "2026-11-21T22:48:37Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
