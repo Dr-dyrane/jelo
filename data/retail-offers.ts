@@ -3856,8 +3856,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrate + Protect Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-11-20T00:47:54Z",
-        expiresAt: "2026-11-21T00:47:54Z",
+        observedAt: "2026-11-20T23:47:59Z",
+        expiresAt: "2026-11-21T23:47:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
