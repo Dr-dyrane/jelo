@@ -2465,8 +2465,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-19T22:18:34Z",
-        expiresAt: "2026-11-20T22:18:34Z",
+        observedAt: "2026-11-20T21:47:55Z",
+        expiresAt: "2026-11-21T21:47:55Z",
         verificationMethod: "retailer_page",
         available: true,
         stock: "in-stock",
@@ -9221,8 +9221,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NATURIUM -Retinol Complex Cream 50ml",
       "1.7 fl oz / 50 mL",
       {
-        observedAt: "2026-11-19T20:48:38Z",
-        expiresAt: "2026-11-20T20:48:38Z",
+        observedAt: "2026-11-20T21:48:00Z",
+        expiresAt: "2026-11-21T21:48:00Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
