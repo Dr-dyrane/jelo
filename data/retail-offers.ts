@@ -6800,8 +6800,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-11-19T11:49:31Z",
-        expiresAt: "2026-11-20T11:49:31Z",
+        observedAt: "2026-11-20T11:18:05Z",
+        expiresAt: "2026-11-21T11:18:05Z",
         inventoryQuantity: 2,
         stock: "out-of-stock",
         available: false,
