@@ -3362,8 +3362,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Ceramide Blemish Gel Moisturiser",
       "50 ml",
       {
-        observedAt: "2026-11-21T00:47:53Z",
-        expiresAt: "2026-11-22T00:47:53Z",
+        observedAt: "2026-11-21T23:47:59Z",
+        expiresAt: "2026-11-22T23:47:59Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -4962,8 +4962,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "BALANCE Niacinamide Blemish Recovery Serum Clear 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-21T00:47:53Z",
-        expiresAt: "2026-11-22T00:47:53Z",
+        observedAt: "2026-11-21T23:48:08Z",
+        expiresAt: "2026-11-22T23:48:08Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6511,8 +6511,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Acne Treatment With 10% Sulfur Ointment 2.6 oz 73.7g",
       "73.7 g",
       {
-        observedAt: "2026-11-21T00:47:53Z",
-        expiresAt: "2026-11-22T00:47:53Z",
+        observedAt: "2026-11-21T23:47:59Z",
+        expiresAt: "2026-11-22T23:47:59Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -7165,8 +7165,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Zero cast Moisturizing Finish Sunscreen 50ml",
       "50 ml",
       {
-        observedAt: "2026-11-21T00:47:50Z",
-        expiresAt: "2026-11-22T00:47:50Z",
+        observedAt: "2026-11-21T23:48:03Z",
+        expiresAt: "2026-11-22T23:48:03Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
