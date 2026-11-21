@@ -1558,8 +1558,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Bright + Clear Face Cream",
       "75 ml",
       {
-        observedAt: "2026-11-21T00:17:52Z",
-        expiresAt: "2026-11-22T00:17:52Z",
+        observedAt: "2026-11-21T23:18:37Z",
+        expiresAt: "2026-11-22T23:18:37Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5041,8 +5041,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-21T00:17:51Z",
-        expiresAt: "2026-11-22T00:17:51Z",
+        observedAt: "2026-11-21T23:18:40Z",
+        expiresAt: "2026-11-22T23:18:40Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
