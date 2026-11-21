@@ -1995,8 +1995,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Blemish Control Face Cleanser",
       "236 ml",
       {
-        observedAt: "2026-11-20T16:47:51Z",
-        expiresAt: "2026-11-21T16:47:51Z",
+        observedAt: "2026-11-21T15:48:08Z",
+        expiresAt: "2026-11-22T15:48:08Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4662,8 +4662,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin Urea Repair Plus 10% Urea Lotion 250ml",
       "250 ml",
       {
-        observedAt: "2026-11-20T16:47:52Z",
-        expiresAt: "2026-11-21T16:47:52Z",
+        observedAt: "2026-11-21T15:48:22Z",
+        expiresAt: "2026-11-22T15:48:22Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
