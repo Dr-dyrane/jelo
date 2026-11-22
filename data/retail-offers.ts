@@ -487,8 +487,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-21T06:17:54Z",
-        expiresAt: "2026-11-22T06:17:54Z",
+        observedAt: "2026-11-22T05:18:01Z",
+        expiresAt: "2026-11-23T05:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1032,8 +1032,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10% Hyaluron Redness Soothing Serum",
       "30 ml",
       {
-        observedAt: "2026-11-21T06:17:54Z",
-        expiresAt: "2026-11-22T06:17:54Z",
+        observedAt: "2026-11-22T05:18:01Z",
+        expiresAt: "2026-11-23T05:18:01Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5024,8 +5024,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula 15% Niacinamide Blemish Recovery Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-21T06:17:51Z",
-        expiresAt: "2026-11-22T06:17:51Z",
+        observedAt: "2026-11-22T05:17:58Z",
+        expiresAt: "2026-11-23T05:17:58Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7646,8 +7646,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Neutrogena Body Oil Light Sesame Formula - 250ml",
       "8.5 fl oz",
       {
-        observedAt: "2026-11-20T06:49:00Z",
-        expiresAt: "2026-11-21T06:49:00Z",
+        observedAt: "2026-11-22T05:17:58Z",
+        expiresAt: "2026-11-23T05:17:58Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
