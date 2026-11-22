@@ -1106,8 +1106,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10 Hyaluron Redness Soothing Serum - 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-21T22:18:30Z",
-        expiresAt: "2026-11-22T22:18:30Z",
+        observedAt: "2026-11-22T21:47:51Z",
+        expiresAt: "2026-11-23T21:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1541,8 +1541,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream 50ml (Fragrance Free)",
       "50 ml",
       {
-        observedAt: "2026-11-21T22:18:33Z",
-        expiresAt: "2026-11-22T22:18:33Z",
+        observedAt: "2026-11-22T21:47:52Z",
+        expiresAt: "2026-11-23T21:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4500,8 +4500,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-30T02:37:57.000Z",
         expiresAt: "2026-09-06T02:37:57.000Z",
-        stock: "in-stock",
-        available: true,
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5812,8 +5812,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Everyday Gentle Foaming Face Wash - 120ml",
       "120 ml",
       {
-        observedAt: "2026-11-21T22:18:31Z",
-        expiresAt: "2026-11-22T22:18:31Z",
+        observedAt: "2026-11-22T21:47:51Z",
+        expiresAt: "2026-11-23T21:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
