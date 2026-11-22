@@ -578,8 +578,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "EOS Shea Better Vanilla Cashmere Body Wash 473ml",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-21T09:17:56Z",
-        expiresAt: "2026-11-22T09:17:56Z",
+        observedAt: "2026-11-22T08:18:36Z",
+        expiresAt: "2026-11-23T08:18:36Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
