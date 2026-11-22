@@ -5116,8 +5116,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-21T10:18:34Z",
-        expiresAt: "2026-11-22T10:18:34Z",
+        observedAt: "2026-11-22T09:47:51Z",
+        expiresAt: "2026-11-23T09:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6800,8 +6800,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-11-21T10:18:41Z",
-        expiresAt: "2026-11-22T10:18:41Z",
+        observedAt: "2026-11-22T09:47:52Z",
+        expiresAt: "2026-11-23T09:47:52Z",
         inventoryQuantity: 2,
         stock: "out-of-stock",
         available: false,
