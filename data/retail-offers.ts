@@ -8511,8 +8511,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Multi-Peptide Advanced Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-11-21T20:18:43Z",
-        expiresAt: "2026-11-22T20:18:43Z",
+        observedAt: "2026-11-22T19:47:51Z",
+        expiresAt: "2026-11-23T19:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
