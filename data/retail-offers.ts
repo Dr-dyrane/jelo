@@ -1828,8 +1828,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "547 ml / 18.5 fl oz",
       {
         available: false,
-        observedAt: "2026-11-22T15:48:06Z",
-        expiresAt: "2026-11-23T15:48:06Z",
+        observedAt: "2026-11-23T15:18:09Z",
+        expiresAt: "2026-11-24T15:18:09Z",
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
       },
@@ -3424,8 +3424,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion",
       "400 ml",
       {
-        observedAt: "2026-11-22T15:47:54Z",
-        expiresAt: "2026-11-23T15:47:54Z",
+        observedAt: "2026-11-23T15:18:00Z",
+        expiresAt: "2026-11-24T15:18:00Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -3672,8 +3672,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dove Skin Replenish 2% Body Wash",
       "547 ml",
       {
-        observedAt: "2026-11-22T15:48:06Z",
-        expiresAt: "2026-11-23T15:48:06Z",
+        observedAt: "2026-11-23T15:18:00Z",
+        expiresAt: "2026-11-24T15:18:00Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
