@@ -6769,8 +6769,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "TRESemme Keratin Smooth Weightless Conditioner 828ml",
       "828 ml",
       {
-        observedAt: "2026-11-23T00:17:54Z",
-        expiresAt: "2026-11-24T00:17:54Z",
+        observedAt: "2026-11-23T23:19:17Z",
+        expiresAt: "2026-11-24T23:19:17Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
