@@ -1465,8 +1465,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Niacinamide 10% + TXA 4% Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-22T20:48:35Z",
-        expiresAt: "2026-11-23T20:48:35Z",
+        observedAt: "2026-11-23T20:17:57Z",
+        expiresAt: "2026-11-24T20:17:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3100,8 +3100,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Ceramide Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-22T20:48:35Z",
-        expiresAt: "2026-11-23T20:48:35Z",
+        observedAt: "2026-11-23T20:17:50Z",
+        expiresAt: "2026-11-24T20:17:50Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -3161,8 +3161,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Foaming Cleanser - 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-22T20:48:38Z",
-        expiresAt: "2026-11-23T20:48:38Z",
+        observedAt: "2026-11-23T20:17:59Z",
+        expiresAt: "2026-11-24T20:17:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5267,8 +5267,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A-Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-22T20:48:35Z",
-        expiresAt: "2026-11-23T20:48:35Z",
+        observedAt: "2026-11-23T20:17:51Z",
+        expiresAt: "2026-11-24T20:17:51Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 3,
