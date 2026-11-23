@@ -4147,8 +4147,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe PM Facial Moisturising Lotion 52ml",
       "52 ml",
       {
-        observedAt: "2026-11-21T06:18:19Z",
-        expiresAt: "2026-11-22T06:18:19Z",
+        observedAt: "2026-11-23T08:48:36Z",
+        expiresAt: "2026-11-24T08:48:36Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5116,8 +5116,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-22T09:47:51Z",
-        expiresAt: "2026-11-23T09:47:51Z",
+        observedAt: "2026-11-23T08:48:34Z",
+        expiresAt: "2026-11-24T08:48:34Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6800,8 +6800,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-11-22T09:47:52Z",
-        expiresAt: "2026-11-23T09:47:52Z",
+        observedAt: "2026-11-23T08:48:43Z",
+        expiresAt: "2026-11-24T08:48:43Z",
         inventoryQuantity: 2,
         stock: "out-of-stock",
         available: false,
