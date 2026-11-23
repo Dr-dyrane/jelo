@@ -6329,8 +6329,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Lotion with Turmeric and Vitamin C; GTIN 4897073186542",
       "500 ml",
       {
-        observedAt: "2026-11-22T16:47:57Z",
-        expiresAt: "2026-11-23T16:47:57Z",
+        observedAt: "2026-11-23T16:17:52Z",
+        expiresAt: "2026-11-24T16:17:52Z",
         inventoryQuantity: 3,
         stock: "in-stock",
         available: true,
@@ -7324,8 +7324,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Advanced Clinicals® 1.75 Oz. Vitamin C Serum",
       "1.75 fl oz / 52 ml",
       {
-        observedAt: "2026-11-22T16:47:59Z",
-        expiresAt: "2026-11-23T16:47:59Z",
+        observedAt: "2026-11-23T16:17:54Z",
+        expiresAt: "2026-11-24T16:17:54Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
