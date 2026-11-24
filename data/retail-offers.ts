@@ -287,8 +287,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AXIS-Y Vegan Collagen Eye Serum",
       "10 ml / 0.33 fl oz",
       {
-        observedAt: "2026-11-23T05:47:55Z",
-        expiresAt: "2026-11-24T05:47:55Z",
+        observedAt: "2026-11-24T04:48:50Z",
+        expiresAt: "2026-11-25T04:48:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1482,8 +1482,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Wonder Cream Fragrance Free",
       "50 ml",
       {
-        observedAt: "2026-11-23T05:17:52Z",
-        expiresAt: "2026-11-24T05:17:52Z",
+        observedAt: "2026-11-24T04:48:50Z",
+        expiresAt: "2026-11-25T04:48:50Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6496,8 +6496,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6oz",
       "73.7 g",
       {
-        observedAt: "2026-11-23T05:17:53Z",
-        expiresAt: "2026-11-24T05:17:53Z",
+        observedAt: "2026-11-24T04:48:52Z",
+        expiresAt: "2026-11-25T04:48:52Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
