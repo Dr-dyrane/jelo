@@ -3314,8 +3314,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Oil Control Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-23T15:47:50Z",
-        expiresAt: "2026-11-24T15:47:50Z",
+        observedAt: "2026-11-24T14:47:56Z",
+        expiresAt: "2026-11-25T14:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7984,8 +7984,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Body Oil 100ml",
       "3.4 fl oz / 100 mL",
       {
-        observedAt: "2026-11-23T15:47:50Z",
-        expiresAt: "2026-11-24T15:47:50Z",
+        observedAt: "2026-11-24T14:47:56Z",
+        expiresAt: "2026-11-25T14:47:56Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8779,8 +8779,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Body Lotion 234ml",
       "8 fl oz / 234 mL",
       {
-        observedAt: "2026-11-23T15:47:50Z",
-        expiresAt: "2026-11-24T15:47:50Z",
+        observedAt: "2026-11-24T14:47:56Z",
+        expiresAt: "2026-11-25T14:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
