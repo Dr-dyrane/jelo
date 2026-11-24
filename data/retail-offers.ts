@@ -2677,10 +2677,11 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Brightening Jelly Cleanser",
       "150 ml",
       {
-        observedAt: "2026-08-30T02:02:13.000Z",
-        expiresAt: "2026-09-04T11:43:58Z",
-        available: false,
-        stock: "unknown",
+        observedAt: "2026-11-24T13:48:09Z",
+        expiresAt: "2026-11-25T13:48:09Z",
+        available: true,
+        stock: "in-stock",
+        verificationMethod: "retailer_page",
       },
     ),
     exactNg(
