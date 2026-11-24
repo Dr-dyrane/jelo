@@ -4147,8 +4147,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe PM Facial Moisturising Lotion 52ml",
       "52 ml",
       {
-        observedAt: "2026-11-23T08:48:36Z",
-        expiresAt: "2026-11-24T08:48:36Z",
+        observedAt: "2026-11-24T08:18:41Z",
+        expiresAt: "2026-11-25T08:18:41Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4721,8 +4721,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       {
         observedAt: "2026-08-30T02:54:34.040Z",
         expiresAt: "2026-09-06T02:54:34.040Z",
-        stock: "in-stock",
-        available: true,
+        stock: "unknown",
+        available: false,
       },
     ),
     exactNg(
@@ -5116,8 +5116,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-23T08:48:34Z",
-        expiresAt: "2026-11-24T08:48:34Z",
+        observedAt: "2026-11-24T08:18:41Z",
+        expiresAt: "2026-11-25T08:18:41Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6800,8 +6800,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "The Ordinary Glycolic Acid 7% Exfoliating Toner; GTIN 769915234060",
       "240 ml",
       {
-        observedAt: "2026-11-23T08:48:43Z",
-        expiresAt: "2026-11-24T08:48:43Z",
+        observedAt: "2026-11-24T08:18:46Z",
+        expiresAt: "2026-11-25T08:18:46Z",
         inventoryQuantity: 2,
         stock: "out-of-stock",
         available: false,
@@ -7998,8 +7998,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Body Oil 100ml",
       "3.4 fl oz / 100 mL",
       {
-        observedAt: "2026-11-11T02:47:51Z",
-        expiresAt: "2026-11-12T02:47:51Z",
+        observedAt: "2026-11-24T08:18:29Z",
+        expiresAt: "2026-11-25T08:18:29Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8264,8 +8264,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Energizer Mandelic Acid Body Wash 500ml",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-11-11T02:17:50Z",
-        expiresAt: "2026-11-12T02:17:50Z",
+        observedAt: "2026-11-24T08:18:30Z",
+        expiresAt: "2026-11-25T08:18:30Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
