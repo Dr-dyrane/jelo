@@ -2056,8 +2056,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Azelaic Acid Suspension 10%",
       "30 ml",
       {
-        observedAt: "2026-11-23T02:47:52Z",
-        expiresAt: "2026-11-24T02:47:52Z",
+        observedAt: "2026-11-24T01:47:56Z",
+        expiresAt: "2026-11-25T01:47:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -2448,8 +2448,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Benton Honest Cleansing Foam; GTIN 8809540510251",
       "150 g",
       {
-        observedAt: "2026-11-23T02:47:54Z",
-        expiresAt: "2026-11-24T02:47:54Z",
+        observedAt: "2026-11-24T01:47:58Z",
+        expiresAt: "2026-11-25T01:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -4392,8 +4392,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Hydrating Cleanser 473ml",
       "473 ml",
       {
-        observedAt: "2026-11-23T02:47:54Z",
-        expiresAt: "2026-11-24T02:47:54Z",
+        observedAt: "2026-11-24T01:47:58Z",
+        expiresAt: "2026-11-25T01:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7907,8 +7907,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "AQUA RICH Hydrating Bright Turmeric + Vitamin C Body Gel Wash 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-11-23T02:47:54Z",
-        expiresAt: "2026-11-24T02:47:54Z",
+        observedAt: "2026-11-24T01:47:58Z",
+        expiresAt: "2026-11-25T01:47:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
