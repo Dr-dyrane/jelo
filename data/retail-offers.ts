@@ -563,8 +563,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Vanilla Cashmere Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-24T18:17:51Z",
-        expiresAt: "2026-11-25T18:17:51Z",
+        observedAt: "2026-11-25T17:47:52Z",
+        expiresAt: "2026-11-26T17:47:52Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8608,8 +8608,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Niacinamide Serum 12% Plus Zinc 2% 30ml",
       "1.0 fl oz / 30 mL",
       {
-        observedAt: "2026-11-24T18:17:54Z",
-        expiresAt: "2026-11-25T18:17:54Z",
+        observedAt: "2026-11-25T17:47:53Z",
+        expiresAt: "2026-11-26T17:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
