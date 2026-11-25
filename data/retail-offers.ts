@@ -2495,8 +2495,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Hyaluronic Acid Serum; GTIN 810019610462",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-24T02:17:57Z",
-        expiresAt: "2026-11-25T02:17:57Z",
+        observedAt: "2026-11-25T01:48:00Z",
+        expiresAt: "2026-11-26T01:48:00Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5252,8 +5252,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A-Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-24T02:17:57Z",
-        expiresAt: "2026-11-25T02:17:57Z",
+        observedAt: "2026-11-25T01:48:00Z",
+        expiresAt: "2026-11-26T01:48:00Z",
         stock: "out-of-stock",
         available: false,
         inventoryQuantity: 2,
