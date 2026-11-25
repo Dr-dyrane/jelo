@@ -3440,8 +3440,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Vitamin C Body Lotion 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-24T22:47:55Z",
-        expiresAt: "2026-11-25T22:47:55Z",
+        observedAt: "2026-11-25T21:48:37Z",
+        expiresAt: "2026-11-26T21:48:37Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6770,8 +6770,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "TRESemme Keratin Smooth Weightless Conditioner 828ml",
       "828 ml",
       {
-        observedAt: "2026-11-24T22:47:59Z",
-        expiresAt: "2026-11-25T22:47:59Z",
+        observedAt: "2026-11-25T21:48:39Z",
+        expiresAt: "2026-11-26T21:48:39Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
