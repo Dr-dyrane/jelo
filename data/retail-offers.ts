@@ -1465,8 +1465,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Niacinamide 10% + TXA 4% Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-24T19:47:59Z",
-        expiresAt: "2026-11-25T19:47:59Z",
+        observedAt: "2026-11-25T19:17:53Z",
+        expiresAt: "2026-11-26T19:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3101,8 +3101,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Ceramide Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-24T19:48:00Z",
-        expiresAt: "2026-11-25T19:48:00Z",
+        observedAt: "2026-11-25T19:17:53Z",
+        expiresAt: "2026-11-26T19:17:53Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -5268,8 +5268,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A-Control 10% Azelaic Acid Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-24T19:48:03Z",
-        expiresAt: "2026-11-25T19:48:03Z",
+        observedAt: "2026-11-25T19:17:55Z",
+        expiresAt: "2026-11-26T19:17:55Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 3,
@@ -5497,8 +5497,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Hydra Glow Sun Protection Gel Spf 50+ Pa+++ - 60ml",
       "60 ml",
       {
-        observedAt: "2026-11-24T19:48:00Z",
-        expiresAt: "2026-11-25T19:48:00Z",
+        observedAt: "2026-11-25T19:17:53Z",
+        expiresAt: "2026-11-26T19:17:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
