@@ -686,8 +686,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Perfector Salicylic Acid Skin Smoothing Body Wash",
       "16.9 fl oz / 500 mL",
       {
-        observedAt: "2026-11-24T10:50:36Z",
-        expiresAt: "2026-11-25T10:50:36Z",
+        observedAt: "2026-11-25T10:19:00Z",
+        expiresAt: "2026-11-26T10:19:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7923,8 +7923,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Aqua Rich Hydrating Bright Body Gel Wash 1000ml",
       "1000 ml",
       {
-        observedAt: "2026-11-24T10:50:37Z",
-        expiresAt: "2026-11-25T10:50:37Z",
+        observedAt: "2026-11-25T10:18:58Z",
+        expiresAt: "2026-11-26T10:18:58Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8312,8 +8312,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 7.7 fl oz / 232 ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-11-24T10:50:37Z",
-        expiresAt: "2026-11-25T10:50:37Z",
+        observedAt: "2026-11-25T10:18:58Z",
+        expiresAt: "2026-11-26T10:18:58Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
