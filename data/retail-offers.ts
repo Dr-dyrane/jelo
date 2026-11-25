@@ -6218,8 +6218,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Soothe Glow Niacinamide Serum - 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-24T02:47:51Z",
-        expiresAt: "2026-11-25T02:47:51Z",
+        observedAt: "2026-11-25T02:17:52Z",
+        expiresAt: "2026-11-26T02:17:52Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
@@ -8095,8 +8095,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA liquid Exfoliant 2% 120 ML / 4.0 FL OZ",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-11-24T02:47:50Z",
-        expiresAt: "2026-11-25T02:47:50Z",
+        observedAt: "2026-11-25T02:17:49Z",
+        expiresAt: "2026-11-26T02:17:49Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
