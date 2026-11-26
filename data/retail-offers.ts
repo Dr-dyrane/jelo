@@ -3470,8 +3470,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Body Lotion 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-25T17:17:52Z",
-        expiresAt: "2026-11-26T17:17:52Z",
+        observedAt: "2026-11-26T16:18:07Z",
+        expiresAt: "2026-11-27T16:18:07Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -4255,8 +4255,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Mela B3 Dark Spot Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-25T17:17:52Z",
-        expiresAt: "2026-11-26T17:17:52Z",
+        observedAt: "2026-11-26T16:17:58Z",
+        expiresAt: "2026-11-27T16:17:58Z",
         stock: "out-of-stock",
         available: false,
         priceComparison: "exclude",
@@ -5737,8 +5737,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Collagen And Hydrating Serum With Ceramides 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-25T17:17:53Z",
-        expiresAt: "2026-11-26T17:17:53Z",
+        observedAt: "2026-11-26T16:17:56Z",
+        expiresAt: "2026-11-27T16:17:56Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
