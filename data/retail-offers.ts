@@ -5390,8 +5390,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-pro Rice & Txa Toner - 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-25T23:18:09Z",
-        expiresAt: "2026-11-26T23:18:09Z",
+        observedAt: "2026-11-26T22:47:51Z",
+        expiresAt: "2026-11-27T22:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
