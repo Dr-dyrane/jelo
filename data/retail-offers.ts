@@ -3010,8 +3010,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Acne Foaming Cream Wash 10% Benzoyl Peroxide Acne Treatment 5fl/150ml",
       "150 ml",
       {
-        observedAt: "2026-11-25T17:17:54Z",
-        expiresAt: "2026-11-26T17:17:54Z",
+        observedAt: "2026-11-26T16:47:52Z",
+        expiresAt: "2026-11-27T16:47:52Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -4734,8 +4734,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Eucerin UreaRepair Plus 10% Urea Lotion 250ml",
       "250 ml",
       {
-        observedAt: "2026-11-25T17:17:59Z",
-        expiresAt: "2026-11-26T17:17:59Z",
+        observedAt: "2026-11-26T16:47:52Z",
+        expiresAt: "2026-11-27T16:47:52Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -8467,8 +8467,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium KP Body Scrub & Mask - 226g",
       "8 oz / 226 g",
       {
-        observedAt: "2026-11-25T17:18:00Z",
-        expiresAt: "2026-11-26T17:18:00Z",
+        observedAt: "2026-11-26T16:47:53Z",
+        expiresAt: "2026-11-27T16:47:53Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
