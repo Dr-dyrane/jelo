@@ -548,8 +548,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Vanilla Cashmere Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-25T10:47:59Z",
-        expiresAt: "2026-11-26T10:47:59Z",
+        observedAt: "2026-11-26T10:22:14Z",
+        expiresAt: "2026-11-27T10:22:14Z",
         stock: "out-of-stock",
         available: false,
         verificationMethod: "retailer_page",
@@ -7491,8 +7491,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La Roche-Posay Effaclar Purifying Foaming Gel Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-25T10:48:00Z",
-        expiresAt: "2026-11-26T10:48:00Z",
+        observedAt: "2026-11-26T10:22:15Z",
+        expiresAt: "2026-11-27T10:22:15Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8796,8 +8796,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Smoother Glycolic Acid Exfoliating Body Wash16.9 oz",
       "16.9 oz / 500 mL",
       {
-        observedAt: "2026-11-25T10:47:59Z",
-        expiresAt: "2026-11-26T10:47:59Z",
+        observedAt: "2026-11-26T10:22:13Z",
+        expiresAt: "2026-11-27T10:22:13Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
