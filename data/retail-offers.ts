@@ -3117,8 +3117,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Facefacts Ceramide Foaming Cleanser 400ml",
       "400 ml",
       {
-        observedAt: "2026-11-25T03:47:52Z",
-        expiresAt: "2026-11-26T03:47:52Z",
+        observedAt: "2026-11-26T03:18:01Z",
+        expiresAt: "2026-11-27T03:18:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5025,8 +5025,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Formula 15% Niacinamide Blemish Recovery Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-25T03:47:51Z",
-        expiresAt: "2026-11-26T03:47:51Z",
+        observedAt: "2026-11-26T03:17:57Z",
+        expiresAt: "2026-11-27T03:17:57Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5072,8 +5072,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Balance Active Salicylic Acid + Zinc Clarifying Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-25T03:47:52Z",
-        expiresAt: "2026-11-26T03:47:52Z",
+        observedAt: "2026-11-26T03:18:02Z",
+        expiresAt: "2026-11-27T03:18:02Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6602,8 +6602,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Olay Super Serum Body Wash for Normal Skin 18.5 fl oz",
       "18.5 fl oz / 547 ml",
       {
-        observedAt: "2026-11-25T03:47:52Z",
-        expiresAt: "2026-11-26T03:47:52Z",
+        observedAt: "2026-11-26T03:17:57Z",
+        expiresAt: "2026-11-27T03:17:57Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
