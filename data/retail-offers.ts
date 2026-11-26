@@ -2557,8 +2557,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Niacinamide Serum; UPC 0810019610530",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-25T13:17:52Z",
-        expiresAt: "2026-11-26T13:17:52Z",
+        observedAt: "2026-11-26T12:18:37Z",
+        expiresAt: "2026-11-27T12:18:37Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -2677,8 +2677,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Brightening Jelly Cleanser",
       "150 ml",
       {
-        observedAt: "2026-11-25T13:17:56Z",
-        expiresAt: "2026-11-26T13:17:56Z",
+        observedAt: "2026-11-26T12:18:39Z",
+        expiresAt: "2026-11-27T12:18:39Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5315,8 +5315,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-Pro Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-25T12:18:36Z",
-        expiresAt: "2026-11-26T12:18:36Z",
+        observedAt: "2026-11-26T12:18:35Z",
+        expiresAt: "2026-11-27T12:18:35Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
