@@ -2557,8 +2557,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Good Molecules Niacinamide Serum; UPC 0810019610530",
       "30 ml / 1 oz",
       {
-        observedAt: "2026-11-26T12:18:37Z",
-        expiresAt: "2026-11-27T12:18:37Z",
+        observedAt: "2026-11-27T13:17:52Z",
+        expiresAt: "2026-11-28T13:17:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
