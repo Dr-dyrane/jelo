@@ -5572,8 +5572,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Niacinamide + N-acetyl Glucosamine Serum - 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-26T00:18:36Z",
-        expiresAt: "2026-11-27T00:18:36Z",
+        observedAt: "2026-11-27T00:19:01Z",
+        expiresAt: "2026-11-28T00:19:01Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -6111,8 +6111,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Vitamin C Concentrated Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-26T00:48:36Z",
-        expiresAt: "2026-11-27T00:48:36Z",
+        observedAt: "2026-11-27T00:19:00Z",
+        expiresAt: "2026-11-28T00:19:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8095,8 +8095,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium BHA liquid Exfoliant 2% 120 ML / 4.0 FL OZ",
       "4.0 fl oz / 120 mL",
       {
-        observedAt: "2026-11-26T01:17:59Z",
-        expiresAt: "2026-11-27T01:17:59Z",
+        observedAt: "2026-11-27T00:19:00Z",
+        expiresAt: "2026-11-28T00:19:00Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
