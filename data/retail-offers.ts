@@ -563,8 +563,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Vanilla Cashmere Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-27T16:47:51Z",
-        expiresAt: "2026-11-28T16:47:51Z",
+        observedAt: "2026-11-28T15:48:38Z",
+        expiresAt: "2026-11-29T15:48:38Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -1751,8 +1751,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Mediana Leave-in Conditioning Milk - 250ml",
       "250 ml",
       {
-        observedAt: "2026-11-27T16:47:51Z",
-        expiresAt: "2026-11-28T16:47:51Z",
+        observedAt: "2026-11-28T15:48:36Z",
+        expiresAt: "2026-11-29T15:48:36Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8608,8 +8608,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium Niacinamide Serum 12% Plus Zinc 2% 30ml",
       "1.0 fl oz / 30 mL",
       {
-        observedAt: "2026-11-27T16:47:55Z",
-        expiresAt: "2026-11-28T16:47:55Z",
+        observedAt: "2026-11-28T15:48:38Z",
+        expiresAt: "2026-11-29T15:48:38Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
