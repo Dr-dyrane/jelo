@@ -1359,9 +1359,9 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "150 ml",
       {
         observedAt: "2026-11-27T03:47:51Z",
-        expiresAt: "2026-11-28T03:47:51Z",
-        stock: "in-stock",
-        available: true,
+        expiresAt: "2026-11-28T03:17:51Z",
+        stock: "unknown",
+        available: false,
         verificationMethod: "retailer_page",
       },
     ),
