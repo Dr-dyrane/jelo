@@ -2799,8 +2799,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Cerave Moisturizing Cream For Dry to very dry Skin 16 Oz",
       "454 g",
       {
-        observedAt: "2026-11-27T19:17:57Z",
-        expiresAt: "2026-11-28T19:17:57Z",
+        observedAt: "2026-11-28T18:47:51Z",
+        expiresAt: "2026-11-29T18:47:51Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
@@ -5964,8 +5964,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Multi Function Formula Snail Mucin Repair Serum For Face 100ml",
       "100 ml",
       {
-        observedAt: "2026-11-27T19:18:21Z",
-        expiresAt: "2026-11-28T19:18:21Z",
+        observedAt: "2026-11-28T18:47:51Z",
+        expiresAt: "2026-11-29T18:47:51Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6067,8 +6067,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Dang Vitamin C Concentrated Serum For Face (Oil Free) 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-27T19:18:22Z",
-        expiresAt: "2026-11-28T19:18:22Z",
+        observedAt: "2026-11-28T18:47:51Z",
+        expiresAt: "2026-11-29T18:47:51Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
