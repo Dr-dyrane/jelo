@@ -2677,8 +2677,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "FaceFacts Vitamin C Brightening Jelly Cleanser",
       "150 ml",
       {
-        observedAt: "2026-11-27T11:48:05Z",
-        expiresAt: "2026-11-28T11:48:05Z",
+        observedAt: "2026-11-28T11:18:39Z",
+        expiresAt: "2026-11-29T11:18:39Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -2907,8 +2907,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe Acne Foaming Cream Cleanser 4% Benzoyl Peroxide",
       "150 ml / 5 fl oz",
       {
-        observedAt: "2026-11-27T11:48:03Z",
-        expiresAt: "2026-11-28T11:48:03Z",
+        observedAt: "2026-11-28T11:18:38Z",
+        expiresAt: "2026-11-29T11:18:38Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -5315,8 +5315,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless Mela-Pro Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-27T11:47:51Z",
-        expiresAt: "2026-11-28T11:47:51Z",
+        observedAt: "2026-11-28T11:18:35Z",
+        expiresAt: "2026-11-29T11:18:35Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -6157,8 +6157,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Face Facts Soothe & Glow Niacinamide serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-27T11:17:52Z",
-        expiresAt: "2026-11-28T11:17:52Z",
+        observedAt: "2026-11-28T11:18:36Z",
+        expiresAt: "2026-11-29T11:18:36Z",
         stock: "in-stock",
         available: true,
         priceComparison: "exclude",
