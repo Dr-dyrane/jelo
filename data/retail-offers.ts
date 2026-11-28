@@ -4148,8 +4148,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "CeraVe PM Facial Moisturising Lotion 52ml",
       "52 ml",
       {
-        observedAt: "2026-11-27T06:47:55Z",
-        expiresAt: "2026-11-28T06:47:55Z",
+        observedAt: "2026-11-28T05:47:59Z",
+        expiresAt: "2026-11-29T05:47:59Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -5330,8 +5330,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "NINELESS -MELA-PRO Rice & TXA Toner 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-27T06:17:54Z",
-        expiresAt: "2026-11-28T06:17:54Z",
+        observedAt: "2026-11-28T05:47:59Z",
+        expiresAt: "2026-11-29T05:47:59Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -7999,8 +7999,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Body Oil 100ml",
       "3.4 fl oz / 100 mL",
       {
-        observedAt: "2026-11-27T06:47:55Z",
-        expiresAt: "2026-11-28T06:47:55Z",
+        observedAt: "2026-11-28T05:47:58Z",
+        expiresAt: "2026-11-29T05:47:58Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
