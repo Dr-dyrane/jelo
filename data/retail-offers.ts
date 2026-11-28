@@ -6497,8 +6497,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "De La Cruz Maximum Strength Acne Treatment Ointment 2.6oz",
       "73.7 g",
       {
-        observedAt: "2026-11-27T03:17:53Z",
-        expiresAt: "2026-11-28T03:17:53Z",
+        observedAt: "2026-11-28T02:47:53Z",
+        expiresAt: "2026-11-29T02:47:53Z",
         available: false,
         stock: "out-of-stock",
         verificationMethod: "retailer_page",
