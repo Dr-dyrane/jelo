@@ -472,8 +472,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Pink Champagne Body Wash",
       "16 fl oz / 473 ml",
       {
-        observedAt: "2026-11-27T15:17:59Z",
-        expiresAt: "2026-11-28T15:17:59Z",
+        observedAt: "2026-11-28T14:51:15Z",
+        expiresAt: "2026-11-29T14:51:15Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -3548,8 +3548,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Garnier Vitamin C Brightening Day Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-11-27T15:17:55Z",
-        expiresAt: "2026-11-28T15:17:55Z",
+        observedAt: "2026-11-28T14:50:52Z",
+        expiresAt: "2026-11-29T14:50:52Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8327,8 +8327,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-oil Body Butter",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-11-27T15:17:58Z",
-        expiresAt: "2026-11-28T15:17:58Z",
+        observedAt: "2026-11-28T14:51:13Z",
+        expiresAt: "2026-11-29T14:51:13Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
@@ -8949,8 +8949,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless MELA-PRO Tranexamic Acid Sunscreen 100ml",
       "100 ml",
       {
-        observedAt: "2026-11-27T15:17:57Z",
-        expiresAt: "2026-11-28T15:17:57Z",
+        observedAt: "2026-11-28T14:51:12Z",
+        expiresAt: "2026-11-29T14:51:12Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
