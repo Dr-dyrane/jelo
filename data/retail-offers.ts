@@ -3980,8 +3980,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Skin By Zaron Vitamin C Brightening and Moisturizing Body Lotion 500ml",
       "500 ml",
       {
-        observedAt: "2026-11-27T07:17:54Z",
-        expiresAt: "2026-11-28T07:17:54Z",
+        observedAt: "2026-11-28T06:48:00Z",
+        expiresAt: "2026-11-29T06:48:00Z",
         stock: "in-stock",
         available: true,
         inventoryQuantity: 10,
@@ -4347,8 +4347,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "La roche Posay Vitamin c Gel Moussant Purifying Cleanser 200ml",
       "200 ml",
       {
-        observedAt: "2026-11-27T07:47:51Z",
-        expiresAt: "2026-11-28T07:47:51Z",
+        observedAt: "2026-11-28T06:47:57Z",
+        expiresAt: "2026-11-29T06:47:57Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
