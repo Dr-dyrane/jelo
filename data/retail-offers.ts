@@ -1135,8 +1135,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Anua Azelaic Acid 10 + Hyaluron Redness Soothing Serum 30ml",
       "30 ml",
       {
-        observedAt: "2026-11-27T11:17:51Z",
-        expiresAt: "2026-11-28T11:17:51Z",
+        observedAt: "2026-11-28T10:52:17Z",
+        expiresAt: "2026-11-29T10:52:17Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -7680,8 +7680,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Nineless A-Control Azelaic Acid Cream 50ml",
       "50 ml",
       {
-        observedAt: "2026-11-27T11:17:53Z",
-        expiresAt: "2026-11-28T11:17:53Z",
+        observedAt: "2026-11-28T10:52:16Z",
+        expiresAt: "2026-11-29T10:52:16Z",
         stock: "in-stock",
         available: true,
         verificationMethod: "retailer_page",
@@ -8297,8 +8297,8 @@ export const verifiedRetailOffers: Record<string, Offer[]> = {
       "Naturium The Glow Getter Multi-Oil Body Butter 232ml",
       "7.7 fl oz / 232 mL",
       {
-        observedAt: "2026-11-27T11:17:51Z",
-        expiresAt: "2026-11-28T11:17:51Z",
+        observedAt: "2026-11-28T10:52:17Z",
+        expiresAt: "2026-11-29T10:52:17Z",
         available: true,
         stock: "in-stock",
         verificationMethod: "retailer_page",
